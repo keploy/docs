@@ -1,0 +1,13 @@
+{
+  "name": "faq",
+  "permalink": "/docs/tags/faq",
+  "docs": [
+    {
+      "id": "keploy-explained/faq",
+      "title": "FAQ",
+      "description": "1. Is Keploy a unit testing framework?",
+      "permalink": "/docs/keploy-explained/faq"
+    }
+  ],
+  "allTagsPath": "/docs/tags"
+}

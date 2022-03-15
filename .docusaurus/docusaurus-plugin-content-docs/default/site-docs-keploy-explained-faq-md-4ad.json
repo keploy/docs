@@ -1,0 +1,36 @@
+{
+  "unversionedId": "keploy-explained/faq",
+  "id": "keploy-explained/faq",
+  "title": "FAQ",
+  "description": "1. Is Keploy a unit testing framework?",
+  "source": "@site/docs/keploy-explained/faq.md",
+  "sourceDirName": "keploy-explained",
+  "slug": "/keploy-explained/faq",
+  "permalink": "/docs/keploy-explained/faq",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/keploy-explained/faq.md",
+  "tags": [
+    {
+      "label": "explanation",
+      "permalink": "/docs/tags/explanation"
+    },
+    {
+      "label": "faq",
+      "permalink": "/docs/tags/faq"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "id": "faq",
+    "title": "FAQ",
+    "sidebar_label": "FAQ",
+    "tags": [
+      "explanation",
+      "faq"
+    ]
+  },
+  "sidebar": "sidebarExplained",
+  "previous": {
+    "title": "Why Keploy?",
+    "permalink": "/docs/keploy-explained/why-keploy"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "unversionedId": "go/supported-frameworks",
+  "id": "go/supported-frameworks",
+  "title": "Supported Frameworks for Go",
+  "description": "Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.",
+  "source": "@site/docs/go/supported-frameworks.md",
+  "sourceDirName": "go",
+  "slug": "/go/supported-frameworks",
+  "permalink": "/docs/go/supported-frameworks",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/go/supported-frameworks.md",
+  "tags": [
+    {
+      "label": "go",
+      "permalink": "/docs/tags/go"
+    },
+    {
+      "label": "developer-guide",
+      "permalink": "/docs/tags/developer-guide"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "id": "supported-frameworks",
+    "title": "Supported Frameworks for Go",
+    "sidebar_label": "Supported Frameworks",
+    "description": "Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.",
+    "tags": [
+      "go",
+      "developer-guide"
+    ]
+  },
+  "sidebar": "sidebarGo",
+  "previous": {
+    "title": "Integration",
+    "permalink": "/docs/go/installation"
+  },
+  "next": {
+    "title": "Integrate with Go Test",
+    "permalink": "/docs/go/integration-with-go-test"
+  }
+}

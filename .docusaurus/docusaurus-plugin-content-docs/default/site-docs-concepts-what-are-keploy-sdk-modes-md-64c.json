@@ -1,0 +1,37 @@
+{
+  "unversionedId": "concepts/what-are-keploy-sdk-modes",
+  "id": "concepts/what-are-keploy-sdk-modes",
+  "title": "Keploy SDK Modes",
+  "description": "Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.",
+  "source": "@site/docs/concepts/what-are-keploy-sdk-modes.md",
+  "sourceDirName": "concepts",
+  "slug": "/concepts/what-are-keploy-sdk-modes",
+  "permalink": "/docs/concepts/what-are-keploy-sdk-modes",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/concepts/what-are-keploy-sdk-modes.md",
+  "tags": [
+    {
+      "label": "explanation",
+      "permalink": "/docs/tags/explanation"
+    },
+    {
+      "label": "sdk",
+      "permalink": "/docs/tags/sdk"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "id": "what-are-keploy-sdk-modes",
+    "title": "Keploy SDK Modes",
+    "sidebar_label": "Keploy SDK Modes",
+    "description": "Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.",
+    "tags": [
+      "explanation",
+      "sdk"
+    ]
+  },
+  "sidebar": "sidebarConcepts",
+  "previous": {
+    "title": "Keploy SDK",
+    "permalink": "/docs/concepts/what-is-keploy-sdk"
+  }
+}

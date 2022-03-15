@@ -1,0 +1,335 @@
+{
+  "pluginId": "default",
+  "version": "current",
+  "label": "Next",
+  "banner": null,
+  "badge": false,
+  "className": "docs-version-current",
+  "isLast": true,
+  "docsSidebars": {
+    "sidebarExplained": [
+      {
+        "type": "category",
+        "label": "Keploy explained",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "link",
+            "label": "Introduction",
+            "href": "/docs/keploy-explained/introduction",
+            "docId": "keploy-explained/introduction"
+          },
+          {
+            "type": "link",
+            "label": "How Keploy Works?",
+            "href": "/docs/keploy-explained/how-keploy-works",
+            "docId": "keploy-explained/how-keploy-works"
+          },
+          {
+            "type": "link",
+            "label": "Why Keploy?",
+            "href": "/docs/keploy-explained/why-keploy",
+            "docId": "keploy-explained/why-keploy"
+          },
+          {
+            "type": "link",
+            "label": "FAQ",
+            "href": "/docs/keploy-explained/faq",
+            "docId": "keploy-explained/faq"
+          }
+        ]
+      }
+    ],
+    "sidebarConcepts": [
+      {
+        "type": "category",
+        "label": "Concepts",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "link",
+            "label": "Keploy",
+            "href": "/docs/concepts/what-is-keploy",
+            "docId": "concepts/what-is-keploy"
+          },
+          {
+            "type": "link",
+            "label": "Keploy",
+            "href": "/docs/concepts/what-are-keploy-features",
+            "docId": "concepts/what-are-keploy-features"
+          },
+          {
+            "type": "link",
+            "label": "Keploy SDK",
+            "href": "/docs/concepts/what-is-keploy-sdk",
+            "docId": "concepts/what-is-keploy-sdk"
+          },
+          {
+            "type": "link",
+            "label": "Keploy SDK Modes",
+            "href": "/docs/concepts/what-are-keploy-sdk-modes",
+            "docId": "concepts/what-are-keploy-sdk-modes"
+          }
+        ],
+        "href": "/docs/concepts/"
+      }
+    ],
+    "sidebarInstallation": [
+      {
+        "type": "category",
+        "label": "Installation",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "link",
+            "label": "Server",
+            "href": "/docs/server/introduction",
+            "docId": "server/introduction"
+          },
+          {
+            "type": "link",
+            "label": "SDK",
+            "href": "/docs/server/sdk-installation",
+            "docId": "server/sdk-installation"
+          }
+        ]
+      }
+    ],
+    "sidebarOperations": [
+      {
+        "type": "category",
+        "label": "Operation guides",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "link",
+            "label": "Record",
+            "href": "/docs/operation/record-operations",
+            "docId": "operation/record-operations"
+          },
+          {
+            "type": "link",
+            "label": "Test",
+            "href": "/docs/operation/test-operations",
+            "docId": "operation/test-operations"
+          },
+          {
+            "type": "link",
+            "label": "Web UI",
+            "href": "/docs/operation/web-ui-operations",
+            "docId": "operation/web-ui-operations"
+          }
+        ],
+        "href": "/docs/operation/"
+      }
+    ],
+    "sidebarGo": [
+      {
+        "type": "category",
+        "label": "Go SDK",
+        "collapsible": false,
+        "collapsed": false,
+        "items": [
+          {
+            "type": "link",
+            "label": "Reference",
+            "href": "https://pkg.go.dev/github.com/keploy/go-sdk"
+          },
+          {
+            "type": "link",
+            "label": "Integration",
+            "href": "/docs/go/installation",
+            "docId": "go/installation"
+          },
+          {
+            "type": "link",
+            "label": "Supported Frameworks",
+            "href": "/docs/go/supported-frameworks",
+            "docId": "go/supported-frameworks"
+          },
+          {
+            "type": "link",
+            "label": "Integrate with Go Test",
+            "href": "/docs/go/integration-with-go-test",
+            "docId": "go/integration-with-go-test"
+          },
+          {
+            "type": "link",
+            "label": "QuickStart",
+            "href": "/docs/go/run-your-first-app-tutorial",
+            "docId": "go/run-your-first-app-tutorial"
+          }
+        ],
+        "href": "/docs/go/"
+      }
+    ],
+    "sidebarDevTools": [
+      {
+        "type": "category",
+        "label": "Contribution Guide",
+        "collapsed": true,
+        "items": [
+          {
+            "type": "link",
+            "label": "Keploy Devtools introduction",
+            "href": "/docs/devtools/introduction",
+            "docId": "devtools/introduction"
+          }
+        ],
+        "collapsible": true
+      }
+    ]
+  },
+  "docs": {
+    "concepts/index": {
+      "id": "concepts/index",
+      "title": "Concepts",
+      "description": "The following concepts have specific definitions within the context of the Keploy Platform.",
+      "sidebar": "sidebarConcepts"
+    },
+    "concepts/what-are-keploy-features": {
+      "id": "concepts/what-are-keploy-features",
+      "title": "Keploy Features?",
+      "description": "Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.",
+      "sidebar": "sidebarConcepts"
+    },
+    "concepts/what-are-keploy-sdk-modes": {
+      "id": "concepts/what-are-keploy-sdk-modes",
+      "title": "Keploy SDK Modes",
+      "description": "Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.",
+      "sidebar": "sidebarConcepts"
+    },
+    "concepts/what-is-keploy": {
+      "id": "concepts/what-is-keploy",
+      "title": "What is Keploy?",
+      "description": "Keploy is a no-code testing platform that generates tests from API calls.",
+      "sidebar": "sidebarConcepts"
+    },
+    "concepts/what-is-keploy-sdk": {
+      "id": "concepts/what-is-keploy-sdk",
+      "title": "What is Keploy SDK",
+      "description": "Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.",
+      "sidebar": "sidebarConcepts"
+    },
+    "devtools/introduction": {
+      "id": "devtools/introduction",
+      "title": "Keploy Devtools introduction",
+      "description": "Keploy has 3 major components.",
+      "sidebar": "sidebarDevTools"
+    },
+    "devtools/sdk-contrib-guide": {
+      "id": "devtools/sdk-contrib-guide",
+      "title": "Keploy SDK Contribution Guide",
+      "description": "WIP"
+    },
+    "devtools/server-contrib-guide": {
+      "id": "devtools/server-contrib-guide",
+      "title": "Keploy Server Contribution Guide",
+      "description": "There's a separate docker-compose file which helps with exposing the mongo server and also builds the dockerfile from local code.  The build flag ensures that the binary is built again to reflect the latest code changes. There's also docker-compose-debug.yaml which can help remote debugging the go server on port 40000."
+    },
+    "devtools/ui-contrib-guide": {
+      "id": "devtools/ui-contrib-guide",
+      "title": "Keploy UI Contribution Guide",
+      "description": "Make sure you're using Node version 14.x.x"
+    },
+    "go/index": {
+      "id": "go/index",
+      "title": "How to use the Keploy Go SDK",
+      "description": "Add the Keploy Go SDK to your application.",
+      "sidebar": "sidebarGo"
+    },
+    "go/installation": {
+      "id": "go/installation",
+      "title": "Integration",
+      "description": "Add the Keploy Go SDK to your application.",
+      "sidebar": "sidebarGo"
+    },
+    "go/integration-with-go-test": {
+      "id": "go/integration-with-go-test",
+      "title": "Integrate with Go Test",
+      "description": "Testing using Unit Test File",
+      "sidebar": "sidebarGo"
+    },
+    "go/run-your-first-app-tutorial": {
+      "id": "go/run-your-first-app-tutorial",
+      "title": "Sample Application with the Go SDK",
+      "description": "A sample url shortener app to test Keploy integration capabilities in Go.",
+      "sidebar": "sidebarGo"
+    },
+    "go/supported-frameworks": {
+      "id": "go/supported-frameworks",
+      "title": "Supported Frameworks for Go",
+      "description": "Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.",
+      "sidebar": "sidebarGo"
+    },
+    "keploy-explained/faq": {
+      "id": "keploy-explained/faq",
+      "title": "FAQ",
+      "description": "1. Is Keploy a unit testing framework?",
+      "sidebar": "sidebarExplained"
+    },
+    "keploy-explained/how-keploy-works": {
+      "id": "keploy-explained/how-keploy-works",
+      "title": "How Keploy Works?",
+      "description": "Keploy is added as a middleware to your application that captures and replays all network interaction served to application from any source.",
+      "sidebar": "sidebarExplained"
+    },
+    "keploy-explained/introduction": {
+      "id": "keploy-explained/introduction",
+      "title": "Introduction to Keploy",
+      "description": "Keploy Features",
+      "sidebar": "sidebarExplained"
+    },
+    "keploy-explained/why-keploy": {
+      "id": "keploy-explained/why-keploy",
+      "title": "Why Keploy?",
+      "description": "How Keploy is Different",
+      "sidebar": "sidebarExplained"
+    },
+    "operation/index": {
+      "id": "operation/index",
+      "title": "Keploy operation guides",
+      "description": "- How to Record",
+      "sidebar": "sidebarOperations"
+    },
+    "operation/record-operations": {
+      "id": "operation/record-operations",
+      "title": "Record Mode Operations",
+      "description": "Guide into Keploy Record Mode",
+      "sidebar": "sidebarOperations"
+    },
+    "operation/test-operations": {
+      "id": "operation/test-operations",
+      "title": "Test Mode Operations",
+      "description": "Guide into Keploy Test Mode",
+      "sidebar": "sidebarOperations"
+    },
+    "operation/web-ui-operations": {
+      "id": "operation/web-ui-operations",
+      "title": "Operations on Web UI",
+      "description": "Guide into Keploy Console",
+      "sidebar": "sidebarOperations"
+    },
+    "reference/glossary": {
+      "id": "reference/glossary",
+      "title": "Glossary",
+      "description": "The following terms have specific definitions within the context of the Keploy Platform."
+    },
+    "server/introduction": {
+      "id": "server/introduction",
+      "title": "Installation of Keploy Server",
+      "description": "Overview",
+      "sidebar": "sidebarInstallation"
+    },
+    "server/sdk-installation": {
+      "id": "server/sdk-installation",
+      "title": "Installation of Keploy SDK",
+      "description": "Choose programming language to integrate Keploy SDK.",
+      "sidebar": "sidebarInstallation"
+    }
+  }
+}

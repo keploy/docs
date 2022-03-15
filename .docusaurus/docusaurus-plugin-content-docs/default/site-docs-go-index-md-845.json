@@ -1,0 +1,36 @@
+{
+  "unversionedId": "go/index",
+  "id": "go/index",
+  "title": "How to use the Keploy Go SDK",
+  "description": "Add the Keploy Go SDK to your application.",
+  "source": "@site/docs/go/index.md",
+  "sourceDirName": "go",
+  "slug": "/go/",
+  "permalink": "/docs/go/",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/go/index.md",
+  "tags": [
+    {
+      "label": "developer-guide",
+      "permalink": "/docs/tags/developer-guide"
+    },
+    {
+      "label": "go",
+      "permalink": "/docs/tags/go"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "id": "index",
+    "title": "How to use the Keploy Go SDK",
+    "description": "Add the Keploy Go SDK to your application.",
+    "tags": [
+      "developer-guide",
+      "go"
+    ]
+  },
+  "sidebar": "sidebarGo",
+  "next": {
+    "title": "Integration",
+    "permalink": "/docs/go/installation"
+  }
+}

@@ -1,0 +1,1 @@
+{"version":3,"file":"useHideableNavbar.d.ts","sourceRoot":"","sources":["../../src/hooks/useHideableNavbar.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AAMH,aAAK,wBAAwB,GAAG;IAC9B,QAAQ,CAAC,SAAS,EAAE,CAAC,IAAI,EAAE,WAAW,GAAG,IAAI,KAAK,IAAI,CAAC;IACvD,QAAQ,CAAC,eAAe,EAAE,OAAO,CAAC;CACnC,CAAC;AAEF,MAAM,CAAC,OAAO,UAAU,iBAAiB,CACvC,YAAY,EAAE,OAAO,GACpB,wBAAwB,CA0D1B"}

@@ -1,0 +1,13 @@
+{
+  "name": "ui",
+  "permalink": "/docs/tags/ui",
+  "docs": [
+    {
+      "id": "operation/web-ui-operations",
+      "title": "Operations on Web UI",
+      "description": "Guide into Keploy Console",
+      "permalink": "/docs/operation/web-ui-operations"
+    }
+  ],
+  "allTagsPath": "/docs/tags"
+}

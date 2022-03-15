@@ -1,0 +1,41 @@
+{
+  "unversionedId": "operation/record-operations",
+  "id": "operation/record-operations",
+  "title": "Record Mode Operations",
+  "description": "Guide into Keploy Record Mode",
+  "source": "@site/docs/operation/record.md",
+  "sourceDirName": "operation",
+  "slug": "/operation/record-operations",
+  "permalink": "/docs/operation/record-operations",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/operation/record.md",
+  "tags": [
+    {
+      "label": "operation-guide",
+      "permalink": "/docs/tags/operation-guide"
+    },
+    {
+      "label": "record",
+      "permalink": "/docs/tags/record"
+    }
+  ],
+  "version": "current",
+  "frontMatter": {
+    "id": "record-operations",
+    "title": "Record Mode Operations",
+    "description": "Guide into Keploy Record Mode",
+    "sidebar_label": "Record",
+    "tags": [
+      "operation-guide",
+      "record"
+    ]
+  },
+  "sidebar": "sidebarOperations",
+  "previous": {
+    "title": "Keploy operation guides",
+    "permalink": "/docs/operation/"
+  },
+  "next": {
+    "title": "Test",
+    "permalink": "/docs/operation/test-operations"
+  }
+}

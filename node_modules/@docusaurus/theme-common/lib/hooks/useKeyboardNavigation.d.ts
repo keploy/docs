@@ -1,0 +1,10 @@
+/**
+ * Copyright (c) Facebook, Inc. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+import './styles.css';
+export declare const keyboardFocusedClassName = "navigation-with-keyboard";
+export default function useKeyboardNavigation(): void;
+//# sourceMappingURL=useKeyboardNavigation.d.ts.map

@@ -1,0 +1,13 @@
+{
+  "name": "reference",
+  "permalink": "/docs/tags/reference",
+  "docs": [
+    {
+      "id": "reference/glossary",
+      "title": "Glossary",
+      "description": "The following terms have specific definitions within the context of the Keploy Platform.",
+      "permalink": "/docs/reference/glossary"
+    }
+  ],
+  "allTagsPath": "/docs/tags"
+}

@@ -1,0 +1,22 @@
+{
+  "unversionedId": "operation/index",
+  "id": "operation/index",
+  "title": "Keploy operation guides",
+  "description": "- How to Record",
+  "source": "@site/docs/operation/index.md",
+  "sourceDirName": "operation",
+  "slug": "/operation/",
+  "permalink": "/docs/operation/",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/operation/index.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "index",
+    "title": "Keploy operation guides"
+  },
+  "sidebar": "sidebarOperations",
+  "next": {
+    "title": "Record",
+    "permalink": "/docs/operation/record-operations"
+  }
+}

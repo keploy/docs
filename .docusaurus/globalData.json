@@ -1,0 +1,185 @@
+{
+  "docusaurus-plugin-google-gtag": {
+    "default": {
+      "trackingID": "G-LLS95VWZPC",
+      "anonymizeIP": true,
+      "id": "default"
+    }
+  },
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/docs",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/docs",
+          "mainDocId": "keploy-explained/introduction",
+          "docs": [
+            {
+              "id": "concepts/index",
+              "path": "/docs/concepts/",
+              "sidebar": "sidebarConcepts"
+            },
+            {
+              "id": "concepts/what-are-keploy-features",
+              "path": "/docs/concepts/what-are-keploy-features",
+              "sidebar": "sidebarConcepts"
+            },
+            {
+              "id": "concepts/what-are-keploy-sdk-modes",
+              "path": "/docs/concepts/what-are-keploy-sdk-modes",
+              "sidebar": "sidebarConcepts"
+            },
+            {
+              "id": "concepts/what-is-keploy",
+              "path": "/docs/concepts/what-is-keploy",
+              "sidebar": "sidebarConcepts"
+            },
+            {
+              "id": "concepts/what-is-keploy-sdk",
+              "path": "/docs/concepts/what-is-keploy-sdk",
+              "sidebar": "sidebarConcepts"
+            },
+            {
+              "id": "devtools/introduction",
+              "path": "/docs/devtools/introduction",
+              "sidebar": "sidebarDevTools"
+            },
+            {
+              "id": "devtools/sdk-contrib-guide",
+              "path": "/docs/devtools/sdk-contrib-guide"
+            },
+            {
+              "id": "devtools/server-contrib-guide",
+              "path": "/docs/devtools/server-contrib-guide"
+            },
+            {
+              "id": "devtools/ui-contrib-guide",
+              "path": "/docs/devtools/ui-contrib-guide"
+            },
+            {
+              "id": "go/index",
+              "path": "/docs/go/",
+              "sidebar": "sidebarGo"
+            },
+            {
+              "id": "go/installation",
+              "path": "/docs/go/installation",
+              "sidebar": "sidebarGo"
+            },
+            {
+              "id": "go/integration-with-go-test",
+              "path": "/docs/go/integration-with-go-test",
+              "sidebar": "sidebarGo"
+            },
+            {
+              "id": "go/run-your-first-app-tutorial",
+              "path": "/docs/go/run-your-first-app-tutorial",
+              "sidebar": "sidebarGo"
+            },
+            {
+              "id": "go/supported-frameworks",
+              "path": "/docs/go/supported-frameworks",
+              "sidebar": "sidebarGo"
+            },
+            {
+              "id": "keploy-explained/faq",
+              "path": "/docs/keploy-explained/faq",
+              "sidebar": "sidebarExplained"
+            },
+            {
+              "id": "keploy-explained/how-keploy-works",
+              "path": "/docs/keploy-explained/how-keploy-works",
+              "sidebar": "sidebarExplained"
+            },
+            {
+              "id": "keploy-explained/introduction",
+              "path": "/docs/keploy-explained/introduction",
+              "sidebar": "sidebarExplained"
+            },
+            {
+              "id": "keploy-explained/why-keploy",
+              "path": "/docs/keploy-explained/why-keploy",
+              "sidebar": "sidebarExplained"
+            },
+            {
+              "id": "operation/index",
+              "path": "/docs/operation/",
+              "sidebar": "sidebarOperations"
+            },
+            {
+              "id": "operation/record-operations",
+              "path": "/docs/operation/record-operations",
+              "sidebar": "sidebarOperations"
+            },
+            {
+              "id": "operation/test-operations",
+              "path": "/docs/operation/test-operations",
+              "sidebar": "sidebarOperations"
+            },
+            {
+              "id": "operation/web-ui-operations",
+              "path": "/docs/operation/web-ui-operations",
+              "sidebar": "sidebarOperations"
+            },
+            {
+              "id": "reference/glossary",
+              "path": "/docs/reference/glossary"
+            },
+            {
+              "id": "server/introduction",
+              "path": "/docs/server/introduction",
+              "sidebar": "sidebarInstallation"
+            },
+            {
+              "id": "server/sdk-installation",
+              "path": "/docs/server/sdk-installation",
+              "sidebar": "sidebarInstallation"
+            }
+          ],
+          "sidebars": {
+            "sidebarExplained": {
+              "link": {
+                "path": "/docs/keploy-explained/introduction",
+                "label": "keploy-explained/introduction"
+              }
+            },
+            "sidebarConcepts": {
+              "link": {
+                "path": "/docs/concepts/",
+                "label": "Concepts"
+              }
+            },
+            "sidebarInstallation": {
+              "link": {
+                "path": "/docs/server/introduction",
+                "label": "server/introduction"
+              }
+            },
+            "sidebarOperations": {
+              "link": {
+                "path": "/docs/operation/",
+                "label": "Operation guides"
+              }
+            },
+            "sidebarGo": {
+              "link": {
+                "path": "/docs/go/",
+                "label": "Go SDK"
+              }
+            },
+            "sidebarDevTools": {
+              "link": {
+                "path": "/docs/devtools/introduction",
+                "label": "devtools/introduction"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  }
+}

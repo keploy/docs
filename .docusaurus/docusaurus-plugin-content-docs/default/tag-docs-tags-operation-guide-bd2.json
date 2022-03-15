@@ -1,0 +1,25 @@
+{
+  "name": "operation-guide",
+  "permalink": "/docs/tags/operation-guide",
+  "docs": [
+    {
+      "id": "operation/web-ui-operations",
+      "title": "Operations on Web UI",
+      "description": "Guide into Keploy Console",
+      "permalink": "/docs/operation/web-ui-operations"
+    },
+    {
+      "id": "operation/record-operations",
+      "title": "Record Mode Operations",
+      "description": "Guide into Keploy Record Mode",
+      "permalink": "/docs/operation/record-operations"
+    },
+    {
+      "id": "operation/test-operations",
+      "title": "Test Mode Operations",
+      "description": "Guide into Keploy Test Mode",
+      "permalink": "/docs/operation/test-operations"
+    }
+  ],
+  "allTagsPath": "/docs/tags"
+}

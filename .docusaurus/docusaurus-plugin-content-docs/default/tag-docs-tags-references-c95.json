@@ -1,0 +1,13 @@
+{
+  "name": "references",
+  "permalink": "/docs/tags/references",
+  "docs": [
+    {
+      "id": "concepts/index",
+      "title": "Concepts",
+      "description": "The following concepts have specific definitions within the context of the Keploy Platform.",
+      "permalink": "/docs/concepts/"
+    }
+  ],
+  "allTagsPath": "/docs/tags"
+}

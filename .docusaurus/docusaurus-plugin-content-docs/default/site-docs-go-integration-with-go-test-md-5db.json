@@ -1,0 +1,27 @@
+{
+  "unversionedId": "go/integration-with-go-test",
+  "id": "go/integration-with-go-test",
+  "title": "Integrate with Go Test",
+  "description": "Testing using Unit Test File",
+  "source": "@site/docs/go/integration-with-go-test.md",
+  "sourceDirName": "go",
+  "slug": "/go/integration-with-go-test",
+  "permalink": "/docs/go/integration-with-go-test",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/go/integration-with-go-test.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "integration-with-go-test",
+    "title": "Integrate with Go Test",
+    "sidebar_label": "Integrate with Go Test"
+  },
+  "sidebar": "sidebarGo",
+  "previous": {
+    "title": "Supported Frameworks",
+    "permalink": "/docs/go/supported-frameworks"
+  },
+  "next": {
+    "title": "QuickStart",
+    "permalink": "/docs/go/run-your-first-app-tutorial"
+  }
+}

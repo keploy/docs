@@ -1,0 +1,19 @@
+{
+  "unversionedId": "devtools/introduction",
+  "id": "devtools/introduction",
+  "title": "Keploy Devtools introduction",
+  "description": "Keploy has 3 major components.",
+  "source": "@site/docs/devtools/introduction.md",
+  "sourceDirName": "devtools",
+  "slug": "/devtools/introduction",
+  "permalink": "/docs/devtools/introduction",
+  "editUrl": "https://github.com/keploy/docs/blob/master/docs/devtools/introduction.md",
+  "tags": [],
+  "version": "current",
+  "frontMatter": {
+    "id": "introduction",
+    "title": "Keploy Devtools introduction",
+    "label": "Introduction"
+  },
+  "sidebar": "sidebarDevTools"
+}
