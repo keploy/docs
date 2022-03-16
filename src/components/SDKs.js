@@ -7,7 +7,8 @@ export const SDKs = () => {
     <section className="my-20">
       <h2 className="mb-2 text-3xl md:text-4xl">SDKs</h2>
       <p className="mb-8">
-        Find SDK tutorials and dependency mock references in the language of your choice.
+        Find SDK tutorials and dependency mock references in the language of
+        your choice.
       </p>
       <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
         <Link

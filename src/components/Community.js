@@ -58,10 +58,7 @@ export const Community = () => {
           </a>
         </li>
         <li>
-          <a
-            href="https://lu.ma/keploy"
-            className="flex items-start space-x-4"
-          >
+          <a href="https://lu.ma/keploy" className="flex items-start space-x-4">
             <svg
               width="512"
               height="512"
@@ -196,8 +193,7 @@ export const Community = () => {
         </li>
       </ul>
       <p className="mt-8">
-        We are happy to help you with your{" "}
-        {/*<a*/}
+        We are happy to help you with your {/*<a*/}
         {/*  className="text-blue-400 hover:underline"*/}
         {/*  href="https://keploy.io/careers"*/}
         {/*>*/}

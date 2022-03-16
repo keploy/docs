@@ -4,7 +4,7 @@ title: What is Keploy?
 sidebar_label: Keploy
 description: Keploy is a no-code testing platform that generates tests from API calls.
 tags:
-- explanation
+  - explanation
 ---
 
 Keploy is a no-code testing platform that generates tests from API calls.
