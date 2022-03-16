@@ -1,27 +1,48 @@
-# Contributing to Keploy
+# How to contribute
 
-Thank you for your interest in Keploy and for taking the time to contribute to this project. 🙌
-Keploy is a project by developers for developers and there are a lot of ways you can contribute.
-If you don't know where to start contributing, ask us on our [Slack channel](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA).
+We encourage contributions from the community.
 
-## Code of conduct
+**Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
 
-Read our [Code of Conduct](CODE_OF_CONDUCT.md) before contributing
+If you do create a pull request (PR), please follow our [style guidance](/STYLE.md).
 
-## How can I contribute?
+We review GitHub issues and PRs on a regular schedule.
 
-There are many ways in which you can contribute to Keploy.
+To ensure that each change is relevant and properly peer reviewed, please adhere to best practices for open-source contributions.
+This means that if you are outside the Keploy organization, you must fork the repository and create PRs from branches on your own fork.
+The README in GitHub's [first-contributions repo](https://github.com/firstcontributions/first-contributions) provides an example.
 
-#### 🐛 Report a bug
-Report all issues through GitHub Issues using the [Report a Bug](https://github.com/keploy/keploy/issues/new?assignees=&labels=&template=bug_report.md&title=) template.
-To help resolve your issue as quickly as possible, read the template and provide all the requested information.
+## Preview changes locally
 
-#### 🛠 File a feature request
-We welcome all feature requests, whether it's to add new functionality to an existing extension or to offer an idea for a brand new extension.
-File your feature request through GitHub Issues using the [Feature Request](https://github.com/keploy/keploy/issues/new?assignees=&labels=&template=feature_request.md&title=) template.
+The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), which is a static website generator.
 
-#### 📝 Improve the documentation
-In the process of shipping features quickly, we may forget to keep our docs up to date. You can help by suggesting improvements to our documentation using the [Documentation Improvement](https://github.com/keploy/docs/issues) template!
+You can make changes locally without previewing them in the browser.
+However, if you want to build the site and preview changes in the browser, you need to have [Docusaurus 2 dependencies](https://v2.docusaurus.io/docs/installation/#requirements) installed.
 
-#### ⚙️ Close a Bug / Feature issue
-We welcome contributions that help make keploy bug free & improve the experience of our users. You can also find issues tagged [Good First Issues](https://github.com/keploy/keploy/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
+Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) once in the root directory of the repo.
+
+Now you can build and view the site locally:
+
+```bash
+yarn start
+```
+
+The command starts a local development server and opens a browser window.
+
+## Prettier
+
+Before submitting a PR, use Prettier to reformat.
+
+To install:
+
+```
+yarn install
+```
+
+To reformat:
+
+```
+yarn prettier --write '**/*.{js,md}'
+```
+
+When we merge your PR, a new build automatically occurs and your changes publish to [https://docs.keploy.io](https://docs.keploy.io).
