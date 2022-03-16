@@ -30,8 +30,8 @@ We'd love to collaborate with you to make Keploy great. To get started:
 ## 📌 Our valuable Contributors 👩‍💻👨‍💻 :
 <table>
   <tr>
-    <a href="https://github.com/keploy/keploy/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=keploy/keploy" />
+    <a href="https://github.com/keploy/docs/graphs/contributors">
+      <img src="https://contrib.rocks/image?repo=keploy/docs" />
     </a>
   </tr>
 </table>
