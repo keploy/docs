@@ -11,8 +11,18 @@ Repository for the Keploy docs website.
 </div>
 </p>
 
-[![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](CODE_OF_CONDUCT.md)
-[![Slack](.github/slack.svg)](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA)
+<p align="center">
+<a href="https://github.com/keploy/docs" alt="GitHub contributors">
+<img src="https://img.shields.io/github/contributors/keploy/docs.svg" /><a>
+<a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
+<img src="https://img.shields.io/github/issues/keploy/docs" /></a>
+<a href="https://keploy.slack.com/" alt="Slack">
+<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" /></a>
+<a href="https://twitter.com/Keployio" alt="Twitter Follow">
+<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" /></a>
+<a href="https://github.com/keploy/docs" alt="License">
+<img src="https://img.shields.io/github/license/keploy/docs.svg" /></a>
+</p>
 
 [Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
 
