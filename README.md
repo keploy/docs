@@ -3,7 +3,9 @@
 </div>
 <p style="text-align:center;" align="center">
   <img align="center" src="https://avatars.githubusercontent.com/u/92252339?s=200&v=4" height="30%" width="30%" />
-<h1>Docs Website</h1>
+ <div align="center">
+ <h1>Docs Website</h1>
+ </div>
 </p>
 
 [![contributions welcome](https://img.shields.io/badge/contributions-welcome-brightgreen?logo=github)](CODE_OF_CONDUCT.md)
