@@ -4,7 +4,6 @@ title: Installation of Keploy SDK
 sidebar_label: SDK
 ---
 
-
 import WhatIsAKeploySDK from '../concepts/what-is-a-keploy-sdk.md'
 
 <WhatIsAKeploySDK/>

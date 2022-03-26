@@ -37,10 +37,7 @@ module.exports = {
       label: "Installation",
       collapsible: false,
       collapsed: false,
-      items: [
-        "server/introduction",
-        "server/sdk-installation",
-      ],
+      items: ["server/introduction", "server/sdk-installation"],
     },
   ],
   sidebarOperations: [
@@ -53,9 +50,11 @@ module.exports = {
         type: "doc",
         id: "operation/index",
       },
-      items: ["operation/record-operations",
+      items: [
+        "operation/record-operations",
         "operation/test-operations",
-        "operation/web-ui-operations"],
+        "operation/web-ui-operations",
+      ],
     },
   ],
 

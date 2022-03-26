@@ -41,9 +41,7 @@ function About() {
         <div className="margin-bottom--lg">
           <h2 id="next">MIT License</h2>
           <pre>
-            <p>
-              Copyright (c) 2021 Keploy Inc. All rights reserved.
-            </p>
+            <p>Copyright (c) 2021 Keploy Inc. All rights reserved.</p>
 
             <p>
               Permission is hereby granted, free of charge, to any person

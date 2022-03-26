@@ -4,12 +4,12 @@ title: Keploy Features?
 sidebar_label: Keploy
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:
-- explanation
+  - explanation
 ---
 
 ### 1. Convert API calls from anywhere to Test-Case
 
-Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), [Curl](https://curl.se/) to generate test-case.  
+Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), [Curl](https://curl.se/) to generate test-case.
 
 <img src="/img/api-tools.png?raw=true" width="50%" alt="API Tools"/>
 
@@ -38,9 +38,9 @@ As the application serves the API, Keploy re-run that API request with the captu
 Keploy then compares if the responses of the API requests disagree with each other.
 If any of the fields of the API responses are different they are marked as random/non-deterministic fields.
 
-### 4. Native interoperability 
+### 4. Native interoperability
 
-Keploy has native integrations with popular testing libraries like `go-test`. 
+Keploy has native integrations with popular testing libraries like `go-test`.
 Code coverage will be reported with existing and Keploy recorded test cases and can also be integrated in
 existing CI pipelines easily.
 
@@ -49,4 +49,4 @@ existing CI pipelines easily.
 ### 5. Easy Integration Framework for new Libraries
 
 Keploy has Instrumentation/Integration framework to easily add the new libraries/drivers within ~100 lines of code.
-Please check-out the [contribution guide](/docs/devtools/sdk-contrib-guide). 
+Please check-out the [contribution guide](/docs/devtools/sdk-contrib-guide).

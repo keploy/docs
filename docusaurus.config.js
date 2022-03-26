@@ -46,7 +46,7 @@ module.exports = {
       // },
     },
     announcementBar: {
-      id: 'announcementBar_1', // Increment on change
+      id: "announcementBar_1", // Increment on change
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
@@ -127,10 +127,10 @@ module.exports = {
           ],
         },
         {
-          href: 'https://github.com/keploy/keploy',
-          position: 'right',
-          className: 'header-github-link',
-          'aria-label': 'GitHub repository',
+          href: "https://github.com/keploy/keploy",
+          position: "right",
+          className: "header-github-link",
+          "aria-label": "GitHub repository",
         },
         // TODO : Add Blogging Section
         // {

@@ -30,7 +30,8 @@ function SDKs() {
         <h2 className="mb-4 text-xl font-semibold">SDKs Integration</h2>
       </div>
       <p className="mb-4 flex-grow">
-        Generate test cases and mock dependencies from API calls automatically. Embed Keploy SDK into your application to record and replay API calls.
+        Generate test cases and mock dependencies from API calls automatically.
+        Embed Keploy SDK into your application to record and replay API calls.
       </p>
       <ul className="flex flex-col space-y-2">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
@@ -115,7 +116,8 @@ function Server() {
         <h2 className="mb-4 text-xl font-semibold">Operating Guide</h2>
       </div>
       <p className="mb-4 flex-grow">
-        Learn how to start recording API calls to create test cases and operate using Web-UI.
+        Learn how to start recording API calls to create test cases and operate
+        using Web-UI.
       </p>
 
       <ul className="flex list-disc flex-col space-y-2 pl-4">
@@ -177,7 +179,8 @@ function Tools() {
         <h2 className="mb-4 text-xl font-semibold">Contribution Guide</h2>
       </div>
       <p className="mb-4 flex-grow">
-        Learn contribution guidelines and how to get started with contribution to Keploy components.
+        Learn contribution guidelines and how to get started with contribution
+        to Keploy components.
       </p>
       <div className="flex flex-col space-y-2">
         <Link
@@ -199,7 +202,7 @@ function Tools() {
           <div className="">Web UI</div>
         </Link>
         <Link
-            to={useBaseUrl("/docs/devtools/server-contrib-guide")}
+          to={useBaseUrl("/docs/devtools/server-contrib-guide")}
           className="flex space-x-3 font-semibold hover:underline"
         >
           <svg
@@ -217,8 +220,8 @@ function Tools() {
           <div>Server</div>
         </Link>
         <Link
-            to={useBaseUrl("/docs/devtools/sdk-contrib-guide")}
-            className="flex space-x-3 font-semibold hover:underline"
+          to={useBaseUrl("/docs/devtools/sdk-contrib-guide")}
+          className="flex space-x-3 font-semibold hover:underline"
         >
           <svg
             className="h-6 w-6 transition hover:scale-110"
@@ -253,7 +256,9 @@ export const Intro = () => {
         Keploy Documentation
       </h1>
       <p className="max-w-2xl text-xl">
-        Learn about Keploy, the open source API Testing Platform. Keploy eliminates need for writing test-cases and mocks, making releases faster and highly-reliable.
+        Learn about Keploy, the open source API Testing Platform. Keploy
+        eliminates need for writing test-cases and mocks, making releases faster
+        and highly-reliable.
       </p>
 
       <div className="my-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
