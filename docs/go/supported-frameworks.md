@@ -4,17 +4,21 @@ title: Supported Frameworks for Go
 sidebar_label: Supported Frameworks
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:
-- go
-- developer-guide
+  - go
+  - developer-guide
 ---
 
 ## Supported Routers
+
 ### 1. Chi
+
 ```go
 r := chi.NewRouter()
 kchi.ChiV5(k,r)
 ```
+
 #### Example
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kchi")
 
@@ -33,18 +37,14 @@ kchi.ChiV5(k,r)
 http.ListenAndServe(":" + port, r)
 ```
 
-
 ### 2. Gin
-
 
 ```go
 r:=gin.New()
 kgin.GinV1(k, r)
 ```
 
-
 #### Example
-
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kgin/v1")
@@ -64,15 +64,15 @@ kgin.GinV1(k, r)
 r.Run(":" + port)
 ```
 
-
 ### 3. Echo
-
 
 ```go
 e := echo.New()
 kecho.EchoV4(k, e)
 ```
+
 #### Example
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kecho/v4")
 
@@ -90,18 +90,25 @@ k := keploy.New(keploy.Config{
 kecho.EchoV4(k, e)
 e.Start(":" + port)
 ```
+
 ### 4. WebGo
+
 #### WebGoV4
+
 ```go
 router := webgo.NewRouter(cfg, getRoutes())
 kwebgo.WebGoV4(k, router)
 ```
+
 #### WebGoV6
+
 ```go
 kwebgo.WebGoV6(k, router)
 router.Start()
 ```
+
 #### Example
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kwebgo/v4")
 
@@ -121,14 +128,18 @@ kwebgo.WebGoV4(k
 , router)
 router.Start()
 ```
+
 ### 5. Gorilla/Mux
+
 ```go
 r := mux.NewRouter()
 kmux.Mux(k, r)
 ```
+
 #### Example
+
 ```go
-import(	
+import(
     "github.com/keploy/go-sdk/integrations/kmux"
     "net/http"
 )
@@ -149,15 +160,17 @@ http.ListenAndServe(":"+port, r)
 ```
 
 ## Supported Databases
+
 ### 1. MongoDB
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kmongo")
 
 db  := client.Database("testDB")
 col := kmongo.NewCollection(db.Collection("Demo-Collection"))
 ```
-Following operations are supported:
 
+Following operations are supported:
 
 - FindOne - Err and Decode method of mongo.SingleResult
 - Find - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
@@ -170,19 +183,23 @@ Following operations are supported:
 - CountDocuments
 - Distinct
 - Aggregate - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
+
 ### 2. DynamoDB
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kddb")
 
 client := kddb.NewDynamoDB(dynamodb.New(sess))
 ```
-Following operations are supported:
 
+Following operations are supported:
 
 - QueryWithContext
 - GetItemWithContext
 - PutItemWithContext
+
 ### 3. SQL Driver
+
 ```go
 import(
     "github.com/keploy/go-sdk/integrations/ksql"
@@ -194,8 +211,8 @@ func init(){
 	sql.Register("keploy", &driver)
 }
 ```
-Its compatible with gORM. Here is an example -
 
+Its compatible with gORM. Here is an example -
 
 ```go
     pSQL_URI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s port=%s", "localhost", "postgres", "Book_Keeper", "8789", "5432")
@@ -218,29 +235,38 @@ Its compatible with gORM. Here is an example -
 	x := pSQL_DB.Find(&people)
     }))
 ```
+
 ## Supported Clients
+
 ### net/http
+
 ```go
 khttpclient.NewHttpClient(&http.Client{})
 ```
+
 #### Example
+
 ```go
 import("github.com/keploy/go-sdk/integrations/khttpclient")
 
 func(w http.ResponseWriter, r *http.Request){
     client := khttpclient.NewHttpClient(&http.Client{})
-// ensure to add request context to all outgoing http requests	
+// ensure to add request context to all outgoing http requests
     client.SetCtxHttpClient(r.Context())
     resp, err := client.Get("https://example.com")
 }
 ```
+
 **Note**: ensure to add pass request context to all external requests like http requests, db calls, etc.
 
 ### gRPC
+
 ```go
 conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 ```
+
 #### Example
+
 ```go
 import("github.com/keploy/go-sdk/integrations/kgrpc")
 
@@ -257,4 +283,5 @@ k := keploy.New(keploy.Config{
 
 conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 ```
-**Note**: Currently streaming is not yet supported. 
+
+**Note**: Currently streaming is not yet supported.

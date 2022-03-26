@@ -3,30 +3,34 @@ id: run-your-first-app-tutorial
 title: Sample Application with the Go SDK
 sidebar_label: QuickStart
 tags:
-- helloworld
-- go
-- sdk
-- tutorial
+  - helloworld
+  - go
+  - sdk
+  - tutorial
 ---
 
 # Example URL Shortener App
+
 A sample url shortener app to test Keploy integration capabilities in Go.
 
 In this sample application we're using 2 dependencies - Gin, mongoDB.
 
 ### Pre-requisites
+
 - [Go](https://golang.org/doc/install)
 - [Keploy Server](/docs/server/introduction#installation)
 
 Once you have the Keploy Server running, open the Keploy Console at [http://localhost:8081](http://localhost:8081)
 
 ### Setup URL shortener
+
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
 
 ### Run the application
+
 ```shell
 go run handler.go main.go
 ```
@@ -45,7 +49,9 @@ curl --request POST \
   "url": "https://google.com"
 }'
 ```
+
 this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
+
 ```
 {
   "ts": 1645540022,
@@ -54,13 +60,13 @@ this will return the shortened url. The ts would automatically be ignored during
 ```
 
 ### 2. Redirect to original url from shortened url
+
 ```bash
 curl --request GET \
   --url http://localhost:8080/Lhr4BWAi
 ```
 
 or by querying through the browser `http://localhost:8080/Lhr4BWAi`
-
 
 Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8081/testlist).
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
@@ -69,13 +75,12 @@ You should be seeing an app named `sample-url-shortener` with the test cases we 
 
 ![testcases](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testcases.png)
 
-
 Now, let's see the magic! 🪄💫
-
 
 ## Test mode
 
-There are 2 ways to test the application with Keploy. 
+There are 2 ways to test the application with Keploy.
+
 1. [Unit Test File](/docs/go/run-your-first-app-tutorial#testing-using-unit-test-file)
 2. [KEPLOY_MODE environment variable](/docs/go/run-your-first-app-tutorial#testing-using-keploy_mode-env-variable)
 
@@ -84,14 +89,15 @@ There are 2 ways to test the application with Keploy.
 Now that we have our testcase captured, run the unit test file (`main_test.go`) already present in the sample app repo.
 
 If not present, you can add `main_test.go` in the root of your sample application.
+
 ```go
   package main
-  
+
   import (
     "github.com/keploy/go-sdk/keploy"
     "testing"
   )
-  
+
   func TestKeploy(t *testing.T) {
       keploy.SetTestMode()
       go main()
@@ -104,7 +110,8 @@ To automatically download and run the captured test-cases. Let's run the test-fi
 ```shell
  go test -coverpkg=./... -covermode=atomic  ./...
 ```
-output should look like - 
+
+output should look like -
 
 ```shell
 ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
@@ -112,7 +119,7 @@ ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 
 **We got 80.3% without writing any testcases or mocks for mongo db. 🎉 **
 
-> **Note** :  You didn't need to setup mongoDB locally or write mocks for your testing.
+> **Note** : You didn't need to setup mongoDB locally or write mocks for your testing.
 
 **The application thought it's talking to mongoDB 😄**
 
@@ -124,21 +131,21 @@ Go to the Keploy Console TestRuns Page to get deeper insights on what testcases 
 
 ![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun3.png "Detail")
 
-
 ### Testing using `KEPLOY_MODE` Env Variable
 
 To test using `KEPLOY_MODE` env variable, set the same to `test` mode.
+
 ```
 export KEPLOY_MODE="test"
 ```
 
-Now simply run the application. 
+Now simply run the application.
 
 ```shell
 go run handler.go main.go
 ```
 
-Keploy will run all the captures test-cases, compare and show the results on the console. 
+Keploy will run all the captures test-cases, compare and show the results on the console.
 
 > **Note** : With this method coverage will not be calculated.
 
@@ -146,7 +153,7 @@ Keploy will run all the captures test-cases, compare and show the results on the
 
 Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in handler.go `./handler.go` on line 96 
 
-``` go 
+```go
     ...
     c.JSON(http.StatusOK, gin.H{
 		...
@@ -157,7 +164,7 @@ Now let's introduce a bug! Let's try changing something like renaming `url` to `
 
 Let's run the test-file to see if Keploy catches the regression introduced.
 
-` go test -coverpkg=./... -covermode=atomic  ./...` 
+` go test -coverpkg=./... -covermode=atomic ./...`
 
 You'll notice the failed test-case in the output.
 

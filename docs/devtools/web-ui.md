@@ -12,12 +12,16 @@ There's a separate docker-compose `docker-compose-dev.yaml` file which helps whi
 git clone https://github.com/keploy/keploy.git && cd keploy
 docker-compose -f docker-compose-dev.yaml up --build
 ```
+
 ### 2. Start the Keploy Console/UI
+
 ```shell
 git clone https://github.com/keploy/ui.git && cd ui
-npm i 
+npm i
 ```
+
 For development, we'll add the API URL as local keploy server url running at http://localhost:8081
+
 ```shell
 export GATSBY_API_URL=http://localhost:8081/api
 ```
@@ -29,18 +33,24 @@ gatsby develop
 ```
 
 If you make some UI/design changes and want to add test data. In the new directory, clone test data repo :
+
 ```shell
 git clone https://github.com/keploy/test-data.git && cd test-data
 ```
+
 Within test-data directory
 
 #### Install mongo-database-tools
+
 ```
 brew tap mongodb/brew
 brew install mongodb-database-tools
 ```
+
 #### Restore DB
+
 ```
 mongorestore  dump/
 ```
+
 You should now be able to see test data on the UI.

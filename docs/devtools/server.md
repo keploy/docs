@@ -8,7 +8,9 @@ There's a separate docker-compose `docker-compose-dev.yaml` file which helps wit
 ```shell
 docker-compose -f docker-compose-dev.yaml up --build
 ```
+
 If you are not using docker, you can build and run the keploy server directly. Ensure to provide the Mongo connection string via the `KEPLOY_MONGO_URI` env variable.
+
 ```shell
 export KEPLOY_MONGO_URI="mongodb://mongo:27017"
 go run cmd/server/main.go
@@ -17,4 +19,3 @@ Keploy exposes GraphQL API for the frontend based on [gqlgen](https://github.com
 ```shell
 go generate ./...
 ```
-

@@ -18,9 +18,8 @@ function PrivacyPolicy() {
         </h1>
         <p>Last updated: Feb 8th, 2021</p>
         <p>
-          Keploy Inc. operates{" "}
-          <a href="https://keploy.io">https://keploy.io</a> and{" "}
-          <a href="https://docs.keploy.io">https://docs.keploy.io</a> (the
+          Keploy Inc. operates <a href="https://keploy.io">https://keploy.io</a>{" "}
+          and <a href="https://docs.keploy.io">https://docs.keploy.io</a> (the
           &quot;Sites&quot;). This page informs you of our policies regarding
           the collection, use and disclosure of Personal Information we receive
           from users of the Sites.

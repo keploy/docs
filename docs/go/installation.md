@@ -3,9 +3,10 @@ id: installation
 title: Integration
 description: Add the Keploy Go SDK to your application.
 tags:
-- developer-guide
-- go
+  - developer-guide
+  - go
 ---
+
 ### Get the SDK
 
 Add the [Keploy Go SDK](https://github.com/keploy/go-sdk) to your project:
@@ -20,16 +21,13 @@ Or clone the Go SDK repo to your preferred location:
 git clone git@github.com:keploy/go-sdk.git
 ```
 
-
 import KeploySDKModes from '../concepts/what-are-keploy-sdk-modes.md'
 
 <KeploySDKModes/>
 
-
 ### Where is the Go SDK technical reference?
 
 The [Keploy Go SDK API reference](https://pkg.go.dev/github.com/keploy/go-sdk) is published on [pkg.go.dev](https://pkg.go.dev/github.com/keploy/go-sdk)
-
 
 ## Usage
 
@@ -41,6 +39,7 @@ import(
 ```
 
 Create your app instance
+
 ```go
 k := keploy.New(keploy.Config{
      App: keploy.AppConfig{
@@ -48,12 +47,14 @@ k := keploy.New(keploy.Config{
          Port: "<app_port>",
      },
      Server: keploy.ServerConfig{
-         URL: "<keploy_host>", 
+         URL: "<keploy_host>",
          LicenseKey: "<license_key>", //optional for managed services
      },
     })
 ```
+
 For example:
+
 ```go
 port := "8080"
  k := keploy.New(keploy.Config{
@@ -67,4 +68,4 @@ port := "8080"
  })
 ```
 
-Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](http://localhost:3000/docs/go/supported-frameworks). 
+Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](http://localhost:3000/docs/go/supported-frameworks).
