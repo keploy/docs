@@ -144,7 +144,7 @@ Keploy will run all the captures test-cases, compare and show the results on the
 
 ## Let's add a Bug in the App
 
-Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in [handler.go](./handler.go) on line 96 
+Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in handler.go `./handler.go` on line 96 
 
 ``` go 
     ...
