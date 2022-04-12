@@ -39,6 +39,10 @@ Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md
 Maintainers and contributors to this project are expected to conduct themselves in a respectful way.
 See the [CNCF Community Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) as a reference.
 
+## How to Get Involved?
+
+Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/docs/issues/new/choose).
+
 ## Community support
 
 We'd love to collaborate with you to make Keploy great. To get started:

@@ -1,0 +1,40 @@
+# Configuration for welcome - https://github.com/behaviorbot/welcome
+
+# Configuration for new-issue-welcome - https://github.com/behaviorbot/new-issue-welcome
+
+# Comment to be posted to on first time issues
+newIssueWelcomeComment: |
+  Hello there!👋 Welcome to Keploy-Docs website!💖
+  Thank you and congratulations 🎉 for opening your very first issue in this project.
+  Please checkout if any of the already existing issue template fits for your isssue or you may open a blank issue as well ✨
+  We will try to get back to you as soon as we can.👀
+# Configuration for new-pr-welcome - https://github.com/behaviorbot/new-pr-welcome
+
+# Comment to be posted to on PRs from first time contributors in your repository
+newPRWelcomeComment: |
+  Hello there!👋 Welcome to Keploy-Docs website!💖
+  Thank you and congrats 🎉 for opening your first PR on this project.✨
+  We will review it soon! Till then you can checkout the `README.md` for more details on it.
+# Configuration for first-pr-merge - https://github.com/behaviorbot/first-pr-merge
+
+# Comment to be posted to on pull requests merged by a first time user
+firstPRMergeComment: |
+  Congratulations on merging your first contribution to Keploy-Docs website!✨
+# *Required* Comment to reply with
+requestInfoReplyComment: >
+  Hi,
+  Thanks for raising an issue/pull request! We at Keploy appreciate your concerns and views to
+  help us improve. 
+# *OPTIONAL* default titles to check against for lack of descriptiveness
+# MUST BE ALL LOWERCASE
+requestInfoDefaultTitles:
+  - update readme.md
+  - updates
+  - add files via upload
+  - readme.md
+  - changes made
+
+# *OPTIONAL* Label to be added to Issues and Pull Requests with insufficient information given
+requestInfoLabelToAdd: needs-more-info
+
+# It is recommended to include as many gifs and emojis as possible!
