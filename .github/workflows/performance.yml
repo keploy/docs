@@ -15,12 +15,12 @@ jobs:
       - uses: actions/setup-node@v2
 
       - name: Installation
-        run: cd docs && npm install
+        run: npm install
 
       - name: Build (cold cache)
-        run: cd docs && npm build
+        run: npm build
         timeout-minutes: 5
 
       - name: Build (warm cache)
-        run: cd docs && npm build
+        run: npm build
         timeout-minutes: 1
