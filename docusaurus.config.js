@@ -159,7 +159,7 @@ module.exports = {
       `,
     },
     algolia: {
-      apiKey: "be1312673d80dd8a5bb836366d10aea3",
+      apiKey: "97e40e01d135369317569d41c82e5fe2",
       indexName: "keploy-docs",
       appId: "7TPB5MDCZI",
       // contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
