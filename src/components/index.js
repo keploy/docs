@@ -5,3 +5,4 @@ export {KeployCloud} from "./KeployCloud";
 export {Community} from "./Community";
 export {Intro} from "./Intro";
 export {Resources} from "./Resources";
+export {QuickStart} from "./QuickStart"

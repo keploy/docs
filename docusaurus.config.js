@@ -60,7 +60,7 @@ module.exports = {
       logo: {
         alt: "Keploy logo",
         src: "img/keploy-logo-dark.svg",
-        srcDark: "img/keploy-logo.svg",
+        srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
         {

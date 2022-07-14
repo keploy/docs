@@ -38,7 +38,7 @@ const links = [
 export const Resources = () => {
   return (
     <section className="my-12">
-      <h2 className="text-3xl md:text-4xl">Resources and guides</h2>
+      <h2 className="text-3xl md:text-4xl">Quick Links</h2>
       <ul className="mt-5 flex flex-col space-y-3 text-lg">
         {links.map((link, i) => (
           <li key={i} className="flex items-center space-x-3 hover:underline">
