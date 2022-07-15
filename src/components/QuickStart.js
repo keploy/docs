@@ -9,12 +9,11 @@ export const QuickStart = () => {
             <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-5xl">
                 Keploy Documentation
             </h1>
-            <p className="max-w-2xl text-xl">
-                Learn about Keploy, the open source API Testing Platform. Keploy
-                eliminates need for writing test-cases and mocks, making releases faster
+            <p className="max-w-4xl text-xl">
+                Keploy is 100% Open Source API Testing Platform that
+                eliminates need for writing test-cases and data mocks, making releases faster
                 and highly-reliable.
             </p>
-
             <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
             <p className="mt-8 mb-8">
                 Follow a QuickStart in language of your choice.
@@ -38,12 +37,6 @@ export const QuickStart = () => {
                     <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
                     <p className="text-lg">Java (WIP)</p>
                 </Link>
-            </div>
-
-
-            <div className="my-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-
-                <Language />
             </div>
         </section>
     );

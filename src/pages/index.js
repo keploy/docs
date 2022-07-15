@@ -14,7 +14,7 @@ export default function Home() {
         description={`${siteConfig.tagline}`}
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
-          <QuickStart/>
+          <QuickStart />
           <Intro />
           <Resources />
           <Community />
