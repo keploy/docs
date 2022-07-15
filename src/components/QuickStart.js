@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {SDKs as SDKsOption} from "../components/SDKs";
+import { SDKs as SDKsOption } from "../components/SDKs";
 
 export const QuickStart = () => {
     return (
@@ -38,6 +38,6 @@ export const QuickStart = () => {
                     <p className="text-lg">Java (WIP)</p>
                 </Link>
             </div>
-        </section>
+        </section >
     );
 };
