@@ -19,7 +19,7 @@ const links = [
     type: "article",
     title: "QuickStart with Go Sample App",
     length: "10 min read",
-    url: "docs/go/run-your-first-app-tutorial",
+    url: "docs/go/quickstart/run-your-first-app-tutorial",
   },
   {
     type: "article",
