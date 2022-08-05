@@ -1,32 +1,41 @@
 ---
 id: run-your-first-app-tutorial
 title: Sample Application with the Go SDK
-sidebar_label: QuickStart
+sidebar_label: Echo-SQL Sample
 tags:
-  - helloworld
+  - hello-world
   - go
   - sdk
   - tutorial
 ---
 
-# Example URL Shortener App
+# Example URL Shortener
 
-A sample url shortener app to test Keploy integration capabilities in Go.
-
-In this sample application we're using 2 dependencies - Gin, mongoDB.
+A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and PostgreSQL.
 
 ### Pre-requisites
 
 - [Go](https://golang.org/doc/install)
-- [Keploy Server](/docs/server/introduction#installation)
 
-Once you have the Keploy Server running, open the Keploy Console at [http://localhost:8081](http://localhost:8081)
+## Installation
+
+### Start keploy server
+
+```shell
+git clone https://github.com/keploy/keploy.git && cd keploy
+docker-compose up
+```
 
 ### Setup URL shortener
 
 ```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
+git clone https://github.com/keploy/samples-go && cd samples-go/echo-sql
 go mod download
+```
+
+### Start PostgreSQL instance
+```bash
+docker-compose up -d
 ```
 
 ### Run the application
@@ -34,6 +43,7 @@ go mod download
 ```shell
 go run handler.go main.go
 ```
+
 
 ## Generate testcases
 
@@ -117,11 +127,12 @@ output should look like -
 ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 ```
 
-**We got 80.3% without writing any testcases or mocks for mongo db. 🎉 **
+**We got 80.3% without writing any testcases or mocks for postgres db. 🎉 **
 
-> **Note** : You didn't need to setup mongoDB locally or write mocks for your testing.
+> **Note** : You didn't need postgres locally or write mocks for your testing.
+So no need to setup dependencies like PostgreSQL, web-go locally or write mocks for your testing.
 
-**The application thought it's talking to mongoDB 😄**
+**The application thought it's talking to Postgres 😄**
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
