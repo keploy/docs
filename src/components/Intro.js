@@ -252,15 +252,7 @@ function Tools() {
 export const Intro = () => {
   return (
     <section className="mt-1 mb-14">
-      <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-5xl">
-        Keploy Documentation
-      </h1>
-      <p className="max-w-2xl text-xl">
-        Learn about Keploy, the open source API Testing Platform. Keploy
-        eliminates need for writing test-cases and mocks, making releases faster
-        and highly-reliable.
-      </p>
-
+      <h2 className="text-3xl md:text-4xl">Resources and guides</h2>
       <div className="my-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
         <SDKs />
         <Server />
