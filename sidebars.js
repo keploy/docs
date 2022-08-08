@@ -61,6 +61,20 @@ module.exports = {
   sidebarGo: [
     {
       type: "category",
+      label: "QuickStart",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id:   "go/quickstart/quickstart",
+      },
+      items: [
+        "go/quickstart/run-your-first-app-tutorial",
+        "go/quickstart/gin-mongo-quickstart",
+      ],
+    },
+    {
+      type: "category",
       label: "Go SDK",
       collapsible: false,
       collapsed: false,
@@ -69,15 +83,14 @@ module.exports = {
         id: "go/index",
       },
       items: [
-        {
-          type: "link",
-          label: "Reference",
-          href: "https://pkg.go.dev/github.com/keploy/go-sdk",
-        },
         "go/installation",
         "go/supported-frameworks",
         "go/integration-with-go-test",
-        "go/run-your-first-app-tutorial",
+        {
+          type: "link",
+          label: "Go Pkg Reference",
+          href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+        },
       ],
     },
   ],

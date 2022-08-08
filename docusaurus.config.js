@@ -60,7 +60,7 @@ module.exports = {
       logo: {
         alt: "Keploy logo",
         src: "img/keploy-logo-dark.svg",
-        srcDark: "img/keploy-logo.svg",
+        srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
         {
@@ -159,9 +159,9 @@ module.exports = {
       `,
     },
     algolia: {
-      apiKey: "be1312673d80dd8a5bb836366d10aea3",
-      indexName: "keploy-docs",
-      appId: "7TPB5MDCZI",
+      apiKey: "c4628c331b0f4997178c879978033276",
+      indexName: "keploy",
+      appId: "WZTL8PLCOD",
       // contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },

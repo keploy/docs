@@ -17,6 +17,7 @@ import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
+
 export default function DocItem(props) {
   const {content: DocContent} = props;
   const {metadata, frontMatter, assets} = DocContent;
