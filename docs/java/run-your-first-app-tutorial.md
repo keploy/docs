@@ -29,7 +29,7 @@ docker-compose up
 ### Setup Employee-Manager App
 
 ```bash
-git clone https://github.com/keploy/samples-java 
+git clone https://github.com/keploy/samples-java && cd samples-java
 ```
 
 ### Start PostgreSQL instance
