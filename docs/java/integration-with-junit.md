@@ -6,7 +6,7 @@ sidebar_label: Integrate with Junit
 
 ### Testing using Unit Test File
 
-Once you have testcases captured, create a test file `SampleJavaApplication_Test.go` in the test directory of your sample application.
+Once you have testcases captured, create a test file `SampleJavaApplication_Test.java` in the test directory of your sample application.
 
 
 
