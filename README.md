@@ -51,7 +51,7 @@ We use a variety of technologies to build the web interface and support the comm
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website.  GitHub Actions manages our CI/CD pipelines and issue triage.
 
-## ## Installation
+## Installation
 
 The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), which is a static website generator.
 
