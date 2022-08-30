@@ -6,18 +6,21 @@ tags:
   - explanation
 ---
 
-Keploy is a no-code open-source software that mock dependencies and record test cases then replay them to generate a detailed test reports. THere are 3 Major reasons why you should use Keploy.
+Keploy is an open-source functional test case and data mock generation platform. There are 4 Major reasons why you should use Keploy.
 
 ### 1. Dependency Mocking
 
-Keploy understands the exact API calls and the correct response to reply with, including dynamic elements. So if you're using any external service like Databases, third party vendors, cloud services, etc. Keploy will automatically mock their response hence eliminating need for external dependencies.
+Keploy records the exact API calls, including dependencies data. So if you're still writing data mocks for any external service like Databases, third party vendors like stripe, twilio, razorpay, cloud services, etc. Keploy will automatically create mocks for these.
 
-### 2. Record & Replay
+### 2. Automated Assertions
 
-Keploy automatically compares test-cases generated from previously collected traffic against updated behavior of your application, and brings any differences to your attention.
+Keploy automatically compares all attributes of an actual and expected test-case response and brings any differences to your attention.
 
 ### 3. Detailed Test Reports
 
 Keploy will test the new version of application with thousands of test cases within minutes and generate instant reports and alerts so that you don't miss on anything!
+
+### 4. Simple CI/CD Integration
+Keploy has native integrations with native testing libraries like go-test, junit. Code coverage will be reported with existing plus Keploy recorded test cases and doesn't require any change in the CI/CD pipeline to integrate.
 
 ![How Keploy is Different](/img/difference.png)
