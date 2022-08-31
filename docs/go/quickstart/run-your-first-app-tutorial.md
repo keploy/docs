@@ -34,6 +34,7 @@ go mod download
 ```
 
 ### Start PostgreSQL instance
+
 ```bash
 docker-compose up -d
 ```
@@ -43,7 +44,6 @@ docker-compose up -d
 ```shell
 go run handler.go main.go
 ```
-
 
 ## Generate testcases
 
@@ -130,7 +130,7 @@ ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 **We got 80.3% without writing any testcases or mocks for postgres db. 🎉 **
 
 > **Note** : You didn't need postgres locally or write mocks for your testing.
-So no need to setup dependencies like PostgreSQL, web-go locally or write mocks for your testing.
+> So no need to setup dependencies like PostgreSQL, web-go locally or write mocks for your testing.
 
 **The application thought it's talking to Postgres 😄**
 
@@ -162,7 +162,7 @@ Keploy will run all the captures test-cases, compare and show the results on the
 
 ## Let's add a Bug in the App
 
-Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in handler.go `./handler.go` on line 96 
+Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in handler.go `./handler.go` on line 96
 
 ```go
     ...

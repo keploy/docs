@@ -49,7 +49,7 @@ We use a variety of technologies to build the web interface and support the comm
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
 
-We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website.  GitHub Actions manages our CI/CD pipelines and issue triage.
+We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
 ## Installation
 
@@ -70,7 +70,7 @@ The command starts a local development server and opens a browser window.
 
 ## Prettier
 
-1. Fork the repository 
+1. Fork the repository
 
 <br/>
 

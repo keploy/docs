@@ -51,14 +51,14 @@ function SDKs() {
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={"https://github.com/keploy/keploy/issues/51"}
+            to={useBaseUrl("/docs/java/installation")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/img/java.svg"
               alt="Java logo"
             />
-            <p className="font-semibold">Java (WIP)</p>
+            <p className="font-semibold">Java</p>
           </Link>
         </li>
 

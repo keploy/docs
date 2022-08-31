@@ -3,10 +3,10 @@ id: gin-mongo-quickstart
 title: Sample Application with the Go SDK
 sidebar_label: Gin-Mongo Sample
 tags:
-- hello-world
-- go
-- sdk
-- tutorial
+  - hello-world
+  - go
+  - sdk
+  - tutorial
 ---
 
 # Example URL Shortener App
@@ -22,7 +22,6 @@ In this sample application we're using 2 dependencies - [Gin](https://gin-gonic.
 import ServerInstallation from '../../server/server-installation.md'
 
 <ServerInstallation/>
-
 
 Once you have the Keploy Server running, open the Keploy Console at [http://localhost:8081](http://localhost:8081)
 

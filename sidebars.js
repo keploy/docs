@@ -66,7 +66,7 @@ module.exports = {
       collapsed: false,
       link: {
         type: "doc",
-        id:   "go/quickstart/quickstart",
+        id: "go/quickstart/quickstart",
       },
       items: [
         "go/quickstart/run-your-first-app-tutorial",
@@ -90,6 +90,50 @@ module.exports = {
           type: "link",
           label: "Go Pkg Reference",
           href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+        },
+      ],
+    },
+  ],
+  sidebarDevTools: [
+    {
+      type: "category",
+      label: "Contribution Guide",
+      collapsed: true,
+      items: ["devtools/introduction"],
+    },
+  ],
+  
+  sidebarGo: [
+    {
+      type: "category",
+      label: "QuickStart",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id: "java/installation",
+      },
+      items: [
+        "java/run-your-first-app-tutorial",
+      ],
+    },
+    {
+      type: "category",
+      label: "Java SDK",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id: "java/installation",
+      },
+      items: [
+        "java/installation",
+        "java/run-your-first-app-tutorial",
+        "java/integration-with-Junit",
+        {
+          type: "link",
+          label: "Maven Reference",
+          href: "https://search.maven.org/artifact/io.keploy/keploy-sdk",
         },
       ],
     },
