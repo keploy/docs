@@ -31,7 +31,7 @@ The command starts a local development server and opens a browser window.
 
 ## Prettier
 
-1. Fork the repository 
+1. Fork the repository
 
 <br/>
 
@@ -80,10 +80,11 @@ There are a lot ways in which you can contribute code!
 The issues list of a project is a great place to find something that you can help us with.
 
 To increase the chances of your code getting merged, please ensure that:
-* You satisfy our contribution criteria
-* Your pull request:
-    * Passes all checks and has no conflicts.
-    * Has a well-written title and message that briefly explains your proposed changes.
+
+- You satisfy our contribution criteria
+- Your pull request:
+  - Passes all checks and has no conflicts.
+  - Has a well-written title and message that briefly explains your proposed changes.
 
 ## How to Report Bugs, Provide Feedback or Request Features?
 
@@ -112,6 +113,7 @@ After you have cloned the documentation repo to your computer locally, edit the 
 3. On Github, click on the `Create a new Pull Request` button.
 
 4. Use a succinct title and descriptive comments to descibe your Pull Request. Also Ensure maintainers can understand your proposed changes from the description
+
 ## How to Suggest UI/UX Improvements?
 
 One of the most important areas of improvement to our software Keploy UI. We really need your help with this!
@@ -121,4 +123,3 @@ If you have ideas on how we can improve, please share them with us by creating a
 ## How to Contribute Translations?
 
 Right now our interfaces do not support translations and we also don't have a translation strategy in place. But we want to change this. We want our projects to be accessible to non-English speakers. If you have any ideas then please share them with us by creating a [new issue].
-

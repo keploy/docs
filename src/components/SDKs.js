@@ -34,10 +34,10 @@ export const SDKs = () => {
         </Link>
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={"https://github.com/keploy/keploy/issues/51"}
+          to={useBaseUrl("/docs/java/installation")}
         >
           <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
-          <p className="text-lg">Java (WIP)</p>
+          <p className="text-lg">Java</p>
         </Link>
         <Link
           to={"https://github.com/keploy/keploy/issues/58"}

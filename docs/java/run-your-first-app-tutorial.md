@@ -9,7 +9,7 @@ tags:
   - tutorial
 ---
 
-# Example Employee-Manager App 
+# Example Employee-Manager App
 
 A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and PostgreSQL.
 
@@ -33,26 +33,28 @@ git clone https://github.com/keploy/samples-java && cd samples-java
 ```
 
 ### Start PostgreSQL instance
+
 ```bash
 docker-compose up -d
 ```
 
 ### Maven clean install
+
 ```shell
-mvn clean install 
+mvn clean install
 ```
+
 ### Run the application
 
 ```shell
-mvn spring-boot:run 
+mvn spring-boot:run
 ```
-
 
 ## Generate testcases
 
 To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
 
-### 1. Make an employee entry  
+### 1. Make an employee entry
 
 ```bash
 curl --location --request POST 'http://localhost:8080/api/employees' \
@@ -106,98 +108,96 @@ There are 2 ways to test the application with Keploy.
 
 Now that we have our testcase captured, run the unit test file (``SampleJavaApplication_Test.java`) already present in the sample app repo.
 
-If not present, you can add ``SampleJavaApplication_Test.java`` in the test module of your sample application.
+If not present, you can add `SampleJavaApplication_Test.java` in the test module of your sample application.
 
 ```java
-                  @Test
-                  public void TestKeploy() throws InterruptedException {
+        @Test
+        public void TestKeploy() throws InterruptedException {
 
-                     CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
+            CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
 
-                     new Thread(() -> {
-                         SamplesJavaApplication.main(new String[]{""});
-                         countDownLatch.countDown();
-                     }).start();
+            new Thread(() -> {
+                SamplesJavaApplication.main(new String[]{""});
+                countDownLatch.countDown();
+            }).start();
 
-                     countDownLatch.await();
-                  }
+            countDownLatch.await();
+        }
 
 ```
 
 To automatically download and run the captured test-cases. Let's run the test-file.
 
- 2. To get test coverage, in addition to above follow below instructions.
-            
-            3. Add maven-surefire-plugin to your *pom.xml*.
-  
-               ```xml 
-                    <plugin>
-                        <groupId>org.apache.maven.plugins</groupId>
-                        <artifactId>maven-surefire-plugin</artifactId>
-                        <version>2.22.2</version>
-                        <configuration>
+2.  To get test coverage, in addition to above follow below instructions.
 
-                    <!-- <skipTests>true</skipTests> -->
+3. Add maven-surefire-plugin to your *pom.xml*.
 
-                            <systemPropertyVariables>
-                                <jacoco-agent.destfile>target/jacoco.exec
-                                </jacoco-agent.destfile>
-                            </systemPropertyVariables>
-                        </configuration>
-                    </plugin>
-               ```  
-          - 4. Add Jacoco plugin to your *pom.xml*.
-                ```xml
-                     <plugin>
-                        <groupId>org.jacoco</groupId>
-                        <artifactId>jacoco-maven-plugin</artifactId>
-                        <version>0.8.5</version>
-                        <executions>
-                            <execution>
-                                <id>prepare-agent</id>
-                                <goals>
-                                    <goal>prepare-agent</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>report</id>
-                                <phase>prepare-package</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                            </execution>
-                            <execution>
-                                <id>post-unit-test</id>
-                                <phase>test</phase>
-                                <goals>
-                                    <goal>report</goal>
-                                </goals>
-                                <configuration>
-                                    <!-- Sets the path to the file which contains the execution data. -->
+    ```xml
+        <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-surefire-plugin</artifactId>
+            <version>2.22.2</version>
+            <configuration>
 
-                                    <dataFile>target/jacoco.exec</dataFile>
-                                    <!-- Sets the output directory for the code coverage report. -->
-                                    <outputDirectory>target/my-reports</outputDirectory>
-                                </configuration>
-                            </execution>
-                        </executions>
-                    </plugin>
-                ```
-            5. Run your tests using command : `mvn test`.
+        <!-- <skipTests>true</skipTests> -->
 
- It will create .html files as test-reports which can be found in your target folder !!
+                <systemPropertyVariables>
+                    <jacoco-agent.destfile>target/jacoco.exec
+                    </jacoco-agent.destfile>
+                </systemPropertyVariables>
+            </configuration>
+        </plugin>
+    ```
+ - 4. Add Jacoco plugin to your *pom.xml*.
+                
+    ```xml
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.5</version>
+            <executions>
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>report</id>
+                    <phase>prepare-package</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                </execution>
+                <execution>
+                    <id>post-unit-test</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <!-- Sets the path to the file which contains the execution data. -->
 
+                        <dataFile>target/jacoco.exec</dataFile>
+                        <!-- Sets the output directory for the code coverage report. -->
+                        <outputDirectory>target/my-reports</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+    ```
+
+ 5. Run your tests using command : `mvn test`.
+
+It will create .html files as test-reports which can be found in your target folder !!
 
 **We got 75.3% without writing any testcases. 🎉 **
 
-
-
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![testruns](https://raw.githubusercontent.com/keploy/samples-java/blob/main/src/main/resources/AllTestPass_outer.png "Recent testruns")
+![testruns](https://raw.githubusercontent.com/keploy/samples-java/main/src/main/resources/AllTestPass_outer.png "Recent testruns")
 
 ![testruns](https://raw.githubusercontent.com/keploy/samples-java/main/src/main/resources/AllTestPass_inner.png "Summary")
-
 
 ### Testing using `KEPLOY_MODE` Env Variable
 
@@ -210,10 +210,11 @@ export KEPLOY_MODE="test"
 Now simply run the application either by ide or using command:
 
 ```shell
-mvn spring-boot:run 
+mvn spring-boot:run
 ```
 
 Keploy will run all the captures test-cases, compare and show the results on the console.
+
 ```shell
 10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 3
 2022-08-26 14:13:08.993  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 1 of 3 testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]
@@ -234,11 +235,12 @@ Hibernate: select employee0_.id as id1_0_, employee0_.email as email2_0_, employ
 2022-08-26 14:13:19.410  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2022-08-26 14:13:19.414  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
+
 > **Note** : With this method coverage will not be calculated.
 
 ## Let's add a Bug in the App
 
-Now let's introduce a bug! Let's try changing something like adding some extra headers in controllers  `./EmployeeController.java` on line 35 like : 
+Now let's introduce a bug! Let's try changing something like adding some extra headers in controllers `./EmployeeController.java` on line 35 like :
 
 ```java
     ...

@@ -1,11 +1,17 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import { Community, KeployCloud, Intro, Resources, QuickStart } from "../components";
+import {
+  Community,
+  KeployCloud,
+  Intro,
+  Resources,
+  QuickStart,
+} from "../components";
 
 export default function Home() {
   const context = useDocusaurusContext();
-  const { siteConfig = {} } = context;
+  const {siteConfig = {}} = context;
   return (
     <div className="main">
       <Layout
