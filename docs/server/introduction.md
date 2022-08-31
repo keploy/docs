@@ -10,11 +10,9 @@ The [Keploy Server](https://github.com/keploy/keploy) is an API-Testing platform
 It is completely open source and can be run in a variety of cloud or on-premise environments.
 A single Server instance can be used for many different use cases simultaneously, or be tied to a single application.
 
-
 import ServerInstallation from './server-installation.md'
 
 <ServerInstallation/>
-
 
 ### Update Keploy Server
 

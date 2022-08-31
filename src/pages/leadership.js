@@ -11,12 +11,12 @@ export default function Security() {
   const {siteConfig = {}} = context;
   return (
     <Layout title="Leadership" permalink="/Leadership" description="<head />">
-      <div className="w-auto mx-auto my-15">
+      <div className="my-15 mx-auto w-auto">
         <ul className="text-center">
           <li className="my-7">
-            <span className="font-semibold text-xl">Neha Gupta</span>
+            <span className="text-xl font-semibold">Neha Gupta</span>
             <img
-              className="w-40 mx-auto my-3"
+              className="mx-auto my-3 w-40"
               alt="Neha Gupta"
               src="https://avatars.githubusercontent.com/u/15074229?v=4"
             />
@@ -25,9 +25,9 @@ export default function Security() {
             </a>
           </li>
           <li className="my-7">
-            <span className="font-semibold text-xl">Shubham Jain</span>
+            <span className="text-xl font-semibold">Shubham Jain</span>
             <img
-              className="w-40 mx-auto my-3"
+              className="mx-auto my-3 w-40"
               alt="Shubham Jain"
               src="https://avatars.githubusercontent.com/u/12831254?v=4"
             />
