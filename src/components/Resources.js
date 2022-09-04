@@ -23,7 +23,7 @@ const links = [
   },
   {
     type: "article",
-    title: "Why Keoloy?",
+    title: "Why Keploy?",
     length: "1 min read",
     url: "docs/keploy-explained/why-keploy",
   },
