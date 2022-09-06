@@ -235,7 +235,31 @@ Its compatible with gORM. Here is an example -
 	x := pSQL_DB.Find(&people)
     }))
 ```
+### 4. Elasticsearch
+The elastic-search client uses http client to do CRUD operations. There is a Transport field in *elasticsearch.config* which allows you to completely replace the default HTTP client used by the package.So, we use *khttp* as an interceptor and assign it to the Transport field.
+Here is an example -
+```go
+import (
+	"net/http"
+	"github.com/elastic/go-elasticsearch/v8"
+	"github.com/keploy/go-sdk/integrations/khttpclient"
+)
 
+func ConnectWithElasticsearch(ctx context.Context) context.Context {
+	interceptor := khttpclient.NewInterceptor(http.DefaultTransport)
+	newClient, err := elasticsearch.NewClient(elasticsearch.Config{
+		Addresses: []string{
+			"http://localhost:9200",
+		},
+		Transport: interceptor,
+	})
+	if err != nil {
+		panic(err)
+	}
+	return context.WithValue(ctx, domain.ClientKey, newClient)
+}
+```
+**Note**: The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
 ## Supported Clients
 
 ### net/http
