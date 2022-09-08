@@ -28,7 +28,7 @@ Once you have testcases captured, create a test file `SampleJavaApplication_Test
             public void TestKeploy() throws InterruptedException {
 
                CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
-
+               mode.setTestMode();
                new Thread(() -> {
                    SamplesJavaApplication.main(new String[]{""});
                    countDownLatch.countDown();
