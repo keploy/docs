@@ -10,6 +10,8 @@ tags:
 ## Requirements
 
 - Java 1.8+
+- Maven
+- Docker
 
 ## Build configuration
 
@@ -21,12 +23,12 @@ Add _keploy-sdk_ as a dependency to your _pom.xml_:
     <dependency>
       <groupId>io.keploy</groupId>
       <artifactId>keploy-sdk</artifactId>
-      <version>1.0.12</version>
+      <version>1.0.13</version>
     </dependency>
 
 or to _build.gradle_:
 
-    compile 'io.keploy:keploy-sdk:1.0.12'
+    compile 'io.keploy:keploy-sdk:1.0.13'
 
 ## Usage
 
@@ -38,6 +40,7 @@ or to _build.gradle_:
   - `APP_PORT` (default APP_PORT = 8080)
   - `KEPLOY_URL` (default KEPLOY_URL = http://localhost:8081/api)
   - `KEPLOY_MODE` (default KEPLOY_MODE = record/test)
+  - `KTESTS_PATH` (default test directory of your application)
   - `DENOISE` (default DENOISE = false)
     **Note:** By enabling denoise, it will filter out noisy fields for that testcases.
 
@@ -64,7 +67,7 @@ or to _build.gradle_:
               public void TestKeploy() throws InterruptedException {
 
                   CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
-
+                  mode.setTestMode();
                   new Thread(() -> {
                       SamplesJavaApplication.main(new String[]{""});
                       countDownLatch.countDown();
