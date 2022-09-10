@@ -2,14 +2,14 @@
 id: general-glossary
 title: Glossary
 sidebar_label: Glossary
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: This glossary contains the explanation to all the terminologies that beginner's find difficult to understand at first glance.
 tags:
   - explanation
 ---
 
 ### 1. **API data mocking**
 
-API mocking is a simulation of real APIs and is performed when the production API is not ready. You may come across a situation where you cannot send an API request to the server because it is not prepared. In such cases, you can mock a chunk of data from the response and eventually, when you make requests the mocked data will be returned.
+API mocking is simulation of real APIs. API mocking are done when production API is not ready. A situation where you cannot send API request to the server because it is not established. In such cases, you can mock a chunck of data from the response and now when you make requests, the mocked data will be returned.
 
 
 ### 2. **Idempotency**
