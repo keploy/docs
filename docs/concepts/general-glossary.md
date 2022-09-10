@@ -1,0 +1,29 @@
+---
+id: general-glossary
+title: Glossary
+sidebar_label: Glossary
+description: This glossary contains the explanation to all the terminologies that beginner's find difficult to understand at first glance.
+tags:
+  - explanation
+---
+
+### 1. **API data mocking**
+
+API mocking is simulation of real APIs. API mocking are done when production API is not ready. A situation where you cannot send API request to the server because it is not established. In such cases, you can mock a chunck of data from the response and now when you make requests, the mocked data will be returned.
+
+
+### 2. **Idempotency**
+
+An API is idempotent when the outcome of a successful request remains unchanged on making the same request frequently.
+
+
+### 3. **Noisy field**
+
+Noisy field refers to the random data whose value changes each time you make a request. 
+
+For example, a Timestamp is one such property that returns the time when the request is made. Its value is not fed manually but is automatically recorded therefore, at every call it differs. 
+
+
+### 4. **Interoperability**
+
+Interoperability refers to the situation when the behavior of the data is in its original (native) format when transferred from one platform to other. It reduces the dependency of files by replacing them with optimized code giving the same result. 

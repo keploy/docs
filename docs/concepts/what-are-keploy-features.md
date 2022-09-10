@@ -15,7 +15,7 @@ Keploy captures all the API calls and subsequent network traffic served by the a
 
 ### 2. Automatically mock Mutations
 
-Keploy automatically mocks network/external dependencies for **all CRUD operations** with correct responses.
+Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all CRUD operations** with correct responses.
 
 Now you'll not require data dumps or mocks for dependencies like DBs, internal services, or third party services like twilio, shopify or stripe.
 
@@ -25,11 +25,11 @@ Please check list of currently supported dependencies in [Go](/docs/go/supported
 
 With Keploy you can safely replay writes or mutations by capturing from local or other environments.
 
-**Idempotency** guarantees are also **not required** in the application. Multiple Reads after write operations can be replicated automatically too.
+[Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application. Multiple Reads after write operations can be replicated automatically too.
 
 ### 3. Accurate Noise Detection
 
-Keploy identifies noisy fields in the responses accurately like (timestamps, random values) to ensure high quality tests.
+Keploy identifies [noisy fields](/concepts/general-glossary.md#3-noisy-field) in the responses accurately like (timestamps, random values) to ensure high quality tests.
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
@@ -40,7 +40,7 @@ If any of the fields of the API responses are different they are marked as rando
 
 ### 4. Native interoperability
 
-Keploy has native integrations with popular testing libraries like `go-test`.
+Keploy has [native integrations](/concepts/general-glossary.md#4-interoperability) with popular testing libraries like `go-test`.
 Code coverage will be reported with existing and Keploy recorded test cases and can also be integrated in
 existing CI pipelines easily.
 
