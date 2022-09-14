@@ -260,6 +260,30 @@ func ConnectWithElasticsearch(ctx context.Context) context.Context {
 }
 ```
 **Note**: The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
+
+### 5. Redis
+```go
+import("github.com/keploy/go-sdk/integrations/kredis")
+
+type redisCache struct {
+	host    string
+	db      int
+	expires time.Duration
+}
+
+func (cache *redisCache) getClient() *kredis.RedisClient {
+	client := redis.NewClient(&redis.Options{
+		Addr:     cache.host,
+		Password: "",
+		DB:       cache.db,
+	})
+	return kredis.NewRedisClient(client)
+}
+```
+Following operations are supported:
+- Get
+- Set
+- Del
 ## Supported Clients
 
 ### net/http
