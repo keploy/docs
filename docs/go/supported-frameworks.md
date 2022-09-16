@@ -263,7 +263,12 @@ func ConnectWithElasticsearch(ctx context.Context) context.Context {
 
 ### 5. Redis
 ```go
-import("github.com/keploy/go-sdk/integrations/kredis")
+import(
+    "context"
+	"time"
+	"github.com/go-redis/redis/v8"
+    "github.com/keploy/go-sdk/integrations/kredis"
+)
 
 type redisCache struct {
 	host    string
