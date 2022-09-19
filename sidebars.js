@@ -102,8 +102,7 @@ module.exports = {
       items: ["devtools/introduction"],
     },
   ],
-  
-  sidebarGo: [
+  sidebarJava: [
     {
       type: "category",
       label: "QuickStart",
