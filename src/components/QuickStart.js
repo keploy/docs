@@ -35,7 +35,7 @@ export const QuickStart = () => {
           to={useBaseUrl("/docs/java/run-your-first-app-tutorial")}
         >
           <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
-          <p className="text-lg">Java</p>
+          <p className="text-lg">Java (WIP)</p>
         </Link>
       </div>
     </section >
