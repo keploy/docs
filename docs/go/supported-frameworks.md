@@ -276,7 +276,7 @@ type redisCache struct {
 	expires time.Duration
 }
 
-func (cache *redisCache) getClient() *kredis.RedisClient {
+func (cache *redisCache) getClient() redis.UniversalClient {
 	client := redis.NewClient(&redis.Options{
 		Addr:     cache.host,
 		Password: "",
