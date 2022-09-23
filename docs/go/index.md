@@ -68,4 +68,6 @@ port := "8080"
  })
 ```
 
-Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](http://localhost:3000/docs/go/supported-frameworks).
+<!-- Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](http://localhost:3000/docs/go/supported-frameworks). -->
+
+Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](https://docs.keploy.io/docs/go/supported-frameworks).
