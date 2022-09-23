@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {SDKs as SDKsOption} from "../components/SDKs";
+import { SDKs as SDKsOption } from "../components/SDKs";
 
 export const QuickStart = () => {
   return (
@@ -10,9 +10,9 @@ export const QuickStart = () => {
         Keploy Documentation
       </h1>
       <p className="max-w-4xl text-xl">
-        Keploy is 100% Open Source API Testing Platform that eliminates need for
-        writing test-cases and data mocks, making releases faster and
-        highly-reliable.
+        Keploy is 100% Open Source API Testing Platform that
+        eliminates need for writing test-cases and data mocks, making releases faster
+        and highly-reliable.
       </p>
       <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
       <p className="mt-8 mb-8">
@@ -35,9 +35,9 @@ export const QuickStart = () => {
           to={useBaseUrl("/docs/java/run-your-first-app-tutorial")}
         >
           <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
-          <p className="text-lg">Java</p>
+          <p className="text-lg">Java (WIP)</p>
         </Link>
       </div>
-    </section>
+    </section >
   );
 };

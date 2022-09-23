@@ -15,7 +15,10 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 ### Pre-requisites
 
-- [Java](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- [Java 1.8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- [Maven](https://maven.apache.org/)
+- [Docker](https://www.docker.com/) 
+
 
 ## Installation
 
@@ -115,7 +118,7 @@ If not present, you can add `SampleJavaApplication_Test.java` in the test module
         public void TestKeploy() throws InterruptedException {
 
             CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
-
+            mode.setTestMode();
             new Thread(() -> {
                 SamplesJavaApplication.main(new String[]{""});
                 countDownLatch.countDown();
