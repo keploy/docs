@@ -19,7 +19,7 @@ module.exports = {
       collapsible: false,
       collapsed: false,
       items: [
-        "server/introduction", 
+        "server/introduction",
         "server/sdk-installation",
       ],
     },
@@ -53,6 +53,19 @@ module.exports = {
         "operation/record-operations",
         "operation/test-operations",
       ],
+    },
+    {
+      type: "category",
+      label: "Simplification",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/general-glossary",
+      // },
+      items: [
+        "concepts/general-glossary"
+      ]
     },
   ],
 
@@ -76,7 +89,7 @@ module.exports = {
       collapsible: false,
       collapsed: false,
       items: [
-        "server/introduction", 
+        "server/introduction",
         "server/sdk-installation",
       ],
     },
@@ -110,6 +123,19 @@ module.exports = {
         "operation/record-operations",
         "operation/test-operations",
       ],
+    },
+    {
+      type: "category",
+      label: "Simplification",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/general-glossary",
+      // },
+      items: [
+        "concepts/general-glossary"
+      ]
     },
   ],
 
@@ -133,7 +159,7 @@ module.exports = {
       collapsible: false,
       collapsed: false,
       items: [
-        "server/introduction", 
+        "server/introduction",
         "server/sdk-installation",
       ],
     },
@@ -168,8 +194,21 @@ module.exports = {
         "operation/test-operations",
       ],
     },
+    {
+      type: "category",
+      label: "Simplification",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/general-glossary",
+      // },
+      items: [
+        "concepts/general-glossary"
+      ]
+    },
   ],
-  
+
   // Keploy Go Sidebar
   sidebarGo: [
     {
@@ -179,7 +218,7 @@ module.exports = {
       collapsed: false,
       link: {
         type: "doc",
-        id:   "go/quickstart/quickstart",
+        id: "go/quickstart/quickstart",
       },
       items: [
         "go/quickstart/run-your-first-app-tutorial",
@@ -265,7 +304,7 @@ module.exports = {
       collapsed: false,
       link: {
         type: "doc",
-        id:   "go/quickstart/quickstart",
+        id: "go/quickstart/quickstart",
       },
       items: [
         "go/quickstart/run-your-first-app-tutorial",
@@ -352,7 +391,7 @@ module.exports = {
       collapsible: false,
       collapsed: false,
       items: [
-        "server/introduction", 
+        "server/introduction",
         "server/sdk-installation",
       ],
     },
@@ -386,6 +425,19 @@ module.exports = {
         "operation/record-operations",
         "operation/test-operations",
       ],
+    },
+    {
+      type: "category",
+      label: "Simplification",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/general-glossary",
+      // },
+      items: [
+        "concepts/general-glossary"
+      ]
     },
   ],
 
