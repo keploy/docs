@@ -17,7 +17,7 @@ Keploy Console consists of 2 pages majorly :
 
 The Test Cases page lists all the Application names and their respective Test-Cases captured.
 
-![test case page](../../static/img/test-case-page.png)
+![test case page](../../static/img/test-case-page1.png)
 
 You can see the details of the Test Cases captures. Currently following details can be seen from the Web console :
 
@@ -48,7 +48,7 @@ On the Test runs pages you will see the recent Test Runs with details like :
 3. Number of Test Cases Failed
 4. Meta details like : App name, time, user.
 
-![test run page](../../static/img/test-run-page.png)
+![test run page](../../static/img/test-run-page1.png)
 
 ### Normalise a Test Case
 

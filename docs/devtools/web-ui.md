@@ -1,6 +1,6 @@
 ---
 id: ui-contrib-guide
-title: Keploy UI Contribution Guide
+title: Contribute to Keploy UI
 label: UI Contribution Guide
 ---
 

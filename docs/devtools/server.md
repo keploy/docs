@@ -1,6 +1,6 @@
 ---
 id: server-contrib-guide
-title: Keploy Server Contribution Guide
+title: Contribute to Keploy Server
 label: Server Contribution Guide
 ---
 

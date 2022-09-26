@@ -1,7 +1,7 @@
 ---
 id: introduction
 title: Installation
-sidebar_label: Server
+sidebar_label: Keploy Server
 ---
 
 ## Overview

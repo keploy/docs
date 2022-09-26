@@ -13,7 +13,7 @@ export const SDKs = () => {
       <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/go")}
+          to={useBaseUrl("/docs/go/quickstart/run-your-first-app-tutorial")}
         >
           <img
             className="h-16 w-16"
@@ -34,7 +34,7 @@ export const SDKs = () => {
         </Link>
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/java/installation")}
+          to={useBaseUrl("/docs/java/run-your-first-app-tutorial")}
         >
           <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
           <p className="text-lg">Java</p>

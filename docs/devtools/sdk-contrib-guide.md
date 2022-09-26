@@ -1,6 +1,6 @@
 ---
 id: sdk-contrib-guide
-title: Keploy SDK Contribution Guide
+title: Contribute to Keploy SDK
 label: SDK Contribution Guide
 ---
 

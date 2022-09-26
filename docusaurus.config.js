@@ -64,68 +64,95 @@ module.exports = {
       },
       items: [
         {
-          activeBasePath: "/docs",
+          to: "/docs/server/introduction",
+          activeBasePath: "none",
           label: "Docs",
-          items: [
-            {
-              to: "/docs/keploy-explained/introduction",
-              activeBasePath: "/docs/keploy-explained/",
-              label: "Explanation",
-            },
-            {
-              to: "/docs/server/introduction",
-              activeBasePath: "/docs/server/",
-              label: "Installation",
-            },
-            {
-              to: "/docs/concepts",
-              activeBasePath: "/docs/concepts/",
-              label: "Concepts",
-            },
-            {
-              to: "/application-development",
-              activeBaseRegex:
-                "(/application-development)|(/docs/(go|java|php|node))",
-              label: "SDKs",
-            },
-          ],
+        },
+        // {
+        //   to: "/docs/operation/web-ui-operations/",
+        //   activeBasePath: "(/docs/operation)",
+        //   label: "Operations",
+        // },
+        // {
+        //   to: "/docs/go/quickstart/run-your-first-app-tutorial/",
+        //   activeBaseRegex:
+        //     "(/application-development)|(/docs/(go|java|php|node))",
+        //   label: "test SDKs",
+        // },
+        {
+          to: "/application-development",
+          activeBaseRegex:
+            "(/application-development)|(/docs/(go|java|php|node))",
+          label: "SDKs",
         },
         {
-          activeBasePath: "none",
-          label: "Operations",
-          items: [
-            {
-              to: "/docs/operation/web-ui-operations/",
-              label: "Web UI",
-            },
-            {
-              to: "/docs/operation/record-operations/",
-              label: "Record",
-            },
-            {
-              to: "/docs/operation/test-operations/",
-              label: "Test",
-            },
-          ],
-        },
-        {
-          activeBasePath: "none",
+          to: "/docs/devtools/sdk-contrib-guide/",
+          activeBasePath: "(/docs/devtools)",
           label: "Contribution",
-          items: [
-            {
-              to: "/docs/devtools/sdk-contrib-guide/",
-              label: "SDK ",
-            },
-            {
-              to: "/docs/devtools/server-contrib-guide/",
-              label: "Server",
-            },
-            {
-              to: "/docs/devtools/ui-contrib-guide/",
-              label: "UI",
-            },
-          ],
         },
+        // {
+        //   activeBasePath: "/docs",
+        //   label: "Docs",
+        //   items: [
+        //     {
+        //       to: "/docs/keploy-explained/introduction",
+        //       activeBasePath: "/docs/keploy-explained/",
+        //       label: "Explanation",
+        //     },
+        //     {
+        //       to: "/docs/server/introduction",
+        //       activeBasePath: "/docs/server/",
+        //       label: "Installation",
+        //     },
+        //     {
+        //       to: "/docs/concepts",
+        //       activeBasePath: "/docs/concepts/",
+        //       label: "Concepts",
+        //     },
+        //     {
+        //       to: "/application-development",
+        //       activeBaseRegex:
+        //         "(/application-development)|(/docs/(go|java|php|node))",
+        //       label: "SDKs",
+        //     },
+        //   ],
+        // },
+        // {
+        //   activeBasePath: "none",
+        //   label: "Operations",
+        //   items: [
+        //     {
+        //       to: "/docs/operation/web-ui-operations/",
+        //       label: "Web UI",
+        //     },
+        //     {
+        //       to: "/docs/operation/record-operations/",
+        //       label: "Record",
+        //     },
+        //     {
+        //       to: "/docs/operation/test-operations/",
+        //       label: "Test",
+        //     },
+        //   ],
+        // },
+        // {
+        //   activeBasePath: "none",
+        //   label: "Contribution",
+        //   items: [
+        //     {
+        //       to: "/docs/devtools/sdk-contrib-guide/",
+        //       label: "SDK ",
+        //     },
+        //     {
+        //       to: "/docs/devtools/server-contrib-guide/",
+        //       label: "Server",
+        //     },
+        //     {
+        //       to: "/docs/devtools/ui-contrib-guide/",
+        //       label: "UI",
+        //     },
+        //   ],
+        // },
         {
           href: "https://github.com/keploy/keploy",
           position: "right",

@@ -1,7 +1,7 @@
 ---
 id: sdk-installation
 title: Installation of Keploy SDK
-sidebar_label: SDK
+sidebar_label: Keploy SDK
 ---
 
 import WhatIsAKeploySDK from '../concepts/what-is-a-keploy-sdk.md'
