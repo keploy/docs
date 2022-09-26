@@ -209,6 +209,76 @@ module.exports = {
     },
   ],
 
+  // Keploy Concepts Sidebar
+  sidebarConcepts: [
+    {
+      type: "category",
+      label: "Explanation",
+      collapsible: false,
+      collapsed: false,
+      items: [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy",
+        "keploy-explained/faq",
+      ],
+    },
+    {
+      type: "category",
+      label: "Installation",
+      collapsible: false,
+      collapsed: false,
+      items: [
+        "server/introduction",
+        "server/sdk-installation",
+      ],
+    },
+    {
+      type: "category",
+      label: "Concepts",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/index",
+      // },
+      items: [
+        "concepts/what-is-keploy",
+        "concepts/what-are-keploy-features",
+        "concepts/what-is-keploy-sdk",
+        "concepts/what-are-keploy-sdk-modes",
+      ],
+    },
+    {
+      type: "category",
+      label: "Operations",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "operation/index",
+      // },
+      items: [
+        "operation/web-ui-operations",
+        "operation/record-operations",
+        "operation/test-operations",
+      ],
+    },
+    {
+      type: "category",
+      label: "Simplification",
+      collapsible: false,
+      collapsed: false,
+      // link: {
+      //   type: "doc",
+      //   id: "concepts/general-glossary",
+      // },
+      items: [
+        "concepts/general-glossary"
+      ]
+    },
+  ],
+
   // Keploy Go Sidebar
   sidebarGo: [
     {
