@@ -512,3 +512,7 @@ div[class^='announcementBar_'] {
   );
   font-weight: bold;
 }
+
+.list-disc > a {
+	display: inherit
+}
