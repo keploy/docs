@@ -52,6 +52,7 @@ module.exports = {
         "operation/web-ui-operations",
         "operation/record-operations",
         "operation/test-operations",
+        "operation/browser-extension-operations",
       ],
     },
     {
@@ -122,6 +123,7 @@ module.exports = {
         "operation/web-ui-operations",
         "operation/record-operations",
         "operation/test-operations",
+        "operation/browser-extension-operations",
       ],
     },
     {
@@ -192,6 +194,7 @@ module.exports = {
         "operation/web-ui-operations",
         "operation/record-operations",
         "operation/test-operations",
+        "operation/browser-extension-operations",
       ],
     },
     {
@@ -262,6 +265,7 @@ module.exports = {
         "operation/web-ui-operations",
         "operation/record-operations",
         "operation/test-operations",
+        "operation/browser-extension-operations",
       ],
     },
     {
@@ -494,6 +498,7 @@ module.exports = {
         "operation/web-ui-operations",
         "operation/record-operations",
         "operation/test-operations",
+        "operation/browser-extension-operations",
       ],
     },
     {
