@@ -28,7 +28,7 @@ Repository for the Keploy docs website.
 
 Keploy is constantly working to improve and expand its documentation.
 Some components may change without notice.
-Page slugs (URLs), menu labels, and the location of information are a few of the items you can expect to see altered as we endeavor to give you the best experience possible.
+Page slugs (URLs), menu labels, and the location of information are a few of the items you can expect to see altered as we endeavour to give you the best experience possible.
 
 The documentation in this repository is published to https://docs.keploy.io.
 
