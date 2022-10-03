@@ -91,8 +91,8 @@ Now, let's see the magic! 🪄💫
 
 There are 2 ways to test the application with Keploy.
 
-1. [Unit Test File](/docs/go/run-your-first-app-tutorial#testing-using-unit-test-file)
-2. [KEPLOY_MODE environment variable](/docs/go/run-your-first-app-tutorial#testing-using-keploy_mode-env-variable)
+1. [Unit Test File](/docs/go/quickstart/run-your-first-app-tutorial#testing-using-unit-test-file)
+2. [KEPLOY_MODE environment variable](/docs/go/quickstart/run-your-first-app-tutorial#testing-using-keploy_mode-env-variable)
 
 ### Testing using Unit Test File
 
