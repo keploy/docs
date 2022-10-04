@@ -4,7 +4,7 @@ title: Installation of Keploy Server
 sidebar_label: Server Installation
 ---
 
-## 1. Installation Methods
+## Installation Methods
 
 There are two ways to quickly install and run the Keploy Server:
 
@@ -13,7 +13,7 @@ There are two ways to quickly install and run the Keploy Server:
 
 We do not recommend using any of these methods in a full (production) environment.
 
-### Helm Charts
+### 1. Helm Charts
 
 Keploy can also be installed to your Kubernetes cluster using the Helm chart. It automatically deploys a mongo instance using the [Bitnami Mongo Helm chart](https://github.com/bitnami/charts/tree/master/bitnami/mongodb)
 
@@ -37,7 +37,7 @@ Then the keploy service should be accessible on http://127.0.0.1:8080
 
 To access Keploy though ingress, please add information about ingress in the [values.yaml](https://github.com/keploy/keploy/blob/main/deployment/keploy/values.yaml) file.
 
-### Docker
+### 2. Docker
 
 #### Prerequisites
 
