@@ -237,7 +237,7 @@ Its compatible with gORM. Here is an example -
 ```
 ### 4. Elasticsearch
 The elastic-search client uses http client to do CRUD operations. There is a Transport field in *elasticsearch.config* which allows you to completely replace the default HTTP client used by the package.So, we use *khttp* as an interceptor and assign it to the Transport field.
-Here is an example -
+Here is an example of making elastic search client with keploy's http interceptor -
 ```go
 import (
 	"net/http"
@@ -245,19 +245,22 @@ import (
 	"github.com/keploy/go-sdk/integrations/khttpclient"
 )
 
-func ConnectWithElasticsearch(ctx context.Context) context.Context {
+func ConnectWithElasticsearch(ctx context.Context) *elasticsearch.Client {
+	// integrate http with keploy
 	interceptor := khttpclient.NewInterceptor(http.DefaultTransport)
 	newClient, err := elasticsearch.NewClient(elasticsearch.Config{
 		Addresses: []string{
 			"http://localhost:9200",
 		},
+		// use khttp as custom http client
 		Transport: interceptor,
 	})
 	if err != nil {
 		panic(err)
 	}
-	return context.WithValue(ctx, domain.ClientKey, newClient)
+	return newClient
 }
+
 ```
 **Note**: The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
 
