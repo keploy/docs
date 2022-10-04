@@ -20,7 +20,7 @@ describe("test function", ()=>{
             done()
           })
     test("should be running", async ()=> {
-      await keploy.assertTests();
+      return keploy.assertTests();
     });
     after(()=>{
          process.exit(1); //exits the node server
