@@ -342,15 +342,27 @@ module.exports = {
     },
     {
       type: "category",
+      label: "Typescript SDK",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id: "typescript/installation",
+      },
+      items: [
+        "typescript/installation",
+        "typescript/generate-tests",
+        "typescript/supported-frameworks",
+        "typescript/mock-library",
+        "typescript/testing",
+      ],
+    },
+    {
+      type: "category",
       label: "More SDKs",
       collapsible: false,
       collapsed: false,
       items: [
-        {
-          type: "link",
-          label: "TypeScript SDK (WIP)",
-          href: "https://github.com/keploy/keploy/issues/61",
-        },
         {
           type: "link",
           label: "Python SDK (WIP)",
@@ -429,15 +441,27 @@ module.exports = {
     },
     {
       type: "category",
+      label: "Typescript SDK",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id: "typescript/installation",
+      },
+      items: [
+        "typescript/installation",
+        "typescript/generate-tests",
+        "typescript/supported-frameworks",
+        "typescript/mock-library",
+        "typescript/testing",
+      ],
+    },
+    {
+      type: "category",
       label: "More SDKs",
       collapsible: false,
       collapsed: false,
       items: [
-        {
-          type: "link",
-          label: "TypeScript SDK (WIP)",
-          href: "https://github.com/keploy/keploy/issues/61",
-        },
         {
           type: "link",
           label: "Python SDK (WIP)",
