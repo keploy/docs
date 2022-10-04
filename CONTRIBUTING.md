@@ -1,6 +1,6 @@
 # How to contribute
 
-We encourage contributions from the community.
+We encourage contributions from the communitya.
 
 **Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
 
