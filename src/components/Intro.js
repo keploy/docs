@@ -224,7 +224,7 @@ function Tools() {
           className="flex space-x-2 font-semibold hover:underline"
         >
           <svg
-            className="h-6 w-7 pl-1 transition hover:scale-110"
+            className="h-6 w-7 pl-[4.5px] transition hover:scale-110"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
