@@ -88,10 +88,6 @@ html[data-theme="light"] {
 .edit a svg {
   @apply inline;
 }
-svg.last-child.h-6.w-6.transition.hover\:scale-110 {
-  @apply pl-1;
-  @apply w-7;
-}
 
 h1,
 h2,

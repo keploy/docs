@@ -224,7 +224,7 @@ function Tools() {
           className="flex space-x-2 font-semibold hover:underline"
         >
           <svg
-            className="last-child h-6 w-6 transition hover:scale-110"
+            className="h-6 w-7 pl-1 transition hover:scale-110"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +242,7 @@ function Tools() {
               fill="currentColor"
             />
           </svg>
-          <div>SDKs</div>
+          <div className="mt-[-4px]">SDKs</div>
         </Link>
       </div>
     </div>
