@@ -199,7 +199,7 @@ function Tools() {
               clipRule="evenodd"
             />
           </svg>
-          <div className="">Web UI</div>
+          <div>Web UI</div>
         </Link>
         <Link
           to={useBaseUrl("/docs/devtools/server-contrib-guide")}
@@ -221,10 +221,10 @@ function Tools() {
         </Link>
         <Link
           to={useBaseUrl("/docs/devtools/sdk-contrib-guide")}
-          className="flex space-x-3 font-semibold hover:underline"
+          className="ml-[-3px] flex font-semibold hover:underline"
         >
           <svg
-            className="h-6 w-6 transition hover:scale-110"
+            className="h-6 w-10 transition hover:scale-110"
             fill="currentColor"
             viewBox="0 0 20 20"
             xmlns="http://www.w3.org/2000/svg"
@@ -242,7 +242,7 @@ function Tools() {
               fill="currentColor"
             />
           </svg>
-          <div>SDKs</div>
+          <div className="mt-[-3px] ml-[-0.3px]">SDKs</div>
         </Link>
       </div>
     </div>
