@@ -17,8 +17,7 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 - [Java 1.8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
 - [Maven](https://maven.apache.org/)
-- [Docker](https://www.docker.com/) 
-
+- [Docker](https://www.docker.com/)
 
 ## Installation
 
@@ -109,88 +108,88 @@ There are 2 ways to test the application with Keploy.
 
 ### Testing using Unit Test File
 
-Now that we have our testcase captured, run the unit test file (``SampleJavaApplication_Test.java`) already present in the sample app repo.
+1. Now that we have our testcase captured, run the unit test file (`SampleJavaApplication_Test.java`) already present in the sample app repo.
 
-If not present, you can add `SampleJavaApplication_Test.java` in the test module of your sample application.
+   If not present, you can add `SampleJavaApplication_Test.java` in the test module of your sample application.
 
-```java
-        @Test
-        public void TestKeploy() throws InterruptedException {
+   ```java
+           @Test
+           public void TestKeploy() throws InterruptedException {
 
-            CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
-            mode.setTestMode();
-            new Thread(() -> {
-                SamplesJavaApplication.main(new String[]{""});
-                countDownLatch.countDown();
-            }).start();
+               CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
+               mode.setTestMode();
+               new Thread(() -> {
+                   SamplesJavaApplication.main(new String[]{""});
+                   countDownLatch.countDown();
+               }).start();
 
-            countDownLatch.await();
-        }
+               countDownLatch.await();
+           }
+   ```
 
-```
+   To automatically download and run the captured test-cases. Let's run the test-file.
 
-To automatically download and run the captured test-cases. Let's run the test-file.
+2. To get test coverage, in addition to above follow below instructions.
 
-2.  To get test coverage, in addition to above follow below instructions.
+3. Add maven-surefire-plugin to your _pom.xml_.
 
-3. Add maven-surefire-plugin to your *pom.xml*.
+   ```xml
+       <plugin>
+           <groupId>org.apache.maven.plugins</groupId>
+           <artifactId>maven-surefire-plugin</artifactId>
+           <version>2.22.2</version>
+           <configuration>
 
-    ```xml
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-            <configuration>
+       <!-- <skipTests>true</skipTests> -->
 
-        <!-- <skipTests>true</skipTests> -->
+               <systemPropertyVariables>
+                   <jacoco-agent.destfile>target/jacoco.exec
+                   </jacoco-agent.destfile>
+               </systemPropertyVariables>
+           </configuration>
+       </plugin>
+   ```
 
-                <systemPropertyVariables>
-                    <jacoco-agent.destfile>target/jacoco.exec
-                    </jacoco-agent.destfile>
-                </systemPropertyVariables>
-            </configuration>
-        </plugin>
-    ```
- - 4. Add Jacoco plugin to your *pom.xml*.
-                
-    ```xml
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.5</version>
-            <executions>
-                <execution>
-                    <id>prepare-agent</id>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>report</id>
-                    <phase>prepare-package</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                </execution>
-                <execution>
-                    <id>post-unit-test</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <configuration>
-                        <!-- Sets the path to the file which contains the execution data. -->
+4. Add Jacoco plugin to your _pom.xml_.
 
-                        <dataFile>target/jacoco.exec</dataFile>
-                        <!-- Sets the output directory for the code coverage report. -->
-                        <outputDirectory>target/my-reports</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-    ```
+   ```xml
+       <plugin>
+           <groupId>org.jacoco</groupId>
+           <artifactId>jacoco-maven-plugin</artifactId>
+           <version>0.8.5</version>
+           <executions>
+               <execution>
+                   <id>prepare-agent</id>
+                   <goals>
+                       <goal>prepare-agent</goal>
+                   </goals>
+               </execution>
+               <execution>
+                   <id>report</id>
+                   <phase>prepare-package</phase>
+                   <goals>
+                       <goal>report</goal>
+                   </goals>
+               </execution>
+               <execution>
+                   <id>post-unit-test</id>
+                   <phase>test</phase>
+                   <goals>
+                       <goal>report</goal>
+                   </goals>
+                   <configuration>
+                       <!-- Sets the path to the file which contains the execution data. -->
 
- 5. Run your tests using command : `mvn test`.
+                       <dataFile>target/jacoco.exec</dataFile>
+                       <!-- Sets the output directory for the code coverage report. -->
+                       <outputDirectory>target/my-reports</outputDirectory>
+                   </configuration>
+               </execution>
+           </executions>
+       </plugin>
+   ```
+
+5. Run your tests using command : `mvn test`.
 
 It will create .html files as test-reports which can be found in your target folder !!
 
