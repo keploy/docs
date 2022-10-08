@@ -14,88 +14,88 @@ Once you have testcases captured, create a test file `SampleJavaApplication_Test
 
   - Set `KEPLOY_MODE = test` (default "record")
 
-    - Using IDE
+  - Using IDE
 
-      1. Run your application.
-      2. You can also run the application with coverage to see the test coverage.
+    1. Run your application.
+    2. You can also run the application with coverage to see the test coverage.
 
-    - Using command line
+  - Using command line
 
-      1. Add below code in your testfile and run `mvn test`.
+    1. Add below code in your testfile and run `mvn test`.
 
-         ```java
-            @Test
-            public void TestKeploy() throws InterruptedException {
+       ```java
+          @Test
+          public void TestKeploy() throws InterruptedException {
 
-               CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
-               mode.setTestMode();
-               new Thread(() -> {
-                   SamplesJavaApplication.main(new String[]{""});
-                   countDownLatch.countDown();
-               }).start();
+             CountDownLatch countDownLatch = HaltThread.getInstance().getCountDownLatch();
+             mode.setTestMode();
+             new Thread(() -> {
+                 SamplesJavaApplication.main(new String[]{""});
+                 countDownLatch.countDown();
+             }).start();
 
-               countDownLatch.await();
-            }
-         ```
+             countDownLatch.await();
+          }
+       ```
 
-      2. To get test coverage, in addition to above follow below instructions.
+    2. To get test coverage, in addition to above follow below instructions.
 
-      3. Add maven-surefire-plugin to your _pom.xml_.
+    3. Add maven-surefire-plugin to your _pom.xml_.
 
-         ```xml
-              <plugin>
-                  <groupId>org.apache.maven.plugins</groupId>
-                  <artifactId>maven-surefire-plugin</artifactId>
-                  <version>2.22.2</version>
-                  <configuration>
+       ```xml
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
 
-              <!-- <skipTests>true</skipTests> -->
+            <!-- <skipTests>true</skipTests> -->
 
-                      <systemPropertyVariables>
-                          <jacoco-agent.destfile>target/jacoco.exec
-                          </jacoco-agent.destfile>
-                      </systemPropertyVariables>
-                  </configuration>
-              </plugin>
-         ```
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>target/jacoco.exec
+                        </jacoco-agent.destfile>
+                    </systemPropertyVariables>
+                </configuration>
+            </plugin>
+       ```
 
-      - 4. Add Jacoco plugin to your _pom.xml_.
+    4. Add Jacoco plugin to your _pom.xml_.
 
-           ```xml
-                <plugin>
-                   <groupId>org.jacoco</groupId>
-                   <artifactId>jacoco-maven-plugin</artifactId>
-                   <version>0.8.5</version>
-                   <executions>
-                       <execution>
-                           <id>prepare-agent</id>
-                           <goals>
-                               <goal>prepare-agent</goal>
-                           </goals>
-                       </execution>
-                       <execution>
-                           <id>report</id>
-                           <phase>prepare-package</phase>
-                           <goals>
-                               <goal>report</goal>
-                           </goals>
-                       </execution>
-                       <execution>
-                           <id>post-unit-test</id>
-                           <phase>test</phase>
-                           <goals>
-                               <goal>report</goal>
-                           </goals>
-                           <configuration>
-                               <!-- Sets the path to the file which contains the execution data. -->
+       ```xml
+            <plugin>
+               <groupId>org.jacoco</groupId>
+               <artifactId>jacoco-maven-plugin</artifactId>
+               <version>0.8.5</version>
+               <executions>
+                   <execution>
+                       <id>prepare-agent</id>
+                       <goals>
+                           <goal>prepare-agent</goal>
+                       </goals>
+                   </execution>
+                   <execution>
+                       <id>report</id>
+                       <phase>prepare-package</phase>
+                       <goals>
+                           <goal>report</goal>
+                       </goals>
+                   </execution>
+                   <execution>
+                       <id>post-unit-test</id>
+                       <phase>test</phase>
+                       <goals>
+                           <goal>report</goal>
+                       </goals>
+                       <configuration>
+                           <!-- Sets the path to the file which contains the execution data. -->
 
-                               <dataFile>target/jacoco.exec</dataFile>
-                               <!-- Sets the output directory for the code coverage report. -->
-                               <outputDirectory>target/my-reports</outputDirectory>
-                           </configuration>
-                       </execution>
-                   </executions>
-               </plugin>
-           ```
+                           <dataFile>target/jacoco.exec</dataFile>
+                           <!-- Sets the output directory for the code coverage report. -->
+                           <outputDirectory>target/my-reports</outputDirectory>
+                       </configuration>
+                   </execution>
+               </executions>
+           </plugin>
+       ```
 
-        5. Run your tests using command : `mvn test`.
+    5. Run your tests using command : `mvn test`.
