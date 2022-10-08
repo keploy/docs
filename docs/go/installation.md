@@ -23,7 +23,7 @@ git clone git@github.com:keploy/go-sdk.git
 
 ### SDK Modes
 
-**_ [Learn more](../concepts/what-are-keploy-sdk-modes.md) _** about SDK modes
+[Learn more](../concepts/what-are-keploy-sdk-modes.md) about SDK modes
 
 ### Where is the Go SDK technical reference?
 
