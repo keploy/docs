@@ -21,9 +21,9 @@ Or clone the Go SDK repo to your preferred location:
 git clone git@github.com:keploy/go-sdk.git
 ```
 
-import KeploySDKModes from '../concepts/what-are-keploy-sdk-modes.md'
+### SDK Modes
 
-<KeploySDKModes/>
+[Learn more](../concepts/what-are-keploy-sdk-modes.md) about SDK modes
 
 ### Where is the Go SDK technical reference?
 
