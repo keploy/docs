@@ -13,17 +13,15 @@ tags:
 
 A sample url shortener app to test Keploy integration capabilities in Go.
 
-In this sample application we're using 2 dependencies - [Gin](https://gin-gonic.com), mongoDB.
+In this sample application we're using 2 dependencies - [Gin](https://gin-gonic.com), [mongoDB](https://www.mongodb.com/).
 
 ### Pre-requisites
 
 - [Go](https://golang.org/doc/install)
 
-import ServerInstallation from '../../server/server-installation.md'
+## Installation Methods
 
-<ServerInstallation/>
-
-Once you have the Keploy Server running, open the Keploy Console at [http://localhost:8081](http://localhost:8081)
+[Learn more](../../server/server-installation.md) about Installation Methods
 
 ### Setup URL shortener
 
