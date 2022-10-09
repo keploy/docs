@@ -172,6 +172,6 @@ Create a variable `MONGO-DB-URI` in that file and paste the URI like this:
 MONGO-DB-URI=mongodb+srv://littleironical:users-profile-testing-password@cluster0.gqdrru8.mongodb.net/?retryWrites=true&w=majority
 ```
 
-To check the database, on MongoDB Compass, use this URI if you've setup your own MongoDB instead of the provided once.
+"To check the database, on MongoDB Compass, use this URI if you've setup your own MongoDB instead of the provided one."
 
-### Perfect! You're now connected the MongoDB with the sample application 🥳
+"### Perfect! You've now connected the MongoDB with the sample application 🥳"
