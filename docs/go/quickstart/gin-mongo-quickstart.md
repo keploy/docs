@@ -19,9 +19,9 @@ In this sample application we're using 2 dependencies - [Gin](https://gin-gonic.
 
 - [Go](https://golang.org/doc/install)
 
-## Installation Methods
+## Installation
 
-[Learn more](../../server/server-installation.md) about Installation Methods
+Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
 ### Setup URL shortener
 
