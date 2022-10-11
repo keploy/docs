@@ -11,7 +11,7 @@ tags:
 
 # Example URL Shortener
 
-A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and PostgreSQL.
+A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/).
 
 ### Pre-requisites
 
