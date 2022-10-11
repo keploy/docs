@@ -174,4 +174,4 @@ MONGO-DB-URI=mongodb+srv://littleironical:users-profile-testing-password@cluster
 
 "To check the database, on MongoDB Compass, use this URI if you've setup your own MongoDB instead of the provided one."
 
-"### Perfect! You've now connected the MongoDB with the sample application 🥳"
+### Perfect! You've now connected the MongoDB with the sample application 🥳
