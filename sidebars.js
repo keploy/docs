@@ -297,6 +297,7 @@ module.exports = {
       items: [
         "go/quickstart/run-your-first-app-tutorial",
         "go/quickstart/gin-mongo-quickstart",
+        "go/quickstart/users-profile-sample-application"
       ],
     },
     {
@@ -395,6 +396,7 @@ module.exports = {
       items: [
         "go/quickstart/run-your-first-app-tutorial",
         "go/quickstart/gin-mongo-quickstart",
+        "go/quickstart/users-profile-sample-application"
       ],
     },
     {
