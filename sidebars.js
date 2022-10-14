@@ -570,4 +570,21 @@ module.exports = {
       items: ["devtools/introduction"],
     },
   ],
+  // Keploy Hacktoberfest Sidebar
+  sidebarDevTools: [
+    {
+      type: "category",
+      label: "Keploy Hacktoberfest Guide",
+      collapsible: false,
+      collapsed: false,
+      link: {
+        type: "doc",
+        id: "hacktoberfest/contribution-guide",
+      },
+      items: [
+        "hacktoberfest/code-contribution",
+        "hacktoberfest/no-code-contribution",
+      ],
+    },
+  ],
 };
