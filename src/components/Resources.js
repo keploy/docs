@@ -28,12 +28,6 @@ const links = [
     url: "docs/keploy-explained/why-keploy",
   },
   {
-    type: "article",
-    title: "Hacktoberfest with Keploy",
-    length: "5 min read",
-    url: "docs/hacktoberfest/contribution-guide",
-  },
-  {
     type: "video",
     title: "Demo Video of Keploy",
     length: "2 min watch",

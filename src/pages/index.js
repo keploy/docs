@@ -7,6 +7,7 @@ import {
   Intro,
   Resources,
   QuickStart,
+  Hacktoberfest,
 } from "../components";
 
 export default function Home() {
@@ -23,6 +24,7 @@ export default function Home() {
           <QuickStart />
           <Intro />
           <Resources />
+          <Hacktoberfest />
           <Community />
           <KeployCloud />
         </main>
