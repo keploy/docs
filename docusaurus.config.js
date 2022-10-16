@@ -66,7 +66,7 @@ module.exports = {
         {
           to: "/docs/server/introduction",
           activeBasePath: "none",
-          label: "Docs",
+          label: "Installation",
         },
         // {
         //   to: "/docs/operation/web-ui-operations/",

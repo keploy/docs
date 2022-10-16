@@ -9,9 +9,8 @@ export const QuickStart = () => {
         Keploy Documentation
       </h1>
       <p className="max-w-4xl text-xl">
-        Keploy is 100% Open Source API Testing Platform that eliminates need for
-        writing test-cases and data mocks, making releases faster and
-        highly-reliable.
+        Keploy is an open source e2e testing toolkit for Developers that creates
+          test-cases and data mocks from API calls, making releases faster and highly-reliable.
       </p>
       <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
       <p className="mt-8 mb-8">

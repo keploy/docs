@@ -13,3 +13,4 @@ tags:
 
 - [URL Shortener with Echo-SQL](/docs/go/quickstart/run-your-first-app-tutorial)
 - [URL Shortener with Gin-Mongo](/docs/go/quickstart/gin-mongo-quickstart)
+- [User Profile with Gin-Mongo](/docs/go/quickstart/users-profile-sample-application)
