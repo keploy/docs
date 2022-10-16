@@ -89,6 +89,10 @@ module.exports = {
           to: "/docs/devtools/sdk-contrib-guide/",
           activeBasePath: "(/docs/devtools)",
           label: "Contribution",
+        }, {
+          to: "/docs/hacktoberfest/contribution-guide/",
+          activeBasePath: "(/docs/hacktoberfest)",
+          label: "Hacktoberfest",
         },
         // {
         //   activeBasePath: "/docs",
