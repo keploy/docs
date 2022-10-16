@@ -37,12 +37,11 @@ Then the keploy service should be accessible on http://127.0.0.1:8080
 
 To access Keploy though ingress, please add information about ingress in the [values.yaml](https://github.com/keploy/keploy/blob/main/deployment/keploy/values.yaml) file.
 
-### 2. Docker
+### 2. Install Binary
 
 #### Prerequisites
 
 1. [Install Docker](https://docs.docker.com/engine/install)
-2. [Install docker-compose](https://docs.docker.com/compose/install)
 
 ### Start MongoDB
 Spin up MongoDB to store the test-runs results
