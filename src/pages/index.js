@@ -22,11 +22,11 @@ export default function Home() {
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
+          <Hacktoberfest />
           <Intro />
           <Resources />
-          <Hacktoberfest />
           <Community />
-          <KeployCloud />
+          {/*<KeployCloud />*/}
         </main>
       </Layout>
     </div>

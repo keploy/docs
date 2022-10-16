@@ -9,7 +9,6 @@
 Repository for the Keploy docs website.
 </p>
 </div>
-</p>
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
@@ -122,13 +121,3 @@ We'd love to collaborate with you to make Keploy great. To get started:
 
 - [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA) - Discussions with the community and the team.
 - [GitHub](https://github.com/keploy/keploy/issues) - For bug reports and feature requests.
-
-## 📌 Our valuable Contributors 👩‍💻👨‍💻 :
-
-<table>
-  <tr>
-    <a href="https://github.com/keploy/docs/graphs/contributors">
-      <img src="https://contrib.rocks/image?repo=keploy/docs" />
-    </a>
-  </tr>
-</table>
