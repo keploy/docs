@@ -17,20 +17,22 @@ A sample url shortener app to test Keploy integration capabilities using [Echo](
 
 - [Go](https://golang.org/doc/install)
 
+
 ## Installation
 
-### Start keploy server
+Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
-```shell
-git clone https://github.com/keploy/keploy.git && cd keploy
-docker-compose up
-```
 
 ### Setup URL shortener
 
 ```bash
 git clone https://github.com/keploy/samples-go && cd samples-go/echo-sql
 go mod download
+```
+
+### Start Keploy Record Mode
+```bash
+export KEPLOY_MODE=record
 ```
 
 ### Start PostgreSQL instance

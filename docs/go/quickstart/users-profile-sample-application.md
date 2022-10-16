@@ -22,13 +22,7 @@ A sample application that get, create, update, and delete the data of a user in 
 
 ## Installation
 
-### Start Keploy Server
-
-```
-git clone https://github.com/keploy/keploy.git
-cd keploy
-docker-compose up
-```
+Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
 ### Start Users-Profile sample application
 

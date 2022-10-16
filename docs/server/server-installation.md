@@ -44,18 +44,39 @@ To access Keploy though ingress, please add information about ingress in the [va
 1. [Install Docker](https://docs.docker.com/engine/install)
 2. [Install docker-compose](https://docs.docker.com/compose/install)
 
-#### Start keploy server locally
+### Start MongoDB
+Spin up MongoDB to store the test-runs results
 
 ```shell
-git clone https://github.com/keploy/keploy.git && cd keploy
+docker container run -it -p27017:27017 mongo
 ```
 
-Now start the Keploy server.
+> Note that Testcases are exported as files in the repo by default
 
+
+### MacOS
 ```shell
-docker-compose up
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
+
+sudo mv /tmp/keploy /usr/local/bin && keploy
+```
+
+### Linux
+```shell
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+
+
+sudo mv /tmp/keploy /usr/local/bin && keploy
+```
+
+### Linux ARM
+```shell
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
+
+
+sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
-Now open the Keploy Console at [http://localhost:8081](http://localhost:8081)
+Now open the Keploy Console at [http://localhost:6789](http://localhost:6789)

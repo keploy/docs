@@ -30,6 +30,11 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
 
+### Start Keploy Record Mode
+```bash
+export KEPLOY_MODE=record
+```
+
 ### Run the application
 
 ```shell
