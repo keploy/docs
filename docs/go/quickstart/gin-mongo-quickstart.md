@@ -44,7 +44,7 @@ To generate testcases we just need to **make some API calls.** You can use [Post
 
 ```bash
 curl --request POST \
-  --url http://localhost:8080/url \
+  --url http://localhost:6789/url \
   --header 'content-type: application/json' \
   --data '{
   "url": "https://google.com"
@@ -56,7 +56,7 @@ this will return the shortened url. The ts would automatically be ignored during
 ```
 {
   "ts": 1645540022,
-  "url": "http://localhost:8080/Lhr4BWAi"
+  "url": "http://localhost:6789/Lhr4BWAi"
 }
 ```
 
@@ -64,12 +64,12 @@ this will return the shortened url. The ts would automatically be ignored during
 
 ```bash
 curl --request GET \
-  --url http://localhost:8080/Lhr4BWAi
+  --url http://localhost:6789/Lhr4BWAi
 ```
 
-or by querying through the browser `http://localhost:8080/Lhr4BWAi`
+or by querying through the browser `http://localhost:6789/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8081/testlist).
+Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:6789/testlist).
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
@@ -158,7 +158,7 @@ Now let's introduce a bug! Let's try changing something like renaming `url` to `
     ...
     c.JSON(http.StatusOK, gin.H{
 		...
-		"urls": "http://localhost:8080/" + id,
+		"urls": "http://localhost:6789/" + id,
 	})
 	...
 ```
@@ -181,7 +181,7 @@ FAIL    test-app-url-shortener  6.213s
 FAIL
 ```
 
-To deep dive the problem go to [test runs](http://localhost:8081/testruns)
+To deep dive the problem go to [test runs](http://localhost:6789/testruns)
 
 ![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun4.png "Recent testruns")
 

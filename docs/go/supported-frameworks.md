@@ -23,14 +23,14 @@ kchi.ChiV5(k,r)
 import("github.com/keploy/go-sdk/integrations/kchi")
 
 r := chi.NewRouter()
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
            App: keploy.AppConfig{
                Name: "my_app",
                Port: port,
            },
            Server: keploy.ServerConfig{
-               URL: "http://localhost:8081/api",
+               URL: "http://localhost:6789/api",
            },
          })
 kchi.ChiV5(k,r)
@@ -50,14 +50,14 @@ kgin.GinV1(k, r)
 import("github.com/keploy/go-sdk/integrations/kgin/v1")
 
 r:=gin.New()
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
   App: keploy.AppConfig{
       Name: "my_app",
       Port: port,
   },
   Server: keploy.ServerConfig{
-      URL: "http://localhost:8081/api",
+      URL: "http://localhost:6789/api",
   },
 })
 kgin.GinV1(k, r)
@@ -77,14 +77,14 @@ kecho.EchoV4(k, e)
 import("github.com/keploy/go-sdk/integrations/kecho/v4")
 
 e := echo.New()
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
   App: keploy.AppConfig{
       Name: "my-app",
       Port: port,
   },
   Server: keploy.ServerConfig{
-      URL: "http://localhost:8081/api",
+      URL: "http://localhost:6789/api",
   },
 })
 kecho.EchoV4(k, e)
@@ -112,14 +112,14 @@ router.Start()
 ```go
 import("github.com/keploy/go-sdk/integrations/kwebgo/v4")
 
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
   App: keploy.AppConfig{
       Name: "my-app",
       Port: port,
   },
   Server: keploy.ServerConfig{
-      URL: "http://localhost:8081/api",
+      URL: "http://localhost:6789/api",
   },
 })
 
@@ -145,14 +145,14 @@ import(
 )
 
 r := mux.NewRouter()
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
   App: keploy.AppConfig{
       Name: "my-app",
       Port: port,
   },
   Server: keploy.ServerConfig{
-      URL: "http://localhost:8081/api",
+      URL: "http://localhost:6789/api",
   },
 })
 kmux.Mux(k, r)
@@ -326,14 +326,14 @@ conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterc
 ```go
 import("github.com/keploy/go-sdk/integrations/kgrpc")
 
-port := "8080"
+port := "6789"
 k := keploy.New(keploy.Config{
   App: keploy.AppConfig{
       Name: "my-app",
       Port: port,
   },
   Server: keploy.ServerConfig{
-      URL: "http://localhost:8081/api",
+      URL: "http://localhost:6789/api",
   },
 })
 

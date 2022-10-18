@@ -58,7 +58,7 @@ export KEPLOY_APP_DELAY=5 # time delay before starting testruns(in seconds)
 export KEPLOY_APP_TIMEOUT=100 # should be number 
 # export KEPLOY_APP_FILTER={"urlRegex":"*"}  # should be json not to capture for certain url's
 
-export KEPLOY_SERVER_URL="http://localhost:8081/api" # self hosted keploy running server
+export KEPLOY_SERVER_URL="http://localhost:6789/api" # self hosted keploy running server
 # export KEPLOY_SERVER_LICENSE="XXX-XXX-XXX" # hosted keploy server api key
 ```
 ### KEPLOY_MODE
