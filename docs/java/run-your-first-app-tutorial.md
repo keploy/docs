@@ -59,7 +59,7 @@ To generate testcases we just need to **make some API calls.** You can use [Post
 ### 1. Make an employee entry
 
 ```bash
-curl --location --request POST 'http://localhost:8080/api/employees' \
+curl --location --request POST 'http://localhost:6789/api/employees' \
 --header 'Content-Type: application/json' \
 --data-raw '{
     "firstName": "Myke",
@@ -84,13 +84,13 @@ this will return the resonse or an entry . The timestamp would automatically be 
 ### 2. Fetch recorded info about employees
 
 ```bash
-curl --location --request GET 'http://localhost:8080/api/employees/1'
+curl --location --request GET 'http://localhost:6789/api/employees/1'
 
 ```
 
-or by querying through the browser `http://localhost:8080/api/employees/1`
+or by querying through the browser `http://localhost:6789/api/employees/1`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8081/testlist).
+Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:6789/testlist).
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `myApp` with the test cases we just captured.
@@ -222,9 +222,9 @@ Keploy will run all the captures test-cases, compare and show the results on the
 2022-08-26 14:13:08.993  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 1 of 3 testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]
 2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 2 of 3 testcase id: [4843e03e-76a8-4194-99cb-f62740978d15]
 2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 3 of 3 testcase id: [e5231248-de1d-4c8b-8f15-8dcaf63f45c6]
-2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
-2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
-2022-08-26 14:13:09.062  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2022-08-26 14:13:09.061  INFO 11560 --- [nio-6789-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2022-08-26 14:13:09.061  INFO 11560 --- [nio-6789-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2022-08-26 14:13:09.062  INFO 11560 --- [nio-6789-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
 Hibernate: insert into employees (email, first_name, last_name, timestamp) values (?, ?, ?, ?)
 2022-08-26 14:13:09.247  INFO 11560 --- [pool-3-thread-1] io.keploy.service.GrpcService            : result : testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]  passed: true
 Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, employee0_.first_name as first_na3_0_0_, employee0_.last_name as last_nam4_0_0_, employee0_.timestamp as timestam5_0_0_ from employees employee0_ where employee0_.id=?
@@ -257,13 +257,13 @@ Let's run the test-file to see if Keploy catches the regression introduced.
 You'll notice the failed test-case in the output.
 
 ```shell
-2022-08-26 13:10:10.289 TRACE 70155 --- [nio-8080-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
+2022-08-26 13:10:10.289 TRACE 70155 --- [nio-6789-exec-2] o.h.type.descriptor.sql.BasicBinder      : binding parameter [1] as [BIGINT] - [1]
 2022-08-26 13:10:10.307  INFO 70155 --- [pool-3-thread-1] io.keploy.service.GrpcService            : result : testcase id: [6aae7f37-798c-42d1-ac8a-c5446880fefc]  passed: false
 2022-08-26 13:10:10.312  INFO 70155 --- [       Thread-1] io.keploy.service.GrpcService            : test run completed with run id [a443f2e9-58c9-4c86-8101-7b3e30ef79ff]
 2022-08-26 13:10:10.312  INFO 70155 --- [       Thread-1] io.keploy.service.GrpcService            : || passed overall: FALSE ||
 ```
 
-To deep dive the problem go to [test runs](http://localhost:8081/testruns)
+To deep dive the problem go to [test runs](http://localhost:6789/testruns)
 
 ![testruns](https://raw.githubusercontent.com/keploy/samples-java/main/src/main/resources/OneFail-1.png "Recent testruns")
 

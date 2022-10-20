@@ -56,14 +56,14 @@ k := keploy.New(keploy.Config{
 For example:
 
 ```go
-port := "8080"
+port := "6789"
  k := keploy.New(keploy.Config{
      App: keploy.AppConfig{
          Name: "my-app",
          Port: port,
      },
      Server: keploy.ServerConfig{
-         URL: "http://localhost:8081/api",
+         URL: "http://localhost:6789/api",
      },
  })
 ```

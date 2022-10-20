@@ -63,7 +63,7 @@ port := "8080"
          Port: port,
      },
      Server: keploy.ServerConfig{
-         URL: "http://localhost:8081/api",
+         URL: "http://localhost:6789/api",
      },
  })
 ```

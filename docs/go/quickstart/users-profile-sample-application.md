@@ -36,7 +36,7 @@ go run .
 
 ## Routes
 
-> Sample Application Port: http://localhost:8080
+> Sample Application Port: http://localhost:6789
 
 - `/user` : POST - Create a new user in the database
 - `/user/:userId` : GET - Get a user from the database
@@ -46,7 +46,7 @@ go run .
 
 ## Generate Test Cases
 
-> Keploy Port: http://localhost:8081/testlist
+> Keploy Port: http://localhost:6789/testlist
 
 To generate Test Cases, you need to make some API calls. It could be using Thunder Client, Postman Desktop Agent, or your preferred API testing tool.
 

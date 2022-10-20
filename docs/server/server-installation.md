@@ -28,10 +28,10 @@ helm upgrade -i keploy .
 ```shell
 export POD_NAME=$(kubectl get pods --namespace default -l "app.kubernetes.io/name=keploy,app.kubernetes.io/instance=keploy" -o jsonpath="{.items[0].metadata.name}")
 export CONTAINER_PORT=$(kubectl get pod --namespace default $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
-kubectl --namespace default port-forward $POD_NAME 8080:$CONTAINER_PORT
+kubectl --namespace default port-forward $POD_NAME 6789:$CONTAINER_PORT
 ```
 
-Then the keploy service should be accessible on http://127.0.0.1:8080
+Then the keploy service should be accessible on http://127.0.0.1:6789
 
 #### Access via ingress
 

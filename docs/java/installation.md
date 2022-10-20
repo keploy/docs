@@ -37,8 +37,8 @@ or to _build.gradle_:
 - **Configure Environment Variables**
 
   - `APP_NAME` (default APP_NAME = myApp)
-  - `APP_PORT` (default APP_PORT = 8080)
-  - `KEPLOY_URL` (default KEPLOY_URL = http://localhost:8081/api)
+  - `APP_PORT` (default APP_PORT = 6789)
+  - `KEPLOY_URL` (default KEPLOY_URL = http://localhost:6789/api)
   - `KEPLOY_MODE` (default KEPLOY_MODE = record/test)
   - `KTESTS_PATH` (default test directory of your application)
   - `DENOISE` (default DENOISE = false)
