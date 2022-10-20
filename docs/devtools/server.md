@@ -10,10 +10,12 @@ There's a separate docker-compose `docker-compose-dev.yaml` file which helps wit
 docker-compose -f docker-compose-dev.yaml up --build
 ```
 
-If you are not using docker, you can build and run the keploy server directly. Ensure to provide the Mongo connection string via the `KEPLOY_MONGO_URI` env variable.
+If you are not using docker, you can build and run the keploy server directly. Ensure to provide the Mongo connection string via the `KEPLOY_MONGO_URI` env variable. And also
+enusre that `ENABLE_TEST_EXPORT=false` as by default it is `true` and you will not able to see testcases data in UI so make it `false` if you don't want to export test cases.
 
 ```shell
 export KEPLOY_MONGO_URI="mongodb://mongo:27017"
+export ENABLE_TEST_EXPORT=false
 go run cmd/server/main.go
 ```
 
