@@ -31,6 +31,7 @@ go mod download
 ```
 
 ### Start Keploy Record Mode
+
 ```bash
 export KEPLOY_MODE=record
 ```
@@ -49,7 +50,7 @@ To generate testcases we just need to **make some API calls.** You can use [Post
 
 ```bash
 curl --request POST \
-  --url http://localhost:6789/url \
+  --url http://localhost:8080/url \
   --header 'content-type: application/json' \
   --data '{
   "url": "https://google.com"
