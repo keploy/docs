@@ -62,7 +62,7 @@ this will return the shortened url. The ts would automatically be ignored during
 ```
 {
   "ts": 1645540022,
-  "url": "http://localhost:6789/Lhr4BWAi"
+  "url": "http://localhost:8080/Lhr4BWAi"
 }
 ```
 
@@ -70,17 +70,17 @@ this will return the shortened url. The ts would automatically be ignored during
 
 ```bash
 curl --request GET \
-  --url http://localhost:6789/Lhr4BWAi
+  --url http://localhost:8080/Lhr4BWAi
 ```
 
-or by querying through the browser `http://localhost:6789/Lhr4BWAi`
+or by querying through the browser `http://localhost:8080/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:6789/testlist).
+Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8080/testlist).
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
-![testcases](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testcases.png)
+![Gin-Mongo-test-cases](/img/Gin-Mongo-test-cases.jpg)
 
 Now, let's see the magic! 🪄💫
 
@@ -121,7 +121,7 @@ To automatically download and run the captured test-cases. Let's run the test-fi
 output should look like -
 
 ```shell
-ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
+ok      test-app-url-shortener  6.557s  coverage: 80.3% of statements in ./...
 ```
 
 **We got 80.3% without writing any testcases or mocks for mongo db. 🎉 **
@@ -132,11 +132,7 @@ ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun1.png "Recent testruns")
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun2.png "Summary")
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun3.png "Detail")
+![Gin-Mongo-test-diff](/img/Gin-Mongo-test-runs.jpg)
 
 ### Testing using `KEPLOY_MODE` Env Variable
 
@@ -164,7 +160,7 @@ Now let's introduce a bug! Let's try changing something like renaming `url` to `
     ...
     c.JSON(http.StatusOK, gin.H{
 		...
-		"urls": "http://localhost:6789/" + id,
+		"urls": "http://localhost:8080/" + id,
 	})
 	...
 ```
@@ -176,19 +172,17 @@ Let's run the test-file to see if Keploy catches the regression introduced.
 You'll notice the failed test-case in the output.
 
 ```shell
-{"msg":"result","testcase id":"05a576e1-c03a-4c25-a469-4bea0307cd08","passed":false}
-{"msg":"result","testcase id":"cad6d926-b531-477c-935c-dd7314c4357a","passed":true}
-{"msg":"test run completed","run id":"19d4cba1-b77c-4301-884a-5b3f08dc6248","passed overall":false}
---- FAIL: TestKeploy (5.72s)
-    keploy.go:42: Keploy test suite failed
+result  {"testcase id": "fd502338-b04d-4f96-a21e-38bd81edd9ee", "passed": false}
+result  {"testcase id": "e8fb1ab0-2f39-48e1-b2ab-6142bc4e9515", "passed": true}
+test run completed      {"run id": "a48f2fdf-7873-4879-bc81-5d280ee169fb", "passed overall": false}
+--- FAIL: TestKeploy (7.01s)
+    keploy.go:77: Keploy test suite failed
 FAIL
 coverage: 80.3% of statements in ./...
-FAIL    test-app-url-shortener  6.213s
+FAIL    test-app-url-shortener  7.022s
 FAIL
 ```
 
 To deep dive the problem go to [test runs](http://localhost:6789/testruns)
 
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun4.png "Recent testruns")
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun5.png "Detail")
+![Gin-Mongo-test-diff](/img/Gin-Mongo-test-diff.jpg)

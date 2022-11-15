@@ -161,8 +161,6 @@ Keploy will run all the captures test-cases, compare and show the results on the
 
 > **Note** : With this method coverage will not be calculated.
 
-![Echo-Sql-test-run](/img/Echo-Sql-test-run2.jpg)
-
 ## Let's add a Bug in the App
 
 Now let's introduce a bug! Let's try changing something like renaming `url` to `urls` in handler.go `./handler.go` on line 39
@@ -204,6 +202,6 @@ FAIL
 ```
 
 This is how the bug will look like in the Keploy Terminal:
-![Echo-Sql-test-run](/img/Echo-Sql-test-run3.jpg)
-![Echo-Sql-test-run](/img/Echo-Sql-test-run4.jpg)
-![Echo-Sql-test-run](/img/Echo-Sql-test-run5.jpg)
+
+![Echo-Sql-test-diff](/img/Echo-Sql-test-diff.jpg)
+![Echo-Sql-test-diff2](/img/Echo-Sql-test-diff2.jpg)
