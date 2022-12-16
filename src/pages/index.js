@@ -7,7 +7,6 @@ import {
   Intro,
   Resources,
   QuickStart,
-  Hacktoberfest,
 } from "../components";
 
 export default function Home() {
