@@ -9,14 +9,15 @@ import clsx from "clsx";
 import DocPaginator from "@theme/DocPaginator";
 import DocVersionBanner from "@theme/DocVersionBanner";
 import DocVersionBadge from "@theme/DocVersionBadge";
-import Seo from "@theme/Seo";
-import DocItemFooter from "@theme/DocItemFooter";
+// import Seo from "@theme/Seo";
 import TOC from "@theme/TOC";
 import TOCCollapsible from "@theme/TOCCollapsible";
 import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
+import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
+import FooterWrapper from "../Footer";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -42,7 +43,7 @@ export default function DocItem(props) {
     canRenderTOC && (windowSize === "desktop" || windowSize === "ssr");
   return (
     <>
-      <Seo
+      <Layout
         {...{
           title,
           description,
@@ -95,7 +96,7 @@ export default function DocItem(props) {
                 </article>
               </div>
 
-              <DocItemFooter {...props} />
+              <FooterWrapper {...props} />
             </article>
 
             <DocPaginator previous={metadata.previous} next={metadata.next} />

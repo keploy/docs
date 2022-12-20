@@ -80,7 +80,7 @@ If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
-![Gin-Mongo-test-cases](/img/Gin-Mongo-test-cases.jpg)
+![Gin-Mongo-test-cases](/img/gin-mongo-test-cases.jpg)
 
 Now, let's see the magic! 🪄💫
 
