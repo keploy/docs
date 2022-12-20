@@ -80,7 +80,7 @@ If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
-![Gin-Mongo-test-cases](/img/gin-mongo-test-cases.jpg)
+[//]: # (![Gin-Mongo-test-cases]&#40;/img/gin-mongo-test-cases.jpg&#41;)
 
 Now, let's see the magic! 🪄💫
 
@@ -132,7 +132,7 @@ ok      test-app-url-shortener  6.557s  coverage: 80.3% of statements in ./...
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![Gin-Mongo-test-diff](/img/Gin-Mongo-test-runs.jpg)
+[//]: # (![Gin-Mongo-test-diff]&#40;/img/Gin-Mongo-test-runs.jpg&#41;)
 
 ### Testing using `KEPLOY_MODE` Env Variable
 
@@ -185,4 +185,4 @@ FAIL
 
 To deep dive the problem go to [test runs](http://localhost:6789/testruns)
 
-![Gin-Mongo-test-diff](/img/Gin-Mongo-test-diff.jpg)
+[//]: # (![Gin-Mongo-test-diff]&#40;/img/Gin-Mongo-test-diff.jpg&#41;)
