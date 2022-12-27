@@ -16,8 +16,4 @@ import ServerInstallation from './server-installation.md'
 
 ### Update Keploy Server
 
-If you're running old version of Keploy. Update the Keploy Server version by pulling the latest docker image.
-
-```shell
-docker-compose pull
-```
+If you're running old version of Keploy. Update the Keploy Server version by downloading the binary depending on your platform architecture from above method.
