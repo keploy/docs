@@ -84,7 +84,7 @@ If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
-![testcases](/img/Echo-Sql-test-cases.jpg)
+![testcases](/img/Echo-Sql-test-cases.png)
 
 Now, let's see the magic! 🪄💫
 
@@ -141,7 +141,7 @@ ok   echo-psql-url-shortener 6.750s coverage: 51.1% of statements in ./...
 
 Go to the Keploy Termial to get deeper insights on what testcases ran and what failed.
 
-![Echo-Sql-Test-Run](/img/Echo-Sql-test-run.jpg)
+![Echo-Sql-Test-Run](/img/Echo-Sql-test-run.png)
 
 ### 2. Testing using `KEPLOY_MODE` Env Variable
 
@@ -203,5 +203,5 @@ FAIL
 
 This is how the bug will look like in the Keploy Terminal:
 
-![Echo-Sql-test-diff](/img/Echo-Sql-test-diff.jpg)
-![Echo-Sql-test-diff2](/img/Echo-Sql-test-diff2.jpg)
+![Echo-Sql-test-diff](/img/Echo-Sql-test-diff.png)
+![Echo-Sql-test-diff2](/img/Echo-Sql-test-diff2.png)
