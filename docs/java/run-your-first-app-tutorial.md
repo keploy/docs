@@ -36,7 +36,6 @@ sudo mv /tmp/keploy /usr/local/bin && keploy
 ```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
-
 sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
