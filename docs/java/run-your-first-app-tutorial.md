@@ -23,9 +23,20 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 ### Start keploy server
 
+#### Keploy Server - macOS
+
 ```shell
-git clone https://github.com/keploy/keploy.git && cd keploy
-docker-compose up
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
+
+sudo mv /tmp/keploy /usr/local/bin && keploy
+```
+
+#### Keploy Server - Linux
+
+```shell
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+
+sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 ### Setup Employee-Manager App
