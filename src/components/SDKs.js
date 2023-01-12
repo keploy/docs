@@ -22,14 +22,14 @@ export const SDKs = () => {
           />
           <p className="text-lg">Go</p>
         </Link>
-        <Link to={"https://github.com/keploy/keploy/issues/61"}>
+        <Link to={"https://docs.keploy.io/docs/typescript/installation"}>
           <div className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg">
             <img
               className="h-16 w-16"
               src="/img/typescript.svg"
               alt="TypeScript logo"
             />
-            <p className="text-lg">TypeScript (WIP)</p>
+            <p className="text-lg">TypeScript</p>
           </div>
         </Link>
         <Link
