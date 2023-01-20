@@ -35,6 +35,10 @@ go mod download
 ```bash
 export KEPLOY_MODE=record
 ```
+### Start the MongoDB server
+```bash
+docker container run -it -p27017:27017 mongo
+```
 
 ### Run the application
 
