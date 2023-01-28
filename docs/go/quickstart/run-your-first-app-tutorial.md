@@ -79,10 +79,9 @@ curl --request GET \
 
 or by querying through the browser `http://localhost:6789/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:6789/testlist).
+Now both these API calls were captured as a testcase and should be visible in the keploy-tests folderj.
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
 
-You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
 ![testcases](/img/Echo-Sql-test-cases.png)
 
@@ -120,7 +119,7 @@ func TestKeploy(t *testing.T) {
 }
 ```
 
-To automatically download and run the captured test-cases. Let's run the test-file.
+To automatically run the captured test-cases. Let's run the test-file.
 
 ```shell
  go test -coverpkg=./... -covermode=atomic  ./...
@@ -157,7 +156,7 @@ Now simply run the application.
 go run handler.go main.go
 ```
 
-Keploy will run all the captures test-cases, compare and show the results on the console.
+Keploy will run all the captures test-cases, compare and show the results in the terminal.
 
 > **Note** : With this method coverage will not be calculated.
 
