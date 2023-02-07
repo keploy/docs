@@ -138,7 +138,7 @@ ok   echo-psql-url-shortener 6.750s coverage: 51.1% of statements in ./...
 
 **The application thought it's talking to Postgres 😄**
 
-Go to the Keploy Termial to get deeper insights on what testcases ran and what failed.
+Go to the Keploy Terminal to get deeper insights on what testcases ran and what failed.
 
 ![Echo-Sql-Test-Run](/img/Echo-Sql-test-run.png)
 
