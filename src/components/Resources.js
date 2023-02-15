@@ -13,7 +13,7 @@ const links = [
     type: "article",
     title: "Installation Guide",
     length: "10 min read",
-    url: "docs/server/introduction",
+    url: "docs/server/server-installation",
   },
   {
     type: "article",
