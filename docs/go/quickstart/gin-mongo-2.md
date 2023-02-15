@@ -1,5 +1,5 @@
 ---
-id: users-profile-sample-application
+id: gin-mongo-2
 title: Users Profile Sample Application
 sidebar_label: Gin-Mongo Sample 2
 tags:
@@ -9,7 +9,7 @@ tags:
   - tutorial
 ---
 
-# Users-Profile
+# Users-Profile Sample Application (Gin + Mongo)
 
 A sample application that get, create, update, and delete the data of a user in the database (MongoDB for this application).
 

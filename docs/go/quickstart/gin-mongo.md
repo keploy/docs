@@ -1,5 +1,5 @@
 ---
-id: gin-mongo-quickstart
+id: gin-mongo
 title: Sample Application with the Go SDK
 sidebar_label: Gin-Mongo Sample
 tags:
