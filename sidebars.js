@@ -206,6 +206,7 @@ module.exports = {
         "devtools/sdk-contrib-guide",
         "devtools/server-contrib-guide",
         "devtools/ui-contrib-guide",
+        "devtools/docs-contrib-guide",
       ],
     },
   ],
