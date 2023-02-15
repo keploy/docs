@@ -9,16 +9,9 @@ tags:
   - tutorial
 ---
 
-# Users-Profile Sample Application (Gin + Mongo)
+# User Profile Management Sample App
 
-A sample application that get, create, update, and delete the data of a user in the database (MongoDB for this application).
-
-## Prerequisites
-
-1. [Go](https://go.dev/doc/install) 1.16 or later
-2. [Docker](https://docs.docker.com/engine/install/) for running Keploy server
-3. [Thunder Client](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client) / [Postman Desktop Agent](https://www.postman.com/downloads/postman-agent/) for testing localhost APIs
-4. Code Editor ([VSCode](https://code.visualstudio.com/download), [Sublime Text](https://www.sublimetext.com/download), etc.)
+A sample application that does CRUD (get, create, update, and delete) operations on a user in [mongoDB](https://www.mongodb.com/).
 
 ## Installation
 
