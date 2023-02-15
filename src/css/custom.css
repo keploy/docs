@@ -224,6 +224,10 @@ div[class^="sidebar_"] .button svg {
 }
 
 /* Footer */
+footer  {
+  margin-top: 10%;
+}
+
 footer svg {
   display: inline;
 }

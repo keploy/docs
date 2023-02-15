@@ -4,7 +4,7 @@ module.exports = {
     {
       type: "category",
       label: "Explanation",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       items: [
         "keploy-explained/introduction",
@@ -16,17 +16,17 @@ module.exports = {
     {
       type: "category",
       label: "Installation",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       items: [
-        "server/introduction",
+        "server/server-installation",
         "server/sdk-installation",
       ],
     },
     {
       type: "category",
       label: "Concepts",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       // link: {
       //   type: "doc",
@@ -42,7 +42,7 @@ module.exports = {
     {
       type: "category",
       label: "Operations",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       link: {
         type: "doc",
@@ -58,7 +58,7 @@ module.exports = {
     {
       type: "category",
       label: "Simplification",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       // link: {
       //   type: "doc",
@@ -72,51 +72,74 @@ module.exports = {
 
   // Keploy Go Sidebar
   sidebarSDK: [
-    {
-      type: "category",
-      label: "Sample Quickstart",
-      collapsible: true,
-      collapsed: false,
-      link: {
-        type: "doc",
-        id: "go/quickstart/index",
-      },
-      items: [
-        "go/quickstart/echo-sql",
-        "go/quickstart/gin-mongo",
-        "go/quickstart/gin-mongo-2"
-      ],
-    },
 
-      // Go SDK
     {
       type: "category",
-      label: "Go SDK",
-      collapsible: false,
-      collapsed: false,
+      label: "Golang",
+      collapsible: true,
+      collapsed: true,
       link: {
         type: "doc",
         id: "go/index",
       },
       items: [
-        "go/installation",
-        "go/supported-frameworks",
-        "go/integration-with-go-test",
+
+          // Installation
         {
-          type: "link",
-          label: "Go Pkg Reference",
-          href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+          type: "doc",
+          label: "Installation",
+          id: "go/installation",
         },
+
+       // Integration
+        {
+          type: "category",
+          label: "Integration",
+          collapsible: true,
+          collapsed: true,
+          link: {
+            type: "doc",
+            id: "go/index",
+          },
+          items: [
+            "go/supported-frameworks",
+            "go/integration-with-go-test",
+            {
+              type: "link",
+              label: "Go Pkg Reference",
+              href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+            },
+          ],
+        },
+
+        // Quickstarts
+        {
+          type: "category",
+          label: "Sample Quickstarts",
+          collapsible: true,
+          collapsed: true,
+          link: {
+            type: "doc",
+            id: "go/quickstart/index",
+          },
+          items: [
+            "go/quickstart/echo-sql",
+            "go/quickstart/gin-mongo",
+            "go/quickstart/gin-mongo-2"
+          ],
+        },
+
       ],
     },
+
 
 
     // Java SDK
     {
       type: "category",
       label: "Java SDK",
-      collapsible: false,
-      collapsed: false,
+      collapsible: true,
+      collapsed: true,
       link: {
         type: "doc",
         id: "java/installation",
@@ -137,8 +160,8 @@ module.exports = {
     {
       type: "category",
       label: "Typescript SDK",
-      collapsible: false,
-      collapsed: false,
+      collapsible: true,
+      collapsed: true,
       link: {
         type: "doc",
         id: "typescript/installation",
@@ -156,8 +179,8 @@ module.exports = {
     {
       type: "category",
       label: "More SDKs",
-      collapsible: false,
-      collapsed: false,
+      collapsible: true,
+      collapsed: true,
       items: [
         {
           type: "link",
@@ -173,7 +196,7 @@ module.exports = {
     {
       type: "category",
       label: "Contribution Guides",
-      collapsible: false,
+      collapsible: true,
       collapsed: false,
       link: {
         type: "doc",
