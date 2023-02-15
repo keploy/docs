@@ -125,7 +125,8 @@ module.exports = {
           items: [
             "go/quickstart/echo-sql",
             "go/quickstart/gin-mongo",
-            "go/quickstart/gin-mongo-2"
+            "go/quickstart/gin-mongo-2",
+            "go/quickstart/gorillamux-redis",
           ],
         },
 
