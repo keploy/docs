@@ -1,5 +1,5 @@
 ---
-id: gin-mongo-quickstart
+id: gin-mongo
 title: Sample Application with the Go SDK
 sidebar_label: Gin-Mongo Sample
 tags:
@@ -9,15 +9,9 @@ tags:
   - tutorial
 ---
 
-# Example URL Shortener App
+#  URL Shortener Sample App
 
-A sample url shortener app to test Keploy integration capabilities in Go.
-
-In this sample application we're using 2 dependencies - [Gin](https://gin-gonic.com), [mongoDB](https://www.mongodb.com/).
-
-### Pre-requisites
-
-- [Go](https://golang.org/doc/install)
+A sample url shortener app to test Keploy integration capabilities using [Gin](https://gin-gonic.com) and [mongoDB](https://www.mongodb.com/).
 
 ## Installation
 

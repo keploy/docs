@@ -1,5 +1,5 @@
 ---
-id: run-your-first-app-tutorial
+id: echo-sql
 title: Sample Application with the Go SDK
 sidebar_label: Echo-SQL Sample
 tags:
@@ -9,13 +9,9 @@ tags:
   - tutorial
 ---
 
-# Example URL Shortener
+# URL Shortener Sample App 
 
 A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/).
-
-### Pre-requisites
-
-- [Go](https://golang.org/doc/install)
 
 ## Installation
 

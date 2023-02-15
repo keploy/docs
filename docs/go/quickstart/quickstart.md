@@ -1,5 +1,5 @@
 ---
-id: quickstart
+id: index
 title: Sample Applications for QuickStart
 description: Sample applications with Keploy demonstration
 tags:
@@ -11,6 +11,6 @@ tags:
   - hello world
 ---
 
-- [URL Shortener with Echo-SQL](/docs/go/quickstart/run-your-first-app-tutorial)
-- [URL Shortener with Gin-Mongo](/docs/go/quickstart/gin-mongo-quickstart)
-- [User Profile with Gin-Mongo](/docs/go/quickstart/users-profile-sample-application)
+- [URL Shortener with Echo-SQL](/docs/go/quickstart/echo-sql)
+- [URL Shortener with Gin-Mongo](/docs/go/quickstart/gin-mongo)
+- [User Profile with Gin-Mongo](/docs/go/quickstart/gin-mongo-2)

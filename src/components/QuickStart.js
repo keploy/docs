@@ -9,8 +9,9 @@ export const QuickStart = () => {
         Keploy Documentation
       </h1>
       <p className="max-w-4xl text-xl">
-        Keploy is an open source e2e testing toolkit for Developers that creates
-          test-cases and data mocks from API calls, making releases faster and highly-reliable.
+          Keploy is simple e2e testing toolkit for developers.
+          It creates test-cases and data mocks/stubs by recording API calls, DB queries, etc,
+          making releases faster and highly-reliable.
       </p>
       <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
       <p className="mt-8 mb-8">
@@ -19,7 +20,7 @@ export const QuickStart = () => {
       <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/go/quickstart/run-your-first-app-tutorial")}
+          to={useBaseUrl("/docs/go/quickstart/echo-sql")}
         >
           <img
             className="h-16 w-16"
