@@ -11,13 +11,13 @@
 @tailwind utilities;
 
 :root {
-  --ifm-color-primary: #127ae5;
-  --ifm-color-primary-dark: #0e60b2;
-  --ifm-color-primary-darker: #093d71;
+  --ifm-color-primary: #FF904D;
+  --ifm-color-primary-dark: #F88E34;
+  --ifm-color-primary-darker: #F77221;
   --ifm-color-primary-darkest: #041a31;
-  --ifm-color-primary-light: #3e97ef;
-  --ifm-color-primary-lighter: #84bdf5;
-  --ifm-color-primary-lightest: #cae3fb;
+  --ifm-color-primary-light: #644A3C;
+  --ifm-color-primary-lighter: #ff904d;
+  --ifm-color-primary-lightest: #968278;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
   --ifm-link-hover-decoration: none;
@@ -38,7 +38,7 @@ html[data-theme="dark"] {
   --ifm-footer-background-color: #000;
   --ifm-card-background-color: #1a1a1a;
   --collapse-button-bg-color-dark: transparent;
-  --ifm-badge-background-color: #b2e7ea;
+  --ifm-badge-background-color: #F88E34;
   --ifm-badge-background-color: hsl(210deg, 15%, 20%);
   --card-color: rgba(17, 24, 39);
 }
@@ -225,7 +225,7 @@ div[class^="sidebar_"] .button svg {
 
 /* Footer */
 footer  {
-  margin-top: 10%;
+  margin-top: 40%;
 }
 
 footer svg {

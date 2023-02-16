@@ -4,9 +4,7 @@ title: Integrate with Go Test
 sidebar_label: Integrate with Go Test
 ---
 
-### Testing using Unit Test File
-
-Once you have testcases captured, add this go unit test file `main_test.go` in the root of your sample application.
+Add this go unit test file `main_test.go` in the `root` of your application.
 
 ```go
   package main
@@ -23,13 +21,16 @@ Once you have testcases captured, add this go unit test file `main_test.go` in t
 }
 ```
 
-To automatically download and run the captured test-cases. Let's run the test-file.
+Let's run the test-file.
 
 ```shell
  go test -coverpkg=./... -covermode=atomic  ./...
 ```
 
-output should look like -
+output should look something like -
+
+
+![Test Report Summary](../../static/gif/replay-tc.gif)
 
 ```shell
 ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
@@ -37,4 +38,4 @@ ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 
 You'll see the total test-coverage of Keploy recorded test-cases and previously written unit-test cases(if any).
 
-> You can use this unit-test file and there's no-need to add any additional steps/checks in your CI pipeline.
+>> You can use this unit-test file and there's no-need to add any additional steps/checks in your CI pipeline.

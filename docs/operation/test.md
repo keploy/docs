@@ -6,23 +6,23 @@ sidebar_label: Test
 tags:
   - operation-guide
   - test
+  - replay-tests
 ---
 
-**Test mode** :
+To run KTests and KMocks you can follow any one of these methods: 
 
-- Fetches testcases for the app from keploy server.
-- Calls the API with same request payload in testcase.
-- Mocks external calls based on data stored in the testcase.
-- Validates the responses and uploads results to the keploy server
+### Method 1 
+
+
+<details><summary>
+Set Environment Variable `KEPLOY_MODE`
+
+</summary>
 
 ```
-export KEPLOY_MODE="test"
+export KEPLOY_MODE="test" 
 ```
 
-Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun1.png "Recent testruns")
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun2.png "Summary")
-
-![testruns](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testrun3.png "Detail")
+Run application and find test report summary on the Keploy Server Logs and detailed test report 
+in directory where Keploy Server is running. 
+</details>

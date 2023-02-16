@@ -8,19 +8,16 @@ tags:
   - record
 ---
 
-**Record mode** :
-In the record mode, following operations happen.
-
-- Records requests, response and all external calls and sends to Keploy server.
-- After keploy server removes duplicates, the API request is run again with the application to identify noisy fields.
-- Sends the noisy fields to the keploy server to be saved along with the testcase.
-
-If you want to record the APIs served to your application from any source, set the `KEPLOY_MODE` environment variable.
+To record API calls as test cases set `KEPLOY_MODE` environment variable to `record`.
 
 ```
 export KEPLOY_MODE="record"
 ```
 
-As you make API calls, you'll see new test-cases being generated on the [Keploy Console](/docs/operation/web-ui-operations).
+That's it! 🔥 As you make API calls to your application, new test-cases are being generated locally in  `keploy-tests` directory.
 
-![testcases](https://raw.githubusercontent.com/keploy/samples-go/main/gin-mongo/testcases.png)
+>> KTest directory path (`KEPLOY_TEST_PATH`) is configurable. 
+
+![Record Tests and Mocks](../../static/gif/record-tc.gif "Record Tests and Mocks")
+
+>> KMock directory path (`KEPLOY_MOCK_PATH`) is configurable.

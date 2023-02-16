@@ -72,7 +72,6 @@ module.exports = {
 
   // Keploy Go Sidebar
   sidebarSDK: [
-
     {
       type: "category",
       label: "Golang",
@@ -103,13 +102,24 @@ module.exports = {
           },
           items: [
             "go/supported-frameworks",
-            "go/integration-with-go-test",
             {
               type: "link",
               label: "Go Pkg Reference",
               href: "https://pkg.go.dev/github.com/keploy/go-sdk",
             },
           ],
+        },
+        // Record Test
+        {
+          type: "doc",
+          label: "Record Test",
+          id: "go/record",
+        },
+        // Replay Test
+        {
+          type: "doc",
+          label: "Replay Test ",
+          id: "go/replay",
         },
 
         // Quickstarts
