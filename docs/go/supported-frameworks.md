@@ -10,14 +10,19 @@ tags:
 
 ## Supported Routers
 
-### 1. Chi
+### Chi
+
+<details>
+<summary>Integration</summary>
 
 ```go
 r := chi.NewRouter()
 kchi.ChiV5(k,r)
 ```
 
-#### Example
+</details>
+<details>
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kchi")
@@ -37,14 +42,22 @@ kchi.ChiV5(k,r)
 http.ListenAndServe(":" + port, r)
 ```
 
-### 2. Gin
+</details>
+
+
+### Gin
+
+<details>
+<summary>Integration</summary>
 
 ```go
 r:=gin.New()
 kgin.GinV1(k, r)
 ```
 
-#### Example
+</details>
+<details>
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kgin/v1")
@@ -64,14 +77,20 @@ kgin.GinV1(k, r)
 r.Run(":" + port)
 ```
 
-### 3. Echo
+</details>
+
+### Echo
+
+<details>
+<summary>Integration</summary>
 
 ```go
 e := echo.New()
 kecho.EchoV4(k, e)
 ```
-
-#### Example
+</details>
+<details>
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kecho/v4")
@@ -90,24 +109,30 @@ k := keploy.New(keploy.Config{
 kecho.EchoV4(k, e)
 e.Start(":" + port)
 ```
+</details>
 
-### 4. WebGo
+### WebGo
 
-#### WebGoV4
+<details>
+<summary>WebGo V4 Integration</summary>
 
 ```go
 router := webgo.NewRouter(cfg, getRoutes())
 kwebgo.WebGoV4(k, router)
 ```
+</details>
 
-#### WebGoV6
+<details>
+<summary>WebGo V56 Integration</summary>
 
 ```go
 kwebgo.WebGoV6(k, router)
 router.Start()
 ```
+</details>
 
-#### Example
+<details>
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kwebgo/v4")
@@ -128,15 +153,22 @@ kwebgo.WebGoV4(k
 , router)
 router.Start()
 ```
+</details>
 
-### 5. Gorilla/Mux
+### Gorilla/Mux
+
+
+<details>
+<summary>Integration</summary>
 
 ```go
 r := mux.NewRouter()
 kmux.Mux(k, r)
 ```
+</details>
 
-#### Example
+<details>
+<summary>Example</summary>
 
 ```go
 import(
@@ -159,9 +191,14 @@ kmux.Mux(k, r)
 http.ListenAndServe(":"+port, r)
 ```
 
+</details>
+
 ## Supported Databases
 
-### 1. MongoDB
+### MongoDB
+
+<details>
+<summary>Integration</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kmongo")
@@ -184,7 +221,12 @@ Following operations are supported:
 - Distinct
 - Aggregate - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
 
-### 2. DynamoDB
+</details>
+
+### DynamoDB
+
+<details>
+<summary>Integration</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kddb")
@@ -198,7 +240,12 @@ Following operations are supported:
 - GetItemWithContext
 - PutItemWithContext
 
-### 3. SQL Driver
+</details>
+
+### SQL Driver
+
+<details>
+<summary>Integration</summary>
 
 ```go
 import(
@@ -212,7 +259,12 @@ func init(){
 }
 ```
 
-Its compatible with gORM. Here is an example -
+Its compatible with gORM. 
+</details>
+
+
+<details>
+<summary>Example</summary>
 
 ```go
     pSQL_URI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s port=%s", "localhost", "postgres", "Book_Keeper", "8789", "5432")
@@ -235,9 +287,21 @@ Its compatible with gORM. Here is an example -
 	x := pSQL_DB.Find(&people)
     }))
 ```
-### 4. Elasticsearch
-The elastic-search client uses http client to do CRUD operations. There is a Transport field in *elasticsearch.config* which allows you to completely replace the default HTTP client used by the package.So, we use *khttp* as an interceptor and assign it to the Transport field.
+</details>
+
+###  Elasticsearch
+
+<details>
+<summary>Integration</summary>
+
+The elastic-search client uses http client to do CRUD operations. 
+There is a Transport field in `elasticsearch.config` which allows you to
+completely replace the default HTTP client used by the package.
+So, we use `khttp` as an interceptor and assign it to the Transport field.
+
+
 Here is an example of making elastic search client with keploy's http interceptor -
+
 ```go
 import (
 	"net/http"
@@ -261,10 +325,17 @@ func ConnectWithElasticsearch(ctx context.Context) *elasticsearch.Client {
 	return newClient
 }
 
-```
-**Note**: The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
 
-### 5. Redis
+```
+> The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
+
+</details>
+
+###  Redis
+
+<details>
+<summary>Integration</summary>
+
 ```go
 import(
     "context"
@@ -292,15 +363,24 @@ Following operations are supported:
 - Get
 - Set
 - Del
+
+</details>
+
 ## Supported Clients
 
 ### net/http
+
+<details>
+<summary>Integration</summary>
 
 ```go
 khttpclient.NewHttpClient(&http.Client{})
 ```
 
-#### Example
+</details>
+
+<details>
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/khttpclient")
@@ -313,15 +393,24 @@ func(w http.ResponseWriter, r *http.Request){
 }
 ```
 
-**Note**: ensure to add pass request context to all external requests like http requests, db calls, etc.
+>  ensure to add pass request context to all external requests like http requests, db calls, etc.
+
+</details>
 
 ### gRPC
+
+<details>
+<summary>Integration</summary>
 
 ```go
 conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 ```
 
-#### Example
+</details>
+
+<details>
+
+<summary>Example</summary>
 
 ```go
 import("github.com/keploy/go-sdk/integrations/kgrpc")
@@ -340,4 +429,6 @@ k := keploy.New(keploy.Config{
 conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 ```
 
-**Note**: Currently streaming is not yet supported.
+> Currently streaming is not yet supported.
+
+</details>
