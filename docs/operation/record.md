@@ -8,6 +8,9 @@ tags:
   - record
 ---
 
+> Note that Testcases are exported as files in the project directory by default
+
+
 To record API calls as test cases set `KEPLOY_MODE` environment variable to `record`.
 
 ```
