@@ -13,48 +13,48 @@ module.exports = {
         "keploy-explained/faq",
       ],
     },
-    {
-      type: "category",
-      label: "Installation",
-      collapsible: true,
-      collapsed: false,
-      items: [
-        "server/server-installation",
-        "server/sdk-installation",
-      ],
-    },
-    {
-      type: "category",
-      label: "Concepts",
-      collapsible: true,
-      collapsed: false,
-      // link: {
-      //   type: "doc",
-      //   id: "concepts/index",
-      // },
-      items: [
-        "concepts/what-is-keploy",
-        "concepts/what-are-keploy-features",
-        "concepts/what-is-keploy-sdk",
-        "concepts/what-are-keploy-sdk-modes",
-      ],
-    },
-    {
-      type: "category",
-      label: "Operations",
-      collapsible: true,
-      collapsed: false,
-      link: {
-        type: "doc",
-        id: "operation/index",
-      },
-      items: [
-        "operation/web-ui-operations",
-        "operation/record-operations",
-        "operation/test-operations",
-        "operation/browser-extension-operations",
-      ],
-    },
+    // {
+    //   type: "category",
+    //   label: "Installation",
+    //   collapsible: true,
+    //   collapsed: false,
+    //   items: [
+    //     "server/server-installation",
+    //     "server/sdk-installation",
+    //   ],
+    // },
+    // {
+    //   type: "category",
+    //   label: "Concepts",
+    //   collapsible: true,
+    //   collapsed: false,
+    //   // link: {
+    //   //   type: "doc",
+    //   //   id: "concepts/index",
+    //   // },
+    //   items: [
+    //     "concepts/what-is-keploy",
+    //     "concepts/what-are-keploy-features",
+    //     "concepts/what-is-keploy-sdk",
+    //     "concepts/what-are-keploy-sdk-modes",
+    //   ],
+    // },
+    // {
+    //   type: "category",
+    //   label: "Operations",
+    //   collapsible: true,
+    //   collapsed: false,
+    //   link: {
+    //     type: "doc",
+    //     id: "operation/index",
+    //   },
+    //   items: [
+    //     "operation/web-ui-operations",
+    //     "operation/record-operations",
+    //     "operation/test-operations",
+    //     "operation/browser-extension-operations",
+    //   ],
+    // },
     {
       type: "category",
       label: "Simplification",
