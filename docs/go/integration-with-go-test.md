@@ -29,9 +29,6 @@ Let's run the test-file.
 
 output should look something like -
 
-
-![Test Report Summary](../../static/gif/replay-tc.gif)
-
 ```shell
 ok      test-app-url-shortener  6.268s  coverage: 80.3% of statements in ./...
 ```

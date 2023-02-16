@@ -16,7 +16,7 @@ A Keploy SDK is a language-specific library that offers APIs to do the following
    - Dependency calls
    - API Response
 
-2. Replay the API request with captured dependency mocks to identify noisy fields. Read more about how [Keploy de-noising](/docs/keploy-explained/introduction#3-accurate-noise-detection) works.
+2. Replay the API request with captured dependency mocks to identify noisy fields.
 3. Replay all the test-cases captured and mock the dependencies for the application
 
 Comparing the expected and actual responses for an API call happens at the [Keploy Server](/docs/server/introduction).
