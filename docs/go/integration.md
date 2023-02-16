@@ -21,18 +21,7 @@ Or clone the Go SDK repo to your preferred location:
 git clone git@github.com:keploy/go-sdk.git
 ```
 
-> Note that Testcases are exported as files in the project directory by default
-
-
-### SDK Modes
-
-[Learn more](../concepts/what-are-keploy-sdk-modes.md) about SDK modes
-
-### Where is the Go SDK technical reference?
-
-The [Keploy Go SDK API reference](https://pkg.go.dev/github.com/keploy/go-sdk) is published on [pkg.go.dev](https://pkg.go.dev/github.com/keploy/go-sdk)
-
-## Usage
+## Integrate
 
 ```go
 import(
@@ -56,7 +45,8 @@ k := keploy.New(keploy.Config{
     })
 ```
 
-For example:
+
+<details><summary> Example </summary>
 
 ```go
 port := "6789"
@@ -70,5 +60,21 @@ port := "6789"
      },
  })
 ```
+</details>
 
-Now wrap the routers, https clients and external dependencies like DBs. See the list of [supported frameworks](/docs/go/supported-frameworks).
+Now wrap the routers, https clients and external dependencies like DBs.
+
+## Wrapping Dependencies
+
+import SupportedFrameworks from './supported-frameworks.md'
+
+<SupportedFrameworks/>
+
+
+### SDK Modes
+
+[Learn more](../concepts/what-are-keploy-sdk-modes.md) about SDK modes
+
+### Where is the Go SDK technical reference?
+
+The [Keploy Go SDK API reference](https://pkg.go.dev/github.com/keploy/go-sdk) is published on [pkg.go.dev](https://pkg.go.dev/github.com/keploy/go-sdk)

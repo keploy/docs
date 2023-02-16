@@ -77,10 +77,6 @@ module.exports = {
       label: "Golang",
       collapsible: true,
       collapsed: true,
-      link: {
-        type: "doc",
-        id: "go/index",
-      },
       items: [
 
           // Installation
@@ -92,22 +88,9 @@ module.exports = {
 
        // Integration
         {
-          type: "category",
+          type: "doc",
           label: "Integration",
-          collapsible: true,
-          collapsed: true,
-          link: {
-            type: "doc",
-            id: "go/index",
-          },
-          items: [
-            "go/supported-frameworks",
-            {
-              type: "link",
-              label: "Go Pkg Reference",
-              href: "https://pkg.go.dev/github.com/keploy/go-sdk",
-            },
-          ],
+          id:  "go/integration",
         },
         // Record Test
         {
@@ -138,26 +121,62 @@ module.exports = {
             "go/quickstart/gin-mongo-2"
           ],
         },
-
+        {
+          type: "link",
+          label: "Go Pkg Reference",
+          href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+        },
       ],
     },
-
-
 
     // Java SDK
     {
       type: "category",
-      label: "Java SDK",
+      label: "Java",
       collapsible: true,
       collapsed: true,
-      link: {
-        type: "doc",
-        id: "java/installation",
-      },
       items: [
-        "java/installation",
-        "java/run-your-first-app-tutorial",
-        "java/integration-with-Junit",
+
+        // Installation
+        {
+          type: "doc",
+          label: "Installation",
+          id: "go/installation",
+        },
+
+        // Integration
+        {
+          type: "doc",
+          label: "Integration",
+          id:  "java/integration",
+        },
+        // Record Test
+        {
+          type: "doc",
+          label: "Record Test",
+          id: "java/record",
+        },
+        // Replay Test
+        {
+          type: "doc",
+          label: "Replay Test ",
+          id: "java/replay",
+        },
+
+        // Quickstarts
+        {
+          type: "category",
+          label: "Sample Quickstarts",
+          collapsible: true,
+          collapsed: true,
+          link: {
+            type: "doc",
+            id: "java/quickstart/index",
+          },
+          items: [
+            "java/quickstart/spring-sql",
+          ],
+        },
         {
           type: "link",
           label: "Maven Reference",

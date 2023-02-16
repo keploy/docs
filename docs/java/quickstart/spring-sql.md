@@ -1,7 +1,7 @@
 ---
-id: run-your-first-app-tutorial
-title: Sample Spring Application with the Java SDK
-sidebar_label: Spring Boot + PostgreSQl Sample
+id: spring-sql
+title: Sample Spring Application with Postgres DB
+sidebar_label: Spring-SQl Sample
 tags:
   - spring-jpa
   - java
