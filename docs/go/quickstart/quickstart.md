@@ -14,3 +14,4 @@ tags:
 - [URL Shortener with Echo-SQL](/docs/go/quickstart/echo-sql)
 - [URL Shortener with Gin-Mongo](/docs/go/quickstart/gin-mongo)
 - [User Profile with Gin-Mongo](/docs/go/quickstart/gin-mongo-2)
+- [Contact Keeper with Gorilla/Mux-Redis](/docs/go/quickstart/gorillamux-redis)
