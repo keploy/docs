@@ -11,7 +11,7 @@ tags:
 
 #  URL Shortener Sample App
 
-A sample url shortener app to test Keploy integration capabilities using [Gin](https://gin-gonic.com) and [mongoDB](https://www.mongodb.com/).
+A sample URL Shortener app responds with a shortened URL of the URL sent as a request. The application tests Keploy integration capabilities using [Gin](https://gin-gonic.com) and [mongoDB](https://www.mongodb.com/).
 
 ## Installation
 

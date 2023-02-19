@@ -11,7 +11,7 @@ tags:
 
 # User Profile Management Sample App
 
-A sample application that does CRUD (get, create, update, and delete) operations on a user in [mongoDB](https://www.mongodb.com/).
+A sample application that does CRUD (get, create, update, and delete) operations on a user profile in [mongoDB](https://www.mongodb.com/).
 
 ## Installation
 
