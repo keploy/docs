@@ -141,7 +141,7 @@ module.exports = {
         {
           type: "doc",
           label: "Installation",
-          id: "go/installation",
+          id: "java/installation",
         },
 
         // Integration
