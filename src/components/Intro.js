@@ -63,15 +63,16 @@ function SDKs() {
         </li>
 
         <li className="">
-          <Link to={"https://docs.keploy.io/docs/typescript/installation"}>
-            <div className="flex items-center space-x-3 hover:underline">
-              <img
-                className="h-7 w-7 pl-1 transition hover:scale-110"
-                src="/img/typescript.svg"
-                alt="TypeScript logo"
-              />
-              <p className="font-semibold">TypeScript</p>
-            </div>
+          <Link
+            className="flex items-center space-x-3 hover:underline"
+            to={useBaseUrl("/docs/typescript/installation")}
+          >
+            <img
+              className="h-7 w-7 pl-1 transition hover:scale-110"
+              src="/img/typescript.svg"
+              alt="TypeScript logo"
+            />
+            <p className="font-semibold">TypeScript</p>
           </Link>
         </li>
         <li className="">
