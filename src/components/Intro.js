@@ -63,6 +63,18 @@ function SDKs() {
         </li>
 
         <li className="">
+          <Link to={"https://docs.keploy.io/docs/typescript/installation"}>
+            <div className="flex items-center space-x-3 hover:underline">
+              <img
+                className="h-7 w-7 pl-1 transition hover:scale-110"
+                src="/img/typescript.svg"
+                alt="TypeScript logo"
+              />
+              <p className="font-semibold">TypeScript</p>
+            </div>
+          </Link>
+        </li>
+        <li className="">
           <Link
             className="flex items-center space-x-5"
             to={"https://github.com/keploy/keploy/issues/58"}
@@ -74,18 +86,6 @@ function SDKs() {
                 alt="PHP logo"
               />
               <p className="font-semibold">Python (WIP)</p>{" "}
-            </div>
-          </Link>
-        </li>
-        <li className="">
-          <Link to={"https://github.com/keploy/keploy/issues/61"}>
-            <div className="flex items-center space-x-3 hover:underline">
-              <img
-                className="h-7 w-7 pl-1 transition hover:scale-110"
-                src="/img/typescript.svg"
-                alt="TypeScript logo"
-              />
-              <p className="font-semibold">TypeScript (WIP)</p>
             </div>
           </Link>
         </li>
