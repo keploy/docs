@@ -209,7 +209,7 @@ export const Community = () => {
             </svg>
             <div className="flex-auto">
               <h3 className="font-bold">Hashnode</h3>
-              <p>Explore Keploy Student's Blogs on Hashnode.</p>
+              <p>Explore blogs on API, Testing, Mocks and Keploy.</p>
             </div>
           </a>
         </li>        
