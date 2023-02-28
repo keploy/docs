@@ -525,7 +525,7 @@ div[class^="announcementBar_"] {
   display: inherit;
 }
 
-/*Correcting alignment of home icon innavbar breadcrumbs*/
+/*Correcting alignment of home icon in navbar breadcrumbs*/
 a[class="breadcrumbs__link"]{
   margin-bottom: -10px;
 }
