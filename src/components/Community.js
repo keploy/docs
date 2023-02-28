@@ -191,6 +191,28 @@ export const Community = () => {
             </div>
           </a>
         </li>
+        <li>
+          <a
+            href="https://keploy.hashnode.dev/"
+            className="flex items-start space-x-4"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 256 256"
+              className="h-12 w-12 flex-none"
+            >
+              <path
+                d="M17.591 85.533c-23.455 23.455-23.455 61.479 0 84.932l67.943 67.944c23.455 23.453 61.479 23.453 84.932 0l67.944-67.944c23.453-23.455 23.453-61.48 0-84.932L170.466 17.59c-23.455-23.452-61.48-23.452-84.932 0L17.59 85.533Zm140.134 72.193c16.418-16.419 16.418-43.036 0-59.452-16.417-16.419-43.034-16.419-59.45 0-16.419 16.418-16.419 43.033 0 59.452 16.418 16.416 43.033 16.416 59.452 0h-.002Z"
+                fill="#2962FF"
+                fillRule="evenodd"
+              />
+            </svg>
+            <div className="flex-auto">
+              <h3 className="font-bold">Hashnode</h3>
+              <p>Explore blogs on API, Testing, Mocks and Keploy.</p>
+            </div>
+          </a>
+        </li>        
       </ul>
       <p className="mt-8">
         We are happy to help you with your {/*<a*/}
