@@ -9,7 +9,7 @@ tags:
   - tutorial
 ---
 
-# URL Shortener Sample App 
+# URL Shortener Sample App
 
 A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/).
 
@@ -73,11 +73,10 @@ curl --request GET \
   --url http://localhost:8082/Lhr4BWAi
 ```
 
-or by querying through the browser `http://localhost:6789/Lhr4BWAi`
+or by querying through the browser `http://localhost:8082/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible in the keploy-tests folderj.
+Now both these API calls were captured as a testcase and should be visible in the keploy-tests folder.
 If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
-
 
 ![testcases](/img/Echo-Sql-test-cases.png)
 

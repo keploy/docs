@@ -17,76 +17,27 @@ A sample contact keeper app to test Keploy integration capabilities using [Goril
 
 > Note that Testcases are exported as files in the local repository by default
 
-### MacOS
-
-```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
-
-sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-### Linux
-
-<details>
-<summary>Linux</summary>
-
-```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-</details>
-
-<details>
-<summary>Linux ARM</summary>
-
-```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
-
-sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-The UI can be accessed at http://localhost:6789
-
-</details>
-
-### Windows
-
-<details>
-<summary>Windows</summary>
-
-- Download the [Keploy Windows AMD64](https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.tar.gz), and extract the files from the zip folder.
-
-- Run the `keploy.exe` file.
-
-</details>
-
-<details>
-<summary>Windows ARM</summary>
-
-- Download the [Keploy Windows ARM64](https://github.com/keploy/keploy/releases/latest/download/keploy_windows_arm64.tar.gz), and extract the files from the zip folder.
-
-- Run the `keploy.exe` file.
-
-</details>
+You can refer to the [installation guide](https://docs.keploy.io/docs/server/server-installation) to install Keploy on your machine.
 
 ### Prerequisites
 
 1. [Redis](https://redis.io/)
 
-### Start Contact Keeper application
+### Setup Contact Keeper App
 
 ```bash
 git clone https://github.com/keploy/samples-go && cd samples-go/gorillamux-redis
+```
 
-# start Redis
+### Start Redis
+
+```bash
 redis-server
+```
 
-# run the sample app
-go run main.go
+### Start Keploy Record Mode and run the application
 
-# run the sample app in record mode
+```
 export KEPLOY_MODE=record && go run main.go
 ```
 
@@ -132,6 +83,8 @@ curl --request GET \
 ```
 
 2. Or by querying through the browser `http://localhost:8080/data/1'
+
+![Echo-Sql-Test-Capture](/img/GorillaMux-Redis.png)
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` folder that contains all the outputs of redis operations. Here's what the folder structure look like:
 
@@ -212,7 +165,7 @@ output should look like
 ok  	sample-app	5.032s	coverage: 71.4% of statements in ./...
 ```
 
-> **We got 55.1% without writing any e2e testcases or mocks for Redis!**
+> **We got 71.4% without writing any e2e testcases or mocks for Redis!**
 
 So no need to setup fake database/apis like Redis or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Redis 😄**
 
