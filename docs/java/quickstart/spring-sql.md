@@ -11,7 +11,7 @@ tags:
 
 # Example Employee-Manager App
 
-A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and PostgreSQL.
+A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).
 
 ### Pre-requisites
 
