@@ -84,7 +84,7 @@ curl --request GET \
 
 2. Or by querying through the browser `http://localhost:8080/data/1'
 
-![Echo-Sql-Test-Capture](/img/GorillaMux-Redis.png)
+![GorillaMux-Redis-Test-Capture](/img/GorillaMux-Redis.png)
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` folder that contains all the outputs of redis operations. Here's what the folder structure look like:
 
