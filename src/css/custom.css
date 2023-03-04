@@ -245,6 +245,11 @@ footer svg {
     display: none;
   }
 
+  .DocSearch-Button {
+    @apply mr-[-18px] !important;
+  
+  }
+
   /* .footer .footer__block {
     display: block;
   } */
@@ -397,6 +402,8 @@ footer svg {
   .docs-centered-image-size-25 {
     max-width: 25%;
   }
+
+  
 }
 
 .docs-image-legend-wrapper {
