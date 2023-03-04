@@ -112,7 +112,7 @@ After you have cloned the documentation repo to your computer locally, edit the 
 
 3. On Github, click on the `Create a new Pull Request` button.
 
-4. Use a succinct title and descriptive comments to descibe your Pull Request. Also Ensure maintainers can understand your proposed changes from the description
+4. Use a succinct title and descriptive comments to describe your Pull Request. Also Ensure maintainers can understand your proposed changes from the description
 
 ## How to Suggest UI/UX Improvements?
 
