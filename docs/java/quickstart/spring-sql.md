@@ -22,6 +22,26 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
+## Build configuration
+
+[Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
+central.
+
+Add *keploy-sdk* as a dependency to your *pom.xml*:
+
+    <dependency>
+      <groupId> io.keploy </groupId>
+      <artifactId> keploy-sdk </artifactId>
+      <version> N.N.N </version> (eg: 1.2.8)
+    </dependency>
+
+or to *build.gradle*:
+
+    implementation 'io.keploy:keploy-sdk:N.N.N' (eg: 1.2.8)
+
+## Usage
+- Refer [this](/docs/java/integration.md#build-configuration).
+
 ## Setup Employee-Manager App
 
 ```bash
