@@ -102,7 +102,7 @@ There are 2 ways to test the application with Keploy.
 
 _NOTE: You will be required to set the `javaagent` again in your test profile just like below._
 
-![run_configuration](/static/img/Run_Configuration.png "Run_Configuration")
+![run_configuration](/img/Run_Configuration.png "Run_Configuration")
 
 - Now that we have our testcase captured, run the unit test file (`SampleJavaApplication_Test.java`) already present in
 the sample app repo.
