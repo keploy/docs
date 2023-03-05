@@ -527,5 +527,6 @@ div[class^="announcementBar_"] {
 
 /*Correcting alignment of home icon innavbar breadcrumbs*/
 a[class="breadcrumbs__link"]{
+  padding-top: 2px;
   margin-bottom: -10px;
 }
