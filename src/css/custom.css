@@ -531,3 +531,9 @@ div[class^="announcementBar_"] {
 .list-disc > a {
   display: inherit;
 }
+
+/*Correcting alignment of home icon innavbar breadcrumbs*/
+a[class="breadcrumbs__link"]{
+  padding-top: 2px;
+  margin-bottom: -10px;
+}
