@@ -20,7 +20,7 @@ You can read more about the format of the program and its goals [here](https://g
 
 <img src="/img/GSoC.png"/>
 
-## Keploy X GSOC
+## Keploy X GSoC
 
 We at Keploy are excited to announce that Keploy is among the first few mentoring organizations from India 🇮🇳 this year! If you are a student looking to participate in GSoC, Keploy offers several projects for you to choose from.
 
