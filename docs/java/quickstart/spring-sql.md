@@ -297,8 +297,8 @@ Keploy will run all the captures test-cases, compare and show the results on the
 
 ```shell
 10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 2
-2022-08-26 14:13:08.993  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 1 of 3 testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]
-2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 2 of 3 testcase id: [4843e03e-76a8-4194-99cb-f62740978d15]
+2022-08-26 14:13:08.993  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 1 of 2 testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]
+2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 2 of 2 testcase id: [4843e03e-76a8-4194-99cb-f62740978d15]
 2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2022-08-26 14:13:09.062  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
@@ -312,10 +312,13 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 2022-08-26 14:13:19.410  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2022-08-26 14:13:19.414  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
+
+</details>
+
 ![testruns](/img/TestrunsSuccess.png "Recent testruns")
 
 
-</details>
+
 
 ## Let's add a Bug in the App
 
