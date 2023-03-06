@@ -105,7 +105,7 @@ or by querying through the browser `http://localhost:6789/api/employees/1`
 Now both these API calls were captured as **editable** testcases and written to `test/e2e/keploy-tests` folder. The
 keploy directory would also have `mocks` folder.
 
-![testcases](https://i.imgur.com/rhNndcF.png)
+![testcases](/img/test-case-Java.png "Recorded Test cases and mocks")
 
 Now, let's see the magic! 🪄💫
 
@@ -240,10 +240,9 @@ java -javaagent:<your full path to agent jar>.jar -jar <your full path to applia
 Keploy will run all the captures test-cases, compare and show the results on the console.
 
 ```shell
-10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 3
+10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 2
 2022-08-26 14:13:08.993  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 1 of 3 testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]
 2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 2 of 3 testcase id: [4843e03e-76a8-4194-99cb-f62740978d15]
-2022-08-26 14:13:08.994  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : testing 3 of 3 testcase id: [e5231248-de1d-4c8b-8f15-8dcaf63f45c6]
 2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
 2022-08-26 14:13:09.061  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
 2022-08-26 14:13:09.062  INFO 11560 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
@@ -251,14 +250,14 @@ Hibernate: insert into employees (email, first_name, last_name, timestamp) value
 2022-08-26 14:13:09.247  INFO 11560 --- [pool-3-thread-1] io.keploy.service.GrpcService            : result : testcase id: [ae4a6c91-712a-4566-bf0d-97d708f94b2d]  passed: true
 Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, employee0_.first_name as first_na3_0_0_, employee0_.last_name as last_nam4_0_0_, employee0_.timestamp as timestam5_0_0_ from employees employee0_ where employee0_.id=?
 2022-08-26 14:13:09.291  INFO 11560 --- [pool-3-thread-1] io.keploy.service.GrpcService            : result : testcase id: [4843e03e-76a8-4194-99cb-f62740978d15]  passed: true
-Hibernate: select employee0_.id as id1_0_, employee0_.email as email2_0_, employee0_.first_name as first_na3_0_, employee0_.last_name as last_nam4_0_, employee0_.timestamp as timestam5_0_ from employees employee0_
-2022-08-26 14:13:09.383  INFO 11560 --- [pool-3-thread-1] io.keploy.service.GrpcService            : result : testcase id: [e5231248-de1d-4c8b-8f15-8dcaf63f45c6]  passed: true
-2022-08-26 14:13:09.388  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : test run completed with run id [10b3ddd5-42fa-48e7-b98a-b47257272e39]
+2022-08-26 14:13:09.388  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : test run completed with run id [1e81233d-e3be-4a4a-afda-a800902ad965]
 2022-08-26 14:13:09.388  INFO 11560 --- [       Thread-4] io.keploy.service.GrpcService            : || passed overall: TRUE ||
 2022-08-26 14:13:19.408  INFO 11560 --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2022-08-26 14:13:19.410  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
 2022-08-26 14:13:19.414  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
+![testruns](/img/TestrunsSuccess.png "Recent testruns")
+
 
 ## Let's add a Bug in the App
 
@@ -286,4 +285,4 @@ You'll notice the failed test-case in the output.
 
 To deep dive the problem go to [test runs](http://localhost:6789/testruns)
 
-![testruns](https://i.imgur.com/qwP8r4d.png "Recent testruns")
+![testruns](/img/IntroduceBugJava.png "Recent testruns")
