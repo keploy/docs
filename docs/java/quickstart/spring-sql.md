@@ -24,31 +24,66 @@ Navigate to [Installation guide](../../server/server-installation.md) to quickly
 
 ## Build configuration
 
-[Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
-central.
+1. [Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
+   central and add _keploy-sdk_ as a dependency to your `pom.xml` :
 
-Add *keploy-sdk* as a dependency to your *pom.xml*:
 
-    <dependency>
-      <groupId> io.keploy </groupId>
-      <artifactId> keploy-sdk </artifactId>
-      <version> N.N.N </version> (eg: 1.2.8)
-    </dependency>
+       <dependency>
+         <groupId>io.keploy</groupId>
+         <artifactId>keploy-sdk</artifactId>
+         <version>1.0.13</version>          <!--  use latest release -->
+       </dependency>
 
-or to *build.gradle*:
+Sync dependencies or to _build.gradle_:
 
-    implementation 'io.keploy:keploy-sdk:N.N.N' (eg: 1.2.8)
+    compile 'io.keploy:keploy-sdk:1.0.13'
 
-## Usage
-- Refer [this](/docs/java/integration.md#build-configuration).
+2. Install Keploy Jar
+  - Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar)  (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
+    - Add the jar into the `main` directory
+      - **Copy** `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
-## Setup Employee-Manager App
+        (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
+
+        You can set this through 3 ways:-
+
+        1. <details><summary>
+              Using Intellij
+             </summary>
+
+           Go to `Edit Configuration`-> `add VM options` -> Paste
+        
+               -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar
+        
+            Click `OK`.
+            </details>
+
+        4. <details><summary>
+              Using Command Line
+             </summary>
+
+             ``` 
+               export JAVA_OPTS="$JAVA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar" 
+              ```
+
+             </details>
+
+        5. <details><summary>
+              Running via Tomcat Server
+             </summary>
+  
+              export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
+
+          </details>
+
+  
+## Setup Sample Employee-Manager App
 
 ```bash
 git clone https://github.com/keploy/samples-java && cd samples-java
 ```
 
-### Start PostgreSQL instance
+### Start PostgreSQL DB for Employee-Manager App
 
 ```bash
 docker-compose up -d
@@ -150,17 +185,22 @@ the sample app repo.
   1. Run your application.
   2. You can also run the application with coverage to see the test coverage.
 
-- **Using command line**
-  1. Add maven-surefire-plugin to your *pom.xml*. In `<argLine> </argLine>` don't add jacoco agent if you don't want coverage report.
+- **Using CLI**
+  
+  1. Add maven-surefire-plugin to your `pom.xml`. In `<argLine > </ argLine >` **don't** add jacoco agent if you don't want coverage report.
+        
+    <details><summary>
+      Add plugin 
+      </summary>
 
-   ```xml 
-         <plugin>
+        ```xml 
+          <plugin>
              <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-surefire-plugin</artifactId>
              <version>2.22.2</version>
              <configuration>
 
-         <!-- <skipTests>true</skipTests> -->
+          <!-- <skipTests>true</skipTests> -->
              <argLine>
                 <!---javaagent:<your full path to agent jar>.jar-->
                 -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/0.8.7/org.jacoco.agent-0.8.7-runtime.jar=destfile=target/jacoco.exec
@@ -171,12 +211,18 @@ the sample app repo.
                      </jacoco-agent.destfile>
                  </systemPropertyVariables>
              </configuration>
-         </plugin>
-   ```  
+          </plugin>
+         ```
+  
+     </details>
+    
+  2. If you want coverage report also add Jacoco plugin to your *pom.xml*.
 
-   2. If you want coverage report also add Jacoco plugin to your *pom.xml*.
- 
-   ```xml
+    <details><summary>
+      Add plugin 
+      </summary>
+    
+       ```xml
          <plugin>
              <groupId>org.jacoco</groupId>
              <artifactId>jacoco-maven-plugin</artifactId>
@@ -211,7 +257,10 @@ the sample app repo.
                   </execution>
              </executions>
          </plugin>
-   ```               
+       ```     
+    
+     </details>
+              
    3. Run your tests using command : `mvn test`.
 
 
@@ -222,6 +271,8 @@ It will create .html files as test-reports which can be found in your target fol
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
 ![testruns](https://i.imgur.com/tg6OT0n.png "Summary")
+
+**OR** 
 
 ### **Testing without using Unit Test File**
 
@@ -238,6 +289,11 @@ java -javaagent:<your full path to agent jar>.jar -jar <your full path to applia
 ```
 
 Keploy will run all the captures test-cases, compare and show the results on the console.
+
+<details>
+<summary>
+                Result on Console Logs
+              </summary>
 
 ```shell
 10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 2
@@ -258,6 +314,8 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 ```
 ![testruns](/img/TestrunsSuccess.png "Recent testruns")
 
+
+</details>
 
 ## Let's add a Bug in the App
 
