@@ -8,6 +8,7 @@ import {
   Resources,
   QuickStart,
 } from "../components";
+import { GSoC } from "../components/GSoC";
 
 export default function Home() {
   const context = useDocusaurusContext();
@@ -21,6 +22,7 @@ export default function Home() {
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
+          <GSoC/>
           {/*<Hacktoberfest />*/}
           <Intro />
           <Resources />
