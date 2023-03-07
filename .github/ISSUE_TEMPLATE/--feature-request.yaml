@@ -7,9 +7,10 @@ body:
 
 - type: checkboxes
   attributes:
- 
+    label: If you want to add an issue related to this repositiry then plz add 
+      your issue at https://github.com/keploy/keploy/issues with a docs label, so that people could understand that the issue is related 
+      to docs repository.
    
     options:
-    - label: go on https://github.com/keploy/keploy/issues section for creating your issue and don't forget to add docs label on your
-     issue so that people could understand that issue is relted with docs repository.
+    - label: go on https://github.com/keploy/keploy/issues section for creating your issue.
       required: true
