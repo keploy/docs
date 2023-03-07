@@ -6,10 +6,8 @@ body:
 
 - type: checkboxes
   attributes:
-    label: Is there an existing feature request for this?
-    description: If you want to add an issue related to this repositiry then plz add 
+    label: If you want to add an issue related to this repositiry then plz add 
       your issue at https://github.com/keploy/keploy/issues with a docs label, so that people could understand that the issue is related 
-      to docs repository 
-    options:
-    - label: I have searched the existing issues
-      required: true
+      to docs repository
+ 
+
