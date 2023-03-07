@@ -3,17 +3,13 @@ description: Suggest a feature to improve Keploy
 title: "[feature]: "
 labels: [feature]
 body:
-- type: markdown
-  attributes:
-    value: |
-      Thank you for taking the time to request a feature for Keploy. If you want to add an issue related to this repositiry then plz add 
-      your issue at https://github.com/keploy/keploy/issues with a docs label so that people could understand that the issue is related 
-      to docs repository 
 
 - type: checkboxes
   attributes:
     label: Is there an existing feature request for this?
-    description: Please search to see if an issue related to this feature request/feature request already exists
+    description: If you want to add an issue related to this repositiry then plz add 
+      your issue at https://github.com/keploy/keploy/issues with a docs label, so that people could understand that the issue is related 
+      to docs repository 
     options:
     - label: I have searched the existing issues
       required: true
