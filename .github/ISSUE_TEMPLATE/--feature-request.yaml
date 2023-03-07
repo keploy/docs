@@ -4,11 +4,13 @@ title: "[feature]: "
 labels: [feature]
 body:
 
+
 - type: checkboxes
   attributes:
     label: If you want to add an issue related to this repositiry then plz add 
       your issue at https://github.com/keploy/keploy/issues with a docs label, so that people could understand that the issue is related 
       to docs repository
-  validations:
-    required: true
-
+   
+    options:
+    - label: go on https://github.com/keploy/keploy/issues section
+      required: true
