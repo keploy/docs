@@ -13,8 +13,8 @@ body:
 
 
 - type: checkboxes
-  # attributes:
-  #   label:
+  attributes:
+    label: nj
    
     options:
     - label: go on https://github.com/keploy/keploy/issues section for creating your issue.
