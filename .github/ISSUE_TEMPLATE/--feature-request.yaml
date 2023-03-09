@@ -7,9 +7,7 @@ body:
 - type: markdown
   attributes:
     value: |
-     # If you want to add an issue related to this repositiry then plz add 
-      your issue in keploy/keploy repository with a docs label, so that people could understand that the issue is related 
-      to docs repository.
+     # If you want to add an issue related to this repositiry then plz add your issue in keploy/keploy repository with a docs label, so that people could understand that the issue is related to docs repository.
 
 
 - type: checkboxes
