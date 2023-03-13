@@ -7,14 +7,15 @@ body:
 - type: markdown
   attributes:
     value: |
-     ## If you want to add an issue related to this docs repositiry then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) and please add a docs      <img src="https://i.imgur.com/UcymfwC.png"> label.
+     - ## If you want to add an issue related to this docs repositiry then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) 
+     - ## please add a docs <img src="https://i.imgur.com/iFVxQdE.png"> label on your issue.
 
 
 - type: checkboxes
   attributes:
-    label: plz visit the link given below for creating issue.
+    label: Have you checked that your issue is unique ?
     options:
-    - label: go on        section for creating your issue and add doc lable.
+    - label: Yes my issue is uniques.
       required: true
 
 
