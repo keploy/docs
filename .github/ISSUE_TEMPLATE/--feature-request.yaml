@@ -7,12 +7,21 @@ body:
 - type: markdown
   attributes:
     value: |
-     # If you want to add an issue related to this repositiry then plz add your issue in keploy/keploy repository with a docs label, so that people could understand that the issue is related to docs repository.
+     ## If you want to add an issue related to this docs repositiry then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) and please add a docs      <img src="https://i.imgur.com/UcymfwC.png"> label.
 
 
 - type: checkboxes
   attributes:
     label: plz visit the link given below for creating issue.
     options:
-    - label: go on https://github.com/keploy/keploy/issues section for creating your issue and add doc lable.
+    - label: go on        section for creating your issue and add doc lable.
       required: true
+
+
+
+
+
+
+
+
+
