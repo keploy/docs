@@ -7,7 +7,7 @@ body:
 - type: markdown
   attributes:
     value: |
-     - ## If you want to add an issue related to this docs repositiry then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) 
+     - ## If you want to add an issue related to this docs repository then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) 
      - ## please add a docs <img src="https://i.imgur.com/iFVxQdE.png"> label on your issue.
 
 
