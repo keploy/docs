@@ -15,7 +15,7 @@ body:
   attributes:
     label: Have you checked that your issue is unique ?
     options:
-    - label: Yes my issue is uniques.
+    - label: Yes my issue is unique.
       required: true
 
 
