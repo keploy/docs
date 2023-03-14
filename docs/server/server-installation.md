@@ -44,7 +44,7 @@ To access Keploy though ingress, please add information about ingress in the [va
 ```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
 
-sudo mv /tmp/keploy /usr/local/bin && keploy
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 ### Linux
@@ -55,7 +55,7 @@ sudo mv /tmp/keploy /usr/local/bin && keploy
 ```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
-sudo mv /tmp/keploy /usr/local/bin && keploy
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 </details>
 
@@ -65,7 +65,7 @@ sudo mv /tmp/keploy /usr/local/bin && keploy
 ```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
 
-sudo mv /tmp/keploy /usr/local/bin && keploy
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 The UI can be accessed at http://localhost:6789
