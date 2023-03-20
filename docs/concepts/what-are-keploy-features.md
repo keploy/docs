@@ -11,19 +11,21 @@ tags:
 
 Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), [Curl](https://curl.se/) to generate test-case.
 
-<img src="/img/api-tools.png?raw=true" width="50%" alt="API Tools"/>
+<img src="/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
 
 ### 2. Automatically mock Mutations
 
 Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all CRUD operations** with correct responses.
 
-Now you'll not require data dumps or mocks for dependencies like DBs, internal services, or third party services like twilio, shopify or stripe.
+Data dumps, stubs or mocks for dependencies like DBs, internal services, or third party services like twilio, shopify or stripe are **not required**.
 
 <img src="/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies"/>
 
-Please check list of currently supported dependencies in [Go](/docs/go/supported-frameworks).
+Please check list of currently supported dependencies in [Go, Java and Node](https://keploy.io/#integrations).
 
-With Keploy you can safely replay writes or mutations by capturing from local or other environments.
+Keploy can safely replay writes or mutations by capturing from local or other environments and replaying without API chaining.
+
+<img src="/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application. Multiple Reads after write operations can be replicated automatically too.
 
@@ -33,18 +35,18 @@ Keploy identifies [noisy fields](/concepts/general-glossary.md#3-noisy-field) in
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
-<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>
+[//]: # (<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>)
 
 Keploy then compares if the responses of the API requests disagree with each other.
 If any of the fields of the API responses are different they are marked as random/non-deterministic fields.
 
 ### 4. Native interoperability
 
-Keploy has [native integrations](/concepts/general-glossary.md#4-interoperability) with popular testing libraries like `go-test`.
+Keploy has [native integrations](/concepts/general-glossary.md#4-interoperability) with popular testing libraries like `go-test`, `jUnit`, `jest`.
 Code coverage will be reported with existing and Keploy recorded test cases and can also be integrated in
 existing CI pipelines easily.
 
-<img src="/img/unit-test.gif?raw=true" alt="Keploy Integration with Testing Libraries"/>
+<img src="/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"/>
 
 ### 5. Easy Integration Framework for new Libraries
 

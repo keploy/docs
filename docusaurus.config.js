@@ -64,9 +64,9 @@ module.exports = {
       },
       items: [
         {
-          to: "/docs/server/server-installation",
+          to: "/docs/keploy-explained/introduction",
           activeBasePath: "none",
-          label: "Installation",
+          label: "Explanation",
         },
         // {
         //   to: "/docs/operation/web-ui-operations/",
@@ -83,12 +83,12 @@ module.exports = {
           to: "/application-development",
           activeBaseRegex:
             "(/application-development)|(/docs/(go|java|php|node))",
-          label: "SDKs",
+          label: "Installation",
         },
         {
           to: "/docs/devtools/sdk-contrib-guide/",
           activeBasePath: "(/docs/devtools)",
-          label: "Contribution",
+          label: "Contributor Guide",
         }, 
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -328,11 +328,11 @@ module.exports = {
       async: true,
       defer: true,
     },
-    {
-      src: "/scripts/fullstory.js",
-      async: true,
-      defer: true,
-    },
+    // {
+    //   src: "/scripts/fullstory.js",
+    //   async: true,
+    //   defer: true,
+    // },
   ],
 };
 

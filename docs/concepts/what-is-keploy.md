@@ -7,8 +7,17 @@ tags:
   - explanation
 ---
 
-Keploy is e2e testing toolkit for developers that generates tests cases and data mocks.
+Keploy is functional testing toolkit for developers. 
+It **generates E2E tests for APIs (KTests)** along with **mocks or stubs(KMocks)** by
+recording real API calls. 
 
-It converts API calls into testcases. Mocks/stubs are automatically generated with the actual request/responses.
+KTests can be imported as mocks for consumers and vice-versa.
 
-![Test Case Generation](/img/record-testcase.gif)
+
+![Test Case Generation](/gif/record-tc.gif)
+
+
+Merge KTests with unit testing libraries(like Go-Test, JUnit..) to **track combined test-coverage**.
+
+KMocks can also be referenced in existing tests or use anywhere (including any testing framework). 
+KMocks can also be used as tests for the server.
