@@ -18,17 +18,6 @@ tags:
 
 </details>
 
-### HLD for Java SDK
-
-The following contains the HLD for Java SDK demonstrating all important components:
-
-## Record Mode
-
-![Record Mode](https://user-images.githubusercontent.com/50234097/222137527-73115265-57ab-4387-bb4c-5cfb7285e894.png)
-
-## Test Mode
-
-![Test Mode](https://user-images.githubusercontent.com/50234097/222137583-d6eda9fa-3903-4222-9a23-faf24a089e06.png)
 
 ## Build configuration
 
