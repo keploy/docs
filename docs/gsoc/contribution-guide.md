@@ -18,7 +18,7 @@ Google pays the students, not the organizations they work with. Beginning in 202
 
 You can read more about the format of the program and its goals [here](https://google.github.io/gsocguides/mentor/).
 
-<img src="/img/GSoC.png"/>
+<img src="/img/gsoc-banner.png"/>
 
 ## Keploy X GSoC
 
