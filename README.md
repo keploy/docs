@@ -6,9 +6,11 @@
  <div align="center">
  <h1>Docs Website</h1>
  <p>
-Repository for the Keploy docs website.
+Repository for the Keploy documentation website.
 </p>
 </div>
+
+**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
