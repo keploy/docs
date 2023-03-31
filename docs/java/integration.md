@@ -118,3 +118,11 @@ Sync dependencies or to _build.gradle_:
   - `KTESTS_PATH` (default test directory of your application)
   - `DENOISE` (default DENOISE = false)
     **Note:** By enabling denoise, it will filter out noisy fields for that testcases.
+
+
+
+## Supported Dependencies
+KEPLOY Java-SDK supports the following dependencies 👇.
+
+![AmazonS3](./images/amazons3.png "AmazonS3")   ![DynamoDB](./Images/dynamodb.png "DynamoDB" )  ![Google_Map](./images/googlemap.png "Google_Map")  ![Apache](./Images/apache.png "Apache" )                                                                                              
+ ![MySQL](./images/mysql.png "MySQL")  ![OkHttp](./Images/okhttp.png "OkHttp" )  ![Oracle](./images/oracle.png "Oracle")  ![PostgreSQL](./Images/postgresql.png "PostgreSQL" )
