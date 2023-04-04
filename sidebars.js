@@ -79,18 +79,18 @@ module.exports = {
       collapsed: true,
       items: [
 
-          // Installation
+        // Installation
         {
           type: "doc",
           label: "Installation",
           id: "go/installation",
         },
 
-       // Integration
+        // Integration
         {
           type: "doc",
           label: "Integration",
-          id:  "go/integration",
+          id: "go/integration",
         },
         // Record Test
         {
@@ -118,7 +118,8 @@ module.exports = {
           items: [
             "go/quickstart/echo-sql",
             "go/quickstart/gin-mongo",
-            "go/quickstart/gin-mongo-2"
+            "go/quickstart/gin-mongo-2",
+            "go/quickstart/gorillamux-redis"
           ],
         },
         {
@@ -148,7 +149,7 @@ module.exports = {
         {
           type: "doc",
           label: "Integration",
-          id:  "java/integration",
+          id: "java/integration",
         },
         // Record Test
         {
@@ -185,7 +186,7 @@ module.exports = {
       ],
     },
 
-      //Ts SDK
+    //Ts SDK
     {
       type: "category",
       label: "Typescript SDK",
@@ -204,7 +205,7 @@ module.exports = {
       ],
     },
 
-      // More SDK
+    // More SDK
     {
       type: "category",
       label: "More SDKs",
@@ -229,7 +230,7 @@ module.exports = {
       collapsed: false,
       link: {
         type: "doc",
-        id:  "devtools/introduction",
+        id: "devtools/introduction",
       },
       items: [
         "devtools/sdk-contrib-guide",
