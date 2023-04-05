@@ -124,5 +124,5 @@ Sync dependencies or to _build.gradle_:
 ## Supported Dependencies
 KEPLOY Java-SDK supports the following dependencies 👇.
 
-![AmazonS3](./images/amazons3.png "AmazonS3")   ![DynamoDB](./Images/dynamodb.png "DynamoDB" )  ![Google_Map](./images/googlemap.png "Google_Map")  ![Apache](./Images/apache.png "Apache" )                                                                                              
- ![MySQL](./images/mysql.png "MySQL")  ![OkHttp](./Images/okhttp.png "OkHttp" )  ![Oracle](./images/oracle.png "Oracle")  ![PostgreSQL](./Images/postgresql.png "PostgreSQL" )
+![AmazonS3](./images/amazons3.png "AmazonS3")        ![DynamoDB](./Images/dynamodb.png "DynamoDB" )       ![Google_Map](./images/googlemap.png "Google_Map")        ![Apache](./Images/apache.png "Apache" )                                                                                              
+ ![MySQL](./images/mysql.png "MySQL")       ![OkHttp](./Images/okhttp.png "OkHttp" )       ![Oracle](./images/oracle.png "Oracle")     ![PostgreSQL](./Images/postgresql.png "PostgreSQL" )
