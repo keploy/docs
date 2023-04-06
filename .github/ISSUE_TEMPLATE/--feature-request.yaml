@@ -3,26 +3,26 @@ description: Suggest a feature to improve Keploy
 title: "[feature]: "
 labels: [feature]
 body:
+
 - type: markdown
   attributes:
     value: |
-      Thank you for taking the time to request a feature for Keploy
+     - ## If you want to add an issue related to this docs repository then plz add your issue [_at this location_](https://github.com/keploy/keploy/issues) 
+     - ## please add a docs <img src="https://i.imgur.com/iFVxQdE.png"> label on your issue.
+
+
 - type: checkboxes
   attributes:
-    label: Is there an existing feature request for this?
-    description: Please search to see if an issue related to this feature request/feature request already exists
+    label: Have you checked that your issue is unique ?
     options:
-    - label: I have searched the existing issues
+    - label: Yes my issue is unique.
       required: true
-- type: textarea
-  attributes:
-    label: Summary
-    description: One paragraph description of the feature
-  validations:
-    required: true
-- type: textarea
-  attributes:
-    label: Why should this be worked on?
-    description: A concise description of the problems or use cases for this feature request
-  validations:
-    required: true
+
+
+
+
+
+
+
+
+
