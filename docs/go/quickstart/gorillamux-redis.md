@@ -171,6 +171,8 @@ So no need to setup fake database/apis like Redis or write mocks for them. Keplo
 
 Go to the `Keploy Console` to get deeper insights on what testcases ran, what failed.
 
+![GorillaMux-Redis-Test-Run](/img/GorillaMux-Redis-test-runs.png)
+
 <details>
 <summary>𝗜𝗻𝘀𝗶𝗴𝗵𝘁𝘀 𝗼𝗻 𝗞𝗲𝗽𝗹𝗼𝘆 𝗖𝗼𝗻𝘀𝗼𝗹𝗲</summary>
 
@@ -315,5 +317,10 @@ DIFF:
  <=========================================>
 
 ```
+
+This is how the bug will look like in the Keploy Terminal:
+
+![GorillaMux-Redis-test-diff](/img/GorillaMux-Redis-test-diff.png)
+![GorillaMux-Redis-test-diff2](/img/GorillaMux-Redis-test-diff2.png)
 
 </details>
