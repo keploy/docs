@@ -1,6 +1,6 @@
 ---
 id: gorillamux-sql
-title: Sample Application with the Go SDK
+title: Sample Application with Gorilla/Mux-SQL
 sidebar_label: Gorilla/Mux-SQL Sample
 tags:
   - hello-world
@@ -17,7 +17,7 @@ A sample contact keeper app to test Keploy integration capabilities using [Goril
 
 Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
-### Setup URL shortener
+### Setup Gorilla/Mux-SQL App
 
 ```bash
 git clone https://github.com/keploy/samples-go && cd mux-sql
@@ -39,7 +39,7 @@ docker-compose up -d
 ### Run the application
 
 ```shell
-go run handler.go main.go
+go run .
 ```
 
 ## Generate testcases
@@ -50,21 +50,19 @@ To generate testcases we just need to **make some API calls.** You can use [Post
 
 ```bash
 curl --request POST \
-  --url http://localhost:8010/product \
+  --url http://localhost:8082/url \
   --header 'content-type: application/json' \
   --data '{
-    "name":"Bubbles",
-    "price": 123
+  "url": "https://google.com"
 }'
 ```
 
-this will return the response.
+this will return the response. The ts would automatically be ignored during testing because it'll always be different.
 
 ```
 {
-    "id": 1,
-    "name": "Bubbles",
-    "price": 123
+  "ts": 1645540022,
+  "url": "http://localhost:8082/Lhr4BWAi"
 }
 ```
 
@@ -72,10 +70,10 @@ this will return the response.
 
 ```bash
 curl --request GET \
-  --url http://localhost:8010/products
+  --url http://localhost:8082/Lhr4BWAi
 ```
 
-or by querying through the browser `http://localhost:8010/products`
+or by querying through the browser `http://localhost:8082/Lhr4BWAi`
 
 Now both these API calls were captured as editable testcases and written to `keploy/tests` folder. The keploy directory would also have mocks folder that contains all the outputs of postgres operations. Here's what the folder structure look like:
 
