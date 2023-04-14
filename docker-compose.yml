@@ -1,0 +1,8 @@
+version: "1"
+
+services:
+  docusaurus:
+    build: .
+    ports:
+      - 3000:3000
+    working_dir: /app
