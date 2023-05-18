@@ -89,7 +89,7 @@ module.exports = {
           to: "/docs/devtools/sdk-contrib-guide/",
           activeBasePath: "(/docs/devtools)",
           label: "Contributor Guide",
-        }, 
+        },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
         //   activeBasePath: "(/docs/hacktoberfest)",
@@ -186,7 +186,6 @@ module.exports = {
         <a class="footer__link-item" href="/security">Security</a>
         <span class="footer__separators"> | </span>
         <a class="footer__link-item" href="/privacy-policy">Privacy Policy</a>
-        <span class="footer__separators"> | </span>
       </div>
       `,
     },
