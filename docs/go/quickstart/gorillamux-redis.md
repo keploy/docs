@@ -171,8 +171,6 @@ So no need to setup fake database/apis like Redis or write mocks for them. Keplo
 
 Go to the `Keploy Console` to get deeper insights on what testcases ran, what failed.
 
-![GorillaMux-Redis-Test-Run](/img/GorillaMux-Redis-test-runs.png)
-
 <details>
 <summary>𝗜𝗻𝘀𝗶𝗴𝗵𝘁𝘀 𝗼𝗻 𝗞𝗲𝗽𝗹𝗼𝘆 𝗖𝗼𝗻𝘀𝗼𝗹𝗲</summary>
 
@@ -201,11 +199,9 @@ Testrun passed for testcase with id: "test-1"
 
 
 ```
-
 </details>
 
 ---
-
 ### Make a code change
 
 Now try changing something like commenting line numbers 115 and 116 and uncommenting line 119 in [main.go](./main.go) and running ` go test -coverpkg=./... -covermode=atomic ./...` again
