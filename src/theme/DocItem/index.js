@@ -17,7 +17,6 @@ import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
-import FooterWrapper from "../Footer";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -95,8 +94,6 @@ export default function DocItem(props) {
                   <DocContent />
                 </article>
               </div>
-
-              <FooterWrapper {...props} />
             </article>
 
             <DocPaginator previous={metadata.previous} next={metadata.next} />
