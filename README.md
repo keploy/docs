@@ -115,7 +115,7 @@ When we merge your PR, a new build automatically occurs and your changes publish
 
 ## How to Get Involved?
 
-Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/docs/issues/new/choose).
+Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
 
 ## Community support
 
