@@ -95,7 +95,6 @@ export default function DocItem(props) {
                   <DocContent />
                 </article>
               </div>
-              
             </article>
 
             <DocPaginator previous={metadata.previous} next={metadata.next} />
