@@ -28,6 +28,12 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
+    metadata: [
+      {
+        name: 'x-default',
+        content: 'en-us',
+      },
+    ],
     colorMode: {
       defaultMode: "light",
       disableSwitch: false,
