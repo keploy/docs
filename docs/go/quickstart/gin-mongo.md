@@ -73,8 +73,8 @@ curl --request GET \
 
 or by querying through the browser `http://localhost:8080/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8080/testlist).
-If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
+You'll be able to see new test file and mock file generated in your project codebase locally.
+If you're using Keploy cloud, open [this](https://app.keploy.io/) to see captured test-cases visually.
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
