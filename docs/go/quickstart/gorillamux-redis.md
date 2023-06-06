@@ -204,7 +204,7 @@ Testrun passed for testcase with id: "test-1"
 ---
 ### Make a code change
 
-Now try changing something like commenting line numbers 115 and 116 and uncommenting line 119 in [main.go](./main.go) and running ` go test -coverpkg=./... -covermode=atomic ./...` again
+Now try changing something like commenting line numbers 115 and 116 and uncommenting line 119 in `main.go` and running ` go test -coverpkg=./... -covermode=atomic ./...` again
 
 ```shell
 starting test execution	{"id": "5ae0c256-f54d-4126-a794-5d5f50d3db76", "total tests": 2}
