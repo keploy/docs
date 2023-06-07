@@ -28,6 +28,7 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
+    canonicalBase: 'https://www.docs.keploy.io/',
     metadata: [
       {
         name: 'x-default',
