@@ -10,7 +10,7 @@ We encourage contributions from the community.
 
 **Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
 
-If you do create a pull request (PR), please follow our [style guidance](/../../STYLE).
+If you do create a pull request (PR), please follow our [style guidance](https://github.com/keploy/docs/blob/main/STYLE.md).
 
 We review GitHub issues and PRs on a regular schedule.
 
