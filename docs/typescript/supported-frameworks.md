@@ -1,6 +1,6 @@
 ---
 id: supported-frameworks
-title: Supported Frameworks
+title: Supported Frameworks for Ts
 description: Supported Frameworks
 tags:
   - developer-guide

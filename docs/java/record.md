@@ -1,6 +1,6 @@
 ---
 id: record
-title: Record Test Cases and Mocks
+title: Record Test Cases and Mocks for Java
 description: Record API calls to Test Cases in Keploy.
 tags:
 - developer-guide

@@ -1,6 +1,6 @@
 ---
 id: supported-frameworks
-title: Supported Frameworks
+title: Supported Frameworks for Golang
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:
   - go

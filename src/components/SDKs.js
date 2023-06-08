@@ -5,7 +5,7 @@ import Link from "@docusaurus/Link";
 export const SDKs = () => {
   return (
     <section className="my-20">
-      <h2 className="mb-2 text-3xl md:text-4xl">SDKs</h2>
+      <h1 className="mb-2 text-3xl md:text-4xl">SDKs</h1>
       <p className="mb-8">
         Find SDK tutorials and dependency mock references in the language of
         your choice.
