@@ -148,8 +148,8 @@ Now, let's see the magic! 🪄💫
 
 There are 2 ways to test the application with Keploy.
 
-1. [Unit Test File](/docs/java/quickstart/spring-sql.md#testing-using-unit-test-file)
-2. [Without Unit Test File](/docs/java/quickstart/spring-sql.md#testing-without-using-unit-test-file)
+1. Unit Test File
+2. Without Unit Test File
 
 ### **Testing using Unit Test File**
 
