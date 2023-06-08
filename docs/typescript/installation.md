@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Integration
+title: Integration for Ts
 description: Add the Keploy Typescript SDK to your application.
 tags:
   - developer-guide

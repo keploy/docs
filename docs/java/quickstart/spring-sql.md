@@ -92,7 +92,7 @@ docker-compose up -d
 ### Maven clean install
 
 ```shell
-mvn clean install -Dmaven.test.skip=true 
+mvn clean install -D maven.test.skip=true 
 ```
 
 ### Set KEPLOY_MODE to record

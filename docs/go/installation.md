@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Installation
+title: Installation for Go
 description: Add the Keploy Server locally.
 tags:
 - developer-guide
