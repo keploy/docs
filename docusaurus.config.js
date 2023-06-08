@@ -6,10 +6,11 @@ const FontPreloadPlugin = require("webpack-font-preload-plugin");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Keploy Documentation",
-  tagline: "Automate API Testing",
+  titleDelimiter: '🐰',
+  tagline: "API Test Generator Tool",
   url: "https://docs.keploy.io",
   baseUrl: "/",
-  onBrokenLinks: "warn",
+  onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   trailingSlash: true,
   favicon: "img/favicon.png",
