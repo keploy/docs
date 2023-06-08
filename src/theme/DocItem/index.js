@@ -17,6 +17,7 @@ import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
+import Head from "@docusaurus/Head";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -42,6 +43,9 @@ export default function DocItem(props) {
     canRenderTOC && (windowSize === "desktop" || windowSize === "ssr");
   return (
     <>
+      <Head>
+        <title>{title}</title>
+      </Head>
       <Layout
         {...{
           title,
@@ -90,7 +94,6 @@ export default function DocItem(props) {
                       <Heading as="h1">{title}</Heading>
                     </header>
                   )}
-
                   <DocContent />
                 </article>
               </div>
