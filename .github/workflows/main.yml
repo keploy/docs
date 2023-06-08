@@ -44,5 +44,5 @@ jobs:
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /
           delete-removed: true
-          no-cache: true
+          cache: "public, max-age:86400"
           private: true    
