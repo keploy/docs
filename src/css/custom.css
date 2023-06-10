@@ -538,9 +538,8 @@ div[class^="announcementBar_"] {
   display: inherit;
 }
 
-/*Correcting alignment of home icon innavbar breadcrumbs.
-commenting because of SEO problems, component is not valid Schema.org*/
-/*a[class="breadcrumbs__link"]{*/
-/*  padding-top: 2px;*/
-/*  margin-bottom: -10px;*/
-/*}*/
+/*Correcting alignment of home icon in navbar breadcrumbs.*/
+a[class="breadcrumbs__link"]{
+  padding-top: 2px;
+  margin-bottom: -10px;
+}
