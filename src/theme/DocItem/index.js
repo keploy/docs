@@ -15,7 +15,7 @@ import TOCCollapsible from "@theme/TOCCollapsible";
 import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
-// import DocBreadcrumbs from "@theme/DocBreadcrumbs";
+import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
 import Head from "@docusaurus/Head";
 
@@ -65,7 +65,7 @@ export default function DocItem(props) {
           <div className={styles.docItemContainer}>
             <article>
 {/*Removing breadcrumb as the component is downranking SEO. not a valid breadcrumb component according to schema.org */}
-              {/*<DocBreadcrumbs/>*/}
+              <DocBreadcrumbs/>
               <DocVersionBadge />
 
               {canRenderTOC && (
