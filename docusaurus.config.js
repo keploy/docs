@@ -72,7 +72,7 @@ module.exports = {
         srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
-        {
+    {
           to: "/docs/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
@@ -314,7 +314,7 @@ module.exports = {
         // Will be passed to @docusaurus/theme-classic.
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
-        },
+         },
         gtag: {
           trackingID: "G-LLS95VWZPC",
           // Optional fields.
