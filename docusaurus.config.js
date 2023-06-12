@@ -33,6 +33,9 @@ module.exports = {
     canonicalBase: 'https://www.docs.keploy.io/',
     metadata: [
       {
+        description: '',
+      },
+      {
         name: 'x-default',
         content: 'en-us',
       },

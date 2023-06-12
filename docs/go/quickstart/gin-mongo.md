@@ -1,6 +1,6 @@
 ---
 id: gin-mongo
-title: Sample Application with the Go SDK
+title: Sample Gin-Mongo Application with the Go
 sidebar_label: Gin-Mongo Sample
 tags:
   - hello-world

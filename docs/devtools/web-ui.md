@@ -2,6 +2,7 @@
 id: ui-contrib-guide
 title: Contribute to Keploy UI
 label: UI Contribution Guide
+description: This contribution guide is for developers for setting up Keploy UI locally.
 ---
 
 Make sure you're using **Node version 14.x.x**
