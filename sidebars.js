@@ -6,6 +6,10 @@ module.exports = {
       label: "Explanation",
       collapsible: true,
       collapsed: false,
+      link: {
+        type: "doc",
+        id: "keploy-explained/introduction",
+      },
       items: [
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works",
@@ -59,6 +63,10 @@ module.exports = {
       type: "category",
       label: "Simplification",
       collapsible: true,
+      link: {
+        type: "doc",
+        id:  "concepts/general-glossary",
+      },
       collapsed: false,
       // link: {
       //   type: "doc",
@@ -77,6 +85,10 @@ module.exports = {
       label: "Golang",
       collapsible: true,
       collapsed: true,
+      link: {
+        type: "doc",
+        id: "go/quickstart/index",
+      },
       items: [
 
         // Installation
@@ -136,6 +148,10 @@ module.exports = {
       label: "Java",
       collapsible: true,
       collapsed: true,
+      link: {
+        type: "doc",
+        id: "java/quickstart/index",
+      },
       items: [
 
         // Installation

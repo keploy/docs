@@ -1,6 +1,6 @@
 ---
 id: integration
-title: Integration
+title: Integration for Java 
 description: Add the Keploy Java SDK to your application.
 tags:
   - developer-guide

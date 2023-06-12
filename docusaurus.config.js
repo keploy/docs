@@ -6,11 +6,13 @@ const FontPreloadPlugin = require("webpack-font-preload-plugin");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Keploy Documentation",
-  tagline: "Automate API Testing",
+  titleDelimiter: '🐰',
+  tagline: "API Test Generator Tool",
   url: "https://docs.keploy.io",
   baseUrl: "/",
-  onBrokenLinks: "warn",
+  onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
+  trailingSlash: true,
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
@@ -28,6 +30,16 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
+    canonicalBase: 'https://www.docs.keploy.io/',
+    metadata: [
+      {
+        description: '',
+      },
+      {
+        name: 'x-default',
+        content: 'en-us',
+      },
+    ],
     colorMode: {
       defaultMode: "light",
       disableSwitch: false,
@@ -63,7 +75,7 @@ module.exports = {
         srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
-        {
+    {
           to: "/docs/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
@@ -305,7 +317,7 @@ module.exports = {
         // Will be passed to @docusaurus/theme-classic.
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
-        },
+         },
         gtag: {
           trackingID: "G-LLS95VWZPC",
           // Optional fields.

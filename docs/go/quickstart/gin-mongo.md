@@ -1,6 +1,6 @@
 ---
 id: gin-mongo
-title: Sample Application with the Go SDK
+title: Sample Gin-Mongo Application with the Go
 sidebar_label: Gin-Mongo Sample
 tags:
   - hello-world
@@ -73,8 +73,8 @@ curl --request GET \
 
 or by querying through the browser `http://localhost:8080/Lhr4BWAi`
 
-Now both these API calls were captured as a testcase and should be visible on the [Keploy console](http://localhost:8080/testlist).
-If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
+You'll be able to see new test file and mock file generated in your project codebase locally.
+If you're using Keploy cloud, open [this](https://app.keploy.io/) to see captured test-cases visually.
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
@@ -86,8 +86,8 @@ Now, let's see the magic! 🪄💫
 
 There are 2 ways to test the application with Keploy.
 
-1. [Unit Test File](/docs/go/quickstart/gin-mongo-quickstart#testing-using-unit-test-file)
-2. [KEPLOY_MODE environment variable](/docs/go/quickstart/gin-mongo-quickstart#testing-using-keploy_mode-env-variable)
+1. [Unit Test File](/docs/go/quickstart/gin-mongo#testing-using-unit-test-file)
+2. [KEPLOY_MODE environment variable](/docs/go/quickstart/gin-mongo#testing-using-keploy_mode-env-variable)
 
 ### Testing using Unit Test File
 

@@ -2,6 +2,7 @@
 id: docs-contrib-guide
 title: Contribute to Keploy Docs Website
 label: Docs Website Contribution Guide
+description: This contribution guide is for developers for setting up Keploy locally. 
 ---
 
 # Contribute to Keploy Docs Website
@@ -10,7 +11,7 @@ We encourage contributions from the community.
 
 **Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
 
-If you do create a pull request (PR), please follow our [style guidance](/STYLE).
+If you do create a pull request (PR), please follow our [style guidance](https://github.com/keploy/docs/blob/main/STYLE.md).
 
 We review GitHub issues and PRs on a regular schedule.
 

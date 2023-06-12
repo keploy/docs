@@ -1,6 +1,6 @@
 ---
 id: echo-sql
-title: Sample Application with the Go SDK
+title: Sample Echo-SQL Application with the Go
 sidebar_label: Echo-SQL Sample
 tags:
   - hello-world
@@ -76,7 +76,7 @@ curl --request GET \
 or by querying through the browser `http://localhost:6789/Lhr4BWAi`
 
 Now both these API calls were captured as a testcase and should be visible in the keploy-tests folderj.
-If you're using Keploy cloud, open [this](https://app.keploy.io/testlist).
+If you're using Keploy cloud, open [this](https://app.keploy.io/).
 
 
 ![testcases](/img/Echo-Sql-test-cases.png)

@@ -92,7 +92,7 @@ docker-compose up -d
 ### Maven clean install
 
 ```shell
-mvn clean install -Dmaven.test.skip=true 
+mvn clean install -D maven.test.skip=true 
 ```
 
 ### Set KEPLOY_MODE to record
@@ -148,8 +148,8 @@ Now, let's see the magic! 🪄💫
 
 There are 2 ways to test the application with Keploy.
 
-1. [Unit Test File](/docs/java/quickstart/spring-sql.md#testing-using-unit-test-file)
-2. [Without Unit Test File](/docs/java/quickstart/spring-sql.md#testing-without-using-unit-test-file)
+1. Unit Test File
+2. Without Unit Test File
 
 ### **Testing using Unit Test File**
 

@@ -2,7 +2,7 @@
 id: what-are-keploy-sdk-modes
 title: Keploy SDK Modes
 sidebar_label: Keploy SDK Modes
-description: Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.
+description: Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions. This page explain different modes of SDK.
 tags:
   - explanation
   - sdk
