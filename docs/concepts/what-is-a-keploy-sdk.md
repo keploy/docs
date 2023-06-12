@@ -6,6 +6,9 @@ description: Keploy SDK is a language-specific library that captures and replays
 tags:
   - explanation
   - sdk
+keywords:
+  - SDK
+  - Testing API
 ---
 
 A Keploy SDK is a language-specific library that offers APIs to do the following:

@@ -5,6 +5,9 @@ sidebar_label: Keploy Features
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:
   - explanation
+keywords:
+  - test cases
+  - data dumps
 ---
 
 ### 1. Convert API calls from anywhere to Test-Case

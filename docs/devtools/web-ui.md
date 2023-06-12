@@ -3,6 +3,11 @@ id: ui-contrib-guide
 title: Contribute to Keploy UI
 label: UI Contribution Guide
 description: This contribution guide is for developers for setting up Keploy UI locally.
+keywords:
+  - MongoDB
+  - UI
+  - Local Server
+  - dockerfile
 ---
 
 Make sure you're using **Node version 14.x.x**
@@ -23,7 +28,7 @@ git clone https://github.com/keploy/ui.git && cd ui
 npm i
 ```
 
-For development, we'll add the API URL as local keploy server url running at http://localhost:6789
+For development, we'll add the API URL as keploy local server url running at http://localhost:6789
 
 ```shell
 export GATSBY_API_URL=http://localhost:6789/api

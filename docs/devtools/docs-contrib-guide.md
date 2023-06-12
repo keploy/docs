@@ -3,6 +3,8 @@ id: docs-contrib-guide
 title: Contribute to Keploy Docs Website
 label: Docs Website Contribution Guide
 description: This contribution guide is for developers for setting up Keploy locally. 
+keywords:
+  - GitHub
 ---
 
 # Contribute to Keploy Docs Website
