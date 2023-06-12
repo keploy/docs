@@ -3,6 +3,11 @@ id: introduction
 title: Keploy Devtools introduction
 label: Introduction
 description: This guide is for developers trying to contribute to Keploy codebase. 
+keywords:
+    - SDK
+    - Server
+    - UI
+    - Contribution
 ---
 
 Keploy has 3 major components.

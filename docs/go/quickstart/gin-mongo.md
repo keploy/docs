@@ -7,6 +7,11 @@ tags:
   - go
   - sdk
   - tutorial
+keywords:
+  - SDK
+  - Docker
+  - MongoDB
+  - golang gin
 ---
 
 #  URL Shortener Sample App

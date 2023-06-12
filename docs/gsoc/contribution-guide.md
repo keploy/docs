@@ -2,6 +2,10 @@
 id: contribution-guide
 title: GSoC Hacktoberfest Contribution
 label: GSoC
+keywords:
+  - GSoC
+  - Open Source
+  - Hacktoberfest
 ---
 
 # Getting Started with Google Summer of Code (GSoC)

@@ -3,6 +3,9 @@ id: sdk-contrib-guide
 title: Contribute to Keploy SDK
 label: SDK Contribution Guide
 description: This contribution guide is for developers for setting up Keploy backend server with SDKs locally.
+keywords:
+  - SDK
+  - Java
 ---
 
 
