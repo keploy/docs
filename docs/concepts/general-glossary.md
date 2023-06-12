@@ -1,6 +1,6 @@
 ---
 id: general-glossary
-title: Glossary
+title: General Glossary for Users 
 sidebar_label: Glossary
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

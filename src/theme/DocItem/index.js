@@ -45,6 +45,9 @@ export default function DocItem(props) {
     <>
       <Head>
         <title>{title}</title>
+        {description && (
+            <meta name="description" content={description} />
+        )}
       </Head>
       <Layout
         {...{

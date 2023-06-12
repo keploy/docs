@@ -2,6 +2,7 @@
 id: server-contrib-guide
 title: Contribute to Keploy Server
 label: Server Contribution Guide
+description: This contribution guide is for developers for setting up Keploy backend server locally.
 ---
 
 There's a separate docker-compose `docker-compose-dev.yaml` file which helps with exposing the mongo server and also builds the dockerfile from local code. The `build` flag ensures that the binary is built again to reflect the latest code changes. There's also docker-compose-debug.yaml `docker-compose-debug.yaml` which can help remote debugging the go server on port 40000.
