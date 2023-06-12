@@ -5,6 +5,10 @@ description: Keploy platform automatically mocks application dependencies and sa
 tags:
   - go
   - developer-guide
+keywords:
+  - Elasticsearch
+  - Redis
+  - gRPC
 ---
 
 ## Supported Routers

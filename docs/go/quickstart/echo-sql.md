@@ -7,6 +7,10 @@ tags:
   - go
   - sdk
   - tutorial
+keywords:
+  - PostgreSQL
+  - Unit Test
+  - sample application
 ---
 
 # URL Shortener Sample App 

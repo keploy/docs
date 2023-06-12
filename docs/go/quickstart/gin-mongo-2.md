@@ -7,6 +7,11 @@ tags:
   - go
   - sdk
   - tutorial
+keywords:
+  - SDK
+  - Docker
+  - MongoDB
+  - API Testing
 ---
 
 # User Profile Management Sample App
