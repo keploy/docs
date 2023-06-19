@@ -1,7 +1,7 @@
 ---
 id: record
 title: Record Test Cases and Mocks for Go
-description: Record API calls to Test Cases in Keploy.
+description: Record API calls to Testcases for Go in Keploy.
 tags:
 - developer-guide
 - go
