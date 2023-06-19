@@ -1,7 +1,7 @@
 ---
 id: replay
 title: Replay Tests & Mocks for Java
-description: Replay Test Suite in Keploy.
+description: Replay Test Suite for Java in Keploy.
 tags:
 - developer-guide
 - go

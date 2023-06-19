@@ -1,7 +1,7 @@
 ---
 id: index
 title: Java Sample Applications for QuickStart
-description: Sample applications with Keploy demonstration
+description: Sample Java applications with Keploy Demonstration
 tags:
   - developer-guide
   - go
