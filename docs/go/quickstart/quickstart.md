@@ -1,7 +1,7 @@
 ---
 id: index
 title: Go Sample Applications for QuickStart
-description: Sample applications with Keploy demonstration
+description: Sample Go applications with Keploy Demonstration
 tags:
   - developer-guide
   - go
