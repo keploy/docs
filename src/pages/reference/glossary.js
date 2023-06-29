@@ -20,7 +20,20 @@ function Glossary() {
         ],
         'B': [
             { name: 'Behaviour Driven Development', link: '/docs/concepts/reference/glossary/behaviour-driven-development' },
-            { name: 'Beta Testing', link: '/docs/concepts/reference/glossary/beta-testing' }
+            { name: 'Beta Testing', link: '/docs/concepts/reference/glossary/beta-testing' },
+            { name: 'Black Box Testing', link: '/docs/concepts/reference/glossary/black-box-testing' }
+        ],
+        'E': [
+            { name: 'End To End Testing', link: '/docs/concepts/reference/glossary/end-to-end-testing' },
+
+        ],
+        'U': [
+            { name: 'Unit Test Automation', link: '/docs/concepts/reference/glossary/unit-test-automation' },
+            { name: 'Unit Testing', link: '/docs/concepts/reference/glossary/unit-testing' },
+        ],
+        'W': [
+            { name: 'White Box Testing', link: '/docs/concepts/reference/glossary/white-box-testing' },
+
         ]
     }
     const { siteConfig = {} } = context;
@@ -45,15 +58,15 @@ function Glossary() {
                 <div className="grid grid-cols-12 gap-1">
                     {new Array(26).fill(0).map((x, i) => <button className={`col-span-1  p-2 rounded-sm  ${state[String.fromCharCode(65 + i)] ? "bg-orange-800" : "bg-orange-200"}`} key={i} onClick={() => handleClick(String.fromCharCode(65 + i))}>{String.fromCharCode(65 + i)}</button>)}
                 </div>
-                <div>
+                <div className="text-xl font-semibold">
                     {Object.entries(state).map(([key, value]) =>
                         <>
                             <div key={key}>{value ? key : ''}</div>
                             {console.log("A", entries[key])}
                             {
                                 value ?
-                                    <div className="flex flex-col">
-                                        {entries[key]?.map(({ name, link }, i) => <a key={i} href={link}>{name}</a>)}
+                                    <div className="flex flex-col p-3">
+                                        {entries[key]?.map(({ name, link }, i) => <a className="text-orange-600 hover:text-orange-950 hover:underline" key={i} href={link}>{name}</a>)}
                                     </div>
                                     :
                                     ''
