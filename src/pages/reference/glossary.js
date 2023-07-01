@@ -56,13 +56,15 @@ function Glossary() {
             <main className="margin-vert--lg container">
                 <div className="text-4xl font-bold text-center">Glossary</div>
                 <div className="grid grid-cols-12 gap-1">
-                    {new Array(26).fill(0).map((x, i) => <button className={`col-span-1  p-2 rounded-sm  ${state[String.fromCharCode(65 + i)] ? "bg-orange-800" : "bg-orange-200"}`} key={i} onClick={() => handleClick(String.fromCharCode(65 + i))}>{String.fromCharCode(65 + i)}</button>)}
+                    {new Array(26).fill(0).map((x, i) => <button className={`col-span-1  p-2 rounded-sm  ${state[String.fromCharCode(65 + i)] ? "bg-orange-200" : "bg-transparent"} `} key={i} disabled={entries[String.fromCharCode(65 + i)] === undefined ? true : false}
+                        onClick={() => handleClick(String.fromCharCode(65 + i))}>{String.fromCharCode(65 + i)}</button>)}
+
+
                 </div>
-                <div className="text-xl font-semibold">
+                <div className="text-xl font-semibold grid grid-cols-8">
                     {Object.entries(state).map(([key, value]) =>
-                        <>
+                        <div key={key} className="col-span-2">
                             <div key={key}>{value ? key : ''}</div>
-                            {console.log("A", entries[key])}
                             {
                                 value ?
                                     <div className="flex flex-col p-3">
@@ -71,7 +73,7 @@ function Glossary() {
                                     :
                                     ''
                             }
-                        </>
+                        </div>
 
                     )}
                 </div>
