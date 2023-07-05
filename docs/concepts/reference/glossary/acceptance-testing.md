@@ -8,22 +8,25 @@ tags:
 keywords:
   - API
 ---
+
 ### What is Acceptance Testing?
-Acceptance testing ensures that the final software product meets the satisfaction of end users, customers, and stakeholders. It is performed before release to ensure alignment with user expectations. Here's a shortened version:
+
+Acceptance testing (AT) is a formal testing process that is conducted to determine whether a software system meets the requirements of the customer or end user. AT is the last phase of software testing, and it is conducted after all other levels of testing have been completed.
+
+The purpose of AT is to ensure that the software system is acceptable to the customer or end user. This means that the system must meet the customer's or end user's needs and expectations. AT also helps to identify any defects or problems with the software system that may have been missed during earlier phases of testing.
 
 ### Acceptance Testing Types:
-a. User Acceptance Testing (UAT): End-users test the software in a real-world setting to validate if it meets their needs and criteria.
-b. Operational Acceptance Testing (OAT): Ensures software readiness for production, covering performance, reliability, and scalability.
-c. Contract Acceptance Testing (CAT): Verifies compliance with contract terms between the development company and client.
-d. Acceptance Testing for Compliance: Confirms adherence to industry standards and regulations.
-e. Alpha Testing: Internal acceptance testing before beta testing or UAT.
-f. Beta Testing: External users provide feedback and identify issues before public release.
+
+- **User acceptance testing (UAT)**: This is the most common type of AT. It involves the customer or end user using the software system in a way that simulates how they will use it in the real world.
+- **Systematic testing**: This involves using a set of predetermined test cases to test the software system.
+- **Acceptance test-driven development (ATDD)**: This is a technique that combines AT with test-driven development (TDD). TDD is a software development process that involves writing unit tests before the code is written. ATDD extends TDD by adding acceptance tests to the mix.
 
 ### Benefits of Acceptance Testing:
-a. Improves end-user experience, increasing satisfaction and adoption.
-b. Ensures software meets stakeholders' expectations and requirements.
-c. Enhances overall quality and dependability, fostering user trust.
-d. Reduces the risk of faults or problems before deployment.
-e. Lowers the cost and time needed for post-release issue resolution.
+
+- It helps to ensure that the software system meets the needs and expectations of the customer or end user.
+- It helps to identify any defects or problems with the software system that may have been missed during earlier phases of testing.
+- It helps to improve the overall quality of the software system.
+- It helps to reduce the risk of defects and problems with the software system.
+- It helps to ensure that the software system is ready for release.
 
 Acceptance testing is vital in ensuring software meets stakeholder demands and quality standards.
