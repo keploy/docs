@@ -24,6 +24,9 @@ function Glossary() {
         'C': [
             { name: 'Component Testing', link: '/docs/concepts/reference/glossary/component-testing' },
         ],
+        'D': [
+            { name: 'Denoise', link: '/docs/concepts/reference/glossary/denoise' },
+        ],
         'E': [
             { name: 'End To End Testing', link: '/docs/concẻpts/reference/glossary/end-to-end-testing' },
 
@@ -45,12 +48,18 @@ function Glossary() {
         'S': [
             { name: 'Stubs', link: '/docs/concepts/reference/glossary/stubs' },
         ],
+        'T': [
+            { name: 'Testing Pyramid', link: '/docs/concepts/reference/glossary/testing-pyramid' },
+        ],
         'U': [
             { name: 'Unit Test Automation', link: '/docs/concepts/reference/glossary/unit-test-automation' },
             { name: 'Unit Testing', link: '/docs/concepts/reference/glossary/unit-testing'},
         ],
         'W': [
             { name: 'White Box Testing', link: '/docs/concepts/reference/glossary/white-box-testing' },
+        ],
+        'Y': [
+            { name: 'YAML', link: '/docs/concepts/reference/glossary/yaml' },
 
         ]
     }
