@@ -14,7 +14,9 @@ function Glossary() {
     const entries = {
         'A': [
             { name: 'Acceptance Testing', link: '/docs/concepts/reference/glossary/acceptance-testing' },
-            { name: 'Agile Unit Testing', link: '/docs/concepts/reference/glossary/agile-unit-testing' }
+            { name: 'Agile Unit Testing', link: '/docs/concepts/reference/glossary/agile-unit-testing' },
+            { name: 'AI Code Compilation', link: '/docs/concepts/reference/glossary/ai-code-compilation' }
+
         ],
         'B': [
             { name: 'BDD', link: '/docs/concepts/reference/glossary/behaviour-driven-development' },
@@ -23,6 +25,8 @@ function Glossary() {
         ],
         'C': [
             { name: 'Component Testing', link: '/docs/concepts/reference/glossary/component-testing' },
+            { name: 'Code Integrity', link: '/docs/concepts/reference/glossary/code-integrity' },
+            { name: 'Code Coverage', link: '/docs/concepts/reference/glossary/code-coverage' }
         ],
         'E': [
             { name: 'End To End Testing', link: '/docs/concẻpts/reference/glossary/end-to-end-testing' },
