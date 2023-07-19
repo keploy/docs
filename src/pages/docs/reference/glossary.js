@@ -44,7 +44,14 @@ function Glossary() {
         ],
         'S': [
             { name: 'Stubs', link: '/docs/concepts/reference/glossary/stubs' },
-        ],
+            { name: 'Shift Left', link: '/docs/concepts/reference/glossary/shift-left' },
+            { name: 'Shift Right', link: '/docs/concepts/reference/glossary/shift-right' },
+         ],
+
+         'T': [
+            { name: 'Test Driven Development', link: '/docs/concepts/reference/glossary/test-driven-development' },
+          ],
+
         'U': [
             { name: 'Unit Test Automation', link: '/docs/concepts/reference/glossary/unit-test-automation' },
             { name: 'Unit Testing', link: '/docs/concepts/reference/glossary/unit-testing'},
