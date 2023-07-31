@@ -41,4 +41,8 @@ You can test with Keploy locally or can integrate Keploy with popular testing-fr
 
 > **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
 
+<<<<<<<< HEAD:versioned_docs/version-1.0.0/keploy-explained/how-keploy-works.md
 ![How it works](/gif/record-replay.gif)
+========
+![How it works](../../static/gif/record-replay.gif)
+>>>>>>>> 6d5448b3 (feat: linux docs updated):docs/keploy-explained/how-keploy-works.md
