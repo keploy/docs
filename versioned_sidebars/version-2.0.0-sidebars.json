@@ -1,0 +1,63 @@
+{
+  "sidebarInstallation": [
+    {
+      "type": "category",
+      "label": "Explanation",
+      "collapsible": true,
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "keploy-explained/introduction"
+      },
+      "items": [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy",
+        "keploy-explained/faq"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Installation",
+      "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "server/index"
+      },
+      "collapsed": false,
+      "items": [
+        "server/windows/installation",
+        "server/linux/installation",
+        "server/macos/installation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Dependencies",
+      "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "dependencies/mongo"
+      },
+      "collapsed": false,
+      "items": [
+        "dependencies/mongo",
+        "dependencies/oracle",
+        "dependencies/postgresSQL"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Simplification",
+      "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "concepts/general-glossary"
+      },
+      "collapsed": false,
+      "items": [
+        "concepts/general-glossary"
+      ]
+    }
+  ]
+}
