@@ -13,35 +13,31 @@ export const QuickStart = () => {
           It creates test-cases and data mocks/stubs by recording API calls, DB queries, etc,
           making releases faster and highly-reliable.
       </p>
-      <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
+      <h2 className="mt-8 text-3xl md:text-4xl">Getting Started</h2>
       <p className="mt-8 mb-8">
-        Follow a QuickStart in language of your choice.
+        Discover how to set up Keploy with app making testcases in just a few minutes.
       </p>
-      <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
-        <Link
+      <div className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
+      <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/go/quickstart/echo-sql")}
+          to={useBaseUrl("/docs/server/windows/installation")}
         >
-          <img
-            className="h-16 w-16"
-            src="/img/go-lang.svg"
-            alt="Go lang logo"
-          />
-          <p className="text-lg">Go</p>
+          <img className="h-16 w-16" src="/img/windows.svg" alt="Windows logo" />
+          <p className="text-lg">Windows</p>
         </Link>
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/java/quickstart/spring-sql")}
+          to={useBaseUrl("/docs/server/linux/installation")}
         >
-          <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
-          <p className="text-lg">Java</p>
+          <img className="h-16 w-16" src="/img/Linux.svg" alt="Linux logo" />
+          <p className="text-lg">Linux</p>
         </Link>
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/typescript/installation")}
+          to={useBaseUrl("/docs/server/macos/installation")}
         >
-          <img className="h-16 w-16" src="/img/typescript.svg" alt="Typescript logo" />
-          <p className="text-lg">Typescript</p>
+          <img className="h-16 w-16" src="/img/Apple_grey.svg" alt="Mac logo" />
+          <p className="text-lg">MacOS</p>
         </Link>
       </div>
     </section>

@@ -75,7 +75,7 @@ module.exports = {
         srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
-    {
+        {
           to: "/docs/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
@@ -96,11 +96,6 @@ module.exports = {
           activeBaseRegex:
             "(/application-development)|(/docs/(go|java|php|node))",
           label: "Installation",
-        },
-        {
-          to: "/docs/devtools/sdk-contrib-guide/",
-          activeBasePath: "(/docs/devtools)",
-          label: "Contributor Guide",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -171,6 +166,12 @@ module.exports = {
         //   ],
         // },
         {
+          type: 'docsVersionDropdown',
+          position: 'left',
+          dropdownItemsAfter: [{to: '/versions'}],
+          dropdownActiveClassDisabled: true,
+        },
+        {
           href: "https://github.com/keploy/keploy",
           position: "right",
           className: "header-github-link",
@@ -205,7 +206,7 @@ module.exports = {
       apiKey: "c4628c331b0f4997178c879978033276",
       indexName: "keploy",
       appId: "WZTL8PLCOD",
-      // contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
+      contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
   },
