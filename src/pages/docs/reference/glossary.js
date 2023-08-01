@@ -60,7 +60,6 @@ function Glossary() {
         ],
         'Y': [
             { name: 'YAML', link: '/docs/concepts/reference/glossary/yaml' },
-
         ]
     }
     const { siteConfig, siteMetadata } = useDocusaurusContext;
