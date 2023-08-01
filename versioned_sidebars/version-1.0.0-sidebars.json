@@ -1,0 +1,186 @@
+{
+  "sidebarInstallation": [
+    {
+      "type": "category",
+      "label": "Explanation",
+      "collapsible": true,
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "keploy-explained/introduction"
+      },
+      "items": [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy",
+        "keploy-explained/faq"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Simplification",
+      "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "concepts/general-glossary"
+      },
+      "collapsed": false,
+      "items": [
+        "concepts/general-glossary"
+      ]
+    }
+  ],
+  "sidebarSDK": [
+    {
+      "type": "category",
+      "label": "Golang",
+      "collapsible": true,
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "go/quickstart/index"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "label": "Installation",
+          "id": "go/installation"
+        },
+        {
+          "type": "doc",
+          "label": "Integration",
+          "id": "go/integration"
+        },
+        {
+          "type": "doc",
+          "label": "Record Test",
+          "id": "go/record"
+        },
+        {
+          "type": "doc",
+          "label": "Replay Test ",
+          "id": "go/replay"
+        },
+        {
+          "type": "category",
+          "label": "Sample Quickstarts",
+          "collapsible": true,
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "go/quickstart/index"
+          },
+          "items": [
+            "go/quickstart/echo-sql",
+            "go/quickstart/gin-mongo",
+            "go/quickstart/gin-mongo-2",
+            "go/quickstart/gorillamux-redis"
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Go Pkg Reference",
+          "href": "https://pkg.go.dev/github.com/keploy/go-sdk"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Java",
+      "collapsible": true,
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "java/quickstart/index"
+      },
+      "items": [
+        {
+          "type": "doc",
+          "label": "Installation",
+          "id": "java/installation"
+        },
+        {
+          "type": "doc",
+          "label": "Integration",
+          "id": "java/integration"
+        },
+        {
+          "type": "doc",
+          "label": "Record Test",
+          "id": "java/record"
+        },
+        {
+          "type": "doc",
+          "label": "Replay Test ",
+          "id": "java/replay"
+        },
+        {
+          "type": "category",
+          "label": "Sample Quickstarts",
+          "collapsible": true,
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "java/quickstart/index"
+          },
+          "items": [
+            "java/quickstart/spring-sql"
+          ]
+        },
+        {
+          "type": "link",
+          "label": "Maven Reference",
+          "href": "https://search.maven.org/artifact/io.keploy/keploy-sdk"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Typescript SDK",
+      "collapsible": true,
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "typescript/installation"
+      },
+      "items": [
+        "typescript/installation",
+        "typescript/generate-tests",
+        "typescript/supported-frameworks",
+        "typescript/mock-library",
+        "typescript/testing"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "More SDKs",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        {
+          "type": "link",
+          "label": "Python SDK (WIP)",
+          "href": "https://github.com/keploy/keploy/issues/58"
+        }
+      ]
+    }
+  ],
+  "sidebarContributions": [
+    {
+      "type": "category",
+      "label": "Contribution Guides",
+      "collapsible": true,
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "devtools/introduction"
+      },
+      "items": [
+        "devtools/sdk-contrib-guide",
+        "devtools/server-contrib-guide",
+        "devtools/ui-contrib-guide",
+        "devtools/docs-contrib-guide"
+      ]
+    }
+  ]
+}
