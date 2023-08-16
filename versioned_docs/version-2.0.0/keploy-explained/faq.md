@@ -1,6 +1,6 @@
 ---
 id: faq
-title: (FAQ) Frequently Asked Questions 
+title: (FAQ) Frequently Asked Questions
 sidebar_label: FAQ
 tags:
   - explanation
@@ -9,7 +9,7 @@ tags:
 
 ### 1. Is Keploy a unit testing framework?
 
-No, keploy is designed to reduce time writing tests manually. It integrates with exising unit testing frameworks like (eg: go test, Junit, pytest, etc.) to ensure compatibility with existing tooling like code coverage, IDE support and CI pipeline/infrastructure support.
+No, keploy is designed to reduce time writing tests manually. It integrates with exising unit testing frameworks `(go-test, JUnit, Pytest, Jest)` to ensure compatibility with existing tooling like code coverage, IDE support and CI pipeline/infrastructure support.
 
 ### 2. Does Keploy replace unit tests entirely?
 
@@ -17,10 +17,7 @@ If all your code paths can be invoked from API calls then yes, else you can stil
 
 ### 3. What code changes do I need to do?
 
-For `Java`, `Javascript/Typescript`, `Python` there are **no code-changes**. However, for `Golang` applications :
-
-- **Web Framework/Router middleware** needs to be added to ensure keploy can intercept incoming request and inject instrumentation data in the request context.
-- **Wrapping External calls** like database queries, http/gRPC calls needs to be done to ensure they are captured and correct mocks are generated for testing those requests.
+There are **no code-changes** required for `Golang`,`Java`,`Python` & `JavaScript` applications
 
 ### 4. How do I run keploy in my CI pipeline?
 
@@ -42,6 +39,6 @@ Not yet. We are working on making our deduplication algorithm scalable enough to
 
 If your application behaviour changes, the respective testcases would fail. You can then mark the new behaviour as normal by clicking on the normalise button.
 
-### 9. Would keploy know if an external service changes?
+<!-- ### 9. Would keploy know if an external service changes?
 
-Not yet. Unless that application is also using keploy, keploy would only test the functionality of the current application. We are working to detect scanning for API contract violations and adding multiple application to perform comprehensive integration tests. All contributions are welcome.
+Not yet. Unless that application is also using keploy, keploy would only test the functionality of the current application. We are working to detect scanning for API contract violations and adding multiple application to perform comprehensive integration tests. All contributions are welcome. -->

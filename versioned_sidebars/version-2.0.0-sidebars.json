@@ -27,13 +27,12 @@
       "collapsed": false,
       "items": [
         "server/windows/installation",
-        "server/linux/installation",
-        "server/macos/installation"
+        "server/linux/installation"
       ]
     },
     {
       "type": "category",
-      "label": "Dependencies",
+      "label": "Database Support",
       "collapsible": true,
       "link": {
         "type": "doc",
@@ -41,9 +40,20 @@
       },
       "collapsed": false,
       "items": [
-        "dependencies/mongo",
-        "dependencies/oracle",
-        "dependencies/postgresSQL"
+        "dependencies/mongo"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Sample-App",
+      "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "quickstart/samples-gin"
+      },
+      "collapsed": false,
+      "items": [
+        "quickstart/samples-gin"
       ]
     },
     {

@@ -18,4 +18,4 @@ The system is built to support wiremessage `MongoDB version => 5.1.X`, which ref
 
 **References**
 
-[1] MongoDB 5.1 removes support for both `OP_QUERY` find operations and `OP_QUERY` commands.
+[1] MongoDB 5.1 removes support for both `OP_QUERY` find operations and `OP_QUERY` commands. As an exception, `OP_QUERY` is still supported for running the [hello](https://www.mongodb.com/docs/manual/reference/command/hello/#mongodb-dbcommand-dbcmd.hello) and [isMaster](https://www.mongodb.com/docs/v4.4/reference/command/isMaster/#mongodb-dbcommand-dbcmd.isMaster) commands as part of the connection handshake.

@@ -17,7 +17,7 @@ export const QuickStart = () => {
       <p className="mt-8 mb-8">
         Discover how to set up Keploy with app making testcases in just a few minutes.
       </p>
-      <div className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
+      <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
       <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/windows/installation")}
@@ -32,13 +32,13 @@ export const QuickStart = () => {
           <img className="h-16 w-16" src="/img/Linux.svg" alt="Linux logo" />
           <p className="text-lg">Linux</p>
         </Link>
-        <Link
+        {/* <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/macos/installation")}
         >
           <img className="h-16 w-16" src="/img/Apple_grey.svg" alt="Mac logo" />
           <p className="text-lg">MacOS</p>
-        </Link>
+        </Link> */}
       </div>
     </section>
   );
