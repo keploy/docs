@@ -18,7 +18,7 @@ Now, when the application serves an API, all the unique network interactions are
 
 ### Step 2 : Replay Test-Cases
 
-Let's say you developed new application version(v2). To test locally, start the application after setting Keploy SDK mode to test mode to replay all recorded API calls/test cases.
+Let's say you developed new application version(v2). To test locally, start the Keploy in test mode to replay all recorded API calls/test-cases previously captured in record-mode.
 
 Now, when the application starts:
 

@@ -92,10 +92,8 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/application-development",
-          activeBaseRegex:
-            "(/application-development)|(/docs/(go|java|php|node))",
-          label: "Installation",
+          to: "https://community.keploy.io",
+          label: "Blogs",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -168,8 +166,8 @@ module.exports = {
         {
           type: 'docsVersionDropdown',
           position: 'left',
-          dropdownItemsAfter: [{to: '/versions'}],
-          dropdownActiveClassDisabled: true,
+          dropdownItemsAfter: [{to: '/version'}],
+          dropdownActiveClassDisabled: false,
         },
         {
           href: "https://github.com/keploy/keploy",
@@ -209,6 +207,7 @@ module.exports = {
       contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
+    
   },
   presets: [
     [
@@ -234,7 +233,7 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
+          includeCurrentVersion: false, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
             [

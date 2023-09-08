@@ -24,12 +24,18 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
 
-## Run the Record Mode
+## Capture the testcases
 
-Run this command on your terminal to start the recording of API calls:-
+Now, we will create the binary of our application:-
+
+```zsh
+go build
+```
+
+Once we have our binary file ready,this command will start the recording of API calls using ebpf:-
 
 ```shell
-sudo -E keploy record -c "CMD_TO_RUN_APP"
+sudo -E keploy record -c "./test-app-url-shortener"
 ```
 
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
@@ -74,5 +80,5 @@ You'll be able to see new test file and mock file generated in your project code
 Run this command on your terminal to run the testcases and generate the test coverage report:-
 
 ```shell
-sudo -E keploy test -c "CMD_TO_RUN_APP" --delay 10
+sudo -E keploy test -c "./test-app-url-shortener" --delay 10
 ```

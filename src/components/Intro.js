@@ -129,7 +129,7 @@ function Server() {
             src="/img/Oracle.svg"
             alt="Oracle logo"
           />
-            <p className="font-semibold">Oracle (WIP)</p>
+            <p className="font-semibold">PostgresSQL</p>
           </Link>
         </li>
         <li className="">
@@ -141,7 +141,7 @@ function Server() {
             src="/img/PostgresSQL.svg"
             alt="PostgresSQL logo"
           />
-            <p className="font-semibold">PostgresSQL  (WIP)</p>
+            <p className="font-semibold">Oracle  (WIP)</p>
           </Link>
         </li>
       </ul>
