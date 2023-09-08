@@ -27,7 +27,8 @@
       "collapsed": false,
       "items": [
         "server/windows/installation",
-        "server/linux/installation"
+        "server/linux/installation",
+        "server/macos/installation"
       ]
     },
     {

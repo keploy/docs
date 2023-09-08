@@ -204,7 +204,7 @@ div[class^="sidebar_"] .button svg {
 
 /* Navbar */
 .navbar__inner {
-  @apply mx-0 max-w-screen-lg justify-around px-3 shadow-none;
+  @apply mx-auto max-w-screen-lg  px-10 shadow-none;
 }
 
 .navbar__items--right {
@@ -212,11 +212,11 @@ div[class^="sidebar_"] .button svg {
 }
 
 .navbar__items--right > :last-child {
-  @apply pl-10;
+  @apply pr-5;
 }
 
-.__brand {
-  @apply mx-0 justify-evenly;
+.navbar__brand {
+  @apply mb-3;
 }
 
 /* Search */

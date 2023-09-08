@@ -45,29 +45,50 @@ We need to create the Alias for Keploy since we are using the Docker.
 alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm pull ghcr.io/keploy/keploy'
 ```
 
-#### Run the Record Mode
+### Creating Alias
 
-Now, we will use the newly created Alias `keployV2` to record the testcases.
+To establish a network for your application using Keploy on Docker, follow these steps.
 
-```shell
-keploy record --c "CMD_to_run_user_container" --containerName "<contianerName>"
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
+
+```zsh
+docker network create keploy-network
 ```
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
-
-Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data mocks into `YAML` format.
-
-#### Run the Test Mode
-
-Now, we will use the newly created Alias `keployV2` to test the testcases.
+Then, create an alias for Keploy:
 
 ```shell
-keploy test --c "CMD_to_run_user_container" --containerName "<contianerName>" --delay 10
+alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
-> **CMD_TO_RUN_APP** is the respective command to run your target application .
+### Recording Testcases and Data Mocks
 
-**Footnote**
+Here are few points to consider before recording!
+- If you're running via **docker compose**, ensure to include the `<CONTAINER_NAME>` under your application service in the docker-compose.yaml file [like this](https://github.com/keploy/samples-python/blob/9d6cf40da2eb75f6e035bedfb30e54564785d5c9/flask-mongo/docker-compose.yml#L14).
 
-1. delay is required while using Test Mode.
-2. `containerName` is optional if you are using `Docker run` command, if the Container name is already present within the command itself.
+- Change the **network name** (`--network` flag)  from `keploy-network` to your custom network if you changed it above.
+- `Docker_CMD_to_run_user_container` refers to the Docker **command for launching** the application.
+
+Utilize the keploy alias we created to capture testcases. **Execute** the following command within your application's **root directory**.
+
+```shell
+keploy record -c "Docker_CMD_to_run_user_container --network keploy-network" --containerName "<containerName>"
+```
+Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
+
+Keploy will capture the API calls you've conducted, generating test suites comprising **testcases (KTests) and data mocks (KMocks)** in `YAML` format.
+
+### Running Testcases
+
+Now, use the keployV2 Alias we created to execute the testcases. Follow these steps in the **root directory** of your application.
+
+When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
+
+
+```shell
+keploy test -c "Docker_CMD_to_run_user_container --network keploy-network" --containerName "<containerName>" --delay 20
+```
+
+Voilà! 🧑🏻‍💻 We have the tests with data mocks running! 🐰🎉
+
+You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.

@@ -11,7 +11,7 @@ keywords:
   - Testing API
 ---
 
-A Keploy eBPF is a language-specific library that offers APIs to do the following:
+A Keploy eBPF is a language-agnostic library that offers APIs to do the following:
 
 1. Capture all the network calls like
 
