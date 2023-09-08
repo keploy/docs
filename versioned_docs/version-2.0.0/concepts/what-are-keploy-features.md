@@ -1,6 +1,6 @@
 ---
 id: what-are-keploy-features
-title: Keploy Features
+title: Keploy Features 
 sidebar_label: Keploy Features
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:

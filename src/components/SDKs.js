@@ -10,17 +10,13 @@ export const SDKs = () => {
         Find eBPF tutorials and dependency mock references in the language of
         your choice.
       </p>
-      <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
+      <div className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/server/docker/")}
+          to={useBaseUrl("/docs/server/windows/installation")}
         >
-          <img
-            className="h-16 w-16"
-            src="/img/docker.svg"
-            alt="Docker logo"
-          />
-          <p className="text-lg">Docker</p>
+          <img className="h-16 w-16" src="/img/windows.svg" alt="Windows logo" />
+          <p className="text-lg">Windows</p>
         </Link>
         <Link className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/linux/")}>
@@ -30,6 +26,13 @@ export const SDKs = () => {
               alt="Linux logo"
             />
             <p className="text-lg">Linux</p>
+        </Link>
+        <Link
+          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/docs/server/macos/installation")}
+        >
+          <img className="h-16 w-16" src="/img/Apple_grey.svg" alt="Mac logo" />
+          <p className="text-lg">MacOS</p>
         </Link>
       </div>
     </section>

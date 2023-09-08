@@ -13,13 +13,13 @@ const links = [
     type: "article",
     title: "Installation Guide",
     length: "10 min read",
-    url: "docs/server/server-installation",
+    url: "docs/server/linux/installation",
   },
   {
     type: "article",
     title: "QuickStart with Go Sample App",
     length: "10 min read",
-    url: "docs/go/quickstart/echo-sql",
+    url: "docs/quickstart/gin-mongo",
   },
   {
     type: "article",
@@ -31,7 +31,7 @@ const links = [
     type: "video",
     title: "Demo Video of Keploy",
     length: "2 min watch",
-    url: "https://www.youtube.com/watch?v=Ssm4TnTkbLs&feature=emb_imp_woyt",
+    url: "https://www.youtube.com/watch?v=23yQaY81Zho",
   },
 ];
 

@@ -6,15 +6,11 @@ tags:
   - explanation
 ---
 
-Keploy is added as a middleware to your application that captures and replays all network interaction served to application from any source.
+Keploy acts a proxy in your application that captures and replays all network interaction served to application from any source.
 
 ### Step 1 : Record Unique Network Interactions as Test Case
 
 Once you start the application in record mode to capture API calls as test cases.
-
-```bash
-export KEPLOY_MODE="record"
-```
 
 Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a test-case.
 
@@ -22,18 +18,14 @@ Now, when the application serves an API, all the unique network interactions are
 
 ### Step 2 : Replay Test-Cases
 
-Let's say you developed new application version(v2). To test locally, start the application after setting Keploy SDK mode to test mode to replay all recorded API calls/test cases.
-
-```bash
-export KEPLOY_MODE="test"
-```
+Let's say you developed new application version(v2). To test locally, start the Keploy in test mode to replay all recorded API calls/test-cases previously captured in record-mode.
 
 Now, when the application starts:
 
 - Keploy will download all the previously recorded test-cases/API calls with a 5 sec delay(configurable application build time).
 - When the application will try to talk to any dependencies like DBs, Routers, vendor services, Keploy will intercept and provide the previously recorded dependency response.
 
-> **Note:** You didn't need to setup test-environment here. 🙅🏻‍♀️
+> **Note:** _You didn't need to setup test-environment here. 🙅🏻‍♀️_
 
 - Keploy will compare the API response to the previously captured response and a report will be generated on the Keploy console.
 

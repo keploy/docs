@@ -34,7 +34,7 @@ function Languages() {
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/go/installation")}
+            to={useBaseUrl("/docs/quickstart/samples-gin")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -47,7 +47,6 @@ function Languages() {
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/java/installation")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -60,7 +59,6 @@ function Languages() {
         <li className="">
         <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/java/installation")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -73,7 +71,6 @@ function Languages() {
         <li className="">
         <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/java/installation")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -107,13 +104,13 @@ function Server() {
             fill="currentColor"
           />
         </svg>
-        <h2 className="mb-4 text-xl font-semibold">Dependencies</h2>
+        <h2 className="mb-4 text-xl font-semibold">Database Support</h2>
       </div>
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
         <li className="">
           <Link
             to={useBaseUrl("/docs/dependencies/mongo")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center"
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
             className="h-8 w-8"
@@ -125,28 +122,26 @@ function Server() {
         </li>
         <li className="">
           <Link
-            to={useBaseUrl("/docs/dependencies/oracle")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center"
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
             className="h-8 w-8"
             src="/img/Oracle.svg"
             alt="Oracle logo"
           />
-            <p className="font-semibold">Oracle</p>
+            <p className="font-semibold">PostgresSQL</p>
           </Link>
         </li>
         <li className="">
           <Link
-            to={useBaseUrl("/docs/dependencies/postgresql")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center"
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
             className="h-8 w-8"
             src="/img/PostgresSQL.svg"
             alt="PostgresSQL logo"
           />
-            <p className="font-semibold">PostgresSQL</p>
+            <p className="font-semibold">Oracle  (WIP)</p>
           </Link>
         </li>
       </ul>

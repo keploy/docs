@@ -6,7 +6,7 @@ tags:
   - explanation
 ---
 
-Keploy is an open-source functional test case and data mock generation platform. There are 4 Major reasons why you should use Keploy.
+Keploy is an open-source automatic test-case and data mock generation platform. There are 4 Major reasons why you should use Keploy.
 
 ### 1. Dependency Mocking
 

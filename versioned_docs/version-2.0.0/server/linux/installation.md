@@ -6,58 +6,71 @@ sidebar_label: Linux
 
 There are two ways to use Keploy eBPF in linux, you can use either use:
 
-1. [Natively in Linux](#linux-native)
-2. through [Using Docker](#using-docker)
+1. [Natively in Linux](#linux-native).
+2. Through [Using Docker](#using-docker).
 
-# Linux Native
+## Linux Native
 
 ### Download the Keploy Binary
 
-> Keploy Binary Link
+```zsh
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
 
-### Run the Record Mode
-
-Go the Keploy Repository Folder and run the command:-
-
-```shell
--exec "sudo -E keploy" main.go record --c "CMD_TO_RUN_APP"
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
-### Run the Test Mode
+#### Run the Record Mode
 
-Go the Keploy Repository Folder and run the command:-
+Run this command on your terminal to start the recording of API calls:-
 
 ```shell
--exec "sudo -E keploy" main.go test --c "CMD_TO_RUN_APP" --delay 10
+sudo -E keploy record -c "CMD_TO_RUN_APP"
 ```
 
-> **CMD_TO_RUN_APP** is the respective command to run your target application .
+Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
+
+Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data mocks into `YAML` format.
+
+#### Run the Test Mode
+
+Run this command on your terminal to run the testcases and generate the test coverage report:-
+
+```shell
+sudo -E keploy test -c "CMD_TO_RUN_APP" --delay 10
+```
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
+---
 
-# Using Docker
+## Using Docker
 
-1. Create an Alias for Keploy
+### Creating Alias
+
+We need to create a he alias for the Keploy since we are using the Docker.
 
 ```shell
-alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm <keployV2-image>'
+alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm pull ghcr.io/keploy/keploy'
 ```
 
-2. Now, we will use the newly created Alias `keployV2` to record the testcases.
+#### Capture the Testcases
+
+Now, we will use the newly created alias `keploy` to record the testcases.
 
 ```shell
-keploy record --c "CMD_to_run_user_container" --containerName "<contianerName>"
+keploy record -c "CMD_to_run_user_container" --containerName "<contianerName>"
 ```
 
-3. Now, we will use the newly created Alias `keployV2` to test the testcases.
+#### Run the Testcases
+
+Now, we will use the newly created Alias `keploy` to test the testcases.
 
 ```shell
-keploy test --c "CMD_to_run_user_container" --containerName "<contianerName>" --delay 20
+keploy test -c "CMD_to_run_user_container" --containerName "<contianerName>" --delay 20
 ```
 
 > **CMD_to_run_user_container** is the docker command to run the application.
-> If you are using `docker-compose` command to start the application, `--containerName` is required.
+> If you are using `docker compose` command to start the application, `--containerName` is required.
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
