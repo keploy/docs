@@ -42,7 +42,7 @@ To access Keploy though ingress, please add information about ingress in the [va
 ### MacOS
 
 ```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/keploy/keploy/releases/tag/v0.9.1/download/keploy_darwin_all.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
@@ -53,22 +53,24 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 <summary>Linux</summary>
 
 ```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/keploy/keploy/releases/tag/v0.9.1/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
+
 </details>
 
 <details>
 <summary>Linux ARM</summary>
 
 ```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
+curl --silent --location "https://github.com/keploy/keploy/releases/tag/v0.9.1/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 The UI can be accessed at http://localhost:6789
+
 </details>
 
 ### Windows
@@ -76,8 +78,7 @@ The UI can be accessed at http://localhost:6789
 <details>
 <summary>Windows</summary>
 
-
-- Download the [Keploy Windows AMD64](https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.tar.gz), and extract the files from the zip folder.
+- Download the [Keploy Windows AMD64](https://github.com/keploy/keploy/releases/tag/v0.9.1/download/keploy_windows_amd64.tar.gz), and extract the files from the zip folder.
 
 - Run the `keploy.exe` file.
 
@@ -86,11 +87,10 @@ The UI can be accessed at http://localhost:6789
 <details>
 <summary>Windows ARM</summary>
 
-- Download the [Keploy Windows ARM64](https://github.com/keploy/keploy/releases/latest/download/keploy_windows_arm64.tar.gz), and extract the files from the zip folder.
+- Download the [Keploy Windows ARM64](https://github.com/keploy/keploy/releases/tag/v0.9.1/download/keploy_windows_arm64.tar.gz), and extract the files from the zip folder.
 
 - Run the `keploy.exe` file.
 
 </details>
-
 
 Voilà! 🧑🏻‍💻 We have the server running!
