@@ -1,6 +1,6 @@
 module.exports = {
   // Keploy Explanation Sidebar
-  sidebarInstallation: [
+  sidebarExplaination: [
     {
       type: "category",
       label: "Explanation",
@@ -15,48 +15,6 @@ module.exports = {
         "keploy-explained/how-keploy-works",
         "keploy-explained/why-keploy",
         "keploy-explained/faq",
-      ],
-    },
-    {
-      type: "category",
-      label: "Installation",
-      collapsible: true,
-      collapsed: false,
-      items: [
-        "server/server-installation",
-        "server/sdk-installation",
-      ],
-    },
-    {
-      type: "category",
-      label: "Concepts",
-      collapsible: true,
-      collapsed: false,
-      // link: {
-      //   type: "doc",
-      //   id: "concepts/index",
-      // },
-      items: [
-        "concepts/what-is-keploy",
-        "concepts/what-are-keploy-features",
-        "concepts/what-is-keploy-sdk",
-        "concepts/what-are-keploy-sdk-modes",
-      ],
-    },
-    {
-      type: "category",
-      label: "Operations",
-      collapsible: true,
-      collapsed: false,
-      link: {
-        type: "doc",
-        id: "operation/index",
-      },
-      items: [
-        "operation/web-ui-operations",
-        "operation/record-operations",
-        "operation/test-operations",
-        "operation/browser-extension-operations",
       ],
     },
     {
@@ -79,68 +37,93 @@ module.exports = {
   ],
 
   // Keploy Go Sidebar
-  sidebarSDK: [
+  sidebarInstallation: [
     {
-      type: "category",
-      label: "Golang",
-      collapsible: true,
-      collapsed: true,
-      link: {
-        type: "doc",
-        id: "go/quickstart/index",
-      },
-      items: [
-
-        // Installation
-        {
-          type: "doc",
-          label: "Installation",
-          id: "go/installation",
-        },
-
-        // Integration
-        {
-          type: "doc",
-          label: "Integration",
-          id: "go/integration",
-        },
-        // Record Test
-        {
-          type: "doc",
-          label: "Record Test",
-          id: "go/record",
-        },
-        // Replay Test
-        {
-          type: "doc",
-          label: "Replay Test ",
-          id: "go/replay",
-        },
-
-        // Quickstarts
-        {
-          type: "category",
-          label: "Sample Quickstarts",
-          collapsible: true,
-          collapsed: true,
-          link: {
-            type: "doc",
-            id: "go/quickstart/index",
-          },
-          items: [
-            "go/quickstart/echo-sql",
-            "go/quickstart/gin-mongo",
-            "go/quickstart/gin-mongo-2",
-            "go/quickstart/gorillamux-redis"
-          ],
-        },
-        {
-          type: "link",
-          label: "Go Pkg Reference",
-          href: "https://pkg.go.dev/github.com/keploy/go-sdk",
-        },
-      ],
+    type: "category",
+    label: "Installation",
+    collapsible: true,
+    collapsed: false,
+    items: [
+      "server/server-installation",
+      "server/sdk-installation",
+    ],
+  },
+  {
+    type: "category",
+    label: "Concepts",
+    collapsible: true,
+    collapsed: false,
+    // link: {
+    //   type: "doc",
+    //   id: "concepts/index",
+    // },
+    items: [
+      "concepts/what-is-keploy",
+      "concepts/what-are-keploy-features",
+      "concepts/what-is-keploy-sdk",
+      "concepts/what-are-keploy-sdk-modes",
+    ],
+  },
+  {
+    type: "category",
+    label: "Operations",
+    collapsible: true,
+    collapsed: false,
+    link: {
+      type: "doc",
+      id: "operation/index",
     },
+    items: [
+      "operation/web-ui-operations",
+      "operation/record-operations",
+      "operation/test-operations",
+      "operation/browser-extension-operations",
+    ],
+  },
+
+    //     // Integration
+    //     {
+    //       type: "doc",
+    //       label: "Integration",
+    //       id: "go/integration",
+    //     },
+    //     // Record Test
+    //     {
+    //       type: "doc",
+    //       label: "Record Test",
+    //       id: "go/record",
+    //     },
+    //     // Replay Test
+    //     {
+    //       type: "doc",
+    //       label: "Replay Test ",
+    //       id: "go/replay",
+    //     },
+
+    //     // Quickstarts
+    //     {
+    //       type: "category",
+    //       label: "Sample Quickstarts",
+    //       collapsible: true,
+    //       collapsed: true,
+    //       link: {
+    //         type: "doc",
+    //         id: "go/quickstart/index",
+    //       },
+    //       items: [
+    //         "go/quickstart/echo-sql",
+    //         "go/quickstart/gin-mongo",
+    //         "go/quickstart/gin-mongo-2",
+    //         "go/quickstart/gorillamux-redis"
+    //       ],
+    //     },
+    //     {
+    //       type: "link",
+    //       label: "Go Pkg Reference",
+    //       href: "https://pkg.go.dev/github.com/keploy/go-sdk",
+    //     },
+    //   ],
+    // },
 
     // Java SDK
     // {

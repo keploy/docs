@@ -19,7 +19,3 @@ import WhatAreKeployFeatures from '../concepts/what-are-keploy-features.md'
 import WhatIsAKeploySDK from '../concepts/what-is-a-keploy-sdk.md'
 
 <WhatIsAKeploySDK/>
-
-### Integrate SDK
-
-**Choose programming language to integrate [Keploy SDK](/application-development).**
