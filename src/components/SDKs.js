@@ -15,14 +15,14 @@ export const SDKs = () => {
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/windows/installation")}
         >
-          <img className="h-16 w-16" src="/img/windows.svg" alt="Windows logo" />
+          <img className="h-16 w-16" src="/img/windows-logo.svg" alt="Windows logo" />
           <p className="text-lg">Windows</p>
         </Link>
         <Link className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/linux/installation")}>
          <img
               className="h-16 w-16"
-              src="/img/linux.svg"
+              src="/img/linux-logo.svg"
               alt="Linux logo"
             />
             <p className="text-lg">Linux</p>
@@ -31,7 +31,7 @@ export const SDKs = () => {
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/macos/installation")}
         >
-          <img className="h-16 w-16" src="/img/apple_grey.svg" alt="Mac logo" />
+          <img className="h-16 w-16" src="/img/apple-logo.svg" alt="Mac logo" />
           <p className="text-lg">MacOS</p>
         </Link>
       </div>
