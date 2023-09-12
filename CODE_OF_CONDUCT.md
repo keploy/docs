@@ -16,27 +16,27 @@ diverse, inclusive, and healthy community.
 
 The following behaviors are expected and requested of all community members:
 
- * Act authentically and participate actively in the community to help maintain a positive and productive environment.
- * Show consideration and respect in all your actions and speech. Avoid any behavior that is demeaning, discriminatory, or harassing.
- * Seek collaboration as an initial step instead of conflict.
- * Refrain from demeaning, discriminatory, or harassing behavior and speech.
- * Report any unsafe situations, distress or violations of the code of conduct to the maintainers through [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA).
-* Practice empathy and kindness towards other community members.
-* Respect diverse opinions, perspectives, and experiences.
-* Give and receive constructive feedback in a gracious manner.
-* Take responsibility for your actions and apologize for mistakes. Use them as learning opportunities.
-* Prioritize the well-being and success of the community as a whole over individual gain.
+- Act authentically and participate actively in the community to help maintain a positive and productive environment.
+- Show consideration and respect in all your actions and speech. Avoid any behavior that is demeaning, discriminatory, or harassing.
+- Seek collaboration as an initial step instead of conflict.
+- Refrain from demeaning, discriminatory, or harassing behavior and speech.
+- Report any unsafe situations, distress or violations of the code of conduct to the maintainers through [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA).
+- Practice empathy and kindness towards other community members.
+- Respect diverse opinions, perspectives, and experiences.
+- Give and receive constructive feedback in a gracious manner.
+- Take responsibility for your actions and apologize for mistakes. Use them as learning opportunities.
+- Prioritize the well-being and success of the community as a whole over individual gain.
 
 Examples of unacceptable behavior include:
 
-* Violence, threats of violence or any language that incites violence towards any individual or group is prohibited.
- * Discriminatory jokes and language, such as those based on gender, race, sexual orientation, religion, ability, or any other characteristic, is strictly forbidden.
- * Displaying or sharing sexually explicit or violent content is prohibited.
- * Any form of harassment, including but not limited to "doxing" (posting or threatening to post other people's personally identifying information) is prohibited.
- * Personal insults, particularly those related to gender, sexual orientation, race, religion, or disability.
-* Publishing any personal information of others without their explicit consent is strictly forbidden.
-* Using sexualized language or imagery, or making any sexual advances towards another person is prohibited.
-* Harassment, whether it be public or private, will not be tolerated.
+- Violence, threats of violence or any language that incites violence towards any individual or group is prohibited.
+- Discriminatory jokes and language, such as those based on gender, race, sexual orientation, religion, ability, or any other characteristic, is strictly forbidden.
+- Displaying or sharing sexually explicit or violent content is prohibited.
+- Any form of harassment, including but not limited to "doxing" (posting or threatening to post other people's personally identifying information) is prohibited.
+- Personal insults, particularly those related to gender, sexual orientation, race, religion, or disability.
+- Publishing any personal information of others without their explicit consent is strictly forbidden.
+- Using sexualized language or imagery, or making any sexual advances towards another person is prohibited.
+- Harassment, whether it be public or private, will not be tolerated.
 
 ## Enforcement Responsibilities
 
@@ -108,7 +108,7 @@ Violating these terms may lead to a permanent ban.
 ### 4. Permanent Ban
 
 **Community Impact**: Demonstrating a pattern of violation of community
-standards, including sustained inappropriate behavior,  harassment of an
+standards, including sustained inappropriate behavior, harassment of an
 individual, or aggression toward or disparagement of classes of individuals.
 
 **Consequence**: A permanent ban from any sort of public interaction within
@@ -116,10 +116,10 @@ the community.
 
 ## Contact info
 
-* [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA)
-* [Mail](hello@keploy.io)
+- [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA)
+- [Mail](hello@keploy.io)
 
-## Support 🙏 
+## Support 🙏
 
 This project needs a ⭐️ from you. Don't forget to leave a star ⭐️
 

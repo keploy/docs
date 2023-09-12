@@ -75,10 +75,14 @@ module.exports = {
         srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
-    {
+        {
           to: "/docs/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
+        },
+        {
+          to: "/application-development",
+          label: "Installation",
         },
         // {
         //   to: "/docs/operation/web-ui-operations/",
@@ -92,15 +96,12 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/application-development",
-          activeBaseRegex:
-            "(/application-development)|(/docs/(go|java|php|node))",
-          label: "Installation",
+          to: "https://community.keploy.io",
+          label: "KB Articles",
         },
         {
-          to: "/docs/devtools/sdk-contrib-guide/",
-          activeBasePath: "(/docs/devtools)",
-          label: "Contributor Guide",
+          to: "https://blog.keploy.io",
+          label: "Blog",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -171,6 +172,14 @@ module.exports = {
         //   ],
         // },
         {
+          type: 'docsVersionDropdown',
+          position: 'right',
+          dropdownItemsAfter: [{
+            to: '/docs/server/linux/installation',
+          }],
+          dropdownActiveClassDisabled: true,
+        },
+        {
           href: "https://github.com/keploy/keploy",
           position: "right",
           className: "header-github-link",
@@ -205,9 +214,10 @@ module.exports = {
       apiKey: "c4628c331b0f4997178c879978033276",
       indexName: "keploy",
       appId: "WZTL8PLCOD",
-      // contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
+      contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
+    
   },
   presets: [
     [
@@ -233,6 +243,15 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
+          lastVersion: '2.0.0',
+          versions: {
+            '1.0.0': {
+              label: '1.0.0',
+              path: '1.0.0',
+              banner: 'unmaintained',
+            },
+          },
+          onlyIncludeVersions: ["1.0.0","2.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [

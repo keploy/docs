@@ -2,7 +2,7 @@ import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-function SDKs() {
+function Languages() {
   return (
     <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
       <div className="flex items-center space-x-4">
@@ -27,18 +27,14 @@ function SDKs() {
             fill="currentColor"
           />
         </svg>
-        <h2 className="mb-4 text-xl font-semibold">SDKs Integration</h2>
+        <h2 className="mb-4 text-xl font-semibold">Languages</h2>
       </div>
-      <p className="mb-4 flex-grow">
-        Generate test cases and mock dependencies from API calls automatically.
-        Embed Keploy SDK into your application to record and replay API calls.
-      </p>
-      <ul className="flex flex-col space-y-2">
+      <ul className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/go/installation")}
+            to={useBaseUrl("/docs/quickstart/samples-gin")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -51,7 +47,6 @@ function SDKs() {
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/java/installation")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -61,33 +56,28 @@ function SDKs() {
             <p className="font-semibold">Java</p>
           </Link>
         </li>
-
         <li className="">
-          <Link
+        <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/typescript/installation")}
           >
             <img
-              className="h-7 w-7 pl-1 transition hover:scale-110"
-              src="/img/typescript.svg"
-              alt="TypeScript logo"
+              className="h-8 w-8 transition hover:scale-110"
+              src="/img/Python.svg"
+              alt="Python logo"
             />
-            <p className="font-semibold">TypeScript</p>
+            <p className="font-semibold">Python</p>
           </Link>
         </li>
         <li className="">
-          <Link
-            className="flex items-center space-x-5"
-            to={"https://github.com/keploy/keploy/issues/58"}
+        <Link
+            className="flex items-center space-x-3 hover:underline"
           >
-            <div className="flex items-center space-x-3 hover:underline">
-              <img
-                className="h-8 w-8 transition hover:scale-110"
-                src="/img/python.svg"
-                alt="PHP logo"
-              />
-              <p className="font-semibold">Python (WIP)</p>{" "}
-            </div>
+            <img
+              className="h-8 w-8 transition hover:scale-110"
+              src="/img/Javascript.svg"
+              alt="Javascript logo"
+            />
+            <p className="font-semibold">Javascript</p>
           </Link>
         </li>
       </ul>
@@ -114,36 +104,44 @@ function Server() {
             fill="currentColor"
           />
         </svg>
-        <h2 className="mb-4 text-xl font-semibold">Operating Guide</h2>
+        <h2 className="mb-4 text-xl font-semibold">Database Support</h2>
       </div>
-      <p className="mb-4 flex-grow">
-        Learn how to start recording API calls to create test cases and operate
-        using Web-UI.
-      </p>
-
-      <ul className="flex list-disc flex-col space-y-2 pl-4">
-        <li className="list-disc">
+      <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
+        <li className="">
           <Link
-            to={useBaseUrl("/docs/operation/record-operations")}
-            className="hover:underline"
+            to={useBaseUrl("/docs/dependencies/mongo")}
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
-            <p className="font-semibold">Record</p>
+            <img
+            className="h-8 w-8"
+            src="/img/MongoDb.svg"
+            alt="Docker logo"
+          />
+          <p className="font-semibold">MongoDB</p>
           </Link>
         </li>
-        <li className="list-disc">
+        <li className="">
           <Link
-            to={useBaseUrl("/docs/operation/test-operations")}
-            className="hover:underline"
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
-            <p className="font-semibold">Test</p>
+            <img
+            className="h-8 w-8"
+            src="/img/Oracle.svg"
+            alt="Oracle logo"
+          />
+            <p className="font-semibold">PostgresSQL</p>
           </Link>
         </li>
-        <li className="list-disc">
+        <li className="">
           <Link
-            to={useBaseUrl("/docs/operation/web-ui-operations")}
-            className="hover:underline"
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
-            <p className="font-semibold">Web Console</p>
+            <img
+            className="h-8 w-8"
+            src="/img/PostgresSQL.svg"
+            alt="PostgresSQL logo"
+          />
+            <p className="font-semibold">Oracle  (WIP)</p>
           </Link>
         </li>
       </ul>
@@ -151,113 +149,13 @@ function Server() {
   );
 }
 
-function Tools() {
-  return (
-    <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
-      <div className="flex items-center space-x-4">
-        <svg
-          className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
-          viewBox="0 0 15 15"
-          fill="currentColor"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M9.70951 4.76529C9.35941 4.41517 9.35941 3.8475 9.70951 3.49739L11.8346 1.37235C11.3366 1.13367 10.7788 1 10.1897 1C8.08533 1 6.37939 2.70594 6.37939 4.81031C6.37939 5.39939 6.51306 5.95726 6.75172 6.4552L1.37136 11.8355C0.876212 12.3307 0.876212 13.1336 1.37136 13.6286C1.86651 14.1238 2.6693 14.1238 3.16445 13.6286L8.54481 8.24829C9.04275 8.48695 9.60066 8.62062 10.1897 8.62062C12.2941 8.62062 14 6.91468 14 4.81031C14 4.2287 13.8697 3.67752 13.6367 3.18438L11.5166 5.30445C11.1665 5.65458 10.5988 5.65458 10.2487 5.30446L9.70951 4.76529Z"
-            fill="currentColor"
-            stroke="currentColor"
-            strokeWidth="0.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-          <path
-            fillRule="evenodd"
-            clipRule="evenodd"
-            d="M11.5223 8.36487L6.75835 3.08342C7.97767 2.68073 9.53838 3.15399 10.6381 4.37315C11.7378 5.5923 12.0482 7.19339 11.5223 8.36487ZM6.15533 8.43785L6.13426 8.4145C6.13776 8.4184 6.14126 8.4223 6.14478 8.42619C6.14829 8.43009 6.15181 8.43397 6.15533 8.43785Z"
-            fill="currentColor"
-          />
-        </svg>
-
-        <h2 className="mb-4 text-xl font-semibold">Contribution Guide</h2>
-      </div>
-      <p className="mb-4 flex-grow">
-        Learn contribution guidelines and how to get started with contribution
-        to Keploy components.
-      </p>
-      <div className="flex flex-col space-y-2">
-        <Link
-          to={useBaseUrl("/docs/devtools/ui-contrib-guide")}
-          className="flex space-x-3 font-semibold hover:underline"
-        >
-          <svg
-            className="h-6 w-6 transition hover:scale-110"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M3 5a2 2 0 012-2h10a2 2 0 012 2v8a2 2 0 01-2 2h-2.22l.123.489.804.804A1 1 0 0113 18H7a1 1 0 01-.707-1.707l.804-.804L7.22 15H5a2 2 0 01-2-2V5zm5.771 7H5V5h10v7H8.771z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <div>Web UI</div>
-        </Link>
-        <Link
-          to={useBaseUrl("/docs/devtools/server-contrib-guide")}
-          className="flex space-x-3 font-semibold hover:underline"
-        >
-          <svg
-            className="h-6 w-6 transition hover:scale-110"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              fillRule="evenodd"
-              d="M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5zm3.293 1.293a1 1 0 011.414 0l3 3a1 1 0 010 1.414l-3 3a1 1 0 01-1.414-1.414L7.586 10 5.293 7.707a1 1 0 010-1.414zM11 12a1 1 0 100 2h3a1 1 0 100-2h-3z"
-              clipRule="evenodd"
-            />
-          </svg>
-          <div>Server</div>
-        </Link>
-        <Link
-          to={useBaseUrl("/docs/devtools/sdk-contrib-guide")}
-          className="ml-[-3px] flex font-semibold hover:underline"
-        >
-          <svg
-            className="h-6 w-10 transition hover:scale-110"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M11.7538 3.95126C11.9211 3.87442 12.0617 3.75645 12.16 3.61054C12.2583 3.46463 12.3103 3.29653 12.3103 3.12505C12.3103 2.95357 12.2583 2.78547 12.16 2.63956C12.0617 2.49365 11.9211 2.37567 11.7538 2.29884L6.95069 0.0974684C6.81075 0.0333693 6.65646 0 6.50002 0C6.34358 0 6.18929 0.0333693 6.04935 0.0974684L1.2462 2.29884C1.07895 2.37567 0.938326 2.49365 0.840051 2.63956C0.741776 2.78547 0.689727 2.95357 0.689727 3.12505C0.689727 3.29653 0.741776 3.46463 0.840051 3.61054C0.938326 3.75645 1.07895 3.87442 1.2462 3.95126L6.04935 6.15263C6.18929 6.21673 6.34358 6.2501 6.50002 6.2501C6.65646 6.2501 6.81075 6.21673 6.95069 6.15263L11.7538 3.95126Z"
-              fill="currentColor"
-            />
-            <path
-              d="M7.07848 13.3891C6.99477 13.2516 6.95078 13.0968 6.95069 12.9393V7.6124C6.95079 7.44081 7.003 7.27264 7.10147 7.12672C7.19994 6.9808 7.34079 6.86289 7.50824 6.78619L11.5411 4.93785C11.6948 4.86746 11.8655 4.83423 12.0371 4.84132C12.2088 4.8484 12.3756 4.89557 12.5217 4.97833C12.6679 5.0611 12.7885 5.17673 12.8722 5.31424C12.9559 5.45175 12.9999 5.60659 13 5.76406V11.091C12.9999 11.2626 12.9477 11.4307 12.8492 11.5766C12.7507 11.7226 12.6099 11.8405 12.4425 11.9172L8.40958 13.7655C8.25591 13.8359 8.08516 13.8691 7.91355 13.862C7.74193 13.855 7.57513 13.8078 7.42898 13.725C7.28284 13.6423 7.16218 13.5266 7.07848 13.3891Z"
-              fill="currentColor"
-            />
-            <path
-              d="M0.96287 4.97833C1.13449 4.97125 1.30523 5.00448 1.45891 5.07487L5.49178 6.9232C5.65922 6.9999 5.80007 7.11781 5.89854 7.26374C5.99701 7.40966 6.04922 7.57783 6.04932 7.74941V13.0763C6.04923 13.2338 6.00524 13.3886 5.92154 13.5261C5.83783 13.6637 5.71718 13.7793 5.57103 13.862C5.42488 13.9448 5.25809 13.992 5.08647 13.9991C4.91485 14.0061 4.7441 13.9729 4.59043 13.9025L0.55756 12.0542C0.390115 11.9775 0.249269 11.8596 0.150797 11.7137C0.0523254 11.5677 0.000115828 11.3996 1.58649e-05 11.228V5.90107C0.000107582 5.7436 0.044094 5.58876 0.127801 5.45125C0.211509 5.31374 0.332161 5.19812 0.478309 5.11535C0.624457 5.03258 0.791253 4.98542 0.96287 4.97833Z"
-              fill="currentColor"
-            />
-          </svg>
-          <div className="mt-[-3px] ml-[-0.3px]">SDKs</div>
-        </Link>
-      </div>
-    </div>
-  );
-}
-
 export const Intro = () => {
   return (
     <section className="mt-1 mb-14">
-      <h2 className="text-3xl md:text-4xl">Resources and guides</h2>
-      <div className="my-10 grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3 lg:gap-8">
-        <SDKs />
+      <h2 className="text-3xl md:text-4xl">Supports</h2>
+      <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
+        <Languages />
         <Server />
-        <Tools />
       </div>
     </section>
   );
