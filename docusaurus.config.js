@@ -93,7 +93,15 @@ module.exports = {
         // },
         {
           to: "https://community.keploy.io",
-          label: "Blogs",
+          label: "KB articles",
+        },
+        {
+          to: "/application-development",
+          label: "Installation",
+        },
+        {
+          to: "https://tech.keploy.io",
+          label: "Tech Blog",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -165,9 +173,11 @@ module.exports = {
         // },
         {
           type: 'docsVersionDropdown',
-          position: 'left',
-          dropdownItemsAfter: [{to: '/version'}],
-          dropdownActiveClassDisabled: false,
+          position: 'right',
+          dropdownItemsAfter: [{
+            to: '/docs/server/linux/installation',
+          }],
+          dropdownActiveClassDisabled: true,
         },
         {
           href: "https://github.com/keploy/keploy",
@@ -233,7 +243,16 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          includeCurrentVersion: false, // excludeNextVersionDocs is now deprecated
+          lastVersion: '2.0.0',
+          versions: {
+            '1.0.0': {
+              label: '1.0.0',
+              path: '1.0.0',
+              banner: 'unmaintained',
+            },
+          },
+          onlyIncludeVersions: ["1.0.0","2.0.0"],
+          includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
             [
