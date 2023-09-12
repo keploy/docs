@@ -2,27 +2,11 @@
   "sidebarInstallation": [
     {
       "type": "category",
-      "label": "Explanation",
-      "collapsible": true,
-      "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "keploy-explained/introduction"
-      },
-      "items": [
-        "keploy-explained/introduction",
-        "keploy-explained/how-keploy-works",
-        "keploy-explained/why-keploy",
-        "keploy-explained/faq"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Installation",
       "collapsible": true,
       "link": {
         "type": "doc",
-        "id": "server/index"
+        "id": "server/linux/installation"
       },
       "collapsed": false,
       "items": [
@@ -68,6 +52,25 @@
       "collapsed": false,
       "items": [
         "concepts/general-glossary"
+      ]
+    }
+  ],
+
+  "sidebarExplanation": [
+    {
+      "type": "category",
+      "label": "Explanation",
+      "collapsible": true,
+      "collapsed": false,
+      "link": {
+        "type": "doc",
+        "id": "keploy-explained/introduction"
+      },
+      "items": [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy",
+        "keploy-explained/faq"
       ]
     }
   ]
