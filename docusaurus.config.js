@@ -80,6 +80,10 @@ module.exports = {
           activeBasePath: "none",
           label: "Explanation",
         },
+        {
+          to: "/application-development",
+          label: "Installation",
+        },
         // {
         //   to: "/docs/operation/web-ui-operations/",
         //   activeBasePath: "(/docs/operation)",
@@ -93,15 +97,11 @@ module.exports = {
         // },
         {
           to: "https://community.keploy.io",
-          label: "KB articles",
+          label: "KB Articles",
         },
         {
-          to: "/application-development",
-          label: "Installation",
-        },
-        {
-          to: "https://tech.keploy.io",
-          label: "Tech Blog",
+          to: "https://blog.keploy.io",
+          label: "Blog",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
