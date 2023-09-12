@@ -53,7 +53,7 @@ function Languages() {
               src="/img/java.svg"
               alt="Java logo"
             />
-            <p className="font-semibold">Java</p>
+            <p className="font-semibold">Java (WIP)</p>
           </Link>
         </li>
         <li className="">
@@ -62,10 +62,10 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/Python.svg"
+              src="/img/python.svg"
               alt="Python logo"
             />
-            <p className="font-semibold">Python</p>
+            <p className="font-semibold">Python (WIP)</p>
           </Link>
         </li>
         <li className="">
@@ -74,10 +74,10 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/Javascript.svg"
+              src="/img/javascript-logo.svg"
               alt="Javascript logo"
             />
-            <p className="font-semibold">Javascript</p>
+            <p className="font-semibold">Javascript (WIP)</p>
           </Link>
         </li>
       </ul>
@@ -114,7 +114,7 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/MongoDb.svg"
+            src="/img/mongodb-logo.svg"
             alt="Docker logo"
           />
           <p className="font-semibold">MongoDB</p>
@@ -126,10 +126,10 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/Oracle.svg"
+            src="/img/oracle-logo.svg"
             alt="Oracle logo"
           />
-            <p className="font-semibold">PostgresSQL</p>
+            <p className="font-semibold">Oracle (WIP)</p>
           </Link>
         </li>
         <li className="">
@@ -138,10 +138,10 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/PostgresSQL.svg"
+            src="/img/postgres-logo.svg"
             alt="PostgresSQL logo"
           />
-            <p className="font-semibold">Oracle  (WIP)</p>
+            <p className="font-semibold">PostgresSQL (WIP)</p>
           </Link>
         </li>
       </ul>
