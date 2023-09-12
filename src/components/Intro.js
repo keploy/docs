@@ -74,7 +74,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/javascript.svg"
+              src="/img/javascript-logo.svg"
               alt="Javascript logo"
             />
             <p className="font-semibold">Javascript (WIP)</p>
@@ -114,7 +114,7 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/mongodb.svg"
+            src="/img/mongodb-logo.svg"
             alt="Docker logo"
           />
           <p className="font-semibold">MongoDB</p>
@@ -126,7 +126,7 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/oracle.svg"
+            src="/img/oracle-logo.svg"
             alt="Oracle logo"
           />
             <p className="font-semibold">Oracle (WIP)</p>
@@ -138,7 +138,7 @@ function Server() {
           >
             <img
             className="h-8 w-8"
-            src="/img/postgressql.svg"
+            src="/img/postgres-logo.svg"
             alt="PostgresSQL logo"
           />
             <p className="font-semibold">PostgresSQL (WIP)</p>
