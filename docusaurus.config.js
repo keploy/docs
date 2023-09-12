@@ -100,7 +100,7 @@ module.exports = {
           label: "Installation",
         },
         {
-          to: "https://tech.keploy.io",
+          to: "https://blog.keploy.io",
           label: "Tech Blog",
         },
         // {
