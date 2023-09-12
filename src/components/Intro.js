@@ -3,6 +3,7 @@ import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
 function Languages() {
+function Languages() {
   return (
     <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
       <div className="flex items-center space-x-4">
@@ -28,12 +29,15 @@ function Languages() {
           />
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Languages</h2>
+        <h2 className="mb-4 text-xl font-semibold">Languages</h2>
       </div>
+      <ul className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
+            to={useBaseUrl("/docs/quickstart/samples-gin")}
             to={useBaseUrl("/docs/quickstart/samples-gin")}
           >
             <img
@@ -69,6 +73,8 @@ function Languages() {
           </Link>
         </li>
         <li className="">
+        <Link
+            className="flex items-center space-x-3 hover:underline"
         <Link
             className="flex items-center space-x-3 hover:underline"
           >
@@ -121,7 +127,9 @@ function Server() {
           </Link>
         </li>
         <li className="">
+        <li className="">
           <Link
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
@@ -133,7 +141,9 @@ function Server() {
           </Link>
         </li>
         <li className="">
+        <li className="">
           <Link
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
@@ -152,6 +162,9 @@ function Server() {
 export const Intro = () => {
   return (
     <section className="mt-1 mb-14">
+      <h2 className="text-3xl md:text-4xl">Supports</h2>
+      <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
+        <Languages />
       <h2 className="text-3xl md:text-4xl">Supports</h2>
       <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
         <Languages />
