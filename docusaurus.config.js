@@ -339,6 +339,11 @@ module.exports = {
       async: true,
       defer: true,
     },
+    {
+      src: "/scripts/clarity.js",
+      async: true,
+      defer: true,
+    },
     // {
     //   src: "/scripts/fullstory.js",
     //   async: true,
