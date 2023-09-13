@@ -6,7 +6,7 @@ const FontPreloadPlugin = require("webpack-font-preload-plugin");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Keploy Documentation",
-  titleDelimiter: '🐰',
+  titleDelimiter: "🐰",
   tagline: "API Test Generator Tool",
   url: "https://docs.keploy.io",
   baseUrl: "/",
@@ -30,14 +30,40 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
-    canonicalBase: 'https://www.docs.keploy.io/',
+    canonicalBase: "https://www.docs.keploy.io/",
     metadata: [
       {
-        description: '',
+        description: "",
       },
       {
-        name: 'x-default',
-        content: 'en-us',
+        name: "x-default",
+        content: "en-us",
+      },
+      {name: "keywords", content: "cooking, blog"},
+      {name: "twitter:card", content: "summary_large_image"},
+    ],
+    headTags: [
+      // Declare a <link> preconnect tag
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://example.com",
+        },
+      },
+      // Declare some json-ld structured data
+      {
+        tagName: "script",
+        attributes: {
+          type: "application/ld+json",
+        },
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Organization",
+          name: "Keploy Inc",
+          url: "https://keploy.io/",
+          logo: "https://docs.keploy.io/img/favicon.png",
+        }),
       },
     ],
     colorMode: {
@@ -172,11 +198,13 @@ module.exports = {
         //   ],
         // },
         {
-          type: 'docsVersionDropdown',
-          position: 'right',
-          dropdownItemsAfter: [{
-            to: '/docs/server/linux/installation',
-          }],
+          type: "docsVersionDropdown",
+          position: "right",
+          dropdownItemsAfter: [
+            {
+              to: "/docs/server/linux/installation",
+            },
+          ],
           dropdownActiveClassDisabled: true,
         },
         {
@@ -217,7 +245,6 @@ module.exports = {
       contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
-    
   },
   presets: [
     [
@@ -243,15 +270,15 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: '2.0.0',
+          lastVersion: "2.0.0",
           versions: {
-            '1.0.0': {
-              label: '1.0.0',
-              path: '1.0.0',
-              banner: 'unmaintained',
+            "1.0.0": {
+              label: "1.0.0",
+              path: "1.0.0",
+              banner: "unmaintained",
             },
           },
-          onlyIncludeVersions: ["1.0.0","2.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
@@ -336,7 +363,7 @@ module.exports = {
         // Will be passed to @docusaurus/theme-classic.
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
-         },
+        },
         gtag: {
           trackingID: "G-LLS95VWZPC",
           // Optional fields.
