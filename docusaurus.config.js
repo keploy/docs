@@ -1,25 +1,25 @@
 //@ts-check
-const path = require("path");
-const visit = require("unist-util-visit");
-const FontPreloadPlugin = require("webpack-font-preload-plugin");
+const path = require('path');
+const visit = require('unist-util-visit');
+const FontPreloadPlugin = require('webpack-font-preload-plugin');
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
-  title: "Keploy Documentation",
-  titleDelimiter: "🐰",
-  tagline: "API Test Generator Tool",
-  url: "https://docs.keploy.io",
-  baseUrl: "/",
-  onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
+  title: 'Keploy Documentation',
+  titleDelimiter: '🐰',
+  tagline: 'API Test Generator Tool',
+  url: 'https://docs.keploy.io',
+  baseUrl: '/',
+  onBrokenLinks: 'throw',
+  onBrokenMarkdownLinks: 'warn',
   trailingSlash: true,
-  favicon: "img/favicon.png",
-  organizationName: "keploy", // Usually your GitHub org/user name.
-  projectName: "docs", // Usually your repo name.
+  favicon: 'img/favicon.png',
+  organizationName: 'keploy', // Usually your GitHub org/user name.
+  projectName: 'docs', // Usually your repo name.
   plugins: [
     function preloadFontPlugin() {
       return {
-        name: "preload-font-plugin",
+        name: 'preload-font-plugin',
         configureWebpack() {
           return {
             plugins: [new FontPreloadPlugin()],
@@ -27,47 +27,47 @@ module.exports = {
         },
       };
     },
-    "docusaurus-tailwindcss-loader",
+    'docusaurus-tailwindcss-loader',
   ],
   themeConfig: {
-    canonicalBase: "https://www.docs.keploy.io/",
+    canonicalBase: 'https://www.docs.keploy.io/',
     metadata: [
       {
-        description: "",
+        description: '',
       },
       {
-        name: "x-default",
-        content: "en-us",
+        name: 'x-default',
+        content: 'en-us',
       },
-      {name: "keywords", content: "cooking, blog"},
-      {name: "twitter:card", content: "summary_large_image"},
+      {name: 'description', content: 'Keploy - API Test Generator Tool'},
+      {name: 'twitter:card', content: 'summary_large_image'},
     ],
     headTags: [
       // Declare a <link> preconnect tag
       {
-        tagName: "link",
+        tagName: 'Keploy Inc',
         attributes: {
-          rel: "preconnect",
-          href: "https://example.com",
+          rel: 'preconnect',
+          href: 'https://keploy.io/',
         },
       },
       // Declare some json-ld structured data
       {
-        tagName: "script",
+        tagName: 'script',
         attributes: {
-          type: "application/ld+json",
+          type: 'application/ld+json',
         },
         innerHTML: JSON.stringify({
-          "@context": "https://schema.org/",
-          "@type": "Organization",
-          name: "Keploy Inc",
-          url: "https://keploy.io/",
-          logo: "https://docs.keploy.io/img/favicon.png",
+          '@context': 'https://schema.org/',
+          '@type': 'Organization',
+          name: 'Keploy Documentation',
+          url: 'https://docs.keploy.io/',
+          logo: 'https://docs.keploy.io/img/favicon.png',
         }),
       },
     ],
     colorMode: {
-      defaultMode: "light",
+      defaultMode: 'light',
       disableSwitch: false,
       // switchConfig: {
       //   darkIcon: "🌙",
@@ -84,31 +84,31 @@ module.exports = {
       // },
     },
     announcementBar: {
-      id: "announcementBar_1", // Increment on change
+      id: 'announcementBar_1', // Increment on change
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
-      theme: require("prism-react-renderer/themes/nightOwlLight"),
-      darkTheme: require("prism-react-renderer/themes/dracula"),
-      additionalLanguages: ["java", "ruby", "php"],
+      theme: require('prism-react-renderer/themes/nightOwlLight'),
+      darkTheme: require('prism-react-renderer/themes/dracula'),
+      additionalLanguages: ['java', 'ruby', 'php'],
     },
     // hideableSidebar: true,
     navbar: {
       hideOnScroll: false,
       logo: {
-        alt: "Keploy logo",
-        src: "img/keploy-logo-dark.svg",
-        srcDark: "img/keploy-logo-dark.svg",
+        alt: 'Keploy logo',
+        src: 'img/keploy-logo-dark.svg',
+        srcDark: 'img/keploy-logo-dark.svg',
       },
       items: [
         {
-          to: "/docs/keploy-explained/introduction",
-          activeBasePath: "none",
-          label: "Explanation",
+          to: '/docs/keploy-explained/introduction',
+          activeBasePath: 'none',
+          label: 'Explanation',
         },
         {
-          to: "/application-development",
-          label: "Installation",
+          to: '/application-development',
+          label: 'Installation',
         },
         // {
         //   to: "/docs/operation/web-ui-operations/",
@@ -122,12 +122,12 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "https://community.keploy.io",
-          label: "KB Articles",
+          to: 'https://community.keploy.io',
+          label: 'KB Articles',
         },
         {
-          to: "https://blog.keploy.io",
-          label: "Blog",
+          to: 'https://blog.keploy.io',
+          label: 'Blog',
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
@@ -198,20 +198,20 @@ module.exports = {
         //   ],
         // },
         {
-          type: "docsVersionDropdown",
-          position: "right",
+          type: 'docsVersionDropdown',
+          position: 'right',
           dropdownItemsAfter: [
             {
-              to: "/docs/server/linux/installation",
+              to: '/docs/server/linux/installation',
             },
           ],
           dropdownActiveClassDisabled: true,
         },
         {
-          href: "https://github.com/keploy/keploy",
-          position: "right",
-          className: "header-github-link",
-          "aria-label": "GitHub repository",
+          href: 'https://github.com/keploy/keploy',
+          position: 'right',
+          className: 'header-github-link',
+          'aria-label': 'GitHub repository',
         },
         // TODO : Add Blogging Section
         // {
@@ -239,23 +239,23 @@ module.exports = {
       `,
     },
     algolia: {
-      apiKey: "c4628c331b0f4997178c879978033276",
-      indexName: "keploy",
-      appId: "WZTL8PLCOD",
+      apiKey: 'c4628c331b0f4997178c879978033276',
+      indexName: 'keploy',
+      appId: 'WZTL8PLCOD',
       contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
   },
   presets: [
     [
-      "@docusaurus/preset-classic",
+      '@docusaurus/preset-classic',
       {
         // Will be passed to @docusaurus/plugin-content-docs
         docs: {
-          sidebarPath: require.resolve("./sidebars.js"),
-          routeBasePath: "docs",
-          exclude: ["**/shared/**"], // do not render "shared" content
-          editUrl: "https://github.com/keploy/docs/blob/master",
+          sidebarPath: require.resolve('./sidebars.js'),
+          routeBasePath: 'docs',
+          exclude: ['**/shared/**'], // do not render "shared" content
+          editUrl: 'https://github.com/keploy/docs/blob/master',
           /**
            * Whether to display the author who last updated the doc.
            */
@@ -270,15 +270,15 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: "2.0.0",
+          lastVersion: '2.0.0',
           versions: {
-            "1.0.0": {
-              label: "1.0.0",
-              path: "1.0.0",
-              banner: "unmaintained",
+            '1.0.0': {
+              label: '1.0.0',
+              path: '1.0.0',
+              banner: 'unmaintained',
             },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0"],
+          onlyIncludeVersions: ['1.0.0', '2.0.0'],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
@@ -293,26 +293,26 @@ module.exports = {
                     if (!/^ts$/.test(node.lang)) {
                       return;
                     }
-                    node.value = "// @ts-nocheck\n" + node.value.trim();
+                    node.value = '// @ts-nocheck\n' + node.value.trim();
                   }
 
-                  visit(tree, "code", visitor);
+                  visit(tree, 'code', visitor);
                 },
               {},
             ],
             [
-              require("remark-typescript-tools").transpileCodeblocks,
+              require('remark-typescript-tools').transpileCodeblocks,
               {
                 compilerSettings: {
                   tsconfig: path.join(
                     __dirname,
-                    "docs",
-                    "typescript",
-                    "tsconfig.json"
+                    'docs',
+                    'typescript',
+                    'tsconfig.json'
                   ),
                   externalResolutions: {},
                 },
-                fileExtensions: [".md", ".mdx"],
+                fileExtensions: ['.md', '.mdx'],
                 // remark-typescript-tools automatically running prettier with a custom config that doesn't
                 // line up with ours. This disables any post processing, including the default prettier step.
                 postProcessTs: (files) => files,
@@ -326,20 +326,20 @@ module.exports = {
                     if (!/^ts$/.test(node.lang) && !/^js$/.test(node.lang)) {
                       return;
                     }
-                    if (node.value.startsWith("// @ts-nocheck\n")) {
-                      node.value = node.value.slice("// @ts-nocheck\n".length);
+                    if (node.value.startsWith('// @ts-nocheck\n')) {
+                      node.value = node.value.slice('// @ts-nocheck\n'.length);
                     }
                     // If TS compiled output is empty, replace it with a more helpful comment
                     if (
-                      node.lang === "js" &&
-                      node.value.trim() === "export {};"
+                      node.lang === 'js' &&
+                      node.value.trim() === 'export {};'
                     ) {
-                      node.value = "// Not required in JavaScript";
-                    } else if (node.lang === "js") {
+                      node.value = '// Not required in JavaScript';
+                    } else if (node.lang === 'js') {
                       node.value = convertIndent4ToIndent2(node.value).trim();
                     }
                   }
-                  visit(tree, "code", visitor);
+                  visit(tree, 'code', visitor);
                 },
               {},
             ],
@@ -362,10 +362,10 @@ module.exports = {
         // },
         // Will be passed to @docusaurus/theme-classic.
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: require.resolve('./src/css/custom.css'),
         },
         gtag: {
-          trackingID: "G-LLS95VWZPC",
+          trackingID: 'G-LLS95VWZPC',
           // Optional fields.
           anonymizeIP: true, // Should IPs be anonymized?
         },
@@ -373,7 +373,7 @@ module.exports = {
         sitemap: {
           // Per v2.0.0-alpha.72 cacheTime is now deprecated
           //cacheTime: 600 * 1000, // 600 sec - cache purge period
-          changefreq: "weekly",
+          changefreq: 'weekly',
           priority: 0.5,
         },
       },
@@ -381,12 +381,12 @@ module.exports = {
   ],
   scripts: [
     {
-      src: "/scripts/feedback.js",
+      src: '/scripts/feedback.js',
       async: true,
       defer: true,
     },
     {
-      src: "/scripts/clarity.js",
+      src: '/scripts/clarity.js',
       async: true,
       defer: true,
     },
@@ -402,6 +402,6 @@ function convertIndent4ToIndent2(code) {
   // TypeScript always outputs 4 space indent. This is a workaround.
   // See https://github.com/microsoft/TypeScript/issues/4042
   return code.replace(/^( {4})+/gm, (match) => {
-    return "  ".repeat(match.length / 4);
+    return '  '.repeat(match.length / 4);
   });
 }
