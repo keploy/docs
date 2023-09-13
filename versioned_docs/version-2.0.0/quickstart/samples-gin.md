@@ -37,8 +37,17 @@ Keploy can be used on Linux & Windows through [Docker](https://docs.docker.com/e
 
 ### Create Keploy Alias
 
+To establish a network for your application using Keploy on Docker, follow these steps.
+
+If you're using a docker-compose network, replace keploy-network with your app's docker_compose_network_name below.
+
+```shell
+docker network create keploy-network
+```
+
+Then, create an alias for Keploy:
 ```bash
-alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keploy='sudo docker run --name keploy-v2 --network keploy-network -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 ### Let's start the MongoDB Instance

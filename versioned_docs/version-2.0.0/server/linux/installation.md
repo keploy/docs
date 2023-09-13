@@ -47,10 +47,20 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ### Creating Alias
 
-We need to create a he alias for the Keploy since we are using the Docker.
+### Create Keploy Alias
+
+To establish a network for your application using Keploy on Docker, follow these steps.
+
+If you're using a docker-compose network, replace keploy-network with your app's docker_compose_network_name below.
 
 ```shell
-alias keploy='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm pull ghcr.io/keploy/keploy'
+docker network create keploy-network
+```
+
+Then, create an alias for Keploy:
+
+```bash
+alias keploy='sudo docker run --name keploy-v2 --network keploy-network -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 #### Capture the Testcases
