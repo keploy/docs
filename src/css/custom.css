@@ -11,13 +11,13 @@
 @tailwind utilities;
 
 :root {
-  --ifm-color-primary: #644a3c;
-  --ifm-color-primary-dark: #5a4336;
-  --ifm-color-primary-darker: #553f33;
-  --ifm-color-primary-darkest: #46342a;
-  --ifm-color-primary-light: #6e5142;
-  --ifm-color-primary-lighter: #735545;
-  --ifm-color-primary-lightest: #82604e;
+  --ifm-color-primary: #ff914d;
+  --ifm-color-primary-dark: #E67643;
+  --ifm-color-primary-darker: #C95919;
+  --ifm-color-primary-darkest: #be2c1b;
+  --ifm-color-primary-light: #FFD0A0;
+  --ifm-color-primary-lighter: #FFB575;
+  --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
   --ifm-link-hover-decoration: none;
@@ -27,12 +27,12 @@
 }
 
 html[data-theme="dark"] {
-  --ifm-color-primary: #ff904d;
-  --ifm-color-primary-dark: #ff7b2c;
-  --ifm-color-primary-darker: #ff711b;
-  --ifm-color-primary-darkest: #e85700;
-  --ifm-color-primary-light: #ffa56e;
-  --ifm-color-primary-lighter: #ffaf7f;
+  --ifm-color-primary: #ff914d;
+  --ifm-color-primary-dark: #E67643;
+  --ifm-color-primary-darker: #C95919;
+  --ifm-color-primary-darkest: #be2c1b;
+  --ifm-color-primary-light: #FFD0A0;
+  --ifm-color-primary-lighter: #FFB575;
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-menu-color-active: var(--ifm-color-primary-lighter);
@@ -54,7 +54,7 @@ html[data-theme="light"] {
   --ifm-color-emphasis-300: #505050;
   /* --ifm-code-background: var(--ifm-color-primary-lightest); */
   --ifm-color-input-background: #ffffff;
-  --ifm-color: #141414;
+  --ifm-color: #00163d;
   --ifm-background-color: rgb(249, 250, 251);
   --ifm-footer-background-color: #ffffff;
   --ifm-card-background-color: #ffffff;
@@ -64,24 +64,24 @@ html[data-theme="light"] {
 }
 
 @font-face {
-  font-family: "Aeonik";
-  src: url("../fonts/Aeonik-Regular.woff");
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Light.woff2");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Aeonik-Bold";
-  src: url("../fonts/Aeonik-Bold.woff");
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Bold.woff2");
   font-weight: 700;
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
-  font-family: "Aeonik-Light";
-  src: url("../fonts/Aeonik-Light.woff");
+  font-family: 'Roboto';
+  src: url("../fonts/Roboto-Light.woff2");
   font-weight: 300;
   font-style: normal;
   font-display: swap;
