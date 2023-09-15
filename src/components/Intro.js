@@ -152,7 +152,7 @@ function Server() {
 export const Intro = () => {
   return (
     <section className="mt-1 mb-14">
-      <h2 className="text-3xl md:text-4xl">Supports</h2>
+      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">Supports</h2>
       <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
         <Languages />
         <Server />

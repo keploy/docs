@@ -85,9 +85,9 @@ module.exports = {
               borderWidth: "2px",
             },
             a: {
-              color: "#3182ce",
+              color: "#E67643",
               "&:hover": {
-                color: "#2c5282",
+                color: "#C95919",
               },
             },
           },
@@ -97,8 +97,8 @@ module.exports = {
         3000: "3000ms",
       },
       fontFamily: {
-        light: ["Aeonik-Light"],
-        bold: ["Aeonik-Bold"],
+        light: ["Roboto Light", "sans"],
+        bold: ["Roboto Bold", "sans"],
       },
       keyframes: {
         "fade-in-down": {
@@ -156,10 +156,12 @@ module.exports = {
         "3/1": "300%",
       },
       fontSize: {
+        17: "17px",
         60: "60px",
         144: "144px",
       },
       lineHeight: {
+        25: "25px",
         36: "36px",
         48: "48px",
         60: "60px",
