@@ -24,7 +24,7 @@ export default function Home() {
           <QuickStart />
           {/*<GSoC/>*/}
           {/*<Hacktoberfest />*/}
-          <Intro />
+          {/*<Intro />*/}
           <Resources />
           <Community />
           {/*<KeployCloud />*/}
