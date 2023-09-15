@@ -19,7 +19,7 @@ jobs:
         run: |
           yarn build  
       - uses: rossjrw/pr-preview-action@v1
-    with:
-      source-dir: build
-      preview-branch: main
-      umbrella-dir: docs/pr-preview
+        with:
+          source-dir: build
+          preview-branch: main
+          umbrella-dir: docs/pr-preview
