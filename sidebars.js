@@ -1,6 +1,6 @@
 module.exports = {
   // Keploy Explanation Sidebar
-  sidebarExplaination: [
+  sidebarExplanation: [
     {
       type: "category",
       label: "Explanation",
