@@ -5,10 +5,6 @@
       "label": "Explanation",
       "collapsible": true,
       "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "keploy-explained/introduction"
-      },
       "items": [
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works"
@@ -160,10 +156,6 @@
       "label": "Typescript SDK",
       "collapsible": true,
       "collapsed": true,
-      "link": {
-        "type": "doc",
-        "id": "typescript/installation"
-      },
       "items": [
         "typescript/installation",
         "typescript/generate-tests",
