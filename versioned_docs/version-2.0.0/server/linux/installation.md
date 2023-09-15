@@ -68,7 +68,7 @@ alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --ne
 Now, we will use the newly created alias `keploy` to record the testcases.
 
 ```shell
-keploy record -c "CMD_to_run_user_container" --containerName "<contianerName>"
+keploy record -c "CMD_to_run_user_container" --containerName "<containerName>"
 ```
 
 #### Run the Testcases
@@ -76,7 +76,7 @@ keploy record -c "CMD_to_run_user_container" --containerName "<contianerName>"
 Now, we will use the newly created Alias `keploy` to test the testcases.
 
 ```shell
-keploy test -c "CMD_to_run_user_container" --containerName "<contianerName>" --delay 20
+keploy test -c "CMD_to_run_user_container" --containerName "<containerName>" --delay 20
 ```
 
 > **CMD_to_run_user_container** is the docker command to run the application.
