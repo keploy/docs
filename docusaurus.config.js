@@ -174,9 +174,6 @@ module.exports = {
         {
           type: 'docsVersionDropdown',
           position: 'right',
-          dropdownItemsAfter: [{
-            to: '/docs/server/linux/installation',
-          }],
           dropdownActiveClassDisabled: true,
         },
         {

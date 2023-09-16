@@ -15,11 +15,13 @@ jobs:
       - uses: actions/checkout@v3
       - name: Install Yarn
         run: npm install -g yarn
+      - name: Install dependencies
+        run: yarn
       - name: Build lib
         run: |
           yarn build  
       - uses: rossjrw/pr-preview-action@v1
-    with:
-      source-dir: build
-      preview-branch: main
-      umbrella-dir: docs/pr-preview
+        with:
+          source-dir: build
+          preview-branch: main
+          umbrella-dir: docs/pr-preview
