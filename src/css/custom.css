@@ -204,7 +204,7 @@ div[class^="sidebar_"] .button svg {
 
 /* Navbar */
 .navbar__inner {
-  @apply mx-auto max-w-screen-lg  px-10 shadow-none;
+  @apply mx-auto max-w-screen-lg lg:px-10 shadow-none;
 }
 
 .navbar__items--right {
