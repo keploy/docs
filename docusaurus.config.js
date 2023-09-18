@@ -77,13 +77,14 @@ module.exports = {
           logo: "https://keploy.io/docs/img/favicon.png",
         }),
       },
-      {name: 'description', content: 'Keploy - API Test Generator Tool'},
-      {name: 'twitter:card', content: 'summary_large_image'},
+      { name: 'description', content: 'Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.' },
+      { name: 'keywords', content: 'API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests' },
+      { name: 'twitter:card', content: 'summary_large_image' },
     ],
     headTags: [
       // Preconnect tag
       {
-        tagName: 'Keploy Inc',
+        tagName: 'link',
         attributes: {
           rel: 'preconnect',
           href: 'https://keploy.io/',
@@ -96,9 +97,11 @@ module.exports = {
         },
         innerHTML: JSON.stringify({
           '@context': 'https://schema.org/',
-          '@type': 'Organization',
-          name: 'Keploy Documentation',
-          url: 'https://docs.keploy.io/',
+          '@type': 'Product',
+          description: 'Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.',
+          keywords: 'API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests',
+          name: 'Keploy',
+          url: 'https://keploy.io/',
           logo: 'https://docs.keploy.io/img/favicon.png',
         }),
       },
