@@ -18,7 +18,6 @@ tags:
 
 </details>
 
-
 ## Build configuration
 
 1.  [Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
