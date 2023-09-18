@@ -45,7 +45,6 @@ k := keploy.New(keploy.Config{
     })
 ```
 
-
 <details><summary> Example </summary>
 
 ```go
@@ -60,6 +59,7 @@ port := "6789"
      },
  })
 ```
+
 </details>
 
 Now wrap the routers, https clients and external dependencies like DBs.
@@ -69,7 +69,6 @@ Now wrap the routers, https clients and external dependencies like DBs.
 import SupportedFrameworks from './supported-frameworks.md'
 
 <SupportedFrameworks/>
-
 
 ### SDK Modes
 

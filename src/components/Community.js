@@ -4,9 +4,12 @@ export const Community = () => {
   return (
     <section className="mt-12">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
-        🐰  Join Our Community Forum
+        🐰 Join Our Community Forum
       </h2>
-      <p className="text-l mb-8">Are you curious, 🤔 or do you have questions burning in your mind? 🔥 Look no further! Join our lively Community Forum where you can:</p>
+      <p className="text-l mb-8">
+        Are you curious, 🤔 or do you have questions burning in your mind? 🔥
+        Look no further! Join our lively Community Forum where you can:
+      </p>
       <ul className="grid gap-6  sm:grid-cols-2 xl:gap-8">
         {/*<li>*/}
         {/*  <a*/}
@@ -45,7 +48,7 @@ export const Community = () => {
               fill="currentColor"
               className="h-12 w-12 flex-none text-red-500 "
             >
-              <rect width="48" height="48" rx="12"/>
+              <rect width="48" height="48" rx="12" />
               <path
                 d="M36.83 18.556c0-2.285-1.681-4.124-3.758-4.124a184.713 184.713 0 00-8.615-.182h-.914c-2.925 0-5.799.05-8.612.183-2.072 0-3.753 1.848-3.753 4.133A75.6 75.6 0 0011 23.99a78.487 78.487 0 00.173 5.429c0 2.285 1.68 4.139 3.753 4.139 2.955.137 5.987.198 9.07.192 3.087.01 6.11-.054 9.069-.193 2.077 0 3.758-1.853 3.758-4.138.121-1.813.177-3.62.172-5.434a73.982 73.982 0 00-.165-5.428zM21.512 28.97v-9.979l7.363 4.987-7.363 4.992z"
                 fill="currentColor"
@@ -142,7 +145,7 @@ export const Community = () => {
             >
               <title>slack-logo-icon</title>
               <desc>Created with Sketch Beta.</desc>
-              <defs/>
+              <defs />
               <g
                 id="Page-1"
                 stroke="none"
@@ -216,14 +219,13 @@ export const Community = () => {
         </li>
       </ul>
       <p className="mt-8">
-        We are happy to help you with your 🎤 talks, 📝 blogposts (whether on our blog or yours) or anything else you want to try. Just{" "}
-        {/*<a*/}
+        We are happy to help you with your 🎤 talks, 📝 blogposts (whether on
+        our blog or yours) or anything else you want to try. Just {/*<a*/}
         {/*  className="text-blue-400 hover:underline"*/}
         {/*  href="https://keploy.io/careers"*/}
         {/*>*/}
         {/*  job listings,*/}
         {/*</a>*/}
-
         <a
           className="text-blue-400 hover:underline"
           href="mailto:hello@keploy.io"

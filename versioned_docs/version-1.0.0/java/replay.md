@@ -3,10 +3,10 @@ id: replay
 title: Replay Tests & Mocks for Java
 description: Replay Test Suite for Java in Keploy.
 tags:
-- developer-guide
-- go
-- replay-guide
-- replay-test-case
+  - developer-guide
+  - go
+  - replay-guide
+  - replay-test-case
 ---
 
 import ReplayTest from '../operation/test.md'
@@ -36,6 +36,7 @@ Get Test-Coverage with Surgefire
 To get test coverage, in addition to above Method-2 follow below instructions
 
 - Add maven-surefire-plugin to your _pom.xml_.
+
 ```xml
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -51,9 +52,10 @@ To get test coverage, in addition to above Method-2 follow below instructions
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
- ```
+```
 
 - Add Jacoco plugin to your _pom.xml_.
+
 ```xml
             <plugin>
                <groupId>org.jacoco</groupId>
@@ -89,17 +91,16 @@ To get test coverage, in addition to above Method-2 follow below instructions
                    </execution>
                </executions>
            </plugin>
-  ```
+```
 
 - Run your tests using command : `mvn test`.
 
 </details>
 
-
 ### Method 4
 
 <details><summary>
-Run Tests in CI/CD 
+Run Tests in CI/CD
 
 </summary>
 

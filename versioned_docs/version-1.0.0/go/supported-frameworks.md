@@ -53,7 +53,6 @@ func main(){
 
 </details>
 
-
 ### Gin
 
 <details>
@@ -121,6 +120,7 @@ func main(){
     e.Start(":" + port)
 }
 ```
+
 </details>
 
 ### WebGo
@@ -133,6 +133,7 @@ router := webgo.NewRouter(cfg, getRoutes())
 router.Use(kwebgo.WebgoMiddlewareV4(k))
 router.Start()
 ```
+
 </details>
 
 <details>
@@ -143,6 +144,7 @@ router := webgo.NewRouter(cfg, getRoutes())
 router.Use(kwebgo.WebgoMiddlewareV6(k))
 router.Start()
 ```
+
 </details>
 
 <details>
@@ -176,10 +178,10 @@ func main(){
     router.Start()
 }
 ```
+
 </details>
 
 ### Gorilla/Mux
-
 
 <details>
 <summary>Integration</summary>
@@ -188,6 +190,7 @@ func main(){
 r := mux.NewRouter()
 r.Use(kmux.MuxMiddleware(k))
 ```
+
 </details>
 
 <details>
@@ -274,48 +277,53 @@ Following operations are supported:
 <details>
 <summary>Integration</summary>
 
-Keploy inplements most of the sql driver's interface for mocking the outputs of sql queries which are called from your API handler.  
+Keploy inplements most of the sql driver's interface for mocking the outputs of sql queries which are called from your API handler.
 
 Since, keploy uses request context for mocking outputs of SQL queries thus, SQL methods having request context as parameter should be called from API handler.
 
 #### v1
+
 This version records the outputs and store them as binary in exported yaml files
+
 #### v2
+
 This version records and stores the outputs as readable/editable format in exported yaml file.
-Sample: 
+Sample:
+
 ```yaml
 version: api.keploy.io/v1beta1
 kind: SQL
 name: Sample-App # App_Id from keploy config or mock name from mock.Config
 spec:
-    metadata:
-        name: SQL
-        operation: QueryContext.Close
-        type: SQL_DB
-    type: table
-    table:
-        cols:
-            - name: id
-              type: int64
-              precision: 0
-              scale: 0
-            - name: uuid
-              type: '[]uint8'
-              precision: 0
-              scale: 0
-            - name: name
-              type: string
-              precision: 0
-              scale: 0
-        rows:
-            - "[`3` | `[50 101 101]` | `qwertt2` | ]"
-    int: 0
-    error:
-        - nil
-        - nil
+  metadata:
+    name: SQL
+    operation: QueryContext.Close
+    type: SQL_DB
+  type: table
+  table:
+    cols:
+      - name: id
+        type: int64
+        precision: 0
+        scale: 0
+      - name: uuid
+        type: "[]uint8"
+        precision: 0
+        scale: 0
+      - name: name
+        type: string
+        precision: 0
+        scale: 0
+    rows:
+      - "[`3` | `[50 101 101]` | `qwertt2` | ]"
+  int: 0
+  error:
+    - nil
+    - nil
 ```
 
 Here is an example for postgres driver and binary encoded outputs -
+
 ```go
     import (
         "github.com/keploy/go-sdk/integrations/ksql/v1" // the outputs of sql queries are stored as binary encoded in exported yaml files
@@ -325,7 +333,7 @@ Here is an example for postgres driver and binary encoded outputs -
         // Register keploy sql driver to database/sql package.
         driver := ksql.Driver{Driver: pq.Driver{}}
 		sql.Register("keploy", &driver)
-        
+
         pSQL_URI := fmt.Sprintf("host=%s user=%s dbname=%s sslmode=disable password=%s port=%s", "localhost", "postgres", "Book_Keeper", "8789", "5432")
         // keploy driver will internally open the connection using dataSourceName string parameter
         db, err := sql.Open("keploy", pSQL_URI)
@@ -352,8 +360,10 @@ Here is an example for postgres driver and binary encoded outputs -
         }))
     }
 ```
-> Its compatible with gORM. To integerate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params. 
-Example for gORM with GCP-Postgres driver:
+
+> Its compatible with gORM. To integerate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params.
+> Example for gORM with GCP-Postgres driver:
+
 ```go
     import (
 		gcppostgres "github.com/GoogleCloudPlatform/cloudsql-proxy/proxy/dialers/postgres"
@@ -383,10 +393,10 @@ Example for gORM with GCP-Postgres driver:
 
         // set DisableAutomaticPing to true so that .
         pSQL_DB, err :=  gorm.Open( postgres.New(postgres.Config{
-                DriverName: "keploy", 
+                DriverName: "keploy",
                 DSN: pSQL_URI
-            }), &gorm.Config{ 
-                DisableAutomaticPing: true 
+            }), &gorm.Config{
+                DisableAutomaticPing: true
         }
         pSQL_DB.AutoMigrate(&Person{})
         pSQL_DB.AutoMigrate(&Book{})
@@ -407,7 +417,7 @@ Example for gORM with GCP-Postgres driver:
 <!-- Its compatible with gORM.  -->
 </details>
 
-<!-- 
+<!--
 <details>
 <summary>Example</summary>
 
@@ -434,16 +444,15 @@ Example for gORM with GCP-Postgres driver:
 ```
 </details> -->
 
-###  Elasticsearch
+### Elasticsearch
 
 <details>
 <summary>Integration</summary>
 
-The elastic-search client uses http client to do CRUD operations. 
+The elastic-search client uses http client to do CRUD operations.
 There is a Transport field in `elasticsearch.config` which allows you to
 completely replace the default HTTP client used by the package.
 So, we use `khttp` as an interceptor and assign it to the Transport field.
-
 
 Here is an example of making elastic search client with keploy's http interceptor -
 
@@ -472,11 +481,12 @@ func ConnectWithElasticsearch(ctx context.Context) *elasticsearch.Client {
 
 
 ```
+
 > The heavy operations like bulk indexing will take time depending on the configuration of the machine on which the keploy is running.
 
 </details>
 
-###  Redis
+### Redis
 
 <details>
 <summary>Integration</summary>
@@ -504,7 +514,9 @@ func (cache *redisCache) getClient() redis.UniversalClient {
 	return kredis.NewRedisClient(client)
 }
 ```
+
 Following operations are supported:
+
 - Get
 - Set
 - Del
@@ -554,7 +566,7 @@ func main(){
 	client := http.Client{
 		Transport: interceptor,
 	}
-	
+
 	r.HandleFunc("/mux/httpGet",func (w http.ResponseWriter, r *http.Request)  {
 		// SetContext should always be called once in a http handler before http.Client's Get or Post or Head or PostForm method.
         // Passing requests context as parameter.
@@ -611,7 +623,8 @@ func main(){
 	})
 }
 ```
-> ensure to pass request context to all external requests like http requests, db calls, etc. 
+
+> ensure to pass request context to all external requests like http requests, db calls, etc.
 
 </details>
 
@@ -620,10 +633,12 @@ func main(){
 <details>
 <summary>Integration</summary>
 
-The outputs of external gRPC calls from API handlers can be mocked by registering keploy's gRPC client interceptor(called WithClientUnaryInterceptor of go-sdk/integrations/kgrpc package). 
+The outputs of external gRPC calls from API handlers can be mocked by registering keploy's gRPC client interceptor(called WithClientUnaryInterceptor of go-sdk/integrations/kgrpc package).
+
 ```go
 conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 ```
+
 </details>
 
 <details>
@@ -647,11 +662,12 @@ func main() {
 		  URL: "http://localhost:6789/api",
 	  },
 	})
-	
+
 	// Make gRPC client connection
 	conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
 }
 ```
-> Currently streaming is not yet supported. 
+
+> Currently streaming is not yet supported.
 
 </details>

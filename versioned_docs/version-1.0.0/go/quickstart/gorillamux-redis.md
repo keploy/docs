@@ -204,9 +204,11 @@ Testrun passed for testcase with id: "test-1"
 
 
 ```
+
 </details>
 
 ---
+
 ### Make a code change
 
 Now try changing something like commenting line numbers 115 and 116 and uncommenting line 119 in `main.go` and running ` go test -coverpkg=./... -covermode=atomic ./...` again

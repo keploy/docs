@@ -17,66 +17,66 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 - [Java 8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
 
-
 ## Installation
 
 Navigate to [Installation guide](../../server/server-installation.md) to quickly install and run the keploy server.
 
 ## Build configuration
 
-1. [Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
-   central and add _keploy-sdk_ as a dependency to your `pom.xml` :
+1.  [Find the latest release](https://search.maven.org/artifact/io.keploy/keploy-sdk) of the Keploy Java SDK at maven
+    central and add _keploy-sdk_ as a dependency to your `pom.xml` :
 
-
-       <dependency>
-         <groupId>io.keploy</groupId>
-         <artifactId>keploy-sdk</artifactId>
-         <version>1.0.13</version>          <!--  use latest release -->
-       </dependency>
+        <dependency>
+          <groupId>io.keploy</groupId>
+          <artifactId>keploy-sdk</artifactId>
+          <version>1.0.13</version>          <!--  use latest release -->
+        </dependency>
 
 Sync dependencies or to _build.gradle_:
 
     compile 'io.keploy:keploy-sdk:1.0.13'
 
 2. Install Keploy Jar
-  - Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar)  (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
-    - Add the jar into the `main` directory
-      - **Copy** `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
-        (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
+- Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar) (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
 
-        You can set this through 3 ways:-
+  - Add the jar into the `main` directory
 
-        1. <details><summary>
-              Using Intellij
-             </summary>
+    - **Copy** `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
-           Go to `Edit Configuration`-> `add VM options` -> Paste
-        
-               -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar
-        
-            Click `OK`.
-            </details>
+      (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
 
-        4. <details><summary>
-              Using Command Line
-             </summary>
+      You can set this through 3 ways:-
 
-             ``` 
-               export JAVA_OPTS="$JAVA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar" 
-              ```
+      1.  <details><summary>
+             Using Intellij
+            </summary>
 
-             </details>
+          Go to `Edit Configuration`-> `add VM options` -> Paste
 
-        5. <details><summary>
-              Running via Tomcat Server
-             </summary>
-  
-              export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
+              -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar
 
-          </details>
+          Click `OK`.
+           </details>
 
-  
+      2.  <details><summary>
+            Using Command Line
+           </summary>
+
+          ```
+            export JAVA_OPTS="$JAVA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
+          ```
+
+           </details>
+
+      3.  <details><summary>
+            Running via Tomcat Server
+           </summary>
+
+          export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
+
+        </details>
+
 ## Setup Sample Employee-Manager App
 
 ```bash
@@ -92,7 +92,7 @@ docker-compose up -d
 ### Maven clean install
 
 ```shell
-mvn clean install -D maven.test.skip=true 
+mvn clean install -D maven.test.skip=true
 ```
 
 ### Set KEPLOY_MODE to record
@@ -102,7 +102,6 @@ mvn clean install -D maven.test.skip=true
 ## Generate testcases
 
 To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
-
 
 ### 1. Make an employee entry
 
@@ -160,7 +159,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
 ![run_configuration](/img/Run_Configuration.png "Run_Configuration")
 
 - Now that we have our testcase captured, run the unit test file (`SampleJavaApplication_Test.java`) already present in
-the sample app repo.
+  the sample app repo.
 
 - If not present, you can make and add below code in `SampleJavaApplication_Test.java` in the test module of your sample application.
 
@@ -181,19 +180,20 @@ the sample app repo.
    }
 ```
 
-- **Using IDE:**  _(for local use-case we prefer running tests via IDE)_
+- **Using IDE:** _(for local use-case we prefer running tests via IDE)_
+
   1. Run your application.
   2. You can also run the application with coverage to see the test coverage.
 
 - **Using CLI**
-  
+
   1. Add maven-surefire-plugin to your `pom.xml`. In `<argLine > </ argLine >` **don't** add jacoco agent if you don't want coverage report.
-        
+
     <details><summary>
       Add plugin 
       </summary>
 
-        ```xml 
+        ```xml
           <plugin>
              <groupId>org.apache.maven.plugins</groupId>
              <artifactId>maven-surefire-plugin</artifactId>
@@ -213,7 +213,7 @@ the sample app repo.
              </configuration>
           </plugin>
          ```
-  
+
      </details>
     
   2. If you want coverage report also add Jacoco plugin to your *pom.xml*.
@@ -257,12 +257,11 @@ the sample app repo.
                   </execution>
              </executions>
          </plugin>
-       ```     
-    
+       ```
+
      </details>
               
    3. Run your tests using command : `mvn test`.
-
 
 It will create .html files as test-reports which can be found in your target folder !!
 
@@ -272,7 +271,7 @@ Go to the Keploy Console TestRuns Page to get deeper insights on what testcases 
 
 ![testruns](https://i.imgur.com/tg6OT0n.png "Summary")
 
-**OR** 
+**OR**
 
 ### **Testing without using Unit Test File**
 
@@ -317,13 +316,10 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 
 ![testruns](/img/TestrunsSuccess.png "Recent testruns")
 
-
-
-
 ## Let's add a Bug in the App
 
 Now let's introduce a bug! Let's try changing something like adding some extra headers in
-controllers  `./EmployeeController.java` on line 35 like :
+controllers `./EmployeeController.java` on line 35 like :
 
 ```java
 return ResponseEntity.ok().header("MyNewHeader","abc").body(employee);

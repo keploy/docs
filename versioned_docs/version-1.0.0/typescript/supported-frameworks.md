@@ -8,29 +8,34 @@ tags:
 ---
 
 ## Supported Routers
+
 ### 1. Express
+
 ```js
 require("typescript-sdk/dist/integrations/express/register");
 ```
+
 The require statement should be at the top of your main file (server.js).
 
 #### Example
+
 ```js
 require("typescript-sdk/dist/integrations/express/register");
-const express = require('express');
+const express = require("express");
 const app = express();
 const port = process.env.PORT || 5050;
 
 app.use(express.json());
 
 app.get("/", (req, res) => {
-  res.json({"field": "App is healthy", "opacity": Math.random()})
-})
+  res.json({field: "App is healthy", opacity: Math.random()});
+});
 
 app.listen(port, () => {
-    console.log(`Server is running on port: ${port}`);
-})
+  console.log(`Server is running on port: ${port}`);
+});
 ```
+
 Note:- Import statements can't be used. Use require instead of import.
 
 ## Supported Dependencies
@@ -38,7 +43,7 @@ Note:- Import statements can't be used. Use require instead of import.
 ### 1. Octokit
 
 ```js
-require("typescript-sdk/dist/integrations/octokit/require")
+require("typescript-sdk/dist/integrations/octokit/require");
 ```
 
 This statement should be at the top of your main file (server.js).
