@@ -105,6 +105,31 @@ module.exports = {
           logo: 'https://docs.keploy.io/img/favicon.png',
         }),
       },
+      {name: 'description', content: 'Keploy - API Test Generator Tool'},
+      {name: 'twitter:card', content: 'summary_large_image'},
+    ],
+    headTags: [
+      // Preconnect tag
+      {
+        tagName: 'Keploy Inc',
+        attributes: {
+          rel: 'preconnect',
+          href: 'https://keploy.io/',
+        },
+      },
+      {
+        tagName: 'script',
+        attributes: {
+          type: 'application/ld+json',
+        },
+        innerHTML: JSON.stringify({
+          '@context': 'https://schema.org/',
+          '@type': 'Organization',
+          name: 'Keploy Documentation',
+          url: 'https://docs.keploy.io/',
+          logo: 'https://docs.keploy.io/img/favicon.png',
+        }),
+      },
     ],
     colorMode: {
       defaultMode: "light",
