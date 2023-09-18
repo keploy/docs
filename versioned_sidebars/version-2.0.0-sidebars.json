@@ -4,10 +4,6 @@
       "type": "category",
       "label": "Installation",
       "collapsible": true,
-      "link": {
-        "type": "doc",
-        "id": "server/linux/installation"
-      },
       "collapsed": false,
       "items": [
         "server/windows/installation",
@@ -19,10 +15,6 @@
       "type": "category",
       "label": "Database Support",
       "collapsible": true,
-      "link": {
-        "type": "doc",
-        "id": "dependencies/mongo"
-      },
       "collapsed": false,
       "items": [
         "dependencies/mongo"
@@ -32,10 +24,6 @@
       "type": "category",
       "label": "Sample-App",
       "collapsible": true,
-      "link": {
-        "type": "doc",
-        "id": "quickstart/samples-gin"
-      },
       "collapsed": false,
       "items": [
         "quickstart/samples-gin"
@@ -45,10 +33,6 @@
       "type": "category",
       "label": "Simplification",
       "collapsible": true,
-      "link": {
-        "type": "doc",
-        "id": "concepts/general-glossary"
-      },
       "collapsed": false,
       "items": [
         "concepts/general-glossary"
@@ -62,10 +46,6 @@
       "label": "Explanation",
       "collapsible": true,
       "collapsed": false,
-      "link": {
-        "type": "doc",
-        "id": "keploy-explained/introduction"
-      },
       "items": [
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works",

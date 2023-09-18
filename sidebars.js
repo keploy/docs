@@ -1,15 +1,11 @@
 module.exports = {
   // Keploy Explanation Sidebar
-  sidebarExplaination: [
+  sidebarExplanation: [
     {
       type: "category",
       label: "Explanation",
       collapsible: true,
       collapsed: false,
-      link: {
-        type: "doc",
-        id: "keploy-explained/introduction",
-      },
       items: [
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works",
@@ -21,10 +17,6 @@ module.exports = {
       type: "category",
       label: "Simplification",
       collapsible: true,
-      link: {
-        type: "doc",
-        id:  "concepts/general-glossary",
-      },
       collapsed: false,
       // link: {
       //   type: "doc",
