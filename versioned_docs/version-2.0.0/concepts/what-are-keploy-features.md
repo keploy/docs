@@ -1,6 +1,6 @@
 ---
 id: what-are-keploy-features
-title: Keploy Features 
+title: Keploy Features
 sidebar_label: Keploy Features
 description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
 tags:
@@ -38,7 +38,7 @@ Keploy identifies [noisy fields](/concepts/general-glossary.md#3-noisy-field) in
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
-[//]: # (<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>)
+[//]: # '<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>'
 
 Keploy then compares if the responses of the API requests disagree with each other.
 If any of the fields of the API responses are different they are marked as random/non-deterministic fields.

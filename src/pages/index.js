@@ -8,7 +8,7 @@ import {
   Resources,
   QuickStart,
 } from "../components";
-import { GSoC } from "../components/GSoC";
+import {GSoC} from "../components/GSoC";
 
 export default function Home() {
   const context = useDocusaurusContext();

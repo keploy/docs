@@ -8,7 +8,6 @@ keywords:
   - Java
 ---
 
-
 ### HLD for Java SDK
 
 The following contains the HLD for Java SDK demonstrating all important components:
@@ -20,7 +19,6 @@ The following contains the HLD for Java SDK demonstrating all important componen
 ## Test Mode
 
 ![Test Mode](https://user-images.githubusercontent.com/50234097/222137583-d6eda9fa-3903-4222-9a23-faf24a089e06.png)
-
 
 We held a session explaining every core-concept of Keploy-SDK
 
