@@ -45,9 +45,7 @@ function Languages() {
           </Link>
         </li>
         <li className="">
-          <Link
-            className="flex items-center space-x-3 hover:underline"
-          >
+          <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/img/java.svg"
@@ -57,9 +55,7 @@ function Languages() {
           </Link>
         </li>
         <li className="">
-        <Link
-            className="flex items-center space-x-3 hover:underline"
-          >
+          <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/img/python.svg"
@@ -69,9 +65,7 @@ function Languages() {
           </Link>
         </li>
         <li className="">
-        <Link
-            className="flex items-center space-x-3 hover:underline"
-          >
+          <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/img/javascript-logo.svg"
@@ -113,34 +107,30 @@ function Server() {
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
-            className="h-8 w-8"
-            src="/img/mongodb-logo.svg"
-            alt="Docker logo"
-          />
-          <p className="font-semibold">MongoDB</p>
+              className="h-8 w-8"
+              src="/img/mongodb-logo.svg"
+              alt="Docker logo"
+            />
+            <p className="font-semibold">MongoDB</p>
           </Link>
         </li>
         <li className="">
-          <Link
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
-          >
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
             <img
-            className="h-8 w-8"
-            src="/img/oracle-logo.svg"
-            alt="Oracle logo"
-          />
+              className="h-8 w-8"
+              src="/img/oracle-logo.svg"
+              alt="Oracle logo"
+            />
             <p className="font-semibold">Oracle (WIP)</p>
           </Link>
         </li>
         <li className="">
-          <Link
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
-          >
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
             <img
-            className="h-8 w-8"
-            src="/img/postgres-logo.svg"
-            alt="PostgresSQL logo"
-          />
+              className="h-8 w-8"
+              src="/img/postgres-logo.svg"
+              alt="PostgresSQL logo"
+            />
             <p className="font-semibold">PostgresSQL (WIP)</p>
           </Link>
         </li>
@@ -152,7 +142,9 @@ function Server() {
 export const Intro = () => {
   return (
     <section className="mt-1 mb-14">
-      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">Supports</h2>
+      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
+        Supports
+      </h2>
       <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
         <Languages />
         <Server />

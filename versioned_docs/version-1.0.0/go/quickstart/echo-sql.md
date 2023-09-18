@@ -13,7 +13,7 @@ keywords:
   - sample application
 ---
 
-# URL Shortener Sample App 
+# URL Shortener Sample App
 
 A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/).
 
@@ -81,7 +81,6 @@ or by querying through the browser `http://localhost:6789/Lhr4BWAi`
 
 Now both these API calls were captured as a testcase and should be visible in the keploy-tests folderj.
 If you're using Keploy cloud, open [this](https://app.keploy.io/).
-
 
 ![testcases](/img/Echo-Sql-test-cases.png)
 

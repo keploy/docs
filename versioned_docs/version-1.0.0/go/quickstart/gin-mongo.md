@@ -14,7 +14,7 @@ keywords:
   - golang gin
 ---
 
-#  URL Shortener Sample App
+# URL Shortener Sample App
 
 A sample url shortener app to test Keploy integration capabilities using [Gin](https://gin-gonic.com) and [mongoDB](https://www.mongodb.com/).
 
@@ -34,7 +34,9 @@ go mod download
 ```bash
 export KEPLOY_MODE=record
 ```
+
 ### Start the MongoDB server
+
 ```bash
 docker container run -it -p27017:27017 mongo
 ```
