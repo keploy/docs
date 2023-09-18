@@ -15,10 +15,6 @@
       "type": "category",
       "label": "Database Support",
       "collapsible": true,
-      "link": {
-        "type": "doc",
-        "id": "dependencies/mongo"
-      },
       "collapsed": false,
       "items": [
         "dependencies/mongo"
