@@ -1,23 +1,25 @@
 ---
 id: what-is-keploy
 title: What is Keploy?
-sidebar_label: What is Keploy?
-description: Keploy is e2e testing toolkit for developers that generates tests from API calls.
+sidebar_label: Introduction to Keploy
+description: Keploy is open source backend testing toolkit that creates tests and mocks faster than unit tests, from user-traffic.
 tags:
   - explanation
+  - introduction
+  - features
+  - what is keploy
 keywords:
   - Junit
+  - PyTest
+  - GoTest
+  - Jest
+  - Backend Testing
+  - Open Source
+  - API Tests
+  - AI Generated Tests
 ---
 
-Keploy is functional testing toolkit for developers.
-It **generates E2E tests for APIs (KTests)** along with **mocks or stubs(KMocks)** by
-recording real API calls.
+Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network
+calls** making your testing process not only faster than unit tests but also incredibly efficient.
 
-KTests can be imported as mocks for consumers and vice-versa.
-
-![Test Case Generation](/gif/record-tc.gif)
-
-Merge KTests with unit testing libraries(like Go-Test, JUnit..) to **track combined test-coverage**.
-
-KMocks can also be referenced in existing tests or use anywhere (including any testing framework).
-KMocks can also be used as tests for the server.
+<img src="/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" />
