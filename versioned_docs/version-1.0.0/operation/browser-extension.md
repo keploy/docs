@@ -46,7 +46,7 @@ Now we have:
 
 - Keploy tool is installed and running in docker
 
-Let's start front-end testing using selenium IDE extension. 
+Let's start front-end testing using selenium IDE extension.
 The Keploy extension will keep running in the background once keploy server is up.
 
 **Step-1**: Create a new project and rename it, or you can also open an existing project

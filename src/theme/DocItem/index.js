@@ -45,9 +45,7 @@ export default function DocItem(props) {
     <>
       <Head>
         <title>{title}</title>
-        {description && (
-            <meta name="description" content={description} />
-        )}
+        {description && <meta name="description" content={description} />}
       </Head>
       <Layout
         {...{
@@ -67,8 +65,8 @@ export default function DocItem(props) {
           <DocVersionBanner />
           <div className={styles.docItemContainer}>
             <article>
-{/*Removing breadcrumb as the component is downranking SEO. not a valid breadcrumb component according to schema.org */}
-              <DocBreadcrumbs/>
+              {/*Removing breadcrumb as the component is downranking SEO. not a valid breadcrumb component according to schema.org */}
+              <DocBreadcrumbs />
               <DocVersionBadge />
 
               {canRenderTOC && (

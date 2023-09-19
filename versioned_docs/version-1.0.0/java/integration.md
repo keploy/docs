@@ -1,6 +1,6 @@
 ---
 id: integration
-title: Integration for Java 
+title: Integration for Java
 description: Add the Keploy Java SDK to your application.
 tags:
   - developer-guide
@@ -17,7 +17,6 @@ tags:
 - [Docker](https://www.docker.com/)
 
 </details>
-
 
 ## Build configuration
 

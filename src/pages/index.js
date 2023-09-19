@@ -8,7 +8,7 @@ import {
   Resources,
   QuickStart,
 } from "../components";
-import { GSoC } from "../components/GSoC";
+import {GSoC} from "../components/GSoC";
 
 export default function Home() {
   const context = useDocusaurusContext();
@@ -24,7 +24,7 @@ export default function Home() {
           <QuickStart />
           {/*<GSoC/>*/}
           {/*<Hacktoberfest />*/}
-          <Intro />
+          {/*<Intro />*/}
           <Resources />
           <Community />
           {/*<KeployCloud />*/}

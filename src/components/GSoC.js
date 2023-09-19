@@ -7,7 +7,11 @@ export const GSoC = () => {
     <section className="mt-1 mb-14">
       <h2 className="text-3xl md:text-4xl">Keploy GSoC Guide</h2>
       <Link to={useBaseUrl("docs/gsoc/contribution-guide")}>
-        <img className="mt-5 w-full h-[450px]" src="/img/gsoc-banner.png" alt={"GSoC 2023"} />
+        <img
+          className="mt-5 w-full h-[450px]"
+          src="/img/gsoc-banner.png"
+          alt={"GSoC 2023"}
+        />
       </Link>
       <div className="grid grid-cols-1 gap-6 mt-5 md:grid-cols-2 lg:gap-8">
         <a

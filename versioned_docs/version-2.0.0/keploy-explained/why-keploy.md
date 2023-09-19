@@ -21,6 +21,7 @@ Keploy automatically compares all attributes of an actual and expected test-case
 Keploy will test the new version of application with thousands of test cases within minutes and generate instant reports and alerts so that you don't miss on anything!
 
 ### 4. Simple CI/CD Integration
+
 Keploy has native integrations with native testing libraries like go-test, junit. Code coverage will be reported with existing plus Keploy recorded test cases and doesn't require any change in the CI/CD pipeline to integrate.
 
 ![How Keploy is Different](/img/difference.png)

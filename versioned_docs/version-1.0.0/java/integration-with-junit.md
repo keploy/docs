@@ -4,8 +4,7 @@ title: Integrate with Junit
 sidebar_label: Integrate with Junit
 ---
 
-
-- Add below code in your unit testfile, say, `Sample_Test.java` in  `test/java` directory.
+- Add below code in your unit testfile, say, `Sample_Test.java` in `test/java` directory.
 
 ```java
           @Test

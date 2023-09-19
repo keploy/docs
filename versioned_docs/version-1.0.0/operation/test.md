@@ -9,10 +9,9 @@ tags:
   - replay-tests
 ---
 
-To run KTests and KMocks you can follow any one of these methods: 
+To run KTests and KMocks you can follow any one of these methods:
 
-### Method 1 
-
+### Method 1
 
 <details><summary>
 Set Environment Variable `KEPLOY_MODE`
@@ -20,11 +19,11 @@ Set Environment Variable `KEPLOY_MODE`
 </summary>
 
 ```
-export KEPLOY_MODE="test" 
+export KEPLOY_MODE="test"
 ```
 
-Run application and find test report summary on the Keploy Server Logs and detailed test report 
-in directory where Keploy Server is running. 
+Run application and find test report summary on the Keploy Server Logs and detailed test report
+in directory where Keploy Server is running.
 
 ![Test report summary](../../../static/gif/replay-tc.gif)
 

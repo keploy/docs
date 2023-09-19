@@ -1,0 +1,27 @@
+name: Prettify Code
+# This action works with pull requests and pushes
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  prettier:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.head_ref }}
+          fetch-depth: 0
+
+      - name: Prettify code
+        uses: creyD/prettier_action@v4.3
+        with:
+          # This part is also where you can pass other options, for example:
+          prettier_version: 2.8.8
+          prettier_options: --write **/*.{js,md}
+          same_commit: true
+          
