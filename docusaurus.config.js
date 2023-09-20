@@ -142,8 +142,8 @@ module.exports = {
         //   label: "Blog",
         // },
         {
-          to: "/docs/keploy-explained/dev-guide",
-          label: "Dev Guide",
+          to: "/docs/keploy-explained/contribution-guide",
+          label: "Contribution Guide",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",

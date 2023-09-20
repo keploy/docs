@@ -55,14 +55,13 @@
     }
   ],
 
-  "sidebarDevGuide": [
+  "sidebarContributionGuide": [
     {
       "type": "category",
       "label": "Contribution Guidelines",
-      "collapsible": true,
-      "collapsed": false,
+      "collapsible": false,
       "items": [
-        "keploy-explained/dev-guide"
+        "keploy-explained/contribution-guide"
       ]
     }
   ]

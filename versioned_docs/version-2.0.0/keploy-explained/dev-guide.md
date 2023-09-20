@@ -1,67 +1,60 @@
 ---
-id: dev-guide
-title: Dev Guide
-sidebar_label: Dev Guide
+id: contribution-guide
+title: Contribution Guide
+sidebar_label: Contribution Guide
 tags:
   - explanation
-  - dev-guide
+  - dev guide
+  - contribution guide
 ---
 
-# Dev Guide
+# Contribution Guide 🚀
 
-1. **Platform and it’s requirements:** <br/>
-   To run keploy on macOS or windows, you need to create a Linux VM. <br/>
-   For MacOS: Install [Lima](https://github.com/lima-vm/lima#installation) to create a Linux VM.<br/>
-   For Windows: Install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install) to create a Linux VM.
+Welcome to the world of Keploy development! Here, we'll get you up and running smoothly, making your Keploy journey a breeze.
 
-2. **Pre-requisites:**
+### 1. **Setting Up Your Platform**: 
+Running Keploy on macOS or Windows? No problem! You'll need to create a Linux VM. 
+- For macOS, install [Lima](https://github.com/lima-vm/lima#installation). 
+- If you're on Windows, install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
-[Install Golang](https://go.dev/doc/install)
+### 2. **Pre-requisites**:
 
-3. **Cloning Keploy Repository:**
+First things first, ensure you have [Golang](https://go.dev/doc/install) installed.
+
+### 3. **Cloning Keploy Repository**:
+
+Time to get your hands on Keploy! Run these commands to clone the repository and download those Go dependencies:
 
 ```shell
 git clone https://github.com/keploy/keploy.git && cd keploy
-```
-
-Download go dependencies:
-
-```shell
 go mod download
 ```
 
-4. **How to run Keploy on v2?**
+### 4. Running Keploy on v2:
 
-The Keploy CLI works by intercepting all network traffic between your application and its dependencies. It then records the API calls, database queries, and other interactions that your application makes. Once you have finished recording test cases, Keploy can generate test cases and data mocks in YAML format.
+The Keploy CLI operates by capturing all network traffic between your application and its dependencies.
+It meticulously records API calls, database queries, and any other interactions your application engages in. 
 
-#### Keploy runs in the following modes:
+Once the recording phase is complete, Keploy can effortlessly generate test cases and data mocks in YAML format.
 
-`record`: Record the keploy testcases from the API calls <br/>
-`test`: Run the recorded testcases and execute assertions <br/>
-`completion`: Generate the autocompletion script for the specified shell <br/>
-`serve`: Run the keploy server to expose test apis <br/>
+#### Keploy operates in four modes:
 
-To run keploy on an application, you can use this [gin-mongo URL Shortener](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample application:
+- `record`: Capture Keploy test cases from API calls.
+- `test`: Execute recorded test cases and validate assertions.
+- `completion`: Generate autocompletion scripts for your shell.
+- `serve`: Run the Keploy server to expose test APIs.
 
-#### Clone the repository and navigate to the directory:
+To dive into Keploy, you can use the [gin-mongo URL Shortener](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample application:
+
+#### Let's clone sample app repo:
 
 ```shell
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
+go mod download   # Download dependencies:
+go build -o gin-mongo-binary  # Generate binary of the application:
 ```
 
-#### Download dependencies:
-
-```shell
-go mod download
-```
-
-#### Generate binary of the application:
-
-```shell
-go build -o gin-mongo-binary
-```
-
-### To run Keploy natively:
+### Now let's try running keploy:
 
 #### Capturing Test Cases:
 
@@ -69,8 +62,7 @@ go build -o gin-mongo-binary
  go run -exec "sudo -E env 'PATH=$PATH'" main.go record -c "path/to/go/binary/of/application"
 ```
 
-After entering record mode, hit request to your application to generate test cases that will be replayed during the test phase. <br/>
-If using POSTMAN, turn off the keep-alive header.
+After entering record mode, send requests to your application to generate test cases. If using POSTMAN, remember to turn off the keep-alive header.
 
 #### Running Test Cases:
 
@@ -78,9 +70,9 @@ If using POSTMAN, turn off the keep-alive header.
 go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10
 ```
 
-Generated test cases can be seen inside keploy directory of the keploy repository. <br/>
+Generated test cases can be found inside the Keploy directory.
 
-### If trying to run via Keploy binary:
+### 5. Setup keploy using binary:
 
 #### Generate Keploy Binary:
 
@@ -100,9 +92,9 @@ sudo keploy record -c "path/to/go/binary"
 sudo keploy test -c "path/to/go/binary" --delay 10
 ```
 
-Note: Use `––debug` flag to run keploy in debug mode. It helps you to pinpoint the error by looking at the logs.
+Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
 
-5. **How to run Keploy via docker?**
+### 6. Setup Keploy via Docker:
 
 #### Install the Keploy Docker Image:
 
@@ -128,7 +120,7 @@ keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network ke
 keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
 ```
 
-6. **How to test locally built docker image?**
+### 6. Testing Locally Built Docker Image:
 
 #### Build Docker Image:
 
@@ -153,3 +145,5 @@ keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network ke
 ```shell
 keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
 ```
+
+There you have it! With this guide, you're all set to dive into Keploy development. Happy testing! 🧪🔍💻
