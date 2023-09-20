@@ -17,14 +17,14 @@ export const QuickStart = () => {
         What is Keploy? 🤔
       </h2>
       <p className="max-w-4xl text-l">
-        Keploy is your open-source, developer-centric E2E testing tool. It makes
-        regression testing easy and productive for engineering teams. Plus, it's
-        free and highly extensible.🛠️
+        Keploy is your open-source, developer-centric backend testing tool. It
+        makes backend testing easy and productive for engineering teams. Plus,
+        it's easy-to-use, powerful and extensible..🛠️
       </p>
       <p className="max-w-4xl text-l mt-4">
-        Keploy creates test cases and generates data mocks/stubs by recording
-        API calls and DB queries, significantly speeding up releases and
-        enhancing reliability. 📈
+        Keploy creates test cases and data mocks/stubs from user-traffic by
+        recording API calls and DB queries, significantly speeding up releases
+        and enhancing reliability. 📈
       </p>
 
       <h2 className="mt-8 text-2xl md:text-3xl font-semibold tracking-wide">
@@ -65,7 +65,7 @@ export const QuickStart = () => {
           <p className="text-lg font-semibold">MacOS</p>
         </Link>
       </div>
-      <p className=" text-l mt-6">
+      <p className=" text-l mt-6 text-gray-500">
         ⚠️ Please note that Keploy v2 is currently in development, with the best
         experience on Linux. Docker support is experimental and may have some
         limitations for certain use cases.
