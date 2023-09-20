@@ -13,29 +13,11 @@
     },
     {
       "type": "category",
-      "label": "Database Support",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "dependencies/mongo"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Sample-App",
       "collapsible": true,
       "collapsed": false,
       "items": [
         "quickstart/samples-gin"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Simplification",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "concepts/general-glossary"
       ]
     }
   ],
@@ -50,7 +32,17 @@
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works",
         "keploy-explained/why-keploy",
-        "keploy-explained/faq"
+        "keploy-explained/faq",
+        "server/index"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Resources",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "concepts/general-glossary"
       ]
     }
   ],
@@ -62,6 +54,15 @@
       "collapsible": false,
       "items": [
         "keploy-explained/contribution-guide"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Database Support",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "dependencies/mongo"
       ]
     }
   ]
