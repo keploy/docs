@@ -53,5 +53,17 @@
         "keploy-explained/faq"
       ]
     }
+  ],
+
+  "sidebarDevGuide": [
+    {
+      "type": "category",
+      "label": "Contribution Guidelines",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "keploy-explained/dev-guide"
+      ]
+    }
   ]
 }

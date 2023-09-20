@@ -137,9 +137,13 @@ module.exports = {
           to: "https://community.keploy.io",
           label: "KB Articles",
         },
+        // {
+        //   to: "https://blog.keploy.io",
+        //   label: "Blog",
+        // },
         {
-          to: "https://blog.keploy.io",
-          label: "Blog",
+          to: "/docs/keploy-explained/dev-guide",
+          label: "Dev Guide",
         },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
