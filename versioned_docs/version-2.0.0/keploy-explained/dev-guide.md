@@ -12,9 +12,11 @@ tags:
 
 Welcome to the world of Keploy development! Here, we'll get you up and running smoothly, making your Keploy journey a breeze.
 
-### 1. **Setting Up Your Platform**: 
-Running Keploy on macOS or Windows? No problem! You'll need to create a Linux VM. 
-- For macOS, install [Lima](https://github.com/lima-vm/lima#installation). 
+### 1. **Setting Up Your Platform**:
+
+Running Keploy on macOS or Windows? No problem! You'll need to create a Linux VM.
+
+- For macOS, install [Lima](https://github.com/lima-vm/lima#installation).
 - If you're on Windows, install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
 ### 2. **Pre-requisites**:
@@ -33,7 +35,7 @@ go mod download
 ### 4. Running Keploy on v2:
 
 The Keploy CLI operates by capturing all network traffic between your application and its dependencies.
-It meticulously records API calls, database queries, and any other interactions your application engages in. 
+It meticulously records API calls, database queries, and any other interactions your application engages in.
 
 Once the recording phase is complete, Keploy can effortlessly generate test cases and data mocks in YAML format.
 
