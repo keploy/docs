@@ -58,7 +58,7 @@
   "sidebarContributionGuide": [
     {
       "type": "category",
-      "label": "Contribution Guidelines",
+      "label": "Dev Guide",
       "collapsible": false,
       "items": [
         "keploy-explained/contribution-guide"
