@@ -1,43 +1,47 @@
 ---
 id: faq
-title: (FAQ) Frequently Asked Questions
+title: Frequently Asked Questions (FAQ)
 sidebar_label: FAQ
 tags:
   - explanation
   - faq
 ---
 
+Let's get to the heart of Keploy with some fun Q&A!
+
 ### 1. Is Keploy a unit testing framework?
 
-No, keploy is designed to reduce time writing tests manually. It integrates with exising unit testing frameworks `(go-test, JUnit, Pytest, Jest)` to ensure compatibility with existing tooling like code coverage, IDE support and CI pipeline/infrastructure support.
+Nope, doesn't replace your trusty unit testing frameworks like `go-test`, `JUnit`, `Pytest`, or `Jest`. Instead, it teams up with them to make your testing life a breeze, ensuring compatibility with your favorite tools and pipelines.
 
 ### 2. Does Keploy replace unit tests entirely?
 
-If all your code paths can be invoked from API calls then yes, else you can still write testcases for some methods, but the idea is to save at least 80% of the effort.
+Almost! Keploy aims to save you a whopping 80% of the testing effort. While it handles most cases, you might still want to write tests for some methods that aren't API-invokable.
 
 ### 3. What code changes do I need to do?
 
-There are **no code-changes** required for `Golang`,`Java`,`Python` & `JavaScript` applications
+Zero, zip, nada! For `Golang`, `Java`, `Python`, and `JavaScript` applications, Keploy plays nice with your existing codebase, requiring no code changes.
 
 ### 4. How do I run keploy in my CI pipeline?
 
-No changes necessary. You can reuse the pipeline which runs unit tests.
+Simple as pie. No need to overhaul your CI pipeline; you can keep using the one that runs your unit tests. Keploy fits right in!
 
 ### 5. Does Keploy support read after write to DB scenarios?
 
-Yes. Keploy records the write requests and read requests in the correct order. It then expects the application to perform the writes and reads in the same order. It would return the same database responses as captured earlier.
+Absolutely! Keploy keeps things in order, recording write and read requests in sequence. It expects your application to play by the rules and serves up the same database responses as it did during capture.
 
 ### 6. How does keploy handle fields like timestamps, random numbers (eg: uuids)?
 
-A request only becomes a testcase if it passes our deduplication algorithm. If its becoming a testcase, a second request is sent to the same application instance (with the same request params) to check for difference in responses. Fields such as timestamps, uuids would be automatically flagged by comparing the second response with the first response. These fields are then ignored during testing going forward.
+Keploy's got a keen eye for detail. If a request passes its deduplication algorithm, it's game time. Keploy sends a second request with the same parameters to check for differences in responses. Fields like timestamps and UUIDs get the spotlight as they're automatically flagged for comparison. From then on, they're out of the testing picture.
 
 ### 7. Can I use keploy to generate tests from production environments automatically?
 
-Not yet. We are working on making our deduplication algorithm scalable enough to be used safely in production. If you are interested in this use-case, please connect with us on slack. We'd love to work with you to build the deduplication system and load test it with your systems.
+Not just yet, but we're on it! We're cooking up a scalable deduplication algorithm to make it safe for production. If you're itching to explore this frontier, come chat with us on Slack. We'd love to join forces and put our system to the test with your systems.
 
 ### 8. What if my application behaviour changes?
 
-If your application behaviour changes, the respective testcases would fail. You can then mark the new behaviour as normal by clicking on the normalise button.
+Change is the only constant in the tech world, right? If your app decides to switch things up, your test cases might break. No worries; you can mark the new behavior as normal.
+
+Got more questions? We're all ears (and code)👂.
 
 <!-- ### 9. Would keploy know if an external service changes?
 
