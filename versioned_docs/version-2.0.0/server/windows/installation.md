@@ -26,11 +26,12 @@ There are two ways to use Keploy eBPF in windows, you can use either use:
 
 ### Download the Keploy Binary
 
-On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below. 
+On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
 
 ```zsh
 wsl --install
 ```
+
 This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default distribution can be changed).
 
 If you're running an older build, or just prefer not to use the install command and would like step-by-step directions, see WSL manual installation steps for older versions.
