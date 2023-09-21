@@ -49,9 +49,9 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ### Create Keploy Alias
 
-To establish a network for your application using Keploy on Docker, follow these steps.
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
 
-If you're using a docker-compose network, replace keploy-network with your app's docker_compose_network_name below.
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
 ```shell
 docker network create keploy-network
@@ -60,7 +60,7 @@ docker network create keploy-network
 Then, create an alias for Keploy:
 
 ```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
 ```
 
 #### Capture the Testcases
@@ -68,7 +68,7 @@ alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --ne
 Now, we will use the newly created alias `keploy` to record the testcases.
 
 ```shell
-keploy record -c "CMD_to_run_user_container" --containerName "<containerName>"
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
 ```
 
 #### Run the Testcases
@@ -76,7 +76,7 @@ keploy record -c "CMD_to_run_user_container" --containerName "<containerName>"
 Now, we will use the newly created Alias `keploy` to test the testcases.
 
 ```shell
-keploy test -c "CMD_to_run_user_container" --containerName "<containerName>" --delay 20
+keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 20
 ```
 
 > **CMD_to_run_user_container** is the docker command to run the application.
@@ -84,7 +84,9 @@ keploy test -c "CMD_to_run_user_container" --containerName "<containerName>" --d
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
+You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.
+
 **Footnote**
 
-1. delay is required while using Test Mode.
+1. `delay` is required while using Test Mode.
 2. containerName is optional if you are using `Docker run` command, as the Container name must be present within the command itself.

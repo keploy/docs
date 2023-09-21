@@ -26,7 +26,20 @@ There are two ways to use Keploy eBPF in windows, you can use either use:
 
 ### Download the Keploy Binary
 
+On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
+
 ```zsh
+wsl --install
+```
+
+This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default distribution can be changed).
+
+If you're running an older build, or just prefer not to use the install command and would like step-by-step directions, see WSL manual installation steps for older versions.
+
+Once installed download and Install "Keploy Binary" :
+
+```zsh
+=======
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
@@ -37,7 +50,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 Run this command on your terminal to start the recording of API calls:-
 
 ```shell
-sudo -E keploy record -c "CMD_TO_RUN_APP"
+sudo -E keploy record -c "path/to/the/application/binary"
 ```
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
@@ -49,7 +62,7 @@ Keploy with capture the API calls you have made to generate the test-suites whic
 Run this command on your terminal to run the testcases and generate the test coverage report:-
 
 ```shell
-sudo -E keploy test -c "CMD_TO_RUN_APP" --delay 10
+sudo -E keploy test -c "path/to/the/application/binary" --delay 10
 ```
 
 Voilà! 🧑🏻‍💻 We have the server running!
@@ -60,7 +73,9 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ### Creating Alias
 
-We need to create a custom network for Keploy since we are using the Docker.
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
+
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
 ```zsh
 docker network create keploy-network
@@ -69,7 +84,7 @@ docker network create keploy-network
 Once the Custom Network is created, now we have to create the alias for the Keploy.
 
 ```shell
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
 ```
 
 #### Run the Record Mode
@@ -77,7 +92,7 @@ alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --ne
 Now, we will use the newly created Alias `keploy` to record the testcases.
 
 ```shell
-keploy record --c "CMD_to_run_user_container --network keploy-network" --containerName "<containerName>"
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
 ```
 
 #### Run the Test Mode
@@ -85,7 +100,7 @@ keploy record --c "CMD_to_run_user_container --network keploy-network" --contain
 Now, we will use the newly created Alias `keploy` to test the testcases.
 
 ```shell
-keploy test --c "CMD_to_run_user_container --network keploy-network" --containerName "<containerName>" --delay 20
+keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 20
 ```
 
 > **CMD_to_run_user_container** is the docker command to run the application.
@@ -93,7 +108,9 @@ keploy test --c "CMD_to_run_user_container --network keploy-network" --container
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
+You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.
+
 **Footnote**
 
-1. delay is required while using Test Mode.
+1. `delay` is required while using Test Mode.
 2. containerName is optional if you are using `Docker run` command, as the Container name must be present within the command itself.
