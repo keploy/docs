@@ -134,13 +134,17 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "https://community.keploy.io",
-          label: "KB Articles",
+          to: "/docs/keploy-explained/contribution-guide",
+          label: "Dev Guide",
         },
         {
-          to: "https://blog.keploy.io",
-          label: "Blog",
+          to: "https://community.keploy.io",
+          label: "Guest Posts",
         },
+        // {
+        //   to: "https://blog.keploy.io",
+        //   label: "Blog",
+        // },
         // {
         //   to: "/docs/hacktoberfest/contribution-guide/",
         //   activeBasePath: "(/docs/hacktoberfest)",
