@@ -367,6 +367,11 @@ module.exports = {
       async: true,
       defer: true,
     },
+    {
+      src: "/scripts/chat.js",
+      async: true,
+      defer: true,
+    },
     // {
     //   src: "/scripts/fullstory.js",
     //   async: true,
