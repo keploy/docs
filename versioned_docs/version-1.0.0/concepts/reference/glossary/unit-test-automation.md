@@ -1,8 +1,8 @@
 ---
 id: unit-test-automation
-title: Unit Test Automation
+title: Unit Test Automation Explaination
 sidebar_label: Unit Test Automation
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: This glossary provides simple explanations for terms that beginners often find challenging to grasp in the context of unit testing.
 tags:
   - explanation
 keywords:
