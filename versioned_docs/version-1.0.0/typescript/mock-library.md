@@ -1,7 +1,7 @@
 ---
 id: mock-library
-title: How to use mock library ?
-description: How to use mock library ?
+title: Guide to using mock library?
+description: This provides a breif description of how to use mock library ?
 tags:
   - developer-guide
   - typescript

@@ -1,8 +1,8 @@
 ---
 id: what-are-keploy-features
-title: Keploy Features
+title: Understanding Features of Keploy
 sidebar_label: Keploy Features
-description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
+description: Learn about the core features of Keploy, including automatic mocking of application dependencies, secure write replay, precise noise detection, and statistical data de-duplication.
 tags:
   - explanation
 keywords:
