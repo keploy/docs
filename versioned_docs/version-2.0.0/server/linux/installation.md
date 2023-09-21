@@ -84,7 +84,6 @@ keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --netw
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
-
 You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.
 
 **Footnote**
