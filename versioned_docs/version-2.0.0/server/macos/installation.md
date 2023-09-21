@@ -37,27 +37,9 @@ Start Colima with defaults
 colima start
 ```
 
-## Creating Alias
-
-### Create Keploy Alias
-
-To establish a network for your application using Keploy on Docker, follow these steps.
-
-If you're using a docker-compose network, replace keploy-network with your app's docker_compose_network_name below.
-
-```shell
-docker network create keploy-network
-```
-
-Then, create an alias for Keploy:
-
-```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
-```
-
 ### Creating Alias
 
-To establish a network for your application using Keploy on Docker, follow these steps.
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
@@ -83,7 +65,7 @@ Here are few points to consider before recording!
 Utilize the keploy alias we created to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
-keploy record -c "Docker_CMD_to_run_user_container --network keploy-network" --containerName "<containerName>"
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
 ```
 
 Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
@@ -97,9 +79,12 @@ Now, use the keployV2 Alias we created to execute the testcases. Follow these st
 When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
 
 ```shell
-keploy test -c "Docker_CMD_to_run_user_container --network keploy-network" --containerName "<containerName>" --delay 20
+keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 20
 ```
 
 Voilà! 🧑🏻‍💻 We have the tests with data mocks running! 🐰🎉
 
 You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.
+
+1. `delay` is required while using Test Mode.
+2. containerName is optional if you are using `Docker run` command, as the Container name would be present within the command itself.

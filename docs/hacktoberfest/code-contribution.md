@@ -12,4 +12,4 @@ There are different ways you can contribute to Keploy projects codebase. You can
 
 - 👉 Implement features :- You can choose from a carefully curated selection of Hacktoberfest requests that have been made by community members.
 
-- 👉 Build a demo app :- Build a demo app with Keploy and share it with the community.
+- 👉 Build a Demo app :- Build a demo app with your favourite technologies using a Keploy.
