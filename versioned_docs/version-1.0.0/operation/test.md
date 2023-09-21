@@ -1,7 +1,7 @@
 ---
 id: test-operations
-title: Test Mode Operations
-description: Guide into Keploy Test Mode
+title: Keploy Test Mode Operations
+description: Keploy Test Mode Operatiosn Guide
 sidebar_label: Test
 tags:
   - operation-guide

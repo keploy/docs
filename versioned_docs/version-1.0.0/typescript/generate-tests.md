@@ -1,7 +1,7 @@
 ---
 id: generate-tests
-title: Generate E2E tests (with mocks)
-description: Generate E2E tests (with mocks)
+title: Creating E2E Tests with Mocks
+description: Understand how to generate E2E tests (with mocks)
 tags:
   - developer-guide
   - typescript
