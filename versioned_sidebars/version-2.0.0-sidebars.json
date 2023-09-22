@@ -17,7 +17,9 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "quickstart/samples-gin"
+        "quickstart/samples-gin",
+        "quickstart/samples-echo",
+        "quickstart/samples-mux"
       ]
     }
   ],

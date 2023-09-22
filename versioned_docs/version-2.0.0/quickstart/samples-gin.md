@@ -48,7 +48,7 @@ docker network create keploy-network
 Then, create an alias for Keploy:
 
 ```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy''
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 ### Let's start the MongoDB Instance
@@ -65,7 +65,7 @@ Alternatively, we can run docker run command to start our MongoDB Instance by us
 sudo docker run --rm -p27017:27017 -d --network keploy-network --name mongoDb mongo
 ```
 
-Now, we will create the docker image of our application:-
+**Now, we will create the docker image of our application:-**
 
 ```shell
 docker build -t gin-app:1.0 .
@@ -74,7 +74,7 @@ docker build -t gin-app:1.0 .
 ### Capture the Testcases
 
 ```shell
-keploy record -c "docker run -p 8080:8080 --name ginMongoApp --network keploy-network gin-app:1.0 --rm ginMongoApp"
+keploy record -c "docker run -p 8080:8080 --rm --name ginMongoApp --network keploy-network gin-app:1.0"
 ```
 
 #### Generate testcases
