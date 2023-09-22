@@ -19,6 +19,8 @@ Running Keploy on macOS or Windows? No problem! You'll need to create a Linux VM
 - For macOS, install [Lima](https://github.com/lima-vm/lima#installation).
 - If you're on Windows, install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
 
+Note: Linux Users are good to go.
+
 ### 2. **Pre-requisites**:
 
 First things first, ensure you have [Golang](https://go.dev/doc/install) installed.
@@ -39,11 +41,10 @@ It meticulously records API calls, database queries, and any other interactions 
 
 Once the recording phase is complete, Keploy can effortlessly generate test cases and data mocks in YAML format.
 
-#### Keploy operates in four modes:
+#### Keploy operates in three modes:
 
 - `record`: Capture Keploy test cases from API calls.
 - `test`: Execute recorded test cases and validate assertions.
-- `completion`: Generate autocompletion scripts for your shell.
 - `serve`: Run the Keploy server to expose test APIs.
 
 To dive into Keploy, you can use the [gin-mongo URL Shortener](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample application:
