@@ -44,6 +44,17 @@ curl --silent --location "https://github.com/keploy/keploy/releases/latest/downl
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
+<details>
+ <summary> <strong> ARM Architecture </strong> </summary>
+
+```zsh
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
+
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+```
+
+</details>
+
 #### Run the Record Mode
 
 Run this command on your terminal to start the recording of API calls:-
