@@ -117,7 +117,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-keploy test -c "sudo docker run -p 8080:8080 --rm --net keploy-network --name ginMongoApp gin-app:1.0 --rm ginMongoApp" --delay 10
+keploy test -c "sudo docker run -p 8080:8080 --rm --net keploy-network --name ginMongoApp gin-app:1.0" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
