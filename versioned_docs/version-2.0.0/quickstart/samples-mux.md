@@ -96,9 +96,9 @@ this will return the response.
 
 ```json
 {
-    "id": 1,
-    "name": "Bubbles",
-    "price": 123
+  "id": 1,
+  "name": "Bubbles",
+  "price": 123
 }
 ```
 
