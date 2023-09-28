@@ -55,7 +55,8 @@
       "label": "Dev Guide",
       "collapsible": false,
       "items": [
-        "keploy-explained/contribution-guide"
+        "keploy-explained/contribution-guide",
+        "keploy-explained/contributing"
       ]
     },
     {
