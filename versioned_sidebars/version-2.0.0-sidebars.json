@@ -19,7 +19,9 @@
       "items": [
         "quickstart/samples-gin",
         "quickstart/samples-echo",
-        "quickstart/samples-mux"
+        "quickstart/samples-mux",
+        "quickstart/samples-nodejs",
+        "quickstart/samples-bunjs"
       ]
     }
   ],
