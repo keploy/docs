@@ -94,7 +94,7 @@ curl --request POST \
 
 this will return the response.
 
-```
+```json
 {
     "id": 1,
     "name": "Bubbles",
