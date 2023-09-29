@@ -1,13 +1,14 @@
 ---
 id: samples-gin
-title: Gin Mongo Sample Application
+title: Sample URL Shortener App (Golang)
+sidebar_label: Golang - Gin + Mongo
 description: The following sample app showcases how to use gin framework and the Keploy Platform.
 tags:
   - Gin Framework
   - MongoDB
 keyword:
   - Gin Framework
-  - MongoDB
+  - MongoDB Mock
   - Golang
   - API Test generator
   - Auto Testcase generation
@@ -15,9 +16,9 @@ keyword:
 
 ## Introduction
 
-A sample url shortener app to test Keploy integration capabilities using [Gin](https://gin-gonic.com/) and [mongoDB](https://www.mongodb.com/).
+Let's take a sample URL shortener app to see Keploy integration capabilities using [Gin](https://gin-gonic.com/) and [mongoDB](https://www.mongodb.com/).
 
-## Setup URL shortener
+## Clone a sample URL shortener app
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
@@ -26,10 +27,102 @@ go mod download
 
 ## Installation
 
-There are two methods to run the sample application using Keploy :-
+Please follow one of the following guides according to your OS :-
 
-1. [Using Docker](#running-app-using-docker)
-2. [Natively on Ubuntu/Windows(using WSL)](#run-app-natively-on-local-machine)
+- <details>
+  <summary><img src="/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+
+  > Ensure you have WSL if you are running on <img src="/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+  > 
+  > Run ```wsl --install``` and you're ready to follow the same guide.
+
+  Now, let's **install keploy latest binary**
+
+  ```bash
+  curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+
+  sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+  ```
+  
+  You should see similar logs like- 
+
+  <img src="/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="100%" />  
+  
+  
+  <br/>
+  <br/>  
+  
+  <details>
+  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App inside <img src="/img/os/docker.png" alt="Docker Container" width="3%" /> Docker container </summary>
+  
+  #### Add alias for Keploy:
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+  ```
+
+  #### Record Test Case
+  
+  Let's start the application and mongoDB instance with Keploy. Notice the 2 compulsory flags in the command.
+
+  `-c` is the command to run the application, in this case, `docker compose up`. 
+  
+  `--containerName` is the application container name mentioned in the docker-compose.yml to specify for which container intercept the traffic. 
+
+  ```bash
+  keploy record -c "docker compose up" --containerName "ginMongoApp"
+  ```
+  
+  You should see logs of running app like
+  
+  <img src="/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+    
+  <img src="/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
+  Now that the sample app is running, **let's capture test cases**! 
+  
+  
+  
+  #### Run Tests
+  
+  Let's run tests using Keploy. 
+  
+  
+  </details>
+
+  <details>
+  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App natively on Linux </summary>
+  Hweya
+  </details>
+  
+  ### Now let's start the MongoDB Instance for sample app
+
+  Using the docker-compose file we will start our mongodb instance:-
+
+  ```shell
+  docker-compose up -d
+  ```
+  
+  Alternatively, we can run docker run command to start our MongoDB Instance by using: -
+  
+  ```shell
+  sudo docker run --rm -p27017:27017 -d --network keploy-network --name mongoDb mongo
+  ```
+  
+  **Now, we will create the docker image of our application:-**
+  
+  ```shell
+  docker build -t gin-app:1.0 .
+  ```
+
+  </details>
+
+- <details> 
+    <summary><img src="/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+    Somthign </details>
+
+
+
+
 
 ## Running app using Docker
 
@@ -51,25 +144,6 @@ Then, create an alias for Keploy:
 alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
-### Let's start the MongoDB Instance
-
-Using the docker-compose file we will start our mongodb instance:-
-
-```shell
-docker-compose up -d
-```
-
-Alternatively, we can run docker run command to start our MongoDB Instance by using: -
-
-```shell
-sudo docker run --rm -p27017:27017 -d --network keploy-network --name mongoDb mongo
-```
-
-**Now, we will create the docker image of our application:-**
-
-```shell
-docker build -t gin-app:1.0 .
-```
 
 ### Capture the Testcases
 
@@ -153,6 +227,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 <details>
+
 <summary> 2. ARM Architecture </summary>
 
 ```shell
