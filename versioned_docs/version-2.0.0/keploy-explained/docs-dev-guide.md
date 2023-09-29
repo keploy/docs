@@ -3,8 +3,8 @@ id: docs-dev-guide
 title: docs-dev-guide
 sidebar_label: Docs Dev Guide
 tags:
-  - explanation
   - dev guide
+  - explanation
   - contributing
 ---
 
