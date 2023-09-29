@@ -1,12 +1,7 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {
-  Community,
-  Hacktoberfest,
-  Resources,
-  QuickStart,
-} from "../components";
+import {Community, Hacktoberfest, Resources, QuickStart} from "../components";
 import {GSoC} from "../components/GSoC";
 
 export default function Home() {

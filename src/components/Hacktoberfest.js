@@ -5,7 +5,9 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 export const Hacktoberfest = () => {
   return (
     <section className="mt-1 mb-14">
-      <h2 className="mt-8 text-2xl md:text-3xl font-semibold tracking-wide">Keploy Hacktoberfest Guide</h2>
+      <h2 className="mt-8 text-2xl md:text-3xl font-semibold tracking-wide">
+        Keploy Hacktoberfest Guide
+      </h2>
       <img
         className="mt-8 "
         src="https://raw.githubusercontent.com/Sonichigo/crdb_keploy/main/Simple%20Technology%20Blog%20Banner%20(1).png?raw=true"
