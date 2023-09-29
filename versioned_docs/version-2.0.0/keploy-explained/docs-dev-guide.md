@@ -120,7 +120,7 @@ After you have cloned the documentation repo to your computer locally, edit the 
 
 One of the most important areas of improvement to our software Keploy UI. We really need your help with this!
 
-If you have ideas on how we can improve, please share them with us by creating a [new issue](https://github.com/keploy/ui/issues/new/choose).
+If you have ideas on how we can improve, please share them with us by creating a [new issue](https://github.com/keploy/keploy/issues/new/choose).
 
 ## How to Contribute Translations?
 
