@@ -42,6 +42,17 @@
     },
     {
       "type": "category",
+      "label": "Hacktoberfest 2023",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "hacktoberfest/contribution-guide",
+        "hacktoberfest/code-contribution",
+        "hacktoberfest/no-code-contribution"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
