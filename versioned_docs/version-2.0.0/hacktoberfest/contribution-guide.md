@@ -8,9 +8,11 @@ label: Hacktoberfest
 
 ## Celebrate Open Source with Hacktoberfest
 
-<a href='https://hacktoberfest.com/'>Hacktoberfest'22</a> is a month-long celebration of open-source software run by DigitalOcean. Hacktoberfest is open to everyone, from first-time contributors to seasoned open-source developers. Your open-source journey begins with a pull request.
+<a href='https://hacktoberfest.com/'>Hacktoberfest'23</a> is a month-long celebration of open-source software run by DigitalOcean. Hacktoberfest is open to everyone, from first-time contributors to seasoned open-source developers. 
 
-<img src="https://user-images.githubusercontent.com/53110238/193503992-c839beeb-53fd-46d7-9214-a88bfff6475a.png"/>
+*Your open-source journey begins with a pull request.*
+
+![Hacktoberfest'2023](../../../static/img/hacktoberfest-2023.png)
 
 ## Hacktoberfest Journey with Keploy
 
@@ -18,13 +20,14 @@ If you’ve ever wanted to contribute to open source, now is your chance! You ca
 
 Anyone around the globe who desires to help drive the growth of open source and make positive contributions to an ever-growing community. All backgrounds and skill levels are encouraged to participate.
 
-- Code Contributribution to Keploy Projects includes:
+#### Code Contributribution to Keploy Projects includes:
 
-  - Bug fixes
-  - New features
-  - Design
+  - 🛠️ Bug fixes
+  - 👉 New features
+  - 👨‍💻 Build Sample Apps
 
-- Non-code contributions include:
-  - Documentation
-  - Translation
-  - Blog writing
+#### Non-code contributions include:
+  - <img src="https://www.svgrepo.com/show/157174/document.svg" width='20px'/> Documentation
+  - <img src="https://www.svgrepo.com/show/294283/youtube.svg" width='20px'/> Create a Tutorial
+  - <img src="https://www.svgrepo.com/show/10712/pencil.svg" width='20px'/> Blog writing
+  - <img src="https://www.svgrepo.com/show/450193/language.svg" width='20px'/> Translation
