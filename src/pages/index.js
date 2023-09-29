@@ -1,13 +1,7 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {
-  Community,
-  KeployCloud,
-  Intro,
-  Resources,
-  QuickStart,
-} from "../components";
+import {Community, Hacktoberfest, Resources, QuickStart} from "../components";
 import {GSoC} from "../components/GSoC";
 
 export default function Home() {
@@ -23,7 +17,7 @@ export default function Home() {
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
           {/*<GSoC/>*/}
-          {/*<Hacktoberfest />*/}
+          {<Hacktoberfest />}
           {/*<Intro />*/}
           <Resources />
           <Community />
