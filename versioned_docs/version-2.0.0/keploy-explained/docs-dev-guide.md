@@ -16,7 +16,6 @@ We encourage contributions from the community.
 
 If you do create a pull request (PR), please follow our [style guidance](/STYLE.md).
 
-
 We review GitHub issues and PRs on a regular schedule.
 
 To ensure that each change is relevant and properly peer reviewed, please adhere to best practices for open-source contributions.
