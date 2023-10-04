@@ -41,7 +41,7 @@ export const QuickStart = () => {
         >
           <img
             className="h-16 w-16"
-            src="/img/windows-logo.svg"
+            src="/img/os/windows-logo.svg"
             alt="Windows logo"
           />
           <p className="text-lg font-semibold">Windows</p>
@@ -52,7 +52,7 @@ export const QuickStart = () => {
         >
           <img
             className="h-16 w-16"
-            src="/img/linux-logo.svg"
+            src="/img/os/linux-logo.svg"
             alt="Linux logo"
           />
           <p className="text-lg font-semibold">Linux</p>
@@ -61,7 +61,11 @@ export const QuickStart = () => {
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
           to={useBaseUrl("/docs/server/macos/installation")}
         >
-          <img className="h-16 w-16" src="/img/apple-logo.svg" alt="Mac logo" />
+          <img
+            className="h-16 w-16"
+            src="/img/os/apple-logo.svg"
+            alt="Mac logo"
+          />
           <p className="text-lg font-semibold">MacOS</p>
         </Link>
       </div>
