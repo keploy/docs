@@ -108,9 +108,8 @@ docker install ghcr.io/keploy/keploy
 #### Create Keploy Alias:
 
 ```shell
-alias keployV2='sudo docker run --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm  <nameOfImage>
 ```
-Add `--pull always` flag in the alias when using the deployed keploy binary image.
 
 #### Capture Test Cases:
 
