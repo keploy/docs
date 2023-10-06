@@ -10,14 +10,14 @@ tags:
 
 Keploy Console consists of 2 pages majorly :
 
-1. [Test Cases](/docs/operation/web-ui-operations/#test-cases)
-2. [Test Runs](/docs/operation/web-ui-operations/#test-runs)
+1. [Test Cases](/operation/web-ui-operations/#test-cases)
+2. [Test Runs](/operation/web-ui-operations/#test-runs)
 
 ## Test Cases
 
 The Test Cases page lists all the Application names and their respective Test-Cases captured.
 
-![test case page](../../../static/img/test-case-page1.png)
+![test case page](/img/test-case-page1.png)
 
 You can see the details of the Test Cases captures. Currently following details can be seen from the Web console :
 
@@ -26,7 +26,7 @@ You can see the details of the Test Cases captures. Currently following details 
 - Dependency Captured Type and Operation
 - Raw Event with details like noisy and anchor fields
 
-![test case detail](../../../static/img/test-case-detail.png)
+![test case detail](/img/test-case-detail.png)
 
 ### Edit a Test Case
 
@@ -48,7 +48,7 @@ On the Test runs pages you will see the recent Test Runs with details like :
 3. Number of Test Cases Failed
 4. Meta details like : App name, time, user.
 
-![test run page](../../../static/img/test-run-page1.png)
+![test run page](/img/test-run-page1.png)
 
 ### Normalise a Test Case
 
@@ -57,6 +57,6 @@ go to the test run and particular test case detail that failed and mark it as no
 
 This will modify the test-case and will be accepted as the expected response for future test runs.
 
-![normalise](../../../static/img/normalise-test-case.png)
+![normalise](/img/normalise-test-case.png)
 
 > Note : Since Test Runs are historical, normalising a test-case result in a test-run would not mark it success.

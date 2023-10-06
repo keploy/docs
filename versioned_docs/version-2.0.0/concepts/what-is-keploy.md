@@ -22,4 +22,4 @@ keywords:
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network
 calls** making your testing process not only faster than unit tests but also incredibly efficient.
 
-<img src="/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" />
+<img src="/docs/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" />
