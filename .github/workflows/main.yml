@@ -35,6 +35,13 @@ jobs:
         with:
           cmd: build # will run `yarn build` command
           
+      # create a build/docs folder and move all content from build there
+      - name: Add docs subfolder
+        run: |
+          mv  ./build build-old
+          mkdir -p build/docs
+          mv build-old/* build/docs
+
       - name: Deploy
         uses: reggionick/s3-deploy@v3
         with:
@@ -42,7 +49,7 @@ jobs:
           bucket: ${{ secrets.S3_BUCKET }}
           bucket-region: ${{ secrets.S3_BUCKET_REGION }}
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-          invalidation: /
+          invalidation: /docs*
           delete-removed: true
           cache: "public, max-age:86400"
           private: true    
