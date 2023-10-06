@@ -115,7 +115,7 @@ curl --request GET \
 
 Now both these API calls were captured as editable testcases and written to `keploy/tests folder`. The keploy directory would also have `mocks` files that contains all the outputs of postgres operations.
 
-![Testcase](../../../static/img/testcase.png?raw=true)
+![Testcase](/img/testcase.png?raw=true)
 
 Now, let's see the magic! 🪄💫
 
@@ -129,7 +129,7 @@ sudo -E keploy test -c "./test-app-product-catelog" --delay 10
 
 Once done, you can see the Test Runs on the Keploy server, like this:
 
-![Testrun](../../../static/img/testrun.png?raw=true)
+![Testrun](/img/testrun.png?raw=true)
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
@@ -168,7 +168,7 @@ docker build -t mux-app:1.0 .
 keploy record -c "docker run -p 8010:8010 --rm --name muxSqlApp --network keploy-network mux-app:1.0"
 ```
 
-![Testcase](../../../static/img/testcase.png?raw=true)
+![Testcase](/img/testcase.png?raw=true)
 
 ### Generate testcases
 
@@ -220,4 +220,4 @@ So no need to setup dependencies like mongoDB, web-go locally or write mocks for
 The application thinks it's talking to mongoDB 😄
 
 We will get output something like this:
-![Testrun](../../../static/img/testrun.png?raw=true)
+![Testrun](/img/testrun.png?raw=true)

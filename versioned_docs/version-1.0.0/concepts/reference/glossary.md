@@ -9,5 +9,5 @@ keywords:
   - API
 ---
 
-1. [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing)
-2. [Agile Unit Testing](/docs/concepts/reference/glossary/agile-unit-testing)
+1. [Acceptance Testing](/concepts/reference/glossary/acceptance-testing)
+2. [Agile Unit Testing](/concepts/reference/glossary/agile-unit-testing)
