@@ -37,33 +37,33 @@ export const QuickStart = () => {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/server/windows/installation")}
+          to={useBaseUrl("/server/windows/installation")}
         >
           <img
             className="h-16 w-16"
-            src="/img/os/windows-logo.svg"
+            src="/docs/img/os/windows-logo.svg"
             alt="Windows logo"
           />
           <p className="text-lg font-semibold">Windows</p>
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/server/linux/installation")}
+          to={useBaseUrl("/server/linux/installation")}
         >
           <img
             className="h-16 w-16"
-            src="/img/os/linux-logo.svg"
+            src="/docs/img/os/linux-logo.svg"
             alt="Linux logo"
           />
           <p className="text-lg font-semibold">Linux</p>
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/server/macos/installation")}
+          to={useBaseUrl("/server/macos/installation")}
         >
           <img
             className="h-16 w-16"
-            src="/img/os/apple-logo.svg"
+            src="/docs/img/os/apple-logo.svg"
             alt="Mac logo"
           />
           <p className="text-lg font-semibold">MacOS</p>
