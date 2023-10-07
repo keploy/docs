@@ -34,11 +34,11 @@ function Languages() {
         <li className="">
           <Link
             className="flex items-center space-x-3 hover:underline"
-            to={useBaseUrl("/docs/quickstart/samples-gin")}
+            to={useBaseUrl("/quickstart/samples-gin")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/golang.svg"
+              src="/docs/img/golang.svg"
               alt="Go lang logo"
             />
             <p className="font-semibold">Go</p>
@@ -48,7 +48,7 @@ function Languages() {
           <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/java.svg"
+              src="/docs/img/java.svg"
               alt="Java logo"
             />
             <p className="font-semibold">Java (WIP)</p>
@@ -58,7 +58,7 @@ function Languages() {
           <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/python.svg"
+              src="/docs/img/python.svg"
               alt="Python logo"
             />
             <p className="font-semibold">Python (WIP)</p>
@@ -68,7 +68,7 @@ function Languages() {
           <Link className="flex items-center space-x-3 hover:underline">
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/img/javascript-logo.svg"
+              src="/docs/img/javascript-logo.svg"
               alt="Javascript logo"
             />
             <p className="font-semibold">Javascript (WIP)</p>
@@ -103,12 +103,12 @@ function Server() {
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
         <li className="">
           <Link
-            to={useBaseUrl("/docs/dependencies/mongo")}
+            to={useBaseUrl("/dependencies/mongo")}
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
               className="h-8 w-8"
-              src="/img/mongodb-logo.svg"
+              src="/docs/img/mongodb-logo.svg"
               alt="Docker logo"
             />
             <p className="font-semibold">MongoDB</p>
@@ -118,7 +118,7 @@ function Server() {
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
             <img
               className="h-8 w-8"
-              src="/img/oracle-logo.svg"
+              src="/docs/img/oracle-logo.svg"
               alt="Oracle logo"
             />
             <p className="font-semibold">Oracle (WIP)</p>
@@ -128,7 +128,7 @@ function Server() {
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
             <img
               className="h-8 w-8"
-              src="/img/postgres-logo.svg"
+              src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
             <p className="font-semibold">PostgresSQL (WIP)</p>
