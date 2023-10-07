@@ -165,7 +165,7 @@ docker build -t mux-app:1.0 .
 ## Capture the Testcases
 
 ```zsh
-keploy record -c "docker run -p 8010:8010 --rm --name muxSqlApp --network keploy-network mux-app:1.0"
+keploy record -c "docker run -p 8010:8010 --name muxSqlApp --network keploy-network mux-app:1.0"
 ```
 
 ![Testcase](../../../static/img/testcase.png?raw=true)
@@ -212,7 +212,7 @@ Now both these API calls were captured as editable testcases and written to `kep
 Now that we have our testcase captured, run the test file.
 
 ```shell
-keploy test -c "sudo docker run -p 8010:8010 --net keploy-network --rm --name muxSqlApp mux-app:1.0" --delay 10
+keploy test -c "sudo docker run -p 8010:8010 --net keploy-network --name muxSqlApp mux-app:1.0" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
