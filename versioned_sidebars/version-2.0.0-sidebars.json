@@ -81,27 +81,5 @@
         "dependencies/mongo"
       ]
     }
-  ],
-
-  "sidebarContributionGuide": [
-    {
-      "type": "category",
-      "label": "Contribution Guidelines",
-      "collapsible": false,
-      "items": [
-        "keploy-explained/contribution-guide"
-      ]
-    }
-  ],
-
-  "sidebarContributionGuide": [
-    {
-      "type": "category",
-      "label": "Contribution Guidelines",
-      "collapsible": false,
-      "items": [
-        "keploy-explained/contribution-guide"
-      ]
-    }
   ]
 }

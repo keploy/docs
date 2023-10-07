@@ -77,34 +77,6 @@ module.exports = {
           logo: "https://keploy.io/docs/img/favicon.png",
         }),
       },
-      { name: 'description', content: 'Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.' },
-      { name: 'keywords', content: 'API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests' },
-      { name: 'twitter:card', content: 'summary_large_image' },
-    ],
-    headTags: [
-      // Preconnect tag
-      {
-        tagName: 'link',
-        attributes: {
-          rel: 'preconnect',
-          href: 'https://keploy.io/',
-        },
-      },
-      {
-        tagName: 'script',
-        attributes: {
-          type: 'application/ld+json',
-        },
-        innerHTML: JSON.stringify({
-          '@context': 'https://schema.org/',
-          '@type': 'Product',
-          description: 'Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.',
-          keywords: 'API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests',
-          name: 'Keploy',
-          url: 'https://keploy.io/',
-          logo: 'https://docs.keploy.io/img/favicon.png',
-        }),
-      },
     ],
     colorMode: {
       defaultMode: "light",
@@ -359,21 +331,6 @@ module.exports = {
     },
     {
       src: "/docs/scripts/chat.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "/scripts/chat.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "/scripts/clarity.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "/scripts/chat.js",
       async: true,
       defer: true,
     },
