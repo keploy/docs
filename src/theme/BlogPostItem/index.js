@@ -67,7 +67,8 @@ export default function BlogPostItem(props) {
     frontMatter.author_image_url || frontMatter.authorImageURL;
 
   const image =
-    assets.image ?? (frontMatter.image || "/img/keploy-logo-twitter-card.svg");
+    assets.image ??
+    (frontMatter.image || "/docs/img/keploy-logo-twitter-card.svg");
   const truncatedPost = !isBlogPostPage && truncated;
   const tagsExists = tags.length > 0;
   const TitleHeading = isBlogPostPage ? "h1" : "h2";
