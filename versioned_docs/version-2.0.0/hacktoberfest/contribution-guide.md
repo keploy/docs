@@ -12,7 +12,7 @@ label: Hacktoberfest
 
 _Your open-source journey begins with a pull request._
 
-![Hacktoberfest'2023](../../../static/img/hacktoberfest-2023.png)
+![Hacktoberfest'2023](/img/hacktoberfest-2023.png)
 
 ## Hacktoberfest Journey with Keploy
 
