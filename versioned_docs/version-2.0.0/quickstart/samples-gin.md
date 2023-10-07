@@ -74,7 +74,7 @@ docker build -t gin-app:1.0 .
 ### Capture the Testcases
 
 ```shell
-keploy record -c "docker run -p 8080:8080 --rm --name ginMongoApp --network keploy-network gin-app:1.0"
+keploy record -c "docker run -p 8080:8080 --name ginMongoApp --network keploy-network gin-app:1.0"
 ```
 
 #### Generate testcases
@@ -117,7 +117,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-keploy test -c "sudo docker run -p 8080:8080 --rm --net keploy-network --name ginMongoApp gin-app:1.0" --delay 10
+keploy test -c "sudo docker run -p 8080:8080 --net keploy-network --name ginMongoApp gin-app:1.0" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -135,7 +135,7 @@ Go to the Keploy log to get deeper insights on what testcases ran, what failed. 
 In `test-1.yml` and `test-2.yml`, go the noisefield and under `-header.Data` add the `-body.ts` on line number _37_. Now, it's the time to run the test cases again.
 
 ```bash
-keploy test -c "sudo docker run -p 8080:8080 --rm --net keploy-network --name MongoApp gin-app:1.0" --delay 10
+keploy test -c "sudo docker run -p 8080:8080 --net keploy-network --name MongoApp gin-app:1.0" --delay 10
 ```
 
 This time all the test cases will pass.
