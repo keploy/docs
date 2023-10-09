@@ -87,7 +87,7 @@ docker-compose up -d
 ### Capture the testcases
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'npm run src/app.js'
+sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
 
 #### Let's generate the testcases.
@@ -118,7 +118,7 @@ We will get the following output in our terminal
 ## Running the testcases
 
 ```bash
-sudo -E env PATH=$PATH keploy test -c 'npm run src/app.js' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'node src/app.js' --delay 10
 ```
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
