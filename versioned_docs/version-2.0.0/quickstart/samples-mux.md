@@ -1,13 +1,13 @@
 ---
-id: samples-echo
-title: Echo SQL Sample Application
-description: The following sample app showcases how to use Echo framework and the Keploy Platform.
+id: samples-mux
+title: Mux-SQL Sample Application
+description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
-  - Echo Framework
+  - Mux Framework
   - Postgres
   - SQL
 keyword:
-  - Echo Framework
+  - Mux Framework
   - Postgres
   - SQL
   - Golang
@@ -15,14 +15,14 @@ keyword:
   - Auto Testcase generation
 ---
 
-# URL Shortener
+# Product Catelog
 
-A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and PostgreSQL.
+A sample url shortener app to test Keploy integration capabilities
 
 ## Installation Setup
 
 ```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
 go mod download
 ```
 
@@ -71,67 +71,65 @@ go build
 Once we have our binary file ready,this command will start the recording of API calls using ebpf:-
 
 ```shell
-sudo -E keploy record -c "./echo-psql-url-shortener"
+sudo -E keploy record -c "./test-app-product-catelog"
 ```
 
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-### Generate testcases
+#### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To genereate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
 
-#### Generate shortned url
+### 1. Generate shortned url
 
 ```bash
 curl --request POST \
-  --url http://localhost:8082/url \
+  --url http://localhost:8010/product \
   --header 'content-type: application/json' \
   --data '{
-  "url": "https://github.com"
+    "name":"Bubbles",
+    "price": 123
 }'
 ```
 
-this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
+this will return the response.
 
-```
+```json
 {
-	"ts": 1647802058801841100,
-	"url": "http://localhost:8082/GuwHCgoQ"
+  "id": 1,
+  "name": "Bubbles",
+  "price": 123
 }
 ```
 
-#### Redirect to original URL from shortened URL
+#### 2. Redirect to original url from shortened url
 
 1. By using Curl Command
 
 ```bash
 curl --request GET \
-  --url http://localhost:8082/GuwHCgoQ
+  --url http://localhost:8010/products
 ```
 
-2. Or by querying through the browser `http://localhost:8082/GuwHCgoQ`
+2. By querying through the browser `http://localhost:8010/products`
 
-Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of postgres operations. Here's what the folder structure look like:
+Now both these API calls were captured as editable testcases and written to `keploy/tests folder`. The keploy directory would also have `mocks` files that contains all the outputs of postgres operations.
 
-![Testcase](/img/testcase-echo.png?raw=true)
+![Testcase](/img/testcase.png?raw=true)
 
-Now, let's see the magic! ✨💫
+Now, let's see the magic! 🪄💫
 
-## Run the Testcases
+## Generate Test Runs
 
-Now that we have our testcase captured, we will add `ts` to noise field in `test-*.yaml` files.
-
-**1. On line 32 we will add "`- body.ts`" under the "`header.data`".**
-
-Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
+Now let's run the test mode (in the mux-sql directory, not the Keploy directory).
 
 ```shell
-sudo -E keploy test -c "./echo-psql-url-shortener" --delay 10
+sudo -E keploy test -c "./test-app-product-catelog" --delay 10
 ```
 
-output should look like
+Once done, you can see the Test Runs on the Keploy server, like this:
 
-![Testrun](/img/testrun-echo.png?raw=true)
+![Testrun](/img/testrun.png?raw=true)
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
@@ -153,68 +151,68 @@ alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --pr
 
 Using the docker-compose file we will start our mongodb instance:-
 
-```zsh
+```shell
 docker-compose up -d
 ```
 
-> Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `echo-sql-postgres-1`.
+> Since we are using docker to run the application, we need to update the `postgres` host on line 10 in `main.go`, update the host to `mux-sql-postgres-1`.
+> Now, we will create the docker image of our application:-
 
-Now, we will create the docker image of our application:-
-
-```zsh
-docker build -t echo-app:1.0 .
+```shell
+docker build -t mux-app:1.0 .
 ```
 
 ## Capture the Testcases
 
 ```zsh
-keploy record -c "docker run -p 8082:8082 --rm --name echoSqlApp --network keploy-network echo-app:1.0"
+keploy record -c "docker run -p 8010:8010 --rm --name muxSqlApp --network keploy-network mux-app:1.0"
 ```
 
-![Testcase](/img/testcase-echo.png?raw=true)
+![Testcase](/img/testcase.png?raw=true)
 
 ### Generate testcases
 
 To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
-1. Generate shortned url
-
 ```bash
 curl --request POST \
-  --url http://localhost:8082/url \
+  --url http://localhost:8010/product \
   --header 'content-type: application/json' \
   --data '{
-  "url": "https://google.com"
+    "name":"Bubbles",
+    "price": 123
 }'
 ```
 
-this will return the shortened url.
+this will return the response.
 
 ```json
 {
-  "ts": 1645540022,
-  "url": "http://localhost:8082/Lhr4BWAi"
+  "id": 1,
+  "name": "Bubbles",
+  "price": 123
 }
 ```
 
-2. Redirect to original url from shòrtened url
+#### 2. Redirect to original url from shortened url
 
-```
+1. By using Curl Command
+
+```bash
 curl --request GET \
-  --url http://localhost:8082/Lhr4BWAi
-or by querying through the browser http://localhost:8082/Lhr4BWAi
+  --url http://localhost:8010/products
 ```
 
-Now, let's see the magic! 🪄💫
+2. By querying through the browser `http://localhost:8010/products`
 
-Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created.
+Now both these API calls were captured as editable testcases and written to `keploy/tests folder`. The keploy directory would also have `mocks` files that contains all the outputs of postgres operations.
 
 ## Run the captured testcases
 
 Now that we have our testcase captured, run the test file.
 
-```zsh
-keploy test -c "sudo docker run -p 8082:8082 --rm --net keploy-network --name echoSqlApp echo-app:1.0 --rm echoSqlApp" --delay 10
+```shell
+keploy test -c "sudo docker run -p 8010:8010 --net keploy-network --rm --name muxSqlApp mux-app:1.0" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -222,4 +220,4 @@ So no need to setup dependencies like mongoDB, web-go locally or write mocks for
 The application thinks it's talking to mongoDB 😄
 
 We will get output something like this:
-![Testrun](/img/testrun-echo.png?raw=true)
+![Testrun](/img/testrun.png?raw=true)

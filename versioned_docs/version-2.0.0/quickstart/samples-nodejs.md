@@ -113,7 +113,7 @@ Student registration successful!
 
 We will get the following output in our terminal
 
-![Testcase](../../../static/img/testcase-node.png)
+![Testcase](/img/testcase-node.png)
 
 ## Running the testcases
 
@@ -123,7 +123,7 @@ sudo -E env PATH=$PATH keploy test -c 'node src/app.js' --delay 10
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
 
-![Testcase](../../../static/img/testrun-node-fail.png)
+![Testcase](/img/testrun-node-fail.png)
 
 Let's add the `connection` and `keep-alive` as the noise in the test-1.yml on line 42 under `header.Date`. The file would look like:-
 
@@ -136,7 +136,7 @@ Let's add the `connection` and `keep-alive` as the noise in the test-1.yml on li
 
 Now, let's run the keploy in test mode again:-
 
-![Testrun](../../../static/img/testrun-node-pass.png)
+![Testrun](/img/testrun-node-pass.png)
 
 _Voila!! Our testcases has passed 🌟_
 
@@ -197,7 +197,7 @@ Student registration successful!
 
 We will get the following output in our terminal
 
-![Testcase](../../../static/img/testcase-node.png)
+![Testcase](/img/testcase-node.png)
 
 ## Running the testcases
 
@@ -207,7 +207,7 @@ keploy test -c "docker run -p 8000:8000 --name nodeMongoApp --network keploy-net
 
 Our testcases will fail as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode.
 
-![Testcase](../../../static/img/testrun-node-fail.png)
+![Testcase](/img/testrun-node-fail.png)
 
 Let's add the `connection` and `keep-alive` as the noise in the test-1.yml on line 42 under `header.Date`. The file would look like:-
 
@@ -220,6 +220,6 @@ Let's add the `connection` and `keep-alive` as the noise in the test-1.yml on li
 
 Now, let's run the keploy in test mode again:-
 
-![Testrun](../../../static/img/testrun-node-pass.png)
+![Testrun](/img/testrun-node-pass.png)
 
 _Voila!! Our testcases has passed 🌟_

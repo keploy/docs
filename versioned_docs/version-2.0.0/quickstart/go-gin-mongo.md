@@ -20,8 +20,8 @@ keyword:
 
 ## Pre-Requisite 🛠️
 
-- Install WSL (`wsl --install`) for <img src="/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-- Install Colima( `brew install colima && colima start` ) for <img src="/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
 ## Get Started! 🎬
 
@@ -37,7 +37,7 @@ go mod download
 Depending on your OS, choose your adventure:
 
 - <details>
-  <summary><img src="/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+  <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
 
   Alright, let's equip ourselves with the **latest Keploy binary**:
 
@@ -49,11 +49,11 @@ Depending on your OS, choose your adventure:
 
   If everything goes right, your screen should look a bit like this:
 
-  <img src="/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+  <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
   Moving on...
   <details>
-  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
+  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
   #### Add alias for Keploy:
 
@@ -74,8 +74,8 @@ Depending on your OS, choose your adventure:
 
   Getting logs like this? Perfect! 👌
 
-  <img src="/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
-  <img src="/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
 
   🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -225,7 +225,7 @@ Depending on your OS, choose your adventure:
 
   Spotted the new test and mock files in your project? High five! 🙌
 
-  <img src="/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   Want to see if everything works as expected?
 
@@ -241,7 +241,7 @@ Depending on your OS, choose your adventure:
 
   Your results should be looking all _snazzy_, like this:
 
-  <img src="/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -249,7 +249,7 @@ Depending on your OS, choose your adventure:
 
   > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-  <img src="/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
   Run that keploy record command once more and watch as everything falls into place with all tests passing!🌟
 
@@ -270,7 +270,7 @@ Depending on your OS, choose your adventure:
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
   First things first, update the MongoDB URL to `localhost:27017` on **line 21** of our trusty `main.go` file.
 
-  <img src="/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   #### 🍃 Kickstart MongoDB
 
@@ -291,8 +291,8 @@ Depending on your OS, choose your adventure:
   Keep an eye out for the `-c `flag! It's the command charm to run the app. Whether you're using `go run main.go handler.go` or the binary path like `./test-app-url-shortener`, it's your call.
   If you're seeing logs that resemble the ones below, you're on the right track:
 
-  <img src="/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
-  <img src="/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
 
   Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
@@ -443,7 +443,7 @@ Depending on your OS, choose your adventure:
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-  <img src="/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   ### Run Tests 🏁
 
@@ -459,7 +459,7 @@ Depending on your OS, choose your adventure:
 
   > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-  <img src="/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
   Run that keploy record command once more and watch as everything falls into place with all tests passing! 🌟
 
@@ -477,7 +477,7 @@ Depending on your OS, choose your adventure:
   <br/>
 
 - <details> 
-  <summary><img src="/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+  <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
   Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
@@ -502,8 +502,8 @@ Depending on your OS, choose your adventure:
 
   Getting logs like this? Perfect! 👌
 
-  <img src="/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
-  <img src="/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+  <img src="/docs/img/code-snippets/keploy-record-docker2.png" alt="Keploy record mocks" width="100%" />
 
   🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -653,7 +653,7 @@ Depending on your OS, choose your adventure:
 
   Spotted the new test and mock files in your project? High five! 🙌
 
-  <img src="/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   Want to see if everything works as expected?
 
@@ -669,7 +669,7 @@ Depending on your OS, choose your adventure:
 
   Your results should be looking all _snazzy_, like this:
 
-  <img src="/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -677,7 +677,7 @@ Depending on your OS, choose your adventure:
 
   > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-  <img src="/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
   Run that keploy record command once more and watch as everything falls into place with all tests passing! 🌟
 
