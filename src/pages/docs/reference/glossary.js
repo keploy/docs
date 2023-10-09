@@ -15,83 +15,83 @@ function Glossary() {
     A: [
       {
         name: "Acceptance Testing",
-        link: "/docs/concepts/reference/glossary/acceptance-testing",
+        link: "/concepts/reference/glossary/acceptance-testing",
       },
       {
         name: "Agile Unit Testing",
-        link: "/docs/concepts/reference/glossary/agile-unit-testing",
+        link: "/concepts/reference/glossary/agile-unit-testing",
       },
     ],
     B: [
       {
         name: "BDD",
-        link: "/docs/concepts/reference/glossary/behaviour-driven-development",
+        link: "/concepts/reference/glossary/behaviour-driven-development",
       },
       {
         name: "Beta Testing",
-        link: "/docs/concepts/reference/glossary/beta-testing",
+        link: "/concepts/reference/glossary/beta-testing",
       },
       {
         name: "Black Box Testing",
-        link: "/docs/concepts/reference/glossary/black-box-testing",
+        link: "/concepts/reference/glossary/black-box-testing",
       },
     ],
     C: [
       {
         name: "Component Testing",
-        link: "/docs/concepts/reference/glossary/component-testing",
+        link: "/concepts/reference/glossary/component-testing",
       },
     ],
     E: [
       {
         name: "End To End Testing",
-        link: "/docs/concẻpts/reference/glossary/end-to-end-testing",
+        link: "/concẻpts/reference/glossary/end-to-end-testing",
       },
     ],
     F: [
       {
         name: "Functional Testing",
-        link: "/docs/concepts/reference/glossary/functional-testing",
+        link: "/concepts/reference/glossary/functional-testing",
       },
     ],
     I: [
       {
         name: "Integration Testing",
-        link: "/docs/concepts/reference/glossary/integration-testing",
+        link: "/concepts/reference/glossary/integration-testing",
       },
       {
         name: "Idempotency",
-        link: "/docs/concepts/reference/glossary/idempotency",
+        link: "/concepts/reference/glossary/idempotency",
       },
     ],
     M: [
       {
         name: "Manual Testing",
-        link: "/docs/concepts/reference/glossary/manual-testing",
+        link: "/concepts/reference/glossary/manual-testing",
       },
-      {name: "Mocks", link: "/docs/concepts/reference/glossary/mocks"},
+      {name: "Mocks", link: "/concepts/reference/glossary/mocks"},
     ],
     R: [
       {
         name: "Regression Testing",
-        link: "/docs/concepts/reference/glossary/regression-testing",
+        link: "/concepts/reference/glossary/regression-testing",
       },
     ],
-    S: [{name: "Stubs", link: "/docs/concepts/reference/glossary/stubs"}],
+    S: [{name: "Stubs", link: "/concepts/reference/glossary/stubs"}],
     U: [
       {
         name: "Unit Test Automation",
-        link: "/docs/concepts/reference/glossary/unit-test-automation",
+        link: "/concepts/reference/glossary/unit-test-automation",
       },
       {
         name: "Unit Testing",
-        link: "/docs/concepts/reference/glossary/unit-testing",
+        link: "/concepts/reference/glossary/unit-testing",
       },
     ],
     W: [
       {
         name: "White Box Testing",
-        link: "/docs/concepts/reference/glossary/white-box-testing",
+        link: "/concepts/reference/glossary/white-box-testing",
       },
     ],
   };

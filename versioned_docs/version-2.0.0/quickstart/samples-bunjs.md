@@ -127,7 +127,7 @@ this will provide us with the output:-
 
 We will get the following output in our terminal
 
-![Testcase](../../../static/img/testcase-bun.png)
+![Testcase](/img/testcase-bun.png)
 
 ---
 
@@ -191,7 +191,7 @@ this will provide us with the output:-
 
 We will get the following output in our terminal
 
-![Testcase](../../../static/img/testcase-bun.png)
+![Testcase](/img/testcase-bun.png)
 
 # Running the testcases
 
