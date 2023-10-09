@@ -8,8 +8,8 @@ module.exports = {
   title: "Keploy Documentation",
   titleDelimiter: "🐰",
   tagline: "API Test Generator Tool",
-  url: "https://docs.keploy.io",
-  baseUrl: "/",
+  url: "https://keploy.io",
+  baseUrl: "/docs/",
   onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
   trailingSlash: true,
@@ -30,7 +30,7 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
-    canonicalBase: "https://www.docs.keploy.io/",
+    canonicalBase: "https://www.keploy.io/",
     metadata: [
       {
         description: "",
@@ -74,7 +74,7 @@ module.exports = {
             "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
           name: "Keploy",
           url: "https://keploy.io/",
-          logo: "https://docs.keploy.io/img/favicon.png",
+          logo: "https://keploy.io/docs/img/favicon.png",
         }),
       },
     ],
@@ -114,7 +114,7 @@ module.exports = {
       },
       items: [
         {
-          to: "/docs/keploy-explained/introduction",
+          to: "/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
         },
@@ -134,85 +134,13 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/docs/keploy-explained/contribution-guide",
+          to: "/keploy-explained/contribution-guide",
           label: "Dev Guide",
         },
         {
           to: "https://community.keploy.io",
           label: "Guest Posts",
         },
-        // {
-        //   to: "https://blog.keploy.io",
-        //   label: "Blog",
-        // },
-        // {
-        //   to: "/docs/hacktoberfest/contribution-guide/",
-        //   activeBasePath: "(/docs/hacktoberfest)",
-        //   label: "Hacktoberfest",
-        // },
-        // {
-        //   activeBasePath: "/docs",
-        //   label: "Docs",
-        //   items: [
-        //     {
-        //       to: "/docs/keploy-explained/introduction",
-        //       activeBasePath: "/docs/keploy-explained/",
-        //       label: "Explanation",
-        //     },
-        //     {
-        //       to: "/docs/server/introduction",
-        //       activeBasePath: "/docs/server/",
-        //       label: "Installation",
-        //     },
-        //     {
-        //       to: "/docs/concepts",
-        //       activeBasePath: "/docs/concepts/",
-        //       label: "Concepts",
-        //     },
-        //     {
-        //       to: "/application-development",
-        //       activeBaseRegex:
-        //         "(/application-development)|(/docs/(go|java|php|node))",
-        //       label: "SDKs",
-        //     },
-        //   ],
-        // },
-        // {
-        //   activeBasePath: "none",
-        //   label: "Operations",
-        //   items: [
-        //     {
-        //       to: "/docs/operation/web-ui-operations/",
-        //       label: "Web UI",
-        //     },
-        //     {
-        //       to: "/docs/operation/record-operations/",
-        //       label: "Record",
-        //     },
-        //     {
-        //       to: "/docs/operation/test-operations/",
-        //       label: "Test",
-        //     },
-        //   ],
-        // },
-        // {
-        //   activeBasePath: "none",
-        //   label: "Contribution",
-        //   items: [
-        //     {
-        //       to: "/docs/devtools/sdk-contrib-guide/",
-        //       label: "SDK ",
-        //     },
-        //     {
-        //       to: "/docs/devtools/server-contrib-guide/",
-        //       label: "Server",
-        //     },
-        //     {
-        //       to: "/docs/devtools/ui-contrib-guide/",
-        //       label: "UI",
-        //     },
-        //   ],
-        // },
         {
           type: "docsVersionDropdown",
           position: "right",
@@ -264,7 +192,7 @@ module.exports = {
         // Will be passed to @docusaurus/plugin-content-docs
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          routeBasePath: "docs",
+          routeBasePath: "/",
           exclude: ["**/shared/**"], // do not render "shared" content
           editUrl: "https://github.com/keploy/docs/blob/master",
           /**
@@ -392,17 +320,17 @@ module.exports = {
   ],
   scripts: [
     {
-      src: "/scripts/feedback.js",
+      src: "/docs/scripts/feedback.js",
       async: true,
       defer: true,
     },
     {
-      src: "/scripts/clarity.js",
+      src: "/docs/scripts/clarity.js",
       async: true,
       defer: true,
     },
     {
-      src: "/scripts/chat.js",
+      src: "/docs/scripts/chat.js",
       async: true,
       defer: true,
     },

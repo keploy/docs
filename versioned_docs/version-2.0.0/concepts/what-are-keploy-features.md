@@ -30,17 +30,17 @@ Keploy will record all API calls and their subsequent network traffic served by 
 
 Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all CRUD operations** with correct responses.
 
-<img src="/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
+<img src="/docs/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
 
 Once recorded, you have the flexibility to replay and simulate the same flow with mutations/write calls locally or within your CI environment without needing to connect to external services/dependencies.
 
 No more data dumps, stubs, or mocks for dependencies like DBs, internal services, or third-party services like twilio, shopify, or stripe are required anymore. 💡
 
-<img src="/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies"/>
+<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies"/>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application. Multiple Reads after write operations can be replicated automatically too. 🔄
 
-<img src="/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
+<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
 
 ## 🧩 Combined Test Coverage:
 
@@ -50,7 +50,7 @@ Keploy has [native integrations](/concepts/general-glossary.md#4-interoperabilit
 Keploy gives combined test-coverage and can also be integrated in
 existing CI pipelines easily within `go-test`, `jUnit`, `jest`, `pyTest` workflows.
 
-<img src="/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"  width="80%"/>
+<img src="/docs/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"  width="80%"/>
 
 Run tests with mocks anywhere you like—**locally on the CLI**, in your **CI pipeline**, or even across a **Kubernetes cluster**. It's testing wherever you want it! 🌍
 
