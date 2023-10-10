@@ -168,7 +168,7 @@ docker build -t echo-app:1.0 .
 ## Capture the Testcases
 
 ```zsh
-keploy record -c "docker run -p 8082:8082 --rm --name echoSqlApp --network keploy-network echo-app:1.0"
+keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
 ```
 
 ![Testcase](/img/testcase-echo.png?raw=true)
@@ -214,7 +214,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```zsh
-keploy test -c "sudo docker run -p 8082:8082 --rm --net keploy-network --name echoSqlApp echo-app:1.0 --rm echoSqlApp" --delay 10
+keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
