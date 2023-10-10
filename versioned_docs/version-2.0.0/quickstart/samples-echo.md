@@ -113,7 +113,7 @@ curl --request GET \
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of postgres operations. Here's what the folder structure look like:
 
-![Testcase](../../../static/img/testcase-echo.png?raw=true)
+![Testcase](/img/testcase-echo.png?raw=true)
 
 Now, let's see the magic! ✨💫
 
@@ -131,7 +131,7 @@ sudo -E keploy test -c "./echo-psql-url-shortener" --delay 10
 
 output should look like
 
-![Testrun](../../../static/img/testrun-echo.png?raw=true)
+![Testrun](/img/testrun-echo.png?raw=true)
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
@@ -168,10 +168,10 @@ docker build -t echo-app:1.0 .
 ## Capture the Testcases
 
 ```zsh
-keploy record -c "docker run -p 8082:8082 --rm --name echoSqlApp --network keploy-network echo-app:1.0"
+keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
 ```
 
-![Testcase](../../../static/img/testcase-echo.png?raw=true)
+![Testcase](/img/testcase-echo.png?raw=true)
 
 ### Generate testcases
 
@@ -214,7 +214,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```zsh
-keploy test -c "sudo docker run -p 8082:8082 --rm --net keploy-network --name echoSqlApp echo-app:1.0 --rm echoSqlApp" --delay 10
+keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -222,4 +222,4 @@ So no need to setup dependencies like mongoDB, web-go locally or write mocks for
 The application thinks it's talking to mongoDB 😄
 
 We will get output something like this:
-![Testrun](../../../static/img/testrun-echo.png?raw=true)
+![Testrun](/img/testrun-echo.png?raw=true)

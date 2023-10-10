@@ -14,7 +14,7 @@ Once you start the application in record mode to capture API calls as test cases
 
 Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a test-case.
 
-![How it works](../../../static/gif/how-keploy-works.gif)
+![How it works](/gif/how-keploy-works.gif)
 
 ### Step 2 : Replay Test-Cases
 
@@ -33,4 +33,4 @@ You can test with Keploy locally or can integrate Keploy with popular testing-fr
 
 > **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
 
-![How it works](../../../static/gif/record-replay.gif)
+![How it works](/gif/record-replay.gif)
