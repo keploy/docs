@@ -82,7 +82,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 docker-compose up -d
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 4, in `db/connection.js`, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.**
 
 ### Capture the testcases
 
