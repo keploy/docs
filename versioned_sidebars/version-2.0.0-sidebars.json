@@ -42,7 +42,7 @@
     },
     {
       "type": "category",
-      "label": "running keploy",
+      "label": "Running Keploy",
       "collapsible": true,
       "collapsed": false,
       "items": [
