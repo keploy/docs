@@ -42,6 +42,15 @@
     },
     {
       "type": "category",
+      "label": "running keploy",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "running-keploy/rename-testcases"
+      ]
+    },
+      {
+      "type": "category",
       "label": "Hacktoberfest 2023",
       "collapsible": true,
       "collapsed": false,
