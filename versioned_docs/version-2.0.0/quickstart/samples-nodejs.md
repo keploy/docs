@@ -19,10 +19,10 @@ A simple sample CRUD application to test using Keploy build with Express and Mon
 
 ## Setup application
 
-Clone the repository and move to express-mongo folder
+Clone the repository and move to express-mongoose folder
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongo
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongoose
 
 # Install the dependencies
 npm install
