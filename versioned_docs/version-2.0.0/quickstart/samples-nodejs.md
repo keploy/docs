@@ -19,10 +19,10 @@ A simple sample CRUD application to test using Keploy build with Express and Mon
 
 ## Setup application
 
-Clone the repository and move to express-mongo folder
+Clone the repository and move to express-mongoose folder
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongo
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongoose
 
 # Install the dependencies
 npm install
@@ -82,7 +82,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 docker-compose up -d
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `db/connection.js`, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 4, in `db/connection.js`, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.**
 
 ### Capture the testcases
 
