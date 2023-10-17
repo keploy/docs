@@ -1,6 +1,6 @@
 ---
 id: gin-mongo-2
-title: Users Profile Sample Application
+title: Users Profile Sample Application (v1.0.0)
 sidebar_label: Gin-Mongo Sample 2
 tags:
   - quickstart

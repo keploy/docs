@@ -1,6 +1,6 @@
 ---
 id: introduction
-title: Introduction to Keploy
+title: Introduction to Keploy (v1.0.0)
 sidebar_label: Introduction
 ---
 

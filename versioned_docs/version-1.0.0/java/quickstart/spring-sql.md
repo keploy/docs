@@ -1,6 +1,6 @@
 ---
 id: spring-sql
-title: Sample Spring Application with Postgres DB
+title: Sample Spring Application with Postgres DB (v1.0.0)
 sidebar_label: Spring-SQl Sample
 tags:
   - spring-jpa

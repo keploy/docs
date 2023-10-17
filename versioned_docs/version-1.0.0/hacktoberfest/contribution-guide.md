@@ -1,6 +1,6 @@
 ---
 id: contribution-guide
-title: Keploy Hacktoberfest Contribution
+title: Keploy Hacktoberfest Contribution (v1.0.0)
 label: Hacktoberfest
 ---
 

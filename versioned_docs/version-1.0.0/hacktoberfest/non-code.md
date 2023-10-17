@@ -1,6 +1,6 @@
 ---
 id: no-code-contribution
-title: No-Code Contribution
+title: No-Code Contribution (v1.0.0)
 label: Hacktoberfest
 ---
 

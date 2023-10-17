@@ -1,6 +1,6 @@
 ---
 id: what-is-keploy-sdk
-title: What is Keploy SDK
+title: What is Keploy SDK (v1.0.0)
 sidebar_label: Keploy SDK
 description: Keploy SDK is a language-specific library that captures and replays API calls and subsequent network interactions.
 tags:

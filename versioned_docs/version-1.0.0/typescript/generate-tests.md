@@ -1,6 +1,6 @@
 ---
 id: generate-tests
-title: Creating E2E Tests with Mocks
+title: Creating E2E Tests with Mocks (v1.0.0)
 description: Understand how to generate E2E tests (with mocks)
 tags:
   - developer-guide

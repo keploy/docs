@@ -1,6 +1,6 @@
 ---
 id: contribution-guide
-title: GSoC Hacktoberfest Contribution
+title: GSoC Hacktoberfest Contribution (v1.0.0)
 label: GSoC
 keywords:
   - GSoC

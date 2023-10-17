@@ -1,6 +1,6 @@
 ---
 id: how-keploy-works
-title: How Keploy Works?
+title: How Keploy Works? (v1.0.0)
 sidebar_label: How Keploy Works?
 tags:
   - explanation

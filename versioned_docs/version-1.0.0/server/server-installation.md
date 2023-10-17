@@ -1,6 +1,6 @@
 ---
 id: server-installation
-title: Installation of Keploy Server
+title: Installation of Keploy Server (v1.0.0)
 sidebar_label: Server Installation
 ---
 

@@ -1,6 +1,6 @@
 ---
 id: ui-contrib-guide
-title: Contribute to Keploy UI
+title: Contribute to Keploy UI (v1.0.0)
 label: UI Contribution Guide
 description: This contribution guide is for developers for setting up Keploy UI locally.
 keywords:

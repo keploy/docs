@@ -1,6 +1,6 @@
 ---
 id: Idempotency
-title: Idempotency
+title: Idempotency (v1.0.0)
 sidebar_label: Idempotency
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

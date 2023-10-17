@@ -1,6 +1,6 @@
 ---
 id: integration
-title: Integration for Go
+title: Integration for Go (v1.0.0)
 description: Add the Keploy Go SDK to your application.
 tags:
   - developer-guide

@@ -1,6 +1,6 @@
 ---
 id: behaviour-driven-development
-title: Behaviour Driven Development
+title: Behaviour Driven Development (v1.0.0)
 sidebar_label: Behaviour Driven Development
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

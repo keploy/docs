@@ -1,6 +1,6 @@
 ---
 id: testing
-title: Test your application in Js
+title: Test your application in Js (v1.0.0)
 description: Test your application
 tags:
   - developer-guide
