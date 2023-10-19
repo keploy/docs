@@ -80,7 +80,7 @@ Generated test cases can be found inside the Keploy directory.
 #### Generate Keploy Binary:
 
 ```shell
-go build -o keploy && sudo mv keploy /usr/local/bin`
+go build -o keploy && sudo mv keploy /usr/local/bin
 ```
 
 #### Capturing Test Cases:
