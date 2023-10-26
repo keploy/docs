@@ -108,7 +108,7 @@ docker install ghcr.io/keploy/keploy
 #### Create Keploy Alias:
 
 ```shell
-alias keployV2='sudo docker run --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 #### Capture Test Cases:
@@ -123,12 +123,14 @@ keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network ke
 keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
 ```
 
-### 6. Testing Locally Built Docker Image:
+### 7. Testing Locally Built Docker Image:
 
 #### Build Docker Image:
 
+Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
+
 ```shell
-docker build -t <nameOfImage>
+docker build -t <nameOfImage> .
 ```
 
 #### Create Alias:

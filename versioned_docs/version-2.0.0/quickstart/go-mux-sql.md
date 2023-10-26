@@ -93,9 +93,9 @@ Depending on your OS, choose your adventure:
 
   ```json
   {
-  "id": 1,
-  "name": "Bubbles",
-  "price": 123
+    "id": 1,
+    "name": "Bubbles",
+    "price": 123
   }
   ```
 
@@ -108,37 +108,37 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     req:
-        method: POST
-        proto_major: 1
-        proto_minor: 1
-        url: http://localhost:8010/product
-        header:
-            Accept: '*/*'
-            Content-Length: "46"
-            Content-Type: application/json
-            Host: localhost:8010
-            User-Agent: curl/8.1.2
-        body: |-
-            {
-                "name":"Bubbles",
-                "price": 123
-                }
-        body_type: ""
+      method: POST
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:8010/product
+      header:
+        Accept: "*/*"
+        Content-Length: "46"
+        Content-Type: application/json
+        Host: localhost:8010
+        User-Agent: curl/8.1.2
+      body: |-
+        {
+            "name":"Bubbles",
+            "price": 123
+            }
+      body_type: ""
     resp:
-        status_code: 201
-        header:
-            Content-Length: "37"
-            Content-Type: application/json
-            Date: Mon, 09 Oct 2023 06:51:16 GMT
-        body: '{"id":4,"name":"Bubbles","price":123}'
-        body_type: ""
-        status_message: ""
-        proto_major: 0
-        proto_minor: 0
+      status_code: 201
+      header:
+        Content-Length: "37"
+        Content-Type: application/json
+        Date: Mon, 09 Oct 2023 06:51:16 GMT
+      body: '{"id":4,"name":"Bubbles","price":123}'
+      body_type: ""
+      status_message: ""
+      proto_major: 0
+      proto_minor: 0
     objects: []
     assertions:
-        noise:
-            - header.Date
+      noise:
+        - header.Date
     created: 1696834280
   ```
 
@@ -151,15 +151,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
+      - origin: client
+        message:
+          - type: binary
+            data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAwAAAAF0ykSRQ==
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAwAAAAF0ykSRQ==
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -167,15 +167,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
+      - origin: client
+        message:
+          - type: binary
+            data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -183,15 +183,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
+      - origin: client
+        message:
+          - type: binary
+            data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
   #### Fetch Product from Catelog
@@ -229,8 +229,8 @@ Depending on your OS, choose your adventure:
   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
-  
-  First things first, update the   First things first, update the postgres host on **line 10** in main.go, update the host to `localhost`.
+
+  First things first, update the First things first, update the postgres host on **line 10** in main.go, update the host to `localhost`.
 
   #### 🍃 Kickstart PostgresDB
 
@@ -270,9 +270,9 @@ Depending on your OS, choose your adventure:
 
   ```json
   {
-  "id": 1,
-  "name": "Bubbles",
-  "price": 123
+    "id": 1,
+    "name": "Bubbles",
+    "price": 123
   }
   ```
 
@@ -285,37 +285,37 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     req:
-        method: POST
-        proto_major: 1
-        proto_minor: 1
-        url: http://localhost:8010/product
-        header:
-            Accept: '*/*'
-            Content-Length: "46"
-            Content-Type: application/json
-            Host: localhost:8010
-            User-Agent: curl/8.1.2
-        body: |-
-            {
-                "name":"Bubbles",
-                "price": 123
-                }
-        body_type: ""
+      method: POST
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:8010/product
+      header:
+        Accept: "*/*"
+        Content-Length: "46"
+        Content-Type: application/json
+        Host: localhost:8010
+        User-Agent: curl/8.1.2
+      body: |-
+        {
+            "name":"Bubbles",
+            "price": 123
+            }
+      body_type: ""
     resp:
-        status_code: 201
-        header:
-            Content-Length: "37"
-            Content-Type: application/json
-            Date: Mon, 09 Oct 2023 06:51:16 GMT
-        body: '{"id":4,"name":"Bubbles","price":123}'
-        body_type: ""
-        status_message: ""
-        proto_major: 0
-        proto_minor: 0
+      status_code: 201
+      header:
+        Content-Length: "37"
+        Content-Type: application/json
+        Date: Mon, 09 Oct 2023 06:51:16 GMT
+      body: '{"id":4,"name":"Bubbles","price":123}'
+      body_type: ""
+      status_message: ""
+      proto_major: 0
+      proto_minor: 0
     objects: []
     assertions:
-        noise:
-            - header.Date
+      noise:
+        - header.Date
     created: 1696834280
   ```
 
@@ -328,15 +328,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
+      - origin: client
+        message:
+          - type: binary
+            data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAwAAAAF0ykSRQ==
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAwAAAAF0ykSRQ==
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -344,15 +344,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
+      - origin: client
+        message:
+          - type: binary
+            data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -360,15 +360,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
+      - origin: client
+        message:
+          - type: binary
+            data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
   Now, the real fun begins. Let's weave more spells!
@@ -452,9 +452,9 @@ Depending on your OS, choose your adventure:
 
   ```json
   {
-  "id": 1,
-  "name": "Bubbles",
-  "price": 123
+    "id": 1,
+    "name": "Bubbles",
+    "price": 123
   }
   ```
 
@@ -467,37 +467,37 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     req:
-        method: POST
-        proto_major: 1
-        proto_minor: 1
-        url: http://localhost:8010/product
-        header:
-            Accept: '*/*'
-            Content-Length: "46"
-            Content-Type: application/json
-            Host: localhost:8010
-            User-Agent: curl/8.1.2
-        body: |-
-            {
-                "name":"Bubbles",
-                "price": 123
-                }
-        body_type: ""
+      method: POST
+      proto_major: 1
+      proto_minor: 1
+      url: http://localhost:8010/product
+      header:
+        Accept: "*/*"
+        Content-Length: "46"
+        Content-Type: application/json
+        Host: localhost:8010
+        User-Agent: curl/8.1.2
+      body: |-
+        {
+            "name":"Bubbles",
+            "price": 123
+            }
+      body_type: ""
     resp:
-        status_code: 201
-        header:
-            Content-Length: "37"
-            Content-Type: application/json
-            Date: Mon, 09 Oct 2023 06:51:16 GMT
-        body: '{"id":4,"name":"Bubbles","price":123}'
-        body_type: ""
-        status_message: ""
-        proto_major: 0
-        proto_minor: 0
+      status_code: 201
+      header:
+        Content-Length: "37"
+        Content-Type: application/json
+        Date: Mon, 09 Oct 2023 06:51:16 GMT
+      body: '{"id":4,"name":"Bubbles","price":123}'
+      body_type: ""
+      status_message: ""
+      proto_major: 0
+      proto_minor: 0
     objects: []
     assertions:
-        noise:
-            - header.Date
+      noise:
+        - header.Date
     created: 1696834280
   ```
 
@@ -510,15 +510,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
+      - origin: client
+        message:
+          - type: binary
+            data: AAAAZgADAABleHRyYV9mbG9hdF9kaWdpdHMAMgB1c2VyAHBvc3RncmVzAGRhdGFiYXNlAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGRhdGVzdHlsZQBJU08sIE1EWQAA
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAwAAAAF0ykSRQ==
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAwAAAAF0ykSRQ==
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -526,15 +526,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
+      - origin: client
+        message:
+          - type: binary
+            data: cAAAAChtZDU3ZmY0ZTZhZGEzMThlZDJiYWM5ODQyY2YwNmEyODE2MwA=
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: UgAAAAgAAAAAUwAAABZhcHBsaWNhdGlvbl9uYW1lAABTAAAAGWNsaWVudF9lbmNvZGluZwBVVEY4AFMAAAAXRGF0ZVN0eWxlAElTTywgTURZAFMAAAAZaW50ZWdlcl9kYXRldGltZXMAb24AUwAAABtJbnRlcnZhbFN0eWxlAHBvc3RncmVzAFMAAAAUaXNfc3VwZXJ1c2VyAG9uAFMAAAAZc2VydmVyX2VuY29kaW5nAFVURjgAUwAAADFzZXJ2ZXJfdmVyc2lvbgAxMC41IChEZWJpYW4gMTAuNS0yLnBnZGc5MCsxKQBTAAAAI3Nlc3Npb25fYXV0aG9yaXphdGlvbgBwb3N0Z3JlcwBTAAAAI3N0YW5kYXJkX2NvbmZvcm1pbmdfc3RyaW5ncwBvbgBTAAAAEVRpbWVab25lAFVUQwBLAAAADAAAAB6JC1lnWgAAAAVJ
   ---
   version: api.keploy.io/v1beta2
   kind: Postgres
@@ -542,15 +542,15 @@ Depending on your OS, choose your adventure:
   spec:
     metadata: {}
     postgresrequests:
-        - origin: client
-          message:
-            - type: binary
-              data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
+      - origin: client
+        message:
+          - type: binary
+            data: UAAAAEUASU5TRVJUIElOVE8gcHJvZHVjdHMobmFtZSwgcHJpY2UpIFZBTFVFUygkMSwgJDIpIFJFVFVSTklORyBpZAAAAEQAAAAGUwBTAAAABA==
     postgresresponses:
-        - origin: server
-          message:
-            - type: binary
-              data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
+      - origin: server
+        message:
+          - type: binary
+            data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
   #### Fetch Product from Catelog
@@ -564,7 +564,7 @@ Depending on your OS, choose your adventure:
   Spotted the new test and mock files in your project? High five! 🙌
 
   <img src="/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
-  
+
   Want to see if everything works as expected?
 
   #### Run Tests
