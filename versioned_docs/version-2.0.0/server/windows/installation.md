@@ -22,6 +22,11 @@ There are two ways to use Keploy eBPF in windows, you can use either use:
 1. [Natively in Windows](#windows-native) using WSL.
 2. By [Using Docker](#using-docker).
 
+## One click install Keploy.
+ ```
+  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+```
+
 ## Windows Native
 
 ### Download the Keploy Binary
