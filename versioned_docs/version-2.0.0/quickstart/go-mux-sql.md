@@ -1,6 +1,6 @@
 ---
 id: samples-mux
-title: Sample URL Shortener App (Golang)
+title: Sample Product Catelog App (Golang)
 sidebar_label: Golang - Mux + Postgres
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
@@ -18,7 +18,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [mongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Mux](https://github.com/gorilla/mux) and [mongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
 ## Pre-Requisite 🛠️
 
@@ -30,7 +30,7 @@ keyword:
 ## Clone a sample URL shortener app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
 go mod download
 ```
 

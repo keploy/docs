@@ -108,6 +108,7 @@ yarn prettier --write '**/*.{js,md}'
 ```sh
 npm run build
 ```
+
 > Note: if the Build is failing, fix the changes before making PR.
 
 When we merge your PR, a new build automatically occurs and your changes publish to [https://keploy.io/docs](https://keploy.io/docs).
@@ -119,6 +120,7 @@ Keploy welcomes contributions to the docs website. If you have an idea for a new
 ## Community Support ❤️
 
 ### 🤔 Questions?
+
 Reach out to us. We're here to help!
 
 [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA)
@@ -127,4 +129,5 @@ Reach out to us. We're here to help!
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/Keployio)
 
 ### 💖 Let's Build Together!
+
 Whether you're a newbie coder or a wizard 🧙‍♀️, your perspective is golden. Take a peek at our:
