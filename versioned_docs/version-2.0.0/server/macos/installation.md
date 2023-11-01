@@ -20,8 +20,10 @@ keywords:
 ---
 
 As of now there is only one ways to use Keploy eBPF in MacOS, i.e. [Natively using Colima](#using-colima).
+1. [One-Click Install](#one-click-install-keploy).
+2. [Manual Setup](#using-colima).
 
-## One click install Keploy.
+# One click install Keploy.
  ```
   curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
