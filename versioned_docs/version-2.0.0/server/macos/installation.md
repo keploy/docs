@@ -22,7 +22,6 @@ keywords:
 As of now there is only one ways to use Keploy eBPF in MacOS, i.e. [Natively using Colima](#using-colima).
 
 There are two ways to use Keploy eBPF in linux, you can use either use:
-
 1. [One-Click Install](#one-click-install-keploy).
 2. [Manual Setup](#using-colima).
 
