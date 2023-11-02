@@ -25,6 +25,25 @@ keyword:
 
 ## Get Started! 🎬
 
+## Setup the Redis Database 📦
+
+  Create a docker network, run -
+
+  ```bash
+  docker network create <network-Name>
+  ```
+
+  Start the Redis instance using the `docker-compose` file-
+
+  ```bash
+  sudo docker run -p 6379:6379 -d --network <networkName> --name myredis redis
+  ```
+
+  ```bash
+  docker build -t gin-app:1.0 .
+  ```
+
+
 ## Clone a sample URL shortener app 🧪
 
 ```bash
@@ -63,23 +82,7 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-  To create a docker network, run -
-
-  ```bash
-  docker network create <network-Name>
-  ```
-
-  Start the Redis instance using the `docker-compose` file-
-
-  ```bash
-  sudo docker run -p 6379:6379 -d --network <networkName> --name myredis redis
-  ```
-
-  ```bash
-  docker build -t gin-app:1.0 .
-  ```
-
-  Now, capture the test-cases-
+  Capture the test-cases-
 
   ```shell
   keploy record -c "docker run -p 3001:3001 --name RediApp --network <networkName> --name ginRedisApp gin-app:1.0"
@@ -471,23 +474,10 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-
-  To create a docker network, run -
-  ```bash 
-  docker network create <network-Name>
+  Capture the test-cases-
+  ```shell
+  keploy record -c "docker run -p 3001:3001 --name RediApp --network <networkName> --name ginRedisApp gin-app:1.0"
   ```
-  Start the Redis instance using the `docker-compose` file-
-  ```bash
-    sudo docker run -p 6379:6379 -d --network <networkName> --name myredis redis
- ```
- ```bash
-    docker build -t gin-app:1.0 .
- ```
-
- Now, capture the test-cases-
- ```shell
- keploy record -c "docker run -p 3001:3001 --name RediApp --network <networkName> --name ginRedisApp gin-app:1.0"
- ```
 
  🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
