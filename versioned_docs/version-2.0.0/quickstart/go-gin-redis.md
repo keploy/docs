@@ -261,14 +261,6 @@ Depending on your OS, choose your adventure:
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
 
-  #### 🍃 Kickstart Redis 
-
-  Let's breathe life into your mongo container. A simple spell should do the trick:
-
-  ```bash
-  docker compose up postgres
-  ```
-
   ### 📼 Roll the Tape - Recording Time!
 
   We'll create a binary of our application:
