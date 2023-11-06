@@ -72,6 +72,7 @@ Moving on...
     <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
 Moving on...
+
 <details>
 <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
@@ -208,6 +209,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
 =======
+
 </details>
 <br/>
 
