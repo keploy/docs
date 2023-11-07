@@ -471,7 +471,7 @@ Depending on your OS, choose your adventure:
   keploy record -c "docker run -p 3001:3001 --name RediApp --network <networkName> --name ginRedisApp gin-app:1.0"
   ```
 
- 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+  🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
   Let's make URLs short and sweet:
 
