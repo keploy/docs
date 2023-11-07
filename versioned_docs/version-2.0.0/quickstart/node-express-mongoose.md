@@ -94,11 +94,10 @@ Depending on your OS, choose your adventure:
     ```
   Here's a peek of what you get:
 
-  ````
-
+  ```
   Student registration successful!
-
   ````
+
   🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
   _Time to perform more API magic!_
@@ -106,10 +105,9 @@ Depending on your OS, choose your adventure:
 
   ```bash
   curl --request GET \  --url http://localhost:8080/students
-  ````
+  ```
 
   Or simply wander over to your browser and visit `http://localhost:8000/students`.
-
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
   #### Run Tests
@@ -146,10 +144,10 @@ Depending on your OS, choose your adventure:
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-    </details>
-    <br/>
+  </details>
+  <br/>
 
-    <details>
+  <details>
     <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
@@ -244,7 +242,7 @@ Depending on your OS, choose your adventure:
    <br/>
 
 - <details> 
-  <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+    <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
   Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
