@@ -1,5 +1,5 @@
 ---
-id: samples-gin
+id: samples-redis
 title: Sample User Authentication App (Golang)
 sidebar_label: Golang - Gin + Redis
 description: The following sample app showcases how to use Gin framework and the Keploy Platform.
