@@ -25,6 +25,13 @@ keyword:
 
 ## Get Started! 🎬
 
+## Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-redis
+go mod download
+```
+
 ## Setup the Redis Database 📦
 
   Create a docker network, run -
@@ -42,14 +49,6 @@ keyword:
   ```bash
   docker build -t gin-app:1.0 .
   ```
-
-
-## Clone a sample URL shortener app 🧪
-
-```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-redis
-go mod download
-```
 
 ## Installation 📥
 
