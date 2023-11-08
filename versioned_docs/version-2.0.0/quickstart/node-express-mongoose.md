@@ -96,6 +96,7 @@ Depending on your OS, choose your adventure:
   ```
   Student registration successful!
   ````
+
   🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
   _Time to perform more API magic!_
