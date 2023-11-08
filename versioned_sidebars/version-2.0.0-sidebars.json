@@ -20,6 +20,8 @@
         "quickstart/samples-gin",
         "quickstart/samples-mux",
         "quickstart/samples-nodejs",
+        "quickstart/samples-redis",
+        "quickstart/samples-django",
         "quickstart/samples-echo",
         "quickstart/samples-bunjs"
       ]

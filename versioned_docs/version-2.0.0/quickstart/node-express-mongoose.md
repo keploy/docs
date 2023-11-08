@@ -64,6 +64,7 @@ Depending on your OS, choose your adventure:
   ```bash
   alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
   ```
+
   ### Lights, Camera, Record! 🎥
 
   Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
@@ -90,7 +91,7 @@ Depending on your OS, choose your adventure:
     "email":"john@xyiz.com",
     "phone":"0123456799"
     }'
-    ``` 
+    ```
   Here's a peek of what you get:
 
   ```
@@ -132,6 +133,7 @@ Depending on your OS, choose your adventure:
         |   - header.Keep-Alive
         |   - header.Connection
   ```
+
   > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
@@ -167,6 +169,7 @@ Depending on your OS, choose your adventure:
   ```bash
   sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
   ```
+
   Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
   Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
@@ -203,6 +206,7 @@ Depending on your OS, choose your adventure:
   ```bash
   curl --request GET \  --url http://localhost:8080/students
   ```
+
   Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
@@ -223,6 +227,7 @@ Depending on your OS, choose your adventure:
         |   - header.Keep-Alive
         |   - header.Connection
   ```
+
   > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
@@ -278,6 +283,7 @@ Depending on your OS, choose your adventure:
   ```
 
   Here's a peek of what you get:
+
   ```
   Student registration successful!
   ```
@@ -290,6 +296,7 @@ Depending on your OS, choose your adventure:
   ```bash
   curl --request GET \  --url http://localhost:8080/students
   ```
+
   Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
