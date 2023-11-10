@@ -31,30 +31,19 @@ keyword:
 Create a docker network, run -
 
 ```bash
-docker network create backend
+docker network create django-postgres-network
 ```
 
 Start the Postgres instance using the `docker-compose` file-
 
 ```bash
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d --network backend --name mypostgres postgres
-```
-
-```bash
-docker build -t django-app:1.0 .
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d --network django-postgres-network --name mypostgres postgres
 ```
 
 Create database -
 
 ```bash
 docker exec -it mypostgres psql -U postgres -c "CREATE DATABASE usersdb"
-```
-
-Create the tables in the database -
-
-```bash
-python3 manage.py makemigrations
-python3 manage.py migrate
 ```
 
 ## Clone a sample URL shortener app 🧪
@@ -94,10 +83,31 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
+  Change the database configuration in `django_postgres/settings.py` file to:
+
+  ```python
+  DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'usersdb',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': 'mypostgres',
+        'PORT': '5432',
+    }
+  }
+  ```
+
+  Build the app image:
+
+  ```bash
+  docker build -t django-app:1.0 .
+  ```
+
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network backend --name djangoPostgresApp django-app:1.0"
+  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network django-postgres-network django-app:1.0"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -258,7 +268,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 8000:8000 --rm --network backend --name djangoPostgresApp django-app:1.0" --delay 10
+  keploy test -c "sudo docker run -p 8000:8000 --rm --network django-postgres-network --name django-app django-app:1.0" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -280,6 +290,13 @@ Depending on your OS, choose your adventure:
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
 
   ### 📼 Roll the Tape - Recording Time!
+
+  To create the required tables in the database, run:
+
+  ```python
+  python3 manage.py makemigrations
+  python3 manage.py migrate
+  ```
 
   Ready, set, record! Here's how:
 
@@ -481,7 +498,7 @@ Depending on your OS, choose your adventure:
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network backend --name djangoPostgresApp django-app:1.0"
+  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network django-postgres-network --name djangoPostgresApp django-app:1.0"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -642,7 +659,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 8000:8000 --rm --network backend --name djangoPostgresApp django-app:1.0" --delay 10
+  keploy test -c "sudo docker run -p 8000:8000 --rm --network django-postgres-network --name djangoPostgresApp django-app:1.0" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
