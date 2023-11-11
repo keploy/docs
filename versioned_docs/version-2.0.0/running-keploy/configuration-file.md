@@ -2,7 +2,7 @@
 id: configuration-file
 title: Configuration File
 sidebar_label: Configuration file
-description: This section 
+description: This section introduces the configuration file
 tags:
   - configuration file
 keywords:
