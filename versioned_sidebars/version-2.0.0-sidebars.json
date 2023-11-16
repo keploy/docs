@@ -23,7 +23,10 @@
         "quickstart/samples-redis",
         "quickstart/samples-django",
         "quickstart/samples-echo",
-        "quickstart/samples-bunjs"
+        "quickstart/samples-bunjs",
+        "quickstart/samples-fastapi-twilio",
+        "quickstart/samples-flask",
+        "quickstart/samples-fastapi"
       ]
     }
   ],
