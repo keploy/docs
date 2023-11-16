@@ -1,13 +1,13 @@
 ---
-id: samples-django
-title: Sample User Data CRUD App (Django)
-description: The following sample app showcases how to use the Django framework and the Keploy Platform.
+id: samples-fastapi
+title: Sample Student Data CRUD App (FastAPI)
+description: The following sample app showcases how to use the FastAPI framework and the Keploy Platform.
 tags:
-  - Django Framework
+  - FastAPI Framework
   - Postgres
   - SQL
 keyword:
-  - Django Framework
+  - FastAPI Framework
   - Postgres
   - SQL
   - Python
@@ -17,7 +17,7 @@ keyword:
 
 # Introduction
 
-🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with [Django](https://www.djangoproject.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with [FastAPI](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
 ## Pre-Requisite 🛠️
 
@@ -31,25 +31,23 @@ keyword:
 Create a docker network, run -
 
 ```bash
-docker network create django-postgres-network
+docker network create backend
 ```
 
 Start the Postgres instance using the `docker-compose` file-
 
 ```bash
-docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d --network django-postgres-network --name mypostgres postgres
+docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d --network backend --name mypostgres postgres
 ```
 
-Create database -
-
 ```bash
-docker exec -it mypostgres psql -U postgres -c "CREATE DATABASE usersdb"
+docker build -t fastapi-app:1.0 .
 ```
 
-## Clone a sample URL shortener app 🧪
+## Clone the sample Student Data CRUD app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django-postgres
+git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
 ```
 
 ## Installation 📥
@@ -83,31 +81,10 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-  Change the database configuration in `django_postgres/settings.py` file to:
-
-  ```python
-  DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'usersdb',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': 'mypostgres',
-        'PORT': '5432',
-    }
-  }
-  ```
-
-  Build the app image:
-
-  ```bash
-  docker build -t django-app:1.0 .
-  ```
-
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network django-postgres-network django-app:1.0"
+  keploy record -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -121,45 +98,44 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/' \
+  curl --location 'http://127.0.0.1:8000/students/' \
   --header 'Content-Type: application/json' \
-  --data-raw '    {
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "password": "smith567",
-        "website": "www.janesmith.com"
-    }'
+  --data-raw '{
+      "name": "Eva White",
+      "email": "evawhite@example.com",
+      "password": "evawhite111"
+      }'
   ```
 
   **2. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/'
+  curl --location 'http://127.0.0.1:8000/students/'
   ```
 
   **3. Make a PUT request**
 
   ```bash
-  curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b045-dc74840aa82b/' \
+  curl --location --request PUT 'http://127.0.0.1:8000/students/1' \
   --header 'Content-Type: application/json' \
   --data-raw '    {
-        "name": "Jane Smith",
-        "email": "smith.jane@example.com",
-        "password": "smith567",
-        "website": "www.smithjane.com"
-    }'
+          "name": "John Dow",
+          "email": "doe.john@example.com",
+          "password": "johndoe123",
+          "stream": "Arts"
+      }'
   ```
 
   **4. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/c793c752-ad95-4cff-8cbe-5715a1e8a76e/'
+  curl --location 'http://127.0.0.1:8000/students/1'
   ```
 
   **5. Make a DELETE request**
 
   ```bash
-   curl --location --request DELETE 'http://127.0.0.1:8000/user/ee2af3fc-0503-4a6a-a452-b7d8c87a085b/'
+  curl --location --request DELETE 'http://127.0.0.1:8000/students/1'
   ```
 
   Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -174,43 +150,35 @@ Depending on your OS, choose your adventure:
       method: GET
       proto_major: 1
       proto_minor: 1
-      url: http://127.0.0.1:8000/user/
+      url: http://127.0.0.1:8000/students/
       header:
         Accept: "*/*"
         Host: 127.0.0.1:8000
         User-Agent: curl/7.81.0
       body: ""
       body_type: ""
-      timestamp: 2023-11-05T12:49:22.444698436+05:30
+      timestamp: 2023-11-06T10:42:43.046337785+05:30
     resp:
-      status_code: 200
+      status_code: 404
       header:
-        Allow: POST, OPTIONS, GET
-        Content-Length: "31"
+        Content-Length: "29"
         Content-Type: application/json
-        Cross-Origin-Opener-Policy: same-origin
-        Date: Sun, 05 Nov 2023 07:19:22 GMT
-        Referrer-Policy: same-origin
-        Server: WSGIServer/0.2 CPython/3.10.12
-        Vary: Accept, Cookie
-        X-Content-Type-Options: nosniff
-        X-Frame-Options: DENY
-      body: '{"message": "No Users Found!!"}'
+        Date: Mon, 06 Nov 2023 05:12:42 GMT
+        Server: uvicorn
+      body: '{"detail":"Data not found!!"}'
       body_type: ""
       status_message: ""
       proto_major: 0
       proto_minor: 0
-      timestamp: 2023-11-05T12:49:24.85684599+05:30
+      timestamp: 2023-11-06T10:42:45.959907593+05:30
     objects: []
     assertions:
       noise:
         - header.Date
-        - header.Allow
-        - header.Vary
-    created: 1699168764
+    created: 1699247565
   curl: |
     curl --request GET \
-    --url http://127.0.0.1:8000/user/ \
+    --url http://127.0.0.1:8000/students/ \
     --header 'User-Agent: curl/7.81.0' \
     --header 'Accept: */*' \
     --header 'Host: 127.0.0.1:8000' \
@@ -229,7 +197,7 @@ Depending on your OS, choose your adventure:
             identifier: ClientRequest
             length: 8
             query:
-                string: SELECT "application_user"."id", "application_user"."name", "application_user"."email", "application_user"."password", "application_user"."website" FROM "application_user"
+                string: SELECT students."ID" AS "students_ID", students."Name" AS "students_Name", students."Email" AS "students_Email", students."Hashed Password" AS "students_Hashed Password", students."Subject Stream" AS "students_Subject Stream" FROM students LIMIT 100 OFFSET 0
             msg_type: 81
             auth_type: 0
         postgresresponses:
@@ -253,12 +221,12 @@ Depending on your OS, choose your adventure:
                     - 32
                     - 48
             ready_for_query:
-                txstatus: 73
-            row_description: {fields: [{name: [105, 100], table_oid: 24705, table_attribute_number: 1, data_type_oid: 2950, data_type_size: 16, type_modifier: -1, format: 0}, {name: [110, 97, 109, 101], table_oid: 24705, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [101, 109, 97, 105, 108], table_oid: 24705, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: 258, format: 0}, {name: [112, 97, 115, 115, 119, 111, 114, 100], table_oid: 24705, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [119, 101, 98, 115, 105, 116, 101], table_oid: 24705, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}]}
+                txstatus: 84
+            row_description: {fields: [{name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 73, 68], table_oid: 24577, table_attribute_number: 1, data_type_oid: 23, data_type_size: 4, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 78, 97, 109, 101], table_oid: 24577, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 69, 109, 97, 105, 108], table_oid: 24577, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 72, 97, 115, 104, 101, 100, 32, 80, 97, 115, 115, 119, 111, 114, 100], table_oid: 24577, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 83, 117, 98, 106, 101, 99, 116, 32, 83, 116, 114, 101, 97, 109], table_oid: 24577, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}]}
             msg_type: 90
             auth_type: 0
-        reqtimestampmock: 2023-11-05T12:49:22.471612071+05:30
-        restimestampmock: 2023-11-05T12:49:22.47169658+05:30
+        reqtimestampmock: 2023-11-06T10:42:43.063446464+05:30
+        restimestampmock: 2023-11-06T10:42:43.063544657+05:30
   ```
 
   Want to see if everything works as expected?
@@ -268,7 +236,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 8000:8000 --rm --network django-postgres-network --name django-app django-app:1.0" --delay 10
+  keploy test -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -291,17 +259,10 @@ Depending on your OS, choose your adventure:
 
   ### 📼 Roll the Tape - Recording Time!
 
-  To create the required tables in the database, run:
-
-  ```python
-  python3 manage.py makemigrations
-  python3 manage.py migrate
-  ```
-
   Ready, set, record! Here's how:
 
   ```bash
-  sudo -E keploy record -c "python3 manage.py runserver"
+  keploy record -c "uvicorn application.main:app --reload"
   ```
 
   Keep an eye out for the `-c `flag! It's the command charm to run the app.
@@ -315,45 +276,44 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/' \
+  curl --location 'http://127.0.0.1:8000/students/' \
   --header 'Content-Type: application/json' \
-  --data-raw '    {
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "password": "smith567",
-        "website": "www.janesmith.com"
-    }'
+  --data-raw '{
+      "name": "Eva White",
+      "email": "evawhite@example.com",
+      "password": "evawhite111"
+      }'
   ```
 
   **2. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/'
+  curl --location 'http://127.0.0.1:8000/students/'
   ```
 
   **3. Make a PUT request**
 
   ```bash
-  curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b045-dc74840aa82b/' \
+  curl --location --request PUT 'http://127.0.0.1:8000/students/1' \
   --header 'Content-Type: application/json' \
   --data-raw '    {
-        "name": "Jane Smith",
-        "email": "smith.jane@example.com",
-        "password": "smith567",
-        "website": "www.smithjane.com"
-    }'
+          "name": "John Dow",
+          "email": "doe.john@example.com",
+          "password": "johndoe123",
+          "stream": "Arts"
+      }'
   ```
 
   **4. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/c793c752-ad95-4cff-8cbe-5715a1e8a76e/'
+  curl --location 'http://127.0.0.1:8000/students/1'
   ```
 
   **5. Make a DELETE request**
 
   ```bash
-   curl --location --request DELETE 'http://127.0.0.1:8000/user/ee2af3fc-0503-4a6a-a452-b7d8c87a085b/'
+  curl --location --request DELETE 'http://127.0.0.1:8000/students/1'
   ```
 
   Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -368,43 +328,35 @@ Depending on your OS, choose your adventure:
       method: GET
       proto_major: 1
       proto_minor: 1
-      url: http://127.0.0.1:8000/user/
+      url: http://127.0.0.1:8000/students/
       header:
         Accept: "*/*"
         Host: 127.0.0.1:8000
         User-Agent: curl/7.81.0
       body: ""
       body_type: ""
-      timestamp: 2023-11-05T12:49:22.444698436+05:30
+      timestamp: 2023-11-06T10:42:43.046337785+05:30
     resp:
-      status_code: 200
+      status_code: 404
       header:
-        Allow: POST, OPTIONS, GET
-        Content-Length: "31"
+        Content-Length: "29"
         Content-Type: application/json
-        Cross-Origin-Opener-Policy: same-origin
-        Date: Sun, 05 Nov 2023 07:19:22 GMT
-        Referrer-Policy: same-origin
-        Server: WSGIServer/0.2 CPython/3.10.12
-        Vary: Accept, Cookie
-        X-Content-Type-Options: nosniff
-        X-Frame-Options: DENY
-      body: '{"message": "No Users Found!!"}'
+        Date: Mon, 06 Nov 2023 05:12:42 GMT
+        Server: uvicorn
+      body: '{"detail":"Data not found!!"}'
       body_type: ""
       status_message: ""
       proto_major: 0
       proto_minor: 0
-      timestamp: 2023-11-05T12:49:24.85684599+05:30
+      timestamp: 2023-11-06T10:42:45.959907593+05:30
     objects: []
     assertions:
       noise:
         - header.Date
-        - header.Allow
-        - header.Vary
-    created: 1699168764
+    created: 1699247565
   curl: |
     curl --request GET \
-    --url http://127.0.0.1:8000/user/ \
+    --url http://127.0.0.1:8000/students/ \
     --header 'User-Agent: curl/7.81.0' \
     --header 'Accept: */*' \
     --header 'Host: 127.0.0.1:8000' \
@@ -423,7 +375,7 @@ Depending on your OS, choose your adventure:
             identifier: ClientRequest
             length: 8
             query:
-                string: SELECT "application_user"."id", "application_user"."name", "application_user"."email", "application_user"."password", "application_user"."website" FROM "application_user"
+                string: SELECT students."ID" AS "students_ID", students."Name" AS "students_Name", students."Email" AS "students_Email", students."Hashed Password" AS "students_Hashed Password", students."Subject Stream" AS "students_Subject Stream" FROM students LIMIT 100 OFFSET 0
             msg_type: 81
             auth_type: 0
         postgresresponses:
@@ -447,12 +399,12 @@ Depending on your OS, choose your adventure:
                     - 32
                     - 48
             ready_for_query:
-                txstatus: 73
-            row_description: {fields: [{name: [105, 100], table_oid: 24705, table_attribute_number: 1, data_type_oid: 2950, data_type_size: 16, type_modifier: -1, format: 0}, {name: [110, 97, 109, 101], table_oid: 24705, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [101, 109, 97, 105, 108], table_oid: 24705, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: 258, format: 0}, {name: [112, 97, 115, 115, 119, 111, 114, 100], table_oid: 24705, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [119, 101, 98, 115, 105, 116, 101], table_oid: 24705, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}]}
+                txstatus: 84
+            row_description: {fields: [{name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 73, 68], table_oid: 24577, table_attribute_number: 1, data_type_oid: 23, data_type_size: 4, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 78, 97, 109, 101], table_oid: 24577, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 69, 109, 97, 105, 108], table_oid: 24577, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 72, 97, 115, 104, 101, 100, 32, 80, 97, 115, 115, 119, 111, 114, 100], table_oid: 24577, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 83, 117, 98, 106, 101, 99, 116, 32, 83, 116, 114, 101, 97, 109], table_oid: 24577, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}]}
             msg_type: 90
             auth_type: 0
-        reqtimestampmock: 2023-11-05T12:49:22.471612071+05:30
-        restimestampmock: 2023-11-05T12:49:22.47169658+05:30
+        reqtimestampmock: 2023-11-06T10:42:43.063446464+05:30
+        restimestampmock: 2023-11-06T10:42:43.063544657+05:30
   ```
 
   Want to see if everything works as expected?
@@ -462,7 +414,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  sudo -E keploy test -c "python3 manage.py runserver" --delay 10
+  keploy test -c "uvicorn application.main:app --reload" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -498,7 +450,7 @@ Depending on your OS, choose your adventure:
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name DjangoApp --network django-postgres-network --name djangoPostgresApp django-app:1.0"
+  keploy record -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -512,45 +464,44 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/' \
+  curl --location 'http://127.0.0.1:8000/students/' \
   --header 'Content-Type: application/json' \
-  --data-raw '    {
-        "name": "Jane Smith",
-        "email": "jane.smith@example.com",
-        "password": "smith567",
-        "website": "www.janesmith.com"
-    }'
+  --data-raw '{
+      "name": "Eva White",
+      "email": "evawhite@example.com",
+      "password": "evawhite111"
+      }'
   ```
 
   **2. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/'
+  curl --location 'http://127.0.0.1:8000/students/'
   ```
 
   **3. Make a PUT request**
 
   ```bash
-  curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b045-dc74840aa82b/' \
+  curl --location --request PUT 'http://127.0.0.1:8000/students/1' \
   --header 'Content-Type: application/json' \
   --data-raw '    {
-        "name": "Jane Smith",
-        "email": "smith.jane@example.com",
-        "password": "smith567",
-        "website": "www.smithjane.com"
-    }'
+          "name": "John Dow",
+          "email": "doe.john@example.com",
+          "password": "johndoe123",
+          "stream": "Arts"
+      }'
   ```
 
   **4. Make a GET request**
 
   ```bash
-  curl --location 'http://127.0.0.1:8000/user/c793c752-ad95-4cff-8cbe-5715a1e8a76e/'
+  curl --location 'http://127.0.0.1:8000/students/1'
   ```
 
   **5. Make a DELETE request**
 
   ```bash
-   curl --location --request DELETE 'http://127.0.0.1:8000/user/ee2af3fc-0503-4a6a-a452-b7d8c87a085b/'
+  curl --location --request DELETE 'http://127.0.0.1:8000/students/1'
   ```
 
   Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -565,43 +516,35 @@ Depending on your OS, choose your adventure:
       method: GET
       proto_major: 1
       proto_minor: 1
-      url: http://127.0.0.1:8000/user/
+      url: http://127.0.0.1:8000/students/
       header:
         Accept: "*/*"
         Host: 127.0.0.1:8000
         User-Agent: curl/7.81.0
       body: ""
       body_type: ""
-      timestamp: 2023-11-05T12:49:22.444698436+05:30
+      timestamp: 2023-11-06T10:42:43.046337785+05:30
     resp:
-      status_code: 200
+      status_code: 404
       header:
-        Allow: POST, OPTIONS, GET
-        Content-Length: "31"
+        Content-Length: "29"
         Content-Type: application/json
-        Cross-Origin-Opener-Policy: same-origin
-        Date: Sun, 05 Nov 2023 07:19:22 GMT
-        Referrer-Policy: same-origin
-        Server: WSGIServer/0.2 CPython/3.10.12
-        Vary: Accept, Cookie
-        X-Content-Type-Options: nosniff
-        X-Frame-Options: DENY
-      body: '{"message": "No Users Found!!"}'
+        Date: Mon, 06 Nov 2023 05:12:42 GMT
+        Server: uvicorn
+      body: '{"detail":"Data not found!!"}'
       body_type: ""
       status_message: ""
       proto_major: 0
       proto_minor: 0
-      timestamp: 2023-11-05T12:49:24.85684599+05:30
+      timestamp: 2023-11-06T10:42:45.959907593+05:30
     objects: []
     assertions:
       noise:
         - header.Date
-        - header.Allow
-        - header.Vary
-    created: 1699168764
+    created: 1699247565
   curl: |
     curl --request GET \
-    --url http://127.0.0.1:8000/user/ \
+    --url http://127.0.0.1:8000/students/ \
     --header 'User-Agent: curl/7.81.0' \
     --header 'Accept: */*' \
     --header 'Host: 127.0.0.1:8000' \
@@ -620,7 +563,7 @@ Depending on your OS, choose your adventure:
             identifier: ClientRequest
             length: 8
             query:
-                string: SELECT "application_user"."id", "application_user"."name", "application_user"."email", "application_user"."password", "application_user"."website" FROM "application_user"
+                string: SELECT students."ID" AS "students_ID", students."Name" AS "students_Name", students."Email" AS "students_Email", students."Hashed Password" AS "students_Hashed Password", students."Subject Stream" AS "students_Subject Stream" FROM students LIMIT 100 OFFSET 0
             msg_type: 81
             auth_type: 0
         postgresresponses:
@@ -644,12 +587,12 @@ Depending on your OS, choose your adventure:
                     - 32
                     - 48
             ready_for_query:
-                txstatus: 73
-            row_description: {fields: [{name: [105, 100], table_oid: 24705, table_attribute_number: 1, data_type_oid: 2950, data_type_size: 16, type_modifier: -1, format: 0}, {name: [110, 97, 109, 101], table_oid: 24705, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [101, 109, 97, 105, 108], table_oid: 24705, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: 258, format: 0}, {name: [112, 97, 115, 115, 119, 111, 114, 100], table_oid: 24705, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}, {name: [119, 101, 98, 115, 105, 116, 101], table_oid: 24705, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: 54, format: 0}]}
+                txstatus: 84
+            row_description: {fields: [{name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 73, 68], table_oid: 24577, table_attribute_number: 1, data_type_oid: 23, data_type_size: 4, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 78, 97, 109, 101], table_oid: 24577, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 69, 109, 97, 105, 108], table_oid: 24577, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 72, 97, 115, 104, 101, 100, 32, 80, 97, 115, 115, 119, 111, 114, 100], table_oid: 24577, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 83, 117, 98, 106, 101, 99, 116, 32, 83, 116, 114, 101, 97, 109], table_oid: 24577, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}]}
             msg_type: 90
             auth_type: 0
-        reqtimestampmock: 2023-11-05T12:49:22.471612071+05:30
-        restimestampmock: 2023-11-05T12:49:22.47169658+05:30
+        reqtimestampmock: 2023-11-06T10:42:43.063446464+05:30
+        restimestampmock: 2023-11-06T10:42:43.063544657+05:30
   ```
 
   Want to see if everything works as expected?
@@ -659,7 +602,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 8000:8000 --rm --network django-postgres-network --name djangoPostgresApp django-app:1.0" --delay 10
+  keploy test -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
