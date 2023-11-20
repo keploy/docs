@@ -1,7 +1,7 @@
 ---
 id: samples-fastapi-twilio
 title: Sample SMS Sending App (FastAPI-Twilio)
-sidebar_label: FastAPI + Twilio
+sidebar_label: FastAPI + Twilio (HTTP)
 description: The following sample app showcases how to use the FastAPI framework with Twilio's SMS Service and the Keploy Platform.
 tags:
   - FastAPI Framework
