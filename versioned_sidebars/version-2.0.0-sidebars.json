@@ -17,20 +17,44 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "quickstart/samples-gin",
-        "quickstart/samples-mux",
-        "quickstart/samples-nodejs",
-        "quickstart/samples-redis",
-        "quickstart/samples-django",
-        "quickstart/samples-echo",
-        "quickstart/samples-bunjs",
-        "quickstart/samples-fastapi-twilio",
-        "quickstart/samples-flask",
-        "quickstart/samples-fastapi"
+        {
+          "type": "category",
+          "label": "Python",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-django",
+            "quickstart/samples-flask",
+            "quickstart/samples-fastapi",
+            "quickstart/samples-fastapi-twilio"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Go",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-gin",
+            "quickstart/samples-mux",
+            "quickstart/samples-echo",
+            "quickstart/samples-redis"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Other",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "quickstart/samples-bunjs",
+            "quickstart/samples-nodejs",
+            "quickstart/samples-java"
+          ]
+        }
       ]
     }
   ],
-
   "sidebarExplanation": [
     {
       "type": "category",
