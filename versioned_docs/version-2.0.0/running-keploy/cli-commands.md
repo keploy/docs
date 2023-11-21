@@ -11,20 +11,20 @@ keywords:
   - commands
 ---
 
-`# <center> Keploy CLI Docs </center>
+# <center> Keploy CLI Docs </center>
 
 ## Table of Contents
 
 Keploy CLI has the following <b> commands </b>:
 
-- [Table of Contents](#table-of-contents)
-  - [Usage](#usage)
-  - [Common flags to use with all commands](#common-flags-to-use-with-all-commands)
-- [record](#record)
-- [test](#test)
-- [generate-config](#generate-config)
-- [example](#example)
-- [completion](#completion)
+  - [Table of Contents](#table-of-contents)
+    - [Usage](#usage)
+    - [Common flags to use with all commands](#common-flags-to-use-with-all-commands)
+  - [record](#record)
+  - [test](#test)
+  - [generate-config](#generate-config)
+  - [example](#example)
+  - [completion](#completion)
 
 ### Usage
 
