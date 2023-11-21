@@ -11,9 +11,9 @@ keywords:
 
 Tired of specifying the same container name, app command, or delay for each record or test command? 😴
 
-Introducing configuration file 🎉
+Introducing Keploy-config 🎉
 
-It is a YAML-based file named keploy-config.yaml. This file will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
+It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
 
 To generate a keploy-config file, run:
 
