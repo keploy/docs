@@ -50,15 +50,6 @@
             "quickstart/samples-bunjs",
             "quickstart/samples-nodejs"
           ]
-        },
-        {
-          "type": "category",
-          "label": "Java",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-java"
-          ]
         }
       ]
     }
