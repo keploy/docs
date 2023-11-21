@@ -1,6 +1,7 @@
 ---
 id: samples-flask
 title: Sample Student Data CRUD App (Flask)
+sidebar_label: Flask + Mongo
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
 tags:
   - Flask Framework

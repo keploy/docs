@@ -1,6 +1,7 @@
 ---
 id: samples-echo
 title: Echo SQL Sample Application
+sidebar_label: Echo + Postgres
 description: The following sample app showcases how to use Echo framework and the Keploy Platform.
 tags:
   - Echo Framework
