@@ -11,20 +11,15 @@ keywords:
   - commands
 ---
 
-# <center> Keploy CLI Docs </center>
-
 ## Table of Contents
 
 Keploy CLI has the following <b> commands </b>:
 
-  - [Table of Contents](#table-of-contents)
-    - [Usage](#usage)
-    - [Common flags to use with all commands](#common-flags-to-use-with-all-commands)
-  - [record](#record)
-  - [test](#test)
-  - [generate-config](#generate-config)
-  - [example](#example)
-  - [completion](#completion)
+- [Usage](#usage)
+- [Common flags to use with all commands](#common-flags-to-use-with-all-commands)
+- [record](#record)
+- [test](#test)
+- [generate-config](#generate-config)
 
 ### Usage
 
@@ -35,8 +30,6 @@ keploy [command] [flags]
 ### Common flags to use with all commands
 
 - `--help, -h` - Shows the description and available help for the command
-
-<hr>
 
 ## [record](#record)
 
@@ -83,7 +76,7 @@ keploy test [flags]
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
 - `--proxyport uint32` - Port to choose to run Keploy as a proxy.
 - `-t, --testsets strings` - To specify which specific testsets are to be executed. The default is all testsets.
-  - - `--debug` - To start executing testcases with debug mode enabled.
+- `--debug` - To start executing testcases with debug mode enabled.
 
 ## [generate-config](#generate-config)
 
@@ -98,29 +91,3 @@ keploy generate-config [flags]
 <b> Available flags: </b>
 
 - `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
-
-## [example](#example)
-
-The `example` command in Keploy allows the user to view the example on how to record and test their application via Keploy.
-
-<b> Usage: </b>
-
-```bash
-keploy example [flags]
-```
-
-<b> Available flags: </b>
-
-- `--customSetup` - To check if the user is using the one click install.
-
-## [completion](#completion)
-
-The `completion` command in Keploy allows the user generate the autocompletion script for the specified shell.
-
-<b> Usage: </b>
-
-```bash
-keploy completion [flags]
-```
-
-<b> Available flags: </b>

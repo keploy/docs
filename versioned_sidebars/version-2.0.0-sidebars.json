@@ -83,7 +83,8 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "running-keploy/rename-testcases"
+        "running-keploy/rename-testcases",
+        "running-keploy/cli-commands"
       ]
     },
     {
