@@ -16,7 +16,6 @@ Introducing Keploy-config 🎉
 It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
 
 To generate a keploy-config file, run:
-
 ```bash
 keploy generate-config --path "/path/to/your/project"
 ```
