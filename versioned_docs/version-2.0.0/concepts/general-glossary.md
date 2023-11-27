@@ -26,3 +26,7 @@ For example, a Timestamp is one such property that returns the time when the req
 ### 4. **Interoperability**
 
 Interoperability refers to the situation when the behavior of the data is in its original (native) format when transferred from one platform to other. It reduces the dependency of files by replacing them with optimized code giving the same result.
+
+### 5. **Deduplication Algorithm**
+
+Deduplication is a data compression technique wherein redundant copies of the same data are identified and eliminated. This process involves hash functions or similarity analysis to compare data chunks, enabling the storage system to store only one instance of each unique data segment, thereby optimizing storage efficiency and reducing redundancy.
