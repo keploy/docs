@@ -75,6 +75,7 @@
       "collapsed": false,
       "items": [
         "running-keploy/rename-testcases",
+        "running-keploy/configuration-file",
         "running-keploy/cli-commands"
       ]
     },
