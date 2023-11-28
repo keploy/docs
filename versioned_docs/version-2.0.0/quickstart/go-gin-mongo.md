@@ -1,7 +1,7 @@
 ---
 id: samples-gin
 title: Sample URL Shortener App (Golang)
-sidebar_label: Golang - Gin + Mongo
+sidebar_label: Gin + Mongo
 description: The following sample app showcases how to use gin framework and the Keploy Platform.
 tags:
   - Gin Framework
@@ -16,7 +16,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [mongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
 ## Pre-Requisite 🛠️
 

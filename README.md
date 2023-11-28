@@ -79,47 +79,55 @@ The command starts a local development server and opens a browser window.
 
 ```sh
 git clone https://github.com/<GITHUB_USERNAME>/docs.git
-```
 
-<br/>
+## Go into the directory containing the project
 
-3. Go into the directory containing the project
-
-```sh
 cd docs
 ```
 
 <br/>
 
-4. Install all the dependencies
+3. Install all the dependencies
 
 ```sh
-yarn
-```
+yarn install
 
-<br/>
+## Start the development server.
 
-5. Start the development server.
-
-```sh
 yarn start
 ```
 
-6. To reformat:
+4. To reformat:
 
-```
+```sh
 yarn prettier --write '**/*.{js,md}'
 ```
 
-When we merge your PR, a new build automatically occurs and your changes publish to [https://docs.keploy.io](https://docs.keploy.io).
+5. Check the build status:
+
+```sh
+npm run build
+```
+
+> Note: if the Build is failing, fix the changes before making PR.
+
+When we merge your PR, a new build automatically occurs and your changes publish to [https://keploy.io/docs](https://keploy.io/docs).
 
 ## How to Get Involved?
 
 Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
 
-## Community support
+## Community Support ❤️
 
-We'd love to collaborate with you to make Keploy great. To get started:
+### 🤔 Questions?
 
-- [Slack](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA) - Discussions with the community and the team.
-- [GitHub](https://github.com/keploy/keploy/issues) - For bug reports and feature requests.
+Reach out to us. We're here to help!
+
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-12rfbvc01-o54cOG0X1G6eVJTuI_orSA)
+[![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/keploy/)
+[![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg)
+[![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/Keployio)
+
+### 💖 Let's Build Together!
+
+Whether you're a newbie coder or a wizard 🧙‍♀️, your perspective is golden. Take a peek at our:

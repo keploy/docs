@@ -4,6 +4,19 @@ title: Linux Installation
 sidebar_label: Linux
 ---
 
+Keploy can be installed in two ways:
+
+1. [One-Click Install](#one-click-install-keploy).
+2. [Manual Install](#manual-install)
+
+## One click install Keploy.
+
+```
+ curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+```
+
+## Manual Install
+
 There are two ways to use Keploy eBPF in linux, you can use either use:
 
 1. [Natively in Linux](#linux-native).
