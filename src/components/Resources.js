@@ -7,44 +7,47 @@ const links = [
     type: "article",
     title: "What's Keploy?",
     length: "3-20 min reads",
-    url: "docs/keploy-explained/introduction",
+    url: "/keploy-explained/introduction",
   },
   {
     type: "article",
     title: "Installation Guide",
     length: "10 min read",
-    url: "docs/server/server-installation",
+    url: "/server/linux/installation",
   },
   {
     type: "article",
     title: "QuickStart with Go Sample App",
     length: "10 min read",
-    url: "docs/go/quickstart/echo-sql",
+    url: "/quickstart/samples-gin",
   },
   {
     type: "article",
     title: "Why Keploy?",
     length: "1 min read",
-    url: "docs/keploy-explained/why-keploy",
+    url: "/keploy-explained/why-keploy",
   },
   {
     type: "video",
     title: "Demo Video of Keploy",
     length: "2 min watch",
-    url: "https://www.youtube.com/watch?v=Ssm4TnTkbLs&feature=emb_imp_woyt",
+    url: "https://www.youtube.com/watch?v=23yQaY81Zho",
   },
 ];
 
 export const Resources = () => {
   return (
-    <section className="my-12">
-      <h2 className="text-3xl md:text-4xl">Quick Links</h2>
+    <section className="mt-12 mb-4">
+      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
+        Quick Links
+      </h2>
       <ul className="mt-5 flex flex-col space-y-3 text-lg">
         {links.map((link, i) => (
           <li key={i} className="flex items-center space-x-3 hover:underline">
             {link.type === "article" ? (
+              // Article Link Icon
               <svg
-                className="h-7 w-7"
+                className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -56,8 +59,9 @@ export const Resources = () => {
                 />
               </svg>
             ) : (
+              // Other Link Icon (e.g., video, documentation)
               <svg
-                className="h-7 w-7"
+                className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
                 xmlns="http://www.w3.org/2000/svg"
@@ -70,6 +74,7 @@ export const Resources = () => {
               </svg>
             )}
 
+            {/* Link Text */}
             <Link className="flex-1" to={useBaseUrl(link.url)}>
               {link.title}{" "}
               <span className="text-xs uppercase opacity-80">

@@ -6,11 +6,13 @@ const FontPreloadPlugin = require("webpack-font-preload-plugin");
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Keploy Documentation",
-  tagline: "Automate API Testing",
-  url: "https://docs.keploy.io",
-  baseUrl: "/",
-  onBrokenLinks: "warn",
+  titleDelimiter: "🐰",
+  tagline: "API Test Generator Tool",
+  url: "https://keploy.io",
+  baseUrl: "/docs/",
+  onBrokenLinks: "throw",
   onBrokenMarkdownLinks: "warn",
+  trailingSlash: true,
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
@@ -28,6 +30,54 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
+    canonicalBase: "https://www.keploy.io/",
+    metadata: [
+      {
+        description: "",
+      },
+      {
+        name: "x-default",
+        content: "en-us",
+      },
+      {
+        name: "description",
+        content:
+          "Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
+      },
+      {
+        name: "keywords",
+        content:
+          "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
+      },
+      {name: "twitter:card", content: "summary_large_image"},
+    ],
+    headTags: [
+      // Preconnect tag
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://keploy.io/",
+        },
+      },
+      {
+        tagName: "script",
+        attributes: {
+          type: "application/ld+json",
+        },
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Product",
+          description:
+            "Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
+          keywords:
+            "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
+          name: "Keploy",
+          url: "https://keploy.io/",
+          logo: "https://keploy.io/docs/img/favicon.png",
+        }),
+      },
+    ],
     colorMode: {
       defaultMode: "light",
       disableSwitch: false,
@@ -64,9 +114,13 @@ module.exports = {
       },
       items: [
         {
-          to: "/docs/keploy-explained/introduction",
+          to: "/keploy-explained/introduction",
           activeBasePath: "none",
           label: "Explanation",
+        },
+        {
+          to: "/application-development",
+          label: "Installation",
         },
         // {
         //   to: "/docs/operation/web-ui-operations/",
@@ -80,84 +134,18 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/application-development",
-          activeBaseRegex:
-            "(/application-development)|(/docs/(go|java|php|node))",
-          label: "Installation",
+          to: "/keploy-explained/contribution-guide",
+          label: "Dev Guide",
         },
         {
-          to: "/docs/devtools/sdk-contrib-guide/",
-          activeBasePath: "(/docs/devtools)",
-          label: "Contributor Guide",
-        }, 
-        // {
-        //   to: "/docs/hacktoberfest/contribution-guide/",
-        //   activeBasePath: "(/docs/hacktoberfest)",
-        //   label: "Hacktoberfest",
-        // },
-        // {
-        //   activeBasePath: "/docs",
-        //   label: "Docs",
-        //   items: [
-        //     {
-        //       to: "/docs/keploy-explained/introduction",
-        //       activeBasePath: "/docs/keploy-explained/",
-        //       label: "Explanation",
-        //     },
-        //     {
-        //       to: "/docs/server/introduction",
-        //       activeBasePath: "/docs/server/",
-        //       label: "Installation",
-        //     },
-        //     {
-        //       to: "/docs/concepts",
-        //       activeBasePath: "/docs/concepts/",
-        //       label: "Concepts",
-        //     },
-        //     {
-        //       to: "/application-development",
-        //       activeBaseRegex:
-        //         "(/application-development)|(/docs/(go|java|php|node))",
-        //       label: "SDKs",
-        //     },
-        //   ],
-        // },
-        // {
-        //   activeBasePath: "none",
-        //   label: "Operations",
-        //   items: [
-        //     {
-        //       to: "/docs/operation/web-ui-operations/",
-        //       label: "Web UI",
-        //     },
-        //     {
-        //       to: "/docs/operation/record-operations/",
-        //       label: "Record",
-        //     },
-        //     {
-        //       to: "/docs/operation/test-operations/",
-        //       label: "Test",
-        //     },
-        //   ],
-        // },
-        // {
-        //   activeBasePath: "none",
-        //   label: "Contribution",
-        //   items: [
-        //     {
-        //       to: "/docs/devtools/sdk-contrib-guide/",
-        //       label: "SDK ",
-        //     },
-        //     {
-        //       to: "/docs/devtools/server-contrib-guide/",
-        //       label: "Server",
-        //     },
-        //     {
-        //       to: "/docs/devtools/ui-contrib-guide/",
-        //       label: "UI",
-        //     },
-        //   ],
-        // },
+          to: "https://community.keploy.io",
+          label: "Guest Posts",
+        },
+        {
+          type: "docsVersionDropdown",
+          position: "right",
+          dropdownActiveClassDisabled: true,
+        },
         {
           href: "https://github.com/keploy/keploy",
           position: "right",
@@ -186,7 +174,6 @@ module.exports = {
         <a class="footer__link-item" href="/security">Security</a>
         <span class="footer__separators"> | </span>
         <a class="footer__link-item" href="/privacy-policy">Privacy Policy</a>
-        <span class="footer__separators"> | </span>
       </div>
       `,
     },
@@ -194,7 +181,7 @@ module.exports = {
       apiKey: "c4628c331b0f4997178c879978033276",
       indexName: "keploy",
       appId: "WZTL8PLCOD",
-      // contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
+      contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
   },
@@ -205,7 +192,7 @@ module.exports = {
         // Will be passed to @docusaurus/plugin-content-docs
         docs: {
           sidebarPath: require.resolve("./sidebars.js"),
-          routeBasePath: "docs",
+          routeBasePath: "/",
           exclude: ["**/shared/**"], // do not render "shared" content
           editUrl: "https://github.com/keploy/docs/blob/master",
           /**
@@ -222,6 +209,15 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
+          lastVersion: "2.0.0",
+          versions: {
+            "1.0.0": {
+              label: "1.0.0",
+              path: "1.0.0",
+              banner: "unmaintained",
+            },
+          },
+          onlyIncludeVersions: ["1.0.0", "2.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
@@ -324,7 +320,17 @@ module.exports = {
   ],
   scripts: [
     {
-      src: "/scripts/feedback.js",
+      src: "/docs/scripts/feedback.js",
+      async: true,
+      defer: true,
+    },
+    {
+      src: "/docs/scripts/clarity.js",
+      async: true,
+      defer: true,
+    },
+    {
+      src: "/docs/scripts/chat.js",
       async: true,
       defer: true,
     },

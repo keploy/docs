@@ -4,46 +4,76 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export const QuickStart = () => {
   return (
-    <section className="mt-1 mb-14">
+    <section className="mt-1">
       <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-5xl">
-        Keploy Documentation
+        Welcome to Keploy Documentation! 🚀
       </h1>
-      <p className="max-w-4xl text-xl">
-          Keploy is simple e2e testing toolkit for developers.
-          It creates test-cases and data mocks/stubs by recording API calls, DB queries, etc,
-          making releases faster and highly-reliable.
+      <p className="max-w-3xl text-l">
+        This documentation is your roadmap to becoming a Keploy expert, whether
+        you're a seasoned developer or just starting out. 🗺️
       </p>
-      <h2 className="mt-8 text-3xl md:text-4xl">QuickStart</h2>
-      <p className="mt-8 mb-8">
-        Follow a QuickStart in language of your choice.
+
+      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl mt-8">
+        What is Keploy? 🤔
+      </h2>
+      <p className="max-w-4xl text-l">
+        Keploy is your open-source, developer-centric backend testing tool. It
+        makes backend testing easy and productive for engineering teams. Plus,
+        it's easy-to-use, powerful and extensible..🛠️
       </p>
-      <div className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
+      <p className="max-w-4xl text-l mt-4">
+        Keploy creates test cases and data mocks/stubs from user-traffic by
+        recording API calls and DB queries, significantly speeding up releases
+        and enhancing reliability. 📈
+      </p>
+
+      <h2 className="mt-8 text-2xl md:text-3xl font-semibold tracking-wide">
+        Installation Guide 📗
+      </h2>
+      <p className="max-w-4xl text-l mt-4 mb-8">
+        Let's get Keploy up and running on your Windows, Linux, or macOS
+        machine, so you can start crafting test cases in minutes. ⏱️
+      </p>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
         <Link
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/go/quickstart/echo-sql")}
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/server/windows/installation")}
         >
           <img
             className="h-16 w-16"
-            src="/img/go-lang.svg"
-            alt="Go lang logo"
+            src="/docs/img/os/windows-logo.svg"
+            alt="Windows logo"
           />
-          <p className="text-lg">Go</p>
+          <p className="text-lg font-semibold">Windows</p>
         </Link>
         <Link
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/java/quickstart/spring-sql")}
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/server/linux/installation")}
         >
-          <img className="h-16 w-16" src="/img/java.svg" alt="Java logo" />
-          <p className="text-lg">Java</p>
+          <img
+            className="h-16 w-16"
+            src="/docs/img/os/linux-logo.svg"
+            alt="Linux logo"
+          />
+          <p className="text-lg font-semibold">Linux</p>
         </Link>
         <Link
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/docs/typescript/installation")}
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/server/macos/installation")}
         >
-          <img className="h-16 w-16" src="/img/typescript.svg" alt="Typescript logo" />
-          <p className="text-lg">Typescript</p>
+          <img
+            className="h-16 w-16"
+            src="/docs/img/os/apple-logo.svg"
+            alt="Mac logo"
+          />
+          <p className="text-lg font-semibold">MacOS</p>
         </Link>
       </div>
+      <p className=" text-l mt-6 text-gray-500">
+        ⚠️ Please note that Keploy v2 is currently in development, with the best
+        experience on Linux. Docker support is experimental and may have some
+        limitations for certain use cases.
+      </p>
     </section>
   );
 };

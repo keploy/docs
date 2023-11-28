@@ -10,16 +10,16 @@ function PrivacyPolicy() {
     <Layout
       title="Keploy, Inc. Privacy Policy"
       permalink="/privacy-policy"
-      description="General information about Keploy's documentation."
+      description="Privacy Policy information about Keploy."
     >
       <main className="margin-vert--lg container">
         <h1 id="technologies-inc-privacy-policy">
           Keploy, Inc. Privacy Policy
         </h1>
-        <p>Last updated: Feb 8th, 2021</p>
+        <p>Last updated: June 8th, 2023</p>
         <p>
           Keploy Inc. operates <a href="https://keploy.io">https://keploy.io</a>{" "}
-          and <a href="https://docs.keploy.io">https://docs.keploy.io</a> (the
+          and <a href="https://keploy.io/docs">https://docs.keploy.io</a> (the
           &quot;Sites&quot;). This page informs you of our policies regarding
           the collection, use and disclosure of Personal Information we receive
           from users of the Sites.

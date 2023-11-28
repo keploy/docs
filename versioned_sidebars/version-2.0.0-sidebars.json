@@ -1,0 +1,113 @@
+{
+  "sidebarInstallation": [
+    {
+      "type": "category",
+      "label": "Installation",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "server/windows/installation",
+        "server/linux/installation",
+        "server/macos/installation"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Running Keploy",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "running-keploy/rename-testcases",
+        "running-keploy/configuration-file",
+        "running-keploy/cli-commands"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Sample-App",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        {
+          "type": "category",
+          "label": "Python",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-django",
+            "quickstart/samples-flask",
+            "quickstart/samples-fastapi",
+            "quickstart/samples-fastapi-twilio"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Golang",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-mux",
+            "quickstart/samples-echo",
+            "quickstart/samples-gin",
+            "quickstart/samples-redis"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Javascript",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-bunjs",
+            "quickstart/samples-nodejs"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Resources",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "concepts/general-glossary"
+      ]
+    }
+  ],
+  "sidebarExplanation": [
+    {
+      "type": "category",
+      "label": "Explanation",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy",
+        "keploy-explained/faq",
+        "server/index"
+      ]
+    }
+  ],
+
+  "sidebarContributionGuide": [
+    {
+      "type": "category",
+      "label": "Dev Guide",
+      "collapsible": false,
+      "items": [
+        "keploy-explained/contribution-guide",
+        "keploy-explained/docs-dev-guide"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Database Support",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "dependencies/mongo"
+      ]
+    }
+  ]
+}

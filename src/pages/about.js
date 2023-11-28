@@ -10,7 +10,7 @@ function About() {
     <Layout
       title="About the docs"
       permalink="/about"
-      description="General information about Keploy's documentation."
+      description="User General Information about Keploy's Documentation"
     >
       <main className="margin-vert--lg container">
         <h1>About the docs</h1>
