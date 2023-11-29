@@ -97,7 +97,7 @@ docker-compose up -d
 ### Capture the testcases
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'bun run supabun.ts'
+sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
 ```
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
