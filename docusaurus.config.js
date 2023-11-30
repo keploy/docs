@@ -33,7 +33,7 @@ module.exports = {
     canonicalBase: "https://www.keploy.io/",
     metadata: [
       {
-        description: "",
+        description: "Documentation for Keploy Backend Test Generator",
       },
       {
         name: "x-default",
@@ -47,7 +47,7 @@ module.exports = {
       {
         name: "keywords",
         content:
-          "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
+          "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
       {name: "twitter:card", content: "summary_large_image"},
     ],
