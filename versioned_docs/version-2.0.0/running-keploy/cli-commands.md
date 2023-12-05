@@ -210,6 +210,7 @@ keploy generate-config [flags]
 The `example` command in Keploy is designed to illustrate the usage of Keploy in various scenarios, showing its capabilities with different types of applications and setups. Below are examples for using Keploy with Golang, Node.js, Java, and Docker applications.
 
 <b> Usage: </b>
+
   ```bash
   keploy example [flags]
   ```
