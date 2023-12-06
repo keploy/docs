@@ -181,7 +181,7 @@ module.exports = {
       apiKey: "c4628c331b0f4997178c879978033276",
       indexName: "keploy",
       appId: "WZTL8PLCOD",
-      contextualSearch: false, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
+      contextualSearch: true, // Optional, If you different version of docs etc (v1 and v2) doesn't display dup results
       // algoliaOptions: {}, // Optional, if provided by Algolia
     },
   },
