@@ -65,7 +65,7 @@ go build -o gin-mongo-binary  # Generate binary of the application:
  go run -exec "sudo -E env 'PATH=$PATH'" main.go record -c "path/to/go/binary/of/application"
 ```
 
-After entering record mode, send requests to your application to generate test cases. If using POSTMAN, remember to turn off the keep-alive header.
+After entering record mode, send requests to your application to generate test cases.
 
 #### Running Test Cases:
 
