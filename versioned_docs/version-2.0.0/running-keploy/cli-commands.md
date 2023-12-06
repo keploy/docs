@@ -217,4 +217,4 @@ The `example` command in Keploy is designed to illustrate the usage of Keploy in
 
 <b> Available Flags: </b>
 
-- `--customSetup`: Displays commands tailored for custom user-defined setups.
+- `--customSetup` - Displays commands tailored for custom user-defined setups.
