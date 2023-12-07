@@ -21,6 +21,7 @@ Keploy CLI has the following <b> commands </b>:
 - [record](#record)
 - [test](#test)
 - [generate-config](#generate-config)
+- [example](#example)
 
 ### Usage
 
@@ -203,3 +204,17 @@ keploy generate-config [flags]
   ```
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy-config.yaml` is to be stored.
+
+## [example](#example)
+
+The `example` command in Keploy is designed to illustrate the usage of Keploy in various scenarios, showing its capabilities with different types of applications and setups. Below are examples for using Keploy with Golang, Node.js, Java, and Docker applications.
+
+<b> Usage: </b>
+
+```bash
+keploy example [flags]
+```
+
+<b> Available Flags: </b>
+
+- `--customSetup` - Displays commands tailored for custom user-defined setups.
