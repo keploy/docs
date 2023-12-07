@@ -44,7 +44,7 @@ test:
     containerName: ""
     networkName: ""
     # example: "test-set-1": ["test-1", "test-2", "test-3"]
-    tests: 
+    tests:
     # to use globalNoise, please follow the guide at the end of this file.
     globalNoise:
         global:
@@ -77,10 +77,10 @@ Visit the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/)
 The additional relief that the config file provides is that it allows the user to specify the `Global Noise` and `Test-Set Noise` in the config file itself. The global noise and test set noise are the [Noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) that are needed to be ignore while comparing the response of the API calls. The global noise is the noise that is to be ignored for all the API calls, whereas the test-set noise is the noise that is to be ignored for a particular test set. The global noise and test-set noise are specified in the config file as shown below:
 
 ```bash
-    globalNoise: 
+    globalNoise:
       global:
         body: {
-          # to ignore some values for a field, 
+          # to ignore some values for a field,
           # pass regex patterns to the corresponding array value
           "url": ["https?://\S+", "http://\S+"],
         }
@@ -90,14 +90,14 @@ The additional relief that the config file provides is that it allows the user t
         }
       # to ignore fields or the corresponding values for a specific test-set,
       # pass the test-set-name as a key to the "test-sets" object and
-      # populate the corresponding "body" and "header" objects 
+      # populate the corresponding "body" and "header" objects
       test-sets:
         test-set-1:
           body: {
             # ignore all the values for the "url" field
             "uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]
           }
-          header: { 
+          header: {
             # we can also pass the exact value to ignore for a field
             "User-Agent": ["PostmanRuntime/7.34.0"]
           }
