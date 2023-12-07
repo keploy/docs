@@ -33,6 +33,9 @@ record:
     networkName: ""
     delay: 5
     passThroughPorts: []
+    filters:
+        ReqHeader: []
+        urlMethods: {}
 test:
     path: ""
     # mandatory
@@ -40,23 +43,19 @@ test:
     proxyport: 0
     containerName: ""
     networkName: ""
-    testSets: []
-    globalNoise: |-
-        {
-          "global": {
-            "body": {},
-            "header": {}
-          },
-          "test-sets": {
-            "test-set-name": {
-              "body": {},
-              "header": {}
-            }
-          }
-        }
+    # example: "test-set-1": ["test-1", "test-2", "test-3"]
+    tests:
+    # to use globalNoise, please follow the guide at the end of this file.
+    globalNoise:
+        global:
+            body: {}
+            header: {}
+        test-sets:
     delay: 5
     apiTimeout: 5
     passThroughPorts: []
+    withCoverage: false
+    coverageReportPath: ""
 ```
 
 The presence of this file allows the user to eliminate the monotonous way of specifying the same parameters/flags for each record or test command in every run. The flags specified in the Keploy's [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) are now converted into parameters to the record and test command in the config file. These parameters take the same input as the flags in the CLI command. Specifying those parameters in the config file will allow the user to directly run the record or test command without specifying the flags as shown below:
@@ -78,33 +77,30 @@ Visit the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/)
 The additional relief that the config file provides is that it allows the user to specify the `Global Noise` and `Test-Set Noise` in the config file itself. The global noise and test set noise are the [Noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) that are needed to be ignore while comparing the response of the API calls. The global noise is the noise that is to be ignored for all the API calls, whereas the test-set noise is the noise that is to be ignored for a particular test set. The global noise and test-set noise are specified in the config file as shown below:
 
 ```bash
-    globalNoise: |-
-     {
-       "global": {
-         "body": {
-            # to ignore some values for a field,
-            # pass regex patterns to the corresponding array value
-            "url": ["https?://\S+", "http://\S+"],
-         },
-         "header": {
-            # to ignore the entire field, pass an empty array
-            "Date: [],
-          }
-        },
-        # to ignore fields or the corresponding values for a specific test-set,
-        # pass the test-set-name as a key to the "test-sets" object and
-        # populate the corresponding "body" and "header" objects
-        "test-sets": {
-          "test-set-1": {
-            "body": {
-              "uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]
-            },
-            "header": {
-              # we can also pass the exact value to ignore for a field
-              "User-Agent": ["PostmanRuntime/7.34.0"]
-            }
-          }
+    globalNoise:
+      global:
+        body: {
+          # to ignore some values for a field,
+          # pass regex patterns to the corresponding array value
+          "url": ["https?://\S+", "http://\S+"],
         }
+        header: {
+          # to ignore the entire field, pass an empty array
+          "Date: [],
+        }
+      # to ignore fields or the corresponding values for a specific test-set,
+      # pass the test-set-name as a key to the "test-sets" object and
+      # populate the corresponding "body" and "header" objects
+      test-sets:
+        test-set-1:
+          body: {
+            # ignore all the values for the "url" field
+            "url": []
+          }
+          header: {
+            # we can also pass the exact value to ignore for a field
+            "User-Agent": ["PostmanRuntime/7.34.0"]
+          }
 ```
 
 The `globalNoise` and `test-set noise` are optional fields in the config file. If not specified, the default value for both the fields is an empty object `{}`.
