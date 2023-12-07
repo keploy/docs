@@ -95,7 +95,7 @@ The additional relief that the config file provides is that it allows the user t
         test-set-1:
           body: {
             # ignore all the values for the "url" field
-            "url": []
+            "uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]
           }
           header: { 
             # we can also pass the exact value to ignore for a field
