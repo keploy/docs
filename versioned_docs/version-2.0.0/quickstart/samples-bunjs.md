@@ -59,7 +59,7 @@ Depending on your OS, choose your adventure:
   Moving on...
 
   <details>
-    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux / WSL </summary>
+  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux / WSL </summary>
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -130,7 +130,85 @@ Depending on your OS, choose your adventure:
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
-    </details>
+  </details>
+
+  <details>
+  <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
+
+  #### Add alias for Keploy 🐰:
+
+  For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+  ```
+
+  ### Lights, Camera, Record! 🎥
+
+  First We'll start our MongoDb Instance:
+
+  ```sh
+  docker-compose up -d
+  ```
+
+  Now, let's build docker image for our application:
+
+  ```sh
+  docker build -t bun-app:1.0 .
+  ```
+
+  Now, We'll run keploy in record mode:
+
+  ```sh
+  keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
+  ```
+
+  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+
+  #### Let's generate the testcases.
+
+  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+
+  ```bash
+  curl --request POST localhost:420/save
+  ```
+
+  Here's a peek of what you get:
+
+  ```
+  {"succes":true}
+  ```
+
+  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
+
+  _Time to perform more API magic!_
+  Follow the breadcrumbs... or Make more API Calls
+
+  ```bash
+  curl --request GET localhost:420/fetch
+  ```
+
+  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+
+  this will provide us with the output:-
+
+  ```
+  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  ```
+
+  We will get the following output in our terminal
+
+  ![Testcase](/img/testcase-bun.png)
+
+  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+
+  ## Wrapping it up 🎉
+
+  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+  Happy coding! ✨👩‍💻👨‍💻✨
+  </details>
+
   </details>
    <br/>
 
