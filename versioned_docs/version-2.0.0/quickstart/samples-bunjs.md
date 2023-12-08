@@ -1,6 +1,7 @@
 ---
 id: samples-bunjs
 title: BunJS Sample Application
+sidebar_label: BunJS + Mongo
 description: The following sample app showcases how to use BunJS framework and the Keploy Platform.
 tags:
   - BunJS Framework
@@ -91,12 +92,12 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 docker-compose up -d
 ```
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://loacalhost:27017/keploy`.**
+> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
 
 ### Capture the testcases
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'bun run supabun.ts'
+sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
 ```
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.

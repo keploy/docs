@@ -1,7 +1,7 @@
 ---
 id: samples-mux
 title: Sample Product Catelog App (Golang)
-sidebar_label: Golang - Mux + Postgres
+sidebar_label: Mux + Postgres
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
   - Mux Framework

@@ -13,21 +13,67 @@
     },
     {
       "type": "category",
+      "label": "Running Keploy",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "running-keploy/rename-testcases",
+        "running-keploy/configuration-file",
+        "running-keploy/cli-commands"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Sample-App",
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "quickstart/samples-gin",
-        "quickstart/samples-mux",
-        "quickstart/samples-nodejs",
-        "quickstart/samples-redis",
-        "quickstart/samples-django",
-        "quickstart/samples-echo",
-        "quickstart/samples-bunjs"
+        {
+          "type": "category",
+          "label": "Python",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-django",
+            "quickstart/samples-flask",
+            "quickstart/samples-fastapi",
+            "quickstart/samples-fastapi-twilio"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Golang",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-mux",
+            "quickstart/samples-echo",
+            "quickstart/samples-gin",
+            "quickstart/samples-redis"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Javascript",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-bunjs",
+            "quickstart/samples-nodejs"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Resources",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "concepts/general-glossary"
       ]
     }
   ],
-
   "sidebarExplanation": [
     {
       "type": "category",
@@ -40,35 +86,6 @@
         "keploy-explained/why-keploy",
         "keploy-explained/faq",
         "server/index"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Running Keploy",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "running-keploy/rename-testcases"
-      ]
-    },
-      {
-      "type": "category",
-      "label": "Hacktoberfest 2023",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "hacktoberfest/contribution-guide",
-        "hacktoberfest/code-contribution",
-        "hacktoberfest/no-code-contribution"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Resources",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "concepts/general-glossary"
       ]
     }
   ],
