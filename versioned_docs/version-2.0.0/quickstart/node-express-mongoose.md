@@ -123,18 +123,17 @@ Depending on your OS, choose your adventure:
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-  Our testcases failed as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
+  Our testcases failed because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
   ```
         noise:
         |   - header.Date
-        |   - header.Keep-Alive
         |   - header.Connection
   ```
 
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
+  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
@@ -224,11 +223,10 @@ Depending on your OS, choose your adventure:
   ```
         noise:
         |   - header.Date
-        |   - header.Keep-Alive
         |   - header.Connection
   ```
 
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
+  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
@@ -314,18 +312,17 @@ Depending on your OS, choose your adventure:
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-  Our testcases failed as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
+  Our testcases failed because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
   ```
         noise:
         |   - header.Date
-        |   - header.Keep-Alive
         |   - header.Connection
   ```
 
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
+  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
 
   ## Wrapping it up 🎉
 
