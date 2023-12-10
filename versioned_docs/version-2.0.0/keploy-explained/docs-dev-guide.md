@@ -58,7 +58,7 @@ cd docs
 4. Install all the dependencies
 
 ```sh
-yarn
+yarn install
 ```
 
 5. Start the development server.
