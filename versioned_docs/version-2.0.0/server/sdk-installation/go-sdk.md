@@ -26,6 +26,7 @@ This is the client SDK for the [Keploy](https://github.com/keploy/keploy) testin
 4. [Code coverage by the API tests](#code-coverage-by-the-api-tests)
 
 ## Installation
+
 Add the Keploy Go SDK to your project:
 
 ```go
@@ -35,12 +36,15 @@ go get -u github.com/keploy/go-sdk/v2
 ## Usage
 
 ### Code coverage by the API tests
+
 The code coverage for the keploy API tests using the `go-test` integration.
 Keploy can be integrated in your CI pipeline which can add the coverage of your keploy test.
 
 The percentage of code covered by the recorded tests is logged if the test cmd is ran with the go binary and `withCoverage` flag. The conditions for the coverage is:
+
 1. The go binary should be built with `-cover` flag.
 2. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Or if not call the **GracefulShutdown** from the main function of your go program. Ex:
+
 ```go
 func main() {
 
@@ -56,11 +60,15 @@ func main() {
 	r.Run()
 }
 ```
+
 The keploy test cmd will look like:
+
 ```sh
 keploy test -c "PATH_TO_GO_COVER_BIANRY" --withCoverage
 ```
+
 The coverage files will be stored in the directory.
+
 ```
 keploy
 ├── coverage-reports
@@ -75,13 +83,16 @@ keploy
 │       ├── test-3.yaml
 │       └── test-4.yaml
 ```
+
 Coverage percentage log in the cmd will be:
+
 ```sh
 🐰 Keploy: 2023-12-07T08:53:14Z         INFO    test/test.go:261
         test-app-url-shortener          coverage: 78.4% of statements
 ```
 
 Also the go-test coverage can be merged along the recorded tests coverage by following the steps:
+
 ```sh
 go test -cover ./... -args -test.gocoverdir="PATH_TO_UNIT_COVERAGE_FILES"
 
@@ -135,7 +146,6 @@ err := keploy.New(keploy.Config{
 #### Example
 
 Mocks/Stubs can be generated for external dependency calls of go unit tests as `readable/editable` yaml files using Keploy.
-
 
 ```go
 package main
@@ -215,4 +225,3 @@ func TestPutURL(t *testing.T) {
 	}
 }
 ```
-

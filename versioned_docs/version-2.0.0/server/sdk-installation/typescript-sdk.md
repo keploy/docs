@@ -3,7 +3,7 @@ id: typescript
 title: Integrate with Jest
 sidebar_label: Integrate with Jest
 tags:
- - javascript
+  - javascript
 keywords:
   - Postgres
   - SQL

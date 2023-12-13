@@ -37,6 +37,7 @@ go mod download
 ```
 
 ## Pre-requsite
+
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
