@@ -24,20 +24,27 @@
     },
     {
       "type": "category",
+      "label": "Integration with Testing Framework",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        "server/sdk-installation/go-test",
+        "server/sdk-installation/junit"
+      ]
+    },
+    {
+      "type": "category",
       "label": "Sample-App",
       "collapsible": true,
       "collapsed": false,
       "items": [
         {
           "type": "category",
-          "label": "Python",
+          "label": "Java",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-django",
-            "quickstart/samples-flask",
-            "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"
+            "quickstart/samples-java"
           ]
         },
         {
@@ -50,6 +57,18 @@
             "quickstart/samples-echo",
             "quickstart/samples-gin",
             "quickstart/samples-redis"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Python",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-django",
+            "quickstart/samples-flask",
+            "quickstart/samples-fastapi",
+            "quickstart/samples-fastapi-twilio"
           ]
         },
         {

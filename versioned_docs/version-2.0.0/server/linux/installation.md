@@ -2,6 +2,23 @@
 id: installation
 title: Linux Installation
 sidebar_label: Linux
+tags:
+  - hello-world
+  - linux
+  - ebpf
+  - installation
+  - install
+keywords:
+  - hello-world
+  - ebpf
+  - installation
+  - install
+  - ubuntu
+  - linux
+  - API Test generator
+  - Auto Testcase generation
+  - installation-guide
+  - server-setup
 ---
 
 Keploy can be installed in two ways:

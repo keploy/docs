@@ -4,6 +4,10 @@ title: How Keploy Works?
 sidebar_label: How Keploy Works?
 tags:
   - explanation
+  - replay-test-case
+  - replay-guide
+  - record-guide
+  - record-test-case
 ---
 
 Keploy acts a proxy in your application that captures and replays all network interaction served to application from any source.

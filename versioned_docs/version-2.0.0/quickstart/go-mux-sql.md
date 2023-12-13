@@ -4,9 +4,11 @@ title: Sample Product Catelog App (Golang)
 sidebar_label: Mux + Postgres
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
-  - Mux Framework
-  - Postgres
-  - SQL
+  - go
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - Mux Framework
   - Postgres
@@ -24,8 +26,7 @@ keyword:
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+
 
 ## Get Started! 🎬
 

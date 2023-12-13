@@ -7,6 +7,9 @@ tags:
   - windows
   - ebpf
   - installation
+  - install
+  - installation-guide
+  - server-setup
 keywords:
   - hello-world
   - windows
