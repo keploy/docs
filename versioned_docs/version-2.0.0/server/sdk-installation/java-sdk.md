@@ -1,5 +1,5 @@
 ---
-id: junit
+id: java
 title: Integrate with Junit
 sidebar_label: Integrate with Junit
 tags:

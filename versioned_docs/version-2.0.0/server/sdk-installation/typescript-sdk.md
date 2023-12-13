@@ -1,5 +1,5 @@
 ---
-id: jest
+id: typescript
 title: Integrate with Jest
 sidebar_label: Integrate with Jest
 tags:

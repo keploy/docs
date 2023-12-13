@@ -1,5 +1,5 @@
 ---
-id: go-test
+id: go
 title: Integrate with Go Test
 sidebar_label: Integrate with Go Test
 tags:

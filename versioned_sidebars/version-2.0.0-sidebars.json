@@ -28,8 +28,8 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "server/sdk-installation/go-test",
-        "server/sdk-installation/junit"
+        "server/sdk-installation/go",
+        "server/sdk-installation/java"
       ]
     },
     {
