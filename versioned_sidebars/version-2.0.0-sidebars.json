@@ -58,8 +58,17 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-bunjs",
+            "quickstart/samples-bunjs", 
             "quickstart/samples-nodejs"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Rust",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-rust"
           ]
         }
       ]
