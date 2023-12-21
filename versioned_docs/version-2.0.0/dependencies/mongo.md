@@ -28,12 +28,12 @@ The system is built to support wiremessage `MongoDB version => 5.1.X`, which ref
 
 In general, each message consists of a standard message header followed by request-specific data. The standard message header is structured as follows:
 
-![image](https://github.com/Swpn0neel/docs/assets/121167506/0f8b0a26-799e-498a-877d-02645b76fc6b)
+<img alt="MongoDB Support MsgHeader" src="/static/img/MongoDB-support-MsgHeader.png"/>
 
 `OP_MSG` is an extensible message format used to encode both client requests and server replies on the wire.
 `OP_MSG` has the following format:
 
-![image](https://github.com/Swpn0neel/docs/assets/121167506/247c9be9-19de-4e7f-abef-0ed4513b8925)
+<img alt="MongoDB Support OP_MSG" src="/static/img/MongoDB-support-OP_MSG.png"/>
 
 **Note**
 
