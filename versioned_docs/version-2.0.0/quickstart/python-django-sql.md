@@ -4,9 +4,11 @@ title: Sample User Data CRUD App (Django)
 sidebar_label: Django + Postgres
 description: The following sample app showcases how to use the Django framework and the Keploy Platform.
 tags:
-  - Django Framework
-  - Postgres
-  - SQL
+  - python
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - Django Framework
   - Postgres

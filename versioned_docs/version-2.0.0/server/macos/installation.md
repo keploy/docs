@@ -5,9 +5,11 @@ sidebar_label: MacOS
 tags:
   - hello-world
   - macos
-  - apple
   - ebpf
   - installation
+  - install
+  - installation-guide
+  - server-setup
 keywords:
   - hello-world
   - macos

@@ -4,14 +4,18 @@ title: BunJS Sample Application
 sidebar_label: BunJS + Mongo
 description: The following sample app showcases how to use BunJS framework and the Keploy Platform.
 tags:
-  - BunJS Framework
-  - MongoDB
+  - javascript
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - BunJS Framework
   - MongoDB
   - BunJS
   - API Test generator
   - Auto Testcase generation
+  - javascript
 ---
 
 # Sample Bun.js and MongoDB app
