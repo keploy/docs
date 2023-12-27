@@ -1,7 +1,7 @@
 ---
 id: samples-java
 title: Java Sample Application
-sidebar_label: Spring Boot + Mongo
+sidebar_label: Spring Boot + Postgres
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
   - java
