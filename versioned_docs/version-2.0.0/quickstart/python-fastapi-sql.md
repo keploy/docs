@@ -4,9 +4,11 @@ title: Sample Student Data CRUD App (FastAPI)
 sidebar_label: FastAPI + Postgres
 description: The following sample app showcases how to use the FastAPI framework and the Keploy Platform.
 tags:
-  - FastAPI Framework
-  - Postgres
-  - SQL
+  - python
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - FastAPI Framework
   - Postgres

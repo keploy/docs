@@ -4,9 +4,11 @@ title: Echo SQL Sample Application
 sidebar_label: Echo + Postgres
 description: The following sample app showcases how to use Echo framework and the Keploy Platform.
 tags:
-  - Echo Framework
-  - Postgres
-  - SQL
+  - go
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - Echo Framework
   - Postgres
@@ -34,7 +36,12 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
 go mod download
 ```
 
-## Installation 📥
+## Pre-requsite
+
+- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+
+## Installation Keploy
 
 Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system archieture, install the keploy latest binary release
 

@@ -45,7 +45,7 @@ function Glossary() {
     E: [
       {
         name: "End To End Testing",
-        link: "/concẻpts/reference/glossary/end-to-end-testing",
+        link: "/concepts/reference/glossary/end-to-end-testing",
       },
     ],
     F: [
@@ -108,7 +108,7 @@ function Glossary() {
   return (
     <Layout
       title="About the docs"
-      permalink="/reference/glossary"
+      permalink="reference/glossary"
       description="User General Information about Keploy's Documentation"
     >
       <main className="margin-vert--lg container flex flex-col justify-evenly">
