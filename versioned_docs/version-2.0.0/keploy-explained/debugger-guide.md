@@ -12,7 +12,7 @@ tags:
 
 In this blog, we will learn how to debug keploy using Visual Studio Code integrated debugger.  
 
-## **Setting Up Configuration File**:
+## Setting Up Configuration File
 
 To bring up the **Run and Debug** view, select the **Run and Debug** icon in the **Activity Bar** on the side of VS Code. You can also use the keyboard shortcut `Ctrl+Shift+D`.  
 
@@ -74,6 +74,6 @@ You can either add more objects in the "configurations" array or modify the "arg
 > **Note**: By default, the keploy tests and reports will be generated in the keploy directory. You can change this by creating the [generate-config](https://keploy.io/docs/running-keploy/cli-commands/#generate-config) and specifying the desired path.
 
 
-## Running the Debugger:
+## Running the Debugger
 
 Click the **Start Debugging** button or press **F5** to witness the magic of debugging unfold seamlessly.
