@@ -116,7 +116,8 @@
       "collapsible": false,
       "items": [
         "keploy-explained/contribution-guide",
-        "keploy-explained/docs-dev-guide"
+        "keploy-explained/docs-dev-guide", 
+        "keploy-explained/debugger-guide"
       ]
     },
     {
