@@ -4,28 +4,29 @@ title: BunJS Sample Application
 sidebar_label: BunJS + Mongo
 description: The following sample app showcases how to use BunJS framework and the Keploy Platform.
 tags:
-  - BunJS Framework
-  - MongoDB
+  - javascript
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - BunJS Framework
   - MongoDB
   - BunJS
   - API Test generator
   - Auto Testcase generation
+  - javascript
 ---
 
-# Sample app with Bun.js and MongoDb
+# Sample Bun.js and MongoDB app
 
-This is a sample app to test Keploy integration capabilities using [Bun.js](https://bun.sh) and MongoDb.
+This is a sample app to test Keploy integration capabilities using [Bun.js](https://bun.sh) and [MongoDB](https://www.mongodb.com/).
 
-## Pre-requsite
+## Pre-requsite 🛠️
 
-We first need to install bun.js.
-
-```zsh
-# Bun.js is supported on macOS, Linux, and WSL
-curl -fsSL https://bun.sh/install | bash
-```
+- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+- Install BunJS ( `curl -fsSL https://bun.sh/install | bash` )
 
 ## Setup app
 
@@ -38,162 +39,263 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 bun install
 ```
 
-# Using Keploy :
+## Installation 📥
 
 There are two ways to use Keploy:-
 
-1. [Natively on Linux/WSL](#natively-on-ubuntuwsl)
-2. [Using Docker](#running-sample-app-using-docker)
+Depending on your OS, choose your adventure:
 
-## Natively on Ubuntu/WSL
+- <details>
+     <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
 
-Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system architecture, install the keploy latest binary release from here:-
+  Alright, let's equip ourselves with the **latest Keploy binary**:
 
-#### Linux
+  ```bash
+  curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
-1. AMD Architecture
+  sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+  ```
 
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+  If everything goes right, your screen should look a bit like this:
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+     <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
-<details> 
-<Summary> 2. ARM Architecture </Summary>
+  Moving on...
 
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
+   <details>
+   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux / WSL </summary>
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+  We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
-</details>
+  > **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
 
-#### Windows Subsystem for Linux (WSL)
+  #### 🍃 Kickstart MongoDB
 
-On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
+  Let's breathe life into your mongo container. A simple spell should do the trick:
 
-```bash
-wsl --install
-```
+  ```bash
+  docker-compose up -d
+  ```
 
-Once installed download and Install "Keploy Binary" :
+  ### 📼 Roll the Tape - Recording Time!
 
-```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+  Ready, set, record! Here's how:
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+  ```bash
+  sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
+  ```
 
-### Let's start the MongoDB Instance
+  Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
-```zsh
-docker-compose up -d
-```
+  Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
-> **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
+  #### Let's generate the testcases.
 
-### Capture the testcases
+  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-```bash
-sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
-```
+  ```bash
+  curl --request POST localhost:420/save
+  ```
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+  Here's a peek of what you get:
 
-1. Generate the testcases
+  ```
+  {"succes":true}
+  ```
 
-```bash
-curl --request POST localhost:420/save
-```
+  🎉 Woohoo! Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
-we will get the output:
+  <img src="/docs/img/testcase-node.png" alt="Sample Keploy Test Result Bun MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-```
-{"succes":true}
-```
+  Now, the real fun begins. Let's weave more spells!
 
-2. Fetch the data
+  🚀 Follow the URL road...!
 
-```bash
-curl --request GET localhost:420/fetch
-```
+  ```bash
+  curl --request GET localhost:420/fetch
+  ```
 
-this will provide us with the output:-
+  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
 
-```
-{"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
-```
+  this will provide us with the output:-
 
-We will get the following output in our terminal
+  ```
+  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  ```
 
-![Testcase](/img/testcase-bun.png)
+  We will get the following output in our terminal
 
----
+  ![Testcase](/img/testcase-bun.png)
 
-# Running sample app using docker
+  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima).
+  ## Wrapping it up 🎉
 
-## Create Keploy Alias
+  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-We need create an alias for Keploy:
+  Happy coding! ✨👩‍💻👨‍💻✨
+   </details>
 
-```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
-```
+   <details>
+   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
-## Let's start the MongoDB Instance
+  #### Add alias for Keploy 🐰:
 
-```bash
-docker-compose up -d
-```
+  For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
 
-## Capture the testcases
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  ```
 
-1. We first need to build dockerimage of our application:-
+  ### Lights, Camera, Record! 🎥
 
-```bash
-docker build -t bun-app:1.0 .
-```
+  First We'll start our MongoDb Instance:
 
-2. Now we will run the keploy in record mode:-
+  ```sh
+  docker-compose up -d
+  ```
 
-```bash
-keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
-```
+  Now, let's build docker image for our application:
 
-### Let's generate the testcases.
+  ```sh
+  docker build -t bun-app:1.0 .
+  ```
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+  Now, We'll run keploy in record mode:
 
-```bash
-curl --request POST localhost:420/save
-```
+  ```sh
+  keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
+  ```
 
-we will get the output:
+  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
-```
-{"succes":true}
-```
+  #### Let's generate the testcases.
 
-2. Fetch the data
+  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-```bash
-curl --request GET localhost:420/fetch
-```
+  ```bash
+  curl --request POST localhost:420/save
+  ```
 
-this will provide us with the output:-
+  Here's a peek of what you get:
 
-```
-{"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
-```
+  ```
+  {"succes":true}
+  ```
 
-We will get the following output in our terminal
+  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
-![Testcase](/img/testcase-bun.png)
+  _Time to perform more API magic!_
+  Follow the breadcrumbs... or Make more API Calls
 
-# Running the testcases
+  ```bash
+  curl --request GET localhost:420/fetch
+  ```
+
+  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+
+  this will provide us with the output:-
+
+  ```
+  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  ```
+
+  We will get the following output in our terminal
+
+  ![Testcase](/img/testcase-bun.png)
+
+  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+
+  ## Wrapping it up 🎉
+
+  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+  Happy coding! ✨👩‍💻👨‍💻✨
+   </details>
+
+   </details>
+    <br/>
+
+- <details>
+     <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+
+  Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
+
+  #### Add alias for Keploy 🐰:
+
+  For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  ```
+
+  ### Lights, Camera, Record! 🎥
+
+  First We'll start our MongoDb Instance:
+
+  ```sh
+  docker-compose up -d
+  ```
+
+  Now, let's build docker image for our application:
+
+  ```sh
+  docker build -t bun-app:1.0 .
+  ```
+
+  Now, We'll run keploy in record mode:
+
+  ```sh
+  keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
+  ```
+
+  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+
+  #### Let's generate the testcases.
+
+  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+
+  ```bash
+  curl --request POST localhost:420/save
+  ```
+
+  Here's a peek of what you get:
+
+  ```
+  {"succes":true}
+  ```
+
+  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
+
+  _Time to perform more API magic!_
+  Follow the breadcrumbs... or Make more API Calls
+
+  ```bash
+  curl --request GET localhost:420/fetch
+  ```
+
+  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+
+  this will provide us with the output:-
+
+  ```
+  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  ```
+
+  We will get the following output in our terminal
+
+  ![Testcase](/img/testcase-bun.png)
+
+  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+
+  ## Wrapping it up 🎉
+
+  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+  Happy coding! ✨👩‍💻👨‍💻✨
+
+   </details>
+
+### Running the testcases
 
 This is WIP and depended upon the issue by oven/bun & elysia:- https://github.com/elysiajs/elysia/issues/231
