@@ -1,6 +1,6 @@
 ---
 id: samples-mux
-title: Sample Product Catelog App (Golang)
+title: Sample Product Catalog App (Golang)
 sidebar_label: Mux + Postgres
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
@@ -197,7 +197,7 @@ Depending on your OS, choose your adventure:
             data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   ```bash
   curl --request GET \  --url http://localhost:8010/products
@@ -376,7 +376,7 @@ Depending on your OS, choose your adventure:
 
   Now, the real fun begins. Let's weave more spells!
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   🚀 Follow the URL road...!
 
@@ -556,7 +556,7 @@ Depending on your OS, choose your adventure:
             data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   ```bash
   curl --request GET \  --url http://localhost:8010/products
