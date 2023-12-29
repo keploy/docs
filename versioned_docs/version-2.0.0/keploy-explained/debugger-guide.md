@@ -41,7 +41,6 @@ Navigate to `launch.json` to begin crafting JSON objects.
                 "record",
                 "-c",
                 "<path_to_executable>"
-                // "--delay", "15"
             ],
         },
         {
@@ -56,7 +55,6 @@ Navigate to `launch.json` to begin crafting JSON objects.
                 "test",
                 "-c",
                 "<path_to_executable>",
-                // "--delay", "15"
             ],
         }
     ]
