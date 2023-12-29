@@ -43,7 +43,7 @@ Start the MongoDB instance-
 docker run -p 27017:27017 -d --network backend --name mongo mongo
 ```
 
-## Clone a sample URL shortener app 🧪
+## Clone a simple Student Management API 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
