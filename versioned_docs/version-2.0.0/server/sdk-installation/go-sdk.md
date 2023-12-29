@@ -18,13 +18,6 @@ keyword:
 
 This is the client SDK for the [Keploy](https://github.com/keploy/keploy) testing platform. You can use this to generate realistic mock/stub files for your applications.
 
-## Contents
-
-1. [Installation](#installation)
-2. [Usage](#usage)
-3. [Mocking/Stubbing for unit tests](#mockingstubbing-for-unit-tests)
-4. [Code coverage by the API tests](#code-coverage-by-the-api-tests)
-
 ## Installation
 
 Add the Keploy Go SDK to your project:
