@@ -1,6 +1,6 @@
 ---
 id: samples-mux
-title: Sample Product Catelog App (Golang)
+title: Sample Product Catalog App (Golang)
 sidebar_label: Mux + Postgres
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
@@ -42,7 +42,6 @@ Depending on your OS, choose your adventure:
 
 - <details>
    <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
-   <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
 
   Alright, let's equip ourselves with the **latest Keploy binary**:
 
@@ -55,11 +54,9 @@ Depending on your OS, choose your adventure:
   If everything goes right, your screen should look a bit like this:
 
    <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
-   <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
   Moving on...
    <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
   #### Add alias for Keploy:
@@ -200,7 +197,7 @@ Depending on your OS, choose your adventure:
             data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   ```bash
   curl --request GET \  --url http://localhost:8010/products
@@ -379,7 +376,7 @@ Depending on your OS, choose your adventure:
 
   Now, the real fun begins. Let's weave more spells!
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   🚀 Follow the URL road...!
 
@@ -391,7 +388,6 @@ Depending on your OS, choose your adventure:
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-  <img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
   <img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
 
   ### Run Tests 🏁
@@ -416,7 +412,6 @@ Depending on your OS, choose your adventure:
    <br/>
 
 - <details>
-   <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
    <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
   Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
@@ -561,7 +556,7 @@ Depending on your OS, choose your adventure:
             data: MQAAAAR0AAAADgACAAAAGQAABqRUAAAAGwABaWQAAABAAgABAAAAFwAE/////wAAWgAAAAVJ
   ```
 
-  #### Fetch Product from Catelog
+  #### Fetch Product from Catalog
 
   ```bash
   curl --request GET \  --url http://localhost:8010/products
@@ -571,7 +566,6 @@ Depending on your OS, choose your adventure:
 
   Spotted the new test and mock files in your project? High five! 🙌
 
-  <img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
   <img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
 
   Want to see if everything works as expected?
