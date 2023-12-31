@@ -29,7 +29,7 @@ This is the client SDK for the [Keploy](https://github.com/keploy/keploy) testin
 
 Add the Keploy Go SDK to your project:
 
-```go
+```bash
 go get -u github.com/keploy/go-sdk/v2
 ```
 
