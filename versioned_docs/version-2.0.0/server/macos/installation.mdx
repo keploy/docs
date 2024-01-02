@@ -21,6 +21,8 @@ keywords:
   - docker
 ---
 
+import CodeBlock from '@theme/CodeBlock';
+
 As of now there is only one ways to use Keploy eBPF in MacOS, i.e. [Natively using Colima](#using-colima).
 
 There are two ways to install Keploy eBPF in MacOS, you can use either use:
@@ -30,9 +32,7 @@ There are two ways to install Keploy eBPF in MacOS, you can use either use:
 
 # One click install Keploy.
 
-```
- curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
-```
+<CodeBlock>curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh</CodeBlock>
 
 # Using Colima
 
@@ -40,15 +40,11 @@ There are two ways to install Keploy eBPF in MacOS, you can use either use:
 
 You need to have the latest version of `brew` installed on your system and then run this command from a terminal:
 
-```zsh
-brew install colima
-```
+<CodeBlock language="zsh">brew install colima </CodeBlock>
 
 Start Colima with defaults
 
-```zsh
-colima start
-```
+<CodeBlock language="zsh">colima start</CodeBlock>
 
 ### Creating Alias
 
@@ -56,15 +52,13 @@ We need to create a custom network for Keploy since we are using the Docker, the
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
-```zsh
-docker network create keploy-network
-```
+<CodeBlock language="zsh">docker network create keploy-network</CodeBlock>
 
 Then, create an alias for Keploy:
 
-```shell
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
-```
+Then, create an alias for Keploy:
+
+<CodeBlock language="shell">alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'</CodeBlock>
 
 ### Recording Testcases and Data Mocks
 

@@ -1,25 +1,26 @@
 ---
 id: installation
-title: Linux Installation
-sidebar_label: Linux
+title: Windows Installation
+sidebar_label: Windows
 tags:
   - hello-world
-  - linux
+  - windows
   - ebpf
   - installation
   - install
-keywords:
-  - hello-world
-  - ebpf
-  - installation
-  - install
-  - ubuntu
-  - linux
-  - API Test generator
-  - Auto Testcase generation
   - installation-guide
   - server-setup
+keywords:
+  - hello-world
+  - windows
+  - ebpf
+  - installation
+  - guide
+  - api
+  - docker
 ---
+
+import CodeBlock from '@theme/CodeBlock';
 
 Keploy can be installed in two ways:
 
@@ -28,45 +29,36 @@ Keploy can be installed in two ways:
 
 ## One click install Keploy.
 
-```
- curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
-```
+<CodeBlock>curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh</CodeBlock>
 
 ## Manual Install
 
-There are two ways to use Keploy eBPF in linux, you can use either use:
+There are two ways to use Keploy eBPF in windows, you can use either use:
 
-1. [Natively in Linux](#linux-native).
-2. Through [Using Docker](#using-docker).
+1. [Natively in Windows](#windows-native) using WSL.
+2. By [Using Docker](#using-docker).
 
-## Linux Native
+## Windows Native
 
 ### Download the Keploy Binary
 
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+<CodeBlock language="zsh">wsl --install</CodeBlock>
 
-<details>
- <summary> <strong> ARM Architecture </strong> </summary>
+This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default distribution can be changed).
 
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
+If you're running an older build, or just prefer not to use the install command and would like step-by-step directions, see WSL manual installation steps for older versions.
 
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+Once installed download and Install "Keploy Binary" :
 
-</details>
+<CodeBlock language="zsh">curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp && sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy</CodeBlock>
 
 #### Run the Record Mode
 
 Run this command on your terminal to start the recording of API calls:-
 
-```shell
-sudo -E keploy record -c "CMD_TO_RUN_APP"
-```
+<CodeBlock language="shell">sudo -E keploy record -c "path/to/the/application/binary"</CodeBlock>
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
 
@@ -76,9 +68,7 @@ Keploy with capture the API calls you have made to generate the test-suites whic
 
 Run this command on your terminal to run the testcases and generate the test coverage report:-
 
-```shell
-sudo -E keploy test -c "CMD_TO_RUN_APP" --delay 10
-```
+<CodeBlock language="shell">sudo -E keploy test -c "path/to/the/application/binary" --delay 10</CodeBlock>
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
@@ -88,31 +78,25 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ### Creating Alias
 
-### Create Keploy Alias
-
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
-```shell
-docker network create keploy-network
-```
+<CodeBlock language="zsh">docker network create keploy-network</CodeBlock>
 
-Then, create an alias for Keploy:
+Once the Custom Network is created, now we have to create the alias for the Keploy.
 
-```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
-```
+<CodeBlock language="shell">alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'</CodeBlock>
 
-#### Capture the Testcases
+#### Run the Record Mode
 
-Now, we will use the newly created alias `keploy` to record the testcases.
+Now, we will use the newly created Alias `keploy` to record the testcases.
 
 ```shell
 keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
 ```
 
-#### Run the Testcases
+#### Run the Test Mode
 
 Now, we will use the newly created Alias `keploy` to test the testcases.
 
