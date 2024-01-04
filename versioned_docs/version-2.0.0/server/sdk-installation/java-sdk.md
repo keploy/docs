@@ -23,11 +23,6 @@ keyword:
 2. [Maven](https://maven.apache.org/)
 3. [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)
 
-## Contents
-
-1. [Installation](#installation)
-2. [Usage](#usage)
-
 ## Installation
 
 ### Get Keploy java sdk
