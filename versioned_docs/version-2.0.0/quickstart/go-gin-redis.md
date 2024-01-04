@@ -28,7 +28,7 @@ keyword:
 
 ## Get Started! 🎬
 
-## Clone a sample URL shortener app 🧪
+## Clone a sample user authentication app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-redis
