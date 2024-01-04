@@ -29,7 +29,7 @@ keyword:
 
 ## Get Started! 🎬
 
-## Clone a sample URL shortener app 🧪
+## Clone a sample Product Catalog App🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql

@@ -49,7 +49,7 @@ Create database -
 docker exec -it mypostgres psql -U postgres -c "CREATE DATABASE usersdb"
 ```
 
-## Clone a sample URL shortener app 🧪
+## Clone a sample user data CRUD app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django-postgres
