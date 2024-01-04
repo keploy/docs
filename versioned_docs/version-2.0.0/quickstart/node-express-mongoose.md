@@ -126,8 +126,6 @@ Depending on your OS, choose your adventure:
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-  Our testcases failed because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
-
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
   ```
@@ -314,8 +312,6 @@ Depending on your OS, choose your adventure:
 
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
-
-  Our testcases failed because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
