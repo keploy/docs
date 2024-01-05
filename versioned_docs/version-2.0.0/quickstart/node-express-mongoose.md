@@ -128,14 +128,6 @@ Depending on your OS, choose your adventure:
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Connection
-  ```
-
-  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
-
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   ## Wrapping it up 🎉
@@ -220,14 +212,6 @@ Depending on your OS, choose your adventure:
   ```
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
-
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Connection
-  ```
-
-  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
@@ -314,14 +298,6 @@ Depending on your OS, choose your adventure:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
-
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Connection
-  ```
-
-  > Pro tip: Add `header.Connection` to noise in `test-x.yaml`.
 
   ## Wrapping it up 🎉
 
