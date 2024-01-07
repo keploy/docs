@@ -87,7 +87,7 @@ Keploy will capture the API calls you've conducted, generating test suites compr
 
 ### Running Testcases
 
-Now, use the keployV2 Alias we created to execute the testcases. Follow these steps in the **root directory** of your application.
+Now, use the keploy Alias we created to execute the testcases. Follow these steps in the **root directory** of your application.
 
 When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
 
