@@ -4,11 +4,11 @@ title: NodeJS Sample Application
 sidebar_label: NodeJS - Express + Mongoose
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:
- - javascript
- - quickstart
- - samples
- - examples
- - tutorial
+  - javascript
+  - quickstart
+  - samples
+  - examples
+  - tutorial
 keyword:
   - NodeJS Framework
   - MongoDB
@@ -44,7 +44,7 @@ npm install
 Depending on your OS, choose your adventure:
 
 - <details>
-    <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+     <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
 
   Alright, let's equip ourselves with the **latest Keploy binary**:
 
@@ -56,17 +56,18 @@ Depending on your OS, choose your adventure:
 
   If everything goes right, your screen should look a bit like this:
 
-    <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+     <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
   Moving on...
-    <details>
-    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
+     <details>
+     <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
   #### Add alias for Keploy:
 
   ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
+
   ### Lights, Camera, Record! 🎥
 
   Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
@@ -93,7 +94,7 @@ Depending on your OS, choose your adventure:
     "email":"john@xyiz.com",
     "phone":"0123456799"
     }'
-    ``` 
+    ```
   Here's a peek of what you get:
 
   ```
@@ -125,17 +126,7 @@ Depending on your OS, choose your adventure:
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-  Our testcases failed as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
-
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
-
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Keep-Alive
-        |   - header.Connection
-  ```
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
 
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
@@ -145,11 +136,11 @@ Depending on your OS, choose your adventure:
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-  </details>
-  <br/>
+   </details>
+   <br/>
 
-  <details>
-    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
+   <details>
+     <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -170,6 +161,7 @@ Depending on your OS, choose your adventure:
   ```bash
   sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
   ```
+
   Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
   Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
@@ -206,6 +198,7 @@ Depending on your OS, choose your adventure:
   ```bash
   curl --request GET \  --url http://localhost:8080/students
   ```
+
   Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
@@ -220,14 +213,6 @@ Depending on your OS, choose your adventure:
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Keep-Alive
-        |   - header.Connection
-  ```
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
-
   <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
   ## Wrapping it up 🎉
@@ -235,12 +220,12 @@ Depending on your OS, choose your adventure:
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
-    </details>
-  </details>
-   <br/>
+     </details>
+   </details>
+    <br/>
 
-- <details> 
-    <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+- <details>
+     <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
   Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
@@ -249,7 +234,7 @@ Depending on your OS, choose your adventure:
   For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
 
   ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
 
   ### Lights, Camera, Record! 🎥
@@ -281,6 +266,7 @@ Depending on your OS, choose your adventure:
   ```
 
   Here's a peek of what you get:
+
   ```
   Student registration successful!
   ```
@@ -293,6 +279,7 @@ Depending on your OS, choose your adventure:
   ```bash
   curl --request GET \  --url http://localhost:8080/students
   ```
+
   Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
   Did you spot the new test and mock scrolls in your project library? Awesome! 👏
@@ -310,18 +297,7 @@ Depending on your OS, choose your adventure:
   Your results should be looking all _snazzy_, like this:
   <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-  Our testcases failed as the Keep-Alive connection won't be available when we are using testmode, this happen because in test mode the Keploy uses the `Mocks.yml`, which was generated in the record mode. 🕰️
-
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
-
-  ```
-        noise:
-        |   - header.Date
-        |   - header.Keep-Alive
-        |   - header.Connection
-  ```
-
-  > Pro tip: Add `header.Connection` & `header.Keep-Alive` to noise in `test-x.yaml`.
 
   ## Wrapping it up 🎉
 
@@ -329,4 +305,4 @@ Depending on your OS, choose your adventure:
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-  </details>
+   </details>

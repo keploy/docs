@@ -65,7 +65,7 @@ go build -o gin-mongo-binary  # Generate binary of the application:
  go run -exec "sudo -E env 'PATH=$PATH'" main.go record -c "path/to/go/binary/of/application"
 ```
 
-After entering record mode, send requests to your application to generate test cases. If using POSTMAN, remember to turn off the keep-alive header.
+After entering record mode, send requests to your application to generate test cases.
 
 #### Running Test Cases:
 
@@ -135,15 +135,14 @@ docker build -t <nameOfImage> .
 
 #### Create Alias:
 
-```shell
-alias keployV2='sudo docker run --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm  <nameOfImage>'
-```
+````shell
+alias keployV2='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm <nameOfImage>'
 
 #### Capture Test Cases:
 
 ```shell
 keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network keploy-network --rm <imageName>"" --containerName  <containerName>
-```
+````
 
 #### Running Test Cases:
 

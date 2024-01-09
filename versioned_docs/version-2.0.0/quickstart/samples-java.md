@@ -22,6 +22,7 @@ keyword:
   - Auto Testcase generation
   - Junit
 ---
+
 # Example Employee-Manager App
 
 A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).
@@ -43,7 +44,7 @@ curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source
 Clone the repository and install the dependencies
 
 ```bash
-git clone https://github.com/keploy/samples-java && cd employee-manager
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
 mvn clean install -Dmaven.test.skip=true
 ```
 
@@ -58,6 +59,7 @@ sudo -E env PATH=$PATH keploy record -c "java -jar target/springbootapp-0.0.1-SN
 ![Testcases](https://github.com/keploy/samples-java/blob/main/employee-manager/img/test-cases.png?raw=true)
 
 Now let's run a few tests to capture some more scenarios:
+
 #### Generate testcases
 
 To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
@@ -108,4 +110,3 @@ sudo -E env PATH=$PATH keploy test -c "java -jar target/springbootapp-0.0.1-SNAP
 ```
 
 This will run the testcases and generate the report in `keploy/testReports` folder.
-

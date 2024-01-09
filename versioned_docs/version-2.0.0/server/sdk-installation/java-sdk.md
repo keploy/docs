@@ -18,17 +18,15 @@ keyword:
 ---
 
 ## Pre-requisites
+
 1. [Java 1.8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
 2. [Maven](https://maven.apache.org/)
 3. [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)
 
-## Contents
-1. [Installation](#installation)
-2. [Usage](#usage)
-
 ## Installation
 
 ### Get Keploy java sdk
+
 [Download the latest release of the Keploy Java SDK](https://central.sonatype.com/artifact/io.keploy/keploy-sdk?smo=true) at maven central and add keploy-sdk as a dependency to your pom.xml :
 
 ```xml
@@ -42,7 +40,9 @@ keyword:
 ```
 
 ### Update `pom.xml` file
+
 You will need to add the following puligns in `pom.xml` file of your application. :-
+
 ```xml
 <build>
 	<plugins>
@@ -126,6 +126,7 @@ You will need to add the following puligns in `pom.xml` file of your application
 ```
 
 ## Usage
+
 For the code coverage for the keploy API tests using the `junit` integration, you need to add the following test to your Junit test file.
 
 ```java
@@ -153,7 +154,7 @@ For the code coverage for the keploy API tests using the `junit` integration, yo
                 // running the test set.
                 String testRunId = KeployCLI.RunTestSet(testset);
 
-               
+
                 String jarPath = "target/<your-application-jar-file-path>";
                 String[] command = {
                         "java",
@@ -216,6 +217,7 @@ For the code coverage for the keploy API tests using the `junit` integration, yo
 ```
 
 Now let's run junit tests along keploy using command:-
+
 ```bash
 sudo -E keploy serve -c "mvn test" --delay 15
 ```
