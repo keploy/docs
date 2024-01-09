@@ -24,6 +24,9 @@ A simple sample CRUD application and see how seamlessly Keploy integrates with [
 ## Pre-Requisite 🛠️
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+
+## Optional 🛠️
+
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
 ## Get Started! 🎬
@@ -227,11 +230,25 @@ Depending on your OS, choose your adventure:
 - <details>
      <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
-  Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
+  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
+
+  ### Use Keploy with Docker-Desktop
+
+  #### Creating Docker Volume
+
+  ```bash
+  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
+  ```
 
   #### Add alias for Keploy 🐰:
 
   For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  ```
+
+  ### Use Keploy with Colima
 
   ```bash
   alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
