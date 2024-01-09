@@ -44,7 +44,7 @@ curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source
 Clone the repository and install the dependencies
 
 ```bash
-git clone https://github.com/keploy/samples-java && cd employee-manager
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
 mvn clean install -Dmaven.test.skip=true
 ```
 
