@@ -21,12 +21,12 @@ keywords:
   - docker
 ---
 
-As of now there is only one ways to use Keploy eBPF in MacOS, i.e. [Natively using Colima](#using-colima).
+As of now there are two ways to use Keploy eBPF in MacOS, i.e. [using Colima](#using-colima) and [using Docker Desktop](#using-docker-desktop).
 
 There are two ways to install Keploy eBPF in MacOS, you can use either use:
 
 1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Setup](#using-colima).
+2. [Manual Setup](#using-docker-desktop).
 
 ## One click install Keploy.
 
