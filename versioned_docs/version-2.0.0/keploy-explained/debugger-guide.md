@@ -74,4 +74,4 @@ You can either add more objects in the "configurations" array or modify the "arg
 
 ## Running the Debugger
 
-Click the **Start Debugging** button or press **F5** to witness the magic of debugging unfold seamlessly.
+Click the **Start Debugging** button to witness the magic of debugging unfold seamlessly.
