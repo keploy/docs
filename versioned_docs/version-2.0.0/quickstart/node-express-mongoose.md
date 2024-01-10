@@ -238,7 +238,7 @@ Depending on your OS, choose your adventure:
 
   ### Use Keploy with Docker-Desktop
 
-  Note:To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
+  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
 
   #### Creating Docker Volume
 
