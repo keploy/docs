@@ -11,18 +11,6 @@ keywords:
   - commands
 ---
 
-## Table of Contents
-
-Keploy CLI has the following <b> commands </b>:
-
-- [Table of Contents](#table-of-contents)
-  - [Usage](#usage)
-  - [Common flags to use with all commands](#common-flags-to-use-with-all-commands)
-- [record](#record)
-- [test](#test)
-- [generate-config](#generate-config)
-- [example](#example)
-
 ### Usage
 
 ```bash
