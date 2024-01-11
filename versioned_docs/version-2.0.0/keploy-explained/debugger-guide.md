@@ -14,7 +14,7 @@ In this blog, we will learn how to debug keploy using Visual Studio Code integra
 
 ## Setting Up Configuration File
 
-To bring up the **Run and Debug** view, select the **Run and Debug** icon in the **Activity Bar** on the side of VS Code. You can also use the keyboard shortcut `Cmd+Shift+D`.  
+To bring up the **Run and Debug** view, select the **Run and Debug** icon in the **Activity Bar** on the side of VS Code. You can also use the keyboard shortcut `Cmd+Shift+D` for MacOS and `Ctrl + shift + D` for Windows.
 
 If running and debugging is not yet configured (no `launch.json` has been created), VS Code shows the Run start view.
 
