@@ -14,7 +14,7 @@ In this blog, we will learn how to debug keploy using Visual Studio Code integra
 
 ## Setting Up Configuration File
 
-To bring up the **Run and Debug** view, select the **Run and Debug** icon in the **Activity Bar** on the side of VS Code. You can also use the keyboard shortcut `Cmd+Shift+D` for MacOS and `Ctrl + shift + D` for Windows.
+To bring up the **Run and Debug** view, select the **Run and Debug** icon in the **Activity Bar** on the side of VS Code. You can also use the keyboard shortcut `Cmd + Shift + D` for MacOS and `Ctrl + shift + D` for Windows.
 
 If running and debugging is not yet configured (no `launch.json` has been created), VS Code shows the Run start view.
 
@@ -24,9 +24,6 @@ Navigate to `launch.json` to begin crafting JSON objects.
 
 ```json
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
