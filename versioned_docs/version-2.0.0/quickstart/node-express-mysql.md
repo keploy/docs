@@ -202,7 +202,7 @@ Depending on your OS, choose your adventure:
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-  <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+  <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node sql" width="100%" style={{ borderRadius: '5px' }}/>
 
   ## Wrapping it up 🎉
 
