@@ -78,7 +78,8 @@
           "collapsed": true,
           "items": [
             "quickstart/samples-bunjs", 
-            "quickstart/samples-nodejs"
+            "quickstart/samples-nodejs",
+            "quickstart/samples-mysql"
           ]
         },
         {
