@@ -21,22 +21,50 @@ keywords:
   - docker
 ---
 
-As of now there is only one ways to use Keploy eBPF in MacOS, i.e. [Natively using Colima](#using-colima).
+As of now there are two ways to use Keploy eBPF in MacOS, i.e. [using Colima](#using-colima) and [using Docker Desktop](#using-docker-desktop).
 
 There are two ways to install Keploy eBPF in MacOS, you can use either use:
 
 1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Setup](#using-colima).
+2. [Manual Setup](#using-docker-desktop).
 
-# One click install Keploy.
+## One click install Keploy.
 
 ```
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 
-# Using Colima
+## Using Docker Desktop
 
-## Install Colima
+Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
+
+### Creating Docker Volume & Network
+
+We need to create debug volume to run Keploy using Docker-Desktop:
+
+```zsh
+docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
+```
+
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
+
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
+
+```zsh
+docker network create keploy-network
+```
+
+### Creating Alias
+
+Then, create an alias for Keploy:
+
+```shell
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+```
+
+## Using Colima
+
+### Install Colima
 
 You need to have the latest version of `brew` installed on your system and then run this command from a terminal:
 
@@ -63,7 +91,7 @@ docker network create keploy-network
 Then, create an alias for Keploy:
 
 ```shell
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
 ```
 
 ### Recording Testcases and Data Mocks
