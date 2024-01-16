@@ -25,6 +25,9 @@ A sample url shortener app to test Keploy integration capabilities using [Echo](
 ## Pre-Requisite 🛠️
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+
+## Optional 🛠️
+
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
 ## Get Started! 🎬
@@ -35,11 +38,6 @@ A sample url shortener app to test Keploy integration capabilities using [Echo](
 git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
 go mod download
 ```
-
-## Pre-requsite
-
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
 ## Installation Keploy
 
@@ -263,15 +261,29 @@ Depending on your OS, choose your adventure:
 - <details>
    <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
-  Keploy can be used on Linux & Windows through Docker, and on MacOS by the help of [Colima](https://docs.keploy.io/docs/server/macos/installation/#using-colima)
+  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
-  ## Create Keploy Alias
+  ### Add alias for Keploy 🐰:
 
-  To establish a network for your application using Keploy on Docker, follow these steps.
+  For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
 
-  If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
+  ### Use Keploy with Docker-Desktop
 
-  ```shell
+  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
+
+  #### Creating Docker Volume
+
+  ```bash
+  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
+  ```
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  ```
+
+  ### Use Keploy with Colima
+
+  ```bash
   alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
 
