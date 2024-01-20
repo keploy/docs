@@ -71,15 +71,14 @@ After entering record mode, send requests to your application to generate test c
 ```shell
 go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10
 ```
-Run Keploy server to expose test APIs:
-  
-  ```shell
-  go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
-  ```
 
+Run Keploy server to expose test APIs:
+
+```shell
+go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
+```
 
 Generated test cases can be found inside the Keploy directory.
-
 
 ### 5. Setup keploy using binary:
 
