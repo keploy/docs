@@ -124,14 +124,16 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`networkName`**: Network name for the container during testing.
 
-- **`tests`**: Mapping of test sets to specific tests.
+- **`tests`**: testset/testcase(s) to run.
   Example:
 
   ```yaml
   tests:
     "test-set-1": ["test-1", "test-2"]
+    "test-set-2": []
+
   ```
-- **`globalNoise`**: Global noise ignored for all API calls. 
+- **`globalNoise`**: Noisy fields to be ignored at global/test-set level. 
   Example:
 
   ```yml
@@ -157,7 +159,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 ## Advanced Noise Filtering:
 
-The additional relief that the config file provides is that it allows the user to specify the `Global Noise` and `Test-Set Noise` in the config file itself. The global noise and test set noise are the [Noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) that are needed to be ignore while comparing the response of the API calls. 
+Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
 
 ### Global Noise
 
