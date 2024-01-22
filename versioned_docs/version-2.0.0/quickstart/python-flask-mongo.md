@@ -34,6 +34,7 @@ keyword:
   sudo apt install python3-pip
 ```
 
+
 ## Optional 🛠️
 
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
@@ -460,6 +461,12 @@ Depending on your OS, choose your adventure:
   ```
 
   ### Lights, Camera, Record! 🎥
+
+  Build the app image:
+
+  ```bash
+  docker build -t flask-app:1.0 .
+  ```
 
   Capture the test-cases-
 
