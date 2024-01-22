@@ -447,6 +447,12 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
+  Build the app image:
+
+  ```bash
+  docker build -t flask-app:1.0 .
+  ```
+
   Capture the test-cases-
 
   ```shell
