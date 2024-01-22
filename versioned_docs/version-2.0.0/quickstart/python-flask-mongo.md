@@ -26,6 +26,15 @@ keyword:
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
 
+### Install Python and pip
+
+```bash
+  sudo apt update
+  sudo apt install python3
+  sudo apt install python3-pip 
+```
+
+
 ## Optional 🛠️
 
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
@@ -255,6 +264,12 @@ Depending on your OS, choose your adventure:
   ### 📼 Roll the Tape - Recording Time!
 
   In `app.py`, replace the MongoDB connection URL with - `mongodb://0.0.0.0:27017/`
+
+  Install the required Python packages:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
 
   Ready, set, record! Here's how:
 
