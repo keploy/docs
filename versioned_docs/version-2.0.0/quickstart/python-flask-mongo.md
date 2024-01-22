@@ -251,6 +251,14 @@ Depending on your OS, choose your adventure:
 
   ### 📼 Roll the Tape - Recording Time!
 
+  Install the dependencies:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
+  Now, let's Capture the test-cases-
+
   In `app.py`, replace the MongoDB connection URL with - `mongodb://0.0.0.0:27017/`
 
   Ready, set, record! Here's how:
@@ -427,6 +435,13 @@ Depending on your OS, choose your adventure:
   ```
 
   ### Lights, Camera, Record! 🎥
+
+  
+  Build the app image:
+
+  ```bash
+  docker build -t flask-app:1.0 .
+  ```
 
   Capture the test-cases-
 
