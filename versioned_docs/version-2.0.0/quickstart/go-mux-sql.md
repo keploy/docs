@@ -1,7 +1,7 @@
 ---
 id: samples-mux
 title: Sample Product Catalog App (Golang)
-sidebar_label: Mux + Postgres
+sidebar_label: MUX + MongoDB
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
   - go
