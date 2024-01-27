@@ -110,26 +110,18 @@ export const Community = () => {
           </a>
         </li>
         <li>
-          <a
-            href="https://twitter.com/keployio"
-            className="flex items-start space-x-4"
-          >
-            <svg
-              fill="currentColor"
-              className="h-12 w-12 flex-none text-blue-400 "
-            >
-              <rect width="48" height="48" rx="12" />
-              <path
-                d="M37.127 15.989h-.001a11.04 11.04 0 01-3.093.836 5.336 5.336 0 002.37-2.932 10.815 10.815 0 01-3.421 1.284 5.42 5.42 0 00-3.933-1.679c-2.976 0-5.385 2.373-5.385 5.3-.003.406.044.812.138 1.207a15.351 15.351 0 01-11.102-5.54 5.235 5.235 0 00-.733 2.663c0 1.837.959 3.461 2.406 4.413a5.338 5.338 0 01-2.449-.662v.066c0 2.57 1.86 4.708 4.32 5.195a5.55 5.55 0 01-1.418.186c-.34 0-.68-.033-1.013-.099.684 2.106 2.676 3.637 5.034 3.68a10.918 10.918 0 01-6.69 2.269 11.21 11.21 0 01-1.285-.077 15.237 15.237 0 008.242 2.394c9.918 0 15.337-8.077 15.337-15.083 0-.23-.006-.459-.017-.683a10.864 10.864 0 002.686-2.746l.007.008z"
-                fill="currentColor"
-                className="text-white"
-              />
+          <a href="https://twitter.com/keployio" className="flex items-start space-x-4">
+            <svg version="1.1" id="svg5" x="0px" y="0px"
+              viewBox="0 0 1668.56 1221.19" style={{ enableBackground: 'new 0 0 1668.56 1221.19' }}
+              fill="currentColor" className="h-12 w-12 flex-none text-black">
+              <g id="layer1" transform="translate(52.390088,-25.058597)">
+                <path id="path1009" d="M283.94,167.31l386.39,516.64L281.5,1104h87.51l340.42-367.76L984.48,1104h297.8L874.15,558.3l361.92-390.99h-87.51l-313.51,338.7l-253.31-338.7H283.94z M412.63,231.77h136.81l604.13,807.76h-136.81L412.63,231.77z"/>
+              </g>
             </svg>
             <div className="flex-auto">
               <h3 className="font-bold">Twitter</h3>
               <p>
-                Follow <span className="text-blue-400">@keployio</span> for
-                Keploy news and events.
+                Follow <span className="text-blue-400">@keployio</span> for Keploy news and events.
               </p>
             </div>
           </a>
