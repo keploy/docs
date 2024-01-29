@@ -51,7 +51,8 @@
             "quickstart/samples-mux",
             "quickstart/samples-echo",
             "quickstart/samples-gin",
-            "quickstart/samples-redis"
+            "quickstart/samples-redis",
+            "quickstart/samples-mysql"
           ]
         },
         {
