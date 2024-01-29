@@ -36,10 +36,18 @@ record:
     containerName: ""
     networkName: ""
     delay: 5
-    passThroughPorts: []
-    filters:
-        ReqHeader: []
-        urlMethods: {}
+    buildDelay: 30s
+    tests:
+        filters:
+            - path: ""
+              urlMethods: []
+              headers: {}
+              host: ""
+    stubs:
+        filters:
+            - path: ""
+              host: "reqres.in"
+              port: 0
 test:
     path: ""
     # mandatory
@@ -48,16 +56,26 @@ test:
     containerName: ""
     networkName: ""
     # example: "test-set-1": ["test-1", "test-2", "test-3"]
-    tests:
+    selectedTests:
     # to use globalNoise, please follow the guide at the end of this file.
     globalNoise:
         global:
             body: {}
             header: {}
-        test-sets:
     delay: 5
+    buildDelay: 30s
     apiTimeout: 5
-    passThroughPorts: []
+    tests:
+        filters:
+            - path: ""
+              urlMethods: []
+              headers: {}
+              host: ""
+    stubs:
+        filters:
+            - path: ""
+              host: "reqres.in"
+              port: 0
     withCoverage: false
     coverageReportPath: ""
 ```
@@ -100,16 +118,30 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`passThroughPorts`**: Ports passed through during recording.
 
-- **`filters`**: Filters applied during recording.
+- **`tests`**: Filters for recorded tests.
+
   Example: 
 
     ```yaml
+  tests:
     filters:
-      ReqHeader: ["Content-Type: application/json"]
-      urlMethods:
-        GET: ["path/to/get"]
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
     ```
+- **`stubs`**: Filters for recorded stubs.
 
+  Example:
+
+  ```yaml
+  stubs:
+    filters:
+      - path: ""
+        host: "reqres.in"
+        port: 0
+  ```
+  
 ### Test Section
 
 The `test` section in the Keploy-config file allows you to define parameters for testing API calls.
@@ -124,14 +156,13 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`networkName`**: Network name for the container during testing.
 
-- **`tests`**: testset/testcase(s) to run.
+- **`selectedTests`**: : Selected tests to run.
   Example:
 
   ```yaml
-  tests:
+  selectedTests:
     "test-set-1": ["test-1", "test-2"]
     "test-set-2": []
-
   ```
 - **`globalNoise`**: Noisy fields to be ignored at global/test-set level. 
   Example:
@@ -140,11 +171,31 @@ The `test` section in the Keploy-config file allows you to define parameters for
   globalNoise:
   global:
     body: {"url": ["https?://\S+"]}
-  test-sets:
+  test-sets: {}
   ```
 - **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
 
 - **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
+
+- **`tests`**: Filters for tests.
+  Example:
+  ```
+  tests:
+  filters:
+    - path: ""
+      urlMethods: []
+      headers: {}
+      host: ""
+  ```
+- **`stubs`**: Filters for stubs.
+
+  ```
+  stubs:
+  filters:
+    - path: ""
+      host: "reqres.in"
+      port: 0
+  ```
 
 - **`passThroughPorts`**: Ports passed through during testing.
   Example: `passThroughPorts: [8080, 9000]`
