@@ -11,17 +11,17 @@ export const GitTogether = () => {
       <img
         className="mt-8 "
         src="/docs/img/GitTogether.jpg"
-        alt={"hacktoberfest-2023"}
+        alt={"GitTogether Image"}
       />
       <div className="grid grid-cols-1 gap-20 mt-10 md:grid-cols-2">
         <a
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:orange] p-4 text-center shadow-lg"
+          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg border-[color:orange] border-2 p-4 text-center shadow-lg"
           href="https://docs.google.com/forms/d/e/1FAIpQLSdXYwF3j6AjVrGQn2RWKXqI5awbdmWK7mW2gQYCNAfpqaGZhA/viewform"
         >
           <p className="text-lg font-semibold">Register</p>
         </a>
         <a
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:orange] p-4 text-center shadow-lg"
+          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg border-[color:orange] border-2 p-4 text-center shadow-lg"
           href="https://docs.google.com/forms/d/e/1FAIpQLSclnnqTRA4x_YhG67eLNOK3LO4-ttqobbMZ5gbUclGNQDvmCg/viewform"
         >
           <p className="text-lg font-semibold">Submit CFP</p>
