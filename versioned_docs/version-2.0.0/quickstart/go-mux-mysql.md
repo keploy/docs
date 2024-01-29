@@ -120,7 +120,7 @@ Depending on your OS, choose your adventure:
 
   Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
 
-  ![Testcase](https://github.com/heyyakash/samples-go/assets/85030597/2b4f3c04-4631-4f9a-b317-7fdb6db87879)
+  ![Testcase](/img/mux-mysql-keploy-record.png)
 
   Now, let's see the magic! ✨💫
 
@@ -136,7 +136,7 @@ Depending on your OS, choose your adventure:
 
   output should look like
 
-  ![Testrun](https://github.com/heyyakash/samples-go/assets/85030597/8167df44-14ec-4037-a768-5e19f8a81826)
+  ![Testrun](/img/mux-mysql-keploy-tests.png)
 
   So no need to setup fake database/apis MySQL or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MySQL 😄**
 
@@ -340,7 +340,7 @@ Depending on your OS, choose your adventure:
   The application thinks it's talking to MySQL 😄
 
   We will get output something like this:
-  ![Testrun](/img/testrun-echo.png?raw=true)
+  ![Testrun](/img/mux-mysql-keploy-tests.png)
 
   ## Wrapping it up 🎉
 
