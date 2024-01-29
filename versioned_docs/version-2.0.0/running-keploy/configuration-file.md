@@ -46,7 +46,7 @@ record:
     stubs:
         filters:
             - path: ""
-              host: "reqres.in"
+              host: ""
               port: 0
 test:
     path: ""
@@ -74,7 +74,7 @@ test:
     stubs:
         filters:
             - path: ""
-              host: "reqres.in"
+              host: ""
               port: 0
     withCoverage: false
     coverageReportPath: ""
@@ -130,7 +130,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
         headers: {}
         host: ""
     ```
-- **`stubs`**: Filters for recorded stubs.
+- **`stubs`**: A bypass for mocking API calls.
 
   Example:
 
@@ -138,7 +138,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
   stubs:
     filters:
       - path: ""
-        host: "reqres.in"
+        host: ""
         port: 0
   ```
   
@@ -177,28 +177,15 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
 
-- **`tests`**: Filters for tests.
-  Example:
-  ```
-  tests:
-  filters:
-    - path: ""
-      urlMethods: []
-      headers: {}
-      host: ""
-  ```
-- **`stubs`**: Filters for stubs.
+- **`stubs`**: A bypass for mocking API calls.
 
   ```
   stubs:
   filters:
     - path: ""
-      host: "reqres.in"
+      host: ""
       port: 0
   ```
-
-- **`passThroughPorts`**: Ports passed through during testing.
-  Example: `passThroughPorts: [8080, 9000]`
 
 - **`withCoverage`**: Whether to generate coverage reports during testing. Default is `false`.
 
