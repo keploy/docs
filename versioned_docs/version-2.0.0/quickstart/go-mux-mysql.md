@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - mysql
+  - sql
 keyword:
   - Mux Framework
   - MySQL
