@@ -55,7 +55,7 @@ docker exec -it mypostgres psql -U postgres -c "CREATE DATABASE usersdb"
 ## Clone a sample user data CRUD app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django-postgres
+git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django_postgres
 ```
 
 ## Installation 📥
