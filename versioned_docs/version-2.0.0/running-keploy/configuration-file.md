@@ -116,9 +116,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
-- **`passThroughPorts`**: Ports passed through during recording.
-
-- **`tests`**: Filters for recorded tests.
+- **`tests`**: Filters to record Tests.
 
   Example: 
 
@@ -195,6 +193,37 @@ The `test` section in the Keploy-config file allows you to define parameters for
   coverageReportPath: "/path/to/coverage/report"
   ```
 
+### Stubs Section
+The stubs section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
+
+- **`filters`**: Filters to define stubs for specific paths, ports, and hosts.
+
+  Example:
+
+  ```yaml
+  stubs:
+    filters:
+      - path: "/user/app"
+        port: 8080
+      - port: 8081
+      - host: "dc.services.visualstudio.com"
+      - port: 8081
+        host: "dc.services.visualstudio.com"
+        path: "/user/app"
+    ```
+  The stubs section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+
+  - **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
+
+  - **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
+
+  - **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
+
+  In the provided example:
+
+  - The first stub applies to the path "/user/app" and the port 8080.
+  - The second stub applies to the port 8081.
+  - The third stub applies to the host "dc.services.visual
 ## Advanced Noise Filtering:
 
 Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
