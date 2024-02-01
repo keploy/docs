@@ -27,10 +27,7 @@
       "label": "Integration with Testing Framework",
       "collapsible": true,
       "collapsed": false,
-      "items": [
-        "server/sdk-installation/go",
-        "server/sdk-installation/java"
-      ]
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java"]
     },
     {
       "type": "category",
@@ -43,9 +40,7 @@
           "label": "Java",
           "collapsible": true,
           "collapsed": true,
-          "items": [
-            "quickstart/samples-java"
-          ]
+          "items": ["quickstart/samples-java"]
         },
         {
           "type": "category",
@@ -56,7 +51,8 @@
             "quickstart/samples-mux",
             "quickstart/samples-echo",
             "quickstart/samples-gin",
-            "quickstart/samples-redis"
+            "quickstart/samples-redis",
+            "quickstart/samples-mysql"
           ]
         },
         {
@@ -77,7 +73,7 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-bunjs", 
+            "quickstart/samples-bunjs",
             "quickstart/samples-nodejs"
           ]
         },
@@ -86,9 +82,7 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": [
-            "quickstart/samples-rust"
-          ]
+          "items": ["quickstart/samples-rust"]
         }
       ]
     },
@@ -97,9 +91,7 @@
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
-      "items": [
-        "concepts/general-glossary"
-      ]
+      "items": ["concepts/general-glossary"]
     }
   ],
   "sidebarExplanation": [
@@ -134,9 +126,7 @@
       "label": "Database Support",
       "collapsible": true,
       "collapsed": false,
-      "items": [
-        "dependencies/mongo"
-      ]
+      "items": ["dependencies/mongo"]
     }
   ]
 }
