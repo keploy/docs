@@ -193,7 +193,39 @@ The `test` section in the Keploy-config file allows you to define parameters for
   coverageReportPath: "/path/to/coverage/report"
   ```
 
+### Tests Configuration
+
+The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
+
+- **`filters`**: Filters to record specific tests based on path, HTTP methods, headers, and host.
+
+  Example:
+
+  ```yml
+  tests:
+    filters:
+      - path: "/user/app"
+        urlMethods: ["GET"]
+        headers:
+          "^asdf*": "^test"
+        host: "dc.services.visualstudio.com"
+  ```
+
+The tests section enables you to specify conditions for recording tests during API calls. The filters subsection allows you to define specific criteria, such as path, HTTP methods, headers, and host, to record relevant test scenarios.
+
+- **`path`**: Specifies the path for which the test should be recorded. It defines the URL path of the API endpoint.
+
+- **`urlMethods`**: Specifies the HTTP methods for which the test should be recorded. It allows you to focus on specific HTTP methods like GET, POST, etc.
+
+- **`headers`**: Specifies headers and their values for which the test should be recorded. It enables you to filter tests based on specific headers.
+
+- **`host`**: Specifies the host for which the test should be recorded. It defines the domain or IP address of the API server.
+
+#### Using Test Filters Together or Independently
+ You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
+
 ### Stubs Section
+
 The stubs section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
 - **`filters`**: Filters to define stubs for specific paths, ports, and hosts.
