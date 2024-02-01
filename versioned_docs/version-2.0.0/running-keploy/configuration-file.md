@@ -64,6 +64,7 @@ test:
             header: {}
     delay: 5
     buildDelay: 30s
+    ignoreOrdering: true
     apiTimeout: 5
     tests:
         filters:
@@ -82,7 +83,7 @@ test:
 
 ## Using the Config File
 
-The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/). To run a record or test command, use:
+The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/).Using keploy-config can help to reduce the record and test command to just:
 
 ### Record Command:
 
@@ -153,6 +154,8 @@ The `test` section in the Keploy-config file allows you to define parameters for
 - **`containerName`**: Name of the container during testing.
 
 - **`networkName`**: Network name for the container during testing.
+
+- **`ignoreOrdering`**: When set to `true`, ignores the order of array elements in response bodies during testing.
 
 - **`selectedTests`**: : Selected tests to run.
   Example:
@@ -262,7 +265,7 @@ Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/ge
 
 ### Global Noise
 
-The Global Noise section is used to define parameters that are globally ignored for all API calls during testing. It enables you to filter out consistent noise, ensuring a cleaner evaluation of responses.
+The `global subsection` of `globalNoise` is used to define parameters that are globally ignored for all API calls during testing. It enables you to filter out consistent noise, ensuring a cleaner evaluation of responses.
 
 ```yml
 globalNoise:
@@ -277,7 +280,7 @@ globalNoise:
 ```
 
 1. **`global`**:
-  - **`body`**: Defines patterns to ignore for the request or response body, such as filtering out URLs. Example: `{"url": ["https?://\S+", "http://\S+"]}`
+  - **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ["https?://\S+", "http://\S+"]}`
   - **`header`**: Specifies headers or header values to be ignored globally. Example: `{"Date": []}`
 
 2. **`test-sets`**: This section is left empty in the example. It allows you to specify additional noise parameters for specific test sets, offering tailored noise filtering for different testing scenarios.
@@ -298,7 +301,7 @@ test-set-1:
 ```
 
 **`test-set-1`**:
-  - **`body`**: Defines patterns to ignore for the request or response body within the specified test set. Example: `{"uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]}`
+  - **`body`**: Defines patterns to ignore for the response body within the specified test set. Example: `{"uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]}`
   - **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
 
 #### **Note**:
