@@ -1,12 +1,12 @@
 ---
 id: code-contribution
-title: Code Contribution
+title: Code Contribution to Keploy Projects (v1)
 label: Hacktoberfest
 ---
 
-# Code Contribution to Keploy Projects
+# Code Contribution to Keploy Projects (v1)
 
-There are different ways you can contribute to Keploy projects codebase. You can help with:
+There are different ways you can contribute to Keploy projects (v1) codebase. You can help with:
 
 - 👉 Bug fixes :- If you'd like to break and build software, fix a current issue reported by the community and be a hero!
 

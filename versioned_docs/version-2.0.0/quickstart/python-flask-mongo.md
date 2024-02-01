@@ -25,6 +25,17 @@ keyword:
 ## Pre-Requisite 🛠️
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
+
+### Install Python and pip
+
+```bash
+  sudo apt update
+  sudo apt install python3
+  sudo apt install python3-pip
+```
+
+## Optional 🛠️
+
 - Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
 
 ## Get Started! 🎬
@@ -43,7 +54,7 @@ Start the MongoDB instance-
 docker run -p 27017:27017 -d --network backend --name mongo mongo
 ```
 
-## Clone a sample URL shortener app 🧪
+## Clone a simple Student Management API 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
@@ -75,7 +86,7 @@ Depending on your OS, choose your adventure:
   #### Add alias for Keploy:
 
   ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
 
   ### Lights, Camera, Record! 🎥
@@ -253,6 +264,12 @@ Depending on your OS, choose your adventure:
 
   In `app.py`, replace the MongoDB connection URL with - `mongodb://0.0.0.0:27017/`
 
+  Install the required Python packages:
+
+  ```bash
+  pip install -r requirements.txt
+  ```
+
   Ready, set, record! Here's how:
 
   ```bash
@@ -416,17 +433,39 @@ Depending on your OS, choose your adventure:
 - <details>
    <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
-  Dive straight in, but first, give **Colima** a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
+  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
-  #### Add alias for Keploy 🐰:
+  ### Add alias for Keploy 🐰:
 
   For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
 
+  ### Use Keploy with Docker-Desktop
+
+  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
+
+  #### Creating Docker Volume
+
   ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
+  ```
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
+  ```
+
+  ### Use Keploy with Colima
+
+  ```bash
+  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
 
   ### Lights, Camera, Record! 🎥
+
+  Build the app image:
+
+  ```bash
+  docker build -t flask-app:1.0 .
+  ```
 
   Capture the test-cases-
 

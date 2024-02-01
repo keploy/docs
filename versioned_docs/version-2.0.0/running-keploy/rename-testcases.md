@@ -19,19 +19,19 @@ To demonstrate this, let's consider the [gin-mongo](https://github.com/keploy/sa
 
 1. Clone the repository and move to gin-mongo folder
 
-```go
+```bash
 git clone https://github.com/keploy/samples-go && cd samples-go/gin-mongo
 ```
 
 2. Create a binary for the application.
 
-```go
+```bash
 go build
 ```
 
 3. Run keploy in record mode and provide the path to the binary.
 
-```go
+```bash
 sudo -E keploy record -c "./test-app-url-shortener"
 ```
 

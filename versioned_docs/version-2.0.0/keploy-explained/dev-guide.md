@@ -45,7 +45,6 @@ Once the recording phase is complete, Keploy can effortlessly generate test case
 
 - `record`: Capture Keploy test cases from API calls.
 - `test`: Execute recorded test cases and validate assertions.
-- `serve`: Run the Keploy server to expose test APIs.
 
 To dive into Keploy, you can use the [gin-mongo URL Shortener](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample application:
 
@@ -65,12 +64,18 @@ go build -o gin-mongo-binary  # Generate binary of the application:
  go run -exec "sudo -E env 'PATH=$PATH'" main.go record -c "path/to/go/binary/of/application"
 ```
 
-After entering record mode, send requests to your application to generate test cases. If using POSTMAN, remember to turn off the keep-alive header.
+After entering record mode, send requests to your application to generate test cases.
 
 #### Running Test Cases:
 
 ```shell
 go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10
+```
+
+Run Keploy server to expose test APIs:
+
+```shell
+go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
 ```
 
 Generated test cases can be found inside the Keploy directory.
@@ -108,7 +113,7 @@ docker pull ghcr.io/keploy/keploy
 #### Create Keploy Alias:
 
 ```shell
-alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 #### Capture Test Cases:
@@ -136,7 +141,7 @@ docker build -t <nameOfImage> .
 #### Create Alias:
 
 ````shell
-alias keployV2='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm <nameOfImage>'
+alias keployV2='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm <nameOfImage>'
 
 #### Capture Test Cases:
 

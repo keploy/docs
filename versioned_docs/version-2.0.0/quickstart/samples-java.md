@@ -1,7 +1,7 @@
 ---
 id: samples-java
 title: Java Sample Application
-sidebar_label: Spring Boot + Postgres
+sidebar_label: Spring Boot + Postgres SQL
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
   - java
@@ -29,7 +29,8 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 ## Pre-requisites
 
-- [Support all Java Version](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- Java 1.8+
+- Maven
 
 ## Quick Keploy Installation
 
@@ -44,16 +45,24 @@ curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source
 Clone the repository and install the dependencies
 
 ```bash
-git clone https://github.com/keploy/samples-java && cd employee-manager
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
 mvn clean install -Dmaven.test.skip=true
 ```
+
+## Start the Postgres DB
+
+```bash
+docker-compose up -d
+```
+
+Note: You may have to use sudo if you are not part of the docker group.
 
 ### Capture the testcases
 
 Once we have our jar file ready,this command will start the recording of API calls using ebpf:-
 
 ```bash
-sudo -E env PATH=$PATH keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
+keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
 ```
 
 ![Testcases](https://github.com/keploy/samples-java/blob/main/employee-manager/img/test-cases.png?raw=true)
@@ -103,10 +112,34 @@ Now, let's see the magic! 🪄💫
 
 ## Run the test cases
 
+First lets shutdown the database to verify that keploy's magic is taking care of the database mocking. No need to worry about the database anymore! 🎉
+
+```bash
+
+docker-compose down
+```
+
 Now, let's run the keploy in test mode: -
 
 ```bash
-sudo -E env PATH=$PATH keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
+keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
 ```
 
-This will run the testcases and generate the report in `keploy/testReports` folder.
+This will run the testcases and generate the report in `keploy/testReports` folder. You will see the following output:-
+
+```bash
+🐰 Keploy: 2024-01-17T16:47:17Z 	INFO	result	{"testcase id": "test-1", "testset id": "test-set-1", "passed": "true"}
+🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	starting test for of	{"test case": "test-2", "test set": "test-set-1"}
+🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	result	{"testcase id": "test-2", "testset id": "test-set-1", "passed": "true"}
+🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	test report for test-set-1: 	{"name: ": "report-3", "path: ": "/tmp/samples-java/employee-manager/keploy/report-3"}
+
+ <=========================================>
+  TESTRUN SUMMARY. For testrun with id: "test-set-1"
+	Total tests: 2
+	Total test passed: 2
+	Total test failed: 0
+ <=========================================>
+
+🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	keploy has initiated the shutdown of the user application.
+🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	test run completed	{"passed overall": true}
+```

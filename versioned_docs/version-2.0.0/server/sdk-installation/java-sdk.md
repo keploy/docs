@@ -23,11 +23,6 @@ keyword:
 2. [Maven](https://maven.apache.org/)
 3. [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)
 
-## Contents
-
-1. [Installation](#installation)
-2. [Usage](#usage)
-
 ## Installation
 
 ### Get Keploy java sdk
@@ -224,5 +219,5 @@ For the code coverage for the keploy API tests using the `junit` integration, yo
 Now let's run junit tests along keploy using command:-
 
 ```bash
-sudo -E keploy serve -c "mvn test" --delay 15
+sudo -E keploy test -c "mvn test" --delay 15 --coverage
 ```

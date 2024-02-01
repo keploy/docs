@@ -27,10 +27,7 @@
       "label": "Integration with Testing Framework",
       "collapsible": true,
       "collapsed": false,
-      "items": [
-        "server/sdk-installation/go",
-        "server/sdk-installation/java"
-      ]
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java"]
     },
     {
       "type": "category",
@@ -57,7 +54,8 @@
             "quickstart/samples-mux",
             "quickstart/samples-echo",
             "quickstart/samples-gin",
-            "quickstart/samples-redis"
+            "quickstart/samples-redis",
+            "quickstart/samples-mysql"
           ]
         },
         {
@@ -81,6 +79,13 @@
             "quickstart/samples-bunjs",
             "quickstart/samples-nodejs"
           ]
+        },
+        {
+          "type": "category",
+          "label": "Rust",
+          "collapsible": true,
+          "collapsed": true,
+          "items": ["quickstart/samples-rust"]
         }
       ]
     },
@@ -89,9 +94,7 @@
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
-      "items": [
-        "concepts/general-glossary"
-      ]
+      "items": ["concepts/general-glossary"]
     }
   ],
   "sidebarExplanation": [
@@ -117,7 +120,8 @@
       "collapsible": false,
       "items": [
         "keploy-explained/contribution-guide",
-        "keploy-explained/docs-dev-guide"
+        "keploy-explained/docs-dev-guide", 
+        "keploy-explained/debugger-guide"
       ]
     },
     {
@@ -125,9 +129,7 @@
       "label": "Database Support",
       "collapsible": true,
       "collapsed": false,
-      "items": [
-        "dependencies/mongo"
-      ]
+      "items": ["dependencies/mongo"]
     }
   ]
 }
