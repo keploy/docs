@@ -45,7 +45,6 @@ Once the recording phase is complete, Keploy can effortlessly generate test case
 
 - `record`: Capture Keploy test cases from API calls.
 - `test`: Execute recorded test cases and validate assertions.
-- `serve`: Run the Keploy server to expose test APIs.
 
 To dive into Keploy, you can use the [gin-mongo URL Shortener](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample application:
 
@@ -71,6 +70,12 @@ After entering record mode, send requests to your application to generate test c
 
 ```shell
 go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10
+```
+
+Run Keploy server to expose test APIs:
+
+```shell
+go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
 ```
 
 Generated test cases can be found inside the Keploy directory.

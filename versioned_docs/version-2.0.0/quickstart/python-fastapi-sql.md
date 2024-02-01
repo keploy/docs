@@ -46,10 +46,6 @@ Start the Postgres instance using the `docker-compose` file-
 docker run -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d --network backend --name mypostgres postgres
 ```
 
-```bash
-docker build -t fastapi-app:1.0 .
-```
-
 ## Clone the sample Student Data CRUD app 🧪
 
 ```bash
@@ -86,6 +82,12 @@ Depending on your OS, choose your adventure:
   ```
 
   ### Lights, Camera, Record! 🎥
+
+  Build the app image:
+
+  ```bash
+  docker build -t fastapi-app:1.0 .
+  ```
 
   Capture the test-cases-
 
