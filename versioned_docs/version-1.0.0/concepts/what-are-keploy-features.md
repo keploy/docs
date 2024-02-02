@@ -54,4 +54,4 @@ existing CI pipelines easily.
 ### 5. Easy Integration Framework for new Libraries
 
 Keploy has Instrumentation/Integration framework to easily add the new libraries/drivers within ~100 lines of code.
-Please check-out the [contribution guide](/devtools/sdk-contrib-guide).
+Please check-out the [contribution guide](versioned_docs\version-1.0.0\devtools\sdk-contrib-guide.md).

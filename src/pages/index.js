@@ -3,7 +3,7 @@ import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, Hacktoberfest, Resources, QuickStart} from "../components";
 import {GSoC} from "../components/GSoC";
-
+import {GitTogether} from "../components/GitTogether";
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -17,7 +17,8 @@ export default function Home() {
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
           {/*<GSoC/>*/}
-          {<Hacktoberfest />}
+          {/* <Hacktoberfest /> */}
+          <GitTogether />
           {/*<Intro />*/}
           <Resources />
           <Community />

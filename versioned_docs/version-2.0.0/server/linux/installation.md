@@ -2,7 +2,37 @@
 id: installation
 title: Linux Installation
 sidebar_label: Linux
+tags:
+  - hello-world
+  - linux
+  - ebpf
+  - installation
+  - install
+keywords:
+  - hello-world
+  - ebpf
+  - installation
+  - install
+  - ubuntu
+  - linux
+  - API Test generator
+  - Auto Testcase generation
+  - installation-guide
+  - server-setup
 ---
+
+Keploy can be installed in two ways:
+
+1. [One-Click Install](#one-click-install-keploy).
+2. [Manual Install](#manual-install)
+
+## One click install Keploy.
+
+```
+ curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+```
+
+## Manual Install
 
 There are two ways to use Keploy eBPF in linux, you can use either use:
 
@@ -71,7 +101,7 @@ docker network create keploy-network
 Then, create an alias for Keploy:
 
 ```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
+alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
 ```
 
 #### Capture the Testcases

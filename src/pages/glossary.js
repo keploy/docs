@@ -45,7 +45,7 @@ function Glossary() {
     E: [
       {
         name: "End To End Testing",
-        link: "/concẻpts/reference/glossary/end-to-end-testing",
+        link: "/concepts/reference/glossary/end-to-end-testing",
       },
     ],
     F: [

@@ -80,7 +80,7 @@ Sync dependencies or to _build.gradle_:
 ## Setup Sample Employee-Manager App
 
 ```bash
-git clone https://github.com/keploy/samples-java && cd samples-java
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
 ```
 
 ### Start PostgreSQL DB for Employee-Manager App
