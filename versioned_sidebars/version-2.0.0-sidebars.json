@@ -40,7 +40,10 @@
           "label": "Java",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-java"]
+          "items": [
+            "quickstart/samples-java",
+            "quickstart/java-spring-boot-mongo"
+          ]
         },
         {
           "type": "category",
