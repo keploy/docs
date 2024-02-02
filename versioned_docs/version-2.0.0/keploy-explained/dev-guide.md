@@ -110,12 +110,6 @@ Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
 docker pull ghcr.io/keploy/keploy
 ```
 
-#### Create Keploy Alias:
-
-```shell
-alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 --network keploy-network --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
-```
-
 #### Capture Test Cases:
 
 ```shell

@@ -98,15 +98,9 @@ If you're using a **docker-compose network**, replace `keploy-network` with your
 docker network create keploy-network
 ```
 
-Then, create an alias for Keploy:
-
-```bash
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy'
-```
-
 #### Capture the Testcases
 
-Now, we will use the newly created alias `keploy` to record the testcases.
+Now, we will record the testcases.
 
 ```shell
 keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
@@ -114,7 +108,7 @@ keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --ne
 
 #### Run the Testcases
 
-Now, we will use the newly created Alias `keploy` to test the testcases.
+Now, we will test the testcases.
 
 ```shell
 keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 20

@@ -153,16 +153,6 @@ Depending on your OS, choose your adventure:
    <details>
    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
-  ## Create Keploy Alias
-
-  To establish a network for your application using Keploy on Docker, follow these steps.
-
-  If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
-
-  ```shell
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-  ```
-
   ## Let's start the MySQL Instance
 
   Start the MySQL instance:-
@@ -247,10 +237,6 @@ Depending on your OS, choose your adventure:
 
   Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
-  ### Add alias for Keploy 🐰:
-
-  For the sake of convenience (and a bit of Mac magic 🪄), let's set up a shortcut for Keploy:
-
   ### Use Keploy with Docker-Desktop
 
   Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
@@ -261,15 +247,7 @@ Depending on your OS, choose your adventure:
   docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
   ```
 
-  ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-  ```
-
   ### Use Keploy with Colima
-
-  ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v "$(pwd)":/files -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-  ```
 
   ## Let's start the MySQL Instance
 
