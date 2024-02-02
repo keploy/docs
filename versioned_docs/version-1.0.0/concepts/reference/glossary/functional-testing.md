@@ -1,6 +1,6 @@
 ---
 id: functional-testing
-title: Functional testing
+title: Functional testing (v1.0.0)
 sidebar_label: Functional testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

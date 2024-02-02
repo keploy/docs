@@ -1,6 +1,6 @@
 ---
 id: replay
-title: Replay Tests & Mocks for Go
+title: Replay Tests & Mocks for Go (v1.0.0)
 description: Replay Test Suite for Go in Keploy.
 tags:
   - developer-guide

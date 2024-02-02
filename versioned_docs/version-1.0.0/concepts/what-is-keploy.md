@@ -1,6 +1,6 @@
 ---
 id: what-is-keploy
-title: What is Keploy?
+title: What is Keploy? (v1.0.0)
 sidebar_label: What is Keploy?
 description: Keploy is e2e testing toolkit for developers that generates tests from API calls.
 tags:

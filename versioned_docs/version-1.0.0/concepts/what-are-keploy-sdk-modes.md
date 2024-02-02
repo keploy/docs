@@ -1,6 +1,6 @@
 ---
 id: what-are-keploy-sdk-modes
-title: Understanding Keploy SDK Modes
+title: Understanding Keploy SDK Modes (v1.0.0)
 sidebar_label: Keploy SDK Modes
 description: There are three modes of Keploy SDK- Off, Record and Test mode, which is a language specific library that captures and replays API calls and subsequent network interactions and this page explains different modes of SDK.
 tags:

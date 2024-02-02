@@ -1,6 +1,6 @@
 ---
 id: general-glossary
-title: Simplified User Glossary
+title: Simplified User Glossary (v1.0.0)
 sidebar_label: Glossary
 description: This glossary simplifies complex terminologies, making it easy for beginners to grasp essential concepts.
 tags:

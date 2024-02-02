@@ -1,6 +1,6 @@
 ---
 id: browser-extension-operations
-title: Browser Extension Operations
+title: Browser Extension Operations (v1.0.0)
 description: Guide into Keploy Chrome Browser Extension
 sidebar_label: Browser Extension for Selenium
 tags:

@@ -1,6 +1,6 @@
 ---
 id: index
-title: Concepts
+title: Concepts (v1.0.0)
 description: The following concepts have specific definitions within the context of the Keploy Platform.
 tags:
   - references

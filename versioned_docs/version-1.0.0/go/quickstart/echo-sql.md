@@ -1,6 +1,6 @@
 ---
 id: echo-sql
-title: Sample Echo-SQL Application with the Go
+title: Sample Echo-SQL Application with the Go (v1.0.0)
 sidebar_label: Echo-SQL Sample
 tags:
   - hello-world

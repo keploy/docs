@@ -1,6 +1,6 @@
 ---
 id: introduction
-title: Keploy Devtools introduction
+title: Keploy Devtools introduction (v1.0.0)
 label: Introduction
 description: This guide is for developers trying to contribute to Keploy codebase.
 keywords:

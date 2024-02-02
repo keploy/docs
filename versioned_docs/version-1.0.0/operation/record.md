@@ -1,6 +1,6 @@
 ---
 id: record-operations
-title: Record API Calls with Keploy's Record Mode
+title: Record API Calls with Keploy's Record Mode (v1.0.0)
 description: Keploy Record Mode Guide for recording API Calls
 sidebar_label: Record
 tags:

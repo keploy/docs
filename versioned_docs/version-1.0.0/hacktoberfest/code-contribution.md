@@ -1,6 +1,6 @@
 ---
 id: code-contribution
-title: Code Contribution
+title: Code Contribution (v1.0.0)
 label: Hacktoberfest
 ---
 

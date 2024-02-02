@@ -1,6 +1,6 @@
 ---
 id: black-box-testing
-title: Black Box Testing
+title: Black Box Testing (v1.0.0)
 sidebar_label: Black Box Testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

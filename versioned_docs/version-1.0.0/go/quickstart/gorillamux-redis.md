@@ -1,6 +1,6 @@
 ---
 id: gorillamux-redis
-title: Contact Keeper with Gorilla/Mux-Redis
+title: Contact Keeper with Gorilla/Mux-Redis (v1.0.0)
 sidebar_label: Gorilla/Mux-Redis Sample
 tags:
   - hello-world

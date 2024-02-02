@@ -1,6 +1,6 @@
 ---
 id: index
-title: Keploy operation guides
+title: Keploy operation guides (v1.0.0)
 ---
 
 - [How to Record](/operation/record-operations)

@@ -1,6 +1,6 @@
 ---
 id: web-ui-operations
-title: Operations on Web UI
+title: Operations on Web UI (v1.0.0)
 description: Guide into Keploy Console
 sidebar_label: Web UI
 tags:
