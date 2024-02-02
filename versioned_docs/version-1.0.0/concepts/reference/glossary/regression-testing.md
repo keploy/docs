@@ -1,6 +1,6 @@
 ---
 id: Regression-Testing
-title: Regression Testing
+title: Regression Testing (v1.0.0)
 sidebar_label: Regression Testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:

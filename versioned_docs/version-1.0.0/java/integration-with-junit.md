@@ -1,6 +1,6 @@
 ---
 id: integration-with-Junit
-title: Integrate with Junit
+title: Integrate with Junit (v1.0.0)
 sidebar_label: Integrate with Junit
 ---
 

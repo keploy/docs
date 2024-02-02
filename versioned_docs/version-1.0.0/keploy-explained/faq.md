@@ -1,6 +1,6 @@
 ---
 id: faq
-title: Frequently Asked Questions (FAQ)
+title: Frequently Asked Questions (FAQ) (v1.0.0)
 sidebar_label: FAQ
 tags:
   - explanation

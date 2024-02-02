@@ -1,6 +1,6 @@
 ---
 id: what-are-keploy-features
-title: Understanding Features of Keploy
+title: Understanding Features of Keploy (v1.0.0)
 sidebar_label: Keploy Features
 description: Learn about the core features of Keploy, including automatic mocking of application dependencies, secure write replay, precise noise detection, and statistical data de-duplication.
 tags:

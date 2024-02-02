@@ -1,6 +1,6 @@
 ---
 id: supported-frameworks
-title: Supported Frameworks for Golang
+title: Supported Frameworks for Golang (v1.0.0)
 description: Supported Frameworks for Golang
 tags:
   - go

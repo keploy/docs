@@ -1,6 +1,6 @@
 ---
 id: sdk-installation
-title: Installation of Keploy SDK
+title: Installation of Keploy SDK (v1.0.0)
 sidebar_label: Keploy SDK
 ---
 

@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Installation for Java
+title: Installation for Java (v1.0.0)
 description: Add the Keploy Server locally using Java.
 tags:
   - developer-guide

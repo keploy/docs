@@ -1,6 +1,6 @@
 ---
 id: integration-with-go-test
-title: Integrate with Go Test
+title: Integrate with Go Test (v1.0.0)
 sidebar_label: Integrate with Go Test
 ---
 

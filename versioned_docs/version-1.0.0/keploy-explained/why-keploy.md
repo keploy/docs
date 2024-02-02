@@ -1,6 +1,6 @@
 ---
 id: why-keploy
-title: Why Keploy?
+title: Why Keploy? (v1.0.0)
 sidebar_label: Why Keploy?
 tags:
   - explanation
