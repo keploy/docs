@@ -110,7 +110,7 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+  curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
   ```
 
   **2. Make a GET request**
@@ -283,7 +283,7 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+  curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
   ```
 
   **2. Make a GET request**
