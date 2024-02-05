@@ -34,10 +34,6 @@ keyword:
   sudo apt install python3-pip
 ```
 
-## Optional 🛠️
-
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
-
 ## Get Started! 🎬
 
 ## Setup the MongoDB Database 📦
@@ -51,7 +47,7 @@ docker network create backend
 Start the MongoDB instance-
 
 ```bash
-docker run -p 27017:27017 -d --network backend --name mongo mongo
+docker run -p 27017:27017 --rm -d --network backend --name mongo mongo
 ```
 
 ## Clone a simple Student Management API 🧪
@@ -100,7 +96,7 @@ Depending on your OS, choose your adventure:
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 6000:6000 --name flask-app --network backend flask-app:1.0"
+  keploy record -c "docker run -p 6000:6000 --rm --name flask-app --network backend flask-app:1.0"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -114,7 +110,7 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+  curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
   ```
 
   **2. Make a GET request**
@@ -287,7 +283,7 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+  curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
   ```
 
   **2. Make a GET request**
@@ -443,20 +439,10 @@ Depending on your OS, choose your adventure:
 
   Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
 
-  #### Creating Docker Volume
-
-  ```bash
-  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
-  ```
+  #### Setting Up Keploy Alias
 
   ```bash
   alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-  ```
-
-  ### Use Keploy with Colima
-
-  ```bash
-  alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
   ```
 
   ### Lights, Camera, Record! 🎥
@@ -470,7 +456,7 @@ Depending on your OS, choose your adventure:
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 6000:6000 --name DjangoApp --network backend --name flask-app flask-app:1.0"
+  keploy record -c "docker run -p 6000:6000 --rm --name flask-app --network backend --name flask-app flask-app:1.0
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -484,7 +470,7 @@ Depending on your OS, choose your adventure:
   **1. Make a POST request**
 
   ```bash
-  curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+  curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
   ```
 
   **2. Make a GET request**
