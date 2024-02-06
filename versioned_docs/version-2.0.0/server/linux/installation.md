@@ -86,10 +86,6 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ## Using Docker
 
-### Creating Alias
-
-### Create Keploy Alias
-
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.

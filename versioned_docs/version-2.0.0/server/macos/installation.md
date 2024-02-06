@@ -89,7 +89,7 @@ Here are few points to consider before recording!
 - Change the **network name** (`--network` flag) from `keploy-network` to your custom network if you changed it above.
 - `Docker_CMD_to_run_user_container` refers to the Docker **command for launching** the application.
 
-Utilize the keploy alias to capture testcases. **Execute** the following command within your application's **root directory**.
+Utilize keploy to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
 keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
