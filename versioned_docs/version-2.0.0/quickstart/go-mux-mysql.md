@@ -153,8 +153,8 @@ Depending on your OS, choose your adventure:
    <details>
    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
-  >To establish a network for your application using Keploy on Docker, follow these steps.
-  >If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
+  > To establish a network for your application using Keploy on Docker, follow these steps.
+  > If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
 
   ## Let's start the MySQL Instance
 
@@ -253,6 +253,10 @@ Depending on your OS, choose your adventure:
   ### Use Keploy with Colima
 
   To start colima, you can run:
+<<<<<<< HEAD
+=======
+
+>>>>>>> dcf59949e3744fde87d9bcf92ee435518ae5fc63
   ```bash
   colima start
   ```
