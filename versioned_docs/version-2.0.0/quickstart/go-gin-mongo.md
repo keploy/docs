@@ -495,11 +495,6 @@ Depending on your OS, choose your adventure:
 
   ### Use Keploy with Colima
 
-  To start colima, you can run:
-  ```bash
-  colima start
-  ```
-
   ### Lights, Camera, Record! 🎥
 
   Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:

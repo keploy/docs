@@ -252,15 +252,6 @@ Depending on your OS, choose your adventure:
 
   ### Use Keploy with Colima
 
-  To start colima, you can run:
-<<<<<<< HEAD
-=======
-
->>>>>>> dcf59949e3744fde87d9bcf92ee435518ae5fc63
-  ```bash
-  colima start
-  ```
-
   ## Let's start the MySQL Instance
 
   Using the docker-compose file we will start our instance:-

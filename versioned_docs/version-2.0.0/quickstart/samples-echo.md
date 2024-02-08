@@ -265,11 +265,6 @@ Depending on your OS, choose your adventure:
 
   ### Use Keploy with Colima
 
-  To start colima, you can run:
-  ```bash
-  colima start
-  ```
-
   ## Let's start the MongoDB Instance
 
   Using the docker-compose file we will start our mongodb instance:-
