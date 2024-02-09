@@ -60,6 +60,12 @@ mvn wrapper:wrapper
 
 ## Install Keploy 📥
 
+First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
+
+```bash
+wsl ~
+```
+
 Alright, let's equip ourselves with the **latest Keploy binary**:
 
 ```bash

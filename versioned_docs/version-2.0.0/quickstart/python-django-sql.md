@@ -65,7 +65,13 @@ Depending on your OS, choose your adventure:
 - <details>
    <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
 
-  Alright, let's equip ourselves with the **latest Keploy binary**:
+  First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
+
+  ```bash
+  wsl ~
+  ```
+
+  Alright, now let's equip ourselves with the **latest Keploy binary**:
 
   ```bash
   curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp

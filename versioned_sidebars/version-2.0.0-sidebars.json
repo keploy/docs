@@ -110,6 +110,13 @@
         "keploy-explained/faq",
         "server/index"
       ]
+    },
+    {
+      "type": "category",
+      "label": "Database Support",
+      "collapsible": true,
+      "collapsed": false,
+      "items": ["dependencies/mongo"]
     }
   ],
 
@@ -123,13 +130,6 @@
         "keploy-explained/docs-dev-guide", 
         "keploy-explained/debugger-guide"
       ]
-    },
-    {
-      "type": "category",
-      "label": "Database Support",
-      "collapsible": true,
-      "collapsed": false,
-      "items": ["dependencies/mongo"]
     }
   ]
 }

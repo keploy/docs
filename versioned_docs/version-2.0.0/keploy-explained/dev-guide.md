@@ -156,3 +156,5 @@ keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network kep
 ```
 
 There you have it! With this guide, you're all set to dive into Keploy development. Happy testing! 🧪🔍💻
+
+> **Note** :- Run `go run github.com/99designs/gqlgen generate --config pkg/graph/gqlgen.yml` to generate the graphql server stubs which can be used when working with unit testing libraries like JUnit, PyTest, etc..
