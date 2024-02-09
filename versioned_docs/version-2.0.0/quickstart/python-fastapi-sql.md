@@ -57,8 +57,11 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/fast
 Depending on your OS, choose your adventure:
 
 - <details>
-   <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
-
+  <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+  First things first, If you are using WSL on windows then use below to start wsl in the user's home directory: 
+  ```bash
+  wsl ~
+  ```
   Alright, let's equip ourselves with the **latest Keploy binary**:
 
   ```bash
@@ -77,16 +80,10 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-  Build the app image:
-
-  ```bash
-  docker build -t fastapi-app:1.0 .
-  ```
-
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0"
+  keploy record -c "docker compose up" --containerName "fastapi-app"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -238,7 +235,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0" --delay 10
+  keploy test -c "docker compose up" --containerName "fastapi-app" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -456,7 +453,7 @@ Depending on your OS, choose your adventure:
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0"
+  keploy record -c "docker compose up" --containerName "fastapi-app"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -608,7 +605,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "docker run -p 8000:8000 --name FastapiApp --network backend --name fastapiPostgresApp fastapi-app:1.0" --delay 10
+  keploy test -c "docker compose up" --containerName "fastapi-app" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

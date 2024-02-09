@@ -26,14 +26,6 @@ keyword:
 
 - Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
 
-### Install Python and pip
-
-```bash
-  sudo apt update
-  sudo apt install python3
-  sudo apt install python3-pip
-```
-
 ## Get Started! 🎬
 
 ## Setup the MongoDB Database 📦
@@ -81,16 +73,10 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-  Build the app image:
-
-  ```bash
-  docker build -t flask-app:1.0 .
-  ```
-
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 6000:6000 --rm --name flask-app --network backend flask-app:1.0"
+  keploy record -c "docker compose up" --containerName "flask-app"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -229,7 +215,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 6000:6000 --rm --network backend --name flask-app flask-app:1.0" --delay 10
+  keploy test -c "docker compose up" --containerName "flask-app" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -433,16 +419,10 @@ Depending on your OS, choose your adventure:
 
   ### Lights, Camera, Record! 🎥
 
-  Build the app image:
-
-  ```bash
-  docker build -t flask-app:1.0 .
-  ```
-
   Capture the test-cases-
 
   ```shell
-  keploy record -c "docker run -p 6000:6000 --rm --name flask-app --network backend --name flask-app flask-app:1.0
+  keploy record -c "docker compose up" --containerName "flask-app"
   ```
 
   🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -581,7 +561,7 @@ Depending on your OS, choose your adventure:
   Time to put things to the test 🧪
 
   ```shell
-  keploy test -c "sudo docker run -p 6000:6000 --rm --network backend --name flask-app flask-app:1.0" --delay 10
+  keploy test -c "docker compose up" --containerName "flask-app" --delay 10
   ```
 
   > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
