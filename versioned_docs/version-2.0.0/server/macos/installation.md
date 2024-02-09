@@ -54,14 +54,6 @@ If you're using a **docker-compose network**, replace `keploy-network` with your
 docker network create keploy-network
 ```
 
-### Creating Alias
-
-Then, create an alias for Keploy:
-
-```shell
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v debugfs:/sys/kernel/debug:rw -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-```
-
 ## Using Colima
 
 ### Install Colima
@@ -88,12 +80,6 @@ If you're using a **docker-compose network**, replace `keploy-network` with your
 docker network create keploy-network
 ```
 
-Then, create an alias for Keploy:
-
-```shell
-alias keploy='sudo docker run --pull always --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm ghcr.io/keploy/keploy'
-```
-
 ### Recording Testcases and Data Mocks
 
 Here are few points to consider before recording!
@@ -103,7 +89,7 @@ Here are few points to consider before recording!
 - Change the **network name** (`--network` flag) from `keploy-network` to your custom network if you changed it above.
 - `Docker_CMD_to_run_user_container` refers to the Docker **command for launching** the application.
 
-Utilize the keploy alias we created to capture testcases. **Execute** the following command within your application's **root directory**.
+Utilize keploy to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
 keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
@@ -115,7 +101,7 @@ Keploy will capture the API calls you've conducted, generating test suites compr
 
 ### Running Testcases
 
-Now, use the keployV2 Alias we created to execute the testcases. Follow these steps in the **root directory** of your application.
+Now, execute the testcases. Follow these steps in the **root directory** of your application.
 
 When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
 
