@@ -1,9 +1,10 @@
 ---
 id: typescript
 title: Integrate with Jest
-sidebar_label: Integrate with Jest
+sidebar_label: Integrate with Jest framework
 tags:
   - javascript
+  - js
 keywords:
   - Jest
   - Javascript
@@ -21,8 +22,8 @@ keywords:
 
 [Install the latest release of the Keploy Jest SDK](https://www.npmjs.com/package/@keploy/typescript-sdk)
 
-```
-	npm i @keploy/typescript-sdk
+```bash
+npm i @keploy/typescript-sdk
 ```
 
 ## Usage
@@ -57,5 +58,5 @@ describe(
 Now let's run jest tests along keploy using command:-
 
 ```bash
-keploy test -c "npm test" --delay 15
+sudo -E PATH=$PATH keploy test -c "npm test" --delay 15
 ```
