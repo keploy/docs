@@ -27,7 +27,7 @@
       "label": "Integration with Testing Framework",
       "collapsible": true,
       "collapsed": false,
-      "items": ["server/sdk-installation/go", "server/sdk-installation/java"]
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript"]
     },
     {
       "type": "category",

@@ -112,17 +112,17 @@ function Glossary() {
       description="User General Information about Keploy's Documentation"
     >
       <main className="margin-vert--lg container flex flex-col justify-evenly">
-        <div className="text-4xl font-bold text-center pb-5">Glossary</div>
+        <div className="pb-5 text-center font-bold text-4xl">Glossary</div>
         <div className="flex flex-row justify-evenly">
           {new Array(26).fill(0).map((x, i) => (
             <button
-              className={`col-span-1  p-3 rounded-sm gap-2
+              className={`col-span-1  gap-2 rounded-sm p-3
                     ${
                       state[String.fromCharCode(65 + i)]
-                        ? "text-black-200 hover:text-orange-950 font-bold bg-orange-200 rounded-3xl shadow-md"
+                        ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950"
                         : entries[String.fromCharCode(65 + i)] === undefined
                         ? "bg-transparent text-gray-400" // Modified color class
-                        : "bg-grey-200 shadow-md rounded-3xl"
+                        : "bg-grey-200 rounded-3xl shadow-md"
                     } `}
               key={i}
               disabled={
@@ -136,13 +136,13 @@ function Glossary() {
             </button>
           ))}
         </div>
-        <div className="text-xl font-semibold mt-10 flex justify-center flex-wrap -mb-3 gap-4">
+        <div className="-mb-3 mt-10 flex flex-wrap justify-center gap-4 text-xl font-semibold">
           {Object.entries(state).map(([key, value]) => {
             return (
-              <div key={key} className="w-1/4 mb-4 col-span-3">
+              <div key={key} className="col-span-3 mb-4 w-1/4">
                 <div key={key}>{value ? key : ""}</div>
                 {value ? (
-                  <div className="text-l flex justify-around grid">
+                  <div className="text-l flex grid justify-around">
                     {entries[key]?.map(({name, link}, i) => (
                       <a
                         className="text-orange-600 hover:text-orange-950 hover:underline"
