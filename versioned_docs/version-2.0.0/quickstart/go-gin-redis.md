@@ -62,6 +62,11 @@ Depending on your OS, choose your adventure:
 
 - <details>
    <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+  First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
+
+  ```bash
+  wsl ~
+  ```
 
   Alright, let's equip ourselves with the **latest Keploy binary**:
 

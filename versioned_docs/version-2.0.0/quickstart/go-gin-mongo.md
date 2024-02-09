@@ -265,10 +265,14 @@ Depending on your OS, choose your adventure:
    <br/>
 
    <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
+   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux & WSL </summary>
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
-  First things first, update the MongoDB URL to `localhost:27017` on **line 21** of our trusty `main.go` file.
+  First things first, update the MongoDB URL to `localhost:27017` on **line 21** of our trusty `main.go` file. If you are using WSL on windows then use below to start wsl in the user's home directory:
+
+  ```bash
+  wsl ~
+  ```
 
   <img src="/docs/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
