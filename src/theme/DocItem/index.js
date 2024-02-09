@@ -84,7 +84,7 @@ export default function DocItem(props) {
               <div
                 className={clsx(ThemeClassNames.docs.docMarkdown, "markdown")}
               >
-                <article className="md:prose-md prose mx-auto my-12 max-w-full px-2 md:px-6 lg:prose-lg">
+                <article className="md:prose-md prose mx-auto my-12 max-w-full px-2 lg:prose-lg md:px-6">
                   {/*
                 Title can be declared inside md content or declared through
                 front matter and added manually. To make both cases consistent,

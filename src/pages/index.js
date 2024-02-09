@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="main">
       <Layout
-        className="my-2 mx-auto w-full max-w-screen-lg px-8 shadow-none"
+        className="mx-auto my-2 w-full max-w-screen-lg px-8 shadow-none"
         title={`${siteConfig.title}`}
         description={`${siteConfig.tagline}`}
       >

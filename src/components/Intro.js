@@ -141,7 +141,7 @@ function Server() {
 
 export const Intro = () => {
   return (
-    <section className="mt-1 mb-14">
+    <section className="mb-14 mt-1">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
         Supports
       </h2>
