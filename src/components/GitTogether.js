@@ -8,11 +8,13 @@ export const GitTogether = () => {
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Attend GitTogether
       </h2>
-      <img
-        className="mt-8 "
-        src="/docs/img/GitTogether.jpg"
-        alt={"GitTogether Image"}
-      />
+      <a href="https://keploy.io/gittogether">
+        <img
+          className="mt-8 "
+          src="/docs/img/GitTogether.jpg"
+          alt={"GitTogether Image"}
+        />
+      </a>
       <div className="mt-10 grid grid-cols-1 gap-20 md:grid-cols-2">
         <a
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg border-2 border-[color:orange] p-4 text-center shadow-lg"
