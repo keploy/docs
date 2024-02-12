@@ -113,6 +113,12 @@ npm run build
 
 When we merge your PR, a new build automatically occurs and your changes publish to [https://keploy.io/docs](https://keploy.io/docs).
 
+## Contributing to the Keploy Ecosystem
+
+Interested in contributing to the Keploy project? We've compiled a comprehensive guide to help you find your way around the Keploy ecosystem and identify how you can make impactful contributions.
+
+[View the Keploy Ecosystem Contribution Guide](./CONTRIBUTING-GUIDE.md).
+
 ## How to Get Involved?
 
 Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
