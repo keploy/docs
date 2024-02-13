@@ -25,21 +25,30 @@ keploy test -c "<appCmd>" --freezeTime
 
 For Docker-based applications, you'll need to make a few adjustments to your Dockerfile to utilize this feature:
 
-Download the Time Freeze Agent
+1. First, check your system architecture
+```sh
+uname -a
+```
 
-1. First, download the appropriate time freeze agent for your architecture:
+2. Download the the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
+
+### amd64/x86_64
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so ./freeze_time_amd64.so
-```
-2. Set the `LD_PRELOAD` Environment Variable
+ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
 
-Configure your Docker environment to use the downloaded .so file:
+# Set LD_PRELOAD environment variable to use freeze_time_amd64.so
+ENV LD_PRELOAD=/lib/keploy/freeze_time_amd64.so
+```
+
+### arm64/aarch64
 
 ```Dockerfile
-# Set LD_PRELOAD environment variable to use freeze_time_amd64.so
-ENV LD_PRELOAD=./freeze_time_amd64.so
+# Download the time freeze agent
+ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
+
+# Set LD_PRELOAD environment variable to use freeze_time_arm64.so
+ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 ```
 
-Replace `amd` with `arm` in the filename to match your system's architecture. After building your Docker image with these adjustments, you can run your tests with the time freezing feature enabled by using the `--freezeTime` flag, as demonstrated above.
