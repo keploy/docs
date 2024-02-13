@@ -31,7 +31,7 @@ Download the Time Freeze Agent
 
 ```Dockerfile
 # Download the time freeze agent
-RUN curl --silent -O --location https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so
+ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so ./freeze_time_amd64.so
 ```
 2. Set the `LD_PRELOAD` Environment Variable
 
