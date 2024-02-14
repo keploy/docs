@@ -150,7 +150,13 @@ Depending on your OS, choose your adventure:
 
   #### 🍃 Kickstart MongoDB
 
-  Let's breathe life into your mongo container. A simple spell should do the trick:
+  We are going to run a mongo docker container which requires an existing docker network. We need to run the following command to create the required docker network:
+
+  ```bash
+  docker network create keploy-network
+  ```
+
+  Now, let's breathe life into your mongo container. A simple spell should do the trick:
 
   ```bash
   docker compose up mongo
