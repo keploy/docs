@@ -7,10 +7,10 @@ function Languages() {
     <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
       <div className="flex items-center space-x-4">
         <svg
-          width="13"
+          width="16"
           className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
-          height="14"
-          viewBox="0 0 13 14"
+          height="13"
+          viewBox="0 0 16 13"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -29,15 +29,15 @@ function Languages() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Languages</h2>
       </div>
-      <ul className="grid grid-cols-1 gap-6  md:grid-cols-2 lg:gap-8">
+      <ul className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="">
           <Link
-            className="flex items-center space-x-3 hover:underline"
+            className="flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-gin")}
           >
             <img
-              className="h-8 w-8 transition hover:scale-110"
+              className="h-8 w-8"
               src="/docs/img/golang.svg"
               alt="Go lang logo"
             />
@@ -45,33 +45,63 @@ function Languages() {
           </Link>
         </li>
         <li className="">
-          <Link className="flex items-center space-x-3 hover:underline">
+          <Link 
+          className="flex flex-col items-center space-x-3 p-6 hover:underline"
+          to={useBaseUrl("/quickstart/samples-java")}
+          >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/java.svg"
               alt="Java logo"
             />
-            <p className="font-semibold">Java (WIP)</p>
+            <p className="font-semibold">Java</p>
           </Link>
         </li>
         <li className="">
-          <Link className="flex items-center space-x-3 hover:underline">
+          <Link 
+          className="flex flex-col items-center space-x-3 p-6 hover:underline"
+          to={useBaseUrl("/quickstart/samples-django")}
+          >
             <img
-              className="h-8 w-8 transition hover:scale-110"
+              className="h-8 w-8"
               src="/docs/img/python.svg"
               alt="Python logo"
             />
-            <p className="font-semibold">Python (WIP)</p>
+            <p className="font-semibold">Python</p>
           </Link>
         </li>
         <li className="">
-          <Link className="flex items-center space-x-3 hover:underline">
+          <Link 
+          className="flex flex-col items-center space-x-3 p-6 hover:underline"
+          to={useBaseUrl("/quickstart/samples-nodejs")}>
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/javascript-logo.svg"
               alt="Javascript logo"
             />
-            <p className="font-semibold">Javascript (WIP)</p>
+            <p className="font-semibold">Javascript</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link 
+          className="flex flex-col items-center space-x-3 p-6 hover:underline"
+          to={useBaseUrl("/quickstart/samples-rust")}>
+            <img
+              className="h-8 w-8 transition hover:scale-110"
+              src="/docs/img/rust-logo.svg"
+              alt="Javascript logo"
+            />
+            <p className="font-semibold">Rust</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link className="flex flex-col items-center space-x-3 p-6">
+            <img
+              className="h-8 w-8 transition hover:scale-110"
+              src="/docs/img/csharp-logo.svg"
+              alt="Javascript logo"
+            />
+            <p className="font-semibold">CSharp</p>
           </Link>
         </li>
       </ul>
@@ -98,7 +128,7 @@ function Server() {
             fill="currentColor"
           />
         </svg>
-        <h2 className="mb-4 text-xl font-semibold">Database Support</h2>
+        <h2 className="mb-4 text-xl font-semibold">Dependencies Support</h2>
       </div>
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
         <li className="">
@@ -115,23 +145,63 @@ function Server() {
           </Link>
         </li>
         <li className="">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
             <img
               className="h-8 w-8"
               src="/docs/img/oracle-logo.svg"
               alt="Oracle logo"
             />
-            <p className="font-semibold">Oracle (WIP)</p>
+            <p className="font-semibold">Oracle</p>
           </Link>
         </li>
         <li className="">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
             <img
               className="h-8 w-8"
               src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
-            <p className="font-semibold">PostgresSQL (WIP)</p>
+            <p className="font-semibold">PostgresSQL</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+            <img
+              className="h-8 w-8"
+              src="/docs/img/redis-logo.svg"
+              alt="Redis logo"
+            />
+            <p className="font-semibold">Redis</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+            <img
+              className="h-8 w-8"
+              src="/docs/img/mysql-logo.svg"
+              alt="MySQL logo"
+            />
+            <p className="font-semibold">MySQL</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+            <img
+              className="h-8 w-8"
+              src="/docs/img/dynamodb-logo.svg"
+              alt="DynamoDB logo"
+            />
+            <p className="font-semibold">DynamoDB</p>
+          </Link>
+        </li>
+        <li className="">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+            <img
+              className="h-8 w-8"
+              src="/docs/img/elastic-logo.svg"
+              alt="Elastic logo"
+            />
+            <p className="font-semibold">Elastic</p>
           </Link>
         </li>
       </ul>
@@ -141,7 +211,7 @@ function Server() {
 
 export const Intro = () => {
   return (
-    <section className="mt-1 mb-14">
+    <section className="mb-14 mt-1">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
         Supports
       </h2>
