@@ -100,7 +100,7 @@ module.exports = {
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
-      theme: require("prism-react-renderer/themes/nightOwlLight"),
+      theme: require("prism-react-renderer/themes/palenight"),
       darkTheme: require("prism-react-renderer/themes/dracula"),
       additionalLanguages: ["java", "ruby", "php"],
     },
