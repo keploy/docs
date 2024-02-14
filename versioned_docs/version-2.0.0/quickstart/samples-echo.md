@@ -80,7 +80,7 @@ Depending on your OS, choose your adventure:
 
   Now, we will create the binary of our application:-
 
-  ```zsh
+  ```go
   go build
   ```
 
@@ -109,7 +109,7 @@ Depending on your OS, choose your adventure:
 
   this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
 
-  ```
+  ```json
   {
     "ts": 1647802058801841100,
     "url": "http://localhost:8082/GuwHCgoQ"
@@ -168,7 +168,7 @@ Depending on your OS, choose your adventure:
 
   Using the docker-compose file we will start our mongodb instance:-
 
-  ```zsh
+  ```shell
   docker-compose up -d
   ```
 
@@ -176,13 +176,13 @@ Depending on your OS, choose your adventure:
 
   Now, we will create the docker image of our application:-
 
-  ```zsh
+  ```shell
   docker build -t echo-app:1.0 .
   ```
 
   ## Capture the Testcases
 
-  ```zsh
+  ```shell
   keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
   ```
 
@@ -228,7 +228,7 @@ Depending on your OS, choose your adventure:
 
   Now that we have our testcase captured, run the test file.
 
-  ```zsh
+  ```shell
   keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
   ```
 
@@ -269,7 +269,7 @@ Depending on your OS, choose your adventure:
 
   Using the docker-compose file we will start our mongodb instance:-
 
-  ```zsh
+  ```shell
   docker-compose up -d
   ```
 
@@ -277,13 +277,13 @@ Depending on your OS, choose your adventure:
 
   Now, we will create the docker image of our application:-
 
-  ```zsh
+  ```shell
   docker build -t echo-app:1.0 .
   ```
 
   ## Capture the Testcases
 
-  ```zsh
+  ```shell
   keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
   ```
 
@@ -329,7 +329,7 @@ Depending on your OS, choose your adventure:
 
   Now that we have our testcase captured, run the test file.
 
-  ```zsh
+  ```shell
   keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
   ```
 

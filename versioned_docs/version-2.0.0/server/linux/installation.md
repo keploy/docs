@@ -28,7 +28,7 @@ Keploy can be installed in two ways:
 
 ## One click install Keploy.
 
-```
+```shell
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 
@@ -43,7 +43,7 @@ There are two ways to use Keploy eBPF in linux, you can use either use:
 
 ### Download the Keploy Binary
 
-```zsh
+```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
@@ -52,7 +52,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 <details>
  <summary> <strong> ARM Architecture </strong> </summary>
 
-```zsh
+```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy

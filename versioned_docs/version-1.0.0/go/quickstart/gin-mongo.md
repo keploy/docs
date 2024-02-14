@@ -93,8 +93,8 @@ Now, let's see the magic! 🪄💫
 
 There are 2 ways to test the application with Keploy.
 
-1. [Unit Test File](/go/quickstart/gin-mongo#testing-using-unit-test-file)
-2. [KEPLOY_MODE environment variable](/go/quickstart/gin-mongo#testing-using-keploy_mode-env-variable)
+1. [Unit Test File](/docs/1.0.0/go/quickstart/gin-mongo#testing-using-unit-test-file)
+2. [KEPLOY_MODE environment variable](/docs/1.0.0/go/quickstart/gin-mongo#testing-using-keploy_mode-env-variable)
 
 ### Testing using Unit Test File
 
