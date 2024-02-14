@@ -12,7 +12,7 @@ keywords:
 
 Keploy has 3 major components.
 
-- [Server Contribution Guide](/devtools/server-contrib-guide)
-- [SDK Contribution Guide](/devtools/sdk-contrib-guide)
-- [Web UI Contribution Guide](/devtools/ui-contrib-guide)
-- [Keploy Docs Contribution Guide](/devtools/docs-contrib-guide)
+- [Server Contribution Guide](/docs/1.0.0/devtools/server-contrib-guide)
+- [SDK Contribution Guide](/docs/1.0.0/devtools/sdk-contrib-guide)
+- [Web UI Contribution Guide](/docs/1.0.0/devtools/ui-contrib-guide)
+- [Keploy Docs Contribution Guide](/docs/1.0.0/devtools/docs-contrib-guide)
