@@ -56,7 +56,7 @@ func main() {
 
 The keploy test cmd will look like:
 
-```sh
+```shell
 keploy test -c "PATH_TO_GO_COVER_BIANRY" --withCoverage
 ```
 
@@ -79,14 +79,14 @@ keploy
 
 Coverage percentage log in the cmd will be:
 
-```sh
+```shell
 🐰 Keploy: 2023-12-07T08:53:14Z         INFO    test/test.go:261
         test-app-url-shortener          coverage: 78.4% of statements
 ```
 
 Also the go-test coverage can be merged along the recorded tests coverage by following the steps:
 
-```sh
+```go
 go test -cover ./... -args -test.gocoverdir="PATH_TO_UNIT_COVERAGE_FILES"
 
 go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./keploy/coverage-reports" -o coverage-profile

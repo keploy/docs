@@ -18,7 +18,7 @@ Set Environment Variable `KEPLOY_MODE`
 
 </summary>
 
-```
+```shell
 export KEPLOY_MODE="test"
 ```
 

@@ -9,7 +9,7 @@ function ResponsivePlayer({url, loop, playing}) {
     >
       {/* /* Player ratio: 100 / (1280 / 720) */}
       <ReactPlayer
-        className="absolute top-0 left-0"
+        className="absolute left-0 top-0"
         url={url}
         loop={loop}
         playing={playing}

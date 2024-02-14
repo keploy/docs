@@ -28,7 +28,7 @@ The system is built to support wiremessage `MongoDB version => 5.1.X`, which ref
 
 In general, each message consists of a standard message header followed by request-specific data. The standard message header is structured as follows:
 
-```
+```go
 struct MsgHeader {
     int32 messageLength;  // total message size, including this
     int32 requestID;  // identifier for this message
@@ -40,7 +40,7 @@ struct MsgHeader {
 `OP_MSG` is an extensible message format used to encode both client requests and server replies on the wire.
 `OP_MSG` has the following format:
 
-```
+```shell
 OP_MSG {
     MsgHeader header;   // standard message header
     uint32 flagBits;    // message flags

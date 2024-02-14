@@ -27,7 +27,7 @@ Keploy can be installed in two ways:
 
 ## One click install Keploy.
 
-```
+```shell
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 
@@ -44,7 +44,7 @@ There are two ways to use Keploy eBPF in windows, you can use either use:
 
 On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
 
-```zsh
+```shell
 wsl --install
 ```
 
@@ -54,7 +54,7 @@ If you're running an older build, or just prefer not to use the install command 
 
 Once installed download and Install "Keploy Binary" :
 
-```zsh
+```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
@@ -92,7 +92,7 @@ We need to create a custom network for Keploy since we are using the Docker, the
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
-```zsh
+```shell
 docker network create keploy-network
 ```
 

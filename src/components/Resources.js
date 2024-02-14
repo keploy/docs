@@ -37,7 +37,7 @@ const links = [
 
 export const Resources = () => {
   return (
-    <section className="mt-12 mb-4">
+    <section className="mb-4 mt-12">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
         Quick Links
       </h2>

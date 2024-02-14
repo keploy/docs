@@ -12,7 +12,7 @@ tags:
 
 To record API calls as test cases set `KEPLOY_MODE` environment variable to `record`.
 
-```
+```shell
 export KEPLOY_MODE="record"
 ```
 
