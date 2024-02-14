@@ -30,7 +30,7 @@ There are two ways to install Keploy eBPF in MacOS, you can use either use:
 
 ## One click install Keploy.
 
-```
+```shell
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 
@@ -42,7 +42,7 @@ Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/re
 
 We need to create debug volume to run Keploy using Docker-Desktop:
 
-```zsh
+```shell
 docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
 ```
 
@@ -50,7 +50,7 @@ We need to create a custom network for Keploy since we are using the Docker, the
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
-```zsh
+```shell
 docker network create keploy-network
 ```
 
@@ -60,13 +60,13 @@ docker network create keploy-network
 
 You need to have the latest version of `brew` installed on your system and then run this command from a terminal:
 
-```zsh
+```shell
 brew install colima
 ```
 
 Start Colima with defaults
 
-```zsh
+```shell
 colima start
 ```
 
@@ -76,7 +76,7 @@ We need to create a custom network for Keploy since we are using the Docker, the
 
 If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
 
-```zsh
+```shell
 docker network create keploy-network
 ```
 

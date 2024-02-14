@@ -36,7 +36,7 @@ A sample Employee-Manager app to test Keploy integration capabilities using [Spr
 
 Based on your OS and preference(Docker/Native), you setup Keploy using One-click installation method:-
 
-```sh
+```shell
 curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 

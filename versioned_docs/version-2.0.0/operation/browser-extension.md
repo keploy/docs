@@ -18,13 +18,13 @@ tags:
 
 ## Install Keploy on PC
 
-```
+```shell
 git clone https://github.com/keploy/keploy.git
 ```
 
 Now come inside this directory and run this project in docker by putting the command mentioned below.
 
-```
+```shell
 docker-compose -f docker-compose-dev.yaml up
 ```
 
