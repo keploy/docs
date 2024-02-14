@@ -31,7 +31,7 @@ function Languages() {
       </div>
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             className="flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-gin")}
@@ -44,7 +44,7 @@ function Languages() {
             <p className="font-semibold">Go</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link 
           className="flex flex-col items-center space-x-3 p-6 hover:underline"
           to={useBaseUrl("/quickstart/samples-java")}
@@ -57,7 +57,7 @@ function Languages() {
             <p className="font-semibold">Java</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link 
           className="flex flex-col items-center space-x-3 p-6 hover:underline"
           to={useBaseUrl("/quickstart/samples-django")}
@@ -70,7 +70,7 @@ function Languages() {
             <p className="font-semibold">Python</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link 
           className="flex flex-col items-center space-x-3 p-6 hover:underline"
           to={useBaseUrl("/quickstart/samples-nodejs")}>
@@ -82,7 +82,7 @@ function Languages() {
             <p className="font-semibold">Javascript</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link 
           className="flex flex-col items-center space-x-3 p-6 hover:underline"
           to={useBaseUrl("/quickstart/samples-rust")}>
@@ -94,7 +94,7 @@ function Languages() {
             <p className="font-semibold">Rust</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center space-x-3 p-6">
             <img
               className="h-8 w-8 transition hover:scale-110"
@@ -131,7 +131,7 @@ function Server() {
         <h2 className="mb-4 text-xl font-semibold">Dependencies Support</h2>
       </div>
       <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/mongo")}
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
@@ -144,7 +144,7 @@ function Server() {
             <p className="font-semibold">MongoDB</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
             <img
               className="h-8 w-8"
@@ -154,7 +154,7 @@ function Server() {
             <p className="font-semibold">Oracle</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
             <img
               className="h-8 w-8"
@@ -164,7 +164,7 @@ function Server() {
             <p className="font-semibold">PostgresSQL</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
             <img
               className="h-8 w-8"
@@ -174,7 +174,7 @@ function Server() {
             <p className="font-semibold">Redis</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
             <img
               className="h-8 w-8"
@@ -184,7 +184,7 @@ function Server() {
             <p className="font-semibold">MySQL</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
             <img
               className="h-8 w-8"
@@ -194,7 +194,7 @@ function Server() {
             <p className="font-semibold">DynamoDB</p>
           </Link>
         </li>
-        <li className="">
+        <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
             <img
               className="h-8 w-8"
@@ -211,11 +211,11 @@ function Server() {
 
 export const Intro = () => {
   return (
-    <section className="mb-14 mt-1">
+    <section className="mt-12 mb-4">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
         Supports
       </h2>
-      <div className="my-10 grid grid-cols-2 gap-6 md:grid-cols-2 lg:grid-cols-2 lg:gap-8">
+      <div className="grid gap-6  sm:grid-cols-2 xl:gap-8">
         <Languages />
         <Server />
       </div>
