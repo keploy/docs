@@ -29,7 +29,7 @@ function Languages() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Languages</h2>
       </div>
-      <ul className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">
+      <ul className="grid grid-cols-3 gap-3  md:grid-cols-3 lg:gap-5">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
@@ -109,7 +109,7 @@ function Languages() {
   );
 }
 
-function Server() {
+function Frameworks() {
   return (
     <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
       <div className="flex items-center space-x-4">
@@ -130,7 +130,7 @@ function Server() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Dependencies Support</h2>
       </div>
-      <ul className="grid grid-cols-1 gap-6  md:grid-cols-4 lg:gap-8">
+      <ul className="grid grid-cols-3 gap-3  lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/mongo")}
@@ -194,16 +194,16 @@ function Server() {
             <p className="font-semibold">DynamoDB</p>
           </Link>
         </li>
-        <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
-            <img
-              className="h-8 w-8"
-              src="/docs/img/elastic-logo.svg"
-              alt="Elastic logo"
-            />
-            <p className="font-semibold">Elastic</p>
-          </Link>
-        </li>
+        {/*<li className="mt-5 flex flex-col space-y-3 text-lg">*/}
+        {/*  <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">*/}
+        {/*    <img*/}
+        {/*      className="h-8 w-8"*/}
+        {/*      src="/docs/img/elastic-logo.svg"*/}
+        {/*      alt="Elastic logo"*/}
+        {/*    />*/}
+        {/*    <p className="font-semibold">Elastic</p>*/}
+        {/*  </Link>*/}
+        {/*</li>*/}
       </ul>
     </div>
   );
@@ -217,7 +217,7 @@ export const Intro = () => {
       </h2>
       <div className="grid gap-6  sm:grid-cols-2 xl:gap-8">
         <Languages />
-        <Server />
+        <Frameworks />
       </div>
     </section>
   );
