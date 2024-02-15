@@ -91,17 +91,17 @@
     },
     {
       "type": "category",
+      "label": "Keploy-Cloud ☁️",
+      "collapsible": true,
+      "collapsed": false,
+      "items": ["keploy-cloud/cloud-installation", "keploy-cloud/application-settings", "keploy-cloud/time-freezing"]
+    },
+    {
+      "type": "category",
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
       "items": ["concepts/general-glossary"]
-    },
-    {
-      "type": "category",
-      "label": "Keploy-Cloud",
-      "collapsible": true,
-      "collapsed": false,
-      "items": ["keploy-cloud/time-freezing"]
     }
   ],
   "sidebarExplanation": [

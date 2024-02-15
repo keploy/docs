@@ -1,7 +1,7 @@
 ---
 id: time-freezing
 title: Time Freezing
-sidebar_label: Time Freezing
+sidebar_label: Time Freezing 🥶
 tags:
   - explanation
   - feature guide
@@ -13,8 +13,6 @@ keywords:
   - jwt
   - time sensitive fields
 ---
-
-## Introduction 📘
 
 ### Why Time Freezing? ❄️
 
