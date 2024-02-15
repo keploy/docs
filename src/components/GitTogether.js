@@ -1,6 +1,4 @@
 import React from "react";
-import Link from "@docusaurus/Link";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export const GitTogether = () => {
   return (
@@ -15,7 +13,7 @@ export const GitTogether = () => {
           alt={"GitTogether Image"}
         />
       </a>
-      <div className="mt-10 grid grid-cols-1 gap-20 md:grid-cols-2">
+      <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">
         <a
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg border-2 border-[color:orange] p-4 text-center shadow-lg"
           href="https://docs.google.com/forms/d/e/1FAIpQLSdXYwF3j6AjVrGQn2RWKXqI5awbdmWK7mW2gQYCNAfpqaGZhA/viewform"
