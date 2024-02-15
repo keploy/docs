@@ -22,8 +22,8 @@ Set Environment Variable `KEPLOY_MODE`
 export KEPLOY_MODE="test"
 ```
 
-Run application and find test report summary on the Keploy Server Logs and detailed test report
-in directory where Keploy Server is running.
+Run application and find test report summary on the Keploy Server Logs and detailed test report in directory where
+Keploy Server is running.
 
 ![Test report summary](/gif/replay-tc.gif)
 

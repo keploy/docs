@@ -1,7 +1,7 @@
 ---
 id: mongo
 title: MongoDB Support
-sidebar_label: MongoDB
+sidebar_label: MongoDB Support
 ---
 
 ## Introduction

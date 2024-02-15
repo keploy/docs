@@ -30,7 +30,8 @@ You can see the details of the Test Cases captures. Currently following details 
 
 ### Edit a Test Case
 
-To change the behavior of the API request captured as a test-case, you can go to the detail of the test-case and click on Edit icon.
+To change the behavior of the API request captured as a test-case, you can go to the detail of the test-case and click
+on Edit icon.
 
 > Please note that editing a test-case is not a recommended practice since the dependency behavior might change with the change
 > of the API request. It's suggested to re-record the test-case and delete the previous one if not applicable.
@@ -52,8 +53,8 @@ On the Test runs pages you will see the recent Test Runs with details like :
 
 ### Normalise a Test Case
 
-For times, when the behavior of the API changes and Keploy flags it while testing the application, you can
-go to the test run and particular test case detail that failed and mark it as normalised behaviour.
+For times, when the behavior of the API changes and Keploy flags it while testing the application, you can go to the
+test run and particular test case detail that failed and mark it as normalised behaviour.
 
 This will modify the test-case and will be accepted as the expected response for future test runs.
 

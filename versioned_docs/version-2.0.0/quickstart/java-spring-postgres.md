@@ -24,7 +24,6 @@ keyword:
   - Junit
 ---
 
-
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 This project has two parts - the frontend and backend, since Keploy is a backend testing platform, we need to start the backend part of the project using Keploy and run the frontend as it is.
 
@@ -59,12 +58,14 @@ cd samples-java/spring-petclinic/spring-petclinic-rest
 ```
 
 You can start the backend using Keploy in 2 ways:
+
 - [Using Keploy's binary](#binary-guide)
 - [Using Keploy's docker image](#docker-guide)
 
 # Instructions For Starting Using Binary <a name="binary-guide"></a>
 
 Prerequisites For Binary:
+
 1. Node 20.11.0 LTS
 2. OpenJDK 17.0.9
 3. MVN version 3.6.3
@@ -84,6 +85,7 @@ to
 ```
 spring.datasource.url=jdbc:postgresql://localhost:5432/petclinic
 ```
+
 and then build the jar using:
 
 ```
@@ -101,6 +103,7 @@ docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES
 ```
 keploy record -c "java -jar target/spring-petclinic-rest-3.0.2.jar"
 ```
+
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'.
 
 ## Running the testcases using Keploy
@@ -116,6 +119,7 @@ Next we move on to the instructions to start the application using docker.
 # Instructions For Starting Using Docker <a name="docker-guide"></a>
 
 Prerequisites For Docker:
+
 1.  Docker Desktop 4.25.2 and above
 
 Here we just need to change the command used to start the application.
@@ -129,6 +133,7 @@ keploy record -c "docker compose up" --containerName javaApp --buildDelay 100s
 ```
 keploy test -c "docker compose up" --containerName javaApp --buildDelay 50s --delay 20
 ```
+
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 

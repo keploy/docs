@@ -16,7 +16,8 @@ To record API calls as test cases set `KEPLOY_MODE` environment variable to `rec
 export KEPLOY_MODE="record"
 ```
 
-That's it! 🔥 As you make API calls to your application, new test-cases are being generated locally in `keploy-tests` directory.
+That's it! 🔥 As you make API calls to your application, new test-cases are being generated locally in `keploy-tests`
+directory.
 
 > > KTest directory path (`KEPLOY_TEST_PATH`) is configurable.
 

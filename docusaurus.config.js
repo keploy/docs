@@ -116,12 +116,12 @@ module.exports = {
         {
           to: "/keploy-explained/introduction",
           activeBasePath: "none",
-          label: "Explanation",
-        },
-        {
-          to: "/application-development",
           label: "Installation",
         },
+        // {
+        //   to: "/server/installation/",
+        //   label: "Installation",
+        // },
         // {
         //   to: "/docs/operation/web-ui-operations/",
         //   activeBasePath: "(/docs/operation)",
@@ -135,11 +135,11 @@ module.exports = {
         // },
         {
           to: "/keploy-explained/contribution-guide",
-          label: "Dev Guide",
+          label: "Contribution Guide",
         },
         {
-          to: "https://community.keploy.io",
-          label: "Guest Posts",
+          to: "https://keploy.io/blog",
+          label: "Blog",
         },
         {
           type: "docsVersionDropdown",

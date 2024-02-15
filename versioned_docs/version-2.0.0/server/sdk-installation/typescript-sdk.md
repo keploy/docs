@@ -28,7 +28,8 @@ npm i @keploy/typescript-sdk
 
 ## Usage
 
-For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your Jest test file. It can be called as `Keploy.test.js`.
+For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your
+Jest test file. It can be called as `Keploy.test.js`.
 
 ```javascript
 const {KeployTest, Config} = require("@keploy/typescript-sdk/dist/keployCli");

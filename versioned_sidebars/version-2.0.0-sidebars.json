@@ -1,15 +1,20 @@
 {
-  "sidebarInstallation": [
+  "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Installation",
+      "label": "Explanation",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
-        "server/windows/installation",
-        "server/linux/installation",
-        "server/macos/installation"
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy"
       ]
+    },
+    {
+      "type": "doc",
+      "label": "Installation",
+      "id": "server/installation"
     },
     {
       "type": "category",
@@ -24,16 +29,16 @@
     },
     {
       "type": "category",
-      "label": "Integration with Testing Framework",
+      "label": "Test Coverage Integration",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript"]
     },
     {
       "type": "category",
       "label": "QuickStarts",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         {
           "type": "category",
@@ -94,7 +99,7 @@
       "type": "category",
       "label": "Keploy-Cloud ☁️",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": ["keploy-cloud/cloud-installation", "keploy-cloud/application-settings", "keploy-cloud/time-freezing"]
     },
     {
@@ -102,37 +107,15 @@
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
-      "items": ["concepts/general-glossary"]
-    }
-  ],
-  "sidebarExplanation": [
-    {
-      "type": "category",
-      "label": "Explanation",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "keploy-explained/introduction",
-        "keploy-explained/how-keploy-works",
-        "keploy-explained/why-keploy",
-        "keploy-explained/faq",
-        "server/index"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Database Support",
-      "collapsible": true,
-      "collapsed": false,
-      "items": ["dependencies/mongo"]
+      "items": ["dependencies/mongo","keploy-explained/faq","concepts/general-glossary"]
     }
   ],
 
   "sidebarContributionGuide": [
     {
       "type": "category",
-      "label": "Dev Guide",
-      "collapsible": false,
+      "label": "Contribute",
+      "collapsible": true,
       "items": [
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide", 
