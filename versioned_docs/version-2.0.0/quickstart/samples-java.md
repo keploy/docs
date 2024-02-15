@@ -1,7 +1,7 @@
 ---
 id: samples-java
 title: Java Sample Application
-sidebar_label: Spring Boot + Postgres SQL
+sidebar_label: Employer App (PostgresDb)
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
   - java
@@ -11,7 +11,6 @@ tags:
   - examples
   - tutorial
 keyword:
-  - MongoDB
   - Jacoco
   - Maven
   - Springboot Framework

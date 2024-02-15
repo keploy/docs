@@ -31,16 +31,17 @@
     },
     {
       "type": "category",
-      "label": "Sample-App",
+      "label": "QuickStarts",
       "collapsible": true,
       "collapsed": false,
       "items": [
         {
           "type": "category",
-          "label": "Java",
+          "label": "Java SpringBoot",
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "quickstart/pet-clinic",
             "quickstart/samples-java",
             "quickstart/java-spring-boot-mongo"
           ]
