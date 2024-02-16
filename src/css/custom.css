@@ -54,7 +54,7 @@ html[data-theme="light"] {
   --ifm-color-emphasis-300: #505050;
   /* --ifm-code-background: var(--ifm-color-primary-lightest); */
   --ifm-color-input-background: #ffffff;
-  --ifm-color: #00163d;
+  --ifm-color: #00163D;
   --ifm-background-color: rgb(249, 250, 251);
   --ifm-footer-background-color: #ffffff;
   --ifm-card-background-color: #ffffff;
@@ -519,7 +519,7 @@ footer svg {
 
 div[class^="announcementBar_"] {
   --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 80%
+    var(--site-primary-hue-saturation) 88%
   );
   --site-announcement-bar-stripe-color2: hsl(
     var(--site-primary-hue-saturation) 95%

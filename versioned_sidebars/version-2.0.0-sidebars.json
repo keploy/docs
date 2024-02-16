@@ -22,9 +22,9 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
+        "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
-        "running-keploy/configuration-file",
-        "running-keploy/cli-commands"
+        "running-keploy/configuration-file"
       ]
     },
     {
@@ -42,7 +42,7 @@
       "items": [
         {
           "type": "category",
-          "label": "Java SpringBoot",
+          "label": "Java (SpringBoot)",
           "collapsible": true,
           "collapsed": true,
           "items": [
@@ -57,9 +57,9 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "quickstart/samples-gin",
             "quickstart/samples-mux",
             "quickstart/samples-echo",
-            "quickstart/samples-gin",
             "quickstart/samples-redis",
             "quickstart/samples-mysql"
           ]

@@ -90,7 +90,7 @@ curl --location --request POST 'http://localhost:8080/api/employees' \
 this will return the response or an entry. The timestamp would automatically be ignored during testing because it'll
 always be different.
 
-```
+```bash
 {
     "id": 1,
     "firstName": "Myke",
@@ -119,7 +119,6 @@ First lets shutdown the database to verify that keploy's magic is taking care of
 about the database anymore! 🎉
 
 ```bash
-
 docker-compose down
 ```
 

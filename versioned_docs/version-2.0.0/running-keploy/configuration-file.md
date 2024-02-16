@@ -13,9 +13,7 @@ keywords:
 
 Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴
 
-Introducing **Keploy-config** 🎉
-
-It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
+Introducing **Keploy-config** 🎉 - It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
 
 ## Getting Started:
 
@@ -27,58 +25,58 @@ keploy generate-config --path "/path/to/your/project"
 
 After successful execution of the command, a default initialized config file named as `keploy-config.yaml` has been created with the content as shown below:
 
-```bash
+```yaml
 record:
-    path: ""
-    # mandatory
-    command: ""
-    proxyport: 0
-    containerName: ""
-    networkName: ""
-    delay: 5
-    buildDelay: 30s
-    tests:
-        filters:
-            - path: ""
-              urlMethods: []
-              headers: {}
-              host: ""
-    stubs:
-        filters:
-            - path: ""
-              host: ""
-              port: 0
+  path: ""
+  # mandatory
+  command: ""
+  proxyport: 0
+  containerName: ""
+  networkName: ""
+  delay: 5
+  buildDelay: 30s
+  tests:
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
+  stubs:
+    filters:
+      - path: ""
+        host: ""
+        port: 0
 test:
-    path: ""
-    # mandatory
-    command: ""
-    proxyport: 0
-    containerName: ""
-    networkName: ""
-    # example: "test-set-1": ["test-1", "test-2", "test-3"]
-    selectedTests:
-    # to use globalNoise, please follow the guide at the end of this file.
-    globalNoise:
-        global:
-            body: {}
-            header: {}
-    delay: 5
-    buildDelay: 30s
-    ignoreOrdering: true
-    apiTimeout: 5
-    tests:
-        filters:
-            - path: ""
-              urlMethods: []
-              headers: {}
-              host: ""
-    stubs:
-        filters:
-            - path: ""
-              host: ""
-              port: 0
-    withCoverage: false
-    coverageReportPath: ""
+  path: ""
+  # mandatory
+  command: ""
+  proxyport: 0
+  containerName: ""
+  networkName: ""
+  # example: "test-set-1": ["test-1", "test-2", "test-3"]
+  selectedTests:
+  # to use globalNoise, please follow the guide at the end of this file.
+  globalNoise:
+    global:
+      body: {}
+      header: {}
+  delay: 5
+  buildDelay: 30s
+  ignoreOrdering: true
+  apiTimeout: 5
+  tests:
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
+  stubs:
+    filters:
+      - path: ""
+        host: ""
+        port: 0
+  withCoverage: false
+  coverageReportPath: ""
 ```
 
 ## Using the Config File

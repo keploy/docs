@@ -1,7 +1,7 @@
 ---
 id: typescript
-title: Integrate with Jest
-sidebar_label: Integrate with Jest framework
+title: Keploy Integration with Jest
+sidebar_label: Jest
 tags:
   - javascript
   - js
@@ -44,9 +44,12 @@ describe(
       "TestKeploy",
       async () => {
         testResult = await KeployTest();
+
+        // INFO: default command is set to "npm start", for custom command update 'config'
+
         // const config = new Config('npm start')
         // testResult =  await KeployTest(config)
-        //by default command is set to "npm start", incase of custom command update the keployTest as shown above
+
         expect(testResult).toBeTruthy();
       },
       timeOut

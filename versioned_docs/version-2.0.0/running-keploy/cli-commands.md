@@ -17,9 +17,17 @@ keywords:
 keploy [command] [flags]
 ```
 
-### Common flags to use with all commands
+You can use `--help, -h` flag for all the commands to see available flag options and their purpose.
 
-- `--help, -h` - Shows the description and available help for the command
+## Modes and Flags
+
+Here are some examples of how to use some common flags:
+
+| Mode              | Flags Available                                                                                                                                                                                            |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                      |
+| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug` |
+| `generate-config` | `-p, --path`                                                                                                                                                                                               |
 
 ## [record](#record)
 

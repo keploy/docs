@@ -1,7 +1,7 @@
 ---
 id: java
-title: Integrate with Junit
-sidebar_label: Integrate with Junit
+title: Keploy Integration with Junit
+sidebar_label: JUnit
 tags:
   - java
 keyword:
@@ -31,7 +31,6 @@ keyword:
 at maven central and add keploy-sdk as a dependency to your pom.xml :
 
 ```xml
-
 <dependencies>
     <dependency>
         <groupId>io.keploy</groupId>
@@ -46,7 +45,6 @@ at maven central and add keploy-sdk as a dependency to your pom.xml :
 You will need to add the following puligns in `pom.xml` file of your application. :-
 
 ```xml
-
 <build>
     <plugins>
         <plugin>
@@ -173,7 +171,7 @@ Junit test file.
 
                 long startTime = System.currentTimeMillis();
 
-                // Check status in every 2 seconds
+                // INFO: Check status in every 2 seconds
                 while (true) {
                     // Sleep for 2 seconds
                     Thread.sleep(2000);
@@ -183,7 +181,7 @@ Junit test file.
                     if (testRunStatus == KeployCLI.TestRunStatus.RUNNING) {
                         System.out.println("testRun still in progress");
 
-                        // Check if the current time exceeds the start time by MAX_TIMEOUT
+                        // INFO: Check if the current time exceeds the start time by MAX_TIMEOUT
                         if (System.currentTimeMillis() - startTime > MAX_TIMEOUT) {
                             System.out.println("Timeout reached, exiting loop");
                             break;
@@ -206,7 +204,7 @@ Junit test file.
                 System.out.println("TestResult of [" + testset + "]:" + result);
                 testResult = testResult && result;
                 KeployCLI.FindCoverage(testset);
-                //Change This time if you have bigger codebase. Because it will take more time to dump the coverage
+                // INFO: Change this time if you have bigger codebase. Because it will take more time to dump the coverage
                 Thread.sleep(5000);
                 KeployCLI.StopUserApplication();
             }
