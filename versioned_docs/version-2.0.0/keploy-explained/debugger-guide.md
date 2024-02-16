@@ -34,7 +34,7 @@ Navigate to `launch.json` to begin crafting JSON objects.
       "asRoot": true,
       "console": "integratedTerminal",
       "program": "main.go",
-      "args": ["record", "-c", "<path_to_executable>"], 
+      "args": ["record", "-c", "<path_to_executable>"],
       "env": {
         "PATH": "${env:PATH}"
       }
