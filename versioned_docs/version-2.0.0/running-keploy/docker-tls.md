@@ -13,15 +13,7 @@ keywords:
   - running-guide
 ---
 
-<<<<<<< HEAD
-
 ### Recording Testcases and Data Mocks <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="20" height="20"/>
-
-=======
-
-### Recording Testcases and Data Mocks <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="20" height="20"/>
-
-> > > > > > > b1b02c4897e5e163d3f20d444c03ecf6ef7e50ae
 
 1. To record test cases and data mocks, follow these steps in the **root directory** of your application. Ensure that you have the following prerequisites in place:
 
@@ -45,10 +37,7 @@ RUN chmod +x setup_ca.sh
 CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
 ```
 
-# <<<<<<< HEAD
-
-> > > > > > > b1b02c4897e5e163d3f20d444c03ecf6ef7e50ae
-> > > > > > > Note: Also add **curl** installation command if **curl** is not installed on your image
+> Note: Also add **curl** installation command if **curl** is not installed on your image
 
 To capture test cases, **Execute** the following command within your application's **root directory**.
 
@@ -56,10 +45,7 @@ To capture test cases, **Execute** the following command within your application
 keploy record -c "Docker_CMD_to_run_user_container --network <network_name>" --containerName "<container_name>"
 ```
 
-# <<<<<<< HEAD
-
-> > > > > > > b1b02c4897e5e163d3f20d444c03ecf6ef7e50ae
-> > > > > > > Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
+Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
 
 Keploy will capture the API calls you've conducted, generating test suites comprising **test cases (KTests) and data mocks (KMocks)** in `YAML` format.
 
@@ -68,12 +54,6 @@ Keploy will capture the API calls you've conducted, generating test suites compr
 To execute the test cases, follow these steps in the **root directory** of your application.
 
 When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
-
-<<<<<<< HEAD
-
-=======
-
-> > > > > > > b1b02c4897e5e163d3f20d444c03ecf6ef7e50ae
 
 ```shell
 keploy test -c "Docker_CMD_to_run_user_container --network <network_name>" --containerName "<container_name>" --delay 20
