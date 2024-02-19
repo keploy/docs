@@ -498,6 +498,9 @@ footer svg {
   padding: 0;
   font-size: 0.95em;
 }
+[data-theme="light"] .prose :where(pre code):not(.not-prose) {
+  background-color: #ffffff;
+}
 
 .header-github-link:hover {
   opacity: 0.6;
