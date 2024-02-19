@@ -420,7 +420,7 @@ We will be using Docker compose to run the application as well as Postgres on Do
 
   Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
-  ## Wrapping it up 🎉
+  ### Wrapping it up 🎉
 
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
