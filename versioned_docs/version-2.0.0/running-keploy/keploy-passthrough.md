@@ -17,14 +17,16 @@ This is why, user can provide the server port to pass the external requests with
 
 ## Keploy Passthrough Example
 
-You can add `--passThroughPorts` flag to pass the outgoing calls at the given ports and pass them in the keploy proxy without mocking. 
+You can add `--passThroughPorts` flag to pass the outgoing calls at the given ports and pass them in the keploy proxy without mocking.
 
 ### Record cmd
+
 ```zsh
 sudo -E env 'PATH=$PATH' main.go record -c "java -jar path/to/user/jar" --passThroughPorts 5672,5432
 ```
 
 ### Test cmd
+
 ```zsh
 sudo -E env 'PATH=$PATH' main.go test -c "java -jar path/to/user/jar" --delay 25  --passThroughPorts 5672,5432
 ```
