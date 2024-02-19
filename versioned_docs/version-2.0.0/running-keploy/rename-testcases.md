@@ -4,7 +4,6 @@ title: Rename Default Test-names
 sidebar_label: Rename Testname
 description: This section documents how to rename testcases & testsets
 tags:
-
   - rename testcases
   - rename testsets
 keywords:
@@ -15,6 +14,7 @@ keywords:
 ---
 
 ## Rename Test-Cases
+
 To name your test case, make an API call and **add a header field** whose key is set to `Keploy-Test-Name` and value is set to the name you want for your test case.
 
 ### Example
