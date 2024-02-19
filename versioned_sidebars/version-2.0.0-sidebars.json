@@ -58,10 +58,10 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-gin",
-            "quickstart/samples-mux",
             "quickstart/samples-echo",
+            "quickstart/samples-gin",
             "quickstart/samples-redis",
+            "quickstart/samples-mux",
             "quickstart/samples-mysql"
           ]
         },

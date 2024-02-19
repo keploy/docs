@@ -23,13 +23,9 @@ keyword:
 
 A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [MySQL](https://www.mysql.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-## Pre-Requisite 🛠️
+import InstallationGuide from '../concepts/installation.md'
 
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-
-## Optional 🛠️
-
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+<InstallationGuide/>
 
 ## Get Started! 🎬
 
@@ -42,56 +38,38 @@ go mod download
 
 ## Installation Keploy
 
-Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system archieture, install the keploy latest binary release
+There are 2 ways you can run this sample application.
 
-Depending on your OS, choose your adventure:
+- [Using Docker compose : running application as well as MySQL on Docker container](#using-docker-compose-)
+- [Using Docker container for MySQL and running application locally](#running-app-locally-on-linuxwsl-)
 
-- <details>
-   <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
-
-  First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
-
-  ```bash
-  wsl ~
-  ```
-
-  Alright, let's equip ourselves with the **latest Keploy binary**:
-
-  ```bash
-  curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-  sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-  ```
-
-  If everything goes right, your screen should look a bit like this:
-
-   <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
-
-  Moving on...
-
-   <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux / WSL </summary>
+## Using Docker Compose 🐳
+We will be using Docker compose to run the application as well as MySQL on Docker container.
 
   ### Start MySQL Instance
 
-  Start the MySQL instance
+  ```bash
+  docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+  ```
+
+  #### Creating Docker Volume
 
   ```bash
-    docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
   ```
 
   ### Capture the Testcases
 
-  Now, we will create the binary of our application:-
+  Now, we will create the docker image of our application:-
 
   ```zsh
-  export ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"
-  go build -o main
+  docker build -t url-short .
   ```
 
-  Once we have our binary file ready,this command will start the recording of API calls using ebpf:-
+  Once we have our Docker image file ready,this command will start the recording of API calls using ebpf:-
 
   ```shell
-  sudo -E keploy record -c "./main"
+  keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
   ```
 
   Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
@@ -103,27 +81,27 @@ Depending on your OS, choose your adventure:
   #### Generate shortened url
 
   ```bash
-  '{
   curl --request POST \
     --url http://localhost:8082/url \
     --header 'content-type: application/json' \
     --data '{
     "url": "https://github.com"
-  }'
+  }
   ```
 
   this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
 
   ```bash
-  {"message":"Converted","link":"http://localhost:8080/link/1","status":true}
+  {
+    "message":"Converted",
+    "link":"http://localhost:8080/link/1",
+    "status":true}
   ```
 
   #### Access all the shortened urls
 
-  1. By using Curl Command
-
   ```bash
-  curl localhost:8080/all
+  curl --request GET \ localhost:8080/all
   ```
 
   Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
@@ -134,12 +112,12 @@ Depending on your OS, choose your adventure:
 
   Want to see if everything works as expected?
 
-  ## Run the Testcases
+  ### Run the Testcases
 
   Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
 
   ```shell
-  sudo -E keploy test -c "./main" --delay 10
+  keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
   ```
 
   output should look like
@@ -148,38 +126,38 @@ Depending on your OS, choose your adventure:
 
   So no need to setup fake database/apis MySQL or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MySQL 😄**
 
-  ## Wrapping it up 🎉
+  ### Wrapping it up 🎉
 
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-   </details>
+  **\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\_\_\_****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\***
 
-   <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
+## Running App Locally on Linux/WSL 🐧
+  We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MySQL) chill on Docker. Ready? Let's get the party started!🎉
 
   > To establish a network for your application using Keploy on Docker, follow these steps.
   > If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
 
-  ## Let's start the MySQL Instance
-
-  Start the MySQL instance:-
+  ### Let's start the MySQL Instance
 
   ```zsh
-    docker run -p 3306:3306 --rm --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+  docker run -p 3306:3306 --rm --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
   ```
 
-  Now, we will create the docker image of our application:-
+  Now, we will create the binary of our application:-
 
   ```zsh
-  docker build -t url-short .
+  export ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"
+
+  go build -o main
   ```
 
-  ## Capture the Testcases
+  ### Capture the Testcases
 
   ```zsh
-  keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
+  sudo -E PATH=$PATH keploy record -c "./main"
   ```
 
   ![Testcase](https://github.com/heyyakash/samples-go/assets/85030597/2b4f3c04-4631-4f9a-b317-7fdb6db87879)
@@ -188,7 +166,7 @@ Depending on your OS, choose your adventure:
 
   To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
-  1. Generate shortned url
+  #### Generate shortned url
 
   ```bash
   curl --request POST \
@@ -202,126 +180,25 @@ Depending on your OS, choose your adventure:
   this will return the shortened url.
 
   ```json
-  {
-  curl -X POST localhost:8080/create -H "Content-Type: application/json" -d '{"link":"https://google.com"}'
-  }
+    "link":"https://google.com"
   ```
 
-  2. Redirect to original url from shòrtened url
-
-  ```bash
-  curl localhost:8080/links/1
+  #### Redirect to original url from shortened url
+  
+  ```zsh
+  curl -request GET localhost:8080/links/1
   ```
 
   Now, let's see the magic! 🪄💫
 
   Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
 
-  ## Run the captured testcases
+  ### Run the captured testcases
 
   Now that we have our testcase captured, run the test file.
 
   ```zsh
-  keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
-  ```
-
-  So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
-
-  The application thinks it's talking to mongoDB 😄
-
-  We will get output something like this:
-  ![Testrun](https://github.com/heyyakash/samples-go/assets/85030597/472cab5e-9687-4fc5-bd57-3c52f56feedf)
-
-  ## Wrapping it up 🎉
-
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-  Happy coding! ✨👩‍💻👨‍💻✨
-   </details>
-
-   </details>
-
-- <details>
-   <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
-
-  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
-
-  ### Use Keploy with Docker-Desktop
-
-  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
-
-  #### Creating Docker Volume
-
-  ```bash
-  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
-  ```
-
-  ### Use Keploy with Colima
-
-  ## Let's start the MySQL Instance
-
-  Using the docker-compose file we will start our instance:-
-
-  ```zsh
-  docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
-  ```
-
-  Now, we will create the docker image of our application:-
-
-  ```zsh
-  docker build -t url-short .
-  ```
-
-  ## Capture the Testcases
-
-  ```zsh
-  keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
-  ```
-
-  ![Testcase](https://github.com/heyyakash/samples-go/assets/85030597/2b4f3c04-4631-4f9a-b317-7fdb6db87879)
-
-  ### Generate testcases
-
-  To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
-
-  1. Generate shortned url
-
-  ```bash
-  curl --request POST \
-    --url http://localhost:8082/url \
-    --header 'content-type: application/json' \
-    --data '{
-    "url": "https://google.com"
-  }'
-  ```
-
-  this will return the shortened url.
-
-  ```json
-  {
-    "message": "Converted",
-    "link": "http://localhost:8080/link/1",
-    "status": true
-  }
-  ```
-
-  2. Redirect to original url from shòrtened url
-
-  ```
-  curl --request GET \
-    --url http://localhost:8082/Lhr4BWAi
-  ```
-
-  Now, let's see the magic! 🪄💫
-
-  Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
-
-  ## Run the captured testcases
-
-  Now that we have our testcase captured, run the test file.
-
-  ```zsh
-   keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
+  sudo -E PATH=$PATH keploy test -c "./main" --delay 10
   ```
 
   So no need to setup dependencies like MySQL, web-go locally or write mocks for your testing.
@@ -329,12 +206,10 @@ Depending on your OS, choose your adventure:
   The application thinks it's talking to MySQL 😄
 
   We will get output something like this:
-  ![Testrun](/img/mux-mysql-keploy-tests.png)
+  ![Testrun](https://github.com/heyyakash/samples-go/assets/85030597/472cab5e-9687-4fc5-bd57-3c52f56feedf)
 
-  ## Wrapping it up 🎉
+  ### Wrapping it up 🎉
 
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
-
-   </details>

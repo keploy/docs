@@ -22,13 +22,9 @@ keyword:
 
 A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-## Pre-Requisite 🛠️
+import InstallationGuide from '../concepts/installation.md'
 
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-
-## Optional 🛠️
-
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
+<InstallationGuide/>
 
 ## Get Started! 🎬
 
@@ -41,62 +37,52 @@ go mod download
 
 ## Installation Keploy
 
-Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system archieture, install the keploy latest binary release
-
 Depending on your OS, choose your adventure:
 
-- <details>
-   <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
+There are 2 ways you can run this sample application.
 
-  Alright, let's equip ourselves with the **latest Keploy binary**:
+- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
+- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
 
-  ```bash
-  curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+## Using Docker Compose 🐳
 
-  sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-  ```
+We will be using Docker compose to run the application as well as Postgres on Docker container.
 
-  If everything goes right, your screen should look a bit like this:
+### Lights, Camera, Record! 🎥
 
-   <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
-
-  Moving on...
-
-   <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux / WSL </summary>
-
-  ### Start Postgres Instance
+  #### Start Postgres Instance
 
   Using the docker-compose file we will start our postgres instance:-
 
   ```bash
   # Start Postgres
-  docker-compose up -d
+  docker compose up
+  ```
+  #### Creating Docker Volume
+
+  ```bash
+  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
   ```
 
-  ### Capture the Testcases
-
-  > **Since, we are on the local machine the Postgres Host will be `localhost`.**
+### Capture the Testcases
 
   Now, we will create the binary of our application:-
 
-  ```go
-  go build
+  ```zsh
+  docker build -t echo-app:1.0 .
   ```
 
   Once we have our binary file ready,this command will start the recording of API calls using ebpf:-
 
   ```shell
-  sudo -E keploy record -c "./echo-psql-url-shortener"
+  keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
   ```
 
   Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-  ### Generate testcases
+  #### Generate testcases
 
   To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
-
-  #### Generate shortned url
 
   ```bash
   curl --request POST \
@@ -118,7 +104,7 @@ Depending on your OS, choose your adventure:
 
   #### Redirect to original URL from shortened URL
 
-  1. By using Curl Command
+  ##### 1. By using Curl Command
 
   ```bash
   curl --request GET \
@@ -135,7 +121,7 @@ Depending on your OS, choose your adventure:
 
   Want to see if everything works as expected?
 
-  ## Run the Testcases
+### Run the Testcases
 
   Now that we have our testcase captured, we will add `ts` to noise field in `test-*.yaml` files.
 
@@ -144,7 +130,7 @@ Depending on your OS, choose your adventure:
   Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
 
   ```shell
-  sudo -E keploy test -c "./echo-psql-url-shortener" --delay 10
+  keploy test -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0" --delay 10
   ```
 
   output should look like
@@ -153,46 +139,41 @@ Depending on your OS, choose your adventure:
 
   So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
-  ## Wrapping it up 🎉
+### Wrapping it up 🎉
 
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-   </details>
+ **\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\_\_\_****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\*****\*\*\*\*****\*\***
 
-   <details>
-   <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
-
-  ## Let's start the MongoDB Instance
-
-  Using the docker-compose file we will start our mongodb instance:-
+## Running App Locally on Linux/WSL 🐧
+  We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
+  Using the docker-compose file we will start our Postgres instance:-
 
   ```shell
   docker-compose up -d
   ```
 
-  > Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `echo-sql-postgres-1`.
+  > **Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `localhost`.**
 
-  Now, we will create the docker image of our application:-
+  Now, we will create the binary of our application:-
 
-  ```shell
-  docker build -t echo-app:1.0 .
+  ```go
+  go build
   ```
 
-  ## Capture the Testcases
+  ### Capture the Testcases
 
   ```shell
-  keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
+  sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
   ```
 
   ![Testcase](/img/testcase-echo.png?raw=true)
 
-  ### Generate testcases
+  #### Generate testcases
 
   To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
-
-  1. Generate shortned url
 
   ```bash
   curl --request POST \
@@ -212,24 +193,23 @@ Depending on your OS, choose your adventure:
   }
   ```
 
-  2. Redirect to original url from shòrtened url
+  #### Redirect to original url from shòrtened url
 
+  ```zsh
+  curl --request GET \ --url http://localhost:8082/Lhr4BWAi
   ```
-  curl --request GET \
-    --url http://localhost:8082/Lhr4BWAi
-  or by querying through the browser http://localhost:8082/Lhr4BWAi
-  ```
+  or by querying through the browser `http://localhost:8082/Lhr4BWAi`
 
   Now, let's see the magic! 🪄💫
 
   Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
 
-  ## Run the captured testcases
+  ### Run the captured testcases
 
   Now that we have our testcase captured, run the test file.
 
   ```shell
-  keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
+  sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
   ```
 
   So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -239,111 +219,8 @@ Depending on your OS, choose your adventure:
   We will get output something like this:
   ![Testrun](/img/testrun-echo.png?raw=true)
 
-  ## Wrapping it up 🎉
+  ### Wrapping it up 🎉
 
   Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
   Happy coding! ✨👩‍💻👨‍💻✨
-   </details>
-
-   </details>
-
-- <details>
-   <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
-
-  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
-
-  ### Use Keploy with Docker-Desktop
-
-  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
-
-  #### Creating Docker Volume
-
-  ```bash
-  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
-  ```
-
-  ### Use Keploy with Colima
-
-  ## Let's start the MongoDB Instance
-
-  Using the docker-compose file we will start our mongodb instance:-
-
-  ```shell
-  docker-compose up -d
-  ```
-
-  > Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `echo-sql-postgres-1`.
-
-  Now, we will create the docker image of our application:-
-
-  ```shell
-  docker build -t echo-app:1.0 .
-  ```
-
-  ## Capture the Testcases
-
-  ```shell
-  keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
-  ```
-
-  ![Testcase](/img/testcase-echo.png?raw=true)
-
-  ### Generate testcases
-
-  To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
-
-  1. Generate shortned url
-
-  ```bash
-  curl --request POST \
-    --url http://localhost:8082/url \
-    --header 'content-type: application/json' \
-    --data '{
-    "url": "https://google.com"
-  }'
-  ```
-
-  this will return the shortened url.
-
-  ```json
-  {
-    "ts": 1645540022,
-    "url": "http://localhost:8082/Lhr4BWAi"
-  }
-  ```
-
-  2. Redirect to original url from shòrtened url
-
-  ```
-  curl --request GET \
-    --url http://localhost:8082/Lhr4BWAi
-  or by querying through the browser http://localhost:8082/Lhr4BWAi
-  ```
-
-  Now, let's see the magic! 🪄💫
-
-  Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
-
-  ## Run the captured testcases
-
-  Now that we have our testcase captured, run the test file.
-
-  ```shell
-  keploy test -c "sudo docker run -p 8082:8082 --net keploy-network --name echoSqlApp echo-app:1.0 echoSqlApp" --delay 10
-  ```
-
-  So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
-
-  The application thinks it's talking to mongoDB 😄
-
-  We will get output something like this:
-  ![Testrun](/img/testrun-echo.png?raw=true)
-
-  ## Wrapping it up 🎉
-
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-  Happy coding! ✨👩‍💻👨‍💻✨
-
-   </details>
