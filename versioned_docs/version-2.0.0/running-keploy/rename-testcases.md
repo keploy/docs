@@ -1,15 +1,19 @@
 ---
 id: rename-testcases
-title: Rename TestCases
-sidebar_label: Rename Testcases
-description: This section documents how to rename testcases
+title: Rename Default Test-names
+sidebar_label: Rename Testname
+description: This section documents how to rename testcases & testsets
 tags:
   - rename testcases
+  - rename testsets
 keywords:
   - testcases
   - documentation
   - rename
+  - testsets
 ---
+
+## Rename Test-Cases
 
 To name your test case, make an API call and **add a header field** whose key is set to `Keploy-Test-Name` and value is set to the name you want for your test case.
 
@@ -43,3 +47,7 @@ curl --request POST \
 ```
 
 5. Test case with the name `renamed-test.yaml` has been successfully created. 🎉
+
+## Rename Test-Sets
+
+To rename your test set, you can manually override the default name from `test-set-0` to a `kTest-0` in the `keploy` folder.

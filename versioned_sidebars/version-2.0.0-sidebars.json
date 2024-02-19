@@ -24,6 +24,7 @@
       "items": [
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
+        "running-keploy/docker-tls",
         "running-keploy/configuration-file"
       ]
     },
