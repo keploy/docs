@@ -11,4 +11,4 @@ tags:
   - hello world
 ---
 
-- [Employee Management App with SpringBoot-Postgres](/java/quickstart/spring-sql) - A sample Employee-Manager app fetches the employee details based on the id set while making a POST request. The application tests Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).
+- [Employee Management App with SpringBoot-Postgres](/docs/1.0.0/java/quickstart/spring-sql) - A sample Employee-Manager app fetches the employee details based on the id set while making a POST request. The application tests Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).

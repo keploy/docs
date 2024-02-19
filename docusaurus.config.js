@@ -100,7 +100,7 @@ module.exports = {
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
-      theme: require("prism-react-renderer/themes/nightOwlLight"),
+      theme: require("prism-react-renderer/themes/palenight"),
       darkTheme: require("prism-react-renderer/themes/dracula"),
       additionalLanguages: ["java", "ruby", "php"],
     },
@@ -116,12 +116,12 @@ module.exports = {
         {
           to: "/keploy-explained/introduction",
           activeBasePath: "none",
-          label: "Explanation",
-        },
-        {
-          to: "/application-development",
           label: "Installation",
         },
+        // {
+        //   to: "/server/installation/",
+        //   label: "Installation",
+        // },
         // {
         //   to: "/docs/operation/web-ui-operations/",
         //   activeBasePath: "(/docs/operation)",
@@ -135,11 +135,11 @@ module.exports = {
         // },
         {
           to: "/keploy-explained/contribution-guide",
-          label: "Dev Guide",
+          label: "Contribution Guide",
         },
         {
-          to: "https://community.keploy.io",
-          label: "Guest Posts",
+          to: "https://keploy.io/blog",
+          label: "Blog",
         },
         {
           type: "docsVersionDropdown",

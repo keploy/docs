@@ -27,7 +27,7 @@ Keploy can be installed in two ways:
 
 ## One click install Keploy.
 
-```
+```shell
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
 ```
 
@@ -42,19 +42,22 @@ There are two ways to use Keploy eBPF in windows, you can use either use:
 
 ### Download the Keploy Binary
 
-On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below.
+On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041
+and higher) or Windows 11 to use the commands below.
 
-```zsh
+```shell
 wsl --install
 ```
 
-This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default distribution can be changed).
+This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default
+distribution can be changed).
 
-If you're running an older build, or just prefer not to use the install command and would like step-by-step directions, see WSL manual installation steps for older versions.
+If you're running an older build, or just prefer not to use the install command and would like step-by-step directions,
+see WSL manual installation steps for older versions.
 
 Once installed download and Install "Keploy Binary" :
 
-```zsh
+```shell
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
 
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
@@ -70,7 +73,8 @@ sudo -E keploy record -c "path/to/the/application/binary"
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
 
-Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data mocks into `YAML` format.
+Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
+mocks into `YAML` format.
 
 #### Run the Test Mode
 
@@ -88,11 +92,13 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ### Creating Alias
 
-We need to create a custom network for Keploy since we are using the Docker, therefore application container would require `docker network` to act as the bridge between them.
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would
+require `docker network` to act as the bridge between them.
 
-If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name` below.
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name`
+below.
 
-```zsh
+```shell
 docker network create keploy-network
 ```
 
@@ -117,9 +123,11 @@ keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --netw
 
 Voilà! 🧑🏻‍💻 We have the server running!
 
-You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport` directory.
+You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport`
+directory.
 
 **Footnote**
 
 1. `delay` is required while using Test Mode.
-2. containerName is optional if you are using `Docker run` command, as the Container name must be present within the command itself.
+2. containerName is optional if you are using `Docker run` command, as the Container name must be present within the
+   command itself.

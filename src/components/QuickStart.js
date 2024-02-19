@@ -8,36 +8,36 @@ export const QuickStart = () => {
       <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-5xl">
         Welcome to Keploy Documentation! 🚀
       </h1>
-      <p className="max-w-3xl text-l">
+      <p className="text-l max-w-3xl">
         This documentation is your roadmap to becoming a Keploy expert, whether
         you're a seasoned developer or just starting out. 🗺️
       </p>
 
-      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl mt-8">
+      <h2 className="mb-4 mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         What is Keploy? 🤔
       </h2>
-      <p className="max-w-4xl text-l">
+      <p className="text-l max-w-4xl">
         Keploy is your open-source, developer-centric backend testing tool. It
         makes backend testing easy and productive for engineering teams. Plus,
         it's easy-to-use, powerful and extensible..🛠️
       </p>
-      <p className="max-w-4xl text-l mt-4">
+      <p className="text-l mt-4 max-w-4xl">
         Keploy creates test cases and data mocks/stubs from user-traffic by
         recording API calls and DB queries, significantly speeding up releases
         and enhancing reliability. 📈
       </p>
 
-      <h2 className="mt-8 text-2xl md:text-3xl font-semibold tracking-wide">
+      <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Installation Guide 📗
       </h2>
-      <p className="max-w-4xl text-l mt-4 mb-8">
+      <p className="text-l mb-8 mt-4 max-w-4xl">
         Let's get Keploy up and running on your Windows, Linux, or macOS
         machine, so you can start crafting test cases in minutes. ⏱️
       </p>
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/windows/installation")}
+          to={useBaseUrl("/server/installation/")}
         >
           <img
             className="h-16 w-16"
@@ -48,7 +48,7 @@ export const QuickStart = () => {
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/linux/installation")}
+          to={useBaseUrl("/server/installation/")}
         >
           <img
             className="h-16 w-16"
@@ -59,7 +59,7 @@ export const QuickStart = () => {
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/macos/installation")}
+          to={useBaseUrl("/server/installation/")}
         >
           <img
             className="h-16 w-16"
