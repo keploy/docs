@@ -25,16 +25,16 @@ keywords:
 
 2. Add the following commands to your Dockerfile to download the `ca.crt` file and the `setup_ca.sh` script.
 
-```Dockerfile
-...
+```dockerfile
 # Download the ca.crt file
-RUN curl -o ca.crt https://raw.githubusercontent.com/keploy/keploy/main/pkg/proxy/asset/ca.crt
-RUN curl -o setup_ca.sh https://raw.githubusercontent.com/keploy/keploy/main/pkg/proxy/asset/setup_ca.sh
-# Give execute permission to the setup_ca.sh script
-RUN chmod +x setup_ca.sh
-...
+    RUN curl -o ca.crt https://raw.githubusercontent.com/keploy/keploy/main/pkg/proxy/asset/ca.crt
+    RUN curl -o setup_ca.sh https://raw.githubusercontent.com/keploy/keploy/main/pkg/proxy/asset/setup_ca.sh
+    # Give execute permission to the setup_ca.sh script
+    RUN chmod +x setup_ca.sh
+    
+    
 # Run the CA setup script and then run the application server
-CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
+    CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
 ```
 
 > Note: Also add **curl** installation command if **curl** is not installed on your image
