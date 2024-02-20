@@ -44,12 +44,16 @@ Navigate to `launch.json` to begin crafting JSON objects.
       "asRoot": true,
       "console": "integratedTerminal",
       "program": "main.go",
-      "args": ["test", "-c", "<path_to_executable>"]
+      "args": ["test", "-c", "<path_to_executable>"],
+      "env": {
+        "PATH": "<path_to_Go_binary>"
+      }
     }
   ]
 }
 ```
 
+Path to go binary can be found via `echo $PATH`.
 Let's take a closer look at some important key-value pairs in our JSON file:
 
 - The `"name"` parameter can be anything, but for convenience, consider using the keploy command name (e.g., `Record` and `Test`).
