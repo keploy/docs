@@ -210,7 +210,7 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***
+---
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -389,7 +389,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 <img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
-Run that keploy record command once more and watch as everything falls into place with all tests passing! 🌟
+Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
 

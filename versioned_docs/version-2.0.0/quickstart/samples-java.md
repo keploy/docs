@@ -1,7 +1,7 @@
 ---
 id: samples-java
 title: Java Sample Application
-sidebar_label: Employer App (PostgresDb)
+sidebar_label: Employer (PostgresDb)
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
   - java
@@ -24,23 +24,21 @@ keyword:
 
 # Example Employee-Manager App
 
-A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io)
-and [PostgreSQL](https://www.postgresql.org/).
+A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
+and **PostgreSQL**.
 
-## Pre-requisites
+> This sample application is **not written for macOS users** since this application doesn't have a docker file yet.
 
-- Java 1.8+
-- Maven
+import InstallationGuide from '../concepts/installation.md'
 
-## Quick Keploy Installation
-
-Based on your OS and preference(Docker/Native), you setup Keploy using One-click installation method:-
-
-```shell
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
-```
+<InstallationGuide/>
 
 ## Setup Employee-Manager App
+
+### Application Pre-Requisites 📋
+
+- Java 1.8+ or <17 ☕
+- Maven 🛠️
 
 Clone the repository and install the dependencies
 
@@ -49,15 +47,15 @@ git clone https://github.com/keploy/samples-java && cd samples-java/employee-man
 mvn clean install -Dmaven.test.skip=true
 ```
 
-## Start the Postgres DB
+## Start the Postgres DB 🐳
 
 ```bash
-docker-compose up -d
+docker compose up -d
 ```
 
 Note: You may have to use sudo if you are not part of the docker group.
 
-### Capture the testcases
+### Capture the testcases 🎬
 
 Once we have our jar file ready,this command will start the recording of API calls using ebpf:-
 
@@ -69,12 +67,12 @@ keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
 
 Now let's run a few tests to capture some more scenarios:
 
-#### Generate testcases
+#### Generate testcases 📝
 
 To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/)
 , [Hoppscotch](https://hoppscotch.io/), or simply `curl`
 
-1. Make an employee entry
+1. Make an employee entry 📥
 
 ```bash
 curl --location --request POST 'http://localhost:8080/api/employees' \
@@ -130,19 +128,65 @@ keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
 
 This will run the testcases and generate the report in `keploy/testReports` folder. You will see the following output:-
 
-```bash
-🐰 Keploy: 2024-01-17T16:47:17Z 	INFO	result	{"testcase id": "test-1", "testset id": "test-set-1", "passed": "true"}
-🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	starting test for of	{"test case": "test-2", "test set": "test-set-1"}
-🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	result	{"testcase id": "test-2", "testset id": "test-set-1", "passed": "true"}
-🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	test report for test-set-1: 	{"name: ": "report-3", "path: ": "/tmp/samples-java/employee-manager/keploy/report-3"}
+````shell
+🐰 Keploy: 2024-02-20T13:49:20Z 	INFO	starting test for of	{"test case": "test-1", "test set": "test-set-1"}
+2024-02-20 13:49:20.778  INFO 18888 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-02-20 13:49:20.778  INFO 18888 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2024-02-20 13:49:20.779  INFO 18888 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+Testrun failed for testcase with id: "test-1"
 
- <=========================================>
-  TESTRUN SUMMARY. For testrun with id: "test-set-1"
-	Total tests: 2
-	Total test passed: 2
-	Total test failed: 0
- <=========================================>
+--------------------------------------------------------------------
 
-🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	keploy has initiated the shutdown of the user application.
-🐰 Keploy: 2024-01-17T16:47:18Z 	INFO	test run completed	{"passed overall": true}
-```
++-------------------------------------------------------------------------------------------------------------+
+|                                                DIFFS TEST-1                                                 |
++-------------------------------------------------------------------------------------------------------------+
+|                     EXPECT HEADER                    |                   ACTUAL HEADER                      |
+| -----------------------------------------------------+----------------------------------------------------- |
+|                                                      |                                                      |
+|                                                                                                             |
+|                      EXPECT BODY                     |                    ACTUAL BODY                       |
+| -----------------------------------------------------+----------------------------------------------------- |
+|    {                                                 |  {                                                   |
+|      "email": "mt@gmail.com",                        |    "email": "mt@gmail.com",                          |
+|      "firstName": "Myke",                            |    "firstName": "Myke",                              |
+|      "id": 1,                                        |    "id": 1,                                          |
+|      "lastName": "Tyson",                            |    "lastName": "Tyson",                              |
+|   -  "timestamp": 1.70843653e+09                     | +  "timestamp": 1.70843696e+09                       |
+|    }                                                 |  }                                                   |
+|                                                      |                                                      |
+|                                                                                                             |
++-------------------------------------------------------------------------------------------------------------+
+🐰 Keploy: 2024-02-20T13:49:20Z 	INFO	result	{"testcase id": "test-1", "testset id": "test-set-1", "passed": "false"}
+🐰 Keploy: 2024-02-20T13:49:21Z 	INFO	starting test for of	{"test case": "test-2", "test set": "test-set-1"}
+Testrun passed for testcase with id: "test-2"
+
+--------------------------------------------------------------------
+
+🐰 Keploy: 2024-02-20T13:49:21Z 	INFO	result	{"testcase id": "test-2", "testset id": "test-set-1", "passed": "true"}
+🐰 Keploy: 2024-02-20T13:49:21Z 	INFO	test report for test-set-1: 	{"name: ": "report-2", "path: ": "/Users/neha/open-source/samples-java/employee-manager/keploy/report-2"}
+
+<=========================================>
+TESTRUN SUMMARY. For testrun with id: "test-set-1"
+Total tests: 2
+Total test passed: 1
+Total test failed: 1
+<=========================================>```
+````
+
+Did you spot that the `timestamp` is showing some differences? Yep, time has a way of doing that! 🕰️
+
+Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
+
+> Pro tip: Add `body.timestamp` to noise in `test-1.yaml`.
+
+<img src="/docs/img/code-snippets/java-sample-employee-manager-noise.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
+
+Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
+
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
+
+### 🎉 Wrapping it up
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
