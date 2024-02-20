@@ -24,7 +24,9 @@
       "items": [
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
-        "running-keploy/configuration-file"
+        "running-keploy/docker-tls",
+        "running-keploy/configuration-file",
+        "running-keploy/custom-mocks"
       ]
     },
     {
@@ -57,10 +59,10 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-gin",
-            "quickstart/samples-mux",
             "quickstart/samples-echo",
+            "quickstart/samples-gin",
             "quickstart/samples-redis",
+            "quickstart/samples-mux",
             "quickstart/samples-mysql"
           ]
         },

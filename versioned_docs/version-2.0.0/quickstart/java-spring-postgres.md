@@ -1,7 +1,7 @@
 ---
 id: pet-clinic
 title: Keploy with PetClinic
-sidebar_label: PetClinic App (PostgresDb)
+sidebar_label: PetClinic (PostgresDb)
 description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
 tags:
   - java
@@ -26,13 +26,11 @@ keyword:
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
+import InstallationGuide from '../concepts/installation.md'
+
+<InstallationGuide/>
+
 This project has two parts - the frontend and backend, since Keploy is a backend testing platform, we need to start the backend part of the project using Keploy and run the frontend as it is.
-
-First, you need to install Keploy. For that you can use the command below:
-
-```bash
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
-```
 
 ## Setup the frontend
 
