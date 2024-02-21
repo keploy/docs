@@ -34,7 +34,7 @@
       "label": "Test Coverage Integration",
       "collapsible": true,
       "collapsed": true,
-      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript", "server/sdk-installation/Python"]
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript", "server/sdk-installation/python"]
     },
     {
       "type": "category",
