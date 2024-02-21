@@ -1,7 +1,7 @@
 ---
 id: go
-title: Integrate with Go Test
-sidebar_label: Integrate with Go Test
+title: Keploy Integration with Go Test
+sidebar_label: Go Test
 tags:
   - go
 keyword:
@@ -65,7 +65,7 @@ keploy test -c "PATH_TO_GO_COVER_BIANRY" --withCoverage
 
 The coverage files will be stored in the directory.
 
-```
+```bash
 keploy
 ├── coverage-reports
 │   ├── covcounters.befc2fe88a620bbd45d85aa09517b5e7.305756.1701767439933176870
@@ -82,7 +82,7 @@ keploy
 
 Coverage percentage log in the cmd will be:
 
-```shell
+```bash
 🐰 Keploy: 2023-12-07T08:53:14Z         INFO    test/test.go:261
         test-app-url-shortener          coverage: 78.4% of statements
 ```
@@ -114,6 +114,7 @@ import(
 
 // Inside your unit test
 ...
+...
 err := keploy.New(keploy.Config{
 	Mode: keploy.MODE_RECORD, // It can be MODE_TEST or MODE_OFF. Default is MODE_TEST. Default MODE_TEST
     Name: "<stub_name/mock_name>" // TestSuite name to record the mock or test the mocks
@@ -121,6 +122,7 @@ err := keploy.New(keploy.Config{
 	MuteKeployLogs: false, // optional. It can be true or false. If it is true keploy logs will be not shown in the unit test terminal. Default: false
 	delay: 10, // by default it is 5 . This delay is for running keploy
 })
+...
 ...
 ```
 

@@ -63,7 +63,7 @@ shopify, or stripe are required anymore. 💡
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application.
 Multiple Reads after write operations can be replicated automatically too. 🔄
 
-<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
+[//]: # '<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>'
 
 ## ♻️ Multi-Purpose Mocks
 

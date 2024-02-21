@@ -22,9 +22,11 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
+        "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
+        "running-keploy/docker-tls",
         "running-keploy/configuration-file",
-        "running-keploy/cli-commands"
+        "running-keploy/custom-mocks"
       ]
     },
     {
@@ -32,7 +34,7 @@
       "label": "Test Coverage Integration",
       "collapsible": true,
       "collapsed": true,
-      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript"]
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript", "server/sdk-installation/python"]
     },
     {
       "type": "category",
@@ -42,7 +44,7 @@
       "items": [
         {
           "type": "category",
-          "label": "Java SpringBoot",
+          "label": "Java (SpringBoot)",
           "collapsible": true,
           "collapsed": true,
           "items": [
@@ -57,10 +59,10 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-mux",
             "quickstart/samples-echo",
             "quickstart/samples-gin",
             "quickstart/samples-redis",
+            "quickstart/samples-mux",
             "quickstart/samples-mysql"
           ]
         },
@@ -118,7 +120,7 @@
       "collapsible": true,
       "items": [
         "keploy-explained/contribution-guide",
-        "keploy-explained/docs-dev-guide", 
+        "keploy-explained/docs-dev-guide",
         "keploy-explained/debugger-guide"
       ]
     }

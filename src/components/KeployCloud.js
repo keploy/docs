@@ -95,11 +95,11 @@ export const KeployCloud = () => {
       {/*</svg>*/}
 
       <p className="my-3 block">
-        Keploy Enterprise is a fully managed cloud/self-hosted offering of the
-        open-source Server. We are currently accepting private Design Partners.{" "}
+        To request a Keploy Cloud account, please complete the request form. Our
+        team will review your request and get back to you as soon as possible.
         <a
-          href="https://docs.google.com/forms/d/12U_4DXP673SjTpDhxni0uMxN4QPNGE-CGbFhyhh3JIM"
-          className="text-blue-400 underline hover:text-blue-200"
+          href="https://forms.gle/k94a5YkYvchfSzim7"
+          className="pl-1 text-orange-500 underline hover:text-orange-400"
         >
           Apply here!
         </a>

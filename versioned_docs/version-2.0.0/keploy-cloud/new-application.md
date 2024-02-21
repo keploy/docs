@@ -15,6 +15,16 @@ keywords:
   - API key
 ---
 
+### Start Keploy Agent
+
+Before adding a new application or performing record-replay operations, please ensure that the keploy agent is running. You can bring up the agent by running
+
+```bash
+keploy agent-start
+```
+
+Now that we have the agent running. Let's add a new application to Keploy Cloud.
+
 ### Step 1: Create a New Application
 
 To add the new application to Keploy Cloud, you need to login to [Keploy Console](https://app.keploy.io) and go to _New Application_.

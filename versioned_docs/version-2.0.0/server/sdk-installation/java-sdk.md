@@ -1,7 +1,7 @@
 ---
 id: java
-title: Integrate with Junit
-sidebar_label: Integrate with Junit
+title: Keploy Integration with Junit
+sidebar_label: JUnit
 tags:
   - java
 keyword:
@@ -31,7 +31,6 @@ keyword:
 at maven central and add keploy-sdk as a dependency to your pom.xml :
 
 ```xml
-
 <dependencies>
     <dependency>
         <groupId>io.keploy</groupId>
@@ -46,7 +45,6 @@ at maven central and add keploy-sdk as a dependency to your pom.xml :
 You will need to add the following puligns in `pom.xml` file of your application. :-
 
 ```xml
-
 <build>
     <plugins>
         <plugin>
@@ -134,90 +132,14 @@ For the code coverage for the keploy API tests using the `junit` integration, yo
 Junit test file.
 
 ```java
+import io.keploy.Keploy; // import statement
+
 @Test
-    @Order(Integer.MAX_VALUE)
-    public void TestKeploy() throws IOException, InterruptedException {
-
-        Boolean testResult = true;
-        long MAX_TIMEOUT = 60000; // 1m
-        try {
-
-            String[] testSets = KeployCLI.FetchTestSets();
-            if (testSets == null) {
-                System.err.println("Test sets are null ");
-                return;
-            }
-
-            System.out.println("TestSets: " + Arrays.asList(testSets));
-
-            System.out.println("starting user application");
-
-            boolean result = true;
-            for (String testset : testSets) {
-
-                // running the test set.
-                String testRunId = KeployCLI.RunTestSet(testset);
-
-
-                String jarPath = "target/<your-application-jar-file-path>";
-                String[] command = {
-                        "java",
-                        "-jar",
-                        jarPath
-                };
-                String userCmd = String.join(" ", command);
-
-                KeployCLI.StartUserApplication(userCmd);
-
-                KeployCLI.TestRunStatus testRunStatus = KeployCLI.TestRunStatus.PASSED;
-
-                long startTime = System.currentTimeMillis();
-
-                // Check status in every 2 seconds
-                while (true) {
-                    // Sleep for 2 seconds
-                    Thread.sleep(2000);
-
-                    testRunStatus = KeployCLI.FetchTestSetStatus(testRunId);
-
-                    if (testRunStatus == KeployCLI.TestRunStatus.RUNNING) {
-                        System.out.println("testRun still in progress");
-
-                        // Check if the current time exceeds the start time by MAX_TIMEOUT
-                        if (System.currentTimeMillis() - startTime > MAX_TIMEOUT) {
-                            System.out.println("Timeout reached, exiting loop");
-                            break;
-                        }
-
-                        continue;
-                    }
-
-                    break;
-                }
-
-                if (testRunStatus == KeployCLI.TestRunStatus.FAILED || testRunStatus == KeployCLI.TestRunStatus.RUNNING) {
-                    System.out.println("testrun failed");
-                    result = false;
-                } else if (testRunStatus == KeployCLI.TestRunStatus.PASSED) {
-                    System.out.println("testrun passed");
-                    result = true;
-                }
-
-                System.out.println("TestResult of [" + testset + "]:" + result);
-                testResult = testResult && result;
-                KeployCLI.FindCoverage(testset);
-                //Change This time if you have bigger codebase. Because it will take more time to dump the coverage
-                Thread.sleep(5000);
-                KeployCLI.StopUserApplication();
-            }
-        } catch (Exception e) {
-            System.err.println("failed to execute keploy tests:" + e);
-        } finally {
-            System.out.println("Testing done with status:" + testResult);
-        }
-
-        assertTrue(testResult, "Keploy Test Result");
-    }
+@Order(Integer.MAX_VALUE)
+public void testKeploy() throws IOException, InterruptedException {
+    String jarPath = "target/springbootapp-0.0.1-SNAPSHOT.jar";
+    Keploy.runTests(jarPath);
+}
 ```
 
 Now let's run junit tests along keploy using command:-
