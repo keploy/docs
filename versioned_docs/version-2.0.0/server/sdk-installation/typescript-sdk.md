@@ -20,10 +20,23 @@ keywords:
 
 ### Get Keploy jest sdk
 
-[Install the latest release of the Keploy Jest SDK](https://www.npmjs.com/package/@keploy/typescript-sdk)
+[Install the latest release of the Keploy Jest SDK](https://www.npmjs.com/package/@keploy/sdk)
 
 ```bash
 npm i @keploy/typescript-sdk
+```
+
+## Update package file
+
+```bash
+  "scripts": {
+    "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "coverage": "nyc npm test && npm run coverage:merge && npm run coverage:report",
+    "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
+    "coverage:report": "nyc report --reporter=lcov --reporter=text"
+  }
 ```
 
 ## Usage
@@ -32,25 +45,26 @@ For the code coverage for the keploy API tests using the `jest` integration, you
 Jest test file. It can be called as `Keploy.test.js`.
 
 ```javascript
-const {KeployTest, Config} = require("@keploy/typescript-sdk/dist/keployCli");
-
+const {expect} = require("@jest/globals");
+const keploy = require("@keploy-sdk"); //shortend this
 const timeOut = 300000;
 
-const {expect} = require("@jest/globals");
 describe(
   "Keploy Server Tests",
   () => {
     test(
       "TestKeploy",
-      async () => {
-        testResult = await KeployTest();
-
-        // INFO: default command is set to "npm start", for custom command update 'config'
-
-        // const config = new Config('npm start')
-        // testResult =  await KeployTest(config)
-
-        expect(testResult).toBeTruthy();
+      (done) => {
+        const cmd = "npm start";
+        const options = {};
+        keploy.Test(cmd, options, (err, res) => {
+          if (err) {
+            done(err);
+          } else {
+            expect(res).toBeTruthy(); // Assert the test result
+            done();
+          }
+        });
       },
       timeOut
     );
@@ -62,5 +76,11 @@ describe(
 Now let's run jest tests along keploy using command:-
 
 ```bash
-sudo -E PATH=$PATH keploy test -c "npm test" --delay 15
+keploy test -c "npm test" --delay 15
+```
+
+To get Combined coverage
+
+```bash
+keploy test -c "npm run coverage" --delay 10 --coverage
 ```
