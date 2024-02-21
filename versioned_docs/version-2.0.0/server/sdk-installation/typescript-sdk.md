@@ -14,7 +14,7 @@ keywords:
 ## Pre-requisites
 
 1. [Node.js](https://nodejs.org/en/download)
-2. [nyc](https://www.npmjs.com/package/nyc)
+2. [nyc](https://www.npmjs.com/package/nyc): `npm i nyc`
 
 ## Installation
 
@@ -28,14 +28,16 @@ npm i @keploy/typescript-sdk
 
 ## Update package file
 
-```bash
+Update the `package.json` file that runs the application:
+
+```json
   "scripts": {
+    //other scripts
     "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
-    "start": "node src/app.js",
-    "dev": "nodemon src/app.js",
     "coverage": "nyc npm test && npm run coverage:merge && npm run coverage:report",
     "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
     "coverage:report": "nyc report --reporter=lcov --reporter=text"
+    //other scripts
   }
 ```
 
