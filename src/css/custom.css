@@ -501,6 +501,9 @@ footer svg {
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
+[data-theme="light"] .prose :where(pre):not(:where([class~=not-prose],[class~=not-prose] *)) {
+  background-color: #ffffff;
+}
 
 .header-github-link:hover {
   opacity: 0.6;
