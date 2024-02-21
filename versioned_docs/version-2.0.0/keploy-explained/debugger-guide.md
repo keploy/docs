@@ -34,7 +34,10 @@ Navigate to `launch.json` to begin crafting JSON objects.
       "asRoot": true,
       "console": "integratedTerminal",
       "program": "main.go",
-      "args": ["record", "-c", "<path_to_executable>"]
+      "args": ["record", "-c", "<path_to_executable>"],
+      "env": {
+        "PATH": "${env:PATH}"
+      }
     },
     {
       "name": "Test",
@@ -44,12 +47,39 @@ Navigate to `launch.json` to begin crafting JSON objects.
       "asRoot": true,
       "console": "integratedTerminal",
       "program": "main.go",
-      "args": ["test", "-c", "<path_to_executable>"]
+      "args": ["test", "-c", "<path_to_executable>"],
+      "env": {
+        "PATH": "${env:PATH}"
+      }
     }
   ]
 }
 ```
+## Retrieving the PATH Environment Variable
+### macOS/ Linux
+<ul><li>
 
+Terminal:
+
+```shell
+echo $PATH
+```
+</li>
+
+</ul>
+
+
+### Windows
+<ul><li>
+
+Command Prompt (CMD):
+```shell
+echo %PATH%
+```
+
+</li>
+
+</ul>
 Let's take a closer look at some important key-value pairs in our JSON file:
 
 - The `"name"` parameter can be anything, but for convenience, consider using the keploy command name (e.g., `Record` and `Test`).
