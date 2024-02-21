@@ -23,7 +23,7 @@ keywords:
 [Install the latest release of the Keploy Jest SDK](https://www.npmjs.com/package/@keploy/sdk)
 
 ```bash
-npm i @keploy/typescript-sdk
+npm i @keploy/sdk
 ```
 
 ## Update package file
