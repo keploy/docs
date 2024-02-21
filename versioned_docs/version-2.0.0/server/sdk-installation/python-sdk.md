@@ -43,10 +43,7 @@ def test_keploy():
 
 ```
 
-# <<<<<<< HEAD
-
-> > > > > > > 22cc378276c6bbb265ee8b6f6c044ca36ddf6113
-> > > > > > > Now let's run this test using Pytest and Keploy. You can do so by running the command given below:
+Now let's run this test using Pytest and Keploy. You can do so by running the command given below:
 
 ```bash
 keploy test -c "python3 -m coverage run -m pytest test_keploy.py" --delay 10 --coverage
