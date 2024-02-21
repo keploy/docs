@@ -1,13 +1,13 @@
 ---
-id: Python
+id: python
 title: Keploy Integration with Pytest
 sidebar_label: Pytest
 tags:
   - python
+  - pytest
 keyword:
   - Pytest Framework
   - Flask Framework
-  - Gin Framework
   - MongoDb
   - Python
   - API Test generator
@@ -24,10 +24,10 @@ keyword:
 
 ### Get the Keploy Python SDK
 
-Install the latest release of the [Keploy Python SDK](https://pypi.org/project/keploy/2.0.0a6/)
+Install the latest release of the [Keploy Python SDK](https://pypi.org/project/keploy)
 
 ```bash
-pip install keploy
+pip3 install keploy
 ```
 
 ## Usage
