@@ -319,7 +319,6 @@ Now let's run the test mode (in the bun-mongo directory, not the Keploy director
 keploy test -c "docker compose up" --delay 10 --containerName bunApp
 ```
 
-
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
