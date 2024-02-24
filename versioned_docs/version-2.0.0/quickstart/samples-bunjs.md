@@ -16,6 +16,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
   - javascript
+  - typescript
 ---
 
 # Sample Bun.js and MongoDB app
@@ -70,14 +71,14 @@ Depending on your OS, choose your adventure:
 
   We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
-  > **Since we have setup our sample-app natively, we need to update the mongoDB host on line 41, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
+  > **Since we have setup our sample-app natively, we need to update the mongoDB host on line 43, in `supabun.ts`, from `mongodb://mongoDb-bun:27017/keploy` to `mongodb://localhost:27017/keploy`.**
 
   #### 🍃 Kickstart MongoDB
 
   Let's breathe life into your mongo container. A simple spell should do the trick:
 
   ```bash
-  docker-compose up -d
+  docker-compose up mongo
   ```
 
   ### 📼 Roll the Tape - Recording Time!
@@ -97,13 +98,13 @@ Depending on your OS, choose your adventure:
   Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
   ```bash
-  curl --request POST localhost:420/save
+  curl --request POST localhost:4200/save
   ```
 
   Here's a peek of what you get:
 
   ```
-  {"succes":true}
+  {"success":true}
   ```
 
   🎉 Woohoo! Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -115,104 +116,120 @@ Depending on your OS, choose your adventure:
   🚀 Follow the URL road...!
 
   ```bash
-  curl --request GET localhost:420/fetch
+  curl --request GET localhost:4200/fetch
   ```
 
-  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+  Or simply wander over to your browser and visit `http://localhost:4200/fetch`.
 
   this will provide us with the output:-
 
   ```
-  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  {"success":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
   ```
 
   We will get the following output in our terminal
 
-  ![Testcase](/img/testcase-bun.png)
+  ![Testcase](/img/bun-mongo-record.png)
 
-  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+  ### Run the Testcases
 
-  ## Wrapping it up 🎉
+Now let's run the test mode (in the bun-mongo directory, not the Keploy directory).
 
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+```shell
+keploy test -c "bun run supabun.ts" --delay 10
+```
 
-  Happy coding! ✨👩‍💻👨‍💻✨
+So no need to setup fake database/apis like mongodb or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MongoDB 😄**
+
+### Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
+
+**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
+
+Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+
+## Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
+
    </details>
 
    <details>
    <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
 
-  ### Lights, Camera, Record! 🎥
+Let's first install keploy
 
-  First We'll start our MongoDb Instance:
+### Lights, Camera, Record! 🎥
 
-  ```sh
-  docker-compose up -d
-  ```
+First We'll start our Application and MongoDB Instance:
 
-  Now, let's build docker image for our application:
+```sh
+docker-compose up -d
+```
 
-  ```sh
-  docker build -t bun-app:1.0 .
-  ```
+Now, We'll run keploy in record mode:
 
-  Now, We'll run keploy in record mode:
+```sh
+keploy record -c "docker compose up" --containerName bunApp --debug --buildDelay 3m
+```
 
-  ```sh
-  keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
-  ```
+🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
-  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+#### Let's generate the testcases.
 
-  #### Let's generate the testcases.
+Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+```bash
+curl --request POST localhost:4200/save
+```
 
-  ```bash
-  curl --request POST localhost:420/save
-  ```
+Here's a peek of what you get:
 
-  Here's a peek of what you get:
+```
+{"success":true}
+```
 
-  ```
-  {"succes":true}
-  ```
+🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
-  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
+_Time to perform more API magic!_
+Follow the breadcrumbs... or Make more API Calls
 
-  _Time to perform more API magic!_
-  Follow the breadcrumbs... or Make more API Calls
+```bash
+curl --request GET localhost:4200/fetch
+```
 
-  ```bash
-  curl --request GET localhost:420/fetch
-  ```
+Or simply wander over to your browser and visit `http://localhost:4200/fetch`.
 
-  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+this will provide us with the output:-
 
-  this will provide us with the output:-
+```
+{"success":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+```
 
-  ```
-  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
-  ```
+We will get the following output in our terminal
 
-  We will get the following output in our terminal
+![Testcase](/img/testcase-bun.png)
 
-  ![Testcase](/img/testcase-bun.png)
+Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+## Wrapping it up 🎉
 
-  ## Wrapping it up 🎉
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+Happy coding! ✨👩‍💻👨‍💻✨
 
-  Happy coding! ✨👩‍💻👨‍💻✨
    </details>
 
    </details>
     <br/>
 
 - <details>
-     <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+       <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
 
   Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
 
@@ -244,9 +261,8 @@ Depending on your OS, choose your adventure:
 
   Now, We'll run keploy in record mode:
 
-  ```sh
-  keploy record -c "docker run -p 420:420 --name bunMongoApp --network keploy-network bun-app:1.0"
-  ```
+  ````sh
+  keploy record -c "docker compose up" --containerName bun-app  --debug --buildDelay 3m  ```
 
   🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -255,13 +271,13 @@ Depending on your OS, choose your adventure:
   Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
   ```bash
-  curl --request POST localhost:420/save
-  ```
+  curl --request POST localhost:4200/save
+  ````
 
   Here's a peek of what you get:
 
   ```
-  {"succes":true}
+  {"success":true}
   ```
 
   🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
@@ -270,15 +286,15 @@ Depending on your OS, choose your adventure:
   Follow the breadcrumbs... or Make more API Calls
 
   ```bash
-  curl --request GET localhost:420/fetch
+  curl --request GET localhost:4200/fetch
   ```
 
-  Or simply wander over to your browser and visit `http://localhost:420/fetch`.
+  Or simply wander over to your browser and visit `http://localhost:4200/fetch`.
 
   this will provide us with the output:-
 
   ```
-  {"succes":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
+  {"success":{"_id":"6513cfec0bc1a17a36c06337","name":"Cow","sound":"Moo","__v":0}}
   ```
 
   We will get the following output in our terminal
@@ -293,8 +309,19 @@ Depending on your OS, choose your adventure:
 
   Happy coding! ✨👩‍💻👨‍💻✨
 
-   </details>
+     </details>
 
 ### Running the testcases
 
-This is WIP and depended upon the issue by oven/bun & elysia:- https://github.com/elysiajs/elysia/issues/231
+Now let's run the test mode (in the bun-mongo directory, not the Keploy directory).
+
+```shell
+keploy test -c "docker compose up" --delay 10 --containerName bunApp
+```
+
+
+### Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
