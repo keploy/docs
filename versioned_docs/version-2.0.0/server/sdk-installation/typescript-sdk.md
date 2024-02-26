@@ -48,7 +48,7 @@ Jest test file. It can be called as `Keploy.test.js`.
 
 ```javascript
 const {expect} = require("@jest/globals");
-const keploy = require("@keploy-sdk"); //shortend this
+const keploy = require("@keploy/sdk");
 const timeOut = 300000;
 
 describe(
