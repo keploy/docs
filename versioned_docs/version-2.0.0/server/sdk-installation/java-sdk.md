@@ -32,10 +32,11 @@ at maven central and add keploy-sdk as a dependency to your pom.xml :
 
 ```xml
 <dependencies>
+<!-- https://mvnrepository.com/artifact/io.keploy/v2 -->
     <dependency>
         <groupId>io.keploy</groupId>
         <artifactId>v2</artifactId>
-        <version>1.0.0-SNAPSHOT</version> <!--  use latest release -->
+        <version>1.3.6</version>
     </dependency>
 </dependencies>
 ```
@@ -46,84 +47,125 @@ You will need to add the following puligns in `pom.xml` file of your application
 
 ```xml
 <build>
-    <plugins>
-        <plugin>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-maven-plugin</artifactId>
-            <version>${project.parent.version}</version>
-        </plugin>
-        <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-surefire-plugin</artifactId>
-            <version>2.22.2</version>
-            <configuration>
-                <!-- <skipTests>true</skipTests> -->
-                <argLine>
+	<plugins>
+		<plugin>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-maven-plugin</artifactId>
+			<version>${project.parent.version}</version>
+		</plugin>
+		<plugin>
+			<groupId>org.apache.maven.plugins</groupId>
+			<artifactId>maven-surefire-plugin</artifactId>
+			<version>2.22.2</version>
+			<configuration>
+				<!-- <skipTests>true</skipTests> -->
+				<argLine>
                     -javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8-runtime.jar=destfile=target/jacoco.exec
                 </argLine>
-                <systemPropertyVariables>
-                    <jacoco-agent.destfile>target/jacoco.exec
-                    </jacoco-agent.destfile>
-                </systemPropertyVariables>
-            </configuration>
-        </plugin>
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.8</version>
-            <executions>
-                <!-- Prepare the JaCoCo agent to track coverage during tests -->
-                <execution>
-                    <id>prepare-agent</id>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                    <configuration>
-                        <destFile>${project.build.directory}/jacoco.exec</destFile>
-                    </configuration>
-                </execution>
-                <!-- Merge execution data files after tests are run -->
-                <execution>
-                    <id>merge-results</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>merge</goal>
-                    </goals>
-                    <configuration>
-                        <fileSets>
-                            <fileSet>
-                                <directory>${project.build.directory}</directory>
-                                <includes>
-                                    <include>*.exec</include>
-                                    <!-- Include all .exec files -->
-                                </includes>
-                                <excludes>
-                                    <exclude>jacoco-merged.exec</exclude>
-                                    <!-- Exclude the merged exec file -->
-                                </excludes>
-                            </fileSet>
-                        </fileSets>
-                        <destFile>${project.build.directory}/jacoco-merged.exec</destFile>
-                        <!-- Output of merged data -->
-                    </configuration>
-                </execution>
-                <!-- Generate report based on the merged execution data -->
-                <execution>
-                    <id>post-merge-report</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <configuration>
-                        <dataFile>${project.build.directory}/jacoco-merged.exec</dataFile>
-                        <!-- Use merged data file -->
-                        <outputDirectory>${project.reporting.outputDirectory}/jacoco-aggregate</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-    </plugins>
+				<systemPropertyVariables>
+					<jacoco-agent.destfile>target/jacoco.exec
+                        </jacoco-agent.destfile>
+				</systemPropertyVariables>
+			</configuration>
+		</plugin>
+		<plugin>
+			<groupId>org.jacoco</groupId>
+			<artifactId>jacoco-maven-plugin</artifactId>
+			<version>0.8.8</version>
+			<executions>
+				<!-- Prepare the JaCoCo agent to track coverage during tests -->
+				<execution>
+					<id>prepare-agent</id>
+					<goals>
+						<goal>prepare-agent</goal>
+					</goals>
+				</execution>
+				<!-- Prepare execution data for e2e tests generated by keploy-->
+				<execution>
+					<id>merge-e2e</id>
+					<phase>test</phase>
+					<goals>
+						<goal>merge</goal>
+					</goals>
+					<configuration>
+						<fileSets>
+							<fileSet>
+								<directory>${project.build.directory}</directory>
+								<includes>
+									<include>test-set-*.exec</include>
+								</includes>
+							</fileSet>
+						</fileSets>
+						<destFile>${project.build.directory}/keploy-e2e.exec</destFile>
+						<!-- Output of merged data -->
+					</configuration>
+				</execution>
+				<!-- Merge e2e & u-t execution data files after tests are run -->
+				<execution>
+					<id>merge-ut-e2e</id>
+					<phase>test</phase>
+					<goals>
+						<goal>merge</goal>
+					</goals>
+					<configuration>
+						<fileSets>
+							<fileSet>
+								<directory>${project.build.directory}</directory>
+								<includes>
+									<include>jacoco.exec</include>
+									<include>keploy-e2e.exec</include>
+								</includes>
+							</fileSet>
+						</fileSets>
+						<destFile>${project.build.directory}/ut-e2e-merged.exec</destFile>
+						<!-- Output of merged data -->
+					</configuration>
+				</execution>
+				<!-- Generate report based on the different execution data -->
+				<!-- Generate unit test report-->
+				<execution>
+					<id>post-unit-test</id>
+					<phase>test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+					<configuration>
+						<dataFile>${project.build.directory}/jacoco.exec</dataFile>
+						<!-- Use merged data file -->
+						<outputDirectory>${project.reporting.outputDirectory}/ut</outputDirectory>
+					</configuration>
+				</execution>
+				<!-- Generate e2e test report-->
+				<execution>
+					<id>e2e-report</id>
+					<phase>test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+					<configuration>
+						<dataFile>${project.build.directory}/keploy-e2e.exec</dataFile>
+						<!-- Use merged data file -->
+						<outputDirectory>${project.reporting.outputDirectory}/keployE2E</outputDirectory>
+					</configuration>
+				</execution>
+				<!-- Generate combined (e2e+ut) report test report-->
+				<execution>
+					<id>combined-ut-e2e</id>
+					<phase>test</phase>
+					<goals>
+						<goal>report</goal>
+					</goals>
+					<configuration>
+						<dataFile>${project.build.directory}/ut-e2e-merged.exec</dataFile>
+						<!-- Use merged data file -->
+						<outputDirectory>${project.reporting.outputDirectory}/e2e-ut-aggregate</outputDirectory>
+					</configuration>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins>
 </build>
+
 ```
 
 ## Usage
@@ -133,13 +175,21 @@ Junit test file.
 
 ```java
 import io.keploy.Keploy; // import statement
+import com.example.demo.SamplesJavaApplication;
+import com.example.demo.controller.EmployeeController;
+import com.example.demo.exception.ResourceNotFoundException;
+import com.example.demo.model.Employee;
+import com.example.demo.repository.EmployeeRepository;
 
-@Test
-@Order(Integer.MAX_VALUE)
-public void testKeploy() throws IOException, InterruptedException {
-    String jarPath = "target/springbootapp-0.0.1-SNAPSHOT.jar";
-    Keploy.runTests(jarPath);
+class SamplesJavaApplication_Test {
+    @Test
+    @Order(Integer.MAX_VALUE)
+    public void testKeploy() throws IOException, InterruptedException {
+        String jarPath = "target/springbootapp-0.0.1-SNAPSHOT.jar";
+        Keploy.runTests(jarPath);
+    }
 }
+
 ```
 
 Now let's run junit tests along keploy using command:-
