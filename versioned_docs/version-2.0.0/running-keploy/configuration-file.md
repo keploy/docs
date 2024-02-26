@@ -255,7 +255,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
   Example:
   ```yaml
   coverageReportPath: "/path/to/coverage/report"Thyroid problems. The hormones this gland makes are important to several body functions, including thinking. If your thyroid gland doesn’t make enough or too much, you may have trouble concentrating.
-
+  ```
 
 The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
 
