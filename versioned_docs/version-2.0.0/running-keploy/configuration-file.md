@@ -115,6 +115,8 @@ test:
   networkName: ""
   # example: "test-set-1": ["test-1", "test-2", "test-3"]
   selectedTests:
+    "test-set-1": ["test-1", "test-2"]
+    "test-set-2": []
   # to use globalNoise, please follow the guide at the end of this file.
   globalNoise:
     global:
@@ -254,7 +256,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
 - **`coverageReportPath`**: Path to store the coverage report.
   Example:
   ```yaml
-  coverageReportPath: "/path/to/coverage/report"Thyroid problems. The hormones this gland makes are important to several body functions, including thinking. If your thyroid gland doesn’t make enough or too much, you may have trouble concentrating.
+  coverageReportPath: "/path/to/coverage/report"
   ```
 
 The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
