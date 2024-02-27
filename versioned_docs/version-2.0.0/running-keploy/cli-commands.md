@@ -23,11 +23,11 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode              | Flags Available                                                                                                                                                                                            |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                      |
-| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug` |
-| `generate-config` | `-p, --path`                                                                                                                                                                                               |
+| Mode              | Flags Available                                                                                                                                                                                                                                               |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                         |
+| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks` |
+| `generate-config` | `-p, --path`                                                                                                                                                                                                                                                  |
 
 ## [record](#record)
 
@@ -179,6 +179,18 @@ keploy test [flags]
 
   ```bash
   keploy test -c "node src/app.js" --delay 10 --debug
+  ```
+
+- `-g, --generateTestReport` - To generate the test report. The default is true.
+
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 -g=false
+  ```
+
+- `--removeUnusedMocks` - To remove unused mocks from mock file. The default is false.
+
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --removeUnusedMocks
   ```
 
 ## [generate-config](#generate-config)
