@@ -23,11 +23,11 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode              | Flags Available                                                                                                                                                                                                                                                                               |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                         |
-| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage` |
-| `generate-config` | `-p, --path`                                                                                                                                                                                                                                                                                  |
+| Mode              | Flags Available                                                                                                                                                                                                                                                                                                   |
+| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                             |
+| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
+| `generate-config` | `-p, --path`                                                                                                                                                                                                                                                                                                      |
 
 ## [record](#record)
 
@@ -191,6 +191,12 @@ keploy test [flags]
 
   ```bash
   keploy test -c "node src/app.js" --delay 10 --removeUnusedMocks
+  ```
+
+- `--ignoreOrdering` - Ignore the order of elements in an array for a response, with the default value being true.
+
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --ignoreOrdering
   ```
 
 - `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/sdk-installation/typescript-sdk.md),[JUnit](versioned_docs/version-2.0.0/server/sdk-installation/java-sdk.md) and [Pytest](versioned_docs/version-2.0.0/server/sdk-installation/python-sdk.md),
