@@ -9,6 +9,9 @@ tags:
   - samples
   - examples
   - tutorial
+  - python-framework
+  - fast-api-framework
+  - postgres
 keyword:
   - FastAPI Framework
   - Postgres

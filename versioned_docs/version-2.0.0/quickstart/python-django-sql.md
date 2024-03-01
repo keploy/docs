@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - python-framework
+  - postgres
 keyword:
   - Django Framework
   - Postgres

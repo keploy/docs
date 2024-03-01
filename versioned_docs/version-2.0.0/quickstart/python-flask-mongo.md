@@ -9,6 +9,9 @@ tags:
   - samples
   - examples
   - tutorial
+  - python-framework
+  - mongodb
+  - flask-framework
 keyword:
   - Flask Framework
   - MongoDB

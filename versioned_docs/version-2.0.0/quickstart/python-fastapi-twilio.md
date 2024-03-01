@@ -9,6 +9,11 @@ tags:
   - samples
   - examples
   - tutorial
+  - python-framework
+  - fast-api-framework
+  - postgres
+  - sms
+  - twilio
 keyword:
   - FastAPI Framework
   - Twilio

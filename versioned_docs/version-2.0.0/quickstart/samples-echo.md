@@ -9,6 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
+  - postgres
 keyword:
   - Echo Framework
   - Postgres
