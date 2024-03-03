@@ -6,10 +6,12 @@ description: This CRUD Application is about managing the data of Magical Potions
 tags:
   - java
   - spring-jpa
+  - java-framework
   - quickstart
   - samples
   - examples
   - tutorial
+  - mongodb
 keyword:
   - MongoDB
   - Maven

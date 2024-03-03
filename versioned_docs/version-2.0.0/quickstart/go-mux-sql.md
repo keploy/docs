@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - postgres
+  - mux-framework
 keyword:
   - Mux Framework
   - Postgres

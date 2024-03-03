@@ -17,10 +17,11 @@ keyword:
 
 This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride! 🎢
 
-<!-- ## Pre-Requisite 🛠️
+import InstallationGuide from '../concepts/installation.md'
 
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs. -->
+<InstallationGuide/>
+
+## Get Started! 🎬
 
 ## Setup app
 
@@ -30,52 +31,29 @@ Now that we have bun installed, we will setup our application.
 git clone https://github.com/keploy/samples-rust && cd samples-rust/gql-mongo
 ```
 
-## Using Keploy :
+## Using Docker Compose 🐳
 
-Keploy can be installed on Linux directly and on Windows with the help of WSL. Based on your system architecture, install the keploy latest binary release from here:-
-
-#### Linux
-
-1. AMD Architecture
-
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-<details>
-<Summary> 2. ARM Architecture </Summary>
-
-```zsh
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-</details>
+We will be using Docker compose to run Mongo on Docker container.
 
 ### Let's start the MongoDB Instance
 
 ```zsh
-docker-compose up -d
+docker compose up -d
 ```
 
-## Capture testcase
+### Capture testcase
 
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'cargo run'
 ```
 
-### Generate testcase
+#### Generate testcase
 
 Go to the http://127.0.0.1:8080 and create some queries.
 
 We will get the following output in our terminal
 
 ![Test-case](/img/rust-mongo-test-case.png?raw=true)
-
----
 
 ### Run the testcases
 
