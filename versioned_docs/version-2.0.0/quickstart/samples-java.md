@@ -8,6 +8,8 @@ tags:
   - spring-jpa
   - quickstart
   - samples
+  - java-framework
+  - postgres
   - examples
   - tutorial
 keyword:

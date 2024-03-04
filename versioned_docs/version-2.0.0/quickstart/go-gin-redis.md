@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - redis
+  - gin-framework
 keyword:
   - Gin Framework
   - Redis

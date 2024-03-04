@@ -11,6 +11,7 @@ tags:
   - tutorial
   - mysql
   - sql
+  - mux-framework
 keyword:
   - Mux Framework
   - MySQL

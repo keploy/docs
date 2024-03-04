@@ -78,7 +78,7 @@ describe(
 Now let's run jest tests along keploy using command:-
 
 ```bash
-keploy test -c "npm test" --delay 15
+keploy test -c "npm test" --delay 15 --coverage
 ```
 
 To get Combined coverage
