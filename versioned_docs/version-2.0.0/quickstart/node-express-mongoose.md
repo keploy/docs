@@ -9,6 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
+  - mongodb
 keyword:
   - NodeJS Framework
   - MongoDB
