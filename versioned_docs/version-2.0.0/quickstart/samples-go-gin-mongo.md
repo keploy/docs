@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - mongodb
+  - gin-framework
 keyword:
   - Gin Framework
   - MongoDB Mock
