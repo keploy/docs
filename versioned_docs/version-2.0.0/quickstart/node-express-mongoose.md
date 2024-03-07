@@ -102,11 +102,11 @@ There are 2 ways you can run this sample application.
 
   Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style="border-radius: 5px;" />
+<img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
 Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style="border-radius: 5px;" />
+<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
 
   ## Wrapping it up 🎉
@@ -181,7 +181,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
   🎉 Woohoo! Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
-<img src="/docs/img/testcase-node.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style="border-radius: 5px;" />
+<img src="/docs/img/testcase-node.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
   Now, the real fun begins. Let's weave more spells!
 
@@ -205,7 +205,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
   Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style="border-radius: 5px;" />
+<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
 
   ## Wrapping it up 🎉
