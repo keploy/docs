@@ -27,6 +27,8 @@ keyword:
 ## Installation
 1. First you need to install [Python(version 3 and above)](https://www.python.org/downloads/)
 
+1. First you need to install [Python(version 3 and above)](https://www.python.org/downloads/)
+
 2. Install the Python-SDK and also Python's coverage library via pip.
 
 ```bash
@@ -56,6 +58,34 @@ To ignore the coverage of python libraries which are included in the report by d
 omit =
     /usr/*
 sigterm = true
+```
+
+Before starting your application, make sure that the **debug mode is set to False** in your application, for the coverage library to work properly.
+
+Now to run this testcase along with your another unit testcases, you can run the command below:
+
+```bash
+keploy test -c "python3 -m coverage run -p --data-file=.coverage.unit -m pytest test_keploy.py <your-unit-test-file>" --delay 10 --coverage
+```
+
+Now, to combine the coverage from the unit tests, and Keploy's API tests, we can use the command below:
+
+```bash
+python3 -m coverage combine
+```
+
+Make sure to run this command before starting a new test run to avoid getting multiple coverage files.
+
+Finally, to generate the coverage report for the test run, you can run:
+
+```bash
+python3 -m coverage report
+```
+
+and if you want the coverage in an html file, you can run:
+
+```bash
+python3 -m coverage html
 ```
 
 Before starting your application, make sure that the **debug mode is set to False** in your application, for the coverage library to work properly.
