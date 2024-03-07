@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - bun-js-framework
+  - mongodb
 keyword:
   - BunJS Framework
   - MongoDB

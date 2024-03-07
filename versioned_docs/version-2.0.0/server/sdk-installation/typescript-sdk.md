@@ -48,7 +48,7 @@ Jest test file. It can be called as `Keploy.test.js`.
 
 ```javascript
 const {expect} = require("@jest/globals");
-const keploy = require("@keploy-sdk"); //shortend this
+const keploy = require("@keploy/sdk");
 const timeOut = 300000;
 
 describe(
@@ -78,7 +78,7 @@ describe(
 Now let's run jest tests along keploy using command:-
 
 ```bash
-keploy test -c "npm test" --delay 15
+keploy test -c "npm test" --delay 15 --coverage
 ```
 
 To get Combined coverage
