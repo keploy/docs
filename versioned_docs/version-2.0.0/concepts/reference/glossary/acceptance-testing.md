@@ -32,8 +32,7 @@ with the software system that may have been missed during earlier phases of test
 ### Benefits of Acceptance Testing:
 
 - It helps to ensure that the software system meets the needs and expectations of the customer or end user.
-- It helps to identify any defects or problems with the software system that may have been missed during earlier phases
-  of testing.
+- It helps to identify any defects or problems with the software system that may have been missed during earlier phases of testing.
 - It helps to improve the overall quality of the software system.
 - It helps to reduce the risk of defects and problems with the software system.
 - It helps to ensure that the software system is ready for release.
