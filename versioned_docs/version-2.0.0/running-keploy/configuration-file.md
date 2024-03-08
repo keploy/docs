@@ -25,7 +25,7 @@ To generate a keploy-config file, run:
 keploy generate-config --path "."
 ```
 
-For demonstration purposes, we are using the root directory of the application. We can place it wherever we want to inside the project
+For demonstration purposes, we are using the [root directory of the echo-sql application](https://github.com/keploy/samples-go/tree/main/echo-sql). We can place it wherever we want to inside the project.
 
 After successful execution of the command, a default initialized config file named as `keploy-config.yaml` has been created with the content as shown below:
 
