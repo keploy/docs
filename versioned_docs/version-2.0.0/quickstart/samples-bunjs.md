@@ -35,13 +35,11 @@ import InstallationGuide from '../concepts/installation.md'
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
-```
 
 # Install the dependencies
 
 bun install
-
-````
+```
 
 ## Installation Keploy
 
@@ -61,12 +59,9 @@ We will be using Docker compose to run the application as well as Postgres on Do
 #### Start DB Instance
 
 Start the db instance using the `docker-compose` file-
-
-
-
 ```bash
 docker compose up mongo
-````
+```
 
 Change the database configuration in `django_postgres/settings.py` file to:
 
