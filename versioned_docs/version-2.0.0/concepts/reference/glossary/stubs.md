@@ -1,5 +1,5 @@
 ---
-id: Stubs
+id: stubs
 title: Stubs
 sidebar_label: Stubs
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.

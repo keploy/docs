@@ -1,5 +1,5 @@
 ---
-id: Mocks
+id: mocks
 title: Mocks
 sidebar_label: Mocks
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
