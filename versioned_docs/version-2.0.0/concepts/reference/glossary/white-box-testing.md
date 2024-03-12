@@ -51,27 +51,27 @@ whitebox testing tools can help software developers and testers to automate test
 - **Profiling tools**: They aid in identifying performance bottlenecks in code by monitoring program execution and finding portions of code that use the most resources.
 - **Frameworks for unit testing**: These tools assist in automating the testing of individual code units or modules, ensuring that each unit functions as intended.
 
-###  Challenges in Whitebox Testing:
+### Challenges in Whitebox Testing:
 
 1. **Expertise Required**:
-  White box testing demands a deep understanding of the programming languages, algorithms, and data structures used in the application. Testers need to possess strong technical skills, making it challenging to find qualified professionals.
+   White box testing demands a deep understanding of the programming languages, algorithms, and data structures used in the application. Testers need to possess strong technical skills, making it challenging to find qualified professionals.
 
 2. **Comprehensive Coverage**:
-  Achieving comprehensive test coverage can be challenging, especially in large and complex software systems. Ensuring that all code paths are tested requires meticulous planning and execution.
+   Achieving comprehensive test coverage can be challenging, especially in large and complex software systems. Ensuring that all code paths are tested requires meticulous planning and execution.
 
 3. **Maintenance Overhead**:
-  As the codebase evolves, white box test cases may need frequent updates to align with the changes. This maintenance overhead can be time-consuming and requires synchronization with the development team's activities.
+   As the codebase evolves, white box test cases may need frequent updates to align with the changes. This maintenance overhead can be time-consuming and requires synchronization with the development team's activities.
 
 ### Best Practices in White Box Testing:
 
 1. **Collaboration with Developers**:
-  White box testing is most effective when testers collaborate closely with developers. This ensures a shared understanding of the codebase, facilitates knowledge transfer, and streamlines the identification and resolution of issues.
+   White box testing is most effective when testers collaborate closely with developers. This ensures a shared understanding of the codebase, facilitates knowledge transfer, and streamlines the identification and resolution of issues.
 
 2. **Automated Testing Tools**:
-  Leveraging automated testing tools can significantly enhance the efficiency and coverage of white box testing. These tools assist in executing test cases, tracking code coverage, and generating reports, reducing the manual effort required.
+   Leveraging automated testing tools can significantly enhance the efficiency and coverage of white box testing. These tools assist in executing test cases, tracking code coverage, and generating reports, reducing the manual effort required.
 
 3. **Test-Driven Development (TDD)**:
-  Test-Driven Development encourages writing test cases before implementing the actual code. This approach ensures that the code meets the specified requirements and promotes a culture of continuous testing throughout the development process.
+   Test-Driven Development encourages writing test cases before implementing the actual code. This approach ensures that the code meets the specified requirements and promotes a culture of continuous testing throughout the development process.
 
 ## Black-Box vs. Whitebox testing
 
@@ -81,8 +81,8 @@ When it comes to testing software, there are two main schools of thought: [black
 
 **whitebox testing:** whitebox testing examines the internal structures of a program or application, such as the code, internal logic, and data flow. This test happens when the tester understands how the system works inside and utilizes that understanding to create and run test scenarios.
 
-Both white-box and black-box testing are valuable software testing techniques, each with its own strengths and weaknesses. 
+Both white-box and black-box testing are valuable software testing techniques, each with its own strengths and weaknesses.
 
-The key differences between these approaches lie in the tester's knowledge, perspective, and focus. *Blackbox testing* emphasizes external behavior and is suitable when internal code knowledge is not essential. *Whitebox testing*, on the other hand, dives into internal logic, making it indispensable for code optimization, security assessment, and uncovering potential vulnerabilities. Depending on project goals, a combination of both methodologies may be employed to ensure comprehensive and effective software testing throughout the development lifecycle.
+The key differences between these approaches lie in the tester's knowledge, perspective, and focus. _Blackbox testing_ emphasizes external behavior and is suitable when internal code knowledge is not essential. _Whitebox testing_, on the other hand, dives into internal logic, making it indispensable for code optimization, security assessment, and uncovering potential vulnerabilities. Depending on project goals, a combination of both methodologies may be employed to ensure comprehensive and effective software testing throughout the development lifecycle.
 
 In general, whitebox testing is more effective at finding bugs, but it can be more time-consuming and expensive to implement. Black-box testing is less effective at finding bugs, but it can be faster and less expensive to implement.

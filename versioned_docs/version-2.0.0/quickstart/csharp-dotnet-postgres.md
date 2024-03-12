@@ -77,10 +77,10 @@ This will return the response:
 
 ```json
 {
-  "id":1,
-  "name":"Sarthak Shnygle",
-  "age":23
-  }
+  "id": 1,
+  "name": "Sarthak Shnygle",
+  "age": 23
+}
 ```
 
 **2. Get the User**
@@ -94,11 +94,11 @@ This will return the OTP verification response:
 ```json
 [
   {
-    "id":1,
-    "name":"Sarthak Shnygle",
-    "age":23
-    }
-  ]
+    "id": 1,
+    "name": "Sarthak Shnygle",
+    "age": 23
+  }
+]
 ```
 
 Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -108,49 +108,49 @@ version: api.keploy.io/v1beta1
 kind: Http
 name: test-1
 spec:
-    metadata: {}
-    req:
-        method: POST
-        proto_major: 1
-        proto_minor: 1
-        url: http://localhost:5249/api/user
-        header:
-            Accept: '*/*'
-            Content-Length: "37"
-            Content-Type: application/json
-            Host: localhost:5249
-            User-Agent: curl/8.2.1
-        body: '{"age":"23","name":"Sarthak Shnygle"}'
-        body_type: ""
-        timestamp: 2023-12-15T10:31:57.291484259Z
-        host: ""
-    resp:
-        status_code: 201
-        header:
-            Content-Type: application/json; charset=utf-8
-            Date: Fri, 15 Dec 2023 10:31:57 GMT
-            Location: http://localhost:5249/api/User/3
-            Server: Kestrel
-        body: '{"id":3,"name":"Sarthak Shnygle","age":23}'
-        body_type: ""
-        status_message: ""
-        proto_major: 0
-        proto_minor: 0
-        timestamp: 2023-12-15T10:31:59.566772512Z
-    objects: []
-    assertions:
-        noise:
-            body.age: []
-            header.Date: []
-    created: 1702636319
+  metadata: {}
+  req:
+    method: POST
+    proto_major: 1
+    proto_minor: 1
+    url: http://localhost:5249/api/user
+    header:
+      Accept: "*/*"
+      Content-Length: "37"
+      Content-Type: application/json
+      Host: localhost:5249
+      User-Agent: curl/8.2.1
+    body: '{"age":"23","name":"Sarthak Shnygle"}'
+    body_type: ""
+    timestamp: 2023-12-15T10:31:57.291484259Z
+    host: ""
+  resp:
+    status_code: 201
+    header:
+      Content-Type: application/json; charset=utf-8
+      Date: Fri, 15 Dec 2023 10:31:57 GMT
+      Location: http://localhost:5249/api/User/3
+      Server: Kestrel
+    body: '{"id":3,"name":"Sarthak Shnygle","age":23}'
+    body_type: ""
+    status_message: ""
+    proto_major: 0
+    proto_minor: 0
+    timestamp: 2023-12-15T10:31:59.566772512Z
+  objects: []
+  assertions:
+    noise:
+      body.age: []
+      header.Date: []
+  created: 1702636319
 curl: |-
-    curl --request POST \
-      --url http://localhost:5249/api/user \
-      --header 'Host: localhost:5249' \
-      --header 'User-Agent: curl/8.2.1' \
-      --header 'Accept: */*' \
-      --header 'Content-Type: application/json' \
-      --data '{"age":"23","name":"Sarthak Shnygle"}'
+  curl --request POST \
+    --url http://localhost:5249/api/user \
+    --header 'Host: localhost:5249' \
+    --header 'User-Agent: curl/8.2.1' \
+    --header 'Accept: */*' \
+    --header 'Content-Type: application/json' \
+    --data '{"age":"23","name":"Sarthak Shnygle"}'
 ```
 
 Want to see if everything works as expected?

@@ -21,6 +21,7 @@ Behavior-driven development (BDD) is an Agile software development methodology t
 Overall, BDD is a software development process that can help to improve communication, collaboration, and testing. This can lead to the development of higher-quality software that meets the needs of the business.
 
 ### Key Principles of BDD:
+
 BDD is guided by several key principles that shape its approach to software development:
 
 **Collaboration**:
@@ -59,9 +60,11 @@ These tools can help to streamline the testing process and improve communication
 2. **BDD requires buy-in from everyone involved**: BDD is most effective when everyone involved in the software development process is on board. This includes developers, testers, and business stakeholders.
 3. **BDD takes time to learn and implement**: BDD is a new approach to software development, and it takes time to learn and implement. However, the benefits of BDD can be significant, so it is worth the investment.
 4. **BDD is not a replacement for other testing methods**: BDD is not a replacement for other testing methods, such as [unit testing](https://keploy.io/docs/concepts/reference/glossary/unit-testing/) and [integration testing](https://keploy.io/docs/concepts/reference/glossary/integration-testing). Instead, it should be used in conjunction with these methods to improve the overall quality of the software.
+5. **BDD is not a replacement for other testing methods**: BDD is not a replacement for other testing methods, such as [unit testing](https://keploy.io/docs/concepts/reference/glossary/unit-testing/) and [integration testing](https://keploy.io/docs/concepts/reference/glossary/integration-testing). Instead, it should be used in conjunction with these methods to improve the overall quality of the software.
 
 ## TDD vs BDD
-While TDD primarily centers around unit testing and code design, BDD emphasizes collaboration and end-user behavior. 
+
+While TDD primarily centers around unit testing and code design, BDD emphasizes collaboration and end-user behavior.
 
 **Test Driven Developement** revolves around the practice of writing unit tests before implementing code, primarily emphasizing the correctness of individual code units. Developers write tests using the same programming language as the application code, focusing on small, isolated portions of code through a cycle of writing tests, implementing code, and refactoring. TDD primarily targets developers and is centered on automated unit testing using frameworks like JUnit or pytest.
 
