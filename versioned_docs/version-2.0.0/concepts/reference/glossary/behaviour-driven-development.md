@@ -60,6 +60,7 @@ These tools can help to streamline the testing process and improve communication
 2. **BDD requires buy-in from everyone involved**: BDD is most effective when everyone involved in the software development process is on board. This includes developers, testers, and business stakeholders.
 3. **BDD takes time to learn and implement**: BDD is a new approach to software development, and it takes time to learn and implement. However, the benefits of BDD can be significant, so it is worth the investment.
 4. **BDD is not a replacement for other testing methods**: BDD is not a replacement for other testing methods, such as [unit testing](https://keploy.io/docs/concepts/reference/glossary/unit-testing/) and [integration testing](https://keploy.io/docs/concepts/reference/glossary/integration-testing). Instead, it should be used in conjunction with these methods to improve the overall quality of the software.
+5. **BDD is not a replacement for other testing methods**: BDD is not a replacement for other testing methods, such as [unit testing](https://keploy.io/docs/concepts/reference/glossary/unit-testing/) and [integration testing](https://keploy.io/docs/concepts/reference/glossary/integration-testing). Instead, it should be used in conjunction with these methods to improve the overall quality of the software.
 
 ## TDD vs BDD
 

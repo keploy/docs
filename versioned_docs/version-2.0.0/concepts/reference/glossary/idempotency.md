@@ -5,6 +5,7 @@ sidebar_label: Idempotency
 description: Optimize user experience with idempotent APIs. Ensure smooth interactions & error handling for satisfied users.
 tags:
   - explanation
+  - glossary
 keywords:
   - API
   - idempotent http method
