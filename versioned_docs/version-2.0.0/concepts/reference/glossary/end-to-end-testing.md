@@ -1,5 +1,5 @@
 ---
-id: End-to-end-testing
+id: end-to-end-testing
 title: End To End Testing
 sidebar_label: End To End Testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
