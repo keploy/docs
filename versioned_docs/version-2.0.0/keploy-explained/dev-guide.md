@@ -135,7 +135,7 @@ keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network kep
 Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
-docker build -t <nameOfImage> .
+docker build -f Dockerfile.dev -t <nameOfImage> .
 ```
 
 #### Create Alias:
