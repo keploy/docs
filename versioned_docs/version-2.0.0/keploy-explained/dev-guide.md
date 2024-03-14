@@ -61,7 +61,7 @@ go build -o gin-mongo-binary  # Generate binary of the application:
 #### Capturing Test Cases:
 
 ```shell
- go run -exec "sudo -E env 'PATH=$PATH'" main.go record -c "path/to/go/binary/of/application"
+ go run -exec "sudo -E env 'PATH=$PATH'" -tags=viper_bind_struct main.go record -c "path/to/go/binary/of/application"
 ```
 
 After entering record mode, send requests to your application to generate test cases.
@@ -69,13 +69,13 @@ After entering record mode, send requests to your application to generate test c
 #### Running Test Cases:
 
 ```shell
-go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10
+go run -exec "sudo -E env 'PATH=$PATH'" -tags=viper_bind_struct main.go test -c "path/to/go/binary/of/application" --delay 10
 ```
 
 Run Keploy server to expose test APIs:
 
 ```shell
-go run -exec "sudo -E env 'PATH=$PATH'" main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
+go run -exec "sudo -E env 'PATH=$PATH'" -tags=viper_bind_struct main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
 ```
 
 Generated test cases can be found inside the Keploy directory.
@@ -85,19 +85,19 @@ Generated test cases can be found inside the Keploy directory.
 #### Generate Keploy Binary:
 
 ```shell
-go build -o keploy && sudo mv keploy /usr/local/bin
+go build -race -tags=viper_bind_struct -o keploy . && sudo mv keploy /usr/local/bin
 ```
 
 #### Capturing Test Cases:
 
 ```shell
-sudo keploy record -c "path/to/go/binary"
+sudo -E env PATH="$PATH" keploy record -c "path/to/go/binary"
 ```
 
 #### Running Test Cases:
 
 ```shell
-sudo keploy test -c "path/to/go/binary" --delay 10
+sudo -E env PATH="$PATH" keploy test -c "path/to/go/binary" --delay 10
 ```
 
 Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
