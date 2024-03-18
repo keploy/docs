@@ -84,7 +84,7 @@ _Time to perform more API magic!_
 Follow the breadcrumbs... or Make more API Calls
 
 ```bash
-curl --request GET \  --url http://localhost:8080/students
+curl --request GET \  --url http://localhost:8000/students
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8000/students`.
