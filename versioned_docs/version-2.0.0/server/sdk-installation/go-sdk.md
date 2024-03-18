@@ -1,7 +1,7 @@
 ---
 id: go
-title: Integrate with Go Test
-sidebar_label: Integrate with Go Test
+title: Keploy Integration with Go Test
+sidebar_label: Go Test
 tags:
   - go
 keyword:
@@ -16,7 +16,8 @@ keyword:
   - Go Test
 ---
 
-This is the client SDK for the [Keploy](https://github.com/keploy/keploy) testing platform. You can use this to generate realistic mock/stub files for your applications.
+This is the client SDK for the [Keploy](https://github.com/keploy/keploy) testing platform. You can use this to generate
+realistic mock/stub files for your applications.
 
 ## Installation
 
@@ -30,13 +31,15 @@ go get -u github.com/keploy/go-sdk/v2
 
 ### Code coverage by the API tests
 
-The code coverage for the keploy API tests using the `go-test` integration.
-Keploy can be integrated in your CI pipeline which can add the coverage of your keploy test.
+The code coverage for the keploy API tests using the `go-test` integration. Keploy can be integrated in your CI pipeline
+which can add the coverage of your keploy test.
 
-The percentage of code covered by the recorded tests is logged if the test cmd is ran with the go binary and `withCoverage` flag. The conditions for the coverage is:
+The percentage of code covered by the recorded tests is logged if the test cmd is ran with the go binary
+and `withCoverage` flag. The conditions for the coverage is:
 
 1. The go binary should be built with `-cover` flag.
-2. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Or if not call the **GracefulShutdown** from the main function of your go program. Ex:
+2. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Or if not
+   call the **GracefulShutdown** from the main function of your go program. Ex:
 
 ```go
 func main() {
@@ -56,13 +59,13 @@ func main() {
 
 The keploy test cmd will look like:
 
-```sh
+```shell
 keploy test -c "PATH_TO_GO_COVER_BIANRY" --withCoverage
 ```
 
 The coverage files will be stored in the directory.
 
-```
+```bash
 keploy
 ├── coverage-reports
 │   ├── covcounters.befc2fe88a620bbd45d85aa09517b5e7.305756.1701767439933176870
@@ -79,14 +82,14 @@ keploy
 
 Coverage percentage log in the cmd will be:
 
-```sh
+```bash
 🐰 Keploy: 2023-12-07T08:53:14Z         INFO    test/test.go:261
         test-app-url-shortener          coverage: 78.4% of statements
 ```
 
 Also the go-test coverage can be merged along the recorded tests coverage by following the steps:
 
-```sh
+```go
 go test -cover ./... -args -test.gocoverdir="PATH_TO_UNIT_COVERAGE_FILES"
 
 go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./keploy/coverage-reports" -o coverage-profile
@@ -96,10 +99,13 @@ go tool cover -func coverage-profile
 
 ### Create mocks/stubs for your unit-test
 
-These mocks/stubs are realistic and frees you up from writing them manually. Keploy creates `readable/editable` mocks/stubs yaml files which can be referenced in any of your unit-tests tests. An example is mentioned in [Mocking/Stubbing for unit tests](#mockingstubbing-for-unit-tests) section
+These mocks/stubs are realistic and frees you up from writing them manually. Keploy creates `readable/editable`
+mocks/stubs yaml files which can be referenced in any of your unit-tests tests. An example is mentioned
+in [Mocking/Stubbing for unit tests](#mockingstubbing-for-unit-tests) section
 
 1. Install [keploy](https://github.com/keploy/keploy#quick-installation) binary
-2. **Record**: To record you can import the keploy mocking library and set the mode to record mode and run you databases. This should generate a file containing the mocks/stubs.
+2. **Record**: To record you can import the keploy mocking library and set the mode to record mode and run you
+   databases. This should generate a file containing the mocks/stubs.
 
 ```go
 import(
@@ -107,6 +113,7 @@ import(
 )
 
 // Inside your unit test
+...
 ...
 err := keploy.New(keploy.Config{
 	Mode: keploy.MODE_RECORD, // It can be MODE_TEST or MODE_OFF. Default is MODE_TEST. Default MODE_TEST
@@ -116,15 +123,18 @@ err := keploy.New(keploy.Config{
 	delay: 10, // by default it is 5 . This delay is for running keploy
 })
 ...
+...
 ```
 
-At the end of the test case you can add the following function which will terminate keploy if not keploy will be running even after unit test is run
+At the end of the test case you can add the following function which will terminate keploy if not keploy will be running
+even after unit test is run
 
 ```go
 keploy.KillProcessOnPort()
 ```
 
-3. **Mock**: To mock dependency as per the content of the generated file (during testing) - just set the `Mode` config to `keploy.MODE_TEST` eg:
+3. **Mock**: To mock dependency as per the content of the generated file (during testing) - just set the `Mode` config
+   to `keploy.MODE_TEST` eg:
 
 ```go
 err := keploy.New(keploy.Config{
@@ -138,7 +148,8 @@ err := keploy.New(keploy.Config{
 
 #### Example
 
-Mocks/Stubs can be generated for external dependency calls of go unit tests as `readable/editable` yaml files using Keploy.
+Mocks/Stubs can be generated for external dependency calls of go unit tests as `readable/editable` yaml files using
+Keploy.
 
 ```go
 package main

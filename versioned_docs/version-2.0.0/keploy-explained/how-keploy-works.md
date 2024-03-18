@@ -10,31 +10,48 @@ tags:
   - record-test-case
 ---
 
-Keploy acts a proxy in your application that captures and replays all network interaction served to application from any source.
+## 🌟 Keploy V2 Architecture 🌟
 
-### Step 1 : Record Unique Network Interactions as Test Case
+### 🎯 Goals
 
-Once you start the application in record mode to capture API calls as test cases.
+- 🛠 **Automatic instrumentation:** No code changes required.
+- 📡 **Automatic traffic capture:** Both incoming and outgoing traffic is captured and manipulated.
+- ✍️ **Readable and Editable:** Tests and stubs are easy to understand and modify.
+- 🔒 **TLS Support:** Secure connections in HTTPS or databases are supported.
+- 🔄 **Request Matching:** Mocking responses during testing by matching requests.
 
-Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a test-case.
+## 🏗 High-level architecture
 
-![How it works](/gif/how-keploy-works.gif)
+Keploy uses eBPF to instrument applications without code changes. Key components include:
 
-### Step 2 : Replay Test-Cases
+- **eBPF hooks loader**
+- **Network Proxy**
+- **API server**
 
-Let's say you developed new application version(v2). To test locally, start the Keploy in test mode to replay all recorded API calls/test-cases previously captured in record-mode.
+<img src="/docs/img/oss/keploy-arch.png?raw=true" alt="Keploy Architecture"/>
 
-Now, when the application starts:
+### 🪝 eBPF hooks loader
 
-- Keploy will download all the previously recorded test-cases/API calls with a 5 sec delay(configurable application build time).
-- When the application will try to talk to any dependencies like DBs, Routers, vendor services, Keploy will intercept and provide the previously recorded dependency response.
+The eBPF hooks loader handles the Ingress and Egress Interceptor logic.
 
-> **Note:** _You didn't need to setup test-environment here. 🙅🏻‍♀️_
+- **Ingress Interceptor:** Captures incoming HTTP calls and stores them in YAML format. It intercepts system calls related to incoming HTTP request connections.
+- **Egress Interceptor:** Forwards TCP and certain UDP connections to the proxy for interception. Applications are unaware of this transparent process.
 
-- Keploy will compare the API response to the previously captured response and a report will be generated on the Keploy console.
+### 🌐 Network Proxy
 
-You can test with Keploy locally or can integrate Keploy with popular testing-frameworks and existing CI pipelines.
+The Network Proxy acts as a transparent proxy for recording or mocking outgoing network calls. It processes TCP streams, matching the protocol and using the appropriate [integration packages](https://github.com/keploy/keploy/tree/main/pkg/proxy/integrations).
 
-> **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
+- **Readability:** To maintain readability in tests and mocks, Keploy converts binary streams from TCP connections into well-structured YAMLs, covering outgoing calls like databases, caches, and API calls
+- **Support for Unknown Dependencies:** Keploy can handle unknown dependencies by recording binary data as base64 in YAML and using fuzzy matching to correlate incoming requests during testing and mocking.
+- **TLS Interception:** For TLS-based connections like HTTPS, Keploy intercepts traffic by inserting a fake certificate chain between the application and itself. The specific method varies with the language and runtime.
 
-![How it works](/gif/record-replay.gif)
+### 🖥 API server
+
+The API server manages commands for start/stop and resource management (e.g., testicles, stubs). It's evolving to enable full agent mode, beyond just CLI.
+
+## 🧪 Example
+
+Consider an application server serving HTTP APIs for clients like web/mobile apps, postman, or curl, and depending on a database and another API.
+
+- **Record Mode:** Keploy injects eBPF hooks to capture incoming HTTP traffic and redirects outgoing TCP/UDP traffic to its proxy server. The proxy server captures packets asynchronously and saves them in YAML files.
+- **Test Mode:** Keploy reads the YAML files for test cases and stubs/mocks. It starts the application, sends recorded HTTP test cases, and mocks responses for outgoing calls. This ensures no side effects due to non-idempotency.

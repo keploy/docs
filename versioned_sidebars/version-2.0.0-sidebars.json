@@ -1,15 +1,20 @@
 {
-  "sidebarInstallation": [
+  "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Installation",
+      "label": "Explanation",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
-        "server/windows/installation",
-        "server/linux/installation",
-        "server/macos/installation"
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy"
       ]
+    },
+    {
+      "type": "doc",
+      "label": "Installation",
+      "id": "server/installation"
     },
     {
       "type": "category",
@@ -17,30 +22,33 @@
       "collapsible": true,
       "collapsed": false,
       "items": [
+        "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
+        "running-keploy/docker-tls",
         "running-keploy/configuration-file",
-        "running-keploy/cli-commands"
+        "running-keploy/custom-mocks"
       ]
     },
     {
       "type": "category",
-      "label": "Integration with Testing Framework",
+      "label": "Test Coverage Integration",
       "collapsible": true,
-      "collapsed": false,
-      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript"]
+      "collapsed": true,
+      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript", "server/sdk-installation/python"]
     },
     {
       "type": "category",
-      "label": "Sample-App",
+      "label": "QuickStarts",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         {
           "type": "category",
-          "label": "Java",
+          "label": "Java (SpringBoot)",
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "quickstart/pet-clinic",
             "quickstart/samples-java",
             "quickstart/java-spring-boot-mongo"
           ]
@@ -51,10 +59,10 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-mux",
             "quickstart/samples-echo",
             "quickstart/samples-gin",
             "quickstart/samples-redis",
+            "quickstart/samples-mux",
             "quickstart/samples-mysql"
           ]
         },
@@ -86,48 +94,42 @@
           "collapsible": true,
           "collapsed": true,
           "items": ["quickstart/samples-rust"]
+        },
+        {
+          "type": "category",
+          "label": "C# (.NET Core)",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-csharp"
+          ]
         }
       ]
+    },
+    {
+      "type": "category",
+      "label": "Keploy-Cloud ☁️",
+      "collapsible": true,
+      "collapsed": true,
+      "items": ["keploy-cloud/cloud-installation", "keploy-cloud/application-settings", "keploy-cloud/time-freezing"]
     },
     {
       "type": "category",
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
-      "items": ["concepts/general-glossary"]
-    }
-  ],
-  "sidebarExplanation": [
-    {
-      "type": "category",
-      "label": "Explanation",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "keploy-explained/introduction",
-        "keploy-explained/how-keploy-works",
-        "keploy-explained/why-keploy",
-        "keploy-explained/faq",
-        "server/index"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Database Support",
-      "collapsible": true,
-      "collapsed": false,
-      "items": ["dependencies/mongo"]
+      "items": ["dependencies/mongo","keploy-explained/faq","concepts/general-glossary"]
     }
   ],
 
   "sidebarContributionGuide": [
     {
       "type": "category",
-      "label": "Dev Guide",
-      "collapsible": false,
+      "label": "Contribute",
+      "collapsible": true,
       "items": [
         "keploy-explained/contribution-guide",
-        "keploy-explained/docs-dev-guide", 
+        "keploy-explained/docs-dev-guide",
         "keploy-explained/debugger-guide"
       ]
     }

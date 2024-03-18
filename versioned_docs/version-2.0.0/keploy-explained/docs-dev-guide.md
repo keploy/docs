@@ -33,7 +33,7 @@ Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.
 
 Now you can build and view the site locally:
 
-```bash
+```shell
 yarn start
 ```
 
@@ -45,31 +45,31 @@ The command starts a local development server and opens a browser window.
 
 2. Clone the repository with the following command. Replace the <GITHUB_USERNAME> with your username
 
-```sh
+```shell
 git clone https://github.com/<GITHUB_USERNAME>/docs.git
 ```
 
 3. Go into the directory containing the project
 
-```sh
+```shell
 cd docs
 ```
 
 4. Install all the dependencies
 
-```sh
+```shell
 yarn
 ```
 
 5. Start the development server.
 
-```sh
+```shell
 yarn start
 ```
 
 6. To reformat:
 
-```
+```shell
 yarn prettier --write '**/*.{js,md}'
 ```
 

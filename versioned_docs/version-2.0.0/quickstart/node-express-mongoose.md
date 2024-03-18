@@ -21,17 +21,7 @@ keyword:
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with [Express](https://expressjs.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-## Pre-Requisite 🛠️
-
-- Install WSL (`wsl --install`) for <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows.
-
-## Optional 🛠️
-
-- Install Colima( `brew install colima && colima start` ) for <img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs.
-
 ## Get Started! 🎬
-
-## Setup application
 
 Clone the repository and move to express-mongoose folder
 
@@ -45,270 +35,177 @@ npm install
 ## Installation 📥
 
 Depending on your OS, choose your adventure:
+There are 2 ways you can run this sample application.
 
-- <details>
-  <summary><img src="/docs/img/os/linux.png" alt="Linux" width="3%" /> Linux or <img src="/docs/img/os/windows.png" alt="Windows" width="3%" /> Windows</summary>
-  First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
+- [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
+- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
 
-  ```bash
-  wsl ~
-  ```
+## Using Docker Compose 🐳
 
-  Alright, let's equip ourselves with the **latest Keploy binary**:
+We will be using Docker compose to run the application as well as MongoDb on Docker container.
 
-  ```bash
-  curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+### Lights, Camera, Record! 🎥
 
-  sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-  ```
+Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
+`-c`: Command to run the app (e.g., `docker compose up`).
 
-  If everything goes right, your screen should look a bit like this:
+`--containerName`: The container name in the `docker-compose.yml` for traffic interception.
 
-     <img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+```sh
+keploy record -c "docker compose up" --containerName "nodeMongoApp"
+```
 
-  Moving on...
-     <details>
-     <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}> Run App with <img src="/docs/img/os/docker.png" alt="Docker Container" width="3%" /> Docker </summary>
+🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
-  ### Lights, Camera, Record! 🎥
+#### Let's generate the testcases.
 
-  Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
-  `-c`: Command to run the app (e.g., `docker compose up`).
+Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-  `--containerName`: The container name in the `docker-compose.yml` for traffic interception.
+```bash
+curl --request POST \
+--url http://localhost:8000/students \
+ --header 'content-type: application/json' \
+ --data '{
+  "name":"John Do",
+  "email":"john@xyiz.com",
+  "phone":"0123456799"
+  }'
+```
 
-  ```sh
-  keploy record -c "docker compose up" --containerName "nodeMongoApp"
-  ```
+Here's a peek of what you get:
 
-  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+```
+Student registration successful!
+```
 
-  #### Let's generate the testcases.
+🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
-  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+_Time to perform more API magic!_
+Follow the breadcrumbs... or Make more API Calls
 
-  ````bash
-  curl --request POST \
-  --url http://localhost:8000/students \
-   --header 'content-type: application/json' \
-   --data '{
-    "name":"John Do",
-    "email":"john@xyiz.com",
-    "phone":"0123456799"
-    }'
-    ```
-  Here's a peek of what you get:
+```bash
+curl --request GET \  --url http://localhost:8000/students
+```
 
-  ```
-  Student registration successful!
-  ````
+Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
-  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
+Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-  _Time to perform more API magic!_
-  Follow the breadcrumbs... or Make more API Calls
+#### Run Tests
 
-  ```bash
-  curl --request GET \  --url http://localhost:8080/students
-  ```
+Time to put things to the test 🧪
 
-  Or simply wander over to your browser and visit `http://localhost:8000/students`.
-  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+```bash
+keploy test -c "docker compose up" --containerName "nodeMongoApp" --delay 10
+```
 
-  #### Run Tests
+> The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-  Time to put things to the test 🧪
+Your results should be looking all _snazzy_, like this:
 
-  ```bash
-  keploy test -c "docker compose up" --containerName "nodeMongoApp" --delay 10
-  ```
+<img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-  > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
+Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-  Your results should be looking all _snazzy_, like this:
-  <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-  Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
+## Wrapping it up 🎉
 
-  <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-  ## Wrapping it up 🎉
+Happy coding! ✨👩‍💻👨‍💻✨
 
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
 
-  Happy coding! ✨👩‍💻👨‍💻✨
+## Running App Locally on Linux/WSL 🐧
 
-   </details>
-   <br/>
+We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
-   <details>
-     <summary style={{ fontWeight: 'bold', fontSize: '1.17em', marginLeft: '0.5em' }}>Run App on 🐧 Linux  </summary>
+If you are using WSL on windows then use below to start wsl in the user's home directory:
 
-  We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+```bash
+wsl ~
+```
 
-  First things first, update the MongoDB URL on line 4, in **`db/connection.js`**, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.
+First things first, update the MongoDB URL on line 4, in **`db/connection.js`**, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.
 
-  #### 🍃 Kickstart MongoDB
+#### 🍃 Kickstart MongoDB
 
-  Let's breathe life into your mongo container. A simple spell should do the trick:
+We are going to run a mongo docker container which requires an existing docker network. We need to run the following command to create the required docker network:
 
-  ```bash
-  docker compose up mongo
-  ```
+```bash
+docker network create keploy-network
+```
 
-  ### 📼 Roll the Tape - Recording Time!
+Now, let's breathe life into your mongo container. A simple spell should do the trick:
 
-  Ready, set, record! Here's how:
+```bash
+docker compose up mongo
+```
 
-  ```bash
-  sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
-  ```
+### 📼 Roll the Tape - Recording Time!
 
-  Keep an eye out for the `-c `flag! It's the command charm to run the app.
+Ready, set, record! Here's how:
 
-  Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
+```bash
+sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
+```
 
-  #### Let's generate the testcases.
+Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
-  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
-  ```bash
-  curl --request POST \
-  --url http://localhost:8000/students \
-  --header 'content-type: application/json' \
-  --data '{
-    "name":"John Do",
-    "email":"john@xyiz.com",
-    "phone":"0123456799"
-    }'
-  ```
+#### Let's generate the testcases.
 
-  Here's a peek of what you get:
+Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-  ```
-  Student registration successful!
-  ```
+```bash
+curl --request POST \
+--url http://localhost:8000/students \
+--header 'content-type: application/json' \
+--data '{
+  "name":"John Do",
+  "email":"john@xyiz.com",
+  "phone":"0123456799"
+  }'
+```
 
-  🎉 Woohoo! Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
+Here's a peek of what you get:
 
-  <img src="/docs/img/testcase-node.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+```
+Student registration successful!
+```
 
-  Now, the real fun begins. Let's weave more spells!
+🎉 Woohoo! Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
-  🚀 Follow the URL road...!
+<img src="/docs/img/testcase-node.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-  ```bash
-  curl --request GET \  --url http://localhost:8080/students
-  ```
+Now, the real fun begins. Let's weave more spells!
 
-  Or simply wander over to your browser and visit `http://localhost:8000/students`.
+🚀 Follow the URL road...!
 
-  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
+```bash
+curl --request GET \  --url http://localhost:8080/students
+```
 
-  ### Run Tests 🏁
+Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
-  Ready to put your spells to the test?
+Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-  ```bash
-  sudo -E env PATH=$PATH keploy test -c "node src/app.js" --delay 10
-  ```
+### Run Tests 🏁
 
-  Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
+Ready to put your spells to the test?
 
-  <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+```bash
+sudo -E env PATH=$PATH keploy test -c "node src/app.js" --delay 10
+```
 
-  ## Wrapping it up 🎉
+Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-  Happy coding! ✨👩‍💻👨‍💻✨
-     </details>
-   </details>
-    <br/>
+## Wrapping it up 🎉
 
-- <details>
-     <summary><img src="/docs/img/os/macos.png" alt="MacOS" width="3%" /> MacOs </summary>
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-  Dive straight in, but first in case you're using **Keploy** with **Colima**, give it a gentle nudge with (`colima start`). Let's make sure it's awake and ready for action!
-
-  ### Use Keploy with Docker-Desktop
-
-  Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must be `4.25.2` or above.
-
-  #### Creating Docker Volume
-
-  ```bash
-  docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
-  ```
-
-  ### Use Keploy with Colima
-
-  ### Lights, Camera, Record! 🎥
-
-  Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
-  `-c`: Command to run the app (e.g., `docker compose up`).
-
-  `--containerName`: The container name in the `docker-compose.yml` for traffic interception.
-
-  ```sh
-  keploy record -c "docker compose up" --containerName "nodeMongoApp"
-  ```
-
-  🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
-
-  #### Let's generate the testcases.
-
-  Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
-
-  ```bash
-  curl --request POST \
-  --url http://localhost:8000/students \
-   --header 'content-type: application/json' \
-   --data '{
-    "name":"John Do",
-    "email":"john@xyiz.com",
-    "phone":"0123456799"
-    }'
-  ```
-
-  Here's a peek of what you get:
-
-  ```
-  Student registration successful!
-  ```
-
-  🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
-
-  _Time to perform more API magic!_
-  Follow the breadcrumbs... or Make more API Calls
-
-  ```bash
-  curl --request GET \  --url http://localhost:8080/students
-  ```
-
-  Or simply wander over to your browser and visit `http://localhost:8000/students`.
-
-  Did you spot the new test and mock scrolls in your project library? Awesome! 👏
-
-  #### Run Tests
-
-  Time to put things to the test 🧪
-
-  ```bash
-  keploy test -c "docker compose up" --containerName "nodeMongoApp" --delay 10
-  ```
-
-  > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
-
-  Your results should be looking all _snazzy_, like this:
-  <img src="/docs/img/testrun-node-fail.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
-
-  Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
-
-  ## Wrapping it up 🎉
-
-  Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-  Happy coding! ✨👩‍💻👨‍💻✨
-
-   </details>
+Happy coding! ✨👩‍💻👨‍💻✨

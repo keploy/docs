@@ -1,5 +1,5 @@
 ---
-id: Integration-testing
+id: integration-testing
 title: Integration Testing
 sidebar_label: Integration Testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
