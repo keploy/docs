@@ -97,9 +97,9 @@ function Languages() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link 
-          className="flex flex-col items-center space-x-3 p-6 hover:underline"
-          to={useBaseUrl("/quickstart/samples-csharp")}
+          <Link
+            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            to={useBaseUrl("/quickstart/samples-csharp")}
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
