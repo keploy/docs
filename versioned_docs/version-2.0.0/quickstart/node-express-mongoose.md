@@ -21,6 +21,10 @@ keyword:
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with [Express](https://expressjs.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
+import InstallationGuide from '../concepts/installation.md'
+
+<InstallationGuide/>
+
 ## Get Started! 🎬
 
 Clone the repository and move to express-mongoose folder
@@ -51,7 +55,7 @@ Fire up the application and mongoDB instance with Keploy. Keep an eye on the two
 
 `--containerName`: The container name in the `docker-compose.yml` for traffic interception.
 
-```sh
+```bash
 keploy record -c "docker compose up" --containerName "nodeMongoApp"
 ```
 
@@ -84,14 +88,15 @@ _Time to perform more API magic!_
 Follow the breadcrumbs... or Make more API Calls
 
 ```bash
-curl --request GET \  --url http://localhost:8080/students
+curl --request GET \
+--url http://localhost:8080/students
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8000/students`.
 
 Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-#### Run Tests
+### Run Tests
 
 Time to put things to the test 🧪
 
@@ -109,7 +114,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-## Wrapping it up 🎉
+### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
@@ -204,7 +209,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-## Wrapping it up 🎉
+### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
