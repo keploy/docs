@@ -9,6 +9,8 @@ tags:
   - samples
   - examples
   - tutorial
+  - postgres
+  - mux-framework
 keyword:
   - Mux Framework
   - Postgres
@@ -53,7 +55,7 @@ Fire up the application and Postgres instance with Keploy. Keep an eye on the tw
 
 `--containerName`: The container name in the `docker-compose.yml` for traffic interception.
 
-### Capture the TestCase
+#### Capture the TestCase
 
 ```bash
 keploy record -c "docker compose up" --containerName "muxSqlApp"

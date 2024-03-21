@@ -11,6 +11,7 @@ tags:
   - tutorial
   - mysql
   - sql
+  - mux-framework
 keyword:
   - Mux Framework
   - MySQL
@@ -83,11 +84,11 @@ To generate testcases we just need to make some API calls. You can use [Postman]
 
 ```bash
 curl --request POST \
-  --url http://localhost:8082/url \
+  --url http://localhost:8080/create \
   --header 'content-type: application/json' \
   --data '{
-  "url": "https://github.com"
-}
+  "link": "https://github.com"
+}'
 ```
 
 this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
@@ -95,14 +96,15 @@ this will return the shortened url. The ts would automatically be ignored during
 ```bash
 {
   "message":"Converted",
-  "link":"http://localhost:8080/link/1",
-  "status":true}
+  "link":"http://localhost:8080/links/1",
+  "status":true
+}
 ```
 
 #### Access all the shortened urls
 
 ```bash
-curl --request GET \ localhost:8080/all
+curl --request GET http://localhost:8080/all
 ```
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
@@ -118,7 +120,7 @@ Want to see if everything works as expected?
 Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
 
 ```shell
-keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
+keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest" --delay 10
 ```
 
 output should look like
@@ -166,23 +168,27 @@ sudo -E PATH=$PATH keploy record -c "./main"
 
 ### Generate testcases
 
-To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
+To generate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
-#### Generate shortned url
+#### Generate shortened url
 
 ```bash
 curl --request POST \
-  --url http://localhost:8082/url \
+  --url http://localhost:8080/create \
   --header 'content-type: application/json' \
   --data '{
-  "url": "https://google.com"
+  "link": "https://google.com"
 }'
 ```
 
 this will return the shortened url.
 
 ```json
-  "link":"https://google.com"
+{
+  "message": "Converted",
+  "link": "http://localhost:8080/links/1",
+  "status": true
+}
 ```
 
 #### Redirect to original url from shortened url

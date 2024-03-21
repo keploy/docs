@@ -94,6 +94,15 @@
           "collapsible": true,
           "collapsed": true,
           "items": ["quickstart/samples-rust"]
+        },
+        {
+          "type": "category",
+          "label": "C# (.NET Core)",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/samples-csharp"
+          ]
         }
       ]
     },

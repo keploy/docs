@@ -7,6 +7,7 @@ tags:
   - java
   - spring-jpa
   - springboot
+  - java-framework
   - postgres
   - petclinic
   - quickstart
