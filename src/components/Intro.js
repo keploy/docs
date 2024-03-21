@@ -97,7 +97,10 @@ function Languages() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center space-x-3 p-6">
+          <Link
+            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            to={useBaseUrl("/quickstart/samples-csharp")}
+          >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/csharp-logo.svg"
@@ -150,10 +153,10 @@ function Frameworks() {
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
             <img
               className="h-8 w-8"
-              src="/docs/img/oracle-logo.svg"
-              alt="Oracle logo"
+              src="/docs/img/http-logo.svg"
+              alt="HTTP logo"
             />
-            <p className="font-semibold">Oracle</p>
+            <p className="font-semibold">HTTP</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
