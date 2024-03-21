@@ -43,10 +43,10 @@ keploy record -c "go run main.go"
 
 ## 🏃 Running Testcases
 
-To run the testcases and generate a test coverage report, use this terminal command:
+To run the testcases and see if there are any regressions introduced, use this terminal command:
 
 ```bash
 keploy test -c "CMD_TO_RUN_APP" --delay 10
 ```
 
-Explore the [Keploy Running Guide](/running-keploy/configuration-file/) for additional options and tips on customizing your Keploy setup to perfection.
+Explore the [Test Coverage Integration Guide](https://keploy.io/docs/server/sdk-installation/go/) for seeing test-coverage with your unit testing library and [Keploy Running Guide](https://keploy.io/docs/running-keploy/configuration-file/) for additional options and tips on customizing your Keploy setup to perfection.
