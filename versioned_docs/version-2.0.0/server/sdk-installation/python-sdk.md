@@ -73,7 +73,7 @@ Hooray🎉! You've sucessfully got the coverage of your Keploy recorded api test
 
 Add the following lines to your `Dockerfile` to install the coverage library and to start the application with the coverage library.
 
-```Dockerfile
+```bash
 RUN pip3 install coverage
 CMD ["python3", "-m", "coverage", "run",  "-p", "--data-file=./.coverage.unit", "<command-to-run-your-application>"]
 ```
@@ -103,7 +103,7 @@ keploy test -c "<command-to-run-your-docker-application>" --containerName=<conta
 
 Now, to get the coverage of your unit tests, you need to update the run command in your Dockerfile to:
 
-```Dockerfile
+```bash
 CMD ["python3", "-m", "coverage", "run",  "-p", "--data-file=./.coverage.unit", "-m", "pytest", "test_app.py"]
 ```
 

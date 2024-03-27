@@ -17,11 +17,15 @@ Introducing **Keploy-config** 🎉 - It is a YAML-based file that will allow you
 
 ## Getting Started:
 
+We will be using a sample app to demonstrate working of Keploy configuration file.
+
 To generate a keploy-config file, run:
 
 ```bash
-keploy generate-config --path "/path/to/your/project"
+keploy generate-config --path "."
 ```
+
+For demonstration purposes, we are using the [root directory of the echo-sql application](https://github.com/keploy/samples-go/tree/main/echo-sql). We can place it wherever we want to inside the project.
 
 After successful execution of the command, a default initialized config file named as `keploy-config.yaml` has been created with the content as shown below:
 
@@ -29,7 +33,7 @@ After successful execution of the command, a default initialized config file nam
 record:
   path: ""
   # mandatory
-  command: ""
+  command: "./echo-psql-url-shortener"
   proxyport: 0
   containerName: ""
   networkName: ""
@@ -49,12 +53,70 @@ record:
 test:
   path: ""
   # mandatory
-  command: ""
+  command: "./echo-psql-url-shortener"
   proxyport: 0
   containerName: ""
   networkName: ""
   # example: "test-set-1": ["test-1", "test-2", "test-3"]
   selectedTests:
+  # to use globalNoise, please follow the guide at the end of this file.
+  globalNoise:
+    global:
+      body: {}
+      header: {}
+  delay: 5
+  buildDelay: 30s
+  ignoreOrdering: true
+  apiTimeout: 5
+  tests:
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
+  stubs:
+    filters:
+      - path: ""
+        host: ""
+        port: 0
+  withCoverage: false
+  coverageReportPath: ""
+```
+
+For the given sample app example, the keploy-config.yaml will be:
+
+```yaml
+record:
+  path: ""
+  # mandatory
+  command: "./echo-psql-url-shortener"
+  proxyport: 0
+  containerName: ""
+  networkName: ""
+  delay: 5
+  buildDelay: 30s
+  tests:
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
+  stubs:
+    filters:
+      - path: ""
+        host: ""
+        port: 0
+test:
+  path: ""
+  # mandatory
+  command: "./echo-psql-url-shortener"
+  proxyport: 0
+  containerName: ""
+  networkName: ""
+  # example: "test-set-1": ["test-1", "test-2", "test-3"]
+  selectedTests:
+    "test-set-1": ["test-1", "test-2"]
+    "test-set-2": []
   # to use globalNoise, please follow the guide at the end of this file.
   globalNoise:
     global:
@@ -196,8 +258,6 @@ The `test` section in the Keploy-config file allows you to define parameters for
   ```yaml
   coverageReportPath: "/path/to/coverage/report"
   ```
-
-### Tests Configuration
 
 The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
 
