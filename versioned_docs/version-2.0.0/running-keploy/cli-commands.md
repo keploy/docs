@@ -96,6 +96,11 @@ keploy record [flags]
   ```bash
   keploy record -c "node src/app.js" --debug
   ```
+- `re-record` - Record certain test-sets again
+  
+    ```bash
+    keploy record -c "node src/app.js" --rerecord "test-set-1"
+    ```
 
 ## [test](#test)
 
