@@ -549,3 +549,7 @@ a[class="breadcrumbs__link"]{
   padding-top: 2px;
   margin-bottom: -10px;
 }
+
+[data-theme="dark"] th {
+  color: white;
+}
