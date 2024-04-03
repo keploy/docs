@@ -36,7 +36,7 @@ at maven central and add keploy-sdk as a dependency to your pom.xml :
     <dependency>
         <groupId>io.keploy</groupId>
         <artifactId>v2</artifactId>
-        <version>1.3.8</version>
+        <version>1.3.9</version>
     </dependency>
 </dependencies>
 ```
