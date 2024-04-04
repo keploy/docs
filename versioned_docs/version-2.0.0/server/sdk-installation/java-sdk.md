@@ -194,5 +194,5 @@ public class SamplesJavaApplication_Test {
 Now let's run junit tests along keploy using command:-
 
 ```bash
-sudo -E keploy test -c "mvn test" --delay 15 --coverage
+mvn test
 ```

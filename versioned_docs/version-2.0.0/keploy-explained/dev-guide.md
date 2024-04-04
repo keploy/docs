@@ -102,7 +102,6 @@ sudo -E env PATH="$PATH" keploy test -c "path/to/go/binary" --delay 10
 
 Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
 
-
 ### 6. Setup Keploy via Docker:
 
 #### Install the Keploy Docker Image:
@@ -122,18 +121,18 @@ alias keployV2='sudo docker run --pull always --name keploy-ebpf -p 16789:16789 
 ```shell
 keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network keploy-network --rm <imageName>"" --containerName  <containerName>
 ```
+
 #### Running Test Cases:
+
 ```shell
 keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
 ```
-
 
 ### 7. Testing Locally Built Docker Image:
 
 #### Build Docker Image:
 
-Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository. 
-
+Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .
@@ -145,7 +144,7 @@ sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .
 
 ```shell
 sudo -E env PATH="$PATH" record -c "docker run -p 8080:8080 --name <containerName>  --network keploy-network --rm <imageName>"" --containerName  <containerName>
-````
+```
 
 #### Running Test Cases:
 
