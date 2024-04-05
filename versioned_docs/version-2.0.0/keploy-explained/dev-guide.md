@@ -138,18 +138,24 @@ Run the below command inside the keploy respository and make sure there is no di
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .
 ```
 
+#### Create Alias:
+
+```shell
+alias keployV2='sudo docker run --name keploy-v2 -p 16789:16789 --privileged --pid=host -it -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock -v '"$HOME"'/.keploy-config:/root/.keploy-config -v '"$HOME"'/.keploy:/root/.keploy --rm <nameOfImage>'
+```
+
 #### Remember setting up the Keploy binary. See [Setup Keploy using Binary](#5-setup-keploy-using-binary) for details.
 
 #### Capture Test Cases:
 
 ```shell
-sudo -E env PATH="$PATH" record -c "docker run -p 8080:8080 --name <containerName>  --network keploy-network --rm <imageName>"" --containerName  <containerName>
+sudo -E env PATH="$PATH" keployV2 record -c "docker run -p 8080:8080 --name <containerName>  --network keploy-network --rm <imageName>"" --containerName  <containerName>
 ```
 
 #### Running Test Cases:
 
 ```shell
-sudo -E env PATH="$PATH" test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
+sudo -E env PATH="$PATH" keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network keploy-network --rm <imageName>" --delay 10
 ```
 
 There you have it! With this guide, you're all set to dive into Keploy development. Happy testing! 🧪🔍💻
