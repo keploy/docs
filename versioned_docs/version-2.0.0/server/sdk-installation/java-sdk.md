@@ -36,7 +36,7 @@ at maven central and add keploy-sdk as a dependency to your pom.xml :
     <dependency>
         <groupId>io.keploy</groupId>
         <artifactId>v2</artifactId>
-        <version>1.3.6</version>
+        <version>1.3.9</version>
     </dependency>
 </dependencies>
 ```
@@ -175,18 +175,17 @@ Junit test file.
 
 ```java
 import io.keploy.Keploy; // import statement
-import com.example.demo.SamplesJavaApplication;
-import com.example.demo.controller.EmployeeController;
-import com.example.demo.exception.ResourceNotFoundException;
-import com.example.demo.model.Employee;
-import com.example.demo.repository.EmployeeRepository;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.Order;
+import java.io.IOException;
 
-class SamplesJavaApplication_Test {
+public class SamplesJavaApplication_Test {
     @Test
     @Order(Integer.MAX_VALUE)
     public void testKeploy() throws IOException, InterruptedException {
         String jarPath = "target/springbootapp-0.0.1-SNAPSHOT.jar";
-        Keploy.runTests(jarPath);
+        Keploy.RunOptions runOptions = new Keploy.RunOptions();
+        Keploy.runTests(jarPath, runOptions); // Pass the jarPath and runOptions to the runTests method
     }
 }
 
