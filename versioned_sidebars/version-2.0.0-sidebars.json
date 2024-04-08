@@ -85,6 +85,7 @@
           "collapsed": true,
           "items": [
             "quickstart/samples-bunjs",
+            "quickstart/samples-nextjs",
             "quickstart/samples-nodejs"
           ]
         },
