@@ -31,7 +31,7 @@ Now that we have bun installed, we will setup our application.
 git clone https://github.com/keploy/samples-rust && cd samples-rust/gql-mongo
 ```
 
-## Using Docker Compose 🐳
+## Running App Locally on Linux/WSL 🐧
 
 We will be using Docker compose to run Mongo on Docker container.
 
