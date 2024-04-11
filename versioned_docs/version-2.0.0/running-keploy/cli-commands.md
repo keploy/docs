@@ -205,23 +205,29 @@ keploy test [flags]
 
 ## [generate-config](#generate-config)
 
-The `generate-config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy-config.yaml`. The generated configuration file is created in the current working directory.
+The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
 
 <b> Usage: </b>
 
 ```bash
-keploy generate-config [flags]
+keploy config [flags]
 ```
 
 <b> Available flags: </b>
 
+- `--generate` - Generate a new keploy configration file.
+
+  ```bash
+  keploy config --generate
+  ```
+
 - `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
 
   ```bash
-  keploy generate-config -p "./config-dir/"
+  keploy config --generate --path "./config-dir/"
   ```
 
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy-config.yaml` is to be stored.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
 
 ## [example](#example)
 
