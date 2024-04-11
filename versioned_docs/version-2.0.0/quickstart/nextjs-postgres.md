@@ -22,6 +22,7 @@ import InstallationGuide from '../concepts/installation.md'
 <InstallationGuide/>
 
 ## Get Started! 🎬
+
 Now that we have bun installed, we will setup our application.
 
 ```bash
@@ -43,6 +44,7 @@ docker-compose up
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
 
 ### Capture testcase
+
 Ready, set, record! Here's how:
 
 ```bash
@@ -60,15 +62,17 @@ curl -X POST -H "Content-Type: application/json" -d '{"name":"John","email":"doe
 ```
 
 This will return the response:
+
 ```json
 {
-    "users":
-    [{
-        "id":3,
-        "name":"John",
-        "email":"doe@example.com",
-        "createdAt":"2024-03-27T10:07:30.172Z"
-    }]
+  "users": [
+    {
+      "id": 3,
+      "name": "John",
+      "email": "doe@example.com",
+      "createdAt": "2024-03-27T10:07:30.172Z"
+    }
+  ]
 }
 ```
 
@@ -93,7 +97,6 @@ sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
 ![Test Record](../../../static/img/nextjs-postgres-test.png)
-
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
