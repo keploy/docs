@@ -39,7 +39,6 @@ Let's get started by setting up the Keploy alias with this command:
 
 ```bash
  curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
- keploy
 ```
 
 You should see something like this:
