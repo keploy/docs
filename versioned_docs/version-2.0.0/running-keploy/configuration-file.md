@@ -43,29 +43,28 @@ containerName: ""
 networkName: ""
 buildDelay: 30s
 test:
-    selectedTests: {}
-    globalNoise:
-        global: {}
-        test-sets: {}
-    delay: 5
-    apiTimeout: 5
-    coverage: false
-    goCoverage: false
-    coverageReportPath: ""
-    ignoreOrdering: true
-    mongoPassword: "default@123"
-    language: ""
-    removeUnusedMocks: false
+  selectedTests: {}
+  globalNoise:
+    global: {}
+    test-sets: {}
+  delay: 5
+  apiTimeout: 5
+  coverage: false
+  goCoverage: false
+  coverageReportPath: ""
+  ignoreOrdering: true
+  mongoPassword: "default@123"
+  language: ""
+  removeUnusedMocks: false
 record:
-    recordTimer: 0s
-    filters: []
+  recordTimer: 0s
+  filters: []
 configPath: ""
 bypassRules: []
 cmdType: "native"
 enableTesting: false
 keployContainer: "keploy-v2"
 keployNetwork: "keploy-network"
-
 # Example on using tests
 #tests:
 #  filters:
@@ -85,7 +84,7 @@ keployNetwork: "keploy-network"
 #   - port: 8081
 #     host: "dc.services.visualstudio.com"
 #     path: "/user/app"
-	#
+#
 #Example on using globalNoise
 #globalNoise:
 #   global:

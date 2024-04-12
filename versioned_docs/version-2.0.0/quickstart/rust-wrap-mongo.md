@@ -1,7 +1,7 @@
 ---
 id: samples-rust
 title: Rust Sample Application
-sidebar_label:  Warp + Mongo
+sidebar_label: Warp + Mongo
 description: The following sample app to test Keploy integration capabilities using Warp HTTP and MongoDb.
 tags:
   - Rust
@@ -12,6 +12,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 ## Introduction
 
 This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride! 🎢
@@ -60,29 +61,29 @@ curl --location 'http://localhost:8000/api/notes/' \
 }'
 ```
 
-which will  return 
+which will return
 
 ```json
 {
-  "status":"success",
-  "data":
-    {
-      "note":{
-        "id":"6618fa20875aedcfe96e08ed",
-        "title":"You'll learn how to build a CRUD API with FastAPI",
-        "content":"Fastapi is really easy to use",
-        "category":"FastAPI",
-        "published":false,
-        "createdAt":"2024-04-12T09:08:48.686Z",
-        "updatedAt":"2024-04-12T09:08:48.686Z"
-      }
+  "status": "success",
+  "data": {
+    "note": {
+      "id": "6618fa20875aedcfe96e08ed",
+      "title": "You'll learn how to build a CRUD API with FastAPI",
+      "content": "Fastapi is really easy to use",
+      "category": "FastAPI",
+      "published": false,
+      "createdAt": "2024-04-12T09:08:48.686Z",
+      "updatedAt": "2024-04-12T09:08:48.686Z"
     }
   }
+}
 ```
+
 2. Get Notes
 
 ```bash
-curl --location 'http://localhost:8000/api/notes/6618fa20875aedcfe96e08ed' 
+curl --location 'http://localhost:8000/api/notes/6618fa20875aedcfe96e08ed'
 ```
 
 This is how keploy terminal would look like:
