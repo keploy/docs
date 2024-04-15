@@ -1,7 +1,7 @@
 ---
 id: samples-nextjs
 title: NextJs Sample Application
-sidebar_label: NextJS + Mongo
+sidebar_label: NextJS + SQL
 description: The following sample app to test Keploy integration capabilities using NextJS,Drizzle and Postgres.
 tags:
   - NextJs
@@ -26,7 +26,7 @@ import InstallationGuide from '../concepts/installation.md'
 Now that we have bun installed, we will setup our application.
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typscript/node-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
 
 ## Download node modules
 npm install
