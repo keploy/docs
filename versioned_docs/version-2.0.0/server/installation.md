@@ -29,7 +29,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 ## 🎬 Capturing Testcases
 
-To initiate the recording of API calls, execute this command in your terminal:
+To   initiate the recording of API calls, execute this command in your terminal:
 
 ```bash
 keploy record -c "CMD_TO_RUN_APP"
