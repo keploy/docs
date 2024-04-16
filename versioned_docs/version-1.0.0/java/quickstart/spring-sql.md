@@ -48,34 +48,34 @@ Sync dependencies or to _build.gradle_:
 
       You can set this through 3 ways:-
 
-      1.  <details><summary>
+      1.  {'<'}details{'>'}{'<'}summary{'>'}
              Using Intellij
-            </summary>
+            {'<'}/summary{'>'}
 
           Go to `Edit Configuration`-> `add VM options` -> Paste
 
               -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar
 
           Click `OK`.
-           </details>
+           {'<'}/details{'>'}
 
-      2.  <details><summary>
+      2.  {'<'}details{'>'}{'<'}summary{'>'}
             Using Command Line
-           </summary>
+           {'<'}/summary{'>'}
 
           ```
             export JAVA_OPTS="$JAVA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
           ```
 
-           </details>
+           {'<'}/details{'>'}
 
-      3.  <details><summary>
+      3.  {'<'}details{'>'}{'<'}summary{'>'}
             Running via Tomcat Server
-           </summary>
+           {'<'}/summary{'>'}
 
           export CATALINA_OPTS="$CATALINA_OPTS -javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar"
 
-        </details>
+        {'<'}/details{'>'}
 
 ## Setup Sample Employee-Manager App
 
@@ -189,9 +189,9 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
 
   1. Add maven-surefire-plugin to your `pom.xml`. In `<argLine > </ argLine >` **don't** add jacoco agent if you don't want coverage report.
 
-    <details><summary>
+    {'<'}details{'>'}{'<'}summary{'>'}
       Add plugin 
-      </summary>
+      {'<'}/summary{'>'}
 
         ```xml
           <plugin>
@@ -214,13 +214,13 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
           </plugin>
          ```
 
-     </details>
+     {'<'}/details{'>'}
     
   2. If you want coverage report also add Jacoco plugin to your *pom.xml*.
 
-    <details><summary>
+    {'<'}details{'>'}{'<'}summary{'>'}
       Add plugin 
-      </summary>
+      {'<'}/summary{'>'}
     
        ```xml
          <plugin>
@@ -259,7 +259,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
          </plugin>
        ```
 
-     </details>
+     {'<'}/details{'>'}
               
    3. Run your tests using command : `mvn test`.
 
@@ -289,10 +289,10 @@ java -javaagent:<your full path to agent jar>.jar -jar <your full path to applia
 
 Keploy will run all the captures test-cases, compare and show the results on the console.
 
-<details>
-<summary>
+{'<'}details{'>'}
+{'<'}summary{'>'}
                 Result on Console Logs
-              </summary>
+              {'<'}/summary{'>'}
 
 ```shell
 10b3ddd5-42fa-48e7-b98a-b47257272e39 total tests: 2
@@ -312,7 +312,7 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 2022-08-26 14:13:19.414  INFO 11560 --- [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
 ```
 
-</details>
+{'<'}/details{'>'}
 
 ![testruns](/img/TestrunsSuccess.png "Recent testruns")
 

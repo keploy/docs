@@ -45,7 +45,7 @@ k := keploy.New(keploy.Config{
     })
 ```
 
-<details><summary> Example </summary>
+{'<'}details{'>'}{'<'}summary{'>'} Example {'<'}/summary{'>'}
 
 ```go
 port := "6789"
@@ -60,7 +60,7 @@ port := "6789"
  })
 ```
 
-</details>
+{'<'}/details{'>'}
 
 Now wrap the routers, https clients and external dependencies like DBs.
 
