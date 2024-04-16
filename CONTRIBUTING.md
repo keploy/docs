@@ -31,7 +31,7 @@ The command starts a local development server and opens a browser window.
 
 ## Prettier
 
-1. Fork the repository
+1. Fork the repositorys
 
 <br/>
 

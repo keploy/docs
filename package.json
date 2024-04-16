@@ -30,13 +30,13 @@
     "react-player": "^2.6.0",
     "prism-react-renderer": "^2.1.0",
     "remark-typescript-tools": "1.0.9",
-    "typescript": "4.x",
+    "typescript": "5",
     "uuid": "^8.3.2",
     "webpack-font-preload-plugin": "^1.5.0"
   },
   "browserslist": {
     "production": [
-      ">0.2%",
+      ">0.5%",
       "not dead",
       "not op_mini all"
     ],
@@ -62,5 +62,8 @@
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.4",
     "tailwindcss": "^3.0.1"
+  },
+  "engines": {
+    "node":">=18.0"
   }
 }
