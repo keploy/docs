@@ -247,25 +247,6 @@ module.exports = {
                 },
               {},
             ],
-            // [
-            //   require("remark-typescript-tools").transpileCodeblocks,
-            //   {
-            //     compilerSettings: {
-            //       tsconfig: path.join(
-            //         __dirname,
-            //         "docs",
-            //         "typescript",
-            //         "tsconfig.json"
-            //       ),
-            //       externalResolutions: {},
-            //     },
-            //     fileExtensions: [".md", ".mdx"],
-            //     // remark-typescript-tools automatically running prettier with a custom config that doesn't
-            //     // line up with ours. This disables any post processing, including the default prettier step.
-            //     postProcessTs: (files) => files,
-            //     postProcessTranspiledJs: (files) => files,
-            //   },
-            // ],
             [
               () =>
                 function removeTSNoCheck(tree) {
