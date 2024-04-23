@@ -170,11 +170,11 @@ User Content
 sudo -E env PATH=$PATH keploy test -c 'npm run app.js' --delay 10
 ```
 
-Our testcases will fail as the Token will generated again when we are using testmode.
+Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
 
 <img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
 
 ```
         noise:
@@ -313,11 +313,12 @@ User Content
 keploy test -c 'sudo docker-compose up'  --containerName "jwtSqlApp" --delay 10
 ```
 
-Our testcases will fail as the Token will generated again when we are using testmode.
+Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
+
 
 <img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10mins.  Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
 
 ```
         noise:
