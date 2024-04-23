@@ -17,6 +17,9 @@ keywords:
 2. [nyc](https://www.npmjs.com/package/nyc)
 3. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
 4. [Jest](https://jestjs.io/docs/getting-started)
+5. [nyc](https://www.npmjs.com/package/nyc)
+6. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
+7. [Jest](https://jestjs.io/docs/getting-started)
 
 ## Installation
 
@@ -25,6 +28,7 @@ keywords:
 [Install the latest release of the Keploy Jest SDK](https://www.npmjs.com/package/@keploy/sdk)
 
 ```bash
+npm i @keploy/sdk nyc jest
 npm i @keploy/sdk nyc jest
 ```
 
@@ -46,6 +50,7 @@ Update the `package.json` file that runs the application:
 ## Usage
 
 For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your
+Jest test file. It can be called as `keploy.test.js`.
 Jest test file. It can be called as `keploy.test.js`.
 
 ```javascript
@@ -78,13 +83,16 @@ describe(
 ```
 
 Now let's run jest tests along keploy using command: -
+Now let's run jest tests along keploy using command: -
 
 ```bash
 npm test
+npm test
 ```
 
-To get Combined coverage with keploy test coverage: - 
+To get Combined coverage with keploy test coverage: -
 
 ```bash
+npm run coverage
 npm run coverage
 ```
