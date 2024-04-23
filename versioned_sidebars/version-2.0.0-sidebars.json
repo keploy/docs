@@ -86,7 +86,8 @@
           "items": [
             "quickstart/samples-bunjs",
             "quickstart/samples-nextjs",
-            "quickstart/samples-nodejs"
+            "quickstart/samples-nodejs",
+            "quickstart/samples-node-jwt"
           ]
         },
         {
