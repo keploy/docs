@@ -31,13 +31,12 @@ You can get the coverage with Keploy in 2 ways:
 First you need to install Keploy's Python SDK:
 
 ```bash
-pip install keploy
+pip install keploy pytest
 ```
 
 Next, create a test file for running Keploy's API tests. You can name the file `test_keploy.py`, and the contents of the file will be as follows:
 
 ```python
-import sys
 from keploy import run, RunOptions
 
 def test_keploy():
