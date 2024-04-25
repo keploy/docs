@@ -95,43 +95,9 @@ To initiate the recording of API calls, execute this command in your terminal:
 keploy record -c "python3 app.py"
 ```
 
-Now, your app will start running, and you have to make some API calls to generate the test cases!!
-
-1. **Make a POST request:**
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
-```
-
-2. **Make a GET request:**
-
-```bash
-curl http://localhost:5000/api/tasks
-```
-
-3. **Make a PUT request:**
-
-```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
-```
-
-4. **Make a DELETE request:**
-
-```bash
-curl -X DELETE http://localhost:5000/api/tasks/12345
-```
+Now, your app will start running, and you have to make some API calls!!
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
-
-## Run the tests
-
-Now, it's time to put things to the test 🧪
-
-```bash
-keploy test -c "python3 app.py" --delay 10
-```
-
-Now, you can also try different API calls, tweak the DB response in the mocks.yml, or fiddle with the request or response in test-x.yml. Run the tests again and see the magic unfold!
 
 ## Check Test Coverage
 
