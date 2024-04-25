@@ -37,12 +37,16 @@ npm install
 ```
 # Installation 📥
 
-Depending on your OS, choose your adventure:
+Depending on your OS, choose your adventure:<br>
 
-Let's get started by setting up the Keploy alias with this command:
+Below installion is for linux OS using native approach<br>
+
+Let's get started by setting up the Keploy with this command:<br>
 
 ```bash
- curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
 🎉 Wohoo! We are all set to use Keploy.
