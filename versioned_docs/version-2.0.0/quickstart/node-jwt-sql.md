@@ -199,7 +199,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Using Docker Compose 🐳
+## Using Docker Compose 🐳
 
 We will be using Docker compose to run the application as well as MongoDb on Docker container.
 

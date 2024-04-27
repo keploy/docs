@@ -101,7 +101,7 @@ go tool cover -func coverage-profile
 
 These mocks/stubs are realistic and frees you up from writing them manually. Keploy creates `readable/editable`
 mocks/stubs yaml files which can be referenced in any of your unit-tests tests. An example is mentioned
-in [Mocking/Stubbing for unit tests](#mockingstubbing-for-unit-tests) section
+in [Mocking/Stubbing for unit tests](#example) section
 
 1. Install [keploy](https://github.com/keploy/keploy#quick-installation) binary
 2. **Record**: To record you can import the keploy mocking library and set the mode to record mode and run you

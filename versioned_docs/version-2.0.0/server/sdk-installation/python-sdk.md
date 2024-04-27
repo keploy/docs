@@ -23,8 +23,8 @@ keyword:
 
 You can get the coverage with Keploy in 2 ways:
 
-1. [Using Keploy Binary](#Using-Keploy-Binary)
-2. [Using Keploy Docker](#Using-Keploy-Docker)
+1. [Using Keploy Binary](#using-keploy-binary)
+2. [Using Keploy Docker](#using-keploy-docker)
 
 ## Using Keploy Binary
 
@@ -70,7 +70,7 @@ python3 -m coverage run -p --data-file=.coverage.unit -m pytest -s test_keploy.p
 
 > Note: If you face any problems with running the coverage library, you can refer to the documentation for the same [here](https://coverage.readthedocs.io/en/7.4.2/cmd.html#execution-coverage-run)
 
-To combine the coverages and get the reports, you can refer to [this](#Combine-And-Get-Report) section.
+To combine the coverages and get the reports, you can refer to [this](#combine-and-get-report) section.
 
 Hooray🎉! You've sucessfully got the coverage of your Keploy recorded api tests and unit tests using Pytest.
 
@@ -118,7 +118,7 @@ To get the unit coverage you can either run it by using your normal docker run c
 keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100s --delay 10
 ```
 
-Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report from [here](#Combine-And-Get-Report)
+Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report from [here](#combine-and-get-report)
 
 ## Combine And Get Report
 

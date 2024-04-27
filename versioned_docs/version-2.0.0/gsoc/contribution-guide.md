@@ -41,8 +41,8 @@ participate.
 To get started with GSoC and Keploy, follow these steps:
 
 1. If you are new to Keploy, try setting up Keploy in your local machine and running one (or more) of the sample
-   applications. You can refer the [docs](#docs).
-2. You can then check out the [projects](#projects) that are selected for GSoC 2023 and try completing the tasks in the
+   applications. You can refer the docs.
+2. You can then check out the [projects](#projects-in-gsoc-2023) that are selected for GSoC 2023 and try completing the tasks in the
    task list. Remember, the tasks will act as a selection criteria for shortlisting candidates.
 3. You can connect with the mentors over slack to clear any of your doubts.
 4. Submit your proposal and that's it!
