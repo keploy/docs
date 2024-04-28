@@ -17,9 +17,9 @@ keywords:
 2. [nyc](https://www.npmjs.com/package/nyc)
 3. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
 4. [Jest](https://jestjs.io/docs/getting-started)
-2. [nyc](https://www.npmjs.com/package/nyc)
-3. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
-4. [Jest](https://jestjs.io/docs/getting-started)
+5. [nyc](https://www.npmjs.com/package/nyc)
+6. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
+7. [Jest](https://jestjs.io/docs/getting-started)
 
 ## Installation
 
@@ -85,7 +85,7 @@ Now let's run jest tests along keploy using command: -
 npm test
 ```
 
-To get Combined coverage with keploy test coverage: - 
+To get Combined coverage with keploy test coverage: -
 
 ```bash
 npm run coverage
