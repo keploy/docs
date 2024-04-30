@@ -19,7 +19,12 @@ keywords:
   - Typescript
 ---
 
-To generate coverage report for your node application, install [nyc](https://www.npmjs.com/package/nyc) and follow the below instructions.
+## Pre-requisites
+
+1. [nyc](https://www.npmjs.com/package/nyc)
+2. [cross-var](https://www.npmjs.com/package/cross-var)
+
+To generate coverage report for your node application, follow the below instructions.
 
 ## Update package file
 
@@ -29,7 +34,7 @@ Update the `package.json` file that runs the application:
   "scripts": {
     //other scripts
     "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
-    "E2ETests": "nyc --clean=\\$CLEAN npm run start",
+    "E2ETests": "cross-var nyc --clean=$CLEAN npm run start",
     "coverage:report": "nyc report --reporter=lcov --reporter=text",
     //other scripts
   }
