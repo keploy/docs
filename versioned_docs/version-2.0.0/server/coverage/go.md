@@ -82,7 +82,7 @@ Also the go-test coverage can be merged along the recorded tests coverage by fol
 ```sh
 go test -cover ./... -args -test.gocoverdir="PATH_TO_UNIT_COVERAGE_FILES"
 
-go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./keploy/coverage-reports" -o coverage-profile
+go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./coverage-reports" -o combined-coverage.txt
 
-go tool cover -func coverage-profile
+go tool cover -func combined-coverage.txt
 ```
