@@ -35,23 +35,14 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 # Install the dependencies
 npm install
 ```
-# Installation 📥
 
-Depending on your OS, choose your adventure:<br>
+import InstallationGuide from '../concepts/installation.md'
 
-Below installion is for linux OS using native approach<br>
-
-Let's get started by setting up the Keploy with this command:<br>
-
-```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+<InstallationGuide/>
 
 🎉 Wohoo! We are all set to use Keploy.
 
-🎬 Capturing Testcases
+## 🎬 Capturing Testcases
 
 To begin recording your application's API calls, open your terminal and navigate to your application directory using the cd command. Then, execute the following command:
 
@@ -180,6 +171,7 @@ curl: |
       --header 'Sec-Ch-Ua-Platform: "Linux"' \
 
 ```
+## Run keploy test
 
 Want to see it in action? Run the following command to execute your Keploy tests
 
@@ -252,7 +244,7 @@ To get Combined coverage with keploy test coverage
 ```bash
 npm run coverage
 ```
-### Wrapping it up 🎉
+## Wrapping it up 🎉
 
 Congratulations! You've conquered Keploy and unleashed its power for effortless testing in your NodeJS application. With Jest by your side, you can ensure rock-solid code coverage. Time to go forth and build amazing things! 🧑🏻‍💻
 
