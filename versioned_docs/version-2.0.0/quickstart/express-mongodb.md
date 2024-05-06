@@ -36,19 +36,13 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 npm install
 ```
 
-## Installation 📥
+import InstallationGuide from '../concepts/installation.md'
 
-Let's get started by setting up the Keploy with this command:
-```
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
+<InstallationGuide/>
 
 ### Lights, Camera, Record! 🎥
 
 #### Capturing Testcases
-
 
 ```
 keploy record -c "npm start"
@@ -133,13 +127,8 @@ npm run test
 npm run coverage
 ```
 
-
-
-
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-
 
 Happy coding! ✨👩‍💻👨‍💻✨
