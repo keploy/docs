@@ -41,7 +41,6 @@ Depending on your OS, choose your adventure:
 There are 2 ways you can run this sample application.
 
 - [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
 
 ## Using Docker Compose 🐳
 
@@ -59,12 +58,12 @@ keploy record -c "docker compose up" --containerName "nodeMongoApp"
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
-#### Let's generate the testcases.
+### Let's generate the testcases.
 
 Make API Calls , Let's get started by setting up the Keploy with this command:
 
 
-#### Capturing Testcases
+## Capturing Testcases
 
 ```bash
 keploy record -c "npm start"
@@ -91,7 +90,7 @@ Here's a peek of what you get:
 Room Booked Successfully
 ```
  
- ## we will get the output:
+we will get the output:
 
 ![Testcase](./img/p1.jpg)
 
@@ -113,7 +112,7 @@ Or simply wander over to your browser and visit `http://localhost:3000/view`.
 <!-- ![Testcase](./img/p3.jpg) -->
 
 
-### Run Tests
+## Run Tests
 
 Time to put things to the test 🧪
 
@@ -143,7 +142,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 <img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
-### Wrapping it up 🎉
+## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
