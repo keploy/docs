@@ -93,7 +93,7 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/express-mongodb"
+            "quickstart/expressjs-mongodb"
           ]
         },
         {
