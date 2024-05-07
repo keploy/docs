@@ -116,7 +116,7 @@ module.exports = {
       },
       items: [
         {
-          to: "/keploy-explained/introduction",
+          to: "/server/installation",
           activeBasePath: "none",
           label: "Installation",
         },
