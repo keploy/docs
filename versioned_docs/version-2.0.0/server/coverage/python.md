@@ -23,14 +23,7 @@ keyword:
 
 To get the coverage for Keploy recorded testcases,
 
-first, append `coverage run \$APPEND` to your application command:
-
-```bash
-coverage run \$APPEND my_program.py arg1 arg2
-```
-Here, my_program.py is the program you want to run and arg1 & arg2 are arguments that can be passed to your program. 
-
-We also need to create a `.coveragerc` file to ignore the coverage of the libraries that is calculated. The contents of the file will be as follows:
+Create a `.coveragerc` file to ignore the coverage of the libraries that is calculated. The contents of the file will be as follows:
 
 ```sh
 [run]
@@ -45,7 +38,7 @@ Before starting your application, make sure that the **debug mode is set to Fals
 app.run(host=HOST, port=PORT, debug=False)
 ```
 
-Now, run Keploy test with coverage flag enabled:
+Now, run Keploy test with coverage flag enabled, also prepend `coverage run \$APPEND` in your application command:
 
 ```bash
 keploy test -c "coverage run \$APPEND my_program.py arg1 arg2" --coverage

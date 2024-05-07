@@ -199,9 +199,9 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10 --ignoreOrdering
   ```
 
-- `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/sdk-installation/typescript-sdk.md),[JUnit](versioned_docs/version-2.0.0/server/sdk-installation/java-sdk.md) and [Pytest](versioned_docs/version-2.0.0/server/sdk-installation/python-sdk.md),
+- `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/coverage/typescript.md),[JUnit](versioned_docs/version-2.0.0/server/coverage/java.md) and [Pytest](versioned_docs/version-2.0.0/server/coverage/python.md),
 
-- `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/sdk-installation/go-sdk.md)
+- `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/coverage/go.md)
 
 ## [generate-config](#generate-config)
 

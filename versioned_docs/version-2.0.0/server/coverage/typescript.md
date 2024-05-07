@@ -35,6 +35,7 @@ Update the `package.json` file that runs the application:
     //other scripts
     "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
     "E2ETests": "cross-var nyc --clean=$CLEAN npm run start",
+    "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
     "coverage:report": "nyc report --reporter=lcov --reporter=text",
     //other scripts
   }
