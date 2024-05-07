@@ -38,8 +38,8 @@ function Glossary() {
     ],
     C: [
       {
-        name: "Component Testing",
-        link: "/docs/concepts/reference/glossary/component-testing",
+        name: "Code Coverage",
+        link: "/docs/concepts/reference/glossary/code-coverage",
       },
     ],
     E: [
@@ -69,7 +69,10 @@ function Glossary() {
         name: "Manual Testing",
         link: "/docs/concepts/reference/glossary/manual-testing",
       },
-      {name: "Mocks", link: "/docs/concepts/reference/glossary/mocks"},
+      {
+        name: "Mocks",
+        link: "/docs/concepts/reference/glossary/mocks",
+      },
     ],
     R: [
       {
@@ -81,7 +84,7 @@ function Glossary() {
     T: [
       {
         name: "Test Driven TDD",
-        link: "/docs/concepts/reference/glossary/stubs",
+        link: "/docs/concepts/reference/glossary/test-driven-development",
       },
     ],
     U: [
