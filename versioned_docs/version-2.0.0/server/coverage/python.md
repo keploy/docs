@@ -41,10 +41,10 @@ app.run(host=HOST, port=PORT, debug=False)
 Now, run Keploy test with coverage flag enabled, also prepend `coverage run \$APPEND` in your application command:
 
 ```bash
-keploy test -c "coverage run \$APPEND my_program.py arg1 arg2" --coverage
+keploy test -c "coverage run \$APPEND --data-file=.coverage.keploy my_program.py arg1 arg2" --coverage
 ```
 
-After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports. Additionally, the raw coverage data would be dumped in .coverage file.
+After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports. Additionally, the raw coverage data would be dumped in .coverage.keploy file.
 
 To get the coverage data for your unit tests:
 ```
