@@ -29,7 +29,6 @@ keywords:
 
 ```bash
 npm i @keploy/sdk nyc jest
-npm i @keploy/sdk nyc jest
 ```
 
 ## Update package file
@@ -49,9 +48,7 @@ Update the `package.json` file that runs the application:
 
 ## Usage
 
-For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your
-Jest test file. It can be called as `keploy.test.js`.
-Jest test file. It can be called as `keploy.test.js`.
+For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your Jest test file. It can be called as `keploy.test.js`.
 
 ```javascript
 const {expect} = require("@jest/globals");
@@ -83,16 +80,13 @@ describe(
 ```
 
 Now let's run jest tests along keploy using command: -
-Now let's run jest tests along keploy using command: -
 
 ```bash
-npm test
 npm test
 ```
 
 To get Combined coverage with keploy test coverage: -
 
 ```bash
-npm run coverage
 npm run coverage
 ```
