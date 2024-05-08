@@ -88,8 +88,7 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/samples-node-mongo.md"
-          ]
+            "quickstart/crud-nodejs"          ]
         },
         {
           "type": "category",
