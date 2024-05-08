@@ -34,7 +34,12 @@
       "label": "Test Coverage Integration",
       "collapsible": true,
       "collapsed": true,
-      "items": ["server/sdk-installation/go", "server/sdk-installation/java", "server/sdk-installation/typescript", "server/sdk-installation/python"]
+      "items": [
+        "server/sdk-installation/go",
+        "server/sdk-installation/java",
+        "server/sdk-installation/typescript",
+        "server/sdk-installation/python"
+      ]
     },
     {
       "type": "category",
@@ -74,6 +79,7 @@
           "items": [
             "quickstart/samples-django",
             "quickstart/samples-flask",
+            "quickstart/samples-flask-local",
             "quickstart/samples-fastapi",
             "quickstart/samples-fastapi-twilio"
           ]
@@ -102,9 +108,7 @@
           "label": "C# (.NET Core)",
           "collapsible": true,
           "collapsed": true,
-          "items": [
-            "quickstart/samples-csharp"
-          ]
+          "items": ["quickstart/samples-csharp"]
         }
       ]
     },
@@ -113,14 +117,22 @@
       "label": "Keploy-Cloud ☁️",
       "collapsible": true,
       "collapsed": true,
-      "items": ["keploy-cloud/cloud-installation", "keploy-cloud/application-settings", "keploy-cloud/time-freezing"]
+      "items": [
+        "keploy-cloud/cloud-installation",
+        "keploy-cloud/application-settings",
+        "keploy-cloud/time-freezing"
+      ]
     },
     {
       "type": "category",
       "label": "Resources",
       "collapsible": true,
       "collapsed": true,
-      "items": ["dependencies/mongo","keploy-explained/faq","concepts/general-glossary"]
+      "items": [
+        "dependencies/mongo",
+        "keploy-explained/faq",
+        "concepts/general-glossary"
+      ]
     }
   ],
 
