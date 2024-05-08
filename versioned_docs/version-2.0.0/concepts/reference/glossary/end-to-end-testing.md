@@ -1,6 +1,6 @@
 ---
 id: end-to-end-testing
-title: End To End Testing
+title: Creating end to end tests with Keploy
 sidebar_label: End To End Testing
 description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
 tags:
@@ -19,7 +19,7 @@ E2E testing is typically performed by quality assurance (QA) teams, and are exec
 - **The application's security**: Is the application protected from unauthorized access or misuse?
 - **The application's usability**: Is the application easy to use?
 
-### Benefits of End to End Testing
+## Benefits of End to End Testing
 
 End-to-end testing is an important part of the software development process. It helps to ensure that applications are of high quality and meet the needs of their users.
 
@@ -32,7 +32,7 @@ Here are some of the benefits of end-to-end testing:
 - **Improved confidence in releases:** End-to-end testing can help to increase confidence in releases by providing assurance that applications are of high quality.
 - **Enhanced collaboration:** End-to-end testing can help to enhance collaboration between development teams by providing a common understanding of the application's requirements and functionality.
 
-### Challenges of End to End Testing ?
+## Challenges of End to End Testing ?
 
 - It can be time-consuming and expensive.
 - It can be difficult to automate E2E tests.
@@ -40,6 +40,22 @@ Here are some of the benefits of end-to-end testing:
 
 Despite the challenges, E2E testing is an important part of the software development lifecycle. By identifying and fixing bugs early, E2E testing can help to ensure that the application is released with a high level of quality.
 
-### Conclusion
+## Solution to the above challenges
 
-End-to-end testing is a valuable testing method that can help to improve the quality, reliability, and usability of software applications.
+Keploy generate E2E API tests with built-in-mocks or stubs by recording your application network calls making your testing process not only faster than unit tests but also incredibly efficient.
+
+<img src="https://keploy.io/docs/gif/record-tc.gif"/>
+
+### How Keploy works?
+
+Keploy acts a proxy in your application that captures and replays all network interaction served to application from any source. Once you start the application in record mode to capture API calls as test cases. Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a test-case.
+
+Let's assume you developed released version(v2) of your application. To test locally, start the Keploy in `test mode` to replay all recorded API calls/test-cases previously captured in record-mode.
+
+Now, when the application starts:
+
+- Keploy will run all the previously recorded test-cases/API calls with a 5 sec delay by default, which is configurable application build time of your application. You can also increase the delay time based on your application's startup time.
+- When the application will try to talk to any dependencies like DBs, Routers, vendor services, Keploy will intercept and provide the previously recorded dependency response.
+- Keploy will compare the API response to the previously captured response and a report will be generated on the Keploy console.
+
+Since you don't require to setup any test environment, Keploy can be used in any environment, be it local, staging, or production. Also, since the test cases are generated based on the real-time capturing of API calls from your application, they will be from real-world scenarios.
