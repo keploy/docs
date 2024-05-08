@@ -93,7 +93,8 @@
             "quickstart/samples-bunjs",
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
-            "quickstart/samples-node-jwt"
+            "quickstart/samples-node-jwt",
+            "quickstart/expressjs-mongodb"
           ]
         },
         {
@@ -101,7 +102,9 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-rust"]
+          "items": [
+            "quickstart/samples-rust"
+          ]
         },
         {
           "type": "category",
@@ -135,7 +138,6 @@
       ]
     }
   ],
-
   "sidebarContributionGuide": [
     {
       "type": "category",
