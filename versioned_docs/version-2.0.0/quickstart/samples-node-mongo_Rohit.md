@@ -35,29 +35,6 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 npm install
 ```
 
-## Installation 📥
-
-Depending on your OS, choose your adventure:
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
-
-## Using Docker Compose 🐳
-
-We will be using Docker compose to run the application as well as MongoDb on Docker container.
- 
-
-Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
-`-c`: Command to run the app (e.g., `docker compose up`).
-
-`--containerName`: The container name in the `docker-compose.yml` for traffic interception.
-
-```bash
-keploy record -c "docker compose up" --containerName "nodeMongoApp"
-```
-
-🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
-
 ### Let's generate the testcases.
 
 Make API Calls , Let's get started by setting up the Keploy with this command:
@@ -92,8 +69,7 @@ Room Booked Successfully
  
 we will get the output:
 
-![Testcase](./img/p1.jpg)
-
+ 
 🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`
 
 _Time to perform more API magic!_
@@ -140,8 +116,7 @@ sudo -E env PATH=$PATH keploy test -c "node src/app.js" --delay 10
 
 Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
-<img src="/docs/img/testrun-node-pass.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
-
+ 
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
