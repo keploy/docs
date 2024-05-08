@@ -27,6 +27,7 @@ Here are some examples of how to use some common flags:
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                             |
 | `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
+| `normailze`       | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                             |
 | `generate-config` | `-p, --path`                                                                                                                                                                                                                                                                                                      |
 
 ## [record](#record)
@@ -202,6 +203,38 @@ keploy test [flags]
 - `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/coverage/typescript.md),[JUnit](versioned_docs/version-2.0.0/server/coverage/java.md) and [Pytest](versioned_docs/version-2.0.0/server/coverage/python.md),
 
 - `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/coverage/go.md)
+
+## [normalize](#normalize)
+
+The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
+
+<b> Usage: </b>
+
+```bash
+keploy normalize [flags]
+```
+
+<b> Available flags: </b>
+
+- `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
+
+  ```bash
+  keploy normalize -p "./tests"
+  ```
+
+  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
+
+- `--test-run string` - by default normalization considers the latest test-run to change the response of the testcases but if user want to do it for a particular test-run this flag can be used.
+
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10"
+  ```
+
+- `--tests string` - by default normalization considers all the testcases for normalization but if user want to normalize only few particular testcases this flag can be used
+
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
+  ```
 
 ## [generate-config](#generate-config)
 
