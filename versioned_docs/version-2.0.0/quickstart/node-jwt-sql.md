@@ -43,8 +43,8 @@ npm install
 Depending on your OS, choose your adventure:
 There are 2 ways you can run this sample application.
 
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
-- [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
+- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -56,7 +56,7 @@ If you are using WSL on windows then use below to start wsl in the user's home d
 wsl ~
 ```
 
-## Let's start the Postgres Instance
+### Let's start the Postgres Instance
 
 ```zsh
 docker-compose up -d
