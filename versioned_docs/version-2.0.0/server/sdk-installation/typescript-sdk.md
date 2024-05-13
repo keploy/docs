@@ -46,44 +46,43 @@ Update the `package.json` file that runs the application:
   }
 ```
 
-## Usage
+## Using Keploy Docker
 
-For the code coverage for the keploy API tests using the `jest` integration, you need to add the following test to your Jest test file. It can be called as `keploy.test.js`.
-
-```javascript
-const {expect} = require("@jest/globals");
-const keploy = require("@keploy/sdk");
-const timeOut = 300000;
-
-describe(
-  "Keploy Server Tests",
-  () => {
-    test(
-      "TestKeploy",
-      (done) => {
-        const cmd = "npm start";
-        const options = {};
-        keploy.Test(cmd, options, (err, res) => {
-          if (err) {
-            done(err);
-          } else {
-            expect(res).toBeTruthy(); // Assert the test result
-            done();
-          }
-        });
-      },
-      timeOut
-    );
-  },
-  timeOut
-);
-```
-
-Now let's run jest tests along keploy using command: -
+Add the following lines to your `Dockerfile` to install the coverage library and to start the application with the coverage library.
 
 ```bash
-npm test
+RUN yarn install nyc
+CMD ["nyc","<command-to-run-your-application>"]
 ```
+
+You need to make sure that your present working directory on the host is mounted to the working directory in the docker container. In a docker compose file, it will look something like this:
+
+```bash
+    volumes:
+      - .:<working-directory-in-the-container>
+```
+
+To get the coverage of Keploy's API tests, you can run the command given below:
+
+```bash
+keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100s --delay 10
+```
+
+Now, to get the coverage of your unit tests, you need to update the run command in your Dockerfile to:
+
+```bash
+CMD ["npm", "test"]
+```
+
+To get the unit coverage you can either run it by using your normal docker run command, or to run it using Keploy, you can use the command below:
+
+```bash
+keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100s --delay 10
+```
+
+## Combine And Get Report
+
+Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report.
 
 To get Combined coverage with keploy test coverage: -
 
