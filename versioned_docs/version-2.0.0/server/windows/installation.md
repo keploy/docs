@@ -28,7 +28,7 @@ Keploy can be installed in two ways:
 ## One click install Keploy.
 
 ```shell
- curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+ curl --silent -O https://keploy.io/install.sh && source install.sh
 ```
 
 ## Manual Install
