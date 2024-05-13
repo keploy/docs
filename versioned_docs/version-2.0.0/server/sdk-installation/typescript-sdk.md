@@ -46,6 +46,21 @@ Update the `package.json` file that runs the application:
   }
 ```
 
+You can get the coverage with Keploy in 2 ways:
+
+1. [Using Keploy Binary](#Using-Keploy-Binary)
+2. [Using Keploy Docker](#Using-Keploy-Docker)
+
+## Using Keploy Binary
+
+To get the coverage of Keploy's API tests, you can run the command given below:
+
+```bash
+keploy test -c "<command-to-run-your-application>" --delay 10
+```
+
+To combine the coverages and get the reports, you can refer to [this](#combine-and-get-report) section.
+
 ## Using Keploy Docker
 
 Add the following lines to your `Dockerfile` to install the coverage library and to start the application with the coverage library.
