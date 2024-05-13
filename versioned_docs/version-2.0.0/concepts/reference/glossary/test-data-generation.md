@@ -1,6 +1,6 @@
 ---
 id: test-data-generation
-title: Generate Realistic Test Data with Keploy
+title: Generate Realistic TestData with Keploy
 sidebar_label: Test Data Generation
 description: Learn how to create Realistic testdata generation with Keploy.
 tags:
