@@ -5,6 +5,7 @@ sidebar_label: White Box Testing
 description: White box testing examines internal code structures for software integrity. Optimize performance, identify vulnerabilities, and ensure robust applications.
 tags:
   - explanation
+  - Glossary
 keywords:
   - API
   - white box testing tools
