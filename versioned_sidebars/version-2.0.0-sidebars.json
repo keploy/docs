@@ -93,8 +93,8 @@
             "quickstart/samples-bunjs",
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
-            "quickstart/samples-node-jwt"
-          ]
+            "quickstart/samples-node-jwt",
+            "quickstart/crud-nodejs"          ]
         },
         {
           "type": "category",
