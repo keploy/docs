@@ -4,7 +4,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 function Glossary() {
   const [state, setState] = useState(() => {
-    const alphabet = "ABCEFIMRSUW";
+    const alphabet = "ABCEFIMRSTUW";
     const initialState = {};
     for (let i = 0; i < alphabet.length; i++) {
       initialState[alphabet[i]] = true;
@@ -85,6 +85,10 @@ function Glossary() {
       {
         name: "Test Driven TDD",
         link: "/docs/concepts/reference/glossary/test-driven-development",
+      },
+      {
+        name: "Test Data Generation",
+        link: "/docs/concepts/reference/glossary/test-data-generation",
       },
     ],
     U: [
