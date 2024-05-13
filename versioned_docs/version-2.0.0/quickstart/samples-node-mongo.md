@@ -23,7 +23,7 @@ keyword:
 
 ## Intoduction 📌
 
-A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅. 
+A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅.
 
 ## Get Started! 🎬
 
