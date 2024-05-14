@@ -120,7 +120,8 @@
       "items": [
         "keploy-cloud/cloud-installation",
         "keploy-cloud/application-settings",
-        "keploy-cloud/time-freezing"
+        "keploy-cloud/time-freezing",
+        "keploy-cloud/deduplication"
       ]
     },
     {
