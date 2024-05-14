@@ -9,6 +9,8 @@ keywords:
   - API
 ---
 
+### What is Integration Testing ?
+
 Integration testing is a software testing process that combines individual software modules into larger subsystems or components to evaluate the interaction between them. It is typically performed after unit testing and before system testing. The goal of integration testing is to identify any defects that arise when different modules are combined and interact with each other.
 
 ### Types of Integration Testing

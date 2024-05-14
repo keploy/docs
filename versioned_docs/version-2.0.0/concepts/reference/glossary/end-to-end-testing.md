@@ -10,7 +10,9 @@ keywords:
   - API
 ---
 
-End-to-end testing (E2E testing) is a software testing technique that verifies the functionality and performance of an entire software application from start to finish. This means that E2E tests simulate real-world user scenarios and replicate live data. The goal of E2E testing is to identify bugs that arise when all components are integrated, ensuring that the application delivers the expected output as a unified entity.
+### What is end-to-end testing ?
+
+End-to-end testing or E2E testing is a software testing technique that verifies the functionality and performance of an entire software application from start to finish. This means that E2E tests simulate real-world user scenarios and replicate live data. The goal of E2E testing is to identify bugs that arise when all components are integrated, ensuring that the application delivers the expected output as a unified entity.
 
 E2E testing is typically performed by quality assurance (QA) teams, and are executed in dedicated test environments. This normally takes place after functional and system testing. End-to-end testing typically includes testing the following:
 
