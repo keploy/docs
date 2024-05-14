@@ -1,6 +1,6 @@
 ---
 id: white-box-testing
-title: What is white Box Testing ?
+title: What is White Box Testing ?
 sidebar_label: White Box Testing
 description: White box testing examines internal code structures for software integrity. Optimize performance, identify vulnerabilities, and ensure robust applications.
 tags:
@@ -14,7 +14,7 @@ keywords:
   - what is white box testing
 ---
 
-whitebox testing is a software testing technique that examines the internal structures of a program or application, such as the code, internal logic, and data flow. This test happens when the tester understands how the system works inside and utilizes that understanding to create and run test scenarios.
+Whitebox testing is a software testing technique that examines the internal structures of a program or application, such as the code, internal logic, and data flow. This test happens when the tester understands how the system works inside and utilizes that understanding to create and run test scenarios.
 
 The primary goal of whitebox testing is to verify that the software performs as expected, that all expected pathways and situations have been verified, and that the code has been thoroughly optimized for speed and efficiency.
 
