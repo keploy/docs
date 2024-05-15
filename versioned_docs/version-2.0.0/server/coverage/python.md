@@ -21,27 +21,10 @@ keyword:
 1. [Python 3 and above](https://www.python.org/downloads/)
 2. [coverage.py](https://coverage.readthedocs.io/en/7.4.1/install.html)
 
-To get the coverage for Keploy recorded testcases,
-
-Create a `.coveragerc` file to ignore the coverage of the libraries that is calculated. The contents of the file will be as follows:
-
-```sh
-[run]
-omit =
-    /usr/*
-sigterm = true
-```
-
-Before starting your application, make sure that the **debug mode is set to False** in your application, for the coverage library to work properly. It should look something like this:
-
-```python
-app.run(host=HOST, port=PORT, debug=False)
-```
-
-Now, run Keploy test with coverage flag enabled, also prepend `coverage run \$APPEND` in your application command:
+To get the coverage report, run Keploy test as usual with your application command:
 
 ```bash
-keploy test -c "coverage run \$APPEND --data-file=.coverage.keploy my_program.py arg1 arg2" --coverage
+keploy test -c "python my_program.py" --coverage
 ```
 
 After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports. Additionally, the raw coverage data would be dumped in .coverage.keploy file.
@@ -61,7 +44,7 @@ To combine the coverages and get the reports, you can refer to [this](#Combine-A
 To combine the coverage from the unit tests, and Keploy's API tests we can use the command below:
 
 ```bash
-python3 -m coverage combine
+coverage combine
 ```
 
 Make sure to run this command before starting a new test run to avoid getting multiple coverage files.
@@ -69,11 +52,11 @@ Make sure to run this command before starting a new test run to avoid getting mu
 Finally, to generate the coverage report for the test run, you can run:
 
 ```bash
-python3 -m coverage report
+coverage report
 ```
 
 and if you want the coverage in an html file, you can run:
 
 ```bash
-python3 -m coverage html
+coverage html
 ```

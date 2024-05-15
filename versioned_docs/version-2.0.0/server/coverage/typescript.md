@@ -22,7 +22,6 @@ keywords:
 ## Pre-requisites
 
 1. [nyc](https://www.npmjs.com/package/nyc)
-2. [cross-var](https://www.npmjs.com/package/cross-var)
 
 To generate coverage report for your node application, follow the below instructions.
 
@@ -34,7 +33,6 @@ Update the `package.json` file that runs the application:
   "scripts": {
     //other scripts
     "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
-    "E2ETests": "cross-var nyc --clean=$CLEAN npm run start",
     "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
     "coverage:report": "nyc report --reporter=lcov --reporter=text",
     //other scripts
@@ -45,10 +43,10 @@ In test script, --coverage flag would trigger the report generation for jest. Fo
 
 ## Usage
 
-To generate coverage report for keploy recorded testcases: -
+To generate coverage report for keploy recorded testcases, Run keploy test command as usual: 
 
 ```bash
-keploy test -c "npm run E2ETests"
+keploy test -c "npm run start"
 ```
 
 To generate coverage report for your unit tests: -

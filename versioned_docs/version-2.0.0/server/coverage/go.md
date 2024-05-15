@@ -18,12 +18,24 @@ keyword:
   - Go Test
 ---
 
-The percentage of code covered by the recorded tests is logged when the test command is run with the Go binary and the `coverage` flag. Additionally, a coverage report in YAML format will be generated and stored in keploy/reports/test-run-{id}. The conditions for the coverage is:
+The percentage of code covered by the recorded tests is logged when the test command is run with the Go binary. Additionally, a coverage report in YAML format will be generated and stored in keploy/reports/test-run-{id}. The conditions for the coverage is:
 
 1. The go binary should be built with `-cover` flag.
 2. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Or if not call the **GracefulShutdown** from the main function of your go program. Ex:
 
 ```go
+func GracefulShutdown() {
+	stopper := make(chan os.Signal, 1)
+	// listens for interrupt and SIGTERM signal
+	signal.Notify(stopper, os.Interrupt, os.Kill, syscall.SIGKILL, syscall.SIGTERM)
+	go func() {
+		select {
+		case <-stopper:
+			os.Exit(0)
+		}
+	}()
+}
+
 func main() {
 
 	port := "8080"
@@ -33,16 +45,16 @@ func main() {
 	r.GET("/:param", getURL)
 	r.POST("/url", putURL)
 	// should be called before starting the API server from main()
-	keploy.GracefulShutdown()
+	GracefulShutdown()
 
 	r.Run()
 }
 ```
 
-The keploy test cmd will look like:
+Run keploy test command as usual:
 
 ```sh
-keploy test -c "PATH_TO_GO_COVER_BINARY" --coverage
+keploy test -c "PATH_TO_GO_COVER_BINARY"
 ```
 
 By default, the raw coverage files would be dumped in `./coverage-reports` directory. Use the `coverageReportPath` flag to provide an alternative path.
