@@ -54,7 +54,7 @@ sudo service mongod start
 Let's get started by setting up the Keploy alias with this command:
 
 ```bash
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 You should see something like this:
