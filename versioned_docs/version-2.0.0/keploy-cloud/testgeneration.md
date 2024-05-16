@@ -24,4 +24,5 @@ To generate tests automatically, use the following command:
 ```bash
 keploy generate-tests -c "<appCmd>" -s "<schemaFilePath>"
 ```
+
 generate-tests supports all the flags related to the record command and -s is the flag which provides the schema file path to the test generation service.
