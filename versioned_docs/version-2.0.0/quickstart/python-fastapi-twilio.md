@@ -38,7 +38,7 @@ import InstallationGuide from '../concepts/installation.md'
 You can get your Twilio credentials by signing in to [Twilio Console](https://console.twilio.com/).
 Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
 
-## Clone the sample Student Data CRUD app 🧪
+## Clone the Sample App 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio

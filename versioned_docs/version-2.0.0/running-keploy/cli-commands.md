@@ -25,8 +25,9 @@ Here are some examples of how to use some common flags:
 
 | Mode              | Flags Available                                                                                                                                                                                                                                                                                                   |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                             |
+| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                          |
 | `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
+| `normailze`       | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                             |
 | `generate-config` | `-p, --path`                                                                                                                                                                                                                                                                                                      |
 
 ## [record](#record)
@@ -94,6 +95,12 @@ keploy record [flags]
 
   ```bash
   keploy record -c "node src/app.js" --debug
+  ```
+
+- `-r, --rerecord` - Record certain test-sets again
+
+  ```bash
+  keploy record -c "node src/app.js" --rerecord "test-set-0"
   ```
 
 ## [test](#test)
@@ -203,25 +210,63 @@ keploy test [flags]
 
 - `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/sdk-installation/go-sdk.md)
 
-## [generate-config](#generate-config)
+## [normalize](#normalize)
 
-The `generate-config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy-config.yaml`. The generated configuration file is created in the current working directory.
+The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
 
 <b> Usage: </b>
 
 ```bash
-keploy generate-config [flags]
+keploy normalize [flags]
 ```
 
 <b> Available flags: </b>
 
+- `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
+
+  ```bash
+  keploy normalize -p "./tests"
+  ```
+
+  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
+
+- `--test-run string` - by default normalization considers the latest test-run to change the response of the testcases but if user want to do it for a particular test-run this flag can be used.
+
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10"
+  ```
+
+- `--tests string` - by default normalization considers all the testcases for normalization but if user want to normalize only few particular testcases this flag can be used
+
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
+  ```
+
+## [generate-config](#generate-config)
+
+The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
+
+<b> Usage: </b>
+
+```bash
+keploy config [flags]
+```
+
+<b> Available flags: </b>
+
+- `--generate` - Generate a new keploy configration file.
+
+  ```bash
+  keploy config --generate
+  ```
+
 - `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
 
   ```bash
-  keploy generate-config -p "./config-dir/"
+  keploy config --generate --path "./config-dir/"
   ```
 
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy-config.yaml` is to be stored.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
 
 ## [example](#example)
 

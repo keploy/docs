@@ -18,7 +18,7 @@ keyword:
 ## Pre-requisites
 
 1. [Python 3 and above](https://www.python.org/downloads/)
-2. [Pytest](https://pypi.org/project/pytest/)
+2. [PyTest](https://pypi.org/project/pytest/)
 3. [Keploy](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
 
 You can get the coverage with Keploy in 2 ways:
@@ -31,20 +31,25 @@ You can get the coverage with Keploy in 2 ways:
 First you need to install Keploy's Python SDK:
 
 ```bash
-pip install keploy
+pip install keploy pytest
 ```
 
 Next, create a test file for running Keploy's API tests. You can name the file `test_keploy.py`, and the contents of the file will be as follows:
 
-```python3
-from keploy import run
+```python
+from keploy import run, RunOptions
+
 def test_keploy():
-    run("python3 -m coverage run --data-file=.coverage_data.keploy <command-to-run-your-application>")
+    try:
+        options = RunOptions(delay=15, debug=False, port=0)
+    except ValueError as e:
+        print(e)
+    run("python3 -m coverage run -p --data-file=.coverage.keploy <command-to-run-your-application>", options)
 ```
 
-We also need a `.coveragerc` file to ignore the coverage of the libraries that is calculated. The contents of the file will be as follows:
+We also need to create a `.coveragerc` file to ignore the coverage of the libraries that is calculated. The contents of the file will be as follows:
 
-```bash
+```sh
 [run]
 omit =
     /usr/*
@@ -53,19 +58,19 @@ sigterm = true
 
 Before starting your application, make sure that the **debug mode is set to False** in your application, for the coverage library to work properly. It should look something like this:
 
-```python3
+```python
 app.run(host=HOST, port=PORT, debug=False)
 ```
 
 Now to run your unit tests with Keploy, you can run the command given below:
 
-```bash
-keploy test -c "python3 -m coverage run -p --data-file=.coverage.unit -m pytest test_keploy.py <your-unit-test-file>" --delay 10 --coverage
+```python
+python3 -m coverage run -p --data-file=.coverage.unit -m pytest -s test_keploy.py <your-unit-test-file>
 ```
 
 > Note: If you face any problems with running the coverage library, you can refer to the documentation for the same [here](https://coverage.readthedocs.io/en/7.4.2/cmd.html#execution-coverage-run)
 
-To combine the coverages and get the reports, you can refer to [this](#Combine-And-Get-Report) section.
+To combine the coverages and get the reports, you can refer to [this](#combine-and-get-report) section.
 
 Hooray🎉! You've sucessfully got the coverage of your Keploy recorded api tests and unit tests using Pytest.
 
@@ -73,7 +78,7 @@ Hooray🎉! You've sucessfully got the coverage of your Keploy recorded api test
 
 Add the following lines to your `Dockerfile` to install the coverage library and to start the application with the coverage library.
 
-```Dockerfile
+```bash
 RUN pip3 install coverage
 CMD ["python3", "-m", "coverage", "run",  "-p", "--data-file=./.coverage.unit", "<command-to-run-your-application>"]
 ```
@@ -103,7 +108,7 @@ keploy test -c "<command-to-run-your-docker-application>" --containerName=<conta
 
 Now, to get the coverage of your unit tests, you need to update the run command in your Dockerfile to:
 
-```Dockerfile
+```bash
 CMD ["python3", "-m", "coverage", "run",  "-p", "--data-file=./.coverage.unit", "-m", "pytest", "test_app.py"]
 ```
 
@@ -113,7 +118,7 @@ To get the unit coverage you can either run it by using your normal docker run c
 keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100s --delay 10
 ```
 
-Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report from [here](#Combine-And-Get-Report)
+Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report from [here](#combine-and-get-report)
 
 ## Combine And Get Report
 

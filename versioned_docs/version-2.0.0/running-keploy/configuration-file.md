@@ -17,66 +17,99 @@ Introducing **Keploy-config** 🎉 - It is a YAML-based file that will allow you
 
 ## Getting Started:
 
+We will be using a sample app to demonstrate working of Keploy configuration file.
+
 To generate a keploy-config file, run:
 
 ```bash
-keploy generate-config --path "/path/to/your/project"
+keploy config --generate --path "./config-dir/"
 ```
 
-After successful execution of the command, a default initialized config file named as `keploy-config.yaml` has been created with the content as shown below:
+For demonstration purposes, we are using the [root directory of the echo-sql application](https://github.com/keploy/samples-go/tree/main/echo-sql). We can place it wherever we want to inside the project.
+
+After successful execution of the command, a default initialized config file named as `keploy.yaml` has been created with the content as shown below:
 
 ```yaml
-record:
-  path: ""
-  # mandatory
-  command: ""
-  proxyport: 0
-  containerName: ""
-  networkName: ""
-  delay: 5
-  buildDelay: 30s
-  tests:
-    filters:
-      - path: ""
-        urlMethods: []
-        headers: {}
-        host: ""
-  stubs:
-    filters:
-      - path: ""
-        host: ""
-        port: 0
+path: ""
+command: "./echo-psql-url-shortener"
+port: 0
+proxyPort: 16789
+dnsPort: 26789
+debug: false
+disableTele: false
+inDocker: false
+generateGithubActions: true
+containerName: ""
+networkName: ""
+buildDelay: 30s
 test:
-  path: ""
-  # mandatory
-  command: ""
-  proxyport: 0
-  containerName: ""
-  networkName: ""
-  # example: "test-set-1": ["test-1", "test-2", "test-3"]
-  selectedTests:
-  # to use globalNoise, please follow the guide at the end of this file.
+  selectedTests: {}
   globalNoise:
-    global:
-      body: {}
-      header: {}
+    global: {}
+    test-sets: {}
   delay: 5
-  buildDelay: 30s
-  ignoreOrdering: true
   apiTimeout: 5
-  tests:
-    filters:
-      - path: ""
-        urlMethods: []
-        headers: {}
-        host: ""
-  stubs:
-    filters:
-      - path: ""
-        host: ""
-        port: 0
-  withCoverage: false
+  coverage: false
+  goCoverage: false
   coverageReportPath: ""
+  ignoreOrdering: true
+  mongoPassword: "default@123"
+  language: ""
+  removeUnusedMocks: false
+record:
+  recordTimer: 0s
+  filters: []
+configPath: ""
+bypassRules: []
+cmdType: "native"
+enableTesting: false
+keployContainer: "keploy-v2"
+keployNetwork: "keploy-network"
+# Example on using tests
+#tests:
+#  filters:
+#   - path: "/user/app"
+#     urlMethods: ["GET"]
+#     headers: {
+#       "^asdf*": "^test"
+#     }
+#     host: "dc.services.visualstudio.com"
+#Example on using stubs
+#stubs:
+#  filters:
+#   - path: "/user/app"
+#     port: 8080
+#   - port: 8081
+#   - host: "dc.services.visualstudio.com"
+#   - port: 8081
+#     host: "dc.services.visualstudio.com"
+#     path: "/user/app"
+#
+#Example on using globalNoise
+#globalNoise:
+#   global:
+#     body: {
+#        # to ignore some values for a field,
+#        # pass regex patterns to the corresponding array value
+#        "url": ["https?://\S+", "http://\S+"],
+#     }
+#     header: {
+#        # to ignore the entire field, pass an empty array
+#        "Date": [],
+#      }
+#    # to ignore fields or the corresponding values for a specific test-set,
+#    # pass the test-set-name as a key to the "test-sets" object and
+#    # populate the corresponding "body" and "header" objects
+#    test-sets:
+#      test-set-1:
+#        body: {
+#          # ignore all the values for the "url" field
+#          "url": []
+#        }
+#        header: {
+#          # we can also pass the exact value to ignore for a field
+#          "User-Agent": ["PostmanRuntime/7.34.0"]
+#        }
 ```
 
 ## Using the Config File
@@ -196,8 +229,6 @@ The `test` section in the Keploy-config file allows you to define parameters for
   ```yaml
   coverageReportPath: "/path/to/coverage/report"
   ```
-
-### Tests Configuration
 
 The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
 
