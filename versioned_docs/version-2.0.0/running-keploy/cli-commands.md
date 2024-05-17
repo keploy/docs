@@ -25,7 +25,7 @@ Here are some examples of how to use some common flags:
 
 | Mode              | Flags Available                                                                                                                                                                                                                                                                                                   |
 | ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                             |
+| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                          |
 | `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
 | `normailze`       | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                             |
 | `generate-config` | `-p, --path`                                                                                                                                                                                                                                                                                                      |
@@ -95,6 +95,12 @@ keploy record [flags]
 
   ```bash
   keploy record -c "node src/app.js" --debug
+  ```
+
+- `-r, --rerecord` - Record certain test-sets again
+
+  ```bash
+  keploy record -c "node src/app.js" --rerecord "test-set-0"
   ```
 
 ## [test](#test)
