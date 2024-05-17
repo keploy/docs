@@ -36,6 +36,6 @@ Voila! Keploy will now detect duplicate tests .
 
 You can simply remove duplicate tests with :
 
-````bash
+```bash
 keploy dedup --rm
-````
+```
