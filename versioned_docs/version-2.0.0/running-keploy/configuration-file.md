@@ -148,6 +148,22 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
+- **`filters`**: API calls to the application to avoid recording.
+
+  Example:
+
+    ```yaml
+    record:
+      filters:
+      - path: "/user/app"
+        urlMethods: ["GET"]
+        headers: {
+          "^asdf*": "^test"
+        }
+        host: "dc.services.visualstudio.com"    
+    ```
+  This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
+
 - **`tests`**: Filters to record Tests.
 
   Example:
@@ -260,27 +276,24 @@ The tests section enables you to specify conditions for recording tests during A
 
 You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
 
-### Stubs Section
+### Bypass Rules Section
 
-The stubs section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
-
-- **`filters`**: Filters to define stubs for specific paths, ports, and hosts.
+The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
   Example:
 
   ```yaml
-  stubs:
-    filters:
-      - path: "/user/app"
-        port: 8080
-      - port: 8081
-      - host: "dc.services.visualstudio.com"
-      - port: 8081
-        host: "dc.services.visualstudio.com"
-        path: "/user/app"
+  bypassRules:
+    - path: "/user/app"
+      port: 8080
+    - port: 8081
+    - host: "dc.services.visualstudio.com"
+    - port: 8081
+      host: "dc.services.visualstudio.com"
+      path: "/user/app"
   ```
 
-  The stubs section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+  The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
 
   - **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
 
@@ -290,9 +303,9 @@ The stubs section in the Keploy-config file allows you to define parameters for 
 
   In the provided example:
 
-  - The first stub applies to the path "/user/app" and the port 8080.
-  - The second stub applies to the port 8081.
-  - The third stub applies to the host "dc.services.visual
+  - The first bypass rule applies to the path "/user/app" and the port 8080.
+  - The second bypass rule applies to the port 8081.
+  - The third bypass rule applies to the host "dc.services.visual
 
 ## Advanced Noise Filtering:
 
