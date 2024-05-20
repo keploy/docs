@@ -11,7 +11,7 @@ tags:
   - tutorial
 keyword:
   - NodeJS Framework
-  - MongoDB
+  - Postgres
   - NodeJS
   - API Test generator
   - Auto Testcase generation
@@ -201,7 +201,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Using Docker Compose 🐳
 
-We will be using Docker compose to run the application as well as MongoDb on Docker container.
+We will be using Docker compose to run the application as well as Postgres on Docker container.
 
 Since we have setup our sample-app using docker, we need to update the postgres host on line 2, in `config/db.config.js`, from `localhost` to `postgres`.
 
