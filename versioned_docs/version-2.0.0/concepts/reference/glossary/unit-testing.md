@@ -43,7 +43,7 @@ Unit tests can be written in a variety of programming languages. Some popular un
 
 ### Automated Test Case Generation
 
-Keploy  automated test case generation through its innovative features like Record and Replay. With it, developers can easily record interactions with their software application and replay them to automatically generate test cases. This streamlines the process of creating unit tests, saving time and effort for developers.
+Keploy automated test case generation through its innovative features like Record and Replay. With it, developers can easily record interactions with their software application and replay them to automatically generate test cases. This streamlines the process of creating unit tests, saving time and effort for developers.
 
 ### Dynamic Test Case Generation
 
