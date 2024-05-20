@@ -2,7 +2,7 @@
 id: mocks
 title: How to perform Data Mocking using AI
 sidebar_label: Mocks
-description: Mocks or Data mocks are fake data that is used to simulate real data in a controlled environment. 
+description: Mocks or Data mocks are fake data that is used to simulate real data in a controlled environment.
 tags:
   - explanation
   - Glossary
