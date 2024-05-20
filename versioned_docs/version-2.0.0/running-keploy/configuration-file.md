@@ -109,16 +109,15 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
   Example:
 
-    ```yaml
-    record:
-      filters:
+  ```yaml
+  record:
+    filters:
       - path: "/user/app"
         urlMethods: ["GET"]
-        headers: {
-          "^asdf*": "^test"
-        }
-        host: "dc.services.visualstudio.com"    
-    ```
+        headers: {"^asdf*": "^test"}
+        host: "dc.services.visualstudio.com"
+  ```
+
   This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
 
 - **`tests`**: Filters to record Tests.
@@ -237,32 +236,32 @@ You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filt
 
 The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
-  Example:
+Example:
 
-  ```yaml
-  bypassRules:
-    - path: "/user/app"
-      port: 8080
-    - port: 8081
-    - host: "dc.services.visualstudio.com"
-    - port: 8081
-      host: "dc.services.visualstudio.com"
-      path: "/user/app"
-  ```
+```yaml
+bypassRules:
+  - path: "/user/app"
+    port: 8080
+  - port: 8081
+  - host: "dc.services.visualstudio.com"
+  - port: 8081
+    host: "dc.services.visualstudio.com"
+    path: "/user/app"
+```
 
-  The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
 
-  - **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
+- **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
 
-  - **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
+- **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
 
-  - **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
+- **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
 
-  In the provided example:
+In the provided example:
 
-  - The first bypass rule applies to the path "/user/app" and the port 8080.
-  - The second bypass rule applies to the port 8081.
-  - The third bypass rule applies to the host "dc.services.visual
+- The first bypass rule applies to the path "/user/app" and the port 8080.
+- The second bypass rule applies to the port 8081.
+- The third bypass rule applies to the host "dc.services.visual
 
 ## Advanced Noise Filtering:
 
