@@ -4,7 +4,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 function Glossary() {
   const [state, setState] = useState(() => {
-    const alphabet = "ABCEFIMRSTUW";
+    const alphabet = "ABCEFGIMRSTUW";
     const initialState = {};
     for (let i = 0; i < alphabet.length; i++) {
       initialState[alphabet[i]] = true;
@@ -52,6 +52,12 @@ function Glossary() {
       {
         name: "Functional Testing",
         link: "/docs/concepts/reference/glossary/functional-testing",
+      },
+    ],
+    G: [
+      {
+        name: "Grey Box Testing",
+        link: "/docs/concepts/reference/glossary/grey-box-testing",
       },
     ],
     I: [
