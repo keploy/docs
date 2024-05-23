@@ -65,51 +65,7 @@ cmdType: "native"
 enableTesting: false
 keployContainer: "keploy-v2"
 keployNetwork: "keploy-network"
-# Example on using tests
-#tests:
-#  filters:
-#   - path: "/user/app"
-#     urlMethods: ["GET"]
-#     headers: {
-#       "^asdf*": "^test"
-#     }
-#     host: "dc.services.visualstudio.com"
-#Example on using stubs
-#stubs:
-#  filters:
-#   - path: "/user/app"
-#     port: 8080
-#   - port: 8081
-#   - host: "dc.services.visualstudio.com"
-#   - port: 8081
-#     host: "dc.services.visualstudio.com"
-#     path: "/user/app"
-#
-#Example on using globalNoise
-#globalNoise:
-#   global:
-#     body: {
-#        # to ignore some values for a field,
-#        # pass regex patterns to the corresponding array value
-#        "url": ["https?://\S+", "http://\S+"],
-#     }
-#     header: {
-#        # to ignore the entire field, pass an empty array
-#        "Date": [],
-#      }
-#    # to ignore fields or the corresponding values for a specific test-set,
-#    # pass the test-set-name as a key to the "test-sets" object and
-#    # populate the corresponding "body" and "header" objects
-#    test-sets:
-#      test-set-1:
-#        body: {
-#          # ignore all the values for the "url" field
-#          "url": []
-#        }
-#        header: {
-#          # we can also pass the exact value to ignore for a field
-#          "User-Agent": ["PostmanRuntime/7.34.0"]
-#        }
+# Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
 ```
 
 ## Using the Config File
@@ -152,16 +108,15 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
   Example:
 
-    ```yaml
-    record:
-      filters:
+  ```yaml
+  record:
+    filters:
       - path: "/user/app"
         urlMethods: ["GET"]
-        headers: {
-          "^asdf*": "^test"
-        }
-        host: "dc.services.visualstudio.com"    
-    ```
+        headers: {"^asdf*": "^test"}
+        host: "dc.services.visualstudio.com"
+  ```
+
   This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
 
 - **`tests`**: Filters to record Tests.
@@ -170,19 +125,19 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
   ```yaml
   tests:
-  filters:
-    - path: ""
-      urlMethods: []
-      headers: {}
-      host: ""
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
   ```
 
-- **`stubs`**: A bypass for mocking API calls.
+- **`bypassRules`**: A bypass for mocking API calls.
 
   Example:
 
   ```yaml
-  stubs:
+  bypassRules:
     filters:
       - path: ""
         host: ""
@@ -228,10 +183,10 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
 
-- **`stubs`**: A bypass for mocking API calls.
+- **` bypassRules`**: A bypass for mocking API calls.
 
-  ```
-  stubs:
+  ```yaml
+  bypassRules:
   filters:
     - path: ""
       host: ""
@@ -280,32 +235,32 @@ You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filt
 
 The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
-  Example:
+Example:
 
-  ```yaml
-  bypassRules:
-    - path: "/user/app"
-      port: 8080
-    - port: 8081
-    - host: "dc.services.visualstudio.com"
-    - port: 8081
-      host: "dc.services.visualstudio.com"
-      path: "/user/app"
-  ```
+```yaml
+bypassRules:
+  - path: "/user/app"
+    port: 8080
+  - port: 8081
+  - host: "dc.services.visualstudio.com"
+  - port: 8081
+    host: "dc.services.visualstudio.com"
+    path: "/user/app"
+```
 
-  The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
 
-  - **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
+- **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
 
-  - **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
+- **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
 
-  - **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
+- **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
 
-  In the provided example:
+In the provided example:
 
-  - The first bypass rule applies to the path "/user/app" and the port 8080.
-  - The second bypass rule applies to the port 8081.
-  - The third bypass rule applies to the host "dc.services.visual
+- The first bypass rule applies to the path "/user/app" and the port 8080.
+- The second bypass rule applies to the port 8081.
+- The third bypass rule applies to the host "dc.services.visual
 
 ## Advanced Noise Filtering:
 
@@ -317,19 +272,18 @@ The `global subsection` of `globalNoise` is used to define parameters that are g
 
 ```yml
 globalNoise:
-  global:
-    body:
-      # To ignore some values for a field, pass regex patterns to the corresponding array value
-      "url": ["https?://\S+", "http://\S+"]
-    header:
-      # To ignore the entire field, pass an empty array
-      "Date": []
-  test-sets:
+  global: {body: {
+          # To ignore some values for a field, pass regex patterns to the corresponding array value
+          "url": ['https?://\S+', 'http://\S+'],
+        }, header: {
+          # To ignore the entire field, pass an empty array
+          "Date": [],
+        }}
 ```
 
 1. **`global`**:
 
-- **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ["https?://\S+", "http://\S+"]}`
+- **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ['https?://\S+', 'http://\S+']}`
 - **`header`**: Specifies headers or header values to be ignored globally. Example: `{"Date": []}`
 
 2. **`test-sets`**: This section is left empty in the example. It allows you to specify additional noise parameters for specific test sets, offering tailored noise filtering for different testing scenarios.
@@ -339,27 +293,27 @@ globalNoise:
 Under the `test-sets` subsection of `globalNoise`, you can define noise parameters specific to a particular test set. This ensures that certain noise is only ignored for the API calls associated with that specific test set.
 
 ```yml
-test-set-1:
-  body:
-    # Ignore all the values for the "url" field
-    "uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]
-  header:
-    # Pass the exact value to ignore for a field
-    "User-Agent": ["PostmanRuntime/7.34.0"]
+test-sets: {test-set-1: {body: {
+            # ignore all the values for the "uuid" field
+            "uuid": [],
+          }, header: {
+            # we can also pass the exact value to ignore for a field
+            "User-Agent": ["PostmanRuntime/7.34.0"],
+          }}}
 ```
 
 **`test-set-1`**:
 
-- **`body`**: Defines patterns to ignore for the response body within the specified test set. Example: `{"uuid": ["b464d6df-d28b-4d12-8af1-0e2d61289578"]}`
+- **`body`**: Defines patterns to ignore for the response body within the specified test set.
 - **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
 
-#### **Note**:
+### **Note**:
 
 The `globalNoise` and `test-sets` are optional fields in the config file. If not specified, the default value for both fields is an empty object `{}`. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
 
-# Conclusion
+## Conclusion
 
-Congratulations! You've now explored the features and configuration options provided by Keploy-config.
+Congratulations! You've now explored the features and configuration options provided by `Keploy-config`.
 
 Now armed with Keploy-config, you are ready to embark on a more organized and productive journey of recording and testing APIs with Keploy. Feel free to explore additional features, customize configurations, and refer to the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) for more details on available flags and parameters.
 
