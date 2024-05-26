@@ -1,6 +1,6 @@
 ---
 id: samples-flask
-title: Sample Student Data CRUD App (Flask)
+title: Sample Task Creation CRUD App (Flask)
 sidebar_label: Flask + Mongo
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
 tags:
@@ -66,126 +66,31 @@ Let's make URLs short and sweet:
 
 To generate testcases we just need to **make some API calls.**
 
-**1. Make a POST request**
+1. **Make a POST request:**
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
 ```
 
-**2. Make a GET request**
+2. **Make a GET request:**
 
 ```bash
-curl http://localhost:6000/students
+curl http://localhost:5000/api/tasks
 ```
 
-**3. Make a PUT request**
+3. **Make a PUT request:**
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
 ```
 
-**4. Make a GET request**
+4. **Make a DELETE request:**
 
 ```bash
-curl http://localhost:6000/students/12345
+curl -X DELETE http://localhost:5000/api/tasks/12345
 ```
 
-**5. Make a DELETE request**
-
-```bash
-curl -X DELETE http://localhost:6000/students/12345
-```
-
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
-
-```yaml
-version: api.keploy.io/v1beta2
-kind: Http
-name: test-1
-spec:
-  metadata: {}
-  req:
-    method: POST
-    proto_major: 1
-    proto_minor: 1
-    url: http://localhost:6000/students
-    header:
-      Accept: "*/*"
-      Content-Length: "56"
-      Content-Type: application/json
-      Host: localhost:6000
-      User-Agent: curl/7.81.0
-    body: '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-    body_type: ""
-    timestamp: 2023-11-13T13:02:32.241333562Z
-  resp:
-    status_code: 200
-    header:
-      Content-Length: "48"
-      Content-Type: application/json
-      Date: Mon, 13 Nov 2023 13:02:32 GMT
-      Server: Werkzeug/2.2.2 Python/3.9.18
-    body: |
-      {
-        "message": "Student created successfully"
-      }
-    body_type: ""
-    status_message: ""
-    proto_major: 0
-    proto_minor: 0
-    timestamp: 2023-11-13T13:02:34.752123715Z
-  objects: []
-  assertions:
-    noise:
-      - header.Date
-  created: 1699880554
-curl: |-
-  curl --request POST \
-    --url http://localhost:6000/students \
-    --header 'Host: localhost:6000' \
-    --header 'User-Agent: curl/7.81.0' \
-    --header 'Accept: */*' \
-    --header 'Content-Type: application/json' \
-    --data '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-```
-
-This is how `mocks.yml` generated would look like:-
-
-```yaml
-version: api.keploy.io/v1beta2
-kind: Mongo
-name: mocks
-spec:
-  metadata:
-    operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }], checksum: 0 }'
-  requests:
-    - header:
-        length: 187
-        requestId: 2127584089
-        responseTo: 0
-        Opcode: 2013
-      message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }'
-        checksum: 0
-      read_delay: 3469848802
-  responses:
-    - header:
-        length: 166
-        requestId: 154
-        responseTo: 2127584089
-        Opcode: 2013
-      message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"cursor":{"firstBatch":[{"student_id":"12345","name":"John Doe","age":{"$numberInt":"20"}}],"id":{"$numberLong":"0"},"ns":"studentsdb.students"},"ok":{"$numberDouble":"1.0"}} }'
-        checksum: 0
-      read_delay: 869555
-  created: 1699880576
-  reqTimestampMock: 2023-11-13T13:02:56.385067848Z
-  resTimestampMock: 2023-11-13T13:02:56.386374941Z
-```
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
 Want to see if everything works as expected?
 
@@ -201,179 +106,135 @@ keploy test -c "docker compose up" --containerName "flask-app" --buildDelay 50 -
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
-### Wrapping it up 🎉
-
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-Happy coding! ✨👩‍💻👨‍💻✨
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
-
 ## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
-### 📼 Roll the Tape - Recording Time!
-
-In `app.py`, replace the MongoDB connection URL with - `mongodb://0.0.0.0:27017/`
-
-Install the required Python packages:
+## Install all dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Ready, set, record! Here's how:
+## Start the MongoDB server
+
+```bash
+sudo service mongod start
+```
+
+## Setup Keploy
+
+Let's get started by setting up the Keploy alias with this command:
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+You should see something like this:
+
+```bash
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+
+Keploy CLI
+
+Available Commands:
+  example         Example to record and test via keploy
+  generate-config generate the keploy configuration file
+  record          record the keploy testcases from the API calls
+  test            run the recorded testcases and execute assertions
+  update          Update Keploy
+
+Flags:
+      --debug     Run in debug mode
+  -h, --help      help for keploy
+  -v, --version   version for keploy
+
+Use "keploy [command] --help" for more information about a command.
+```
+
+## Lights, Camera, Record! 🎥
+
+To initiate the recording of API calls, execute this command in your terminal:
 
 ```bash
 keploy record -c "python3 app.py"
 ```
 
-Keep an eye out for the `-c `flag! It's the command charm to run the app.
+Now, your app will start running, and you have to make some API calls to generate the test cases!!
 
-Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
-
-### Generate testcases
-
-To generate testcases we just need to **make some API calls.**
-
-**1. Make a POST request**
+1. **Make a POST request:**
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
 ```
 
-**2. Make a GET request**
+2. **Make a GET request:**
 
 ```bash
-curl http://localhost:6000/students
+curl http://localhost:5000/api/tasks
 ```
 
-**3. Make a PUT request**
+3. **Make a PUT request:**
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
 ```
 
-**4. Make a GET request**
+4. **Make a DELETE request:**
 
 ```bash
-curl http://localhost:6000/students/12345
+curl -X DELETE http://localhost:5000/api/tasks/12345
 ```
 
-**5. Make a DELETE request**
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
+
+## Run the tests
+
+Now, it's time to put things to the test 🧪
 
 ```bash
-curl -X DELETE http://localhost:6000/students/12345
-```
-
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
-
-```yaml
-version: api.keploy.io/v1beta2
-kind: Http
-name: test-1
-spec:
-  metadata: {}
-  req:
-    method: POST
-    proto_major: 1
-    proto_minor: 1
-    url: http://localhost:6000/students
-    header:
-      Accept: "*/*"
-      Content-Length: "56"
-      Content-Type: application/json
-      Host: localhost:6000
-      User-Agent: curl/7.81.0
-    body: '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-    body_type: ""
-    timestamp: 2023-11-13T13:02:32.241333562Z
-  resp:
-    status_code: 200
-    header:
-      Content-Length: "48"
-      Content-Type: application/json
-      Date: Mon, 13 Nov 2023 13:02:32 GMT
-      Server: Werkzeug/2.2.2 Python/3.9.18
-    body: |
-      {
-        "message": "Student created successfully"
-      }
-    body_type: ""
-    status_message: ""
-    proto_major: 0
-    proto_minor: 0
-    timestamp: 2023-11-13T13:02:34.752123715Z
-  objects: []
-  assertions:
-    noise:
-      - header.Date
-  created: 1699880554
-curl: |-
-  curl --request POST \
-    --url http://localhost:6000/students \
-    --header 'Host: localhost:6000' \
-    --header 'User-Agent: curl/7.81.0' \
-    --header 'Accept: */*' \
-    --header 'Content-Type: application/json' \
-    --data '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-```
-
-This is how `mocks.yml` generated would look like:-
-
-```yaml
-version: api.keploy.io/v1beta2
-kind: Mongo
-name: mocks
-spec:
-  metadata:
-    operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }], checksum: 0 }'
-  requests:
-    - header:
-        length: 187
-        requestId: 2127584089
-        responseTo: 0
-        Opcode: 2013
-      message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }'
-        checksum: 0
-      read_delay: 3469848802
-  responses:
-    - header:
-        length: 166
-        requestId: 154
-        responseTo: 2127584089
-        Opcode: 2013
-      message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"cursor":{"firstBatch":[{"student_id":"12345","name":"John Doe","age":{"$numberInt":"20"}}],"id":{"$numberLong":"0"},"ns":"studentsdb.students"},"ok":{"$numberDouble":"1.0"}} }'
-        checksum: 0
-      read_delay: 869555
-  created: 1699880576
-  reqTimestampMock: 2023-11-13T13:02:56.385067848Z
-  resTimestampMock: 2023-11-13T13:02:56.386374941Z
-```
-
-Want to see if everything works as expected?
-
-### Run Tests
-
-Time to put things to the test 🧪
-
-```shell
 keploy test -c "python3 app.py" --delay 10
 ```
 
-> The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
+Now, you can also try different API calls, tweak the DB response in the mocks.yml, or fiddle with the request or response in test-x.yml. Run the tests again and see the magic unfold!
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+## Check Test Coverage
 
-### Wrapping it up 🎉
+We have a `test-app.py` where all the unit test cases has been written. Now using Keploy, we can check it's code coverage!!
+Now to run your unit tests with Keploy, you can run the command given below:
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+```bash
+python3 -m coverage run -p --data-file=.coverage.unit -m pytest -s test_keploy.py test_app.py
+```
+
+To combine the coverage from the unit tests, and Keploy's API tests we can use the command below:
+
+```bash
+python3 -m coverage combine
+```
+
+Finally, to generate the coverage report for the test run, you can run:
+
+```bash
+python3 -m coverage report
+```
+
+and if you want the coverage in an html file, you can run:
+
+```bash
+python3 -m coverage html
+```
+
+## Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
