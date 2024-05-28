@@ -23,8 +23,8 @@ keyword:
 
 You can get the coverage with Keploy in 2 ways:
 
-1. [Using Keploy Binary](#Using-Keploy-Binary)
-2. [Using Keploy Docker](#Using-Keploy-Docker)
+1. [Using Keploy Binary](#using-keploy-binary)
+2. [Using Keploy Docker](#using-keploy-docker)
 
 ## Using Keploy Binary
 
