@@ -58,7 +58,7 @@ Fire up the application and Postgres instance with Keploy. Keep an eye on the tw
 #### Capture the TestCase
 
 ```bash
-keploy record -c "docker compose up" --containerName "muxSqlApp"
+keploy record -c "docker compose up" --containerName "muxSqlApp" --buildDelay 50
 ```
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -195,7 +195,7 @@ Spotted the new test and mock files in your project? High five! 🙌
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --containerName "muxSqlApp" --delay 10
+keploy test -c "docker compose up" --containerName "muxSqlApp" --buildDelay 50 --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

@@ -27,6 +27,8 @@ keyword:
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
+import Link from '@docusaurus/Link'
+
 import InstallationGuide from '../concepts/installation.md'
 
 <InstallationGuide/>
@@ -59,10 +61,10 @@ cd samples-java/spring-petclinic/spring-petclinic-rest
 
 You can start the backend using Keploy in 2 ways:
 
-- [Using Keploy's binary](#binary-guide)
-- [Using Keploy's docker image](#docker-guide)
+- [Using Keploy's binary](#instructions-for-starting-using-binary)
+- [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
-# Instructions For Starting Using Binary <a name="binary-guide"></a>
+# Instructions For Starting Using Binary
 
 Prerequisites For Binary:
 
@@ -116,7 +118,7 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 
 Next we move on to the instructions to start the application using docker.
 
-# Instructions For Starting Using Docker <a name="docker-guide"></a>
+# Instructions For Starting Using Docker
 
 Prerequisites For Docker:
 

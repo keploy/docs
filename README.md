@@ -14,15 +14,20 @@ Repository for the Keploy documentation website.
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
-<img src="https://img.shields.io/github/contributors/keploy/docs.svg" /><a>
+<img src="https://img.shields.io/github/contributors/keploy/docs.svg" />
+</a>
 <a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
-<img src="https://img.shields.io/github/issues/keploy/docs" /></a>
+<img src="https://img.shields.io/github/issues/keploy/docs" />
+</a>
 <a href="https://keploy.slack.com/" alt="Slack">
-<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" /></a>
+<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
+</a>
 <a href="https://twitter.com/Keployio" alt="Twitter Follow">
-<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" /></a>
+<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" />
+</a>
 <a href="https://github.com/keploy/docs" alt="License">
-<img src="https://img.shields.io/github/license/keploy/docs.svg" /></a>
+<img src="https://img.shields.io/github/license/keploy/docs.svg" />
+</a>
 </p>
 
 [Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
@@ -75,7 +80,7 @@ The command starts a local development server and opens a browser window.
 
 <br/>
 
-2. Clone the repository with the following command. Replace the <GITHUB_USERNAME> with your username
+2. Clone the repository with the following command. Replace the {'<'}GITHUB_USERNAME{'>'} with your username
 
 ```sh
 git clone https://github.com/<GITHUB_USERNAME>/docs.git
