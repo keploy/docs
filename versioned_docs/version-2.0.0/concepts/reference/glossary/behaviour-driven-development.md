@@ -5,6 +5,7 @@ sidebar_label: Behaviour Driven Development
 description: Collaborative approach aligning software development with business goals through clear, readable test scenarios.
 tags:
   - explanation
+  - Glossary
 keywords:
   - API
 ---
