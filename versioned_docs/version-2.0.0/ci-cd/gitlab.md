@@ -4,32 +4,31 @@ title: Integrating with GitLab CI
 description: Guide into Keploy GitLab CI Pipeline
 sidebar_label: GitLab
 keywords:
-    - ci testing
-    - ci/cd
-    - github
-    - gitlab
+  - ci testing
+  - ci/cd
+  - github
+  - gitlab
 tags:
-    - ci
-    - cd
-    - plugin
+  - ci
+  - cd
+  - plugin
 ---
 
-Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline. 
+Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
 
-
-For this demo, we will refer to the [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application. Just add the following steps to your `.gitlab-ci.yml` : - 
+For this demo, we will refer to the [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application. Just add the following steps to your `.gitlab-ci.yml` : -
 
 ```yaml
-stages:          # List of stages for jobs, and their order of execution
+stages: # List of stages for jobs, and their order of execution
   - test
 
 keploy-test-job: # This job runs in the test stage.
   image: ubuntu:latest
   stage: test
   before_script:
-  ## Add the dependencies based on your application language
+    ## Add the dependencies based on your application language
     - apt update && apt install -y sudo curl golang-go
-  ## Install Keploy Binary
+    ## Install Keploy Binary
     - curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
     - sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
     - sudo mount -t debugfs debugfs /sys/kernel/debug
@@ -54,7 +53,7 @@ $ keploy test -c "go run main.go handler.go"
       ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
        ▓▌                           ▐█▌                   █▌
         ▓
-  
+
 version: 2.1.0-alpha18
 🐰 Keploy: 2024-05-24T15:56:22+05:30    INFO    config file not found; proceeding with flags only
 🐰 Keploy: 2024-05-24T15:56:22+05:30    WARN    Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
@@ -81,12 +80,12 @@ Testrun passed for testcase with id: "test-1"
 
 🐰 Keploy: 2024-05-24T15:56:28+05:30    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
 
- <=========================================> 
+ <=========================================>
   TESTRUN SUMMARY. For test-set: "test-set-0"
         Total tests: 1
         Total test passed: 1
         Total test failed: 0
- <=========================================> 
+ <=========================================>
 ...
 🐰 Keploy: 2024-05-24T15:56:28+05:30    INFO    test run completed      {"passed overall": true}
 ```

@@ -4,45 +4,48 @@ title: Integrating with GitHub CI
 description: Guide into Keploy GitHub CI Pipeline
 sidebar_label: GitHub
 keywords:
-    - ci testing
-    - ci/cd
-    - github
-    - ci pipeline
+  - ci testing
+  - ci/cd
+  - github
+  - ci pipeline
 tags:
-    - ci
-    - cd
-    - plugin
+  - ci
+  - cd
+  - plugin
 ---
 
 Keploy can be integrated with GitHub by two methods:-
+
 1. [Using Shell Scripts](#shell-scripts)
 2. [Using GitHub Actions](#github-actions)
 
 ## Shell Scripts
+
 GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
 
 ```yaml
-  - name: Checkout Commit
-    uses: actions/checkout@v2
-  - name: Set up Go
-    uses: actions/setup-go@v2
-    with:
-        go-version: 1.2*.*
+- name: Checkout Commit
+  uses: actions/checkout@v2
+- name: Set up Go
+  uses: actions/setup-go@v2
+  with:
+    go-version: 1.2*.*
 
-  - name: Keploy Tests
-    id: keploy-run-test
-    run: |
-        curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-        sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
-        sudo mount -t debugfs debugfs /sys/kernel/debug
-          
-        ## Install application dependencies
-        go mod download
-        keploy test -c "go run main.go handler.go"
+- name: Keploy Tests
+  id: keploy-run-test
+  run: |
+    curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+    sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+    sudo mount -t debugfs debugfs /sys/kernel/debug
+      
+    ## Install application dependencies
+    go mod download
+    keploy test -c "go run main.go handler.go"
 ```
 
 ## GitHub Actions
-GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: - 
+
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
 
 ```yaml
 name: Run keploy-test-cases
@@ -57,14 +60,14 @@ jobs:
   my_job:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
-    - name: Test-Report
-      uses: keploy/testgpt@main
-      with:
-        working-directory: /echo-sql
-        delay: 10
-        command: go run .
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test-Report
+        uses: keploy/testgpt@main
+        with:
+          working-directory: /echo-sql
+          delay: 10
+          command: go run .
 ```
 
 In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` is the path to the application, `delay` is the time to wait for the application to start, and `command` is the command to run the test cases.
@@ -111,12 +114,12 @@ In both the cases, We will get to see output : -
 
   🐰 Keploy: 2024-05-24T13:56:28+05:30    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
 
-  <=========================================> 
+  <=========================================>
     TESTRUN SUMMARY. For test-set: "test-set-0"
           Total tests: 1
           Total test passed: 1
           Total test failed: 0
-  <=========================================> 
+  <=========================================>
   ...
   🐰 Keploy: 2024-05-24T13:56:28+05:30    INFO    test run completed      {"passed overall": true}
 ```
