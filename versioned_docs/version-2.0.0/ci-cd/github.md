@@ -69,6 +69,8 @@ jobs:
 
 In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` is the path to the application, `delay` is the time to wait for the application to start, and `command` is the command to run the test cases.
 
+> **Note: `keploy/testgpt` action supports only amd_64 based runners.**
+
 In both the cases, We will get to see output : -
 
 ```sh
