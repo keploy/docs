@@ -5,17 +5,16 @@ sidebar_label: Test Driven Development
 description: Collaborative approach aligning software development with business goals through clear, readable test scenarios.
 tags:
   - explanation
+  - Glossary
 keywords:
   - API
 ---
 
-## What is Test Driven Development (TDD)?
-
-Test Driven Development (TDD) is a software development approach that aligns software development with business goals through clear, readable test scenarios. TDD is a collaborative approach that involves developers, testers, and business analysts working together to define the requirements and test scenarios before writing the code.
+Test Driven Development (TDD) is a software development approach that aligns software development with business goals through clear, readable test scenarios. Test Driven Development is a collaborative approach that involves developers, testers, and business analysts working together to define the requirements and test scenarios before writing the code.
 
 ## When to work with TDD ?
 
-TDD is particularly useful in the following scenarios:
+Test Driven Development or TDD is particularly useful in the following scenarios:
 
 - **New Features Development**: TDD is highly effective when developing new features or functionalities for an application. By writing tests first, developers can clearly define the expected behavior of the feature and ensure that it meets the specified requirements.
 
@@ -25,11 +24,11 @@ TDD is particularly useful in the following scenarios:
 
 - **Ensuring Code Quality**: TDD helps ensure code quality by encouraging developers to write testable, modular, and maintainable code. Writing tests first forces developers to consider edge cases, error scenarios, and boundary conditions, resulting in more robust and reliable code.
 
-## How Keploy with TDD works ?
+## How Keploy works with Test Driven Development ?
 
-Keploy can be integrated into your TDD workflow to automate testing processes and streamline development.
+Keploy can be integrated into your Test Driven Development workflow to automate testing processes and streamline development.
 
-Here's how you can do TDD with Keploy:
+Here's how you can perform TDD with Keploy:
 
 - **Write a Failing Test**: Begin by writing a test case for a specific functionality or requirement of your application. The test should fail initially since the corresponding functionality has not been implemented yet.
 
@@ -42,6 +41,6 @@ Here's how you can do TDD with Keploy:
 
 - **Repeat the Cycle**: Repeat the process for each new functionality or requirement of your application. Write a failing test, implement the code, run the test, and refactor as necessary.
 
-- **Monitor Code Coverage**: Use Keploy to monitor code coverage metrics during the TDD process. Ensure that your tests cover all relevant code paths and functionalities of your application.
+- **Monitor Code Coverage**: Use Keploy to monitor code coverage metrics during the Test Driven Development process. Ensure that your tests cover all relevant code paths and functionalities of your application.
 
-- **Integrate with CI/CD Pipeline**: Integrate Keploy into your CI/CD pipeline to automate the execution of tests and ensure that TDD practices are followed consistently across your development workflow.
+- **Integrate with CI/CD Pipeline**: Integrate Keploy into your CI/CD pipeline to automate the execution of tests and ensure that Test Driven Development practices are followed consistently across your development workflow.

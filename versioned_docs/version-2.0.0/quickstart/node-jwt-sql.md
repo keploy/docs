@@ -11,7 +11,7 @@ tags:
   - tutorial
 keyword:
   - NodeJS Framework
-  - MongoDB
+  - Postgres
   - NodeJS
   - API Test generator
   - Auto Testcase generation
@@ -43,8 +43,8 @@ npm install
 Depending on your OS, choose your adventure:
 There are 2 ways you can run this sample application.
 
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
-- [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
+- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -56,7 +56,7 @@ If you are using WSL on windows then use below to start wsl in the user's home d
 wsl ~
 ```
 
-## Let's start the Postgres Instance
+### Let's start the Postgres Instance
 
 ```zsh
 docker-compose up -d
@@ -199,9 +199,9 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Using Docker Compose 🐳
+## Using Docker Compose 🐳
 
-We will be using Docker compose to run the application as well as MongoDb on Docker container.
+We will be using Docker compose to run the application as well as Postgres on Docker container.
 
 Since we have setup our sample-app using docker, we need to update the postgres host on line 2, in `config/db.config.js`, from `localhost` to `postgres`.
 

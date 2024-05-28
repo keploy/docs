@@ -1,6 +1,8 @@
 //@ts-check
+
+import {themes as prismThemes} from "prism-react-renderer";
 const path = require("path");
-const visit = require("unist-util-visit");
+import {visit} from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -100,9 +102,9 @@ module.exports = {
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
-      theme: require("prism-react-renderer/themes/vsLight"),
-      darkTheme: require("prism-react-renderer/themes/dracula"),
-      additionalLanguages: ["java", "ruby", "php"],
+      theme: prismThemes.vsLight,
+      darkTheme: prismThemes.dracula,
+      additionalLanguages: ["java", "ruby", "php", "bash"],
     },
     // hideableSidebar: true,
     navbar: {
@@ -244,25 +246,6 @@ module.exports = {
                   visit(tree, "code", visitor);
                 },
               {},
-            ],
-            [
-              require("remark-typescript-tools").transpileCodeblocks,
-              {
-                compilerSettings: {
-                  tsconfig: path.join(
-                    __dirname,
-                    "docs",
-                    "typescript",
-                    "tsconfig.json"
-                  ),
-                  externalResolutions: {},
-                },
-                fileExtensions: [".md", ".mdx"],
-                // remark-typescript-tools automatically running prettier with a custom config that doesn't
-                // line up with ours. This disables any post processing, including the default prettier step.
-                postProcessTs: (files) => files,
-                postProcessTranspiledJs: (files) => files,
-              },
             ],
             [
               () =>
