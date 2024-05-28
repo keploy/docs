@@ -125,13 +125,13 @@ Prerequisites For Docker:
 Here we just need to change the command used to start the application.
 
 ```bash
-keploy record -c "docker compose up" --containerName javaApp --buildDelay 100s
+keploy record -c "docker compose up" --containerName javaApp --buildDelay 100
 ```
 
 ## Running the testcases using Keploy
 
 ```bash
-keploy test -c "docker compose up" --containerName javaApp --buildDelay 50s --delay 20
+keploy test -c "docker compose up" --containerName javaApp --buildDelay 50 --delay 20
 ```
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
