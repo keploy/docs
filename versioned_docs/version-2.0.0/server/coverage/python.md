@@ -24,7 +24,7 @@ keyword:
 To get the coverage report, run Keploy test as usual with your application command:
 
 ```bash
-keploy test -c "python my_program.py" --coverage
+keploy test -c "python my_program.py"
 ```
 
 After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports. Additionally, the raw coverage data would be dumped in .coverage.keploy file.

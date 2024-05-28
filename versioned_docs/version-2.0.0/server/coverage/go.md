@@ -74,13 +74,6 @@ keploy
         └── test-2.yaml
 ```
 
-Coverage percentage log in the cmd will be:
-
-```sh
-🐰 Keploy: 2023-12-07T08:53:14Z         INFO    test/test.go:261
-        test-app-url-shortener          coverage: 78.4% of statements
-```
-
 and, the coverage.yaml would look like: 
 ```yaml
 file_coverage:

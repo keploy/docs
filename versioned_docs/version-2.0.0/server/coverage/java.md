@@ -33,170 +33,71 @@ You will need to add the following plugins in `pom.xml` file of your application
 <build>
 	<plugins>
 		<!-- your plugins would go here -->
-		<plugin>
-			<groupId>org.codehaus.mojo</groupId>
-			<artifactId>exec-maven-plugin</artifactId>
-			<version>3.0.0</version>
-			<executions>
-				<execution>
-					<goals>
-						<goal>exec</goal>
-					</goals>
-				</execution>
-			</executions>
-			<configuration>
-				<executable>java</executable>
-				<arguments>
-					<argument>-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/${jacoco.version}/org.jacoco.agent-${jacoco.version}-runtime.jar=destfile=target/${TESTSETID}.exec</argument>
-					<argument>-jar</argument>
-					<argument>${path.to.application.jar}</argument>
-				</arguments>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.jacoco</groupId>
-			<artifactId>jacoco-maven-plugin</artifactId>
-			<version>0.8.8</version>
-			<!-- Generate unit test report-->
-			<executions>
-			<execution>
-				<id>post-unit-test</id>
-				<phase>test</phase>
-				<goals>
-					<goal>report</goal>
-				</goals>
-				<configuration>
-					<dataFile>${project.build.directory}/jacoco.exec</dataFile>
-					<!-- Use merged data file -->
-					<outputDirectory>${project.reporting.outputDirectory}/ut</outputDirectory>
-				</configuration>
-			</execution>
-			</executions>
-		</plugin>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-surefire-plugin</artifactId>
-			<version>2.22.2</version>
-			<configuration>
-				<argLine>
-					-javaagent:${settings.localRepository}/org/jacoco/org.jacoco.agent/0.8.8/org.jacoco.agent-0.8.8-runtime.jar=destfile=target/jacoco.exec
-				</argLine>
-				<systemPropertyVariables>
-					<jacoco-agent.destfile>target/jacoco.exec
-						</jacoco-agent.destfile>
-				</systemPropertyVariables>
-			</configuration>
-		</plugin>
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.8</version>
+            <executions>
+                <!-- Prepare the JaCoCo agent to track coverage during tests -->
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <!-- Merge e2e & u-t execution data files after tests are run -->
+                <execution>
+                    <id>merge-ut-e2e</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>merge</goal>
+                    </goals>
+                    <configuration>
+                        <fileSets>
+                            <fileSet>
+                                <directory>${project.build.directory}</directory>
+                                <includes>
+                                    <include>jacoco.exec</include>
+                                    <include>keploy-e2e.exec</include>
+                                </includes>
+                            </fileSet>
+                        </fileSets>
+                        <!-- Output of merged data -->
+                        <destFile>${project.build.directory}/ut-e2e-merged.exec</destFile>
+                    </configuration>
+                </execution>
+                <!-- Generate report based on the different execution data -->
+                <!-- Generate unit test report-->
+                <execution>
+                    <id>post-unit-test</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                        <!-- Use merged data file -->
+                        <outputDirectory>${project.reporting.outputDirectory}/ut</outputDirectory>
+                    </configuration>
+                </execution>
+                <!-- Generate combined (e2e+ut) report test report-->
+                <execution>
+                    <id>combined-ut-e2e</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/ut-e2e-merged.exec</dataFile>
+                        <!-- Use merged data file -->
+                        <outputDirectory>${project.reporting.outputDirectory}/e2e-ut-aggregate</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
 		<!-- your plugins will go here -->
 	</plugins>
 </build>
-```
-You would need to specify the path to your application JAR file and jacoco version in the build properties. 
-```xml
-<properties>
-	<jacoco.version>0.8.8</jacoco.version>
-    <path.to.application.jar>target/your_application_name.jar</path.to.application.jar>
-</properties>
-
-```
-
-In addition to editing properties and plugins, you'll need to create two profiles to manage the merging of test-set specific coverage files and generate reports. Another profile will handle the merging of coverage files from Keploy and unit tests and generate a consolidated report.
-
-Add this to your pom.xml:
-```xml
-<profiles>
-	<profile>
-			<id>e2e-tests</id>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.jacoco</groupId>
-						<artifactId>jacoco-maven-plugin</artifactId>
-						<version>0.8.8</version>
-						<executions>
-							<execution>
-								<id>merge-e2e</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>merge</goal>
-								</goals>
-								<configuration>
-									<fileSets>
-										<fileSet>
-											<directory>${project.build.directory}</directory>
-											<includes>
-												<include>test-set-*.exec</include>
-											</includes>
-										</fileSet>
-									</fileSets>
-									<destFile>${project.build.directory}/keploy-e2e.exec</destFile>
-								</configuration>
-							</execution>
-							<execution>
-								<id>e2e-report</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>report</goal>
-								</goals>
-								<configuration>
-									<dataFile>${project.build.directory}/keploy-e2e.exec</dataFile>
-									<outputDirectory>${project.reporting.outputDirectory}/keployE2E</outputDirectory>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
-
-	<!-- Profile for Combined Unit and e2e Tests -->
-	<profile>
-		<id>combined-tests</id>
-		<build>
-			<plugins>
-				<plugin>
-					<groupId>org.jacoco</groupId>
-					<artifactId>jacoco-maven-plugin</artifactId>
-					<executions>
-						<!-- Only merge UT and E2E data when this profile is active -->
-						<execution>
-							<id>merge-ut-e2e</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>merge</goal>
-							</goals>
-							<configuration>
-								<fileSets>
-									<fileSet>
-										<directory>${project.build.directory}</directory>
-										<includes>
-											<include>jacoco.exec</include>
-											<include>keploy-e2e.exec</include>
-										</includes>
-									</fileSet>
-								</fileSets>
-								<destFile>${project.build.directory}/ut-e2e-merged.exec</destFile>
-							</configuration>
-						</execution>
-						<!-- Generate combined test report -->
-						<execution>
-							<id>combined-ut-e2e</id>
-							<phase>verify</phase>
-							<goals>
-								<goal>report</goal>
-							</goals>
-							<configuration>
-								<dataFile>${project.build.directory}/ut-e2e-merged.exec</dataFile>
-								<outputDirectory>${project.reporting.outputDirectory}/e2e-ut-aggregate</outputDirectory>
-							</configuration>
-						</execution>
-					</executions>
-				</plugin>
-			</plugins>
-		</build>
-	</profile>
-</profiles>
-```
 
 ## Usage
 
@@ -205,28 +106,16 @@ Add this to your pom.xml:
 mvn clean install -Dmaven.test.skip=true
 ```
 
-2. To dump the test set specific coverage data into your build directory, Run
+2. Just run keploy test as usual to get the coverage report for keploy recorded testcases:
 ```bash
-keploy test -c "mvn exec:exec"
+keploy test -c "java -jar target/your_application.jar"
 ```
 
-3. To get the coverage report for your keploy tests, Run
-```bash
-mvn verify -P e2e-tests
-```
+coverage report would be dumped in the current test-run folder inside keploy/reports, also you can visualize the report by opening index.html found in target/site/e2e directory
 
-The html file for this report would generally be generated in target/site/keployE2E directory. Open index.html to visualize the report.
-
-4. To get the coverage report for your unit tests, Run
+3. To get the combined report as well as coverage report for your unit tests, Run
 ```bash
 mvn test
 ```
 
-The html file for this report would generally be generated in target/site/ut directory. Open index.html to visualize the report.
-
-5. To get the combined coverage report for your unit tests and keploy recorded tests, Run
-```
-mvn verify -P combined-tests
-```
-
-The html file for this report would generally be generated in target/site/e2e-ut-aggregate directory. Open index.html to visualize the report.
+The html file for unit tests report would be generated in target/site/ut directory and, for combined report it would be generated in target/site/e2e-ut-aggregate directory. Open index.html to visualize the report.
