@@ -12,11 +12,11 @@ The [Postgres Wire Protocol](https://www.postgresql.org/docs/current/protocol.ht
 
 **Byte Ordering :** All integers in the PostgresQL wire protocol use big-endian byte order: that is, most-significant byte first.
 
-**Message Types :** The PostgreSQL wire protocol uses various message types to facilitate communication between clients and the server. These messages include client-initiated types like `StartupMessage` for connection initiation, Query for executing SQL commands, and `Terminate` for ending sessions, as well as server responses like `RowDescription` for describing result sets, DataRow for transmitting row data, and `CommandComplete` for signaling query completion. Each message type is identified by a single-byte type code, followed by a length field and message-specific content. 
+**Message Types :** The PostgreSQL wire protocol uses various message types to facilitate communication between clients and the server. These messages include client-initiated types like `StartupMessage` for connection initiation, Query for executing SQL commands, and `Terminate` for ending sessions, as well as server responses like `RowDescription` for describing result sets, DataRow for transmitting row data, and `CommandComplete` for signaling query completion. Each message type is identified by a single-byte type code, followed by a length field and message-specific content.
 
 ## How it works ?
 
-Keploy intercepts the traffic and act as a middle to the `sourceConnection`(client) and `destConnection`(server). So Keploy acts as **destination** for the real client and as client for the real **destination Connection**. So whenever traffic is intercepted keploy gets the byte data and from which we need to ensure the protocol which the connection is using it can be Postgres, mongo etc.. Once keploy identifies it as Postgres keploy send it into the Postgres parser. 
+Keploy intercepts the traffic and act as a middle to the `sourceConnection`(client) and `destConnection`(server). So Keploy acts as **destination** for the real client and as client for the real **destination Connection**. So whenever traffic is intercepted keploy gets the byte data and from which we need to ensure the protocol which the connection is using it can be Postgres, mongo etc.. Once keploy identifies it as Postgres keploy send it into the Postgres parser.
 
 Once intercepted, the Keploy's functionality includes parsing these wiremessages, which involves extracting the relevant data and metadata from the packets. After parsing, the extracted information is transformed into a human-readable and editable format. This format could be more user-friendly and easy to understand, making it convenient for developers and administrators to analyze and manipulate the data if necessary. Hence, this proxy serves as an intermediary that captures and mocks the traffic calls. Keploy user `pgproto3` library as base to store the this data into go structs.
 
@@ -35,6 +35,7 @@ type PostgresSpec struct {
 ```
 
 In above, backend and frontend are the structs representing PostgreSQL requests and responses : -
+
 ```go
 // Backend is PG Request Packet Transcoder
 type Backend struct {

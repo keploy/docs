@@ -5,6 +5,7 @@ sidebar_label: HTTP
 ---
 
 ## Introduction
+
 HTTP (Hypertext Transfer Protocol) [Wire Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP) refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
 
 **Port :** HTTP typically uses port `80 for non-secure` connections (HTTP) and port `443 for secure connections` (HTTPS). These are default ports, but HTTP servers can technically be configured to listen on any port.
@@ -13,7 +14,8 @@ HTTP (Hypertext Transfer Protocol) [Wire Protocol](https://developer.mozilla.org
 
 **Message Types :** In the context of HTTP, there are primarily two types of messages:
 
-1. *HTTP Request Messages*: These messages are sent from the client to the server to request resources or perform actions. They contain information such as the request method (e.g., GET, POST), the requested URL, headers (such as Accept, User-Agent), and optionally a message body (for methods like POST). Example:- 
+1. _HTTP Request Messages_: These messages are sent from the client to the server to request resources or perform actions. They contain information such as the request method (e.g., GET, POST), the requested URL, headers (such as Accept, User-Agent), and optionally a message body (for methods like POST). Example:-
+
 ```bash
 GET /index.html HTTP/1.1
 Host: www.example.com
@@ -21,7 +23,8 @@ User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML,
 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9
 ```
 
-2. *HTTP Response Messages*: These messages are sent from the server to the client in response to a request. They contain a status line indicating the outcome of the request (e.g., status code 200 for success), headers providing metadata about the response (such as Content-Type, Content-Length), and optionally a message body containing the requested resource or data. Example:-
+2. _HTTP Response Messages_: These messages are sent from the server to the client in response to a request. They contain a status line indicating the outcome of the request (e.g., status code 200 for success), headers providing metadata about the response (such as Content-Type, Content-Length), and optionally a message body containing the requested resource or data. Example:-
+
 ```yaml
 HTTP/1.1 200 OK
 Date: Fri, 24 May 2024 12:00:00 GMT
@@ -31,7 +34,8 @@ Server: Apache
 ```
 
 ## How it works ?
-The http parser is basically divided into two sections, `encode` and `decode`, the encode function is used during the keploy record mode when we need to process the user traffic and store it in mocks and whereas the decode function is used in the test mode when we need to match the mock with the request, decode the information from the mock and write it back to the user. 
+
+The http parser is basically divided into two sections, `encode` and `decode`, the encode function is used during the keploy record mode when we need to process the user traffic and store it in mocks and whereas the decode function is used in the test mode when we need to match the mock with the request, decode the information from the mock and write it back to the user.
 
 So in the record mode, the encode function is provided with the initial request, which is written to the destination connection and checked if the request is chunked, if it is then parser keeps reading the request from the client connection and write it to the destination connection.
 
