@@ -92,6 +92,117 @@ curl -X DELETE http://localhost:5000/api/tasks/12345
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
+```yaml
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+  metadata: {}
+  req:
+    method: GET
+    proto_major: 1
+    proto_minor: 1
+    url: http://localhost:5000/api/tasks
+    header:
+      Accept: "*/*"
+      Accept-Encoding: gzip, deflate, br
+      Cache-Control: no-cache
+      Connection: keep-alive
+      Content-Length: "59"
+      Content-Type: application/json
+      Host: localhost:5000
+      Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1
+      User-Agent: PostmanRuntime/7.32.1
+    body: '{"title": "Task 6","description": "Description for Task 6"}'
+    timestamp: 2024-04-22T16:38:39.232565209+05:30
+  resp:
+    status_code: 200
+    header:
+      Access-Control-Allow-Origin: "*"
+      Content-Length: "267"
+      Content-Type: application/json
+      Date: Mon, 22 Apr 2024 11:08:39 GMT
+      Server: Werkzeug/3.0.2 Python/3.10.12
+    body: |
+      {
+        "tasks": [
+          {
+            "description": "should update",
+            "id": "6626362fc7c5eddf174c88e4",
+            "title": "Updated"
+          },
+          {
+            "description": "Should work",
+            "id": "66263667c7c5eddf174c88e5",
+            "title": "Let's Check another time"
+          }
+        ]
+      }
+    status_message: OK
+    proto_major: 0
+    proto_minor: 0
+    timestamp: 2024-04-22T16:38:41.245704918+05:30
+  objects: []
+  assertions:
+    noise:
+      header.Date: []
+  created: 1713784121
+curl: |-
+  curl --request GET \
+    --url http://localhost:5000/api/tasks \
+    --header 'Host: localhost:5000' \
+    --header 'User-Agent: PostmanRuntime/7.32.1' \
+    --header 'Accept: */*' \
+    --header 'Content-Type: application/json' \
+    --header 'Connection: keep-alive' \
+    --header 'Cache-Control: no-cache' \
+    --header 'Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1' \
+    --header 'Accept-Encoding: gzip, deflate, br' \
+    --data '{"title": "Task 6","description": "Description for Task 6"}'
+```
+
+This is how the `mocks.yml` looks like:
+
+```yaml
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-0
+spec:
+  metadata:
+    operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "PyMongo","version": "4.6.3"},"os": {"type": "Linux","name": "Linux","architecture": "x86_64","version": "5.15.146.1-microsoft-standard-WSL2"},"platform": "CPython 3.10.12.final.0"}}, returnFieldsSelector:  }'
+    type: config
+  requests:
+    - header:
+        length: 283
+        requestId: 1804289383
+        responseTo: 0
+        Opcode: 2004
+      message:
+        flags: 0
+        collection_name: admin.$cmd
+        number_to_skip: 0
+        number_to_return: -1
+        query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"PyMongo","version":"4.6.3"},"os":{"type":"Linux","name":"Linux","architecture":"x86_64","version":"5.15.146.1-microsoft-standard-WSL2"},"platform":"CPython 3.10.12.final.0"}}'
+        return_fields_selector: ""
+  responses:
+    - header:
+        length: 329
+        requestId: 238
+        responseTo: 1804289383
+        Opcode: 1
+      message:
+        response_flags: 8
+        cursor_id: 0
+        starting_from: 0
+        number_returned: 1
+        documents:
+          - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"6626352423399d438e00b0cf"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1713784113763"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"18"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+      read_delay: 1010011
+  created: 1713784113
+  reqTimestampMock: 2024-04-22T16:38:33.762559618+05:30
+  resTimestampMock: 2024-04-22T16:38:33.763749062+05:30
+```
+
 Want to see if everything works as expected?
 
 ### Run Tests
@@ -105,6 +216,12 @@ keploy test -c "docker compose up" --containerName "flask-app" --buildDelay 50 -
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+
+### Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -120,44 +237,6 @@ pip install -r requirements.txt
 
 ```bash
 sudo service mongod start
-```
-
-## Setup Keploy
-
-Let's get started by setting up the Keploy alias with this command:
-
-```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
-```
-
-You should see something like this:
-
-```bash
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy CLI
-
-Available Commands:
-  example         Example to record and test via keploy
-  generate-config generate the keploy configuration file
-  record          record the keploy testcases from the API calls
-  test            run the recorded testcases and execute assertions
-  update          Update Keploy
-
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
-
-Use "keploy [command] --help" for more information about a command.
 ```
 
 ## Lights, Camera, Record! 🎥
@@ -195,6 +274,117 @@ curl -X DELETE http://localhost:5000/api/tasks/12345
 ```
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
+
+```yaml
+version: api.keploy.io/v1beta1
+kind: Http
+name: test-1
+spec:
+  metadata: {}
+  req:
+    method: GET
+    proto_major: 1
+    proto_minor: 1
+    url: http://localhost:5000/api/tasks
+    header:
+      Accept: "*/*"
+      Accept-Encoding: gzip, deflate, br
+      Cache-Control: no-cache
+      Connection: keep-alive
+      Content-Length: "59"
+      Content-Type: application/json
+      Host: localhost:5000
+      Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1
+      User-Agent: PostmanRuntime/7.32.1
+    body: '{"title": "Task 6","description": "Description for Task 6"}'
+    timestamp: 2024-04-22T16:38:39.232565209+05:30
+  resp:
+    status_code: 200
+    header:
+      Access-Control-Allow-Origin: "*"
+      Content-Length: "267"
+      Content-Type: application/json
+      Date: Mon, 22 Apr 2024 11:08:39 GMT
+      Server: Werkzeug/3.0.2 Python/3.10.12
+    body: |
+      {
+        "tasks": [
+          {
+            "description": "should update",
+            "id": "6626362fc7c5eddf174c88e4",
+            "title": "Updated"
+          },
+          {
+            "description": "Should work",
+            "id": "66263667c7c5eddf174c88e5",
+            "title": "Let's Check another time"
+          }
+        ]
+      }
+    status_message: OK
+    proto_major: 0
+    proto_minor: 0
+    timestamp: 2024-04-22T16:38:41.245704918+05:30
+  objects: []
+  assertions:
+    noise:
+      header.Date: []
+  created: 1713784121
+curl: |-
+  curl --request GET \
+    --url http://localhost:5000/api/tasks \
+    --header 'Host: localhost:5000' \
+    --header 'User-Agent: PostmanRuntime/7.32.1' \
+    --header 'Accept: */*' \
+    --header 'Content-Type: application/json' \
+    --header 'Connection: keep-alive' \
+    --header 'Cache-Control: no-cache' \
+    --header 'Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1' \
+    --header 'Accept-Encoding: gzip, deflate, br' \
+    --data '{"title": "Task 6","description": "Description for Task 6"}'
+```
+
+This is how the `mocks.yml` looks like:
+
+```yaml
+version: api.keploy.io/v1beta1
+kind: Mongo
+name: mock-0
+spec:
+  metadata:
+    operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "PyMongo","version": "4.6.3"},"os": {"type": "Linux","name": "Linux","architecture": "x86_64","version": "5.15.146.1-microsoft-standard-WSL2"},"platform": "CPython 3.10.12.final.0"}}, returnFieldsSelector:  }'
+    type: config
+  requests:
+    - header:
+        length: 283
+        requestId: 1804289383
+        responseTo: 0
+        Opcode: 2004
+      message:
+        flags: 0
+        collection_name: admin.$cmd
+        number_to_skip: 0
+        number_to_return: -1
+        query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"PyMongo","version":"4.6.3"},"os":{"type":"Linux","name":"Linux","architecture":"x86_64","version":"5.15.146.1-microsoft-standard-WSL2"},"platform":"CPython 3.10.12.final.0"}}'
+        return_fields_selector: ""
+  responses:
+    - header:
+        length: 329
+        requestId: 238
+        responseTo: 1804289383
+        Opcode: 1
+      message:
+        response_flags: 8
+        cursor_id: 0
+        starting_from: 0
+        number_returned: 1
+        documents:
+          - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"6626352423399d438e00b0cf"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1713784113763"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"18"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+      read_delay: 1010011
+  created: 1713784113
+  reqTimestampMock: 2024-04-22T16:38:33.762559618+05:30
+  resTimestampMock: 2024-04-22T16:38:33.763749062+05:30
+```
 
 ## Run the tests
 
