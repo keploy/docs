@@ -16,29 +16,41 @@ tags:
 
 Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
 
-For this demo, we will refer to the [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application. Just add the following steps to your `.gitlab-ci.yml` : -
+To integrate the Keploy in `GitLab`, we first need to install and setup by adding the following steps to our `.gitlab-ci.yml` : -
 
 ```yaml
-stages: # List of stages for jobs, and their order of execution
+...
+stages:
   - test
 
 keploy-test-job: # This job runs in the test stage.
   image: ubuntu:latest
   stage: test
   before_script:
-    ## Add the dependencies based on your application language
-    - apt update && apt install -y sudo curl golang-go
-    ## Install Keploy Binary
+
+    ## Add the dependencies && Install Keploy Binary
+
+    - apt update && apt install -y sudo curl
     - curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
     - sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
     - sudo mount -t debugfs debugfs /sys/kernel/debug
+
   script:
-    - cd echo-sql && ls
-    - go mod download
-    - keploy test -c "go run main.go handler.go"
+    ## Steps to run application
+    ...
+```
+Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script:` would look like below:- 
+
+```yaml
+  script:
+    ## Steps to run express-mongoose application
+    - apt install -y nodejs npm
+    - cd express-mongoose
+    - npm install -y
+    - keploy test -c "npm start"
 ```
 
-In your `.gitlab-ci.yml file`, add a `before_script:` to install Keploy CLI if it's not already part of your project dependencies. Add `keploy test` command to run your keploy generated test suite, this sets up Keploy to replay the interactions it has generated and perform CI Testing.
+In your `.gitlab-ci.yml file`, in last step we have `keploy test` command to run your keploy generated test suite, this sets up Keploy to replay the interactions it has generated and perform CI Testing.
 
 We will get to see output : -
 

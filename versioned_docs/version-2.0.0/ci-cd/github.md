@@ -21,41 +21,50 @@ Keploy can be integrated with GitHub by two methods:-
 
 ## Shell Scripts
 
-GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
+GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
 
 ```yaml
 - name: Checkout Commit
   uses: actions/checkout@v2
-- name: Set up Go
-  uses: actions/setup-go@v2
-  with:
-    go-version: 1.2*.*
-
 - name: Keploy Tests
   id: keploy-run-test
   run: |
     curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
     sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
     sudo mount -t debugfs debugfs /sys/kernel/debug
-      
-    ## Install application dependencies
-    go mod download
-    keploy test -c "go run main.go handler.go"
+  ...
+```
+> **Note: if you are using arm_64 as runner use `curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp` to download keploy binary**
+
+For example, while using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI, the workflow would like:- 
+
+```yaml
+  - name: Checkout Commit
+    uses: actions/checkout@v2
+  - name: Set up Go
+    uses: actions/setup-node@v2
+    with:
+        node-version: 18
+
+  - name: Keploy Tests
+    id: keploy-run-test
+    run: |
+        curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+        sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+        sudo mount -t debugfs debugfs /sys/kernel/debug
+
+        # Install application dependencies
+        npm install
+        
+        # Run the keploy captured tests
+        keploy test -c "node src/app.js"
 ```
 
 ## GitHub Actions
 
-GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [echo-sql](https://github.com/keploy/samples-go/tree/main/echo-sql) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
 
 ```yaml
-name: Run keploy-test-cases
-on:
-  push:
-    branches:
-      - main
-  pull_request:
-    types: [opened, edited, synchronize, reopened]
-
 jobs:
   my_job:
     runs-on: ubuntu-latest
@@ -65,12 +74,27 @@ jobs:
       - name: Test-Report
         uses: keploy/testgpt@main
         with:
-          working-directory: /echo-sql
-          delay: 10
-          command: go run .
+          command: <CMD_TO_RUN_APP ## Command to run the application
 ```
 
-In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` is the path to the application, `delay` is the time to wait for the application to start, and `command` is the command to run the test cases.
+In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` (optional) is the path to the application by default it takes root to find keploy folder. `delay` (optional) is the time to wait for the application to start, and `command` is the command to run your application.
+
+For example, while using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI via actions, the workflow would like:- 
+
+```yaml
+jobs:
+  keploy_test_case:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Test-Report
+      uses: keploy/testgpt@main
+      with:
+        working-directory: /express-mongoose
+        delay: 10
+        command: node src/app.js
+```
 
 > **Note: `keploy/testgpt` action supports only amd_64 based runners.**
 
