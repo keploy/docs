@@ -122,6 +122,7 @@ _And... voila! You have successfully integrated keploy in GitHub CI pipeline ðŸŒ
 ## GitHub Actions
 
 GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
 
 ```yaml
 jobs:
