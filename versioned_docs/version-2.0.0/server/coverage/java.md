@@ -98,6 +98,7 @@ You will need to add the following plugins in `pom.xml` file of your application
 		<!-- your plugins will go here -->
 	</plugins>
 </build>
+```
 
 ## Usage
 
