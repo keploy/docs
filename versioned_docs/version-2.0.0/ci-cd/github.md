@@ -33,8 +33,9 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
     sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
   ...
 ```
-> **Note: if you are using arm_64 as runner use below to download keploy binary**
-`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp`
+> **Note: if you are using `arm_64` as runner use below to download keploy binary**
+
+`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp`
 
 ### Example with Scripts
 
@@ -132,10 +133,14 @@ jobs:
       - name: Test-Report
         uses: keploy/testgpt@main
         with:
-          command: <CMD_TO_RUN_APP ## Command to run the application
+          command: "<CMD_TO_RUN_APP>" ## Command to run the application
 ```
 
-In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` (optional) is the path to the application by default it takes root to find keploy folder. `delay` (optional) is the time to wait for the application to start, and `command` is the command to run your application.
+In the above example, we are using the `keploy/testgpt` action to run the test cases. 
+
+> - `working-directory` (optional) is the path to the application by default it takes root to find keploy folder.
+> - `delay` (optional) is the time to wait for the application to start. 
+> - `command` is the command to run your application.
 
 ### Example with Actions
 
@@ -153,7 +158,7 @@ jobs:
       with:
         working-directory: /express-mongoose
         delay: 10
-        command: node src/app.js
+        command: "node src/app.js"
 ```
 
 > **Note: `keploy/testgpt` action supports only amd_64 based runners.**

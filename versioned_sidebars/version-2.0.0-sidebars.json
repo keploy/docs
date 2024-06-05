@@ -36,7 +36,8 @@
       "collapsed": true,
       "items": [
         "ci-cd/github",
-        "ci-cd/gitlab"
+        "ci-cd/gitlab",
+        "ci-cd/jenkins"
       ]
     },
     {
