@@ -413,15 +413,21 @@ Let's consider the [employee-manager](https://github.com/keploy/samples-java/tre
 Let's start our postgres database instance via docker:-
 
 ```sh
-docker-compose up
+docker-compose up -d postgres
 ```
 
 ## Generate test-cases
 
-Pass the schema file created earlier with `-s` flag: -
+Now that we have our schema file, we need to create create jar file since we are using java sample-application :-
 
 ```sh
-keploy generate-tests -c "java -jar /home/sonichigi.linux/samples-java/target/springbootapp-0.0.1-SNAPSHOT.jar" -s "schema.json"
+mvn clean install -DskipTests
+```
+
+Now that we have our jar file ready, let's start the application with keploy : -
+
+```sh
+keploy generate-tests -c "java -jar <JAR_FILE_PATH>" -s "schema.json"
 ```
 
 We will get similar output: -
