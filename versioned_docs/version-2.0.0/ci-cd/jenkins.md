@@ -23,13 +23,13 @@ Keploy can integrated with Jenkins to ensure continuous testing as part of your 
 
 ## Create a Pipeline
 
-Use the below template to create a Pipeline via script : - 
+Use the below template to create a Pipeline via script : -
 
 ```
 pipeline {
-    agent any 
+    agent any
     stages {
-        stage('Keploy Tests') { 
+        stage('Keploy Tests') {
             steps {
                 // Download and prepare Keploy binary
                 sh "curl --silent --location 'https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz' | tar xz --overwrite -C /tmp"
@@ -45,13 +45,13 @@ pipeline {
 
 ### Example
 
-Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script` would look like below:- 
+Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script` would look like below:-
 
 ```
 pipeline {
-    agent any 
+    agent any
     stages {
-        stage('Keploy Tests') { 
+        stage('Keploy Tests') {
             steps {
 
                 // Clone the repository
@@ -60,7 +60,7 @@ pipeline {
                 // Download and prepare Keploy binary
                 sh "curl --silent --location 'https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz' | tar xz --overwrite -C /tmp"
                 sh "mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy"
-                
+
                 // switch to the directory where keploy folder is present
                 dir('express-mongoose'){
                 sh"""
@@ -92,7 +92,7 @@ Started by `user admin`
       ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
        ▓▌                           ▐█▌                   █▌
         ▓
-  
+
   version: 2.1.0-alpha23
 
   🐰 Keploy: 2024-06-05T14:50:12+05:30 	INFO config file not found; proceeding with flags only

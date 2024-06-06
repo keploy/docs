@@ -68,7 +68,7 @@ $ keploy test -c "npm start"
         ▓
     
   version: 2.1.0-alpha23
-  
+
   🐰 Keploy: 2024-06-05T06:32:52Z INFO config file not found; proceeding with flags only
   🐰 Keploy: 2024-06-05T06:32:52Z WARN Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
   🐰 Keploy: 2024-06-05T06:32:52Z INFO Example usage: keploy test -c "/path/to/user/app" --delay 6
