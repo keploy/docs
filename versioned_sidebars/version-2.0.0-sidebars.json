@@ -143,10 +143,7 @@
         "dependencies/mongo",
         "dependencies/postgres",
         "dependencies/http",
-        "dependencies/postgres",
-        "dependencies/http",
-        "keploy-explained/faq",
-        "concepts/general-glossary"
+        "keploy-explained/faq"
       ]
     }
   ],

@@ -150,7 +150,10 @@ function Frameworks() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
+          <Link
+            to={useBaseUrl("/dependencies/http")}
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+          >
             <img
               className="h-8 w-8"
               src="/docs/img/http-logo.svg"
@@ -160,7 +163,10 @@ function Frameworks() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center">
+          <Link
+            to={useBaseUrl("/dependencies/postgres")}
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+          >
             <img
               className="h-8 w-8"
               src="/docs/img/postgres-logo.svg"

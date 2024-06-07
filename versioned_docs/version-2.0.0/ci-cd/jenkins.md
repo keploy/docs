@@ -134,4 +134,8 @@ Started by `user admin`
 
 _And... voila! You have successfully integrated keploy in Jenkins CI/CD pipeline 🌟_
 
-Hope this helps you out, if you still have any questions, reach out to us on our [Slack](https://join.slack.com/t/keploy/shared_invite/zt-2dno1yetd-Ec3el~tTwHYIHgGI0jPe7A)
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

@@ -16,11 +16,13 @@ tags:
 
 Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
 
-To integrate the Keploy in `GitLab`, we first need to install and setup by adding the following steps to our `.gitlab-ci.yml` : -
+## Create pipeline
+
 To integrate the Keploy in `GitLab`, we first need to install and setup by adding the following steps to our `.gitlab-ci.yml` : -
 
 ```yaml
-...
+
+---
 stages:
   - test
 
@@ -28,7 +30,6 @@ keploy-test-job: # This job runs in the test stage.
   image: ubuntu:latest
   stage: test
   before_script:
-
     ## Add the dependencies && Install Keploy Binary
 
     - apt update && apt install -y sudo curl
@@ -40,15 +41,16 @@ keploy-test-job: # This job runs in the test stage.
     ## Steps to run application
     ...
 ```
-Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script:` would look like below:- 
+
+Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script:` would look like below:-
 
 ```yaml
-  script:
-    ## Steps to run express-mongoose application
-    - apt install -y nodejs npm
-    - cd express-mongoose
-    - npm install -y
-    - keploy test -c "npm start"
+script:
+  ## Steps to run express-mongoose application
+  - apt install -y nodejs npm
+  - cd express-mongoose
+  - npm install -y
+  - keploy test -c "npm start"
 ```
 
 In your `.gitlab-ci.yml file`, in last step we have `keploy test` command to run your keploy generated test suite, this sets up Keploy to replay the interactions it has generated and perform CI Testing.
@@ -66,7 +68,7 @@ $ keploy test -c "npm start"
       ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
        ▓▌                           ▐█▌                   █▌
         ▓
-    
+
   version: 2.1.0-alpha23
 
   🐰 Keploy: 2024-06-05T06:32:52Z INFO config file not found; proceeding with flags only
@@ -106,4 +108,8 @@ _And... voila! You have successfully integrated keploy in GitLab CI/CD pipeline 
 
 Integrating Keploy with GitLab CI automates the testing process, ensuring that tests are run with every commit and merge request. And by running tests automatically in CI pipeline, you can catch issues early and ensure that your application remains stable and reliable.
 
-Hope this helps you out, if you still have any questions, reach out to us on our [Slack](https://join.slack.com/t/keploy/shared_invite/zt-2dno1yetd-Ec3el~tTwHYIHgGI0jPe7A)
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>
