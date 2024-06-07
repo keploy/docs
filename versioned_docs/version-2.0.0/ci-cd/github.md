@@ -2,7 +2,7 @@
 id: github
 title: Integrating with GitHub CI
 description: Guide into Keploy GitHub CI Pipeline
-sidebar_label: GitHub
+sidebar_label: GitHub Workflows
 keywords:
   - ci testing
   - ci/cd
@@ -31,18 +31,21 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
   run: |
     curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
     sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
-    sudo mount -t debugfs debugfs /sys/kernel/debug
   ...
 ```
 
-> **Note: if you are using arm_64 as runner use `curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp` to download keploy binary**
+> **Note: if you are using `arm_64` as runner use below to download keploy binary**
 
-For example, while using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI, the workflow would like:-
+`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp`
+
+### Example with Scripts
+
+While using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI, the workflow would like:-
 
 ```yaml
 - name: Checkout Commit
   uses: actions/checkout@v2
-- name: Set up Go
+- name: Set up Node
   uses: actions/setup-node@v2
   with:
     node-version: 18
@@ -52,7 +55,6 @@ For example, while using [express-mongoose](https://github.com/keploy/samples-ty
   run: |
     curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
     sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
-    sudo mount -t debugfs debugfs /sys/kernel/debug
 
     # Install application dependencies
     npm install
@@ -61,45 +63,7 @@ For example, while using [express-mongoose](https://github.com/keploy/samples-ty
     keploy test -c "node src/app.js"
 ```
 
-## GitHub Actions
-
-GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
-
-```yaml
-jobs:
-  my_job:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Test-Report
-        uses: keploy/testgpt@main
-        with:
-          command: <CMD_TO_RUN_APP ## Command to run the application
-```
-
-In the above example, we are using the `keploy/testgpt` action to run the test cases. The `working-directory` (optional) is the path to the application by default it takes root to find keploy folder. `delay` (optional) is the time to wait for the application to start, and `command` is the command to run your application.
-
-For example, while using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI via actions, the workflow would like:-
-
-```yaml
-jobs:
-  keploy_test_case:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Test-Report
-        uses: keploy/testgpt@main
-        with:
-          working-directory: /express-mongoose
-          delay: 10
-          command: node src/app.js
-```
-
-> **Note: `keploy/testgpt` action supports only amd_64 based runners.**
-
-In both the cases, We will get to see output : -
+We will get to see output : -
 
 ```sh
 
@@ -113,31 +77,131 @@ In both the cases, We will get to see output : -
        ▓▌                           ▐█▌                   █▌
         ▓
 
-  version: 2.1.0-alpha18
+  version: 2.1.0-alpha23
 
-  🐰 Keploy: 2024-05-24T12:05:16Z 	INFO	config file not found; proceeding with flags only
-  🐰 Keploy: 2024-05-24T12:05:16Z 	INFO	GitHub Actions workflow file generated successfully	{"path": "/githubactions/keploy.yml"}
-  🐰 Keploy: 2024-05-24T12:05:16Z 	INFO	keploy initialized and probes added to the kernel.
-  🐰 Keploy: 2024-05-24T12:05:17Z 	INFO	Java detected and successfully imported CA	{"path": "/usr/lib/jvm/temurin-11-jdk-amd64/lib/security/cacerts", "output": "Warning: use -cacerts option to access cacerts keystore\nCertificate was added to keystore\n"}
-  🐰 Keploy: 2024-05-24T12:05:17Z 	INFO	Successfully imported CA	{"": "V2FybmluZzogdXNlIC1jYWNlcnRzIG9wdGlvbiB0byBhY2Nlc3MgY2FjZXJ0cyBrZXlzdG9yZQpDZXJ0aWZpY2F0ZSB3YXMgYWRkZWQgdG8ga2V5c3RvcmUK"}
-  🐰 Keploy(test): 2024-05-27T19:50:15Z 	INFO	running	{"test-set": "test-set-0"}
+  🐰 Keploy: 2024-06-05T04:55:12Z 	INFO	config file not found; proceeding with flags only
+  🐰 Keploy: 2024-06-05T04:55:12Z 	WARN	Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
+  🐰 Keploy: 2024-06-05T04:55:12Z 	INFO	Example usage: keploy test -c "/path/to/user/app" --delay 6
+  🐰 Keploy: 2024-06-05T04:55:12Z 	INFO	GitHub Actions workflow file generated successfully	{"path": "/githubactions/keploy.yml"}
+  🐰 Keploy: 2024-06-05T04:55:13Z 	INFO	keploy initialized and probes added to the kernel.
 
-    ____    __
-    / __/___/ /  ___
-  / _// __/ _ \/ _ \
-  /___/\__/_//_/\___/ v4.9.0
-  High performance, minimalist Go web framework
-  https://echo.labstack.com
-  ____________________________________O/_______
-                                      O\
-  ⇨ http server started on [::]:8082
-  🐰 Keploy: 2024-05-24T13:56:28+05:30    INFO    starting test for of    {"test case": "test-1", "test set": "test-set-0"}
+  ...
+
+  🐰 Keploy: 2024-06-05T04:55:16Z 	INFO	starting TCP DNS server at addr :26789
+  🐰 Keploy: 2024-06-05T04:55:16Z 	INFO	starting UDP DNS server at addr :26789
+  🐰 Keploy: 2024-06-05T04:55:16Z 	INFO	Proxy started at port:16789
+  🐰 Keploy: 2024-06-05T04:55:16Z 	INFO	running	{"test-set": "test-set-0"}
+
+  Listening on port 8000
+  Connected to MongoDB
+
+  🐰 Keploy: 2024-06-05T04:55:21Z 	INFO	starting test for of	{"test case": "test-1", "test set": "test-set-0"}
 
   Testrun passed for testcase with id: "test-1"
 
   --------------------------------------------------------------------
 
-  🐰 Keploy: 2024-05-24T13:56:28+05:30    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
+  🐰 Keploy: 2024-06-05T04:55:21Z    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
+
+  <=========================================>
+    TESTRUN SUMMARY. For test-set: "test-set-0"
+          Total tests: 1
+          Total test passed: 1
+          Total test failed: 0
+  <=========================================>
+
+  🐰 Keploy: 2024-06-05T05:18:49Z 	INFO	test run completed	{"passed overall": true}
+  🐰 Keploy: 2024-06-05T05:18:49Z 	INFO	stopping Keploy	{"reason": "replay completed successfully"}
+  🐰 Keploy: 2024-06-05T05:18:49Z 	INFO	proxy stopped...
+  🐰 Keploy: 2024-06-05T05:18:50Z 	INFO	eBPF resources released successfully...
+```
+
+_And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
+
+---
+
+## GitHub Actions
+
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
+
+```yaml
+jobs:
+  my_job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test-Report
+        uses: keploy/testgpt@main
+        with:
+          command: "<CMD_TO_RUN_APP>" ## Command to run the application
+```
+
+In the above example, we are using the `keploy/testgpt` action to run the test cases.
+
+> - `working-directory` (optional) is the path to the application by default it takes root to find keploy folder.
+> - `delay` (optional) is the time to wait for the application to start.
+> - `command` is the command to run your application.
+
+### Example with Actions
+
+While using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI via actions, the workflow would like:-
+
+```yaml
+jobs:
+  keploy_test_case:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Test-Report
+        uses: keploy/testgpt@main
+        with:
+          working-directory: /express-mongoose
+          delay: 10
+          command: "node src/app.js"
+```
+
+> **Note: `keploy/testgpt` action supports only amd_64 based runners.**
+
+We will get to see output : -
+
+```sh
+Test Mode Starting 🎉
+sudo -E keploy test -c node src/app.js --delay 10 --path ./
+
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+
+  version: 2.1.0-alpha23
+
+  🐰 Keploy: 2024-06-05T05:18:35Z 	INFO	config file not found; proceeding with flags only
+  🐰 Keploy: 2024-06-05T05:18:35Z 	INFO	GitHub Actions workflow file generated successfully	{"path": "/githubactions/keploy.yml"}
+  🐰 Keploy: 2024-06-05T05:18:35Z 	INFO	keploy initialized and probes added to the kernel.
+
+  ...
+
+  🐰 Keploy: 2024-06-05T05:18:39Z 	INFO	starting TCP DNS server at addr :26789
+  🐰 Keploy: 2024-06-05T05:18:39Z 	INFO	starting UDP DNS server at addr :26789
+  🐰 Keploy: 2024-06-05T05:18:39Z 	INFO	Proxy started at port:16789
+  🐰 Keploy: 2024-06-05T05:18:39Z 	INFO	running	{"test-set": "test-set-0"}
+  Listening on port 8000
+  Connected to MongoDB
+  🐰 Keploy: 2024-06-05T05:18:49Z 	INFO	starting test for of	{"test case": "test-1", "test set": "test-set-0"}
+
+  Testrun passed for testcase with id: "test-1"
+
+  --------------------------------------------------------------------
+
+  🐰 Keploy: 2024-06-05T04:55:21Z    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
 
   <=========================================>
     TESTRUN SUMMARY. For test-set: "test-set-0"
@@ -146,9 +210,13 @@ In both the cases, We will get to see output : -
           Total test failed: 0
   <=========================================>
   ...
-  🐰 Keploy: 2024-05-24T13:56:28+05:30    INFO    test run completed      {"passed overall": true}
+  🐰 Keploy: 2024-06-05T04:55:21Z    INFO    test run completed      {"passed overall": true}
 ```
 
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
 
-Hope this helps you out, if you still have any questions, reach out to us on our [Slack](https://join.slack.com/t/keploy/shared_invite/zt-2dno1yetd-Ec3el~tTwHYIHgGI0jPe7A)
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

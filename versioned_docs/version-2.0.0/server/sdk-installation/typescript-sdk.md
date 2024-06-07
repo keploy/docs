@@ -17,9 +17,6 @@ keywords:
 2. [nyc](https://www.npmjs.com/package/nyc)
 3. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
 4. [Jest](https://jestjs.io/docs/getting-started)
-5. [nyc](https://www.npmjs.com/package/nyc)
-6. [Keploy SDK](https://github.com/keploy/keploy?tab=readme-ov-file#-quick-installation)
-7. [Jest](https://jestjs.io/docs/getting-started)
 
 ## Installation
 
@@ -90,3 +87,9 @@ To get Combined coverage with keploy test coverage: -
 ```bash
 npm run coverage
 ```
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../../concepts/support.md'
+
+<GetSupport/>

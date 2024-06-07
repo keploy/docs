@@ -36,7 +36,8 @@
       "collapsed": true,
       "items": [
         "ci-cd/github",
-        "ci-cd/gitlab"
+        "ci-cd/gitlab",
+        "ci-cd/jenkins"
       ]
     },
     {
@@ -142,8 +143,7 @@
         "dependencies/mongo",
         "dependencies/postgres",
         "dependencies/http",
-        "keploy-explained/faq",
-        "concepts/general-glossary"
+        "keploy-explained/faq"
       ]
     }
   ],

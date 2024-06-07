@@ -141,3 +141,9 @@ and if you want the coverage in an html file, you can run:
 ```bash
 python3 -m coverage html
 ```
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../../concepts/support.md'
+
+<GetSupport/>

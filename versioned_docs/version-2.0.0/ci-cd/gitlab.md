@@ -2,7 +2,7 @@
 id: gitlab
 title: Integrating with GitLab CI
 description: Guide into Keploy GitLab CI Pipeline
-sidebar_label: GitLab
+sidebar_label: GitLab Runner
 keywords:
   - ci testing
   - ci/cd
@@ -15,6 +15,8 @@ tags:
 ---
 
 Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
+
+## Create pipeline
 
 To integrate the Keploy in `GitLab`, we first need to install and setup by adding the following steps to our `.gitlab-ci.yml` : -
 
@@ -55,7 +57,7 @@ In your `.gitlab-ci.yml file`, in last step we have `keploy test` command to run
 We will get to see output : -
 
 ```sh
-$ keploy test -c "go run main.go handler.go"
+$ keploy test -c "npm start"
        ▓██▓▄
     ▓▓▓▓██▓█▓▄
      ████████▓▒
@@ -66,44 +68,47 @@ $ keploy test -c "go run main.go handler.go"
        ▓▌                           ▐█▌                   █▌
         ▓
 
-version: 2.1.0-alpha18
-🐰 Keploy: 2024-05-24T15:56:22+05:30    INFO    config file not found; proceeding with flags only
-🐰 Keploy: 2024-05-24T15:56:22+05:30    WARN    Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
-🐰 Keploy: 2024-05-24T15:56:22+05:30    INFO    Example usage: keploy test -c "/path/to/user/app" --delay 6
-...
-🐰 Keploy: 2024-05-24T15:56:23+05:30    INFO    Proxy started at port:16789
-🐰 Keploy: 2024-05-24T15:56:23+05:30    INFO    starting TCP DNS server at addr :26789
-🐰 Keploy: 2024-05-24T15:56:23+05:30    INFO    running {"test-set": "test-set-0"}
-🐰 Keploy: 2024-05-24T15:56:23+05:30    INFO    starting UDP DNS server at addr :26789
+  version: 2.1.0-alpha23
 
-   ____    __
-  / __/___/ /  ___
- / _// __/ _ \/ _ \
-/___/\__/_//_/\___/ v4.9.0
-High performance, minimalist Go web framework
-https://echo.labstack.com
-____________________________________O/_______
-                                    O\
-⇨ http server started on [::]:8082
-🐰 Keploy: 2024-05-24T15:56:28+05:30    INFO    starting test for of    {"test case": "test-1", "test set": "test-set-0"}
-Testrun passed for testcase with id: "test-1"
+  🐰 Keploy: 2024-06-05T06:32:52Z INFO config file not found; proceeding with flags only
+  🐰 Keploy: 2024-06-05T06:32:52Z WARN Delay is set to 5 seconds, incase your app takes more time to start use --delay to set custom delay
+  🐰 Keploy: 2024-06-05T06:32:52Z INFO Example usage: keploy test -c "/path/to/user/app" --delay 6
+  🐰 Keploy: 2024-06-05T06:32:52Z INFO GitHub Actions workflow file generated successfully	{"path": "/githubactions/keploy.yml"}
+  🐰 Keploy: 2024-06-05T06:32:53Z INFO keploy initialized and probes added to the kernel.
+  🐰 Keploy: 2024-06-05T06:32:54Z INFO Keploy has taken control of the DNS resolution mechanism, your application may misbehave if you have provided wrong domain name in your application code.
+  🐰 Keploy: 2024-06-05T06:32:54Z INFO starting TCP DNS server at addr :26789
+  🐰 Keploy: 2024-06-05T06:32:54Z INFO Proxy started at port:16789
+  🐰 Keploy: 2024-06-05T06:32:54Z INFO running	{"test-set": "test-set-0"}
+  🐰 Keploy: 2024-06-05T06:32:54Z INFO starting UDP DNS server at addr :26789
 
---------------------------------------------------------------------
+  > NodeMongo@1.0.0 start
+  > node src/app.js
 
-🐰 Keploy: 2024-05-24T15:56:28+05:30    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
+  Listening on port 8000
+  Connected to MongoDB
+  🐰 Keploy: 2024-06-05T06:32:59Z INFO starting test for of	{"test case": "test-1", "test set": "test-set-0"}
+  Testrun passed for testcase with id: "test-1"
 
- <=========================================>
-  TESTRUN SUMMARY. For test-set: "test-set-0"
-        Total tests: 1
-        Total test passed: 1
-        Total test failed: 0
- <=========================================>
-...
-🐰 Keploy: 2024-05-24T15:56:28+05:30    INFO    test run completed      {"passed overall": true}
+  --------------------------------------------------------------------
+
+  🐰 Keploy: 2024-06-05T06:32:54Z    INFO    result  {"testcase id": "test-1", "testset id": "test-set-0", "passed": "true"}
+
+  <=========================================>
+    TESTRUN SUMMARY. For test-set: "test-set-0"
+          Total tests: 1
+          Total test passed: 1
+          Total test failed: 0
+  <=========================================>
+  ...
+  🐰 Keploy: 2024-06-05T06:32:54Z    INFO    test run completed      {"passed overall": true}
 ```
 
 _And... voila! You have successfully integrated keploy in GitLab CI/CD pipeline 🌟_
 
 Integrating Keploy with GitLab CI automates the testing process, ensuring that tests are run with every commit and merge request. And by running tests automatically in CI pipeline, you can catch issues early and ensure that your application remains stable and reliable.
 
-Hope this helps you out, if you still have any questions, reach out to us on our [Slack](https://join.slack.com/t/keploy/shared_invite/zt-2dno1yetd-Ec3el~tTwHYIHgGI0jPe7A)
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>
