@@ -46,3 +46,9 @@ Got more questions? We're all ears (and code)👂.
 <!-- ### 9. Would keploy know if an external service changes?
 
 Not yet. Unless that application is also using keploy, keploy would only test the functionality of the current application. We are working to detect scanning for API contract violations and adding multiple application to perform comprehensive integration tests. All contributions are welcome. -->
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

@@ -96,19 +96,19 @@ Both whitebox and black-box testing are valuable software testing techniques, ea
 
 ## **Whitebox testing with Keploy**
 
-- Install Keploy and integrate it with your development setup. Keploy supports various platforms and CI tools like GitHub, GitLab, and Jenkins, making integration straightforward.
+Install [Keploy](https://keploy.io/) and integrate it with your development setup. Keploy supports various platforms and CI tools like [GitHub CI](http://localhost:3000/docs/ci-cd/github/), [GitLab Runners](http://localhost:3000/docs/ci-cd/gitlab/), and [Jenkins Pipeline](http://localhost:3000/docs/ci-cd/jenkins/), making integration straightforward : -
 
-- Instrument Your Code: Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
+- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
 
-- Record Test Scenarios: Run your application and perform different operations. Keploy will record these interactions and generate test cases based on the internal workings of your application.
+- **Record Test Scenarios:** Run your application and perform different operations. Keploy will record these interactions and generate test cases based on the internal workings of your application.
 
-- Generate and Customize Test Cases: Keploy automatically generates test cases from the recorded interactions. You can customize these test cases to focus on specific internal paths, edge cases, or critical code areas that need thorough testing.
+- **Generate and Customize Test Cases:** Keploy automatically generates test cases from the recorded interactions. You can customize these test cases to focus on specific internal paths, edge cases, or critical code areas that need thorough testing.
 
-- Execute Tests and Analyze Results: Run the generated test cases using Keploy. It will execute the tests and provide detailed reports on code coverage, including insights into which parts of your code were exercised and which were not.
+- **Execute Tests and Analyze Results:** Run the generated test cases using Keploy. It will execute the tests and provide detailed reports on code coverage, including insights into which parts of your code were exercised and which were not.
 
-- Error Analysis and Debugging: Utilize Keploy’s built-in error analysis tools to identify and resolve issues within your code. Keploy provides detailed insights into errors, helping you quickly pinpoint and fix problems in the internal logic of your application.
+- **Error Analysis and Debugging:** Utilize Keploy’s built-in error analysis tools to identify and resolve issues within your code. Keploy provides detailed insights into errors, helping you quickly pinpoint and fix problems in the internal logic of your application.
 
-- Continuous Integration and Testing: Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
+- C**ontinuous Integration and Testing:** Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
 
 ## Conclusion
 The key differences between these approaches lie in the tester's knowledge, perspective, and focus. _Blackbox testing_ emphasizes external behavior and is suitable when internal code knowledge is not essential. _Whitebox testing_, on the other hand, dives into internal logic, making it indispensable for code optimization, security assessment, and uncovering potential vulnerabilities. Depending on project goals, a combination of both methodologies may be employed to ensure comprehensive and effective software testing throughout the development lifecycle.
