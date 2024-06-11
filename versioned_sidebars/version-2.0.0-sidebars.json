@@ -33,6 +33,10 @@
       "type": "category",
       "label": "Test Coverage Generation",
       "collapsible": true,
+      "link": {
+        "type": "doc",
+        "id": "server/coverage/index"
+      },
       "collapsed": true,
       "items": ["server/coverage/go", "server/coverage/java", "server/coverage/typescript", "server/coverage/python"]
     },
@@ -80,7 +84,7 @@
         },
         {
           "type": "category",
-          "label": "Javascript",
+          "label": "Node",
           "collapsible": true,
           "collapsed": true,
           "items": [
