@@ -1,10 +1,12 @@
 ---
 id: typescript
-title: Coverage Report Generation
-sidebar_label: Typescript
+title: Merge Unit Test Coverage Data
+sidebar_label: Node
 tags:
   - javascript
   - js
+  - node
+  - npm
   - coverage
 keywords:
   - coverage
@@ -18,12 +20,6 @@ keywords:
   - tap
   - Typescript
 ---
-
-## Pre-requisites
-
-1. [nyc](https://www.npmjs.com/package/nyc)
-
-To generate coverage report for your node application, follow the below instructions.
 
 ## Update package file
 
@@ -41,21 +37,19 @@ Update the `package.json` file that runs the application:
 
 In test script, --coverage flag would trigger the report generation for jest. For report generation in other testing frameworks like mocha, intern, tap, refer https://istanbul.js.org/docs/tutorials/
 
-## Usage
-
-To generate coverage report for keploy recorded testcases, Run keploy test command as usual: 
-
-```bash
-keploy test -c "npm run start"
-```
-
-To generate coverage report for your unit tests: -
+To generate coverage report for your unit tests, Run:
 
 ```bash
 npm test
 ```
 
-To get Combined coverage with keploy test coverage: -
+To merge coverage data of unit tests with keploy tests, Run:
+
+```bash
+npm run coverage:merge
+```
+
+To get coverage related information for merged coverage data, Run:
 
 ```bash
 npm run coverage:report

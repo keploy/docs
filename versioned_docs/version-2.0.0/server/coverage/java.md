@@ -1,9 +1,10 @@
 ---
 id: java
-title: Coverage Report Generation
+title: Merge Unit Test Coverage Data
 sidebar_label: Java
 tags:
   - java
+  - coverage
 keyword:
   - MongoDB
   - Jacoco
@@ -16,14 +17,6 @@ keyword:
   - Auto Testcase generation
   - Junit
 ---
-
-## Pre-requisites
-
-1. [Java 1.8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
-2. [Maven](https://maven.apache.org/)
-3. [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)
-
-To get the coverage data for keploy tests and combined coverage data, you need to update your pom.xml and run the commands in [Usage](#usage) section.
 
 ### Update `pom.xml` file
 
@@ -100,21 +93,7 @@ You will need to add the following plugins in `pom.xml` file of your application
 </build>
 ```
 
-## Usage
-
-1. firstly, you need to clean the project by removing any previously generated file, and run install command. 
-```bash
-mvn clean install -Dmaven.test.skip=true
-```
-
-2. Just run keploy test as usual to get the coverage report for keploy recorded testcases:
-```bash
-keploy test -c "java -jar target/your_application.jar"
-```
-
-coverage report would be dumped in the current test-run folder inside keploy/reports, also you can visualize the report by opening index.html found in target/site/e2e directory
-
-3. To get the combined report as well as coverage report for your unit tests, Run
+Now, To get the combined report as well as coverage report for your unit tests, Run
 ```bash
 mvn test
 ```
