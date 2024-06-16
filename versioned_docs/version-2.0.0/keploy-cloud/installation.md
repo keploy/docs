@@ -37,6 +37,8 @@ Once your account is set up, you can start exploring the various features of Kep
 
 - **Time Freezing** ❄️: Keploy Cloud allows you to freeze/rollback the time in every test run, back to when the test case was recorded. This allows developers to ensure time-sensitive objects don’t expire or change, making tests consistent and more reliable.
 
+- **Mock Registry** 📂: The Mock Registry is a system designed to handle large mock files by uploading them to cloud storage, preventing these sizable files from being committed to Git repositories. This approach optimizes repository size and performance while maintaining an efficient and streamlined development workflow.
+
 To get started with Keploy Cloud, you will need to install the Keploy Cloud Agent and authenticate your account.
 
 ## Installation 🛠️
