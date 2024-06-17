@@ -32,7 +32,7 @@ keploy-test-job: # This job runs in the test stage.
     ## Add the dependencies && Install Keploy Binary
 
     - apt update && apt install -y sudo curl
-    - curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
+    - curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
     - sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
     - sudo mount -t debugfs debugfs /sys/kernel/debug
 
@@ -40,6 +40,9 @@ keploy-test-job: # This job runs in the test stage.
     ## Steps to run application
     ...
 ```
+> **Note: if you are using `arm_64` as runner use below to download keploy binary**
+
+`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp`
 
 Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script:` would look like below:-
 
