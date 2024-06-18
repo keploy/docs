@@ -43,6 +43,10 @@ pipeline {
 }
 ```
 
+> **Note: if you are using `arm_64` as runner use below to download keploy binary**
+
+`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp`
+
 ### Example
 
 Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, steps in our `script` would look like below:-

@@ -23,6 +23,7 @@
       "collapsed": false,
       "items": [
         "running-keploy/cli-commands",
+        "running-keploy/unit-test-generator",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
