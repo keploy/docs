@@ -97,7 +97,7 @@ go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./keploy/coverage-repo
 go tool cover -func coverage-profile
 ```
 
-### Create mocks/stubs for your unit-test
+<!-- ### Create mocks/stubs for your unit-test
 
 These mocks/stubs are realistic and frees you up from writing them manually. Keploy creates `readable/editable`
 mocks/stubs yaml files which can be referenced in any of your unit-tests tests. An example is mentioned
@@ -226,4 +226,10 @@ func TestPutURL(t *testing.T) {
 		t.Fatalf("Response did not contain expected fields")
 	}
 }
-```
+``` -->
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../../concepts/support.md'
+
+<GetSupport/>

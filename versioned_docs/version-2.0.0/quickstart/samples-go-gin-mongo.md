@@ -399,4 +399,8 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>
