@@ -37,13 +37,15 @@ keploy dedup -c "<CMD_TO_RUN_APP>"
 Install the `keploy/sdk` and `nyc` package : -
 
 ```bash
-npm i @keploy/sdk -g nyc
+npm i @keploy/sdk nyc@15.0.0
 ```
 
 Add the the following on top of your main application js file (index.js/server.js/app.js/main.js) : -
 
 ```bash
-require('@keploy/sdk/dist/v2/dedup/register')
+const kmiddleware = require('@keploy/sdk/dist/v2/dedup/middleware.js')
+
+app.use(kmiddleware())
 ```
 
 **2. Run Keploy Dedup**
@@ -51,6 +53,16 @@ require('@keploy/sdk/dist/v2/dedup/register')
 ```
 keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10
 ```
+
+#### Example
+
+Let's use the [expresss-mongoose] application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
+
+```bash
+keploy dedup -c "node src/app.js" -t "test-set-1"
+```
+
+<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f">
 
 Voila! Keploy will now detect duplicate tests .
 
