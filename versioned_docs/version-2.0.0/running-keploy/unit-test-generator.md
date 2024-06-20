@@ -29,6 +29,7 @@ keploy gen [flag]
 ```
 
 ## Prerequisites
+
 `API KEY` of the AI model is needed, this can be from either of one these:
 
 - **OpenAI's [GPT-4o](https://platform.openai.com/) [preferred].**
@@ -40,6 +41,7 @@ Now, let's setup the `API_KEY` as environment variable : -
 ```bash
 export API_KEY=xxxx
 ```
+
 ## Running with Javascript/TypeScript applications
 
 For the we need to make sure that the coverage report is in coberuta format, so to make sure let's modify our `package.json` by adding :
@@ -48,14 +50,14 @@ For the we need to make sure that the coverage report is in coberuta format, so 
 "jest": {
       "coverageReporters": ["text", "cobertura"],
     }
-``` 
+```
 
-or if `jest.config.js` is present then, we need to add : 
+or if `jest.config.js` is present then, we need to add :
 
 ```js
 module.exports = {
-    coverageReporters: ["text", "cobertura"],
-  };
+  coverageReporters: ["text", "cobertura"],
+};
 ```
 
 ### Generating Unit Tests
@@ -63,20 +65,21 @@ module.exports = {
 You can test a smaller section of application or to control costs, we can consider generating tests for a single source and its corresponding test file : -
 
 ```bash
-keploy gen --sourceFilePath="<path to source file>" \ 
-    --testFilePath="<path to test file for above source file>" \ 
-    --testCommand="npm test" \ 
+keploy gen --sourceFilePath="<path to source file>" \
+    --testFilePath="<path to test file for above source file>" \
+    --testCommand="npm test" \
     --coverageReportPath="<path to coverage.xml>"
 ```
 
 For Entire Application we can generate tests by using `--testDir` instead of `--testFilePath`.
+
 > ⚠️ Warning: Executing command with `--testDir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
 
 #### Example
 
 Let us consider the [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application, where we have a jest testcases under `test` folder with name `routes.test.js`.
 
-We have modified our `package.json` by adding below : - 
+We have modified our `package.json` by adding below : -
 
 ```json
   "jest": {
@@ -86,7 +89,7 @@ We have modified our `package.json` by adding below : -
   }
 ```
 
-Now let's run Keploy UTG command : - 
+Now let's run Keploy UTG command : -
 
 ```bash
 keploy gen \
@@ -96,7 +99,7 @@ keploy gen \
   --coverageReportPath="./coverage/cobertura-coverage.xml"
 ```
 
-We will get following output : - 
+We will get following output : -
 
 <img src="/docs/img/express-mongoose-utg.png" alt="Keploy test coverage with ai generated unit tests for express-mongoose" width="100%" style={{ borderRadius: '5px' }}/>
 
@@ -113,24 +116,28 @@ go install github.com/AlekSi/gocov-xml@v1.1.0
 
 ### Generating Unit Tests
 
-With the above dependecies installed, we can now generate tests for our application by the following dommand : - 
+With the above dependecies installed, we can now generate tests for our application by the following dommand : -
 
 ```bash
 keploy gen --sourceFilePath="<path to source file>o" \
   --testFilePath="<path to test file for above source file>" \
   --testCommand="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
-  --coverageReportPath="<path to coverage.xml>" 
+  --coverageReportPath="<path to coverage.xml>"
 ```
+
 For Entire Application we can generate tests by using `--testDir` instead of `--testFilePath`.
+
 > ⚠️ Warning: Executing command with `--testDir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
 
 #### Example
-Let us consider the [mux-sql](https://github.com/keploy/samples-go/tree/main/mux-sql/) sample-application, where we already have our `app_test.go` test file for `app.go` source file : - 
+
+Let us consider the [mux-sql](https://github.com/keploy/samples-go/tree/main/mux-sql/) sample-application, where we already have our `app_test.go` test file for `app.go` source file : -
+
 ```bash
 keploy gen --sourceFilePath="app.go" \
   --testFilePath="app_test.go" \
   --testCommand="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
-  --coverageReportPath="./coverage.xml" 
+  --coverageReportPath="./coverage.xml"
 ```
 
 We will get following output : -

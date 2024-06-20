@@ -58,10 +58,14 @@ keploy record [flags]
   ```
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--containerName string` - Name of the docker container in which the user application is running.
 
+
   ```bash
+  keploy record -c "docker compose up" --containerName "my-app-container"
+  ```
   keploy record -c "docker compose up" --containerName "my-app-container"
   ```
 
@@ -73,7 +77,10 @@ keploy record [flags]
 
 - `- n, --networkName string` - Name of the docker network in which the user application is running.
 
+
   ```bash
+  keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
+  ```
   keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
   ```
 
@@ -137,10 +144,14 @@ keploy test [flags]
   ```
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--containerName string` - Name of the docker container in which the user application is running.
 
+
   ```bash
+  keploy test -c "docker compose up" --containerName "my-app-container"
+  ```
   keploy test -c "docker compose up" --containerName "my-app-container"
   ```
 
@@ -158,11 +169,15 @@ keploy test [flags]
 
 - `- n, --networkName string` - Name of the docker network in which the user application is running.
 
+
   ```bash
+  keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
+  ```
   keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
   ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+
 
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are saved.
 
@@ -277,6 +292,7 @@ keploy normalize [flags]
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
   ```
 
+## [config](#config)
 ## [config](#config)
 
 The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
