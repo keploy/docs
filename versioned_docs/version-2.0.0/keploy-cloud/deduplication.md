@@ -62,7 +62,7 @@ Let's use the [expresss-mongoose] application to test dedup feature. In our `src
 keploy dedup -c "node src/app.js" -t "test-set-1"
 ```
 
-<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f">
+<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f" />
 
 Voila! Keploy will now detect duplicate tests .
 
