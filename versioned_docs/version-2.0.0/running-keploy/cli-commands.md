@@ -23,13 +23,13 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode              | Flags Available                                                                                                                                                                                                                                                                                                   |
-| ----------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`          | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                          |
-| `test`            | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
-| `gen` | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`|
-| `normailze`       | `-p, --path`, `--test-run`, `--tests`|
-| `config` | `--generate`,`-p, --path`|
+| Mode        | Flags Available                                                                                                                                                                                                                                                                                                   |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                          |
+| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--withCoverage`, `--ignoreOrdering` |
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                      |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                             |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                         |
 
 ## [record](#record)
 
@@ -62,11 +62,14 @@ keploy record [flags]
 
 - `--containerName string` - Name of the docker container in which the user application is running.
 
-
   ```bash
   keploy record -c "docker compose up" --containerName "my-app-container"
   ```
+
   keploy record -c "docker compose up" --containerName "my-app-container"
+
+  ```
+
   ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
@@ -77,11 +80,14 @@ keploy record [flags]
 
 - `- n, --networkName string` - Name of the docker network in which the user application is running.
 
-
   ```bash
   keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
   ```
+
   keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
+
+  ```
+
   ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
@@ -148,11 +154,14 @@ keploy test [flags]
 
 - `--containerName string` - Name of the docker container in which the user application is running.
 
-
   ```bash
   keploy test -c "docker compose up" --containerName "my-app-container"
   ```
+
   keploy test -c "docker compose up" --containerName "my-app-container"
+
+  ```
+
   ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
@@ -169,15 +178,17 @@ keploy test [flags]
 
 - `- n, --networkName string` - Name of the docker network in which the user application is running.
 
-
   ```bash
   keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
   ```
+
   keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
+
+  ```
+
   ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
-
 
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are saved.
 
@@ -228,6 +239,7 @@ keploy test [flags]
 - `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/sdk-installation/go-sdk.md)
 
 ## [gen](#gen)
+
 The `gen` cmd in Keploy allows user to generate unit tests using LLM Models.
 
 <b> Usage: </b>
@@ -293,6 +305,7 @@ keploy normalize [flags]
   ```
 
 ## [config](#config)
+
 ## [config](#config)
 
 The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
