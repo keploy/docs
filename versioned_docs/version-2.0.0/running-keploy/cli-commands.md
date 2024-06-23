@@ -26,7 +26,7 @@ Here are some examples of how to use some common flags:
 | Mode        | Flags Available                                                                                                                                                                                                                                                                                                   |
 | ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                          |
-| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--skip-coverage`, `--jacoco-agent-path`, `--ignoreOrdering` |
+| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--skip-coverage`, `--jacoco-agent-path`, `--ignoreOrdering` |
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                      |
 | `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                             |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                         |
@@ -66,11 +66,6 @@ keploy record [flags]
   keploy record -c "docker compose up" --containerName "my-app-container"
   ```
 
-  keploy record -c "docker compose up" --containerName "my-app-container"
-
-  ```
-
-  ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 
@@ -84,11 +79,7 @@ keploy record [flags]
   keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
   ```
 
-  keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
 
-  ```
-
-  ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
@@ -157,12 +148,6 @@ keploy test [flags]
   keploy test -c "docker compose up" --containerName "my-app-container"
   ```
 
-  keploy test -c "docker compose up" --containerName "my-app-container"
-
-  ```
-
-  ```
-
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 
   ```bash
@@ -179,12 +164,6 @@ keploy test [flags]
 
   ```bash
   keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
-  ```
-
-  keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
-
-  ```
-
   ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
@@ -233,9 +212,9 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10 --ignoreOrdering
   ```
 
-- `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/coverage/typescript.md),[JUnit](versioned_docs/version-2.0.0/server/coverage/java.md) and [Pytest](versioned_docs/version-2.0.0/server/coverage/python.md),
+- `--skip-coverage` - skip code coverage computation while running the test cases
 
-- `--withCoverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/coverage/go.md)
+- `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
 
 ## [gen](#gen)
 
