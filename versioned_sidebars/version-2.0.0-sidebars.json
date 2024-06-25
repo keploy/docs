@@ -91,7 +91,6 @@
           "items": [
             "quickstart/samples-django",
             "quickstart/samples-flask",
-            "quickstart/samples-flask-local",
             "quickstart/samples-fastapi",
             "quickstart/samples-fastapi-twilio"
           ]
@@ -106,7 +105,8 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs"          ]
+            "quickstart/crud-nodejs"
+          ]
         },
         {
           "type": "category",
