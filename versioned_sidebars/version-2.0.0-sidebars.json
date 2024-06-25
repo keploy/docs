@@ -23,10 +23,22 @@
       "collapsed": false,
       "items": [
         "running-keploy/cli-commands",
+        "running-keploy/unit-test-generator",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
         "running-keploy/custom-mocks"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "CI/CD Integration",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "ci-cd/github",
+        "ci-cd/gitlab",
+        "ci-cd/jenkins"
       ]
     },
     {
@@ -79,7 +91,6 @@
           "items": [
             "quickstart/samples-django",
             "quickstart/samples-flask",
-            "quickstart/samples-flask-local",
             "quickstart/samples-fastapi",
             "quickstart/samples-fastapi-twilio"
           ]
@@ -121,7 +132,9 @@
       "items": [
         "keploy-cloud/cloud-installation",
         "keploy-cloud/application-settings",
-        "keploy-cloud/time-freezing"
+        "keploy-cloud/time-freezing",
+        "keploy-cloud/auto-test-generation",
+        "keploy-cloud/deduplication"
       ]
     },
     {
@@ -131,8 +144,9 @@
       "collapsed": true,
       "items": [
         "dependencies/mongo",
-        "keploy-explained/faq",
-        "concepts/general-glossary"
+        "dependencies/postgres",
+        "dependencies/http",
+        "keploy-explained/faq"
       ]
     }
   ],

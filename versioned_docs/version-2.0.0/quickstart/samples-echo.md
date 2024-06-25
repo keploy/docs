@@ -163,7 +163,7 @@ docker-compose up -d
 Now, we will create the binary of our application:-
 
 ```go
-go build
+go build -cover
 ```
 
 ### Capture the Testcases
@@ -213,7 +213,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
+sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10 --goCoverage
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -227,4 +227,8 @@ We will get output something like this:
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>
