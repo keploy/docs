@@ -30,7 +30,7 @@ import InstallationGuide from '../concepts/installation.md'
 Clone the repository and move to express-mongoose folder
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongoose-Sahil
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-mongoose
 
 # Install the dependencies
 npm install
