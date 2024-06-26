@@ -1,6 +1,6 @@
 ---
 id: samples-flask
-title: Sample Student Data CRUD App (Flask)
+title: Sample Task Creation CRUD App (Flask)
 sidebar_label: Flask + Mongo
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
 tags:
@@ -66,125 +66,141 @@ Let's make URLs short and sweet:
 
 To generate testcases we just need to **make some API calls.**
 
-**1. Make a POST request**
+1. **Make a POST request:**
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
 ```
 
-**2. Make a GET request**
+2. **Make a GET request:**
 
 ```bash
-curl http://localhost:6000/students
+curl http://localhost:5000/api/tasks
 ```
 
-**3. Make a PUT request**
+3. **Make a PUT request:**
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
 ```
 
-**4. Make a GET request**
+4. **Make a DELETE request:**
 
 ```bash
-curl http://localhost:6000/students/12345
+curl -X DELETE http://localhost:5000/api/tasks/12345
 ```
 
-**5. Make a DELETE request**
-
-```bash
-curl -X DELETE http://localhost:6000/students/12345
-```
-
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Http
 name: test-1
 spec:
   metadata: {}
   req:
-    method: POST
+    method: GET
     proto_major: 1
     proto_minor: 1
-    url: http://localhost:6000/students
+    url: http://localhost:5000/api/tasks
     header:
       Accept: "*/*"
-      Content-Length: "56"
+      Accept-Encoding: gzip, deflate, br
+      Cache-Control: no-cache
+      Connection: keep-alive
+      Content-Length: "59"
       Content-Type: application/json
-      Host: localhost:6000
-      User-Agent: curl/7.81.0
-    body: '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-    body_type: ""
-    timestamp: 2023-11-13T13:02:32.241333562Z
+      Host: localhost:5000
+      Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1
+      User-Agent: PostmanRuntime/7.32.1
+    body: '{"title": "Task 6","description": "Description for Task 6"}'
+    timestamp: 2024-04-22T16:38:39.232565209+05:30
   resp:
     status_code: 200
     header:
-      Content-Length: "48"
+      Access-Control-Allow-Origin: "*"
+      Content-Length: "267"
       Content-Type: application/json
-      Date: Mon, 13 Nov 2023 13:02:32 GMT
-      Server: Werkzeug/2.2.2 Python/3.9.18
+      Date: Mon, 22 Apr 2024 11:08:39 GMT
+      Server: Werkzeug/3.0.2 Python/3.10.12
     body: |
       {
-        "message": "Student created successfully"
+        "tasks": [
+          {
+            "description": "should update",
+            "id": "6626362fc7c5eddf174c88e4",
+            "title": "Updated"
+          },
+          {
+            "description": "Should work",
+            "id": "66263667c7c5eddf174c88e5",
+            "title": "Let's Check another time"
+          }
+        ]
       }
-    body_type: ""
-    status_message: ""
+    status_message: OK
     proto_major: 0
     proto_minor: 0
-    timestamp: 2023-11-13T13:02:34.752123715Z
+    timestamp: 2024-04-22T16:38:41.245704918+05:30
   objects: []
   assertions:
     noise:
-      - header.Date
-  created: 1699880554
+      header.Date: []
+  created: 1713784121
 curl: |-
-  curl --request POST \
-    --url http://localhost:6000/students \
-    --header 'Host: localhost:6000' \
-    --header 'User-Agent: curl/7.81.0' \
+  curl --request GET \
+    --url http://localhost:5000/api/tasks \
+    --header 'Host: localhost:5000' \
+    --header 'User-Agent: PostmanRuntime/7.32.1' \
     --header 'Accept: */*' \
     --header 'Content-Type: application/json' \
-    --data '{"student_id": "12344", "name": "John Doeww", "age": 10}'
+    --header 'Connection: keep-alive' \
+    --header 'Cache-Control: no-cache' \
+    --header 'Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1' \
+    --header 'Accept-Encoding: gzip, deflate, br' \
+    --data '{"title": "Task 6","description": "Description for Task 6"}'
 ```
 
-This is how `mocks.yml` generated would look like:-
+This is how the `mocks.yml` looks like:
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Mongo
-name: mocks
+name: mock-0
 spec:
   metadata:
-    operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }], checksum: 0 }'
+    operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "PyMongo","version": "4.6.3"},"os": {"type": "Linux","name": "Linux","architecture": "x86_64","version": "5.15.146.1-microsoft-standard-WSL2"},"platform": "CPython 3.10.12.final.0"}}, returnFieldsSelector:  }'
+    type: config
   requests:
     - header:
-        length: 187
-        requestId: 2127584089
+        length: 283
+        requestId: 1804289383
         responseTo: 0
-        Opcode: 2013
+        Opcode: 2004
       message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }'
-        checksum: 0
-      read_delay: 3469848802
+        flags: 0
+        collection_name: admin.$cmd
+        number_to_skip: 0
+        number_to_return: -1
+        query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"PyMongo","version":"4.6.3"},"os":{"type":"Linux","name":"Linux","architecture":"x86_64","version":"5.15.146.1-microsoft-standard-WSL2"},"platform":"CPython 3.10.12.final.0"}}'
+        return_fields_selector: ""
   responses:
     - header:
-        length: 166
-        requestId: 154
-        responseTo: 2127584089
-        Opcode: 2013
+        length: 329
+        requestId: 238
+        responseTo: 1804289383
+        Opcode: 1
       message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"cursor":{"firstBatch":[{"student_id":"12345","name":"John Doe","age":{"$numberInt":"20"}}],"id":{"$numberLong":"0"},"ns":"studentsdb.students"},"ok":{"$numberDouble":"1.0"}} }'
-        checksum: 0
-      read_delay: 869555
-  created: 1699880576
-  reqTimestampMock: 2023-11-13T13:02:56.385067848Z
-  resTimestampMock: 2023-11-13T13:02:56.386374941Z
+        response_flags: 8
+        cursor_id: 0
+        starting_from: 0
+        number_returned: 1
+        documents:
+          - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"6626352423399d438e00b0cf"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1713784113763"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"18"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+      read_delay: 1010011
+  created: 1713784113
+  reqTimestampMock: 2024-04-22T16:38:33.762559618+05:30
+  resTimestampMock: 2024-04-22T16:38:33.763749062+05:30
 ```
 
 Want to see if everything works as expected?
@@ -203,178 +219,213 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 ### Wrapping it up 🎉
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
 
 ## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
-### 📼 Roll the Tape - Recording Time!
-
-In `app.py`, replace the MongoDB connection URL with - `mongodb://0.0.0.0:27017/`
-
-Install the required Python packages:
+## Install all dependencies
 
 ```bash
 pip install -r requirements.txt
 ```
 
-Ready, set, record! Here's how:
+## Start the MongoDB server
+
+```bash
+sudo service mongod start
+```
+
+## Lights, Camera, Record! 🎥
+
+To initiate the recording of API calls, execute this command in your terminal:
 
 ```bash
 keploy record -c "python3 app.py"
 ```
 
-Keep an eye out for the `-c `flag! It's the command charm to run the app.
+Now, your app will start running, and you have to make some API calls to generate the test cases!!
 
-Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
-
-### Generate testcases
-
-To generate testcases we just need to **make some API calls.**
-
-**1. Make a POST request**
+1. **Make a POST request:**
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
 ```
 
-**2. Make a GET request**
+2. **Make a GET request:**
 
 ```bash
-curl http://localhost:6000/students
+curl http://localhost:5000/api/tasks
 ```
 
-**3. Make a PUT request**
+3. **Make a PUT request:**
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
 ```
 
-**4. Make a GET request**
+4. **Make a DELETE request:**
 
 ```bash
-curl http://localhost:6000/students/12345
+curl -X DELETE http://localhost:5000/api/tasks/12345
 ```
 
-**5. Make a DELETE request**
-
-```bash
-curl -X DELETE http://localhost:6000/students/12345
-```
-
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Http
 name: test-1
 spec:
   metadata: {}
   req:
-    method: POST
+    method: GET
     proto_major: 1
     proto_minor: 1
-    url: http://localhost:6000/students
+    url: http://localhost:5000/api/tasks
     header:
       Accept: "*/*"
-      Content-Length: "56"
+      Accept-Encoding: gzip, deflate, br
+      Cache-Control: no-cache
+      Connection: keep-alive
+      Content-Length: "59"
       Content-Type: application/json
-      Host: localhost:6000
-      User-Agent: curl/7.81.0
-    body: '{"student_id": "12344", "name": "John Doeww", "age": 10}'
-    body_type: ""
-    timestamp: 2023-11-13T13:02:32.241333562Z
+      Host: localhost:5000
+      Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1
+      User-Agent: PostmanRuntime/7.32.1
+    body: '{"title": "Task 6","description": "Description for Task 6"}'
+    timestamp: 2024-04-22T16:38:39.232565209+05:30
   resp:
     status_code: 200
     header:
-      Content-Length: "48"
+      Access-Control-Allow-Origin: "*"
+      Content-Length: "267"
       Content-Type: application/json
-      Date: Mon, 13 Nov 2023 13:02:32 GMT
-      Server: Werkzeug/2.2.2 Python/3.9.18
+      Date: Mon, 22 Apr 2024 11:08:39 GMT
+      Server: Werkzeug/3.0.2 Python/3.10.12
     body: |
       {
-        "message": "Student created successfully"
+        "tasks": [
+          {
+            "description": "should update",
+            "id": "6626362fc7c5eddf174c88e4",
+            "title": "Updated"
+          },
+          {
+            "description": "Should work",
+            "id": "66263667c7c5eddf174c88e5",
+            "title": "Let's Check another time"
+          }
+        ]
       }
-    body_type: ""
-    status_message: ""
+    status_message: OK
     proto_major: 0
     proto_minor: 0
-    timestamp: 2023-11-13T13:02:34.752123715Z
+    timestamp: 2024-04-22T16:38:41.245704918+05:30
   objects: []
   assertions:
     noise:
-      - header.Date
-  created: 1699880554
+      header.Date: []
+  created: 1713784121
 curl: |-
-  curl --request POST \
-    --url http://localhost:6000/students \
-    --header 'Host: localhost:6000' \
-    --header 'User-Agent: curl/7.81.0' \
+  curl --request GET \
+    --url http://localhost:5000/api/tasks \
+    --header 'Host: localhost:5000' \
+    --header 'User-Agent: PostmanRuntime/7.32.1' \
     --header 'Accept: */*' \
     --header 'Content-Type: application/json' \
-    --data '{"student_id": "12344", "name": "John Doeww", "age": 10}'
+    --header 'Connection: keep-alive' \
+    --header 'Cache-Control: no-cache' \
+    --header 'Postman-Token: 10512b5c-4da7-4ef3-b145-101cdd1357f1' \
+    --header 'Accept-Encoding: gzip, deflate, br' \
+    --data '{"title": "Task 6","description": "Description for Task 6"}'
 ```
 
-This is how `mocks.yml` generated would look like:-
+This is how the `mocks.yml` looks like:
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Mongo
-name: mocks
+name: mock-0
 spec:
   metadata:
-    operation: '{ OpMsg flags: 0, sections: [{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }], checksum: 0 }'
+    operation: '{ OpQuery flags: [], fullCollectionName: admin.$cmd, numberToSkip: 0, numberToReturn: -1, query: {"ismaster": {"$numberInt":"1"},"helloOk": true,"client": {"driver": {"name": "PyMongo","version": "4.6.3"},"os": {"type": "Linux","name": "Linux","architecture": "x86_64","version": "5.15.146.1-microsoft-standard-WSL2"},"platform": "CPython 3.10.12.final.0"}}, returnFieldsSelector:  }'
+    type: config
   requests:
     - header:
-        length: 187
-        requestId: 2127584089
+        length: 283
+        requestId: 1804289383
         responseTo: 0
-        Opcode: 2013
+        Opcode: 2004
       message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"find":"students","filter":{"student_id":"12345"},"projection":{"_id":{"$numberInt":"0"}},"limit":{"$numberInt":"1"},"singleBatch":true,"lsid":{"id":{"$binary":{"base64":"vPKsEFRdTLytlbnyVimqIA==","subType":"04"}}},"$db":"studentsdb"} }'
-        checksum: 0
-      read_delay: 3469848802
+        flags: 0
+        collection_name: admin.$cmd
+        number_to_skip: 0
+        number_to_return: -1
+        query: '{"ismaster":{"$numberInt":"1"},"helloOk":true,"client":{"driver":{"name":"PyMongo","version":"4.6.3"},"os":{"type":"Linux","name":"Linux","architecture":"x86_64","version":"5.15.146.1-microsoft-standard-WSL2"},"platform":"CPython 3.10.12.final.0"}}'
+        return_fields_selector: ""
   responses:
     - header:
-        length: 166
-        requestId: 154
-        responseTo: 2127584089
-        Opcode: 2013
+        length: 329
+        requestId: 238
+        responseTo: 1804289383
+        Opcode: 1
       message:
-        flagBits: 0
-        sections:
-          - '{ SectionSingle msg: {"cursor":{"firstBatch":[{"student_id":"12345","name":"John Doe","age":{"$numberInt":"20"}}],"id":{"$numberLong":"0"},"ns":"studentsdb.students"},"ok":{"$numberDouble":"1.0"}} }'
-        checksum: 0
-      read_delay: 869555
-  created: 1699880576
-  reqTimestampMock: 2023-11-13T13:02:56.385067848Z
-  resTimestampMock: 2023-11-13T13:02:56.386374941Z
+        response_flags: 8
+        cursor_id: 0
+        starting_from: 0
+        number_returned: 1
+        documents:
+          - '{"helloOk":true,"ismaster":true,"topologyVersion":{"processId":{"$oid":"6626352423399d438e00b0cf"},"counter":{"$numberLong":"0"}},"maxBsonObjectSize":{"$numberInt":"16777216"},"maxMessageSizeBytes":{"$numberInt":"48000000"},"maxWriteBatchSize":{"$numberInt":"100000"},"localTime":{"$date":{"$numberLong":"1713784113763"}},"logicalSessionTimeoutMinutes":{"$numberInt":"30"},"connectionId":{"$numberInt":"18"},"minWireVersion":{"$numberInt":"0"},"maxWireVersion":{"$numberInt":"21"},"readOnly":false,"ok":{"$numberDouble":"1.0"}}'
+      read_delay: 1010011
+  created: 1713784113
+  reqTimestampMock: 2024-04-22T16:38:33.762559618+05:30
+  resTimestampMock: 2024-04-22T16:38:33.763749062+05:30
 ```
 
-Want to see if everything works as expected?
+## Run the tests
 
-### Run Tests
+Now, it's time to put things to the test 🧪
 
-Time to put things to the test 🧪
-
-```shell
+```bash
 keploy test -c "python3 app.py" --delay 10
 ```
 
-> The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
+Now, you can also try different API calls, tweak the DB response in the mocks.yml, or fiddle with the request or response in test-x.yml. Run the tests again and see the magic unfold!
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+## Check Test Coverage
 
-### Wrapping it up 🎉
+We have a `test-app.py` where all the unit test cases has been written. Now using Keploy, we can check it's code coverage!!
+Now to run your unit tests with Keploy, you can run the command given below:
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+```bash
+python3 -m coverage run -p --data-file=.coverage.unit -m pytest -s test_keploy.py test_app.py
+```
+
+To combine the coverage from the unit tests, and Keploy's API tests we can use the command below:
+
+```bash
+python3 -m coverage combine
+```
+
+Finally, to generate the coverage report for the test run, you can run:
+
+```bash
+python3 -m coverage report
+```
+
+and if you want the coverage in an html file, you can run:
+
+```bash
+python3 -m coverage html
+```
+
+## Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
