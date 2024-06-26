@@ -60,17 +60,19 @@ keploy console
 <img src="/docs/img/keploy-cloud/keploy-console-cmd.png?raw=true" alt="Keploy Console"/>
 
 ### Access Keploy UI Console
-Now let's navigate to [Keploy UI](https://app.keploy.io), and Signin with the account which has Keploy Cloud access. Once we have signed in, we can select our application from dropdown and find the testreports which were generated earlier : - 
+
+Now let's navigate to [Keploy UI](https://app.keploy.io), and Signin with the account which has Keploy Cloud access. Once we have signed in, we can select our application from dropdown and find the testreports which were generated earlier : -
 
 <img src="/docs/img/keploy-cloud/keploy-cloud-app.png?raw=true" alt="Keploy UI Console"/>
 
-We can see Reports which have failed and get more indepth details about that specific test-run, by selecting that specific test-run-report. For example, let's select `test-report-6`, since that is our latest test report: - 
+We can see Reports which have failed and get more indepth details about that specific test-run, by selecting that specific test-run-report. For example, let's select `test-report-6`, since that is our latest test report: -
 
 <img src="/docs/img/keploy-cloud/keploy-diff-view.png?raw=true" alt="Keploy Diff Viewer"/>
 
 Here we can get to know how many testset and testcases were present from the report is generated and as well as how many passed and failed.
 
 ## Operations
+
 From UI you can edit test-cases by performing operations such as: -
 
 - [Mark Noise](#mark-noisy-fields)
@@ -80,10 +82,9 @@ Click on three-dot on right hand side to open the menu dialog.
 
 <img src="/docs/img/keploy-cloud/menu-dialog.png?raw=true" alt="Keploy Menu Dialog"/>
 
-
 ### Mark Noisy Fields
 
-`Date` and `Content-Length` are two header field that we can see are different from the expected response so let's mark them as noise : - 
+`Date` and `Content-Length` are two header field that we can see are different from the expected response so let's mark them as noise : -
 
 <img src="/docs/img/keploy-cloud/noise.png?raw=true" alt="Noise"/>
 
@@ -93,9 +94,9 @@ Marking a field as noisy will ignore the field from the test report, and the fie
 
 <img src="/docs/img/keploy-cloud/denoise.png?raw=true" alt="Denoise"/>
 
-
 ### Normalise Test Report
-We can also normalise the test report, which will remove the noise from the test report. Before normalise we can notice the fields of `test-2.yml`: - 
+
+We can also normalise the test report, which will remove the noise from the test report. Before normalise we can notice the fields of `test-2.yml`: -
 
 <img src="/docs/img/keploy-cloud/normalise-before.png?raw=true" alt="Before Normalisation"/>
 
