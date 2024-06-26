@@ -60,7 +60,7 @@ func main() {
 The keploy test cmd will look like:
 
 ```shell
-keploy test -c "PATH_TO_GO_COVER_BIANRY" --withCoverage
+keploy test -c "PATH_TO_GO_COVER_BIANRY" --goCoverage
 ```
 
 The coverage files will be stored in the directory.
