@@ -1,6 +1,8 @@
 //@ts-check
+
+import {themes as prismThemes} from "prism-react-renderer";
 const path = require("path");
-const visit = require("unist-util-visit");
+import {visit} from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -100,9 +102,9 @@ module.exports = {
       content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
-      theme: require("prism-react-renderer/themes/vsLight"),
-      darkTheme: require("prism-react-renderer/themes/dracula"),
-      additionalLanguages: ["java", "ruby", "php"],
+      theme: prismThemes.vsLight,
+      darkTheme: prismThemes.dracula,
+      additionalLanguages: ["java", "ruby", "php", "bash"],
     },
     // hideableSidebar: true,
     navbar: {
@@ -169,7 +171,10 @@ module.exports = {
         </g>
         </svg></a>
         <a href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg" aria-label="YouTube"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
-      </div>
+        <a href="https://join.slack.com/t/keploy/shared_invite/zt-2dno1yetd-Ec3el~tTwHYIHgGI0jPe7A" aria-label="Slack"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2447.6 2452.5">
+        <path d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z" /><path d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z" /><path d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z" /><path d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0"/>
+        </svg></a>
+        </div>
      <div className="footer__icons footer">
     <a class="footer__link-item" href="https://docs.google.com/forms/d/e/1FAIpQLSdj9q7dyRh3D7ZzRExHLWRRkNPOnLnFfrbKqSwqH3Ur4HzP4g/viewform">Have a Keploy use-case? Let's Talk!</a> 
     </div> 
@@ -244,25 +249,6 @@ module.exports = {
                   visit(tree, "code", visitor);
                 },
               {},
-            ],
-            [
-              require("remark-typescript-tools").transpileCodeblocks,
-              {
-                compilerSettings: {
-                  tsconfig: path.join(
-                    __dirname,
-                    "docs",
-                    "typescript",
-                    "tsconfig.json"
-                  ),
-                  externalResolutions: {},
-                },
-                fileExtensions: [".md", ".mdx"],
-                // remark-typescript-tools automatically running prettier with a custom config that doesn't
-                // line up with ours. This disables any post processing, including the default prettier step.
-                postProcessTs: (files) => files,
-                postProcessTranspiledJs: (files) => files,
-              },
             ],
             [
               () =>

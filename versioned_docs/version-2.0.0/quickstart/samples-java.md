@@ -39,7 +39,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 ### Application Pre-Requisites 📋
 
-- Java 1.8+ or <17 ☕
+- Java 1.8+ or {'<'}17 ☕
 - Maven 🛠️
 
 Clone the repository and install the dependencies
@@ -191,4 +191,8 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

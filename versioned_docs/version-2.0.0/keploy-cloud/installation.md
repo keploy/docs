@@ -46,7 +46,7 @@ To get started with Keploy Cloud, you will need to install the Keploy Cloud Agen
 Install and Validate the Keploy Cloud Agent by following the steps below:
 
 ```bash
-curl --silent -O --location https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/keploy-enterprise.sh && source keploy-enterprise.sh
+curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 ```
 
 Enter your **API Key** when prompted, ask your org Admin to re-regenerate the API key in case you lose it.

@@ -54,7 +54,7 @@ sudo service mongod start
 Let's get started by setting up the Keploy alias with this command:
 
 ```bash
-curl -O https://raw.githubusercontent.com/keploy/keploy/main/keploy.sh && source keploy.sh
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 You should see something like this:
@@ -164,4 +164,8 @@ python3 -m coverage html
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

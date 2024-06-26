@@ -56,7 +56,7 @@ Fire up the application and mongoDB instance with Keploy. Keep an eye on the two
 `--containerName`: The container name in the `docker-compose.yml` for traffic interception.
 
 ```bash
-keploy record -c "docker compose up" --containerName "nodeMongoApp"
+keploy record -c "docker compose up" --containerName "nodeMongoApp" --buildDelay 50
 ```
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -101,7 +101,7 @@ Did you spot the new test and mock scrolls in your project library? Awesome! �
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --containerName "nodeMongoApp" --delay 10
+keploy test -c "docker compose up" --containerName "nodeMongoApp" --buildDelay 50 --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -213,4 +213,8 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

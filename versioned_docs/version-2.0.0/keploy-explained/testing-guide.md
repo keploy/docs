@@ -144,3 +144,9 @@ If both scenarios yield a "passed" result, it signifies that this approach mirro
 - Don't rename the **test-sets** or **test-cases** while running this setup.
 
 <!-- To understand the internals you can refer to this [blog](blog link). -->
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>

@@ -44,10 +44,10 @@ The command starts a local development server and opens a browser window.
 
 <br/>
 
-2. Clone the repository with the following command. Replace the <GITHUB_USERNAME> with your username
+2. Clone the repository with the following command. Replace the {'<'}GITHUB_USERNAME{'>'} with your username
 
 ```sh
-git clone https://github.com/<GITHUB_USERNAME>/docs.git
+git clone https://github.com/GITHUB_USERNAME/docs.git
 ```
 
 <br/>

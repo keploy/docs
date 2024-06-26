@@ -55,7 +55,7 @@ We will be using Docker compose to run the application as well as Postgres on Do
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker compose up" --containerName "fastapi-app"
+keploy record -c "docker compose up" --containerName "fastapi-app" --buildDelay 50
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -207,7 +207,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "docker compose up" --containerName "fastapi-app" --delay 10
+keploy test -c "docker compose up" --containerName "fastapi-app" --buildDelay 50  --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -394,4 +394,8 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
-Happy coding! ✨👩‍💻👨‍💻✨
+Hope this helps you out, if you still have any questions, reach out to us .
+
+import GetSupport from '../concepts/support.md'
+
+<GetSupport/>
