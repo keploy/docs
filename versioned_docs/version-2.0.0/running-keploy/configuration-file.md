@@ -96,11 +96,11 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`command`**: Command executed during recording.
 
-- **`proxyport`**: Port number for the proxy. Default is 0.
+- **`proxy-port`**: Port number for the proxy. Default is 0.
 
-- **`containerName`**: Name of the container during recording.
+- **`container-name`**: Name of the container during recording.
 
-- **`networkName`**: Network name for the container during recording.
+- **`network-name`**: Network name for the container during recording.
 
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
@@ -132,7 +132,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
         host: ""
   ```
 
-- **`bypassRules`**: A bypass for mocking API calls.
+- **`bypass-rules`**: A bypass for mocking API calls.
 
   Example:
 
@@ -152,15 +152,15 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`command`**: Command executed during testing.
 
-- **`proxyport`**: Port number for the proxy during testing. Default is 0.
+- **`proxy-port`**: Port number for the proxy during testing. Default is 0.
 
-- **`containerName`**: Name of the container during testing.
+- **`container-name`**: Name of the container during testing.
 
-- **`networkName`**: Network name for the container during testing.
+- **`network-name`**: Network name for the container during testing.
 
-- **`ignoreOrdering`**: When set to `true`, ignores the order of array elements in response bodies during testing.
+- **`ignore-ordering`**: When set to `true`, ignores the order of array elements in response bodies during testing.
 
-- **`selectedTests`**: : Selected tests to run.
+- **`selected-tests`**: : Selected tests to run.
   Example:
 
   ```yaml
@@ -169,7 +169,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
     "test-set-2": []
   ```
 
-- **`globalNoise`**: Noisy fields to be ignored at global/test-set level.
+- **`global-noise`**: Noisy fields to be ignored at global/test-set level.
   Example:
 
   ```yml
@@ -181,9 +181,9 @@ The `test` section in the Keploy-config file allows you to define parameters for
 
 - **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
 
-- **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
+- **`api-timeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
 
-- **` bypassRules`**: A bypass for mocking API calls.
+- **` bypass-rules`**: A bypass for mocking API calls.
 
   ```yaml
   bypassRules:
@@ -193,9 +193,9 @@ The `test` section in the Keploy-config file allows you to define parameters for
       port: 0
   ```
 
-- **`withCoverage`**: Whether to generate coverage reports during testing. Default is `false`.
+- **`with-coverage`**: Whether to generate coverage reports during testing. Default is `false`.
 
-- **`coverageReportPath`**: Path to store the coverage report.
+- **`coverage-report-path`**: Path to store the coverage report.
   Example:
   ```yaml
   coverageReportPath: "/path/to/coverage/report"
@@ -221,7 +221,7 @@ The tests section enables you to specify conditions for recording tests during A
 
 - **`path`**: Specifies the path for which the test should be recorded. It defines the URL path of the API endpoint.
 
-- **`urlMethods`**: Specifies the HTTP methods for which the test should be recorded. It allows you to focus on specific HTTP methods like GET, POST, etc.
+- **`url-methods`**: Specifies the HTTP methods for which the test should be recorded. It allows you to focus on specific HTTP methods like GET, POST, etc.
 
 - **`headers`**: Specifies headers and their values for which the test should be recorded. It enables you to filter tests based on specific headers.
 
@@ -229,11 +229,11 @@ The tests section enables you to specify conditions for recording tests during A
 
 #### Using Test Filters Together or Independently
 
-You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
+You can use the **`path`**, **`url-methods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
 
 ### Bypass Rules Section
 
-The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
+The `bypass-rules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
 Example:
 
@@ -248,7 +248,7 @@ bypassRules:
     path: "/user/app"
 ```
 
-The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+The `bypass-rules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
 
 - **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
 

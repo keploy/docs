@@ -210,7 +210,7 @@ Since we have setup our sample-app using docker, we need to update the postgres 
 We will run the keploy in record mode with docker-compose to start our application:-
 
 ```bash
-keploy record -c "docker-compose up" --containerName "jwtSqlApp"
+keploy record -c "docker-compose up" --container-name "jwtSqlApp"
 ```
 
 #### Let's generate the testcases.
@@ -312,7 +312,7 @@ User Content
 ## Running the testcases
 
 ```bash
-keploy test -c 'sudo docker-compose up'  --containerName "jwtSqlApp" --delay 10
+keploy test -c 'sudo docker-compose up'  --container-name "jwtSqlApp" --delay 10
 ```
 
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).

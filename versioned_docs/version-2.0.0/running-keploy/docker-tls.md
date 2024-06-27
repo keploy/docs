@@ -42,7 +42,7 @@ keywords:
 To capture test cases, **Execute** the following command within your application's **root directory**.
 
 ```shell
-keploy record -c "Docker_CMD_to_run_user_container --network <network_name>" --containerName "<container_name>"
+keploy record -c "Docker_CMD_to_run_user_container --network <network_name>" --container-name "<container_name>"
 ```
 
 Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
@@ -56,7 +56,7 @@ To execute the test cases, follow these steps in the **root directory** of your 
 When using **docker-compose** to start the application, it's important to ensure that the `--containerName` parameter matches the container name in your `docker-compose.yaml` file.
 
 ```shell
-keploy test -c "Docker_CMD_to_run_user_container --network <network_name>" --containerName "<container_name>" --delay 20
+keploy test -c "Docker_CMD_to_run_user_container --network <network_name>" --container-name "<container_name>" --delay 20
 ```
 
 Voilà! 🧑🏻‍💻 We have the tests with data mocks running! 🐰🎉
