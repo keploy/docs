@@ -55,7 +55,7 @@ We will be using Docker compose to run the application as well as Mongo on Docke
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker compose up" --containerName "flask-app" --buildDelay 50
+keploy record -c "docker compose up" --container-name "flask-app" --build-delay 50
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!

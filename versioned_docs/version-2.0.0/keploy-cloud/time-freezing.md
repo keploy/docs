@@ -74,7 +74,7 @@ ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freezeTime
+keploy test -c "<appCmd>" --freeze-time
 ```
 
 Voila! Your tests will now run with time freezing enabled.

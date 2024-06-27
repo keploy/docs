@@ -103,7 +103,7 @@ You need to make sure that your present working directory on the host is mounted
 To get the coverage of Keploy's API tests, you can run the command given below:
 
 ```bash
-keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100 --delay 10
+keploy test -c "<command-to-run-your-docker-application>" --container-name=<container-name-on-which-tests-have-been-recorded> --build-delay 100 --delay 10
 ```
 
 Now, to get the coverage of your unit tests, you need to update the run command in your Dockerfile to:
@@ -115,7 +115,7 @@ CMD ["python3","-m","coverage","run","-p","--data-file=./.coverage.unit","-m","p
 To get the unit coverage you can either run it by using your normal docker run command, or to run it using Keploy, you can use the command below:
 
 ```bash
-keploy test -c "<command-to-run-your-docker-application>" --containerName=<container-name-on-which-tests-have-been-recorded> --buildDelay 100 --delay 10
+keploy test -c "<command-to-run-your-docker-application>" --container-name=<container-name-on-which-tests-have-been-recorded> --build-delay 100 --delay 10
 ```
 
 Now that you have the coverages of both your unit tests and Keploy's API tests, you can combine them and get the report from [here](#combine-and-get-report)
