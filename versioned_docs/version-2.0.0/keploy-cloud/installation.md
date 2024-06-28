@@ -27,8 +27,6 @@ To request a Keploy Cloud account, please complete the request form [here](https
 
 Once your account is set up, you can start exploring features of Keploy Cloud. Here are some key features to can get started with:
 
-- **Time Freezing** ❄️: Keploy Cloud allows you to freeze/rollback the time in every test run, back to when the test case was recorded. This allows developers to ensure time-sensitive objects don’t expire or change, making tests consistent and more reliable.
-
 - **AI-Driven Test Generation** 🧠: Keploy will automatically uncover your API's edge cases and generate test cases to expose more code paths, thereby increasing code coverage.
 
 - **Test Deduplication** 📊 : Keploy detects duplicate/redundant tests automatically, which will be particularly useful if you plan to record numerous scenarios from a live environment and wish to retain only unique scenario tests.
