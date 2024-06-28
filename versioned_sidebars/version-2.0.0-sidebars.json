@@ -137,6 +137,7 @@
         "keploy-cloud/cloud-installation",
         "keploy-cloud/application-settings",
         "keploy-cloud/time-freezing",
+        "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]

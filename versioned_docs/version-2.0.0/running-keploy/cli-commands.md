@@ -66,6 +66,11 @@ keploy record [flags]
   keploy record -c "docker compose up" --containerName "my-app-container"
   ```
 
+  keploy record -c "docker compose up" --containerName "my-app-container"
+
+  ```
+
+  ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 
@@ -79,7 +84,11 @@ keploy record [flags]
   keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
   ```
 
+  keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
 
+  ```
+
+  ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
@@ -148,6 +157,12 @@ keploy test [flags]
   keploy test -c "docker compose up" --containerName "my-app-container"
   ```
 
+  keploy test -c "docker compose up" --containerName "my-app-container"
+
+  ```
+
+  ```
+
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 
   ```bash
@@ -164,6 +179,12 @@ keploy test [flags]
 
   ```bash
   keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
+  ```
+
+  keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
+
+  ```
+
   ```
 
 - `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
