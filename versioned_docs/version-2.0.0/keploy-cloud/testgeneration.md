@@ -1,7 +1,7 @@
 ---
 id: auto-test-generation
-title: Auto Test Generation
-sidebar_label: Test Generation
+title: Auto Test Generation 🚀
+sidebar_label: Test Generation 🚀
 tags:
   - Auto Test Generation
   - OpenAPI
@@ -14,7 +14,6 @@ keywords:
   - Test Automation
 ---
 
-## Introduction to Auto Test Generation 🚀
 
 Auto Test Generation simplifies the testing process by automating the generation of test cases based on the provided OpenAPI Schema file.
 
