@@ -71,7 +71,7 @@ module.exports = {
           "@context": "https://schema.org/",
           "@type": "Product",
           description:
-            "Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
+            "Keploy - Open source tool that generates integration tests like unit tests with mocks or stubs from API calls.",
           keywords:
             "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
           name: "Keploy",
