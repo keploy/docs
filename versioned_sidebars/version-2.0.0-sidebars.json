@@ -113,14 +113,18 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-rust"]
+          "items": [
+            "quickstart/samples-rust"
+          ]
         },
         {
           "type": "category",
           "label": "C# (.NET Core)",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-csharp"]
+          "items": [
+            "quickstart/samples-csharp"
+          ]
         }
       ]
     },
@@ -133,6 +137,7 @@
         "keploy-cloud/cloud-installation",
         "keploy-cloud/time-freezing",
         "keploy-cloud/keploy-console",
+        "keploy-cloud/mock-registry",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]
@@ -150,7 +155,6 @@
       ]
     }
   ],
-
   "sidebarContributionGuide": [
     {
       "type": "category",
