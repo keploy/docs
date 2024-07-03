@@ -39,7 +39,6 @@ Let's see what broke and fix it.
     <br/>
     <img src="/docs/img/keploy-cloud/keploy-console-cmd.png?raw=true" alt="Keploy Console"/>
 
-
 <br/>
 
 - Select your application on [keploy cloud](https://app.keploy.io) and navigate to the **latest** test-report.
