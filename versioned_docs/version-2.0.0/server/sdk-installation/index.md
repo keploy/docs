@@ -1,6 +1,6 @@
 ---
 id: index
-title: Coverage Report Generation
+title: Pre-requites 🛠️
 tags:
   - coverage
 keyword:
