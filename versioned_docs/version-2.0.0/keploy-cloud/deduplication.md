@@ -1,7 +1,7 @@
 ---
 id: deduplication
-title: Deduplication
-sidebar_label: Deduplication
+title: Remove Duplicates Tests 🧹
+sidebar_label: Remove Duplicate Tests 🧹
 tags:
   - explanation
   - feature guide
@@ -12,15 +12,16 @@ keywords:
   - keploy cloud
   - jwt
   - deduplication
+  - duplicate tests
 ---
 
 ### Why Deduplication? ❄️
 
 Test deduplication simplifies the testing process by removing redundant test cases, saving time and resources while clarifying the purpose and coverage of each test.
 
-### What is Deduplication? ⏳
+### Why Deduplication? ⏳
 
-Test deduplication is a process used in software testing to eliminate duplicate test cases or scenarios. When developing and maintaining software, it's common for test suites to grow in size, often resulting in redundancy where certain test cases cover the same functionality or scenarios.
+When developing and maintaining software, it's common for test suites to grow in size, often resulting in redundancy where certain test cases cover the same functionality or scenarios.
 
 ## Usage 🛠️
 
@@ -48,7 +49,7 @@ const kmiddleware = require('@keploy/sdk/dist/v2/dedup/middleware.js')
 app.use(kmiddleware())
 ```
 
-**2. Run Keploy Dedup**
+**2. Run Deduplication**
 
 ```
 keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10
@@ -82,7 +83,7 @@ Put the latest keploy-sdk in your pom.xml file : -
 
 Now that we have added keploy-sdk, let's import it in our main class : -
 
-```xml
+```java
 import io.keploy.servlet.KeployMiddleware;
 
 @Import(KeployMiddleware.class)
@@ -93,7 +94,7 @@ public class SamplesJavaApplication {
 }
 ```
 
-**2. Run Keploy Dedup**
+**2. Run Deduplication**
 
 We need to create Jar file via : -
 

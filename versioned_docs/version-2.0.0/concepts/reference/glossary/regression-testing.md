@@ -42,3 +42,63 @@ Regression testing involves re-running previously executed test cases to ensure 
 - Code Coverage Analysis: Keploy provides built-in tools for measuring code coverage, including line coverage, branch coverage, and statement coverage. By monitoring code coverage metrics during regression testing, you can ensure that all relevant code paths are exercised and regression bugs are detected.
 
 Overall, by leveraging Keploy's testing capabilities and integrating it into your regression testing process, you can ensure the stability and reliability of your software by detecting and preventing regression bugs effectively.
+
+## Key differences between manual regression testing and automated regression testing:
+
+| Feature                  | Manual Regression Testing                                 | Automated Regression Testing                                                     |
+| ------------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
+| **Execution Method**     | Test cases are executed manually by testers.              | Test cases are executed automatically by software tools.                         |
+| **Human Involvement**    | High human involvement in executing and verifying tests.  | Minimal human involvement once tests are set up.                                 |
+| **Speed**                | Relatively slow due to manual execution.                  | Faster due to automated execution, especially for large test suites.             |
+| **Efficiency**           | Prone to human error and inconsistencies in execution.    | Consistent and reliable execution once tests are automated.                      |
+| **Resource Requirement** | Requires more human resources (testers).                  | Requires initial setup time but reduces ongoing resource needs.                  |
+| **Scalability**          | Limited scalability for large test suites.                | Highly scalable for large and complex applications.                              |
+| **Repeatability**        | Execution depends on tester skills and availability.      | Tests can be repeated reliably and consistently.                                 |
+| **Maintenance**          | Tests may need frequent updates and maintenance.          | Tests require updates as software evolves but are easier to maintain.            |
+| **Cost**                 | Higher ongoing costs due to human resource needs.         | Lower ongoing costs once initial automation is set up.                           |
+| **Suitability**          | Suitable for smaller projects or specific test scenarios. | Ideal for continuous integration and larger projects requiring frequent testing. |
+| **Complexity Handling**  | Limited ability to handle complex test scenarios.         | Can handle complex scenarios, including data-driven and UI testing.              |
+
+## Conclusion
+
+Manual regression testing offers flexibility and can be suitable for smaller projects or specific scenarios where human judgment and exploration are crucial. However, it can be time-consuming, prone to errors, and less scalable for large test suites.
+
+On the other hand, automated regression testing provides consistent, repeatable, and efficient test execution. It is ideal for larger projects, continuous integration pipelines, and scenarios requiring frequent testing. While it requires initial setup and ongoing maintenance of test scripts, automated testing ultimately reduces costs and resource requirements over time.
+
+Ultimately, the decision should consider the specific needs of the project, balancing the benefits of human judgment in manual testing with the efficiency and scalability offered by automation. Many teams opt for a hybrid approach, combining both methods to maximize test coverage and effectiveness throughout the software development lifecycle.
+
+## Frequently Asked Questions
+
+### What is regression testing and why is it important?
+
+Regression testing ensures that recent changes to software do not unintentionally disrupt existing functionality. It's crucial because it helps maintain software stability and reliability by catching regressions early, before they reach users.
+
+### What are the different types of regression testing?
+
+There are several types:
+
+- **Full regression testing:** Re-running all test cases in the suite.
+- **Partial regression testing:** Re-running only selected test cases.
+- **Risk-based regression testing:** Prioritizing test cases based on potential impact.
+
+### How does automated regression testing differ from manual regression testing?
+
+Automated regression testing uses software tools to execute test cases automatically, saving time and effort compared to manual testing, which relies on human execution. Automation is beneficial for repetitive tasks and frequent testing needs.
+
+### What are the benefits of using regression testing in software development?
+
+Regression testing helps ensure software stability, prevents new bugs from being introduced inadvertently, identifies potential issues early in the development cycle, and ultimately saves time and resources by reducing the need for extensive bug fixing after deployment.
+
+### How can Keploy facilitate regression testing?
+
+Keploy supports regression testing by providing:
+
+- Test case management for organizing and executing tests efficiently.
+- Test automation capabilities with various frameworks.
+- Integration with CI pipelines for continuous testing.
+- Capture and replay tests to simulate user interactions.
+- Code coverage analysis tools to ensure comprehensive testing.
+
+### When should regression testing be performed in the software development lifecycle?
+
+Regression testing should ideally be performed after every code change, especially significant ones such as new feature additions, bug fixes, or infrastructure updates. Integrating regression testing into CI/CD pipelines ensures that tests are run consistently with each new code deployment.

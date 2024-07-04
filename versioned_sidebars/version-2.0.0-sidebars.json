@@ -43,13 +43,14 @@
     },
     {
       "type": "category",
-      "label": "Test Coverage Integration",
+      "label": "Test Coverage Generation",
       "collapsible": true,
       "collapsed": true,
       "items": [
+        "server/sdk-installation/",
         "server/sdk-installation/go",
         "server/sdk-installation/java",
-        "server/sdk-installation/typescript",
+        "server/sdk-installation/javascript",
         "server/sdk-installation/python"
       ]
     },
@@ -135,9 +136,9 @@
       "collapsed": true,
       "items": [
         "keploy-cloud/cloud-installation",
-        "keploy-cloud/application-settings",
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
+        "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]
