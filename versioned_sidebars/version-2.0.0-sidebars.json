@@ -47,7 +47,7 @@
       "collapsible": true,
       "collapsed": true,
       "items": [
-        "server/sdk-installation/",
+        "server/sdk-installation/index",
         "server/sdk-installation/go",
         "server/sdk-installation/java",
         "server/sdk-installation/javascript",
@@ -114,14 +114,18 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-rust"]
+          "items": [
+            "quickstart/samples-rust"
+          ]
         },
         {
           "type": "category",
           "label": "C# (.NET Core)",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-csharp"]
+          "items": [
+            "quickstart/samples-csharp"
+          ]
         }
       ]
     },
@@ -133,6 +137,7 @@
       "items": [
         "keploy-cloud/cloud-installation",
         "keploy-cloud/time-freezing",
+        "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
@@ -151,7 +156,6 @@
       ]
     }
   ],
-
   "sidebarContributionGuide": [
     {
       "type": "category",
