@@ -21,7 +21,13 @@ keywords:
   - Typescript
 ---
 
-## Update package file
+import WhatAreKeployFeatures from './index.md'
+
+<WhatAreKeployFeatures/>
+
+## Usage
+
+### Update package file
 
 Update the `package.json` file that runs the application:
 

@@ -18,6 +18,12 @@ keyword:
   - Junit
 ---
 
+import WhatAreKeployFeatures from './index.md'
+
+<WhatAreKeployFeatures/>
+
+## Usage
+
 ### Update `pom.xml` file
 
 You will need to add the following plugins in `pom.xml` file of your application. :-

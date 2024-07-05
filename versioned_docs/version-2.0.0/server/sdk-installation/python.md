@@ -16,9 +16,15 @@ keyword:
   - Pytest
 ---
 
+import WhatAreKeployFeatures from './index.md'
+
+<WhatAreKeployFeatures/>
+
+## Usage
+
 To get the coverage data for your unit tests:
 
-```
+```sh
 coverage run --data-file=.coverage.unit test_program.py
 ```
 
@@ -26,7 +32,7 @@ Here, test_program.py is the unit test program you want to run, and --data-file 
 
 > Note: If you face any problems with running the coverage library, you can refer to the documentation for the same [here](https://coverage.readthedocs.io/en/7.4.2/cmd.html#execution-coverage-run)
 
-## Combine And Get Report
+### Combine And Get Report
 
 To combine the coverage from the unit tests, and Keploy's API tests we can use the command below:
 

@@ -18,20 +18,32 @@ keyword:
   - Go Test
 ---
 
-To get the coverage data for unit tests, Run:
+import WhatAreKeployFeatures from './index.md'
 
-```sh
+<WhatAreKeployFeatures/>
+
+## Usage
+
+For keploy test coverage the binary must built with `-cover` flag:
+
+```go
+go build -cover
+```
+
+To get the coverage data for unit tests :
+
+```go
 go test -cover ./... -args -test.gocoverdir="PATH_TO_UNIT_COVERAGE_FILES"
 ```
 
-To merge coverage data of unit tests with keploy tests, Run:
+To merge coverage data of unit tests with Keploy provided coverage :
 
-```sh
+```go
 go tool covdata textfmt -i="PATH_TO_UNIT_COVERAGE_FILES","./coverage-reports" -o combined-coverage.txt
 ```
 
-To get the coverage related information for merged coverage data, Run:
+To get the coverage related information for merged coverage data :
 
-```sh
+```go
 go tool cover -func combined-coverage.txt
 ```
