@@ -139,7 +139,6 @@
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
-        "keploy-cloud/mock-registry",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]
