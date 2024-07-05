@@ -20,8 +20,13 @@ keywords:
   - tap
   - Typescript
 ---
+import WhatAreKeployFeatures from './index.md'
 
-## Update package file
+<WhatAreKeployFeatures/>
+
+## Usage
+
+### Update package file
 
 Update the `package.json` file that runs the application:
 

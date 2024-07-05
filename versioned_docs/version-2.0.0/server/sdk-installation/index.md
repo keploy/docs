@@ -26,7 +26,7 @@ keploy test -c "your_application_command"
 
 After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
 
-```
+```sh
 keploy
 ├── reports
 │   └── test-run-0
@@ -45,7 +45,7 @@ keploy
 mvn clean install -Dmaven.test.skip=true
 ```
 
-## 🛠️ Application-Specific Requirements For Coverage Calculation
+## 🛠️ Language Specific Requirements
 
 | Programming Language | Prerequisites                                                                                                                                                                                                                                              |
 | :------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -54,9 +54,9 @@ mvn clean install -Dmaven.test.skip=true
 |      javascript      | [nyc](https://www.npmjs.com/package/nyc)                                                                                                                                                                                                                   |
 |         java         | [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)                                                                                                                                                                    |
 
-## Appendix
+## Graceful Shutdown
 
-Function for Graceful Shutdown:
+It is important that the application is shutdown gracefully. In case of Golang, function for graceful shutdown:
 
 ```go
 func GracefulShutdown() {
