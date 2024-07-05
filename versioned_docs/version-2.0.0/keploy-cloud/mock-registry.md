@@ -13,41 +13,62 @@ keywords:
   - cloud storage
 ---
 
-### Why Use Mock Registry 📦
+Mock Registry uploads mock files to cloud storage, keeping the application's repository lightweight and manageable.
 
-When dealing with large mock files in tests, committing them to Git repositories can be cumbersome and inefficient. **Uploading these mocks to cloud storage** instead helps maintain a clean and performant repository, reducing the complexity and improving workflow efficiency.
-
-### What is Mock Registry? 📂
-
-The Mock Registry feature in Keploy allows users to upload large mock files to cloud storage, keeping the Git repository lightweight and manageable. This ensures that test suites remain efficient and scalable.
+When dealing with large mock files during tests, committing them to git repositories can be cumbersome. **Uploading such mocks to cloud storage** instead helps maintain a clean and performant repository, reducing complexity.
 
 ## Usage 🛠️
 
-### Running Tests
+### Disabling Mock Upload 
 
-To run your tests with Keploy and utilize the Mock Registry feature, use the following command. Mock upload is enabled by default:
+Mock are `uploaded to cloud by default` and can be disabled using CLI or keploy config. 
 
-```bash
-keploy test -c "<appCmd>" --freezeTime
-```
+1. [Disable using CLI flag](#disable-using-cli-flag)
+2. [Disable using keploy config file](#disable-using-keploy-config-file)
 
-Voila! If the test set is successful, the mock is uploaded to the cloud!
+### Disable using CLI flag
 
-### Disabling Mock Upload
-
-If you prefer not to upload mocks to cloud storage for a specific test run, you can disable the mock upload feature by adding the --disableMockUpload=true flag:
+To disable mock uploads for a specific test run, use the --disableMockUpload=true flag:
 
 ```bash
 keploy test -c "<appCmd>" --disableMockUpload=true
 ```
 
-By following these steps, you can efficiently manage large mock files using the Mock Registry feature in Keploy, ensuring that your tests remain streamlined and your repositories clean.
+### Disable using keploy config file
 
-### Disabling Mock Upload via Configuration File
-
-You can also set the mock upload preference in the configuration file. This allows you to enable or disable mock upload by default for all test runs:
+Set the mock upload preference in the configuration file to enable or disable mock uploads by default for all test runs:
 
 ```bash
 # keploy.yaml
 disableMockUpload: true
 ```
+
+## Mock Registry Behavior
+
+### Test Run Passed ✅
+If test cases pass, mocks are uploaded to the cloud, added to .gitignore, and a config.yml is generated with a unique Mock ID.
+
+### TestRun Failed ❌
+If one or more test cases are failed, Mocks would not be uploaded to cloud and `config.yml` is not generated, but mocks would still be moved to `.gitignore`.
+
+### Local Mock is missing 🚫
+If mocks are missing locally, they will be downloaded from the cloud during the test run.
+
+### Different Mocks Locally and Cloud 🔄
+If mocks present locally and in the cloud are different, mocks from the cloud will be downloaded and used during the test run.
+
+### Upload Updated Mocks 📤
+To update mocks in the cloud, delete the `config.yml` under the test set folder. When tests are run, a new config file will be generated, and updated mocks will be uploaded to the cloud.
+
+### If using `--removeUnuseMocks` 🧹
+When `--removeUnusedMocks` is used, `config.yml` will be updated with a new Mock ID, and those mocks will be treated as new mocks.
+
+### Public and Private Mocks 🔒
+
+Mocks can be classified as public or private based on their usage and accessibility:
+
+#### Public Mocks 🌐
+Public mocks are accessible by all users and can be shared across multiple projects. Use public mocks when the data is generic and not sensitive.
+
+#### Private Mocks 🔐
+Private mocks are restricted to specific users or projects. Use private mocks for sensitive or project-specific data to ensure security and privacy.
