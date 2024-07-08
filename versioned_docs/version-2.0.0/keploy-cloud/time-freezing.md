@@ -77,10 +77,10 @@ ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 ```
 
 3. Re-Build your Docker image.
-4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
+4. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freezeTime
+keploy test -c "<appCmd>" --freeze-time
 ```
 
 Voila! Your tests will now run with time freezing enabled.

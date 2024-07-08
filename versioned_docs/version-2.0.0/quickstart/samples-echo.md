@@ -213,7 +213,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10 --goCoverage
+sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10 --go-coverage
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
