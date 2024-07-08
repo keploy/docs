@@ -23,13 +23,13 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                    |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                                           |
-| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--skip-coverage`, `--jacoco-agent-path`, `--ignoreOrdering` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                       |
-| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                              |
-| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                          |
+| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                                 |
+| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`    | `-c, --command`, `--config-path`, `--container-name`, `-d, --delay`, `-n, --network-name`, `--pass-through-ports`, `-p, --path`, `--proxy-port`, `--debug` , `-r, --rerecord`                                                                                                                                                                   |
+| `test`      | `--api-timeout`, `-c, --command`, `--config-path`, `--container-name`, `-d, --delay`, `--mongo-password`, `-n, --net, --network-name`, `--pass-through-ports`, `-p, --path`, `--proxy-port`, `-t, --test-sets`, `--debug`, `-g, --generate-test-report`, `--remove-unused-mocks`, `--skip-coverage`, `--jacoco-agent-path`, `--ignore-ordering` |
+| `gen`       | `--source-file-path`, `--test-file-path`,`--coverage-report-path`,`--test-command`,`--coverage-format`,`--expected-coverage`,`--max-iterations`,`--test-dir`,`--llm-base-url`,`--model`,`--llm-api-version`                                                                                                                                     |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                           |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                       |
 
 ## [record](#record)
 
@@ -59,10 +59,10 @@ keploy record [flags]
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
-- `--containerName string` - Name of the docker container in which the user application is running.
+- `--container-name string` - Name of the docker container in which the user application is running.
 
   ```bash
-  keploy record -c "docker compose up" --containerName "my-app-container"
+  keploy record -c "docker compose up" --container-name "my-app-container"
   ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
@@ -71,13 +71,13 @@ keploy record [flags]
   keploy record -c "node src/app.js" -d 10
   ```
 
-- `- n, --networkName string` - Name of the docker network in which the user application is running.
+- `- n, --network-name string` - Name of the docker network in which the user application is running.
 
   ```bash
-  keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
+  keploy record -c "docker compose up" --container-name "my-app-container" -n "my-app-network"
   ```
 
-- `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
 
   ```bash
@@ -86,10 +86,10 @@ keploy record [flags]
 
   In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
 
-- `--proxyport uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
+- `--proxy-port uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
 
   ```bash
-  keploy record -c "node src/app.js" --proxyport 8080
+  keploy record -c "node src/app.js" --proxy-port 8080
   ```
 
 - `--debug` - To start recording testcases with debug mode enabled.
@@ -116,10 +116,10 @@ keploy test [flags]
 
 <b> Available flags: </b>
 
-- `--apiTimeout uint` - Timeout in seconds for calling user application. The default is 5 seconds.
+- `--api-timeout uint` - Timeout in seconds for calling user application. The default is 5 seconds.
 
   ```bash
-  keploy test -c "node src/app.js" --apiTimeout 10
+  keploy test -c "node src/app.js" --api-timeout 10
   ```
 
 - `-c, --command string` - Command required to start the user application.
@@ -138,10 +138,10 @@ keploy test [flags]
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
-- `--containerName string` - Name of the docker container in which the user application is running.
+- `--container-name string` - Name of the docker container in which the user application is running.
 
   ```bash
-  keploy test -c "docker compose up" --containerName "my-app-container"
+  keploy test -c "docker compose up" --container-name "my-app-container"
   ```
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
@@ -150,19 +150,19 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10
   ```
 
-- `--mongoPassword string` - Authentication password for mocking MongoDB connection. The default password is "default123".
+- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123".
 
   ```bash
-  keploy test -c "node src/app.js" --mongoPassword "my-password"
+  keploy test -c "node src/app.js" --mongo-password "my-password"
   ```
 
-- `- n, --networkName string` - Name of the docker network in which the user application is running.
+- `- n, --network-name string` - Name of the docker network in which the user application is running.
 
   ```bash
-  keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
+  keploy test -c "docker compose up" --container-name "my-app-container" -n "my-app-network" -d 9
   ```
 
-- `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
 
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are saved.
 
@@ -172,13 +172,13 @@ keploy test [flags]
 
   In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are saved.
 
-- `--proxyport uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
+- `--proxy-port uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
 
   ```bash
-  keploy test -c "node src/app.js" --proxyport 8080
+  keploy test -c "node src/app.js" --proxy-port 8080
   ```
 
-- `-t, --testsets strings` - To specify which specific testsets are to be executed. The default is all testsets.
+- `-t, --test-sets strings` - To specify which specific testsets are to be executed. The default is all testsets.
 
   ```bash
   keploy test -c "node src/app.js" -t "test-set-1,test-set-3" --delay 10
@@ -190,22 +190,22 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10 --debug
   ```
 
-- `-g, --generateTestReport` - To generate the test report. The default is true.
+- `-g, --generate-test-report` - To generate the test report. The default is true.
 
   ```bash
   keploy test -c "node src/app.js" --delay 10 -g=false
   ```
 
-- `--removeUnusedMocks` - To remove unused mocks from mock file. The default is false.
+- `--remove-unused-mocks` - To remove unused mocks from mock file. The default is false.
 
   ```bash
-  keploy test -c "node src/app.js" --delay 10 --removeUnusedMocks
+  keploy test -c "node src/app.js" --delay 10 --remove-unused-mocks
   ```
 
-- `--ignoreOrdering` - Ignore the order of elements in an array for a response, with the default value being true.
+- `--ignore-ordering` - Ignore the order of elements in an array for a response, with the default value being true.
 
   ```bash
-  keploy test -c "node src/app.js" --delay 10 --ignoreOrdering
+  keploy test -c "node src/app.js" --delay 10 --ignore-ordering
   ```
 
 - `--skip-coverage` - skip code coverage computation while running the test cases

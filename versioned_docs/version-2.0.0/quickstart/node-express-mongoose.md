@@ -53,10 +53,10 @@ We will be using Docker compose to run the application as well as MongoDb on Doc
 Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
 `-c`: Command to run the app (e.g., `docker compose up`).
 
-`--containerName`: The container name in the `docker-compose.yml` for traffic interception.
+`--container-name`: The container name in the `docker-compose.yml` for traffic interception.
 
 ```bash
-keploy record -c "docker compose up" --containerName "nodeMongoApp" --buildDelay 50
+keploy record -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50
 ```
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -101,7 +101,7 @@ Did you spot the new test and mock scrolls in your project library? Awesome! �
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --containerName "nodeMongoApp" --buildDelay 50 --delay 10
+keploy test -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50 --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
