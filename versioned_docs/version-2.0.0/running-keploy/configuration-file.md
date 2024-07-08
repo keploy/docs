@@ -1,320 +1,319 @@
 ---
-id: configuration-file
-title: Configuration File
-sidebar_label: Configuration file
-description: This section introduces the configuration file
+id: cli-commands
+title: Keploy CLI Commands
+sidebar_label: CLI Commands
+description: This section documents usecase of Keploy's CLI Commands
 tags:
-  - configuration file
+  - cli commands
 keywords:
-  - configuration
+  - cli
+  - documentation
+  - commands
 ---
 
-## Introduction
-
-Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴
-
-Introducing **Keploy-config** 🎉 - It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
-
-## Getting Started:
-
-We will be using a sample app to demonstrate working of Keploy configuration file.
-
-To generate a keploy-config file, run:
+### Usage
 
 ```bash
-keploy config --generate --path "./config-dir/"
+keploy [command] [flags]
 ```
 
-For demonstration purposes, we are using the [root directory of the echo-sql application](https://github.com/keploy/samples-go/tree/main/echo-sql). We can place it wherever we want to inside the project.
+You can use `--help, -h` flag for all the commands to see available flag options and their purpose.
 
-After successful execution of the command, a default initialized config file named as `keploy.yaml` has been created with the content as shown below:
+## Modes and Flags
 
-```yaml
-path: ""
-command: "./echo-psql-url-shortener"
-port: 0
-proxyPort: 16789
-dnsPort: 26789
-debug: false
-disableTele: false
-inDocker: false
-generateGithubActions: true
-containerName: ""
-networkName: ""
-buildDelay: 30
-test:
-  selectedTests: {}
-  globalNoise:
-    global: {}
-    test-sets: {}
-  delay: 5
-  apiTimeout: 5
-  coverage: false
-  goCoverage: false
-  coverageReportPath: ""
-  ignoreOrdering: true
-  mongoPassword: "default@123"
-  language: ""
-  removeUnusedMocks: false
-record:
-  recordTimer: 0s
-  filters: []
-configPath: ""
-bypassRules: []
-cmdType: "native"
-enableTesting: false
-keployContainer: "keploy-v2"
-keployNetwork: "keploy-network"
-# Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
-```
+Here are some examples of how to use some common flags:
 
-## Using the Config File
+| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                    |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug` , `-r, --rerecord`                                                                                                                                                           |
+| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--skip-coverage`, `--jacoco-agent-path`, `--ignoreOrdering` |
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                       |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                              |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                          |
 
-The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/).Using keploy-config can help to reduce the record and test command to just:
+## [record](#record)
 
-### Record Command:
+The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
+
+<b> Usage: </b>
 
 ```bash
-keploy record
+keploy record [flags]
 ```
 
-### Test Command:
+<b> Available flags: </b>
+
+- `-c, --command string` - Command required to start the user application.
+
+  ```bash
+  keploy record --command "node src/app.js"
+  ```
+
+  In the command above, `node src/app.js` is the command which starts the user application.
+
+- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+
+  ```bash
+  keploy record -c "node src/app.js" --config-path "./config-dir/"
+  ```
+
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+
+- `--containerName string` - Name of the docker container in which the user application is running.
+
+  ```bash
+  keploy record -c "docker compose up" --containerName "my-app-container"
+  ```
+
+- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
+
+  ```bash
+  keploy record -c "node src/app.js" -d 10
+  ```
+
+- `- n, --networkName string` - Name of the docker network in which the user application is running.
+
+  ```bash
+  keploy record -c "docker compose up" --containerName "my-app-container" -n "my-app-network"
+  ```
+
+- `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+- `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
+
+  ```bash
+  keploy record -c "node src/app.js" -p "./tests"
+  ```
+
+  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
+
+- `--proxyport uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
+
+  ```bash
+  keploy record -c "node src/app.js" --proxyport 8080
+  ```
+
+- `--debug` - To start recording testcases with debug mode enabled.
+
+  ```bash
+  keploy record -c "node src/app.js" --debug
+  ```
+
+- `-r, --rerecord` - Record certain test-sets again
+
+  ```bash
+  keploy record -c "node src/app.js" --rerecord "test-set-0"
+  ```
+
+## [test](#test)
+
+The `test` mode in Keploy allows the user to run the recoded testcases from the API calls and execute assertion. A detailed report is produced after the tests are executed and it's then saved in the yaml format in `keploy/reports` directory in the current working directory.
+
+<b> Usage: </b>
 
 ```bash
-keploy test
+keploy test [flags]
 ```
 
-Visit the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) to know more about the flags/parameters and their usage.
+<b> Available flags: </b>
 
-## Configuration Sections
+- `--apiTimeout uint` - Timeout in seconds for calling user application. The default is 5 seconds.
 
-### Record Section
-
-The `record` section in the Keploy-config file allows you to define parameters for recording API calls.
-
-- **`path`**: Path to the project where recording occurs. (Mandatory field)
-
-- **`command`**: Command executed during recording.
-
-- **`proxy-port`**: Port number for the proxy. Default is 0.
-
-- **`container-name`**: Name of the container during recording.
-
-- **`network-name`**: Network name for the container during recording.
-
-- **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
-
-- **`filters`**: API calls to the application to avoid recording.
-
-  Example:
-
-  ```yaml
-  record:
-    filters:
-      - path: "/user/app"
-        urlMethods: ["GET"]
-        headers: {"^asdf*": "^test"}
-        host: "dc.services.visualstudio.com"
+  ```bash
+  keploy test -c "node src/app.js" --apiTimeout 10
   ```
 
-  This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
+- `-c, --command string` - Command required to start the user application.
 
-- **`tests`**: Filters to record Tests.
-
-  Example:
-
-  ```yaml
-  tests:
-    filters:
-      - path: ""
-        urlMethods: []
-        headers: {}
-        host: ""
+  ```bash
+  keploy test -c "node src/app.js"
   ```
 
-- **`bypass-rules`**: A bypass for mocking API calls.
+  In the command above, `node src/app.js` is the command which starts the user application.
 
-  Example:
+- `--config-path string` - Path to the Keploy configuration file. The default is ".".
 
-  ```yaml
-  bypassRules:
-    filters:
-      - path: ""
-        host: ""
-        port: 0
+  ```bash
+  keploy test -c "node src/app.js" --config-path "./config-dir/"
   ```
 
-### Test Section
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
-The `test` section in the Keploy-config file allows you to define parameters for testing API calls.
+- `--containerName string` - Name of the docker container in which the user application is running.
 
-- **`path`**: Path to the project where testing occurs. (Mandatory field)
-
-- **`command`**: Command executed during testing.
-
-- **`proxy-port`**: Port number for the proxy during testing. Default is 0.
-
-- **`container-name`**: Name of the container during testing.
-
-- **`network-name`**: Network name for the container during testing.
-
-- **`ignore-ordering`**: When set to `true`, ignores the order of array elements in response bodies during testing.
-
-- **`selected-tests`**: : Selected tests to run.
-  Example:
-
-  ```yaml
-  selectedTests:
-    "test-set-1": ["test-1", "test-2"]
-    "test-set-2": []
+  ```bash
+  keploy test -c "docker compose up" --containerName "my-app-container"
   ```
 
-- **`global-noise`**: Noisy fields to be ignored at global/test-set level.
-  Example:
+- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 
-  ```yml
-  globalNoise:
-  global:
-    body: {"url": ["https?://\S+"]}
-  test-sets: {}
+  ```bash
+  keploy test -c "node src/app.js" --delay 10
   ```
 
-- **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
+- `--mongoPassword string` - Authentication password for mocking MongoDB connection. The default password is "default123".
 
-- **`api-timeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
-
-- **` bypass-rules`**: A bypass for mocking API calls.
-
-  ```yaml
-  bypassRules:
-  filters:
-    - path: ""
-      host: ""
-      port: 0
+  ```bash
+  keploy test -c "node src/app.js" --mongoPassword "my-password"
   ```
 
-- **`with-coverage`**: Whether to generate coverage reports during testing. Default is `false`.
+- `- n, --networkName string` - Name of the docker network in which the user application is running.
 
-- **`coverage-report-path`**: Path to store the coverage report.
-  Example:
-  ```yaml
-  coverageReportPath: "/path/to/coverage/report"
+  ```bash
+  keploy test -c "docker compose up" --containerName "my-app-container" -n "my-app-network" -d 9
   ```
 
-The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
+- `--passThroughPorts uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
 
-- **`filters`**: Filters to record specific tests based on path, HTTP methods, headers, and host.
+- `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are saved.
 
-  Example:
-
-  ```yml
-  tests:
-    filters:
-      - path: "/user/app"
-        urlMethods: ["GET"]
-        headers:
-          "^asdf*": "^test"
-        host: "dc.services.visualstudio.com"
+  ```bash
+  keploy test -c "node src/app.js" -d 10 --path "./tests"
   ```
 
-The tests section enables you to specify conditions for recording tests during API calls. The filters subsection allows you to define specific criteria, such as path, HTTP methods, headers, and host, to record relevant test scenarios.
+  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are saved.
 
-- **`path`**: Specifies the path for which the test should be recorded. It defines the URL path of the API endpoint.
+- `--proxyport uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
 
-- **`url-methods`**: Specifies the HTTP methods for which the test should be recorded. It allows you to focus on specific HTTP methods like GET, POST, etc.
+  ```bash
+  keploy test -c "node src/app.js" --proxyport 8080
+  ```
 
-- **`headers`**: Specifies headers and their values for which the test should be recorded. It enables you to filter tests based on specific headers.
+- `-t, --testsets strings` - To specify which specific testsets are to be executed. The default is all testsets.
 
-- **`host`**: Specifies the host for which the test should be recorded. It defines the domain or IP address of the API server.
+  ```bash
+  keploy test -c "node src/app.js" -t "test-set-1,test-set-3" --delay 10
+  ```
 
-#### Using Test Filters Together or Independently
+- `--debug` - To start executing testcases with debug mode enabled.
 
-You can use the **`path`**, **`url-methods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --debug
+  ```
 
-### Bypass Rules Section
+- `-g, --generateTestReport` - To generate the test report. The default is true.
 
-The `bypass-rules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 -g=false
+  ```
 
-Example:
+- `--removeUnusedMocks` - To remove unused mocks from mock file. The default is false.
 
-```yaml
-bypassRules:
-  - path: "/user/app"
-    port: 8080
-  - port: 8081
-  - host: "dc.services.visualstudio.com"
-  - port: 8081
-    host: "dc.services.visualstudio.com"
-    path: "/user/app"
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --removeUnusedMocks
+  ```
+
+- `--ignoreOrdering` - Ignore the order of elements in an array for a response, with the default value being true.
+
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --ignoreOrdering
+  ```
+
+- `--skip-coverage` - skip code coverage computation while running the test cases
+
+- `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
+
+## [gen](#gen)
+
+The `gen` cmd in Keploy allows user to generate unit tests using LLM Models.
+
+<b> Usage: </b>
+
+```bash
+keploy gen [flags]
 ```
 
-The `bypass-rules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+<b> Available flags: </b>
 
-- **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
+- `sourceFilePath` - Path to the source file for which tests are to be generated.
 
-- **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
+- `testFilePath` - Path where the generated tests will be saved.
 
-- **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
+- `coverageReportPath` - Path to generate the coverage report.
 
-In the provided example:
+- `testCommand` - Command to execute tests and generate the coverage report.
 
-- The first bypass rule applies to the path "/user/app" and the port 8080.
-- The second bypass rule applies to the port 8081.
-- The third bypass rule applies to the host "dc.services.visual
+- `coverageFormat` - Type of the coverage report by default report is in "cobertura" format.
 
-## Advanced Noise Filtering:
+- `expectedCoverage` - Desired coverage percentage by default it is set to be at 100%.
 
-Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
+- `maxIterations` - Maximum number of iterations for refining tests (default 5).
 
-### Global Noise
+- `testDir` - Directory where tests will be written.
 
-The `global subsection` of `globalNoise` is used to define parameters that are globally ignored for all API calls during testing. It enables you to filter out consistent noise, ensuring a cleaner evaluation of responses.
+- `llmBaseUrl` - Base url of the llm.
 
-```yml
-globalNoise:
-  global: {body: {
-          # To ignore some values for a field, pass regex patterns to the corresponding array value
-          "url": ['https?://\S+', 'http://\S+'],
-        }, header: {
-          # To ignore the entire field, pass an empty array
-          "Date": [],
-        }}
+- `model` - Specifies the AI model to use by default it uses "gpt-4o" model.
+
+- `llmApiVersion` - API version of the llm if any.
+
+## [normalize](#normalize)
+
+The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
+
+<b> Usage: </b>
+
+```bash
+keploy normalize [flags]
 ```
 
-1. **`global`**:
+<b> Available flags: </b>
 
-- **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ['https?://\S+', 'http://\S+']}`
-- **`header`**: Specifies headers or header values to be ignored globally. Example: `{"Date": []}`
+- `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
 
-2. **`test-sets`**: This section is left empty in the example. It allows you to specify additional noise parameters for specific test sets, offering tailored noise filtering for different testing scenarios.
+  ```bash
+  keploy normalize -p "./tests"
+  ```
 
-### Test-Set Noise
+  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
 
-Under the `test-sets` subsection of `globalNoise`, you can define noise parameters specific to a particular test set. This ensures that certain noise is only ignored for the API calls associated with that specific test set.
+- `--test-run string` - by default normalization considers the latest test-run to change the response of the testcases but if user want to do it for a particular test-run this flag can be used.
 
-```yml
-test-sets: {test-set-1: {body: {
-            # ignore all the values for the "uuid" field
-            "uuid": [],
-          }, header: {
-            # we can also pass the exact value to ignore for a field
-            "User-Agent": ["PostmanRuntime/7.34.0"],
-          }}}
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10"
+  ```
+
+- `--tests string` - by default normalization considers all the testcases for normalization but if user want to normalize only few particular testcases this flag can be used
+
+  ```bash
+  keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
+  ```
+
+## [config](#config)
+
+The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
+
+<b> Usage: </b>
+
+```bash
+keploy config [flags]
 ```
 
-**`test-set-1`**:
+<b> Available flags: </b>
 
-- **`body`**: Defines patterns to ignore for the response body within the specified test set.
-- **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
+- `--generate` - Generate a new keploy configration file.
 
-### **Note**:
+  ```bash
+  keploy config --generate
+  ```
 
-The `globalNoise` and `test-sets` are optional fields in the config file. If not specified, the default value for both fields is an empty object `{}`. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
+- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
 
-## Conclusion
+  ```bash
+  keploy config --generate --path "./config-dir/"
+  ```
 
-Congratulations! You've now explored the features and configuration options provided by `Keploy-config`.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
 
-Now armed with Keploy-config, you are ready to embark on a more organized and productive journey of recording and testing APIs with Keploy. Feel free to explore additional features, customize configurations, and refer to the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) for more details on available flags and parameters.
+## [example](#example)
 
-Happy testing and may your APIs always return the expected results! 🚀
+The `example` command in Keploy is designed to illustrate the usage of Keploy in various scenarios, showing its capabilities with different types of applications and setups. Below are examples for using Keploy with Golang, Node.js, Java, and Docker applications.
+
+<b> Usage: </b>
+
+```bash
+keploy example [flags]
+```
+
+<b> Available Flags: </b>
+
+- `--customSetup` - Displays commands tailored for custom user-defined setups.

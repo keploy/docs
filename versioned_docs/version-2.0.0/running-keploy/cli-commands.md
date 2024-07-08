@@ -240,7 +240,7 @@ keploy gen [flags]
 
 - `max-iterations` - Maximum number of iterations for refining tests (default 5).
 
-- `testDir` - Directory where tests will be written.
+- `test-dir` - Directory where tests will be written.
 
 - `llm-base-url` - Base url of the llm.
 
