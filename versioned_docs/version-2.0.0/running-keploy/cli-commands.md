@@ -58,7 +58,6 @@ keploy record [flags]
   ```
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
 
@@ -138,7 +137,6 @@ keploy test [flags]
   ```
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
 
@@ -210,9 +208,10 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10 --ignore-ordering
   ```
 
-- `--coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases. Works with unit testcases in [Jest](versioned_docs/version-2.0.0/server/sdk-installation/typescript-sdk.md),[JUnit](versioned_docs/version-2.0.0/server/sdk-installation/java-sdk.md) and [Pytest](versioned_docs/version-2.0.0/server/sdk-installation/python-sdk.md),
+- `--skip-coverage` - skip code coverage computation while running the test cases
 
 - `--go-coverage` - To get the combined code coverage of Keploy generated testcases and unit testcases in [Go Test](versioned_docs/version-2.0.0/server/sdk-installation/go-sdk.md)
+- `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
 
 ## [gen](#gen)
 
@@ -279,8 +278,6 @@ keploy normalize [flags]
   ```bash
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
   ```
-
-## [config](#config)
 
 ## [config](#config)
 
