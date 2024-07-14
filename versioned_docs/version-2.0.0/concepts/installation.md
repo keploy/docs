@@ -48,11 +48,11 @@ You should see something like this:
 Keploy CLI
 
 Available Commands:
-  example         Example to record and test via keploy
-  generate-config generate the keploy configuration file
-  record          record the keploy testcases from the API calls
-  test            run the recorded testcases and execute assertions
-  update          Update Keploy
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
 
 Flags:
       --debug     Run in debug mode
