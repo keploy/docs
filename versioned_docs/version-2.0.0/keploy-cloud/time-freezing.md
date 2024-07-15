@@ -54,13 +54,13 @@ uname -a
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_amd64.so /lib/keploy/go_freeze_time_amd64.so
+ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
 
 #set suitable permissions
-RUN chmod +x /lib/keploy/go_freeze_time_amd64.so
+RUN chmod +x /lib/keploy/go_freeze_time_amd64
 
-# Set LD_PRELOAD environment variable to use go_freeze_time_amd64.so
-ENV LD_PRELOAD=/lib/keploy/go_freeze_time_amd64.so
+# run the binary
+RUN /lib/keploy/go_freeze_time_amd64
 ```
 
 OR
@@ -69,13 +69,14 @@ OR
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_arm64.so /lib/keploy/go_freeze_time_arm64.so
+
+ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
 
 #set suitable permissions
-RUN chmod +x /lib/keploy/go_freeze_time_arm64.so
+RUN chmod +x /lib/keploy/go_freeze_time_arm64
 
-# Set LD_PRELOAD environment variable to use freeze_time_arm64.so
-ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
+# run the binary
+RUN /lib/keploy/go_freeze_time_arm64
 ```
 
 3. Add a `faketime` tag to your build script
