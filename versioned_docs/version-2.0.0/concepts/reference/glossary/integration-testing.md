@@ -13,12 +13,18 @@ keywords:
 
 Integration testing is a software testing process that combines individual software modules into larger subsystems or components to evaluate the interaction between them. It is typically performed after unit testing and before system testing. The goal of integration testing is to identify any defects that arise when different modules are combined and interact with each other.
 
+![Testing Pyramid](https://semaphoreci.com/wp-content/uploads/2022/03/pyramid-cost.jpg)
+
 ### Types of Integration Testing
 
 There are two main types of integration testing:
 
 1. Top-down integration testing: This type of integration testing starts with the highest-level modules and then works down to the lower-level modules.
 2. Bottom-up integration testing: This type of integration testing starts with the lowest-level modules and then works up to the higher-level modules.
+
+Both types of integration testing are essential for ensuring that all components of a software application work together correctly.
+
+![Approach Types](https://media.geeksforgeeks.org/wp-content/uploads/20201202190437/top2.png)
 
 ### How to perform Integration Testing ?
 
@@ -113,3 +119,29 @@ By providing a user-friendly platform with automation capabilities, Keploy simpl
 Furthermore, Keploy's native integration seamlessly integrates with development setups, eliminating the need for complex environment configuration and accelerating testing. It also fosters collaboration between teams by providing a centralized platform for recording test cases and sharing stub configurations, simplifying coordination efforts.
 
 In conclusion, Keploy empowers development teams to overcome the challenges of integration testing effectively, enabling them to deliver high-quality software with confidence and efficiency.
+
+### FAQs 
+
+#### 1. What is the primary goal of integration testing?
+
+The primary goal of integration testing is to identify and resolve any defects that arise when different software modules are combined and interact with each other. This ensures that the integrated components function correctly as a whole.
+
+#### 2. How does Keploy simplify integration testing?
+
+Keploy simplifies integration testing by automating stub generation, dynamically creating test cases from recorded interactions, and providing tools for error debugging and analysis. This reduces the manual effort required and ensures comprehensive test coverage.
+
+#### 3. What types of integration testing can be performed using Keploy?
+
+Keploy supports both top-down and bottom-up integration testing. It can simulate the behavior of high-level and low-level modules through automated stub generation and dynamic test case creation.
+
+#### 4. How does Keploy handle dependencies between modules during integration testing?
+
+Keploy manages dependencies by automatically generating realistic stubs based on recorded interactions. This eliminates the need for manual creation of stubs or mock objects, simplifying dependency management.
+
+#### 5. Can Keploy be integrated with existing unit testing frameworks?
+
+Yes, Keploy seamlessly integrates with popular unit testing frameworks like JUnit, NUnit, PHPUnit, PyTest, Jasmine, and Selenium. This ensures compatibility with existing unit testing workflows and enhances the overall testing process.
+
+#### 6. What are the benefits of using Keploy for integration testing compared to traditional methods?
+
+Keploy offers numerous benefits, including automated test case generation, simplified dependency management, enhanced testing efficiency, and improved collaboration between teams. It provides a user-friendly platform that streamlines the integration testing process, even in complex systems.

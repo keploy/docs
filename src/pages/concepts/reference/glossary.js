@@ -21,6 +21,10 @@ function Glossary() {
         name: "Agile Unit Testing",
         link: "/docs/concepts/reference/glossary/agile-unit-testing",
       },
+      {
+        name: "AI Test Completion",
+        link: "/docs/concepts/reference/glossary/ai-test-completion",
+      },
     ],
     B: [
       {
@@ -40,6 +44,10 @@ function Glossary() {
       {
         name: "Code Coverage",
         link: "/docs/concepts/reference/glossary/code-coverage",
+      },
+      {
+        name: "Cucumber Testing",
+        link: "/docs/concepts/reference/glossary/cucumber-testing",
       },
     ],
     E: [
@@ -86,7 +94,17 @@ function Glossary() {
         link: "/docs/concepts/reference/glossary/regression-testing",
       },
     ],
-    S: [{name: "Stubs", link: "/docs/concepts/reference/glossary/stubs"}],
+    S: [
+      {
+        name: "Stubs",
+        ink: "/docs/concepts/reference/glossary/stubs"
+      },
+      {
+        name: "Software Testing Life Cycle",
+        link: "/docs/concepts/reference/glossary/software-testing-life-cycle",
+      },
+
+    ],
     T: [
       {
         name: "Test Driven TDD",
