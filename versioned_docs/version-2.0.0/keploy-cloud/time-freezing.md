@@ -14,11 +14,11 @@ keywords:
   - time sensitive fields
 ---
 
-### Why Time Freezing? ❄️
+## Why Time Freezing? ❄️
 
 While making tests, **time-sensitive objects like JWT tokens are a challenge** as they expire, leading to test failures. This increases the maintenance effort of test suites and also impacts reliability.
 
-### What is Time Freezing? ⏳
+## What is Time Freezing? ⏳
 
 With Keploy Cloud users will be able to **freeze/rollback the time in every test run, back to when the test case was recorded.**
 
@@ -50,7 +50,7 @@ uname -a
 
 ### For Golang(Go) Applications -
 
-### amd64/x86_64 🖥️
+#### amd64/x86_64 🖥️
 
 ```Dockerfile
 # Download the time freeze agent
@@ -65,7 +65,7 @@ ENV LD_PRELOAD=/lib/keploy/go_freeze_time_amd64.so
 
 OR
 
-### arm64/aarch64 📱
+#### arm64/aarch64 📱
 
 ```Dockerfile
 # Download the time freeze agent
@@ -93,7 +93,7 @@ Voila! Your tests will now run with time freezing enabled.
 
 ### For Node/Java/Python Applications -
 
-### amd64/x86_64 🖥️
+#### amd64/x86_64 🖥️
 
 ```Dockerfile
 # Download the time freeze agent
@@ -108,7 +108,7 @@ ENV LD_PRELOAD=/lib/keploy/freeze_time_amd64.so
 
 OR
 
-### arm64/aarch64 📱
+#### arm64/aarch64 📱
 
 ```Dockerfile
 # Download the time freeze agent
