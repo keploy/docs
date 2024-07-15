@@ -37,6 +37,8 @@ Once your account is set up, you can start exploring features of Keploy Cloud. H
 
 - **Asynchronous Processes Support** ⏱ : Keploy V2 captures and replays asynchronous tasks effectively. We're also incorporating support for adding custom user-defined behaviours or assertions.
 
+- **Mock Registry** 📂: The Mock Registry is a system designed to handle large mock files by uploading them to cloud storage, preventing these sizable files from being committed to Git repositories. This approach optimizes repository size and performance while maintaining an efficient and streamlined development workflow.
+
 To get started with Keploy Cloud, you will need to install the Keploy Cloud Agent and authenticate your account.
 
 import PlatformRequirements from '../concepts/platform-requirements.md'

@@ -54,6 +54,9 @@ uname -a
 # Download the time freeze agent
 ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
 
+#set suitable permissions
+RUN chmod +x /lib/keploy/freeze_time_amd64.so
+
 # Set LD_PRELOAD environment variable to use freeze_time_amd64.so
 ENV LD_PRELOAD=/lib/keploy/freeze_time_amd64.so
 ```
@@ -66,15 +69,18 @@ OR
 # Download the time freeze agent
 ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
 
+#set suitable permissions
+RUN chmod +x /lib/keploy/freeze_time_arm64.so
+
 # Set LD_PRELOAD environment variable to use freeze_time_arm64.so
 ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 ```
 
 3. Re-Build your Docker image.
-4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
+4. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freezeTime
+keploy test -c "<appCmd>" --freeze-time
 ```
 
 Voila! Your tests will now run with time freezing enabled.

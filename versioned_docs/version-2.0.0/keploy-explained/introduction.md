@@ -11,7 +11,3 @@ import WhatIsKeploy from '../concepts/what-is-keploy.md'
 import WhatAreKeployFeatures from '../concepts/what-are-keploy-features.md'
 
 <WhatAreKeployFeatures/>
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
