@@ -4,7 +4,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 function Languages() {
   return (
-    <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
+    <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg">
       <div className="flex items-center space-x-4">
         <svg
           width="16"
@@ -116,7 +116,7 @@ function Languages() {
 
 function Frameworks() {
   return (
-    <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow">
+    <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg">
       <div className="flex items-center space-x-4">
         <svg
           className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
