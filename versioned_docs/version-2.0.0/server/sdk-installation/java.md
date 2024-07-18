@@ -30,6 +30,10 @@ import WhatAreKeployFeatures from './index.md'
 
 **Note**: In case of java application, before running test subcommand, you need to clean the project by removing any previously generated file, and run install command.
 
+```bash
+mvn clean install -Dmaven.test.skip=true
+```
+
 ## Usage
 
 ### Update `pom.xml` file
