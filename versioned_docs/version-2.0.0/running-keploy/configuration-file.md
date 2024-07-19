@@ -312,6 +312,7 @@ test-sets: {test-set-1: {body: {
 When dealing with deeply nested JSON fields in the response body, it’s important to correctly specify the path to the fields in the Keploy configuration file. Here’s an example to illustrate how to add a nested `token` field to the global noise configuration.
 
 ### Example JSON Response 📄
+
 Consider the following JSON response:
 
 ```json
@@ -332,6 +333,7 @@ Consider the following JSON response:
 ```
 
 ### Adding Nested Fields to the Configuration ⚙️
+
 To add the `token` field inside the `signUp` object in the global noise configuration, you need to specify the complete path to the field.
 
 ```yaml
