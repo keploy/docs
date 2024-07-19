@@ -120,7 +120,7 @@ Furthermore, Keploy's native integration seamlessly integrates with development 
 
 In conclusion, Keploy empowers development teams to overcome the challenges of integration testing effectively, enabling them to deliver high-quality software with confidence and efficiency.
 
-### FAQs 
+### FAQs
 
 #### 1. What is the primary goal of integration testing?
 

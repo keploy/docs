@@ -69,6 +69,7 @@ Use "keploy [command] --help" for more information about a command.
 ### Downloading and running Keploy in Docker
 
 #### On macOS and Linux
+
 1. Open up a terminal window.
 
 2. Create a bridge network in Docker using the following docker network create command:
@@ -152,8 +153,5 @@ arkade get keploy
 Or you can also download specific version of Keploy using the following command:
 
 ```bash
-arkade get keploy@2.2.0-alpha20
+arkade get keploy@2.2.0-alpha23
 ```
-
-
-🎉 Wohoo! You are all set to use Keploy.

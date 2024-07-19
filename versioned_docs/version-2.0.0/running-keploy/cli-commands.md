@@ -25,12 +25,12 @@ Here are some examples of how to use some common flags:
 
 | Mode        | Flags Available                                                                                                                                                                                                                                                                                                        |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`|
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                  |
 | `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`|
-| `normailze` | `-p, --path`, `--test-run`, `--tests`|
-| `rerecord` | `--test-sets`, `-t`|
-| `config`    | `--generate`,`-p, --path`|
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                           |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                  |
+| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                    |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                              |
 
 ## [record](#record)
 
@@ -304,15 +304,16 @@ keploy normalize [flags]
   ```bash
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
   ```
+
 ## [rerecord](#rerecord)
 
 The `rerecord`cmd allow user to record new keploy testcases/mocks from the existing test cases for the given testset(s)
 
 <b> Usage: </b>
 
-  ```bash
-  keploy rerecord -c "node src/app.js" -t "test-set-0"
-  ```
+```bash
+keploy rerecord -c "node src/app.js" -t "test-set-0"
+```
 
 ## [config](#config)
 

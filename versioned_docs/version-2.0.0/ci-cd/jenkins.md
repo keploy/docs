@@ -19,7 +19,13 @@ Keploy can integrated with Jenkins to ensure continuous testing as part of your 
 ## Prerequisites
 
 - Jenkins installed and running
-- Sudo access with `"NOPASSWORD"` via `jenkins ALL=(ALL) NOPASSWD: ALL`
+- Sudo access with `"NOPASSWORD"` via `jenkins ALL=(ALL) NOPASSWD: ALL`.
+
+Open terminal and run`sudo visudo` command to open the sudoers file and add the below line at the end of the file.
+
+```sh
+jenkins ALL=(ALL) NOPASSWD: ALL
+```
 
 ## Create a Pipeline
 
@@ -32,10 +38,11 @@ pipeline {
         stage('Keploy Tests') {
             steps {
                 // Download and prepare Keploy binary
-                sh "curl --silent --location 'https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz' | tar xz --overwrite -C /tmp"
+                sh "curl --silent --location 'https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz' | tar xz --overwrite -C /tmp"
                 sh "mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy"
 
-                // Run the keploy test suite
+                // Install application dependencies && Run the keploy test suite
+
                 sudo -E keploy test -c <CMD_TO_RUN_YOUR_APP>
             }
         }
@@ -67,6 +74,9 @@ pipeline {
 
                 // switch to the directory where keploy folder is present
                 dir('express-mongoose'){
+
+                // Make sure you have NPM in host machine and Install application dependencies.
+
                 sh"""
                 npm install
                 sudo -E keploy test -c "npm run start" --disableANSI
