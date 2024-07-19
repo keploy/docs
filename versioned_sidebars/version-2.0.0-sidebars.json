@@ -106,7 +106,8 @@
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
             "quickstart/crud-nodejs",
-            "quickstart/express-mongoose-application"          ]
+            "quickstart/express-mongoose-application"
+          ]
         },
         {
           "type": "category",
