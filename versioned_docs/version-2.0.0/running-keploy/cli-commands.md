@@ -289,6 +289,8 @@ The `rerecord`cmd allow user to record new keploy testcases/mocks from the exist
 keploy rerecord -c "node src/app.js" -t "test-set-0"
 ```
 
+## [config](#config)
+
 The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
 
 <b> Usage: </b>
