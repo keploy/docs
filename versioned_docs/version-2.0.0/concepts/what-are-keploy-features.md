@@ -58,7 +58,7 @@ within your CI environment without needing to connect to external services/depen
 No more data dumps, stubs, or mocks for dependencies like DBs, internal services, or third-party services like twilio,
 shopify, or stripe are required anymore. 💡
 
-<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies"/>
+<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies" style={{backgroundColor: '#EDEDED'}}/>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application.
 Multiple Reads after write operations can be replicated automatically too. 🔄
