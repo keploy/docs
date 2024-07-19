@@ -34,9 +34,7 @@ Once you start the application in record mode to capture API calls as test cases
 Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a
 test-case.
 
-<div style={{backgroundColor:'white', padding:'10px', display:'inline-block', borderRadius:'8px'}}>
-  <img src="/docs/gif/how-keploy-works.gif" alt="Test Case Generator" />
-</div>
+![How it works](/gif/how-keploy-works.gif)
 
 ### Step 2 : Replay Test-Cases
 
