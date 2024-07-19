@@ -68,25 +68,10 @@ Use "keploy [command] --help" for more information about a command.
 
 ### Downloading and running Keploy in Docker
 
-#### On macOS and Linux
+#### On macOS
 
 1. Open up a terminal window.
 
-2. Create a bridge network in Docker using the following docker network create command:
-
-```bash
-docker network create keploy-network
-```
-
-3. Run the following command to start the Keploy container:
-
-```bash
-alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
-```
-
-#### On Windows
-
-1. Start `WSL` and open up a terminal window.
 2. Create a bridge network in Docker using the following docker network create command:
 
 ```bash
@@ -107,7 +92,7 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
 
-#### On Linux AMD
+#### On WSL/Linux AMD
 
 1. Open the terminal Session.
 2. Run the following command to download and install Keploy:
@@ -117,7 +102,7 @@ curl --silent --location "https://github.com/keploy/keploy/releases/latest/downl
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```
 
-#### On Linux ARM
+#### On WSL/Linux ARM
 
 1. Open the terminal Session
 2. Run the following command to download and install Keploy:
@@ -153,7 +138,5 @@ arkade get keploy
 Or you can also download specific version of Keploy using the following command:
 
 ```bash
-arkade get keploy@2.2.0-alpha20
+arkade get keploy@2.2.0-alpha23
 ```
-
-🎉 Wohoo! You are all set to use Keploy.
