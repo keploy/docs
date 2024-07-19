@@ -307,6 +307,51 @@ test-sets: {test-set-1: {body: {
 - **`body`**: Defines patterns to ignore for the response body within the specified test set.
 - **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
 
+## Handling Deeply Nested JSON Fields in Keploy Configuration 🧩
+
+When dealing with deeply nested JSON fields in the response body, it’s important to correctly specify the path to the fields in the Keploy configuration file. Here’s an example to illustrate how to add a nested `token` field to the global noise configuration.
+
+### Example JSON Response 📄
+
+Consider the following JSON response:
+
+```json
+{
+  "data": {
+    "signUp": {
+      "id": "100",
+      "email": "keploy@test.com",
+      "firstName": "keploy",
+      "lastName": "keploy",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNyZWF0ZWRBdCI6IjIwMjQtMDUtMjJUMTA6NDk6MjIuNjI0WiIsImlkIjoxMDAsImZpcnN0TmFtZSI6InNhZ2FyIiwibGFzdE5hbWUiOiJ0b21hciIsImVtYWlsIjoic2FnYXJAdGVzdC5jb20iLCJwYXNzd29yZCI6IjU1ZjQ1MTg2OWI3OTZlMmFlZmU3ODA2ZjA0YTJlMzBkIiwidXBkYXRlZEF0IjoiMjAyNC0wNS0yMlQxMDo0OToyMi4wMzlaIiwiZGVsZXRlZEF0IjpudWxsfSwiaWF0IjoxNzE2Mzc0OTYyLCJleHAiOjE3MTY0NjEzNjJ9.21A-gz8QLnbx2bhpzMcezENjTGWKhBfwU4o2paFuEVM",
+      "createdAt": "2024-05-22T10:49:22.624Z",
+      "deletedAt": null,
+      "updatedAt": "2024-05-22T10:49:22.039Z"
+    }
+  }
+}
+```
+
+### Adding Nested Fields to the Configuration ⚙️
+
+To add the `token` field inside the `signUp` object in the global noise configuration, you need to specify the complete path to the field.
+
+```yaml
+globalNoise:
+  fields:
+    - path: "data.signUp.token"
+    - path: "data.signUp.createdAt"
+    - path: "data.signUp.updatedAt"
+    - path: "data.signUp.deletedAt"
+```
+
+In this example:
+
+- `data.signUp.token` refers to the `token` field inside the nested `signUp` object.
+- Similarly, other nested fields like `createdAt`, `updatedAt`, and `deletedAt` are specified.
+
+By specifying the path in this manner, Keploy will correctly identify and handle these deeply nested fields in the configuration.
+
 ### **Note**:
 
 The `globalNoise` and `test-sets` are optional fields in the config file. If not specified, the default value for both fields is an empty object `{}`. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
