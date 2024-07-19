@@ -20,18 +20,9 @@ keywords:
   - server-setup
 ---
 
-## 🛠️ Platform-Specific Requirements for Keploy
+import PlatformRequirements from '../concepts/platform-requirements.md'
 
-Below is a table summarizing the tools needed for both native and Docker installations of Keploy on MacOS, Windows, and
-Linux:
-
-| Operating System                                                                                                                                                                                                                                                                                              | Without Docker                                                                                                                  | Docker Installation                                                                                                             | Prerequisites                                                                                                                                                                            |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| <img src="https://www.pngplay.com/wp-content/uploads/3/Apple-Logo-Transparent-Images.png" width="15" height="15" alt="MacOS" /> **MacOS**                                                                                                                                                                     | <img src="https://upload.wikimedia.org/wikipedia/en/b/ba/Red_x.svg" width="20" height="20" alt="Not Supported" />               | <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Green_tick_pointed.svg" width="20" height="20" alt="Supported" /> | Docker Desktop version must be 4.25.2 or above                                                                                                                                           |
-| <img src="https://upload.wikimedia.org/wikipedia/commons/5/5f/Windows_logo_-_2012.svg" width="15" height="15" alt="Windows" /> **Windows**                                                                                                                                                                    | <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Green_tick_pointed.svg" width="20" height="20" alt="Supported" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Green_tick_pointed.svg" width="20" height="20" alt="Supported" /> | - Use [WSL](https://learn.microsoft.com/en-us/windows/wsl/install#install-wsl-command) `wsl --install` <br/> - Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 |
-| <img src="https://th.bing.com/th/id/R.7802b52b7916c00014450891496fe04a?rik=r8GZM4o2Ch1tHQ&riu=http%3a%2f%2f1000logos.net%2fwp-content%2fuploads%2f2017%2f03%2fLINUX-LOGO.png&ehk=5m0lBvAd%2bzhvGg%2fu4i3%2f4EEHhF4N0PuzR%2fBmC1lFzfw%3d&risl=&pid=ImgRaw&r=0" width="10" height="10" alt="Linux" /> **Linux** | <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Green_tick_pointed.svg" width="20" height="20" alt="Supported" /> | <img src="https://upload.wikimedia.org/wikipedia/commons/e/e5/Green_tick_pointed.svg" width="20" height="20" alt="Supported" /> | Linux kernel 5.15 or higher                                                                                                                                                              |
-
-On MacOS and Windows, additional tools are required for Keploy due to the lack of native eBPF support.
+<PlatformRequirements/>
 
 ## Quick Installation
 
@@ -57,11 +48,11 @@ You should see something like this:
 Keploy CLI
 
 Available Commands:
-  example         Example to record and test via keploy
-  generate-config generate the keploy configuration file
-  record          record the keploy testcases from the API calls
-  test            run the recorded testcases and execute assertions
-  update          Update Keploy
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
 
 Flags:
       --debug     Run in debug mode
@@ -69,6 +60,100 @@ Flags:
   -v, --version   version for keploy
 
 Use "keploy [command] --help" for more information about a command.
+```
+
+🎉 Wohoo! You are all set to use Keploy.
+
+## Other Installation Methods
+
+### Downloading and running Keploy in Docker
+
+#### On macOS and Linux
+
+1. Open up a terminal window.
+
+2. Create a bridge network in Docker using the following docker network create command:
+
+```bash
+docker network create keploy-network
+```
+
+3. Run the following command to start the Keploy container:
+
+```bash
+alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
+```
+
+#### On Windows
+
+1. Start `WSL` and open up a terminal window.
+2. Create a bridge network in Docker using the following docker network create command:
+
+```bash
+docker network create keploy-network
+```
+
+3. Run the following command to start the Keploy container:
+
+```bash
+alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
+```
+
+### Downloading and running Keploy in Native
+
+**Prequisites:**
+
+- Linux Kernel version 5.15 or higher
+- Run `uname -a` to verify the system architecture.
+- In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
+
+#### On Linux AMD
+
+1. Open the terminal Session.
+2. Run the following command to download and install Keploy:
+
+```bash
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+```
+
+#### On Linux ARM
+
+1. Open the terminal Session
+2. Run the following command to download and install Keploy:
+
+```bash
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+```
+
+> Note: Keploy is not supported on MacOS natively.
+
+### With Arkade
+
+1. Installing Arkade
+
+```bash
+# Note: you can also run without `sudo` and move the binary yourself
+curl -sLS https://get.arkade.dev | sudo sh
+
+arkade --help
+ark --help  # a handy alias
+
+# Windows users with Git Bash
+curl -sLS https://get.arkade.dev | sh
+```
+
+2. Install Keploy
+
+```bash
+arkade get keploy
+```
+
+Or you can also download specific version of Keploy using the following command:
+
+```bash
+arkade get keploy@2.2.0-alpha20
 ```
 
 🎉 Wohoo! You are all set to use Keploy.

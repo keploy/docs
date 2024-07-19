@@ -55,7 +55,7 @@ We will be using Docker compose to run the application as well as Postgres on Do
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker compose up" --containerName "fastapi-app" --buildDelay 50
+keploy record -c "docker compose up" --container-name "fastapi-app" --build-delay 50
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -207,7 +207,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "docker compose up" --containerName "fastapi-app" --buildDelay 50  --delay 10
+keploy test -c "docker compose up" --container-name "fastapi-app" --build-delay 50  --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

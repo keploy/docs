@@ -65,15 +65,15 @@ module.exports = {
 You can test a smaller section of application or to control costs, we can consider generating tests for a single source and its corresponding test file : -
 
 ```bash
-keploy gen --sourceFilePath="<path to source file>" \
-    --testFilePath="<path to test file for above source file>" \
-    --testCommand="npm test" \
-    --coverageReportPath="<path to coverage.xml>"
+keploy gen --source-file-path="<path to source file>" \
+    --test-file-path="<path to test file for above source file>" \
+    --test-command="npm test" \
+    --coverage-report-path="<path to coverage.xml>"
 ```
 
-For Entire Application we can generate tests by using `--testDir` instead of `--testFilePath`.
+For Entire Application we can generate tests by using `--test-dir` instead of `--test-file-path`.
 
-> ⚠️ Warning: Executing command with `--testDir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
+> ⚠️ Warning: Executing command with `--test-dir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
 
 #### Example
 
@@ -93,10 +93,10 @@ Now let's run Keploy UTG command : -
 
 ```bash
 keploy gen \
-  --sourceFilePath="./src/routes/routes.js" \
-  --testFilePath="./test/routes.test.js" \
-  --testCommand="npm test" \
-  --coverageReportPath="./coverage/cobertura-coverage.xml"
+  --source-file-path="./src/routes/routes.js" \
+  --test-file-path="./test/routes.test.js" \
+  --test-command="npm test" \
+  --coverage-report-path="./coverage/cobertura-coverage.xml"
 ```
 
 We will get following output : -
@@ -119,25 +119,25 @@ go install github.com/AlekSi/gocov-xml@v1.1.0
 With the above dependecies installed, we can now generate tests for our application by the following dommand : -
 
 ```bash
-keploy gen --sourceFilePath="<path to source file>o" \
-  --testFilePath="<path to test file for above source file>" \
-  --testCommand="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
-  --coverageReportPath="<path to coverage.xml>"
+keploy gen --source-file-path="<path to source file>o" \
+  --test-file-path="<path to test file for above source file>" \
+  --test-command="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
+  --coverage-report-path="<path to coverage.xml>"
 ```
 
-For Entire Application we can generate tests by using `--testDir` instead of `--testFilePath`.
+For Entire Application we can generate tests by using `--test-dir` instead of `--test-file-path`.
 
-> ⚠️ Warning: Executing command with `--testDir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
+> ⚠️ Warning: Executing command with `--test-dir` will generate unit tests for all files in the application. Depending on the size of the codebase, this process may take between 20 minutes to an hour and will incur costs related to LLM usage.
 
 #### Example
 
 Let us consider the [mux-sql](https://github.com/keploy/samples-go/tree/main/mux-sql/) sample-application, where we already have our `app_test.go` test file for `app.go` source file : -
 
 ```bash
-keploy gen --sourceFilePath="app.go" \
-  --testFilePath="app_test.go" \
-  --testCommand="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
-  --coverageReportPath="./coverage.xml"
+keploy gen --source-file-path="app.go" \
+  --test-file-path="app_test.go" \
+  --test-command="go test -v ./... -coverprofile=coverage.out && gocov convert coverage.out | gocov-xml > coverage.xml" \
+  --coverage-report-path="./coverage.xml"
 ```
 
 We will get following output : -
