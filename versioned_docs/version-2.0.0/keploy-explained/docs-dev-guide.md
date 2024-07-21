@@ -47,6 +47,8 @@ The command starts a local development server and opens a browser window.
 
 ## Prettier
 
+**Note: `yarn` is preferred for building, testing, and deploying the website, but `npm` can also be used.**
+
 Steps 1 to 3 are the same for both `yarn` and `npm` 
 
 1. Fork the repository
