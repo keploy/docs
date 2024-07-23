@@ -21,7 +21,7 @@ jobs:
           node-version: '18.0.0'
 
       - name: Install Dependencies
-        run: npm Install
+        run: npm install
 
       - name: Check commits messages
         uses: wagoid/commitlint-github-action@v5
