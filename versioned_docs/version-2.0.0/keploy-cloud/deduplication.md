@@ -15,20 +15,18 @@ keywords:
   - duplicate tests
 ---
 
-### Why Deduplication? ❄️
+## Why Deduplication? ❄️
 
-Test deduplication simplifies the testing process by removing redundant test cases, saving time and resources while clarifying the purpose and coverage of each test.
+When developing or maintaining a software, it is common for test suites to grow in size. This often results in redundancy, as many test cases cover the same functions or scenarios. This is where Test Deduplication comes into play.
 
-### Why Deduplication? ⏳
-
-When developing and maintaining software, it's common for test suites to grow in size, often resulting in redundancy where certain test cases cover the same functionality or scenarios.
+It simplifies the testing process by removing redundant test cases, which saves time and resources while keeping the testcases which adds value to the overall coverage of the application.
 
 ## Usage 🛠️
 
 To detect duplicate tests, simply run the below command, like so:
 
 ```bash
-keploy dedup -c "<CMD_TO_RUN_APP>"
+keploy dedup -c "<CMD_TO_RUN_APP>" -t="<TESTSETS_TO_RUN>"
 ```
 
 ### For Node Applications
@@ -52,7 +50,7 @@ app.use(kmiddleware())
 **2. Run Deduplication**
 
 ```
-keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10
+keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10 -t="<TESTSETS_TO_RUN>"
 ```
 
 #### Example
@@ -105,10 +103,47 @@ mvn clean install -DskipTests
 Once we have our jar file ready, we can run following command : -
 
 ```bash
-keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver -jar <PATH_TO_JAR_FILE>"  --delay 10
+keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver -jar <PATH_TO_JAR_FILE>"  --delay 10 -t="test-set-0"
 ```
 
 Voila! Keploy will now detect duplicate tests .
+
+## Remove Duplicate Tests
+
+You can simply remove duplicate tests with :
+
+```bash
+keploy dedup --rm
+```
+
+### De-Duplication for Python Applications
+
+Deduplication works only on test mode there are no special instructions to record your tests.
+
+**1. Pre-requsite**
+
+Put the latest keploy-sdk in your file : -
+
+```bash
+pip install keploy
+```
+
+In your main app file add
+
+```bash
+from keploy import FastApiCoverageMiddleware/FlaskCoverageMiddleware/DjangoCoverageMiddleware
+```
+
+along with the other imports.
+
+Add Keploy's middleware along with the other middlewares for your app like:
+
+```bash
+app.add_middleware(FastApiCoverageMiddleware)
+```
+
+**2. Run Deduplication**
+sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay <time required for your application to start>
 
 ## Remove Duplicate Tests
 
