@@ -33,21 +33,23 @@ Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.
 
 Now you can build and view the site locally:
 
-```shell
-yarn start
-```
-
-or 
 
 ```shell
 npm start
 ```
 
+or 
+
+```shell
+yarn start
+```
+
+
 The command starts a local development server and opens a browser window.
 
 ## Prettier
 
-**Note: `yarn` is preferred for building, testing, and deploying the website, but `npm` can also be used.**
+**Note: The website has been migrated to use `npm` for building, testing, and deploying.**
 
 Steps 1 to 3 are the same for both `yarn` and `npm` 
 
@@ -63,26 +65,6 @@ git clone https://github.com/<GITHUB_USERNAME>/docs.git
 
 ```shell
 cd docs
-```
-
-### Using `yarn` 
-
-4. Install all the dependencies
-
-```shell
-yarn
-```
-
-5. Start the development server.
-
-```shell
-yarn start
-```
-
-6. To reformat:
-
-```shell
-yarn prettier --write '**/*.{js,md}'
 ```
 
 ### Using `npm` 
@@ -104,6 +86,28 @@ npm start
 ```shell
 npm prettier --write '**/*.{js,md}'
 ```
+
+
+### Using `yarn` (Legacy)
+
+4. Install all the dependencies
+
+```shell
+yarn
+```
+
+5. Start the development server.
+
+```shell
+yarn start
+```
+
+6. To reformat:
+
+```shell
+yarn prettier --write '**/*.{js,md}'
+```
+
 
 When we merge your PR, a new build automatically occurs and your changes publish to [https://docs.keploy.io](https://docs.keploy.io).
 
