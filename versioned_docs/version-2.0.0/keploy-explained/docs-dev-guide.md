@@ -88,7 +88,7 @@ npm prettier --write '**/*.{js,md}'
 ```
 
 
-### Using `yarn` (Legacy)
+### Using `yarn` (Legacy)       
 
 4. Install all the dependencies
 
