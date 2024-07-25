@@ -125,27 +125,61 @@ Deduplication works only on test mode there are no special instructions to recor
 Put the latest keploy-sdk in your file : -
 
 ```bash
-pip install keploy
+pip install keploy coverage requests fastapi
 ```
 
-In your main app file add
+In your main app file add the following with along with the other imports. And add Keploy's middleware along with the other middlewares for your app based on your framework:
 
-```bash
-from keploy import FastApiCoverageMiddleware/FlaskCoverageMiddleware/DjangoCoverageMiddleware
+1. In FastAPI -
+
 ```
+// existing imports
+from keploy import FastApiCoverageMiddleware
 
-along with the other imports.
+...
 
-Add Keploy's middleware along with the other middlewares for your app like:
-
-```bash
 app.add_middleware(FastApiCoverageMiddleware)
 ```
 
-**2. Run Deduplication**
-sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay '<time required for your application to start>'
+2. In Flask -
 
-## Remove Duplicate Tests
+```
+// existing imports
+from keploy import FlaskCoverageMiddleware
+
+...
+
+app.wsgi_app = FlaskCoverageMiddleware(app.wsgi_app)
+```
+
+3. In Django - Open `settings.py` and add the middleware class to the **MIDDLEWARE** list.
+
+```
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'keploy.DjangoCoverageMiddleware',  # Add keploy middleware here
+],
+
+# Other settings
+```
+
+**2. Run Deduplication**
+
+Run keploy with test-sets in which you want to check for the duplicate testcases :
+
+```sh
+sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay "<time required for your application to start>"
+```
+
+<img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e"/>
+
+**3. Remove Duplicate Tests**
 
 You can simply remove duplicate tests with :
 
