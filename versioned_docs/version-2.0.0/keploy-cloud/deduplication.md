@@ -143,7 +143,7 @@ app.add_middleware(FastApiCoverageMiddleware)
 ```
 
 **2. Run Deduplication**
-sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay <time required for your application to start>
+sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay '<time required for your application to start>'
 
 ## Remove Duplicate Tests
 
