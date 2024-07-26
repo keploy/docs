@@ -5,14 +5,17 @@ sidebar_label: Remove Duplicate Tests 🧹
 tags:
   - explanation
   - feature guide
-  - jwt
   - Test Deduplication
 keywords:
   - dedup
   - keploy cloud
-  - jwt
   - deduplication
   - duplicate tests
+  - python
+  - java
+  - nodejs
+  - node
+  - testcases
 ---
 
 ## Why Deduplication? ❄️
@@ -55,7 +58,7 @@ keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10 -t="<TESTSETS_TO_RUN>"
 
 #### Example
 
-Let's use the [expresss-mongoose] application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
+Let's use the [expresss-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
 
 ```bash
 keploy dedup -c "node src/app.js" -t "test-set-1"
@@ -108,15 +111,7 @@ keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,dest
 
 Voila! Keploy will now detect duplicate tests .
 
-## Remove Duplicate Tests
-
-You can simply remove duplicate tests with :
-
-```bash
-keploy dedup --rm
-```
-
-### De-Duplication for Python Applications
+### For Python Applications
 
 Deduplication works only on test mode there are no special instructions to record your tests.
 
@@ -132,29 +127,28 @@ In your main app file add the following with along with the other imports. And a
 
 1. In FastAPI -
 
-```
-// existing imports
+```py
+# existing imports
 from keploy import FastApiCoverageMiddleware
 
-...
-
 app.add_middleware(FastApiCoverageMiddleware)
+# existing functions
 ```
 
 2. In Flask -
 
-```
-// existing imports
+```py
+# existing imports
 from keploy import FlaskCoverageMiddleware
 
-...
-
 app.wsgi_app = FlaskCoverageMiddleware(app.wsgi_app)
+
+# existing functions
 ```
 
 3. In Django - Open `settings.py` and add the middleware class to the **MIDDLEWARE** list.
 
-```
+```py
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -174,12 +168,20 @@ MIDDLEWARE = [
 Run keploy with test-sets in which you want to check for the duplicate testcases :
 
 ```sh
-sudo -E env PATH=$PATH keploy dedup -c "<command to run your Python app>" --delay "<time required for your application to start>"
+keploy dedup -c "<command to run your Python app>" --delay "<time required for your application to start>"
+```
+
+#### Example
+
+Let's use the [flask-mongo](https://github.com/keploy/samples-python/tree/main/flask-mongo) application to test dedup feature. In our `app.py` file we need to have imported and initialized `keploy` package, since this is a flask application we can follow above flask approach. Once we have added package, let's run the de-duplication command to check : -
+
+```bash
+keploy dedup -c "python3 app.py" -t "test-set-1"
 ```
 
 <img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e"/>
 
-**3. Remove Duplicate Tests**
+## Remove Duplicate Tests
 
 You can simply remove duplicate tests with :
 
