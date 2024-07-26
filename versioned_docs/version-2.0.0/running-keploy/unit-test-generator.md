@@ -6,12 +6,17 @@ description: This section documents usecase of Keploy's Unit Test Generator
 tags:
   - utg
   - unit test generator
+  - generate unit test
+  - unit test
 keywords:
   - unit test generator
   - unit testing
   - unit tests
   - documentation
-  - commands
+  - testcases
+  - AI testing
+  - Gemini
+  - OpenAI
 ---
 
 Keploy's unit test generator(ut-gen) implementation of Meta LLM research paper is a first which understands code semantics and generates meaningful unit tests, aiming to:
@@ -146,17 +151,17 @@ We will get following output : -
 
 _Voila!! The Generated Testcases have provided with 71% coverage in just 2 iterations 🌟_
 
-#### Frequently Asked Questions(FAQs)
+## Frequently Asked Questions(FAQs)
 
-1. What is Keploy's Unit Test Generator (UTG)?<br/>
+1. **What is Keploy's Unit Test Generator (UTG)?**<br/>
     - Keploy's UTG automates the creation of unit tests based on code semantics, enhancing test coverage and reliability.
-2. Does Keploy send your private data to any cloud server for test generation?<br/>
+2. **Does Keploy send your private data to any cloud server for test generation?**<br/>
     - No, Keploy does not send any user code to remote systems, except when using the unit test generation feature. When using the UT gen feature, only the source code and the unit test code will be sent to the Large Language Model (LLM) you are using. By default, Keploy uses - litellm to support vast number of LLM backends. Yes, if your organization has its own LLM(a private one), you can use it with Keploy. This ensures that data is not sent to any external systems.
-3. How does Keploy contribute to improving unit test coverage?<br/>
+3. **How does Keploy contribute to improving unit test coverage?**<br/>
     - By providing a zero code platform for automated testing, Keploy empowers developers to scale up their unit test coverage without extensive coding knowledge. This integration enhances testing reports, ultimately boosting confidence in the product's quality.
-4. Is Keploy cost-effective for automated unit  testing?<br/>
+4. **Is Keploy cost-effective for automated unit testing?**<br/>
     - Yes, Keploy optimizes costs by automating repetitive testing tasks and improving overall test efficiency.
-5. How does Keploy generate coverage reports?<br/>
+5. **How does Keploy generate coverage reports?**<br/>
     - Keploy generates detailed Cobertura format reports, offering insights into test effectiveness and code quality.
-6. Can Keploy handle large codebases efficiently?<br/>
+6. **Can Keploy handle large codebases efficiently?**<br/>
     - Yes, Keploy is designed to handle large codebases efficiently, though processing time may vary based on project size and complexity.
