@@ -5,30 +5,31 @@ sidebar_label: Remove Duplicate Tests 🧹
 tags:
   - explanation
   - feature guide
-  - jwt
   - Test Deduplication
 keywords:
   - dedup
   - keploy cloud
-  - jwt
   - deduplication
   - duplicate tests
+  - python
+  - java
+  - nodejs
+  - node
+  - testcases
 ---
 
-### Why Deduplication? ❄️
+## Why Deduplication? ❄️
 
-Test deduplication simplifies the testing process by removing redundant test cases, saving time and resources while clarifying the purpose and coverage of each test.
+When developing or maintaining a software, it is common for test suites to grow in size. This often results in redundancy, as many test cases cover the same functions or scenarios. This is where Test Deduplication comes into play.
 
-### Why Deduplication? ⏳
-
-When developing and maintaining software, it's common for test suites to grow in size, often resulting in redundancy where certain test cases cover the same functionality or scenarios.
+It simplifies the testing process by removing redundant test cases, which saves time and resources while keeping the testcases which adds value to the overall coverage of the application.
 
 ## Usage 🛠️
 
 To detect duplicate tests, simply run the below command, like so:
 
 ```bash
-keploy dedup -c "<CMD_TO_RUN_APP>"
+keploy dedup -c "<CMD_TO_RUN_APP>" -t="<TESTSETS_TO_RUN>"
 ```
 
 ### For Node Applications
@@ -52,12 +53,12 @@ app.use(kmiddleware())
 **2. Run Deduplication**
 
 ```
-keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10
+keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10 -t="<TESTSETS_TO_RUN>"
 ```
 
 #### Example
 
-Let's use the [expresss-mongoose] application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
+Let's use the [expresss-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
 
 ```bash
 keploy dedup -c "node src/app.js" -t "test-set-1"
@@ -105,10 +106,80 @@ mvn clean install -DskipTests
 Once we have our jar file ready, we can run following command : -
 
 ```bash
-keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver -jar <PATH_TO_JAR_FILE>"  --delay 10
+keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver -jar <PATH_TO_JAR_FILE>"  --delay 10 -t="test-set-0"
 ```
 
 Voila! Keploy will now detect duplicate tests .
+
+### For Python Applications
+
+Deduplication works only on test mode there are no special instructions to record your tests.
+
+**1. Pre-requsite**
+
+Put the latest keploy-sdk in your file : -
+
+```bash
+pip install keploy coverage requests fastapi
+```
+
+In your main app file add the following with along with the other imports. And add Keploy's middleware along with the other middlewares for your app based on your framework:
+
+1. In FastAPI -
+
+```py
+# existing imports
+from keploy import FastApiCoverageMiddleware
+
+app.add_middleware(FastApiCoverageMiddleware)
+# existing functions
+```
+
+2. In Flask -
+
+```py
+# existing imports
+from keploy import FlaskCoverageMiddleware
+
+app.wsgi_app = FlaskCoverageMiddleware(app.wsgi_app)
+
+# existing functions
+```
+
+3. In Django - Open `settings.py` and add the middleware class to the **MIDDLEWARE** list.
+
+```py
+MIDDLEWARE = [
+    'django.middleware.security.SecurityMiddleware',
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'keploy.DjangoCoverageMiddleware',  # Add keploy middleware here
+],
+
+# Other settings
+```
+
+**2. Run Deduplication**
+
+Run keploy with test-sets in which you want to check for the duplicate testcases :
+
+```sh
+keploy dedup -c "<command to run your Python app>" --delay "<time required for your application to start>"
+```
+
+#### Example
+
+Let's use the [flask-mongo](https://github.com/keploy/samples-python/tree/main/flask-mongo) application to test dedup feature. In our `app.py` file we need to have imported and initialized `keploy` package, since this is a flask application we can follow above flask approach. Once we have added package, let's run the de-duplication command to check : -
+
+```bash
+keploy dedup -c "python3 app.py" -t "test-set-1"
+```
+
+<img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e"/>
 
 ## Remove Duplicate Tests
 
