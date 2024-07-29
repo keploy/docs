@@ -16,12 +16,6 @@ keyword:
   - Pytest
 ---
 
-import WhatAreKeployFeatures from './index.md'
-
-<WhatAreKeployFeatures/>
-
-## Usage
-
 To get the coverage data for your unit tests:
 
 ```sh

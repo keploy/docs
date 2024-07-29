@@ -18,18 +18,6 @@ keyword:
   - Go Test
 ---
 
-import WhatAreKeployFeatures from './index.md'
-
-<WhatAreKeployFeatures/>
-
-## Usage
-
-For keploy test coverage the binary must built with `-cover` flag:
-
-```go
-go build -cover
-```
-
 To get the coverage data for unit tests :
 
 ```go
