@@ -13,11 +13,16 @@ keywords:
   - Gherkin
 ---
 
-Cucumber is a popular tool used for Behavior-Driven Development (BDD) that allows you to write test cases in a simple, human-readable format. It bridges the gap between technical and non-technical stakeholders by enabling collaboration through executable specifications. This article explores how Cucumber works, its key components, and provides practical examples in JavaScript.
+In few recent decades, Cucumber has become a popular tool as a BDD tool, allowing user to write test cases in a simple, human-readable format. Also, it has bridged the gap between technical and non-technical stakeholders by enabling collaboration by simplifying the test specifications.
 
 ## Key Components of Cucumber
 
-Cucumber testing consists of three main components: feature files, step definitions, and runner configuration. These components work together to define, automate, and execute test scenarios in a BDD framework. Let's explore each component in detail:
+Cucumber tests consist of 2 main components:
+
+1. feature files.
+2. step definitions.
+
+These components work together to define, automate, and execute test scenarios in a BDD framework. Let's explore each component in detail:
 
 ### 1. **Feature Files**
 
@@ -66,41 +71,6 @@ Then("the result should be {int} on the screen", function (expected) {
 });
 ```
 
-### 3. **Runner Configuration**
-
-Runner configuration in Cucumber.js sets up Cucumber to execute feature files with corresponding step definitions. It integrates with testing frameworks like Mocha or Jasmine to run scenarios and generate test reports.
-
-Example of a Cucumber.js runner configuration (`cucumber.js`):
-
-```javascript
-const {setWorldConstructor, BeforeAll, AfterAll} = require("cucumber");
-const {defineSupportCode} = require("cucumber");
-const {expect} = require("chai");
-
-defineSupportCode(({setWorldConstructor, Before, After, Given, When, Then}) => {
-  // Global setup and teardown
-  BeforeAll(async function () {
-    // Code to run before all scenarios
-  });
-
-  AfterAll(async function () {
-    // Code to run after all scenarios
-  });
-
-  Given("I have entered {int} into the calculator", function (number) {
-    // Step definition implementation
-  });
-
-  When("I press add", function () {
-    // Step definition implementation
-  });
-
-  Then("the result should be {int} on the screen", function (expected) {
-    // Step definition implementation
-  });
-});
-```
-
 ## What are advantages of Cucumber Testing ?
 
 - **Collaboration**: Facilitates collaboration between technical and non-technical stakeholders through understandable feature files.
@@ -138,7 +108,7 @@ Cucumber testing revolutionizes software testing by enabling teams to collaborat
 
 ### 1. **What is Cucumber testing used for?**
 
-- Cucumber is used for Behavior-Driven Development (BDD) to write acceptance tests in a human-readable format.
+- Cucumber is used for Behavior-Driven Development approach to write acceptance tests in a human-readable format.
 
 ### 2. **How does Cucumber enhance collaboration in software development?**
 
