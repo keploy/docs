@@ -1,6 +1,6 @@
 ---
 id: index
-title: Pre-requites 🛠️
+title: Test Coverage Generation
 tags:
   - coverage
 keyword:
@@ -23,6 +23,8 @@ To get the coverage report, first make sure all the requirements are met and the
 ```bash
 keploy test -c "your_application_command"
 ```
+
+In case of docker command, you would need to set `--skipCoverage` flag to false as by default coverage is disabled. Also language must be explicitly passed through `--language` flag.
 
 After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
 
@@ -47,12 +49,68 @@ mvn clean install -Dmaven.test.skip=true
 
 ## 🛠️ Language Specific Requirements
 
-| Programming Language | Prerequisites                                                                                                                                                                                                                                                       |
-| :------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          go          | 1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer [appendix](#graceful-shutdown) for basic implementation of graceful shutdown function. <br/> 2. The go binary should be built with `-cover` flag. |
-|        python        | [Python 3 and above](https://www.python.org/downloads/) <br/> [coverage.py](https://coverage.readthedocs.io/en/7.4.1/install.html)                                                                                                                                  |
-|      javascript      | [nyc](https://www.npmjs.com/package/nyc)                                                                                                                                                                                                                            |
-|         java         | [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)                                                                                                                                                                             |
+<table>
+  <tr>
+    <th rowspan="2">
+      Programming Language
+    </th>
+    <th colspan="2" width="80%">
+      Prerequisites
+    </th>
+  </tr>
+  <tr>
+    <th>Native</th>
+    <th>Docker</th>
+  </tr>
+  <tr>
+    <td id="lang">
+      go
+    </td>
+    <td colspan="2">
+      1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer [appendix](#graceful-shutdown) for basic implementation of graceful shutdown function. 
+      2. The go binary should be built with `-cover` flag.
+    </td>
+  </tr>
+  <tr>
+    <td id="lang">
+      python
+    </td>
+    <td>
+      [coverage.py v7.6.0 and above](https://coverage.readthedocs.io/en/7.6.0/install.html)
+    </td>
+    <td>
+      update your CMD instruction to:<br/>
+      `CMD ["sh", "-c", "python3 -m coverage run $APPEND --data-file=.coverage.keploy app.py"]`,<br/>
+      where app.py will be the program to run.
+    </td>
+  </tr>
+  <tr>
+    <td id="lang">
+      javascript
+    </td>
+    <td>
+      [nyc](https://www.npmjs.com/package/nyc)
+    </td>
+    <td>
+    1. Add a new script to package.json: <br/>
+    `"keploy-coverage": "nyc --clean=$CLEAN npm run start",`
+    2. Change the CMD instruction to: <br/>
+    `CMD [ "npm", "run", "keploy-coverage" ]`
+    </td>
+  </tr>
+  <tr>
+    <td id="lang">
+      java
+    </td>
+    <td>
+      [Jacoco](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8)
+    </td>
+    <td>
+    Update the CMD instruction to:<br/>
+    `CMD ["sh", "-c", "java $JACOCOAGENT -jar <your_application_jar_path>"]`
+    </td>
+  </tr>
+</table>
 
 ## Graceful Shutdown
 
