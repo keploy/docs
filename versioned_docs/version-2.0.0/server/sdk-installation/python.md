@@ -20,6 +20,10 @@ import WhatAreKeployFeatures from './index.md'
 
 <WhatAreKeployFeatures/>
 
+| Programming Language | Prerequisites                                                                                                                      |
+| :------------------: | :--------------------------------------------------------------------------------------------------------------------------------- |
+|        python        | [Python 3 and above](https://www.python.org/downloads/) <br/> [coverage.py](https://coverage.readthedocs.io/en/7.4.1/install.html) |
+
 ## Usage
 
 To get the coverage data for your unit tests:

@@ -25,6 +25,12 @@ import WhatAreKeployFeatures from './index.md'
 
 <WhatAreKeployFeatures/>
 
+## 🛠️ Language Specific Requirements
+
+| Programming Language | Prerequisites                            |
+| :------------------: | :--------------------------------------- |
+|      javascript      | [nyc](https://www.npmjs.com/package/nyc) |
+
 ## Usage
 
 ### Update package file
