@@ -24,7 +24,7 @@ To get the coverage report, first make sure all the requirements are met and the
 keploy test -c "your_application_command"
 ```
 
-In case of docker command, you would need to set `--skipCoverage` flag to false as by default coverage is disabled. Also language must be explicitly passed through `--language` flag.
+In case of **docker** command, you would need to set `--skipCoverage` flag to false as by default coverage is disabled. Also language must be explicitly passed through `--language` flag.
 
 After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
 
@@ -41,11 +41,13 @@ keploy
         └── test-2.yaml
 ```
 
-**Note**: In case of java application, before running test subcommand, you need to clean the project by removing any previously generated file, and run install command.
-
+:::note
+In case of java application, before running test subcommand, you need to clean the target folder by removing any previously generated file, and then running install command. Else you may get [class mismatch error](https://www.eclemma.org/jacoco/trunk/doc/classids.html) or total coverage percentage would come out to be 0.
 ```bash
 mvn clean install -Dmaven.test.skip=true
 ```
+:::
+
 
 ## 🛠️ Language Specific Requirements
 
@@ -111,6 +113,14 @@ mvn clean install -Dmaven.test.skip=true
     </td>
   </tr>
 </table>
+
+:::note
+If container fails to stop after keploy test-set run, then include the below instructions in your dockerfile:
+```sh
+RUN apt-get install -y dumb-init
+ENTRYPOINT [ "dumb-init", "--" ]
+```
+:::
 
 ## Graceful Shutdown
 
