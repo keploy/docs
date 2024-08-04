@@ -27,13 +27,12 @@ import InstallationGuide from '../concepts/installation.md'
 
 <InstallationGuide/>
 
-## Get Started! 🎬
 
 ## Installation 📥
 
 Ways you can run this sample application.
 
-- [Using Docker container for MongoDB and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker container for MongoDB and running application locally](#installation-setup)
 
 ## Installation Setup
 
@@ -41,12 +40,6 @@ Ways you can run this sample application.
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/sse-svelte
 go mod download
-```
-
-## Installation Keploy
-
-```bash
-
 ```
 
 ### Start MongoDB Instance 
@@ -77,7 +70,7 @@ cd svelte-app && npm install && npm run dev
 ```
 
 Now let's click on `GetTime` button to trigger the event. We would notice that keploy will capture those calls : - 
-![Testcases](./img/testcase.png?raw=true)
+![Testcases](https://github.com/keploy/samples-go/raw/main/sse-svelte/img/testcase.png?raw=true)
 
 ## Run the Testcases
 Now let's run the test mode :-
@@ -88,6 +81,6 @@ keploy test -c "./sse-mongo" --delay 10 --goCoverage
 
 Output should look like : - 
 
-![Testrun](./img/testrun.png?raw=true)
+![Testrun](https://github.com/keploy/samples-go/raw/main/sse-svelte/img/testrun.png?raw=true)
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MongoDb 😄**. And with just few clicks we were able to get 42% code coverage of our go backend application.
