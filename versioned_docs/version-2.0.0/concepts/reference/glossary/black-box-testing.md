@@ -53,7 +53,6 @@ This testing approach is essential for several reasons:
 5. **Detection of Defects**: Identifies functional errors, security vulnerabilities, and performance bottlenecks.
 6. **Accessibility**: Suitable for testers with diverse backgrounds and skill sets, adaptable to various software applications.
 
-
 ## Whate are types of Black-Box Testing Techniques ?
 
 ![How Black Box testing Works?](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/03/thumbnail_Black-box.jpg)
@@ -64,15 +63,15 @@ Equivalence partitioning is a black-box testing technique that divides the input
 
 **Example:** Consider a login screen for a web application that requires users to enter their username and password. In equivalence partitioning, we can identify three equivalence classes for each input:
 
-- *Valid username*: Any valid username (e.g., "user123")
-- *Invalid username*: Username that doesn't exist in the system (e.g., "invaliduser")
-- *Empty username*: No username provided
+- _Valid username_: Any valid username (e.g., "user123")
+- _Invalid username_: Username that doesn't exist in the system (e.g., "invaliduser")
+- _Empty username_: No username provided
 
 Similarly, for the password field, we can identify equivalence classes such as:
 
-- *Valid password*: Correct password corresponding to the provided username
-- *Invalid password*: Incorrect password for the provided username
-- *Empty password*: No password provided
+- _Valid password_: Correct password corresponding to the provided username
+- _Invalid password_: Incorrect password for the provided username
+- _Empty password_: No password provided
 
 Test cases would then be designed to cover at least one scenario from each equivalence class, ensuring comprehensive test coverage while minimizing redundancy.
 
@@ -82,12 +81,12 @@ Boundary value analysis (BVA) is a black-box testing technique used to test the 
 
 **Example:** Consider a software application that accepts user input for the age of a person, with the valid range defined as 18 to 65 years. In boundary value analysis, we would design test cases to evaluate the behavior of the application at the boundaries and just beyond them:
 
-- *Test case 1*: Input age as 17 (just below the lower boundary)
-- *Test case 2*: Input age as 18 (lower boundary)
-- *Test case 3*: Input age as 19 (within the valid range)
-- *Test case 4*: Input age as 65 (upper boundary)
-- *Test case 5*: Input age as 66 (just above the upper boundary)
-  
+- _Test case 1_: Input age as 17 (just below the lower boundary)
+- _Test case 2_: Input age as 18 (lower boundary)
+- _Test case 3_: Input age as 19 (within the valid range)
+- _Test case 4_: Input age as 65 (upper boundary)
+- _Test case 5_: Input age as 66 (just above the upper boundary)
+
 By testing at these boundary values, we can uncover potential issues such as off-by-one errors, boundary-related validation failures, and unexpected behaviors near the edges of the input range.
 
 ### 3. Decision Table Testing:
@@ -96,11 +95,11 @@ Decision table testing is a black-box testing technique used to test systems wit
 
 **Example:** Consider a shipping application that calculates shipping charges based on the weight and destination of a package. The decision table would list all possible combinations of inputs (weight and destination) and specify the corresponding shipping charges or actions. Test cases would then be derived to cover each combination:
 
-- *Test case 1*: Package weight = 2 kg, Destination = Local (Domestic)
-- *Test case 2*: Package weight = 5 kg, Destination = International
-- *Test case 3*: Package weight = 10 kg, Destination = Local (Domestic)
-- *Test case 4*: Package weight = 15 kg, Destination = International
-  
+- _Test case 1_: Package weight = 2 kg, Destination = Local (Domestic)
+- _Test case 2_: Package weight = 5 kg, Destination = International
+- _Test case 3_: Package weight = 10 kg, Destination = Local (Domestic)
+- _Test case 4_: Package weight = 15 kg, Destination = International
+
 By testing each combination of inputs, decision table testing helps us ensuring that the software behaves correctly under various scenarios.
 
 ### 4. State Transition Testing:
@@ -109,17 +108,17 @@ State transition testing is a black-box testing technique used to test systems t
 
 **Example:** Consider a traffic light control system with three states: Green, Yellow, and Red. State transition testing would involve designing test cases to validate the transitions between these states based on predefined rules:
 
-- *Test case 1*: Transition from Green to Yellow when the timer expires
-- *Test case 2*: Transition from Yellow to Red when the timer expires
-- *Test case 3*: Transition from Red to Green after a specified delay
-- *Test case 4*: Validate that the system remains in the Red state during a power outage
-  
+- _Test case 1_: Transition from Green to Yellow when the timer expires
+- _Test case 2_: Transition from Yellow to Red when the timer expires
+- _Test case 3_: Transition from Red to Green after a specified delay
+- _Test case 4_: Validate that the system remains in the Red state during a power outage
+
 By testing the transitions between states and verifying the system's behavior under different conditions, state transition testing helps ensure the reliability and correctness of state-based systems.
 
 ## Comparison of Black-Box Testing and White-Box Testing
 
-| **Black-box testing** | **White-box testing** |
-| --------------------------------------------------------------- | ----------------------------------------------------------------- |
+| **Black-box testing**                                                                                       | **White-box testing**                                                                               |
+| ----------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | Does not require knowledge of the internal structure or implementation details of the software being tested | Requires knowledge of the internal structure or implementation details of the software being tested |
 | Focuses on the software's external behavior and how it interacts with users                                 | Focuses on the software's internal logic and how it works                                           |
 | Can be performed by testers with a variety of skill levels                                                  | Requires testers with specialized knowledge and skills                                              |
@@ -128,7 +127,7 @@ By testing the transitions between states and verifying the system's behavior un
 
 ## How to use Keploy for black-Box testing?
 
-Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform black box 
+Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform black box
 testing with Keploy:
 
 - **Record User Interactions**: Use Keploy to record user interactions with your application. This includes actions such as clicking buttons, entering text, navigating menus, and submitting forms.

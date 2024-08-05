@@ -13,13 +13,14 @@ keywords:
   - Gherkin
 ---
 
-In few recent decades, Cucumber has become a popular tool as a BDD tool, allowing user to write test cases in a simple, human-readable format. Also, it has bridged the gap between technical and non-technical stakeholders by enabling collaboration by simplifying the test specifications. 
+In few recent decades, Cucumber has become a popular tool as a BDD tool, allowing user to write test cases in a simple, human-readable format. Also, it has bridged the gap between technical and non-technical stakeholders by enabling collaboration by simplifying the test specifications.
 
 ## Key Components of Cucumber
 
-Cucumber tests consist of 2 main components: 
+Cucumber tests consist of 2 main components:
+
 1. feature files.
-2. step definitions. 
+2. step definitions.
 
 These components work together to define, automate, and execute test scenarios in a BDD framework. Let's explore each component in detail:
 
@@ -69,7 +70,6 @@ Then("the result should be {int} on the screen", function (expected) {
   assert.strictEqual(result, expected);
 });
 ```
-
 
 ## What are advantages of Cucumber Testing ?
 
