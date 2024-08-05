@@ -22,6 +22,18 @@ import WhatAreKeployFeatures from './index.md'
 
 <WhatAreKeployFeatures/>
 
+## 🛠️ Language Specific Requirements
+
+| Programming Language | Prerequisites                                                                           |
+| :------------------: | :-------------------------------------------------------------------------------------- |
+|         java         | [Jacoco 0.8.8](https://mvnrepository.com/artifact/org.jacoco/jacoco-maven-plugin/0.8.8) |
+
+**Note**: In case of java application, before running test subcommand, you need to clean the project by removing any previously generated file, and run install command.
+
+```bash
+mvn clean install -Dmaven.test.skip=true
+```
+
 ## Usage
 
 ### Update `pom.xml` file
