@@ -1,10 +1,8 @@
-# Pull Request Template
+## What has changed?
 
-## Description
+Please include a summary of the change.
 
-Please include a summary of the change. Please also include relevant motivation and context. List any dependencies that are required for this change.
-
-Fixes # (issue)
+This PR Resolves #(issue)
 
 ## Type of change
 
@@ -13,22 +11,16 @@ Please delete options that are not relevant.
 - [ ] Bug fix (non-breaking change which fixes an issue).
 - [ ] New feature (non-breaking change which adds functionality).
 - [ ] Breaking change (fix or feature that would cause existing functionality to not work as expected).
-- [ ] This change requires a documentation update.
+- [ ] Documentation update (if none of the other choices apply).
 
 ## How Has This Been Tested?
 
-Please describe the tests that you ran to verify your changes. Provide instructions so we can reproduce. Please also list any relevant details for your test configuration
+Please run npm run build and npm run serve to check if the changes are working as expected. Please include screenshots of the output of both the commands. Add screenshots/gif of the changes if possible.
 
-## Additional Context (Please include any Screenshots/gifs if relevant)
-
-...
 
 ## Checklist:
 
 - [ ] My code follows the style guidelines of this project.
 - [ ] I have performed a self-review of my own code.
-- [ ] I have made corresponding changes to the documentation.
-- [ ] I have added corresponding tests.
-- [ ] Any dependent changes have been merged and published in downstream modules.
 
 <!--- Thanks for opening this pull request! If the tests fail, please feel free to reach out to us by leaving a comment down below and we will be happy to take a look --->
