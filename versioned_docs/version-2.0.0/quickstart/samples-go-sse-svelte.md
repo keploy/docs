@@ -1,5 +1,5 @@
 ---
-id: samples-sse-svelte
+id: samples-sse
 title: Sample Real-Time App (Svelte)
 sidebar_label: SSE + Svelte + MongoDB
 description: The following sample app tests Keploy integration capabilities with realtime subscriptions such as SSE
