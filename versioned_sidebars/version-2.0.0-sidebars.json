@@ -80,7 +80,8 @@
             "quickstart/samples-gin",
             "quickstart/samples-redis",
             "quickstart/samples-mux",
-            "quickstart/samples-mysql"
+            "quickstart/samples-mysql",
+            "quickstart/samples-fasthttp"
           ]
         },
         {
