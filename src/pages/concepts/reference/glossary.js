@@ -155,7 +155,7 @@ function Glossary() {
               className={`col-span-1  gap-2 rounded-sm p-3
                     ${
                       state[String.fromCharCode(65 + i)]
-                        ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950"
+                        ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950 dark:text-orange-900"
                         : entries[String.fromCharCode(65 + i)] === undefined
                         ? "bg-transparent text-gray-400" // Modified color class
                         : "bg-grey-200 rounded-3xl shadow-md"
@@ -175,13 +175,13 @@ function Glossary() {
         <div className="-mb-3 mt-10 flex flex-wrap justify-center gap-4 text-xl font-semibold">
           {Object.entries(state).map(([key, value]) => {
             return (
-              <div key={key} className="col-span-3 mb-4 w-1/4">
+              <div key={key} className="mb-4 w-1/4">
                 <div key={key}>{value ? key : ""}</div>
                 {value ? (
-                  <div className="text-l flex grid justify-around">
+                  <div className="ml-4 flex flex-col justify-around text-xl">
                     {entries[key]?.map(({name, link}, i) => (
                       <a
-                        className="text-orange-600 hover:text-orange-950 hover:underline"
+                        className="text-orange-600 hover:text-orange-800 hover:underline"
                         key={i}
                         href={link}
                       >
