@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useState } from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
@@ -55,6 +55,10 @@ function Glossary() {
         name: "End To End Testing",
         link: "/docs/concepts/reference/glossary/end-to-end-testing",
       },
+      {
+        name: "Error Guessing",
+        link: "/docs/concepts/reference/glossary/error-guessing",
+      },
     ],
     F: [
       {
@@ -86,6 +90,10 @@ function Glossary() {
       {
         name: "Mocks",
         link: "/docs/concepts/reference/glossary/mocks",
+      },
+      {
+        name: "Microservice Testing",
+        link: "/docs/concepts/reference/glossary/microservice-testing",
       },
     ],
     R: [
@@ -131,7 +139,7 @@ function Glossary() {
       },
     ],
   };
-  const {siteConfig, siteMetadata} = useDocusaurusContext;
+  const { siteConfig, siteMetadata } = useDocusaurusContext;
   const handleClick = (index) => {
     setState((state) => {
       var obj = {
@@ -153,13 +161,12 @@ function Glossary() {
           {new Array(26).fill(0).map((x, i) => (
             <button
               className={`col-span-1  gap-2 rounded-sm p-3
-                    ${
-                      state[String.fromCharCode(65 + i)]
-                        ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950"
-                        : entries[String.fromCharCode(65 + i)] === undefined
-                        ? "bg-transparent text-gray-400" // Modified color class
-                        : "bg-grey-200 rounded-3xl shadow-md"
-                    } `}
+                    ${state[String.fromCharCode(65 + i)]
+                  ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950"
+                  : entries[String.fromCharCode(65 + i)] === undefined
+                    ? "bg-transparent text-gray-400" // Modified color class
+                    : "bg-grey-200 rounded-3xl shadow-md"
+                } `}
               key={i}
               disabled={
                 entries[String.fromCharCode(65 + i)] === undefined
@@ -179,7 +186,7 @@ function Glossary() {
                 <div key={key}>{value ? key : ""}</div>
                 {value ? (
                   <div className="text-l flex grid justify-around">
-                    {entries[key]?.map(({name, link}, i) => (
+                    {entries[key]?.map(({ name, link }, i) => (
                       <a
                         className="text-orange-600 hover:text-orange-950 hover:underline"
                         key={i}
