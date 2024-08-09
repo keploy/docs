@@ -24,7 +24,10 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 <PlatformRequirements/>
 
-## Quick Installation
+# Keploy Installation
+
+## Quick Installation Using CLI
+
 
 Let's get started by setting up the Keploy alias with this command:
 
@@ -64,7 +67,13 @@ Use "keploy [command] --help" for more information about a command.
 
 🎉 Wohoo! You are all set to use Keploy.
 
+
+
 ## Other Installation Methods
+
+<details>
+<summary>Install using Docker</summary>
+
 
 ### Downloading and running Keploy in Docker
 
@@ -84,6 +93,11 @@ docker network create keploy-network
 alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
 ```
 
+</details>
+
+<details>
+<summary>Downloading and running Keploy in Native</summary>
+
 ### Downloading and running Keploy in Native
 
 **Prequisites:**
@@ -91,6 +105,10 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 - Linux Kernel version 5.15 or higher
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
+
+<details>
+<summary>Downloading and running Keploy On WSL/Linux AMD</summary>
+
 
 #### On WSL/Linux AMD
 
@@ -101,6 +119,9 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```
+</details>
+<details>
+<summary>On WSL/Linux ARM</summary>
 
 #### On WSL/Linux ARM
 
@@ -113,6 +134,11 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```
 
 > Note: Keploy is not supported on MacOS natively.
+
+</details>
+
+<details>
+<summary>With Arkade</summary>
 
 ### With Arkade
 
@@ -140,3 +166,4 @@ Or you can also download specific version of Keploy using the following command:
 ```bash
 arkade get keploy@2.2.0-alpha23
 ```
+</details>
