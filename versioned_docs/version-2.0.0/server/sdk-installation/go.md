@@ -22,6 +22,44 @@ import WhatAreKeployFeatures from './index.md'
 
 <WhatAreKeployFeatures/>
 
+## 🛠️ Language Specific Requirements
+
+| Programming Language | Prerequisites                                                                                                                                                                                                                                              |
+| :------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|          go          | 1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer [appendix](#appendix) for basic implementation of graceful shutdown function. <br/> 2. The go binary should be built with `-cover` flag. |
+
+## Graceful Shutdown
+
+It is important that the application is shutdown gracefully. In case of Golang, function for graceful shutdown:
+
+```go
+func GracefulShutdown() {
+	stopper := make(chan os.Signal, 1)
+	// listens for interrupt and SIGTERM signal
+	signal.Notify(stopper, os.Interrupt, os.Kill, syscall.SIGKILL, syscall.SIGTERM)
+	go func() {
+		select {
+		case <-stopper:
+			os.Exit(0)
+		}
+	}()
+}
+
+func main() {
+
+	port := "8080"
+
+	r := gin.Default()
+
+	r.GET("/:param", getURL)
+	r.POST("/url", putURL)
+	// should be called before starting the API server from main()
+	GracefulShutdown()
+
+	r.Run()
+}
+```
+
 ## Usage
 
 For keploy test coverage the binary must built with `-cover` flag:

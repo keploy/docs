@@ -23,14 +23,14 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available                                                                                                                                                                                                                                                                                                        |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                  |
-| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                           |
-| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                  |
-| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                    |
-| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                              |
+| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                          |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                    |
+| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
+| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
 
@@ -210,6 +210,12 @@ keploy test [flags]
   ```
 
 - `--skip-coverage` - skip code coverage computation while running the test cases
+
+- `--skip-preview` - skip line by line code coverage preview but display the total coverage.
+
+  ```bash
+  keploy test -c "node src/app.js" --delay 10 --skip-preview
+  ```
 
 - `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
 
