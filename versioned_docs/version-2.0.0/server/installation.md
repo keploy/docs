@@ -1,7 +1,7 @@
 ---
 id: installation
 title: Keploy Installation
-sidebar_label: Quick Installation
+sidebar_label: Installation
 tags:
   - hello-world
   - linux
