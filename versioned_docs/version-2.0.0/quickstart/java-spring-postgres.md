@@ -35,9 +35,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 This project has two parts - the frontend and backend, since Keploy is a backend testing platform, we need to start the backend part of the project using Keploy and run the frontend as it is.
 
-# Project Setup
-
-## Setting up the frontend
+## Project Setup
 
 ### Installing Dependencies 
 
