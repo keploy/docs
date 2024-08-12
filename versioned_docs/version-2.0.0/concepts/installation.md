@@ -189,6 +189,7 @@ sudo gpasswd -a $USER docker
 ```
 
 </details>
+<details>
 <summary>Downloading and running Keploy in Native</summary>
 
 ### Downloading and running Keploy in Native
@@ -199,6 +200,7 @@ sudo gpasswd -a $USER docker
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
 
+</details>
 <details>
 <summary>Downloading and running Keploy On WSL/Linux AMD</summary>
 

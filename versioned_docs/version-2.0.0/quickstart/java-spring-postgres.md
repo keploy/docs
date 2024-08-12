@@ -35,9 +35,9 @@ import InstallationGuide from '../concepts/installation.md'
 
 This project has two parts - the frontend and backend, since Keploy is a backend testing platform, we need to start the backend part of the project using Keploy and run the frontend as it is.
 
-# Setup the frontend
+## Project Setup
 
-### Basic Setup
+### Installing Dependencies 
 
 ```bash
 git clone https://github.com/keploy/samples-java.git
@@ -55,7 +55,7 @@ npm i
 npm run start
 ```
 
-# Setup the Backend
+### Setup the Backend
 
 Now it's time to setup the backend of our application. Let's move to the backend directory and get started.
 
