@@ -98,7 +98,7 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 </details>
 
 <details>
-<details>
+
 <summary>Running Keploy Natively on MacOS by setting up a linux env</summary>
 
 ### Downloading and running Keploy in Native using Debian on MacOS
