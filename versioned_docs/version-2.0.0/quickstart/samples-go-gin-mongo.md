@@ -177,7 +177,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius:'5px'}}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Want to see if everything works as expected?
 

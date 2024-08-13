@@ -41,11 +41,20 @@ import InstallationGuide from '../concepts/installation.md'
 git clone https://github.com/keploy/samples-python.git && cd samples-python/sanic-mongo
 ```
 
-## Download the requirements.txt file
+## Download the requirements.txt file and DB setup
 
 Head to the folder of the application and run 
 ```shell
 pip3 install -r requirements.txt
+```
+
+Open a different terminal and setup your MongoDB through docker 
+```shell
+docker network create keploy-network
+```
+
+```shell
+docker run -p 27017:27017 -d --rm --name mongoDB --net keploy-network mongo
 ```
 
 ## Lights, Camera, Record! 🎥
