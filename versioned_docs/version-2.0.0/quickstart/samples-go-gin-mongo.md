@@ -39,7 +39,8 @@ go mod download
 There are 2 ways you can run this sample application.
 
 - [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker container for mongoDb and running application locally](#running-app-locally-linuxwsl-)
+
 
 ## Using Docker Compose 🐳
 
@@ -176,7 +177,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius:'5px'}}/>
 
 Want to see if everything works as expected?
 
@@ -214,7 +215,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
