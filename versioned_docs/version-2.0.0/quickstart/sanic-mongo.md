@@ -50,7 +50,7 @@ pip3 install -r requirements.txt
 
 Open a different terminal and setup your MongoDB through docker 
 ```shell
-docker network create keploy-network
+sudo docker network create keploy-network
 ```
 
 ```shell
@@ -152,5 +152,8 @@ spec:
 ```bash
  keploy test -c "python server.py"
 ```
+This is how your terminal would look like :
+
+![Test Record](../../../static/img/Sanic-Mongo-Test.png)
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response

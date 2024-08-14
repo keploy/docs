@@ -99,15 +99,17 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 
 <details>
 
-<summary>Running Keploy Natively on MacOS by setting up a linux env</summary>
+<summary>Downloading and running Keploy Natively on MacOS</summary>
 
-### Downloading and running Keploy in Native using Debian on MacOS
+### Downloading and running Keploy Natively on MacOS
+
+You can choose to run on any Linux env, in the given below documentation is the setup to run using Debian
 
 1. Open the terminal Session.
 2. Run the following command 
 
 ```bash
-limactl show-ssh --format=config debian-12 & add it to its ssh config
+limactl show-ssh --format=config debian & add it to its ssh config
 ```
 3. Open a remote window on your code editor
 4. Click on connect to host 
@@ -200,12 +202,9 @@ sudo gpasswd -a $USER docker
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
 
-</details>
-<details>
-<summary>Downloading and running Keploy On WSL/Linux AMD</summary>
 
 
-#### On WSL/Linux AMD
+##### **On WSL/Linux AMD**
 
 1. Open the terminal Session.
 2. Run the following command to download and install Keploy:
@@ -214,11 +213,8 @@ sudo gpasswd -a $USER docker
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```
-</details>
-<details>
-<summary>On WSL/Linux ARM</summary>
 
-#### On WSL/Linux ARM
+##### **On WSL/Linux ARM**
 
 1. Open the terminal Session
 2. Run the following command to download and install Keploy:
