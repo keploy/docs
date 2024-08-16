@@ -295,6 +295,15 @@ The `rerecord`cmd allow user to record new keploy testcases/mocks from the exist
 keploy rerecord -c "node src/app.js" -t "test-set-0"
 ```
 
+## [templatize](#templatize)
+The `templatize` cmd allows the user to templatize important fields in the testcases who's values are used in the request of testcases and that may change in the future.
+
+<b> Usage: </b>
+
+```bash
+keploy templatize [flags]
+```
+
 ## [config](#config)
 
 The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
