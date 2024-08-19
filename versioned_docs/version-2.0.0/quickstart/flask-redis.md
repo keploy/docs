@@ -1,5 +1,3 @@
-Flask-redis
-
 ---
 id: flask-redis
 title: Sample Library App (Flask + Redis)
