@@ -73,7 +73,7 @@ sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
 
 `-c 'ts-node src/app.ts`': Specifies the command to start your application (in this case, using ts-node to execute the TypeScript application entry point).
 
-![Test Record](/img/wsl-record-ts.png)
+<!-- ![Test Record](/img/wsl-record-ts.png) -->
 
 ### Generating the test cases
 
@@ -195,8 +195,8 @@ Voila!! Our test cases have passed 🌟
 
 You will be able to see the summary of your test cases run in your terminal!
 
-![Test Record](/img/wsl-test-ts.png)
-![Test Record](/img/wsl-test-summary-ts.png)
+<!-- ![Test Record](/img/wsl-test-ts.png)
+![Test Record](/img/wsl-test-summary-ts.png) -->
 
 
 Now its time for you to experiment further with different API calls and tweak the responses accordingly!
@@ -265,9 +265,9 @@ Let's run our captured test cases
 keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
 ```
 This is what your response should look like!
-
+<!-- 
 ![Test Record](/img/wsl-test-ts.png)
-![Test Record](/img/wsl-test-summary-ts.png)
+![Test Record](/img/wsl-test-summary-ts.png) -->
 
 
 ## Wrapping it up 🎉
