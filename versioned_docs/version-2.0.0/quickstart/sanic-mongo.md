@@ -1,5 +1,3 @@
-Sonic-mongo
-
 ---
 id: sanic-mongo
 title: Sample Movie Management App (Sanic + Mongo)
@@ -68,7 +66,9 @@ keploy record -c "python3 server.py"
 ```
 You should be able to see this in your terminal
 
-![Test Record](../../../static/img/Sanic-Mongo-record.png)
+![Test Record](../../../static/img/sanic-mongo-record.png)
+
+<!-- <img src='/docs/static/img/sanic-mongo-record.png' alt="Test Record"  width="80%"/> -->
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -156,6 +156,6 @@ spec:
 ```
 This is how your terminal would look like :
 
-![Test Record](../../../static/img/Sanic-Mongo-Test.png)
+![Test Record](../../../static/img/sanic-mongo-test.png)
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response
