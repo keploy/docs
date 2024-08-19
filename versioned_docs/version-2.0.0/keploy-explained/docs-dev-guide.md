@@ -41,6 +41,12 @@ npm start
 or 
 
 ```shell
+npm start
+```
+
+or
+
+```shell
 yarn start
 ```
 
@@ -50,6 +56,7 @@ The command starts a local development server and opens a browser window.
 ## Prettier
 
 **Note: The website has been migrated to use `npm` for building, testing, and deploying.**
+
 
 Steps 1 to 3 are the same for both `yarn` and `npm` 
 
@@ -87,8 +94,7 @@ npm start
 npm prettier --write '**/*.{js,md}'
 ```
 
-
-### Using `yarn` (Legacy)       
+### Using `yarn` (Legacy)
 
 4. Install all the dependencies
 
