@@ -98,7 +98,7 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 </details>
 
 <details>
-<details>
+
 <summary>Running Keploy Natively on MacOS by setting up a linux env</summary>
 
 ### Downloading and running Keploy in Native using Debian on MacOS
@@ -189,6 +189,7 @@ sudo gpasswd -a $USER docker
 ```
 
 </details>
+<details>
 <summary>Downloading and running Keploy in Native</summary>
 
 ### Downloading and running Keploy in Native
@@ -199,7 +200,6 @@ sudo gpasswd -a $USER docker
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
 
-<details>
 <summary>Downloading and running Keploy On WSL/Linux AMD</summary>
 
 
@@ -212,9 +212,7 @@ sudo gpasswd -a $USER docker
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```
-</details>
-<details>
-<summary>On WSL/Linux ARM</summary>
+
 
 #### On WSL/Linux ARM
 
