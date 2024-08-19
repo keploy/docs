@@ -107,7 +107,8 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs"
+            "quickstart/crud-nodejs",
+            "quickstart/express-mongoose-application"
           ]
         },
         {
