@@ -268,8 +268,8 @@ keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
 ```
 This is what your response should look like!
 
-![Test Record](../../../static/img/wsl-test-ts.png)
-![Test Record](../../../static/img/wsl-test-summary-ts.png)
+![Test Record](/img/wsl-test-ts.png)
+![Test Record](/img/wsl-test-summary-ts.png)
 
 
 ## Wrapping it up 🎉
