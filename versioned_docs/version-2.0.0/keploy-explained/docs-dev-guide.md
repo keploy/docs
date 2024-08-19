@@ -29,9 +29,21 @@ The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), wh
 You can make changes locally without previewing them in the browser.
 However, if you want to build the site and preview changes in the browser, you need to have [Docusaurus 2 dependencies](https://v2.docusaurus.io/docs/installation/#requirements) installed.
 
-Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) once in the root directory of the repo.
+Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) or [`npm`](https://docs.npmjs.com/cli/v10) once in the root directory of the repo.
 
 Now you can build and view the site locally:
+
+```shell
+npm start
+```
+
+or
+
+```shell
+npm start
+```
+
+or
 
 ```shell
 yarn start
@@ -40,6 +52,10 @@ yarn start
 The command starts a local development server and opens a browser window.
 
 ## Prettier
+
+**Note: The website has been migrated to use `npm` for building, testing, and deploying.**
+
+Steps 1 to 3 are the same for both `yarn` and `npm`
 
 1. Fork the repository
 
@@ -54,6 +70,28 @@ git clone https://github.com/<GITHUB_USERNAME>/docs.git
 ```shell
 cd docs
 ```
+
+### Using `npm`
+
+4. Install all the dependencies
+
+```shell
+npm install
+```
+
+5. Start the development server.
+
+```shell
+npm start
+```
+
+6. To reformat:
+
+```shell
+npm prettier --write '**/*.{js,md}'
+```
+
+### Using `yarn` (Legacy)
 
 4. Install all the dependencies
 
