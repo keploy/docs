@@ -16,7 +16,7 @@ keywords:
 
 ## What is idempotency in the context of REST APIs?
 
-Idempotency means making multiple identical requests has the same effect as making a single request. In REST APIs, this ensures consistent and reliable interactions even with repeated requests. 
+Idempotency means making multiple identical requests has the same effect as making a single request. In REST APIs, this ensures consistent and reliable interactions even with repeated requests.
 
 Idempotent operations are essential for maintaining data integrity, error recovery, and fault tolerance in distributed systems.
 
