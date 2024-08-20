@@ -1,6 +1,6 @@
 ---
 id: idempotency
-title: Mastering Idempotent REST APIs
+title: How Idempotent REST APIs Boost Reliability and Error Handling
 sidebar_label: Idempotency
 description: Discover how idempotent APIs enhance user experience, reliability, and error handling. Learn best practices for implementing and testing idempotent methods.
 tags:
