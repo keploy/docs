@@ -75,6 +75,7 @@ White box testing requires in-depth knowledge of programming languages, algorith
 Ensuring every code path is tested, especially in large systems, demands meticulous planning.
 
 ### 3. Maintenance Overhead:
+
 As code evolves, test cases must be updated, requiring ongoing coordination with development teams.
 
 As code evolves, test cases must be updated, requiring ongoing coordination with development teams.
