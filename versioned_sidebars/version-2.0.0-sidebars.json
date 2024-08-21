@@ -94,7 +94,11 @@
             "quickstart/samples-django",
             "quickstart/samples-flask",
             "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"          ]
+            "quickstart/samples-fastapi-twilio",
+            "quickstart/sanic-mongo",
+            "quickstart/flask-redis" 
+          
+          ]
         },
         {
           "type": "category",
@@ -107,7 +111,9 @@
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
             "quickstart/crud-nodejs",
-            "quickstart/express-mongoose-application"
+            "quickstart/express-mongoose-application",
+            "quickstart/sample-ts"
+
           ]
         },
         {
@@ -166,7 +172,8 @@
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide",
         "keploy-explained/debugger-guide",
-        "keploy-explained/testing-guide"
+        "keploy-explained/testing-guide",
+        "keploy-explained/mac-lima"
       ]
     }
   ]

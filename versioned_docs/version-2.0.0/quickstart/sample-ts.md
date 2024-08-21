@@ -1,7 +1,7 @@
 ---
-id: samples-typescript
+id: sample-ts
 title: Typescript Sample Application
-sidebar_label: Typescript - Nhost
+sidebar_label: Typescript - Nhost (GraphQL)
 description: The following sample app to test Keploy integration capabilities using Typescript and Nhost.
 tags:
   - Typescript

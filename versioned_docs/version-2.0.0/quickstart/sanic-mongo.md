@@ -1,7 +1,7 @@
 ---
 id: sanic-mongo
 title: Sample Movie Management App (Sanic + Mongo)
-sidebar_label: Sanic + Mongo
+sidebar_label: Sanic (Python) + Mongo
 description: This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
 tags:
