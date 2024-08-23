@@ -296,6 +296,7 @@ keploy rerecord -c "node src/app.js" -t "test-set-0"
 ```
 
 ## [templatize](#templatize)
+
 The `templatize` cmd allows the user to templatize important fields in the testcases who's values are used in the request of testcases and that may change in the future.
 
 <b> Usage: </b>
