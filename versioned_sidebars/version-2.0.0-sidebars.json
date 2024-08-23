@@ -81,6 +81,7 @@
             "quickstart/samples-redis",
             "quickstart/samples-mux",
             "quickstart/samples-mysql",
+            "quickstart/samples-sse",
             "quickstart/samples-fasthttp"
           ]
         },
@@ -106,7 +107,8 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs"
+            "quickstart/crud-nodejs",
+            "quickstart/express-mongoose-application"
           ]
         },
         {
