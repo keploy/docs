@@ -14,9 +14,7 @@
     {
       "type": "doc",
       "label": "Installation",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
+      "id": [
         "server/installation"
       ]
     },
