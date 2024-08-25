@@ -12,15 +12,12 @@
       ]
     },
     {
-      "type": "category",
+      "type": "doc",
       "label": "Installation",
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "server/installation",
-        "server/linux/installation",
-        "server/macos/installation",
-        "server/windows/installation"
+        "server/installation"
       ]
     },
     {
