@@ -14,9 +14,7 @@
     {
       "type": "doc",
       "label": "Installation",
-      "id": [
-        "server/installation"
-      ]
+      "id": "server/installation"
     },
     {
       "type": "category",
