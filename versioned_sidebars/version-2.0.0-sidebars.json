@@ -27,7 +27,8 @@
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
-        "running-keploy/custom-mocks"
+        "running-keploy/custom-mocks",
+        "running-keploy/keploy-templatize"
       ]
     },
     {
@@ -77,7 +78,6 @@
             "quickstart/samples-redis",
             "quickstart/samples-mux",
             "quickstart/samples-mysql",
-            "quickstart/samples-sse",
             "quickstart/samples-fasthttp"
           ]
         },
@@ -103,8 +103,7 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs",
-            "quickstart/express-mongoose-application"
+            "quickstart/crud-nodejs"
           ]
         },
         {
