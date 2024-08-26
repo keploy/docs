@@ -28,7 +28,6 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 ## Quick Installation Using CLI
 
-
 Let's get started by setting up the Keploy alias with this command:
 
 ```bash
@@ -74,7 +73,6 @@ Use "keploy [command] --help" for more information about a command.
 <details>
 <summary>Install using Docker</summary>
 
-
 ### Downloading and running Keploy in Docker
 
 #### On macOS
@@ -98,6 +96,7 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 </details>
 
 <details>
+
 <summary>Downloading and running Keploy in Native</summary>
 
 ### Downloading and running Keploy in Native
@@ -130,10 +129,27 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 ```bash
 curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+
 ```
 
 > Note: Keploy is not supported on MacOS natively.
 </details>
+<details>
+<summary>With Arkade</summary>
+
+### Setting up the Docker Desktop for WSL 2
+
+1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
+
+When developing on Windows with Docker Desktop and WSL 2, it's crucial to configure Docker Desktop to allow WSL 2 distributions to access the Docker daemon. This setup enables seamless integration between your Windows environment, WSL 2 Linux distros, and Docker.
+
+By default, Docker Desktop may not be configured to work with all WSL 2 distros out of the box. Proper configuration ensures that you can run Docker commands from within your WSL 2 environment, allowing for a more native Linux development experience while leveraging the power of Windows.
+
+> This setup is essential for Keploy to function correctly in a WSL 2 environment, as it needs to interact with the Docker daemon to manage containers and networks effectively.
+> For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
+
+</details>
+
 <details>
 <summary>With Arkade</summary>
 
@@ -163,4 +179,5 @@ Or you can also download specific version of Keploy using the following command:
 ```bash
 arkade get keploy@2.2.0-alpha23
 ```
+
 </details>

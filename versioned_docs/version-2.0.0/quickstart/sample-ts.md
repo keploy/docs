@@ -34,11 +34,13 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 ```bash
 npm install
 ```
+
 ### Creating .env
 
 Create a .env file which should contain `HASURA_ADMIN_SECRET`and `GRAPHQL_ENDPOINT` (as mentioned in ts-nhost/sample.env)
 
-Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT : 
+
+Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 
 1. Go to https://nhost.io/
 2. Sign Up/Sign In and create new project
@@ -55,7 +57,7 @@ There are 2 ways you can run this sample application.
 
 ## Running Natively on Linux/WSL
 
- We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
+We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
 
 Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 
@@ -72,7 +74,6 @@ sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
 `keploy record`: Invokes Keploy in recording mode.
 
 `-c 'ts-node src/app.ts`': Specifies the command to start your application (in this case, using ts-node to execute the TypeScript application entry point).
-
 
 ### Generating the test cases
 
@@ -102,7 +103,6 @@ curl --request POST \
       --header 'Accept: */*' \
       --header 'Content-Type: application/json' \
       --header 'Host: localhost:3000'
-      
 ```
 
 3. Delete User
@@ -120,8 +120,7 @@ Voila we have captured our api calls!
 
 Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
-This is a sample of what your yaml file would look like 
-
+This is a sample of what your yaml file would look like
 ```bash
 version: api.keploy.io/v1beta1
 kind: Http
@@ -190,10 +189,10 @@ Now, let's put things to test and run the keploy in test mode again:-
 ```bash
 sudo -E env "PATH=$PATH" keploy test -c 'ts-node src/app.ts' --delay 10
 ```
+
 Voila!! Our test cases have passed 🌟
 
 You will be able to see the summary of your test cases run in your terminal!
-
 
 Now its time for you to experiment further with different API calls and tweak the responses accordingly!
 
@@ -210,13 +209,16 @@ keploy record -c "sudo docker-compose up" --containerName "ts-nhost"
 ```
 <img src="/docs/img/wsl-record-ts.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
 
-### Generate the testcases 
+<img src="/docs/img/wsl-record-ts.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+
+### Generate the testcases
 
 Let's generate the testcases.
 
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy will capture those calls to generate test suites containing test cases and data mocks.
 
-1. Create User 
+
+1. Create User
 
 ```bash
 curl --request POST \
@@ -258,9 +260,10 @@ curl --request POST \
 
 Let's run our captured test cases
 
-```bash 
+```bash
 keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
 ```
+
 This is what your response should look like!
 
 <img src="/docs/img/wsl-test-ts.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />

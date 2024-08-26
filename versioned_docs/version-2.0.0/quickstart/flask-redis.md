@@ -41,7 +41,8 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/flas
 
 Depending on your OS, choose your adventure:
 
-We are going to run the application the following way 
+
+We are going to run the application the following way
 
 - [Using Docker compose : running application as well as Mongo on Docker container](#using-docker-compose-)
 
@@ -92,6 +93,7 @@ curl -X PUT http://localhost:5000/books/1 \
 ```bash
 curl -X DELETE http://localhost:5000/books/1
 ```
+
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
 ```yaml
@@ -99,20 +101,20 @@ version: api.keploy.io/v1beta1
 kind: Redis
 name: mock-0
 spec:
-    metadata:
-        type: config
-    redisrequests:
-        - origin: client
-          message:
-            - type: string
-              data: "*4\r\n$6\r\nCLIENT\r\n$7\r\nSETINFO\r\n$8\r\nLIB-NAME\r\n$8\r\nredis-py\r\n"
-    redisresponses:
-        - origin: server
-          message:
-            - type: string
-              data: "+OK\r\n"
-    reqtimestampmock: 2024-08-02T22:15:10.6084523Z
-    restimestampmock: 2024-08-02T22:15:10.608930466Z
+  metadata:
+    type: config
+  redisrequests:
+    - origin: client
+      message:
+        - type: string
+          data: "*4\r\n$6\r\nCLIENT\r\n$7\r\nSETINFO\r\n$8\r\nLIB-NAME\r\n$8\r\nredis-py\r\n"
+  redisresponses:
+    - origin: server
+      message:
+        - type: string
+          data: "+OK\r\n"
+  reqtimestampmock: 2024-08-02T22:15:10.6084523Z
+  restimestampmock: 2024-08-02T22:15:10.608930466Z
 ---
 ```
 
@@ -124,8 +126,8 @@ keploy test -c 'sudo docker compose up' --containerName "flask-web" --delay 10
 You can also check the test summary from your cli 
 
 ```bash
-<=========================================> 
-  COMPLETE TESTRUN SUMMARY. 
+<=========================================>
+  COMPLETE TESTRUN SUMMARY.
         Total tests: 11
         Total test passed: 10
         Total test failed: 1
@@ -136,14 +138,15 @@ You can also check the test summary from your cli
         "test-set-0"            6               6               0               "5.06 s"
         "test-set-1"            1               1               0               "5.02 s"
         "test-set-2"            4               3               1               "5.04 s"
-<=========================================> 
+
 ```
 
 ## Some errors you may run into ?
 
 1. While running the application you might have some ports up and running that you are trying to access again. This would throw a EBPF error
 
-You can check the ports from the below command and 
+
+You can check the ports from the below command and
 
 ```bash
 sudo lsof -p
@@ -161,23 +164,20 @@ Once you have identified the PID of the process using the port you need, you can
 sudo kill -9 <PID>
 ```
 
-2. ERROR: for redis  'ContainerConfig'
+2. ERROR: for redis 'ContainerConfig'
 
-The KeyError: 'ContainerConfig' issue you're encountering with Docker Compose is indicative of a problem with the Docker Compose file or its version compatibility. 
+The KeyError: 'ContainerConfig' issue you're encountering with Docker Compose is indicative of a problem with the Docker Compose file or its version compatibility.
 
 Here’s how you can address and troubleshoot this error:
 
-```bash 
+```bash
 sudo apt-get update
 sudo apt-get install docker-compose
 ```
 
-Check your compose file's permissions 
+Check your compose file's permissions
 
 ```bash
 ls -l docker-compose.yml
 ```
-
-Re-run the record or test command from above 
-
-
+Re-run the record or test command from above

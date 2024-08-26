@@ -134,7 +134,6 @@ keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 
 <img src="/docs/img/pet-clinic-record.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
-
 ## Running the testcases using Keploy
 
 ```bash
@@ -143,6 +142,7 @@ keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --d
 
 <img src="/docs/img/pet-clinic-test1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
+Test Summary 
 
 <img src="/docs/img/pet-clinic-test2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 

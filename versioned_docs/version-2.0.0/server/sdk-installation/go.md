@@ -24,8 +24,8 @@ import WhatAreKeployFeatures from './index.md'
 
 ## 🛠️ Language Specific Requirements
 
-| Programming Language | Prerequisites                                                                                                                                                                                                                                              |
-| :------------------: | :--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Programming Language | Prerequisites                                                                                                                                                                                                                                                       |
+| :------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 |          go          | 1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer [appendix](#graceful-shutdown) for basic implementation of graceful shutdown function. <br/> 2. The go binary should be built with `-cover` flag. |
 
 ## Graceful Shutdown
