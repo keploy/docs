@@ -90,8 +90,7 @@
             "quickstart/samples-django",
             "quickstart/samples-flask",
             "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"
-          ]
+            "quickstart/samples-fastapi-twilio"          ]
         },
         {
           "type": "category",

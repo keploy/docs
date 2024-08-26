@@ -24,7 +24,9 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 <PlatformRequirements/>
 
-## Quick Installation
+# Keploy Installation
+
+## Quick Installation Using CLI
 
 Let's get started by setting up the Keploy alias with this command:
 
@@ -66,9 +68,14 @@ Use "keploy [command] --help" for more information about a command.
 
 ## Other Installation Methods
 
+<details>
+<summary>Install using Docker</summary>
+
 ### Downloading and running Keploy in Docker
 
 #### On macOS
+
+Note : Keploy is not supported natively on MacOS, so you can follow the below method to run with docker
 
 1. Open up a terminal window.
 
@@ -84,6 +91,118 @@ docker network create keploy-network
 alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
 ```
 
+</details>
+
+<details>
+
+<summary>Running Keploy Natively on MacOS by setting up a linux env</summary>
+
+### Downloading and running Keploy in Native using Debian on MacOS
+
+1. Open the terminal Session.
+2. Run the following command
+
+```bash
+limactl show-ssh --format=config debian-12 & add it to its ssh config
+```
+
+3. Open a remote window on your code editor
+4. Click on connect to host
+5. Now select the configured SSH as "lima-debian"
+6. Once you are in the terminal run the following commands to go into your directory
+
+```bash
+cd /Users
+```
+
+```bash
+cd /{Username}
+```
+
+7. Run the following command to install Keploy
+
+```bash
+curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
+sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+```
+
+8. Run the following command to install Zsh
+
+```bash
+sudo apt-get -y install zsh
+```
+
+**Why?** : zsh (Z Shell) is an advanced shell that offers enhanced features compared to the default bash shell. It provides better autocompletion, advanced globbing, improved history management, and more customization options.
+
+9. Install Git
+
+```bash
+sudo apt-get -y install git
+```
+
+10. Install 'Oh-my-zsh'
+
+```bash
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
+```
+
+**Why?** : oh-my-zsh is a framework for managing your zsh configuration. It comes with a collection of plugins, themes, and helpful features that enhance the zsh experience.
+
+11. Commands to Install docker
+
+```bash
+sudo apt-get -y update
+```
+
+```bash
+sudo apt-get -y install ca-certificates curl
+```
+
+```bash
+sudo install -m 0755 -d /etc/apt/keyrings
+```
+
+```bash
+sudo curl -fsSL https://download.docker.com/linux/debian/gpg -o /etc/apt/keyrings/docker.asc
+```
+
+```bash
+sudo chmod a+r /etc/apt/keyrings/docker.asc
+```
+
+```bash
+echo \
+  "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
+  $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
+  sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+```
+
+```bash
+sudo apt-get -y update
+```
+
+```bash
+sudo apt-get -y update
+```
+
+```bash
+sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
+```
+
+12. Add docker to sudoers
+
+```bash
+sudo groupadd docker
+```
+
+```bash
+sudo gpasswd -a $USER docker
+```
+
+</details>
+<details>
+<summary>Downloading and running Keploy in Native</summary>
+
 ### Downloading and running Keploy in Native
 
 **Prequisites:**
@@ -91,6 +210,8 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 - Linux Kernel version 5.15 or higher
 - Run `uname -a` to verify the system architecture.
 - In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
+
+<summary>Downloading and running Keploy On WSL/Linux AMD</summary>
 
 #### On WSL/Linux AMD
 
@@ -126,6 +247,11 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 > This setup is essential for Keploy to function correctly in a WSL 2 environment, as it needs to interact with the Docker daemon to manage containers and networks effectively.
 > For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
 
+</details>
+
+<details>
+<summary>With Arkade</summary>
+
 ### With Arkade
 
 1. Installing Arkade
@@ -152,3 +278,5 @@ Or you can also download specific version of Keploy using the following command:
 ```bash
 arkade get keploy@2.2.0-alpha23
 ```
+
+</details>
