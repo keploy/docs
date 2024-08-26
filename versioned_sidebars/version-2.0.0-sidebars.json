@@ -145,6 +145,7 @@
         "dependencies/mongo",
         "dependencies/postgres",
         "dependencies/http",
+        "dependencies/redis",
         "keploy-explained/faq"
       ]
     }
