@@ -20,7 +20,7 @@ Keploy intercepts the traffic and act as a middle to the `sourceConnection`(clie
 
 Once intercepted, the Keploy's functionality includes parsing these wiremessages, which involves extracting the relevant data and metadata from the packets. After parsing, the extracted information is transformed into a human-readable and editable format. This format could be more user-friendly and easy to understand, making it convenient for developers and administrators to analyze and manipulate the data if necessary. Hence, this proxy serves as an intermediary that captures and mocks the traffic calls. Keploy user `pgproto3` library as base to store the this data into go structs.
 
-## Examples
+## Examples of Message Query
 
 In general, each message consists of a standard message header followed by request-specific data. Here are the few request (frontend) and response(backend) structs in which the data is saved:
 
