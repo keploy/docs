@@ -78,6 +78,8 @@ Ensuring every code path is tested, especially in large systems, demands meticul
 
 As code evolves, test cases must be updated, requiring ongoing coordination with development teams.
 
+As code evolves, test cases must be updated, requiring ongoing coordination with development teams.
+
 ## Best Practices for Effective White Box Testing
 
 1. **Collaboration with Developers**:
