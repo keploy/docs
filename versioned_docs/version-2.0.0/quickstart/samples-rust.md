@@ -1,14 +1,16 @@
 ---
 id: samples-rust
 title: Rust Sample Application
-sidebar_label: Rust + Mongo
+sidebar_label: Rust + Mongo (GraphQL)
 description: The following sample app to test Keploy integration capabilities using rust and MongoDb.
 tags:
   - Rust
   - MongoDB
+  - GraphQL
 keyword:
   - Rust
   - MongoDB
+  - GraphQL
   - API Test generator
   - Auto Testcase generation
 ---
@@ -49,7 +51,7 @@ sudo -E env PATH=$PATH keploy record -c 'cargo run'
 
 #### Generate testcase
 
-Go to the http://127.0.0.1:8080 and create some queries.
+Go to the http://127.0.0.1:8000 and create some queries.
 
 We will get the following output in our terminal
 
