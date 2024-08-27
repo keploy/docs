@@ -1,10 +1,8 @@
 ---
 name: Documentation request
 about: Use this to propose information improvements and additions
-title: "[ Documentation request ] "
-labels: ''
-assignees: ''
-
+title: "[Docs]"
+labels: '[Documentation]'
 ---
 
 # Brief description
