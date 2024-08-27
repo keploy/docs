@@ -106,6 +106,8 @@ docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES
 keploy record -c "java -jar target/spring-petclinic-rest-3.0.2.jar"
 ```
 
+<img src="/docs/img/pet-clinic-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'.
 
 ## Running the testcases using Keploy
@@ -130,11 +132,17 @@ Here we just need to change the command used to start the application.
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
 
+<img src="/docs/img/pet-clinic-record.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+
 ## Running the testcases using Keploy
 
 ```bash
 keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --delay 20
 ```
+
+<img src="/docs/img/pet-clinic-test1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+
+<img src="/docs/img/pet-clinic-test2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
