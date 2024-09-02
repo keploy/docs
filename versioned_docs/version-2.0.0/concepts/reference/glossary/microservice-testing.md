@@ -10,12 +10,12 @@ keywords:
   - API
 ---
 
-### What is Microservices Testing?
+## What is Microservices Testing?
 
 Microservice testing is the process of validating individual components of a microservices architecture to ensure they function correctly both in isolation and as part of the larger system. Unlike monolithic applications, microservices present unique challenges in testing due to their distributed nature and complex interactions.
 
 
-### Benefits of Microservices Testing:
+## Benefits of Microservices Testing:
 - **Improved fault isolation**: Testing individual services allows for easier identification and resolution of issues.
 - **Faster deployment cycles**: Independent testing of services enables faster release cycles.
 - **Enhanced scalability**: Testing services in isolation helps identify bottlenecks and optimize performance.
@@ -23,7 +23,7 @@ Microservice testing is the process of validating individual components of a mic
 - **Better support for continuous integration and delivery (CI/CD)** : Microservices testing enables automated testing and deployment pipelines.
 
 
-### Challenges in Microservices Testing:
+## Challenges in Microservices Testing:
 
 - **Complex service dependencies** :
    - Microservices often rely on other services, databases, or third-party APIs, making it challenging to test in isolation.
@@ -38,7 +38,7 @@ Microservice testing is the process of validating individual components of a mic
     - Creating and managing test data for multiple services can be time-consuming and error-prone.
 
 
-### Overcoming Challenges with Keploy
+## Overcoming Challenges with Keploy
 
 Keploy is an innovative testing tool designed to address many of the challenges associated with microservices testing. Here's how it helps:
 <img src="https://keploy.io/docs/gif/record-replay.gif?raw=true"/>
