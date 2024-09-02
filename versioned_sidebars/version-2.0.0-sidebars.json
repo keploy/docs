@@ -94,7 +94,9 @@
             "quickstart/samples-django",
             "quickstart/samples-flask",
             "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"
+            "quickstart/samples-fastapi-twilio",
+            "quickstart/sanic-mongo",
+            "quickstart/flask-redis"
           ]
         },
         {
@@ -108,7 +110,8 @@
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
             "quickstart/crud-nodejs",
-            "quickstart/express-postgresql-prisma"
+            "quickstart/express-postgresql-prisma",
+            "quickstart/samples-typescript"
           ]
         },
         {

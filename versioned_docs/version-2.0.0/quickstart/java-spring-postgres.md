@@ -106,7 +106,7 @@ docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES
 keploy record -c "java -jar target/spring-petclinic-rest-3.0.2.jar"
 ```
 
-<img src="/docs/img/pet-clinic-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/pet-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'.
 
