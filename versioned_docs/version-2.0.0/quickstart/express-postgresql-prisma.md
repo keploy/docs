@@ -178,8 +178,27 @@ The above command will start recording the API calls made to the application and
 
 Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or [cURL](https://curl.se/) command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
+### API Routes
+
 #### Add Task
 
+
+- **URL:** `/api/v1/task/add`
+- **Method:** `POST`
+- **Description:** Add a new task.
+- **Request Body:**
+    ```json
+    {
+      "author": "John Doe",
+      "title": "Complete the report",
+      "description": "Complete the quarterly report by end of the week",
+      "dueDate": "2024-08-01",
+      "status": "Pending",
+      "priority": 3
+    }
+    ```
+
+Using `curl`
 ```bash
 curl -X 'POST' \
   'http://localhost:3000/api/v1/task/add' \
@@ -198,6 +217,7 @@ curl -X 'POST' \
 
 #### View All Tasks
 
+Using `curl`
 ```bash
 curl -X 'GET' \
   'http://localhost:3000/api/v1/task/view' \
@@ -206,6 +226,15 @@ curl -X 'GET' \
 
 
 #### View Task by ID
+
+
+- **URL:** `/api/v1/task/view/:id`
+- **Method:** `GET`
+- **Description:** Retrieve a specific task by its ID.
+- **Request Params:** `id` (task ID)
+
+
+Using `curl`
 
 ```bash
 curl -X 'GET' \
@@ -216,6 +245,18 @@ curl -X 'GET' \
 
 #### Change Task Priority
 
+- **URL:** `/api/v1/task/change-priority/:id`
+- **Method:** `PUT`
+- **Description:** Update the priority of a specific task.
+- **Request Params:** `id` (task ID)
+- **Request Body:**
+    ```json
+    {
+      "priority": 3
+    }
+    ```
+
+Using `curl`
 ```bash
 curl -X 'PUT' \
   'http://localhost:3000/api/v1/task/change-priority/1' \
@@ -228,6 +269,23 @@ curl -X 'PUT' \
 
 #### Update Task
 
+- **URL:** `/api/v1/task/update/:id`
+- **Method:** `PUT`
+- **Description:** Update details of a specific task.
+- **Request Params:** `id` (task ID)
+- **Request Body:**
+    ```json
+    {
+      "author": "John Doe",
+      "title": "Complete the report",
+      "description": "Complete the quarterly report by end of the week",
+      "dueDate": "2024-08-01",
+      "status": "Pending",
+      "priority": 3
+    }
+    ```
+
+Using `curl`
 ```bash
 curl -X 'PUT' \
   'http://localhost:3000/api/v1/task/update/2' \
@@ -245,11 +303,18 @@ curl -X 'PUT' \
 
 #### Delete Task
 
+- **URL:** `/api/v1/task/delete/:id`
+- **Method:** `DELETE`
+- **Description:** Delete a specific task.
+- **Request Params:** `id` (task ID)
+
+Using `curl`
 ```bash
 curl -X 'DELETE' \
   'http://localhost:3000/api/v1/task/delete/1' \
   -H 'accept: application/json'
 ```
+
 
 > 🐰 Test Data and Configuration: After recording the interactions, a `keploy` folder will be created containing the recorded test data. Additionally, a `keploy.yml` file will be created as the configuration file.
 
