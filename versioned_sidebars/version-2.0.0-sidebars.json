@@ -90,7 +90,11 @@
             "quickstart/samples-django",
             "quickstart/samples-flask",
             "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"          ]
+            "quickstart/samples-fastapi-twilio",
+            "quickstart/sanic-mongo",
+            "quickstart/flask-redis"          
+          
+          ]
         },
         {
           "type": "category",
@@ -102,7 +106,8 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs"
+            "quickstart/crud-nodejs",
+            "quickstart/samples-typescript"
           ]
         },
         {
