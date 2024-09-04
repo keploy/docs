@@ -66,7 +66,7 @@ docker build -t gin-app:1.0 .
 ### Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 3001:3001 --name RediApp --network <networkName> --name ginRedisApp gin-app:1.0"
+keploy record -c "docker run -p 3001:3001 --network <networkName> --name ginRedisApp gin-app:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!

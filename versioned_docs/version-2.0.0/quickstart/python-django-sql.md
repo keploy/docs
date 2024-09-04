@@ -56,7 +56,7 @@ We will be using Docker compose to run the application as well as Postgres on Do
 Start the Postgres instance using the `docker-compose` file-
 
 ```bash
-docker compose up -d
+docker compose up -d postgres
 ```
 
 Change the database configuration in `django_postgres/settings.py` file to:
@@ -265,17 +265,25 @@ We'll be running our sample application right on Linux, but just to make things 
 
 ### 📼 Roll the Tape - Recording Time!
 
-To create the required tables in the database, run:
-
-```bash
-python3 manage.py makemigrations
-python3 manage.py migrate
-```
-
 Using the docker-compose file we will start our Postgres instance:-
 
 ```bash
-docker compose up -d
+docker compose up -d postgres
+```
+
+Now let's get the app up and running:
+
+```bash
+#To setup the virtual environment, run:
+python3 -m virtualenv venv
+source venv/bin/activate
+
+#To install dependencies, run:
+pip3 install -r requirements.txt
+
+# To create the required tables in the database, run:
+python3 manage.py makemigrations
+python3 manage.py migrate
 ```
 
 Ready, set, record! Here's how:
