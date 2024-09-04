@@ -116,7 +116,7 @@ curl --location 'http://127.0.0.1:8000/user/'
 **3. Make a PUT request**
 
 ```bash
-curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b045-dc74840aa82b/' \
+curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
 --header 'Content-Type: application/json' \
 --data-raw '    {
       "name": "Jane Smith",
@@ -129,13 +129,13 @@ curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b04
 **4. Make a GET request**
 
 ```bash
-curl --location 'http://127.0.0.1:8000/user/c793c752-ad95-4cff-8cbe-5715a1e8a76e/'
+curl --location 'http://127.0.0.1:8000/user/<USER_ID>'
 ```
 
 **5. Make a DELETE request**
 
 ```bash
- curl --location --request DELETE 'http://127.0.0.1:8000/user/ee2af3fc-0503-4a6a-a452-b7d8c87a085b/'
+ curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>'
 ```
 
 Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -322,7 +322,7 @@ curl --location 'http://127.0.0.1:8000/user/'
 **3. Make a PUT request**
 
 ```bash
-curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b045-dc74840aa82b/' \
+curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
 --header 'Content-Type: application/json' \
 --data-raw '    {
       "name": "Jane Smith",
@@ -335,13 +335,13 @@ curl --location --request PUT 'http://127.0.0.1:8000/user/efbe12df-3cae-4cbc-b04
 **4. Make a GET request**
 
 ```bash
-curl --location 'http://127.0.0.1:8000/user/c793c752-ad95-4cff-8cbe-5715a1e8a76e/'
+curl --location 'http://127.0.0.1:8000/user/<USER_ID>'
 ```
 
 **5. Make a DELETE request**
 
 ```bash
- curl --location --request DELETE 'http://127.0.0.1:8000/user/ee2af3fc-0503-4a6a-a452-b7d8c87a085b/'
+ curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>'
 ```
 
 Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
