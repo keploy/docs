@@ -28,7 +28,7 @@ You can read more about the format of the program and its goals [here](https://g
 
 We at Keploy are excited to announce that Keploy is among the first few mentoring organizations from India 🇮🇳 this year! If you are a student looking to participate in GSoC, Keploy offers several projects for you to choose from.
 
-Keploy is looking for motivated students who are passionate about open source software and interested in gaining valuable experience in the field. We welcome students from all over the world with diverse backgrounds and skill sets to participate.
+Keploy is looking for motivated students who are passionate about open source software students from all over the world with diverse backgrounds ane and interested in gaining valuable experience in the field. We welcomd skill sets to participate.
 
 ## How to Get Started
 
