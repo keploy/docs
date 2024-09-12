@@ -1,0 +1,49 @@
+.footer-3d-effect {
+    width: 100%; /* Full width */
+    height: auto; /* Ensures the footer scales dynamically */
+    perspective: 1000px; /* Added perspective to enable 3D effect */
+    transition: transform 0.3s ease-out; /* Smooth transition for hover */
+    background: linear-gradient(145deg, #1f1f1f, #2e2e2e);
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.5); /* Shadow for depth */
+    padding: 40px 0; /* Space to ensure content is visible */
+    position: relative;
+    z-index: 1;
+    overflow: hidden; /* Prevents any overflow during animations */
+  }
+  
+  .footer-3d-effect::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0px 0px 20px rgba(255, 255, 255, 0.2); /* Light inner shadow for depth */
+    transform: translateZ(-50px); /* Pushed deeper for the 3D effect */
+    transition: transform 0.5s ease-in-out;
+  }
+  
+  .footer-3d-effect:hover::before {
+    transform: translateZ(0); /* Brings the inner shadow forward on hover */
+  }
+  
+  .footer-3d-effect:hover {
+    box-shadow: 0px 20px 50px rgba(0, 0, 0, 0.8); /* Bigger shadow on hover */
+    transform: scale(1.03); /* Slight scale for a 3D pop effect */
+  }
+  
+  /* Ensure the footer text or elements inside the footer don't get affected */
+  .footer-3d-effect > * {
+    transform: translateZ(0); /* Prevent child elements from inheriting 3D effects */
+  }
+  
+  /* Mobile/Tablet responsiveness */
+  @media (max-width: 768px) {
+    .footer-3d-effect {
+      transform: none; /* Disable 3D effect for smaller screens */
+      perspective: none;
+      box-shadow: none;
+    }
+  }
+  
