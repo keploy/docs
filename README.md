@@ -19,7 +19,7 @@ Repository for the Keploy documentation website.
 <a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
 <img src="https://img.shields.io/github/issues/keploy/docs" />
 </a>
-<a href="https://keploy.slack.com/" alt="Slack">
+<a href="https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw" alt="Slack">
 <img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
 </a>
 <a href="https://twitter.com/Keployio" alt="Twitter Follow">
