@@ -68,8 +68,6 @@ docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432
 PORT=3000
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
 ```
-> Note: If you are using Supabase, you need to add a DIRECT_URL to your .env file and uncomment the directUrl line in your prisma/schema.prisma file.
-
 
 ### Migrate the database:
 ```bash
