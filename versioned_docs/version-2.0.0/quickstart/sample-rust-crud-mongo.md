@@ -49,13 +49,6 @@ docker-compose up -d
 
 <!-- ![TestRun](images/image1.png) -->
 
-```bash
-root@Linus:~/samples-rust/CRUD-rust-mongo# docker-compose up -d
-[+] Running 1/2
- ⠦ Network crud-rust-mongo_default  Cr...                                   0.6s
- ✔ Container mongo                  Started                                 0.6s
-root@Linus:~/samples-rust/CRUD-rust-mongo#
-```
 
 
 ## Run the app
@@ -64,27 +57,6 @@ root@Linus:~/samples-rust/CRUD-rust-mongo#
 cargo r -r
 ```
 The app will be running on port 8000.
-
-```bash
-warning: field `id` is never read
-  --> src/schema.rs:11:9
-   |
-10 | pub struct ParamOptions {
-   |            ------------ field in this struct
-11 |     pub id: String,
-   |         ^^
-   |
-   = note: `ParamOptions` has a derived impl for the trait `Debug`, but this is intentionally ignored during dead code analysis
-   = note: `#[warn(dead_code)]` on by default
-
-warning: `rust-mongodb-crud` (bin "rust-mongodb-crud") generated 1 warning
-    Finished `release` profile [optimized] target(s) in 0.09s
-warning: the following packages contain code that will be rejected by a future version of Rust: buf_redux v0.8.4, multipart v0.18.0
-note: to see what the problems were, use the option `--future-incompat-report`, or run `cargo report future-incompatibilities --id 1`
-     Running `target/release/rust-mongodb-crud`
-✅ Database connected successfully
-🌟 Server started successfully on port 8000
-```
 
 
 ## Capture testcase
