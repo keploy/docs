@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
@@ -55,6 +55,10 @@ function Glossary() {
         name: "End To End Testing",
         link: "/docs/concepts/reference/glossary/end-to-end-testing",
       },
+      {
+        name: "Error Guessing",
+        link: "/docs/concepts/reference/glossary/error-guessing",
+      },
     ],
     F: [
       {
@@ -86,6 +90,10 @@ function Glossary() {
       {
         name: "Mocks",
         link: "/docs/concepts/reference/glossary/mocks",
+      },
+      {
+        name: "Microservice Testing",
+        link: "/docs/concepts/reference/glossary/microservice-testing",
       },
     ],
     R: [
