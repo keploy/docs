@@ -171,7 +171,8 @@
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide",
         "keploy-explained/debugger-guide",
-        "keploy-explained/testing-guide"
+        "keploy-explained/testing-guide",
+        "keploy-explained/mac-linux"
       ]
     }
   ]
