@@ -160,6 +160,17 @@
         "dependencies/redis",
         "keploy-explained/faq"
       ]
+    },
+    {
+      "type": "category",
+      "label": "Hacktoberfest'24",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "hacktoberfest/contribution-guide",
+        "hacktoberfest/code-contribution",
+        "hacktoberfest/no-code-contribution"
+      ]
     }
   ],
   "sidebarContributionGuide": [
