@@ -126,7 +126,10 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-rust"]
+          "items": [
+            "quickstart/samples-rust",
+            "quickstart/sample-rust-crud-mongo"
+          ]
         },
         {
           "type": "category",
