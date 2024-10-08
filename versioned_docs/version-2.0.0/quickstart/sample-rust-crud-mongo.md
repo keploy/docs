@@ -47,11 +47,7 @@ Open the root directory path in your terminal and then execute the following com
 docker-compose up -d
 ```
 
-<!-- ![TestRun](images/image1.png) -->
-
-
-
-## Run the app
+### Run the app
 
 ```bash
 cargo r -r
@@ -59,7 +55,7 @@ cargo r -r
 The app will be running on port 8000.
 
 
-## Capture testcase
+#### Capture testcase
 
 On same terminal execute the following command:
 
@@ -100,17 +96,12 @@ Afterward, create a GET all request, and you will get the following output in yo
 
 We peformed two requests, one to create a note and one to get all notes. These requests are captured as testcases by Keploy.
 
----
-
 ### Run the testcases
 
-Once more, open the terminal with the path set to the root directory of the project.
-
-Now, let's execute the deployment in test mode :
+Now, let's start keploy in test mode to run our test cases : 
 ```bash
 keploy test -c 'cargo r -r'
 ```
-
 
 We get the following output in the terminal -
 
