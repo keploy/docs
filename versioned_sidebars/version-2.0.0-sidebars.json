@@ -120,7 +120,8 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-rust"
+            "quickstart/samples-rust",
+            "quickstart/sample-rust-crud-mongo"
           ]
         },
         {
