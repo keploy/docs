@@ -52,7 +52,7 @@ export const QuickStart = () => {
           Learn How to Contribute?
         </a>
       </p> */}
-      </p>
+      // </p>
 
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Installation Guide 📗
