@@ -36,7 +36,11 @@
       "label": "CI/CD Integration",
       "collapsible": true,
       "collapsed": true,
-      "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
+      "items": [
+        "ci-cd/github",
+        "ci-cd/gitlab",
+        "ci-cd/jenkins"
+      ]
     },
     {
       "type": "category",
@@ -90,7 +94,10 @@
             "quickstart/samples-django",
             "quickstart/samples-flask",
             "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio"          ]
+            "quickstart/samples-fastapi-twilio",
+            "quickstart/sanic-mongo",
+            "quickstart/flask-redis"
+          ]
         },
         {
           "type": "category",
@@ -102,7 +109,9 @@
             "quickstart/samples-nextjs",
             "quickstart/samples-nodejs",
             "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs"
+            "quickstart/crud-nodejs",
+            "quickstart/express-postgresql-prisma",
+            "quickstart/samples-typescript"
           ]
         },
         {
@@ -110,14 +119,19 @@
           "label": "Rust",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-rust"]
+          "items": [
+            "quickstart/samples-rust",
+            "quickstart/sample-rust-crud-mongo"
+          ]
         },
         {
           "type": "category",
           "label": "C# (.NET Core)",
           "collapsible": true,
           "collapsed": true,
-          "items": ["quickstart/samples-csharp"]
+          "items": [
+            "quickstart/samples-csharp"
+          ]
         }
       ]
     },
@@ -158,7 +172,8 @@
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide",
         "keploy-explained/debugger-guide",
-        "keploy-explained/testing-guide"
+        "keploy-explained/testing-guide",
+        "keploy-explained/mac-linux"
       ]
     }
   ]
