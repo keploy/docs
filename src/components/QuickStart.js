@@ -1,7 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-
+import {Hacktoberfest} from "./Hacktoberfest";
 export const QuickStart = () => {
   return (
     <section className="mt-1">
@@ -30,7 +30,8 @@ export const QuickStart = () => {
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Contribute through Hacktoberfest ✅
       </h2>
-      <p className="text-l mb-8 mt-4 max-w-4xl">
+      <Hacktoberfest />
+      {/* <p className="text-l mb-8 mt-4 max-w-4xl">
         DigitalOcean's Hacktoberfest is a month-long celebration of open-source
         contributions. Everyone is welcome to participate, regardless of their
         experience level. Simply make a pull request to an open-source project
@@ -49,7 +50,7 @@ export const QuickStart = () => {
         <a href="https://opensource.guide/how-to-contribute">
           Learn How to Contribute?
         </a>
-      </p>
+      </p> */}
 
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Installation Guide 📗

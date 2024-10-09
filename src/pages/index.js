@@ -1,7 +1,7 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {Community, KeployCloud, Resources, QuickStart} from "../components";
+import {Community, KeployCloud, Resources, QuickStart,Hacktoberfest} from "../components";
 import {GSoC} from "../components/GSoC";
 import {Intro} from "../components";
 export default function Home() {
