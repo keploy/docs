@@ -6,12 +6,14 @@ description: Discover functional testing, its role in API testing, best practice
 tags:
   - explanation
   - Glossary
+  - Functional Testing
 keywords:
   - API
   - Function Testing
   - Best Practices
   - Challenges & Benefits
-  - 
+  - Keploy
+  - How to perform functional testing
 ---
 
 ## What is functional Testing?
