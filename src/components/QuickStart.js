@@ -32,6 +32,7 @@ export const QuickStart = () => {
       </h2>
       <Hacktoberfest />
       {/* <p className="text-l mb-8 mt-4 max-w-4xl">
+      <p className="text-l mb-8 mt-4 max-w-4xl">
         DigitalOcean's Hacktoberfest is a month-long celebration of open-source
         contributions. Everyone is welcome to participate, regardless of their
         experience level. Simply make a pull request to an open-source project
@@ -51,6 +52,7 @@ export const QuickStart = () => {
           Learn How to Contribute?
         </a>
       </p> */}
+      </p>
 
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Installation Guide 📗
