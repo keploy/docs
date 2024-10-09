@@ -1,6 +1,8 @@
 ---
 id: unit-test-automation
 title: What is Unit Test Automation?
+seoTitle: "Understanding Unit Test Automation: A Comprehensive Guide"
+seoDescription: "Discover what unit test automation is, its benefits, best practices, and how it streamlines software development for better quality."
 sidebar_label: Unit Test Automation
 description: Simplify Your Testing Workflow with Unit Test Automation. Streamline processes for efficient and effective software testing.
 tags:
