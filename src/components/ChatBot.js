@@ -35,6 +35,15 @@ function textFormat(text) {
       } else if (text.substring(i, i + 1) == "#") {
         heading = 1;
         output += `\n\n`;
+      } else if (text.substring(i, i + 1) == "]") {
+        output += ": ";
+      } else if (text.substring(i, i + 1) == "[") {
+        output += "";
+      } else if (
+        text.substring(i, i + 1) == "(" ||
+        text.substring(i, i + 1) == ")"
+      ) {
+        output += `"`;
       } else if (text.substring(i, i + 1) == "<") {
         i++;
         while (
@@ -137,7 +146,7 @@ export default function ChatBot() {
   }, []);
 
   return (
-    <div className="fixed bottom-16 right-16 z-50">
+    <div className="fixed bottom-14 right-4 z-50  sm:right-8 md:right-16">
       {!isOpen && (
         <button
           onClick={toggleChat}
@@ -185,7 +194,7 @@ export default function ChatBot() {
               <div ref={messagesEndRef} />
             </div>
 
-            <div className="border-t bg-white p-4">
+            <div className="flex border-t bg-white p-4">
               <div className="flex items-center space-x-4">
                 <input
                   type="text"
@@ -201,7 +210,7 @@ export default function ChatBot() {
                   onClick={sendMessage}
                   disabled={isLoading || !input.trim()}
                 >
-                  {isLoading ? "Sending..." : "Send"}
+                  {isLoading ? "Sent" : "Send"}
                 </button>
               </div>
             </div>
