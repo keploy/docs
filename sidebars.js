@@ -11,6 +11,7 @@ module.exports = {
         "keploy-explained/how-keploy-works",
         "keploy-explained/why-keploy",
         "keploy-explained/faq",
+        "keploy-explained/common-errors",
       ],
     },
     {
