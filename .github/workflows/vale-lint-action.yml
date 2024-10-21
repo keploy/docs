@@ -25,13 +25,3 @@ jobs:
         env:
           # GitHub token for authentication, automatically set by GitHub Actions
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
-
-      # Ensure that the Vale styles are set correctly
-      - name: Set up Vale styles
-        run: |
-          mkdir -p ~/.vale/styles
-          cp -r vale_styles/* ~/.vale/styles/
-      
-      # Run Vale Linter without generating a .txt file
-      - name: Run Vale Linter
-        run: vale --config=.vale.ini 'versioned_docs/version-2.0.0/**/*.md'
