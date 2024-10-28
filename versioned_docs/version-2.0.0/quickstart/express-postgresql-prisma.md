@@ -43,19 +43,21 @@ git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-postgresql-prisma
 ```
 
-### Install the dependencies
+### Running App Locally on Linux/WSL
+
+#### Install the dependencies
 
 ```bash
 npm install
 ```
 
-### Set up environment variables:
+#### Set up environment variables:
 
 ```bash
 cp .env.example .env
 ```
 
-### Start PostgreSQL Container
+#### Start PostgreSQL Container
 
 ```bash
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
@@ -63,14 +65,14 @@ docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432
 
 > Note: PostgreSQL Password is `mysecretpassword`
 
-### Update the `.env` file with your PostgreSQL connection string:
+#### Update the `.env` file with your PostgreSQL connection string:
 
 ```bash
 PORT=3000
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
 ```
 
-### Migrate the database:
+#### Migrate the database:
 
 ```bash
 npm run generate
@@ -112,7 +114,7 @@ nt in 50ms
 └─────────────────────────────────────────────────────────┘
 ```
 
-### Start the application:
+#### Start the application:
 
 ```bash
 npm run dev
@@ -129,7 +131,7 @@ Server is listening at PORT 3000
 
 Now we walkthrough how to leverage Keploy to automatically generate test cases for the application, and later test the application using Keploy.
 
-### Generate Test Cases
+#### Generate Test Cases
 
 > Note: Build the application first using `npm run build`
 
@@ -172,6 +174,21 @@ Server is listening at PORT 3000
 The above command will start recording the API calls made to the application and will generate a test case in the `testcases/` directory.
 
 > 💡 You can use Postman or any other API testing tool to test the API calls. Additionally, the application will run a swagger UI on `http://localhost:3000/api/docs` to visualize the API calls.
+
+### Running App using Docker Compose 🐳
+
+We will be using Docker compose to run the application as well as PostreSql on Docker container.
+
+Lights, Camera, Record! 🎥
+Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags: -c: Command to run the app (e.g., docker compose up).
+
+--container-name: The container name in the docker-compose.yml for traffic interception.
+
+```bash
+keploy record -c "docker compose up" --container-name "express-postgresql-prisma-app" --build-delay 50
+```
+
+**🔥 Challenge time!** Generate some test cases. How? Just make some API calls. Postman, Hoppscotch or even curl - take your pick!
 
 ### Interact with Application
 
@@ -317,9 +334,19 @@ curl -X 'DELETE' \
 
 ### Test the Application using Keploy
 
+#### on Linux/WSL
+
 ```bash
 keploy test -c "npm start"
 ```
+
+#### On Docker Compose 🐳
+
+```bash
+keploy test -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50 --delay 10
+```
+
+> The **--delay** flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
 Keploy will replay the recorded interactions and validate the responses against the expected results.
 
