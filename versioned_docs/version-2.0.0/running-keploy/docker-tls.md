@@ -27,8 +27,8 @@ keywords:
 
 ```dockerfile
 # Download the ca.crt file
-    RUN curl -o ca.crt  https://raw.githubusercontent.com/keploy/keploy/main/pkg/core/proxy/asset/ca.crt
-    RUN curl -o setup_ca.sh https://raw.githubusercontent.com/keploy/keploy/main/pkg/core/proxy/asset/setup_ca.sh
+    RUN curl -o ca.crt  https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/ca.crt
+    RUN curl -o setup_ca.sh https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/setup_ca.sh
     # Give execute permission to the setup_ca.sh script
     RUN chmod +x setup_ca.sh
 
