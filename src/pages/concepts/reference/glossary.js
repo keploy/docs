@@ -68,8 +68,8 @@ function Glossary() {
     ],
     G: [
       {
-        name: "Grey Box Testing",
-        link: "/docs/concepts/reference/glossary/grey-box-testing",
+        name: "Gray Box Testing",
+        link: "/docs/concepts/reference/glossary/gray-box-testing",
       },
     ],
     I: [
