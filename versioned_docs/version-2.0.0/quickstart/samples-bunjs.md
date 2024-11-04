@@ -36,6 +36,10 @@ import InstallationGuide from '../concepts/installation.md'
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
 
+#Install bun using this command
+
+curl -fsSL https://bun.sh/install | bash
+
 # Install the dependencies
 
 bun install
@@ -55,7 +59,7 @@ We'll be running our sample application right on Linux, but just to make things 
 
 ### 📼 Roll the Tape - Recording Time!
 
-To install the dependencies
+Install the dependencies. Note: using this command directly without installing bun might give an error like `zsh: command not found: bun`
 
 ```bash
 bun install
