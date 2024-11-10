@@ -46,8 +46,9 @@ On Windows, WSL is required to run Keploy Binary. You must be running Windows 10
 and higher) or Windows 11 to use the commands below.
 
 ```shell
-wsl --install
+wsl --install -d <Distribution Name>
 ```
+<br> Recommended to use "Ubuntu-22.04" <br>
 
 This command will enable the features necessary to run WSL and install the Ubuntu distribution of Linux. (This default
 distribution can be changed).
