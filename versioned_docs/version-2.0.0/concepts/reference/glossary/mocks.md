@@ -12,7 +12,7 @@ keywords:
 
 ## What are data mocks?
 
-Data mocking with AI involves generating synthetic data that mimics real-world datasets, which is useful for testing, training machine learning models, and simulating data flows without relying on actual production data. They are fake data that is used to simulate real data in a controlled environment. Data mocks are often used in Software Development to test code that interacts with data, such as APIs and databases. Data mocking can be used to:
+Data mocks refer to the synthetic data that mimics real-world datasets, which is useful for testing, training machine learning models, and simulating data flows without relying on actual production data. They can also be generated with the help of AI. Data mocks are often used in Software Development to test code that interacts with data, such as APIs and databases. Data mocking can be used to:
 
 - Test code that is not yet connected to a real data source.
 - Test code that is expected to handle errors or unexpected data.
