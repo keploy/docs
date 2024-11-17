@@ -1,6 +1,6 @@
 ---
 id: test-driven-development
-title: What is Test Driven Development (TDD)?
+title: A Guide to Test Driven Development (TDD)?
 sidebar_label: Test Driven Development
 description: Collaborative approach aligning software development with business goals through clear, readable test scenarios.
 tags:
@@ -10,9 +10,11 @@ keywords:
   - API
 ---
 
+## What is TDD?
+
 Test Driven Development (TDD) is a software development approach that aligns software development with business goals through clear, readable test scenarios. Test Driven Development is a collaborative approach that involves developers, testers, and business analysts working together to define the requirements and test scenarios before writing the code.
 
-## When to work with TDD ?
+## When to use TDD?
 
 Test Driven Development or TDD is particularly useful in the following scenarios:
 
@@ -26,7 +28,7 @@ Test Driven Development or TDD is particularly useful in the following scenarios
 
 ![Test Driven Development](https://media.licdn.com/dms/image/C5112AQHGTe-PjXMc4g/article-cover_image-shrink_600_2000/0/1552215937761?e=2147483647&v=beta&t=oU-XvoEKjrEtxRdTXFzZRdRLS1hUFTQQZtwb2HuP1E0)
 
-### Fundamentals of TDD
+## What are the Fundamentals of TDD?
 
 1. **Write a Failing Test**:
    - Start by writing a test that defines a new function or improvement. This test should fail initially as the feature is not yet implemented.
@@ -39,7 +41,7 @@ Test Driven Development or TDD is particularly useful in the following scenarios
 4. **Repeat the Cycle**:
    - Continuously repeat the cycle for each new feature or improvement, maintaining a steady rhythm of testing, coding, and refactoring.
 
-### Techniques of TDD
+## What are the Techniques of implementing TDD?
 
 1. **Red-Green-Refactor Cycle**:
    - **Red**: Write a test that fails.
