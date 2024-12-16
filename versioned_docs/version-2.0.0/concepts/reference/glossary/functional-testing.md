@@ -22,10 +22,15 @@ Functional testing is a type of software testing that verifies that the software
 
 Functional testing is typically performed by providing the software with input data and then checking the output data to see if it matches the expected results. This can be done manually or using automated testing tools.
 
-## Types of functional Testing
+## Types of Functional Testing
+
+  <div align="center">
 
 ![types of testing](../../../../../static/img/glossary/ft.png)
 
+[Functional Testing](https://keploy.io/blog/community/functional-testing-unveiling-types-and-real-world-applications)
+
+</div>
 There are many different types of functional testing, including:
 
 ### 1. Unit Testing

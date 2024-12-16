@@ -12,14 +12,14 @@ keywords:
 
 ## What are data mocks?
 
-Mocks or Data mocks are fake data that is used to simulate real data in a controlled environment. They are often used in software development to test code that interacts with data, such as APIs and databases. Data mocking can be used to:
+Data mocks refer to the synthetic data that mimics real-world datasets, which is useful for testing, training machine learning models, and simulating data flows without relying on actual production data. They can also be generated with the help of AI. Data mocks are often used in Software Development to test code that interacts with data, such as APIs and databases. Data mocking can be used to:
 
 - Test code that is not yet connected to a real data source.
 - Test code that is expected to handle errors or unexpected data.
 - Test code that is expected to work with different types of data.
 - Speed up the testing process by avoiding the need to wait for real data to be loaded.
 
-## Here are some of the benefits of data mocking:
+## What are the benefits of data mocking?
 
 - **Increased test coverage**: Data mocks can be used to test code that is not yet connected to a real data source. This can help to increase the test coverage of the code, and it can help to identify bugs that would not be found if the code was only tested with real data.
 - **Improved testing speed**: Data mocking can be used to speed up the testing process by avoiding the need to wait for real data to be loaded. This can be especially beneficial for large data sets or for tests that need to be run repeatedly.
