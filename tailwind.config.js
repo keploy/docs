@@ -13,10 +13,10 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/theme/**/*.{js,ts,jsx,tsx}",
   ],
-  // corePlugins: {
-  //   // preflight: false, // to use Docusaurus base styles
-  //   // container: false, // use container style from docusaurus
-  // },
+  corePlugins: {
+    preflight: false, // to use Docusaurus base styles
+    // container: false, // use container style from docusaurus
+  },
   // // important: "#tailwind", // incrementally adopt Tailwind by wrapping pages with <div id="tailwind"> </div>
   theme: {
     extend: {
@@ -102,7 +102,8 @@ module.exports = {
       },
       fontFamily: {
         light: ["Roboto Light", "sans"],
-        bold: ["Roboto Bold", "sans"],
+        // hotfix: Remove "Roboto Bold" to prevent fallback to "Times" font due to a potential CSS conflict.
+        // bold: ["Roboto Bold", "sans"],
       },
       keyframes: {
         "fade-in-down": {
