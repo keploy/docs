@@ -10,7 +10,7 @@ export const Community = () => {
         Are you curious, 🤔 or do you have questions burning in your mind? 🔥
         Look no further! Join our lively Community Forum where you can:
       </p>
-      <ul className="grid gap-6  sm:grid-cols-2 xl:gap-8">
+      <ul className="grid gap-6  sm:grid-cols-2 xl:gap-8 list-none">
         {/*<li>*/}
         {/*  <a*/}
         {/*    href="https://community.keploy.io/"*/}
@@ -47,6 +47,9 @@ export const Community = () => {
             <svg
               fill="currentColor"
               className="h-12 w-12 flex-none text-red-500 "
+              // Hotfix: Compensate for Tailwind preflight removal causing icon to be cropped
+              viewBox="0 0  48 48"
+              
             >
               <rect width="48" height="48" rx="12" />
               <path
@@ -95,6 +98,8 @@ export const Community = () => {
             <svg
               fill="currentColor"
               className="h-12 w-12 flex-none text-black "
+              // Hotfix: Compensate for Tailwind preflight removal causing icon to be cropped
+              viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
               <path
