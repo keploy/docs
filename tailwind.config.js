@@ -13,11 +13,12 @@ module.exports = {
     "./src/pages/**/*.{js,ts,jsx,tsx}",
     "./src/theme/**/*.{js,ts,jsx,tsx}",
   ],
-  // corePlugins: {
-  //   // preflight: false, // to use Docusaurus base styles
-  //   // container: false, // use container style from docusaurus
-  // },
-  // // important: "#tailwind", // incrementally adopt Tailwind by wrapping pages with <div id="tailwind"> </div>
+  /* Hotfix: Disable Tailwind's preflight to resolve clipboard functionality issues in Safari */
+  corePlugins: {
+    preflight: false, // to use Docusaurus base styles
+    // container: false, // use container style from docusaurus
+  },
+  // important: "#tailwind", // incrementally adopt Tailwind by wrapping pages with <div id="tailwind"> </div>
   theme: {
     extend: {
       typography: {
