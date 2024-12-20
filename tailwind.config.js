@@ -103,7 +103,8 @@ module.exports = {
       },
       fontFamily: {
         light: ["Roboto Light", "sans"],
-        bold: ["Roboto Bold", "sans"],
+         /* Disable Roboto Bold to prevent fallback to Times font for highlighted text in the right article index sidebar and h3 elements on the homepage */
+        // bold: ["Roboto Bold", "sans"],
       },
       keyframes: {
         "fade-in-down": {

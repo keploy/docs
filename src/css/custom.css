@@ -321,6 +321,11 @@ h3{
   margin-bottom: 1px;
 }
 
+/* Reset any border-radius applied to images inside <td> elements. (see os icons and cross and tick icons in table) */
+td img {
+  border-radius: 0 !important;
+}
+
 .related-read-link {
   margin-left: 7px;
 }
