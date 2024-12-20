@@ -11,12 +11,20 @@
 @tailwind utilities;
 
 :root {
+  /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
+ 
+  /* --ifm-color-primary-lighter: #ffb575; */
+  font-size:18px;
+  line-height: 1.6;
+  --ifm-color-primary: #000;
+
+  --ifm-color-primary-lighter: #FFF;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  --ifm-color-primary-lighter: #ffb575;
+  
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
@@ -27,12 +35,17 @@
 }
 
 html[data-theme="dark"] {
+  /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
+  
+
+  /* --ifm-color-primary-lighter: #ffb575; */
+  --ifm-color-primary-lighter: #FFF; 
+   
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  --ifm-color-primary-lighter: #ffb575;
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-menu-color-active: var(--ifm-color-primary-lighter);
@@ -97,6 +110,10 @@ html[data-theme="light"] {
   @apply inline;
 }
 
+/* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
+h3{
+  margin-bottom: 0.1rem;
+}
 h1,
 h2,
 h3,
