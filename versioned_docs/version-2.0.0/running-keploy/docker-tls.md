@@ -13,7 +13,23 @@ keywords:
   - running-guide
 ---
 
-### Recording Testcases and Data Mocks <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="20" height="20"/>
+<head>
+  <title>Docker TLS Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
+## Prerequisites
+Before proceeding, ensure the following prerequisites are met:
+
+### Docker Compose Setup:
+- Add the `<CONTAINER_NAME>` under your application service in your docker-compose.yml file. Example.
+- Ensure all containers are on the same network.
+
+### Docker Run Setup:
+- When using the docker run command, include the --network flag to specify a custom network name.
+
+
+## Recording Testcases and Data Mocks
 
 1. To record test cases and data mocks, follow these steps in the **root directory** of your application. Ensure that you have the following prerequisites in place:
 
@@ -25,13 +41,12 @@ keywords:
 
 2. Add the following commands to your Dockerfile to download the `ca.crt` file and the `setup_ca.sh` script.
 
-```dockerfile
+```Dockerfile
 # Download the ca.crt file
     RUN curl -o ca.crt  https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/ca.crt
     RUN curl -o setup_ca.sh https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/setup_ca.sh
     # Give execute permission to the setup_ca.sh script
     RUN chmod +x setup_ca.sh
-
 
 # Run the CA setup script and then run the application server
     CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
@@ -45,7 +60,7 @@ To capture test cases, **Execute** the following command within your application
 keploy record -c "Docker_CMD_to_run_user_container --network <network_name>" --container-name "<container_name>"
 ```
 
-Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
+Perform API calls using tools like **Hoppscotch**, **Postman**, or **cURL** commands.
 
 Keploy will capture the API calls you've conducted, generating test suites comprising **test cases (KTests) and data mocks (KMocks)** in `YAML` format.
 

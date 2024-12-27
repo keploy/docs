@@ -1,7 +1,7 @@
 ---
 id: samples-fasthttp
 title: Sample CRUD App (Golang)
-sidebar_label: FastHttp + Postgres
+sidebar_label: FastHTTP + Postgres
 description: The following sample app showcases how to use FastHttp framework and the Keploy Platform.
 tags:
   - go
@@ -19,13 +19,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> FastHTTP + Postgres | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 🪄 Dive into the world of CRUD applications and see how seamlessly Keploy integrates with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Clone the sample CRUD application 🧪
 

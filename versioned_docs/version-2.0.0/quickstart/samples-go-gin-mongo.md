@@ -19,13 +19,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title>  Gin + Mongo | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Clone the sample URL shortener app 🧪
 

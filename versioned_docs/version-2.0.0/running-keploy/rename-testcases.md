@@ -1,6 +1,6 @@
 ---
 id: rename-testcases
-title: Rename Default Test-names
+title: How to Rename Test-names?
 sidebar_label: Rename Testname
 description: This section documents how to rename testcases & testsets
 tags:
@@ -12,6 +12,10 @@ keywords:
   - rename
   - testsets
 ---
+<head>
+  <title>How to Rename Test-names? | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Rename Test-Cases
 

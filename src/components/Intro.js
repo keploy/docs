@@ -27,7 +27,7 @@ function Languages() {
             fill="currentColor"
           />
         </svg>
-        <h2 className="mb-4 text-xl font-semibold">Languages</h2>
+        <h2 className="mb-4 text-xl font-semibold">QuickStart</h2>
       </div>
       <ul className="grid grid-cols-3 gap-3  md:grid-cols-3 lg:gap-5">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
@@ -227,9 +227,13 @@ export const Intro = () => {
   return (
     <section className="mb-4 mt-12">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
-        Supports
+      Getting Started ✨
       </h2>
-      <div className="grid gap-6  sm:grid-cols-2 xl:gap-8">
+      <p className="text-l text-gray-500"> 
+        Get up and running with Keploy in just a few minutes by integrating it with your applications. 
+        Below are the quick-start guides for popular languages and frameworks.
+      </p><br/>
+      <div className="grid gap-6 sm:grid-cols-2 xl:gap-8">
         <Languages />
         <Frameworks />
       </div>

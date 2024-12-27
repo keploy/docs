@@ -1,6 +1,6 @@
 ---
 id: express-mongoose-application
-title: sample course selling api (express)
+title: Sample Course API (Express)
 sidebar_label: NodeJS - Express + Mongoose
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:
@@ -17,13 +17,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> NodeJS + Mongoose | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with [Express](https://expressjs.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

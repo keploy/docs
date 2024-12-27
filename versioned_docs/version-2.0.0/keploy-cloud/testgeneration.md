@@ -13,6 +13,10 @@ keywords:
   - OpenAPI
   - Test Automation
 ---
+<head>
+  <title> Auto Test Generation 🚀 | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Auto Test Generation simplifies the testing process by automating the generation of test cases based on the provided OpenAPI Schema file.
 

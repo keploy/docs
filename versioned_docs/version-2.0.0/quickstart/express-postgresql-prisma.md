@@ -1,6 +1,6 @@
 ---
 id: express-postgresql-prisma
-title: Express + PostgreSQL + Prisma Sample Application
+title: Express + Prisma Sample Application
 sidebar_label: Express + PostgreSQL + Prisma
 description: The following sample app showcases how to use Express framework, PostgreSQL and Prisma ORM and the Keploy Platform.
 tags:
@@ -18,13 +18,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> Express + Prisma Sample Application | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 A sample Task Management application and see how seamlessly Keploy integrates with [Express](https://expressjs.com/) , [PostgreSQL](https://www.postgresql.org/) and [Prisma ORM](https://www.prisma.io/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

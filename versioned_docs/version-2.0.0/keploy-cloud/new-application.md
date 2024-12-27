@@ -1,6 +1,6 @@
 ---
 id: application-settings
-title: Adding New Application to Keploy Cloud
+title: Adding New Application to Keploy Cloud 📝
 sidebar_label: Add Application 📝
 tags:
   - explanation
@@ -14,6 +14,10 @@ keywords:
   - installation
   - API key
 ---
+<head>
+  <title> Adding New Application to Keploy Cloud | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ### Start Keploy Agent
 

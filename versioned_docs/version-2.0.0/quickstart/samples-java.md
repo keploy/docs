@@ -1,6 +1,6 @@
 ---
 id: samples-java
-title: Java Sample Application
+title: Java Sample Employer Application
 sidebar_label: Employer (PostgresDb)
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
@@ -24,6 +24,11 @@ keyword:
   - Junit
 ---
 
+<head>
+  <title> Employer (PostgresDb) | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 # Example Employee-Manager App
 
 A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
@@ -31,9 +36,16 @@ and **PostgreSQL**.
 
 > This sample application is **not written for macOS users** since this application doesn't have a docker file yet.
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
+
 
 ## Setup Employee-Manager App
 

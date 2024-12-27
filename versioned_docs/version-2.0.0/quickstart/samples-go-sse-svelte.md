@@ -19,13 +19,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> SSE + Svelte + MongoDB | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 🪄 Dive into the world of realtime subscriptions and see how seamlessly Keploy integrates with [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Installation 📥
 

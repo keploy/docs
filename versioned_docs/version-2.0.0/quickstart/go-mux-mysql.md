@@ -1,6 +1,6 @@
 ---
 id: samples-mysql
-title: Mux MySQL Sample Application
+title: Mux + MySQL
 sidebar_label: Mux + MySQL
 description: The following sample app showcases how to use Mux framework and the Keploy Platform.
 tags:
@@ -20,13 +20,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> Mux + MySQL | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [MySQL](https://www.mysql.com/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

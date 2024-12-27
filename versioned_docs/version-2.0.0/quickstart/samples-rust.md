@@ -1,6 +1,6 @@
 ---
 id: samples-rust
-title: Rust Sample Application
+title: Rust GraphQL Application
 sidebar_label: Rust + Mongo (GraphQL)
 description: The following sample app to test Keploy integration capabilities using rust and MongoDb.
 tags:
@@ -14,14 +14,25 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+<head>
+  <title> Rust + Mongo (GraphQL) | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 
 This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/). 🎉 Wohoo! We are all set to use Keploy.
+
 
 ## Get Started! 🎬
 

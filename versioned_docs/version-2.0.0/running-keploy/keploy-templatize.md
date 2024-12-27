@@ -1,6 +1,6 @@
 ---
 id: keploy-templatize
-title: Keploy Templatize
+title: How Templatize Works?
 sidebar_label: Keploy Templatize
 description: This section documents how to templatize a testset
 tags:
@@ -11,6 +11,11 @@ keywords:
   - documentation
   - running-guide
 ---
+
+<head>
+  <title>How Templatize Works? | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Sometimes keploy test and keploy rerecord fail because there are fields which are noisy but they are used in requests so when their values change, the subsequent requests also fail.
 

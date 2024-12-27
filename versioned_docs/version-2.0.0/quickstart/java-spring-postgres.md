@@ -24,14 +24,24 @@ keyword:
   - Test PetClinic
   - Junit
 ---
+<head>
+  <title> Keploy with PetClinic | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 import Link from '@docusaurus/Link'
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 This project has two parts - the frontend and backend, since Keploy is a backend testing platform, we need to start the backend part of the project using Keploy and run the frontend as it is.
 
@@ -47,7 +57,7 @@ npm install --save-dev @angular/cli@latest
 npm i
 ```
 
-## Start the frontend
+### Start the frontend
 
 ```bash
 npm run start
@@ -64,7 +74,7 @@ You can start the backend using Keploy in 2 ways:
 - [Using Keploy's binary](#instructions-for-starting-using-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
-# Instructions For Starting Using Binary
+## Instructions For Starting Using Binary
 
 Prerequisites For Binary:
 
@@ -94,13 +104,13 @@ and then build the jar using:
 mvn clean install -Dmaven.test.skip=true
 ```
 
-## Spin up the database
+### Spin up the database
 
 ```bash
 docker run -e POSTGRES_USER=petclinic -e POSTGRES_PASSWORD=petclinic -e POSTGRES_DB=petclinic -p 5432:5432 --name mypostgres postgres:15.2
 ```
 
-## Recording the testcases with Keploy
+### Recording the testcases with Keploy
 
 ```bash
 keploy record -c "java -jar target/spring-petclinic-rest-3.0.2.jar"
@@ -110,7 +120,7 @@ keploy record -c "java -jar target/spring-petclinic-rest-3.0.2.jar"
 
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'.
 
-## Running the testcases using Keploy
+### Running the testcases using Keploy
 
 ```bash
 keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
@@ -120,7 +130,7 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 
 Next we move on to the instructions to start the application using docker.
 
-# Instructions For Starting Using Docker
+## Instructions For Starting Using Docker
 
 Prerequisites For Docker:
 
@@ -134,7 +144,7 @@ keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 
 <img src="/docs/img/pet-record.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
-## Running the testcases using Keploy
+### Running the testcases using Keploy
 
 ```bash
 keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --delay 20

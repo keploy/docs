@@ -3,6 +3,10 @@ id: mongo
 title: MongoDB Support
 sidebar_label: MongoDB Support
 ---
+<head>
+  <title>MongoDB Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 

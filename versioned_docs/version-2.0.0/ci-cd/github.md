@@ -13,6 +13,10 @@ tags:
   - cd
   - plugin
 ---
+<head>
+  <title>Integrating with GitHub CI | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy can be integrated with GitHub by two methods:-
 

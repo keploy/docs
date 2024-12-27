@@ -13,6 +13,10 @@ tags:
   - cd
   - plugin
 ---
+<head>
+  <title>Integrating with Jenkins | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy can integrated with Jenkins to ensure continuous testing as part of your CI/CD pipeline.
 

@@ -3,6 +3,10 @@ id: redis
 title: Redis Support
 sidebar_label: Redis Support
 ---
+<head>
+  <title>Redis Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 

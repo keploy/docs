@@ -1,6 +1,6 @@
 ---
 id: java-spring-boot-mongo
-title: Sample Rest API with Spring-Boot and MongoDB
+title: Spring-Boot and MongoDB
 sidebar_label: Potion App (MongoDb)
 description: This CRUD Application is about managing the data of Magical Potions in the Keploy inventory.
 tags:
@@ -23,16 +23,31 @@ keyword:
   - Auto Testcase generation
   - Junit
 ---
+<head>
+  <title> Spring-Boot + MongoDB | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 
 🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
 
+## Install Keploy CLI 🚀
+
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
+
+
 ## Pre-Requisite 🛠️
 
-- Install [JDK](https://www.oracle.com/java/technologies/downloads/) and add JAVA_HOME in environment variable.
-- Install [Maven](https://maven.apache.org/install.html)
-- Install [Docker](https://docs.docker.com/engine/install/)
+- JDK and add JAVA_HOME in environment variable.
+- Maven
+- Docker
 
 ## Get Started! 🎬
 

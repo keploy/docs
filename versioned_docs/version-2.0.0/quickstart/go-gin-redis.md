@@ -1,6 +1,6 @@
 ---
 id: samples-redis
-title: Sample User Authentication App (Golang)
+title: Gin + Redis
 sidebar_label: Gin + Redis
 description: The following sample app showcases how to use Gin framework and the Keploy Platform.
 tags:
@@ -19,13 +19,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> Gin + Redis | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [Redis](https://www.redis.io/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

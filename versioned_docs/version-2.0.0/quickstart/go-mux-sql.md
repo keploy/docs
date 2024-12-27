@@ -19,14 +19,24 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+<head>
+  <title> Mux + Postgres | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 
 🪄 Dive into the world of Product catelog and see how seamlessly Keploy integrates with [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

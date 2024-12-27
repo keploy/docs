@@ -1,6 +1,6 @@
 ---
 id: what-is-keploy-ebpf
-title: What is Keploy eBPF
+title: What is Keploy eBPF?
 sidebar_label: Keploy eBPF
 description: Keploy eBPF is a language-agnostic library that captures and replays API calls and subsequent network interactions.
 tags:
@@ -10,6 +10,10 @@ keywords:
   - ebpf
   - Testing API
 ---
+<head>
+  <title>What is Keploy eBPF | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 A Keploy eBPF is a language-agnostic library that offers APIs to do the following:
 

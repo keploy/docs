@@ -1,7 +1,8 @@
 ---
 id: installation
-title: Keploy Installation
+title: Installation
 sidebar_label: Installation
+description: Install Keploy with Arkade, Homebrew, Docker, or the official install script.
 tags:
   - hello-world
   - linux
@@ -20,6 +21,11 @@ keywords:
   - installation-guide
   - server-setup
 ---
+
+<head>
+  <title>Installation | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs.
 

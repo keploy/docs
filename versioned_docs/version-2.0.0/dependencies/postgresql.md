@@ -3,6 +3,10 @@ id: postgres
 title: PostgresSQL Support
 sidebar_label: PostgresSQL
 ---
+<head>
+  <title>PostgresSQL Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction
 

@@ -1,6 +1,6 @@
 ---
 id: sanic-mongo
-title: Sample Movie Management App (Sanic + Mongo)
+title: Sample Movie Management App | Keploy Docs
 sidebar_label: Sanic + Mongo
 description: This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
@@ -24,23 +24,33 @@ keyword:
   - Auto case generation
 ---
 
+<head>
+  <title> Sanic + Mongo | Keploy Docs</title>
+</head>
+
 ## Introduction
 
 This application is a simple movie management API built using Python's [Sanic framework](https://sanic.dev/en/) and [MongoDB](https://mongodb.com/) for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
 
-# Get Started! 🎬
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
 
-## Clone the app 🧪
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/). 🎉 Wohoo! We are all set to use Keploy.
+
+## Get Started! 🎬
+
+### Clone the app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/sanic-mongo
 ```
 
-## Download the requirements.txt file and DB setup
+### Download the requirements.txt file and DB setup
 
 Head to the folder of the application and run
 
@@ -74,7 +84,7 @@ You should be able to see this in your terminal
 
 Let's make URLs short and sweet:
 
-## Generate testcases
+### Generate testcases
 
 To generate testcases we just need to **make some API calls.**
 
@@ -150,7 +160,7 @@ spec:
   resTimestampMock: 2024-06-26T01:16:23.026710262+05:30
 ```
 
-## **Time to put things to the test 🧪:**
+### **Time to put things to the test 🧪:**
 
 ```bash
  keploy test -c "python server.py"

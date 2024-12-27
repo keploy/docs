@@ -15,6 +15,11 @@ keywords:
   - mock with test
 ---
 
+<head>
+  <title>Adding a custom Mock to the Keploy Mock File | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 If you can't run a dependency service and want to mock it, keploy supports adding manually written mocks.
 
 When adding a mock to the Keploy mock file, it's crucial to ensure that all fields are accurately filled out and that the **timestamps align with the request and response timestamps** of the mock's respective test case.

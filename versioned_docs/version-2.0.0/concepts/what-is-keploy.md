@@ -18,6 +18,10 @@ keywords:
   - API Tests
   - AI Generated Tests
 ---
+<head>
+  <title>What is Keploy? | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.

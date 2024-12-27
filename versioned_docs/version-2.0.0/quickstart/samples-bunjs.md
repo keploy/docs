@@ -21,13 +21,24 @@ keyword:
   - typescript
 ---
 
+<head>
+  <title> BunJS + Mongo | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 # Introduction
 
 This is a sample app to test Keploy integration capabilities using [Bun.js](https://bun.sh) and [MongoDB](https://www.mongodb.com/).
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 
@@ -35,10 +46,6 @@ import InstallationGuide from '../concepts/installation.md'
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
-
-#Install bun using this command
-
-curl -fsSL https://bun.sh/install | bash
 
 # Install the dependencies
 

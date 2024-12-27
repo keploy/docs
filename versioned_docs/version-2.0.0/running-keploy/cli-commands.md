@@ -1,6 +1,6 @@
 ---
 id: cli-commands
-title: Keploy CLI Commands
+title: CLI Commands
 sidebar_label: CLI Commands
 description: This section documents usecase of Keploy's CLI Commands
 tags:
@@ -9,7 +9,14 @@ keywords:
   - cli
   - documentation
   - commands
+  - keploy commands
+  - keploy running guide
+  - keploy oss
 ---
+<head>
+  <title>CLI Commands | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ### Usage
 
@@ -23,16 +30,16 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                          |
+| Mode        | Flags Available|
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                    |
-| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
-| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
-| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
-| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
+| `record`    | `-a, --app-id`,`--app-name`,`-b, --build-delay`,`--cmd-type`,`-c, --command`,`--config-path`, `--containerName`, `--dns-port`,`--in-ci`,`-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--record-timer`,`--debug`|
+| `test`      | `--apiTimeout`,`-a, --app-id`,`--app-name`,`-b, --build-delay`,`--cmd-type`,`-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--disable-line-coverage`, `--disableMockUpload `,`--dns-port`, `--fallBack-on-miss`,`--host`, `--mocking`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--ignoreOrdering`, `--skip-preview`, `--update-temp`, `--useLocalMock` |
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`|
+| `normailze` | `-p, --path`, `--test-run`, `--tests`|
+| `rerecord`  | `--test-sets`, `-t`|
+| `config`    | `--generate`,`-p, --path`|
 
-## [record](#record)
+### [Record](#Record)
 
 The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
 
@@ -44,48 +51,54 @@ keploy record [flags]
 
 <b> Available flags: </b>
 
+- `-a, --app-id int` - A unique name for the user's application
+
+- `--app-name string` - Name of the user's application
+
+- `-b, --build-delay uint` - User provided time to wait docker container build (default 30)
+
+- `--cmd-type string` - Type of command to start the user application (native/docker/docker-compose) (default "native")
+
 - `-c, --command string` - Command required to start the user application.
 
   ```bash
-  keploy record --command "node src/app.js"
+  keploy record -c "node src/app.js"
   ```
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "./" directory.
 
   ```bash
   keploy record -c "node src/app.js" --config-path "./config-dir/"
   ```
-
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
-
   ```bash
   keploy record -c "docker compose up" --container-name "my-app-container"
   ```
 
-- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
+- `--dns-port uint32` - Port used by the Keploy DNS server to intercept the DNS queries (default 26789)
 
-  ```bash
-  keploy record -c "node src/app.js" -d 10
-  ```
+- `--generate-github-actions` - Generate Github Actions workflow file
 
-- `- n, --network-name string` - Name of the docker network in which the user application is running.
+- `--in-ci` - Is Keploy Running in CI or Not. By default it is false.
+
+- `-n, --network-name string` - Name of the docker network in which the user application is running.
 
   ```bash
   keploy record -c "docker compose up" --container-name "my-app-container" -n "my-app-network"
   ```
 
 - `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
 
   ```bash
   keploy record -c "node src/app.js" -p "./tests"
   ```
-
-  In the above command, `tests` is the directory in the CWD where the recorded testcases and generated mocks are to be stored.
+  Where `tests` is the directory with the recorded testcases and generated mocks are to be stored.
 
 - `--proxy-port uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
 
@@ -99,13 +112,9 @@ keploy record [flags]
   keploy record -c "node src/app.js" --debug
   ```
 
-- `rerecord` - Record certain test-sets again
+- `--record-timer uint ` - User provided time to record its application
 
-  ```bash
-  keploy record -c "node src/app.js" --rerecord "test-set-0"
-  ```
-
-## [test](#test)
+### [Test](#Test)
 
 The `test` mode in Keploy allows the user to run the recoded testcases from the API calls and execute assertion. A detailed report is produced after the tests are executed and it's then saved in the yaml format in `keploy/reports` directory in the current working directory.
 
@@ -120,16 +129,26 @@ keploy test [flags]
 - `--api-timeout uint` - Timeout in seconds for calling user application. The default is 5 seconds.
 
   ```bash
-  keploy test -c "node src/app.js" --api-timeout 10
+    keploy test -c "node src/app.js" --api-timeout 10
   ```
+
+- `-a, --app-id int` - A unique name for the user's application
+
+- `--app-name string` - Name of the user's application
+
+- `-b, --build-delay uint` - User provided time to wait docker container build (default 30)
+
+- `--base-path string` - Custom api basePath/origin to replace the actual basePath/origin in the testcases;
+
+- `--cmd-type string` - Type of command to start the user application (native/docker/docker-compose) (default "native")
 
 - `-c, --command string` - Command required to start the user application.
 
   ```bash
-  keploy test -c "node src/app.js"
+    keploy test -c "node src/app.js"
   ```
 
-  In the command above, `node src/app.js` is the command which starts the user application.
+  Where `node src/app.js` is the command to start the user application.
 
 - `--config-path string` - Path to the Keploy configuration file. The default is ".".
 
@@ -150,6 +169,26 @@ keploy test [flags]
   ```bash
   keploy test -c "node src/app.js" --delay 10
   ```
+
+- `--disable-line-coverage` - Disable line coverage generation.
+
+- `--disableMockUpload` - Store/Fetch mocks locally (default true)
+
+- `--dns-port uint32` - Port used by the Keploy DNS server to intercept the DNS queries (default 26789)
+
+- `--fallBack-on-miss` - Enable connecting to actual service if mock not found during test mode
+
+- `--generate-github-actions` - Generate Github Actions workflow file
+
+- `--host string` - Custom host to replace the actual host in the testcases
+
+- `--ignore-ordering` - Ignore ordering of array in response (default true)
+
+- `--in-ci` - Is Keploy Running in CI or Not. By default it is false.
+
+- `--jacoco-agent-path string` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by proving its path
+
+- `--mocking` - Create mocks for the testcases. By default mocking is enabled.
 
 - `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123".
 
@@ -191,37 +230,18 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10 --debug
   ```
 
-- `-g, --generate-test-report` - To generate the test report. The default is true.
-
-  ```bash
-  keploy test -c "node src/app.js" --delay 10 -g=false
-  ```
-
 - `--remove-unused-mocks` - To remove unused mocks from mock file. The default is false.
 
   ```bash
   keploy test -c "node src/app.js" --delay 10 --remove-unused-mocks
   ```
+- `--update-temp` - Update the template with the result of the testcases.
 
-- `--ignore-ordering` - Ignore the order of elements in an array for a response, with the default value being true.
+- `--useLocalMock` - Use local mocks instead of fetching from the cloud
 
-  ```bash
-  keploy test -c "node src/app.js" --delay 10 --ignore-ordering
-  ```
+### [Gen](#Gen)
 
-- `--skip-coverage` - skip code coverage computation while running the test cases
-
-- `--skip-preview` - skip line by line code coverage preview but display the total coverage.
-
-  ```bash
-  keploy test -c "node src/app.js" --delay 10 --skip-preview
-  ```
-
-- `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
-
-## [gen](#gen)
-
-The `gen` cmd in Keploy allows user to generate unit tests using LLM Models.
+The Keploy `gen` command allows user to [generate unit tests](https://keploy.io/docs/running-keploy/unit-test-generator/) using LLM Models.
 
 <b> Usage: </b>
 
@@ -253,7 +273,7 @@ keploy gen [flags]
 
 - `llmApiVersion` - API version of the llm if any.
 
-## [normalize](#normalize)
+### [Normalize](#Normalize)
 
 The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
 
@@ -285,7 +305,7 @@ keploy normalize [flags]
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
   ```
 
-## [rerecord](#rerecord)
+### [Re-record](#Re-record)
 
 The `rerecord`cmd allow user to record new keploy testcases/mocks from the existing test cases for the given testset(s)
 
@@ -295,7 +315,7 @@ The `rerecord`cmd allow user to record new keploy testcases/mocks from the exist
 keploy rerecord -c "node src/app.js" -t "test-set-0"
 ```
 
-## [templatize](#templatize)
+### [Templatize](#Templatize)
 
 The `templatize` cmd allows the user to templatize important fields in the testcases who's values are used in the request of testcases and that may change in the future.
 
@@ -305,7 +325,7 @@ The `templatize` cmd allows the user to templatize important fields in the testc
 keploy templatize [flags]
 ```
 
-## [config](#config)
+### [Config](#Config)
 
 The `config` command in Keploy is used to generate the Keploy Configuration File i.e. `keploy.yaml`. The generated configuration file is created in the current working directory.
 
@@ -331,7 +351,7 @@ keploy config [flags]
 
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
 
-## [example](#example)
+### [Example](#Example)
 
 The `example` command in Keploy is designed to illustrate the usage of Keploy in various scenarios, showing its capabilities with different types of applications and setups. Below are examples for using Keploy with Golang, Node.js, Java, and Docker applications.
 

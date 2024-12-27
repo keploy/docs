@@ -1,7 +1,8 @@
 ---
 id: installation
-title: Keploy Installation
+title: Installation
 sidebar_label: Installation
+description: Install Keploy with Arkade, Homebrew, Docker, or the official install script.
 tags:
   - linux
   - ebpf
@@ -19,6 +20,10 @@ keywords:
   - installation-guide
   - server-setup
 ---
+<head>
+  <title>Installation | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 import PlatformRequirements from '../concepts/platform-requirements.md'
 

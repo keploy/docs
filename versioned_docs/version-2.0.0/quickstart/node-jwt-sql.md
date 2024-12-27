@@ -1,6 +1,6 @@
 ---
 id: samples-node-jwt
-title: NodeJS - JWT Sample Application
+title: NodeJS - JWT
 sidebar_label: NodeJS - JWT + Postgres
 description: The following sample app showcases how to use NodeJS framework with JWT and the Keploy Platform.
 tags:
@@ -17,13 +17,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> NodeJS + JWT | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 

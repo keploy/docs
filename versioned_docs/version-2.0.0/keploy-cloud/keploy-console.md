@@ -12,6 +12,10 @@ keywords:
   - installation
   - API key
 ---
+<head>
+  <title> Keploy Console | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ### Pre-requisite 📝
 

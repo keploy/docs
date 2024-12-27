@@ -118,7 +118,7 @@ module.exports = {
         {
           to: "/server/installation",
           activeBasePath: "none",
-          label: "Installation",
+          label: "Start",
         },
         // {
         //   to: "/server/installation/",
@@ -136,12 +136,25 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/keploy-explained/contribution-guide",
-          label: "Contribution Guide",
+          to: "/keploy-cloud/cloud-installation",
+          label: "Cloud",
         },
         {
-          to: "https://keploy.io/blog",
-          label: "Blog",
+          label: "Resources",
+          items: [
+            {
+              label: 'Blogs',
+              href:'https://keploy.io/blog',
+            },
+            {
+              label: 'Contributing',
+              href: '/keploy-explained/contribution-guide',
+            },
+            {
+              label: 'FAQ',
+              href:'/keploy-explained/faq/',
+            },
+          ]
         },
         {
           type: "docsVersionDropdown",

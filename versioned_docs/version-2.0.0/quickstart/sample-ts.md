@@ -1,6 +1,6 @@
 ---
 id: samples-typescript
-title: Typescript Sample Application
+title: Typescript + Nhost
 sidebar_label: Typescript - Nhost
 description: The following sample app to test Keploy integration capabilities using Typescript and Nhost.
 tags:
@@ -13,13 +13,25 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> Typescript + Nhost | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: - 
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
+
 
 ## Get Started! 🎬
 
