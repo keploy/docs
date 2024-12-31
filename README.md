@@ -75,6 +75,60 @@ npm start
 
 The command starts a local development server and opens a browser window.
 
+## Running Vale Locally for Documentation Linting
+
+To help maintain consistency in our documentation, we use Vale, a syntax-aware linter that checks for spelling, grammar, and style issues.
+
+### Installation
+
+**Step 1: Install Vale**
+
+If you're on macOS, you can install Vale using Homebrew:
+
+```bash
+brew install vale
+```
+
+Alternatively, you can install Vale manually:
+
+1. Download Vale: Visit the Vale Releases page and download the latest version for your operating system.
+
+2. Install Vale:
+
+- On macOS and Linux, extract the binary, move it to /usr/local/bin, and make it executable:
+
+```bash
+sudo mv vale /usr/local/bin/
+sudo chmod +x /usr/local/bin/vale
+```
+
+- On Windows, follow the instructions in the downloaded .zip file.
+
+**Step 2: Configure Vale**
+
+1. Ensure you have the .vale.ini configuration file in the root directory.
+
+2. Check that StylesPath in .vale.ini points to the vale_styles directory (where custom styles are stored):
+
+```ini
+StylesPath = vale_styles
+MinAlertLevel = error
+```
+
+### Running Vale
+
+1. Linting Documentation: To check all markdown files in versioned_docs/version-2.0.0/ for errors, run:
+
+```bash
+vale versioned_docs/version-2.0.0/**/*.md
+```
+
+2. Review Errors:
+
+- Vale will output any issues directly in the terminal. Address these issues in the markdown files to maintain style consistency.
+
+Note: Running Vale locally helps catch issues early, ensuring a smooth review process when you submit a pull request.
+
 ## Prettier
 
 1. Fork the repository
