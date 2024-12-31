@@ -118,7 +118,7 @@ module.exports = {
         {
           to: "/server/installation",
           activeBasePath: "none",
-          label: "Start",
+          label: "Getting Started",
         },
         // {
         //   to: "/server/installation/",
@@ -137,7 +137,7 @@ module.exports = {
         // },
         {
           to: "/keploy-cloud/cloud-installation",
-          label: "Cloud",
+          label: "Enterprise",
         },
         {
           label: "Resources",
@@ -166,6 +166,11 @@ module.exports = {
           position: "right",
           className: "header-github-link",
           "aria-label": "GitHub repository",
+        },
+        {
+          href: "https://app.keploy.io",
+          position: "right",
+          label: 'Pricing'
         },
         // TODO : Add Blogging Section
         // {

@@ -27,7 +27,7 @@
     },
     {
       "type": "category",
-      "label": "Integration Testing",
+      "label": "API Testing",
       "collapsible": true,
       "collapsed": false,
       "items": [
@@ -123,6 +123,18 @@
               "items": ["quickstart/samples-csharp"]
             }
           ]
+        },       
+        {
+          "type": "category",
+          "label": "Dependencies",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "dependencies/mongo",
+            "dependencies/postgres",
+            "dependencies/http",
+            "dependencies/redis"
+          ]
         }
       ]
     },
@@ -139,19 +151,7 @@
     },
     {
       "type": "category",
-      "label": "Dependencies",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "dependencies/mongo",
-        "dependencies/postgres",
-        "dependencies/http",
-        "dependencies/redis"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Test Coverage Generation",
+      "label": "Code Coverage",
       "collapsible": true,
       "collapsed": true,
       "items": [

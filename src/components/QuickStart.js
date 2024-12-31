@@ -22,7 +22,6 @@ export const QuickStart = () => {
         With features like API testing, unit test generation, and schema/PRD-based test automation, Keploy helps teams release faster while maintaining high reliability. 
         It’s easy to use, extensible, and integrates seamlessly into CI/CD pipelines, making backend testing efficient and productive.
       </p>
-
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Setup Guide 📗
       </h2>

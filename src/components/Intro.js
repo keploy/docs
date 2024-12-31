@@ -33,80 +33,80 @@ function Languages() {
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-gin")}
+            data-tooltip="Golang"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/golang.svg"
-              alt="Go lang logo"
+              alt="Golang logo"
             />
-            <p className="font-semibold">Go</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-java")}
+            data-tooltip="Java"
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/java.svg"
               alt="Java logo"
             />
-            <p className="font-semibold">Java</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-django")}
+            data-tooltip="Python"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/python.svg"
               alt="Python logo"
             />
-            <p className="font-semibold">Python</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-nodejs")}
+            data-tooltip="Javascript"
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/javascript-logo.svg"
               alt="Javascript logo"
             />
-            <p className="font-semibold">Javascript</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-rust")}
+            data-tooltip="Rust"
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/rust-logo.svg"
               alt="Javascript logo"
             />
-            <p className="font-semibold">Rust</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
-            className="flex flex-col items-center space-x-3 p-6 hover:underline"
+            className="hover-label-container flex flex-col items-center space-x-3 p-6 hover:underline"
             to={useBaseUrl("/quickstart/samples-csharp")}
+            data-tooltip="CSharp"
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/csharp-logo.svg"
               alt="Javascript logo"
             />
-            <p className="font-semibold">CSharp</p>
           </Link>
         </li>
       </ul>
@@ -116,7 +116,7 @@ function Languages() {
 
 function Frameworks() {
   return (
-    <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
+    <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg">
       <div className="flex items-center space-x-4">
         <svg
           className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
@@ -135,77 +135,81 @@ function Frameworks() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Dependencies Support</h2>
       </div>
-      <ul className="grid grid-cols-3 gap-3  lg:gap-5">
+      <ul className="grid grid-cols-3 gap-3 lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/mongo")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            data-tooltip="MongoDB"
           >
             <img
               className="h-8 w-8"
               src="/docs/img/mongodb-logo.svg"
               alt="Docker logo"
             />
-            <p className="font-semibold">MongoDB</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/http")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            data-tooltip="HTTP"
           >
             <img
               className="h-8 w-8"
               src="/docs/img/http-logo.svg"
               alt="HTTP logo"
             />
-            <p className="font-semibold">HTTP</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/postgres")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            data-tooltip="PostgreSQL"
           >
             <img
               className="h-8 w-8"
               src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
-            <p className="font-semibold">PostgresSQL</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/redis")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center "
-          >
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
+            data-tooltip="Redis"
+            >
             <img
               className="h-8 w-8"
               src="/docs/img/redis-logo.svg"
               alt="Redis logo"
             />
-            <p className="font-semibold">Redis</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+          <Link 
+          className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
+          data-tooltip="MySQL"
+          >
             <img
               className="h-8 w-8"
               src="/docs/img/mysql-logo.svg"
               alt="MySQL logo"
             />
-            <p className="font-semibold">MySQL</p>
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+          <Link 
+          className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
+          data-tooltip="DynamoDB"
+          >
             <img
               className="h-8 w-8"
               src="/docs/img/dynamodb-logo.svg"
               alt="DynamoDB logo"
             />
-            <p className="font-semibold">DynamoDB</p>
           </Link>
         </li>
         {/*<li className="mt-5 flex flex-col space-y-3 text-lg">*/}

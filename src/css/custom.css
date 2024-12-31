@@ -1,22 +1,21 @@
-/* stylelint-disable docusaurus/copyright-header */
-/**
- * Any CSS included here will be global. The classic template
- * bundles Infima by default. Infima is a CSS framework designed to
- * work well for content-centric websites.
- */
-
-/* You can override the default Infima variables here. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 :root {
+  /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
+ 
+  /* --ifm-color-primary-lighter: #ffb575; */
+  font-size:18px;
+  line-height: 1.6;
+  --ifm-color-primary: #000;
+
+  --ifm-color-primary-lighter: #FFF;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  --ifm-color-primary-lighter: #ffb575;
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
@@ -27,12 +26,16 @@
 }
 
 html[data-theme="dark"] {
+  /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
+
+  /* --ifm-color-primary-lighter: #ffb575; */
+  --ifm-color-primary-lighter: #FFF; 
+   
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  --ifm-color-primary-lighter: #ffb575;
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-menu-color-active: var(--ifm-color-primary-lighter);
@@ -48,6 +51,25 @@ html[data-theme="dark"] {
   --ifm-badge-background-color: #f88e34;
   --card-color: rgba(17, 24, 39);
   --ifm-card-shadow-color: rgba(255, 255, 255, 0.2);
+}
+
+.hover-label-container {
+  position: relative;
+}
+
+.hover-label-container:hover::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #1c1e21;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 14px;
+  white-space: nowrap;
+  pointer-events: none;
 }
 
 html[data-theme="light"] {
@@ -97,6 +119,10 @@ html[data-theme="light"] {
   @apply inline;
 }
 
+h3{
+  margin-bottom: 1px;
+}
+
 h1,
 h2,
 h3,
@@ -111,6 +137,144 @@ h4,
 .menu__list {
   @apply text-sm;
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
+}
+
+::before,
+::after {
+  box-sizing: border-box;
+  border-width: 0;
+  border-style: solid;
+  border-color: theme('borderColor.DEFAULT', currentColor);
+}
+
+* {
+  margin: 0;
+}
+
+html {
+  height: 100%;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+  -moz-tab-size: 4;
+  tab-size: 4;
+  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+}
+
+body {
+  height: 100%;
+  line-height: inherit;
+}
+
+img,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  vertical-align: middle;
+}
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  color: inherit;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  overflow-wrap: break-word;
+}
+#root,
+#__next {
+  isolation: isolate;
+}
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button,
+[type='button'],
+[type='reset'],
+[type='submit'] {
+  -webkit-appearance: button;
+  background-color: transparent;
+  background-image: none;
+}
+
+:-moz-focusring {
+  outline: auto;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+ol,
+ul,
+menu {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+:disabled {
+  cursor: default;
+}
+
+:focus-visible {
+  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline-offset: 2px;
+}
+
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
+  height: auto;
+}
+
+hr {
+  height: 0;
+  color: inherit;
+  border-top-width: 1px;
+}
+
+abbr:where([title]) {
+  text-decoration: underline dotted;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-size: inherit;
+  font-weight: inherit;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+td img {
+  border-radius: 0 !important;
 }
 
 /* otherwise external references in menu bar (see Go) have the icon screwed up */
@@ -204,13 +368,12 @@ div[class^="sidebar_"] .button svg {
   @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
 }
 
-/* Navbar */
 .navbar__inner {
-  @apply mx-auto max-w-screen-lg shadow-none lg:px-10;
+  @apply mx-auto w-full max-w-none px-4 shadow-none lg:px-10;
 }
 
 .navbar__items--right {
-  @apply flex-row-reverse;
+  @apply justify-end ml-auto flex-row-reverse;
 }
 
 .navbar__items--right > :last-child {
