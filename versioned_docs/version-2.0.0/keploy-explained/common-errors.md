@@ -9,11 +9,13 @@ tags:
 
 Let's check some of the common errors that you might encounter while working with Keploy!
 
+[](https://camo.githubusercontent.com/74cbc79070c04e7077cfd86981c110678fe434e9269ea8f52eafb37b781cfb4a/68747470733a2f2f646f63732e6b65706c6f792e696f2f696d672f6b65706c6f792d6c6f676f2d6461726b2e7376673f733d32303026763d34)
+
 ### 1. Dependency Not Found Error
 
 #### Description:
 
-This error occurs when Keploy is unable to find or access a required dependency, like a database or external service.
+This error occurs when Keploy cannot locate or access a required dependency, such as a database or external service.
 
 #### Possible Cause:
 
@@ -22,8 +24,9 @@ This error occurs when Keploy is unable to find or access a required dependency,
 
 #### Solution:
 
-- Ensure that all necessary services (e.g., databases, third-party APIs) are running.
-- Check your environment variables or config files for the correct host and port details.
+- Verify that all required services (e.g., databases, third-party APIs) are active and accessible.
+- Check the environment variables or configuration files to confirm the correct host and port details.
+- Use network diagnostic tools (e.g., ping, traceroute) to identify connectivity issues.
 
 ### 2. Unable to Record API Calls
 
@@ -56,8 +59,9 @@ Keploy is unable to replay recorded API requests.
 
 #### Solution:
 
-- Use Keploy’s mocking features to mock external services and databases.
-- Exclude or handle non-deterministic values using Keploy’s configuration to ensure stable comparisons.
+- Leverage Keploy’s mocking capabilities to simulate external services and databases.
+- Use configurations to handle or exclude non-deterministic values for consistent comparisons.
+- Regularly reset the database state to match the conditions during recording.
 
 ### 4. Response Mismatch Error
 
@@ -106,8 +110,9 @@ Keploy cannot connect to the database or other external systems during the repla
 
 #### Solution:
 
-- Ensure that the test environment mirrors the configuration used during recording.
-- Use database mocks or stubs if testing in isolation from the database is desired.
+- Mirror the test environment configuration with the recording setup.
+- Use database mocks or stubs for isolated testing.
+- Double-check connection strings, credentials, and database availability.
 
 ### 7. Missing or Invalid Configuration Error
 
@@ -122,8 +127,9 @@ Keploy cannot find a valid configuration file or encounters errors in the config
 
 #### Solution:
 
-- Double-check the configuration file format and ensure all required fields are populated.
-- Verify that environment variables (like API keys, URLs) are correctly set and accessible.
+- Ensure the configuration file exists and follows the correct format.
+- Populate all required fields with valid values.
+- Check that environment variables are properly set.
 
 ### 8. Timeout Errors
 
@@ -138,8 +144,9 @@ Keploy times out while recording or replaying API calls.
 
 #### Solution:
 
-- Increase the timeout settings in Keploy’s configuration.
-- Investigate slow-performing services or optimize the API to reduce request time.
+- Increase timeout settings in the Keploy configuration.
+- Identify and optimize slow-performing APIs or dependencies.
+- Use monitoring tools to analyze API performance.
 
 ### 9. Insufficient Permissions
 
@@ -169,8 +176,9 @@ Errors occur because of version mismatches between Keploy, its dependencies, or 
 
 #### Solution:
 
-- Ensure that all components, including Keploy and its SDKs, are compatible with each other.
-- Consult the Keploy documentation or release notes for any breaking changes in recent versions.
+- Verify version compatibility for Keploy and its SDKs.
+- Consult Keploy documentation or release notes for known issues.
+- Use version pinning to maintain a stable environment.
 
 ### 11. Unsupported Protocol or API
 
@@ -184,9 +192,10 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 
 #### Solution:
 
-- Confirm that your API format is supported. Keploy currently supports HTTP/REST and GraphQL. For unsupported APIs, you may need to use alternative testing tools or frameworks.
+- Confirm the supported protocols (currently HTTP/REST and GraphQL).
+- Consider alternative tools or frameworks for unsupported protocols.
 
-Hope this helps you out, if you are still facing any issues, please feel free to reach out to us .
+If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team or consult the community forums for additional support. Happy testing!
 
 import GetSupport from '../concepts/support.md'
 
