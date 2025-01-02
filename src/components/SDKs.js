@@ -20,7 +20,7 @@ export const SDKs = () => {
             src="/docs/img/os/windows-logo.svg"
             alt="Windows logo"
           />
-          <p className="text-lg">Windows</p>
+          <p className="text-lg">Native</p>
         </Link>
         <Link
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
@@ -31,18 +31,7 @@ export const SDKs = () => {
             src="/docs/img/os/linux-logo.svg"
             alt="Linux logo"
           />
-          <p className="text-lg">Linux</p>
-        </Link>
-        <Link
-          className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/installation")}
-        >
-          <img
-            className="h-16 w-16"
-            src="/docs/img/os/apple-logo.svg"
-            alt="Mac logo"
-          />
-          <p className="text-lg">MacOS</p>
+          <p className="text-lg">Docker</p>
         </Link>
       </div>
     </section>

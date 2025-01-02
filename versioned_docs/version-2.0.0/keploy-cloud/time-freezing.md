@@ -1,6 +1,6 @@
 ---
 id: time-freezing
-title: Time Freezing
+title: Time Freezing 🥶
 sidebar_label: Time Freezing 🥶
 tags:
   - explanation
@@ -13,6 +13,11 @@ keywords:
   - jwt
   - time sensitive fields
 ---
+
+<head>
+  <title> Time Freezing | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Why Time Freezing? ❄️
 

@@ -4,6 +4,11 @@ title: Redis Support
 sidebar_label: Redis Support
 ---
 
+<head>
+  <title>Redis Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 The Redis wire protocol is a simple, text-based protocol used to communicate with the Redis server over a TCP/IP socket. It follows a request-response model where the client sends a command to the server, and the server responds with a reply.
