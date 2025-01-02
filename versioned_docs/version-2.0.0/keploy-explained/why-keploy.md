@@ -11,6 +11,8 @@ tags:
   - record replay test
 ---
 
+Keploy is designed to enhance your testing process by giving superpowers to developers. Whether you're looking for automated test scripting, easy CI/CD integration, or enhanced test coverage with zero effort, Keploy provides everything you need to elevate your testing workflow.
+
 | **Feature**                                | **Automated Test-Scripting Tools**                      | **Record-Replay Traffic Tools**                                       | **Keploy**                                                              |
 | ------------------------------------------ | ------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | **Test Scripting**                         | Manual test script creation.                            | Record user traffic as tests scripts.                                 | Automatic user traffic recording as test scripts.                       |

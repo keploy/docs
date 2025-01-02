@@ -1,13 +1,14 @@
 ---
 id: unit-test-generator
-title: Unit Testing with Keploy
-sidebar_label: Unit Test Generator
+title: Keploy Unit Testing Agent
+sidebar_label: Unit Testing
 description: This section documents usecase of Keploy's Unit Test Generator
 tags:
   - utg
   - unit test generator
   - generate unit test
   - unit test
+  - unit testing
 keywords:
   - unit test generator
   - unit testing
@@ -17,10 +18,13 @@ keywords:
   - AI testing
   - Gemini
   - OpenAI
+  - testing agent
+  - unit testing agent
+  - opensource testing agent
 ---
 
 <head>
-  <title>Unit Test Generator | Keploy Docs</title>
+  <title>Unit Testing Agent | Keploy Docs</title>
   <meta charSet="utf-8" />
 </head>
 

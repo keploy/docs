@@ -118,7 +118,7 @@ export const Community = () => {
             <svg
               fill="currentColor"
               className="h-12 w-12 flex-none text-black"
-              viewBox="0 0  48 48"
+              viewBox="0 0 512 509.64"
             >
               <rect width="509.64" height="512" rx="120" />
               <path

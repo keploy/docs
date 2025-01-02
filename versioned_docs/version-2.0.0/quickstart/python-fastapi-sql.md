@@ -62,6 +62,10 @@ We will be using Docker compose to run the application as well as Postgres on Do
 
 ### Lights, Camera, Record! 🎥
 
+Since we have setup our sample-app with docker, we need to update the container name to postgres on line 6, in `application/database.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.**
+
+> **Also, we need to update the container name to postgres on line 11, of `application/main.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.**
+
 Capture the test-cases-
 
 ```shell
@@ -237,6 +241,12 @@ Happy coding! ✨👩‍💻👨‍💻✨
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
 
 ### 📼 Roll the Tape - Recording Time!
+
+Start the database on Docker:
+
+```bash
+docker compose up -d postgres
+```
 
 Ready, set, record! Here's how:
 

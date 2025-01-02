@@ -55,4 +55,32 @@ To run the testcases and see if there are any regressions introduced, use this t
 keploy test -c "CMD_TO_RUN_APP" --delay 10
 ```
 
+## Install Keploy via Arkade
+
+1. Installing Arkade
+
+```bash
+# Note: you can also run without `sudo` and move the binary yourself
+curl -sLS https://get.arkade.dev | sudo sh
+
+arkade --help
+ark --help  # a handy alias
+
+# Windows users with Git Bash
+curl -sLS https://get.arkade.dev | sh
+```
+
+2. Install Keploy
+
+```bash
+arkade get keploy
+```
+
+Or you can also download specific version of Keploy using the following command:
+
+```bash
+arkade get keploy@2.3.0-beta47
+```
+
+
 Explore the [Test Coverage Generation Guide](https://keploy.io/docs/server/sdk-installation/go/) for seeing test-coverage with your unit testing library and [Keploy Running Guide](https://keploy.io/docs/running-keploy/configuration-file/) for additional options and tips on customizing your Keploy setup to perfection.

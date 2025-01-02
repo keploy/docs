@@ -143,7 +143,7 @@ function Frameworks() {
             data-tooltip="MongoDB"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/mongodb-logo.svg"
               alt="Docker logo"
             />
@@ -156,7 +156,7 @@ function Frameworks() {
             data-tooltip="HTTP"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/http-logo.svg"
               alt="HTTP logo"
             />
@@ -169,7 +169,7 @@ function Frameworks() {
             data-tooltip="PostgreSQL"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
@@ -182,7 +182,7 @@ function Frameworks() {
             data-tooltip="Redis"
             >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/redis-logo.svg"
               alt="Redis logo"
             />
@@ -194,7 +194,7 @@ function Frameworks() {
           data-tooltip="MySQL"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/mysql-logo.svg"
               alt="MySQL logo"
             />
@@ -206,7 +206,7 @@ function Frameworks() {
           data-tooltip="DynamoDB"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/dynamodb-logo.svg"
               alt="DynamoDB logo"
             />

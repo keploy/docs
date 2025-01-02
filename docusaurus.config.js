@@ -138,6 +138,7 @@ module.exports = {
         {
           to: "/keploy-cloud/cloud-installation",
           label: "Enterprise",
+          activeBasePath: "none",
         },
         {
           label: "Resources",
@@ -151,8 +152,8 @@ module.exports = {
               href: '/keploy-explained/contribution-guide',
             },
             {
-              label: 'FAQ',
-              href:'/keploy-explained/faq/',
+              label: 'Glossary',
+              href:'/concepts/reference/glossary/',
             },
           ]
         },
@@ -168,7 +169,7 @@ module.exports = {
           "aria-label": "GitHub repository",
         },
         {
-          href: "https://app.keploy.io",
+          href: "https://app.keploy.io/pricing",
           position: "right",
           label: 'Pricing'
         },

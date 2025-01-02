@@ -2,7 +2,7 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Explanation",
+      "label": "Learn about Keploy",
       "collapsible": true,
       "collapsed": true,
       "items": [
@@ -17,13 +17,9 @@
       "id": "server/installation"
     },
     {
-      "type": "category",
+      "type": "doc",
       "label": "Unit Testing",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "running-keploy/unit-test-generator"
-      ]
+      "id": "running-keploy/unit-test-generator"
     },
     {
       "type": "category",
@@ -123,7 +119,18 @@
               "items": ["quickstart/samples-csharp"]
             }
           ]
-        },       
+        },
+        {
+          "type": "category",
+          "label": "CI/CD",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "ci-cd/github",
+            "ci-cd/gitlab",
+            "ci-cd/jenkins"
+          ]
+        },     
         {
           "type": "category",
           "label": "Dependencies",
@@ -140,17 +147,6 @@
     },
     {
       "type": "category",
-      "label": "CI/CD Integrations",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "ci-cd/github",
-        "ci-cd/gitlab",
-        "ci-cd/jenkins"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Code Coverage",
       "collapsible": true,
       "collapsed": true,
@@ -159,6 +155,15 @@
         "server/sdk-installation/java",
         "server/sdk-installation/javascript",
         "server/sdk-installation/python"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Troubleshooting",
+      "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "keploy-explained/faq"
       ]
     }
   ],
@@ -183,10 +188,10 @@
       "collapsible": true,
       "items": [
         "keploy-cloud/cloud-installation",
+        "keploy-cloud/auto-test-generation",
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
-        "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]
     }
