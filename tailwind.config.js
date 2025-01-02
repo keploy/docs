@@ -21,6 +21,7 @@ module.exports = {
   //   // container: false, // use container style from docusaurus
   // },
   // // important: "#tailwind", // incrementally adopt Tailwind by wrapping pages with <div id="tailwind"> </div>
+
   theme: {
     extend: {
       typography: {
@@ -105,7 +106,8 @@ module.exports = {
       },
       fontFamily: {
         light: ["Roboto Light", "sans"],
-        //bold: ["Roboto Bold", "sans"],
+        /* Disable Roboto Bold to prevent fallback to Times font for highlighted text in the right article index sidebar and h3 elements on the homepage */
+        // bold: ["Roboto Bold", "sans"],
       },
       keyframes: {
         "fade-in-down": {

@@ -95,7 +95,9 @@ export const Community = () => {
           >
             <svg
               fill="currentColor"
+              // Hotfix: add viewBox to prevent icon from being cut off after tailwind preflight disabled
               className="h-12 w-12 flex-none text-black "
+              viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
               <path
