@@ -1,6 +1,6 @@
 ---
 id: samples-nodejs
-title: NodeJS + MongoDB 
+title: NodeJS + MongoDB
 sidebar_label: NodeJS - Express + Mongoose
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:
@@ -28,7 +28,7 @@ A simple sample CRUD application and see how seamlessly Keploy integrates with [
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

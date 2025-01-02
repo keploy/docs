@@ -19,15 +19,17 @@ keywords:
 </head>
 
 ## Prerequisites
+
 Before proceeding, ensure the following prerequisites are met:
 
 ### Docker Compose Setup:
+
 - Add the `<CONTAINER_NAME>` under your application service in your docker-compose.yml file. Example.
 - Ensure all containers are on the same network.
 
 ### Docker Run Setup:
-- When using the docker run command, include the --network flag to specify a custom network name.
 
+- When using the docker run command, include the --network flag to specify a custom network name.
 
 ## Recording Testcases and Data Mocks
 

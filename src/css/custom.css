@@ -9,7 +9,6 @@
   font-size:18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
-
   --ifm-color-primary-lighter: #FFF;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
@@ -85,6 +84,24 @@ html[data-theme="light"] {
 
   --card-color: rgba(239, 246, 255);
   --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+}
+
+html[data-theme='light'] .theme-doc-sidebar-container {
+  border-right: 1px solid #676565;
+}
+
+/* Sidebar border for dark theme */
+html[data-theme='dark'] .theme-doc-sidebar-container {
+  border-right: 1px solid #676565;
+}
+
+html[data-theme='light'] .col--3 {
+  border-left: 1px solid #676565;
+}
+
+/* TOC column border for dark theme */
+html[data-theme='dark'] .col--3 {
+  border-left: 1px solid #676565;
 }
 
 @font-face {

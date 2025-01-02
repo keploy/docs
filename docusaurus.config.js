@@ -138,23 +138,24 @@ module.exports = {
         {
           to: "/keploy-cloud/cloud-installation",
           label: "Enterprise",
+          activeBasePath: "none",
         },
         {
           label: "Resources",
           items: [
             {
-              label: 'Blogs',
-              href:'https://keploy.io/blog',
+              label: "Blogs",
+              href: "https://keploy.io/blog",
             },
             {
-              label: 'Contributing',
-              href: '/keploy-explained/contribution-guide',
+              label: "Contributing",
+              href: "/keploy-explained/contribution-guide",
             },
             {
-              label: 'FAQ',
-              href:'/keploy-explained/faq/',
+              label: "Glossary",
+              href: "/concepts/reference/glossary/",
             },
-          ]
+          ],
         },
         {
           type: "docsVersionDropdown",
@@ -168,9 +169,9 @@ module.exports = {
           "aria-label": "GitHub repository",
         },
         {
-          href: "https://app.keploy.io",
+          href: "https://app.keploy.io/pricing",
           position: "right",
-          label: 'Pricing'
+          label: "Pricing",
         },
         // TODO : Add Blogging Section
         // {

@@ -143,7 +143,7 @@ function Frameworks() {
             data-tooltip="MongoDB"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/mongodb-logo.svg"
               alt="Docker logo"
             />
@@ -156,7 +156,7 @@ function Frameworks() {
             data-tooltip="HTTP"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/http-logo.svg"
               alt="HTTP logo"
             />
@@ -169,7 +169,7 @@ function Frameworks() {
             data-tooltip="PostgreSQL"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
@@ -180,33 +180,33 @@ function Frameworks() {
             to={useBaseUrl("/dependencies/redis")}
             className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
             data-tooltip="Redis"
-            >
+          >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/redis-logo.svg"
               alt="Redis logo"
             />
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link 
-          className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
-          data-tooltip="MySQL"
+          <Link
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
+            data-tooltip="MySQL"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/mysql-logo.svg"
               alt="MySQL logo"
             />
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link 
-          className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
-          data-tooltip="DynamoDB"
+          <Link
+            className="hover-label-container flex flex-col items-center justify-center space-y-1 p-6 text-center "
+            data-tooltip="DynamoDB"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/dynamodb-logo.svg"
               alt="DynamoDB logo"
             />
@@ -231,12 +231,14 @@ export const Intro = () => {
   return (
     <section className="mb-4 mt-12">
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
-      Getting Started ✨
+        Getting Started ✨
       </h2>
-      <p className="text-l text-gray-500"> 
-        Get up and running with Keploy in just a few minutes by integrating it with your applications. 
-        Below are the quick-start guides for popular languages and frameworks.
-      </p><br/>
+      <p className="text-l text-gray-500">
+        Get up and running with Keploy in just a few minutes by integrating it
+        with your applications. Below are the quick-start guides for popular
+        languages and frameworks.
+      </p>
+      <br />
       <div className="grid gap-6 sm:grid-cols-2 xl:gap-8">
         <Languages />
         <Frameworks />

@@ -14,7 +14,7 @@ module.exports = {
     "./src/theme/**/*.{js,ts,jsx,tsx}",
   ],
   corePlugins: {
-    preflight: false, 
+    preflight: false,
   },
   // corePlugins: {
   //   // preflight: false, // to use Docusaurus base styles

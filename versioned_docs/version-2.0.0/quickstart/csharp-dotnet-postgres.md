@@ -28,10 +28,9 @@ keyword:
 
 🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with [.Net](https://dotnet.microsoft.com/en-us/) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh
@@ -44,7 +43,7 @@ Or, you can follow the detailed instructions [here](https://keploy.io/docs/serve
 ### Clone a sample user authentication app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-csharp.git 
+git clone https://github.com/keploy/samples-csharp.git
 cd samples-csharp/crud-app
 
 # start the database instance

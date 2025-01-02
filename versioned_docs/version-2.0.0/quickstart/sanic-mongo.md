@@ -34,7 +34,7 @@ This application is a simple movie management API built using Python's [Sanic fr
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

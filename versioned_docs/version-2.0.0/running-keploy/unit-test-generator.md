@@ -1,13 +1,14 @@
 ---
 id: unit-test-generator
-title: Unit Testing with Keploy
-sidebar_label: Unit Test Generator
+title: Keploy Unit Testing Agent
+sidebar_label: Unit Testing
 description: This section documents usecase of Keploy's Unit Test Generator
 tags:
   - utg
   - unit test generator
   - generate unit test
   - unit test
+  - unit testing
 keywords:
   - unit test generator
   - unit testing
@@ -17,10 +18,13 @@ keywords:
   - AI testing
   - Gemini
   - OpenAI
+  - testing agent
+  - unit testing agent
+  - opensource testing agent
 ---
 
 <head>
-  <title>Unit Test Generator | Keploy Docs</title>
+  <title>Unit Testing Agent | Keploy Docs</title>
   <meta charSet="utf-8" />
 </head>
 
@@ -158,9 +162,10 @@ _Voila!! The Generated Testcases have provided with 71% coverage in just 2 itera
 
 ## Generate Unit Tests with VS Code Extension
 
-The [Keploy VS Code extension](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) simplifies unit test generation by allowing users to create tests directly within their editor, eliminating the need for CLI commands or API key setup. With just a right-click on any source file, the extension auto-detects the necessary parameters and generates unit tests seamlessly. It integrates effortlessly into your workflow, saving generated test cases to the appropriate files and providing coverage reports within VS Code itself. 
+The [Keploy VS Code extension](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) simplifies unit test generation by allowing users to create tests directly within their editor, eliminating the need for CLI commands or API key setup. With just a right-click on any source file, the extension auto-detects the necessary parameters and generates unit tests seamlessly. It integrates effortlessly into your workflow, saving generated test cases to the appropriate files and providing coverage reports within VS Code itself.
 
-For example, in the [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample app: 
+For example, in the [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample app:
+
 1. You can open `routes.js`, right-click, and select **Generate Unit Tests with Keploy** to instantly generate tests for `test/routes.test.js`.
 
 2. The extension makes unit testing faster, easier, and more accessible for developers.
