@@ -20,6 +20,7 @@ keyword:
   - API Test generator
   - Auto case generation
 ---
+
 <head>
   <title> FastAPI + Postgres | Keploy Docs</title>
   <meta charSet="utf-8" />
@@ -31,7 +32,7 @@ keyword:
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh
@@ -62,7 +63,7 @@ We will be using Docker compose to run the application as well as Postgres on Do
 
 ### Lights, Camera, Record! 🎥
 
-Since we have setup our sample-app with docker, we need to update the container name to postgres on line 6, in `application/database.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.**
+Since we have setup our sample-app with docker, we need to update the container name to postgres on line 6, in `application/database.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.\*\*
 
 > **Also, we need to update the container name to postgres on line 11, of `application/main.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.**
 

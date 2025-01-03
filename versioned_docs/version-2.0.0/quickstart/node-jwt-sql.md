@@ -28,7 +28,7 @@ A simple sample CRUD application to test using Keploy build with Node, JWT and P
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

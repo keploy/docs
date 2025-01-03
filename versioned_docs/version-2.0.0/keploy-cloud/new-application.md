@@ -14,6 +14,7 @@ keywords:
   - installation
   - API key
 ---
+
 <head>
   <title> Adding New Application to Keploy Cloud | Keploy Docs</title>
   <meta charSet="utf-8" />

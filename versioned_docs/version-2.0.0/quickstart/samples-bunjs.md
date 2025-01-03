@@ -32,7 +32,7 @@ This is a sample app to test Keploy integration capabilities using [Bun.js](http
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

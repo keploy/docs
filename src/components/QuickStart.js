@@ -9,18 +9,26 @@ export const QuickStart = () => {
         Keploy Documentation! 🚀
       </h1>
       <p className="text-l max-w-3xxl">
-       Welcome to Keploy’s documentation! Whether you're new to backend testing or an experienced developer, this guide will help you get started with Keploy quickly and effectively.🗺️
+        Welcome to Keploy’s documentation! Whether you're new to backend testing
+        or an experienced developer, this guide will help you get started with
+        Keploy quickly and effectively.🗺️
       </p>
 
       <h2 className="mb-4 mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         What is Keploy? 🤔
       </h2>
       <p className="text-l max-w-3xxl">
-        Keploy is an open-source backend testing tool that helps developers quickly create and run tests by capturing 
-        real user traffic. It generates test cases and data mocks to ensure your code is reliable and helps speed up your release cycle..🛠️
-        <br/><br/>
-        With features like API testing, unit test generation, and schema/PRD-based test automation, Keploy helps teams release faster while maintaining high reliability. 
-        It’s easy to use, extensible, and integrates seamlessly into CI/CD pipelines, making backend testing efficient and productive.
+        Keploy is an open-source backend testing tool that helps developers
+        quickly create and run tests by capturing real user traffic. It
+        generates test cases and data mocks to ensure your code is reliable and
+        helps speed up your release cycle..🛠️
+        <br />
+        <br />
+        With features like API testing, unit test generation, and
+        schema/PRD-based test automation, Keploy helps teams release faster
+        while maintaining high reliability. It’s easy to use, extensible, and
+        integrates seamlessly into CI/CD pipelines, making backend testing
+        efficient and productive.
       </p>
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         Setup Guide 📗
@@ -65,7 +73,9 @@ export const QuickStart = () => {
         </Link>
       </div>
       <p className="text-l mt-6 text-gray-500">
-      <b>⚠️ Important Note:</b> Keploy v2 is currently in Beta, and the best experience is on Linux. Docker support is experimental, and some limitations may apply.
+        <b>⚠️ Important Note:</b> Keploy v2 is currently in Beta, and the best
+        experience is on Linux. Docker support is experimental, and some
+        limitations may apply.
       </p>
     </section>
   );

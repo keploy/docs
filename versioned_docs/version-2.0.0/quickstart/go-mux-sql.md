@@ -19,6 +19,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 <head>
   <title> Mux + Postgres | Keploy Docs</title>
   <meta charSet="utf-8" />
@@ -30,7 +31,7 @@ keyword:
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

@@ -82,5 +82,4 @@ Or you can also download specific version of Keploy using the following command:
 arkade get keploy@2.3.0-beta47
 ```
 
-
 Explore the [Test Coverage Generation Guide](https://keploy.io/docs/server/sdk-installation/go/) for seeing test-coverage with your unit testing library and [Keploy Running Guide](https://keploy.io/docs/running-keploy/configuration-file/) for additional options and tips on customizing your Keploy setup to perfection.

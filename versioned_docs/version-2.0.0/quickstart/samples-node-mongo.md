@@ -20,6 +20,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 <head>
   <title> NodeJS - Express + Mongoose | Keploy Docs</title>
   <meta charSet="utf-8" />
@@ -31,7 +32,7 @@ A sample **_CRUD_** application to see how Keploy integrates effortlessly with *
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh

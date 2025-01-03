@@ -13,6 +13,7 @@ keywords:
   - keploy running guide
   - keploy oss
 ---
+
 <head>
   <title>CLI Commands | Keploy Docs</title>
   <meta charSet="utf-8" />
@@ -30,14 +31,14 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available|
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-a, --app-id`,`--app-name`,`-b, --build-delay`,`--cmd-type`,`-c, --command`,`--config-path`, `--containerName`, `--dns-port`,`--in-ci`,`-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--record-timer`,`--debug`|
+| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ----------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `record`    | `-a, --app-id`,`--app-name`,`-b, --build-delay`,`--cmd-type`,`-c, --command`,`--config-path`, `--containerName`, `--dns-port`,`--in-ci`,`-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--record-timer`,`--debug`                                                                                                                                                                                                                                                                            |
 | `test`      | `--apiTimeout`,`-a, --app-id`,`--app-name`,`-b, --build-delay`,`--cmd-type`,`-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--disable-line-coverage`, `--disableMockUpload `,`--dns-port`, `--fallBack-on-miss`,`--host`, `--mocking`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--ignoreOrdering`, `--skip-preview`, `--update-temp`, `--useLocalMock` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`|
-| `normailze` | `-p, --path`, `--test-run`, `--tests`|
-| `rerecord`  | `--test-sets`, `-t`|
-| `config`    | `--generate`,`-p, --path`|
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                                                                                                                                                          |
+| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
 
 ### [Record](#Record)
 
@@ -72,9 +73,11 @@ keploy record [flags]
   ```bash
   keploy record -c "node src/app.js" --config-path "./config-dir/"
   ```
+
   In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
+
   ```bash
   keploy record -c "docker compose up" --container-name "my-app-container"
   ```
@@ -98,6 +101,7 @@ keploy record [flags]
   ```bash
   keploy record -c "node src/app.js" -p "./tests"
   ```
+
   Where `tests` is the directory with the recorded testcases and generated mocks are to be stored.
 
 - `--proxy-port uint32` - Port to choose to run Keploy as a proxy. The default is 16789.
@@ -235,6 +239,7 @@ keploy test [flags]
   ```bash
   keploy test -c "node src/app.js" --delay 10 --remove-unused-mocks
   ```
+
 - `--update-temp` - Update the template with the result of the testcases.
 
 - `--useLocalMock` - Use local mocks instead of fetching from the cloud

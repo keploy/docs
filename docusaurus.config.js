@@ -144,18 +144,18 @@ module.exports = {
           label: "Resources",
           items: [
             {
-              label: 'Blogs',
-              href:'https://keploy.io/blog',
+              label: "Blogs",
+              href: "https://keploy.io/blog",
             },
             {
-              label: 'Contributing',
-              href: '/keploy-explained/contribution-guide',
+              label: "Contributing",
+              href: "/keploy-explained/contribution-guide",
             },
             {
-              label: 'Glossary',
-              href:'/concepts/reference/glossary/',
+              label: "Glossary",
+              href: "/concepts/reference/glossary/",
             },
-          ]
+          ],
         },
         {
           type: "docsVersionDropdown",
@@ -171,7 +171,7 @@ module.exports = {
         {
           href: "https://app.keploy.io/pricing",
           position: "right",
-          label: 'Pricing'
+          label: "Pricing",
         },
         // TODO : Add Blogging Section
         // {

@@ -29,7 +29,7 @@ A sample Task Management application and see how seamlessly Keploy integrates wi
 
 ## Install Keploy CLI 🚀
 
-Get Started with One-Click Command: - 
+Get Started with One-Click Command: -
 
 ```bash
  curl -O -L https://keploy.io/install.sh && source install.sh
