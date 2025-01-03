@@ -6,7 +6,7 @@
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
  
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size:14px;
   line-height: 1.6;
   --ifm-color-primary: #000;
   --ifm-color-primary-lighter: #FFF;

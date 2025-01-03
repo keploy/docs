@@ -1,7 +1,7 @@
 ---
 id: mac-linux
 title: "Running Keploy Natively on MacOS by setting up a linux env"
-sidebar_label: Keploy on MacOS native
+sidebar_label: MacOS Native
 ---
 
 # Running Keploy Natively on MacOS by setting up a linux env

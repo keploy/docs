@@ -45,7 +45,7 @@
           "type": "category",
           "label": "Quickstart Guide",
           "collapsible": true,
-          "collapsed": true,
+          "collapsed": false,
           "items": [
             {
               "type": "category",
@@ -163,7 +163,8 @@
       "collapsible": true,
       "collapsed": true,
       "items": [
-        "keploy-explained/faq"
+        "keploy-explained/faq",
+        "keploy-explained/errors"
       ]
     }
   ],
