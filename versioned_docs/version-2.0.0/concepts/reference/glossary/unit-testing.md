@@ -13,6 +13,30 @@ keywords:
   - software testing
   - e2e testing
   - integration testing
+  - automated unit testing
+  - unit test automation tools
+  - test case generation
+  - test-driven development
+  - debugging tools for testing
+  - JUnit integration
+  - PHPUnit testing
+  - PyTest unit tests
+  - Selenium testing
+  - test case validation
+  - dynamic test cases
+  - unit testing frameworks
+  - Keploy test automation
+  - continuous integration testing
+  - automated testing for developers
+  - bug detection in unit tests
+  - test automation best practices
+  - software quality assurance
+  - automated test debugging
+  - unit testing benefits
+  - test coverage tools
+  - CI/CD and testing
+  - ai testing agent
+  - opensource testing agent
 ---
 
 ## What is Unit Testing?
