@@ -1,17 +1,3 @@
----
-id: keploy-karaf-example
-title: Keploy Karaf Example
-sidebar_label: Keploy Karaf Example
-description: This section documents how to run keploy with Karaf
-tags:
-  - keploy
-  - keploy karaf
-keywords:
-  - keploy
-  - documentation
-  - running-guide
----
-
 # Setting Up Keploy Agent in Apache Karaf for Local Development
 
 Follow these steps to set up and run the Keploy agent in Apache Karaf for your local development environment.
@@ -36,7 +22,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
 ## Step 2: Configure Apache Karaf
 
-### Update `JAVA_OPTS` for linux/mac in `setenv` File
+### Update `JAVA_OPTS` in `setenv` File
 
 1. Navigate to the `bin` directory of your Apache Karaf installation.
 2. Open the `setenv` file for editing.
@@ -47,15 +33,6 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
-### Update `JAVA_OPTS` for windows in `setenv.bat` File
-1. Navigate to the `bin` directory of your Apache Karaf installation.
-2. Open the `setenv.bat` file for editing.
-3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
-
-   ```bash
-    set JAVA_OPTS=-javaagent:/path/to/java-agent-1.0-SNAPSHOT.jar
-    set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
-    ```
    Replace `/path/to/` with the actual paths where you downloaded the JAR files.
 
 ### Update `config.properties`
@@ -82,7 +59,33 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
 ---
 
-## Step 3: Import Postman Collection
+## Step 3: Start Apache Karaf and Export Environment Variables
+
+1. Start Apache Karaf by navigating to the `bin` directory and running:
+
+   ```bash
+   ./karaf
+   ```
+
+2. Export the API key required for Keploy to function by running the following command in the same terminal session:
+
+   ```bash
+   export API_KEY="<API_KEY>"
+   ```
+
+   Replace the `API_KEY` value with your actual API key if different.
+
+3. Export the application path to point to your target folder containing Java classes:
+
+   ```bash
+   export APP_PATH="/Users/sarthak_1/Downloads/karaf-sample/user-service"
+   ```
+
+   Replace the `APP_PATH` value with the absolute path to your application's target folder.
+
+---
+
+## Step 4: Import Postman Collection
 
 1. Ensure you have a Postman collection ready for your application.
 2. Run the following command to import the Postman collection as Keploy tests:
@@ -95,7 +98,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
 ---
 
-## Step 4: Run Keploy Tests
+## Step 5: Run Keploy Tests
 
 Use the following command to run the imported tests:
 
