@@ -164,7 +164,8 @@
         "dependencies/postgres",
         "dependencies/http",
         "dependencies/redis",
-        "keploy-explained/faq"
+        "keploy-explained/faq",
+        "keploy-explained/common-errors"
       ]
     }
   ],

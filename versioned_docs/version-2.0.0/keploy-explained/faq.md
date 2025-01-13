@@ -9,43 +9,56 @@ tags:
 
 Let's get to the heart of Keploy with some fun Q&A!
 
-### 1. Is Keploy a unit testing framework?
+### 1. What is Keploy?
 
-Nope, doesn't replace your trusty unit testing frameworks like `go-test`, `JUnit`, `Pytest`, or `Jest`. Instead, it teams up with them to make your testing life a breeze, ensuring compatibility with your favorite tools and pipelines.
+Keploy is an open-source testing platform designed to automatically generate test cases from existing API traffic. It allows users to record, replay, and compare API interactions, making it easier to write and maintain test suites.
 
-### 2. Does Keploy replace unit tests entirely?
+### 2. How does Keploy work?
 
-Almost! Keploy aims to save you a whopping 80% of the testing effort. While it handles most cases, you might still want to write tests for some methods that aren't API-invokable.
+Keploy works by recording incoming API calls during normal operations. It then replays these interactions in a test environment and compares the results to the initial responses to detect regressions or unexpected behavior in the code.
 
-### 3. What code changes do I need to do?
+### 3. Does Keploy support mocking?
 
-Zero, zip, nada! For `Golang`, `Java`, `Python`, and `JavaScript` applications, Keploy plays nice with your existing codebase, requiring no code changes.
+Yes, Keploy allows mocking external dependencies like databases and third-party services during test execution to ensure that tests run in isolation without relying on external systems.
 
-### 4. How do I run keploy in my CI pipeline?
+### 4. What are the prerequisites for using Keploy?
 
-Simple as pie. No need to overhaul your CI pipeline; you can keep using the one that runs your unit tests. Keploy fits right in!
+To use Keploy, you need:
 
-### 5. Does Keploy support read after write to DB scenarios?
+- A service or application that exposes APIs (e.g., REST or GraphQL).
+- Keploy supports programming languages like Go, Node.js, Python, and Java, so the appropriate SDK for your environment should be installed.
 
-Absolutely! Keploy keeps things in order, recording write and read requests in sequence. It expects your application to play by the rules and serves up the same database responses as it did during capture.
+### 5. Is Keploy suitable for microservices architecture?
 
-### 6. How does keploy handle fields like timestamps, random numbers (eg: uuids)?
+Yes, Keploy is designed to work in microservices-based environments. It can record and replay API calls across services, making it ideal for testing distributed systems.
 
-Keploy's got a keen eye for detail. If a request passes its deduplication algorithm, it's game time. Keploy sends a second request with the same parameters to check for differences in responses. Fields like timestamps and UUIDs get the spotlight as they're automatically flagged for comparison. From then on, they're out of the testing picture.
+### 6. Does Keploy require code changes to integrate?
 
-### 7. Can I use keploy to generate tests from production environments automatically?
+Keploy can be integrated without any changes to the application code. However, adding Keploy SDKs may offer more fine-grained control for specific use cases.
 
-Not just yet, but we're on it! We're cooking up a scalable deduplication algorithm to make it safe for production. If you're itching to explore this frontier, come chat with us on Slack. We'd love to join forces and put our system to the test with your systems.
+### 7. Can Keploy help with CI/CD pipelines?
 
-### 8. What if my application behaviour changes?
+Yes, Keploy integrates with CI/CD pipelines to run automated tests on every commit or code change. This ensures that any regressions are detected early in the development process.
 
-Change is the only constant in the tech world, right? If your app decides to switch things up, your test cases might break. No worries; you can mark the new behavior as normal.
+### 8. Is Keploy scalable for large projects?
 
-Got more questions? We're all ears (and code)👂.
+Keploy is designed to be scalable. It can handle high traffic volumes and complex services in large-scale distributed systems. It is efficient for generating and managing test cases across services.
 
-<!-- ### 9. Would keploy know if an external service changes?
+### 9. Does Keploy support testing legacy applications?
 
-Not yet. Unless that application is also using keploy, keploy would only test the functionality of the current application. We are working to detect scanning for API contract violations and adding multiple application to perform comprehensive integration tests. All contributions are welcome. -->
+Yes, Keploy can be used to test legacy systems, especially if they expose APIs. It can record traffic and replay calls without needing to modify the legacy codebase.
+
+### 10. Can Keploy be used with databases?
+
+Yes, Keploy can mock database responses during test replay. This helps isolate tests and ensures consistency during test execution.
+
+### 11. Is Keploy free to use?
+
+Yes, Keploy is open-source and free to use under the Apache 2.0 license. You can also contribute to its development on GitHub.
+
+### 12. Can I customize Keploy's behavior for specific APIs?
+
+Yes, Keploy provides configuration options to customize recording, replay, and comparison logic for specific APIs, giving users control over how their APIs are tested.
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
