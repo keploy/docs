@@ -16,13 +16,13 @@ keywords:
 
 Use `wget` to download the necessary JAR files:
 
-- [java-agent-1.0-SNAPSHOT.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/java-agent-1.0-SNAPSHOT.jar)
+- [KeployAgent.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar)
 - [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/java-agent-1.0-SNAPSHOT.jar
+wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
@@ -35,7 +35,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-   export JAVA_OPTS="-javaagent:/path/to/java-agent-1.0-SNAPSHOT.jar"
+   export JAVA_OPTS="-javaagent:/path/to/KeployAgent.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
@@ -46,7 +46,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-    set JAVA_OPTS=-javaagent:/path/to/java-agent-1.0-SNAPSHOT.jar
+    set JAVA_OPTS=-javaagent:/path/to/KeployAgent.jar
     set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
    ```
 
@@ -93,7 +93,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Export the application path to point to your target folder containing Java classes:
 
    ```bash
-   export APP_PATH="/Users/sarthak_1/Downloads/karaf-sample/user-service"
+   export APP_PATH="/Users/path/to/karaf-sample/user-service"
    ```
 
    Replace the `APP_PATH` value with the absolute path to your application's target folder.
