@@ -1,6 +1,6 @@
 ---
 id: keploy-karaf-example
-title: Keploy Karaf Example
+title: Setting Up Keploy Agent in Apache Karaf for Local Development
 sidebar_label: Keploy Karaf Example
 description: This section documents how to run keploy with Karaf
 tags:
@@ -10,12 +10,6 @@ keywords:
   - keploy
   - documentation
   - running-guide
----
-
-# Setting Up Keploy Agent in Apache Karaf for Local Development
-
-Follow these steps to set up and run the Keploy agent in Apache Karaf for your local development environment.
-
 ---
 
 ## Step 1: Download Required JARs
@@ -31,8 +25,6 @@ Run the following commands to download the files:
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/java-agent-1.0-SNAPSHOT.jar
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
-
----
 
 ## Step 2: Configure Apache Karaf
 
@@ -82,8 +74,6 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
        io.keploy.*
    ```
 
----
-
 ## Step 3: Start Apache Karaf and Export Environment Variables
 
 1. Start Apache Karaf by navigating to the `bin` directory and running:
@@ -108,8 +98,6 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
    Replace the `APP_PATH` value with the absolute path to your application's target folder.
 
----
-
 ## Step 4: Import Postman Collection
 
 1. Ensure you have a Postman collection ready for your application.
@@ -120,8 +108,6 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
    ```
 
    Replace `/path/to/YourPostmanCollection.json` with the actual path to your Postman collection.
-
----
 
 ## Step 5: Run Keploy Tests
 
