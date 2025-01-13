@@ -78,7 +78,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Export the application path to point to your target folder containing Java classes:
 
    ```bash
-   export APP_PATH="/Users/sarthak_1/Downloads/karaf-sample/user-service"
+   export APP_PATH="/path/to/user-service"
    ```
 
    Replace the `APP_PATH` value with the absolute path to your application's target folder.
