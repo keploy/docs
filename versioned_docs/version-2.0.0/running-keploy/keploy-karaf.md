@@ -50,6 +50,8 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
     set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
    ```
 
+   **Note**: Windows support is not thoroughly tested. It is recommended to use macOS or Linux for better stability and compatibility.
+
    Replace `/path/to/` with the actual paths where you downloaded the JAR files.
 
 ### Update `config.properties`
