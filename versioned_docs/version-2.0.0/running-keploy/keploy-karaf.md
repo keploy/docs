@@ -67,15 +67,9 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
        javax.servlet.http
    ```
 
-## Step 3: Start Apache Karaf and Export Environment Variables
+## Step 3: Export Environment Variables
 
-1. Start Apache Karaf by navigating to the `bin` directory and running:
-
-   ```bash
-   ./karaf
-   ```
-
-2. Export the API key required for Keploy to function by running the following command in the same terminal session:
+1. Export the API key specific to your user, as mentioned on [Keploy's User Dashboard](https://app.keploy.io/users), which is required for Keploy to function, by running the following command in the same terminal session:
 
    ```bash
    export API_KEY="<API_KEY>"
@@ -83,7 +77,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
    Replace the `API_KEY` value with your actual API key if different.
 
-3. Export the application path to point to your target folder containing Java classes:
+2. Export the application path to point to your target folder containing Java classes:
 
    ```bash
    export APP_PATH="/Users/path/to/karaf-sample/user-service"
@@ -107,7 +101,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
    ```
 
 3. Make a series of API calls to your application's endpoints.
-4. After completing the API calls, press `Ctrl+C` in the session where you are running the Keploy binary to stop recording. You will see a new set of test set formed having testcases created by keploy.
+4. After completing the API calls, press `Ctrl+C` in the session where you are running the Keploy binary to stop recording.
 
 ## Step 5: Or Use Import Postman Collection
 
