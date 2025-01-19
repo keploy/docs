@@ -57,23 +57,14 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 ### Update `config.properties`
 
 1. Navigate to the `etc/config.properties` file in your Karaf installation.
-2. Add the following entry under the `bootdelegation` section to allow OSGi bundles to access Keploy artifacts:
+2. Add the following entries under the `bootdelegation` section to allow OSGi bundles to access Keploy artifacts:
 
    ```properties
    org.osgi.framework.bootdelegation = \
-       com.sun.*, \
-       javax.transaction, \
-       javax.transaction.xa, \
-       javax.xml.crypto, \
-       javax.xml.crypto.*, \
-       javax.security.cert, \
-       jdk.nashorn.*, \
-       sun.*, \
-       jdk.internal.reflect, \
-       jdk.internal.reflect.*, \
-       org.apache.karaf.jaas.boot, \
-       org.apache.karaf.jaas.boot.principal, \
-       io.keploy.*
+       ... \
+       io.keploy.*, \
+       javax.servlet, \
+       javax.servlet.http
    ```
 
 ## Step 3: Start Apache Karaf and Export Environment Variables
@@ -100,7 +91,25 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
    Replace the `APP_PATH` value with the absolute path to your application's target folder.
 
-## Step 4: Import Postman Collection
+## Step 4: Record Test Cases
+
+1. Restart Apache Karaf by setting the environment variable `KEPLOY_MODE` to `RECORD`:
+
+   ```bash
+   export KEPLOY_MODE="RECORD"
+   ./karaf
+   ```
+
+2. Record test cases using the following command:
+
+   ```bash
+   keploy record --base-url="http://localhost:8181"
+   ```
+
+3. Make a series of API calls to your application's endpoints.
+4. After completing the API calls, press `Ctrl+C` in the session where you are running the Keploy binary to stop recording. You will see a new set of test set formed having testcases created by keploy.
+
+## Step 5: Or Use Import Postman Collection
 
 1. Ensure you have a Postman collection ready for your application.
 2. Run the following command to import the Postman collection as Keploy tests:
@@ -111,13 +120,20 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
    Replace `/path/to/YourPostmanCollection.json` with the actual path to your Postman collection.
 
-## Step 5: Run Keploy Tests
+## Step 6: Run Keploy Tests
 
-Use the following command to run the imported tests:
+1. Restart Apache Karaf by setting the environment variable `KEPLOY_MODE` to `test`:
 
-```bash
-keploy test --base-path="http://localhost:8181"
-```
+   ```bash
+   export KEPLOY_MODE="test"
+   ./karaf
+   ```
+
+2. Use the following command to run the imported tests:
+
+   ```bash
+   keploy test --base-path="http://localhost:8181"
+   ```
 
 This assumes your Karaf application is running locally on port 8181.
 
