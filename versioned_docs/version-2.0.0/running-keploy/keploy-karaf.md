@@ -28,7 +28,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
 ## Step 2: Configure Apache Karaf
 
-### Update `JAVA_OPTS` for linux/mac in `setenv` File
+### Update `JAVA_OPTS` for Linux/Mac in `setenv` File
 
 1. Navigate to the `bin` directory of your Apache Karaf installation.
 2. Open the `setenv` file for editing.
@@ -39,20 +39,28 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
-### Update `JAVA_OPTS` for windows in `setenv.bat` File
+### Update `JAVA_OPTS` for Windows in `setenv.bat` File
 
 1. Navigate to the `bin` directory of your Apache Karaf installation.
 2. Open the `setenv.bat` file for editing.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
-   ```bash
-    set JAVA_OPTS=-javaagent:/path/to/KeployAgent.jar
-    set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
+   ```bat
+   set JAVA_OPTS=-javaagent:/path/to/KeployAgent.jar
+   set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
    ```
 
-   **Note**: Windows support is not thoroughly tested. It is recommended to use macOS or Linux for better stability and compatibility.
+### Set Environment Variables as Java System Properties on Windows
 
-   Replace `/path/to/` with the actual paths where you downloaded the JAR files.
+On Windows, all environment variables should be passed as `-D` system properties for Java. Update the `JAVA_OPTS` section in `setenv.bat` to include the required variables. For example:
+
+```bat
+set JAVA_OPTS=%JAVA_OPTS% -DAPI_KEY=xRp5nyiQ+B6yltBUpw==
+set JAVA_OPTS=%JAVA_OPTS% -DKEPLOY_MODE=RECORD
+set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
+```
+
+Replace the placeholder values with actual paths and keys as needed.
 
 ### Update `config.properties`
 
