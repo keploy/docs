@@ -13,6 +13,11 @@ keywords:
   - API key
 ---
 
+<head>
+  <title> Keploy Cloud Installation | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction 📘
 
 #### Welcome to the Keploy Cloud Guide!

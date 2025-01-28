@@ -13,6 +13,11 @@ keywords:
   - API key
 ---
 
+<head>
+  <title> Keploy Console | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ### Pre-requisite 📝
 
 Ensure you have [installed keploy enterprise](/docs/keploy-cloud/cloud-installation/#installation-%EF%B8%8F).
