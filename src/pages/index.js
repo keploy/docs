@@ -4,6 +4,8 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, KeployCloud, Resources, QuickStart} from "../components";
 import {GSoC} from "../components/GSoC";
 import {Intro} from "../components";
+import ChatBot from "../components/ChatBot";
+
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -15,6 +17,7 @@ export default function Home() {
         description={`${siteConfig.tagline}`}
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
+          <ChatBot />
           <QuickStart />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
