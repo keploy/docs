@@ -10,13 +10,14 @@ export const GSoC = () => {
         <img
           className="mt-5 h-[450px] w-full"
           src="/docs/img/gsoc-banner.png"
-          alt={"GSoC 2023"}
+          alt={"GSoC 2025"}
+          // alt={"GSoC 2023"}
         />
       </Link>
       <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
         <a
           className=" scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:orange] p-6 text-center shadow-lg"
-          href="https://github.com/keploy/gsoc/tree/main/2023"
+          href="https://github.com/keploy/gsoc/blob/main/2025/README.md"
         >
           <p className="text-lg font-semibold">Project List</p>
         </a>
