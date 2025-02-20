@@ -62,19 +62,6 @@ set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.ja
 
 Replace the placeholder values with actual paths and keys as needed.
 
-### Update `config.properties`
-
-1. Navigate to the `etc/config.properties` file in your Karaf installation.
-2. Add the following entries under the `bootdelegation` section to allow OSGi bundles to access Keploy artifacts:
-
-   ```properties
-   org.osgi.framework.bootdelegation = \
-       ... \
-       io.keploy.*, \
-       javax.servlet, \
-       javax.servlet.http
-   ```
-
 ## Step 3: Export Environment Variables
 
 1. Export the API key specific to your user, as mentioned on [Keploy's User Dashboard](https://app.keploy.io/users), which is required for Keploy to function, by running the following command in the same terminal session:
@@ -98,7 +85,6 @@ Replace the placeholder values with actual paths and keys as needed.
 1. Restart Apache Karaf by setting the environment variable `KEPLOY_MODE` to `RECORD`:
 
    ```bash
-   export KEPLOY_MODE="RECORD"
    ./karaf
    ```
 
