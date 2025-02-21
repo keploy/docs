@@ -12,17 +12,23 @@ keywords:
   - running-guide
 ---
 
-## Step 1: Download Required JARs
+## Step 1: Download Required JARs and Keploy Version
+
+Use Keploy's One click to install latest keploy binary -
+
+```bash
+  curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+```
 
 Use `wget` to download the necessary JAR files:
 
-- [KeployAgent.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar)
+- [io.keploy.agent-2.0.1.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar)
 - [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar
+wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
