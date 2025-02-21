@@ -14,11 +14,23 @@ keywords:
 
 ## Step 1: Download Required JARs and Keploy Version
 
-Use Keploy's One click to install latest keploy binary -
+### Pre-requisites
+
+- Linux kernel **5.15 or higher**
+- Tested with distributions:
+  - **Fedora 40+**
+  - **Ubuntu 22.04+**
+  - **Debian 12+**
+
+### Install Keploy Binary
+
+Use Keploy's one-click installation to download and install the latest Keploy binary:
 
 ```bash
-  curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 ```
+
+### Download Required JARs
 
 Use `wget` to download the necessary JAR files:
 
@@ -34,7 +46,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 
 ## Step 2: Configure Apache Karaf
 
-### Update `JAVA_OPTS` for Linux/Mac in `setenv` File
+### Update `JAVA_OPTS` for Linux in `setenv` File:
 
 1. Navigate to the `bin` directory of your Apache Karaf installation.
 2. Open the `setenv` file for editing.
@@ -44,27 +56,6 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
    export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.1.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
-
-### Update `JAVA_OPTS` for Windows in `setenv.bat` File
-
-1. Navigate to the `bin` directory of your Apache Karaf installation.
-2. Open the `setenv.bat` file for editing.
-3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
-
-   ```bat
-   set JAVA_OPTS=-javaagent:/path/to/io.keploy.agent-2.0.1.jar
-   set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
-   ```
-
-### Set Environment Variables as Java System Properties on Windows
-
-On Windows, all environment variables should be passed as `-D` system properties for Java. Update the `JAVA_OPTS` section in `setenv.bat` to include the required variables. For example:
-
-```bat
-set JAVA_OPTS=%JAVA_OPTS% -DAPI_KEY=xRp5nyiQ+B6yltBUpw==
-set JAVA_OPTS=%JAVA_OPTS% -DKEPLOY_MODE=RECORD
-set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
-```
 
 Replace the placeholder values with actual paths and keys as needed.
 
