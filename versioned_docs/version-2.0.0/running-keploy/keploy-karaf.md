@@ -79,14 +79,18 @@ Replace the placeholder values with actual paths and keys as needed.
 
 ## Step 4: Record Test Cases
 
-1. Record test cases using the following command:
+1. Start the karaf environment
+    ```
+      bin/karaf
+    ```
+2. Record test cases using the following command:
 
    ```bash
    keploy record --base-url="http://localhost:8181"
    ```
 
-2. Make a series of API calls to your application's endpoints.
-3. After completing the API calls, press `Ctrl+C` in the session where you are running the Keploy binary to stop recording.
+3. Make a series of API calls to your application's endpoints.
+4. After completing the API calls, press `Ctrl+C` in the session where you are running the Keploy binary to stop recording.
 
 ## Step 5: Or Use Import Postman Collection
 
