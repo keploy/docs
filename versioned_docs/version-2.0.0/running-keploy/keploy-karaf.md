@@ -87,7 +87,7 @@ Replace the placeholder values with actual paths and keys as needed.
 2. Record test cases using the following command:
 
    ```bash
-   keploy record --base-url="http://localhost:8181"
+   keploy record --base-path="http://localhost:8181"
    ```
 
 3. Make a series of API calls to your application's endpoints.
