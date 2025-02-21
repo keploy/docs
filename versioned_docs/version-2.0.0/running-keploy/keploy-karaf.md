@@ -21,6 +21,7 @@ keywords:
   - **Fedora 40+**
   - **Ubuntu 22.04+**
   - **Debian 12+**
+- Tested with JDK 1.8 to 17 and [Karaf 4.3.x](https://karaf.apache.org/download.html)
 
 ### Install Keploy Binary
 
@@ -64,18 +65,18 @@ Replace the placeholder values with actual paths and keys as needed.
 1. Export the API key specific to your user, as mentioned on [Keploy's User Dashboard](https://app.keploy.io/users), which is required for Keploy to function, by running the following command in the same terminal session:
 
    ```bash
-   export API_KEY="<API_KEY>"
+   export KEPLOY_API_KEY="<KEPLOY_API_KEY>"
    ```
 
-   Replace the `API_KEY` value with your actual API key if different.
+   Replace the `KEPLOY_API_KEY` value with your actual API key if different.
 
 2. Export the application path to point to your target folder containing Java classes:
 
    ```bash
-   export APP_PATH="/Users/path/to/karaf-sample/user-service"
+   export KEPLOY_APP_UNDER_TEST_PATH="/Users/path/to/karaf-sample/user-service"
    ```
 
-   Replace the `APP_PATH` value with the absolute path to your application's target folder.
+   Replace the `KEPLOY_APP_UNDER_TEST_PATH` value with the absolute path to your application's target folder (Where Java compiled classes are present).
 
 ## Step 4: Record Test Cases
 
