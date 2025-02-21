@@ -41,7 +41,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-   export JAVA_OPTS="-javaagent:/path/to/KeployAgent.jar"
+   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.1.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
@@ -52,7 +52,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bat
-   set JAVA_OPTS=-javaagent:/path/to/KeployAgent.jar
+   set JAVA_OPTS=-javaagent:/path/to/io.keploy.agent-2.0.1.jar
    set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
    ```
 
