@@ -14,6 +14,11 @@ tags:
   - plugin
 ---
 
+<head>
+  <title>Integrating with GitLab CI | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
 
 ## Create pipeline

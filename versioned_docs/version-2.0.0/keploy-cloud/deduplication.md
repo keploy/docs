@@ -18,6 +18,11 @@ keywords:
   - testcases
 ---
 
+<head>
+  <title> Remove Duplicates Tests | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Why Deduplication? ❄️
 
 When developing or maintaining a software, it is common for test suites to grow in size. This often results in redundancy, as many test cases cover the same functions or scenarios. This is where Test Deduplication comes into play.
