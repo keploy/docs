@@ -94,7 +94,7 @@ export const KeployCloud = () => {
       {/*  />*/}
       {/*</svg>*/}
 
-      <p className="my-3 block">
+      <p className="my-3">
         To request a Keploy Cloud account, please complete the request form. Our
         team will review your request and get back to you as soon as possible.
         <a

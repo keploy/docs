@@ -1,13 +1,14 @@
 ---
 id: unit-test-generator
-title: Keploy Unit Test Generator
-sidebar_label: Unit Test Generator
+title: Keploy Unit Testing Agent
+sidebar_label: Unit Testing
 description: This section documents usecase of Keploy's Unit Test Generator
 tags:
   - utg
   - unit test generator
   - generate unit test
   - unit test
+  - unit testing
 keywords:
   - unit test generator
   - unit testing
@@ -17,7 +18,15 @@ keywords:
   - AI testing
   - Gemini
   - OpenAI
+  - testing agent
+  - unit testing agent
+  - opensource testing agent
 ---
+
+<head>
+  <title>Unit Testing Agent | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy's unit test generator(ut-gen) implementation of Meta LLM research paper is a first which understands code semantics and generates meaningful unit tests, aiming to:
 
@@ -150,6 +159,16 @@ We will get following output : -
 <img src="/docs/img/mux-sql-utg.png" alt="Keploy test coverage with ai generated unit test for mux-sql" width="100%" style={{ borderRadius: '5px' }}/>
 
 _Voila!! The Generated Testcases have provided with 71% coverage in just 2 iterations 🌟_
+
+## Generate Unit Tests with VS Code Extension
+
+The [Keploy VS Code extension](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) simplifies unit test generation by allowing users to create tests directly within their editor, eliminating the need for CLI commands or API key setup. With just a right-click on any source file, the extension auto-detects the necessary parameters and generates unit tests seamlessly. It integrates effortlessly into your workflow, saving generated test cases to the appropriate files and providing coverage reports within VS Code itself.
+
+For example, in the [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample app:
+
+1. You can open `routes.js`, right-click, and select **Generate Unit Tests with Keploy** to instantly generate tests for `test/routes.test.js`.
+
+2. The extension makes unit testing faster, easier, and more accessible for developers.
 
 ## Frequently Asked Questions(FAQs)
 

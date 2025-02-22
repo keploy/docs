@@ -21,9 +21,24 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> NodeJS - Express + Mongoose | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Intoduction 📌
 
 A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅.
+
+## Install Keploy CLI 🚀
+
+Get Started with One-Click Command: -
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/). 🎉 Wohoo! We are all set to use Keploy.
 
 ## Get Started! 🎬
 
@@ -35,12 +50,6 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 # Install the dependencies
 npm install
 ```
-
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
-
-🎉 Wohoo! We are all set to use Keploy.
 
 ## 🎬 Capturing Testcases
 
