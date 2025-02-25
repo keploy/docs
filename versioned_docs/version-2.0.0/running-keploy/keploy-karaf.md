@@ -12,100 +12,82 @@ keywords:
   - running-guide
 ---
 
-## Step 1: Download Required JARs
+## Step 1: Download Required JARs and Keploy Version
+
+### Pre-requisites
+
+- Linux kernel **5.15 or higher**
+- Tested with distributions:
+  - **Fedora 40+**
+  - **Ubuntu 22.04+**
+  - **Debian 12+**
+- Tested with JDK 1.8 to 17 and [Karaf 4.3.x](https://karaf.apache.org/download.html)
+
+### Install Keploy Binary
+
+Use Keploy's one-click installation to download and install the latest Keploy binary:
+
+```bash
+curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+```
+
+### Download Required JARs
 
 Use `wget` to download the necessary JAR files:
 
-- [KeployAgent.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar)
+- [io.keploy.agent-2.0.1.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar)
 - [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/KeployAgent.jar
+wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
 ## Step 2: Configure Apache Karaf
 
-### Update `JAVA_OPTS` for Linux/Mac in `setenv` File
+### Update `JAVA_OPTS` for Linux in `setenv` File:
 
 1. Navigate to the `bin` directory of your Apache Karaf installation.
 2. Open the `setenv` file for editing.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-   export JAVA_OPTS="-javaagent:/path/to/KeployAgent.jar"
+   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.1.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
-### Update `JAVA_OPTS` for Windows in `setenv.bat` File
-
-1. Navigate to the `bin` directory of your Apache Karaf installation.
-2. Open the `setenv.bat` file for editing.
-3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
-
-   ```bat
-   set JAVA_OPTS=-javaagent:/path/to/KeployAgent.jar
-   set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
-   ```
-
-### Set Environment Variables as Java System Properties on Windows
-
-On Windows, all environment variables should be passed as `-D` system properties for Java. Update the `JAVA_OPTS` section in `setenv.bat` to include the required variables. For example:
-
-```bat
-set JAVA_OPTS=%JAVA_OPTS% -DAPI_KEY=xRp5nyiQ+B6yltBUpw==
-set JAVA_OPTS=%JAVA_OPTS% -DKEPLOY_MODE=RECORD
-set JAVA_OPTS=%JAVA_OPTS% -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver
-```
-
 Replace the placeholder values with actual paths and keys as needed.
-
-### Update `config.properties`
-
-1. Navigate to the `etc/config.properties` file in your Karaf installation.
-2. Add the following entries under the `bootdelegation` section to allow OSGi bundles to access Keploy artifacts:
-
-   ```properties
-   org.osgi.framework.bootdelegation = \
-       ... \
-       io.keploy.*, \
-       javax.servlet, \
-       javax.servlet.http
-   ```
 
 ## Step 3: Export Environment Variables
 
 1. Export the API key specific to your user, as mentioned on [Keploy's User Dashboard](https://app.keploy.io/users), which is required for Keploy to function, by running the following command in the same terminal session:
 
    ```bash
-   export API_KEY="<API_KEY>"
+   export KEPLOY_API_KEY="<KEPLOY_API_KEY>"
    ```
 
-   Replace the `API_KEY` value with your actual API key if different.
+   Replace the `KEPLOY_API_KEY` value with your actual API key if different.
 
 2. Export the application path to point to your target folder containing Java classes:
 
    ```bash
-   export APP_PATH="/Users/path/to/karaf-sample/user-service"
+   export KEPLOY_APP_UNDER_TEST_PATH="/Users/path/to/karaf-sample/user-service"
    ```
 
-   Replace the `APP_PATH` value with the absolute path to your application's target folder.
+   Replace the `KEPLOY_APP_UNDER_TEST_PATH` value with the absolute path to your application's target folder (Where Java compiled classes are present).
 
 ## Step 4: Record Test Cases
 
-1. Restart Apache Karaf by setting the environment variable `KEPLOY_MODE` to `RECORD`:
-
-   ```bash
-   export KEPLOY_MODE="RECORD"
-   ./karaf
+1. Start the karaf environment
    ```
-
+     bin/karaf
+   ```
 2. Record test cases using the following command:
 
    ```bash
-   keploy record --base-url="http://localhost:8181"
+   keploy record --base-path="http://localhost:8181"
    ```
 
 3. Make a series of API calls to your application's endpoints.
@@ -124,14 +106,7 @@ Replace the placeholder values with actual paths and keys as needed.
 
 ## Step 6: Run Keploy Tests
 
-1. Restart Apache Karaf by setting the environment variable `KEPLOY_MODE` to `test`:
-
-   ```bash
-   export KEPLOY_MODE="test"
-   ./karaf
-   ```
-
-2. Use the following command to run the imported tests:
+1. Use the following command to run the imported tests:
 
    ```bash
    keploy test --base-path="http://localhost:8181"
