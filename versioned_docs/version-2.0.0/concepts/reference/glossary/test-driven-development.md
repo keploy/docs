@@ -1,7 +1,9 @@
 ---
 id: test-driven-development
 title: What is Test Driven Development (TDD)? Benefits, Process, and Tools
+title: What is Test Driven Development (TDD)? Benefits, Process, and Tools
 sidebar_label: Test Driven Development
+description: Learn about Test Driven Development (TDD), its benefits, best practices, and how it ensures high-quality code through structured testing before implementation. Explore the TDD workflow and integration with tools like Keploy.
 description: Learn about Test Driven Development (TDD), its benefits, best practices, and how it ensures high-quality code through structured testing before implementation. Explore the TDD workflow and integration with tools like Keploy.
 tags:
   - explanation
@@ -38,10 +40,14 @@ Test Driven Development or TDD is particularly useful in the following scenarios
 ### Fundamentals of TDD
 
 1. **Write a Failing Test**:
+
    - Start by writing a test that defines a new function or improvement. This test should fail initially as the feature is not yet implemented.
 
+
 2. **Implement the Minimum Code**:
+
    - Write the minimum amount of code required to make the test pass. Focus on functionality rather than optimization.
+
 
 3. **Refactor the Code**:
    - Once the test passes, refactor the code to improve its structure and maintainability. Ensure the test still passes after refactoring.
@@ -161,7 +167,9 @@ While Test Driven Development offers many advantages, it does come with its own 
 In conclusion, Test Driven Development (TDD) is a valuable approach for software development. It provides numerous benefits such as ensuring code quality, facilitating bug fixing and troubleshooting, and encouraging modular and maintainable code. By writing tests first, developers can define the expected behavior of their code and verify that it meets the specified requirements. TDD can be integrated into the development workflow with tools like Keploy, automating testing processes and streamlining development. While TDD may not be suitable for all projects, it is a powerful technique that can greatly enhance the quality and reliability of software.
 
 ## FAQ
+## FAQ
 
+### **What is Test Driven Development (TDD)?**
 ### **What is Test Driven Development (TDD)?**
 
 Test Driven Development (TDD) is a software development approach where tests are written before the actual code. It focuses on defining the requirements and test scenarios upfront to ensure that the code meets the specified functionality.
