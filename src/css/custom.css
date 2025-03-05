@@ -375,13 +375,26 @@ div[class^="sidebar_"] .button svg {
 
 /* Pagination */
 .pagination-nav {
-  @apply flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
+  @apply flex flex-row items-center justify-between space-x-5;
 }
 .pagination-nav__item {
-  @apply w-full max-w-md;
+  @apply flex-grow;
 }
 .pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+  @apply flex flex-col items-center justify-center rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg overflow-hidden transition-transform hover:scale-105;
+  width: 100%;
+  max-width: 48%;
+  text-align: center;
+}
+
+/*proactively styling for the button text here*/
+
+.pagination-nav_link span:frst-child{
+  @apply text-sm font-bold mb-1;/*smaller, bold font for previous or next*/
+}
+
+.pagination-nav_link span:last-child{
+  @apply text-base text-ellipsis whitespace-nowrap overflow-hidden;
 }
 
 .navbar__inner {
