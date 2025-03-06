@@ -281,6 +281,13 @@ globalNoise:
         }}
 ```
 
+**Note:** For marking entire response body as global noise use -
+
+```yml
+globalNoise:
+global: {body: {"*": "*"}}
+```
+
 1. **`global`**:
 
 - **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ['https?://\S+', 'http://\S+']}`
