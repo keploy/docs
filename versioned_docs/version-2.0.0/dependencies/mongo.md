@@ -4,6 +4,11 @@ title: MongoDB Support
 sidebar_label: MongoDB Support
 ---
 
+<head>
+  <title>MongoDB Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 The [MongoDB Wire Protocol](https://www.mongodb.com/docs/manual/reference/mongodb-wire-protocol/) is a simple socket-based, request-response style protocol. Clients communicate with the database server through a regular TCP/IP socket. Clients should connect to the database with a regular TCP/IP socket.

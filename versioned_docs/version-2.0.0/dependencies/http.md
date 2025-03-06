@@ -4,6 +4,11 @@ title: HTTP Support
 sidebar_label: HTTP
 ---
 
+<head>
+  <title>HTTP Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 HTTP (Hypertext Transfer Protocol) [Wire Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP) refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
