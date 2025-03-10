@@ -75,7 +75,8 @@
           "items": [
             "quickstart/pet-clinic",
             "quickstart/samples-java",
-            "quickstart/java-spring-boot-mongo"
+            "quickstart/java-spring-boot-mongo",
+            "quickstart/java-spring-boot-xml"
           ]
         },
         {
