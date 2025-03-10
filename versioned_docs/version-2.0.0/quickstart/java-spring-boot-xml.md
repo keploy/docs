@@ -65,6 +65,22 @@ Make a request using `curl`:
 curl -X GET -H \"Accept: application/xml\" http://localhost:8080/api/user
 ```
 
+- **Endpoint**: `GET /api/users`
+
+Make a request using `curl`:
+
+```bash
+curl -X GET http://localhost:8080/api/users -H "Accept: application/xml"
+```
+
+- **Endpoint**: `GET /api/people`
+
+Make a request using `curl`:
+
+```bash
+curl -X GET http://localhost:8080/api/people -H "Accept: application/xml"
+```
+
 ### Example XML Response
 
 ```xml
