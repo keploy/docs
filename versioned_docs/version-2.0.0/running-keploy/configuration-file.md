@@ -9,6 +9,11 @@ keywords:
   - configuration
 ---
 
+<head>
+  <title>Configuration File | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴
