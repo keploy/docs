@@ -38,8 +38,8 @@ keyword:
 ### Clone and Build the Application
 
 ```bash
-git clone https://github.com/your-repository/spring-boot-xml-app.git
-cd spring-boot-xml-app
+git clone https://github.com/keploy/samples-java.git
+cd spring-boot-xml/naive-spring-boot
 mvn clean install
 ```
 
@@ -82,16 +82,27 @@ Harness Keploy's test generation capabilities easily:
 ### Install Keploy
 
 ```bash
-curl --silent --location \"https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz\" | tar xz -C /tmp
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+ curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+or
+
+### Install the cloud version -
+
+```bash
+  curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 ```
 
 ### Record Test Cases
 
+```bash
+keploy record -c "java -jar target/XML-0.0.1-SNAPSHOT.jar"
+```
+
 Start recording interactions by running:
 
 ```bash
-keploy record -c \"mvn spring-boot:run\"
+keploy record -c "java -jar target/XML-0.0.1-SNAPSHOT.jar"
 ```
 
 Then, invoke the API using `curl` or your favorite API testing tool.
@@ -101,7 +112,7 @@ Then, invoke the API using `curl` or your favorite API testing tool.
 Execute recorded tests:
 
 ```bash
-keploy test -c \"mvn spring-boot:run\" --delay 10
+keploy test -c "java -jar target/XML-0.0.1-SNAPSHOT.jar" --delay 10
 ```
 
 Review generated test reports in `Keploy/reports`.
@@ -112,6 +123,8 @@ If you encounter failing tests due to variable or irrelevant data, like timestam
 
 **Example:**
 
+<img width="694" alt="Screenshot 2025-03-11 at 12 07 04 AM" src="https://github.com/user-attachments/assets/92dc6480-73f9-435c-a3b8-c918b2acc7a1" />
+
 ```yaml
 globalNoise:
   global:
@@ -121,11 +134,9 @@ globalNoise:
       UserList: []
 ```
 
-Here is a screenshot of a failing test example (replace this with your actual screenshot):
-
-![Failing Test Example](paste-your-screenshot-here.png)
-
 After updating `keploy.yml` with the above configuration, rerun your tests, and the issue should be resolved.
+
+<img width="711" alt="Screenshot 2025-03-11 at 12 07 19 AM" src="https://github.com/user-attachments/assets/bed57c1e-e7a9-4cbd-80d6-f69a2024ba60" />
 
 ## Dependencies 📚
 
