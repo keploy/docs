@@ -275,6 +275,8 @@ Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/ge
 
 The `global subsection` of `globalNoise` is used to define parameters that are globally ignored for all API calls during testing. It enables you to filter out consistent noise, ensuring a cleaner evaluation of responses.
 
+**Note** - The examples below support both the xml as well as the json type responses.
+
 ```yml
 globalNoise:
   global: {body: {
@@ -284,6 +286,13 @@ globalNoise:
           # To ignore the entire field, pass an empty array
           "Date": [],
         }}
+```
+
+**Note:** For marking entire response body as global noise use -
+
+```yml
+globalNoise:
+global: {body: {"*": "*"}}
 ```
 
 1. **`global`**:
