@@ -37,7 +37,7 @@ function Languages() {
             to={useBaseUrl("/quickstart/samples-gin")}
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/golang.svg"
               alt="Go lang logo"
             />
@@ -63,7 +63,7 @@ function Languages() {
             to={useBaseUrl("/quickstart/samples-django")}
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/python.svg"
               alt="Python logo"
             />
@@ -142,7 +142,7 @@ function Frameworks() {
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/mongodb-logo.svg"
               alt="Docker logo"
             />
@@ -155,7 +155,7 @@ function Frameworks() {
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/http-logo.svg"
               alt="HTTP logo"
             />
@@ -168,7 +168,7 @@ function Frameworks() {
             className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/postgres-logo.svg"
               alt="PostgresSQL logo"
             />
@@ -178,10 +178,10 @@ function Frameworks() {
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/redis")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center "
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
-              className="h-8 w-8"
+              className="h-8 w-8 transition hover:scale-110"
               src="/docs/img/redis-logo.svg"
               alt="Redis logo"
             />
