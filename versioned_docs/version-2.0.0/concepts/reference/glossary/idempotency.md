@@ -3,7 +3,6 @@ id: idempotency
 title: How Idempotent REST APIs Boost Reliability and Error Handling
 sidebar_label: Idempotency
 description: Learn how idempotent REST APIs ensure reliability, error recovery, and fault tolerance in distributed systems. Discover best practices and testing strategies for idempotent methods
-description: Learn how idempotent REST APIs ensure reliability, error recovery, and fault tolerance in distributed systems. Discover best practices and testing strategies for idempotent methods
 tags:
   - explanation
   - glossary

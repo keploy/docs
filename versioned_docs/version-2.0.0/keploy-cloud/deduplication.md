@@ -1,7 +1,7 @@
 ---
 id: deduplication
-title: Remove Duplicates Tests 🧹
-sidebar_label: Remove Duplicate Tests 🧹
+title: Remove Duplicates Tests
+sidebar_label: Remove Duplicate Tests
 tags:
   - explanation
   - feature guide

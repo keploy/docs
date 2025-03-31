@@ -1,7 +1,7 @@
 ---
 id: application-settings
-title: Adding New Application to Keploy Cloud 📝
-sidebar_label: Add Application 📝
+title: Adding New Application to Keploy Cloud
+sidebar_label: Add Application
 tags:
   - explanation
   - feature guide

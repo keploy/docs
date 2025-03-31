@@ -1,9 +1,7 @@
 ---
 id: test-driven-development
 title: What is Test Driven Development (TDD)? Benefits, Process, and Tools
-title: What is Test Driven Development (TDD)? Benefits, Process, and Tools
 sidebar_label: Test Driven Development
-description: Learn about Test Driven Development (TDD), its benefits, best practices, and how it ensures high-quality code through structured testing before implementation. Explore the TDD workflow and integration with tools like Keploy.
 description: Learn about Test Driven Development (TDD), its benefits, best practices, and how it ensures high-quality code through structured testing before implementation. Explore the TDD workflow and integration with tools like Keploy.
 tags:
   - explanation

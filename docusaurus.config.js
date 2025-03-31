@@ -136,20 +136,20 @@ module.exports = {
         //   label: "test SDKs",
         // },
         {
-          to: "/keploy-cloud/cloud-installation",
-          label: "Enterprise",
+          to: "/keploy-explained/contribution-guide",
+          label: "Contribution Guide",
           activeBasePath: "none",
         },
         {
           label: "Resources",
           items: [
             {
-              label: "Blogs",
-              href: "https://keploy.io/blog",
+              label: "Tech Blogs",
+              href: "https://keploy.io/blog/technology",
             },
             {
-              label: "Contributing",
-              href: "/keploy-explained/contribution-guide",
+              label: "Communtity Articles",
+              href: "https://keploy.io/blog/community",
             },
             {
               label: "Glossary",
