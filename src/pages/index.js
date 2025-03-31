@@ -5,6 +5,7 @@ import {Community, KeployCloud, Resources, QuickStart} from "../components";
 import {GitTogether} from "../components/DevScribe";
 import {Products} from "../components/Product";
 import {Intro} from "../components";
+import {Platforms} from "../components/Platforms";
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -18,9 +19,11 @@ export default function Home() {
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
           {/* <GitTogether /> */}
-          <Intro />
           <Products />
+          <Intro />
+
           <Community />
+          <Platforms />
           <KeployCloud />
         </main>
       </Layout>

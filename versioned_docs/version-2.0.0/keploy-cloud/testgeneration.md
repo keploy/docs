@@ -1,7 +1,7 @@
 ---
 id: auto-test-generation
-title: Auto Test Generation 🚀
-sidebar_label: Test Generation 🚀
+title: Auto Test Generation
+sidebar_label: Test Generation
 tags:
   - Auto Test Generation
   - OpenAPI

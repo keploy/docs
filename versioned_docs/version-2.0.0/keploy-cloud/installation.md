@@ -1,7 +1,7 @@
 ---
 id: cloud-installation
 title: Keploy Cloud Installation
-sidebar_label: Installation 🛠️
+sidebar_label: Installation
 tags:
   - explanation
   - feature guide

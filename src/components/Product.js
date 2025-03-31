@@ -25,13 +25,15 @@ function UTG() {
                     fill="#FF914D"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">Unit Testing</h2>
+                <h2 className="mb-4 text-xl font-semibold">
+                  Unit Testing Agent
+                </h2>
               </div>
               <ul>
                 <li>
                   <p className="font">
-                    Creates unit tests for your functions, improving test
-                    coverage without manual effort in any languages.
+                    Generate reliable, validated tests as you code, ensuring
+                    coverage and stability.
                   </p>
                 </li>
               </ul>
@@ -73,13 +75,15 @@ function UTG() {
                     d="M39.802 14.307l-.117 11.834c0 2.21-2.085 3.666-4.036 3.666-1.951 0-4.217-1.439-4.217-3.649l.037-12.58c0-1.307 1.607-2.451 2.801-2.451 1.194 0 2.345 1.149 2.345 2.456l.021 10.829c0 0-.083.667-1.005.645-.507-.012-1.145-.356-1.016-.906v-9.843h-.813l-.021 9.708c0 1.38.54 1.948 1.875 1.948s1.959-.714 1.959-2.094V13.665c0-2.271-1.36-3.5-3.436-3.5s-3.564 1.261-3.564 3.532l.032 12.11c0 3.04 2.123 4.906 4.968 4.906 2.845 0 5-1.71 5-4.75V14.307H39.802zM53.114 52.307h-23c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h23c.276 0 .5.224.5.5S53.391 52.307 53.114 52.307zM44.114 59.307h-14c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h14c.276 0 .5.224.5.5S44.391 59.307 44.114 59.307zM70.114 59.307h-24c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h24c.276 0 .5.224.5.5S70.391 59.307 70.114 59.307zM61.114 66.307h-11c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h11c.276 0 .5.224.5.5S61.391 66.307 61.114 66.307zM71.114 66.307h-8c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5S71.391 66.307 71.114 66.307zM48.114 66.307h-18c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h18c.276 0 .5.224.5.5S48.391 66.307 48.114 66.307zM70.114 73.307h-13c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h13c.276 0 .5.224.5.5S70.391 73.307 70.114 73.307zM54.114 73.307h-24c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h24c.276 0 .5.224.5.5S54.391 73.307 54.114 73.307z"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">E2E Testing</h2>
+                <h2 className="mb-4 text-xl font-semibold">
+                  Integration Testing
+                </h2>
               </div>
               <ul>
                 <li>
                   <p className="font">
-                    Generate tests from schema or PRD, automating end-to-end
-                    validation for accurate, spec-compliant apps.
+                    Records and replays API calls with mocks for reliable
+                    integration testing and stability.
                   </p>
                 </li>
               </ul>
@@ -212,14 +216,15 @@ function UTG() {
                   </g>
                   undefined
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">API Testing</h2>
+                <h2 className="mb-4 text-xl font-semibold">
+                  API Testing Agent
+                </h2>
               </div>
               <ul>
                 <li>
                   <p className="font">
-                    Keploy provides automated API testing for every project with
-                    test case generation, data mocking, CI/CD integration, and
-                    more.
+                    Generates API tests from your docs, covering edge cases,
+                    ensuring coverage.
                   </p>
                 </li>
               </ul>
@@ -237,6 +242,65 @@ export const Products = () => {
       <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
         Products 🛠️
       </h2>
+      <p className="text-l max-w-3xxl">
+        Keploy provides three key products that help you streamline your testing
+        workflow:
+      </p>
+      <h3 className="mb-4 text-xl font-semibold">
+        1. AI-Driven <b> Accurate</b> Unit Test Generation 🧑‍💻
+      </h3>
+      <p className="text-l max-w-3xxl">
+        Keploy is an AI-agent for unit tests,{" "}
+        <b>
+          ensuring they meet your quality standards before you even see them.
+        </b>{" "}
+        As you commit new changes or open GitHub PRs, Keploy automatically
+        analyzes your code to generate unit tests, covering edge cases and
+        ensuring that coverage, build, and flakiness are validated.
+        <br />
+        <br />
+        <b>Tired of using ChatGPT wrappers?</b> Unlike other tools, Keploy
+        doesn’t just create tests; it ensures that those tests are reliable,
+        consistent, and ready to run. You can even use Keploy in your VSCode
+        editor to generate tests directly as you code, with confidence that the
+        tests won't waste your time or lead to false positives.
+      </p>
+      <h3 className="mb-4 text-xl font-semibold">
+        2. Integration Testing Automation 🔗
+      </h3>
+      <p className="text-l max-w-3xxl">
+        Keploy allows you to record real API calls along with data mocks (e.g.,
+        database responses), and replay them locally or within your CI/CD
+        pipeline, all without the need for dedicated test environments. This
+        enables seamless integration testing by simulating real-world
+        interactions between components.
+        <br />
+        <br />
+        You can easily verify that different parts of your system work together
+        as expected, while also detecting breaking changes or contract
+        violations. Keploy ensures that your system remains stable across
+        updates and environments, with minimal setup.
+      </p>
+
+      <h3 className="mb-4 text-xl font-semibold">
+        3. API Testing & Edge Case Generation 🔌
+      </h3>
+      <p className="text-l max-w-3xxl">
+        Keploy’s API testing agent takes resources like OpenAPI schemas, Postman
+        collections, PRDs, or any other available documentation and
+        automatically generates tests by thinking through{" "}
+        <b>all possible combinations/edge cases of your API endpoints</b>.
+        <br />
+        <br />
+        It filters out the most important cases, increasing your test coverage
+        while minimizing redundant scenarios. Keploy also creates user flows
+        that can be executed independently of specific database or state
+        dependencies, ensuring stable, reliable tests that won't break due to
+        external factors. Plus, it <b>deduplicates any redundant flows,</b>{" "}
+        saving time and resources, and making your API testing process more
+        efficient.
+      </p>
+
       <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
         <UTG />
       </div>
