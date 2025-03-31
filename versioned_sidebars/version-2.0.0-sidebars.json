@@ -2,7 +2,7 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Learn about Keploy",
+      "label": "About Keploy",
       "collapsible": true,
       "collapsed": true,
       "items": [
@@ -12,21 +12,26 @@
       ]
     },
     {
-      "type": "doc",
-      "label": "Installation",
-      "id": "server/installation"
-    },
-    {
-      "type": "doc",
-      "label": "Unit Testing",
-      "id": "running-keploy/unit-test-generator"
-    },
-    {
       "type": "category",
-      "label": "API Testing",
+      "label": "Unit Testing",
       "collapsible": true,
       "collapsed": false,
       "items": [
+        "running-keploy/unit-test-generator",
+        "server/unit-testing-installation"
+    ]
+    },
+    {
+      "type": "category",
+      "label": "Integration Testing",
+      "collapsible": true,
+      "collapsed": false,
+      "items": [
+        {
+          "type": "doc",
+          "label": "Installation",
+          "id": "server/installation"
+        },
         {
           "type": "category",
           "label": "Running Guide",
@@ -124,7 +129,7 @@
           "type": "category",
           "label": "CI/CD",
           "collapsible": true,
-          "collapsed": false,
+          "collapsed": true,
           "items": [
             "ci-cd/github",
             "ci-cd/gitlab",
@@ -147,14 +152,16 @@
     },
     {
       "type": "category",
-      "label": "Code Coverage",
+      "label": "API Testing",
       "collapsible": true,
-      "collapsed": true,
+      "collapsed": false,
       "items": [
-        "server/sdk-installation/go",
-        "server/sdk-installation/java",
-        "server/sdk-installation/javascript",
-        "server/sdk-installation/python"
+        "keploy-cloud/cloud-installation",
+        "keploy-cloud/auto-test-generation",
+        "keploy-cloud/time-freezing",
+        "keploy-cloud/mock-registry",
+        "keploy-cloud/keploy-console",
+        "keploy-cloud/deduplication"
       ]
     },
     {
@@ -183,18 +190,6 @@
     }
   ],
   "sidebarCloudGuide": [
-    {
-      "type": "category",
-      "label": "Cloud Enterprise",
-      "collapsible": true,
-      "items": [
-        "keploy-cloud/cloud-installation",
-        "keploy-cloud/auto-test-generation",
-        "keploy-cloud/time-freezing",
-        "keploy-cloud/mock-registry",
-        "keploy-cloud/keploy-console",
-        "keploy-cloud/deduplication"
-      ]
-    }
+
   ]
 }

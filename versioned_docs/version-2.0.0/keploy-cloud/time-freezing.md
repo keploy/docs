@@ -55,17 +55,23 @@ uname -a
 
 ### For Golang(Go) Applications -
 
+> Note: Time freezing is only supported till go **1.22.x** version.
+
 #### amd64/x86_64 🖥️
 
 ```Dockerfile
 # Download the time freeze agent
 ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
 
-#set suitable permissions
+# set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_amd64
 
 # run the binary
 RUN /lib/keploy/go_freeze_time_amd64
+
+# build your binary with fake time (during test mode)
+RUN go build -tags=faketime <your_main_file>
+
 ```
 
 OR
@@ -77,18 +83,17 @@ OR
 
 ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
 
-#set suitable permissions
+# set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_arm64
 
 # run the binary
 RUN /lib/keploy/go_freeze_time_arm64
+
+# build your binary with fake time (during test mode)
+RUN go build -tags=faketime <your_main_file>
 ```
 
-3. Add a `faketime` tag to your build script
-
-```bash
-go build -tags=faketime <your_main_file>
-```
+3. Only Add `faketime` tag to your build script during <u>**Test MODE**</u>
 
 4. Re-Build your Docker image.
 5. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:

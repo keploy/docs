@@ -54,8 +54,6 @@ Before proceeding, ensure the following prerequisites are met:
     CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
 ```
 
-> Note: Also add **curl** installation command if **curl** is not installed on your image
-
 To capture test cases, **Execute** the following command within your application's **root directory**.
 
 ```shell
