@@ -1,6 +1,6 @@
 ---
 id: functional-testing
-title: Functional Testing: Definition,Best Practices &Key Benefits
+title: Know more about Functional Testing and its key benefits
 sidebar_label: Functional Testing
 description: Learn about Functional Testing, its definition, best practices &benefits. Assure software quality with effective testing solutions for smooth performance.
 tags:
