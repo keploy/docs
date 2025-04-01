@@ -12,7 +12,7 @@ function PrivacyPolicy() {
       description="Privacy Policy information about Keploy."
     >
       <main className="margin-vert--lg container">
-        <div className="pb-5 text-center font-bold text-4xl">
+        <div className="pb-5 text-center text-4xl font-bold">
           Keploy Inc. Privacy Policy
         </div>
         <p className="text-2l md:text-3l mb-2 font-bold tracking-wide">

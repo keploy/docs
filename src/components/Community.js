@@ -10,7 +10,7 @@ export const Community = () => {
         Are you curious, 🤔 or do you have questions burning in your mind? 🔥
         Look no further! Join our lively Community Forum where you can:
       </p>
-      <ul className="grid gap-6  sm:grid-cols-2 xl:gap-8 list-none">
+      <ul className="grid list-none  gap-6 sm:grid-cols-2 xl:gap-8">
         {/*<li>*/}
         {/*  <a*/}
         {/*    href="https://community.keploy.io/"*/}
