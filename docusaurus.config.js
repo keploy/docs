@@ -201,7 +201,7 @@ module.exports = {
       <div>
         <a class="footer__link-item" href="/about">About</a>
         <span class="footer__separators"> | </span>
-        <a class="footer__link-item" href="/security">Security</a>
+        <a class="footer__link-item" href="https://keploy.io/docs/security/">Security</a>
         <span class="footer__separators"> | </span>
         <a class="footer__link-item" href="/privacy-policy">Privacy Policy</a>
       </div>

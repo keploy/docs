@@ -80,25 +80,25 @@ To generate testcases we just need to **make some API calls.**
 1. **Make a POST request:**
 
 ```bash
-curl -X POST -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Important task"}' http://localhost:5000/api/tasks
+curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
 ```
 
 2. **Make a GET request:**
 
 ```bash
-curl http://localhost:5000/api/tasks
+curl http://localhost:6000/students
 ```
 
 3. **Make a PUT request:**
 
 ```bash
-curl -X PUT -H "Content-Type: application/json" -d '{"title":"Task 1","description":"Random task"}' http://localhost:5000/api/tasks/12345
+curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
 ```
 
 4. **Make a DELETE request:**
 
 ```bash
-curl -X DELETE http://localhost:5000/api/tasks/12345
+curl -X DELETE http://localhost:6000/students/12345
 ```
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
