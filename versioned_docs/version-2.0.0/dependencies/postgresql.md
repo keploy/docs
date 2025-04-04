@@ -4,6 +4,11 @@ title: PostgresSQL Support
 sidebar_label: PostgresSQL
 ---
 
+<head>
+  <title>PostgresSQL Support | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 The [Postgres Wire Protocol](https://www.postgresql.org/docs/current/protocol.html/) is a communication protocol used for client-server interaction in PostgreSQL, allowing clients to communicate with the PostgreSQL database server for executing queries, retrieving results, and performing various database operations.

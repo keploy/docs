@@ -1,7 +1,7 @@
 ---
 id: deduplication
-title: Remove Duplicates Tests 🧹
-sidebar_label: Remove Duplicate Tests 🧹
+title: Remove Duplicates Tests
+sidebar_label: Remove Duplicate Tests
 tags:
   - explanation
   - feature guide
@@ -17,6 +17,11 @@ keywords:
   - node
   - testcases
 ---
+
+<head>
+  <title> Remove Duplicates Tests | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Why Deduplication? ❄️
 

@@ -4,13 +4,13 @@ export const GitTogether = () => {
   return (
     <section className="mb-14 mt-1">
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
-        Attend GitTogether
+        Attend DevScribe
       </h2>
-      <a href="https://keploy.io/gittogether">
+      <a href="https://keploy.io/devscribe">
         <img
-          className="mt-8 "
-          src="/docs/img/GitTogether.jpg"
-          alt={"GitTogether Image"}
+          className="mt-8"
+          src="/docs/img/Devscribe.png"
+          alt={"DevScribe Image"}
         />
       </a>
       <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">

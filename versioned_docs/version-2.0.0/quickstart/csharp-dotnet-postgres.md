@@ -19,26 +19,38 @@ keyword:
   - Auto Testcase generation
 ---
 
+<head>
+  <title> Sample CRUD App (CSharp) | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 ## Introduction
 
 🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with [.Net](https://dotnet.microsoft.com/en-us/) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: -
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Get Started! 🎬
 
-## Clone a sample user authentication app 🧪
+### Clone a sample user authentication app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
+git clone https://github.com/keploy/samples-csharp.git
+cd samples-csharp/crud-app
 
 # start the database instance
-docker-compose up
+docker-compose up -d
 ```
 
-## Installation 📥
+## Setup Application 📥
 
 - [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
 

@@ -1,7 +1,7 @@
 ---
 id: cloud-installation
 title: Keploy Cloud Installation
-sidebar_label: Installation 🛠️
+sidebar_label: Installation
 tags:
   - explanation
   - feature guide
@@ -12,6 +12,11 @@ keywords:
   - installation
   - API key
 ---
+
+<head>
+  <title> Keploy Cloud Installation | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ## Introduction 📘
 

@@ -1,7 +1,7 @@
 ---
 id: keploy-console
-title: Keploy Console 📘
-sidebar_label: Keploy Console 🛠️
+title: Keploy Console
+sidebar_label: Keploy Console
 tags:
   - explanation
   - feature guide
@@ -12,6 +12,11 @@ keywords:
   - installation
   - API key
 ---
+
+<head>
+  <title> Keploy Console | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 ### Pre-requisite 📝
 

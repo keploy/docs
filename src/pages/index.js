@@ -2,8 +2,10 @@ import React from "react";
 import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, KeployCloud, Resources, QuickStart} from "../components";
-import {GSoC} from "../components/GSoC";
+import {GitTogether} from "../components/DevScribe";
+import {Products} from "../components/Product";
 import {Intro} from "../components";
+import {Platforms} from "../components/Platforms";
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -16,12 +18,12 @@ export default function Home() {
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
           <QuickStart />
-          {/* <Hacktoberfest /> */}
-          {/*<GitTogether />*/}
+          {/* <GitTogether /> */}
+          <Products />
           <Intro />
-          <Resources />
+
           <Community />
-          {/*<GSoC/>*/}
+          <Platforms />
           <KeployCloud />
         </main>
       </Layout>

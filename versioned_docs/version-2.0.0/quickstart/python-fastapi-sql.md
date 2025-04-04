@@ -21,13 +21,24 @@ keyword:
   - Auto case generation
 ---
 
+<head>
+  <title> FastAPI + Postgres | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
+
 # Introduction
 
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with [FastAPI](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+## Install Keploy CLI 🚀
 
-<InstallationGuide/>
+Get Started with One-Click Command: -
+
+```bash
+ curl -O -L https://keploy.io/install.sh && source install.sh
+```
+
+Or, you can follow the detailed instructions [here](https://keploy.io/docs/server/installation/).
 
 ## Setup the PostgreSQL Database 📦
 
@@ -51,6 +62,10 @@ There are 2 ways you can run this sample application.
 We will be using Docker compose to run the application as well as Postgres on Docker container.
 
 ### Lights, Camera, Record! 🎥
+
+Since we have setup our sample-app with docker, we need to update the container name to postgres on line 6, in `application/database.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.\*\*
+
+> **Also, we need to update the container name to postgres on line 11, of `application/main.py`, from `postgresql://postgres:postgres@localhost:5432/studentdb` to `postgresql://postgres:postgres@postgres:5432/studentdb`.**
 
 Capture the test-cases-
 
@@ -227,6 +242,12 @@ Happy coding! ✨👩‍💻👨‍💻✨
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
 
 ### 📼 Roll the Tape - Recording Time!
+
+Start the database on Docker:
+
+```bash
+docker compose up -d postgres
+```
 
 Ready, set, record! Here's how:
 
