@@ -130,7 +130,7 @@ function PrivacyPolicy() {
           unauthorized access, use, alteration, and disclosure. For more
           information on our security practices please refer to:{" "}
           <a href="https://keploy.io/docs/security" style={{color: "#FF914D"}}>
-            keploy.io/security.
+            keploy.io/docs/security.
           </a>
           {""}
         </p>
