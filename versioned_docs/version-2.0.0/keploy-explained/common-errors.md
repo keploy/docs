@@ -1,5 +1,5 @@
 ---
-id: common-errors
+id: errors
 title: Common Errors in Keploy
 sidebar_label: Common Errors
 tags:

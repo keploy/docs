@@ -2,7 +2,7 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Explanation",
+      "label": "About Keploy",
       "collapsible": true,
       "collapsed": true,
       "items": [
@@ -13,160 +13,165 @@
     },
     {
       "type": "category",
-      "label": "Hacktoberfest'24",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "hacktoberfest/contribution-guide",
-        "hacktoberfest/code-contribution",
-        "hacktoberfest/no-code-contribution"
-      ]
-    },
-    {
-      "type": "doc",
-      "label": "Installation",
-      "id": "server/installation"
-    },
-    {
-      "type": "category",
-      "label": "Running Keploy",
+      "label": "Unit Testing",
       "collapsible": true,
       "collapsed": false,
       "items": [
-        "running-keploy/cli-commands",
         "running-keploy/unit-test-generator",
-        "running-keploy/rename-testcases",
-        "running-keploy/docker-tls",
-        "running-keploy/configuration-file",
-        "running-keploy/custom-mocks",
-        "running-keploy/keploy-templatize"
-      ]
+        "server/unit-testing-installation"
+    ]
     },
     {
       "type": "category",
-      "label": "CI/CD Integration",
+      "label": "Integration Testing",
       "collapsible": true,
-      "collapsed": true,
-      "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
-    },
-    {
-      "type": "category",
-      "label": "Test Coverage Generation",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "server/sdk-installation/go",
-        "server/sdk-installation/java",
-        "server/sdk-installation/javascript",
-        "server/sdk-installation/python"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "QuickStarts",
-      "collapsible": true,
-      "collapsed": true,
+      "collapsed": false,
       "items": [
         {
+          "type": "doc",
+          "label": "Installation",
+          "id": "server/installation"
+        },
+        {
           "type": "category",
-          "label": "Java (SpringBoot)",
+          "label": "Running Guide",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/pet-clinic",
-            "quickstart/samples-java",
-            "quickstart/java-spring-boot-mongo",
-            "quickstart/java-spring-boot-xml"
+                "running-keploy/cli-commands",
+                "running-keploy/rename-testcases",
+                "running-keploy/docker-tls",
+                "running-keploy/configuration-file",
+                "running-keploy/custom-mocks",
+                "running-keploy/keploy-templatize"
+              ]
+          },
+        {
+          "type": "category",
+          "label": "Quickstart Guide",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            {
+              "type": "category",
+              "label": "Java (SpringBoot)",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/pet-clinic",
+                "quickstart/samples-java",
+                "quickstart/java-spring-boot-mongo"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Golang",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-echo",
+                "quickstart/samples-gin",
+                "quickstart/samples-redis",
+                "quickstart/samples-mux",
+                "quickstart/samples-mysql",
+                "quickstart/samples-fasthttp"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Python",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-django",
+                "quickstart/samples-flask",
+                "quickstart/samples-fastapi",
+                "quickstart/samples-fastapi-twilio",
+                "quickstart/sanic-mongo",
+                "quickstart/flask-redis"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Javascript",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-bunjs",
+                "quickstart/samples-nextjs",
+                "quickstart/samples-nodejs",
+                "quickstart/samples-node-jwt",
+                "quickstart/crud-nodejs",
+                "quickstart/express-postgresql-prisma",
+                "quickstart/samples-typescript"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Rust",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-rust",
+                "quickstart/sample-rust-crud-mongo"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "C# (.NET Core)",
+              "collapsible": true,
+              "collapsed": true,
+              "items": ["quickstart/samples-csharp"]
+            }
           ]
         },
         {
           "type": "category",
-          "label": "Golang",
+          "label": "CI/CD",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-echo",
-            "quickstart/samples-gin",
-            "quickstart/samples-redis",
-            "quickstart/samples-mux",
-            "quickstart/samples-mysql",
-            "quickstart/samples-fasthttp"
+            "ci-cd/github",
+            "ci-cd/gitlab",
+            "ci-cd/jenkins"
           ]
-        },
+        },     
         {
           "type": "category",
-          "label": "Python",
+          "label": "Dependencies",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-django",
-            "quickstart/samples-flask",
-            "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio",
-            "quickstart/sanic-mongo",
-            "quickstart/flask-redis"
+            "dependencies/mongo",
+            "dependencies/postgres",
+            "dependencies/http",
+            "dependencies/redis"
           ]
-        },
-        {
-          "type": "category",
-          "label": "Javascript",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-bunjs",
-            "quickstart/samples-nextjs",
-            "quickstart/samples-nodejs",
-            "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs",
-            "quickstart/express-postgresql-prisma",
-            "quickstart/samples-typescript"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Rust",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-rust",
-            "quickstart/sample-rust-crud-mongo"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "C# (.NET Core)",
-          "collapsible": true,
-          "collapsed": true,
-          "items": ["quickstart/samples-csharp"]
         }
       ]
     },
     {
       "type": "category",
-      "label": "Keploy-Cloud ☁️",
+      "label": "API Testing",
       "collapsible": true,
-      "collapsed": true,
+      "collapsed": false,
       "items": [
         "keploy-cloud/cloud-installation",
+        "keploy-cloud/auto-test-generation",
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
-        "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication"
       ]
     },
     {
       "type": "category",
-      "label": "Resources",
+      "label": "Troubleshooting",
       "collapsible": true,
       "collapsed": true,
       "items": [
-        "dependencies/mongo",
-        "dependencies/postgres",
-        "dependencies/http",
-        "dependencies/redis",
         "keploy-explained/faq",
-        "keploy-explained/common-errors"
+        "keploy-explained/errors"
       ]
     }
   ],
@@ -183,5 +188,8 @@
         "keploy-explained/mac-linux"
       ]
     }
+  ],
+  "sidebarCloudGuide": [
+
   ]
 }

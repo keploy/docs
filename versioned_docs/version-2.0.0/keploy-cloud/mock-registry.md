@@ -1,7 +1,7 @@
 ---
 id: mock-registry
 title: Mock Registry
-sidebar_label: Mock Registry 📦
+sidebar_label: Mock Registry
 tags:
   - explanation
   - feature guide
@@ -12,6 +12,11 @@ keywords:
   - efficient testing
   - cloud storage
 ---
+
+<head>
+  <title> Mock Registry | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Mock Registry uploads mock files to cloud storage, keeping the application's repository lightweight and manageable.
 

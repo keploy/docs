@@ -1,13 +1,14 @@
 ---
 id: unit-test-generator
-title: Keploy Unit Test Generator
-sidebar_label: Unit Test Generator
+title: Keploy Unit Testing Agent
+sidebar_label: How it works?
 description: This section documents usecase of Keploy's Unit Test Generator
 tags:
   - utg
   - unit test generator
   - generate unit test
   - unit test
+  - unit testing
 keywords:
   - unit test generator
   - unit testing
@@ -17,7 +18,15 @@ keywords:
   - AI testing
   - Gemini
   - OpenAI
+  - testing agent
+  - unit testing agent
+  - opensource testing agent
 ---
+
+<head>
+  <title>Unit Testing Agent | Keploy Docs</title>
+  <meta charSet="utf-8" />
+</head>
 
 Keploy's unit test generator(ut-gen) implementation of Meta LLM research paper is a first which understands code semantics and generates meaningful unit tests, aiming to:
 
@@ -27,7 +36,7 @@ Keploy's unit test generator(ut-gen) implementation of Meta LLM research paper i
 
 - **Boost test coverage:** As codebase grows, ensuring exhaustive coverage should become feasible.
 
-## Usage
+## Using CLI self-hosting
 
 ```bash
 keploy gen [flag]
