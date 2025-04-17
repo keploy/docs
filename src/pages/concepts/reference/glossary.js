@@ -156,7 +156,7 @@ function Glossary() {
       description="User General Information about Keploy's Documentation"
     >
       <main className="margin-vert--lg container flex flex-col justify-evenly">
-        <div className="pb-5 text-center font-bold text-4xl">Glossary</div>
+        <div className="pb-5 text-center text-4xl font-bold">Glossary</div>
         <div className="flex flex-row justify-evenly">
           {new Array(26).fill(0).map((x, i) => (
             <button
