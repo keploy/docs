@@ -141,35 +141,3 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 > For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
 
 </details>
-
-<details>
-<summary>With Arkade</summary>
-
-### With Arkade
-
-1. Installing Arkade
-
-```bash
-# Note: you can also run without `sudo` and move the binary yourself
-curl -sLS https://get.arkade.dev | sudo sh
-
-arkade --help
-ark --help  # a handy alias
-
-# Windows users with Git Bash
-curl -sLS https://get.arkade.dev | sh
-```
-
-2. Install Keploy
-
-```bash
-arkade get keploy
-```
-
-Or you can also download specific version of Keploy using the following command:
-
-```bash
-arkade get keploy@2.2.0-alpha23
-```
-
-</details>
