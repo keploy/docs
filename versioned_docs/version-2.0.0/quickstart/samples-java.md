@@ -37,7 +37,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 ## Setup Employee-Manager App
 
-### Application Pre-Requisites 📋
+### Application Pre-Requisites
 
 - Java 1.8+ or {'<'}17 ☕
 - Maven 🛠️
@@ -54,12 +54,12 @@ You can start the backend using Keploy in 2 ways:
 - [Using Keploy's binary](#instructions-for-starting-using-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
-# Instructions For Starting Using Binary
+## Instructions For Starting Using Binary
 
-## Setup the backend
+### Setup the backend
 
 You need to update the postgresql properties, go to
-`spring-petclinic/spring-petclinic-rest/src/main/resources/application-postgresql.properties`
+`employee-manager/src/main/resources/application-postgresql.properties`
 and change
 
 ```bash
@@ -78,7 +78,7 @@ and then build the jar using:
 mvn clean install -Dmaven.test.skip=true
 ```
 
-## Start the Postgres DB 🐳
+### Start the Postgres DB 🐳
 
 ```bash
 docker run -e POSTGRES_USER=keploy-user -e POSTGRES_PASSWORD=keploy -e POSTGRES_DB=postgres -p 5432:5432 --name postgres postgres:15.2
@@ -92,7 +92,7 @@ Note: You may have to use sudo if you are not part of the docker group.
 keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
 ```
 
-![Testcases](https://github.com/keploy/samples-java/blob/main/employee-manager/img/keploy-record-docker.png)
+![Testcases](/img/keploy-record-docker-employee-app.png)
 
 Now let's run a few tests to capture some more scenarios:
 
@@ -140,7 +140,7 @@ directory would also have `mock.yml` file.
 
 Now, let's see the magic! 🪄💫
 
-## Run the test cases
+### Run the test cases
 
 First lets shutdown the database to verify that keploy's magic is taking care of the database mocking. No need to worry
 about the database anymore! 🎉
@@ -155,7 +155,7 @@ Now, let's run the keploy in test mode: -
 keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
 ```
 
-This will run the testcases and generate the report in `keploy/testReports` folder. You will see the following output:-
+This will run the testcases and generate the report in `keploy/reports` folder. You will see the following output:-
 
 ````shell
 🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    starting test for of    {"test case": "[test-1]", "test set": "[test-set-0]"}
@@ -206,7 +206,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.timestamp` to noise in `keploy.yml`.
 
-<img src="https://github.com/keploy/samples-java/blob/main/employee-manager/img/test-noise.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/test-noise-employee-app.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
@@ -214,19 +214,21 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 Next we move on to the instructions to start the application using docker.
 
-# Instructions For Starting Using Docker
+## Instructions For Starting Using Docker
 
 Prerequisites For Docker:
 
-1.  Docker Desktop 4.25.2 and above
+1.  Docker Desktop 4.25.2 and above or docker cli installed
 
 Here we just need to change the command used to start the application.
+
+### Capture the testcases 🎬
 
 ```bash
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
 
-<img src="https://github.com/keploy/samples-java/blob/main/employee-manager/img/Keploy-record-docker-compose.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/Keploy-record-docker-compose-employee-app.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Now let's run a few tests to capture some more scenarios:
 
@@ -274,17 +276,17 @@ directory would also have `mock.yml` file.
 
 Now, let's see the magic! 🪄💫
 
-## Running the testcases using Keploy
+### Running the testcases using Keploy
 
 ```bash
 keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --delay 20
 ```
 
 Your CLI should look something like this
-<img src="/static/img/keploy-test-docker-compose-command.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-docker-compose-command.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
 This is a summary of the test cases recorded
-<img src="https://github.com/keploy/samples-java/blob/main/employee-manager/img/Keploy-test-docker-compose.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/Keploy-test-docker-compose-employee-app.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
@@ -293,7 +295,7 @@ Here `delay` is the time it takes for your application to get started, after whi
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
-### 🚀 Wanna try Keploy in CI/CD?
+## 🚀 Wanna try Keploy in CI/CD?
 
 We got you 😎  
 Here’s how to set it up with GitHub Actions:  
