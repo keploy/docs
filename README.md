@@ -160,7 +160,7 @@ npm start
 4. To reformat:
 
 ```sh
-npm prettier --write '**/*.{js,md}'
+npx prettier --write '**/*.{js,md}'
 ```
 
 5. Check the build status:
