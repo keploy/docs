@@ -131,8 +131,6 @@ If both scenarios yield a "passed" result, it signifies that this approach mirro
 
 - To achieve this, you'll need to add two workflows for each sample application, covering both recording and testing scenarios.
 
-- You can refer to this [setup](https://github.com/keploy/keploy/blob/main/.github/workflows/build_stage.yml) for guidance.
-
 ## Limitations ⚠️
 
 - Port Configuration: The ports for Keploy Record (`keployR`) and Keploy Test (`keployT`) need to be hardcoded. You can't change the ports and run this entire setup properly.
