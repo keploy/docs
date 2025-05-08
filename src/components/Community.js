@@ -141,7 +141,7 @@ export const Community = () => {
         </li>
         <li>
           <a
-            href="https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw"
+            href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
             className="flex items-start space-x-4"
           >
             <svg
