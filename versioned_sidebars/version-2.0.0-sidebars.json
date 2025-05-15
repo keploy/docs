@@ -73,6 +73,7 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "quickstart/openhospital",
             "quickstart/pet-clinic",
             "quickstart/samples-java",
             "quickstart/java-spring-boot-mongo",
