@@ -48,7 +48,8 @@ sudo docker compose up
 
 ```
 
-## Setup the Backend 
+## Setup the Backend
+
 Now it's time to setup the backend of our application. Let's Download the Openhospital API and get started.
 
 ```bash
@@ -56,6 +57,7 @@ git clone https://github.com/keploy/openhospital-api
 git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 ```
+
 You can start the Backend using Keploy cli:
 
 # Instructions For Starting Using Binary
@@ -72,7 +74,6 @@ Prerequisites For Binary:
 keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
 ```
 
-
 ## Start the frontend
 
 ```bash
@@ -86,7 +87,6 @@ Note: Login with username `admin` and password `admin`
 
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'
 
-
 ## Running the testcases using Keploy
 
 ```bash
@@ -95,7 +95,6 @@ keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.sp
 ```
 
 🎉 Hooray! You've made it to the end of the binary section! 🎉
-
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
