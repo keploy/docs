@@ -15,10 +15,7 @@
       "label": "Installation",
       "collapsible": true,
       "collapsed": false,
-      "items": [
-        "server/server-installation",
-        "server/sdk-installation"
-      ]
+      "items": ["server/server-installation", "server/sdk-installation"]
     },
     {
       "type": "category",
@@ -140,9 +137,7 @@
             "type": "doc",
             "id": "java/quickstart/index"
           },
-          "items": [
-            "java/quickstart/spring-sql"
-          ]
+          "items": ["java/quickstart/spring-sql"]
         },
         {
           "type": "link",

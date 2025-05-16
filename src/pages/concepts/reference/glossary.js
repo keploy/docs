@@ -165,8 +165,8 @@ function Glossary() {
                       state[String.fromCharCode(65 + i)]
                         ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950 dark:text-orange-900"
                         : entries[String.fromCharCode(65 + i)] === undefined
-                        ? "bg-transparent text-gray-400" // Modified color class
-                        : "bg-grey-200 rounded-3xl shadow-md"
+                          ? "bg-transparent text-gray-400" // Modified color class
+                          : "bg-grey-200 rounded-3xl shadow-md"
                     } `}
               key={i}
               disabled={

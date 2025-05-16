@@ -44,7 +44,7 @@ When we talk about stubs, they are a valuable tool in the process of software de
 - Also, with data stubs may not be able to handle all of the possible scenarios that the real-world system can handle.
 - Stubs are generally brittle.
 
-## Overcoming Stub Challeges with Keploy:
+## Overcoming Stub Challegnes with Keploy:
 
 Overall, stubs are a valuable tool for software development and testing. They can help to speed up the development process, ensure that the code is working correctly, and identify problems with the calling module.
 

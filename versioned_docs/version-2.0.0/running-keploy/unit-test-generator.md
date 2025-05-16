@@ -49,7 +49,7 @@ export API_KEY=xxxx
 
 ## Running with Javascript/TypeScript applications
 
-For the we need to make sure that the coverage report is in coberuta format, so to make sure let's modify our `package.json` by adding :
+For the we need to make sure that the coverage report is in cobertura format, so to make sure let's modify our `package.json` by adding :
 
 ```json
 "jest": {
@@ -121,7 +121,7 @@ go install github.com/AlekSi/gocov-xml@v1.1.0
 
 ### Generating Unit Tests
 
-With the above dependecies installed, we can now generate tests for our application by the following dommand : -
+With the above dependencies installed, we can now generate tests for our application by the following command : -
 
 ```bash
 keploy gen --source-file-path="<path to source file>o" \
