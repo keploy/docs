@@ -98,7 +98,7 @@ alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-networ
 
 ### Downloading and running Keploy in Native
 
-**Prequisites:**
+**Prerequisites:**
 
 - Linux Kernel version 5.15 or higher
 - Run `uname -a` to verify the system architecture.

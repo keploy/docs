@@ -176,7 +176,7 @@ sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 
 #### Generate testcases
 
-To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
+To generate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
 ```bash
 curl --request POST \
