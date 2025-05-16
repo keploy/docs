@@ -59,7 +59,7 @@ Now, we will create the binary of our application:-
 go build -cover
 ```
 
-Once we have our applicaiton binary ready, we will start the application with keploy to start capturing the testcases.
+Once we have our application binary ready, we will start the application with keploy to start capturing the testcases.
 
 ## Capture the test cases
 

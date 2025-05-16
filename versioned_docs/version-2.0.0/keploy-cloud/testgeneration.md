@@ -416,7 +416,7 @@ docker-compose up -d postgres
 
 ## Generate test-cases
 
-Now that we have our schema file, we need to create create jar file since we are using java sample-application :-
+Now that we have our schema file, we need to create jar file since we are using java sample-application :-
 
 ```sh
 mvn clean install -DskipTests

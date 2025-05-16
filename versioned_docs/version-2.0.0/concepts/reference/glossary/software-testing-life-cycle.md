@@ -67,7 +67,7 @@ Software Testing Life Cycle (STLC) comprises several phases that guide the testi
 - **Risk-Based Testing**: Prioritize tests based on potential impact and likelihood of failure.
 - **Performance Testing**: Evaluate software performance under various conditions and loads.
 
-## How Keploy helps in accelrating the Software Testing Life Cycle process?
+## How Keploy helps in accelerating the Software Testing Life Cycle process?
 
 Keploy enhances the STLC with its advanced features tailored for modern software testing needs:
 

@@ -13,7 +13,7 @@ Functional testing is a type of software testing that verifies that the software
 
 Functional testing is typically performed by providing the software with input data and then checking the output data to see if it matches the expected results. This can be done manually or using automated testing tools.
 
-### Types of Funtional Testing
+### Types of Functional Testing
 
 There are many different types of functional testing, including:
 

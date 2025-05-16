@@ -361,7 +361,7 @@ Here is an example for postgres driver and binary encoded outputs -
     }
 ```
 
-> Its compatible with gORM. To integerate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params.
+> Its compatible with gORM. To integrate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params.
 > Example for gORM with GCP-Postgres driver:
 
 ```go
