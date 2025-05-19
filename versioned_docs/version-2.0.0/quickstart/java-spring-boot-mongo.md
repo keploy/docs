@@ -26,11 +26,11 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
 ## Pre-Requisite 🛠️
 
-- Install [JDK](https://www.oracle.com/java/technologies/downloads/) and add JAVA_HOME in environment variable.
+- Install JDK and add JAVA_HOME in environment variable.
 - Install [Maven](https://maven.apache.org/install.html)
 - Install [Docker](https://docs.docker.com/engine/install/)
 

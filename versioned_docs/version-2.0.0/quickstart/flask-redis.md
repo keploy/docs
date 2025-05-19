@@ -23,7 +23,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with [Flask](https://flask.palletsprojects.com/en/3.0.x/) and [Redis](https://redis.io/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

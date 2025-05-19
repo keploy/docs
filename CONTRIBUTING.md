@@ -14,10 +14,10 @@ The README in GitHub's [first-contributions repo](https://github.com/firstcontri
 
 ## ## How to set up the docs website locally?
 
-The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), which is a static website generator.
+The Keploy documentation site uses Docusaurus 2 which is a static website generator.
 
 You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have [Docusaurus 2 dependencies](https://v2.docusaurus.io/docs/installation/#requirements) installed.
+However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
 
 Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) once in the root directory of the repo.
 

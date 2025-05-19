@@ -19,7 +19,7 @@ keywords:
 
 Unit testing is a software testing approach that isolates individual units or components of a software program from the rest of the application. The primary purpose of unit testing is to find flaws or errors in the smallest testable bits of code (functions, methods, or classes) before they are connected with other parts of the system.
 
-![Testing Pyramid](https://semaphoreci.com/wp-content/uploads/2022/03/pyramid-cost.jpg)
+![Testing Pyramid](/img/pyramid-cost.jpg)
 
 ## Benefits of Unit Testing
 
