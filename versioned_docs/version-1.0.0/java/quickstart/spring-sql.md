@@ -11,11 +11,11 @@ tags:
 
 # Example Employee-Manager App
 
-A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).
+A sample Employee-Manager app to test Keploy integration capabilities using SpringBoot and [PostgreSQL](https://www.postgresql.org/).
 
 ### Pre-requisites
 
-- [Java 8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- Java 8+
 
 ## Installation
 
@@ -101,7 +101,7 @@ mvn clean install -D maven.test.skip=true
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
 
 ### 1. Make an employee entry
 

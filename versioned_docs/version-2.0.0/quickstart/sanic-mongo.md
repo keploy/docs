@@ -26,7 +26,7 @@ keyword:
 
 ## Introduction
 
-This application is a simple movie management API built using Python's [Sanic framework](https://sanic.dev/en/) and [MongoDB](https://mongodb.com/) for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
+This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
 import InstallationGuide from '../concepts/installation.md'
 

@@ -98,8 +98,7 @@ Now let's run a few tests to capture some more scenarios:
 
 #### Generate testcases 📝
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/)
-, [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
 
 1. Make an employee entry 📥
 
@@ -234,8 +233,7 @@ Now let's run a few tests to capture some more scenarios:
 
 #### Generate testcases 📝
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/)
-, [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
 
 1. Make an employee entry 📥
 

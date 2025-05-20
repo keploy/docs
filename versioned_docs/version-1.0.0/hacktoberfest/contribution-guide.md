@@ -8,7 +8,7 @@ label: Hacktoberfest
 
 ## Celebrate Open Source with Hacktoberfest
 
-<a href='https://hacktoberfest.com/'>Hacktoberfest'22</a> is a month-long celebration of open-source software run by DigitalOcean. Hacktoberfest is open to everyone, from first-time contributors to seasoned open-source developers. Your open-source journey begins with a pull request.
+Hacktoberfest is a month-long celebration of open-source software run by DigitalOcean. Hacktoberfest is open to everyone, from first-time contributors to seasoned open-source developers. Your open-source journey begins with a pull request.
 
 <img src="https://user-images.githubusercontent.com/53110238/193503992-c839beeb-53fd-46d7-9214-a88bfff6475a.png"/>
 

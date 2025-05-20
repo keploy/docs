@@ -13,7 +13,7 @@ keywords:
 
 Integration testing is a software testing process that combines individual software modules into larger subsystems or components to evaluate their interactions. It is conducted after unit testing and before system testing. The primary objective of integration testing is to detect defects that occur when different modules are integrated and interact.
 
-![Testing Pyramid](https://semaphoreci.com/wp-content/uploads/2022/03/pyramid-cost.jpg)
+![Testing Pyramid](/img/pyramid-cost.jpg)
 
 ### Types of Integration Testing
 

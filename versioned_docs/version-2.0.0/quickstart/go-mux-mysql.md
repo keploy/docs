@@ -22,7 +22,7 @@ keyword:
 
 ## Introduction
 
-A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [MySQL](https://www.mysql.com/). Buckle up, it's gonna be a fun ride! 🎢
+A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySQL. Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -74,11 +74,11 @@ Once we have our Docker image file ready,this command will start the recording o
 keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
 ```
 
-Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/) or simply `curl`
 
 #### Generate shortened url
 

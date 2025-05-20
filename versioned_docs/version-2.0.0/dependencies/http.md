@@ -6,7 +6,7 @@ sidebar_label: HTTP
 
 ## Introduction
 
-HTTP (Hypertext Transfer Protocol) [Wire Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP) refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
+HTTP (Hypertext Transfer Protocol) `Wire Protocol` refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
 
 **Port :** HTTP typically uses port `80 for non-secure` connections (HTTP) and port `443 for secure connections` (HTTPS). These are default ports, but HTTP servers can technically be configured to listen on any port.
 

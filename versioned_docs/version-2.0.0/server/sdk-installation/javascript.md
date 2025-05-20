@@ -47,7 +47,7 @@ Update the `package.json` file that runs the application:
   }
 ```
 
-In test script, --coverage flag would trigger the report generation for jest. For report generation in other testing frameworks like mocha, intern, tap, refer https://istanbul.js.org/docs/tutorials/
+In the test script, the --coverage flag triggers report generation for Jest. For other testing frameworks like Mocha, Intern, or Tap, you will need to use their respective coverage tools.
 
 To generate coverage report for your unit tests, Run:
 
