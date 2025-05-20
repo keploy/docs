@@ -14,7 +14,7 @@ The Redis wire protocol is a simple, text-based protocol used to communicate wit
 
 **Message Types :** Redis commands are sent from the client to the server as an array of bulk strings. This is known as the RESP (REdis Serialization Protocol) format. Each command is represented by a list of strings, where the first string is the command name, followed by its arguments.
 
-For more information, check [here](https://redis.io/docs/latest/develop/reference/protocol-spec/).
+For more information, check out Redis serialization protocol specification from redis docs.
 
 ## How it works ?
 

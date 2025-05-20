@@ -51,18 +51,18 @@ We use a variety of technologies to build the web interface and support the comm
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn package manager](https://yarnpkg.com/)
-- [Docusaurus](https://docusaurus.io/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
+- Docusaurus
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
 ## Installation
 
-The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), which is a static website generator.
+The Keploy documentation site uses Docusaurus 2 which is a static website generator.
 
 You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have [Docusaurus 2 dependencies](https://v2.docusaurus.io/docs/installation/#requirements) installed.
+However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
 
 Initialize Docusaurus 2 in the repo by running [`npm`](https://docs.npmjs.com/cli/v7/commands/npm-install) once in the root directory of the repo.
 

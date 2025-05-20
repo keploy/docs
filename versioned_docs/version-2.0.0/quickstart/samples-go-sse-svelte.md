@@ -21,7 +21,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of realtime subscriptions and see how seamlessly Keploy integrates with [SSE](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of realtime subscriptions and see how seamlessly Keploy integrates with SSE and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

@@ -21,7 +21,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with Gin and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

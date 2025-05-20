@@ -29,7 +29,7 @@ keyword:
 
 ## Pre-Requisite 🛠️
 
-- Install [Java 17](https://www.oracle.com/java/technologies/downloads/) and set JAVA_HOME environment variable.
+- Install Java 17 and set JAVA_HOME environment variable.
 - Install [Maven](https://maven.apache.org/install.html)
 - Install [Docker](https://docs.docker.com/engine/install/) (optional)
 

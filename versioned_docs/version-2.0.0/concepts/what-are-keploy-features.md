@@ -44,7 +44,7 @@ With Keploy, you can effortlessly record and replay intricate, distributed API f
 having a time machine for your tests! ⏳
 
 Keploy will record all API calls and their subsequent network traffic served by the application. You can utilize your
-favorite API management tools like [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or
+favorite API management tools like [Postman](https://www.postman.com/) or
 even [Curl](https://curl.se/) to generate test cases.
 
 Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all

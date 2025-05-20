@@ -20,7 +20,7 @@ keyword:
 
 ## Introduction
 
-A sample Task Management application and see how seamlessly Keploy integrates with [Express](https://expressjs.com/) , [PostgreSQL](https://www.postgresql.org/) and [Prisma ORM](https://www.prisma.io/). Buckle up, it's gonna be a fun ride! 🎢
+A sample Task Management application and see how seamlessly Keploy integrates with Express, [PostgreSQL](https://www.postgresql.org/) and Prisma ORM. Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -192,7 +192,7 @@ keploy record -c "docker compose up" --container-name "express-postgresql-prisma
 
 ### Interact with Application
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or [cURL](https://curl.se/) command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using [Postman](https://www.postman.com/) or [cURL](https://curl.se/) command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ### API Routes
 

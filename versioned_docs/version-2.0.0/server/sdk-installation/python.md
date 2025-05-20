@@ -20,9 +20,9 @@ import WhatAreKeployFeatures from './index.md'
 
 <WhatAreKeployFeatures/>
 
-| Programming Language | Prerequisites                                                                                                                      |
-| :------------------: | :--------------------------------------------------------------------------------------------------------------------------------- |
-|        python        | [Python 3 and above](https://www.python.org/downloads/) <br/> [coverage.py](https://coverage.readthedocs.io/en/7.4.1/install.html) |
+| Programming Language | Prerequisites                                                             |
+| :------------------: | :------------------------------------------------------------------------ |
+|        python        | [Python 3 and above](https://www.python.org/downloads/) <br/> coverage.py |
 
 ## Usage
 
@@ -34,7 +34,7 @@ coverage run --data-file=.coverage.unit test_program.py
 
 Here, test_program.py is the unit test program you want to run, and --data-file is set to .coverage.unit becuase, by default, raw coverage data would be written to .coverage which is where coverage data for keploy tests is present, so to avoid overwritting we pass a new file through data-file flag.
 
-> Note: If you face any problems with running the coverage library, you can refer to the documentation for the same [here](https://coverage.readthedocs.io/en/7.4.2/cmd.html#execution-coverage-run)
+> Note: If you face any problems with running the coverage library, you can refer to the documentation.
 
 ### Combine And Get Report
 

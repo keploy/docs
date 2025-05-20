@@ -70,7 +70,7 @@ sudo -E env PATH=$PATH keploy record -c 'node app.js'
 
 ### Let's Generate the testcases.
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
 
@@ -215,7 +215,7 @@ keploy record -c "docker-compose up" --container-name "jwtSqlApp"
 
 #### Let's generate the testcases.
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io), [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
 
