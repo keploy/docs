@@ -151,6 +151,6 @@ Here `delay` is the time it takes for your application to get started, after whi
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
-import GetSupport fom '../concepts/support.md'
+import GetSupport from '../concepts/support.md'
 
 <GetSupport/>
