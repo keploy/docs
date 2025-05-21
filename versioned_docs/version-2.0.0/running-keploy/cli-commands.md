@@ -47,18 +47,18 @@ keploy record [flags]
 - `-c, --command string` - Command required to start the user application.
 
   ```bash
-  keploy record --command "node src/app.js"
+  keploy record --command "node src/app.js."
   ```
 
-  In the command above, `node src/app.js` is the command which starts the user application.
+  In the command above, `node src/app.js.` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
-  keploy record -c "node src/app.js" --config-path "./config-dir/"
+  keploy record -c "node src/app.js" --config-path "./config-dir/."
   ```
 
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+  In the above command, `config-dir.` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
 
@@ -131,13 +131,13 @@ keploy test [flags]
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
-  keploy test -c "node src/app.js" --config-path "./config-dir/"
+  keploy test -c "node src/app.js" --config-path "./config-dir/."
   ```
 
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
+  In the above command, `config-dir.` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is stored.
 
 - `--container-name string` - Name of the docker container in which the user application is running.
 
@@ -151,7 +151,7 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10
   ```
 
-- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123".
+- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123."
 
   ```bash
   keploy test -c "node src/app.js" --mongo-password "my-password"
@@ -323,13 +323,13 @@ keploy config [flags]
   keploy config --generate
   ```
 
-- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
+- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is "."
 
   ```bash
-  keploy config --generate --path "./config-dir/"
+  keploy config --generate --path "./config-dir/."
   ```
 
-  In the above command, `config-dir` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
+  In the above command, `config-dir.` is the directory in the CWD where the Keploy configuration file `keploy.yaml` is to be stored.
 
 ## [example](#example)
 

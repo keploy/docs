@@ -239,8 +239,8 @@ col := kmongo.NewCollection(db.Collection("Demo-Collection"))
 
 Following operations are supported:
 
-- FindOne - Err and Decode method of mongo.SingleResult
-- Find - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
+- FindOne - Err and Decode method of mongo. SingleResult
+- Find - Next, TryNext, Err, Close, All and Decode methods of mongo. cursor
 - InsertOne
 - InsertMany
 - UpdateOne
@@ -249,7 +249,7 @@ Following operations are supported:
 - DeleteMany
 - CountDocuments
 - Distinct
-- Aggregate - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
+- Aggregate - Next, TryNext, Err, Close, All and Decode methods of mongo. cursor
 
 </details>
 
@@ -361,7 +361,7 @@ Here is an example for postgres driver and binary encoded outputs -
     }
 ```
 
-> Its compatible with gORM. To integrate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params.
+> Its compatible with gORM. To integrate with gORM set DisableAutomaticPing of gorm. Config to true. Also pass request context to methods as params.
 > Example for gORM with GCP-Postgres driver:
 
 ```go
