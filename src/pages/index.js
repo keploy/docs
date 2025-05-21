@@ -3,7 +3,8 @@ import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, KeployCloud, Resources, QuickStart} from "../components";
 import {GSoC} from "../components/GSoC";
-import {Intro} from "../components";
+import {Products} from "../components/Product";
+/*import {Intro} from "../components";*/
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -18,8 +19,9 @@ export default function Home() {
           <QuickStart />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
-          <Intro />
-          <Resources />
+          {<Products />}
+          {/*<Intro />*/}
+          {/* <Resources />*/}
           <Community />
           {/*<GSoC/>*/}
           <KeployCloud />
