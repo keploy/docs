@@ -23,7 +23,7 @@ keyword:
 
 # Introduction
 
-This is a sample app to test Keploy integration capabilities using [Bun.js](https://bun.sh) and [MongoDB](https://www.mongodb.com/).
+This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -36,11 +36,7 @@ import InstallationGuide from '../concepts/installation.md'
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
 
-#Install bun using this command
-
-curl -fsSL https://bun.sh/install | bash
-
-# Install the dependencies
+# First Install bun and then its dependencies using the command below:
 
 bun install
 ```

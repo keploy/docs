@@ -23,7 +23,7 @@ keyword:
 
 # Introduction
 
-🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with [FastAPI](https://fastapi.tiangolo.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with FastAPI and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

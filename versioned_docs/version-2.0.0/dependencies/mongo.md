@@ -6,7 +6,7 @@ sidebar_label: MongoDB Support
 
 ## Introduction
 
-The [MongoDB Wire Protocol](https://www.mongodb.com/docs/manual/reference/mongodb-wire-protocol/) is a simple socket-based, request-response style protocol. Clients communicate with the database server through a regular TCP/IP socket. Clients should connect to the database with a regular TCP/IP socket.
+The MongoDB Wire Protocol is a simple socket-based, request-response style protocol. Clients communicate with the database server through a regular TCP/IP socket. Clients should connect to the database with a regular TCP/IP socket.
 
 **Port :** The default port number for `mongod` and `mongos` instances is 27017. The port number for `mongod` and `mongos` is configurable and may vary.
 
@@ -14,7 +14,7 @@ The [MongoDB Wire Protocol](https://www.mongodb.com/docs/manual/reference/mongod
 
 **Message Types :** MongoDB uses the `OP_MSG` opcode for both client requests and database replies. There are several message formats used in older versions of MongoDB which have been deprecated in favor of `OP_MSG`.
 
-For more information, check [here](https://www.mongodb.com/docs/manual/reference/mongodb-wire-protocol/#standard-message-header).
+For more information, check out mongodb-wire-protocol/#standard-message-header section.
 
 ## How it works ?
 
@@ -51,7 +51,8 @@ OP_MSG {
 
 **Note**
 
-- MongoDB 5.1 removes support for both `OP_QUERY` find operations and `OP_QUERY` commands. As an exception, `OP_QUERY` is still supported for running the [hello](https://www.mongodb.com/docs/manual/reference/command/hello/#mongodb-dbcommand-dbcmd.hello) and [isMaster](https://www.mongodb.com/docs/v4.4/reference/command/isMaster/#mongodb-dbcommand-dbcmd.isMaster) commands as part of the connection handshake.
+- MongoDB 5.1 removes support for both `OP_QUERY` find operations and `OP_QUERY` commands. As an exception, `OP_QUERY` is still supported for running the `hello` and `isMaster` commands as part of the connection handshake.
+
 - In version 4.2, MongoDB removes the deprecated internal `OP_COMMAND` and `OP_COMMANDREPLY` protocol.
 
 Hope this helps you out, if you still have any questions, reach out to us .

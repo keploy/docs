@@ -9,8 +9,6 @@ tags:
 
 Let's check some of the common errors that you might encounter while working with Keploy!
 
-[](https://camo.githubusercontent.com/74cbc79070c04e7077cfd86981c110678fe434e9269ea8f52eafb37b781cfb4a/68747470733a2f2f646f63732e6b65706c6f792e696f2f696d672f6b65706c6f792d6c6f676f2d6461726b2e7376673f733d32303026763d34)
-
 ### 1. Dependency Not Found Error
 
 #### Description:

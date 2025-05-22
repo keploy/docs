@@ -16,7 +16,7 @@ keywords:
 
 # User Profile Management Sample App
 
-A sample application that does CRUD (get, create, update, and delete) operations on a user in [mongoDB](https://www.mongodb.com/).
+A sample application that does CRUD (get, create, update, and delete) operations on a user in mongoDB .
 
 ## Installation
 
@@ -80,7 +80,7 @@ Once done, the Keploy terminal should look like this:
 
 ## Check the MongoDB database
 
-To check the actual data being changed in the database. Open [MongoDB Compass](https://www.mongodb.com/products/compass) and enter the URI below to check the data:
+To check the actual data being changed in the database. Open MongoDB Compass and enter the URI below to check the data:
 
 > mongodb://localhost:27017
 

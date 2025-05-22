@@ -44,7 +44,7 @@ To capture test cases, **Execute** the following command within your application
 keploy record -c "Docker_CMD_to_run_user_container --network <network_name>" --container-name "<container_name>"
 ```
 
-Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL commands.
+Make API calls using [Postman](https://www.postman.com/), or cURL commands.
 
 Keploy will capture the API calls you've conducted, generating test suites comprising **test cases (KTests) and data mocks (KMocks)** in `YAML` format.
 
