@@ -21,20 +21,31 @@ sidebar_label: Keploy on MacOS native
 brew install lima
 ```
 
-4. Paste this command next.
+4. Create a Debian instance.
 
 ```bash
-limactl show-ssh --format=config debian-12 & add it to its ssh config
+limactl create template://debian-12
 ```
 
-5. Open a remote window on your code editor
-6. Click on connect to host
-7. Now select the configured SSH as "lima-debian"
-8. Once you are in the terminal run the following commands to go into your directory
+5. Start the instance
+
+```bash
+limactl start debian-12
+```
+
+6. Enter the shell of the running linux instance
+
+```bash
+limactl shell debian-12
+```
+
+7. Now you are in the linux shell of the debian instance. Now, run the following command to go the `Users` into your directory
 
 ```bash
 cd /Users
 ```
+
+8. Replace the `Username` with your macOS username in the following command. This will take you to your macOS home directory. (You might need to allow access to Terminal.app in a popup)
 
 ```bash
 cd /{Username}
@@ -96,10 +107,6 @@ echo \
   "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/debian \
   $(. /etc/os-release && echo "$VERSION_CODENAME") stable" | \
   sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-```
-
-```bash
-sudo apt-get -y update
 ```
 
 ```bash
