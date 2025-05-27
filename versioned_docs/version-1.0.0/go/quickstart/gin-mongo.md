@@ -16,7 +16,7 @@ keywords:
 
 # URL Shortener Sample App
 
-A sample url shortener app to test Keploy integration capabilities using [Gin](https://gin-gonic.com) and [mongoDB](https://www.mongodb.com/).
+A sample url shortener app to test Keploy integration capabilities using Gin and mongoDB .
 
 ## Installation
 
@@ -49,7 +49,7 @@ go run handler.go main.go
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), or simply `curl`
 
 ### 1. Generate shortened url
 

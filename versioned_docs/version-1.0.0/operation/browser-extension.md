@@ -12,9 +12,9 @@ tags:
 
 1. [Golang](https://go.dev/dl/)
 2. [Docker](https://docs.docker.com/get-docker/)
-3. [GCC compiler](https://sourceforge.net/projects/tdm-gcc/)
-4. [Selenium IDE extension](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
-5. [Keploy](https://github.com/keploy/keploy)
+3. [Selenium IDE extension](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
+4. [Keploy](https://github.com/keploy/keploy)
+5. GCC compiler
 
 ## Install Keploy on PC
 

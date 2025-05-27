@@ -12,7 +12,7 @@ keywords:
 
 ### 1. Convert API calls from anywhere to Test-Case
 
-Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), [Curl](https://curl.se/) to generate test-case.
+Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like [Postman](https://www.postman.com/), [Curl](https://curl.se/) to generate test-case.
 
 <img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
 

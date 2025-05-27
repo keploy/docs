@@ -16,7 +16,7 @@ keywords:
 
 # Contact Keeper Sample App
 
-A sample contact keeper app to test Keploy integration capabilities using [Gorilla Mux](https://pkg.go.dev/github.com/gorilla/mux) and [Redis](https://redis.io/).
+A sample contact keeper app to test Keploy integration capabilities using [Gorilla Mux](https://pkg.go.dev/github.com/gorilla/mux) and Redis.
 
 ## Installation Setup
 
@@ -26,7 +26,7 @@ You can refer to the [installation guide](https://docs.keploy.io/docs/server/ser
 
 ### Prerequisites
 
-1. [Redis](https://redis.io/)
+1. Install Redis
 
 ### Setup Contact Keeper App
 
@@ -48,11 +48,11 @@ export KEPLOY_MODE=record && go run main.go
 
 ### Skip above steps with Gitpod
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer)
+Open in Gitpod
 
 ## Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), or simply `curl`
 
 ### Store the contact details
 

@@ -12,7 +12,7 @@ Pre-requisites
 
 {'<'}/summary{'>'}
 
-- [Java 1.8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- Java 1.8+
 - [Maven](https://maven.apache.org/)
 - [Docker](https://www.docker.com/)
 

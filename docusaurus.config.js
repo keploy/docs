@@ -308,7 +308,6 @@ module.exports = {
           ],
         },
         // Will be passed to @docusaurus/plugin-content-blog
-        // options: https://docusaurus.io/docs/api/plugins/@docusaurus/plugin-content-blog
         // TODO : Add Blogging Section
         // blog: {
         //   routeBasePath: "blog",

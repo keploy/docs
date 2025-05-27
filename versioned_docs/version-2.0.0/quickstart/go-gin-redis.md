@@ -21,7 +21,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with [Gin](https://gin-gonic.com/) and [Redis](https://www.redis.io/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with Gin and Redis. Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

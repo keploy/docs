@@ -41,7 +41,7 @@ Create a .env file which should contain `HASURA_ADMIN_SECRET`and `GRAPHQL_ENDPOI
 
 Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 
-1. Go to https://nhost.io/
+1. Go to nhost
 2. Sign Up/Sign In and create new project
 3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
 4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env

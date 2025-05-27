@@ -15,7 +15,7 @@ keywords:
 
 # URL Shortener Sample App
 
-A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/).
+A sample url shortener app to test Keploy integration capabilities using Echo and [PostgreSQL](https://www.postgresql.org/).
 
 ## Installation
 
@@ -48,7 +48,7 @@ go run handler.go main.go
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), or simply `curl`
 
 ### 1. Generate shortened url
 
