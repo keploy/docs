@@ -29,82 +29,145 @@ Keploy's UTG aims to:
 - **Improve edge case coverage:** Catch complex scenarios often missed manually.
 - **Boost test coverage:** Make comprehensive coverage achievable as your codebase grows.
 
-### You can try the Unit Test Generator in three ways:
+### Try the Unit Test Generator in three ways:
 
 1. **UTG PR Agent**: Install a GitHub App on your repo to automatically generate tests when you create a pull request.
 2. **Keploy UTG VS Code Extension**: Generate test files with a single click directly from your IDE.
-3. **Keploy CLI**: Use commands to manually generate unit tests for individual files or the entire project.
 
-<!-- <img src="/img/POST-request.png" alt="Test Case Generator" width="80%" height="150" /> -->
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1748347544/ChatGPT_Image_May_27_2025_at_05_32_27_PM_zghj7g.png" width="100%" />
+
+<!-- banner image goes here  -->
 
 # Three tools to Generate Unit Tests
 
-## 1. Keploy PR Agent - Effortless Unit Testing for Every Change 📦
+## 1. Keploy PR Agent - Effortless Unit Testing for Every Change
 
 Writing and maintaining unit tests for every small code change can be a time-consuming and repetitive task. In fast-paced development environments, ensuring thorough test coverage often takes a backseat. That’s where the **Keploy PR Agent** steps in.
 
-The **PR Agent** automates unit test generation directly from your pull requests—no manual intervention required. It understands your code changes, generates high-quality tests, and comments them directly on your PR with a single click. No more switching contexts or copy-pasting boilerplate code—Keploy handles it all.
+The **PR Agent** automates unit test generation directly from your pull requests - no manual intervention required. It understands your code changes, generates high-quality tests, and comments them directly on your PR with a single click. No more switching contexts or copy-pasting boilerplate code - Keploy handles it all.
 
-### How It Works - Step-by-Step Setup Guide 🔧
+### How It Works - Step-by-Step Setup Guide
 
 Follow the steps below to get started with the Keploy PR Agent on your GitHub repository:
 
-### 1. Install the Keploy GitHub App 🧩
+### 1. Install the Keploy GitHub App
 
 - Visit [github.com/apps/keploy](https://github.com/apps/keploy)
 - Click on **"Install/Configure"**.
+  <!-- the configuration/installation screenshot goes here -->
+  <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.48.30_PM_blsk3h.png" width="100%" />
 - Choose:
   - A **specific repository** where you want to enable the PR agent, or
   - **All repositories** if you want the functionality across your GitHub organization.
 - Authorize the app to complete the installation.
+  <!-- one small screenshot for the configuration in repositories goes here -->
+  <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.50.17_PM_okdxc8.png" width="100%" />
 
-### 2. Make a Code Change and Open a Pull Request 🔁
+### 2. Make a Code Change and Open a Pull Request
 
 Once the app is installed:
 
 - Make any code changes in your repository.
 - Push your changes and **create a pull request (PR)** as usual.
 - The **Keploy PR Agent** will automatically detect the changes and leave a comment on the PR.
+  <!-- one image of the koploy pr agent making a comment on the code will be added here  -->
+  <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914669/Screenshot_2025-05-22_at_3.21.05_PM_uzeewc.png" width="100%" />
 
-### 3. Trigger Unit Test Generation ⚡
+### 3. Trigger Unit Test Generation
 
 In the PR comment left by Keploy:
 
 - Click on the link (e.g., `https://api.keploy.io/github/trigger/...`).
 - You will be redirected to the Keploy service, where the unit test generation process begins.
 - The PR Agent uses code semantics and the power of LLMs to understand your code changes and generate meaningful unit tests.
+  <!-- one screenshot of the api server generating test cases will go here -->
+  <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_3.23.40_PM_emluya.png" width="100%" />
 
-### 4. View the Generated Tests and Summary ✅
+### 4. View the Generated Tests and Summary
 
 Once the process is complete:
 
 - Click **"Go back to the PR"**.
 - The PR comment will be updated with:
   - All the **unit test files** generated for your recent changes.
-  - A **test summary** presented in a **clean tabular format** showing:
-    - File names
-    - Number of test cases
-    - Coverage details
-    - Edge cases handled (if any)
+  - A **test summary** presented in a **clean tabular format** showing: - File names - Number of test cases - Coverage details - Edge cases handled (if any)
+    <!-- one image with the tabular format comment with the test summary will be added here -->
+    <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914671/Screenshot_2025-05-22_at_3.30.35_PM_mubqr5.png" width="100%" />
+    You can review, modify, or directly merge the PR with complete confidence that your changes are well-tested.
+    With Keploy PR Agent, testing is no longer a bottleneck - it’s built right into your workflow.
 
-You can review, modify, or directly merge the PR with complete confidence that your changes are well-tested.
-With Keploy PR Agent, testing is no longer a bottleneck - it’s built right into your workflow.
+## 🔌 Keploy VS Code Extension - One-Click Unit Test Generation Inside Your IDE
 
-## 2. VS Code Extension 🔌
+Writing unit tests shouldn't be a chore and with the Keploy VS Code Extension, it isn’t.
+Used by over **500K+ developers** as of **March 22, 2025**, the Keploy VS Code extension empowers developers to generate high-quality, meaningful unit tests with **a single click** - without ever leaving their IDE. Whether you're refactoring code, adding new features, or onboarding onto a new repo, Keploy simplifies your testing workflow right inside VS Code.
 
-Generate unit tests with a single click directly from your IDE.
+### Setup Guide - Step by Step
 
-**Setup:**
+### 1. Install the Extension
 
-- Go to VS Code Extensions marketplace
-- Search for "Keploy" and install the extension
+You can install the Keploy extension using either of the following methods:
 
-**Usage:**
+**Method 1: From VS Code Marketplace**
 
-- Open your project in VS Code
-- Click on "Generate Unit Tests" button in the Keploy extension
-- All test files and test cases are generated instantly for your entire project
-- Tests are created with comprehensive coverage for your codebase
+- Open the **Extensions** tab in VS Code.
+- Search for **"Keploy"**.
+- Click **Install**.
+
+<!-- vs code extension search screenshot -->
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.50.03_PM_o97dfi.png" width="100%" />
+
+**Method 2: Direct Link / VS Code Marketplace**
+
+- Visit the [Keploy Extension on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio).
+- Click **Install** and follow the prompts to open it in VS Code.
+
+<!-- vs code marketplace screenshot -->
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.51.22_PM_qytvhv.png" width="100%" />
+
+### 2. Generate Unit Tests in a Single Click
+
+Once the extension is installed:
+
+1. **Look for the Keploy icon** in the **Activity Bar** (left-hand sidebar) of VS Code.
+2. Click the **Keploy icon** to open the extension UI.
+3. You’ll see a simple interface with a button labeled **“Generate Unit Tests.”**
+4. Click the button - that’s it!
+
+<!-- one design asset image goes here -->
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915233/Group_33518_1_usvh0v.png" width="100%" />
+
+Keploy will analyze your codebase and automatically generate all relevant unit test files, covering:
+
+- Core logic
+- Edge cases
+- Boundary conditions
+- And more - all with meaningful assertions and clean test structure.
+
+## What Happens Next?
+
+After clicking **Generate Unit Tests**, Keploy will:
+
+- Parse and understand your source code using code semantics.
+- Create relevant test files alongside your existing code (in your test directory or alongside source files, depending on your config).
+- Provide complete test coverage with little to no boilerplate code.
+
+<!-- one design asset will go here -->
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915360/Frame_3_vuizpr.png" width="100%" />
+
+All tests are:
+
+- Readable
+- Maintainable
+- Ready to run using your preferred test runner (e.g., Jest, Mocha, etc.)
+
+## Why Use Keploy in VS Code?
+
+- **One-click simplicity**: No config, no terminal - just click and go.
+- **LLM-powered generation**: Understands your code deeply, not just syntax.
+- **Boost productivity**: Spend less time writing tests, more time building features.
+- **Fits right into your workflow**: Native support within VS Code means no context switching.
+
+With the Keploy VS Code Extension, testing is no longer a manual afterthought - it’s built right into your development process.
 
 ## Frequently Asked Questions(FAQs)
 

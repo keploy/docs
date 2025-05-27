@@ -8,13 +8,27 @@
       "items": [
         {
           "type": "category",
-          "label": "How UTG Works",
+          "label": "About Keploy Unit Testing",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "running-keploy/unit-test-generator"
+            "running-keploy/unit-test-generator",
+            "keploy-explained/why-keploy-utg",
+            "keploy-explained/how-keploy-utg-works",
+            "running-keploy/utg-pr-agent"
           ]
         },
+         {
+          "type": "category",
+          "label": "UTG Tools",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "running-keploy/utg-pr-agent",
+            "running-keploy/utg-vscode-extension"
+          ]
+        },
+        
         {
           "type": "category",
           "label": "Troubleshooting",
