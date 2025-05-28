@@ -9,7 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
-  - postgrs
+  - postgres
   - dotnet-framework
 keyword:
   - DotNet Framework
