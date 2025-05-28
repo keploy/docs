@@ -228,15 +228,29 @@
       "collapsible": true,
       "collapsed": true,
       "items": [
+        {
+              "type": "doc",
+              "label": "What is API testing?",
+              "id": "running-keploy/about-api-testing"
+      },
     {
       "type": "category",
-      "label": "How ATG Works",
+      "label": "How Keploy's ATG Works",
       "collapsible": true,
       "collapsed": true,
       "items": [
+        "running-keploy/test-run-reports",
+           "running-keploy/test-generate",
         "running-keploy/api-test-generator"
+     
       ]
-    }
+    },
+
+    {
+              "type": "doc",
+              "label": "Best Practices for API Testing",
+              "id": "running-keploy/best-practices-api-testing"
+      }
   ]
   }
   ],

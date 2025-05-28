@@ -1,6 +1,6 @@
 ---
 id: api-test-generator
-title: Keploy API Test Generator
+title: API Test Generator
 sidebar_label: API Test Generator
 description: This section documents usecase of Keploy's API Test Generator
 tags:
