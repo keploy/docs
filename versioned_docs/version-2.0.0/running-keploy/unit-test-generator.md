@@ -29,7 +29,7 @@ Keploy's UTG aims to:
 - **Improve edge case coverage:** Catch complex scenarios often missed manually.
 - **Boost test coverage:** Make comprehensive coverage achievable as your codebase grows.
 
-### Try the Unit Test Generator in three ways:
+### Try the Unit Test Generator in two ways:
 
 1. **UTG PR Agent**: Install a GitHub App on your repo to automatically generate tests when you create a pull request.
 2. **Keploy UTG VS Code Extension**: Generate test files with a single click directly from your IDE.
@@ -52,7 +52,7 @@ Follow the steps below to get started with the Keploy PR Agent on your GitHub re
 
 ### 1. Install the Keploy GitHub App
 
-- Visit [github.com/apps/keploy](https://github.com/apps/keploy)
+- Visit [github.com/apps/keploy](https://github.com/marketplace/keploy)
 - Click on **"Install/Configure"**.
   <!-- the configuration/installation screenshot goes here -->
   <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.48.30_PM_blsk3h.png" width="100%" />
@@ -99,7 +99,7 @@ Once the process is complete:
 ## 🔌 Keploy VS Code Extension - One-Click Unit Test Generation Inside Your IDE
 
 Writing unit tests shouldn't be a chore and with the Keploy VS Code Extension, it isn’t.
-Used by over **500K+ developers** as of **March 22, 2025**, the Keploy VS Code extension empowers developers to generate high-quality, meaningful unit tests with **a single click** - without ever leaving their IDE. Whether you're refactoring code, adding new features, or onboarding onto a new repo, Keploy simplifies your testing workflow right inside VS Code.
+Used by over **500K+ developers** as of **March 22nd, 2025**, the Keploy VS Code extension empowers developers to generate high-quality, meaningful unit tests with **a single click** - without ever leaving their IDE. Whether you're refactoring code, adding new features, or onboarding onto a new repo, Keploy simplifies your testing workflow right inside VS Code.
 
 ### Setup Guide - Step by Step
 

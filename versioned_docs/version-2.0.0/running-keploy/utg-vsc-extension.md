@@ -132,13 +132,6 @@ your-project/
         └── calculator.test.js
 ```
 
-### **Framework Integration**
-
-- **Auto-Detection**: Recognizes your existing testing framework
-- **Import Optimization**: Generates clean, efficient import statements
-- **Mock Generation**: Creates sophisticated mocks for external dependencies
-- **Setup/Teardown**: Includes necessary test lifecycle methods
-
 ## **Key Features & Benefits**
 
 ### **Developer Experience**
@@ -156,28 +149,6 @@ your-project/
 - **Bug Prevention**: Early detection of edge cases and error conditions
 - **Documentation**: Tests serve as executable documentation
 - **Refactoring Safety**: Comprehensive test suites enable confident refactoring
-
-## **Perfect for Every Developer**
-
-### **Individual Developers**
-
-- **Rapid Prototyping**: Generate tests for experimental features
-- **Learning Tool**: Study AI-generated tests to improve testing skills
-- **Side Projects**: Maintain quality in personal projects without overhead
-
-### **Development Teams**
-
-- **Consistent Standards**: Uniform test quality across team members
-- **Onboarding Acceleration**: New developers learn testing patterns quickly
-- **Code Review Efficiency**: PRs include tests from initial submission
-- **Knowledge Sharing**: Tests document expected behavior for team members
-
-### **Enterprise Organizations**
-
-- **Legacy Modernization**: Add tests to existing codebases safely
-- **Compliance**: Meet testing requirements for regulated industries
-- **Scale Management**: Handle large codebases with automated test generation
-- **Risk Mitigation**: Comprehensive testing reduces production incidents
 
 <!-- ## **Future-Ready Testing Platform**
 

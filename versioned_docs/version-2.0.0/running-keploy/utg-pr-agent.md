@@ -31,7 +31,7 @@ Follow the steps below to get started with the Keploy PR Agent on your GitHub re
 
 ### Step 1. Install the Keploy GitHub App
 
-- Visit [github.com/apps/keploy](https://github.com/apps/keploy)
+- Visit [github.com/apps/keploy](https://github.com/marketplace/keploy)
 - Click on **"Install/Configure"**.
   <!-- the configuration/installation screenshot goes here -->
   <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.48.30_PM_blsk3h.png" width="100%" />
@@ -121,21 +121,6 @@ After successful installation:
 - **Permission-Based Access**: Only accesses repositories you explicitly authorize
 - **SOC 2 Compliance**: Enterprise-grade security standards
 
-### **Built for Scale**
-
-- **Monorepo Friendly**: Handles large, complex codebases efficiently
-- **Team Collaboration**: Multiple developers can use simultaneously without conflicts
-- **Performance Optimized**: Fast analysis even for substantial code changes
-- **Rate Limit Aware**: Intelligent request management for high-volume usage
-
-## **Advanced Workflow Integration**
-
-### **CI/CD Pipeline Enhancement**
-
-- **Quality Gates**: Use generated tests as deployment criteria
-- **Automated Coverage**: Track coverage improvements across releases
-- **Integration Testing**: Combine with existing test suites seamlessly
-
 ### **Team Productivity Multipliers**
 
 - **Code Review Efficiency**: Reviewers see test coverage immediately
@@ -147,53 +132,15 @@ After successful installation:
 
 ### **Development Velocity**
 
-- **60% Faster PRs**: Eliminate manual test writing bottlenecks
+- **Faster PRs**: Eliminate manual test writing bottlenecks
 - **Improved Review Quality**: Focus on business logic instead of test boilerplate
 - **Reduced Back-and-Forth**: PRs include tests from initial submission
 
 ### **Code Quality**
 
-- **40% Fewer Production Bugs**: Comprehensive test coverage catches issues early
+- **Fewer Production Bugs**: Comprehensive test coverage catches issues early
 - **Better Edge Case Handling**: AI identifies scenarios humans often miss
 - **Consistent Testing Standards**: Uniform test quality across all contributors
-
-## **Perfect For Modern Development Teams**
-
-### **Ideal Use Cases:**
-
-- **Fast-Moving Startups**: Maintain quality while shipping rapidly
-- **Enterprise Teams**: Ensure consistent testing standards across large organizations
-- **Open Source Projects**: Welcome contributions with confidence through automated testing
-- **Legacy Code Modernization**: Add tests to existing systems during refactoring
-- **Remote Teams**: Async code review process with built-in quality assurance
-
-### **Developer Personas:**
-
-- **Senior Engineers**: Focus on architecture while AI handles test minutiae
-- **Junior Developers**: Learn testing best practices through AI-generated examples
-- **Team Leads**: Ensure consistent quality standards without micromanagement
-- **DevOps Engineers**: Integrate testing into automated deployment pipelines
-
-## **What Makes PR Agent Special?**
-
-### **Intelligent Change Detection**
-
-The PR Agent doesn't just scan your code—it understands it. Using advanced AST parsing combined with GPT-4o and other cutting-edge LLMs, it analyzes your pull request diffs with surgical precision to generate contextually relevant, clean, and comprehensive test cases.
-
-### **Seamless GitHub Integration**
-
-- **Zero Configuration Required**: Works immediately after installation
-- **Non-Intrusive Workflow**: Integrates naturally with existing PR processes
-- **Real-Time Feedback**: Provides instant test generation via PR comments
-- **Secure Processing**: Handles private repositories with enterprise-grade security
-
-### **Smart Test Generation**
-
-Whether you're implementing new features, fixing critical bugs, or refactoring legacy systems, the PR Agent ensures every change comes with:
-
-- **Comprehensive Test Coverage**: Happy paths, edge cases, and error scenarios
-- **Framework-Aware Output**: Tests generated in your project's existing testing patterns
-- **Business Logic Understanding**: AI that comprehends your code's intent and purpose
 
 ## **Get Started Today**
 
