@@ -158,3 +158,8 @@ gqlgen
 ESLint
 llm
 gorm
+debian
+Ngrok
+Vet_List_All
+sanitization
+teardown

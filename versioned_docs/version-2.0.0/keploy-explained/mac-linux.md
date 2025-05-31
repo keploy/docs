@@ -33,13 +33,13 @@ limactl create template://debian-12
 limactl start debian-12
 ```
 
-6. Enter the shell of the running linux instance
+6. Enter the shell of the running Linux instance
 
 ```bash
 limactl shell debian-12
 ```
 
-7. Now you are in the linux shell of the debian instance. Now, run the following command to go the `Users` into your directory
+7. Now you are in the Linux shell of the Debian instance. Now, run the following command to go to the `Users` directory
 
 ```bash
 cd /Users
@@ -64,7 +64,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 sudo apt-get -y install zsh
 ```
 
-**Why?** : zsh (Z Shell) is an advanced shell that offers enhanced features compared to the default bash shell. It provides better autocompletion, advanced globbing, improved history management, and more customization options.
+**Why?** : Zsh (Z Shell) is an advanced shell that offers enhanced features compared to the default bash shell. It provides better autocompletion, advanced globbing, improved history management, and more customization options.
 
 11. Install Git
 
@@ -72,15 +72,15 @@ sudo apt-get -y install zsh
 sudo apt-get -y install git
 ```
 
-12. Install 'Oh-my-zsh'
+12. Install 'Oh My Zsh'
 
 ```bash
 sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -)"
 ```
 
-**Why?** : oh-my-zsh is a framework for managing your zsh configuration. It comes with a collection of plugins, themes, and helpful features that enhance the zsh experience.
+**Why?** : Oh My Zsh is a framework for managing your Zsh configuration. It comes with a collection of plugins, themes, and helpful features that enhance the Zsh experience.
 
-13. Commands to Install docker
+13. Commands to Install Docker
 
 ```bash
 sudo apt-get -y update
@@ -117,7 +117,7 @@ sudo apt-get -y update
 sudo apt-get -y install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 ```
 
-14. Add docker to sudoers
+14. Add Docker to sudoers
 
 ```bash
 sudo groupadd docker
