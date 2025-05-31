@@ -206,7 +206,7 @@ or by querying through the browser `http://localhost:8082/Lhr4BWAi`
 
 Now, let's see the magic! 🪄💫
 
-Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
+Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created.
 
 ### Run the captured testcases
 

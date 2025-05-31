@@ -33,7 +33,11 @@ limactl create template://debian-12
 limactl start debian-12
 ```
 
+<<<<<<< HEAD
 6. Enter the shell of the running Linux instance
+=======
+6. Enter the shell of the running Linux instance .
+>>>>>>> 9a347cd1 (docs: fix formatting and spelling issues)
 
 ```bash
 limactl shell debian-12
