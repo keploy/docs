@@ -23,19 +23,20 @@ keyword:
   - SQL
   - Java
   - Test OpenHospital
-  - Junit
+  - JUnit
   - React
 ---
 
-This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
+This is an OpenHospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 import Link from '@docusaurus/Link'
 
 import InstallationGuide from '../concepts/installation.md'
+import GetSupport from '../concepts/support.md'
 
 <InstallationGuide/>
 
-This project has Three parts - the UI, Core and API, since Keploy is a backend testing platform, we need to start the Backend of the project using Keploy and run the frontend as it is.
+This project has three parts - the UI, Core and API. Since Keploy is a backend testing platform, we need to start the Backend of the project using Keploy and run the frontend as it is.
 
 ## Setup the Core
 
@@ -45,12 +46,11 @@ git checkout integration-with-keploy
 sudo apt install -y maven
 mvn clean install -DskipTests=true
 sudo docker compose up
-
 ```
 
 ## Setup the Backend
 
-Now it's time to setup the backend of our application. Let's Download the Openhospital API and get started.
+Now it's time to set up the backend of our application. Let's download the OpenHospital API and get started.
 
 ```bash
 git clone https://github.com/keploy/openhospital-api
@@ -58,7 +58,7 @@ git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 ```
 
-You can start the Backend using Keploy cli:
+You can start the Backend using Keploy CLI:
 
 # Instructions For Starting Using Binary
 
@@ -66,7 +66,7 @@ Prerequisites For Binary:
 
 1. Node 20.11.0 LTS
 2. OpenJDK 17.0.9
-3. MVN version 3.6.3
+3. Maven version 3.6.3
 
 ## Recording the testcases with Keploy
 
@@ -91,16 +91,13 @@ Now you can start interacting with the UI and Keploy will automatically create t
 
 ```bash
 keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher" --delay 40
-
 ```
 
 🎉 Hooray! You've made it to the end of the binary section! 🎉
 
-Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
-`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
+Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10 s to get started, you can change the `delay` accordingly.
+`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the Docker image from your Docker Compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
 
 <GetSupport/>

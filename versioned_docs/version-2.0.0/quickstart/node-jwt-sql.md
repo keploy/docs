@@ -175,8 +175,8 @@ Our testcases will fail as the token would expire and new Token will generated a
 
 <img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
 
 ```
         noise:
@@ -319,7 +319,7 @@ Our testcases will fail as the token would expire and new Token will generated a
 
 <img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
 
 ```
         noise:

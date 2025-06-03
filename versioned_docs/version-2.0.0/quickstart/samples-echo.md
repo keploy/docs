@@ -127,12 +127,12 @@ Want to see if everything works as expected?
 
 Now that we have our testcase captured, we will add `ts` to noise field in `test-*.yaml` files.
 
-**1. On line 32 we will add "`- body.ts`" under the "`header.data`".**
+**1. On line 32 we will add "`- body.ts`." under the "`header.data`."**
 
 Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
 
 ```shell
-keploy test -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0" --delay 10
+keploy test -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0" --delay 10\u00A0s
 ```
 
 output should look like
@@ -147,7 +147,7 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
+**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\*
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -176,7 +176,7 @@ sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 
 #### Generate testcases
 
-To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
+To generate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
 ```bash
 curl --request POST \
@@ -206,14 +206,14 @@ or by querying through the browser `http://localhost:8082/Lhr4BWAi`
 
 Now, let's see the magic! 🪄💫
 
-Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
+Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created.
 
 ### Run the captured testcases
 
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
+sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10\u00A0s
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
