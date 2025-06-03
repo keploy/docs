@@ -9,6 +9,8 @@ on:
 jobs:
   prettier:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
 
     steps:
       - name: Checkout PR branch
