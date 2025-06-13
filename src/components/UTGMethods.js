@@ -4,11 +4,11 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 
 function UTGMethods() {
   return (
-    <div className="rounded-lg mb-8">
+    <div className="mb-8 rounded-lg">
       <h2 className="mb-6 text-2xl font-semibold tracking-wide md:text-3xl">
         Three Ways to Generate Unit Tests 🚀
       </h2>
-      <p className="text-lg max-w-4xl mb-6">
+      <p className="mb-6 max-w-4xl text-lg">
         Choose the method that best fits your workflow - from automated PR
         integration to one-click IDE generation:
       </p>

@@ -1,7 +1,7 @@
 ---
 id: utg-vscode-extension
-title: Keploy UTG VS Code Extension
-sidebar_label: UTG AI Powered VSC Extension
+title: Keploy's VS Code Extension
+sidebar_label: VS Code Extension
 description: This section documents usecase of Keploy's AI powered unit test vs code extension
 tags:
   - utg
@@ -56,7 +56,7 @@ You can install the Keploy extension using either of the following methods:
 
 **Method 2: Direct Link / VS Code Marketplace**
 
-- Visit the [Keploy Extension on VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio).
+- Visit [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio).
 - Click **Install** and follow the prompts to open it in VS Code.
 
 <!-- vs code marketplace screenshot -->
@@ -97,25 +97,6 @@ All tests are:
 - Maintainable
 - Ready to run using your preferred test runner (e.g., Jest, Mocha, etc.)
 
-## **Advanced AI Capabilities**
-
-### **Deep Code Understanding**
-
-- **AST Analysis**: Parses your code structure for comprehensive understanding
-- **Type Inference**: Automatically detects parameter types and return values
-- **Dependency Mapping**: Identifies external dependencies requiring mocks
-- **Business Logic Recognition**: Understands your code's purpose and generates relevant test scenarios
-
-### **Comprehensive Test Coverage**
-
-| **Test Type**      | **What Gets Generated**      | **Example Scenarios**                 |
-| ------------------ | ---------------------------- | ------------------------------------- |
-| **Happy Path**     | Valid input/output scenarios | Successful function execution         |
-| **Edge Cases**     | Boundary conditions          | Null values, empty arrays, max values |
-| **Error Handling** | Exception scenarios          | Invalid inputs, timeout errors        |
-| **Integration**    | External dependency tests    | API calls, database queries           |
-| **Performance**    | Basic performance checks     | Response time validations             |
-
 ## **Smart Output Management**
 
 ### **Intelligent Directory Structure**
@@ -131,36 +112,6 @@ your-project/
     └── utils/
         └── calculator.test.js
 ```
-
-## **Key Features & Benefits**
-
-### **Developer Experience**
-
-| **Feature**            | **Benefit**                      | **Time Saved**              |
-| ---------------------- | -------------------------------- | --------------------------- |
-| **Instant Generation** | No more blank test file syndrome | 90% faster test creation    |
-| **Context Awareness**  | Tests match your code's intent   | Eliminates guesswork        |
-| **Zero Configuration** | Works out-of-the-box             | No setup overhead           |
-| **Live Updates**       | Regenerate tests as code evolves | Continuous test maintenance |
-
-### **Code Quality Impact**
-
-- **Increased Coverage**: Average 40-60% coverage improvement
-- **Bug Prevention**: Early detection of edge cases and error conditions
-- **Documentation**: Tests serve as executable documentation
-- **Refactoring Safety**: Comprehensive test suites enable confident refactoring
-
-<!-- ## **Future-Ready Testing Platform**
-
-### **Upcoming Features**
-- **Real-Time Suggestions**: Autocomplete-powered test recommendations
-- **GitHub Copilot Integration**: Seamless AI collaboration workflows
-- **Custom Templates**: Project-specific testing patterns and conventions
-- **Team Analytics**: Insights into testing patterns and coverage trends
-
-### **Language Expansion**
-Current support: **JavaScript, TypeScript, Java, Python, Go**
-Coming soon: **C#, Ruby, PHP, Rust, Kotlin** -->
 
 ## **Get Started Today**
 

@@ -5,26 +5,23 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 export const QuickStart = () => {
   return (
     <section className="mt-1">
-      <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-5xl">
+      <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-4xl">
         Welcome to Keploy Documentation! 🚀
       </h1>
       <p className="text-l max-w-3xl">
-        This documentation is your roadmap to becoming a Keploy expert, whether
-        you're a seasoned developer or just starting out. 🗺️
+        This documentation will help you get the most out of Keploy—whether
+        you’re building your first project or leveling up your testing workflow.
+        🗺️
       </p>
 
       <h2 className="mb-4 mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
         What is Keploy? 🤔
       </h2>
       <p className="text-l max-w-4xl">
-        Keploy is your open-source, developer-centric backend testing tool. It
-        makes backend testing easy and productive for engineering teams. Plus,
-        it's easy-to-use, powerful and extensible..🛠️
-      </p>
-      <p className="text-l mt-4 max-w-4xl">
-        Keploy creates test cases and data mocks/stubs from user-traffic by
-        recording API calls and DB queries, significantly speeding up releases
-        and enhancing reliability. 📈
+        Keploy is an AI-powered tool that generates test cases and mocks/stubs
+        for unit, integration, and API testing, helping developers achieve 90%
+        test coverage in minutes. With open-source automation and enhanced test
+        reliability, Keploy simplifies testing workflows.
       </p>
       {/*
       <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">

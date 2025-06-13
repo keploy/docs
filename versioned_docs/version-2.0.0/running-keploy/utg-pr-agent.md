@@ -1,7 +1,7 @@
 ---
 id: utg-pr-agent
-title: Keploy UTG Pull Request Agent
-sidebar_label: UTG PR Agent
+title: Keploy's PR Agent
+sidebar_label: PR Agent
 description: This section documents usecase of Keploy's Unit Test Generator Pull Request Agent
 tags:
   - utg
@@ -31,13 +31,16 @@ Follow the steps below to get started with the Keploy PR Agent on your GitHub re
 
 ### Step 1. Install the Keploy GitHub App
 
-- Visit [github.com/apps/keploy](https://github.com/marketplace/keploy)
-- Click on **"Install/Configure"**.
-  <!-- the configuration/installation screenshot goes here -->
-  <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.48.30_PM_blsk3h.png" width="100%" />
-- Choose:
-  - A **specific repository** where you want to enable the PR agent, or
-  - **All repositories** if you want the functionality across your GitHub organization.
+- Visit [Github Marketplace](https://github.com/marketplace/keploy)
+
+<img src="https://res.cloudinary.com/dfhtr1rwo/image/upload/v1748777663/keploy-marketplace_lwiaoz.png" width="100%" />
+
+Click on **Add**.
+
+Choose:
+
+- A **specific repository** where you want to enable the PR agent, or
+- **All repositories** if you want the functionality across your GitHub organization.
 - Authorize the app to complete the installation.
   <!-- one small screenshot for the configuration in repositories goes here -->
   <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_2.50.17_PM_okdxc8.png" width="100%" />
@@ -56,7 +59,7 @@ Once the app is installed:
 
 In the PR comment left by Keploy:
 
-- Click on the link (e.g., `https://api.keploy.io/github/trigger/...`).
+- Click on the link.
 - You will be redirected to the Keploy service, where the unit test generation process begins.
 - The PR Agent uses code semantics and the power of LLMs to understand your code changes and generate meaningful unit tests.
   <!-- one screenshot of the api server generating test cases will go here -->
@@ -75,80 +78,13 @@ Once the process is complete:
     You can review, modify, or directly merge the PR with complete confidence that your changes are well-tested.
     With Keploy PR Agent, testing is no longer a bottleneck - it’s built right into your workflow.
 
-<!--
-### **Step 1: Install the Keploy GitHub App** 📱
-1. Navigate to the [Keploy GitHub App Installation Page](https://github.com/apps/keploy)
-2. Click **"Install"** to begin the setup process
-3. **Choose Your Scope:**
-   - **Specific Repository**: Target individual projects for focused testing
-   - **Organization-Wide**: Enable across all repositories for comprehensive coverage
-4. **Authorize Permissions**: Grant necessary access for code analysis and PR commenting
-
-*Installation takes less than 2 minutes and requires no additional configuration.*
-
-### **Step 2: Create Your First Enhanced PR** 🔄
-After successful installation:
-1. **Push Code Changes** to any repository with the app installed
-2. **Open a Pull Request** using your standard workflow
-3. **Watch the Magic Happen**: PR Agent automatically detects changes and posts an intelligent comment with a secure generation link
-
-### **Step 3: Generate and Review Comprehensive Tests**
-1. **Click the Generation Link** in the automated PR comment
-2. **AI Analysis Begins**: Keploy analyzes your diff, understands function-level changes, and identifies testing requirements
-3. **Receive Detailed Results**: The original comment updates with:
-   - **Test File Inventory**: Complete list of generated test files
-   - **Coverage Metrics**: Number of test cases and scenarios covered
-   - **Edge Case Analysis**: Comprehensive breakdown of boundary conditions tested
-   - **Code Blocks**: Direct preview of generated test code within the PR -->
-
-## **Core Benefits & Features**
-
-| **Feature**                 | **Impact**                                  | **Developer Benefit**                          |
-| --------------------------- | ------------------------------------------- | ---------------------------------------------- |
-| **PR-Triggered Generation** | Tests created only when code changes        | No wasted effort on unchanged code             |
-| **AI + Semantic Analysis**  | Deep code understanding beyond syntax       | Contextually relevant, business-aware tests    |
-| **Edge Case Intelligence**  | Identifies scenarios often missed manually  | Comprehensive coverage including failure modes |
-| **Zero Setup Complexity**   | Works immediately post-installation         | No configuration files or setup scripts        |
-| **Merge Confidence**        | Every PR includes automated test validation | Deploy with certainty, reduce production bugs  |
-| **Coverage Insights**       | Real-time test coverage analysis            | Data-driven decisions about code quality       |
-
-## **Enterprise-Ready Security & Scale**
-
-### **Security First**
-
-- **Private Repository Support**: Full compatibility with private and enterprise repos
-- **Secure Data Handling**: Code analysis happens securely without data retention
-- **Permission-Based Access**: Only accesses repositories you explicitly authorize
-- **SOC 2 Compliance**: Enterprise-grade security standards
-
-### **Team Productivity Multipliers**
-
-- **Code Review Efficiency**: Reviewers see test coverage immediately
-- **Knowledge Transfer**: New team members understand expected behavior through tests
-- **Documentation Living**: Tests serve as executable documentation
-- **Regression Prevention**: Comprehensive test suites prevent future breaks
-
-## **Real-World Impact**
-
-### **Development Velocity**
-
-- **Faster PRs**: Eliminate manual test writing bottlenecks
-- **Improved Review Quality**: Focus on business logic instead of test boilerplate
-- **Reduced Back-and-Forth**: PRs include tests from initial submission
-
-### **Code Quality**
-
-- **Fewer Production Bugs**: Comprehensive test coverage catches issues early
-- **Better Edge Case Handling**: AI identifies scenarios humans often miss
-- **Consistent Testing Standards**: Uniform test quality across all contributors
-
 ## **Get Started Today**
 
 Ready to transform your pull request workflow from a potential quality bottleneck into a quality amplifier? Install the Keploy PR Agent and experience the future of collaborative development.
 
 ### **Next Steps:**
 
-1. **Install the GitHub App** in under 2 minutes
+1. **Install the PR Agent** in under 10 seconds
 2. **Create a test PR** to see the magic in action
 3. **Experience the difference** in your next code review cycle
 

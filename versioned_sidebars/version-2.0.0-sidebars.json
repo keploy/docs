@@ -7,20 +7,31 @@
       "collapsed": true,
       "items": [
         {
+          "type": "doc",
+          "label": "What is Unit testing?",
+          "id": "running-keploy/about-unit-testing"
+  },
+        {
           "type": "category",
-          "label": "About Keploy Unit Testing",
+          "label": "How Keploy's UTG Works",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "running-keploy/unit-test-generator",
-            "keploy-explained/why-keploy-utg",
-            "keploy-explained/how-keploy-utg-works",
-            "running-keploy/utg-pr-agent"
+            "running-keploy/unit-test-generator"
           ]
         },
-         {
+          
+        {
           "type": "category",
-          "label": "UTG Tools",
+          "label": "Architecture",
+          "collapsed": true,
+          "items": [
+            "running-keploy/unit-test-architecture"
+          ]
+  },
+        {
+          "type": "category",
+          "label": "Getting Started 🚀",
           "collapsible": true,
           "collapsed": true,
           "items": [
@@ -28,16 +39,59 @@
             "running-keploy/utg-vscode-extension"
           ]
         },
-        
-        {
-          "type": "category",
-          "label": "Troubleshooting",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "keploy-explained/faq",
-            "keploy-explained/common-errors"
-          ]
+
+  {
+    "type": "category",
+    "collapsed": true,
+    "label": "Security",
+    "items": [ "keploy-explained/keploy-security"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "Privacy",
+  "collapsed": true,
+"items": [ "keploy-explained/keploy-privacy"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "AI Models",
+  "collapsed": true,
+  "items": [ "keploy-explained/ai-models"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "Integration",
+  "collapsed": true,
+  "items": [ "keploy-explained/integrations-pr-agent"
+]
+},
+
+{
+  "type": "category",
+  "label": "Supported Languages",
+  "collapsed": true,
+  "items": [
+    "keploy-explained/supported-languages"
+  ]
+},
+{
+  "type": "category",
+  "collapsed": true,
+  "label": "Supported IDEs",
+  "items": [
+    "keploy-explained/integrations-vscode"
+  ]
+},
+{
+         "type": "doc",
+        "label": "FAQs",
+        "id": "keploy-explained/unit-testing-faq"
         }
       ]
     },
@@ -49,7 +103,7 @@
           "items": [
             {
           "type": "category",
-          "label": "About Keploy Integration testing",
+          "label": "How Keploy's Integration Testing Works",
           "collapsible": true,
           "collapsed": true,
           "items": [
@@ -79,7 +133,7 @@
             },
             {
               "type": "category",
-              "label": "QuickStarts",
+              "label": "QuickStarts 🚀",
               "collapsible": true,
               "collapsed": true,
               "items": [
@@ -214,9 +268,13 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "keploy-explained/faq",
                 "keploy-explained/common-errors"
               ]
+            },
+            {
+              "type": "doc",
+              "label": "FAQs",
+              "id": "keploy-explained/integration-testing-faq"
             }
           ]
         
@@ -235,22 +293,50 @@
       },
     {
       "type": "category",
-      "label": "How Keploy's ATG Works",
+      "label": "Getting Started 🚀",
       "collapsible": true,
       "collapsed": true,
       "items": [
-        "running-keploy/test-run-reports",
-           "running-keploy/test-generate",
-        "running-keploy/api-test-generator"
-     
+        "running-keploy/api-test-generator",
+        "running-keploy/test-generate",
+        "running-keploy/test-run-reports"
       ]
     },
 
     {
+      "type": "category",
+      "label": "Architecture",
+      "collapsed": true,
+      "items": [
+        "running-keploy/api-test-architecture"
+      ]
+},
+    {
               "type": "doc",
               "label": "Best Practices for API Testing",
               "id": "running-keploy/best-practices-api-testing"
-      }
+      },
+      {
+        "type": "category",
+        "collapsed": true,
+        "label": "Security",
+        "items": [ "keploy-explained/keploy-security"
+      ]
+    },
+    
+    {
+      "type": "category",
+      "collapsed": true,
+      "label": "Privacy",
+    "items": [ "keploy-explained/keploy-privacy"
+      ]
+    },
+      {
+        "type": "doc",
+        "label": "FAQs",
+        "id": "keploy-explained/api-testing-faq"
+}
+
   ]
   }
   ],
