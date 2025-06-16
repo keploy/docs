@@ -1,0 +1,168 @@
+{
+  "sidebarExplanation": [
+    {
+      "type": "category",
+      "label": "Overview",
+      "items": [
+        "keploy-explained/introduction",
+        "keploy-explained/how-keploy-works",
+        "keploy-explained/why-keploy"
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Integration Testing (Open Source + Enterprise)",
+      "items": [
+        {
+          "type": "doc",
+          "label": "Installation",
+          "id": "server/installation"
+        },
+        {
+          "type": "category",
+          "label": "Running Keploy",
+          "items": [
+            "running-keploy/cli-commands",
+            "running-keploy/rename-testcases",
+            "running-keploy/docker-tls",
+            "running-keploy/configuration-file",
+            "running-keploy/custom-mocks",
+            "running-keploy/keploy-templatize"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Test Coverage & SDKs",
+          "items": [
+            "server/sdk-installation/go",
+            "server/sdk-installation/java",
+            "server/sdk-installation/javascript",
+            "server/sdk-installation/python"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "CI/CD Integration",
+          "items": [
+            "ci-cd/github",
+            "ci-cd/gitlab",
+            "ci-cd/jenkins"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Quickstarts",
+          "items": [
+            {
+              "type": "doc",
+              "label": "Overview",
+              "id": "quickstart/overview"
+            }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Enterprise Features",
+          "items": [
+            "keploy-cloud/cloud-installation",
+            "keploy-cloud/time-freezing",
+            "keploy-cloud/mock-registry",
+            "keploy-cloud/keploy-console",
+            "keploy-cloud/auto-test-generation",
+            "keploy-cloud/deduplication"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Unit Testing Agent (Paid)",
+      "items": [
+        "running-keploy/unit-test-generator",
+        {
+          "type": "doc",
+          "label": "How it works",
+          "id": "unit-test/overview"
+        },
+        {
+          "type": "doc",
+          "label": "GitHub Setup",
+          "id": "unit-test/setup"
+        },
+        {
+          "type": "doc",
+          "label": "Custom Models",
+          "id": "unit-test/custom-models"
+        },
+        {
+          "type": "doc",
+          "label": "LLM Support",
+          "id": "unit-test/llms"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Test Generation (Paid)",
+      "items": [
+        {
+          "type": "doc",
+          "label": "Getting Started",
+          "id": "api-test-gen/intro"
+        },
+        {
+          "type": "doc",
+          "label": "Upload Schema or Collection",
+          "id": "api-test-gen/upload"
+        },
+        {
+          "type": "doc",
+          "label": "Advanced Options (Edge cases, flows)",
+          "id": "api-test-gen/advanced"
+        },
+        {
+          "type": "doc",
+          "label": "Self-Healing & Replay",
+          "id": "api-test-gen/self-healing"
+        },
+        {
+          "type": "doc",
+          "label": "Running Tests in CI",
+          "id": "api-test-gen/ci"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Resources & Community",
+      "items": [
+        "keploy-explained/faq",
+        "keploy-explained/common-errors",
+        "dependencies/mongo",
+        "dependencies/postgres",
+        "dependencies/http",
+        "dependencies/redis",
+        {
+          "type": "category",
+          "label": "Hacktoberfest'24",
+          "items": [
+            "hacktoberfest/contribution-guide",
+            "hacktoberfest/code-contribution",
+            "hacktoberfest/no-code-contribution"
+          ]
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Contribute",
+      "items": [
+        "keploy-explained/contribution-guide",
+        "keploy-explained/docs-dev-guide",
+        "keploy-explained/debugger-guide",
+        "keploy-explained/testing-guide",
+        "keploy-explained/mac-linux"
+      ]
+    }
+  ]
+}
