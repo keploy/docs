@@ -96,7 +96,7 @@ Time to put things to the test 🧪
 sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
-![Test Record](../../../../../static/img/nextjs-postgres-test.png)
+![Test Record](../../../../../statigc/img/nextjs-postgres-test.png)
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
