@@ -107,39 +107,39 @@ Keploy offers a one-click unit test generation tool that streamlines the testing
 - **Efficiency**: Quickly create unit tests to save time and effort.
 - **Enhanced Coverage**: Automatically generate tests for various scenarios, improving code reliability.
 - **Focus on Quality**: Spend more time writing high-quality code while ensuring thorough validation.
-  ![Keploy](../../../../../../../temp/docs/static/img/glossary/keploy_VS.png)
+  ![Keploy](../../../../../static/img/glossary/keploy_VS.png)
 
 Get started by downloading the tool from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) and boost your development workflow today!
 
 ### pytest (Python)
 
 pytest is a feature-rich and easy-to-use testing framework for Python. It supports the creation of simple unit tests as well as complex functional testing scenarios. pytest’s concise syntax and powerful features make it a preferred choice for Python developers.
-![pytest](../../../../../../../temp/docs/static/img/glossary/pytest.png)
+![pytest](../../../../../static/img/glossary/pytest.png)
 
 ### NUnit (.NET):
 
 NUnit is a unit testing framework for .NET applications. It is widely used for testing C# and F# code. NUnit supports parameterized tests, assertions, and various attributes to customize test behavior.
-![nunit](../../../../../../../temp/docs/static/img/glossary/nunit.png)
+![nunit](../../../../../static/img/glossary/nunit.png)
 
 ### RSpec (Ruby):
 
 RSpec is a behavior-driven development (BDD) framework for Ruby. It focuses on readability and expressiveness, allowing developers to write tests that resemble natural language. RSpec supports descriptive syntax for writing specifications and expectations.
-![spec](../../../../../../../temp/docs/static/img/glossary/rspec.png)
+![spec](../../../../../static/img/glossary/rspec.png)
 
 ### Mocha (JavaScript/Node.js):
 
 Mocha is a versatile testing framework for JavaScript and Node.js applications. It supports both asynchronous and synchronous testing and provides a flexible and extensible structure. Mocha is often used in conjunction with assertion libraries like Chai.
-![mocha](../../../../../../../temp/docs/static/img/glossary/mocha.png)
+![mocha](../../../../../static/img/glossary/mocha.png)
 
 ### JUnit 5 (Java):
 
 JUnit 5 is the next generation of the JUnit framework, introducing new features and improvements over JUnit 4. It supports parameterized tests, test interfaces, and extensions, providing a more modern and flexible testing experience.
-![junit](../../../../../../../temp/docs/static/img/glossary/junit.png)
+![junit](../../../../../static/img/glossary/junit.png)
 
 ### TestNG (Java):
 
 TestNG is another testing framework for Java, designed to cover a broader range of testing categories, including unit, functional, and integration testing. It supports parallel execution, data-driven testing, and easy configuration through annotations.
-![testng](../../../../../../../temp/docs/static/img/glossary/testng.png)
+![testng](../../../../../static/img/glossary/testng.png)
 
 ## Conclusion
 
