@@ -233,11 +233,6 @@ div[class^="sidebar_"] .button svg {
 .navbar__items--right > :last-child {
   @apply pr-5;
 }
-
-.navbar__brand {
-  @apply mb-3;
-}
-
 /* Search */
 
 .DocSearch-Button {

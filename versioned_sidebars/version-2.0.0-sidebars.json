@@ -2,164 +2,310 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Explanation",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "keploy-explained/introduction",
-        "keploy-explained/how-keploy-works",
-        "keploy-explained/why-keploy"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Hacktoberfest'24",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "hacktoberfest/contribution-guide",
-        "hacktoberfest/code-contribution",
-        "hacktoberfest/no-code-contribution"
-      ]
-    },
-    {
-      "type": "doc",
-      "label": "Installation",
-      "id": "server/installation"
-    },
-    {
-      "type": "category",
-      "label": "Running Keploy",
-      "collapsible": true,
-      "collapsed": false,
-      "items": [
-        "running-keploy/cli-commands",
-        "running-keploy/unit-test-generator",
-        "running-keploy/rename-testcases",
-        "running-keploy/docker-tls",
-        "running-keploy/configuration-file",
-        "running-keploy/custom-mocks",
-        "running-keploy/keploy-templatize"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "CI/CD Integration",
-      "collapsible": true,
-      "collapsed": true,
-      "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
-    },
-    {
-      "type": "category",
-      "label": "Test Coverage Generation",
-      "collapsible": true,
-      "collapsed": true,
-      "items": [
-        "server/sdk-installation/go",
-        "server/sdk-installation/java",
-        "server/sdk-installation/javascript",
-        "server/sdk-installation/python"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "QuickStarts",
+      "label": "Unit Testing",
       "collapsible": true,
       "collapsed": true,
       "items": [
         {
+          "type": "doc",
+          "label": "What is Unit testing?",
+          "id": "running-keploy/about-unit-testing"
+  },
+        {
           "type": "category",
-          "label": "Java (SpringBoot)",
+          "label": "How Keploy's UTG Works",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/openhospital",
-            "quickstart/pet-clinic",
-            "quickstart/samples-java",
-            "quickstart/java-spring-boot-mongo",
-            "quickstart/java-spring-boot-xml"
+            "running-keploy/unit-test-generator"
           ]
         },
+          
         {
           "type": "category",
-          "label": "Golang",
+          "label": "Architecture",
+          "collapsed": true,
+          "items": [
+            "running-keploy/unit-test-architecture"
+          ]
+  },
+        {
+          "type": "category",
+          "label": "Getting Started 🚀",
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "quickstart/samples-echo",
-            "quickstart/samples-gin",
-            "quickstart/samples-redis",
-            "quickstart/samples-mux",
-            "quickstart/samples-mysql",
-            "quickstart/samples-fasthttp"
+            "running-keploy/utg-pr-agent",
+            "running-keploy/utg-vscode-extension"
           ]
         },
-        {
-          "type": "category",
-          "label": "Python",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-django",
-            "quickstart/samples-flask",
-            "quickstart/samples-fastapi",
-            "quickstart/samples-fastapi-twilio",
-            "quickstart/sanic-mongo",
-            "quickstart/flask-redis"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Javascript",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-bunjs",
-            "quickstart/samples-nextjs",
-            "quickstart/samples-nodejs",
-            "quickstart/samples-node-jwt",
-            "quickstart/crud-nodejs",
-            "quickstart/express-postgresql-prisma",
-            "quickstart/samples-typescript"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Rust",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "quickstart/samples-rust",
-            "quickstart/sample-rust-crud-mongo"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "C# (.NET Core)",
-          "collapsible": true,
-          "collapsed": true,
-          "items": ["quickstart/samples-csharp"]
+
+  {
+    "type": "category",
+    "collapsed": true,
+    "label": "Security",
+    "items": [ "keploy-explained/keploy-security"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "Privacy",
+  "collapsed": true,
+"items": [ "keploy-explained/keploy-privacy"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "AI Models",
+  "collapsed": true,
+  "items": [ "keploy-explained/ai-models"
+  ]
+},
+
+{
+  "type": "category",
+  "label": "Integration",
+  "collapsed": true,
+  "items": [ "keploy-explained/integrations-pr-agent"
+]
+},
+
+{
+  "type": "category",
+  "label": "Supported Languages",
+  "collapsed": true,
+  "items": [
+    "keploy-explained/supported-languages"
+  ]
+},
+{
+  "type": "category",
+  "collapsed": true,
+  "label": "Supported IDEs",
+  "items": [
+    "keploy-explained/integrations-vscode"
+  ]
+},
+{
+         "type": "doc",
+        "label": "FAQs",
+        "id": "keploy-explained/unit-testing-faq"
         }
       ]
     },
+        {
+          "type": "category",
+          "label": "Integration Testing",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+          "type": "category",
+          "label": "How Keploy's Integration Testing Works",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "keploy-explained/introduction",
+            "keploy-explained/how-keploy-works",
+            "keploy-explained/why-keploy"
+          ]
+        },
+            {
+              "type": "doc",
+              "label": "Installation",
+              "id": "server/installation"
+            },
+            {
+              "type": "category",
+              "label": "Running Guide",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "running-keploy/cli-commands",
+                "running-keploy/rename-testcases",
+                "running-keploy/docker-tls",
+                "running-keploy/configuration-file",
+                "running-keploy/custom-mocks",
+                "running-keploy/keploy-templatize"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "QuickStarts 🚀",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                {
+                  "type": "category",
+                  "label": "Java (SpringBoot)",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "quickstart/openhospital",
+                    "quickstart/pet-clinic",
+                    "quickstart/samples-java",
+                    "quickstart/java-spring-boot-mongo",
+                    "quickstart/java-spring-boot-xml"
+
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Golang",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "quickstart/samples-echo",
+                    "quickstart/samples-gin",
+                    "quickstart/samples-redis",
+                    "quickstart/samples-mux",
+                    "quickstart/samples-mysql",
+                    "quickstart/samples-fasthttp"
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Python",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "quickstart/samples-django",
+                    "quickstart/samples-flask",
+                    "quickstart/samples-fastapi",
+                    "quickstart/samples-fastapi-twilio",
+                    "quickstart/sanic-mongo",
+                    "quickstart/flask-redis"
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Javascript",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "quickstart/samples-bunjs",
+                    "quickstart/samples-nextjs",
+                    "quickstart/samples-nodejs",
+                    "quickstart/samples-node-jwt",
+                    "quickstart/crud-nodejs",
+                    "quickstart/express-postgresql-prisma",
+                    "quickstart/samples-typescript"
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "Rust",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "quickstart/samples-rust",
+                    "quickstart/sample-rust-crud-mongo"
+                  ]
+                },
+                {
+                  "type": "category",
+                  "label": "C# (.NET Core)",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": ["quickstart/samples-csharp"]
+                }
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Enterprise Features",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "keploy-cloud/cloud-installation",
+                "keploy-cloud/auto-test-generation",
+                "keploy-cloud/time-freezing",
+                "keploy-cloud/mock-registry",
+                "keploy-cloud/keploy-console",
+                "keploy-cloud/deduplication"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Test Coverage Generation",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "server/sdk-installation/go",
+                "server/sdk-installation/java",
+                "server/sdk-installation/javascript",
+                "server/sdk-installation/python"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "CI/CD Integration",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "ci-cd/github",
+                "ci-cd/gitlab",
+                "ci-cd/jenkins"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Dependencies",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "dependencies/mongo",
+                "dependencies/postgres",
+                "dependencies/http",
+                "dependencies/redis"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Troubleshooting",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "keploy-explained/common-errors"
+              ]
+            },
+            {
+              "type": "doc",
+              "label": "FAQs",
+              "id": "keploy-explained/integration-testing-faq"
+            }
+          ]
+        
+    },
+    
     {
       "type": "category",
-      "label": "Keploy-Cloud ☁️",
+      "label": "API Testing",
       "collapsible": true,
       "collapsed": true,
       "items": [
-        "keploy-cloud/cloud-installation",
-        "keploy-cloud/time-freezing",
-        "keploy-cloud/mock-registry",
-        "keploy-cloud/keploy-console",
-        "keploy-cloud/auto-test-generation",
-        "keploy-cloud/deduplication"
-      ]
-    },
+        {
+              "type": "doc",
+              "label": "What is API testing?",
+              "id": "running-keploy/about-api-testing"
+      },
     {
       "type": "category",
-      "label": "Resources",
+      "label": "Getting Started 🚀",
       "collapsible": true,
+      "collapsed": true,
+      "items": [
+        "running-keploy/api-test-generator",
+        "running-keploy/test-generate",
+        "running-keploy/test-run-reports"
+      ]
+    },
+
+    {
+      "type": "category",
+      "label": "Architecture",
       "collapsed": true,
       "items": [
         "keploy-explained/faq",
@@ -169,7 +315,35 @@
         "dependencies/http",
         "dependencies/redis"
       ]
-    }
+},
+    {
+              "type": "doc",
+              "label": "Best Practices for API Testing",
+              "id": "running-keploy/best-practices-api-testing"
+      },
+      {
+        "type": "category",
+        "collapsed": true,
+        "label": "Security",
+        "items": [ "keploy-explained/keploy-security"
+      ]
+    },
+    
+    {
+      "type": "category",
+      "collapsed": true,
+      "label": "Privacy",
+    "items": [ "keploy-explained/keploy-privacy"
+      ]
+    },
+      {
+        "type": "doc",
+        "label": "FAQs",
+        "id": "keploy-explained/api-testing-faq"
+}
+
+  ]
+  }
   ],
   "sidebarContributionGuide": [
     {
