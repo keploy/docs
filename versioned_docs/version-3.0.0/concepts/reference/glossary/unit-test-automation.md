@@ -107,7 +107,7 @@ Keploy offers a one-click unit test generation tool that streamlines the testing
 - **Efficiency**: Quickly create unit tests to save time and effort.
 - **Enhanced Coverage**: Automatically generate tests for various scenarios, improving code reliability.
 - **Focus on Quality**: Spend more time writing high-quality code while ensuring thorough validation.
-  ![Keploy](../../../../../../../temp/docs/static/img/glossary/keploy_VS.png)
+  ![Keploy](../../../../../static/img/glossary/keploy_VS.png)
 
 Get started by downloading the tool from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) and boost your development workflow today!
 
