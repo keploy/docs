@@ -19,6 +19,7 @@ module.exports = {
     // container: false, // use container style from docusaurus
   },
   // important: "#tailwind", // incrementally adopt Tailwind by wrapping pages with <div id="tailwind"> </div>
+  darkMode: ['class', '[data-theme="dark"]'],
   theme: {
     extend: {
       typography: {
