@@ -1,7 +1,7 @@
 ---
 id: how-keploy-works
 title: How Keploy Works?
-sidebar_label: How Keploy Works?
+sidebar_label: Architecture
 tags:
   - explanation
   - replay-test-case

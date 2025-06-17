@@ -162,12 +162,12 @@
       "collapsible": true,
       "collapsed": true,
       "items": [
+        "keploy-explained/faq",
+        "keploy-explained/common-errors",
         "dependencies/mongo",
         "dependencies/postgres",
         "dependencies/http",
-        "dependencies/redis",
-        "keploy-explained/faq",
-        "keploy-explained/common-errors"
+        "dependencies/redis"
       ]
     }
   ],
