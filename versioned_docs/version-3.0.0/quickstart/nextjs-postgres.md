@@ -82,7 +82,7 @@ This will return the response:
 curl -X GET http://localhost:3000/api/users
 ```
 
-![Test Record](../../../../../static/img/nextjs-postgres-record.png)
+[//]: # (![Test Record]&#40;../../../../../static/img/nextjs-postgres-record.png&#41;)
 
 Give yourself a pat on the back! With that simple spell, you've conjured up test cases with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
