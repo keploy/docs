@@ -121,17 +121,17 @@ module.exports = {
           items: [
             {
               label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent/"
+              to: "/running-keploy/utg-pr-agent/",
             },
             {
               label: "Integration Testing",
-              to: "/keploy-explained/introduction"
+              to: "/keploy-explained/introduction",
             },
             {
               label: "API Testing",
-              to: "/running-keploy/about-api-testing"
-            }
-          ]
+              to: "/running-keploy/about-api-testing",
+            },
+          ],
         },
         {
           label: "Blog",
@@ -149,12 +149,12 @@ module.exports = {
               href: "/concepts/reference/glossary/",
             },
           ],
-          position: "left"
+          position: "left",
         },
         {
           to: "/keploy-explained/contribution-guide",
           label: "Contribution Guide",
-          position: "left"
+          position: "left",
         },
         {
           type: "docsVersionDropdown",
