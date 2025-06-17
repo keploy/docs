@@ -104,7 +104,13 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
-- **`filters`**: API calls to the application to avoid recording.
+- **`filters`**: API calls to the application to avoid recording. You can also control how these conditions are matched using matchType.
+
+  - **`matchType (optional)`**: Determines how urlMethods and headers are evaluated.
+
+    - **`"AND"`**: Both must match.
+
+    - **`"OR"`**: Either can match.
 
   Example:
 
@@ -113,11 +119,12 @@ The `record` section in the Keploy-config file allows you to define parameters f
     filters:
       - path: "/user/app"
         urlMethods: ["GET"]
-        headers: {"^asdf*": "^test"}
+        headers: {"^x-client-id": "^abc.*"}
         host: "dc.services.visualstudio.com"
+        matchType: "AND"
   ```
 
-  This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
+  This will avoid recording the API calls to the path `/user/app` only when the method is `GET`, headers starting with `abc`.
 
 - **`tests`**: Filters to record Tests.
 
