@@ -23,7 +23,7 @@ keywords:
 
 **Gray box testing** is a software testing technique that combines aspects of both black box and white box testing. It involves testing the software with partial knowledge of the internal workings of the application. This means the tester has limited access to the internal structures or algorithms, usually at the level of data structures and algorithms but not at the level of the source code itself.
 
-![types of testing](../../../../../static/img/glossary/types-of-testing.jpeg)
+![types of testing](../../../../../../../temp/docs/static/img/glossary/types-of-testing.jpeg)
 
 ## Why is Gray Box Testing Needed?
 

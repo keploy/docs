@@ -82,7 +82,7 @@ This will return the response:
 curl -X GET http://localhost:3000/api/users
 ```
 
-![Test Record](../../../static/img/nextjs-postgres-record.png)
+![Test Record](../../../../../temp/docs/static/img/nextjs-postgres-record.png)
 
 Give yourself a pat on the back! With that simple spell, you've conjured up test cases with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
@@ -96,7 +96,7 @@ Time to put things to the test 🧪
 sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
-![Test Record](../../../static/img/nextjs-postgres-test.png)
+![Test Record](../../../../../temp/docs/static/img/nextjs-postgres-test.png)
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 

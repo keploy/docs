@@ -1,11 +1,13 @@
 ---
-id: faq
-title: Frequently Asked Questions (FAQ)
-sidebar_label: FAQ
+id: integration-testing-faq
+title: Frequently Asked Questions
+sidebar_label: FAQs
 tags:
   - explanation
   - faq
 ---
+
+# Got Questions? We’ve Got Answers! 🚀
 
 Let's get to the heart of Keploy with some fun Q&A!
 
