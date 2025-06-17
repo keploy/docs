@@ -58,7 +58,11 @@ mvn wrapper:wrapper
 ./mvnw clean install
 ```
 
-> **Note**: For Windows, use `mvnw.cmd clean install`
+> **Windows users:**  
+> Use `.\mvnw.cmd clean install` and `.\mvnw.cmd spring-boot:run` in PowerShell  
+> Use `mvnw.cmd` in CMD (Command Prompt)  
+> 
+> If you're using WSL (Windows Subsystem for Linux), use the regular `./mvnw` syntax.
 
 ## Install Keploy 📥
 
@@ -159,6 +163,15 @@ keploy test -c "./mvnw spring-boot:run" --delay 15
 This will run the tests and generate the report in the `Keploy/reports` directory in the CWD.
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. We provided you with some data in [potions.json](https://github.com/keploy/samples-java/blob/main/spring-boot-mongo/potions.json). Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
+
+## 🛠️ Troubleshooting
+
+| Issue | Cause | Solution |
+|------ |-------|----------|
+| `./mvnw: Permission denied` | Missing execute permission | Run `chmod +x mvnw` |
+| MongoDB not reachable | Docker container isn't running | Check with `docker ps` and start MongoDB again |
+| Spring Boot not detecting Mongo | Wrong port or container name | Ensure `--name spring-boot-mongo` and port `27017` are correct |
+
 
 ## Wrapping it up 🎉
 
