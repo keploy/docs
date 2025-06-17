@@ -1,16 +1,27 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Layout from "@theme/Layout";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import Head from "@docusaurus/Head";
+import clsx from "clsx";
 
 function Glossary() {
-  const [state, setState] = useState(() => {
-    const alphabet = "ABCEFGIMRSTUW";
-    const initialState = {};
-    for (let i = 0; i < alphabet.length; i++) {
-      initialState[alphabet[i]] = true;
-    }
-    return initialState;
+  // Initialize state for toggling sections
+  const [expandedSections, setExpandedSections] = useState(() => {
+    const sections = {};
+    "ABCEFGIMRSTUW".split('').forEach(letter => {
+      sections[letter] = true;
+    });
+    return sections;
   });
+  
+  const toggleSection = (letter) => {
+    setExpandedSections(prev => ({
+      ...prev,
+      [letter]: !prev[letter]
+    }));
+  };
+
+
+
   const entries = {
     A: [
       {
@@ -105,7 +116,7 @@ function Glossary() {
     S: [
       {
         name: "Stubs",
-        ink: "/docs/concepts/reference/glossary/stubs",
+        link: "/docs/concepts/reference/glossary/stubs",
       },
       {
         name: "Software Testing Life Cycle",
@@ -139,70 +150,97 @@ function Glossary() {
       },
     ],
   };
-  const {siteConfig, siteMetadata} = useDocusaurusContext;
-  const handleClick = (index) => {
-    setState((state) => {
-      var obj = {
-        ...state,
-        [index]: !state[index],
-      };
-      return obj;
-    });
-  };
+  
   return (
     <Layout
-      title="About the docs"
+      title="Glossary | Keploy Documentation"
       permalink="/reference/glossary"
-      description="User General Information about Keploy's Documentation"
+      description="Comprehensive glossary of testing and development terms used in Keploy documentation"
+      wrapperClassName="min-h-screen"
     >
-      <main className="margin-vert--lg container flex flex-col justify-evenly">
-        <div className="pb-5 text-center text-4xl font-bold">Glossary</div>
-        <div className="flex flex-row justify-evenly">
-          {new Array(26).fill(0).map((x, i) => (
-            <button
-              className={`col-span-1  gap-2 rounded-sm p-3
-                    ${
-                      state[String.fromCharCode(65 + i)]
-                        ? "text-black-200 rounded-3xl bg-orange-200 font-bold shadow-md hover:text-orange-950 dark:text-orange-900"
-                        : entries[String.fromCharCode(65 + i)] === undefined
-                        ? "bg-transparent text-gray-400" // Modified color class
-                        : "bg-grey-200 rounded-3xl shadow-md"
-                    } `}
-              key={i}
-              disabled={
-                entries[String.fromCharCode(65 + i)] === undefined
-                  ? true
-                  : false
-              }
-              onClick={() => handleClick(String.fromCharCode(65 + i))}
-            >
-              {String.fromCharCode(65 + i)}
-            </button>
-          ))}
+      <Head>
+        <meta name="keywords" content="glossary, testing terms, development terms, Keploy, API testing, unit testing" />
+      </Head>
+      
+      <main className="container mx-auto px-4 py-8">
+        <div className="text-center mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold mb-2">
+            Developer Glossary
+          </h1>
+          <p className="text-gray-600 dark:text-gray-300 text-lg opacity-80">
+            Browse our comprehensive glossary of testing and development terms used throughout Keploy's documentation.
+          </p>
         </div>
-        <div className="-mb-3 mt-10 flex flex-wrap justify-center gap-4 text-xl font-semibold">
-          {Object.entries(state).map(([key, value]) => {
-            return (
-              <div key={key} className="mb-4 w-1/4">
-                <div key={key}>{value ? key : ""}</div>
-                {value ? (
-                  <div className="ml-4 flex flex-col justify-around text-xl">
-                    {entries[key]?.map(({name, link}, i) => (
-                      <a
-                        className="text-orange-600 hover:text-orange-800 hover:underline"
-                        key={i}
-                        href={link}
-                      >
-                        {name}
-                      </a>
-                    ))}
-                  </div>
-                ) : (
-                  ""
-                )}
+
+        {/* Alphabet Navigation */}
+        <div className="sticky top-16 z-10 py-4 mb-8 border-b border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/95 backdrop-blur-sm">
+          <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
+            {Array.from({ length: 26 }, (_, i) => {
+              const letter = String.fromCharCode(65 + i);
+              const hasTerms = entries[letter] !== undefined;
+              const isActive = expandedSections[letter];
+              
+              return (
+                <button
+                  key={letter}
+                  onClick={() => toggleSection(letter)}
+                  disabled={!hasTerms}
+                  className={clsx(
+                    'w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 font-medium',
+                    {
+                      'bg-orange-200 text-orange-900 font-bold shadow-md': isActive && hasTerms,
+                      'text-gray-400 cursor-not-allowed': !hasTerms,
+                      'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800': !isActive && hasTerms
+                    }
+                  )}
+                  aria-label={`Toggle ${letter} section`}
+                >
+                  {letter}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Glossary Terms */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {Object.entries(entries).map(([letter, terms]) =>
+            expandedSections[letter] && (
+              <div key={letter} className="space-y-4">
+                <div className="flex items-center mb-4">
+                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                    {letter}
+                  </h2>
+                  <span className="ml-3 text-sm text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
+                    {terms.length} {terms.length === 1 ? 'term' : 'terms'}
+                  </span>
+                </div>
+                
+                <div className="space-y-3">
+                  {terms.map(({ name, link }, index) => (
+                    <a
+                      key={index}
+                      href={link}
+                      className="block p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-400 transition-all duration-200 hover:shadow-md"
+                    >
+                      <div className="flex items-center">
+                        <div className="flex-1">
+                          <h3 className="font-medium text-gray-900 dark:text-white">
+                            {name}
+                          </h3>
+                        </div>
+                        <div className="ml-2 text-orange-500 dark:text-orange-400">
+                          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                          </svg>
+                        </div>
+                      </div>
+                    </a>
+                  ))}
+                </div>
               </div>
-            );
-          })}
+            )
+          )}
         </div>
       </main>
     </Layout>
