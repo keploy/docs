@@ -36,8 +36,6 @@ Gray box testing is needed for several reasons:
 
 ## Types of Gray Box Testing Techniques
 
-![Types of gray box testing](https://wp.testbytes.net//wp-content/uploads/2019/04/Gray-box-testing-1-1.jpg)
-
 Gray box testing encompasses various techniques that leverage both functional testing methods and insights into the internal workings of the application. Here are some common types of gray box testing techniques:
 
 ### 1. Matrix Testing
