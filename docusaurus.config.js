@@ -116,9 +116,21 @@ module.exports = {
       },
       items: [
         {
-          to: "/server/installation",
-          activeBasePath: "none",
-          label: "Installation",
+          label: "Products",
+          items: [
+            {
+              label: "Unit Testing",
+              href: "/running-keploy/unit-test-generator",
+            },
+            {
+              label: "Integration Testing",
+              href: "/keploy-explained/introduction",
+            },
+            {
+              label: "API Testing",
+              href: "/running-keploy/api-test-generator",
+            },
+          ],
         },
         // {
         //   to: "/server/installation/",
@@ -138,10 +150,24 @@ module.exports = {
         {
           to: "/keploy-explained/contribution-guide",
           label: "Contribution Guide",
+          activeBasePath: "none",
         },
         {
-          to: "https://keploy.io/blog",
-          label: "Blog",
+          label: "Resources",
+          items: [
+            {
+              label: "Tech Blogs",
+              href: "https://keploy.io/blog/technology",
+            },
+            {
+              label: "Communtity Articles",
+              href: "https://keploy.io/blog/community",
+            },
+            {
+              label: "Glossary",
+              href: "/concepts/reference/glossary/",
+            },
+          ],
         },
         {
           type: "docsVersionDropdown",
@@ -153,6 +179,11 @@ module.exports = {
           position: "right",
           className: "header-github-link",
           "aria-label": "GitHub repository",
+        },
+        {
+          href: "https://app.keploy.io/pricing",
+          position: "right",
+          label: "Pricing",
         },
         // TODO : Add Blogging Section
         // {
