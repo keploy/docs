@@ -1,9 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
 import clsx from "clsx";
 
 function Glossary() {
+  // Initialize refs for each section
+  const sectionRefs = useRef({});
+  // Track which section is in view for navbar highlight
+  const [activeLetter, setActiveLetter] = useState("A");
+
   // Initialize state for toggling sections
   const [expandedSections, setExpandedSections] = useState(() => {
     const sections = {};
@@ -12,13 +17,74 @@ function Glossary() {
     });
     return sections;
   });
-  
+
+  // Scroll to section when navbar letter is clicked
+  // Lock highlight on clicked letter until its section is at the top
+  const [scrollTargetLetter, setScrollTargetLetter] = useState(null);
+  const scrollToSection = (letter) => {
+    // Always expand the section before scroll
+    setExpandedSections(prev => ({ ...prev, [letter]: true }));
+    setScrollTargetLetter(letter);
+    setActiveLetter(letter);
+    setTimeout(() => {
+      if (sectionRefs.current[letter]) {
+        sectionRefs.current[letter].scrollIntoView({ behavior: 'instant', block: 'start' });
+        // Offset for sticky navbar (default 150px)
+        window.scrollBy({ top: -150, behavior: 'smooth' });
+      }
+    }, 0);
+  };
+
+
+
+
+  // Intersection Observer for active section
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get all refs in DOM order
+      const sectionList = Object.entries(sectionRefs.current)
+        .filter(([letter, ref]) => !!ref && expandedSections[letter])
+        .map(([letter, ref]) => ({ letter, top: ref.getBoundingClientRect().top }));
+      // If a scroll target is set, keep highlight until its section is at the top
+      if (scrollTargetLetter) {
+        const targetSection = sectionList.find(s => s.letter === scrollTargetLetter);
+        if (targetSection && Math.abs(targetSection.top) < 4) {
+          setActiveLetter(scrollTargetLetter);
+          setScrollTargetLetter(null); // Unlock
+        } else {
+          setActiveLetter(scrollTargetLetter);
+        }
+        return;
+      }
+      // Find the section closest to (but not below) the top of viewport, only among expanded
+      let closest = null;
+      let minDist = Infinity;
+      sectionList.forEach(({ letter, top }) => {
+        if (top <= 150 && Math.abs(top) < minDist) {
+          minDist = Math.abs(top);
+          closest = letter;
+        }
+      });
+      // Fallback: if no section is visible, keep the last activeLetter
+      if (closest) {
+        setActiveLetter(closest);
+      }
+      // else do not update activeLetter, keep last clicked
+
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    // Call once to set initial
+    handleScroll();
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [expandedSections, scrollTargetLetter]);
+
   const toggleSection = (letter) => {
     setExpandedSections(prev => ({
       ...prev,
       [letter]: !prev[letter]
     }));
   };
+
 
 
 
@@ -167,13 +233,13 @@ function Glossary() {
           <h1 className="text-3xl md:text-4xl font-bold mb-2">
             Developer Glossary
           </h1>
-          <p className="text-gray-600 dark:text-gray-300 text-lg opacity-80">
+          <p className="text-gray-600 text-lg opacity-80">
             Browse our comprehensive glossary of testing and development terms used throughout Keploy's documentation.
           </p>
         </div>
 
         {/* Alphabet Navigation */}
-        <div className="sticky top-16 z-10 py-4 mb-8 border-b border-gray-200 dark:border-gray-700 bg-white/90 dark:bg-gray-900/95 backdrop-blur-sm">
+        <div className="sticky top-16 z-10 py-4 mb-8 border-b border-gray-200 bg-white/90 backdrop-blur-sm">
           <div className="flex flex-wrap justify-center gap-1 sm:gap-2">
             {Array.from({ length: 26 }, (_, i) => {
               const letter = String.fromCharCode(65 + i);
@@ -183,17 +249,17 @@ function Glossary() {
               return (
                 <button
                   key={letter}
-                  onClick={() => toggleSection(letter)}
+                  onClick={() => scrollToSection(letter)}
                   disabled={!hasTerms}
                   className={clsx(
                     'w-10 h-10 flex items-center justify-center rounded-lg transition-all duration-200 font-medium',
                     {
-                      'bg-orange-200 text-orange-900 font-bold shadow-md': isActive && hasTerms,
+                      'bg-orange-200 text-orange-900 font-bold shadow-md': activeLetter === letter && hasTerms,
                       'text-gray-400 cursor-not-allowed': !hasTerms,
-                      'text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-800': !isActive && hasTerms
+                      'text-gray-700 hover:bg-gray-100': activeLetter !== letter && hasTerms
                     }
                   )}
-                  aria-label={`Toggle ${letter} section`}
+                  aria-label={`Scroll to ${letter} section`}
                 >
                   {letter}
                 </button>
@@ -206,12 +272,16 @@ function Glossary() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {Object.entries(entries).map(([letter, terms]) =>
             expandedSections[letter] && (
-              <div key={letter} className="space-y-4">
+              <div
+                key={letter}
+                ref={el => (sectionRefs.current[letter] = el)}
+                className="space-y-4"
+              >
                 <div className="flex items-center mb-4">
-                  <h2 className="text-2xl font-bold text-gray-900 dark:text-white">
+                  <h2 className="text-2xl font-bold text-gray-900">
                     {letter}
                   </h2>
-                  <span className="ml-3 text-sm text-gray-500 dark:text-gray-300 bg-gray-100 dark:bg-gray-800 px-2 py-1 rounded-full">
+                  <span className="ml-3 text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
                     {terms.length} {terms.length === 1 ? 'term' : 'terms'}
                   </span>
                 </div>
@@ -221,15 +291,15 @@ function Glossary() {
                     <a
                       key={index}
                       href={link}
-                      className="block p-4 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 hover:border-orange-300 dark:hover:border-orange-400 transition-all duration-200 hover:shadow-md"
+                      className="block p-4 bg-white rounded-lg border border-gray-200 hover:border-orange-300 transition-all duration-200 hover:shadow-md"
                     >
                       <div className="flex items-center">
                         <div className="flex-1">
-                          <h3 className="font-medium text-gray-900 dark:text-white">
+                          <h3 className="font-medium text-gray-900">
                             {name}
                           </h3>
                         </div>
-                        <div className="ml-2 text-orange-500 dark:text-orange-400">
+                        <div className="ml-2 text-orange-500">
                           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                           </svg>
