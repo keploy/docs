@@ -178,7 +178,7 @@ function Frameworks() {
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/redis")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center "
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline"
           >
             <img
               className="h-8 w-8"
