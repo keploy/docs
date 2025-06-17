@@ -191,3 +191,8 @@ Reach out to us. We're here to help!
 ### 💖 Let's Build Together!
 
 Whether you're a newbie coder or a wizard 🧙‍♀️, your perspective is golden. Take a peek at our:
+
+## 💡 Why I Think Keploy is Impressive
+
+Keploy makes backend testing easier and faster by auto-generating tests from API calls. As a beginner, this helps me learn testing without writing long test scripts manually.
+
