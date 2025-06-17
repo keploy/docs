@@ -87,6 +87,7 @@ curl --location 'http://localhost:8000/api/notes/6618fa20875aedcfe96e08ed'
 ```
 
 This is how keploy terminal would look like:
+
 ![Testcase](../../../static/img/rust-crud-record.png?raw=true)
 
 ### Run the testcases
