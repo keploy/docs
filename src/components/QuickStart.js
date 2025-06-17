@@ -19,10 +19,9 @@ export const QuickStart = () => {
       <p className="text-l max-w-4xl">
         Keploy is your open-source, developer-centric backend testing tool. It
         makes backend testing easy and productive for engineering teams. Plus,
-        it's easy-to-use, powerful and extensible..🛠️
-
-        Keploy also has AI-powered tools that help you generate unit and api tests quickly,
-        helping developers focus on writing code rather than writing tests.
+        it's easy-to-use, powerful and extensible..🛠️ Keploy also has AI-powered
+        tools that help you generate unit and api tests quickly, helping
+        developers focus on writing code rather than writing tests.
       </p>
 
       <p className="text-l mt-4 max-w-4xl">

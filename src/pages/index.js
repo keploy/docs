@@ -21,7 +21,6 @@ export default function Home() {
           <Intro />
           <Products />
           <Resources />
-
           <Community />
           {/*<GSoC/>*/}
           <KeployCloud />
