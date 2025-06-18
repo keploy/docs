@@ -31,7 +31,7 @@
       "type": "category",
       "label": "Running Keploy",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "running-keploy/cli-commands",
         "running-keploy/unit-test-generator",
@@ -176,6 +176,7 @@
       "type": "category",
       "label": "Contribute",
       "collapsible": true,
+      "collapsed": true,
       "items": [
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide",

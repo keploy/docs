@@ -4,7 +4,7 @@
       "type": "category",
       "label": "Explanation",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "keploy-explained/introduction",
         "keploy-explained/how-keploy-works"
@@ -14,7 +14,7 @@
       "type": "category",
       "label": "Installation",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "server/server-installation",
         "server/sdk-installation"
@@ -24,7 +24,7 @@
       "type": "category",
       "label": "Concepts",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "concepts/what-is-keploy",
         "concepts/what-are-keploy-features",
@@ -36,7 +36,7 @@
       "type": "category",
       "label": "Operations",
       "collapsible": true,
-      "collapsed": false,
+      "collapsed": true,
       "link": {
         "type": "doc",
         "id": "operation/index"
