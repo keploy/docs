@@ -10,8 +10,7 @@ Repository for the Keploy documentation website.
 </p>
 </div>
 
-> ⚠️ **Note:** Issue creation is disabled in this repository.  
-> To submit a new issue, please visit the [Keploy community forum](https://github.com/keploy/dashboard/issues) or the main repo’s issue tracker.
+**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
@@ -54,7 +53,7 @@ We use a variety of technologies to build the web interface and support the comm
 - [Yarn package manager](https://yarnpkg.com/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
-- [Docusaurus](https://docusaurus.io/)
+- Docusaurus
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
@@ -75,9 +74,6 @@ npm start
 ```
 
 The command starts a local development server and opens a browser window.
-
-> 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
-
 
 ## Running Vale Locally for Documentation Linting
 
@@ -180,6 +176,12 @@ When we merge your PR, a new build automatically occurs and your changes publish
 ## How to Get Involved?
 
 Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
+### keploy gen
+
+Generates unit tests using the LLM and coverage report.
+
+> **Beginner Tip:** Use the `--verbose` flag with the `keploy gen` command to get detailed logs during unit test generation. This helps understand what Keploy is doing step-by-step and is super helpful for debugging!
+
 
 ## Community Support ❤️
 

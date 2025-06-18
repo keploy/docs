@@ -1,0 +1,1 @@
+> 💡 **Beginner Tip:** Use the `--verbose` flag with the `keploy gen` command to get detailed logs during unit test generation. This helps understand what Keploy is doing step-by-step and is super helpful for debugging!
