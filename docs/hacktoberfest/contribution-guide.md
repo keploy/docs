@@ -1,30 +1,28 @@
----
 id: contribution-guide
 title: Keploy Hacktoberfest Contribution
 label: Hacktoberfest
----
-
-# About the Event
-
-## Celebrate Open Source with Hacktoberfest
-
-Hacktoberfest'22 is a month-long celebration of open-source software run by DigitalOcean. Hacktoberfest is open to everyone, from first-time contributors to seasoned open-source developers. Your open-source journey begins with a pull request.
+About the Event
+Join the Open Source Celebration – Hacktoberfest 2022
+Hacktoberfest is a global, month-long celebration of open-source software organized by DigitalOcean. Whether you're a first-time contributor or an experienced developer, it's the perfect opportunity to get involved and make meaningful contributions to open source—starting with just one pull request.
 
 <img src="https://user-images.githubusercontent.com/53110238/193503992-c839beeb-53fd-46d7-9214-a88bfff6475a.png"/>
+Hacktoberfest with Keploy
+Keploy invites developers and enthusiasts from all backgrounds to contribute to our open-source projects this Hacktoberfest. Your contributions—code or non-code—help drive innovation and community growth.
 
-## Hacktoberfest Journey with Keploy
+Code Contributions may include:
 
-If you’ve ever wanted to contribute to open source, now is your chance! You can contribute to several Keploy projects participating this year’s Hacktoberfest.
+Bug fixes
 
-Anyone around the globe who desires to help drive the growth of open source and make positive contributions to an ever-growing community. All backgrounds and skill levels are encouraged to participate.
+Feature development
 
-- Code Contributribution to Keploy Projects includes:
+UI/UX design
 
-  - Bug fixes
-  - New features
-  - Design
+Non-Code Contributions may include:
 
-- Non-code contributions include:
-  - Documentation
-  - Translation
-  - Blog writing
+Writing documentation
+
+Translating content
+
+Creating blog posts
+
+Everyone is welcome to participate and grow with the community!

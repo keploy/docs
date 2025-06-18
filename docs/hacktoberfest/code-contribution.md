@@ -1,15 +1,11 @@
----
 id: code-contribution
 title: Code Contribution to Keploy Projects (v1)
 label: Hacktoberfest
----
+Contribute Code to Keploy Projects (v1)
+There are several meaningful ways to contribute to the Keploy v1 codebase during Hacktoberfest:
 
-# Code Contribution to Keploy Projects (v1)
+👉 Fix Bugs – Love breaking and fixing things? Find a reported issue from the community, resolve it, and become the hero who squashed the bug!
 
-There are different ways you can contribute to Keploy projects (v1) codebase. You can help with:
+👉 Implement Features – Pick from a list of feature requests submitted by the community. Add your own spin and help improve Keploy.
 
-- 👉 Bug fixes :- If you'd like to break and build software, fix a current issue reported by the community and be a hero!
-
-- 👉 Implement features :- You can choose from a carefully curated selection of Hacktoberfest requests that have been made by community members.
-
-- 👉 Build a Demo app :- Build a demo app with your favourite technologies using a Keploy.
+👉 Build Demo Apps – Create innovative demo applications using Keploy with your favorite tech stack to showcase practical use cases.
