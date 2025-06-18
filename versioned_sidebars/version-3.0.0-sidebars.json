@@ -3,7 +3,8 @@
     {
       "type": "category",
       "label": "Unit Testing",
-      "collapsed": false,
+      "collapsed": true,
+      "collapsible": true,
       "items": [
         "running-keploy/about-unit-testing",
         {
@@ -31,7 +32,8 @@
     {
       "type": "category",
       "label": "Integration Testing",
-      "collapsed": false,
+      "collapsed": true,
+      "collapsible": true,
       "items": [
         {
           "type": "category",
@@ -178,7 +180,8 @@
     {
       "type": "category",
       "label": "API Testing",
-      "collapsed": false,
+      "collapsed": true,
+      "collapsible": true,
       "items": [
         "running-keploy/about-api-testing",
         "running-keploy/api-test-generator",
@@ -215,6 +218,7 @@
       "type": "category",
       "label": "Contribute",
       "collapsible": true,
+      "collapsed": true,
       "items": [
         "keploy-explained/contribution-guide",
         "keploy-explained/docs-dev-guide",
