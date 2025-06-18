@@ -183,7 +183,8 @@ function Glossary() {
     >
       <main className="margin-vert--lg container flex flex-col justify-evenly">
         <div className="pb-5 text-center text-4xl font-bold">Glossary</div>
-        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-center">All your testing needs in a place.</p>
+        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-center">Explore essential software testing terms and concepts in our comprehensive glossary.</p>
+
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {new Array(26).fill(0).map((x, i) => (
             <button
