@@ -53,7 +53,7 @@ We use a variety of technologies to build the web interface and support the comm
 - [Yarn package manager](https://yarnpkg.com/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
-- [Docusaurus](https://docusaurus.io/)
+- Docusaurus
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
@@ -176,12 +176,12 @@ When we merge your PR, a new build automatically occurs and your changes publish
 ## How to Get Involved?
 
 Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
->### keploy gen
+### keploy gen
 
 Generates unit tests using the LLM and coverage report.
 
-> ## Beginner Tip:
- Use the `--verbose` flag with the `keploy gen` command to get detailed logs during unit test generation. This helps understand what Keploy is doing step-by-step and is super helpful for debugging!
+> **Beginner Tip:** Use the `--verbose` flag with the `keploy gen` command to get detailed logs during unit test generation. This helps understand what Keploy is doing step-by-step and is super helpful for debugging!
+
 
 ## Community Support ❤️
 
