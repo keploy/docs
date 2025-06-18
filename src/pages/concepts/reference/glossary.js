@@ -4,7 +4,7 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 function Glossary() {
   const [state, setState] = useState(() => {
-    const alphabet = "ABCEFGIMRSTUW";
+    const alphabet = "ABCEFGIMORSTUW";
     const initialState = {};
     for (let i = 0; i < alphabet.length; i++) {
       initialState[alphabet[i]] = true;
@@ -96,6 +96,12 @@ function Glossary() {
         link: "/docs/concepts/reference/glossary/microservice-testing",
       },
     ],
+    O: [
+      {
+        name: "Observability Testing",
+        link: "/docs/concepts/reference/glossary/observability-testing",
+      },
+    ],
     R: [
       {
         name: "Regression Testing",
@@ -105,7 +111,7 @@ function Glossary() {
     S: [
       {
         name: "Stubs",
-        ink: "/docs/concepts/reference/glossary/stubs",
+        link: "/docs/concepts/reference/glossary/stubs",
       },
       {
         name: "Software Testing Life Cycle",
