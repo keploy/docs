@@ -79,6 +79,14 @@ The command starts a local development server and opens a browser window.
 > 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
 
 
+## 👥 Who is This For?
+
+- 📚 Contributors looking to improve Keploy Docs
+- 👨‍💻 Developers setting up Keploy in their systems
+- 🚀 Tech writers and DevRel folks exploring open source workflows
+
+
+
 ## Running Vale Locally for Documentation Linting
 
 To help maintain consistency in our documentation, we use Vale, a syntax-aware linter that checks for spelling, grammar, and style issues.
@@ -179,7 +187,19 @@ When we merge your PR, a new build automatically occurs and your changes publish
 
 ## How to Get Involved?
 
-Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
+## 🛠 How to Contribute
+
+We ❤️ open source contributors! Here's how you can contribute:
+
+1. 🍴 Fork this repo
+2. 🌿 Create your branch: `git checkout -b your-name-docs`
+3. 📝 Make changes (typo fix, new section, formatting...)
+4. ✅ Run `npm run build` to verify
+5. 🚀 Open a PR with a clear title and description
+
+📌 Please read our [CONTRIBUTING.md](./CONTRIBUTING.md) and [STYLE.md](./STYLE.md) before submitting.
+
+Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
 
 ## Community Support ❤️
 
