@@ -1,79 +1,66 @@
 ### ✨ Contributed by Ashish Singh as part of the API Fellowship Assignment
 
 <div align="center">
-<h1>Keploy</h1>
+  <h1>Keploy</h1>
 </div>
-<p style="text-align:center;" align="center">
-  <img align="center" src="https://avatars.githubusercontent.com/u/92252339?s=200&v=4" height="30%" width="30%" />
- <div align="center">
- <h1>Docs Website</h1>
- <p>
-Repository for the Keploy documentation website.
-</p>
-</div>
-
-**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
 
 <p align="center">
-<a href="https://github.com/keploy/docs" alt="GitHub contributors">
-<img src="https://img.shields.io/github/contributors/keploy/docs.svg" />
-</a>
-<a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
-<img src="https://img.shields.io/github/issues/keploy/docs" />
-</a>
-<a href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg" alt="Slack">
-<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
-</a>
-<a href="https://twitter.com/Keployio" alt="Twitter Follow">
-<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" />
-</a>
-<a href="https://github.com/keploy/docs" alt="License">
-<img src="https://img.shields.io/github/license/keploy/docs.svg" />
-</a>
+  <img src="https://avatars.githubusercontent.com/u/92252339?s=200&v=4" height="30%" width="30%" />
+</p>
+
+<div align="center">
+  <h2>Docs Website</h2>
+  <p>Repository for the Keploy documentation website.</p>
+</div>
+
+> **Note:** Issue creation is disabled on this repository. Please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit an issue.
+
+<p align="center">
+  <a href="https://github.com/keploy/docs"><img src="https://img.shields.io/github/contributors/keploy/docs.svg" alt="GitHub contributors" /></a>
+  <a href="https://github.com/keploy/docs"><img src="https://img.shields.io/github/issues/keploy/docs" alt="GitHub issues by-label" /></a>
+  <a href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"><img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" alt="Slack" /></a>
+  <a href="https://twitter.com/Keployio"><img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" alt="Twitter Follow" /></a>
+  <a href="https://github.com/keploy/docs"><img src="https://img.shields.io/github/license/keploy/docs.svg" alt="License" /></a>
 </p>
 
 [Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
 
-Keploy is constantly working to improve and expand its documentation.
-Some components may change without notice.
-Page slugs (URLs), menu labels, and the location of information are a few of the items you can expect to see altered as we endeavour to give you the best experience possible.
+Keploy is constantly working to improve and expand its documentation. As Keploy evolves rapidly, you may notice changes in slugs, menu labels, or content organization. These efforts aim to provide the best experience possible.
 
-The documentation in this repository is published to https://docs.keploy.io.
+The documentation in this repository is published at [https://docs.keploy.io](https://docs.keploy.io).
 
-If information you are looking for seems to be missing, visit the [Keploy community](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg) forum for help.
+If the information you're looking for seems missing, visit the [Keploy Community Forum](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg) for help.
 
-Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md) guide before you submit any pull requests.
+Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md) guide before submitting a pull request.
 
-Maintainers and contributors to this project are expected to conduct themselves in a respectful way.
-See the [CNCF Community Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) as a reference.
+Maintainers and contributors to this project are expected to conduct themselves respectfully. See the [CNCF Community Code of Conduct](https://github.com/cncf/foundation/blob/master/code-of-conduct.md) as a reference.
 
-## Technology Stack
+---
 
-We use a variety of technologies to build the web interface and support the community. They include:
+## 🛠️ Technology Stack
+
+We use a variety of technologies to build the web interface and support the community:
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn package manager](https://yarnpkg.com/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
-- Docusaurus
+- [Docusaurus](https://docusaurus.io/)
 
-We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
+We use NodeJS and Yarn to install, test, and build the website. Docusaurus serves as our static site generator. React powers our component-based UI, and GitHub Actions manages CI/CD pipelines.
 
-## Installation
+---
 
-The Keploy documentation site uses Docusaurus 2 which is a static website generator.
+## 🧩 Installation
 
-You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
+The Keploy documentation site uses **Docusaurus 2**.
 
-Initialize Docusaurus 2 in the repo by running [`npm`](https://docs.npmjs.com/cli/v7/commands/npm-install) once in the root directory of the repo.
-
-Now you can build and view the site locally:
+To get started locally:
 
 ```bash
 npm install
 npm start
-```
+
 
 The command starts a local development server and opens a browser window.
 
