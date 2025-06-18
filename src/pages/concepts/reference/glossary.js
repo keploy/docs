@@ -183,6 +183,7 @@ function Glossary() {
     >
       <main className="margin-vert--lg container flex flex-col justify-evenly">
         <div className="pb-5 text-center text-4xl font-bold">Glossary</div>
+        <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed text-center">All your testing needs in a place.</p>
         <div className="flex flex-wrap justify-center gap-2 mb-12">
           {new Array(26).fill(0).map((x, i) => (
             <button
@@ -213,14 +214,14 @@ function Glossary() {
                   </h2>
                   <div className="mx-auto w-24 h-1 bg-gradient-to-r from-orange-400 to-orange-500 rounded-full"></div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+                <div className="flex flex-wrap justify-center gap-4 md:gap-6">
                   {entries[key]?.map(({name, link, description}, i) => (
                     <a
                       key={`${key}-${i}`}
                       href={link}
-                      className="group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 transform hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] cursor-pointer overflow-hidden"
+                      className="group bg-white dark:bg-gray-800 rounded-lg shadow-sm border border-gray-200 dark:border-gray-700 transition-all duration-300 transform hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] cursor-pointer overflow-hidden w-full sm:w-[calc(50%-0.75rem)] lg:w-[calc(25%-1.125rem)] max-w-sm flex flex-col"
                     >
-                      <div className="p-5">
+                      <div className="p-5 flex-grow">
                         <h3 className="font-semibold text-lg text-gray-900 dark:text-white group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors duration-300 leading-tight mb-3">
                           {name}
                         </h3>
