@@ -53,7 +53,7 @@ We use a variety of technologies to build the web interface and support the comm
 - [Yarn package manager](https://yarnpkg.com/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
-- Docusaurus
+- [Docusaurus](https://docusaurus.io/)
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
