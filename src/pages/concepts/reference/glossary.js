@@ -170,7 +170,7 @@ function Glossary() {
             <div className="mt-2 text-sm text-gray-400">What word are you interested in?</div>
           </div>
         </div>
-        <div className="flex flex-row justify-evenly">
+        <div className="flex flex-wrap justify-center gap-2 md:gap-3">
           {new Array(26).fill(0).map((x, i) => (
             <button
               className={`mx-1 px-4 py-2 text-sm font-medium rounded-full transition
@@ -195,7 +195,7 @@ function Glossary() {
             </button>
           ))}
         </div>
-        <div className="-mb-3 mt-10 flex flex-wrap justify-center gap-4 text-xl font-semibold">
+        <div className="rounded-lg border border-gray-200 p-5 shadow-sm hover:shadow-md transition w-full">
           {Object.entries(state).map(([key, value]) => {
             return (
               <div key={key} className="w-full mb-8">
