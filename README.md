@@ -176,6 +176,10 @@ When we merge your PR, a new build automatically occurs and your changes publish
 ## How to Get Involved?
 
 Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
+>### keploy gen
+
+Generates unit tests using the LLM and coverage report.
+
 > ## Beginner Tip:
  Use the `--verbose` flag with the `keploy gen` command to get detailed logs during unit test generation. This helps understand what Keploy is doing step-by-step and is super helpful for debugging!
 
