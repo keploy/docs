@@ -105,7 +105,7 @@ function Glossary() {
     S: [
       {
         name: "Stubs",
-        ink: "/docs/concepts/reference/glossary/stubs",
+        link: "/docs/concepts/reference/glossary/stubs",
       },
       {
         name: "Software Testing Life Cycle",
