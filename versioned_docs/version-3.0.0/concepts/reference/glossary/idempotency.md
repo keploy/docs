@@ -28,7 +28,7 @@ Certain HTTP methods are inherently idempotent:
 - **PUT:** Updating a resource with PUT is idempotent because sending the same update multiple times results in the same resource state.
 - **DELETE:** Deleting a resource with DELETE is idempotent because attempting to delete an already deleted or non-existent resource does not change the system state.
 
-![Methods](https://www.hubspot.com/hs-fs/hubfs/Google%20Drive%20Integration/Idempotent%20Api%20Draft-1.png?width=650&name=Idempotent%20Api%20Draft-1.png)
+![Methods](https://keploy-devrel.s3.us-west-2.amazonaws.com/Idempotent+Api+image.webp)
 
 ## Key Benefits of Idempotent APIs
 
@@ -68,7 +68,7 @@ Idempotency is particularly critical in distributed systems where network issues
 
 While **idempotent** methods guarantee the same outcome when repeated, **safe** methods are those that do not alter the system state at all. All safe methods (such as GET) are idempotent, but not all idempotent methods are safe (e.g., PUT and DELETE change the state, but in a controlled, repeatable manner).
 
-![Idempotent vs Safe](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSNpJRr8DjkwYCknq1yp0PNVbGQ9Gy0rcBwtg&s)
+![Idempotent vs Safe](https://keploy-devrel.s3.us-west-2.amazonaws.com/safe-methods-idempotency.png)
 
 ## Leveraging Keploy for Idempotency in API Testing
 
