@@ -11,6 +11,7 @@ tags:
   - tutorial
   - python-framework
   - postgres
+  - pytest
 keyword:
   - Django Framework
   - Postgres

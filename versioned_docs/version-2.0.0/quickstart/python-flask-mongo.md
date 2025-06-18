@@ -12,6 +12,7 @@ tags:
   - python-framework
   - mongodb
   - flask-framework
+  - pytest
 keyword:
   - Flask Framework
   - MongoDB

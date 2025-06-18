@@ -28,7 +28,7 @@ Anyone around the globe who desires to help drive the growth of open source and 
 
 #### Non-code contributions include:
 
-- <img src="https://www.svgrepo.com/show/157174/document.svg" width='20px'/> Documentation
-- <img src="https://www.svgrepo.com/show/294283/youtube.svg" width='20px'/> Create a Tutorial
-- <img src="https://www.svgrepo.com/show/10712/pencil.svg" width='20px'/> Blog writing
-- <img src="https://www.svgrepo.com/show/450193/language.svg" width='20px'/> Translation
+- <img src="https://www.svgrepo.com/show/157174/document.svg" width='20px' alt="Documents"/> Documentation
+- <img src="https://www.svgrepo.com/show/294283/youtube.svg" width='20px' alt="Tutorial"/> Create a Tutorial
+- <img src="https://www.svgrepo.com/show/10712/pencil.svg" width='20px' alt="writing"/> Blog writing
+- <img src="https://www.svgrepo.com/show/450193/language.svg" width='20px' alt="translate"/> Translation
