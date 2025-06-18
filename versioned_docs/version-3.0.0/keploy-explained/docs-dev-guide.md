@@ -40,12 +40,6 @@ npm start
 or
 
 ```shell
-npm start
-```
-
-or
-
-```shell
 yarn start
 ```
 
