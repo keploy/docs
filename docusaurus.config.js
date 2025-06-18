@@ -116,32 +116,45 @@ module.exports = {
       },
       items: [
         {
-          to: "/server/installation",
-          activeBasePath: "none",
-          label: "Installation",
+          label: "Products",
+          position: "left",
+          items: [
+            {
+              label: "Unit Testing",
+              to: "/running-keploy/utg-pr-agent/",
+            },
+            {
+              label: "Integration Testing",
+              to: "/keploy-explained/introduction",
+            },
+            {
+              label: "API Testing",
+              to: "/running-keploy/about-api-testing",
+            },
+          ],
         },
-        // {
-        //   to: "/server/installation/",
-        //   label: "Installation",
-        // },
-        // {
-        //   to: "/docs/operation/web-ui-operations/",
-        //   activeBasePath: "(/docs/operation)",
-        //   label: "Operations",
-        // },
-        // {
-        //   to: "/docs/go/quickstart/run-your-first-app-tutorial/",
-        //   activeBaseRegex:
-        //     "(/application-development)|(/docs/(go|java|php|node))",
-        //   label: "test SDKs",
-        // },
+        {
+          label: "Blog",
+          items: [
+            {
+              label: "Tech Blogs",
+              href: "https://keploy.io/blog/technology",
+            },
+            {
+              label: "Communtity Articles",
+              href: "https://keploy.io/blog/community",
+            },
+            {
+              label: "Glossary",
+              href: "/concepts/reference/glossary/",
+            },
+          ],
+          position: "left",
+        },
         {
           to: "/keploy-explained/contribution-guide",
           label: "Contribution Guide",
-        },
-        {
-          to: "https://keploy.io/blog",
-          label: "Blog",
+          position: "left",
         },
         {
           type: "docsVersionDropdown",
@@ -154,12 +167,6 @@ module.exports = {
           className: "header-github-link",
           "aria-label": "GitHub repository",
         },
-        // TODO : Add Blogging Section
-        // {
-        //   to: "/blog",
-        //   activeBasePath: "/blog",
-        //   label: "Blog",
-        // },
       ],
     },
     footer: {
@@ -220,15 +227,20 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: "2.0.0",
+          lastVersion: "3.0.0",
           versions: {
             "1.0.0": {
               label: "1.0.0",
               path: "1.0.0",
               banner: "unmaintained",
             },
+            "2.0.0": {
+              label: "2.0.0",
+              path: "2.0.0",
+              banner: "unmaintained",
+            },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
