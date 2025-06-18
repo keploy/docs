@@ -11,7 +11,7 @@ Repository for the Keploy documentation website.
 </div>
 
 > ⚠️ **Note:** Issue creation is disabled in this repository.  
-> To submit a new issue, please visit the [Keploy community forum](https://github.com/keploy/dashboard/issues) or the main repo’s issue tracker.
+> To submit a new issue, please visit the [Keploy community forum](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg) or the main repo’s [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
@@ -21,7 +21,7 @@ Repository for the Keploy documentation website.
 <img src="https://img.shields.io/github/issues/keploy/docs" />
 </a>
 <a href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg" alt="Slack">
-<img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
+<img src="https://img.shields.io/badge/Slack-Keploy.svg?logo=slack" />
 </a>
 <a href="https://twitter.com/Keployio" alt="Twitter Follow">
 <img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" />
@@ -30,12 +30,26 @@ Repository for the Keploy documentation website.
 <img src="https://img.shields.io/github/license/keploy/docs.svg" />
 </a>
 </p>
+## 📚 Table of Contents
+
+- [About Keploy Docs](#about-keploy-docs)
+- [Technology Stack](#technology-stack)
+- [Installation](#installation)
+- [Vale Linting](#running-vale-locally-for-documentation-linting)
+- [Prettier Formatting](#prettier)
+- [How to Get Involved?](#how-to-get-involved)
+- [Community Support](#community-support-️)
 
 [Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
 
 Keploy is constantly working to improve and expand its documentation.
-Some components may change without notice.
+Please note that some components may be updated frequently as we continuously improve the platform.
 Page slugs (URLs), menu labels, and the location of information are a few of the items you can expect to see altered as we endeavour to give you the best experience possible.
+
+## About Keploy Docs
+
+This repository contains the source code for [Keploy's](https://keploy.io) documentation website, built with Docusaurus.  
+It serves as a guide for users, contributors, and developers to understand, use, and contribute to Keploy’s testing tools.
 
 The documentation in this repository is published to https://docs.keploy.io.
 
@@ -50,13 +64,13 @@ See the [CNCF Community Code of Conduct](https://github.com/cncf/foundation/blob
 
 We use a variety of technologies to build the web interface and support the community. They include:
 
-- [NodeJS](https://nodejs.org/)
+- [Node.js](https://nodejs.org/)
 - [Yarn package manager](https://yarnpkg.com/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
 - [Docusaurus](https://docusaurus.io/)
 
-We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
+We use Node.js and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
 ## Installation
 
@@ -74,7 +88,7 @@ npm install
 npm start
 ```
 
-The command starts a local development server and opens a browser window.
+This command launches a local development server and opens the site in your browser.
 
 > 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
 
@@ -137,8 +151,6 @@ Note: Running Vale locally helps catch issues early, ensuring a smooth review pr
 
 1. Fork the repository
 
-<br/>
-
 2. Clone the repository with the following command. Replace the {'<'}GITHUB_USERNAME{'>'} with your username
 
 ```sh
@@ -148,8 +160,6 @@ git clone https://github.com/<GITHUB_USERNAME>/docs.git
 
 cd docs
 ```
-
-<br/>
 
 3. Install all the dependencies
 
