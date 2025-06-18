@@ -52,6 +52,17 @@ module.exports = {
           "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
       {name: "twitter:card", content: "summary_large_image"},
+      {name: "robots", content: "index, follow"},
+      {name: "author", content: "Keploy Team"},
+      {property: "og:type", content: "website"},
+      {property: "og:site_name", content: "Keploy"},
+      {name: "twitter:site", content: "@keployio"},
+      {name: "twitter:creator", content: "@keployio"},
+      { name: "viewport", content: "width=device-width, initial-scale=1.0" },
+      { name: "referrer", content: "no-referrer-when-downgrade" },
+      { name: "HandheldFriendly", content: "True" },
+      { name: "mobile-web-app-capable", content: "yes" },
+      { name: "theme-color", content: "#ffffff" },
     ],
     headTags: [
       // Preconnect tag
@@ -61,6 +72,52 @@ module.exports = {
           rel: "preconnect",
           href: "https://keploy.io/",
         },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://www.google-analytics.com",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://www.googletagmanager.com",
+        },
+      },
+      {
+        tagName: "meta",
+        attributes: {
+          name: "msapplication-config",
+          content: "/docs/browserconfig.xml",
+        },
+      },
+      {
+        tagName: "script",
+        attributes: {
+          type: "application/ld+json",
+        },
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Organization",
+          name: "Keploy",
+          url: "https://keploy.io",
+          logo: "https://keploy.io/docs/img/favicon.png",
+          description: "Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
+          sameAs: [
+            "https://github.com/keploy/keploy",
+            "https://twitter.com/keployio",
+            "https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg",
+            "https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+          ],
+          contactPoint: {
+            "@type": "ContactPoint",
+            contactType: "customer service",
+            url: "https://keploy.io"
+          }
+        }),
       },
       {
         tagName: "script",
