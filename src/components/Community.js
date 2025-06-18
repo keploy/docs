@@ -39,7 +39,7 @@ export const Community = () => {
         {/*/!*    </div>*!/*/}
         {/*/!*  </a>*!/*/}
         {/*/!*</li>*!/*/}
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a
             href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg"
             className="flex items-start space-x-4"
@@ -47,7 +47,7 @@ export const Community = () => {
             <svg
               fill="currentColor"
               // Hotfix: add viewBox to prevent icon from being cut off after tailwind preflight disabled
-              className="h-12 w-12 flex-none text-red-500 "
+              className="ml-2 mt-2 h-10 w-10 flex-none text-red-500 "
               viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
@@ -63,13 +63,13 @@ export const Community = () => {
             </div>
           </a>
         </li>
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a href="https://lu.ma/keploy" className="flex items-start space-x-4">
             <svg
               width="512"
               height="512"
               viewBox="0 0 512 512"
-              className="h-12 w-12 flex-none rounded-lg text-black"
+              className="ml-2 mt-2 h-10 w-10 flex-none rounded-lg text-black"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
@@ -89,7 +89,7 @@ export const Community = () => {
             </div>
           </a>
         </li>
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a
             href="https://github.com/keploy"
             className="flex items-start space-x-4"
@@ -97,7 +97,7 @@ export const Community = () => {
             <svg
               fill="currentColor"
               // Hotfix: add viewBox to prevent icon from being cut off after tailwind preflight disabled
-              className="h-12 w-12 flex-none text-black "
+              className="ml-2 mt-2 h-10 w-10 flex-none text-black "
               viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
@@ -113,14 +113,14 @@ export const Community = () => {
             </div>
           </a>
         </li>
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a
             href="https://twitter.com/keployio"
             className="flex items-start space-x-4"
           >
             <svg
               fill="currentColor"
-              className="h-12 w-12 flex-none      text-black"
+              className="ml-2 mt-2 h-10 w-10 flex-none      text-black"
               viewBox="0 0 512 509.64"
             >
               <rect width="509.64" height="512" rx="120" />
@@ -139,14 +139,15 @@ export const Community = () => {
             </div>
           </a>
         </li>
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a
             href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
             className="flex items-start space-x-4"
           >
             <svg
-              className="h-12 w-12 flex-none text-blue-400 "
+              className="ml-2 mt-2 h-10 w-10 flex-none text-blue-400 "
               viewBox="0 0 1610 1610"
+              
             >
               <title>slack-logo-icon</title>
               <desc>Created with Sketch Beta.</desc>
@@ -200,15 +201,15 @@ export const Community = () => {
             </div>
           </a>
         </li>
-        <li>
+        <li className="scale rounded-lg shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
           <a
             href="https://keploy.io/blog"
             className="flex items-start space-x-4"
           >
             <svg
-              class="h-12 w-12 flex-none "
-              width="48"
-              height="48"
+              class="ml-2 mt-2 h-10 w-10 flex-none "
+              // width="48"
+              // height="48"
               viewBox="0 0 48 48"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
