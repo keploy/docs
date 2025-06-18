@@ -162,12 +162,7 @@ function Glossary() {
             Learn the key terms and concepts that define software testing, all in one place.
           </p>
           <div className="mt-6 flex flex-col items-center">
-            <input
-              type="text"
-              placeholder="Search glossary..."
-              className="w-96 rounded-md border border-gray-300 px-4 py-2 shadow-sm focus:border-orange-500 focus:ring-1 focus:ring-orange-500"
-            />
-            <div className="mt-2 text-sm text-gray-400">What word are you interested in?</div>
+            <div className="mt-2 text-sm text-gray-400">What topic are you interested in?</div>
           </div>
         </div>
         <div className="flex flex-wrap justify-center gap-2 md:gap-3">
