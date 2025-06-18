@@ -106,15 +106,6 @@ module.exports = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ["java", "ruby", "php", "bash"],
     },
-    // hideableSidebar: true,
-    // --- MODIFIED PART STARTS HERE ---
-    docs: {
-      sidebar: {
-        autoCollapseCategories: true, // <-- THIS FIXES THE SIDEBAR ISSUE
-        // hideable: true, // Uncomment if you want the sidebar to be hideable
-      },
-    },
-    // --- MODIFIED PART ENDS HERE ---
     navbar: {
       hideOnScroll: false,
       logo: {
