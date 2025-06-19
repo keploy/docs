@@ -38,3 +38,20 @@ the same result.
 Deduplication is a data compression technique wherein redundant copies of the same data are identified and eliminated.
 This process involves hash functions or similarity analysis to compare data chunks, enabling the storage system to store
 only one instance of each unique data segment, thereby optimizing storage efficiency and reducing redundancy.
+
+
+### Assertion  
+A statement that tests whether a specific condition holds true in your test code.
+
+
+### Integration Test  
+A test that validates interactions between different parts of the system working together.
+
+
+### Mock  
+A type of stub equipped with built-in assertions to verify interactions during tests.
+
+
+### Stub  
+A placeholder or minimal implementation used in testing to simulate real components.
+
