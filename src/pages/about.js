@@ -15,7 +15,7 @@ function About() {
       <main className="margin-vert--lg container">
         <h1>About the docs</h1>
         <div className="margin-bottom--lg">
-          <h2 id="latest">Documentation SLA</h2>
+          <h2 id="latest">Documentation SLA 📝</h2>
           <p>
             Keploy is constantly working to improve and expand its
             documentation. As a result, some components may change without
