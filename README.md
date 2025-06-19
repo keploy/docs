@@ -31,7 +31,7 @@ Repository for the Keploy documentation website.
 </a>
 </p>
 
-[Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
+[Keploy](https://keploy.io) is a open-source, no-code testing platform that automatically generates end-to-end cases and data mocks by capturing real API traffic - helping developers test faster and ship more reliably.
 
 Keploy is constantly working to improve and expand its documentation.
 Some components may change without notice.
