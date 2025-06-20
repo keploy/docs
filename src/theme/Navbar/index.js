@@ -77,21 +77,21 @@ const navItems = [
       },
       {
         title: 'Community Stories',
-        image: 'https://keploy.io/_next/static/media/community.d62a63d8.svg',
+        image: 'https://keploy.io/images/heart.svg',
         href: 'https://www.g2.com/products/keploy/reviews',
         height: '160px',
         width: '200px',
       },
       {
         title: 'Tutorials',
-        image: 'https://keploy.io/_next/static/media/tutorials.7666a675.svg',
+        image: 'https://keploy.io/images/book.svg',
         href: 'https://www.youtube.com/playlist?list=PLuImHQnqnB_b3MbF1_873XeMhXkaZPpwV',
         height: '160px',
         width: '200px',
       },
       {
         title: 'Migration Guide',
-        image: 'https://keploy.io/_next/static/media/migration.8de1314d.svg',
+        image: 'https://keploy.io/images/user-manual.svg',
         href: 'https://keploy.io/blog/technology/migration-guide-from-restassured-to-keploy',
         height: '160px',
         width: '200px',
@@ -125,14 +125,14 @@ const navItems = [
       },
       {
         title: 'Contact Us',
-        image: 'https://keploy.io/_next/static/media/contact.8d4fbcb2.svg',
+        image: 'https://keploy.io/_next/static/media/resource-1.500a7b0a.svg',
         href: 'https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2l-psdTCNCLYAJ-Jt5ESyGP7gi1_U70ySTjtFNr0Kmx5UagNJnyzg7lNjA3NKnaP6qFfpAgcdZ',
         height: '140px',
         width: '180px',
       },
       {
         title: 'Community Forum',
-        image: 'https://keploy.io/_next/static/media/community-forum.f92d4c5e.svg',
+        image: 'https://keploy.io/_next/static/media/resource-2.b09d3d88.svg',
         href: 'https://github.com/keploy',
         height: '140px',
         width: '180px',
@@ -305,37 +305,262 @@ export default function Navbar() {
             )}
           </div>
         ))}
-        
-        {/* Mega menu dropdown - with hover handling */}
+
+        {/* Mega menu dropdown - custom layout for each menu */}
         {openMenu && navItems.find(item => item.label === openMenu)?.megaMenu && (
-          <div 
-            className="absolute left-0 top-14 min-w-max backdrop-blur-md bg-white/3 rounded-2xl shadow-2xl p-6 flex gap-6 animate-fade-in z-50"
-            onMouseEnter={() => {
-              if (timeoutRef.current) {
-                clearTimeout(timeoutRef.current);
-              }
-            }}
+          <div
+            className={`absolute left-0 top-14 w-full max-w-[1400px] min-h-[440px] flex rounded-2xl shadow-2xl p-6 animate-fade-in z-50 backdrop-blur-md ${isDarkTheme ? 'bg-[#18181b]/60' : 'bg-white/60'}`}
+            onMouseEnter={() => { if (timeoutRef.current) clearTimeout(timeoutRef.current); }}
             onMouseLeave={handleMouseLeave}
+            style={{ justifyContent: 'center' }}
           >
-            <div className="grid grid-cols-3 gap-6">
-              {navItems.find(item => item.label === openMenu).megaMenu.map((card) => (
-                <Link
-                  to={card.href}
-                  key={card.title}
-                  className="relative group w-[340px] h-[280px] overflow-hidden rounded-2xl shadow-md border border-orange-200 dark:border-orange-700 transition-transform duration-200 hover:scale-[1.02]"
-                >
-                  <img
-                    src={card.image}
-                    alt={card.title}
-                    className="absolute inset-0 w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity duration-300"
-                  />
-                  <div className="absolute inset-0 p-4 flex flex-col justify-end">
-                    <div className="text-gray-800 font-semibold text-lg">{card.title}</div>
-                    <div className="text-sm text-gray-700 mt-1">{card.description}</div>
-                  </div>
-                </Link>
-              ))}
-            </div>
+            {/* PRODUCTS: 2x2 grid, large left card, two stacked right cards */}
+            {openMenu === 'Products' && (
+              <div className="flex w-full gap-6">
+                {/* Left Half */}
+                <div className="flex flex-col gap-6 w-1/2">
+                  <Link
+                    to={navItems[0].megaMenu[0].href}
+                    className="relative group flex-1 rounded-2xl border border-orange-200 bg-white shadow-md overflow-hidden hover:scale-[1.02] transition-transform"
+                    style={{ height: navItems[0].megaMenu[0].height }}
+                  >
+                    <img
+                      src={navItems[0].megaMenu[0].image}
+                      alt={navItems[0].megaMenu[0].title}
+                      className="absolute inset-0 w-full h-full object-contain"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-50 p-6 flex flex-col justify-start text-left">
+                      <div className="text-gray-900 font-semibold text-xl">
+                        {navItems[0].megaMenu[0].title}
+                      </div>
+                      <div className="text-xs text-gray-600 mt-1">
+                        {navItems[0].megaMenu[0].description}
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+
+                {/* Right Half */}
+                <div className="flex flex-col gap-6 w-1/2">
+                  {[1, 2].map((idx) => (
+                    <Link
+                      key={navItems[0].megaMenu[idx].title}
+                      to={navItems[0].megaMenu[idx].href}
+                      className="relative group flex-1 rounded-2xl border border-orange-200 bg-white shadow-md overflow-hidden hover:scale-[1.02] transition-transform"
+                      style={{ height: navItems[0].megaMenu[idx].height }}
+                    >
+                      <img
+                        src={navItems[0].megaMenu[idx].image}
+                        alt={navItems[0].megaMenu[idx].title}
+                        className="absolute inset-0 w-full h-full object-contain"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-50 p-6 flex flex-col justify-start text-left">
+                        <div className="text-gray-900 font-semibold text-lg">
+                          {navItems[0].megaMenu[idx].title}
+                        </div>
+                        <div className="text-xs text-gray-600 mt-1">
+                          {navItems[0].megaMenu[idx].description}
+                        </div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* SOLUTIONS: 3 cards in a row, each with a white background, orange border, rounded corners, shadow, and proper spacing */}
+            {openMenu === 'Solutions' && (
+              <div className="flex w-full gap-1 justify-center">
+                <div className="grid grid-cols-3 gap-4 w-auto">
+                  {navItems[1].megaMenu.map((card) => (
+                    <Link
+                      key={card.title}
+                      to={card.href}
+                      className="relative group rounded-2xl border-2 border-orange-200 bg-gradient-to-b from-white to-orange-50 overflow-hidden hover:scale-[1.03] transition-transform"
+                      style={{ height: '360px', width: '200px' }}
+                    >
+                      {/* Image as background layer */}
+                      <img
+                        src={card.image}
+                        alt={card.title}
+                        className="w-full h-full object-contain"
+                      />
+
+                      {/* Overlay text container */}
+                      <div className="absolute inset-0 p-4 flex flex-col justify-start items-start text-left">
+                        <div className="text-gray-900 font-semibold text-lg">{card.title}</div>
+                        {card.description && (
+                          <div className="text-gray-700 text-sm mt-1">{card.description}</div>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+
+            )}
+            {/* DEVELOPERS: 2 large cards left, 3 stacked right cards */}
+            {openMenu === 'Developers' && (
+              <div className="flex w-full gap-6">
+                {/* Left Column (Large Cards) */}
+                <div className="flex gap-6 w-2/3">
+                  {[0, 1].map((idx) => (
+                    <Link
+                      key={navItems[2].megaMenu[idx].title}
+                      to={navItems[2].megaMenu[idx].href}
+                      className="relative group flex-1 rounded-2xl border border-orange-200 bg-white overflow-hidden hover:scale-[1.02] transition-transform"
+                    >
+                      <img
+                        src={navItems[2].megaMenu[idx].image}
+                        alt={navItems[2].megaMenu[idx].title}
+                        className="absolute inset-0 w-full h-full object-contain"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-50 p-6 flex flex-col justify-start text-left">
+                        <div className="text-gray-900 font-semibold text-lg">
+                          {navItems[2].megaMenu[idx].title}
+                        </div>
+                        {navItems[2].megaMenu[idx].description && (
+                          <div className="text-xs text-gray-600 mt-1">
+                            {navItems[2].megaMenu[idx].description}
+                          </div>
+                        )}
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+
+                {/* Right Column (Horizontal Row Cards) */}
+                <div className="flex flex-col gap-4 w-1/3">
+                  {[2, 3, 4].map(idx => (
+                    <Link key={navItems[2].megaMenu[idx].title} to={navItems[2].megaMenu[idx].href} className="relative group flex-1 rounded-2xl border-2 border-orange-200 bg-gradient-to-b from-white to-orange-50 overflow-hidden hover:scale-[1.02] transition-transform flex flex-row items-center" style={{ height: navItems[2].megaMenu[idx].height }}>
+                      <img src={navItems[2].megaMenu[idx].image} alt={navItems[2].megaMenu[idx].title} className="w-8 h-8 ml-4" />
+                      <div className="ml-4">
+                        <div className="text-gray-700 font-semibold text-md">{navItems[2].megaMenu[idx].title}</div>
+                        <div className="text-xs text-gray-600">{navItems[2].megaMenu[idx].description || ''}</div>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            )}
+
+            {/* RESOURCES: 2x2 grid left, 2 stacked right cards */}
+            {openMenu === 'Resources' && (
+              <div className="flex w-full gap-6">
+                {/* Left: 2x2 grid of image cards */}
+                {/* Left Column (cards 0 and 1) */}
+                <div className="flex flex-col gap-6 w-1/3">
+                  {[0, 1].map((idx) => {
+                    const card = navItems[4].megaMenu[idx];
+                    if (!card) return null;
+                    return (
+                      <Link
+                        key={card.title}
+                        to={card.href}
+                        className="relative group flex-1 rounded-2xl border border-orange-200 bg-white shadow-md overflow-hidden hover:scale-[1.02] transition-transform"
+                        style={{ height: card.height, minHeight: '80px' }}
+                      >
+                        <img
+                          src={card.image}
+                          alt={card.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-50 p-4 flex flex-col justify-end text-left">
+                          <div className="text-gray-700 font-semibold text-lg drop-shadow-md">{card.title}</div>
+                          {card.description && (
+                            <div className="text-sm text-gray-600 mt-1">{card.description}</div>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Center Column (card 2) */}
+                <div className="flex flex-col gap-6 w-1/3">
+                  {[2].map((idx) => {
+                    const card = navItems[4].megaMenu[idx];
+                    if (!card) return null;
+                    return (
+                      <Link
+                        key={card.title}
+                        to={card.href}
+                        className="relative group flex-1 rounded-2xl border border-orange-200 bg-white shadow-md overflow-hidden hover:scale-[1.02] transition-transform"
+                        style={{ height: card.height, minHeight: '170px' }}
+                      >
+                        <img
+                          src={card.image}
+                          alt={card.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-orange-50 p-4 flex flex-col justify-end text-left">
+                          <div className="text-gray-700 font-semibold text-lg drop-shadow-md">{card.title}</div>
+                          {card.description && (
+                            <div className="text-sm text-gray-600 mt-1">{card.description}</div>
+                          )}
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+                {/* Right Column (cards 3 and 4, horizontal layout) */}
+                <div className="flex flex-col gap-6 w-1/3">
+                  {[3, 4].map((idx) => {
+                    const card = navItems[4].megaMenu[idx];
+                    if (!card) return null;
+
+                    return (
+                      <Link
+                        key={card.title}
+                        to={card.href}
+                        className="relative group flex-1 rounded-2xl border border-orange-200 bg-white shadow-md overflow-hidden hover:scale-[1.02] transition-transform"
+                        style={{ height: card.height, minHeight: '100px' }}
+                      >
+                        {/* Background Image */}
+                        <img
+                          src={card.image}
+                          alt={card.title}
+                          className="absolute inset-0 w-full h-full object-cover"
+                        />
+
+                        {/* Overlay */}
+                        <div className="absolute inset-0 p-4 flex items-center gap-4 z-10">
+                          {/* Optional: Icon version of image — if not needed, remove this */}
+                          {/* <img src={card.icon} alt="" className="w-10 h-10" /> */}
+
+                          <div className="flex-1">
+                            <div className="text-gray-700 font-semibold text-lg drop-shadow">
+                              {card.title}
+                            </div>
+                            {card.description && (
+                              <div className="text-gray-700 text-xs opacity-90 mt-1 drop-shadow-sm">
+                                {card.description}
+                              </div>
+                            )}
+                          </div>
+
+                          {/* Arrow icon */}
+                          <svg
+                            className="min-w-[22px] min-h-[22px]"
+                            width="22"
+                            height="22"
+                            fill="none"
+                            stroke="#FF914D"
+                            strokeWidth="2.5"
+                            viewBox="0 0 24 24"
+                          >
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M7 17L17 7M7 7h10v10" />
+                          </svg>
+                        </div>
+                      </Link>
+                    );
+                  })}
+                </div>
+
+
+              </div>
+            )}
           </div>
         )}
       </div>
