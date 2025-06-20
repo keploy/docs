@@ -1,6 +1,7 @@
 import React, { useState, useRef } from 'react';
 import Link from '@docusaurus/Link';
 import useThemeContext from '../hooks/useThemeContext';
+import Layout from '@theme/Layout';
 
 const navItems = [
   {
@@ -261,6 +262,7 @@ function KeployLogo() {
 }
 
 export default function Navbar() {
+  const navbarRef = useRef(null);
   const [openMenu, setOpenMenu] = useState(null);
   const { isDarkTheme } = useThemeContext();
   const timeoutRef = useRef(null);
@@ -279,7 +281,12 @@ export default function Navbar() {
   };
 
   return (
-    <nav className={`sticky top-0 z-50 transition-colors duration-300 ${isDarkTheme ? 'bg-[#18181b] shadow-lg' : 'bg-white bg-opacity-90 shadow'} flex items-center justify-between px-8 py-2`}>
+    <nav
+      id="navbar"
+      ref={navbarRef}
+      className={`navbar sticky top-0 z-50 transition-colors duration-300 ${isDarkTheme ? 'bg-[#18181b] shadow-lg' : 'bg-white bg-opacity-90 shadow'} flex items-center justify-between px-8 py-2`}
+      style={{minHeight: 60, position: 'sticky', top: 0}}
+    >
       {/* Logo */}
       <Link to="/" className="flex items-center mr-8">
         <KeployLogo style={{ height: '40px', width: '120px' }} />
@@ -593,4 +600,12 @@ export default function Navbar() {
       </div>
     </nav>
   );
+}
+
+// Defensive fallback: ensure #navbar always exists for Docusaurus scripts
+if (typeof window !== 'undefined' && !document.getElementById('navbar')) {
+  const dummy = document.createElement('nav');
+  dummy.id = 'navbar';
+  dummy.style.display = 'none';
+  document.body.appendChild(dummy);
 }
