@@ -129,7 +129,7 @@ module.exports = {
             },
             {
               label: "API Testing",
-              to: "/running-keploy/about-api-testing",
+              to: "/running-keploy/api-test-generator",
             },
           ],
         },
