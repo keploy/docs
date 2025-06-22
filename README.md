@@ -33,9 +33,8 @@ Repository for the Keploy documentation website.
 
 [Keploy](https://keploy.io) is a no-code testing platform that generates tests from API calls.
 
-Keploy is constantly working to improve and expand its documentation.
-Some components may change without notice.
-Page slugs (URLs), menu labels, and the location of information are a few of the items you can expect to see altered as we endeavour to give you the best experience possible.
+Keploy is continuously working to improve and expand its documentation to provide a better experience for users. Therefore, some components may occasionally change without prior notice.
+Note: If you're new to open source, contributing even small improvements such as fixing typos, clarifying sentences, or adding examples is highly appreciated.
 
 The documentation in this repository is published to https://docs.keploy.io.
 
