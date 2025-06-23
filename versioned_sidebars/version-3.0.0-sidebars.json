@@ -6,6 +6,7 @@
       "collapsed": false,
       "items": [
         "running-keploy/api-test-generator",
+
         {
           "type": "category",
           "label": "Getting Started",
@@ -13,6 +14,15 @@
           "items": [
             "running-keploy/generate-api-tests-using-ai",
             "running-keploy/self-healing-ai-api-tests"
+          ]
+        },
+         {
+          "type": "category",
+          "label": "Test Operations",
+          "collapsed": false,
+          "items": [
+            "running-keploy/review-and-improve-ai-generated-tests",
+                    "running-keploy/share-tests"
           ]
         },
         {
