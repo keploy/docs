@@ -53,7 +53,7 @@ This testing approach is essential for several reasons:
 5. **Detection of Defects**: Identifies functional errors, security vulnerabilities, and performance bottlenecks.
 6. **Accessibility**: Suitable for testers with diverse backgrounds and skill sets, adaptable to various software applications.
 
-## Whate are types of Black-Box Testing Techniques ?
+## What are types of Black-Box Testing Techniques ?
 
 ![How Black Box testing Works?](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/03/thumbnail_Black-box.jpg)
 
@@ -64,7 +64,7 @@ Equivalence partitioning is a black-box testing technique that divides the input
 **Example:** Consider a login screen for a web application that requires users to enter their username and password. In equivalence partitioning, we can identify three equivalence classes for each input:
 
 - _Valid username_: Any valid username (e.g., "user123")
-- _Invalid username_: Username that doesn't exist in the system (e.g., "invaliduser")
+- _Invalid username_: Username that doesn't exist in the system (e.g., "invalid_user")
 - _Empty username_: No username provided
 
 Similarly, for the password field, we can identify equivalence classes such as:
@@ -127,7 +127,7 @@ By testing the transitions between states and verifying the system's behavior un
 
 ## How to use Keploy for black-Box testing?
 
-Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform black box
+Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here's how you can perform black box
 testing with Keploy:
 
 - **Record User Interactions**: Use Keploy to record user interactions with your application. This includes actions such as clicking buttons, entering text, navigating menus, and submitting forms.

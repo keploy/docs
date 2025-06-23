@@ -1,16 +1,15 @@
 import React from "react";
 
 export const KeployCloud = () => {
-
   return (
     <section
       id="cloud"
       className="mb-12 mt-24 flex max-w-7xl items-center space-x-5 rounded-lg bg-[color:var(--ifm-card-background-color)] p-5"
     >
-      <div className="max-w-3xl mx-auto prose prose-orange">
+      <div className="prose prose-orange mx-auto max-w-3xl">
         <h1> Question? 🤔💭</h1>
         <p className="my-3 block">
-         For any support please{" "}
+          For any support please{" "}
           <a
             href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
             className="text-orange-500 underline hover:text-orange-400"

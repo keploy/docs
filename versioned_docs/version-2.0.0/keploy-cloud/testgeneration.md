@@ -416,18 +416,6 @@ docker-compose up -d postgres
 
 ## Generate test-cases
 
-Now that we have our schema file, we need to create create jar file since we are using java sample-application :-
+Now that we have our schema file, we need to create jar file since we are using java sample-application :-
 
-```sh
-mvn clean install -DskipTests
 ```
-
-Now that we have our jar file ready, let's start the application with keploy : -
-
-```sh
-keploy generate-tests -c "java -jar <JAR_FILE_PATH>" -s "schema.json"
-```
-
-We will get similar output: -
-
-<img width="881" alt="image" src="https://github.com/keploy/docs/assets/53110238/2586dd57-dee8-46dd-9886-08ad729685c1"/>

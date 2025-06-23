@@ -55,7 +55,7 @@ The Keploy extension will keep running in the background once keploy server is u
 
 ![Project name](https://miro.medium.com/max/750/1*lEwF0okhMyKzaS2a8dPA7Q.png)
 
-**Step-2**: Give a title to your 1st test case
+**Step-2**: Give a title to your First test case
 
 ![Test case](https://miro.medium.com/max/828/1*u1VNf-nXXvekruNphAIfIQ.png)
 ![Rename test case](https://miro.medium.com/max/378/1*CL3156yKX4UhklO3l_vH4Q.png)

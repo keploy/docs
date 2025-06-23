@@ -239,7 +239,7 @@ col := kmongo.NewCollection(db.Collection("Demo-Collection"))
 
 Following operations are supported:
 
-- FindOne - Err and Decode method of mongo.SingleResult
+- FindOne - Err and Decode method of mongo. SingleResult
 - Find - Next, TryNext, Err, Close, All and Decode methods of mongo.cursor
 - InsertOne
 - InsertMany
@@ -277,7 +277,7 @@ Following operations are supported:
 <details>
 <summary>Integration</summary>
 
-Keploy inplements most of the sql driver's interface for mocking the outputs of sql queries which are called from your API handler.
+Keploy implements most of the sql driver's interface for mocking the outputs of sql queries which are called from your API handler.
 
 Since, keploy uses request context for mocking outputs of SQL queries thus, SQL methods having request context as parameter should be called from API handler.
 
@@ -347,21 +347,18 @@ Here is an example for postgres driver and binary encoded outputs -
         r:=gin.New()
         kgin.GinV1(kApp, r)
         r.GET("/gin/:color/*type", func(c *gin.Context) {
-            // ctx parameter of PingContext should be request context.
-            err = db.PingContext(r.Context())
-            if err!=nil{
-                log.Fatal(err)
-            }
-            id := 47
-            result, err := db.ExecContext(r.Context(), "UPDATE balances SET balance = balance + 10 WHERE user_id = ?", id)
-            if err != nil {
-                log.Fatal(err)
-            }
+            // set the context of *gorm.DB with request's context of http Handler function before queries.
+            pSQL_DB = pSQL_DB.WithContext(c.Request.Context())
+            // Find
+            var (
+                people []Book
+            )
+            x := pSQL_DB.Find(&people)
         }))
     }
 ```
 
-> Its compatible with gORM. To integerate with gORM set DisableAutomaticPing of gorm.Config to true. Also pass request context to methods as params.
+> Its compatible with gORM. To integerate with gORM set DisableAutomaticPing of gorm. Config to true. Also pass request context to methods as params.
 > Example for gORM with GCP-Postgres driver:
 
 ```go
@@ -623,51 +620,3 @@ func main(){
 	})
 }
 ```
-
-> ensure to pass request context to all external requests like http requests, db calls, etc.
-
-</details>
-
-### gRPC
-
-<details>
-<summary>Integration</summary>
-
-The outputs of external gRPC calls from API handlers can be mocked by registering keploy's gRPC client interceptor(called WithClientUnaryInterceptor of go-sdk/integrations/kgrpc package).
-
-```go
-conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
-```
-
-</details>
-
-<details>
-
-<summary>Example</summary>
-
-```go
-import(
-	"github.com/keploy/go-sdk/integrations/kgrpc"
-	"github.com/keploy/go-sdk/keploy"
-)
-
-func main() {
-	port := "8080"
-	k := keploy.New(keploy.Config{
-	  App: keploy.AppConfig{
-		  Name: "my-app",
-		  Port: port,
-	  },
-	  Server: keploy.ServerConfig{
-		  URL: "http://localhost:6789/api",
-	  },
-	})
-
-	// Make gRPC client connection
-	conn, err := grpc.Dial(address, grpc.WithInsecure(), kgrpc.WithClientUnaryInterceptor(k))
-}
-```
-
-> Currently streaming is not yet supported.
-
-</details>

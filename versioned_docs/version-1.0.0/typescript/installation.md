@@ -23,7 +23,7 @@ tags:
 2. **Test mode**
    1. Fetches testcases for the app from keploy server.
    2. Calls the API with same request payload in testcase.
-   3. Validates the respones and uploads results to the keploy server.
+   3. Validates the response and uploads results to the keploy server.
 
 ## Installation
 

@@ -69,7 +69,7 @@ These two scenarios are designed to ensure the detection of changes, including a
 
 ### Recording and testing of tests and mocks via test-bench
 
-Right now, in this guide i am only showing the first scenario, to run the second scenario you just need to replace the binaries as mentioned in the **4th** step.
+Right now, in this guide i am only showing the first scenario, to run the second scenario you just need to replace the binaries as mentioned in the **Fourth** step.
 
 #### Recording Phase 🎥
 

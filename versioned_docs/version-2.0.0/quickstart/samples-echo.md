@@ -127,7 +127,7 @@ Want to see if everything works as expected?
 
 Now that we have our testcase captured, we will add `ts` to noise field in `test-*.yaml` files.
 
-**1. On line 32 we will add "`- body.ts`" under the "`header.data`".**
+**1. On line 32 we will add "`- body.ts`," under the "`header.data`."**
 
 Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
 

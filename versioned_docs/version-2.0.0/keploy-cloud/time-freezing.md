@@ -22,7 +22,7 @@ While making tests, **time-sensitive objects like JWT tokens are a challenge** a
 
 With Keploy Cloud users will be able to **freeze/rollback the time in every test run, back to when the test case was recorded.**
 
-This allows developers to ensure time-sensitive objects don’t expire or change, **making tests consistent and more reliable.**
+This allows developers to ensure time-sensitive objects don't expire or change, **making tests consistent and more reliable.**
 
 ## Usage 🛠️
 
@@ -46,7 +46,7 @@ For Docker-based applications, you'll need to make a few adjustments to your Doc
 uname -a
 ```
 
-2. Download the the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
+2. Download the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
 
 ### For Golang(Go) Applications -
 
