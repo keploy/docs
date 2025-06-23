@@ -25,6 +25,15 @@
                     "running-keploy/share-tests"
           ]
         },
+         {
+          "type": "category",
+          "label": "Test Operations",
+          "collapsed": false,
+          "items": [
+            "running-keploy/review-and-improve-ai-generated-tests",
+                    "running-keploy/share-tests"
+          ]
+        },
         {
           "type": "category",
           "label": "FAQs",
