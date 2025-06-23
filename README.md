@@ -78,7 +78,6 @@ The command starts a local development server and opens a browser window.
 
 > 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
 
-
 ## Running Vale Locally for Documentation Linting
 
 To help maintain consistency in our documentation, we use Vale, a syntax-aware linter that checks for spelling, grammar, and style issues.
