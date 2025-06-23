@@ -11,7 +11,8 @@
           "label": "Getting Started",
           "collapsed": false,
           "items": [
-            "running-keploy/generate-api-tests-using-ai"
+            "running-keploy/generate-api-tests-using-ai",
+            "running-keploy/self-healing-ai-api-tests"
           ]
         },
         {
