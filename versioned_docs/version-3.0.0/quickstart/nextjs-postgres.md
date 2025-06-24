@@ -23,7 +23,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 ## Get Started! 🎬
 
-Now that we have bun installed, we will setup our application.
+Now that we have bun installed, we will se tup our application.
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
