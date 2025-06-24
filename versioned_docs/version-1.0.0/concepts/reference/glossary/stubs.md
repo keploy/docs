@@ -1,8 +1,8 @@
 ---
 id: Stubs
-title: Stubs (v1.0.0)
+title: Stubs in Software Testing | Keploy Glossary
 sidebar_label: Stubs
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: Discover what stubs are in software testing. Learn how they simulate external systems to enable isolated and efficient testing during development.
 tags:
   - explanation
 keywords:

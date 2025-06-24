@@ -2,7 +2,8 @@
 id: manual-testing
 title: Automate Manual Testing with Keploy
 sidebar_label: Manual Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: Explore how Keploy helps automate manual testing. This glossary simplifies key testing terms for beginners and enhances understanding of automated testing workflows.
+
 tags:
   - explanation
   - Glossary

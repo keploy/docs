@@ -1,8 +1,8 @@
 ---
 id: pet-clinic
-title: Keploy with PetClinic
+title: Keploy Integration with PetClinic App
 sidebar_label: PetClinic (PostgresDb)
-description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
+description: This sample app shows how to use Keploy to generate test cases and mocks for the popular Spring Boot Java app, PetClinic.
 tags:
   - java
   - spring-jpa

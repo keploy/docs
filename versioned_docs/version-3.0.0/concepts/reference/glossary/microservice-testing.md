@@ -2,7 +2,8 @@
 id: microservice-testing
 title: Microservice Testing with Keploy
 sidebar_label: Microservice Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: Understand microservice testing with Keploy. This glossary explains key terms and concepts that help beginners grasp testing in a microservices architecture.
+
 tags:
   - explanation
   - glossary
