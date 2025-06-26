@@ -176,9 +176,18 @@ npm run build
 
 When we merge your PR, a new build automatically occurs and your changes publish to [https://keploy.io/docs](https://keploy.io/docs).
 
-## How to Get Involved?
+## 🤝 How to Get Involved?
 
-Keploy welcomes contributions to the docs website. If you have an idea for a new feature or a bug fix, please submit an issue or pull request. Our planned features can be found on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
+Keploy warmly welcomes all contributions — from fixing typos to suggesting new features or writing better documentation.
+
+Here’s how you can start contributing:
+
+- 🐞 Found a bug or want to suggest a feature? Open an issue on our [Issue Tracker](https://github.com/keploy/keploy/issues/new/choose).
+- 📄 Improve documentation, tutorials, or examples by submitting a pull request.
+- 💬 Have an idea or need guidance? Reach out to us via [Slack](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg) — we’d love to hear from you!
+
+Every contribution — big or small — makes a difference. 🌟
+
 
 ## Community Support ❤️
 
