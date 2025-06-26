@@ -58,7 +58,7 @@ Software Testing Life Cycle (STLC) comprises several phases that guide the testi
    - **Objective**: Assess testing completion and readiness for release.
    - **Activities**: Evaluate test results, generate reports, and obtain stakeholder sign-off.
 
-![Software Testing Life Cycle Phases](https://cdn.hashnode.com/res/hashnode/image/upload/v1689231300018/f466f393-e402-4b1f-adef-259c93508aa8.png)
+![Software Testing Life Cycle Phases](https://keploy-devrel.s3.us-west-2.amazonaws.com/software-development-lifecycle.png)
 
 ## What are some common Practices in STLC ?
 

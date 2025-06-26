@@ -25,7 +25,7 @@ There are two main types of integration testing:
 
 Both types of integration testing are essential for ensuring that all components of a software application work together correctly.
 
-![Approach Types](https://media.geeksforgeeks.org/wp-content/uploads/20201202190437/top2.png)
+![Approach Types](https://keploy-devrel.s3.us-west-2.amazonaws.com/integration-testing-approach-type.png)
 
 ### How to perform Integration Testing ?
 
