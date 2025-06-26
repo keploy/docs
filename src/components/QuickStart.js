@@ -63,8 +63,9 @@ export const QuickStart = () => {
       </p>
 
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+        
         <Link
-          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg text-center bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]"
           to={useBaseUrl("/server/installation/")}
         >
           <img
@@ -75,7 +76,7 @@ export const QuickStart = () => {
           <p className="text-lg font-semibold">Windows</p>
         </Link>
         <Link
-          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg text-center bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]"
           to={useBaseUrl("/server/installation/")}
         >
           <img
@@ -86,7 +87,7 @@ export const QuickStart = () => {
           <p className="text-lg font-semibold">Linux</p>
         </Link>
         <Link
-          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg text-center bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]"
           to={useBaseUrl("/server/installation/")}
         >
           <img
