@@ -2,10 +2,10 @@
 id: review-and-improve-ai-generated-tests
 title: Review & Improve AI-Generated API Tests
 sidebar_label: Review & Improve Tests
-description: Learn how to inspect, edit, self-heal, and enhance Keploy’s AI-generated API test suites for maximum coverage and reliability.
+description: Learn how to inspect, edit, self-heal, and enhance Keploy's AI-generated API test suites for maximum coverage and reliability.
 ---
 
-After you’ve generated a starter test suite with Keploy’s AI engine, the next step is to review, refine, and harden those tests so they stay trustworthy as your API evolves.
+After you've generated a starter test suite with Keploy's AI engine, the next step is to review, refine, and harden those tests so they stay trustworthy as your API evolves.
 
 ## Open the Test Review Workspace
 
@@ -24,7 +24,7 @@ Use the **Filter Options** bar in the left **Test‑Suites** pane to slice large
 
 You can **combine these filters** with the search bar—for example, view only failed `DELETE` calls on eg: `/employees`—making it painless to triage huge test suites.
 
-## Edit Test Step – Request & Assertions
+## Edit Test Step—Request & Assertions
 
 Keploy lets you refine both the **request definition** and the **assertions** from a single modal:
 
@@ -51,7 +51,7 @@ Keploy lets you refine both the **request definition** and the **assertions** fr
 
 ### Save & Rollback
 
-Hit **Save Changes** – every edit is version‑controlled so you can roll back anytime.
+Hit **Save Changes**—every edit is version‑controlled so you can roll back anytime.
 
 ## 📚 Assertion Types & Examples
 
@@ -66,7 +66,7 @@ Mix-and-match them as needed—every example below can live inside the same `ass
 | **JSON Equal**        | **Entire** JSON body matches exactly (order-agnostic). | `yaml<br>- type: json_equal<br>  expected:<br>    id: 42<br>    status: "shipped"<br>`                     | Warehouse service returns `{ "status": "shipped", "id": 42 }`                |
 | **JSON Contains**     | Body **contains** a subset of fields/values.           | `yaml<br>- type: json_contains<br>  expected:<br>    status: "error"<br>    message: "invalid token"<br>`  | Auth service returns a long error payload that **includes** those two fields |
 | **Header Contains**   | Specific header **includes** a substring.              | `yaml<br>- type: header_contains<br>  field: content-type<br>  expected: json<br>`                         | `content-type: application/**json**; charset=utf-8`                          |
-| **Header Equal**      | Header equals an exact value (case-insensitive).       | `yaml<br>- type: header_equal<br>  field: cache-control<br>  expected: "no-store"<br>`                     | `cache-control: No-Store` (case doesn’t matter)                              |
+| **Header Equal**      | Header equals an exact value (case-insensitive).       | `yaml<br>- type: header_equal<br>  field: cache-control<br>  expected: "no-store"<br>`                     | `cache-control: No-Store` (case doesn't matter)                              |
 | **Header Exists**     | Header key is present (value ignored).                 | `yaml<br>- type: header_exists<br>  field: x-request-id<br>`                                               | Reverse-proxy injects `x-request-id: 4b087…`                                 |
 | **Header Matches**    | Header value matches a **regex** pattern.              | `yaml<br>- type: header_matches<br>  field: set-cookie<br>  pattern: "sessionId=.*; Path=/; HttpOnly"<br>` | `set-cookie: sessionId=abc123; Path=/; HttpOnly; SameSite=Lax`               |
 
@@ -77,10 +77,11 @@ Mix-and-match them as needed—every example below can live inside the same `ass
 
 Manage entire suites easily from the **Test Suites** list:
 
-- **︙ Menu**: Hover over any suite row to reveal options:
-  - ✏️ **Rename** – Update the title and description.
-  - 📄 **Duplicate** – Clone the suite with all steps and tags.
-  - 🗑️ **Delete** – Permanently remove the suite (with confirmation).
+—**︙ Menu**: Hover over any suite row to reveal options:
+
+- ✏️ **Rename**—Update the title and description.
+- 📄 **Duplicate**—Clone the suite with all steps and tags.
+- 🗑️ **Delete**—Permanently remove the suite (with confirmation).
 
 All changes are saved instantly and logged.
 

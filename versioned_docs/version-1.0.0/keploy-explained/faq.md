@@ -9,7 +9,7 @@ tags:
 
 ### 1. Is Keploy a unit testing framework?
 
-No, keploy is designed to reduce time writing tests manually. It integrates with exising unit testing frameworks like (eg: go test, Junit, pytest, etc.) to ensure compatibility with existing tooling like code coverage, IDE support and CI pipeline/infrastructure support.
+No, keploy is designed to reduce time writing tests manually. It integrates with existing unit testing frameworks like (eg: go test, Junit, pytest, etc.) to ensure compatibility with existing tooling like code coverage, IDE support and CI pipeline/infrastructure support.
 
 ### 2. Does Keploy replace unit tests entirely?
 

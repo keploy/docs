@@ -31,7 +31,7 @@ The primary goal of white box testing is to validate the software's internal ope
 
 ## Fundamentals of White Box Testing
 
-White box testing is essential for verifying the correctness and efficiency of code. Here’s why it’s crucial:
+White box testing is essential for verifying the correctness and efficiency of code. Here's why it's crucial:
 
 - **Identify Logical Errors**: It helps in uncovering logical flaws in the code.
 - **Ensure Path Coverage**: Every possible path through the code is tested.
@@ -102,9 +102,9 @@ As code evolves, test cases must be updated, requiring ongoing coordination with
 
 ## How to perform Whitebox testing with Keploy ?
 
-Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform white box testing with Keploy:
+Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here's how you can perform white box testing with Keploy:
 
-- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
+- **Instrument Your Code:** Use Keploy's instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
 
 - **Record Test Scenarios:** Run your application and perform different operations. Keploy will record these interactions and generate test cases based on the internal workings of your application.
 
@@ -112,9 +112,9 @@ Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you aut
 
 - **Execute Tests and Analyze Results:** Run the generated test cases using Keploy. It will execute the tests and provide detailed reports on code coverage, including insights into which parts of your code were exercised and which were not.
 
-- **Error Analysis and Debugging:** Utilize Keploy’s built-in error analysis tools to identify and resolve issues within your code. Keploy provides detailed insights into errors, helping you quickly pinpoint and fix problems in the internal logic of your application.
+- **Error Analysis and Debugging:** Utilize Keploy's built-in error analysis tools to identify and resolve issues within your code. Keploy provides detailed insights into errors, helping you quickly pinpoint and fix problems in the internal logic of your application.
 
-- C**ontinuous Integration and Testing:** Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
+- **Continuous Integration and Testing:** Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
 
 ## Conclusion
 

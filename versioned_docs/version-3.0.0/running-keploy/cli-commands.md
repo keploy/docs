@@ -52,7 +52,7 @@ keploy record [flags]
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
   keploy record -c "node src/app.js" --config-path "./config-dir/"
@@ -131,7 +131,7 @@ keploy test [flags]
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
   keploy test -c "node src/app.js" --config-path "./config-dir/"
@@ -151,7 +151,7 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10
   ```
 
-- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123".
+- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123."
 
   ```bash
   keploy test -c "node src/app.js" --mongo-password "my-password"
@@ -241,7 +241,7 @@ keploy gen [flags]
 
 - `coverageFormat` - Type of the coverage report by default report is in "cobertura" format.
 
-- `expectedCoverage` - Desired coverage percentage by default it is set to be at 100%.
+- `expectedCoverage` - Desired coverage percentage by default it is set to be at "100%."
 
 - `maxIterations` - Maximum number of iterations for refining tests (default 5).
 
@@ -323,7 +323,7 @@ keploy config [flags]
   keploy config --generate
   ```
 
-- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
+- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is "."
 
   ```bash
   keploy config --generate --path "./config-dir/"
