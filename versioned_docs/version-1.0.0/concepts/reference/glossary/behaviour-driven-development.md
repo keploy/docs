@@ -7,6 +7,7 @@ tags:
   - explanation
 keywords:
   - API
+  - pytest
 ---
 
 Behavior-driven development (BDD) is an Agile software development methodology that encourages collaboration between developers, testers, and business stakeholders. BDD is based on the idea that the best way to ensure that software meets the needs of its users is to write tests that describe the desired behavior of the software in plain language.
