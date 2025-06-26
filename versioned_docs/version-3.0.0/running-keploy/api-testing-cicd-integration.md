@@ -26,7 +26,7 @@ Keploy makes it super simple to run API tests during your CI/CD pipeline on GitH
 ## Step 1: Get the Test Command from Keploy Dashboard
 
 1. Go to [app.keploy.io](https://app.keploy.io)
-2. Click on **Test Suite** in the sidebar  
+2. Click on **Test Suite** in the sidebar
 
 ![Test Suite Page](https://res.cloudinary.com/dfhtr1rwo/image/upload/v1750923916/testsuite.png)
 
@@ -35,11 +35,11 @@ Keploy makes it super simple to run API tests during your CI/CD pipeline on GitH
 ![Run Natively Button](https://res.cloudinary.com/dfhtr1rwo/image/upload/v1750924088/Screenshot_2025-06-26_at_1.17.24_PM_hgfbmi.png)
 
 4. **Copy the command**  
-![Copy Command](https://res.cloudinary.com/dfhtr1rwo/image/upload/v1750924247/Screenshot_2025-06-26_at_1.20.16_PM_dl7ixd.png)
+   ![Copy Command](https://res.cloudinary.com/dfhtr1rwo/image/upload/v1750924247/Screenshot_2025-06-26_at_1.20.16_PM_dl7ixd.png)
 
 ---
 
-##  Step 2: Set Up GitHub Actions Workflow
+## Step 2: Set Up GitHub Actions Workflow
 
 Add the following steps to your `.github/workflows/ci.yml` file:
 
@@ -49,7 +49,7 @@ Add the following steps to your `.github/workflows/ci.yml` file:
 - name: Install Keploy CLI
   run: |
     curl --silent -L https://keploy.io/ent/install.sh | bash
-````
+```
 
 ### Run Keploy API Tests
 
@@ -64,14 +64,14 @@ Paste the command copied from the dashboard here:
 
 Replace `--app` and `--base-path` with your actual values from the Keploy Dashboard.
 
-###  **Note**  
+### **Note**
+
 **Don’t forget to add your `KEPLOY_API_KEY` as a GitHub secret!**  
 **Go to your repo → Settings → Security → Actions → _New Repository Secret_**
 
-
 ---
 
-##  Output Example: Real-time Test Execution Logs
+## Output Example: Real-time Test Execution Logs
 
 Once integrated, here’s what a successful run may look like in your GitHub Actions console:
 
@@ -92,19 +92,17 @@ Once integrated, here’s what a successful run may look like in your GitHub Act
 +------------------------------------------+--------+-------+
 
 Test suite execution summary
-Total suites:     122  
-Passed suites:    122  
-Failed suites:      0  
+Total suites:     122
+Passed suites:    122
+Failed suites:      0
 ```
 
 ---
 
-##  That's it!
+## That's it!
 
 With just a few lines of YAML, you’ve added **AI-powered API test automation** into your GitHub CI pipeline. Now every PR or deployment will be automatically tested with Keploy’s smart test engine.
-
 
 import GetSupport from '../concepts/support.md'
 
 <GetSupport/>
-
