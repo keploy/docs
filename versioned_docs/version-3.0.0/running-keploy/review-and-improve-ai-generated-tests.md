@@ -70,18 +70,15 @@ Mix-and-match them as needed—every example below can live inside the same `ass
 | **Header Exists**     | Header key is present (value ignored).                 | `yaml<br>- type: header_exists<br>  field: x-request-id<br>`                                               | Reverse-proxy injects `x-request-id: 4b087…`                                 |
 | **Header Matches**    | Header value matches a **regex** pattern.              | `yaml<br>- type: header_matches<br>  field: set-cookie<br>  pattern: "sessionId=.*; Path=/; HttpOnly"<br>` | `set-cookie: sessionId=abc123; Path=/; HttpOnly; SameSite=Lax`               |
 
-> **Tip 🛠️**  
+> **Tip **  
 > Combine multiple assertions in one step to cover status, headers **and** body in a single round-trip. Every assertion is evaluated independently, so one failure pinpoints the exact mismatch.
 
-## Edit or Delete a Test Suite
+## Select a Test Suite
 
 Manage entire suites easily from the **Test Suites** list:
 
 - **︙ Menu**: Hover over any suite row to reveal options:
-  - ✏️ **Rename** – Update the title and description.
-  - 📄 **Duplicate** – Clone the suite with all steps and tags.
-  - 🗑️ **Delete** – Permanently remove the suite (with confirmation).
+  - **Add Test Suite** – Create a new suite and give it a clear title and description.
+  - **Select Test Suite** – Choose an existing suite to duplicate, automatically copying all its steps and tags.
 
 All changes are saved instantly and logged.
-
-> ⚠️ Deletion is irreversible. Use Git history or backups to restore.
