@@ -22,7 +22,9 @@
           "items": [
             "running-keploy/review-and-improve-ai-generated-tests",
                     "running-keploy/share-tests",
-            "running-keploy/self-healing-ai-api-tests"
+            "running-keploy/self-healing-ai-api-tests",
+            "running-keploy/run-ai-generated-api-tests"
+
           ]
         },
         {
