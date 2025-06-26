@@ -2,10 +2,10 @@
 id: run-ai-generated-api-tests
 title: Run AI-Generated API Tests
 sidebar_label: Run Tests
-description: Discover how to execute Keploy’s AI-generated API test suites—locally, on-demand from the console, or automatically in CI/CD—and interpret the results to keep your API stable.
+description: Discover how to execute Keploy's AI-generated API test suites—locally, on-demand from the console, or automatically in CI/CD—and interpret the results to keep your API stable.
 ---
 
-Once you’ve finished curating a suite , it’s time to hit **Run** and see how your API behaves against the latest contract.
+Once you've finished curating a suite, it's time to hit **Run** and see how your API behaves against the latest contract.
 
 ## Open the **Run Tests** Modal
 
@@ -15,7 +15,7 @@ Once you’ve finished curating a suite , it’s time to hit **Run** and see how
 
    | Tab                | What to Fill In                                                                                                                                                      |
    | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | **Endpoint**       | **API Endpoint URL** – the base URL Keploy will prepend to every request in the suite (e.g. `https://jsonplaceholder.typicode.com`).                                 |
+   | **Endpoint**       | **API Endpoint URL**—the base URL Keploy will prepend to every request in the suite (e.g. `https://jsonplaceholder.typicode.com`).                                   |
    | **Authentication** | (Optional) Drop in a **Bearer**, **Basic**, or **API-key** credential that applies to every step.<br />You can also add per-step auth later in the test-step editor. |
 
 3. Click **Run Tests** to start execution. A toast confirmation appears and the modal closes.
@@ -43,7 +43,7 @@ A **Run Badge** next to each suite row flips from _queued_ → _running_ → _�
 
 Iterate quickly:
 
-1. Patch your API or tweak assertions from the "Test Suite".
+1. Patch your API or tweak assertions from the "Test Suite."
 2. Re-click **Run Tests**—Keploy re-uses the same Endpoint/Auth settings you last entered.
 3. Compare the new report with the previous one right in the dashboard to verify the fix.
 
