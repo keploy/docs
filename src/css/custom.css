@@ -551,6 +551,34 @@ td img {
     no-repeat;
 }
 
+.header-slack-link {
+  display: inline-block; 
+  position: relative; 
+  width: 24px; 
+  height: 24px; 
+}
+
+.header-slack-link:hover {
+  opacity: 0.6; 
+}
+
+.header-slack-link::before {
+  content: "";
+  display: block; 
+  width: 24px; 
+  height: 24px; 
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' preserveAspectRatio='xMidYMid meet'%3E%3Ctitle%3ESlack Logo%3C/title%3E%3Cpath d='M22,12 a6,6 0 1 1 6,-6 v6z M22,16 a6,6 0 0 1 0,12 h-16 a6,6 0 1 1 0,-12' fill='%2336C5F0'/%3E%3Cpath d='M48,22 a6,6 0 1 1 6,6 h-6z M32,6 a6,6 0 1 1 12,0 v16 a6,6 0 0 1 -12,0z' fill='%232EB67D'/%3E%3Cpath d='M38,48 a6,6 0 1 1 -6,6 v-6z M54,32 a6,6 0 0 1 0,12 h-16 a6,6 0 1 1 0,-12' fill='%23ECB22E'/%3E%3Cpath d='M12,38 a6,6 0 1 1 -6,-6 h6z M16,38 a6,6 0 1 1 12,0 v16 a6,6 0 0 1 -12,0z' fill='%23E01E5A'/%3E%3C/svg%3E") no-repeat;
+  background-size: contain; 
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+[data-theme="dark"] .header-slack-link::before {
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 60 60' preserveAspectRatio='xMidYMid meet'%3E%3Ctitle%3ESlack Logo%3C/title%3E%3Cpath d='M22,12 a6,6 0 1 1 6,-6 v6z M22,16 a6,6 0 0 1 0,12 h-16 a6,6 0 1 1 0,-12' fill='%2336C5F0'/%3E%3Cpath d='M48,22 a6,6 0 1 1 6,6 h-6z M32,6 a6,6 0 1 1 12,0 v16 a6,6 0 0 1 -12,0z' fill='%232EB67D'/%3E%3Cpath d='M38,48 a6,6 0 1 1 -6,6 v-6z M54,32 a6,6 0 0 1 0,12 h-16 a6,6 0 1 1 0,-12' fill='%23ECB22E'/%3E%3Cpath d='M12,38 a6,6 0 1 1 -6,-6 h6z M16,38 a6,6 0 1 1 12,0 v16 a6,6 0 0 1 -12,0z' fill='%23E01E5A'/%3E%3C/svg%3E") no-repeat;
+  background-size: contain;
+}
+
 div[class^="announcementBar_"] {
   --site-announcement-bar-stripe-color1: hsl(
     var(--site-primary-hue-saturation) 88%
