@@ -85,3 +85,4 @@ In the Test Suites list, hover over any row to reveal the ︙ (more-options) men
 - **Delete Test Suite** – Permanently remove a suite you no longer need.
 
 All changes are saved instantly and logged.
+⚠️ Deletion is irreversible. Use Git history or backups to restore.
