@@ -1,7 +1,7 @@
 ---
 id: api-testing-chrome-extension
 title: API Test Recorder (Chrome Extension)
-sidebar_label: Review & Improve Tests
+sidebar_label: API Test Recorder
 description: Learn how to install, record, export, and auto-generate Keploy tests straight from your browser.
 ---
 
