@@ -12,7 +12,8 @@
           "label": "Getting Started",
           "collapsed": false,
           "items": [
-            "running-keploy/generate-api-tests-using-ai"
+            "running-keploy/generate-api-tests-using-ai",
+                "running-keploy/api-testing-chrome-extension"
           ]
         },
          {
@@ -23,7 +24,8 @@
             "running-keploy/review-and-improve-ai-generated-tests",
                     "running-keploy/share-tests",
             "running-keploy/self-healing-ai-api-tests",
-            "running-keploy/run-ai-generated-api-tests"
+            "running-keploy/run-ai-generated-api-tests",
+            "running-keploy/api-testing-cicd"
 
           ]
         },
