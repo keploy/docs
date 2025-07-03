@@ -104,13 +104,13 @@ export const glossaryEntries = {
     {
       name: "Regression Testing",
       link: "/docs/concepts/reference/glossary/regression-testing",
-      description: "Ensures new code doesn’t break old features.",
+      description: "Ensures new code doesn't break old features.",
     },
   ],
   S: [
     {
       name: "Stubs",
-      ink: "/docs/concepts/reference/glossary/stubs",
+      link: "/docs/concepts/reference/glossary/stubs",
       description: "Simulates methods or APIs during testing.",
     },
     {
