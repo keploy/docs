@@ -68,7 +68,7 @@ keploy record -c "python3 server.py"
 
 You should be able to see this in your terminal
 
-<img src="/docs/img/sanic-mongo-record.png" alt="Sample Keploy record sanic mongo" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-python-sanic.png" alt="Sample Keploy record sanic mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -158,6 +158,6 @@ spec:
 
 This is how your terminal would look like :
 
-<img src="/docs/img/sanic-mongo-test.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-test-sanic-python.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response
