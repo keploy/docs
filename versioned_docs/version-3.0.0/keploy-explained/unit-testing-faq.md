@@ -9,40 +9,97 @@ tags:
 
 # Got Questions? We’ve Got Answers! 🚀
 
-Everything you want to know about Unit testing with Keploy—straightforward and no fluff.
+Let's get to the heart of Keploy Unit Testing with some fun Q&A!
 
 ### 1. What is Keploy's Unit Test Generator (UTG)?
 
-Keploy's UTG automates the creation of unit tests based on code semantics, enhancing test coverage and reliability.
+Keploy's UTG automatically creates unit tests using code semantics and AI. It helps improve code coverage and catch bugs early, with minimal manual effort.
 
-### 2. Does Keploy send your private data to any cloud server for test generation?
+### 2. Does Keploy send my code to the cloud?
 
-No, Keploy does not send any user code to remote systems, except when using the unit test generation feature. When using the UT gen feature, only the source code and the unit test code will be sent to the Large Language Model (LLM) you are using. By default, Keploy uses - litellm to support vast number of LLM backends. Yes, if your organization has its own LLM(a private one), you can use it with Keploy. This ensures that data is not sent to any external systems.
+Only when using the Unit Test Generator feature—and even then, just the necessary code/test context is sent to the LLM (Large Language Model) you're using. You can also plug in your **own private LLM**, keeping everything within your infrastructure.
 
-### 3. How does Keploy contribute to improving unit test coverage?
+### 3. Is my code or data used to train AI models?
 
-By providing a zero code platform for automated testing, Keploy empowers developers to scale up their unit test coverage without extensive coding knowledge. This integration enhances testing reports, ultimately boosting confidence in the product's quality.
+No. Never. Keploy does **not** use your code, test cases, or data to train any internal or external AI models.
 
-### 4. Is Keploy cost-effective for automated unit testing?
+### 4. Which AI models does Keploy support?
 
-Yes, Keploy optimizes costs by automating repetitive testing tasks and improving overall test efficiency.
+Keploy supports:
 
-### 5. How does Keploy generate coverage reports?
+- **Gemini 2.5 Pro (Google)**
+- **GPT-4 family (OpenAI)**
+- **Other specialized models**
 
-Keploy generates detailed Cobertura format reports, offering insights into test effectiveness and code quality.
+We route test generation tasks to the model best suited for each case, and validate results to ensure high-quality tests.
 
-### 6. Can Keploy handle large codebases efficiently?
+### 5. How does Keploy protect my data?
 
-Yes, Keploy is designed to handle large codebases efficiently, though processing time may vary based on project size and complexity.
+Keploy follows strict security practices:
 
-### 7. Which method should I choose for generating unit tests?
+- Data is encrypted in transit and at rest
+- No data is shared with third parties
+- We are compliant with **ISO 27001**, **SOC 2**, **GDPR**, and **HIPAA**
 
-- **PR Agent**: Best for teams using pull request workflows who want automatic test generation
-- **VS Code Extension**: Ideal for individual developers who prefer IDE integration
+### 6. What kind of privacy guarantees does Keploy offer?
 
-### 8. Do I need an API key to use these two methods?
+- Your code is **never shared** or analyzed for marketing
+- All data is fully encrypted
+- You can delete your data anytime
+- Full transparency in how we handle your information
 
-The API key is primarily required for the Command Line method. The PR Agent and VS Code Extension may have different authentication mechanisms depending on your setup.
+### 7. Which languages are supported for AI-powered test generation?
+
+- ✅ **Go (Golang)**: Full support for generating, running, and validating tests.
+- 🚀 **JavaScript** support is coming soon.
+
+We only keep tests that pass, build, and increase coverage—everything else is discarded.
+
+### 8. How does Keploy improve unit test coverage?
+
+By automating the hard parts. Keploy:
+
+- Creates tests automatically
+- Targets edge cases
+- Filters flaky or redundant tests
+- Reports coverage via **Cobertura** format
+
+### 9. Is Keploy suitable for large codebases?
+
+Yes! Keploy is built to handle large, complex projects. Processing time may vary based on size, but the output remains optimized.
+
+### 10. Which method should I use to generate tests?
+
+- **PR Agent**: Best for automated test generation on GitHub pull requests.
+- **VS Code Extension**: Ideal for developers who prefer working in their IDE.
+- **CLI Tool**: For those who want more control or integrate into scripts.
+
+### 11. Do I need an API key?
+
+Only for the CLI method. Other tools like PR Agent and VS Code Extension use their own secure auth flows.
+
+### 12. How does Keploy ensure the quality of generated tests?
+
+- We validate every test: it must build, pass, and increase coverage.
+- Tests that don’t add value are automatically removed.
+- We focus on **fewer, stronger** tests—not noise.
+
+### 13. How is Keploy secure and compliant?
+
+Keploy is built on:
+
+- **End-to-end encryption**
+- **Least privilege access**
+- **Redundant infrastructure**
+- Regular **security audits**
+
+We’re committed to keeping your trust.
+
+### 14. What’s next for Keploy?
+
+- Expanding support for more languages
+- More model choices for users
+- Deeper IDE and CI/CD integrations
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
