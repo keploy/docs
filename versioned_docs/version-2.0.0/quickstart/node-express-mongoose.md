@@ -63,7 +63,7 @@ keploy record -c "docker compose up" --container-name "nodeMongoApp" --build-del
 
 #### Let's generate the testcases.
 
-Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ```bash
 curl --request POST \
@@ -162,7 +162,7 @@ Alright, magician! With the app alive and kicking, let's weave some test cases. 
 
 #### Let's generate the testcases.
 
-Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ```bash
 curl --request POST \
