@@ -56,7 +56,7 @@ once keploy server is up.
 
 ![Project name](https://miro.medium.com/max/750/1*lEwF0okhMyKzaS2a8dPA7Q.png)
 
-**Step-2**: Give a title to your 1st test case
+**Step-2**: Give a title to your First test case
 
 ![Test case](https://miro.medium.com/max/828/1*u1VNf-nXXvekruNphAIfIQ.png)
 ![Rename test case](https://miro.medium.com/max/378/1*CL3156yKX4UhklO3l_vH4Q.png)
@@ -88,7 +88,7 @@ mongo DB. Let’s see inside mongo DB using mongo compass.
 ![Compass Screenshot](https://miro.medium.com/max/828/1*WYChY6_nwLcmUJw5I-j7Dg.jpeg)
 
 **Step-9**: Now we will replay the recorded data in selenium, but this time data will not come from live servers of
-google, instead of that data will come from the moc database made by keploy
+google, instead of that data will come from the mock database made by keploy
 
 ![Re-Run with Keploy](https://miro.medium.com/max/828/1*9wXASZ3JLur3r_Gk2Q-gug.jpeg)
 ![Test Run](https://miro.medium.com/max/828/1*4ur53dlBZ94Y2gbJCZLYJA.jpeg)

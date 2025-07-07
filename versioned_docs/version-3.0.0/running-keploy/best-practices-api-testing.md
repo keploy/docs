@@ -25,7 +25,7 @@ API testing ensures the reliability, security, and performance of your applicati
 
 ### ✅ 1. Define Clear Test Objectives
 
-- Understand what you're testing — functionality, security, performance, or error handling.
+- Understand what you're testing—functionality, security, performance, or error handling.
 - Align tests with business logic and expected user workflows.
 
 ### 🧪 2. Cover Both Positive and Negative Scenarios

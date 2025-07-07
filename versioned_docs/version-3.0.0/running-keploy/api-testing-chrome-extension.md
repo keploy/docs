@@ -9,13 +9,13 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
 
 ## What the API Test Recorder does
 
-**Browser-side traffic capture** — Sniffs XHR / fetch calls as you click around.
+**Browser-side traffic capture**—Sniffs XHR / fetch calls as you click around.
 
-**Instant replay formats** — Export the captured calls as cURL, JSON, or native Keploy YAML.
+**Instant replay formats**—Export the captured calls as cURL, JSON, or native Keploy YAML.
 
-**URL filtering & debugging** — Limit capture to specific endpoints and auto-repair partial request/response pairs.
+**URL filtering & debugging**—Limit capture to specific endpoints and auto-repair partial request/response pairs.
 
-**One-click test generation** — Push traffic to Keploy Console and instantly get ready-to-run API tests with assertions.
+**One-click test generation**—Push traffic to Keploy Console and instantly get ready-to-run API tests with assertions.
 
 ## Installation
 
@@ -33,8 +33,8 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
 2. Click **Record API Calls**.
 3. In another tab, **exercise your app** as a normal user (create an account, add to cart, etc.).
 4. Watch the live counters:
-   - **Captured calls** – total XHR/fetch requests intercepted.
-   - **Complete req/resp** – pairs where both request _and_ response were fully captured.
+   - **Captured calls**—total XHR/fetch requests intercepted.
+   - **Complete req/resp**—pairs where both request _and_ response were fully captured.
 5. If the count of req/res is lower than expected, hit **Debug** to repair missing pairs.  
    Example :
 
@@ -55,9 +55,9 @@ Records repaired: 15
    - Your browser opens a new tab showing test-case generation progress.
    - When done, you’ll see a **Test Suite** with runnable cases
 7. From **Export Format**, choose:
-   - **cURL Commands** – one-liner per call, shareable in Slack/Gist.
-   - **Keploy YAML** – ready for `keploy run`.
-   - **JSON** – raw payloads for custom tooling.
+   - **cURL Commands**—one-liner per call, shareable in Slack/Gist.
+   - **Keploy YAML**—ready for `keploy run`.
+   - **JSON**—raw payloads for custom tooling.
 8. Click **Export Data** to download **or** **Copy** to clipboard.
 
 ## UI reference
@@ -77,8 +77,8 @@ Records repaired: 15
 
 ## Best practices
 
-- **Enter URL** – Set the URL Filter to the base domain you want Keploy to record. This keeps captures focused on the traffic that matters.
-- **Keep sessions short** – Generate tests for one functional flow at a time; iterate rather than record everything in one go.
+- **Enter URL**—Set the URL Filter to the base domain you want Keploy to record. This keeps captures focused on the traffic that matters.
+- **Keep sessions short**—Generate tests for one functional flow at a time; iterate rather than record everything in one go.
 
 ## Troubleshooting
 

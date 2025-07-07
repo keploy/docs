@@ -46,7 +46,7 @@ For Docker-based applications, you'll need to make a few adjustments to your Doc
 uname -a
 ```
 
-2. Download the the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
+2. Download the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
 
 ### For Golang(Go) Applications -
 

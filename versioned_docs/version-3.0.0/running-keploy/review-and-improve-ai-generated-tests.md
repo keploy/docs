@@ -24,7 +24,7 @@ Use the **Filter Options** bar in the left **Test‑Suites** pane to slice large
 
 You can **combine these filters** with the search bar—for example, view only failed `DELETE` calls on eg: `/employees`—making it painless to triage huge test suites.
 
-## Edit Test Step – Request & Assertions
+## Edit Test Step—Request & Assertions
 
 Keploy lets you refine both the **request definition** and the **assertions** from a single modal:
 
@@ -51,7 +51,7 @@ Keploy lets you refine both the **request definition** and the **assertions** fr
 
 ### Save & Rollback
 
-Hit **Save Changes** – every edit is version‑controlled so you can roll back anytime.
+Hit **Save Changes**—every edit is version‑controlled so you can roll back anytime.
 
 ## 📚 Assertion Types & Examples
 
@@ -79,10 +79,10 @@ In the Test Suites list, hover over any row to reveal the ︙ (more-options) men
 
 **︙ Menu**: Hover over any suite row to reveal options:
 
-- **Add Test Suite** – Create a new suite and give it a clear, descriptive title.
-- **Select Test Suite** – Choose an existing suite for running or further changes.
-- **Edit Test Suite** – Update the suite’s name, description, or included tests.
-- **Delete Test Suite** – Permanently remove a suite you no longer need.
+- **Add Test Suite**—Create a new suite and give it a clear, descriptive title.
+- **Select Test Suite**—Choose an existing suite for running or further changes.
+- **Edit Test Suite**—Update the suite’s name, description, or included tests.
+- **Delete Test Suite**—Permanently remove a suite you no longer need.
 
 All changes are saved instantly and logged.
 ⚠️ Deletion is irreversible. Use Git history or backups to restore.

@@ -46,7 +46,7 @@ Keploy handles stateful workflows by:
 
 1. Recording session cookies/headers
 2. Detecting data dependencies between calls
-3. Generating cleanup steps (teardown)
+3. Generating cleanup steps (tear down)
 4. Creating isolated test contexts
 
 **Example:**  
