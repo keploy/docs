@@ -53,15 +53,36 @@ Keploy lets you refine both the **request definition** and the **assertions** fr
 
 Hit **Save Changes** – every edit is version‑controlled so you can roll back anytime.
 
-## Edit or Delete a Test Suite
+## 📚 Assertion Types & Examples
 
-Manage entire suites easily from the **Test Suites** list:
+Keploy supports nine assertion primitives out-of-the-box.  
+Mix-and-match them as needed—every example below can live inside the same `assertions:` array of a test step.
 
-- **︙ Menu**: Hover over any suite row to reveal options:
-  - ✏️ **Rename** – Update the title and description.
-  - 📄 **Duplicate** – Clone the suite with all steps and tags.
-  - 🗑️ **Delete** – Permanently remove the suite (with confirmation).
+| **Type**              | **What It Checks**                                     | **YAML Snippet**                                                                                           | **Passing Example**                                                          |
+| --------------------- | ------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------- |
+| **Status Code**       | Response code equals an exact number.                  | `yaml<br>- type: status_code<br>  comparator: equal<br>  expected: 201<br>`                                | `POST /users` returns **201 Created**                                        |
+| **Status Code Class** | Response code falls within a class (2xx, 3xx …).       | `yaml<br>- type: status_code_class<br>  comparator: equal<br>  expected: 2xx<br>`                          | `PATCH /users/42` → **204 No Content**                                       |
+| **Status Code In**    | Response code is one of a whitelist of codes.          | `yaml<br>- type: status_code_in<br>  expected: [200, 201, 202]<br>`                                        | Upload API may respond with **202 Accepted** while processing async          |
+| **JSON Equal**        | **Entire** JSON body matches exactly (order-agnostic). | `yaml<br>- type: json_equal<br>  expected:<br>    id: 42<br>    status: "shipped"<br>`                     | Warehouse service returns `{ "status": "shipped", "id": 42 }`                |
+| **JSON Contains**     | Body **contains** a subset of fields/values.           | `yaml<br>- type: json_contains<br>  expected:<br>    status: "error"<br>    message: "invalid token"<br>`  | Auth service returns a long error payload that **includes** those two fields |
+| **Header Contains**   | Specific header **includes** a substring.              | `yaml<br>- type: header_contains<br>  field: content-type<br>  expected: json<br>`                         | `content-type: application/**json**; charset=utf-8`                          |
+| **Header Equal**      | Header equals an exact value (case-insensitive).       | `yaml<br>- type: header_equal<br>  field: cache-control<br>  expected: "no-store"<br>`                     | `cache-control: No-Store` (case doesn’t matter)                              |
+| **Header Exists**     | Header key is present (value ignored).                 | `yaml<br>- type: header_exists<br>  field: x-request-id<br>`                                               | Reverse-proxy injects `x-request-id: 4b087…`                                 |
+| **Header Matches**    | Header value matches a **regex** pattern.              | `yaml<br>- type: header_matches<br>  field: set-cookie<br>  pattern: "sessionId=.*; Path=/; HttpOnly"<br>` | `set-cookie: sessionId=abc123; Path=/; HttpOnly; SameSite=Lax`               |
+
+> **Tip **  
+> Combine multiple assertions in one step to cover status, headers **and** body in a single round-trip. Every assertion is evaluated independently, so one failure pinpoints the exact mismatch.
+
+## Edit and Manage Test Suites
+
+In the Test Suites list, hover over any row to reveal the ︙ (more-options) menu:
+
+**︙ Menu**: Hover over any suite row to reveal options:
+
+- **Add Test Suite** – Create a new suite and give it a clear, descriptive title.
+- **Select Test Suite** – Choose an existing suite for running or further changes.
+- **Edit Test Suite** – Update the suite’s name, description, or included tests.
+- **Delete Test Suite** – Permanently remove a suite you no longer need.
 
 All changes are saved instantly and logged.
-
-> ⚠️ Deletion is irreversible. Use Git history or backups to restore.
+⚠️ Deletion is irreversible. Use Git history or backups to restore.
