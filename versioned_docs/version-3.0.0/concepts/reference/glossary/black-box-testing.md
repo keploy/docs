@@ -53,7 +53,7 @@ This testing approach is essential for several reasons:
 5. **Detection of Defects**: Identifies functional errors, security vulnerabilities, and performance bottlenecks.
 6. **Accessibility**: Suitable for testers with diverse backgrounds and skill sets, adaptable to various software applications.
 
-## Whate are types of Black-Box Testing Techniques ?
+## What are types of Black-Box Testing Techniques ?
 
 ![How Black Box testing Works?](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/03/thumbnail_Black-box.jpg)
 

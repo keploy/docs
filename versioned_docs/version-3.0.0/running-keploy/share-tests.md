@@ -15,8 +15,8 @@ In the **Test Suites** list, hover over a suite row and click the **Share** icon
 
 The **Share Test Suites** modal appears with two tabs:
 
-- **Find People** – Search existing workspace members.
-- **Add New User** – Invite someone via email.
+- **Find People**—Search existing workspace members.
+- **Add New User**—Invite someone via email.
 
 ## Confirm & Notify
 

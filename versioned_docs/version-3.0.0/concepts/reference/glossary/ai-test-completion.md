@@ -13,7 +13,7 @@ keywords:
   - AI-driven testing
 ---
 
-AI Test Completion refers to leveraging LLM's, and GenAI to either automate and assist in the creation or execution and maintenance of test cases.
+AI Test Completion refers to leveraging LLMs, and GenAI to either automate and assist in the creation or execution and maintenance of test cases.
 It is used to enhance testing efficiency, coverage, and accuracy by leveraging AI to predict and generate tests which can help in increasing code coverage.
 
 ## How does testing with AI works ?

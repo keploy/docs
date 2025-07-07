@@ -42,7 +42,7 @@ Depending on your OS, choose your adventure:
 There are 2 ways you can run this sample application.
 
 - [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker container for mongodb and running application locally](#running-app-locally-on-linuxwsl-)
 
 ## Using Docker Compose 🐳
 
