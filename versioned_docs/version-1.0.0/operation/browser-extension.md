@@ -1,7 +1,9 @@
 ---
 id: browser-extension-operations
-title: Browser Extension Operations (v1.0.0)
-description: Guide into Keploy Chrome Browser Extension
+title: Keploy Browser Extension Operations Guide
+
+description: Explore how to use the Keploy browser extension for capturing API calls and test cases. Streamline testing workflows directly from your browser with this guide.
+
 sidebar_label: Browser Extension for Selenium
 tags:
   - browser-extension
