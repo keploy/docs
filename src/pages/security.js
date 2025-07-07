@@ -17,8 +17,14 @@ export default function Security() {
     >
       <header className={clsx("hero hero--primary", styles.heroBanner)}>
         <div className="container">
-          <h1 className="hero__title text-black">Keploy security</h1>
-          <p className="hero__subtitle text-black">Our commitment</p>
+          <h1 className="hero__title text-black">
+            Keploy Security Practices and Policies
+          </h1>
+          <p className="hero__subtitle text-black">
+            Learn how Keploy ensures data protection, privacy, and secure
+            testing. Explore Keploy’s security measures, policies, and best
+            practices for safeguarding your systems.
+          </p>
         </div>
       </header>
       <div className={clsx("hero hero--secondary", styles.heroBanner)}>

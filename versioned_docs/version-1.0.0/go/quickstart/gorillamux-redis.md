@@ -22,7 +22,7 @@ A sample contact keeper app to test Keploy integration capabilities using [Goril
 
 > Note that Testcases are exported as files in the local repository by default
 
-You can refer to the [installation guide](https://docs.keploy.io/docs/server/server-installation) to install Keploy on your machine.
+You can refer to the [installation guide](https://keploy.io/docs/server/installation/) to install Keploy on your machine.
 
 ### Prerequisites
 

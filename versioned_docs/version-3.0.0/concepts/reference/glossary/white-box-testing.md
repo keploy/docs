@@ -1,8 +1,9 @@
 ---
 id: white-box-testing
-title: Unlocking the Secrets of White Box Testing
+title: How to Perform White Box Testing
 sidebar_label: White Box Testing
-description: Discover the essentials of White Box Testing, including techniques, benefits, and practical examples. Learn how to optimize your testing strategy for better software quality.
+description: Explore how to perform white box testing with key techniques and tools. Learn to test internal code logic and improve software quality with structured approaches.
+
 tags:
   - explanation
   - Glossary
