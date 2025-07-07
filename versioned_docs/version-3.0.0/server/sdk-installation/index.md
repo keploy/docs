@@ -1,6 +1,7 @@
 ---
 id: index
-title: Pre-requites 🛠️
+title: SDK Installation Guide for Server
+
 tags:
   - coverage
 keyword:
@@ -18,7 +19,7 @@ keyword:
   - coveragepy
 ---
 
-To get the coverage report, first make sure all the requirements are met and then run Keploy test as usual with your application command:
+Follow this step-by-step guide to install the server SDK. Learn how to set up and integrate the SDK into your application for seamless testing and monitoring.
 
 ```bash
 keploy test -c "your_application_command"
