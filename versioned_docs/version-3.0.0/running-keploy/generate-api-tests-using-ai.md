@@ -44,11 +44,11 @@ If your API is not publicly accessible, Keploy will show a warning when attempti
 
 Use a **base API path, not a homepage** or static resource, for generating test flows.
 
-| URL Example                             |     | Why It's Good or Bad                         |
-| --------------------------------------- | --- | -------------------------------------------- |
+| URL Example                             |     | Why It's Good or Bad                       |
+| --------------------------------------- | --- | ------------------------------------------ |
 | `https://api.example.com`               | ✅  | API subdomain—general and testable         |
 | `https://example.com/api`               | ✅  | API under path—works across many endpoints |
-| `https://example.com/api/v2`            | ✅  | Versioned API route                          |
+| `https://example.com/api/v2`            | ✅  | Versioned API route                        |
 | `https://example.com/v2/orders`         | ✅  | Specific API group—stable path             |
 | `https://example.com`                   | ❌  | Homepage—not an API                        |
 | `https://example.com/index.html`        | ❌  | Static file—not useful for API testing     |

@@ -15,7 +15,7 @@ Once you’ve finished curating a suite , it’s time to hit **Run** and see how
 
    | Tab                | What to Fill In                                                                                                                                                      |
    | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-   | **Endpoint**       | **API Endpoint URL**—the base URL Keploy will prepend to every request in the suite (e.g. `https://jsonplaceholder.typicode.com`).                                 |
+   | **Endpoint**       | **API Endpoint URL**—the base URL Keploy will prepend to every request in the suite (e.g. `https://jsonplaceholder.typicode.com`).                                   |
    | **Authentication** | (Optional) Drop in a **Bearer**, **Basic**, or **API-key** credential that applies to every step.<br />You can also add per-step auth later in the test-step editor. |
 
 3. Click **Run Tests** to start execution. A toast confirmation appears and the modal closes.
