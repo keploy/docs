@@ -100,6 +100,3 @@ Click the **Start Debugging** button to witness the magic of debugging unfold se
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

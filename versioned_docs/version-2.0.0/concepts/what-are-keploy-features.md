@@ -92,7 +92,3 @@ As the application serves the API, Keploy re-run that API request with the captu
 Keploy identifies differences in API responses, marking them as random/noisy fields. 🧐✅
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

@@ -102,6 +102,4 @@ _Voila!! Our testcases has passed 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
-import GetSupport from '../concepts/support.md'
 
-<GetSupport/>

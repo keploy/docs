@@ -126,6 +126,3 @@ Don't let testing slow down your development velocity. With Keploy's AI-powered 
 
 _Transform your IDE. Elevate your code quality. Join 500k+ developers building better software with Keploy._
 
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

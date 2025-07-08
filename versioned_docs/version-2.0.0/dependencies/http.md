@@ -43,6 +43,3 @@ Next, if the request contains the expect header or not. The expect header is use
 
 Hope this helps you out, if you still have any questions, reach out to us .
 
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
