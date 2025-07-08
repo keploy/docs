@@ -176,7 +176,14 @@ module.exports = {
           href: "https://github.com/keploy/keploy",
           position: "right",
           className: "header-github-link",
+
           "aria-label": "GitHub repository",
+        },
+        {
+          href: "https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg",
+          position: "right",
+          className: "header-slack-link",
+          "aria-label": "Slack community",
         },
       ],
     },
