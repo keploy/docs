@@ -102,7 +102,3 @@ Have questions or need a security report for your team? [Contact us!](mailto:sup
 Your code, your data, your control. 🔐
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

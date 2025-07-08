@@ -19,6 +19,7 @@ import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
 import Head from "@docusaurus/Head";
 import MDXContent from "@theme/MDXContent";
+import {KeployCloud} from "@site/src/components/KeployCloud";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -105,7 +106,9 @@ export default function DocItem(props) {
                 </article>
               </div>
             </article>
-
+            <div>
+              <KeployCloud />
+            </div>
             <DocPaginator previous={metadata.previous} next={metadata.next} />
           </div>
         </div>
