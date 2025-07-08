@@ -84,7 +84,7 @@ Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture th
 
 #### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
 ```bash
 curl --request POST \
