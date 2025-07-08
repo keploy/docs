@@ -101,7 +101,7 @@ mvn clean install -D maven.test.skip=true
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
 
 ### 1. Make an employee entry
 
