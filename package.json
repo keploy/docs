@@ -28,6 +28,7 @@
     "ajv-keywords": "^3.5.2",
     "clsx": "^2.0.0",
     "lint": "^0.8.19",
+    "lucide-react": "^0.517.0",
     "prism-react-renderer": "^2.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
@@ -52,20 +53,20 @@
   "devDependencies": {
     "@docusaurus/plugin-client-redirects": "^3.2.1",
     "@tailwindcss/typography": "^0.5.0",
-    "autoprefixer": "^10.4.0",
+    "autoprefixer": "^10.4.21",
     "docusaurus": "^1.14.7",
     "docusaurus-tailwindcss-loader": "file:plugins/docusaurus-tailwindcss-loader",
     "eslint": "^7.32.0",
     "eslint-plugin-react": "^7.23.2",
     "husky": "^6.0.0",
     "lint-staged": "^11.1.2",
-    "postcss": "^8.4.4",
+    "postcss": "^8.5.6",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^7.4.1",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.4",
     "rimraf": "^6.0.1",
-    "tailwindcss": "^3.0.1"
+    "tailwindcss": "^3.4.17"
   },
   "engines": {
     "node": ">=18.0"
