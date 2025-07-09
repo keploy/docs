@@ -71,15 +71,7 @@ After entering record mode, send requests to your application to generate test c
 ```shell
 go run -exec "sudo -E env 'PATH=$PATH'" -tags=viper_bind_struct main.go test -c "path/to/go/binary/of/application" --delay 10
 ```
-
-Run Keploy server to expose test APIs:
-
-```shell
-go run -exec "sudo -E env 'PATH=$PATH'" -tags=viper_bind_struct main.go test -c "path/to/go/binary/of/application" --delay 10 --coverage
-```
-
-Generated test cases can be found inside the Keploy directory.
-
+Generated test cases can be found inside the Keploy directory. Generated reports can be found under the reports directory inside Keploy directory. 
 ### 5. Setup Keploy using Binary:
 
 #### Generate Keploy Binary:
