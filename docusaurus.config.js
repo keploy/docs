@@ -30,17 +30,6 @@ module.exports = {
       };
     },
     "docusaurus-tailwindcss-loader",
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-          {
-            to: "quickstart/sample-redis/",
-            from: ["/2.0.0/quickstart/samples-redis/"],
-          },
-        ],
-      },
-    ],
   ],
   themeConfig: {
     canonicalBase: "https://www.keploy.io/",

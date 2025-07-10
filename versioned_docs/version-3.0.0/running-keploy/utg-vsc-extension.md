@@ -124,4 +124,4 @@ Don't let testing slow down your development velocity. With Keploy's AI-powered 
 3. **Click "Generate Unit Tests"** and experience the magic
 4. **Watch your test coverage soar** while maintaining development speed
 
-_Transform your IDE. Elevate your code quality. Join 500k+ developers building better software with Keploy._
+\_Transform your IDE. Elevate your code quality. Join 500k+ developers building better software with Keploy.
