@@ -39,7 +39,7 @@ White box testing is essential for verifying the correctness and efficiency of c
 - **Verify Calculations**: Ensures that calculations and data manipulations are correct.
 - **Assess Code Quality**: Checks the structure and organization of the code for better maintainability.
 
-![What is White box testing?](https://cdn.educba.com/academy/wp-content/uploads/2019/05/White-Box-Testing-1.jpg)
+![What is White box testing?](https://keploy-devrel.s3.us-west-2.amazonaws.com/Whitebox.png)
 
 ## Types of White Box Testing Techniques
 
