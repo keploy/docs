@@ -30,6 +30,17 @@ module.exports = {
       };
     },
     "docusaurus-tailwindcss-loader",
+    [
+      "@docusaurus/plugin-client-redirects",
+      {
+        redirects: [
+          {
+            to: "quickstart/sample-redis/",
+            from: ["/2.0.0/quickstart/samples-redis/"],
+          },
+        ],
+      },
+    ],
   ],
   themeConfig: {
     canonicalBase: "https://www.keploy.io/",
@@ -120,16 +131,16 @@ module.exports = {
           position: "left",
           items: [
             {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent/",
-            },
-            {
               label: "Integration Testing",
               to: "/keploy-explained/introduction",
             },
             {
-              label: "API Testing",
-              to: "/running-keploy/about-api-testing",
+              label: "API Testing (AI)",
+              to: "/running-keploy/api-test-generator",
+            },
+            {
+              label: "Unit Testing",
+              to: "/running-keploy/utg-pr-agent",
             },
           ],
         },
@@ -141,7 +152,7 @@ module.exports = {
               href: "https://keploy.io/blog/technology",
             },
             {
-              label: "Communtity Articles",
+              label: "Community Articles",
               href: "https://keploy.io/blog/community",
             },
             {
@@ -321,6 +332,7 @@ module.exports = {
       },
     ],
   ],
+
   scripts: [
     {
       src: "/docs/scripts/feedback.js",

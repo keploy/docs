@@ -1,8 +1,8 @@
 ---
 id: pet-clinic
-title: Keploy with PetClinic
+title: Keploy Integration with PetClinic App
 sidebar_label: PetClinic (PostgresDb)
-description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
+description: This sample app shows how to use Keploy to generate test cases and mocks for the popular Spring Boot Java app, PetClinic.
 tags:
   - java
   - spring-jpa
@@ -37,14 +37,14 @@ This project has two parts - the frontend and backend, since Keploy is a backend
 
 ## Setup the frontend
 
+### Prerequisites For Frontend:
+
+1. Node version 16.x and above
+
 ```bash
 git clone https://github.com/keploy/samples-java.git
 cd samples-java/spring-petclinic/spring-petclinic-angular
-npm uninstall -g angular-cli @angular/cli
-npm cache clean
-npm install -g @angular/cli@latest
-npm install --save-dev @angular/cli@latest
-npm i
+npm i --legacy-peer-deps
 ```
 
 ## Start the frontend
@@ -64,13 +64,12 @@ You can start the backend using Keploy in 2 ways:
 - [Using Keploy's binary](#instructions-for-starting-using-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
-# Instructions For Starting Using Binary
+# Instructions For Starting Using API backend Binary
 
-Prerequisites For Binary:
+Prerequisites For API backend Binary:
 
-1. Node 20.11.0 LTS
-2. OpenJDK 17.0.9
-3. MVN version 3.6.3
+1. OpenJDK 17+
+2. MVN version 3.6+
 
 ## Setup the backend
 
@@ -150,7 +149,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

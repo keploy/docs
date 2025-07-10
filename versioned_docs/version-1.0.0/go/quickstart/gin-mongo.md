@@ -49,7 +49,7 @@ go run handler.go main.go
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use postman or simply `curl`
 
 ### 1. Generate shortened url
 

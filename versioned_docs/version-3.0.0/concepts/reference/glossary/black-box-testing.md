@@ -1,8 +1,8 @@
 ---
 id: black-box-testing
-title: Mastering Black Box Testing - Techniques, Benefits, and Best Practices
+title: Mastering Black Box Testing Techniques
 sidebar_label: Black Box Testing
-description: Discover the fundamentals of black box testing. Learn about key techniques like equivalence partitioning, boundary value analysis, and decision table testing. Enhance your software's quality by focusing on external behavior without internal code knowledge.
+description: Learn black box testing fundamentals, techniques like boundary value analysis, and best practices to boost software quality without needing internal code access.
 tags:
   - explanation
   - Glossary

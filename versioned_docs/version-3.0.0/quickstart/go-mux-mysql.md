@@ -78,7 +78,7 @@ Make API Calls using Postman or cURL command. Keploy with capture those calls to
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
 #### Generate shortened url
 
@@ -221,7 +221,3 @@ We will get output something like this:
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
