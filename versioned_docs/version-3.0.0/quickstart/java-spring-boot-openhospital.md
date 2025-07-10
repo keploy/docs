@@ -114,4 +114,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-

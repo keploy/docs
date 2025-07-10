@@ -216,4 +216,3 @@ sudo -E keploy test -c node src/app.js --delay 10 --path ./
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-

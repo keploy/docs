@@ -33,5 +33,3 @@ In test mode, the decode function is activated. Its role is to match incoming re
 The test mode process starts with the `MockOutgoing` function, which reads the initial request from the client. The request is then decoded using the `decodeRedis` function. This function reads the request stream, attempts to match the request with existing mocks using a fuzzy matching algorithm, and retrieves the corresponding responses. If a match is found, the responses are decoded and written back to the client.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-

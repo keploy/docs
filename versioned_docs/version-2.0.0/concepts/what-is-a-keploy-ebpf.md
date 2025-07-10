@@ -27,4 +27,3 @@ Comparing the expected and actual responses for an API call happens at the Keplo
 A Keploy eBPF mocks the external dependencies while testing APIs, eliminating the need to setup test-environment. This allows the application to isolate itself from external dependencies.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-

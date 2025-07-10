@@ -164,4 +164,4 @@ If you have ideas on how we can improve, please share them with us by creating a
 
 Right now our interfaces do not support translations and we also don't have a translation strategy in place. But we want to change this. We want our projects to be accessible to non-English speakers. If you have any ideas then please share them with us by creating a [new issue].
 
-Hope this helps you out, if you still have any questions, reach out to us 
+Hope this helps you out, if you still have any questions, reach out to us

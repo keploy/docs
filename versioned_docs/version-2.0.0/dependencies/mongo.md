@@ -56,4 +56,3 @@ OP_MSG {
 - In version 4.2, MongoDB removes the deprecated internal `OP_COMMAND` and `OP_COMMANDREPLY` protocol.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-

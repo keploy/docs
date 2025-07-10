@@ -173,5 +173,3 @@ Testrun passed for testcase with id: "test-2"
 _And... voila! You have successfully integrated keploy in Jenkins CI/CD pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-

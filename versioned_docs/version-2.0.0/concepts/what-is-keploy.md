@@ -60,4 +60,3 @@ You can test with Keploy locally or can integrate Keploy with popular testing-fr
 > **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-

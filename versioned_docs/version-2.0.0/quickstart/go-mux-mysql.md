@@ -78,7 +78,7 @@ Make API Calls using Postman or cURL command. Keploy with capture those calls to
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
 #### Generate shortened url
 
@@ -134,8 +134,6 @@ So no need to setup fake database/apis MySQL or write mocks for them. Keploy aut
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
 
 ## Running App Locally on Linux/WSL 🐧
 
