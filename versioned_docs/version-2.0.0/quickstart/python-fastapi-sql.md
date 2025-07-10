@@ -12,6 +12,7 @@ tags:
   - python-framework
   - fast-api-framework
   - postgres
+  - pytest
 keyword:
   - FastAPI Framework
   - Postgres
