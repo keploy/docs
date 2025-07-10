@@ -192,7 +192,7 @@ keploy record -c "docker compose up" --container-name "express-postgresql-prisma
 
 ### Interact with Application
 
-Make API Calls using [Postman](https://www.postman.com/) or [cURL](https://curl.se/) command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ### API Routes
 
