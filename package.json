@@ -24,6 +24,8 @@
     "@docusaurus/plugin-sitemap": "^3.2.1",
     "@docusaurus/preset-classic": "^3.2.1",
     "@mdx-js/react": "^3.0.0",
+    "ajv": "^6.12.6",
+    "ajv-keywords": "^3.5.2",
     "clsx": "^2.0.0",
     "lint": "^0.8.19",
     "prism-react-renderer": "^2.1.0",
@@ -48,7 +50,7 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/plugin-client-redirects": "^3.2.1",
+    "@docusaurus/plugin-client-redirects": "^3.8.1",
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
     "docusaurus": "^1.14.7",

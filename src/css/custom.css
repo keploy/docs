@@ -212,7 +212,7 @@ div[class^="sidebar_"] .button svg {
 
 /* Pagination */
 .pagination-nav {
-  @apply flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
+  @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
 .pagination-nav__item {
   @apply w-full max-w-md;
@@ -223,11 +223,11 @@ div[class^="sidebar_"] .button svg {
 
 /* Navbar */
 .navbar__inner {
-  @apply mx-auto max-w-screen-lg shadow-none lg:px-10;
+  @apply mx-auto w-full max-w-none px-4 shadow-none lg:px-10;
 }
 
 .navbar__items--right {
-  @apply flex-row-reverse;
+  @apply justify-end ml-auto flex-row-reverse;
 }
 
 .navbar__items--right > :last-child {
