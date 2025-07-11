@@ -38,3 +38,24 @@ the same result.
 Deduplication is a data compression technique wherein redundant copies of the same data are identified and eliminated.
 This process involves hash functions or similarity analysis to compare data chunks, enabling the storage system to store
 only one instance of each unique data segment, thereby optimizing storage efficiency and reducing redundancy.
+
+### 6. **Unit Testing**
+
+Unit testing involves testing individual components or functions of a software application in isolation to verify that they work as expected.
+
+### 7. **Mocking**
+
+Mocking is a technique used in testing to simulate the behavior of real components (like databases or APIs) so that the code can be tested in isolation.
+
+### 8. **Latency**
+
+Latency is the time delay between a user action and the corresponding response from the system. In APIs, it's the time taken to get a response after a request.
+
+### 9. **Regression Testing**
+
+Regression testing ensures that new code changes haven’t unintentionally affected existing functionality.
+
+### 10. **Test Coverage**
+
+Test coverage is a measure of how much of your codebase is covered by automated tests, indicating the thoroughness of testing.
+
