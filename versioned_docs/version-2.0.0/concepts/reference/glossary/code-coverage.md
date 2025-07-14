@@ -90,7 +90,3 @@ Now when let's the test cases with Jest, you can see the code coverage report ge
 ```bash
 npm test
 ```
-
-We can see below that the code coverage is 94.44% for the our application.
-
-<img src='https://raw.githubusercontent.com/priyankarpal/samples-typescript/ppal/express-mongo-priyank/images/jestcoverage.png?raw=true'/>

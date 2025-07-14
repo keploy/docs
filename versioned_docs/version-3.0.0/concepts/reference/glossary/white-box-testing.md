@@ -63,8 +63,6 @@ Using the right tools can streamline white box testing:
 - **Profiling Tools**: Identify performance issues by monitoring resource usage.
 - **Unit Testing Frameworks**: Automate testing of individual units of code.
 
-![White Box Testing](https://res.cloudinary.com/practicaldev/image/fetch/s--shG8HMmV--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f639sq6krordxspv1wxi.gif)
-
 ## Overcoming Challenges in White Box Testing
 
 ### 1. Expertise Required:

@@ -80,7 +80,7 @@ java -jar target/spring-petclinic-rest-3.0.2.jar
 ngrok http http://localhost:9966
 ```
 
-Copy the generated ngrok URL (e.g., https://95777-115-245-249-101.ngrok-free.app)
+Copy the generated ngrok URL 
 
 Your Live Base URL will be:
 
@@ -536,7 +536,8 @@ Keploy will auto-generate a test suite using the inputs provided.
 - Generate mock data
 - Validate test stability
 
-Example Test Suite: https://957f-115-245-249-101.ngrok-free.app/petclinic/api
+Example Test Suite: https://<your-ngrok-url>/petclinic/api
+
 
 Example Test Cases:
 
