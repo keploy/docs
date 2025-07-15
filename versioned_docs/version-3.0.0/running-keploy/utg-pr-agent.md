@@ -89,7 +89,3 @@ Ready to transform your pull request workflow from a potential quality bottlenec
 3. **Experience the difference** in your next code review cycle
 
 _Elevate your development workflow. Make every pull request a quality checkpoint._
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

@@ -2,7 +2,7 @@
 id: stubs
 title: Create Data Stubs using Keploy
 sidebar_label: Stubs
-description: In software testing, stubs are used to simulate the behavior of external systems or modules that are not yet implemented.
+description: Learn how to create data stubs using Keploy to simulate external systems in software testing. Improve test reliability and isolate dependencies effectively.
 tags:
   - explanation
   - Glossary

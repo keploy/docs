@@ -1,8 +1,8 @@
 ---
 id: pet-clinic
-title: Keploy with PetClinic
+title: Keploy Integration with PetClinic App
 sidebar_label: PetClinic (PostgresDb)
-description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
+description: This sample app shows how to use Keploy to generate test cases and mocks for the popular Spring Boot Java app, PetClinic.
 tags:
   - java
   - spring-jpa
@@ -150,7 +150,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

@@ -1,8 +1,8 @@
 ---
 id: pet-clinic
-title: Keploy with PetClinic
+title: Keploy Integration with PetClinic App
 sidebar_label: PetClinic (PostgresDb)
-description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
+description: This sample app shows how to use Keploy to generate test cases and mocks for the popular Spring Boot Java app, PetClinic.
 tags:
   - java
   - spring-jpa
@@ -61,7 +61,7 @@ cd samples-java/spring-petclinic/spring-petclinic-rest
 
 You can start the backend using Keploy in 2 ways:
 
-- [Using Keploy's binary](#instructions-for-starting-using-binary)
+- [Using Keploy's binary](#instructions-for-starting-using-api-backend-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
 # Instructions For Starting Using API backend Binary
@@ -145,5 +145,7 @@ Your CLI should look something like this
 This is a summary of the test cases recorded
 <img src="/docs/img/pet-test2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
-Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10 s to get started, you can change the `delay` accordingly.
-`
+Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10's to get started, you can change the `delay` accordingly.
+`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
+
+Hope this helps you out, if you still have any questions, reach out to us.

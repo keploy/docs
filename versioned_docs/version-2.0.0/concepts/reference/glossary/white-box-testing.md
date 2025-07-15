@@ -1,8 +1,9 @@
 ---
 id: white-box-testing
-title: Unlocking the Secrets of White Box Testing
+title: How to Perform White Box Testing
 sidebar_label: White Box Testing
-description: Discover the essentials of White Box Testing, including techniques, benefits, and practical examples. Learn how to optimize your testing strategy for better software quality.
+description: Explore how to perform white box testing with key techniques and tools. Learn to test internal code logic and improve software quality with structured approaches.
+
 tags:
   - explanation
   - Glossary
@@ -38,7 +39,7 @@ White box testing is essential for verifying the correctness and efficiency of c
 - **Verify Calculations**: Ensures that calculations and data manipulations are correct.
 - **Assess Code Quality**: Checks the structure and organization of the code for better maintainability.
 
-![What is White box testing?](https://cdn.educba.com/academy/wp-content/uploads/2019/05/White-Box-Testing-1.jpg)
+![What is White box testing?](https://keploy-devrel.s3.us-west-2.amazonaws.com/Whitebox.png)
 
 ## Types of White Box Testing Techniques
 
@@ -61,8 +62,6 @@ Using the right tools can streamline white box testing:
 - **Static Code Analysis Tools**: Analyze code for potential issues without executing it.
 - **Profiling Tools**: Identify performance issues by monitoring resource usage.
 - **Unit Testing Frameworks**: Automate testing of individual units of code.
-
-![White Box Testing](https://res.cloudinary.com/practicaldev/image/fetch/s--shG8HMmV--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f639sq6krordxspv1wxi.gif)
 
 ## Overcoming Challenges in White Box Testing
 

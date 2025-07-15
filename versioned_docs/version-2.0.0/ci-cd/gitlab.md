@@ -148,7 +148,3 @@ Integrating Keploy with GitLab CI automates the testing process, ensuring that t
 If you’re thinking, “This pipeline looks cool, but I need the _whole thing_ to integrate with your application!”—well, you're in luck! Check it out [here](https://github.com/keploy/samples-python) and get ready to copy-paste your way to success! ✨🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
