@@ -25,7 +25,7 @@ Black-box testing is a software testing method where the tester evaluates the fu
 
 The focus lies solely on examining the software's external behavior, inputs, outputs, and responses to different user actions or system interactions.
 
-![types of testing](../../../../../static/img/glossary/types-of-testing.jpeg)
+![Types of Testing](https://keploy-devrel.s3.us-west-2.amazonaws.com/types-of-testing.jpeg)
 
 ## What are the Fundamentals of Black-Box Testing?
 
