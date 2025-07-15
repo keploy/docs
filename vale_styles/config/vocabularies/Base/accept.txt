@@ -126,6 +126,7 @@ Passthrough
 async
 substring
 llm
+<<<<<<< HEAD
 shorteners
 matchType
 anonymization
@@ -141,3 +142,6 @@ Gradle
 sublicense
 doxing
 vale_styles
+=======
+shorteners
+>>>>>>> 5a03cd82 (docs: fix the linters for the version3)

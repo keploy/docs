@@ -299,7 +299,7 @@ keploy normalize [flags]
 
 ## [rerecord](#rerecord)
 
-The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testsets.
+The `rerecord`cmd allow user to record new keploy testcases/mocks from the existing test cases for the given testsets.
 
 **Usage:**
 
