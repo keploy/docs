@@ -87,7 +87,7 @@ curl --request GET \
 
 ```
 
-2. Or by querying through the browser `http://localhost:8080/data/1'
+2. Or by querying through the browser `localhost:8080/data/1'
 
 ![Gorilla-Mux-Test-Capture](/img/GorillaMux-Redis.png)
 
