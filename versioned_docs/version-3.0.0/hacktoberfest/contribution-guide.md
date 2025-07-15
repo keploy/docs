@@ -20,7 +20,7 @@ If you’ve ever wanted to contribute to open source, now is your chance! You ca
 
 Anyone around the globe who desires to help drive the growth of open source and make positive contributions to an ever-growing community. All backgrounds and skill levels are encouraged to participate.
 
-#### Code Contributribution to Keploy Projects includes:
+#### Code Contribution to Keploy Projects includes:
 
 - 🛠️ Bug fixes
 - 👉 New features

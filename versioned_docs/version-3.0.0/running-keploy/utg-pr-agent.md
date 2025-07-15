@@ -69,7 +69,7 @@ In the PR comment left by Keploy:
 
 Once the process is complete:
 
-- Click **"Go back to the PR"**.
+- Click **"Go back to the PR."**
 - The PR comment will be updated with:
   - All the **unit test files** generated for your recent changes.
   - A **test summary** presented in a **clean tabular format** showing: - File names - Number of test cases - Coverage details - Edge cases handled (if any)
