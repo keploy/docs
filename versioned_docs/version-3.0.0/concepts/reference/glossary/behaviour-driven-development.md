@@ -24,7 +24,7 @@ keywords:
 
 Behavior Driven Development (BDD) is an Agile methodology that emphasizes collaboration among developers, testers, and business stakeholders. It ensures that software meets users' needs by writing tests that describe the desired behavior in plain language. This approach encourages clear communication and shared understanding of software requirements, ultimately leading to better quality and more maintainable code.
 
-![Behavior Driven Development (BDD)](https://images.spiceworks.com/wp-content/uploads/2022/09/29100419/BDD-Development-Process.png)
+![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD-Development-Process.png)
 
 ## BDD Fundamentals
 
@@ -168,7 +168,7 @@ Popular BDD tools include:
 | **Emphasis**         | Code correctness                        | Meeting user expectations and business goals                        |
 | **Collaboration**    | Within the development team             | Across all stakeholders                                             |
 
-![BDD vs. TDD](https://images.ctfassets.net/vrc8wif0t20g/6YGzPeOoQlewSQ07sX7a9P/6815d8dffd1523e43040b17e78a39f73/BDD_vs._TDD__Differences_Explained.png)
+![BDD vs. TDD](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD_vs._TDD__Differences_Explained.png)
 
 ## Conclusion
 

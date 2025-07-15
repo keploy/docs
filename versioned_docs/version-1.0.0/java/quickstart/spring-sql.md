@@ -269,7 +269,7 @@ It will create .html files as test-reports which can be found in your target fol
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![testruns](https://i.imgur.com/tg6OT0n.png "Summary")
+![testruns](https://keploy-devrel.s3.us-west-2.amazonaws.com/samples-java-v1-test.png "Summary")
 
 **OR**
 
@@ -340,6 +340,6 @@ You'll notice the failed test-case in the output.
 2022-08-26 13:10:10.312  INFO 70155 --- [       Thread-1] io.keploy.service.GrpcService            : || passed overall: FALSE ||
 ```
 
-To deep dive the problem go to [test runs](http://localhost:6789/testruns)
+To deep dive the problem go to localhost:6789/testrun
 
 ![testruns](/img/IntroduceBugJava.png "Recent testruns")

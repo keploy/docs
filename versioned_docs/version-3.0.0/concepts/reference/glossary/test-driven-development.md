@@ -55,7 +55,7 @@ TDD is particularly effective in scenarios such as:
 - **Ensuring Code Quality:**  
   The focus on writing testable, modular code results in higher overall code quality and easier maintenance.
 
-![Test Driven Development](https://media.licdn.com/dms/image/C5112AQHGTe-PjXMc4g/article-cover_image-shrink_600_2000/0/1552215937761?e=2147483647&v=beta&t=oU-XvoEKjrEtxRdTXFzZRdRLS1hUFTQQZtwb2HuP1E0)
+![Test Driven Development](https://keploy-devrel.s3.us-west-2.amazonaws.com/Test-driven-development.png)
 
 ## Fundamentals and Techniques of TDD
 
@@ -164,7 +164,7 @@ Implementing TDD comes with challenges that teams should be aware of:
 | **Emphasis**         | Code correctness                               | User expectations and business goals                  | Real-world behavior and system performance                     |
 | **Collaboration**    | Primarily within the development team          | High collaboration across stakeholders                | Collaboration among development, testing, and operations teams |
 
-![TDD vs. BDD vs. Traffic Driven Testing](https://images.ctfassets.net/vrc8wif0t20g/6YGzPeOoQlewSQ07sX7a9P/6815d8dffd1523e43040b17e78a39f73/BDD_vs._TDD__Differences_Explained.png)
+![TDD vs. BDD vs. Traffic Driven Testing](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD_vs._TDD__Differences_Explained.png)
 
 ## Conclusion
 

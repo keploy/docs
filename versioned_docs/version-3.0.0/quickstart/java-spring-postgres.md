@@ -61,7 +61,7 @@ cd samples-java/spring-petclinic/spring-petclinic-rest
 
 You can start the backend using Keploy in 2 ways:
 
-- [Using Keploy's binary](#instructions-for-starting-using-binary)
+- [Using Keploy's binary](#instructions-for-starting-using-api-backend-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
 # Instructions For Starting Using API backend Binary
