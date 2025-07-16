@@ -42,7 +42,7 @@ go run .
 
 ## Routes
 
-> Sample Application Port: http://localhost:8080
+> Sample Application Port: localhost:8080
 
 - `/user` : POST - Create a new user in the database
 - `/user/:userId` : GET - Get a user from the database

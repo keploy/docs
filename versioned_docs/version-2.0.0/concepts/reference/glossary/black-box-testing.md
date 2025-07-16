@@ -1,8 +1,9 @@
 ---
 id: black-box-testing
-title: Mastering Black Box Testing - Techniques, Benefits, and Best Practices
+title: Mastering Black Box Testing Techniques
+
 sidebar_label: Black Box Testing
-description: Discover the fundamentals of black box testing. Learn about key techniques like equivalence partitioning, boundary value analysis, and decision table testing. Enhance your software's quality by focusing on external behavior without internal code knowledge.
+description: Learn black box testing fundamentals, techniques like boundary value analysis, and best practices to boost software quality without needing internal code access.
 tags:
   - explanation
   - Glossary
@@ -42,8 +43,6 @@ This testing approach is essential for several reasons:
 
 - **Accessibility and Flexibility**: Black-box testing is accessible and adaptable to testers with varying levels of technical expertise. It does not require in-depth programming knowledge or access to source code, making it suitable for testers with diverse backgrounds and skill sets. Additionally, black-box testing techniques can be applied to different types of software applications, including web applications, mobile apps, and standalone software products.
 
-![Black Box Testing](https://res.cloudinary.com/practicaldev/image/fetch/s--shG8HMmV--/c_limit%2Cf_auto%2Cfl_progressive%2Cq_66%2Cw_880/https://dev-to-uploads.s3.amazonaws.com/uploads/articles/f639sq6krordxspv1wxi.gif)
-
 ## What are the Benefits of Black-Box Testing?
 
 1. **Independence from Internal Implementation**: Allows unbiased and realistic assessment, mimicking end-user perspectives.
@@ -55,7 +54,7 @@ This testing approach is essential for several reasons:
 
 ## Whate are types of Black-Box Testing Techniques ?
 
-![How Black Box testing Works?](https://www.imperva.com/learn/wp-content/uploads/sites/13/2020/03/thumbnail_Black-box.jpg)
+![How Black Box testing Works?](https://keploy-devrel.s3.us-west-2.amazonaws.com/thumbnail_Black-box.jpg)
 
 ### 1. Equivalence Partitioning:
 

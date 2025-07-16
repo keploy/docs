@@ -120,16 +120,16 @@ module.exports = {
           position: "left",
           items: [
             {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent/",
-            },
-            {
               label: "Integration Testing",
               to: "/keploy-explained/introduction",
             },
             {
-              label: "API Testing",
-              to: "/running-keploy/about-api-testing",
+              label: "API Testing (AI)",
+              to: "/running-keploy/api-test-generator",
+            },
+            {
+              label: "Unit Testing",
+              to: "/running-keploy/utg-pr-agent",
             },
           ],
         },
@@ -141,7 +141,7 @@ module.exports = {
               href: "https://keploy.io/blog/technology",
             },
             {
-              label: "Communtity Articles",
+              label: "Community Articles",
               href: "https://keploy.io/blog/community",
             },
             {
@@ -321,6 +321,7 @@ module.exports = {
       },
     ],
   ],
+
   scripts: [
     {
       src: "/docs/scripts/feedback.js",
