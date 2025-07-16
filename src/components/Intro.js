@@ -38,7 +38,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/golang.svg"
+              src="/docs/img/golang.webp"
               alt="Go lang logo"
             />
             <p className="font-semibold">Go</p>
@@ -51,7 +51,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/docs/img/java.svg"
+              src="/docs/img/java.webp"
               alt="Java logo"
             />
             <p className="font-semibold">Java</p>
@@ -64,7 +64,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/python.svg"
+              src="/docs/img/python.webp"
               alt="Python logo"
             />
             <p className="font-semibold">Python</p>
@@ -77,7 +77,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/docs/img/javascript-logo.svg"
+              src="/docs/img/javascript-logo.webp"
               alt="Javascript logo"
             />
             <p className="font-semibold">Javascript</p>
@@ -90,7 +90,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/docs/img/rust-logo.svg"
+              src="/docs/img/rust-logo.webp"
               alt="Javascript logo"
             />
             <p className="font-semibold">Rust</p>
@@ -103,7 +103,7 @@ function Languages() {
           >
             <img
               className="h-8 w-8 transition hover:scale-110"
-              src="/docs/img/csharp-logo.svg"
+              src="/docs/img/csharp-logo.webp"
               alt="Javascript logo"
             />
             <p className="font-semibold">CSharp</p>
@@ -143,7 +143,7 @@ function Frameworks() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/mongodb-logo.svg"
+              src="/docs/img/mongodb-logo.webp"
               alt="Docker logo"
             />
             <p className="font-semibold">MongoDB</p>
@@ -156,7 +156,7 @@ function Frameworks() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/http-logo.svg"
+              src="/docs/img/http-logo.webp"
               alt="HTTP logo"
             />
             <p className="font-semibold">HTTP</p>
@@ -169,7 +169,7 @@ function Frameworks() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/postgres-logo.svg"
+              src="/docs/img/postgres-logo.webp"
               alt="PostgresSQL logo"
             />
             <p className="font-semibold">PostgresSQL</p>
@@ -182,7 +182,7 @@ function Frameworks() {
           >
             <img
               className="h-8 w-8"
-              src="/docs/img/redis-logo.svg"
+              src="/docs/img/redis-logo.webp"
               alt="Redis logo"
             />
             <p className="font-semibold">Redis</p>
@@ -192,7 +192,7 @@ function Frameworks() {
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline ">
             <img
               className="h-8 w-8"
-              src="/docs/img/mysql-logo.svg"
+              src="/docs/img/mysql-logo.webp"
               alt="MySQL logo"
             />
             <p className="font-semibold">MySQL</p>
@@ -202,7 +202,7 @@ function Frameworks() {
           <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline ">
             <img
               className="h-8 w-8"
-              src="/docs/img/dynamodb-logo.svg"
+              src="/docs/img/dynamodb-logo.webp"
               alt="DynamoDB logo"
             />
             <p className="font-semibold">DynamoDB</p>

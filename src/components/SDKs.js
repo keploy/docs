@@ -17,7 +17,7 @@ export const SDKs = () => {
         >
           <img
             className="h-16 w-16"
-            src="/docs/img/os/windows-logo.svg"
+            src="/docs/img/os/windows-logo.webp"
             alt="Windows logo"
           />
           <p className="text-lg">Windows</p>
@@ -28,7 +28,7 @@ export const SDKs = () => {
         >
           <img
             className="h-16 w-16"
-            src="/docs/img/os/linux-logo.svg"
+            src="/docs/img/os/linux-logo.webp"
             alt="Linux logo"
           />
           <p className="text-lg">Linux</p>
@@ -39,7 +39,7 @@ export const SDKs = () => {
         >
           <img
             className="h-16 w-16"
-            src="/docs/img/os/apple-logo.svg"
+            src="/docs/img/os/apple-logo.webp"
             alt="Mac logo"
           />
           <p className="text-lg">MacOS</p>
