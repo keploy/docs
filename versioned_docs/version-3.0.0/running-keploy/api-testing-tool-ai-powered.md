@@ -26,7 +26,7 @@ keywords:
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | Edge-case, bugs, coverage flows gets missed     | Higher test coverage across CRUD and failure scenarios                                        |
 | APIs change frequently, leading to broken tests | Self-healing keeps tests even when APIs evolves                                               |
-| 30–50% of time spent writing tests              | 50–80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
+| 30—50% of time spent writing tests              | 50—80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
 
 ## 💥 Why Keploy? Not Other AI Testing Tools
 
@@ -43,7 +43,7 @@ keywords:
 
 ## 🚀 Keploy's API Test Generator
 
-AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites — no scripts, mocks, or manual setup required.
+AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites—no scripts, mocks, or manual setup required.
 
 It supports:
 
@@ -52,7 +52,7 @@ It supports:
 - Edit, group, or delete test cases in the UI
 - Share test reports or integrate them into CI pipelines
 - Detect flaky tests and self-heal them using AI
-- Record API flows via Keploy’s Chrome extension
+- Record API flows via Keploy's Chrome extension
 
 Every test includes:
 
@@ -61,7 +61,7 @@ Every test includes:
 - Deduplication and flaky test detection
 - Self-healing for minor API changes
 
-Whether you're a developer, SDET, or QA manager — Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
+Whether you're a developer, SDET, or QA manager—Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
 
 ## 🛠️ How It Works
 
@@ -70,7 +70,7 @@ Keploy supports multiple ways to generate test cases depending on the API access
 | Integration Method                                                                                                      | When to Use                                                                               | How Keploy Works?                                                                                                                                |
 | ----------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
 | **Paste API Curls, Postman Collection, Schema/Swagger**<br/>[Try Now](/docs/running-keploy/generate-api-tests-using-ai) | You have OpenAPI/Swagger (YAML/JSON), Postman collection/curl, and a live public endpoint | Keploy hits multiple API cases to given endpoint and generate stable, validated tests with assertions.                                           |
-| **Record via Keploy Chrome Extension**<br/>                                                                             | You don’t have specs but can interact with a web app for recording                        | Keploy captures real API calls made during UI actions and generates test cases with assertions. Adds edge cases and flow coverage automatically. |
+| **Record via Keploy Chrome Extension**<br/>                                                                             | You don't have specs but can interact with a web app for recording                        | Keploy captures real API calls made during UI actions and generates test cases with assertions. Adds edge cases and flow coverage automatically. |
 | **Use Keploy Local Agent** <br/>[Try Now](/docs/running-keploy/generate-api-tests-using-ai)                             | Your APIs are private or behind a firewall                                                | Install the agent locally to securely test internal APIs without exposing them. No code changes required.                                        |
 
 ## ✨ Key Features

@@ -20,7 +20,7 @@ keywords:
 
 # Keploy API Testing Agent
 
-Keploy's **API Testing Agent** allows you to auto-generate API test cases and mocks from real API usage data like `cURL` commands, OpenAPI schemas, or PRD/BRD documents — powered by LLMs.
+Keploy's **API Testing Agent** allows you to auto-generate API test cases and mocks from real API usage data like `cURL` commands, OpenAPI schemas, or PRD/BRD documents—powered by LLMs.
 
 > 🚀 Zero-code setup. Paste real requests. Get test cases, mocks, and flaky test detection in minutes.
 
@@ -35,7 +35,7 @@ Keploy's **API Testing Agent** allows you to auto-generate API test cases and mo
 
 # Getting Started
 
-This guide walks you through generating, editing, running, and managing automated API tests using Keploy — demonstrated using the **PetClinic** application.
+This guide walks you through generating, editing, running, and managing automated API tests using Keploy—demonstrated using the **PetClinic** application.
 
 ## Step 1: Login and Access the Testing Panel
 
@@ -91,7 +91,7 @@ https://<your-ngrok-url>/petclinic/api
 ### Step B: Setting up the pre-requisites
 
 **CURL Commands (Required):**
-Paste at least 3–5 working curl requests for the endpoints.
+Paste at least 3—5 working curl requests for the endpoints.
 
 ```bash
 # Test 1: GET all owners
@@ -619,7 +619,7 @@ From the dashboard, you can:
 
 ## Tips for Accurate Results
 
-- Always paste at least 3–5 valid cURL commands
+- Always paste at least 3—5 valid cURL commands
 - Ensure your Live URL is active and responsive
 - Use OpenAPI schemas for better request/response modeling
 - Include real production-like inputs wherever possible

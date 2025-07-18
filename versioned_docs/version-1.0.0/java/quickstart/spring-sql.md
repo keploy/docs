@@ -116,7 +116,7 @@ curl --location --request POST 'http://localhost:6789/api/employees' \
 }'
 ```
 
-this will return the resonse or an entry . The timestamp would automatically be ignored during testing because it'll always be different.
+this will return the response or an entry . The timestamp would automatically be ignored during testing because it'll always be different.
 
 ```
 {
