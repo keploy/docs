@@ -92,7 +92,3 @@ Failed suites:      0
 ## That's it!
 
 With just a few lines of YAML, you’ve added **AI-powered API test automation** into your GitHub CI pipeline. Now every PR or deployment will be automatically tested with Keploy’s smart test engine.
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

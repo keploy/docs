@@ -61,7 +61,7 @@ cd samples-java/spring-petclinic/spring-petclinic-rest
 
 You can start the backend using Keploy in 2 ways:
 
-- [Using Keploy's binary](#instructions-for-starting-using-binary)
+- [Using Keploy's binary](#instructions-for-starting-using-api-backend-binary)
 - [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
 # Instructions For Starting Using API backend Binary
@@ -149,7 +149,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
