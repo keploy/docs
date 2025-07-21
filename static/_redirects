@@ -36,3 +36,10 @@
 # Dev tools redirects
 #
 /devtools/ui-contrib-guide       /ui-contrib-guide
+
+
+# Redirect all v1 paths to v3 (with full docs path)
+/docs/1.0.0/*    /docs/3.0.0/:splat
+
+# Redirect all v2 paths to v3 (with full docs path)
+/docs/2.0.0/*    /docs/3.0.0/:splat
