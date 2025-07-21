@@ -83,6 +83,13 @@ export const glossaryEntries = {
       description: "Same input gives same result every time.",
     },
   ],
+  K: [
+    {
+      name: "Keyword Driven Testing",
+      link: "/docs/concepts/reference/glossary/keyword-driven-testing",
+      description: "Test scripts use keywords to define actions, separating test design from programming work.",
+    },
+  ],
   M: [
     {
       name: "Manual Testing",
@@ -141,6 +148,18 @@ export const glossaryEntries = {
       name: "Unit Testing",
       link: "/docs/concepts/reference/glossary/unit-testing",
       description: "Tests specific code components in isolation.",
+    },
+    {
+      name: "Usability Testing",
+      link: "/docs/concepts/reference/glossary/usability-testing",
+      description: "Evaluates how user-friendly and intuitive the software interface is for end users.",
+    },
+  ],
+  V: [
+    {
+      name: "Volume Testing",
+      link: "/docs/concepts/reference/glossary/volume-testing",
+      description: "Assesses system performance and stability when handling large volumes of data.",
     },
   ],
   W: [
