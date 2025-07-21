@@ -28,7 +28,7 @@ White box testing, also known as clear box or glass box testing, is a software t
 
 The primary goal of white box testing is to validate the software's internal operations, ensuring that it functions correctly and efficiently. This involves checking all pathways and conditions, optimizing code for speed and performance, and ensuring that there are no hidden errors.
 
-![Types of Testing](/static/img/glossary/types-of-testing.webp)
+![Types of Testing](/img/glossary/types-of-testing.webp)
 
 ## Fundamentals of White Box Testing
 
