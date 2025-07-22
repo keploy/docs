@@ -127,6 +127,7 @@ async
 substring
 llm
 <<<<<<< HEAD
+<<<<<<< HEAD
 shorteners
 matchType
 anonymization
@@ -145,3 +146,7 @@ vale_styles
 =======
 shorteners
 >>>>>>> 5a03cd82 (docs: fix the linters for the version3)
+=======
+shorteners
+matchType
+>>>>>>> 028ca181 (fix: the lint in the version 3 docs)
