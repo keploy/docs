@@ -127,3 +127,4 @@ async
 substring
 llm
 shorteners
+matchType
