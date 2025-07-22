@@ -118,7 +118,7 @@ Observability testing continues to evolve as systems become more complex and mon
 
 ## Frequently Asked Questions
 
-**Q: What's the difference between traditional monitoring and observability testing?**
+### Q: What's the difference between traditional monitoring and observability testing?
 
 Traditional monitoring focuses on predefined metrics and known failure modes, while observability testing ensures systems can investigate unknown problems and understand complex behaviors. Observability testing validates the ability to ask arbitrary questions about system behavior, not just monitor predetermined conditions. This includes testing the effectiveness of logs, metrics, and traces in providing insights into system performance and issues.
 
