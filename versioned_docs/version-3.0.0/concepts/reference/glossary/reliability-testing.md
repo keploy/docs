@@ -21,7 +21,7 @@ The primary objective of reliability testing is to identify potential failure po
 
 ## Core Components of Reliability Testing
 
-![Components of Reliability testing](/img/glossary/reliability-testing.png)
+![Components of Reliability testing](/img/glossary/reliability-testing.webp)
 
 ### System Stability Assessment
 

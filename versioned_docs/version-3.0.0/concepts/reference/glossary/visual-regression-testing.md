@@ -45,7 +45,7 @@ Visual regression testing operates on a straightforward principle: capture refer
 
 The process is surprisingly elegant in its simplicity:
 
-    ![Visual Regression Testing](/img/glossary/visual-regression-testing.png)
+![Visual Regression Testing](/img/glossary/visual-regression-testing.webp)
 
 **Step 1:** Baseline Creation First, you can take references screenshots of your application being in its correct state. These become your golden master images.
 

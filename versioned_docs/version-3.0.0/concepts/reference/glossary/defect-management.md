@@ -26,7 +26,7 @@ Here, we'll discuss the definition of defects, the importance of properly managi
 
 A **defect** in software testing refers to a flaw or deviation from the expected behavior of an application. These arise due to incorrect logic, missing functionality, design errors, or unhandled edge cases.
 
-![Defect Management Diagram](/img/glossary/What-is-a-Defect.png)
+![Defect Management Diagram](/img/glossary/What-is-a-Defect.webp)
 
 Effective identification and management of defects are crucial to ensuring the software product is of good quality, reliable, and successful. Unresolved defects may lead to system crashes, security vulnerabilities, and poor user experiences.
 

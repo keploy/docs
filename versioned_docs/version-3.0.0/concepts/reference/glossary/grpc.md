@@ -28,7 +28,7 @@ The framework's design philosophy centers around efficiency, type safety, and cr
 
 gRPC's architecture consists of several key components that work together to provide a robust communication framework. The Protocol Buffer compiler (protoc) generates code from service definitions, creating strongly-typed interfaces that eliminate runtime errors common in loosely-typed systems.
 
-![gRPC Architecture](/img/glossary/gRPC-architecture.png)
+![gRPC Architecture](/img/glossary/gRPC-architecture.webp)
 
 The service definition acts as a contract between client and server, specifying available methods, request/response types, and error handling mechanisms. This contract-first approach ensures that both parties understand the expected behavior before implementation begins, reducing integration issues and improving development velocity.
 
