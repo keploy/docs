@@ -126,8 +126,6 @@ Passthrough
 async
 substring
 llm
-<<<<<<< HEAD
-<<<<<<< HEAD
 shorteners
 matchType
 anonymization
@@ -139,18 +137,7 @@ protoc
 Unary
 RPCs
 viewport
-<<<<<<< HEAD
 Gradle
 sublicense
 doxing
 vale_styles
-=======
-shorteners
->>>>>>> 5a03cd82 (docs: fix the linters for the version3)
-=======
-shorteners
-matchType
->>>>>>> 028ca181 (fix: the lint in the version 3 docs)
-=======
-Gradle
->>>>>>> 0ff6d0b2 (fix: lint issues)
