@@ -139,6 +139,7 @@ protoc
 Unary
 RPCs
 viewport
+<<<<<<< HEAD
 Gradle
 sublicense
 doxing
@@ -150,3 +151,6 @@ shorteners
 shorteners
 matchType
 >>>>>>> 028ca181 (fix: the lint in the version 3 docs)
+=======
+Gradle
+>>>>>>> 0ff6d0b2 (fix: lint issues)
