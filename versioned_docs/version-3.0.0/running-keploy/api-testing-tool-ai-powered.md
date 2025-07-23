@@ -26,7 +26,7 @@ keywords:
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | Edge-case, bugs, coverage flows gets missed     | Higher test coverage across CRUD and failure scenarios                                        |
 | APIs change frequently, leading to broken tests | Self-healing keeps tests even when APIs evolves                                               |
-| 30–50% of time spent writing tests              | 50–80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
+| 30—50% of time spent writing tests              | 50—80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
 
 ## 💥 Why Keploy? Not Other AI Testing Tools
 
@@ -43,7 +43,7 @@ keywords:
 
 ## 🚀 Keploy's API Test Generator
 
-AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites — no scripts, mocks, or manual setup required.
+AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites—no scripts, mocks, or manual setup required.
 
 It supports:
 
@@ -61,7 +61,7 @@ Every test includes:
 - Deduplication and flaky test detection
 - Self-healing for minor API changes
 
-Whether you're a developer, SDET, or QA manager — Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
+Whether you're a developer, SDET, or QA manager—Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
 
 ## 🛠️ How It Works
 

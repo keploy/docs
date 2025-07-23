@@ -26,7 +26,7 @@ The framework's design philosophy centers around efficiency, type safety, and cr
 
 ## Core Architecture and Components
 
-gRPC's architecture consists of several key components that work together to provide a robust communication framework. The Protocol Buffer compiler (protoc) generates code from service definitions, creating strongly-typed interfaces that eliminate runtime errors common in loosely-typed systems.
+gRPC`s architecture consists of several key components that work together to provide a robust communication framework. The Protocol Buffer compiler (protoc) generates code from service definitions, creating strongly typed interfaces that eliminate runtime errors common in loosely typed systems.
 
 ![gRPC Architecture](/img/glossary/gRPC-architecture.webp)
 
@@ -40,7 +40,7 @@ The performance benefits of gRPC become apparent in high-throughput scenarios. P
 
 HTTP/2's multiplexing capabilities eliminate the head-of-line blocking issues that plague HTTP/1.1 connections. Multiple requests can be processed simultaneously over a single connection, reducing the overhead associated with establishing multiple TCP connections. This improvement is especially noticeable in microservices architectures where services frequently communicate with each other.
 
-The strongly-typed nature of Protocol Buffers enables compile-time validation, catching errors early in the development process. This type safety extends to the wire format, ensuring that data corruption during transmission is detected and handled appropriately.
+The strongly typed nature of Protocol Buffers enables compile-time validation, catching errors early in the development process. This type safety extends to the wire format, ensuring that data corruption during transmission is detected and handled appropriately.
 
 ## Communication Patterns
 
@@ -146,7 +146,7 @@ gRPC uses Protocol Buffers' backward compatibility features. You can add new fie
 
 ### Is gRPC suitable for mobile applications?
 
-Absolutely. gRPC's efficient binary protocol and HTTP/2 multiplexing make it ideal for mobile environments where bandwidth and battery life are concerns. The smaller message sizes and reduced connection overhead provide significant benefits.
+Absolutely. gRPC`s efficient binary protocol and HTTP/2 multiplexing make it ideal for mobile environments where bandwidth and battery life are concerns. The smaller message sizes and reduced connection overhead provide significant benefits.
 
 ### What programming languages support gRPC?
 
