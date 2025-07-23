@@ -138,3 +138,6 @@ Unary
 RPCs
 viewport
 Gradle
+sublicense
+doxing
+vale_styles
