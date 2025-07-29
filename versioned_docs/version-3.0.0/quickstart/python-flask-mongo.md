@@ -214,10 +214,10 @@ We'll be running our sample application right on Linux, but just to make things 
 pip install -r requirements.txt
 ```
 
-## Start the MongoDB server
+## Start the MongoDB container
 
 ```bash
-sudo service mongod start
+docker compose up -d mongo
 ```
 
 ## Lights, Camera, Record! 🎥
