@@ -214,11 +214,13 @@ We'll be running our sample application right on Linux, but just to make things 
 pip install -r requirements.txt
 ```
 
-## Start the MongoDB server
+## Start the MongoDB container
 
 ```bash
-sudo service mongod start
+docker run -p 27017:27017 -d --network backend --name mongo mongo
 ```
+
+> **Since we are using a MongoDB container, we need to update the `client` on line 11 in `app.py`, to `localhost`.**
 
 ## Lights, Camera, Record! 🎥
 
