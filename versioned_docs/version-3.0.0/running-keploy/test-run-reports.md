@@ -114,5 +114,5 @@ Update the request configuration for each test case:
 
 ### 💾 Actions
 
-- ✅ **Save Changes** — Apply edits to the test step and update the suite.
-- ❌ **Cancel** — Discard any unsaved modifications and revert to the last saved state.
+- ✅ **Save Changes**—Apply edits to the test step and update the suite.
+- ❌ **Cancel**—Discard any unsaved modifications and revert to the last saved state.

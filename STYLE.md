@@ -43,8 +43,8 @@ Use **sentence case** for all titles and headings. This means only the **first w
 
 ### 🧾 Infinitive Verb Forms in Headings
 
-Use **infinitive verb forms** (e.g., "to install", "to create", "to configure") in titles and headings.  
-This improves searchability and aligns with common SEO practices.
+Use **infinitive verb forms** (e.g., "to install," "to create," "to configure") in titles and headings.  
+This improves search ability and aligns with common SEO practices.
 
 ✅ Correct:
 
@@ -60,18 +60,18 @@ This improves searchability and aligns with common SEO practices.
 
 ### 🧮 En Dashes in Ranges
 
-Use **en dashes (–)** to indicate numeric ranges. Do **not** mix styles or use hyphens inconsistently.  
-You may also use words like _from_, _to_, or _through_ — but be consistent throughout the doc.
+Use **en dashes (—)** to indicate numeric ranges. Do **not** mix styles or use hyphens inconsistently.  
+You may also use words like _from_, _to_, or _through_—but be consistent throughout the doc.
 
 ✅ Correct:
 
-- 5–10 GB
+- 5—10 GB
 - 5 to 10 GB
 
 ❌ Incorrect:
 
 - from 5-10 GB
-- 5–10 GB and 10 to 20 MB (mixed style)
+- 5—10 GB and 10 to 20 MB (mixed style)
 
 ---
 

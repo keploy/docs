@@ -139,7 +139,7 @@ JUnit 5 is the next generation of the JUnit framework, introducing new features 
 ### TestNG (Java):
 
 TestNG is another testing framework for Java, designed to cover a broader range of testing categories, including unit, functional, and integration testing. It supports parallel execution, data-driven testing, and easy configuration through annotations.
-![testng](../../../../../static/img/glossary/testng.png)
+![testing](../../../../../static/img/glossary/testng.png)
 
 ## Conclusion
 
