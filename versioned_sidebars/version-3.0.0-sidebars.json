@@ -12,7 +12,8 @@
           "label": "Getting Started",
           "collapsed": false,
           "items": [
-            "running-keploy/generate-api-tests-using-ai"
+            "running-keploy/generate-api-tests-using-ai",
+            "running-keploy/api-testing-chrome-extension"
           ]
         },
          {
@@ -21,19 +22,17 @@
           "collapsed": false,
           "items": [
             "running-keploy/review-and-improve-ai-generated-tests",
-                    "running-keploy/share-tests",
-            "running-keploy/self-healing-ai-api-tests"
+            "running-keploy/share-tests",
+            "running-keploy/self-healing-ai-api-tests",
+            "running-keploy/run-ai-generated-api-tests",
+            "running-keploy/api-testing-cicd"
+
           ]
         },
         {
-          "type": "category",
+          "type": "doc",
           "label": "FAQs",
-          "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/api-testing-faq"
-          ]
+          "id": "keploy-explained/api-testing-faq"
         }
       ]
     },
@@ -178,9 +177,13 @@
             "keploy-cloud/keploy-console",
             "keploy-cloud/auto-test-generation",
             "keploy-cloud/deduplication",
-            "keploy-explained/common-errors",
-            "keploy-explained/integration-testing-faq"
+            "keploy-explained/common-errors"
           ]
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/integration-testing-faq"
         }
       ]
     },
@@ -200,15 +203,9 @@
           ]
         },
         {
-          "type": "category",
+          "type": "doc",
           "label": "FAQs",
-          "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/supported-languages",
-            "keploy-explained/unit-testing-faq"
-          ]
+          "id": "keploy-explained/unit-testing-faq"
         }
       ]
     }

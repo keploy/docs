@@ -378,6 +378,7 @@ module.exports = {
       },
     ],
   ],
+
   scripts: [
     {
       src: "/docs/scripts/feedback.js",

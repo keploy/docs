@@ -194,7 +194,3 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 - Consider alternative tools or frameworks for unsupported protocols.
 
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team or consult the community forums for additional support. Happy testing!
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

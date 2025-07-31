@@ -41,7 +41,7 @@ It's analysis provides several benefits:
 
 Keploy has native integrations with your unit-testing libraries like go-test, jUnit, jest, pyTest. Keploy gives combined test-coverage and can also be integrated in existing CI pipelines easily within go-test, jUnit, jest, pyTest workflows.
 
-<img scr="https://keploy.io/docs/gif/replay-tc.gif?raw=true"/>
+![Keploy Test Replay](https://keploy.io/docs/gif/replay-tc.gif)
 
 By generating additional tests that exercise different parts of your codebase, you can increase the percentage of code that is covered by your tests. For example, in case of NodeJS application you can use Jest. Jest provides a built-in code coverage tool that can help you measure the effectiveness of your tests and identify areas of the code that need additional testing. By adding Keploy SDK with Jest, you can easily generate test cases and increase your code coverage. Let's create a `Keploy.test.js`
 
@@ -90,7 +90,3 @@ Now when let's the test cases with Jest, you can see the code coverage report ge
 ```bash
 npm test
 ```
-
-We can see below that the code coverage is 94.44% for the our application.
-
-<img src='https://raw.githubusercontent.com/priyankarpal/samples-typescript/ppal/express-mongo-priyank/images/jestcoverage.png?raw=true'/>

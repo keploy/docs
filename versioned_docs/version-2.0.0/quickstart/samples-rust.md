@@ -51,7 +51,7 @@ sudo -E env PATH=$PATH keploy record -c 'cargo run'
 
 #### Generate testcase
 
-Go to the http://127.0.0.1:8000 and create some queries.
+Go to the localhost:8000 and create some queries.
 
 We will get the following output in our terminal
 
@@ -70,7 +70,3 @@ sudo -E env PATH=$PATH keploy test -c 'cargo run'
 _Voila!! Our testcases has passed 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

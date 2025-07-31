@@ -278,7 +278,3 @@ You've successfully tested the tool and created your mocks and test cases—fant
 Here’s to building more, innovating, and reaching new heights with your project! 🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
