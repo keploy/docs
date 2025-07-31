@@ -126,6 +126,7 @@
               "collapsed": true,
               "items": [
                 "quickstart/samples-django",
+                "quickstart/samples-django-mysql",
                 "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
                 "quickstart/samples-fastapi-twilio",
