@@ -214,11 +214,13 @@ We'll be running our sample application right on Linux, but just to make things 
 pip install -r requirements.txt
 ```
 
-## Start the MongoDB server
+## Start the MongoDB container
 
 ```bash
-sudo service mongod start
+docker run -p 27017:27017 -d --network backend --name mongo mongo
 ```
+
+> **Since we are using a MongoDB container, we need to update the `client` on line 11 in `app.py`, to `localhost`.**
 
 ## Lights, Camera, Record! 🎥
 
@@ -389,7 +391,3 @@ python3 -m coverage html
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

@@ -44,6 +44,25 @@ export const glossaryEntries = {
       link: "/docs/concepts/reference/glossary/cucumber-testing",
       description: "Uses Gherkin syntax to write readable tests.",
     },
+    {
+      name: "Component Testing",
+      link: "/docs/concepts/reference/glossary/component-testing",
+      description: "Tests individual parts of the application in isolation",
+    },
+  ],
+  D: [
+    {
+      name: "Defect Management",
+      link: "/docs/concepts/reference/glossary/defect-management",
+      description:
+        "Tracks, prioritizes, and resolves bugs to improve software quality.",
+    },
+    {
+      name: "Data Driven Testing",
+      link: "/docs/concepts/reference/glossary/data-driven-testing",
+      description:
+        "Transforming Quality Assurance Through Intelligent Test Automation",
+    },
   ],
   E: [
     {
@@ -70,6 +89,11 @@ export const glossaryEntries = {
       link: "/docs/concepts/reference/glossary/gray-box-testing",
       description: "Tester has partial knowledge of the codebase.",
     },
+    {
+      name: "gRPC",
+      link: "/docs/concepts/reference/glossary/grpc",
+      description: "Revolutionizing Modern API Development",
+    },
   ],
   I: [
     {
@@ -81,6 +105,22 @@ export const glossaryEntries = {
       name: "Idempotency",
       link: "/docs/concepts/reference/glossary/idempotency",
       description: "Same input gives same result every time.",
+    },
+  ],
+  J: [
+    {
+      name: "JUnit",
+      link: "/docs/concepts/reference/glossary/junit",
+      description:
+        "A popular Java testing framework used to write and run repeatable unit tests.",
+    },
+  ],
+  L: [
+    {
+      name: "Load Testing",
+      link: "/docs/concepts/reference/glossary/load-testing",
+      description:
+        "Tests how the system performs under heavy user or data load.",
     },
   ],
   M: [
@@ -100,11 +140,48 @@ export const glossaryEntries = {
       description: "Validates independent services in isolation.",
     },
   ],
+  N: [
+    {
+      name: "Negative Testing",
+      link: "/docs/concepts/reference/glossary/negative-testing",
+      description:
+        "Systematic testing of failures, errors, and unexpected inputs.",
+    },
+  ],
+  O: [
+    {
+      name: "Observability Testing",
+      link: "/docs/concepts/reference/glossary/observability-testing",
+      description: "Building Resilient Systems Through Monitoring Testing",
+    },
+  ],
+  P: [
+    {
+      name: "Performance Testing",
+      link: "/docs/concepts/reference/glossary/performance-testing",
+      description:
+        "Evaluates system speed, stability, and responsiveness under varying conditions.",
+    },
+  ],
+  Q: [
+    {
+      name: "QA Automation",
+      link: "/docs/concepts/reference/glossary/qa-automation",
+      description:
+        "Uses tools and scripts to automate software testing and validation processes.",
+    },
+  ],
   R: [
     {
       name: "Regression Testing",
       link: "/docs/concepts/reference/glossary/regression-testing",
       description: "Ensures new code doesn’t break old features.",
+    },
+    {
+      name: "Reliability Testing",
+      link: "/docs/concepts/reference/glossary/reliability-testing",
+      description:
+        "Verifies that the system consistently performs under expected conditions over time.",
     },
   ],
   S: [
@@ -141,6 +218,13 @@ export const glossaryEntries = {
       name: "Unit Testing",
       link: "/docs/concepts/reference/glossary/unit-testing",
       description: "Tests specific code components in isolation.",
+    },
+  ],
+  V: [
+    {
+      name: "Visual Regression Testing",
+      link: "/docs/concepts/reference/glossary/visual-regression-testing",
+      description: "Detects UI bugs by comparing screenshots.",
     },
   ],
   W: [

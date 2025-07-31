@@ -26,10 +26,11 @@ Keploy generates _and runs_ AI-powered unit tests for your Go projects.
 
 ## 🚀 Coming Soon
 
-**Java:**  
- Java support is on the way!
+**Java and Javascript:**
 
-We’ll bring the same AI-driven, high-quality test generation and validation workflow to Java soon.
+Java and Javascript support is on the way!
+
+We’ll bring the same AI-driven, high-quality test generation and validation workflow to Java and Javascript soon.
 
 ## 🧩 Why Only a Few Languages (for now)?
 
