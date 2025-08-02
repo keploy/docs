@@ -99,7 +99,3 @@ You can either add more objects in the "configurations" array or modify the "arg
 Click the **Start Debugging** button to witness the magic of debugging unfold seamlessly.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

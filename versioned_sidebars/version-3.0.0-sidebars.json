@@ -2,29 +2,37 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Unit Testing",
+      "label": "API Testing",
       "collapsed": false,
       "items": [
-        "running-keploy/about-unit-testing",
+        "running-keploy/api-test-generator",
+
         {
           "type": "category",
-          "label": "Integration",
+          "label": "Getting Started",
+          "collapsed": false,
           "items": [
-            "running-keploy/utg-pr-agent",
-            "running-keploy/utg-vscode-extension",
-            "keploy-explained/integrations-pr-agent"
+            "running-keploy/generate-api-tests-using-ai",
+            "running-keploy/api-testing-chrome-extension"
+          ]
+        },
+         {
+          "type": "category",
+          "label": "Test Operations",
+          "collapsed": false,
+          "items": [
+            "running-keploy/review-and-improve-ai-generated-tests",
+            "running-keploy/share-tests",
+            "running-keploy/self-healing-ai-api-tests",
+            "running-keploy/run-ai-generated-api-tests",
+            "running-keploy/api-testing-cicd"
+
           ]
         },
         {
-          "type": "category",
+          "type": "doc",
           "label": "FAQs",
-          "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/supported-languages",
-            "keploy-explained/unit-testing-faq"
-          ]
+          "id": "keploy-explained/api-testing-faq"
         }
       ]
     },
@@ -169,43 +177,35 @@
             "keploy-cloud/keploy-console",
             "keploy-cloud/auto-test-generation",
             "keploy-cloud/deduplication",
-            "keploy-explained/common-errors",
-            "keploy-explained/integration-testing-faq"
+            "keploy-explained/common-errors"
           ]
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/integration-testing-faq"
         }
       ]
     },
     {
       "type": "category",
-      "label": "API Testing",
-      "collapsed": false,
+      "label": "Unit Testing",
+      "collapsed": true,
       "items": [
-        "running-keploy/about-api-testing",
-        "running-keploy/api-test-generator",
-        "running-keploy/test-generate",
-        "running-keploy/test-run-reports",
+        "running-keploy/about-unit-testing",
         {
           "type": "category",
-          "label": "Operations",
+          "label": "Integration",
           "items": [
-            "running-keploy/best-practices-api-testing",
-            "operation/web-ui-operations"
+            "running-keploy/utg-pr-agent",
+            "running-keploy/utg-vscode-extension",
+            "keploy-explained/integrations-pr-agent"
           ]
         },
         {
           "type": "doc",
-          "label": "CI/CD Integration",
-          "id": "ci-cd/github"
-        },
-        {
-          "type": "category",
           "label": "FAQs",
-          "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/api-testing-faq"
-          ]
+          "id": "keploy-explained/unit-testing-faq"
         }
       ]
     }

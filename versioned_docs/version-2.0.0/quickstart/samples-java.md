@@ -98,7 +98,7 @@ Now let's run a few tests to capture some more scenarios:
 
 #### Generate testcases 📝
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
 
 1. Make an employee entry 📥
 
@@ -233,7 +233,7 @@ Now let's run a few tests to capture some more scenarios:
 
 #### Generate testcases 📝
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
 
 1. Make an employee entry 📥
 
@@ -300,7 +300,3 @@ Here’s how to set it up with GitHub Actions:
 👉 [Keploy + GitHub CI/CD Guide](https://keploy.io/docs/ci-cd/github)
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

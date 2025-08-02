@@ -104,7 +104,7 @@ Utilize keploy to capture testcases. **Execute** the following command within yo
 keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
 ```
 
-Make API Calls using [Postman](https://www.postman.com/), or cURL commands.
+Make API Calls using Postman , or cURL commands.
 
 Keploy will capture the API calls you've conducted, generating test suites comprising **testcases (KTests) and data
 mocks (KMocks)** in `YAML` format.
