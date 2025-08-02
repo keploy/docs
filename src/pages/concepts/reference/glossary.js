@@ -5,6 +5,149 @@ import {glossaryEntries} from "../../../../static/data/glossaryEntries";
 import GlossaryCard from "../../../components/GlossaryCard";
 
 function Glossary() {
+
+  const [state, setState] = useState(() => {
+    const alphabet = "ABCEFGIMORSTUW";
+    const initialState = {};
+    for (let i = 0; i < alphabet.length; i++) {
+      initialState[alphabet[i]] = true;
+    }
+    return initialState;
+  });
+  const entries = {
+    A: [
+      {
+        name: "Acceptance Testing",
+        link: "/docs/concepts/reference/glossary/acceptance-testing",
+      },
+      {
+        name: "Agile Unit Testing",
+        link: "/docs/concepts/reference/glossary/agile-unit-testing",
+      },
+      {
+        name: "AI Test Completion",
+        link: "/docs/concepts/reference/glossary/ai-test-completion",
+      },
+    ],
+    B: [
+      {
+        name: "BDD",
+        link: "/docs/concepts/reference/glossary/behaviour-driven-development",
+      },
+      {
+        name: "Beta Testing",
+        link: "/docs/concepts/reference/glossary/beta-testing",
+      },
+      {
+        name: "Black Box Testing",
+        link: "/docs/concepts/reference/glossary/black-box-testing",
+      },
+    ],
+    C: [
+      {
+        name: "Code Coverage",
+        link: "/docs/concepts/reference/glossary/code-coverage",
+      },
+      {
+        name: "Cucumber Testing",
+        link: "/docs/concepts/reference/glossary/cucumber-testing",
+      },
+    ],
+    E: [
+      {
+        name: "End To End Testing",
+        link: "/docs/concepts/reference/glossary/end-to-end-testing",
+      },
+      {
+        name: "Error Guessing",
+        link: "/docs/concepts/reference/glossary/error-guessing",
+      },
+    ],
+    F: [
+      {
+        name: "Functional Testing",
+        link: "/docs/concepts/reference/glossary/functional-testing",
+      },
+    ],
+    G: [
+      {
+        name: "Gray Box Testing",
+        link: "/docs/concepts/reference/glossary/gray-box-testing",
+      },
+    ],
+    I: [
+      {
+        name: "Integration Testing",
+        link: "/docs/concepts/reference/glossary/integration-testing",
+      },
+      {
+        name: "Idempotency",
+        link: "/docs/concepts/reference/glossary/idempotency",
+      },
+    ],
+    M: [
+      {
+        name: "Manual Testing",
+        link: "/docs/concepts/reference/glossary/manual-testing",
+      },
+      {
+        name: "Mocks",
+        link: "/docs/concepts/reference/glossary/mocks",
+      },
+      {
+        name: "Microservice Testing",
+        link: "/docs/concepts/reference/glossary/microservice-testing",
+      },
+    ],
+    O: [
+      {
+        name: "Observability Testing",
+        link: "/docs/concepts/reference/glossary/observability-testing",
+      },
+    ],
+    R: [
+      {
+        name: "Regression Testing",
+        link: "/docs/concepts/reference/glossary/regression-testing",
+      },
+    ],
+    S: [
+      {
+        name: "Stubs",
+        link: "/docs/concepts/reference/glossary/stubs",
+      },
+      {
+        name: "Software Testing Life Cycle",
+        link: "/docs/concepts/reference/glossary/software-testing-life-cycle",
+      },
+    ],
+    T: [
+      {
+        name: "Test Driven TDD",
+        link: "/docs/concepts/reference/glossary/test-driven-development",
+      },
+      {
+        name: "Test Data Generation",
+        link: "/docs/concepts/reference/glossary/test-data-generation",
+      },
+    ],
+    U: [
+      {
+        name: "Unit Test Automation",
+        link: "/docs/concepts/reference/glossary/unit-test-automation",
+      },
+      {
+        name: "Unit Testing",
+        link: "/docs/concepts/reference/glossary/unit-testing",
+      },
+    ],
+    W: [
+      {
+        name: "White Box Testing",
+        link: "/docs/concepts/reference/glossary/white-box-testing",
+      },
+    ],
+=======
   const [selectedletter, setselectedletter] = useState([]);
 
   const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
@@ -16,6 +159,7 @@ function Glossary() {
         ? prev.filter((l) => l !== letter)
         : [...prev, letter]
     );
+
   };
 
   // Reset filter
