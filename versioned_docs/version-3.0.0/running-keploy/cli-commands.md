@@ -299,12 +299,40 @@ keploy normalize [flags]
 
 ## [rerecord](#rerecord)
 
-The `rerecord`cmd allow user to record new keploy testcases/mocks from the existing test cases for the given testset(s)
+The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testset(s).
 
-<b> Usage: </b>
+**Usage:**
 
 ```bash
 keploy rerecord -c "node src/app.js" -t "test-set-0"
+```
+
+**Docker Example:**
+
+To re-record test cases for an application running inside a Docker container, use the Docker run command as the value for the `-c` flag:
+
+```bash
+keploy rerecord -c "sudo docker run -p 5000:5000 --name flask-jwt-app --network keploy-network flask-jwt-app" -t "test-set-0" --delay 10
+```
+
+**`--delay` flag:**
+
+The `--delay` flag specifies the number of seconds Keploy should wait after starting your application before replaying requests to re-record.
+This is useful if your application takes some time to start (for example, when running inside a Docker container or a heavy framework).
+
+* Adjust the delay to match your app's startup time.
+* For example, use `--delay 10` to wait for 10 seconds.
+
+**Example:**
+
+```bash
+keploy rerecord -c "node src/app.js" -t "test-set-0" --delay 10
+```
+
+---
+
+Let me know if you want even more concise or detailed, or if you need this for other commands as well!
+
 ```
 
 ## [templatize](#templatize)
