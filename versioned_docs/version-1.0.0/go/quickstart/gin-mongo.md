@@ -49,7 +49,7 @@ go run handler.go main.go
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use postman or simply `curl`
 
 ### 1. Generate shortened url
 
@@ -188,6 +188,6 @@ FAIL    test-app-url-shortener  7.022s
 FAIL
 ```
 
-To deep dive the problem go to [test runs](http://localhost:6789/testruns)
+To deep dive the problem go to test runs localhost:6789/testruns
 
 ![Gin-Mongo-test-diff](/img/Gin-Mongo-test-diff.png)

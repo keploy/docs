@@ -16,13 +16,13 @@ keywords:
 
 # Contact Keeper Sample App
 
-A sample contact keeper app to test Keploy integration capabilities using [Gorilla Mux](https://pkg.go.dev/github.com/gorilla/mux) and Redis.
+A sample contact keeper app to test Keploy integration capabilities using Gorilla Mux and Redis.
 
 ## Installation Setup
 
 > Note that Testcases are exported as files in the local repository by default
 
-You can refer to the [installation guide](https://docs.keploy.io/docs/server/server-installation) to install Keploy on your machine.
+You can refer to the [installation guide](https://keploy.io/docs/server/installation/) to install Keploy on your machine.
 
 ### Prerequisites
 
@@ -52,7 +52,7 @@ Open in Gitpod
 
 ## Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use postman , or simply `curl`
 
 ### Store the contact details
 
@@ -87,7 +87,7 @@ curl --request GET \
 
 ```
 
-2. Or by querying through the browser `http://localhost:8080/data/1'
+2. Or by querying through the browser `localhost:8080/data/1'
 
 ![Gorilla-Mux-Test-Capture](/img/GorillaMux-Redis.png)
 

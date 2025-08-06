@@ -107,9 +107,6 @@ module.exports = {
       additionalLanguages: ["java", "ruby", "php", "bash"],
     },
     // hideableSidebar: true,
-
-    
-
     footer: {
       copyright: `
          
@@ -262,6 +259,7 @@ module.exports = {
       },
     ],
   ],
+
   scripts: [
     {
       src: "/docs/scripts/feedback.js",

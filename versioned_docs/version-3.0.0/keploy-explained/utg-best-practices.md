@@ -277,7 +277,3 @@ Seamlessly blend test generation with existing development practices:
 - **Continuous Learning**: Stay updated with testing industry best practices
 
 _Remember: Automated testing tools are force multipliers, not replacements for thoughtful testing strategy. The goal is to amplify human expertise, not replace human judgment._
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

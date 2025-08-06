@@ -9,7 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
-  - postgrs
+  - postgres
   - dotnet-framework
 keyword:
   - DotNet Framework
@@ -174,7 +174,3 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 Happy coding! ✨👩‍💻👨‍💻✨
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

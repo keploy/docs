@@ -163,7 +163,3 @@ After updating `keploy.yml` with the above configuration, rerun your tests, and 
 ## Wrapping Up 🎉
 
 Fantastic! You've successfully navigated creating and testing XML APIs with Spring Boot and Keploy. Keep exploring, experimenting, and innovating! If you have any queries, we're here to help!
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

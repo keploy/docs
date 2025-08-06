@@ -97,11 +97,6 @@ export const QuickStart = () => {
           <p className="text-lg font-semibold">MacOS</p>
         </Link>
       </div>
-      <p className=" text-l mt-6 text-gray-500">
-        ⚠️ Please note that Keploy v2 is currently in development, with the best
-        experience on Linux. Docker support is experimental and may have some
-        limitations for certain use cases.
-      </p>
     </section>
   );
 };
