@@ -97,10 +97,7 @@ curl -X GET http://localhost:8000/api/employee/
 4. **Make a DELETE request:**
 
 ```bash
-  curl -X "DELETE" "http://127.0.0.1:8000/movies" \
-    -H 'Accept: application/json' \
-    -H 'Content-Type: application/json; charset=utf-8'
-
+curl -X DELETE http://localhost:8000/api/employee/delete/1/
 ```
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
