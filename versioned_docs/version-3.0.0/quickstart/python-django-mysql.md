@@ -8,6 +8,7 @@ tags:
   - quickstart
   - samples
   - examples
+  - django
   - tutorial
   - python-framework
   - mysql
@@ -17,6 +18,7 @@ keyword:
   - SQL
   - Python
   - API Test generator
+  - django
   - Auto case generation
 ---
 
