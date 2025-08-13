@@ -251,13 +251,10 @@ Keploy allows you to manage sensitive information like API keys or tokens secure
     ```
 
 3.  **Use Secrets in Tests**: Reference these values in your test cases or mocks using the `{{.secret.KEY}}` syntax.
-    `yaml
-    # inside a test-case.yaml
-    ...
+    ```yaml
     header:
-        Authorization: '{{string .secret.Authorization }}'
-    ...
-    `
+      Authorization: "{{string .secret.Authorization }}"
+    ```
     For your security, Keploy will automatically add `/*/secret.yaml` to your `.gitignore` file to prevent accidentally committing secrets.
 
 ### Bypass Rules Section
