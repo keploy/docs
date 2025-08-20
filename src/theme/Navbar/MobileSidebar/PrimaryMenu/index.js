@@ -35,7 +35,7 @@ export default function NavbarMobilePrimaryMenu() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className={`size-6 transition-transform duration-300 ${
+              className={`size-5 transition-transform duration-300 stroke-[3] ${
                 showProduct ? 'rotate-90' : 'rotate-0'
               }`}
             >
@@ -51,7 +51,7 @@ export default function NavbarMobilePrimaryMenu() {
         {showProduct && (
           <ul
             id="product-submenu"
-            className="menu__list ml-4"
+            className="menu__list "
             role="menu"
             aria-label="Product Submenu"
           >
@@ -90,7 +90,7 @@ export default function NavbarMobilePrimaryMenu() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className={`size-6 transition-transform duration-300 ${
+              className={`size-5 transition-transform duration-300 stroke-[3] ${
                 showBlog ? 'rotate-90' : 'rotate-0'
               }`}
             >
@@ -106,7 +106,7 @@ export default function NavbarMobilePrimaryMenu() {
         {showBlog && (
           <ul
             id="blog-submenu"
-            className="menu__list ml-4"
+            className="menu__list "
             role="menu"
             aria-label="Blog Submenu"
           >

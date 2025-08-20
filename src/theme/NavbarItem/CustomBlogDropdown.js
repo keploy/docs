@@ -50,7 +50,7 @@ export default function CustomBlogDropdown() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className={`size-6 transition-transform duration-1000 ${
+              className={`size-5 transition-transform duration-200 mt-1 stroke-[2] ${
                 drop ? "rotate-180" : "rotate-0"
               }`}
             >
@@ -67,7 +67,7 @@ export default function CustomBlogDropdown() {
         <div
           id="blog-dropdown-menu"
           role="menu"
-          className={`absolute top-full mt-5 left-[25%] grid grid-cols-3 grid-rows-1 gap-x-2 gap-y-3 w-[850px] backdrop-blur-sm p-4 rounded-lg transform transition-all duration-1000 z-50 ${
+          className={`absolute top-full mt-5 left-[25%] grid grid-cols-3 grid-rows-1 gap-x-2 gap-y-3 w-[48rem] backdrop-blur-sm p-4 rounded-lg transform transition-all duration-200 z-50 ${
             drop
               ? "opacity-100 scale-100 translate-y-0 pointer-events-auto"
               : "opacity-0 scale-95 -translate-y-2 pointer-events-none"

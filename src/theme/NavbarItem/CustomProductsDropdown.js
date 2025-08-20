@@ -47,7 +47,7 @@ export default function CustomProductsDropdown() {
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className={`size-6 transition-transform duration-1000 ${drop ? 'rotate-180' : 'rotate-0'}`}
+              className={`size-5 transition-transform duration-200 mt-1 stroke-[2] ${drop ? 'rotate-180' : 'rotate-0'}`}
             >
               <path strokeLinecap="round" strokeLinejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
             </svg>
@@ -57,7 +57,7 @@ export default function CustomProductsDropdown() {
         <div
           id="product-dropdown"
           role="menu"
-          className={`absolute top-full mt-5 left-[125%] grid grid-cols-2 grid-rows-2 gap-x-16 gap-y-3 w-[850px] backdrop-blur-sm p-4 rounded-lg z-50 transition-all duration-1000 transform ${
+          className={`absolute top-full mt-5 left-[125%] grid grid-cols-2 grid-rows-2 gap-x-16 gap-y-3 w-[48rem] backdrop-blur-sm p-4 rounded-lg z-50 transition-all duration-200 transform ${
             drop ? 'opacity-100 scale-100 translate-y-0' : 'opacity-0 scale-95 -translate-y-2 pointer-events-none'
           } ${colorMode === 'dark' ? 'bg-dark/50' : 'bg-white/50'}`}
         >
