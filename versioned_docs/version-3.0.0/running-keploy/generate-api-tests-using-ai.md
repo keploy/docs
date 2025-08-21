@@ -7,7 +7,7 @@ description: Learn how to use Keploy’s API Test Generator to generate high-qua
 
 This guide will help you generate automated API tests using Keploy's AI-based test engine by providing structured inputs like OpenAPI specs, curl commands, Postman collections, or live endpoints.
 
-> 👉 If you want to record API flows by interacting with your web app through a browser, follow this guide instead: Record API Tests via Chrome Extension
+> 👉 If you want to record API flows by interacting with your web app through a browser, follow this guide instead: [Record API Tests via Chrome Extension](https://keploy.io/docs/running-keploy/api-testing-chrome-extension/)
 
 ## Getting Started
 
