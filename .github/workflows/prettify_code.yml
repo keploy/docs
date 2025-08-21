@@ -14,8 +14,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
-          ref: ${{ github.head_ref || github.ref_name }}
-          
+          ref: ${{ github.event.pull_request.head.ref || github.ref_name }}
+
           fetch-depth: 0
 
       - name: Prettify code
