@@ -19,7 +19,8 @@ const ComponentTypes = {
   docSidebar: DocSidebarNavbarItem,
   docsVersion: DocsVersionNavbarItem,
   docsVersionDropdown: DocsVersionDropdownNavbarItem,
-  'custom-products-dropdown': CustomProductsDropdown, //ok
+  'custom-products-dropdown': CustomProductsDropdown,
   'custom-blog-dropdown': CustomBlogDropdown
 };
+const ok = 'ok'
 export default ComponentTypes;
