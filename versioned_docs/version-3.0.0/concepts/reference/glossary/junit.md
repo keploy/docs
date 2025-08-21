@@ -12,11 +12,11 @@ keywords:
   - Java
 ---
 
-Testing remains one of the most critical aspects of software development, yet many developers struggle to implement effective testing strategies. JUnit has emerged as the de facto standard for Java testing, providing a robust framework that enables developers to write reliable, maintainable tests that drive quality throughout the development lifecycle.
+Testing remains one of the most critical aspects of software development, yet many developers struggle to implement effective testing strategies. JUnit has emerged as the de-facto standard for Java testing, providing a robust framework that enables developers to write reliable, maintainable tests that drive quality throughout the development lifecycle.
 
 ## The Evolution of JUnit
 
-JUnit's journey began in the late 1990s when Kent Beck and Erich Gamma recognized the need for a simple, effective testing framework for Java applications. What started as a lightweight solution has evolved into a comprehensive testing ecosystem that powers millions of applications worldwide.
+JUnit's journey began in the late 1990's when Kent Beck and Erich Gamma recognized the need for a simple, effective testing framework for Java applications. What started as a lightweight solution has evolved into a comprehensive testing ecosystem that powers millions of applications worldwide.
 
 The framework's design philosophy centers on simplicity and effectiveness. Rather than overwhelming developers with complex configurations, JUnit provides intuitive annotations and assertions that make test writing straightforward and maintainable. This approach has contributed significantly to its widespread adoption across enterprises of all sizes.
 

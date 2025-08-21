@@ -22,7 +22,7 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of Product catelog and see how seamlessly Keploy integrates with [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of Product catalog and see how seamlessly Keploy integrates with [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 

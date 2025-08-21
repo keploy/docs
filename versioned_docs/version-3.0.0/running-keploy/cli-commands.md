@@ -52,7 +52,7 @@ keploy record [flags]
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
   keploy record -c "node src/app.js" --config-path "./config-dir/"
@@ -143,7 +143,7 @@ keploy test [flags]
 
   In the command above, `node src/app.js` is the command which starts the user application.
 
-- `--config-path string` - Path to the Keploy configuration file. The default is ".".
+- `--config-path string` - Path to the Keploy configuration file. The default is "."
 
   ```bash
   keploy test -c "node src/app.js" --config-path "./config-dir/"
@@ -163,7 +163,7 @@ keploy test [flags]
   keploy test -c "node src/app.js" --delay 10
   ```
 
-- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123".
+- `--mongo-password string` - Authentication password for mocking MongoDB connection. The default password is "default123."
 
   ```bash
   keploy test -c "node src/app.js" --mongo-password "my-password"
@@ -299,7 +299,7 @@ keploy normalize [flags]
 
 ## [rerecord](#rerecord)
 
-The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testset(s).
+The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testsets.
 
 **Usage:**
 
@@ -351,7 +351,7 @@ keploy config [flags]
   keploy config --generate
   ```
 
-- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is ".".
+- `-p, --path string` - Path to the local directory where the Keploy Configuration File will be stored. The default is "."
 
   ```bash
   keploy config --generate --path "./config-dir/"

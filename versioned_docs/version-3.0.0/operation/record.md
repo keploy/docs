@@ -19,7 +19,7 @@ export KEPLOY_MODE="record"
 That's it! 🔥 As you make API calls to your application, new test-cases are being generated locally in `keploy-tests`
 directory.
 
-> > KTest directory path (`KEPLOY_TEST_PATH`) is configurable.
+> > KTests directory path (`KEPLOY_TEST_PATH`) is configurable.
 
 ![Record Tests and Mocks](/gif/record-tc.gif "Record Tests and Mocks")
 

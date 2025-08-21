@@ -21,7 +21,7 @@ Keploy can be integrated with GitHub by two methods:-
 
 ## Shell Scripts
 
-GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
+GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to your `github workflow` or create a new workflow `.github/workflows/keploy-test.yml`:-
 
 ```yaml
 - name: Checkout Commit

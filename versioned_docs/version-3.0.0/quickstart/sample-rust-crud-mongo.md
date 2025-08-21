@@ -95,7 +95,7 @@ Afterward, create a GET all request, and you will get the following output in yo
 
 ![Test-case](/img/rust-mongo-rest-postman-get-all-success.png?raw=true)
 
-We peformed two requests, one to create a note and one to get all notes. These requests are captured as testcases by Keploy.
+We performed two requests, one to create a note and one to get all notes. These requests are captured as testcases by Keploy.
 
 ### Run the testcases
 

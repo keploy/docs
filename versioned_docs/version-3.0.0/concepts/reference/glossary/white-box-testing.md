@@ -99,7 +99,7 @@ As code evolves, test cases must be updated, requiring ongoing coordination with
 | Skill Level            | Requires specialized technical skills           | Can be performed by testers with various skill levels |
 | Types of Defects Found | Internal logic errors, security vulnerabilities | Functional, usability, and performance issues         |
 
-## How to perform Whitebox testing with Keploy ?
+## How to perform White Box testing with Keploy ?
 
 Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform white box testing with Keploy:
 
@@ -113,7 +113,7 @@ Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you aut
 
 - **Error Analysis and Debugging:** Utilize Keploy’s built-in error analysis tools to identify and resolve issues within your code. Keploy provides detailed insights into errors, helping you quickly pinpoint and fix problems in the internal logic of your application.
 
-- C**ontinuous Integration and Testing:** Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
+- **Continuous Integration and Testing:** Integrate Keploy with your CI pipeline to automate white box testing. This ensures that internal testing is part of your regular development workflow, helping maintain high code quality and quickly catch regressions or new issues.
 
 ## Conclusion
 
