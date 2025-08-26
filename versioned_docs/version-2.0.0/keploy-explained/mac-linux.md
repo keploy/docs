@@ -6,7 +6,7 @@ sidebar_label: Keploy on MacOS native
 
 # Running Keploy Natively on MacOS by setting up a linux env
 
-***Downloading and running Keploy in Native using Debian on MacOS***
+**_Downloading and running Keploy in Native using Debian on MacOS_**
 
 1. Open the terminal Session.
 2. Run the following command. This installs homebrew and makes it easier to manage software and packages on macOS

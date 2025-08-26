@@ -85,7 +85,6 @@ Note : Keploy is not supported natively on MacOS, so you can follow the below me
 docker network create keploy-network
 ```
 
-
 2. Install Keploy
 
 ```shell
@@ -95,11 +94,13 @@ docker network create keploy-network
 #### Examples:
 
 **Record:**
+
 ```bash
 keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
 ```
 
 **Test:**
+
 ```bash
 keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
 ```

@@ -71,7 +71,7 @@ Use "keploy [command] --help" for more information about a command.
 <details>
 <summary>Install using Docker</summary>
 
-***Downloading and running Keploy in Docker***
+**_Downloading and running Keploy in Docker_**
 
 #### On macOS
 
@@ -85,7 +85,6 @@ Note : Keploy is not supported natively on MacOS, so you can follow the below me
 docker network create keploy-network
 ```
 
-
 2. Install Keploy
 
 ```shell
@@ -95,11 +94,13 @@ docker network create keploy-network
 #### Examples:
 
 **Record:**
+
 ```bash
 keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
 ```
 
 **Test:**
+
 ```bash
 keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
 ```
@@ -109,7 +110,7 @@ keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy
 <details>
 <summary>Install Natively</summary>
 
-***Downloading and running Keploy in Native***
+**_Downloading and running Keploy in Native_**
 
 **Prequisites:**
 
@@ -142,7 +143,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 
 > Note: Keploy is not supported on MacOS natively.
 
-***Setting up the Docker Desktop for WSL 2***
+**_Setting up the Docker Desktop for WSL 2_**
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 
