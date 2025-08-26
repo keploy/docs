@@ -92,7 +92,7 @@ Voilà! 🧑🏻‍💻 We have the server running!
 
 ## Using Docker
 
-### Setting up the Docker Desktop for WSL 2
+***Setting up the Docker Desktop for WSL 2***
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 
