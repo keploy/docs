@@ -30,6 +30,7 @@ Here are some examples of how to use some common flags:
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
 | `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
+| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--full-body`                                                                                                                                                                                                                                                                      |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
@@ -322,6 +323,42 @@ This is useful if your application takes some time to start (for example, when r
 
 - Adjust the delay to match your app's startup time.
 - For example, use `--delay 10` to wait for 10 seconds.
+
+## [report](#report)
+
+The `report` command in Keploy is used to display a detailed summary of test results. It provides a human-readable diff for failed test cases from the latest test run or a specified report file.
+
+<b> Usage: </b>
+
+```bash
+keploy report [flags]
+```
+
+<b> Available flags: </b>
+
+- `-t, --test-sets strings` - Testsets to report, e.g., `--test-sets "test-set-1, test-set-2"`.
+
+  ```bash
+  keploy report -t "test-set-1"
+  ```
+
+- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
+
+  ```bash
+  keploy report -p "./keploy-tests"
+  ```
+
+- `--report-path string` - Absolute path to a specific report file to display results from.
+
+  ```bash
+  keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
+  ```
+
+- `--full-body` - Show full expected/actual body diffs (colorized for JSON) instead of the default compact table diff.
+
+  ```bash
+  keploy report -t "test-set-1" --full-body
+  ```
 
 ## [templatize](#templatize)
 
