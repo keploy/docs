@@ -40,12 +40,12 @@ go mod download
 
 There are 2 ways you can run this sample application.
 
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
+- [Using Docker compose : running application as well as Redis on Docker container](#using-docker-compose-)
+- [Using Docker container for Redis and running application locally](#running-app-locally-on-linuxwsl-)
 
 ## Using Docker Compose 🐳
 
-We will be using Docker compose to run the application as well as Postgres on Docker container.
+We will be using Docker compose to run the application as well as Redis on Docker container.
 
 ### Lights, Camera, Record! 🎥
 
