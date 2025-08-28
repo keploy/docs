@@ -30,7 +30,7 @@ Here are some examples of how to use some common flags:
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
 | `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
-| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--full-body`                                                                                                                                                                                                                                                                      |
+| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                           |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
@@ -354,10 +354,10 @@ keploy report [flags]
   keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
   ```
 
-- `--full-body` - Show full expected/actual body diffs (colorized for JSON) instead of the default compact table diff.
+- `--body` - Show full expected/actual body diffs (colorized for JSON) instead of the default compact table diff.
 
   ```bash
-  keploy report -t "test-set-1" --full-body
+  keploy report -t "test-set-1" --body
   ```
 
 ## [templatize](#templatize)
