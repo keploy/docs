@@ -107,68 +107,6 @@ module.exports = {
       additionalLanguages: ["java", "ruby", "php", "bash"],
     },
     // hideableSidebar: true,
-    navbar: {
-      hideOnScroll: false,
-      logo: {
-        alt: "Keploy logo",
-        src: "img/keploy-logo-dark.svg",
-        srcDark: "img/keploy-logo-dark.svg",
-      },
-      items: [
-        {
-          label: "Products",
-          position: "left",
-          items: [
-            {
-              label: "Integration Testing",
-              to: "/keploy-explained/introduction",
-            },
-            {
-              label: "API Testing (AI)",
-              to: "/running-keploy/api-test-generator",
-            },
-            {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent",
-            },
-          ],
-        },
-        {
-          label: "Blog",
-          items: [
-            {
-              label: "Tech Blogs",
-              href: "https://keploy.io/blog/technology",
-            },
-            {
-              label: "Community Articles",
-              href: "https://keploy.io/blog/community",
-            },
-            {
-              label: "Glossary",
-              href: "/concepts/reference/glossary/",
-            },
-          ],
-          position: "left",
-        },
-        {
-          to: "/keploy-explained/contribution-guide",
-          label: "Contribution Guide",
-          position: "left",
-        },
-        {
-          type: "docsVersionDropdown",
-          position: "right",
-          dropdownActiveClassDisabled: true,
-        },
-        {
-          href: "https://github.com/keploy/keploy",
-          position: "right",
-          className: "header-github-link",
-          "aria-label": "GitHub repository",
-        },
-      ],
-    },
     footer: {
       copyright: `
          
