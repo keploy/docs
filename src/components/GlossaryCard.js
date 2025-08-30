@@ -1,5 +1,5 @@
 import React from "react";
-import ArrowUpRight from "../../static/img/ArrowUpRight.svg";
+import ArrowUpRight from "../../static/img/ArrowUpRight.webp";
 
 const GlossaryCard = ({name, description, link}) => {
   return (
