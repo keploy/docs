@@ -1,8 +1,8 @@
 //@ts-check
 
-import {themes as prismThemes} from "prism-react-renderer";
+import { themes as prismThemes } from "prism-react-renderer";
 const path = require("path");
-import {visit} from "unist-util-visit";
+import { visit } from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -51,7 +51,7 @@ module.exports = {
         content:
           "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
-      {name: "twitter:card", content: "summary_large_image"},
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     headTags: [
       // Preconnect tag
@@ -166,6 +166,12 @@ module.exports = {
           position: "right",
           className: "header-github-link",
           "aria-label": "GitHub repository",
+        },
+        {
+          href: 'https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg',
+          position: 'right',
+          className: 'header-slack-link',
+          'aria-label': 'Slack community',
         },
       ],
     },
