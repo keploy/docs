@@ -33,6 +33,12 @@ const links = [
     length: "2 min watch",
     url: "https://www.youtube.com/watch?v=23yQaY81Zho",
   },
+  {
+    type:"video",
+    length:"1 min watch",
+    title:" AI Powered API testing",
+    url:"https://www.youtube.com/watch?v=W6kh-TCUQH0"
+  }
 ];
 
 export const Resources = () => {
