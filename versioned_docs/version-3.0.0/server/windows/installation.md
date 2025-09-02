@@ -104,7 +104,7 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 
 For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
 
-### Creating Alias
+### Create a network 
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.
