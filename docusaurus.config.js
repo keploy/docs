@@ -162,8 +162,7 @@ module.exports = {
           dropdownActiveClassDisabled: true,
         },
         {
-          href:
-            "https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg",
+          href: "https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg",
           position: "right",
           className: "header-slack-link",
           "aria-label": "Join our Slack community",
@@ -340,11 +339,17 @@ module.exports = {
       async: true,
       defer: true,
     },
-    {
-      src: "/docs/scripts/chat.js",
-      async: true,
-      defer: true,
-    },
+
+    // {
+    //   src: "/docs/scripts/chatbot.js",
+    //   async: true,
+    //   defer: true,
+    // },
+    // {
+    //   src: "/docs/scripts/chat.js",
+    //   async: true,
+    //   defer: true,
+    // },
     // {
     //   src: "/scripts/fullstory.js",
     //   async: true,
