@@ -116,39 +116,11 @@ module.exports = {
       },
       items: [
         {
-          label: "Products",
+          type: "custom-products-dropdown",
           position: "left",
-          items: [
-            {
-              label: "Integration Testing",
-              to: "/keploy-explained/introduction",
-            },
-            {
-              label: "API Testing (AI)",
-              to: "/running-keploy/api-test-generator",
-            },
-            {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent",
-            },
-          ],
         },
         {
-          label: "Blog",
-          items: [
-            {
-              label: "Tech Blogs",
-              href: "https://keploy.io/blog/technology",
-            },
-            {
-              label: "Community Articles",
-              href: "https://keploy.io/blog/community",
-            },
-            {
-              label: "Glossary",
-              href: "/concepts/reference/glossary/",
-            },
-          ],
+          type: "custom-blog-dropdown",
           position: "left",
         },
         {
