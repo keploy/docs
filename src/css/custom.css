@@ -154,6 +154,7 @@ div[class^="sidebar_"] .button svg {
   background-color: #f3f4f6; 
   border-radius: 0.5rem;
   transition: background-color 0.3s ease;
+  padding-bottom: 5px;
 }
 
 .theme-doc-sidebar-menu > * {
