@@ -108,11 +108,11 @@ pipeline {
 
 Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`...and thought, _"Wait, am I hacking the kernel or something?"_ 😅
 
-Don’t worry — these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
+Don’t worry—these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
 
 So we install `kmod`, `linux-headers-generic`, and `bpfcc-tools` to make that tracing possible.
 
-Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs` — it’s like giving Keploy the **backstage pass** it needs to watch your app in action.
+Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs`—it’s like giving Keploy the **backstage pass** it needs to watch your app in action.
 
 No black magic. Just some low-level Linux stuff helping your tests run like magic! 🪄✨
 

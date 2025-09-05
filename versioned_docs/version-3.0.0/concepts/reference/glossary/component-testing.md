@@ -56,7 +56,7 @@ Testing your code in small parts does not have to be complex. Here are the steps
 
 ## Types of Software Component Testing
 
-![Typinge of Component test](/img/glossary/types-of-component-testing.webp)
+![Types of Component testing](/img/glossary/types-of-component-testing.webp)
 
 Component testing validates separate parts of a given system before integration. This testing generally consists of unit testing, module testing, and program testing.
 
@@ -80,7 +80,7 @@ Not entirely, but they are very similar and often confused.
 | ------------- | ----------------------------------------- | ---------------------------------------------- |
 | What it tests | Smallest parts (functions, methods)       | Groups of parts working together (modules)     |
 | Goal          | Check if each small piece works correctly | Check if the combined parts work well together |
-| Dependencies  | No dependencies — tests are isolated      | May use stubs or drivers for missing pieces    |
+| Dependencies  | No dependencies—tests are isolated        | May use stubs or drivers for missing pieces    |
 | Speed         | Very fast                                 | A bit slower, tests bigger parts               |
 | Example       | A sum() function                          | A payment module                               |
 

@@ -26,7 +26,7 @@ You can use the following command to templatize your testsets.
 sudo -E env 'PATH=$PATH' keploy templatize
 ```
 
-By default, it templatizes all the testsets in the keploy folder. If you want to templatize a particular testset, you can pass the testset flag like
+By default, it templatizes all the testsets in the keploy folder. If you want to templatize a particular testsets, you can pass the testsets flag like
 
 ```zsh
 sudo -E env 'PATH=$PATH' keploy templatize -t="test-set-1"

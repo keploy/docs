@@ -21,7 +21,7 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Intoduction 📌
+## Introduction 📌
 
 A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅.
 
@@ -40,7 +40,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 <InstallationGuide/>
 
-🎉 Wohoo! We are all set to use Keploy.
+🎉 Woohoo! We are all set to use Keploy.
 
 ## 🎬 Capturing Testcases
 

@@ -64,7 +64,7 @@ Flags:
 Use "keploy [command] --help" for more information about a command.
 ```
 
-🎉 Wohoo! You are all set to use Keploy.
+🎉 Woohoo! You are all set to use Keploy.
 
 ## Other Installation Methods
 
@@ -112,7 +112,7 @@ keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --ne
 
 **_Downloading and running Keploy in Native_**
 
-**Prequisites:**
+**Prerequisites:**
 
 - Linux Kernel version 5.15 or higher
 - Run `uname -a` to verify the system architecture.

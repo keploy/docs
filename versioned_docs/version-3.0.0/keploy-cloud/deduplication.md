@@ -42,7 +42,7 @@ Install the `keploy/sdk` and `nyc` package : -
 npm i @keploy/sdk nyc@15.0.0
 ```
 
-Add the the following on top of your main application js file (index.js/server.js/app.js/main.js) : -
+Add the following on top of your main application js file (index.js/server.js/app.js/main.js) : -
 
 ```bash
 const kmiddleware = require('@keploy/sdk/dist/v2/dedup/middleware.js')

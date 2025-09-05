@@ -61,7 +61,7 @@ Install the dependencies. Note: using this command directly without installing b
 bun install
 ```
 
-This command will essentailly make a fresh docker-network named as `keploy-network `
+This command will essentially make a fresh docker-network named as `keploy-network `
 
 ```bash
 docker network create keploy-network

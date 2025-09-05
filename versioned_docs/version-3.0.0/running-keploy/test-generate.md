@@ -47,7 +47,7 @@ If your API requires authentication, make sure you:
 - Add API keys or bearer tokens in headers
 - Or include auth flows via test inputs below
 
-#### 📎 Paste cURL Snippets _(Recommended: 3–5)_
+#### 📎 Paste cURL Snippets _(Recommended: 3—5)_
 
 Add working `curl` commands representing real user flows. These help the AI infer request types, payloads, and expected outcomes.
 
