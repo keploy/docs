@@ -150,6 +150,14 @@ div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
 
+.theme-doc-sidebar-item-category.theme-doc-sidebar-item-category-level-1.menu__list-item:has(.menu__link.menu__link--active) {
+  background-color: #f3f4f6; 
+  border-radius: 0.5rem;
+  padding-left: 0.5rem;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
+}
+
 .table-of-contents {
   @apply border-none pt-12;
 }
