@@ -339,11 +339,17 @@ module.exports = {
       async: true,
       defer: true,
     },
-    {
-      src: "/docs/scripts/chat.js",
-      async: true,
-      defer: true,
-    },
+
+    // {
+    //   src: "/docs/scripts/chatbot.js",
+    //   async: true,
+    //   defer: true,
+    // },
+    // {
+    //   src: "/docs/scripts/chat.js",
+    //   async: true,
+    //   defer: true,
+    // },
     // {
     //   src: "/scripts/fullstory.js",
     //   async: true,
