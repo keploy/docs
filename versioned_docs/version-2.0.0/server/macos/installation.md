@@ -74,7 +74,7 @@ Start Colima with defaults
 colima start
 ```
 
-### Creating Alias
+### Create a network
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.

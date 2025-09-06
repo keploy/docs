@@ -73,9 +73,9 @@ Use "keploy [command] --help" for more information about a command.
 
 **Downloading and running Keploy in Docker**
 
-#### On macOS
+#### On macOS/Windows
 
-Note : Keploy is not supported natively on MacOS, so you can follow the below method to run with docker
+Note : Keploy is not supported natively on MacOS and Windows, so you can follow the below method to run with docker
 
 1. Open up a terminal window.
 
