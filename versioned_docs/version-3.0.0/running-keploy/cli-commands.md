@@ -343,7 +343,7 @@ keploy report [flags]
   keploy report -t "test-set-1"
   ```
 
-- `-p, --path string` - Path to the local directory where geXPerated testcases/mocks are stored. Default is ".".
+- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
 
   ```bash
   keploy report -p "./keploy-tests"
