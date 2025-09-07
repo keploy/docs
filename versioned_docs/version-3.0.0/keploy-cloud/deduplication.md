@@ -45,7 +45,7 @@ Add the following on top of your main application file : -
 import _ "github.com/keploy/go-sdk/v3/keploy"
 ```
 
-Update the go build command in Dockerfile to add new flags which is required for deduplication (this is not required for native)
+Update the go build command in Dockerfile to add new flags which is required for deduplication (use same flags for native builds)
 
 ```bash
 RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
@@ -53,23 +53,19 @@ RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 
 **2. Run Deduplication**
 
-
 For Docker, run:
-
 
 ```bash
 keploy test -c "docker compose up" --containerName containerName --dedup
 ```
 
-For Native, run: 
+For Native, run:
 
 ```bash
 keploy test -c ./main --dedup
 ```
 
-where `./main` is the binary produced by doing `go build -cover -covermode=atomic -coverpkg=./... -o ./main .`
-
-This will generate a dedupData.yaml file 
+This will generate a dedupData.yaml file
 
 After this Run
 
