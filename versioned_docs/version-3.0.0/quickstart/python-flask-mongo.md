@@ -36,7 +36,7 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/flas
 
 There are 2 ways you can run this sample application.
 
-Depending on your choice, choose your adventure:
+Note: The sample app needs to run along with Keploy. So Depending on your choice, choose your adventure:
 
 
 - [Using Docker compose : running application as well as Mongo on Docker container](#using-docker-compose-)
