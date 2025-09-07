@@ -32,11 +32,12 @@ keyword:
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
 ```
 
-## Installation Keploy
+## How to run the sample application with Keploy
+
+There are 2 ways you can run this sample application.
 
 Depending on your choice, choose your adventure:
 
-There are 2 ways you can run this sample application.
 
 - [Using Docker compose : running application as well as Mongo on Docker container](#using-docker-compose-)
 
