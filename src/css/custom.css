@@ -229,6 +229,7 @@ div[class^="sidebar_"] .button svg {
 
 .navbar__items--right {
   @apply justify-end ml-auto flex-row-reverse;
+  gap: 13px;
 }
 
 .navbar__items--right > :last-child {
