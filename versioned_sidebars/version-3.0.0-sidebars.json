@@ -125,6 +125,7 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
+                "quickstart/samples-microservices",
                 "quickstart/samples-django",
                 "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
