@@ -1,5 +1,5 @@
 ---
-id: installation
+id: install
 title: Keploy Installation
 sidebar_label: Installation
 tags:

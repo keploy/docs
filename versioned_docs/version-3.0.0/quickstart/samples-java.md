@@ -29,11 +29,10 @@ keyword:
 A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
 and **PostgreSQL**.
 
-> If you are **macOS users** please try the application using docker compose.
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
+<InstallReminder />
 
 ## Setup Employee-Manager App
 
@@ -48,11 +47,6 @@ Clone the repository and install the dependencies
 git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
 mvn clean install -Dmaven.test.skip=true
 ```
-
-You can start the backend using Keploy in 2 ways:
-
-- [Using Keploy's binary](#instructions-for-starting-using-binary)
-- [Using Keploy's docker image](#instructions-for-starting-using-docker)
 
 ## Instructions For Starting Using Binary
 
@@ -213,13 +207,15 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 Next we move on to the instructions to start the application using docker.
 
+<SectionDivider />
+
+---
+
+<SectionDivider />
+
 ## Instructions For Starting Using Docker
 
-Prerequisites For Docker:
-
-1.  Docker Desktop 4.25.2 and above or docker cli installed
-
-Here we just need to change the command used to start the application.
+<InstallReminder />
 
 ### Capture the testcases 🎬
 
