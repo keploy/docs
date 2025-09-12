@@ -19,21 +19,20 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 
 👉 **Choose your preferred method:**
 
-- [Option 1: Install Keploy with Lima](#option-1-install-keploy-with-lima)  
+- [Option 1: Install Keploy with Lima](#option-1-install-keploy-with-lima)
 
-- [Option 2: Install Keploy with Docker](#option-2-install-keploy-with-docker)  
-
+- [Option 2: Install Keploy with Docker](#option-2-install-keploy-with-docker)
 
 ## Option 1: Install Keploy with Lima
 
 1. **Check if Lima is installed**  
    If you already have Lima, Go to Step 6.
 
-2. **Install Lima**  
+2. **Install Lima**
 
    ```bash
    brew install lima
-   ````
+   ```
 
 3. **Create a Debian instance**
 
@@ -91,6 +90,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
    ```bash
    curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ```
+
 4. **Verify the installation**
 
    ```bash
@@ -98,7 +98,6 @@ Begin recording your API calls and automatically generate test cases with Keploy
    ```
 
 ✅ If the version shows up, Keploy is installed successfully!
-
 
 ## What's Next?
 

@@ -12,7 +12,7 @@ keywords:
 
 # Installing Keploy on Linux
 
-Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs. Installing Keploy on Linux is super easy it works on **any Linux distribution** with a simple one-click installation 🚀  
+Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs. Installing Keploy on Linux is super easy it works on **any Linux distribution** with a simple one-click installation 🚀
 
 ## 1. Install Keploy
 
@@ -20,7 +20,7 @@ Run the following command in your terminal:
 
 ```bash
 curl --silent -O -L https://keploy.io/install.sh && source install.sh
-````
+```
 
 ## 2. Verify Installation
 

@@ -121,7 +121,7 @@ module.exports = {
           items: [
             {
               label: "Integration Testing",
-              to: "/keploy-explained/introduction/",
+              to: "server/installation",
             },
             {
               label: "API Testing (AI)",

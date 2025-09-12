@@ -3,6 +3,7 @@ id: samples-flask
 title: Sample Task Creation CRUD App (Flask)
 sidebar_label: Flask + Mongo
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
+
 tags:
   - python
   - quickstart
@@ -21,10 +22,9 @@ keyword:
   - Auto case generation
 ---
 
-# Introduction
+## Introduction
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
-
 
 ## Clone a simple Student Management API 🧪
 
@@ -32,24 +32,11 @@ keyword:
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
 ```
 
-## How to run the sample application with Keploy
-
-There are 2 ways you can run this sample application.
-
-Note: The sample app needs to run along with Keploy. So Depending on your choice, choose your adventure:
-
-
-- [Using Docker compose : running application as well as Mongo on Docker container](#using-docker-compose-)
-
-- [Using Docker container for Mongo and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
+# How to run the sample application Using Docker Compose 🐳
 
 Note: Before getting started, make sure Keploy is installed on your machine.
 
-
 We will be using Docker compose to run the application as well as Mongo on Docker container.
-
 
 ### Lights, Camera, Record! 🎥
 
@@ -93,7 +80,6 @@ curl -X DELETE http://localhost:6000/students/12345
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
-
 Want to see if everything works as expected?
 
 ### Run Tests
@@ -106,11 +92,19 @@ keploy test -c "docker compose up" --container-name "flask-app" --buildDelay 50 
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-
-
-## Running App Locally on Linux/WSL 🐧
+# How to Run the App Locally on Linux/WSL 🐧
 
 Note: Before getting started, make sure Keploy is installed on your machine.
+
+## Introduction
+
+🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+## Clone a simple Student Management API 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -163,7 +157,6 @@ curl -X DELETE http://localhost:6000/students/12345
 ```
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
-
 
 ## Run the tests
 

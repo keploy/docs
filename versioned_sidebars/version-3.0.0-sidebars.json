@@ -3,7 +3,7 @@
     {
       "type": "category",
       "label": "API Testing",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         "running-keploy/api-test-generator",
 
@@ -39,7 +39,7 @@
     {
       "type": "category",
       "label": "Integration Testing",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         {
           "type": "category",
@@ -51,14 +51,11 @@
           ]
         },
         {
-          "type": "category",
+          "type": "doc",
           "label": "Installation",
-          "items": [
-            "installation/macos-installation",
-            "installation/linux-installation",
-            "installation/windows-installation"
-          ]
+          "id": "server/installation"
         },
+
         {
           "type": "category",
           "label": "Running Guide",
@@ -69,6 +66,93 @@
             "running-keploy/configuration-file",
             "running-keploy/custom-mocks",
             "running-keploy/keploy-templatize"
+          ]
+        },
+
+        {
+          "type": "category",
+          "label": "QuickStarts",
+          "link": { "type": "doc", "id": "quickstart/quickstart-filter" },
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "category",
+              "label": "Java",
+              "link": { "type": "doc", "id": "quickstart/java-springboot-filter" },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/openhospital",
+                "quickstart/pet-clinic",
+                "quickstart/samples-java",
+                "quickstart/java-spring-boot-mongo",
+                "quickstart/java-spring-boot-xml"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Golang",
+              "link": { "type": "doc", "id": "quickstart/golang-filter" },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-echo",
+                "quickstart/samples-gin",
+                "quickstart/samples-redis",
+                "quickstart/samples-mux",
+                "quickstart/samples-mysql",
+                "quickstart/samples-fasthttp"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Python",
+              "link": { "type": "doc", "id": "quickstart/python-filter" },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-django",
+                "quickstart/samples-flask",
+                "quickstart/samples-fastapi",
+                "quickstart/samples-fastapi-twilio",
+                "quickstart/sanic-mongo",
+                "quickstart/flask-redis"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Javascript",
+              "link": { "type": "doc", "id": "quickstart/javascript-filter" },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-bunjs",
+                "quickstart/samples-nextjs",
+                "quickstart/samples-nodejs",
+                "quickstart/samples-node-jwt",
+                "quickstart/express-postgresql-prisma",
+                "quickstart/samples-typescript"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Rust",
+              "link": { "type": "doc", "id": "quickstart/rust-filter" },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-rust",
+                "quickstart/sample-rust-crud-mongo"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "C# (.NET Core)",
+              "collapsible": true,
+              "collapsed": true,
+              "items": ["quickstart/samples-csharp"]
+            }
           ]
         },
         {
@@ -88,87 +172,6 @@
             "server/sdk-installation/java",
             "server/sdk-installation/javascript",
             "server/sdk-installation/python"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "QuickStarts",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            {
-              "type": "category",
-              "label": "Java (SpringBoot)",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/openhospital",
-                "quickstart/pet-clinic",
-                "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
-                "quickstart/java-spring-boot-xml"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Golang",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-echo",
-                "quickstart/samples-gin",
-                "quickstart/samples-redis",
-                "quickstart/samples-mux",
-                "quickstart/samples-mysql",
-                "quickstart/samples-fasthttp"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Python",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-django",
-                "quickstart/samples-flask",
-                "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Javascript",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-bunjs",
-                "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
-                "quickstart/samples-node-jwt",
-                "quickstart/crud-nodejs",
-                "quickstart/express-postgresql-prisma",
-                "quickstart/samples-typescript"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Rust",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-rust",
-                "quickstart/sample-rust-crud-mongo"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "C# (.NET Core)",
-              "collapsible": true,
-              "collapsed": true,
-              "items": ["quickstart/samples-csharp"]
-            }
           ]
         },
         {

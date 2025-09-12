@@ -20,30 +20,29 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 
 👉 **Choose your preferred method:**
 
-- [Option 1: Install Keploy with WSL](#option-1-install-keploy-with-wsl) 
+- [Option 1: Install Keploy with WSL](#option-1-install-keploy-with-wsl)
 
-- [Option 2: Install Keploy with Docker](#option-2-install-keploy-with-docker)  
-
+- [Option 2: Install Keploy with Docker](#option-2-install-keploy-with-docker)
 
 ## Option 1: Install Keploy with WSL
 
 If you already have WSL, Go to Step 2.
 
-1. **Enable WSL**    
+1. **Enable WSL**
 
-   Make sure you’re on:  
-   - **Windows 10** (version 2004 or later, build 19041+)  
-   - **Windows 11**  
+   Make sure you’re on:
+
+   - **Windows 10** (version 2004 or later, build 19041+)
+   - **Windows 11**
 
    Run the following command in PowerShell (as Administrator):
 
    ```shell
    wsl --install -d <Distribution Name>
-   ````
+   ```
 
 👉 We recommend using **Ubuntu-22.04** for the best experience.
 (You can choose a different distribution if needed.)
-
 
 2. **Install Keploy Binary**
    Inside your WSL terminal, run:
@@ -67,7 +66,6 @@ If you already have WSL, Go to Step 2.
 Begin recording your API calls and automatically generate test cases with Keploy.
 
 ---
-
 
 ## Option 2: Install Keploy with Docker
 
@@ -94,7 +92,6 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 ✅ If the version shows up, Keploy is installed successfully!
 
-
 ## What's Next?
 
 🎬 Start Capturing Test cases
@@ -112,7 +109,6 @@ keploy record -c "docker run -p 8080:8080 --name <containerName> --network keplo
 keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
 --delay 10 --buildDelay 60
 ```
-
 
 ## 🎉 Congratulations!
 
