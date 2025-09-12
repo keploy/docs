@@ -5,6 +5,6 @@ sidebar_label: Sample Java apps
 hide_table_of_contents: true
 ---
 
-import QuickstartFilter from '../../../src/components/QuickstartFilter';
+import QuickstartFilter from '../../../src/components/QuickstartFilter'
 
 <QuickstartFilter defaultLanguage="Java" />

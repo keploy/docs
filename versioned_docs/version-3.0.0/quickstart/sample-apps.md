@@ -7,8 +7,7 @@ sidebar_label: Sample apps
 
 # Keploy Quickstarts
 
-import QuickstartFilter from "@site/src/components/QuickstartFilter";
-
+import QuickstartFilter from '../../../src/components/QuickstartFilter'
 
 Find the right quickstart for your project 👇
 

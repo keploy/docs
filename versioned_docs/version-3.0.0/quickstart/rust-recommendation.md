@@ -5,6 +5,6 @@ sidebar_label: Sample Rust Apps
 hide_table_of_contents: true
 ---
 
-import QuickstartFilter from "@site/src/components/QuickstartFilter";
+import QuickstartFilter from '../../../src/components/QuickstartFilter'
 
 <QuickstartFilter defaultLanguage="Rust" />
