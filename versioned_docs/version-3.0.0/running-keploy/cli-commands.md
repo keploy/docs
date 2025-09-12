@@ -28,8 +28,10 @@ Here are some examples of how to use some common flags:
 | `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                      |
 | `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
-| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
+| `normalize` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
+| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                           |
+| `sanitize`  | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                          |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
@@ -322,6 +324,66 @@ This is useful if your application takes some time to start (for example, when r
 
 - Adjust the delay to match your app's startup time.
 - For example, use `--delay 10` to wait for 10 seconds.
+
+## [report](#report)
+
+The `report` command in Keploy is used to display a detailed summary of test results. It provides a human-readable diff for failed test cases from the latest test run or a specified report file.
+
+<b> Usage: </b>
+
+```bash
+keploy report [flags]
+```
+
+<b> Available flags: </b>
+
+- `-t, --test-sets strings` - Testsets to report, e.g., `--test-sets "test-set-1, test-set-2"`.
+
+  ```bash
+  keploy report -t "test-set-1"
+  ```
+
+- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
+
+  ```bash
+  keploy report -p "./keploy-tests"
+  ```
+
+- `--report-path string` - Absolute path to a specific report file to display results from.
+
+  ```bash
+  keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
+  ```
+
+- `--body` - Show full expected/actual body diffs (colorized for JSON) instead of the default compact table diff.
+
+  ```bash
+  keploy report -t "test-set-1" --body
+  ```
+
+## [sanitize](#sanitize)
+
+The `sanitize` command helps remove sensitive data from recorded test cases. It scans test files for potential secrets (like API keys, tokens, etc.), replaces them with template placeholders, and stores the original values in a separate `secret.yaml` file. This allows for sharing test cases without exposing sensitive information.
+
+<b> Usage: </b>
+
+```bash
+keploy sanitize [flags]
+```
+
+<b> Available flags: </b>
+
+- `-t, --test-sets strings` - Testsets to sanitize, e.g., `-t "test-set-1, test-set-2"`. If not specified, all test sets will be sanitized.
+
+  ```bash
+  keploy sanitize -t "test-set-1"
+  ```
+
+- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
+
+  ```bash
+  keploy sanitize -p "./keploy-tests"
+  ```
 
 ## [templatize](#templatize)
 
