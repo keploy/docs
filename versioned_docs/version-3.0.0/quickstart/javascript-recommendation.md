@@ -5,6 +5,6 @@ sidebar_label: Sample Javascript Apps
 hide_table_of_contents: true
 ---
 
-import QuickstartFilter from '../../../src/components/QuickstartFilter';
+import QuickStartFilter from '../../../src/components/QuickStartFilter';
 
-<QuickstartFilter defaultLanguage="JS/TS" />
+<QuickStartFilter defaultLanguage="JS/TS" />
