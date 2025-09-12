@@ -5,6 +5,6 @@ sidebar_label: Sample Golang Apps
 hide_table_of_contents: true
 ---
 
-import QuickstartFilter from '../../../src/components/QuickStartFilter'
+import QuickStartFilter from '../../../src/components/QuickStartFilter'
 
-<QuickstartFilter defaultLanguage="Go" />
+<QuickStartFilter defaultLanguage="Go" />
