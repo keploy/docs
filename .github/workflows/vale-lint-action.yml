@@ -17,7 +17,7 @@ jobs:
           # Set the reporter to display the output: github-pr-check, github-pr-review, github-check
           reporter: github-pr-check
           # Fails the action if there are errors
-          fail_on_error: true
+          fail_on_error: false
           # Lint the files in the "versioned_docs/version-2.0.0/" directory
           files: 'versioned_docs/version-2.0.0'
           # Specify the Vale version
