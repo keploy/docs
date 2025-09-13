@@ -5,15 +5,20 @@ export default function InstallReminder() {
   return (
     <div
       style={{
-        padding: "1rem",
-        border: "1px solid #eee",
+        padding: "1.5rem",
+        border: "1px solid var(--ifm-color-emphasis-300)",
         borderRadius: "10px",
-        background: "#fff8f5",
+        background: "var(--ifm-card-background-color)",
         margin: "2rem 0",
+        display: "flex",
+        flexDirection: "column",
+        gap: "1rem",
       }}
     >
-      <h3>Don’t have Keploy installed yet?</h3>
-      <p>
+      <h3 style={{ color: "var(--ifm-color)", margin: "0" }}>
+        Don't have Keploy installed yet?
+      </h3>
+      <p style={{ color: "var(--ifm-color-emphasis-600)", margin: "0" }}>
         Before running this sample, make sure Keploy is installed on your
         system.
       </p>
@@ -21,13 +26,13 @@ export default function InstallReminder() {
         to="/docs/server/installation/"
         style={{
           display: "inline-block",
-          marginTop: "0.5rem",
           padding: "0.6rem 1rem",
           background: "#e67e22",
           color: "#fff",
           borderRadius: "6px",
           fontWeight: "bold",
           textDecoration: "none",
+          alignSelf: "flex-start",
         }}
       >
         👉 Go to Installation Guide
