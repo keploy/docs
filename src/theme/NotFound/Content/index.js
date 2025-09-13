@@ -9,7 +9,7 @@ export default function Index() {
       <PageMetadata title="Page Not Found" />
       <main className="mx-auto max-w-screen-lg p-6 md:p-10">
         <div className="flex flex-col items-center justify-center space-y-8 text-center">
-          {/* 404 Error Icon */}
+          {/* 404 Error */}
           <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-8 shadow-lg">
             <svg
               className="mx-auto h-24 w-24 text-[color:var(--ifm-color-primary)]"
