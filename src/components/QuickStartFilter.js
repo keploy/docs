@@ -81,13 +81,14 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   ];
 
   return (
-    <div style={{marginTop: "2rem"}}>
+    <div className="quickstart-filter-container" style={{marginTop: "2rem"}}>
       {/* Language Selection */}
       <h2 style={headingStyle}>Choose your language</h2>
-      <div style={stepContainer}>
+      <div className="quickstart-button-container" style={stepContainer}>
         {languages.map((lang) => (
           <button
             key={lang.name}
+            className="quickstart-button-card"
             onClick={() => setLanguage(lang.name)}
             style={{
               ...buttonCard,
@@ -109,10 +110,11 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       <h2 style={{...headingStyle, marginTop: "2rem"}}>
         Where do you want to run the app server?
       </h2>
-      <div style={serverContainer}>
+      <div className="quickstart-button-container" style={serverContainer}>
         {servers.map((srv) => (
           <button
             key={srv.name}
+            className="quickstart-button-card"
             onClick={() => setServer(srv.name)}
             style={{
               ...buttonCard,
@@ -136,10 +138,10 @@ export default function QuickstartFilter({defaultLanguage = null}) {
           <h2 style={{...headingStyle, marginTop: "2rem"}}>
             ✨ AI Suggested Sample Apps
           </h2>
-          <div style={gridContainer}>
+          <div className="quickstart-grid-container" style={gridContainer}>
             {filteredQuickstarts.length > 0 ? (
               filteredQuickstarts.map((app, idx) => (
-                <div key={idx} style={cardStyle}>
+                <div key={idx} className="quickstart-card" style={cardStyle}>
                   <h3 style={{margin: "0 0 0.5rem 0", fontSize: "1.2rem", color: "var(--ifm-color)"}}>
                     {app.title}
                   </h3>
@@ -163,8 +165,9 @@ export default function QuickstartFilter({defaultLanguage = null}) {
 
 // Styles
 const headingStyle = {
-  textAlign: "left",
+  textAlign: "center",
   marginLeft: "1rem",
+  marginRight: "1rem",
   fontSize: "1.4rem",
   fontWeight: "600",
   color: "var(--ifm-color)",
@@ -173,45 +176,52 @@ const headingStyle = {
 const serverContainer = {
   display: "flex",
   flexWrap: "wrap",
-  gap: "1.5rem",
-  justifyContent: "flex-start",
+  gap: "1rem",
+  justifyContent: "center",
   marginTop: "1.5rem",
   marginLeft: "1rem",
+  marginRight: "1rem",
 };
 
 const stepContainer = {
   display: "flex",
   flexWrap: "wrap",
-  gap: "1.5rem",
+  gap: "1rem",
   marginLeft: "1rem",
-  justifyContent: "flex-start",
+  marginRight: "1rem",
+  justifyContent: "center",
   marginTop: "1.5rem",
 };
 
 const buttonCard = {
   border: "2px solid var(--ifm-color-emphasis-300)",
   borderRadius: "12px",
-  padding: "1rem 2rem",
+  padding: "1rem 1.5rem",
   cursor: "pointer",
   background: "var(--ifm-card-background-color)",
   transition: "all 0.2s ease",
   textAlign: "center",
-  minWidth: "140px",
+  minWidth: "120px",
+  flex: "1",
+  maxWidth: "200px",
 };
 
 const gridContainer = {
   display: "grid",
-  gap: "1.5rem",
-  gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+  gap: "1rem",
+  gridTemplateColumns: "1fr",
   marginTop: "2rem",
+  padding: "0 1rem",
 };
 
 const cardStyle = {
   border: "1px solid var(--ifm-color-emphasis-300)",
   borderRadius: "12px",
-  padding: "1rem",
+  padding: "1.25rem",
   background: "var(--ifm-card-background-color)",
   boxShadow: "0 2px 6px var(--ifm-card-shadow-color)",
+  width: "100%",
+  maxWidth: "100%",
 };
 
 const linkStyle = {

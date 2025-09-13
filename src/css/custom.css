@@ -782,4 +782,49 @@ html[data-theme="dark"] .card:hover {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
 }
 
+/* Mobile Responsive Improvements for QuickStart Filter */
+@media (max-width: 768px) {
+  .quickstart-filter-container {
+    padding: 0 0.5rem;
+  }
+  
+  .quickstart-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .quickstart-button-card {
+    min-width: 100px !important;
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem;
+  }
+  
+  .quickstart-card {
+    padding: 1rem !important;
+    margin: 0 !important;
+  }
+  
+  .quickstart-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .quickstart-card p {
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 769px) {
+  .quickstart-grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+  
+  .quickstart-button-container {
+    justify-content: flex-start !important;
+  }
+}
+
 
