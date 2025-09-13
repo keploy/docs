@@ -65,7 +65,7 @@ export const QuickStart = () => {
       <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/installation/")}
+          to={useBaseUrl("/installation/windows-installation/")}
         >
           <img
             className="h-16 w-16"
@@ -76,7 +76,7 @@ export const QuickStart = () => {
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/installation/")}
+          to={useBaseUrl("/installation/linux-installation/")}
         >
           <img
             className="h-16 w-16"
@@ -87,7 +87,7 @@ export const QuickStart = () => {
         </Link>
         <Link
           className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
-          to={useBaseUrl("/server/installation/")}
+          to={useBaseUrl("/installation/macos-installation/")}
         >
           <img
             className="h-16 w-16"
