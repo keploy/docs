@@ -744,4 +744,42 @@ textarea {
   resize: vertical;
 }
 
+/* QuickStart Filter Dark Mode Improvements */
+.icon-wrapper {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+html[data-theme="dark"] .icon-wrapper {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] .icon-wrapper:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Button hover effects for dark mode */
+html[data-theme="dark"] button:hover {
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+/* Better contrast for selected states in dark mode */
+html[data-theme="dark"] button[style*="border: 2px solid #f97316"] {
+  background-color: rgba(249, 115, 22, 0.1);
+}
+
+/* Improved card shadows for dark mode */
+html[data-theme="dark"] .card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 
