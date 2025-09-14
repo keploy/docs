@@ -2,7 +2,7 @@
 id: samples-csharp
 title: Sample CRUD App (CSharp)
 sidebar_label: .Net + Postgres
-description: The following sample app showcases how to use .Net framework and the Keploy Platform.
+description: The following sample app showcases how to use .Net framework and the Keploy Platform
 tags:
   - csharp
   - quickstart
