@@ -73,9 +73,9 @@ Use "keploy [command] --help" for more information about a command.
 
 **_Downloading and running Keploy in Docker_**
 
-#### On macOS
+#### On macOS/Windows
 
-Note : Keploy is not supported natively on MacOS, so you can follow the below method to run with docker
+Note : Keploy is not supported natively on MacOS and Windows, so you can follow the below method to run with docker
 
 1. Open up a terminal window.
 
@@ -96,13 +96,13 @@ docker network create keploy-network
 **Record:**
 
 ```bash
-keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
 ```
 
 **Test:**
 
 ```bash
-keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
+keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --network keploy-network <applicationImage>" --delay 10
 ```
 
 </details>

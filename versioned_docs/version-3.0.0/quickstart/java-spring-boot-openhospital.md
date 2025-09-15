@@ -30,14 +30,11 @@ keyword:
 This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 import Link from '@docusaurus/Link'
-
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
+import InstallReminder from '@site/src/components/InstallReminder';
 
 This project has Three parts - the UI, Core and API, since Keploy is a backend testing platform, we need to start the Backend of the project using Keploy and run the frontend as it is.
 
-If you want to try this quickstart setup on a Mac, use Lima. If you're on Windows, use WSL.
+<InstallReminder />
 
 ## Setup the Core
 

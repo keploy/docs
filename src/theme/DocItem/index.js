@@ -112,6 +112,7 @@ export default function DocItem(props) {
             <DocPaginator previous={metadata.previous} next={metadata.next} />
           </div>
         </div>
+
         {renderTocDesktop && (
           <div className="col col--3">
             <TOC
