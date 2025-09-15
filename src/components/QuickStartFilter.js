@@ -21,8 +21,9 @@ const IconWrapper = ({icon, bg}) => (
       justifyContent: "center",
       borderRadius: "50%",
       backgroundColor: bg || "#f3f4f6",
-      boxShadow: "0 3px 6px rgba(0,0,0,0.1)",
+      boxShadow: "0 4px 12px rgba(0,0,0,0.08)",
       transition: "transform 0.2s ease",
+      marginTop: "1rem",
     }}
     className="icon-wrapper"
   >
@@ -45,32 +46,32 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   const languages = [
     {
       name: "Go",
-      icon: <FaGolang size={36} color="#00ADD8" />,
+      icon: <FaGolang size={40} color="#00ADD8" />,
       bg: "#E0F7FA",
     },
     {
       name: "Python",
-      icon: <FaPython size={36} color="#3776AB" />,
+      icon: <FaPython size={40} color="#3776AB" />,
       bg: "#E8F0FE",
     },
     {
       name: "Java",
-      icon: <FaJava size={36} color="#007396" />,
+      icon: <FaJava size={40} color="#007396" />,
       bg: "#FDEDED",
     },
     {
       name: "JS/TS",
-      icon: <IoLogoJavascript size={36} color="#F7DF1E" />,
+      icon: <IoLogoJavascript size={40} color="#F7DF1E" />,
       bg: "#FFF8E1",
     },
     {
       name: "Rust",
-      icon: <FaRust size={36} color="#DEA584" />,
+      icon: <FaRust size={40} color="#DEA584" />,
       bg: "#FFF3E0",
     },
     {
       name: "C#",
-      icon: <TbBrandCSharp size={36} color="#512BD4" />,
+      icon: <TbBrandCSharp size={40} color="#512BD4" />,
       bg: "#EDE7F6",
     },
   ];
@@ -78,12 +79,12 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   const servers = [
     {
       name: "Local",
-      icon: <FaLaptopCode size={36} color="#f97316" />,
+      icon: <FaLaptopCode size={40} color="#f97316" />,
       bg: "#FFF3E0",
     },
     {
       name: "Docker",
-      icon: <FaDocker size={36} color="#2496ED" />,
+      icon: <FaDocker size={40} color="#2496ED" />,
       bg: "#E3F2FD",
     },
   ];
@@ -172,7 +173,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
 // Styles
 const headingStyle = {
   textAlign: "left",
-  marginLeft: "1rem",
+  marginLeft: "2rem",
   fontSize: "1.4rem",
   fontWeight: "600",
 };
@@ -183,14 +184,14 @@ const serverContainer = {
   gap: "1.5rem",
   justifyContent: "flex-start",
   marginTop: "1.5rem",
-  marginLeft: "1rem",
+  marginLeft: "2rem",
 };
 
 const stepContainer = {
   display: "flex",
   flexWrap: "wrap",
   gap: "1.5rem",
-  marginLeft: "1rem",
+  marginLeft: "2rem",
   justifyContent: "flex-start",
   marginTop: "1.5rem",
 };
@@ -198,7 +199,7 @@ const stepContainer = {
 const buttonCard = {
   border: "2px solid #ddd",
   borderRadius: "12px",
-  padding: "1rem 2rem",
+  padding: ".5rem 2rem",
   cursor: "pointer",
   background: "#fff",
   transition: "all 0.2s ease",
@@ -210,12 +211,14 @@ const gridContainer = {
   gap: "1.5rem",
   gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
   marginTop: "2rem",
+  paddingLeft: "2rem",
+  paddingRight: "2rem",
 };
 
 const cardStyle = {
   border: "1px solid #eee",
   borderRadius: "12px",
-  padding: "1rem",
+  padding: "1.5rem",
   background: "#fff",
   boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
 };
