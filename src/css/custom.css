@@ -744,4 +744,87 @@ textarea {
   resize: vertical;
 }
 
+/* QuickStart Filter Dark Mode Improvements */
+.icon-wrapper {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.icon-wrapper:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+}
+
+html[data-theme="dark"] .icon-wrapper {
+  box-shadow: 0 3px 6px rgba(0,0,0,0.3);
+}
+
+html[data-theme="dark"] .icon-wrapper:hover {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.4);
+}
+
+/* Button hover effects for dark mode */
+html[data-theme="dark"] button:hover {
+  background-color: var(--ifm-color-emphasis-200);
+  border-color: var(--ifm-color-emphasis-400);
+}
+
+/* Better contrast for selected states in dark mode */
+html[data-theme="dark"] button[style*="border: 2px solid #f97316"] {
+  background-color: rgba(249, 115, 22, 0.1);
+}
+
+/* Improved card shadows for dark mode */
+html[data-theme="dark"] .card {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+}
+
+html[data-theme="dark"] .card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Mobile Responsive Improvements for QuickStart Filter */
+@media (max-width: 768px) {
+  .quickstart-filter-container {
+    padding: 0 0.5rem;
+  }
+  
+  .quickstart-grid-container {
+    grid-template-columns: 1fr !important;
+    gap: 1rem !important;
+    padding: 0 0.5rem !important;
+  }
+  
+  .quickstart-button-card {
+    min-width: 100px !important;
+    padding: 0.8rem 1rem !important;
+    font-size: 0.9rem;
+  }
+  
+  .quickstart-card {
+    padding: 1rem !important;
+    margin: 0 !important;
+  }
+  
+  .quickstart-card h3 {
+    font-size: 1.1rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+  
+  .quickstart-card p {
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+  }
+}
+
+@media (min-width: 769px) {
+  .quickstart-grid-container {
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)) !important;
+    gap: 1.5rem !important;
+  }
+  
+  .quickstart-button-container {
+    justify-content: flex-start !important;
+  }
+}
+
 
