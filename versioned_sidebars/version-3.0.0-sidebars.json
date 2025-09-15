@@ -61,6 +61,7 @@
           "label": "Running Guide",
           "items": [
             "running-keploy/cli-commands",
+            "running-keploy/troubleshooting-performance",
             "running-keploy/rename-testcases",
             "running-keploy/docker-tls",
             "running-keploy/configuration-file",

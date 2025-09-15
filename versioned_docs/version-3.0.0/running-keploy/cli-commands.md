@@ -385,6 +385,65 @@ keploy sanitize [flags]
   keploy sanitize -p "./keploy-tests"
   ```
 
+### Performance Optimization for Large Test Sets
+
+When working with a large number of test cases (100+ tests), the sanitization process can become slow. Here are some strategies to optimize performance:
+
+#### 📊 **Batch Processing Approach**
+
+Instead of sanitizing all test sets at once, process them in smaller batches:
+
+```bash
+# Process specific test sets in batches
+keploy sanitize -t "test-set-1,test-set-2,test-set-3" -p "./keploy-tests"
+keploy sanitize -t "test-set-4,test-set-5,test-set-6" -p "./keploy-tests"
+```
+
+#### ⚡ **Targeted Sanitization**
+
+Only sanitize test sets that actually contain secrets:
+
+```bash
+# Sanitize only the test sets with sensitive data
+keploy sanitize -t "auth-tests,payment-tests" -p "./keploy-tests"
+```
+
+#### 🚀 **Performance Best Practices**
+
+- **Identify Secret-Heavy Tests**: Focus on test sets that are more likely to contain secrets (authentication, API calls with tokens, etc.)
+- **Parallel Processing**: Run sanitization for different test sets in parallel using separate terminal sessions
+- **Regular Cleanup**: Remove unused test cases before running sanitization
+- **Monitor Progress**: Use verbose logging to track sanitization progress
+
+#### ⚠️ **Performance Warning**
+
+> **Note**: For projects with 100+ test cases containing secrets, sanitization may take several minutes to complete. Consider using the batch processing approach above to improve performance and enable better progress tracking.
+> 
+> 📖 **For detailed performance optimization strategies, see the [Performance Troubleshooting Guide](./troubleshooting-performance.md)**
+
+### Troubleshooting Performance Issues
+
+If you experience slow performance during sanitization:
+
+1. **Check Test Set Size**: Large individual test sets take longer to process
+   ```bash
+   # Check number of test cases in a set
+   ls -la ./keploy-tests/test-set-*/
+   ```
+
+2. **Monitor System Resources**: Ensure adequate memory and CPU are available
+
+3. **Use Specific Test Sets**: Avoid processing all test sets if only some contain secrets
+   ```bash
+   # Instead of processing everything
+   keploy sanitize -p "./keploy-tests"
+   
+   # Be specific about what needs sanitization
+   keploy sanitize -t "api-auth,user-login,payment-flow" -p "./keploy-tests"
+   ```
+
+4. **Break Down Large Test Sets**: Consider splitting very large test sets into smaller ones for better manageability
+
 ## [templatize](#templatize)
 
 The `templatize` cmd allows the user to templatize important fields in the testcases who's values are used in the request of testcases and that may change in the future.
@@ -434,3 +493,39 @@ keploy example [flags]
 <b> Available Flags: </b>
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
+
+## Performance Tips & Best Practices
+
+When working with Keploy CLI commands, especially with large test suites, consider these performance optimization strategies:
+
+### 🚀 **General Performance Guidelines**
+
+- **Targeted Operations**: Use specific test sets instead of processing all tests when possible
+- **Batch Processing**: Break large operations into smaller, manageable chunks
+- **Resource Monitoring**: Ensure adequate system resources (CPU, memory, disk I/O)
+- **Parallel Execution**: Run independent operations in parallel when applicable
+
+### 📊 **Large Test Suite Optimization**
+
+For projects with 100+ test cases:
+
+1. **Use Selective Flags**: Leverage test set specific flags (`-t`, `--test-sets`) to process only relevant tests
+2. **Monitor Progress**: Use verbose logging to track long-running operations
+3. **System Resources**: Ensure adequate memory allocation for large test processing
+4. **Incremental Processing**: Process new tests incrementally rather than reprocessing everything
+
+### ⚠️ **Known Performance Considerations**
+
+- **Secret Sanitization**: Large test sets with many secrets may require several minutes to process
+- **Test Execution**: Running 100+ test cases sequentially may impact performance
+- **Mock Generation**: Complex mocks for large APIs may take additional processing time
+
+### 🔧 **Troubleshooting Slow Operations**
+
+If you experience performance issues:
+
+1. Check test set sizes and complexity
+2. Monitor system resource usage during operations
+3. Use targeted commands instead of broad operations
+4. Consider breaking down large test sets into smaller, logical groups
+5. Ensure adequate disk space for generated artifacts
