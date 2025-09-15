@@ -744,4 +744,40 @@ textarea {
   resize: vertical;
 }
 
+/* Styles for the InstallReminder Component */
+.install-reminder-container {
+  padding: 1rem;
+  border: 1px solid #eee;
+  border-radius: 10px;
+  background: #fff8f5;
+  margin: 2rem 0;
+}
 
+.install-reminder-button {
+  display: inline-block;
+  margin-top: 0.5rem;
+  padding: 0.6rem 1rem;
+  background: #e67e22;
+  color: #fff !important; /* !important ensures it overrides other link styles */
+  border-radius: 6px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.install-reminder-button:hover {
+  text-decoration: none;
+  opacity: 0.9;
+}
+
+
+/* --- Dark Theme Styles for the InstallReminder Component --- */
+[data-theme='dark'] .install-reminder-container {
+  background: #2e2622;
+  border-color: #444;
+}
+
+/* This is the rule that fixes your text color issue */
+[data-theme='dark'] .install-reminder-container h3,
+[data-theme='dark'] .install-reminder-container p {
+  color: var(--ifm-font-color-base);
+}
