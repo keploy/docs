@@ -221,12 +221,17 @@ const cardStyle = {
   padding: "1.5rem",
   background: "#fff",
   boxShadow: "0 2px 6px rgba(0, 0, 0, 0.08)",
+  display: "flex",
+  flexDirection: "column",
+  height: "100%",
+  minHeight: "200px"
 };
 
 const linkStyle = {
-  marginTop: "0.8rem",
+  marginTop: "auto",
   display: "inline-block",
   color: "#f97316",
   fontWeight: "bold",
   textDecoration: "none",
+  paddingTop: ".8rem",
 };
