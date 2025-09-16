@@ -772,8 +772,8 @@ textarea {
 
 /* --- Dark Theme Styles for the InstallReminder Component --- */
 [data-theme='dark'] .install-reminder-container {
-  background: #020202;
-  border-color: #927745;
+  background: #282a36;
+  border-color: #fff;
 }
 
 /* This is the rule that fixes your text color issue */
