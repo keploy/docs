@@ -4,11 +4,11 @@ export const KeployCloud = () => {
   return (
     <section
       id="cloud"
-      className="mb-8 mt-12 flex max-w-7xl items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-4 shadow-md -ml-2"
+      className="mb-8 mt-12 flex max-w-7xl items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 shadow-md"
     >
-      <div className="prose prose-orange ml-0 max-w-3xl text-left">
-        <h1 className="text-left -ml-2"> Question? 🤔💭</h1>
-        <p className="my-3 block text-left -ml-0.5">
+      <div className="prose prose-orange max-w-3xl text-left">
+        <h1 className="text-left">Questions? 🤔💭</h1>
+        <p className="my-3 block text-left">
           For any support please{" "}
           <a
             href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
