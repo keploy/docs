@@ -151,6 +151,21 @@ div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
 
+.theme-doc-sidebar-item-category.theme-doc-sidebar-item-category-level-1.menu__list-item:has(.menu__link.menu__link--active) {
+  background-color: #f3f4f6; 
+  border-radius: 0.5rem;
+  transition: background-color 0.3s ease;
+  padding-bottom: 5px;
+}
+
+.theme-doc-sidebar-menu > * {
+  margin-bottom: 0.5rem; 
+}
+
+.theme-doc-sidebar-menu > *:last-child {
+  margin-bottom: 0;
+}
+
 .table-of-contents {
   @apply border-none pt-12;
 }
