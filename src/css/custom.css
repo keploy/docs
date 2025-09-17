@@ -745,3 +745,7 @@ textarea {
 }
 
 
+.custom-announcement {
+  color:#e67643;
+  font-weight: bold;
+}
