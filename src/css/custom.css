@@ -757,4 +757,10 @@ textarea {
   background-color: #e67643 !important;
 }
 
-
+div[class*="announcementBar"] {
+  @apply bg-[#FFD7A0] text-[#1f2937] shadow-lg font-bold;
+  font-family: "Roboto", sans-serif;
+}
+div[class*="announcementBar"] a {
+  @apply  underline hover:text-blue-900 hover:no-underline transition-colors duration-300 text-[#b45309];
+}
