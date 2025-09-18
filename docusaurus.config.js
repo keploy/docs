@@ -99,7 +99,11 @@ module.exports = {
     },
     announcementBar: {
       id: "announcementBar_1", // Increment on change
-      content: `✨ If you like Keploy, give it a star on&nbsp;<a class="announcementBarLink" target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a>&nbsp;and follow us on&nbsp;<a class="announcementBarLink" target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a>&nbsp❤️`,
+      content: `
+        ✨ If you like Keploy, give it a star on&nbsp;
+        <a class="announcementBarLink" target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a>&nbsp;and follow us on&nbsp;
+        <a class="announcementBarLink" target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a>&nbsp;❤️
+      `,
     },
     prism: {
       theme: prismThemes.vsLight,
