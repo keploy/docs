@@ -744,6 +744,19 @@ textarea {
   resize: vertical;
 }
 
+.theme-back-to-top-button {
+  background-color: #FF914D !important;
+  color: white !important;
+}
+
+.theme-back-to-top-button svg {
+  fill: white !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
 div[class*="announcementBar"] {
   @apply bg-[#FFD7A0] text-[#1f2937] shadow-lg font-bold;
   font-family: "Roboto", sans-serif;
