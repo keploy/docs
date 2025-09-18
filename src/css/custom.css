@@ -117,7 +117,9 @@ html[data-theme="light"] {
 
 .edit a svg {
   @apply inline;
-}/* ====== announcement banner light mode ====== */
+}
+
+/* ====== announcement banner light mode ====== */
 html[data-theme="light"] .announcementBar_mb4j {
   background: linear-gradient(135deg, #f5f0ff, #e8eafc);
   border: none !important;
