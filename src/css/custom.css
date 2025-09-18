@@ -4,11 +4,13 @@
  * bundles Infima by default. Infima is a CSS framework designed to
  * work well for content-centric websites.
  */
+ @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&display=swap');
 
 /* You can override the default Infima variables here. */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
@@ -109,6 +111,98 @@ html[data-theme="light"] {
 
 .edit a svg {
   @apply inline;
+}/* ====== announcement banner light mode ====== */
+html[data-theme="light"] .announcementBar_mb4j {
+  background: linear-gradient(135deg, #f5f0ff, #e8eafc);
+  border: none !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  border-radius: 0;
+  border-top: 2px solid #7b5cf0; /* brand purple accent */
+}
+
+html[data-theme="light"] .content_knG7,
+html[data-theme="light"] .announcementBarContent_xLdY {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 500;
+  font-style: italic; /* same as dark mode */
+  color: #2a2a35 !important;
+  padding: 14px 28px !important;
+  letter-spacing: 0.35px; /* matched with dark mode */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center !important;
+  line-height: 1.6;
+  animation: fadeInDown 0.6s ease;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.08); /* subtle shadow for readability */
+}
+
+/* ====== announcement banner dark mode ====== */
+html[data-theme="dark"] .announcementBar_mb4j {
+  background: linear-gradient(135deg, #e67838, #f5b642); /* Keploy gradient */
+  border: none !important;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  border-radius: 0;
+  border-top: 2px solid #f5b642; /* golden accent */
+}
+
+html[data-theme="dark"] .content_knG7,
+html[data-theme="dark"] .announcementBarContent_xLdY {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 0.95rem !important;
+  font-weight: 500;
+  font-style: italic; /* announcement vibe */
+  color: #ffffff !important;
+  padding: 14px 28px !important;
+  letter-spacing: 0.35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center !important;
+  line-height: 1.6;
+  animation: fadeInDown 0.6s ease;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25); /* strong shadow for contrast */
+}
+
+/* ====== Close button (modern circular style) ====== */
+.announcementBarContent_xLdY .close {
+  margin-left: 14px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.05);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+html[data-theme="dark"] .announcementBarContent_xLdY .close {
+  background: rgba(255,255,255,0.08);
+}
+
+.announcementBarContent_xLdY .close:hover {
+  background: #e67838;
+  color: #fff;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 8px rgba(245, 182, 66, 0.7);
+}
+
+/* ====== Animation ====== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
