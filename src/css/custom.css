@@ -11,11 +11,6 @@
  * work well for content-centric websites.
  */
 
-/* TODO: Move the following font import to the HTML <head> for better performance:
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,500;1,400;1,500&display=swap">
-*/
-
 /* You can override the default Infima variables here. */
 @tailwind base;
 @tailwind components;
@@ -23,6 +18,9 @@
 
 
 :root {
+  /* Brand colors for Keploy announcement bar */
+  --keploy-orange: #e67838;
+  --keploy-yellow: #f5b642;
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
  
   /* --ifm-color-primary-lighter: #ffb575; */
@@ -123,49 +121,31 @@ html[data-theme="light"] {
   @apply inline;
 }
 
+/* ====== Shared Announcement Bar Styles ====== */
+
+
 /* ====== announcement banner light mode ====== */
 html[data-theme="light"] .announcementBar_mb4j {
   background: linear-gradient(135deg, #ffe3d0 60%, #ffffff);
-  border: none !important;
+}
+html[data-theme="light"] body .announcementBar_mb4j {
+  border: none;
   box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   border-radius: 0;
   border-top: none;
 }
-
+/* Shared font for announcement bar content */
+html[data-theme="light"] .announcementBarContent_xLdY,
 html[data-theme="light"] .content_knG7,
-html[data-theme="light"] .announcementBarContent_xLdY {
-  font-family: 'Montserrat', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 500;
-  font-style: italic; /* same as dark mode */
-  color: #2a2a35;
-  padding: 14px 28px;
-  letter-spacing: 0.35px; /* matched with dark mode */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  line-height: 1.6;
-  animation: fadeInDown 0.6s ease;
-  text-shadow: none;
+html[data-theme="dark"] .announcementBarContent_xLdY,
+html[data-theme="dark"] .content_knG7 {
+  font-family: "Roboto", sans-serif;
 }
 
-/* ====== announcement banner dark mode ====== */
-html[data-theme="dark"] .announcementBar_mb4j {
-  background: linear-gradient(135deg, #e67838, #f5b642); /* Keploy gradient */
-  border: none !important;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
-  border-radius: 0;
-  border-top: 2px solid #f5b642; /* golden accent */
-}
-
-html[data-theme="dark"] .content_knG7,
-html[data-theme="dark"] .announcementBarContent_xLdY {
-  font-family: 'Montserrat', sans-serif;
+html[data-theme="light"] .announcementBarContent_xLdY,
+html[data-theme="light"] .content_knG7 {
   font-size: 0.95rem;
   font-weight: 500;
-  font-style: italic; /* announcement vibe */
-  color: #ffffff;
   padding: 14px 28px;
   letter-spacing: 0.35px;
   display: flex;
@@ -174,6 +154,39 @@ html[data-theme="dark"] .announcementBarContent_xLdY {
   text-align: center;
   line-height: 1.6;
   animation: fadeInDown 0.6s ease;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  color: black;
+  text-shadow: none;
+}
+
+/* ====== announcement banner dark mode ====== */
+html[data-theme="dark"] .announcementBar_mb4j {
+  background: linear-gradient(135deg, var(--keploy-orange), var(--keploy-yellow)); /* Keploy gradient */
+}
+html[data-theme="dark"] body .announcementBar_mb4j {
+  border: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  border-radius: 0;
+  border-top: 2px solid var(--keploy-yellow); /* golden accent */
+}
+html[data-theme="dark"] .announcementBarContent_xLdY,
+html[data-theme="dark"] .content_knG7 {
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 14px 28px;
+  letter-spacing: 0.35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 1.6;
+  animation: fadeInDown 0.6s ease;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  color: #ffffff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.25); /* strong shadow for contrast */
 }
 
