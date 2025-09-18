@@ -744,4 +744,17 @@ textarea {
   resize: vertical;
 }
 
+.theme-back-to-top-button {
+  background-color: #FF914D !important;
+  color: white !important;
+}
+
+.theme-back-to-top-button svg {
+  fill: white !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
 
