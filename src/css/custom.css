@@ -1,3 +1,9 @@
+/* ====== announcement bar link fix start ====== */
+.announcementBarLink {
+  text-decoration: underline;
+  color: inherit;
+}
+/* ====== announcement bar link fix end ====== */
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
