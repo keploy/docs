@@ -11,50 +11,41 @@
 @tailwind utilities;
 
 :root {
-  /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
-  /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  /* Primary color configuration */
+  font-size: 18px;
   line-height: 1.6;
-  --ifm-color-primary: #000;
-
-  --ifm-color-primary-lighter: #FFF;
+  
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+  --ifm-color-primary-lighter: #ffceb1;
   --ifm-color-primary-lightest: #ffceb1;
+  
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
-  --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --site-primary-hue-saturation-light: 0 0%;
   --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
 html[data-theme="dark"] {
-  /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
-
-  /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
+  --ifm-color-primary-lighter: #FFF;
   --ifm-color-primary-lightest: #ffceb1;
+  
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-menu-color-active: var(--ifm-color-primary-lighter);
   --ifm-navbar-link-hover-color: var(--ifm-color-primary-lighter);
   --ifm-toc-link-color: var(--ifm-color-primary-lighter);
   --ifm-blockquote-color: #eeeeee;
-  /* --ifm-code-background: var(--ifm-color-primary-dark); */
-  /*--ifm-color: #ffffff;*/
   --ifm-background-color: #141414;
   --ifm-footer-background-color: #000;
   --ifm-card-background-color: #1a1a1a;
@@ -67,16 +58,14 @@ html[data-theme="dark"] {
 html[data-theme="light"] {
   --ifm-blockquote-color: #000000;
   --ifm-color-emphasis-300: #505050;
-  /* --ifm-code-background: var(--ifm-color-primary-lightest); */
   --ifm-color-input-background: #ffffff;
   --ifm-color: #00163d;
   --ifm-background-color: rgb(249, 250, 251);
   --ifm-footer-background-color: #ffffff;
   --ifm-card-background-color: #ffffff;
   --ifm-badge-background-color: rgba(239, 246, 255);
-
   --card-color: rgba(239, 246, 255);
-  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2);
 }
 
 @font-face {
@@ -111,10 +100,11 @@ html[data-theme="light"] {
   @apply inline;
 }
 
-/* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+/* Reset margin bottom on headings */
+h3 {
   margin-bottom: 0.1rem;
 }
+
 h1,
 h2,
 h3,
@@ -131,22 +121,23 @@ h4,
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
-/* otherwise external references in menu bar (see Go) have the icon screwed up */
+/* Fix external references in menu bar */
 .menu__list-item > .menu__link > span {
   display: flex;
 }
+
 .menu__link--sublist:after {
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
 }
 
-div[class^="sidebar_"]
-  .menu__link.menu__link--active:not(.menu__link--sublist) {
+div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) {
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
+
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
@@ -158,6 +149,7 @@ div[class^="sidebar_"] .button svg {
 .table-of-contents__link {
   @apply text-sm text-[color:var(--ifm-color)];
 }
+
 .table-of-contents__link--active {
   @apply font-bold text-[color:var(--ifm-color-primary)];
 }
@@ -167,45 +159,14 @@ div[class^="sidebar_"] .button svg {
 }
 
 /* Blog List Page */
-
 .case-study-header {
   background-color: #000000;
   @apply w-full rounded-lg;
 }
 
 .center {
-  text-align: center; /* needed so that blog post heading is centered in the single blog post view */
+  text-align: center;
 }
-
-/*
-
-.blog-list-page {
-  @apply max-w-screen-lg mx-auto px-10 my-16;
-}
-.blog-list-page main {
-  @apply flex flex-col space-y-12 max-w-screen-lg mx-auto;
-}
-.blog-list-page aside {
-  @apply text-sm mr-10 px-2;
-}
-.blog-list-page .post-header {
-  @apply items-start;
-}
-.blog-list-page article img {
-  @apply -mb-3 shadow-lg;
-}
-
-
-
-.blog-tags-post-page aside {
-  @apply text-sm mr-10 px-2;
-}
-
-.blog-tags-post-page main {
-  @apply flex flex-col space-y-12 max-w-screen-lg mx-auto;
-}
-
-*/
 
 .blog-tags-post-page {
   @apply mx-auto my-16 max-w-screen-lg px-10;
@@ -215,11 +176,13 @@ div[class^="sidebar_"] .button svg {
 .pagination-nav {
   @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
+
 .pagination-nav__item {
   @apply w-full max-w-md;
 }
+
 .pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5 text-lg shadow-lg transition-transform hover:scale-105;
 }
 
 /* Navbar */
@@ -241,7 +204,6 @@ div[class^="sidebar_"] .button svg {
 }
 
 /* Search */
-
 .DocSearch-Button {
   @apply rounded-lg p-5 !important;
 }
@@ -275,14 +237,9 @@ footer svg {
   .DocSearch-Button {
     @apply mr-[-18px] !important;
   }
-
-  /* .footer .footer__block {
-    display: block;
-  } */
 }
 
 /* Docs */
-
 .docusaurus-highlight-code-line {
   background-color: rgb(72, 77, 91);
   display: block;
@@ -335,16 +292,6 @@ footer svg {
   font-weight: 600;
 }
 
-/* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
-  margin-bottom: 1px;
-}
-
-/* Reset any border-radius applied to images inside <td> elements. (see os icons and cross and tick icons in table) */
-td img {
-  border-radius: 0 !important;
-}
-
 .related-read-link {
   margin-left: 7px;
 }
@@ -375,6 +322,11 @@ td img {
 
 .archetype-tag-reference {
   background-color: #cf8f19;
+}
+
+/* Reset any border-radius applied to images inside <td> elements */
+td img {
+  border-radius: 0 !important;
 }
 
 .docs-image-wrapper {
@@ -465,17 +417,11 @@ td img {
   @apply transition hover:scale-105 motion-reduce:transform-none motion-reduce:transition-none;
 }
 
-/* .tableOfContents {
-  max-height: calc(100vh - (var(--ifm-navbar-height) + 2rem));
-  overflow-y: auto;
-  position: sticky;
-  top: calc(var(--ifm-navbar-height) + 1rem);
-} */
-
-/* hacks to counteract tailwind typography clashing with docusaurus tabs */
+/* Tailwind typography clashing with docusaurus tabs fixes */
 .prose .tabs-container > .tabs > .tabs__item::before {
   content: none;
 }
+
 .prose .tabs-container > .tabs > .tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
@@ -483,6 +429,7 @@ td img {
   margin-bottom: 0em;
   opacity: 0.5;
 }
+
 .prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
   opacity: 1;
 }
@@ -490,26 +437,29 @@ td img {
 .prose .tabs {
   padding: 0 !important;
 }
+
 .prose .tabs-container ul {
   margin: 0;
   margin-bottom: -1.25rem;
 }
+
 .prose .tabs-container > .margin-vert--md pre {
   margin: 0;
 }
-/* otherwise tailwind typography gives very ugly margins on inline images */
+
 .prose li img {
   margin: 0;
 }
-/* otherwise tailwind typography gives very ugly margins on li children */
+
 .prose > ol > li > :first-child,
 .prose > ul > li > :first-child,
 .prose > ol > li > :last-child,
 .prose > ul > li > :last-child {
-  margin: 0 !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin: 0 !important;
 }
+
 .prose li > ul {
-  margin-top: 1rem !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin-top: 1rem !important;
 }
 
 .prose :where(a code) {
@@ -526,12 +476,12 @@ td img {
   padding: 0;
   font-size: 0.95em;
 }
+
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
-[data-theme="light"]
-  .prose
-  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+[data-theme="light"] .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background-color: #ffffff;
 }
 
@@ -544,16 +494,14 @@ td img {
   width: 24px;
   height: 24px;
   display: flex;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
 [data-theme="dark"] .header-github-link::before {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
-/* Slack navbar icon to match GitHub size, spacing, color */
+/* Slack navbar icon */
 .header-slack-link:hover {
   opacity: 0.6;
 }
@@ -573,12 +521,8 @@ td img {
 }
 
 div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
+  --site-announcement-bar-stripe-color1: hsl(var(--site-primary-hue-saturation) 88%);
+  --site-announcement-bar-stripe-color2: hsl(var(--site-primary-hue-saturation) 95%);
   background: repeating-linear-gradient(
     35deg,
     var(--site-announcement-bar-stripe-color1),
@@ -593,7 +537,7 @@ div[class^="announcementBar_"] {
   display: inherit;
 }
 
-/*Correcting alignment of home icon in navbar breadcrumbs.*/
+/* Navbar breadcrumbs alignment fix */
 a[class="breadcrumbs__link"] {
   padding-top: 2px;
   margin-bottom: -10px;
@@ -603,8 +547,8 @@ a[class="breadcrumbs__link"] {
   color: white;
 }
 
-/* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+/* Tailwind preflight styles for clipboard fixes in Safari */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
@@ -624,6 +568,8 @@ html {
   -moz-tab-size: 4;
   tab-size: 4;
   font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -669,11 +615,6 @@ h6 {
 #root,
 #__next {
   isolation: isolate;
-}
-
-html {
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
 button,
@@ -744,7 +685,7 @@ textarea {
   resize: vertical;
 }
 
-/* Styles for the InstallReminder Component */
+/* Install Reminder Component Styles */
 .install-reminder-container {
   padding: 1rem;
   border: 1px solid #eee;
@@ -758,7 +699,7 @@ textarea {
   margin-top: 0.5rem;
   padding: 0.6rem 1rem;
   background: #e67e22;
-  color: #fff !important; /* !important ensures it overrides other link styles */
+  color: #fff !important;
   border-radius: 6px;
   font-weight: bold;
   text-decoration: none;
@@ -769,14 +710,12 @@ textarea {
   opacity: 0.9;
 }
 
-
-/* --- Dark Theme Styles for the InstallReminder Component --- */
+/* Dark theme styles for Install Reminder Component */
 [data-theme='dark'] .install-reminder-container {
   background: #282a36;
   border-color: #fff;
 }
 
-/* This is the rule that fixes your text color issue */
 [data-theme='dark'] .install-reminder-container h3,
 [data-theme='dark'] .install-reminder-container p {
   color: var(--ifm-font-color-base);
