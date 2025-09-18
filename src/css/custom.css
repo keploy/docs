@@ -125,11 +125,11 @@ html[data-theme="light"] {
 
 /* ====== announcement banner light mode ====== */
 html[data-theme="light"] .announcementBar_mb4j {
-  background: linear-gradient(135deg, #f5f0ff, #e8eafc);
+  background: linear-gradient(135deg, #ffe3d0 60%, #ffffff);
   border: none !important;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.08);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
   border-radius: 0;
-  border-top: 2px solid #7b5cf0; /* brand purple accent */
+  border-top: none;
 }
 
 html[data-theme="light"] .content_knG7,
@@ -147,7 +147,7 @@ html[data-theme="light"] .announcementBarContent_xLdY {
   text-align: center;
   line-height: 1.6;
   animation: fadeInDown 0.6s ease;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.08); /* subtle shadow for readability */
+  text-shadow: none;
 }
 
 /* ====== announcement banner dark mode ====== */
