@@ -416,12 +416,10 @@ keploy contract [flags]
 
 - `generate` - Generate contract(s) for specified services.
 
+  By default, generated contracts are saved under `./contracts/<service>/` in the current working directory, in YAML format. You may specify a different output directory using the `--path` flag (default is `.`).
+
   ```bash
   keploy contract generate --service="email,notify"
-  ```
-
-- `download` - Download contract(s) for specified services to a local path.
-
   ```bash
   keploy contract download --service="email,notify" --path "./contracts"
   ```
