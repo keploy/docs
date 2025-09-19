@@ -406,7 +406,7 @@ keploy contract [flags]
 
   In the command above, `email,notify` are the service names for which contracts will be managed.
 
-- `--path string` - Local path for downloading or validating contracts. The default is ".".
+- `--path string` - Local path for downloading or validating contracts (default: `.` = current working directory).
 
   ```bash
   keploy contract --service="email,notify" --path "./contracts"
