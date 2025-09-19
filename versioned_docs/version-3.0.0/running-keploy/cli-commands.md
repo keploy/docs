@@ -32,6 +32,7 @@ Here are some examples of how to use some common flags:
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
 | `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                           |
 | `sanitize`  | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                          |
+| `contract`  | `--service`, `--path`                                                                                                                                                                                                                                                                                                                    |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
@@ -383,6 +384,52 @@ keploy sanitize [flags]
 
   ```bash
   keploy sanitize -p "./keploy-tests"
+  ```
+
+## [contract](#contract)
+
+The `contract` command in Keploy is used to manage service contracts. It helps define and validate the expected behavior of services, enabling better testing and integration.
+
+<b> Usage: </b>
+
+```bash
+keploy contract [flags]
+```
+
+<b> Available flags: </b>
+
+- `--service string` - Comma-separated list of service names for contract operations.
+
+  ```bash
+  keploy contract --service="email,notify"
+  ```
+
+  In the command above, `email,notify` are the service names for which contracts will be managed.
+
+- `--path string` - Local path for downloading or validating contracts. The default is ".".
+
+  ```bash
+  keploy contract --service="email,notify" --path "./contracts"
+  ```
+
+  In the above command, `contracts` is the directory in the CWD where the contract files will be stored.
+
+- `generate` - Generate contract(s) for specified services.
+
+  ```bash
+  keploy contract generate --service="email,notify"
+  ```
+
+- `download` - Download contract(s) for specified services to a local path.
+
+  ```bash
+  keploy contract download --service="email,notify" --path "./contracts"
+  ```
+
+- `test` - Validate contract(s) for specified services.
+
+  ```bash
+  keploy contract test --service="email,notify" --path "./contracts"
   ```
 
 ## [templatize](#templatize)
