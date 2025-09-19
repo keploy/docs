@@ -420,8 +420,6 @@ keploy contract [flags]
 
   ```bash
   keploy contract generate --service="email,notify"
-  ```bash
-  keploy contract download --service="email,notify" --path "./contracts"
   ```
 
 - `test` - Validate contract(s) for specified services.
