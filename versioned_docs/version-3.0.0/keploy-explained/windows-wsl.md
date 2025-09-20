@@ -38,7 +38,7 @@ Congratulations! You've successfully set up Keploy natively on Windows.
 
 ## What's Next?
 
-### 🎬 [Start Capturing Testcases](/docs/server/install/#-capturing-testcases)
+### 🎬 [Start Capturing Testcases](/docs/server/installation/#-capturing-testcases)
 
 Begin recording your API calls and generating test cases with Keploy.
 
