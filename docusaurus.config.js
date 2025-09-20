@@ -1,10 +1,8 @@
 //@ts-check
-
 import { themes as prismThemes } from "prism-react-renderer";
 const path = require("path");
 import { visit } from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
-
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   title: "Keploy Documentation",
@@ -268,7 +266,6 @@ module.exports = {
                     }
                     node.value = "// @ts-nocheck\n" + node.value.trim();
                   }
-
                   visit(tree, "code", visitor);
                 },
               {},
@@ -332,7 +329,6 @@ module.exports = {
       },
     ],
   ],
-
   scripts: [
     {
       src: "/docs/scripts/feedback.js",
@@ -344,19 +340,18 @@ module.exports = {
       async: true,
       defer: true,
     },
-    /*{
-       src: "/docs/scripts/chat.js",
-       async: true,
-       defer: true,
-     },
-      {
-        src: "/scripts/fullstory.js",
-        async: true,
-        defer: true,
-      },*/
+    {
+      src: "/docs/scripts/chat.js",
+      async: true,
+      defer: true,
+    },
+    {
+      src: "/scripts/fullstory.js",
+      async: true,
+      defer: true,
+    },
   ],
 };
-
 function convertIndent4ToIndent2(code) {
   // TypeScript always outputs 4 space indent. This is a workaround.
   // See https://github.com/microsoft/TypeScript/issues/4042
