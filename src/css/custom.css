@@ -18,6 +18,7 @@
 
 
 :root {
+  --keploy-yellow-rgb: 245, 182, 66;
   /* Brand colors for Keploy announcement bar */
   --keploy-orange: #e67838;
   --keploy-yellow: #f5b642;
@@ -135,15 +136,10 @@ html[data-theme="light"] body .announcementBar_mb4j {
   border-top: none;
 }
 /* Shared font for announcement bar content */
-html[data-theme="light"] .announcementBarContent_xLdY,
-html[data-theme="light"] .content_knG7,
-html[data-theme="dark"] .announcementBarContent_xLdY,
-html[data-theme="dark"] .content_knG7 {
-  font-family: "Roboto", sans-serif;
-}
 
-html[data-theme="light"] .announcementBarContent_xLdY,
-html[data-theme="light"] .content_knG7 {
+.announcementBarContent_xLdY,
+.content_knG7 {
+  font-family: "Roboto", sans-serif;
   font-size: 0.95rem;
   font-weight: 500;
   padding: 14px 28px;
@@ -157,6 +153,10 @@ html[data-theme="light"] .content_knG7 {
   border-radius: 0 0 8px 8px;
   margin-bottom: 0;
   box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+
+html[data-theme="light"] .announcementBarContent_xLdY,
+html[data-theme="light"] .content_knG7 {
   color: black;
   text-shadow: none;
 }
@@ -173,19 +173,6 @@ html[data-theme="dark"] body .announcementBar_mb4j {
 }
 html[data-theme="dark"] .announcementBarContent_xLdY,
 html[data-theme="dark"] .content_knG7 {
-  font-size: 0.95rem;
-  font-weight: 500;
-  padding: 14px 28px;
-  letter-spacing: 0.35px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  line-height: 1.6;
-  animation: fadeInDown 0.6s ease;
-  border-radius: 0 0 8px 8px;
-  margin-bottom: 0;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
   color: #ffffff;
   text-shadow: 0 2px 6px rgba(0,0,0,0.25); /* strong shadow for contrast */
 }
@@ -212,10 +199,10 @@ html[data-theme="dark"] .announcementBarContent_xLdY .close {
 }
 
 .announcementBarContent_xLdY .close:hover {
-  background: #e67838;
+  background: var(--keploy-orange);
   color: #fff;
   transform: rotate(90deg) scale(1.1);
-  box-shadow: 0 0 8px rgba(245, 182, 66, 0.7);
+  box-shadow: 0 0 8px rgba(var(--keploy-yellow-rgb), 0.7);
 }
 
 /* ====== Animation ====== */
