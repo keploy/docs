@@ -112,13 +112,44 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 
 🎉 Hooray! You've made it to the end of the binary section! 🎉
 
-## <SectionDivider />
+<SectionDivider />
 
-# Instructions For Starting Using Docker
+## Instructions For Starting Using Docker
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 <InstallReminder />
+
+## Setup the frontend
+
+### Prerequisites For Frontend:
+
+1. Node version 16.x and above
+
+```bash
+git clone https://github.com/keploy/samples-java.git
+cd samples-java/spring-petclinic/spring-petclinic-angular
+npm i --legacy-peer-deps
+```
+
+## Start the frontend
+
+```bash
+npm run start
+```
+
+Now it's time to setup the backend of our application. Let's move to the backend directory and get started.
+
+```bash
+cd samples-java/spring-petclinic/spring-petclinic-rest
+```
+
+Prerequisites For API backend Binary:
+
+1. OpenJDK 17+
+2. MVN version 3.6+
+
+## Recording the testcases with Keploy
 
 ```bash
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100

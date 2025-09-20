@@ -25,25 +25,18 @@ keyword:
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
+### Get Started! 🎬
 
-## Clone the application 🧪
+### Clone the application 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-redis
 ```
-
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-We are going to run the application the following way
-
-- [Using Docker compose : running application as well as Mongo on Docker container](#using-docker-compose-)
 
 ## Using Docker Compose 🐳
 
@@ -141,43 +134,6 @@ You can also check the test summary from your cli
 <=========================================>
 ```
 
-## Some errors you may run into ?
+### Wrapping it up 🎉
 
-1. While running the application you might have some ports up and running that you are trying to access again. This would throw a EBPF error
-
-You can check the ports from the below command and
-
-```bash
-sudo lsof -p
-```
-
-If you want to check which process is using a specific port (e.g., port 5000), use:
-
-```bash
-sudo lsof -i :5000
-```
-
-Once you have identified the PID of the process using the port you need, you can terminate the process with the kill command:
-
-```bash
-sudo kill -9 <PID>
-```
-
-2. ERROR: for redis 'ContainerConfig'
-
-The KeyError: 'ContainerConfig' issue you're encountering with Docker Compose is indicative of a problem with the Docker Compose file or its version compatibility.
-
-Here’s how you can address and troubleshoot this error:
-
-```bash
-sudo apt-get update
-sudo apt-get install docker-compose
-```
-
-Check your compose file's permissions
-
-```bash
-ls -l docker-compose.yml
-```
-
-Re-run the record or test command from above
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀

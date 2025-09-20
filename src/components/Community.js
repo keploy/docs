@@ -64,31 +64,35 @@ export const Community = () => {
           </a>
         </li>
         <li>
-          <a href="https://lu.ma/keploy" className="flex items-start space-x-4">
+          <a
+            href="https://testgpt.substack.com/"
+            className="flex items-start space-x-4"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <svg
-              width="512"
-              height="512"
-              viewBox="0 0 512 512"
-              className="h-12 w-12 flex-none rounded-lg text-black"
-              fill="none"
               xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 512 512"
+              className="h-12 w-12 flex-none"
             >
+              <rect width="512" height="512" fill="white" />
+              <rect x="96" y="128" width="320" height="42.7" fill="#FF6719" />
+              <rect x="96" y="213.3" width="320" height="42.7" fill="#FF6719" />
               <path
-                d="M384 0H128C57.3076 0 0 57.3076 0 128V384C0 454.692 57.3076 512 128 512H384C454.692 512 512 454.692 512 384V128C512 57.3076 454.692 0 384 0Z"
-                fill="#2D8CFF"
-              />
-              <path
-                d="M402.164 342.205C408.958 343.904 414.904 340.507 418.301 335.411C420 332.863 420 328.616 420 319.274V191.027C420 181.685 420 178.288 418.301 174.89C415.753 168.096 408.958 165.548 402.164 168.096C384.327 179.986 345.257 214.808 344.408 229.247C343.728 231.795 343.728 236.041 343.728 241.986V274.26C343.728 281.055 343.728 283.603 344.408 287C345.257 293.795 347.805 299.74 351.203 303.137C361.395 310.781 395.369 341.356 403.013 341.356L402.164 342.205ZM93 197.822C93 185.082 93 178.288 95.5481 174.89C97.2468 171.493 102.343 168.096 104.891 165.548C108.288 163 114.234 163 127.823 163H237.39C269.665 163 285.803 163 298.543 169.795C307.886 176.589 318.078 182.534 324.023 195.274C330.818 208.014 330.818 224.151 330.818 256.425V314.178C330.818 326.918 330.818 333.712 328.27 337.11C326.571 340.507 321.475 343.904 318.927 346.452C315.53 349 309.584 349 295.995 349H186.429C154.153 349 138.016 349 125.275 342.205C115.932 335.411 105.74 329.466 99.7948 316.726C93 303.986 93 287.849 93 255.575V197.822Z"
-                fill="white"
+                d="M96 298.6h320V448L256 362.7 96 448V298.6Z"
+                fill="#FF6719"
               />
             </svg>
 
             <div className="flex-auto">
-              <h3 className="font-bold">Meetup</h3>
-              <p>Join our monthly meetup and ask questions!</p>
+              <h3 className="font-bold">Substack</h3>
+              <p className="text-sm text-gray-700">
+                Ideas worth reading — delivered directly to you.
+              </p>
             </div>
           </a>
         </li>
+
         <li>
           <a
             href="https://github.com/keploy"
@@ -270,8 +274,9 @@ export const Community = () => {
         </li>
       </ul>
       <p className="mt-8">
-        We are happy to help you with your 🎤 talks, 📝 blogposts (whether on
-        our blog or yours) or anything else you want to try. Just {/*<a*/}
+        Want to present your case study on Keploy? Just get in touch for any
+        resources you may need. Use the following link to
+        {/*<a*/}
         {/*  className="text-blue-400 hover:underline"*/}
         {/*  href="https://keploy.io/careers"*/}
         {/*>*/}
@@ -279,11 +284,11 @@ export const Community = () => {
         {/*</a>*/}
         <a
           className="text-blue-400 hover:underline"
-          href="mailto:hello@keploy.io"
+          href="https://calendar.google.com/calendar/u/0/appointments/schedules/AcZssZ2l-psdTCNCLYAJ-Jt5ESyGP7gi1_U70ySTjtFNr0Kmx5UagNJnyzg7lNjA3NKnaP6qFfpAgcdZ"
         >
-          get in touch
+          {" "}
+          book a slot
         </a>
-        !
       </p>
       {/*TODO : Early adopters and contributors*/}
     </section>

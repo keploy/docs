@@ -1,6 +1,6 @@
 ---
 id: samples-fastapi
-title: Sample Student Data CRUD App (FastAPI)
+title: Sample Student Data CRUD App
 sidebar_label: FastAPI + Postgres
 description: The following sample app showcases how to use the FastAPI framework and the Keploy Platform.
 tags:
@@ -21,34 +21,21 @@ keyword:
   - Auto case generation
 ---
 
-# Introduction
+## Using Docker Compose 🐳
 
-🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with FastAPI and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with FastAPI and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Setup the PostgreSQL Database 📦
-
-## Clone the sample Student Data CRUD app 🧪
+### Clone the sample Student Data CRUD app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
 ```
-
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
-We will be using Docker compose to run the application as well as Postgres on Docker container.
 
 ### Lights, Camera, Record! 🎥
 
@@ -220,13 +207,21 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
+<SectionDivider />
+
 ## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
 
-### 📼 Roll the Tape - Recording Time!
+### Clone the sample Student Data CRUD app 🧪
 
-Ready, set, record! Here's how:
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
+```
+
+### Lights, Camera, Record! 🎥
+
+Capture the test-cases-
 
 ```bash
 keploy record -c "uvicorn application.main:app --reload"
@@ -391,5 +386,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .

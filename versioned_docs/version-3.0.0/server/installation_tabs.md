@@ -11,13 +11,15 @@ keywords:
   - macos
   - windows
   - ebpf
-  - lima
+  - limas
   - wsl
   - installation
 ---
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
+import StartKeploy from '@site/src/components/StartKeploy';
+import StartKeployDocker from '@site/src/components/StartKeployDocker';
 
 # Installing Keploy
 
@@ -25,53 +27,131 @@ Keploy uses eBPF to intercept API calls at the network layer and generate test c
 Choose your OS to get started 🚀
 
 <Tabs>
-  <TabItem value="linux" label="Linux">
+<TabItem value="linux" label="Linux">
 <br />
+
 :::info
-Installing Keploy on Linux is super easy it works on **any Linux distribution** with a simple one-command installation
+Make sure your Linux kernel version is **5.10 or higher**.
 :::
+👉 **Choose your preferred method:**
 
-## 1. Install Keploy
+<Tabs>
+<TabItem value="linux-native" label="Native">
+ <br />
 
-```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
-```
+### 1. Install Keploy
 
-## 2. Verify Installation
+    ```bash
+    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    ```
 
-```bash
-keploy --version
-```
+    ### 2. Once done, You should see something like this:
 
-✅ If you see the version number, Keploy has been installed successfully!
+    ```bash
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+
+    Keploy CLI
+
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
+
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
+
+    Use "keploy [command] --help" for more information about a command.
+    ```
 
 ## 🎉 Congratulations!
 
 You’ve successfully installed **Keploy on Linux**.
 
-  </TabItem>
+<StartKeploy />
+</TabItem>
 
-  <TabItem value="macos" label="macOS">
-  <br />
+<TabItem value="docker-linux" label="Docker">
+
+## Install Keploy with Docker on Linux
+
+1. **Make sure Docker is installed**: You’ll need Docker installed on Linux
+
+2. **Install Keploy**
+
+````bash
+   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   ```
+
+3. **Once done, You should see something like this:**
+
+  ```bash
+      ▓██▓▄
+   ▓▓▓▓██▓█▓▄
+    ████████▓▒
+         ▀▓▓███▄      ▄▄   ▄               ▌
+        ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+      ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+     ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+      ▓▌                           ▐█▌                   █▌
+       ▓
+
+   Keploy CLI
+
+   Available Commands:
+     example           Example to record and test via keploy
+     config --generate generate the keploy configuration file
+     record            record the keploy testcases from the API calls
+     test              run the recorded testcases and execute assertions
+     update            Update Keploy
+
+   Flags:
+         --debug     Run in debug mode
+     -h, --help      help for keploy
+     -v, --version   version for keploy
+
+   Use "keploy [command] --help" for more information about a command.
+   ```
+## 🎉 Congratulations!
+
+You’ve successfully set up **Keploy on Linux** using **Docker**.
+
+<StartKeployDocker />
+</TabItem>
+ </Tabs>
+</TabItem>
+
+<TabItem value="macos" label="macOS">
+ <br />
 
 :::info
 Keploy does not natively support macOS. However, you can run it using **Lima** or **Docker**.
 :::
 👉 **Choose your preferred method:**
 
-- [Option 1: Install Keploy with Lima](#option-1-install-keploy-with-lima)
+<Tabs>
+ <TabItem value="lima" label="Lima">
 
-- [Option 2: Install Keploy with Docker on macOS](#option-2-install-keploy-with-docker-on-macos)
-
-## Option 1: Install Keploy with Lima
+## Install Keploy with Lima
 
 1. **Check if Lima is installed**: If you already have Lima, Go to Step 6.
 
 2. **Install Lima**
 
-   ```bash
-   brew install lima
-   ```
+  ```bash
+  brew install lima
+````
 
 3. **Create a Debian instance** [or any instance of your choice]
 
@@ -97,80 +177,111 @@ Keploy does not natively support macOS. However, you can run it using **Lima** o
    curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ```
 
-7. **Verify the installation**
+7. **Once done, You should see something like this:**
 
-   ```bash
-   keploy --version
-   ```
+```bash
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
 
-✅ If the version shows up, Keploy is installed successfully!
+Keploy CLI
 
-## What's Next?
+Available Commands:
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/#-capturing-testcases)
+Flags:
+      --debug     Run in debug mode
+  -h, --help      help for keploy
+  -v, --version   version for keploy
 
-Begin recording your API calls and automatically generate test cases with Keploy.
+Use "keploy [command] --help" for more information about a command.
+```
 
-## Option 2: Install Keploy with Docker on macOS
+## 🎉 Congratulations!
+
+You’ve successfully set up **Keploy on macOS** using **Lima**.
+
+<StartKeploy />
+
+</TabItem>
+
+<TabItem value="docker-mac" label="Docker">
+
+## Install Keploy with Docker on macOS
 
 1. **Make sure Docker is installed**: You’ll need Docker Desktop running on macOS.
 
-2. **Create a Docker bridge network**
-
-   ```bash
-   docker network create keploy-network
-   ```
-
-3. **Install Keploy**
+2. **Install Keploy**
 
    ```bash
    curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ```
 
-4. **Verify the installation**
+3. **Verify the installation**
 
-   ```bash
-   keploy --version
-   ```
-
-✅ If the version shows up, Keploy is installed successfully!
-
-## What's Next?
-
-🎬 Start Capturing Test cases
-
-### ▶️ Record
+   **Once done, You should see something like this:**
 
 ```bash
-keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---container-name "<containerName>" --buildDelay 60
-```
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
 
-### 🧪 Test
+Keploy CLI
 
-```bash
-keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---delay 10 --buildDelay 60
+Available Commands:
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
+
+Flags:
+      --debug     Run in debug mode
+  -h, --help      help for keploy
+  -v, --version   version for keploy
+
+Use "keploy [command] --help" for more information about a command.
 ```
 
 ## 🎉 Congratulations!
 
-You’ve successfully set up **Keploy on macOS** using either **Lima** or **Docker**.
+You’ve successfully set up **Keploy on macOS** using **Docker**.
 
+ <StartKeployDocker />
+
+</TabItem>
+</Tabs>
   </TabItem>
 
-  <TabItem value="windows" label="Windows">
+<TabItem value="windows" label="Windows">
 <br />
+
 :::info
 Keploy does not natively support Windows. However, you can run it using **WSL** or **Docker**.
 :::
+
 👉 **Choose your preferred method:**
 
-- [Option 1: Install Keploy with WSL](#option-1-install-keploy-with-wsl)
+<Tabs>
+  <TabItem value="wsl" label="WSL">
 
-- [Option 2: Install Keploy with Docker on WSL](#option-2-install-keploy-with-docker-on-wsl)
-
-## Option 1: Install Keploy with WSL
+## Install Keploy with WSL
 
 If you already have WSL, Go to Step 2.
 
@@ -199,65 +310,95 @@ Run the following command in PowerShell (as Administrator):
 
 3. **Verify Installation**
 
-   ```bash
-   keploy --version
-   ```
+```bash
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
 
-   ✅ If you see the version number, Keploy is installed successfully!
+Keploy CLI
 
-## What's Next?
+Available Commands:
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/#-capturing-testcases)
+Flags:
+      --debug     Run in debug mode
+  -h, --help      help for keploy
+  -v, --version   version for keploy
 
-Begin recording your API calls and automatically generate test cases with Keploy.
+Use "keploy [command] --help" for more information about a command.
+```
 
----
+## 🎉 Congratulations!
 
-## Option 2: Install Keploy with Docker on WSL
+You’ve successfully set up **Keploy on Windows** using **WSL**.
+
+<StartKeploy />
+
+</TabItem>
+
+<TabItem value="docker-windows" label="Docker">
+
+## Install Keploy with Docker on Windows
 
 1. **Make sure Docker is installed** : You’ll need **Docker Desktop** running on Windows.
 
-2. **Create a Docker bridge network**
-
-   ```bash
-   docker network create keploy-network
-   ```
-
-3. **Install Keploy**
+2. **Install Keploy**
 
    ```bash
    curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ```
 
-4. **Verify the installation**
+3. **Verify the installation**
 
-   ```bash
-   keploy --version
-   ```
-
-✅ If the version shows up, Keploy is installed successfully!
-
-## What's Next?
-
-🎬 Start Capturing Test cases
-
-### ▶️ Record
+**Once done, You should see something like this:**
 
 ```bash
-keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---container-name "<containerName>" --buildDelay 60
-```
 
-### 🧪 Test
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
 
-```bash
-keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---delay 10 --buildDelay 60
+Keploy CLI
+
+Available Commands:
+  example           Example to record and test via keploy
+  config --generate generate the keploy configuration file
+  record            record the keploy testcases from the API calls
+  test              run the recorded testcases and execute assertions
+  update            Update Keploy
+
+Flags:
+      --debug     Run in debug mode
+  -h, --help      help for keploy
+  -v, --version   version for keploy
+
+Use "keploy [command] --help" for more information about a command.
+
 ```
 
 ## 🎉 Congratulations!
 
-You’ve successfully set up **Keploy on Windows** using either **WSL** or **Docker**.
+You’ve successfully set up **Keploy on Windows** using **Docker**.
 
-  </TabItem>
+<StartKeployDocker />
+
+</TabItem>
+</Tabs>
+</TabItem>
 </Tabs>

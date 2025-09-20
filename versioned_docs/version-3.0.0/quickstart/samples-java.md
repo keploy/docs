@@ -29,6 +29,7 @@ keyword:
 A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
 and **PostgreSQL**.
 
+import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -209,13 +210,21 @@ Next we move on to the instructions to start the application using docker.
 
 <SectionDivider />
 
----
-
-<SectionDivider />
-
 ## Instructions For Starting Using Docker
 
 <InstallReminder />
+
+### Application Pre-Requisites
+
+- Java 1.8+ or {'<'}17 ☕
+- Maven 🛠️
+
+Clone the repository and install the dependencies
+
+```bash
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
+mvn clean install -Dmaven.test.skip=true
+```
 
 ### Capture the testcases 🎬
 
@@ -288,11 +297,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 ### 🎉 Wrapping it up
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-## 🚀 Wanna try Keploy in CI/CD?
-
-We got you 😎  
-Here’s how to set it up with GitHub Actions:  
-👉 [Keploy + GitHub CI/CD Guide](https://keploy.io/docs/ci-cd/github)
-
-Hope this helps you out, if you still have any questions, reach out to us .
