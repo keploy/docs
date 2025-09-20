@@ -222,7 +222,6 @@ html[data-theme="dark"] .announcementBarContent_xLdY .close {
   @keyframes fadeInDown {
     from {
       opacity: 0;
-      /* Remove transform for reduced motion */
     }
     to {
       opacity: 1;
