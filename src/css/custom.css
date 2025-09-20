@@ -1,3 +1,9 @@
+/* ====== announcement bar link fix start ====== */
+.announcementBarLink {
+  text-decoration: underline;
+  color: inherit;
+}
+/* ====== announcement bar link fix end ====== */
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
@@ -10,7 +16,12 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
+  --keploy-yellow-rgb: 245, 182, 66;
+  /* Brand colors for Keploy announcement bar */
+  --keploy-orange: #e67838;
+  --keploy-yellow: #f5b642;
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
  
   /* --ifm-color-primary-lighter: #ffb575; */
@@ -109,6 +120,130 @@ html[data-theme="light"] {
 
 .edit a svg {
   @apply inline;
+}
+
+/* ====== Shared Announcement Bar Styles ====== */
+
+
+/* ====== announcement banner light mode ====== */
+html[data-theme="light"] .announcementBar_mb4j {
+  background: linear-gradient(135deg, #ffe3d0 60%, #ffffff);
+}
+html[data-theme="light"] body .announcementBar_mb4j {
+  border: none;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  border-radius: 0;
+  border-top: none;
+}
+/* Shared font for announcement bar content */
+
+.announcementBarContent_xLdY,
+.content_knG7 {
+  font-family: "Roboto", sans-serif;
+  font-size: 0.95rem;
+  font-weight: 500;
+  padding: 14px 28px;
+  letter-spacing: 0.35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  line-height: 1.6;
+  animation: fadeInDown 0.6s ease;
+  border-radius: 0 0 8px 8px;
+  margin-bottom: 0;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+}
+
+html[data-theme="light"] .announcementBarContent_xLdY,
+html[data-theme="light"] .content_knG7 {
+  color: black;
+  text-shadow: none;
+}
+
+/* ====== announcement banner dark mode ====== */
+html[data-theme="dark"] .announcementBar_mb4j {
+  background: linear-gradient(135deg, var(--keploy-orange), var(--keploy-yellow)); /* Keploy gradient */
+}
+html[data-theme="dark"] body .announcementBar_mb4j {
+  border: none;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  border-radius: 0;
+  border-top: 2px solid var(--keploy-yellow); /* golden accent */
+}
+html[data-theme="dark"] .announcementBarContent_xLdY,
+html[data-theme="dark"] .content_knG7 {
+  color: #ffffff;
+  text-shadow: 0 2px 6px rgba(0,0,0,0.25); /* strong shadow for contrast */
+}
+
+/* ====== Close button (modern circular style) ====== */
+.announcementBarContent_xLdY .close {
+/* Show a visible focus ring for keyboard users on the close button */
+.announcementBarContent_xLdY .close:focus-visible,
+.announcementBarContent_xLdY .close:focus {
+  outline: 2px solid var(--keploy-orange);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
+  z-index: 2;
+}
+  margin-left: 14px;
+  cursor: pointer;
+  background: rgba(0,0,0,0.05);
+  border-radius: 50%;
+  width: 26px;
+  height: 26px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 1rem;
+  font-weight: bold;
+  color: inherit;
+  transition: all 0.3s ease;
+}
+
+html[data-theme="dark"] .announcementBarContent_xLdY .close {
+  background: rgba(255,255,255,0.08);
+}
+
+.announcementBarContent_xLdY .close:hover {
+/* Reduced motion: minimize or remove motion effects for sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  .announcementBarContent_xLdY,
+  .content_knG7 {
+    animation: none !important;
+  }
+  .announcementBarContent_xLdY .close {
+    transition: none !important;
+  }
+  .announcementBarContent_xLdY .close:hover {
+    transform: none !important;
+  }
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
+  background: var(--keploy-orange);
+  color: #fff;
+  transform: rotate(90deg) scale(1.1);
+  box-shadow: 0 0 8px rgba(var(--keploy-yellow-rgb), 0.7);
+}
+
+/* ====== Animation ====== */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
