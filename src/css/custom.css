@@ -179,6 +179,14 @@ html[data-theme="dark"] .content_knG7 {
 
 /* ====== Close button (modern circular style) ====== */
 .announcementBarContent_xLdY .close {
+/* Show a visible focus ring for keyboard users on the close button */
+.announcementBarContent_xLdY .close:focus-visible,
+.announcementBarContent_xLdY .close:focus {
+  outline: 2px solid var(--keploy-orange);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
+  z-index: 2;
+}
   margin-left: 14px;
   cursor: pointer;
   background: rgba(0,0,0,0.05);
@@ -199,6 +207,28 @@ html[data-theme="dark"] .announcementBarContent_xLdY .close {
 }
 
 .announcementBarContent_xLdY .close:hover {
+/* Reduced motion: minimize or remove motion effects for sensitive users */
+@media (prefers-reduced-motion: reduce) {
+  .announcementBarContent_xLdY,
+  .content_knG7 {
+    animation: none !important;
+  }
+  .announcementBarContent_xLdY .close {
+    transition: none !important;
+  }
+  .announcementBarContent_xLdY .close:hover {
+    transform: none !important;
+  }
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      /* Remove transform for reduced motion */
+    }
+    to {
+      opacity: 1;
+    }
+  }
+}
   background: var(--keploy-orange);
   color: #fff;
   transform: rotate(90deg) scale(1.1);
