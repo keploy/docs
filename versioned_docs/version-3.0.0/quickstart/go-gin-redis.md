@@ -18,32 +18,23 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-## Introduction
+# Using Docker Compose 🐳
 
-🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with Gin and Redis. Buckle up, it's gonna be a fun ride! 🎢
+A sample user authentication app to test Keploy integration capabilities using Gin and Redis
 
-import InstallationGuide from '../concepts/installation.md'
+<InstallReminder />
 
-<InstallationGuide/>
-
-## Get Started! 🎬
-
-## Clone a sample user authentication app 🧪
+### Clone a sample user authentication app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-redis
 go mod download
 ```
 
-## Installation 📥
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as Redis on Docker container](#using-docker-compose-)
-- [Using Docker container for Redis and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
+ 
 
 We will be using Docker compose to run the application as well as Redis on Docker container.
 
@@ -79,7 +70,7 @@ Let's make URLs short and sweet:
 curl --location 'localhost:3001/api/getVerificationCode?email=something@gmail.com&username=shivamsourav'
 ```
 
-This will return the OTP response:
+This returns the OTP response:
 
 ```
 {
@@ -100,7 +91,7 @@ curl --location 'localhost:3001/api/verifyCode' \
 }'
 ```
 
-This will return the OTP verification response:
+This returns the OTP verification response:
 
 ```bash
 {
@@ -222,8 +213,8 @@ Want to see if everything works as expected?
 
 Time to put things to the test 🧪
 
-```shell
-keploy test -c "sudo docker run -p 3001:3001 --rm --network <networkName> --name ginRedisApp gin-app:1.0" --delay 10
+```bash
+keploy test -c "docker run -p 3001:3001 --rm --network <networkName> --name ginRedisApp gin-app:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -235,6 +226,8 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+<SectionDivider />
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -248,7 +241,7 @@ Start the Redis database using docker-compose:
 docker compose up redis
 ```
 
-We'll create a binary of our application:
+Create a binary of our application:
 
 ```bash
 go build -o gin-redis
