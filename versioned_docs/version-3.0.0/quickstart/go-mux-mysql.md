@@ -19,32 +19,23 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-## Introduction
+# Using Docker Compose 🐳
 
-A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySQL. Buckle up, it's gonna be a fun ride! 🎢
+A sample url shortener app to test Keploy integration capabilities using Mux and MySQL.
 
-import InstallationGuide from '../concepts/installation.md'
+<InstallReminder />
 
-<InstallationGuide/>
-
-## Get Started! 🎬
-
-## Clone a sample URL shortener app 🧪
+### Clone a sample URL shortener app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-mysql
 go mod download
 ```
 
-## Installation Keploy
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as MySQL on Docker container](#using-docker-compose-)
-- [Using Docker container for MySQL and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
+ 
 
 We will be using Docker compose to run the application as well as MySQL on Docker container.
 
@@ -54,7 +45,7 @@ We will be using Docker compose to run the application as well as MySQL on Docke
 docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
 ```
 
-#### Creating Docker Volume
+#### Create Docker volume (optional)
 
 ```bash
 docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
@@ -62,13 +53,13 @@ docker volume create --driver local --opt type=debugfs --opt device=debugfs debu
 
 ### Capture the Testcases
 
-Now, we will create the docker image of our application:-
+Build the Docker image of our application:
 
 ```zsh
 docker build -t url-short .
 ```
 
-Once we have our Docker image file ready,this command will start the recording of API calls using ebpf:-
+Once we have our Docker image ready, this command will start recording API calls using eBPF:
 
 ```shell
 keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
@@ -78,7 +69,7 @@ Make API Calls using Postman or cURL command. Keploy with capture those calls to
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
+To generate test cases we just need to make some API calls. You can use Postman or simply `curl`.
 
 #### Generate shortened url
 
@@ -101,33 +92,31 @@ this will return the shortened url. The ts would automatically be ignored during
 }
 ```
 
-#### Access all the shortened urls
+#### Access all shortened URLs
 
 ```bash
-curl --request GET http://localhost:8080/all
+curl --request GET --url http://localhost:8080/all
 ```
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
 
 ![Testcase](/img/mux-mysql-keploy-record.png)
 
-Now, let's see the magic! ✨💫
+Now, let's see the magic! ✨💫 Want to see if everything works as expected?
 
-Want to see if everything works as expected?
+### Run the test cases
 
-### Run the Testcases
-
-Now let's run the test mode (in the echo-sql directory, not the Keploy directory).
+Run the test mode (in the project directory, not the Keploy directory):
 
 ```shell
 keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest" --delay 10
 ```
 
-output should look like
+Output should look like this:
 
 ![Testrun](/img/mux-mysql-keploy-tests.png)
 
-So no need to setup fake database/apis MySQL or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MySQL 😄**
+No need to set up fake databases/APIs like MySQL or write mocks manually. Keploy automatically mocks them and the application thinks it's talking to MySQL. 😄
 
 ### Wrapping it up 🎉
 
@@ -135,14 +124,16 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-## Running App Locally on Linux/WSL 🐧
+<SectionDivider />
+
+## Running app locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MySQL) chill on Docker. Ready? Let's get the party started!🎉
 
 > To establish a network for your application using Keploy on Docker, follow these steps.
 > If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
 
-### Let's start the MySQL Instance
+### Start the MySQL instance
 
 ```zsh
 docker run -p 3306:3306 --rm --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
@@ -162,11 +153,11 @@ go build -o main
 sudo -E PATH=$PATH keploy record -c "./main"
 ```
 
-![Testcase](https://github.com/heyyakash/samples-go/assets/85030597/2b4f3c04-4631-4f9a-b317-7fdb6db87879)
+![Testrun](/img/mux-mysql-testcase.png)
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
+To generate test cases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl.
 
 #### Generate shortened url
 
@@ -195,24 +186,20 @@ this will return the shortened url.
 curl -request GET localhost:8080/links/1
 ```
 
-Now, let's see the magic! 🪄💫
+Now, let's see the magic! 🪄💫 Both these API calls were captured as a test case and should be visible on the Keploy CLI. You should see a `keploy` folder with the test cases and data mocks created.
 
-Now both these API calls were captured as a testcase and should be visible on the Keploy CLI. You should be seeing an app named keploy folder with the test cases we just captured and data mocks created
+### Run the captured test cases
 
-### Run the captured testcases
-
-Now that we have our testcase captured, run the test file.
+Now that we have our test case captured, run the test file.
 
 ```zsh
 sudo -E PATH=$PATH keploy test -c "./main" --delay 10
 ```
 
-So no need to setup dependencies like MySQL, web-go locally or write mocks for your testing.
-
-The application thinks it's talking to MySQL 😄
+No need to set up dependencies like MySQL or write mocks for your testing. The application thinks it's talking to MySQL. 😄
 
 We will get output something like this:
-![Testrun](https://github.com/heyyakash/samples-go/assets/85030597/472cab5e-9687-4fc5-bd57-3c52f56feedf)
+![Testrun](/img/go-mux-mysql-test-cases.png)
 
 ### Wrapping it up 🎉
 
