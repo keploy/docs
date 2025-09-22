@@ -1,9 +1,9 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {FaBook} from "react-icons/fa";
-import {FaRobot} from "react-icons/fa";
-import {FaWindows, FaLinux, FaApple} from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
+import { FaRobot } from "react-icons/fa";
+import { FaWindows, FaLinux, FaApple } from "react-icons/fa";
 export const QuickStart = () => {
   return (
     <section className="mt-1">
@@ -65,37 +65,45 @@ export const QuickStart = () => {
           testing.
         </p>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+        <div >
           {/* Installation Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/server/installation")}
-          >
-            <div class="flex gap-3">
-              <FaWindows className="h-12 w-12 text-orange-500" />
-              <FaLinux className="h-12 w-12 text-orange-500" />
-              <FaApple className="h-12 w-12 text-orange-500" />
+          <div className="grid gap-4 md:grid-cols-3 xl:gap-6 grid-cols-auto-fit">
+            <div className="min-w-[30%]">
+              <Link
+                className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
+                to={useBaseUrl("/server/installation")}
+              >
+                <div class="flex gap-3">
+                  <FaWindows className="h-12 w-12 text-orange-500" />
+                  <FaLinux className="h-12 w-12 text-orange-500" />
+                  <FaApple className="h-12 w-12 text-orange-500" />
+                </div>
+                <p className="pt-4 text-lg font-semibold">Installation</p>
+              </Link>
             </div>
-            <p className="pt-4 text-lg font-semibold">Installation</p>
-          </Link>
 
-          {/* Quickstart Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/docs/quickstart/quickstart-filter/")}
-          >
-            <FaBook className="h-12 w-12 text-orange-500" />
-            <p className="pt-4 text-lg font-semibold">Quickstart Guide</p>
-          </Link>
+            {/* Quickstart Card */}
+            <div className="min-w-[30%]">
+              <Link
+                className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
+                to={useBaseUrl("/docs/quickstart/quickstart-filter/")}
+              >
+                <FaBook className="h-12 w-12 text-orange-500" />
+                <p className="pt-4 text-lg font-semibold">Quickstart Guide</p>
+              </Link>
+            </div>
 
-          {/* AI-powered API Testing Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/docs/running-keploy/generate-api-tests-using-ai/")}
-          >
-            <FaRobot className="h-12 w-12 text-orange-500" />
-            <p className="pt-4 text-lg font-semibold">AI-powered API Testing</p>
-          </Link>
+            {/* AI-powered API Testing Card */}
+            <div className="min-w-[30%]">
+              <Link
+                className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
+                to={useBaseUrl("/docs/running-keploy/generate-api-tests-using-ai/")}
+              >
+                <FaRobot className="h-12 w-12 text-orange-500" />
+                <p className="pt-4 text-lg font-semibold">AI-powered API Testing</p>
+              </Link>
+            </div>
+          </div>
         </div>
       </div>
     </section>
