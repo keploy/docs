@@ -1,9 +1,7 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {FaBook} from "react-icons/fa";
-import {FaRobot} from "react-icons/fa";
-import {FaWindows, FaLinux, FaApple} from "react-icons/fa";
+
 export const QuickStart = () => {
   return (
     <section className="mt-1">
@@ -56,47 +54,48 @@ export const QuickStart = () => {
       {/*  </a>*/}
       {/*</p>*/}
 
-      <div className="mt-8">
-        <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
-          Get Started 🚀
-        </h2>
-        <p className="text-l mb-8 max-w-4xl">
-          Get started with installation, quickstart, or dive into AI-powered API
-          testing.
-        </p>
+      <h2 className="mt-8 text-2xl font-semibold tracking-wide md:text-3xl">
+        Installation Guide 📗
+      </h2>
+      <p className="text-l mb-8 mt-4 max-w-4xl">
+        Let's get Keploy up and running on your Windows, Linux, or macOS
+        machine, so you can start crafting test cases in minutes. ⏱️
+      </p>
 
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
-          {/* Installation Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/server/installation")}
-          >
-            <div class="flex gap-3">
-              <FaWindows className="h-12 w-12 text-orange-500" />
-              <FaLinux className="h-12 w-12 text-orange-500" />
-              <FaApple className="h-12 w-12 text-orange-500" />
-            </div>
-            <p className="pt-4 text-lg font-semibold">Installation</p>
-          </Link>
-
-          {/* Quickstart Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/docs/quickstart/quickstart-filter/")}
-          >
-            <FaBook className="h-12 w-12 text-orange-500" />
-            <p className="pt-4 text-lg font-semibold">Quickstart Guide</p>
-          </Link>
-
-          {/* AI-powered API Testing Card */}
-          <Link
-            className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105"
-            to={useBaseUrl("/docs/running-keploy/generate-api-tests-using-ai/")}
-          >
-            <FaRobot className="h-12 w-12 text-orange-500" />
-            <p className="pt-4 text-lg font-semibold">AI-powered API Testing</p>
-          </Link>
-        </div>
+      <div className="grid grid-cols-1 gap-6 md:grid-cols-3 lg:gap-8">
+        <Link
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/installation/installation")}
+        >
+          <img
+            className="h-16 w-16"
+            src="/docs/img/os/windows-logo.svg"
+            alt=""
+          />
+          <p className="text-lg font-semibold">Windows</p>
+        </Link>
+        <Link
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/")}
+        >
+          <img
+            className="h-16 w-16"
+            src="/docs/img/os/linux-logo.svg"
+            alt="Linux logo"
+          />
+          <p className="text-lg font-semibold">Linux</p>
+        </Link>
+        <Link
+          className="scale flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg"
+          to={useBaseUrl("/installation/macos-installation/")}
+        >
+          <img
+            className="h-16 w-16"
+            src="/docs/img/os/apple-logo.svg"
+            alt="Mac logo"
+          />
+          <p className="text-lg font-semibold">MacOS</p>
+        </Link>
       </div>
     </section>
   );

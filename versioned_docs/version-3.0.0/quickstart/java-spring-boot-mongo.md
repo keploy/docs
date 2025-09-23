@@ -26,13 +26,17 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with Spring-Boot and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+import InstallReminder from '@site/src/components/InstallReminder';
+
+<InstallReminder />
 
 ## Pre-Requisite 🛠️
 
 - Install JDK and add JAVA_HOME in environment variable.
-- Install [Maven](https://maven.apache.org/install.html)
-- Install [Docker](https://docs.docker.com/engine/install/)
+- Install Maven
+- Install Docker
 
 ## Get Started! 🎬
 
@@ -59,26 +63,6 @@ mvn wrapper:wrapper
 ```
 
 > **Note**: For Windows, use `mvnw.cmd clean install`
-
-## Install Keploy 📥
-
-First things first, If you are using WSL on windows then use below to start wsl in the user's home directory:
-
-```bash
-wsl ~
-```
-
-Alright, let's equip ourselves with the **latest Keploy binary**:
-
-```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-If everything goes right, your screen should look a bit like this:
-
-<img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
 
 ## Run Application
 
@@ -163,5 +147,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .
