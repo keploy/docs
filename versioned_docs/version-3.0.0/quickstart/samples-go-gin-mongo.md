@@ -209,7 +209,18 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-## Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL 🐧
+
+A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
+
+<InstallReminder />
+
+### Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started! 🎉
 

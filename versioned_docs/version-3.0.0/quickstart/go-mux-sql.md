@@ -24,7 +24,7 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 # Using Docker Compose 🐳
 
-A sample product catalog app to test Keploy integration capabilities using Mux and Postgres.
+A sample product catalog app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org).
 
 <InstallReminder />
 
@@ -207,7 +207,20 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+---
+
+# Running App Locally on Linux/WSL 🐧
+
+A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [PostgreSQL](https://www.postgresql.org).
+
+<InstallReminder />
+
+### Clone a sample Product Catalog App 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
 

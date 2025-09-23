@@ -23,11 +23,11 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 # Using Docker Compose 🐳
 
-This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
 
 <InstallReminder />
 
-### Clone the sample CRUD application 🧪
+### Clone a sample CRUD application 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
@@ -192,7 +192,18 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-## Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL 🐧
+
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
+
+<InstallReminder />
+
+### Clone the sample CRUD application 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started! 🎉
 
