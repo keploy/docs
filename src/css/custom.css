@@ -3,6 +3,7 @@
   text-decoration: underline;
   color: inherit;
 }
+
 /* ====== announcement bar link fix end ====== */
 /* stylelint-disable docusaurus/copyright-header */
 /**
@@ -23,9 +24,9 @@
   --keploy-orange: #e67838;
   --keploy-yellow: #f5b642;
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
@@ -35,24 +36,25 @@
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
-  --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --site-primary-hue-saturation-light: 0 0%;
+  /* do we really need this extra one? */
   --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
+
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #FFF;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -87,7 +89,8 @@ html[data-theme="light"] {
   --ifm-badge-background-color: rgba(239, 246, 255);
 
   --card-color: rgba(239, 246, 255);
-  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2);
+  /* Dark shadow for light theme */
 }
 
 @font-face {
@@ -129,12 +132,14 @@ html[data-theme="light"] {
 html[data-theme="light"] .announcementBar_mb4j {
   background: linear-gradient(135deg, #ffe3d0 60%, #ffffff);
 }
+
 html[data-theme="light"] body .announcementBar_mb4j {
   border: none;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
   border-radius: 0;
   border-top: none;
 }
+
 /* Shared font for announcement bar content */
 
 .announcementBarContent_xLdY,
@@ -152,7 +157,7 @@ html[data-theme="light"] body .announcementBar_mb4j {
   animation: fadeInDown 0.6s ease;
   border-radius: 0 0 8px 8px;
   margin-bottom: 0;
-  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
 }
 
 html[data-theme="light"] .announcementBarContent_xLdY,
@@ -163,33 +168,40 @@ html[data-theme="light"] .content_knG7 {
 
 /* ====== announcement banner dark mode ====== */
 html[data-theme="dark"] .announcementBar_mb4j {
-  background: linear-gradient(135deg, var(--keploy-orange), var(--keploy-yellow)); /* Keploy gradient */
+  background: linear-gradient(135deg, var(--keploy-orange), var(--keploy-yellow));
+  /* Keploy gradient */
 }
+
 html[data-theme="dark"] body .announcementBar_mb4j {
   border: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.7);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.7);
   border-radius: 0;
-  border-top: 2px solid var(--keploy-yellow); /* golden accent */
+  border-top: 2px solid var(--keploy-yellow);
+  /* golden accent */
 }
+
 html[data-theme="dark"] .announcementBarContent_xLdY,
 html[data-theme="dark"] .content_knG7 {
   color: #ffffff;
-  text-shadow: 0 2px 6px rgba(0,0,0,0.25); /* strong shadow for contrast */
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
+  /* strong shadow for contrast */
 }
 
 /* ====== Close button (modern circular style) ====== */
 .announcementBarContent_xLdY .close {
-/* Show a visible focus ring for keyboard users on the close button */
-.announcementBarContent_xLdY .close:focus-visible,
-.announcementBarContent_xLdY .close:focus {
-  outline: 2px solid var(--keploy-orange);
-  outline-offset: 2px;
-  box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
-  z-index: 2;
-}
+
+  /* Show a visible focus ring for keyboard users on the close button */
+  .announcementBarContent_xLdY .close:focus-visible,
+  .announcementBarContent_xLdY .close:focus {
+    outline: 2px solid var(--keploy-orange);
+    outline-offset: 2px;
+    box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
+    z-index: 2;
+  }
+
   margin-left: 14px;
   cursor: pointer;
-  background: rgba(0,0,0,0.05);
+  background: rgba(0, 0, 0, 0.05);
   border-radius: 50%;
   width: 26px;
   height: 26px;
@@ -203,31 +215,28 @@ html[data-theme="dark"] .content_knG7 {
 }
 
 html[data-theme="dark"] .announcementBarContent_xLdY .close {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .announcementBarContent_xLdY .close:hover {
-/* Reduced motion: minimize or remove motion effects for sensitive users */
-@media (prefers-reduced-motion: reduce) {
-  .announcementBarContent_xLdY,
-  .content_knG7 {
-    animation: none !important;
-  }
-  .announcementBarContent_xLdY .close {
-    transition: none !important;
-  }
-  .announcementBarContent_xLdY .close:hover {
-    transform: none !important;
-  }
-  @keyframes fadeInDown {
-    from {
-      opacity: 0;
+
+  /* Reduced motion: minimize or remove motion effects for sensitive users */
+  @media (prefers-reduced-motion: reduce) {
+
+    .announcementBarContent_xLdY,
+    .content_knG7 {
+      animation: none !important;
     }
-    to {
-      opacity: 1;
+
+    .announcementBarContent_xLdY .close {
+      transition: none !important;
+    }
+
+    .announcementBarContent_xLdY .close:hover {
+      transform: none !important;
     }
   }
-}
+
   background: var(--keploy-orange);
   color: #fff;
   transform: rotate(90deg) scale(1.1);
@@ -240,6 +249,7 @@ html[data-theme="dark"] .announcementBarContent_xLdY .close {
     opacity: 0;
     transform: translateY(-20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -247,9 +257,10 @@ html[data-theme="dark"] .announcementBarContent_xLdY .close {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
+
 h1,
 h2,
 h3,
@@ -267,21 +278,22 @@ h4,
 }
 
 /* otherwise external references in menu bar (see Go) have the icon screwed up */
-.menu__list-item > .menu__link > span {
+.menu__list-item>.menu__link>span {
   display: flex;
 }
+
 .menu__link--sublist:after {
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
 }
 
-div[class^="sidebar_"]
-  .menu__link.menu__link--active:not(.menu__link--sublist) {
+div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) {
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
+
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
@@ -293,6 +305,7 @@ div[class^="sidebar_"] .button svg {
 .table-of-contents__link {
   @apply text-sm text-[color:var(--ifm-color)];
 }
+
 .table-of-contents__link--active {
   @apply font-bold text-[color:var(--ifm-color-primary)];
 }
@@ -309,7 +322,8 @@ div[class^="sidebar_"] .button svg {
 }
 
 .center {
-  text-align: center; /* needed so that blog post heading is centered in the single blog post view */
+  text-align: center;
+  /* needed so that blog post heading is centered in the single blog post view */
 }
 
 /*
@@ -350,11 +364,13 @@ div[class^="sidebar_"] .button svg {
 .pagination-nav {
   @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
+
 .pagination-nav__item {
   @apply w-full max-w-md;
 }
+
 .pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5 text-lg shadow-lg transition-transform hover:scale-105;
 }
 
 /* Navbar */
@@ -367,7 +383,7 @@ div[class^="sidebar_"] .button svg {
   gap: 13px;
 }
 
-.navbar__items--right > :last-child {
+.navbar__items--right> :last-child {
   @apply pr-5;
 }
 
@@ -471,7 +487,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -608,43 +624,52 @@ td img {
 } */
 
 /* hacks to counteract tailwind typography clashing with docusaurus tabs */
-.prose .tabs-container > .tabs > .tabs__item::before {
+.prose .tabs-container>.tabs>.tabs__item::before {
   content: none;
 }
-.prose .tabs-container > .tabs > .tabs__item {
+
+.prose .tabs-container>.tabs>.tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   margin-bottom: 0em;
   opacity: 0.5;
 }
-.prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
+
+.prose .tabs-container>.tabs>.tabs__item.tabs__item--active {
   opacity: 1;
 }
 
 .prose .tabs {
   padding: 0 !important;
 }
+
 .prose .tabs-container ul {
   margin: 0;
   margin-bottom: -1.25rem;
 }
-.prose .tabs-container > .margin-vert--md pre {
+
+.prose .tabs-container>.margin-vert--md pre {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on inline images */
 .prose li img {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on li children */
-.prose > ol > li > :first-child,
-.prose > ul > li > :first-child,
-.prose > ol > li > :last-child,
-.prose > ul > li > :last-child {
-  margin: 0 !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+.prose>ol>li> :first-child,
+.prose>ul>li> :first-child,
+.prose>ol>li> :last-child,
+.prose>ul>li> :last-child {
+  margin: 0 !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
-.prose li > ul {
-  margin-top: 1rem !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+
+.prose li>ul {
+  margin-top: 1rem !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
 
 .prose :where(a code) {
@@ -661,12 +686,12 @@ td img {
   padding: 0;
   font-size: 0.95em;
 }
+
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
-[data-theme="light"]
-  .prose
-  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+[data-theme="light"] .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background-color: #ffffff;
 }
 
@@ -679,13 +704,11 @@ td img {
   width: 24px;
   height: 24px;
   display: flex;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
 [data-theme="dark"] .header-github-link::before {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
 /* Slack navbar icon to match GitHub size, spacing, color */
@@ -708,23 +731,17 @@ td img {
 }
 
 div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
+  --site-announcement-bar-stripe-color1: hsl(var(--site-primary-hue-saturation) 88%);
+  --site-announcement-bar-stripe-color2: hsl(var(--site-primary-hue-saturation) 95%);
+  background: repeating-linear-gradient(35deg,
+      var(--site-announcement-bar-stripe-color1),
+      var(--site-announcement-bar-stripe-color1) 20px,
+      var(--site-announcement-bar-stripe-color2) 10px,
+      var(--site-announcement-bar-stripe-color2) 40px);
   font-weight: bold;
 }
 
-.list-disc > a {
+.list-disc>a {
   display: inherit;
 }
 
@@ -739,7 +756,8 @@ a[class="breadcrumbs__link"] {
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
@@ -891,5 +909,3 @@ textarea {
 .theme-back-to-top-button:hover {
   background-color: #e67643 !important;
 }
-
-
