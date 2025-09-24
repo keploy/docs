@@ -90,58 +90,60 @@ You’ve successfully installed **Keploy on Linux**.
 
 2. **Install Keploy**
 
-````bash
+```bash
    curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+```
 
 3. **Once done, You should see something like this:**
 
-  ```bash
-      ▓██▓▄
-   ▓▓▓▓██▓█▓▄
-    ████████▓▒
-         ▀▓▓███▄      ▄▄   ▄               ▌
-        ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-      ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-     ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-      ▓▌                           ▐█▌                   █▌
-       ▓
+```bash
+    ▓██▓▄
+ ▓▓▓▓██▓█▓▄
+  ████████▓▒
+       ▀▓▓███▄      ▄▄   ▄               ▌
+      ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+    ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+   ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+    ▓▌                           ▐█▌                   █▌
+     ▓
 
-   Keploy CLI
+ Keploy CLI
 
-   Available Commands:
-     example           Example to record and test via keploy
-     config --generate generate the keploy configuration file
-     record            record the keploy testcases from the API calls
-     test              run the recorded testcases and execute assertions
-     update            Update Keploy
+ Available Commands:
+   example           Example to record and test via keploy
+   config --generate generate the keploy configuration file
+   record            record the keploy testcases from the API calls
+   test              run the recorded testcases and execute assertions
+   update            Update Keploy
 
-   Flags:
-         --debug     Run in debug mode
-     -h, --help      help for keploy
-     -v, --version   version for keploy
+ Flags:
+       --debug     Run in debug mode
+   -h, --help      help for keploy
+   -v, --version   version for keploy
 
-   Use "keploy [command] --help" for more information about a command.
-   ```
+ Use "keploy [command] --help" for more information about a command.
+```
+
 ## 🎉 Congratulations!
 
 You’ve successfully set up **Keploy on Linux** using **Docker**.
 
 <StartKeployDocker />
 </TabItem>
- </Tabs>
+</Tabs>
 </TabItem>
 
 <TabItem value="macos" label="macOS">
- <br />
-
-:::info
-Keploy does not natively support macOS. However, you can run it using **Lima** or **Docker**.
+<br />
+:::info 
+Keploy does not natively support macOS. However, you can run it using **Lima** or **Docker**. 
 :::
+
 👉 **Choose your preferred method:**
 
 <Tabs>
- <TabItem value="lima" label="Lima">
+
+<TabItem value="lima" label="Lima">
 
 ## Install Keploy with Lima
 
@@ -149,11 +151,11 @@ Keploy does not natively support macOS. However, you can run it using **Lima** o
 
 2. **Install Lima**
 
-  ```bash
-  brew install lima
-````
+```bash
+brew install lima
+```
 
-3. **Create a Debian instance** [or any instance of your choice]
+3. **Create a Debian instance** \[or any instance of your choice]
 
    ```bash
    limactl create template://debian-12
@@ -267,7 +269,7 @@ You’ve successfully set up **Keploy on macOS** using **Docker**.
 
 </TabItem>
 </Tabs>
-  </TabItem>
+</TabItem>
 
 <TabItem value="windows" label="Windows">
 <br />
