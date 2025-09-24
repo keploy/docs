@@ -200,7 +200,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.timestamp` to noise in `keploy.yml`.
 
-<img src="/docs/img/test-noise-employee-app.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/java-employee-timestamp.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
