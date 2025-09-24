@@ -67,7 +67,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 ---
 
-## Option 2: Install Keploy with Docker
+## Option 2: Install Keploy with Docker 
 
 1. **Make sure Docker is installed**
    You’ll need **Docker Desktop** running on Windows.
