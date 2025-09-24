@@ -11,7 +11,7 @@ tags:
 
 # Testing Guide 🧪
 
-In this blog, we will learn how the Keploy test bench works and how you can contribute to Keploy's code coverage.
+In this guide, we will learn how the Keploy test bench works and how you can contribute to Keploy's code coverage.
 
 ## Can Keploy Test Keploy?
 
