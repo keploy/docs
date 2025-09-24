@@ -1,6 +1,6 @@
 ---
 id: testing-guide
-title: testing Guide
+title: Testing Guide
 sidebar_label: Testing Guide
 tags:
   - explanation
@@ -11,9 +11,9 @@ tags:
 
 # Testing Guide 🧪
 
-In this blog, we will learn how test bench of keploy works and how you can contribute to keploy's code coverage.
+In this blog, we will learn how the Keploy test bench works and how you can contribute to Keploy's code coverage.
 
-## Keploy test Keploy?
+## Can Keploy Test Keploy?
 
 - Keploy's test bench is built on the principle that Keploy can test itself, operating in two distinct modes: `RECORD` and `TEST`. Each mode activates different sections of the codebase, with some overlap between the two. These modes can be executed concurrently to enhance testing efficiency.
 
@@ -59,17 +59,17 @@ curl --silent -o pilot --location "https://github.com/keploy/pilot/releases/late
 Note: Here `keployR` is released binary and `keployB` is built binary.
 The idea is that there will be two cases:
 
-1. The latest released version of keploy will be used for recording the tests & mocks using and built version of keploy will be used for testing.
+1. The latest released version of Keploy will be used for recording the tests & mocks, and the built version of Keploy will be used for testing.
    i.e. `keployR record -c "keployB test -c ./gin-mongo-app`.
 
-2. The latest released version of keploy will be used for testing and built version of keploy will be used for recording tests & mocks.
+2. The latest released version of Keploy will be used for testing, and the built version of Keploy will be used for recording tests & mocks.
    i.e. `keployB record -c "keployR test -c ./gin-mongo-app`.
 
 These two scenarios are designed to ensure the detection of changes, including any potential breaking changes or adjustments that may affect backward compatibility.
 
 ### Recording and testing of tests and mocks via test-bench
 
-Right now, in this guide i am only showing the first scenario, to run the second scenario you just need to replace the binaries as mentioned in the **4th** step.
+Right now, in this guide I am only showing the first scenario. To run the second scenario, you just need to replace the binaries as mentioned in the **4th** step.
 
 #### Recording Phase 🎥
 
@@ -143,4 +143,4 @@ If both scenarios yield a "passed" result, it signifies that this approach mirro
 
 <!-- To understand the internals you can refer to this [blog](blog link). -->
 
-Hope this helps you out, if you still have any questions, reach out to us .
+Hope this helps you out! If you still have any questions, reach out to us.
