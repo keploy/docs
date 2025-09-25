@@ -39,13 +39,13 @@ Make sure your Linux kernel version is **5.10 or higher**.
 <TabItem value="linux-native" label="Native">
  <br />
 
-### 1. Install Keploy
+1. **Install Keploy**
 
     ```bash
     curl --silent -O -L https://keploy.io/install.sh && source install.sh
     ```
 
-    ### 2. Once done, You should see something like this:
+1. **Once done, You should see something like this:**
 
     ```bash
        ▓██▓▄
@@ -90,39 +90,39 @@ You’ve successfully installed **Keploy on Linux**.
 
 2. **Install Keploy**
 
-```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-```
+    ```bash
+      curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    ```
 
 3. **Once done, You should see something like this:**
 
-```bash
-    ▓██▓▄
- ▓▓▓▓██▓█▓▄
-  ████████▓▒
-       ▀▓▓███▄      ▄▄   ▄               ▌
-      ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-    ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-   ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-    ▓▌                           ▐█▌                   █▌
-     ▓
+    ```bash
+        ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+      ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+          ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+        ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+        ▓▌                           ▐█▌                   █▌
+        ▓
 
- Keploy CLI
+    Keploy CLI
 
- Available Commands:
-   example           Example to record and test via keploy
-   config --generate generate the keploy configuration file
-   record            record the keploy testcases from the API calls
-   test              run the recorded testcases and execute assertions
-   update            Update Keploy
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
 
- Flags:
-       --debug     Run in debug mode
-   -h, --help      help for keploy
-   -v, --version   version for keploy
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
 
- Use "keploy [command] --help" for more information about a command.
-```
+    Use "keploy [command] --help" for more information about a command.
+    ```
 
 ## 🎉 Congratulations!
 
@@ -151,9 +151,9 @@ Keploy does not natively support macOS. However, you can run it using **Lima** o
 
 2. **Install Lima**
 
-```bash
-brew install lima
-```
+   ```bash
+   brew install lima
+   ```
 
 3. **Create a Debian instance** \[or any instance of your choice]
 
@@ -181,33 +181,33 @@ brew install lima
 
 7. **Once done, You should see something like this:**
 
-```bash
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
+    ```bash
+          ▓██▓▄
+        ▓▓▓▓██▓█▓▄
+        ████████▓▒
+              ▀▓▓███▄      ▄▄   ▄               ▌
+            ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+          ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+          ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+          ▓▌                           ▐█▌                   █▌
+            ▓
 
-Keploy CLI
+    Keploy CLI
 
-Available Commands:
-  example           Example to record and test via keploy
-  config --generate generate the keploy configuration file
-  record            record the keploy testcases from the API calls
-  test              run the recorded testcases and execute assertions
-  update            Update Keploy
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
 
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
 
-Use "keploy [command] --help" for more information about a command.
-```
+    Use "keploy [command] --help" for more information about a command.
+    ```
 
 ## 🎉 Congratulations!
 
@@ -233,33 +233,33 @@ You’ve successfully set up **Keploy on macOS** using **Lima**.
 
    **Once done, You should see something like this:**
 
-```bash
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
+    ```bash
+          ▓██▓▄
+        ▓▓▓▓██▓█▓▄
+        ████████▓▒
+              ▀▓▓███▄      ▄▄   ▄               ▌
+            ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+          ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+          ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+          ▓▌                           ▐█▌                   █▌
+            ▓
 
-Keploy CLI
+    Keploy CLI
 
-Available Commands:
-  example           Example to record and test via keploy
-  config --generate generate the keploy configuration file
-  record            record the keploy testcases from the API calls
-  test              run the recorded testcases and execute assertions
-  update            Update Keploy
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
 
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
 
-Use "keploy [command] --help" for more information about a command.
-```
+    Use "keploy [command] --help" for more information about a command.
+    ```
 
 ## 🎉 Congratulations!
 
@@ -300,8 +300,8 @@ Run the following command in PowerShell (as Administrator):
    wsl --install -d <Distribution Name>
    ```
 
-👉 We recommend using **Ubuntu-22.04** for the best experience.
-(You can also choose a different distribution if needed.)
+    👉 We recommend using **Ubuntu-22.04** for the best experience.
+    (You can also choose a different distribution if needed.)
 
 2. **Install Keploy Binary**
    Inside your WSL terminal, run:
@@ -312,33 +312,33 @@ Run the following command in PowerShell (as Administrator):
 
 3. **Verify Installation**
 
-```bash
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
+    ```bash
+          ▓██▓▄
+        ▓▓▓▓██▓█▓▄
+        ████████▓▒
+              ▀▓▓███▄      ▄▄   ▄               ▌
+            ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+          ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+          ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+          ▓▌                           ▐█▌                   █▌
+            ▓
 
-Keploy CLI
+    Keploy CLI
 
-Available Commands:
-  example           Example to record and test via keploy
-  config --generate generate the keploy configuration file
-  record            record the keploy testcases from the API calls
-  test              run the recorded testcases and execute assertions
-  update            Update Keploy
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
 
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
 
-Use "keploy [command] --help" for more information about a command.
-```
+    Use "keploy [command] --help" for more information about a command.
+    ```
 
 ## 🎉 Congratulations!
 
@@ -362,37 +362,37 @@ You’ve successfully set up **Keploy on Windows** using **WSL**.
 
 3. **Verify the installation**
 
-**Once done, You should see something like this:**
+    **Once done, You should see something like this:**
 
-```bash
+    ```bash
 
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
+          ▓██▓▄
+        ▓▓▓▓██▓█▓▄
+        ████████▓▒
+              ▀▓▓███▄      ▄▄   ▄               ▌
+            ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+          ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+          ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+          ▓▌                           ▐█▌                   █▌
+            ▓
 
-Keploy CLI
+    Keploy CLI
 
-Available Commands:
-  example           Example to record and test via keploy
-  config --generate generate the keploy configuration file
-  record            record the keploy testcases from the API calls
-  test              run the recorded testcases and execute assertions
-  update            Update Keploy
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
 
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
 
-Use "keploy [command] --help" for more information about a command.
+    Use "keploy [command] --help" for more information about a command.
 
-```
+    ```
 
 ## 🎉 Congratulations!
 
