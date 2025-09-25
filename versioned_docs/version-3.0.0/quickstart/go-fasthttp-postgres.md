@@ -18,6 +18,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -214,6 +215,7 @@ wsl ~
 ```
 
 ### Point the app to local Postgres
+
 Update the Postgres URL to `localhost:5432` in `main.go` (mentioned at line 21 in the sample).
 
 ### Start Postgres

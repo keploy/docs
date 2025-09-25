@@ -19,6 +19,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -143,7 +144,6 @@ We'll be running our sample application right on Linux, but just to make things 
 
 > To establish a network for your application using Keploy on Docker, follow these steps.
 > If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
-
 
 ### Start the MySQL instance
 

@@ -19,6 +19,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -178,9 +179,7 @@ curl --request GET --url http://localhost:8010/products
 Example response:
 
 ```json
-[
-  { "id": 1, "name": "Bubbles", "price": 123 }
-]
+[{"id": 1, "name": "Bubbles", "price": 123}]
 ```
 
 Or just type `http://localhost:8010/products` in your browser. Your choice!
@@ -378,9 +377,7 @@ curl --request GET --url http://localhost:8010/products
 Example response:
 
 ```json
-[
-  { "id": 1, "name": "Bubbles", "price": 123 }
-]
+[{"id": 1, "name": "Bubbles", "price": 123}]
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8010/products`.

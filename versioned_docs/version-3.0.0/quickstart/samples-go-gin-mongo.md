@@ -18,6 +18,7 @@ keyword:
   - API Test generator
   - Auto Testcase generation
 ---
+
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -33,8 +34,6 @@ A sample url shortener app to test Keploy integration capabilities using Gin and
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
-
- 
 
 We will be using Docker compose to run the application as well as MongoDb on Docker container.
 
