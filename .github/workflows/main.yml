@@ -21,10 +21,10 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Set Node.js 22.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
@@ -43,7 +43,7 @@ jobs:
           mv build-old/* build/docs
 
       - name: Deploy
-        uses: reggionick/s3-deploy@v3
+        uses: reggionick/s3-deploy@v4
         with:
           folder: build
           bucket: ${{ secrets.S3_BUCKET }}
