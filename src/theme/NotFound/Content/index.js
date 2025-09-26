@@ -1,9 +1,19 @@
-import React from "react";
-import {PageMetadata} from "@docusaurus/theme-common";
+import React, { useEffect } from "react";
+import { PageMetadata } from "@docusaurus/theme-common";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
+
 export default function Index() {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      window.location.href = "/docs/";
+    }, 2000);
+
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <PageMetadata title="Page Not Found" />
@@ -81,7 +91,7 @@ export default function Index() {
             </Link>
           </div>
 
-    
+
         </div>
       </main>
     </>
