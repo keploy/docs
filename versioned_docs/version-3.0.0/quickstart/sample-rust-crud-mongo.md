@@ -1,6 +1,6 @@
 ---
 id: sample-rust-crud-mongo
-title: Rust CRUD REST API with MongoDB
+title: CRUD REST API with MongoDB
 sidebar_label: Rust + MongoDB (REST)
 description: A sample CRUD REST API application to test Keploy integration capabilities using Rust and MongoDB.
 tags:
@@ -16,17 +16,15 @@ keyword:
   - REST
 ---
 
-## Introduction
-
 This is a sample CRUD REST API application to showcase Keploy integration capabilities using Rust and MongoDB. Let's get started! 🚀
 
-import InstallationGuide from '../concepts/installation.md'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+## Running App Locally on Linux/WSL 🐧
+
+<InstallReminder />
 
 ## Get Started! 🎬
-
-### Setup app
 
 Now that we have Keploy installed, let's set up our application.
 
@@ -34,8 +32,6 @@ Now that we have Keploy installed, let's set up our application.
 git clone https://github.com/keploy/samples-rust
 cd samples-rust/CRUD-rust-mongo
 ```
-
-## Running App Locally on Linux/WSL 🐧
 
 We will be using Docker compose to run Mongo on Docker container.
 

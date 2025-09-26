@@ -1,6 +1,6 @@
 ---
 id: samples-flask
-title: Sample Task Creation CRUD App (Flask)
+title: Sample Task Creation CRUD App
 sidebar_label: Flask + Mongo
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
 
@@ -22,19 +22,21 @@ keyword:
   - Auto case generation
 ---
 
-## Introduction
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
+
+## How to run the sample application Using Docker Compose 🐳
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
-## Clone a simple Student Management API 🧪
+<InstallReminder />
+
+### Clone a simple Student Management API 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
 ```
-
-# How to run the sample application Using Docker Compose 🐳
-
-Note: Before getting started, make sure Keploy is installed on your machine.
 
 We will be using Docker compose to run the application as well as Mongo on Docker container.
 
@@ -92,11 +94,11 @@ keploy test -c "docker compose up" --container-name "flask-app" --buildDelay 50 
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-# How to Run the App Locally on Linux/WSL 🐧
+Happy coding! ✨👩‍💻👨‍💻✨
 
-Note: Before getting started, make sure Keploy is installed on your machine.
+<SectionDivider />
 
-## Introduction
+## How to Run the App Locally on Linux/WSL 🐧
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
@@ -198,5 +200,3 @@ python3 -m coverage html
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .

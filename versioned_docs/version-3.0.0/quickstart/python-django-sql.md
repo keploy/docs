@@ -20,32 +20,21 @@ keyword:
   - Auto case generation
 ---
 
-# Introduction
+## Using Docker Compose 🐳
 
-🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Djangoand [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Clone a sample user data CRUD app 🧪
+### Clone a sample user data CRUD app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django_postgres
 ```
-
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
 
 We will be using Docker compose to run the application as well as Postgres on Docker container.
 
@@ -257,9 +246,19 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
+<SectionDivider />
+
 ## Running App Locally on Linux/WSL 🐧
 
+🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
+
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
+
+### Clone a sample user data CRUD app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django_postgres
+```
 
 ### 📼 Roll the Tape - Recording Time!
 

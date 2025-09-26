@@ -5,6 +5,8 @@ sidebar_label: API Test Recorder
 description: Learn how to install, record, export, and auto-generate Keploy tests straight from your browser.
 ---
 
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/api-test-chrome-extension.png" alt="Keploy Record Test case" width="100%" />
+
 Install the extension, hit **Record API Calls**, exercise your web app, then press **Generate Tests** to send the captured traffic to Keploy.
 
 ## What the API Test Recorder does
@@ -28,6 +30,8 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
    **Extensions** **⋮ → Pin**.
 
 ## Quick-start workflow
+
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-chrome-test-recorder.png" alt="Keploy Record Test case" width="100%" />
 
 1. **Log in** with the same email you use on app.keploy.io.
 2. Click **Record API Calls**.
