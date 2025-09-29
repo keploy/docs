@@ -26,6 +26,14 @@ import StartKeployDocker from '@site/src/components/StartKeployDocker';
 Keploy uses eBPF to intercept API calls at the network layer and generate test cases and mocks/stubs.  
 Choose your OS to get started 🚀
 
+<div style={{display:'none'}}>
+
+## Other Installation Methods {#other-installation-methods}
+
+## 🎬 Capturing Testcases {#-capturing-testcases}
+
+</div>
+
 <Tabs>
 <TabItem value="linux" label="Linux">
 <br />
