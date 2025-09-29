@@ -27,6 +27,10 @@ import InstallationGuide from '../concepts/installation.md'
 
 <InstallationGuide/>
 
+<a id="other-installation-methods"></a>
+
+<a id="-capturing-testcases"></a>
+
 ## 🎬 Capturing Testcases
 
 To initiate the recording of API calls, execute this command in your terminal:
