@@ -19,35 +19,27 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-🪄 Dive into the world of URL shorteners and see how seamlessly Keploy integrates with Gin and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+# Using Docker Compose 🐳
 
-import InstallationGuide from '../concepts/installation.md'
+A sample url shortener app to test Keploy integration capabilities using Gin and MongoDB
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Clone the sample URL shortener app 🧪
+### Clone a sample URL shortener app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
 
-## Installation 📥
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as MongoDb on Docker container](#using-docker-compose-)
-- [Using Docker container for mongoDb and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
 We will be using Docker compose to run the application as well as MongoDb on Docker container.
 
 ### Lights, Camera, Record! 🎥
 
-Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
+Fire up the application and MongoDB instance with Keploy. Keep an eye on the two key flags:
 `-c`: Command to run the app (e.g., `docker compose up`).
 
 `--container-name`: The container name in the `docker-compose.yml` for traffic interception.
@@ -169,14 +161,14 @@ Follow the breadcrumbs... or the shortened URLs:
 #### Redirect to original url from shortened url
 
 ```bash
-curl --request GET \  --url http://localhost:8080/Lhr4BWAi
+curl --request GET --url http://localhost:8080/Lhr4BWAi
 ```
 
 Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-mock.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Want to see if everything works as expected?
 
@@ -202,7 +194,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 <img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
-Run that keploy record command once more and watch as everything falls into place with all tests passing!🌟
+Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
@@ -212,11 +204,24 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
+<SectionDivider />
+
 ---
 
-## Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL 🐧
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
+
+<InstallReminder />
+
+### Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
+go mod download
+```
+
+We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started! 🎉
 
 If you are using WSL on Windows then use below to start wsl in the user's home directory:
 
@@ -365,7 +370,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-mock.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Want to see if everything works as expected?
 
@@ -381,15 +386,15 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 
 Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/url-shortner-test-result-1.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
-Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
+Did you spot that, the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
 Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/noise-addition-2.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
