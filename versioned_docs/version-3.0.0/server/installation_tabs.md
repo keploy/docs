@@ -350,7 +350,7 @@ You’ve successfully set up **Keploy on Windows** using **WSL**.
 
 <TabItem value="docker-windows" label="Docker">
 
-## Install Keploy with Docker on WSL
+## Install Keploy with Docker on Windows
 
 1. **Make sure Docker is installed** : You’ll need **Docker Desktop** running on Windows.
 
