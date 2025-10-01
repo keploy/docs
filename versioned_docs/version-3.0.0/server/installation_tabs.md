@@ -151,9 +151,9 @@ Keploy does not natively support macOS. However, you can run it using **Lima** o
 
 2. **Install Lima**
 
-```bash
-brew install lima
-```
+    ```bash
+    brew install lima
+    ```
 
 3. **Create a Debian instance** \[or any instance of your choice]
 
