@@ -42,11 +42,10 @@ If you want to try this quickstart setup on a Mac, use Lima. If you're on Window
 ## Setup the Core
 
 ```bash
-git clone https://github.com/keploy/openhospital-core
+git clone https://github.com/keploy/openhospital-core && cd openhospital-core/
 git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 docker compose up
-
 ```
 
 Note: If you face any issues while setting up the database, please try running docker compose up again. The issue should not occur the second time.
