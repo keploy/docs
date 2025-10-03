@@ -6,7 +6,6 @@
       "collapsed": true,
       "items": [
         "running-keploy/api-test-generator",
-
         {
           "type": "category",
           "label": "Getting Started",
@@ -16,7 +15,7 @@
             "running-keploy/api-testing-chrome-extension"
           ]
         },
-         {
+        {
           "type": "category",
           "label": "Test Operations",
           "collapsed": false,
@@ -26,7 +25,6 @@
             "running-keploy/self-healing-ai-api-tests",
             "running-keploy/run-ai-generated-api-tests",
             "running-keploy/api-testing-cicd"
-
           ]
         },
         {
@@ -55,7 +53,6 @@
           "label": "Installation",
           "id": "server/installation"
         },
-
         {
           "type": "category",
           "label": "Running Guide",
@@ -68,18 +65,23 @@
             "running-keploy/keploy-templatize"
           ]
         },
-
         {
           "type": "category",
           "label": "QuickStarts",
-          "link": { "type": "doc", "id": "quickstart/quickstart-filter" },
+          "link": {
+            "type": "doc",
+            "id": "quickstart/quickstart-filter"
+          },
           "collapsible": true,
           "collapsed": true,
           "items": [
             {
               "type": "category",
               "label": "Java",
-              "link": { "type": "doc", "id": "quickstart/java-springboot-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/java-springboot-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
@@ -93,7 +95,10 @@
             {
               "type": "category",
               "label": "Golang",
-              "link": { "type": "doc", "id": "quickstart/golang-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/golang-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
@@ -108,10 +113,14 @@
             {
               "type": "category",
               "label": "Python",
-              "link": { "type": "doc", "id": "quickstart/python-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/python-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
+                "quickstart/samples-microservices",
                 "quickstart/samples-django",
                 "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
@@ -123,7 +132,10 @@
             {
               "type": "category",
               "label": "Javascript",
-              "link": { "type": "doc", "id": "quickstart/javascript-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/javascript-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
@@ -138,7 +150,10 @@
             {
               "type": "category",
               "label": "Rust",
-              "link": { "type": "doc", "id": "quickstart/rust-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/rust-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
@@ -151,7 +166,9 @@
               "label": "C# (.NET Core)",
               "collapsible": true,
               "collapsed": true,
-              "items": ["quickstart/samples-csharp"]
+              "items": [
+                "quickstart/samples-csharp"
+              ]
             }
           ]
         },
@@ -167,7 +184,10 @@
         {
           "type": "category",
           "label": "Test Coverage Integration",
-          "link": { "type": "doc", "id": "quickstart/code-coverage" },
+          "link": {
+            "type": "doc",
+            "id": "quickstart/code-coverage"
+          },
           "items": [
             "server/sdk-installation/go",
             "server/sdk-installation/java",

@@ -18,7 +18,7 @@ To bring up the **Run and Debug** view, select the **Run and Debug** icon in the
 
 If running and debugging is not yet configured (no `launch.json` has been created), VS Code shows the Run start view.
 
-Click on **create a launch.json file** 👉 **Go** : Launch Package**
+Click on **create a launch.json file** 👉 **Go** : Launch Package\*\*
 
 Navigate to `launch.json` to begin crafting JSON objects.
 
