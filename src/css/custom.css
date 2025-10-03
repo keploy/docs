@@ -180,8 +180,7 @@ html[data-theme="dark"] body .announcementBar_mb4j {
   /* golden accent */
 }
 
-html[data-theme="dark"] .announcementBarContent_xLdY,
-html[data-theme="dark"] .content_knG7 {
+html[data-theme="dark"] .announcementBarContent_xLdY {
   color: #ffffff;
   text-shadow: 0 2px 6px rgba(0, 0, 0, 0.25);
   /* strong shadow for contrast */
@@ -189,16 +188,6 @@ html[data-theme="dark"] .content_knG7 {
 
 /* ====== Close button (modern circular style) ====== */
 .announcementBarContent_xLdY .close {
-
-  /* Show a visible focus ring for keyboard users on the close button */
-  .announcementBarContent_xLdY .close:focus-visible,
-  .announcementBarContent_xLdY .close:focus {
-    outline: 2px solid var(--keploy-orange);
-    outline-offset: 2px;
-    box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
-    z-index: 2;
-  }
-
   margin-left: 14px;
   cursor: pointer;
   background: rgba(0, 0, 0, 0.05);
@@ -214,33 +203,41 @@ html[data-theme="dark"] .content_knG7 {
   transition: all 0.3s ease;
 }
 
+/* Show a visible focus ring for keyboard users on the close button */
+.announcementBarContent_xLdY .close:focus-visible,
+.announcementBarContent_xLdY .close:focus {
+  outline: 2px solid var(--keploy-orange);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px rgba(var(--keploy-yellow-rgb), 0.5);
+  z-index: 2;
+}
+
 html[data-theme="dark"] .announcementBarContent_xLdY .close {
   background: rgba(255, 255, 255, 0.08);
 }
 
 .announcementBarContent_xLdY .close:hover {
-
-  /* Reduced motion: minimize or remove motion effects for sensitive users */
-  @media (prefers-reduced-motion: reduce) {
-
-    .announcementBarContent_xLdY,
-    .content_knG7 {
-      animation: none !important;
-    }
-
-    .announcementBarContent_xLdY .close {
-      transition: none !important;
-    }
-
-    .announcementBarContent_xLdY .close:hover {
-      transform: none !important;
-    }
-  }
-
   background: var(--keploy-orange);
   color: #fff;
   transform: rotate(90deg) scale(1.1);
   box-shadow: 0 0 8px rgba(var(--keploy-yellow-rgb), 0.7);
+}
+
+/* Reduced motion: minimize or remove motion effects for sensitive users */
+@media (prefers-reduced-motion: reduce) {
+
+  .announcementBarContent_xLdY,
+  .content_knG7 {
+    animation: none !important;
+  }
+
+  .announcementBarContent_xLdY .close {
+    transition: none !important;
+  }
+
+  .announcementBarContent_xLdY .close:hover {
+    transform: none !important;
+  }
 }
 
 /* ====== Animation ====== */

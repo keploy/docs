@@ -96,7 +96,7 @@ module.exports = {
       // },
     },
     announcementBar: {
-      id: "announcementBar_1", // Increment on change
+      id: "announcementBar_2", // Increment on change
       content: `
         ✨ If you like Keploy, give it a star on&nbsp;
         <a class="announcementBarLink" target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a>&nbsp;and follow us on&nbsp;
