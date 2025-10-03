@@ -19,6 +19,7 @@
 
 
 :root {
+  /* Keep this in sync with --keploy-yellow (#f5b642 = 245, 182, 66) */
   --keploy-yellow-rgb: 245, 182, 66;
   /* Brand colors for Keploy announcement bar */
   --keploy-orange: #e67838;
@@ -153,10 +154,18 @@ html[data-theme="light"] body .announcementBar_mb4j {
   align-items: center;
   text-align: center;
   line-height: 1.6;
-  animation: fadeInDown 0.6s ease;
+  /* animation moved to media query for reduced motion preference */
   border-radius: 0 0 8px 8px;
   margin-bottom: 0;
   box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.04);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+
+  .announcementBarContent_xLdY,
+  .content_knG7 {
+    animation: fadeInDown 0.6s ease;
+  }
 }
 
 html[data-theme="light"] .announcementBarContent_xLdY,
