@@ -127,7 +127,6 @@ html[data-theme="light"] {
 
 /* ====== Shared Announcement Bar Styles ====== */
 
-
 /* ====== announcement banner light mode ====== */
 html[data-theme="light"] .announcementBar_mb4j {
   background: linear-gradient(135deg, #ffe3d0 60%, #ffffff);
@@ -140,7 +139,7 @@ html[data-theme="light"] body .announcementBar_mb4j {
   border-top: none;
 }
 
-/* Shared font for announcement bar content */
+/* Shared styles for announcement bar content */
 
 .announcementBarContent_xLdY,
 .content_knG7 {
