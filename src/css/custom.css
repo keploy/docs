@@ -763,7 +763,6 @@ textarea {
   resize: vertical;
 }
 
-/* TODO: Define --ifm-color-accent in your theme CSS if not already present */
 :root {
   --ifm-color-accent: #f1ccb1;
 }
