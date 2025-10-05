@@ -12,7 +12,6 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
-
   /* --ifm-color-primary-lighter: #ffb575; */
   font-size: 18px;
   line-height: 1.6;
@@ -31,7 +30,8 @@
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
-  --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --site-primary-hue-saturation-light: 0 0%;
+  /* do we really need this extra one? */
   --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
@@ -75,7 +75,8 @@ html[data-theme="light"] {
   --ifm-badge-background-color: rgba(239, 246, 255);
 
   --card-color: rgba(239, 246, 255);
-  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2);
+  /* Dark shadow for light theme */
 }
 
 @font-face {
@@ -114,6 +115,7 @@ html[data-theme="light"] {
 h3 {
   margin-bottom: 0.1rem;
 }
+
 h1,
 h2,
 h3,
@@ -134,6 +136,7 @@ h4,
 .menu__list-item > .menu__link > span {
   display: flex;
 }
+
 .menu__link--sublist:after {
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
 }
@@ -146,6 +149,7 @@ div[class^="sidebar_"]
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
+
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
@@ -157,6 +161,7 @@ div[class^="sidebar_"] .button svg {
 .table-of-contents__link {
   @apply text-sm text-[color:var(--ifm-color)];
 }
+
 .table-of-contents__link--active {
   @apply font-bold text-[color:var(--ifm-color-primary)];
 }
@@ -173,7 +178,8 @@ div[class^="sidebar_"] .button svg {
 }
 
 .center {
-  text-align: center; /* needed so that blog post heading is centered in the single blog post view */
+  text-align: center;
+  /* needed so that blog post heading is centered in the single blog post view */
 }
 
 /*
@@ -214,11 +220,13 @@ div[class^="sidebar_"] .button svg {
 .pagination-nav {
   @apply mt-12 flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
+
 .pagination-nav__item {
   @apply w-full max-w-md;
 }
+
 .pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5 text-lg shadow-lg transition-transform hover:scale-105;
 }
 
 /* Navbar */
@@ -475,6 +483,7 @@ td img {
 .prose .tabs-container > .tabs > .tabs__item::before {
   content: none;
 }
+
 .prose .tabs-container > .tabs > .tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
@@ -482,6 +491,7 @@ td img {
   margin-bottom: 0em;
   opacity: 0.5;
 }
+
 .prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
   opacity: 1;
 }
@@ -489,26 +499,33 @@ td img {
 .prose .tabs {
   padding: 0 !important;
 }
+
 .prose .tabs-container ul {
   margin: 0;
   margin-bottom: -1.25rem;
 }
+
 .prose .tabs-container > .margin-vert--md pre {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on inline images */
 .prose li img {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on li children */
 .prose > ol > li > :first-child,
 .prose > ul > li > :first-child,
 .prose > ol > li > :last-child,
 .prose > ul > li > :last-child {
-  margin: 0 !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin: 0 !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
+
 .prose li > ul {
-  margin-top: 1rem !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin-top: 1rem !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
 
 .prose :where(a code) {
@@ -525,9 +542,11 @@ td img {
   padding: 0;
   font-size: 0.95em;
 }
+
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
+
 [data-theme="light"]
   .prose
   :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -742,6 +761,11 @@ a {
 
 textarea {
   resize: vertical;
+}
+
+/* TODO: Define --ifm-color-accent in your theme CSS if not already present */
+:root {
+  --ifm-color-accent: #f1ccb1;
 }
 
 .theme-back-to-top-button {
