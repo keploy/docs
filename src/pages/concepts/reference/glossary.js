@@ -1,4 +1,4 @@
-import React, {useState, useMemo} from "react";
+import React, {useState, useMemo, useEffect} from "react";
 import Layout from "@theme/Layout";
 
 import {glossaryEntries} from "../../../../static/data/glossaryEntries";
@@ -6,6 +6,7 @@ import GlossaryCard from "../../../components/GlossaryCard";
 
 function Glossary() {
   const [selectedletter, setselectedletter] = useState([]);
+  const [showBackToTop, setShowBackToTop] = useState(false);
 
   const allLetters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   const availableLetters = Object.keys(glossaryEntries);
@@ -21,6 +22,23 @@ function Glossary() {
   // Reset filter
   const handleResetFilter = () => {
     setselectedletter([]);
+  };
+
+  // Back to top functionality
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowBackToTop(window.scrollY > 300);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
   // Memoize the filtered entries to avoid re calculating on every render
@@ -128,6 +146,20 @@ function Glossary() {
           )}
         </div>
       </main>
+      {showBackToTop && (
+        <button
+          onClick={scrollToTop}
+          className="theme-back-to-top-button fixed bottom-6 right-6 z-50 flex h-12 w-12 items-center justify-center rounded-full shadow-lg"
+          aria-label="Back to top"
+        >
+          <svg width="32" height="32" viewBox="0 0 24 24">
+            <path
+              d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"
+              fill="#f1ccb1"
+            />
+          </svg>
+        </button>
+      )}
     </Layout>
   );
 }

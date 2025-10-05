@@ -12,19 +12,19 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
-  --ifm-color-primary-lighter: #FFF;
+  --ifm-color-primary-lighter: #fff;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
@@ -37,11 +37,10 @@
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #fff;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -112,7 +111,7 @@ html[data-theme="light"] {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
 h1,
@@ -213,7 +212,7 @@ div[class^="sidebar_"] .button svg {
 
 /* Pagination */
 .pagination-nav {
-  @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
+  @apply mt-12 flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
 .pagination-nav__item {
   @apply w-full max-w-md;
@@ -228,7 +227,7 @@ div[class^="sidebar_"] .button svg {
 }
 
 .navbar__items--right {
-  @apply justify-end ml-auto flex-row-reverse;
+  @apply ml-auto flex-row-reverse justify-end;
   gap: 13px;
 }
 
@@ -336,7 +335,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -604,13 +603,14 @@ a[class="breadcrumbs__link"] {
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
+  border-color: theme("borderColor.DEFAULT", currentColor);
 }
 
 * {
@@ -623,7 +623,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  font-family: theme("fontFamily.sans", ui-sans-serif, system-ui, sans-serif);
 }
 
 body {
@@ -677,9 +677,9 @@ html {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -706,12 +706,12 @@ menu {
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline: 2px solid theme("colors.blue.600", #2563eb);
   outline-offset: 2px;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -745,7 +745,7 @@ textarea {
 }
 
 .theme-back-to-top-button {
-  background-color: #FF914D !important;
+  background-color: #ff914d !important;
   color: white !important;
 }
 
@@ -756,5 +756,3 @@ textarea {
 .theme-back-to-top-button:hover {
   background-color: #e67643 !important;
 }
-
-
