@@ -75,7 +75,7 @@ Prerequisites For Binary:
 keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
 ```
 
-<img src="/docs/img/Keploy-record-java.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-record-java.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Start the frontend
 
