@@ -327,7 +327,7 @@ This is useful if your application takes some time to start (for example, when r
 
 ## [report](#report)
 
-The `report` command in Keploy is used to display a detailed summary of test results. It provides a human-readable diff for failed test cases from the latest test run or a specified report file.
+The `report` command in Keploy is used to display a detailed summary of test results. It can show a compact table-style diff or full body diffs (with colorized JSON), and it can read from the latest test run or a specific report file.
 
 <b> Usage: </b>
 
@@ -337,7 +337,7 @@ keploy report [flags]
 
 <b> Available flags: </b>
 
-- `-t, --test-sets strings` - Testsets to report, e.g., `--test-sets "test-set-1, test-set-2"`.
+- `-t, --test-sets strings` - Testsets to report, e.g., `--test-sets "test-set-1, test-set-2"`. If omitted, all test sets in the latest run are considered.
 
   ```bash
   keploy report -t "test-set-1"
@@ -349,41 +349,36 @@ keploy report [flags]
   keploy report -p "./keploy-tests"
   ```
 
-- `--report-path string` - Absolute path to a specific report file to display results from.
+- `--report-path, -r string` - **Absolute** path to a specific report file to display results from (must point to a file, not a directory). You can still combine this with other flags like `--summary` or `--test-case`.
 
   ```bash
   keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
   ```
 
-- `--body` - Show full expected/actual body diffs (colorized for JSON) instead of the default compact table diff.
+- `--full` - Show full diffs instead of the default compact table view. For JSON bodies, this produces colorized expected/actual comparisons.
 
   ```bash
-  keploy report -t "test-set-1" --body
+  keploy report -t "test-set-1" --full
   ```
 
-## [sanitize](#sanitize)
-
-The `sanitize` command helps remove sensitive data from recorded test cases. It scans test files for potential secrets (like API keys, tokens, etc.), replaces them with template placeholders, and stores the original values in a separate `secret.yaml` file. This allows for sharing test cases without exposing sensitive information.
-
-<b> Usage: </b>
-
-```bash
-keploy sanitize [flags]
-```
-
-<b> Available flags: </b>
-
-- `-t, --test-sets strings` - Testsets to sanitize, e.g., `-t "test-set-1, test-set-2"`. If not specified, all test sets will be sanitized.
+- `--summary` - Print only a summarized view (grand totals and per–test-set table with time taken). Useful for a quick dashboard-style overview. Can be combined with `-t/--test-sets` and `--report-path`.
 
   ```bash
-  keploy sanitize -t "test-set-1"
+  keploy report --summary
   ```
 
-- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
+- `--test-case strings` (alias: `--tc`) - Filter output to specific test case IDs.
 
   ```bash
-  keploy sanitize -p "./keploy-tests"
+  keploy report --test-case "test-1"
   ```
+
+> **Notes**
+>
+> - By default, `report` shows only **failed** tests with a compact, human-readable diff (status, headers—including trailers/content-length where applicable—and body changes).
+> - Use `--full` to see the complete expected vs actual bodies (with JSON colorization).
+> - `--summary` prints just the totals and a per–test-set table, optionally restricted with `-t/--test-sets`.
+> - When `--report-path` is provided, Keploy reads that file directly. Legacy files that contain only a `tests` list are supported.
 
 ## [templatize](#templatize)
 
