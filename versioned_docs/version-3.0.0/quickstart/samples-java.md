@@ -232,7 +232,7 @@ mvn clean install -Dmaven.test.skip=true
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
 
-<img src="/docs/img/Keploy-record-docker-employee.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-record-docker-employee.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Now let's run a few tests to capture some more scenarios:
 
