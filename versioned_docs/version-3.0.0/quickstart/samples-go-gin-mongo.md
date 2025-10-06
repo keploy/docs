@@ -386,7 +386,7 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 
 Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/code-snippets/url-shortner-test-result-1.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Did you spot that, the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -394,7 +394,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition-2.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 

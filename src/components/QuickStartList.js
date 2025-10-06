@@ -193,6 +193,14 @@ const quickstarts = [
   },
 
   // python list
+  {
+    title: "E-commerce Microservices",
+    language: "Python",
+    server: "Docker",
+    description:
+      "This guide walks you through testing an E-commerce microservices application using Keploy.",
+    link: "/docs/quickstart/samples-microservices/",
+  },
 
   {
     title: "Django + Postgres",
