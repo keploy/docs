@@ -32,6 +32,7 @@
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
   --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
 html[data-theme="dark"] {
@@ -228,6 +229,7 @@ div[class^="sidebar_"] .button svg {
 
 .navbar__items--right {
   @apply justify-end ml-auto flex-row-reverse;
+  gap: 13px;
 }
 
 .navbar__items--right > :last-child {
@@ -241,7 +243,7 @@ div[class^="sidebar_"] .button svg {
 /* Search */
 
 .DocSearch-Button {
-  @apply rounded-lg p-5 !important;
+  @apply rounded-lg px-3 py-2 !important;
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
@@ -271,7 +273,7 @@ footer svg {
   }
 
   .DocSearch-Button {
-    @apply mr-[-18px] !important;
+    @apply mr-2 !important;
   }
 
   /* .footer .footer__block {
@@ -551,6 +553,25 @@ td img {
     no-repeat;
 }
 
+/* Slack navbar icon to match GitHub size, spacing, color */
+.header-slack-link:hover {
+  opacity: 0.6;
+}
+
+.header-slack-link::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
+[data-theme="dark"] .header-slack-link::before {
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
 div[class^="announcementBar_"] {
   --site-announcement-bar-stripe-color1: hsl(
     var(--site-primary-hue-saturation) 88%
@@ -722,3 +743,18 @@ a {
 textarea {
   resize: vertical;
 }
+
+.theme-back-to-top-button {
+  background-color: #FF914D !important;
+  color: white !important;
+}
+
+.theme-back-to-top-button svg {
+  fill: white !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
+

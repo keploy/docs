@@ -29,19 +29,20 @@ keyword:
 
 This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-# Get Started! 🎬
+### Get Started! 🎬
 
-## Clone the app 🧪
+### Clone the app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/sanic-mongo
 ```
 
-## Download the requirements.txt file and DB setup
+### Download the requirements.txt file and DB setup
 
 Head to the folder of the application and run
 
