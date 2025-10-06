@@ -1,8 +1,28 @@
+---
+id: api-testing-webhook
+title: Webhook Integration
+sidebar_label: Webhook Integration
+description: Integrate custom logic and external validations into your API testing lifecycle with Keploy's webhooks.
+tags:
+  - API testing
+  - webhooks
+  - integration
+  - custom validation
+  - policy enforcement
+keywords:
+  - webhook
+  - API testing
+  - PreExecute
+  - PostExecute
+  - external validation
+  - custom logic
+---
+
 ## Keploy ATG Webhook Integration Guide
 
 ### 1. Overview
 
-Welcome to the Keploy Automated Test Generation (ATG) Webhook system. This powerful feature allows you to integrate your own custom logic directly into the test generation and execution lifecycle.
+This powerful feature allows you to integrate your own custom logic directly into the test generation and execution lifecycle.
 
 You can use webhooks to:
 
@@ -214,10 +234,6 @@ Keploy sends a webhook at two distinct points for every single test step:
 This is the most important rule: **A webhook can make a passing step fail, but it can never make a failing step pass.**
 
 If Keploy's internal assertions determine a step has failed (e.g., a 500 status code was received when a 200 was expected), the step is permanently failed. Your webhook cannot reverse this decision. This protects the integrity of your test results.
-
-Of course. Since you are not using a separate DTO layer, the documentation must accurately reflect the internal `entModels` that will be serialized directly to JSON. This means exposing all fields as they exist in your Go structs.
-
-Here is the completed "API Reference: Data Structures" section for your documentation, written to be precise and developer-friendly.
 
 ### 4. API Reference: Data Structures
 
