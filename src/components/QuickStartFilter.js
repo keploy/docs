@@ -1,18 +1,18 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
-import { FaGolang } from "react-icons/fa6";
-import { FaJava } from "react-icons/fa";
-import { FaLaptopCode } from "react-icons/fa";
-import { FaRust } from "react-icons/fa";
-import { TbBrandCSharp } from "react-icons/tb";
-import { FaPython } from "react-icons/fa";
-import { FaDocker } from "react-icons/fa";
-import { IoLogoJavascript } from "react-icons/io5";
-import { useColorMode } from "@docusaurus/theme-common";
+import {FaGolang} from "react-icons/fa6";
+import {FaJava} from "react-icons/fa";
+import {FaLaptopCode} from "react-icons/fa";
+import {FaRust} from "react-icons/fa";
+import {TbBrandCSharp} from "react-icons/tb";
+import {FaPython} from "react-icons/fa";
+import {FaDocker} from "react-icons/fa";
+import {IoLogoJavascript} from "react-icons/io5";
+import {useColorMode} from "@docusaurus/theme-common";
 
 // 🔹 Wrapper for icons to make them uniform
-const IconWrapper = ({ icon, bg }) => (
+const IconWrapper = ({icon, bg}) => (
   <div
     style={{
       width: "70px",
@@ -31,8 +31,8 @@ const IconWrapper = ({ icon, bg }) => (
   </div>
 );
 
-export default function QuickstartFilter({ defaultLanguage = null }) {
-  const { colorMode } = useColorMode();
+export default function QuickstartFilter({defaultLanguage = null}) {
+  const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
 
   // 👇 initialize with defaultLanguage if provided
@@ -132,9 +132,7 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
   };
 
   const buttonCard = {
-    border: isDark
-      ? "2px solid #333"
-      : "2px solid #ddd",
+    border: isDark ? "2px solid #333" : "2px solid #ddd",
     borderRadius: "12px",
     padding: "1rem 2rem",
     cursor: "pointer",
@@ -180,7 +178,7 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
 
   // ----- Render -----
   return (
-    <div style={{ marginTop: "2rem" }}>
+    <div style={{marginTop: "2rem"}}>
       {/* Language Selection */}
       <h2 style={headingStyle}>Choose your language</h2>
       <div style={stepContainer}>
@@ -196,15 +194,15 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
                   : buttonCard.border,
               boxShadow:
                 language === lang.name
-                  ? (isDark
+                  ? isDark
                     ? "0 3px 12px rgba(249,115,22,0.2)"
-                    : "0 3px 8px rgba(249, 115, 22, 0.3)")
+                    : "0 3px 8px rgba(249, 115, 22, 0.3)"
                   : buttonCard.boxShadow,
             }}
           >
             <IconWrapper
               icon={lang.icon}
-              bg={isDark ? (darkIconBgs[lang.name] || "#222") : lang.bg}
+              bg={isDark ? darkIconBgs[lang.name] || "#222" : lang.bg}
             />
             <p
               style={{
@@ -222,7 +220,7 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
       </div>
 
       {/* Server Selection */}
-      <h2 style={{ ...headingStyle, marginTop: "2rem" }}>
+      <h2 style={{...headingStyle, marginTop: "2rem"}}>
         Where do you want to run the app server?
       </h2>
       <div style={serverContainer}>
@@ -233,20 +231,18 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
             style={{
               ...buttonCard,
               border:
-                server === srv.name
-                  ? "2px solid #f97316"
-                  : buttonCard.border,
+                server === srv.name ? "2px solid #f97316" : buttonCard.border,
               boxShadow:
                 server === srv.name
-                  ? (isDark
+                  ? isDark
                     ? "0 3px 12px rgba(249,115,22,0.2)"
-                    : "0 3px 8px rgba(249, 115, 22, 0.3)")
+                    : "0 3px 8px rgba(249, 115, 22, 0.3)"
                   : buttonCard.boxShadow,
             }}
           >
             <IconWrapper
               icon={srv.icon}
-              bg={isDark ? (darkIconBgs[srv.name] || "#222") : srv.bg}
+              bg={isDark ? darkIconBgs[srv.name] || "#222" : srv.bg}
             />
             <p
               style={{
@@ -266,17 +262,28 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
       {/* Quickstarts */}
       {language && server && (
         <>
-          <h2 style={{ ...headingStyle, marginTop: "2rem" }}>
+          <h2 style={{...headingStyle, marginTop: "2rem"}}>
             ✨ AI Suggested Sample Apps
           </h2>
           <div style={gridContainer}>
             {filteredQuickstarts.length > 0 ? (
               filteredQuickstarts.map((app, idx) => (
                 <div key={idx} style={cardStyle}>
-                  <h3 style={{ margin: "0 0 0.5rem 0", fontSize: "1.2rem", color: isDark ? "#fff" : "#222" }}>
+                  <h3
+                    style={{
+                      margin: "0 0 0.5rem 0",
+                      fontSize: "1.2rem",
+                      color: isDark ? "#fff" : "#222",
+                    }}
+                  >
                     {app.title}
                   </h3>
-                  <p style={{ color: isDark ? "#ccc" : "#555", fontSize: "0.95rem" }}>
+                  <p
+                    style={{
+                      color: isDark ? "#ccc" : "#555",
+                      fontSize: "0.95rem",
+                    }}
+                  >
                     {app.description}
                   </p>
                   <Link to={app.link} style={linkStyle}>
@@ -285,7 +292,9 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
                 </div>
               ))
             ) : (
-              <p style={{ color: isDark ? "#fff" : "#222" }}>No quickstarts available for this selection.</p>
+              <p style={{color: isDark ? "#fff" : "#222"}}>
+                No quickstarts available for this selection.
+              </p>
             )}
           </div>
         </>
