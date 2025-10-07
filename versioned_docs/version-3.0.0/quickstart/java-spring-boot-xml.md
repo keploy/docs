@@ -113,7 +113,7 @@ If you encounter failing tests due to variable or irrelevant data, like timestam
 
 **Example:**
 
-<img width="694" alt="Screenshot 2025-03-11 at 12 07 04 AM" src="https://github.com/user-attachments/assets/92dc6480-73f9-435c-a3b8-c918b2acc7a1" />
+<img src="/docs/img/java-spring-boot-header.png" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
 
 ```yaml
 globalNoise:
@@ -126,7 +126,7 @@ globalNoise:
 
 After updating `keploy.yml` with the above configuration, rerun your tests, and the issue should be resolved.
 
-<img width="711" alt="Screenshot 2025-03-11 at 12 07 19 AM" src="https://github.com/user-attachments/assets/bed57c1e-e7a9-4cbd-80d6-f69a2024ba60" />
+<img src="/docs/img/keploy-testcase-employee.png" alt="Sample Keploy Testcases" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Wrapping Up 🎉
 
