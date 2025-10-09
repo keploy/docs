@@ -95,7 +95,6 @@ sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-result-output-postgres-nextjs.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
 
-
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨

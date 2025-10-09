@@ -60,8 +60,6 @@ sudo -E env PATH=$PATH keploy record -c 'node app.js'
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-record-local.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-
-
 ### Let's Generate the testcases.
 
 Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
@@ -181,7 +179,7 @@ But for this application, the Token expiration is 10 mins so let's go ahead and 
               header:
                 Etag: []
                 Date: []
-       
+
 ```
 
 Now, let's run the keploy in test mode again:-
@@ -229,7 +227,6 @@ keploy record -c "docker compose up" --container-name "jwtSqlApp"
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-
 #### Let's generate the testcases.
 
 Make API Calls using cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
@@ -255,7 +252,6 @@ we will get the output:
 We will get the following output in our terminal
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-capture.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
-
 
 Let's go ahead create few more testcases for different endpoints!
 
@@ -349,7 +345,7 @@ But for this application, the Token expiration is 10 mins so let's go ahead and 
               header:
                 Etag: []
                 Date: []
-       
+
 ```
 
 Now, let's run the keploy in test mode again:-
@@ -357,7 +353,6 @@ Now, let's run the keploy in test mode again:-
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
 But wait — one test is still failing due to the time-freezing. To try out the time-freezing feature, you can use Keploy Enterprise.
-
 
 ### Wrapping it up 🎉
 
