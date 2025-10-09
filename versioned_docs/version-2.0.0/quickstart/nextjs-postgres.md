@@ -17,10 +17,6 @@ keyword:
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
-
 ## Get Started! 🎬
 
 Now that we have bun installed, we will setup our application.
