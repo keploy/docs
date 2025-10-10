@@ -163,23 +163,23 @@ const quickstarts = [
   },
 
   // rust list
-  {
-    title: "Rust + MongoDB (GraphQL)",
-    language: "Rust",
-    server: "Local",
-    description:
-      "A sample app to demonstrate Keploy integration capabilities using Rust and MongoDB using GraphQl",
-    link: "/docs/quickstart/samples-rust/",
-  },
+  // {
+  //   title: "Rust + MongoDB (GraphQL)",
+  //   language: "Rust",
+  //   server: "Local",
+  //   description:
+  //     "A sample app to demonstrate Keploy integration capabilities using Rust and MongoDB using GraphQl",
+  //   link: "/docs/quickstart/samples-rust/",
+  // },
 
-  {
-    title: "Rust + MongoDB (REST)",
-    language: "Rust",
-    server: "Local",
-    description:
-      "A sample CRUD REST API app to demonstrate Keploy integration capabilities using Rust and MongoDB.",
-    link: "/docs/quickstart/sample-rust-crud-mongo/",
-  },
+  // {
+  //   title: "Rust + MongoDB (REST)",
+  //   language: "Rust",
+  //   server: "Local",
+  //   description:
+  //     "A sample CRUD REST API app to demonstrate Keploy integration capabilities using Rust and MongoDB.",
+  //   link: "/docs/quickstart/sample-rust-crud-mongo/",
+  // },
 
   // c# list
 
