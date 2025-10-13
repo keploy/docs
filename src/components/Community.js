@@ -86,9 +86,7 @@ export const Community = () => {
 
             <div className="flex-auto">
               <h3 className="font-bold">Substack</h3>
-              <p className="text-sm text-gray-700">
-                Ideas worth reading — delivered directly to you.
-              </p>
+              <p>Ideas worth reading — delivered directly to you.</p>
             </div>
           </a>
         </li>

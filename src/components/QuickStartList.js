@@ -351,7 +351,7 @@ const quickstarts = [
   {
     title: "Express + Postgres + Prisma ",
     language: "JS/TS",
-    server: "Docker",
+    server: "Local",
     description:
       "A sample Task Management app to demonstrate how seamlessly Keploy integrates with Express, PostgreSQL, and Prisma ORM.",
     link: "/docs/quickstart/express-postgresql-prisma/#running-app-locally-on-linuxwsl",
