@@ -89,7 +89,6 @@
                 "quickstart/openhospital",
                 "quickstart/pet-clinic",
                 "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
                 "quickstart/java-spring-boot-xml"
               ]
             },
@@ -104,8 +103,6 @@
               "collapsed": true,
               "items": [
                 "quickstart/samples-echo",
-                "quickstart/samples-gin",
-                "quickstart/samples-redis",
                 "quickstart/samples-mux",
                 "quickstart/samples-mysql",
                 "quickstart/samples-fasthttp"
@@ -123,11 +120,8 @@
               "items": [
                 "quickstart/samples-microservices",
                 "quickstart/samples-django",
-                "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
+                "quickstart/samples-fastapi-twilio"
               ]
             },
             {
@@ -140,9 +134,7 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-bunjs",
                 "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
                 "quickstart/samples-node-jwt",
                 "quickstart/express-postgresql-prisma",
                 "quickstart/samples-typescript"

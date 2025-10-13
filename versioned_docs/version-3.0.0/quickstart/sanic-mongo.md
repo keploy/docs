@@ -3,7 +3,7 @@ id: sanic-mongo
 title: Sample Movie API with Sanic and MongoDB
 
 sidebar_label: Sanic + Mongo
-sidebar_class_name: hidden-sidebar-item
+# sidebar_class_name: hidden-sidebar-item
 description: A simple movie management API using Python Sanic and MongoDB. Perform CRUD operations on movie records with a lightweight, high-performance backend.
 
 tags:

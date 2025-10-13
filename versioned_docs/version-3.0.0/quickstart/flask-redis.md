@@ -2,7 +2,7 @@
 id: flask-redis
 title: Sample Library App (Flask + Redis)
 sidebar_label: Flask + Redis
-sidebar_class_name: hidden-sidebar-item
+# sidebar_class_name: hidden-sidebar-item
 description: This application is a simple Library API built using Flask and Redis for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
 tags:

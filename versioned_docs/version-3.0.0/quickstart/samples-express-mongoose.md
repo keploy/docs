@@ -2,7 +2,7 @@
 id: express-mongoose-application
 title: sample course selling api (express)
 sidebar_label: NodeJS - Express + Mongoose
-sidebar_class_name: hidden-sidebar-item
+# sidebar_class_name: hidden-sidebar-item
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:
   - javascript

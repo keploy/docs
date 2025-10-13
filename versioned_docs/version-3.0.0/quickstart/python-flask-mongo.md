@@ -2,7 +2,7 @@
 id: samples-flask
 title: Sample Task Creation CRUD App
 sidebar_label: Flask + Mongo
-sidebar_class_name: hidden-sidebar-item
+# sidebar_class_name: hidden-sidebar-item
 description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
 
 tags:

@@ -2,7 +2,7 @@
 id: samples-rust-wrap
 title: Rust Sample Application
 sidebar_label: Warp + Mongo
-sidebar_class_name: hidden-sidebar-item
+# sidebar_class_name: hidden-sidebar-item
 description: The following sample app to test Keploy integration capabilities using Warp HTTP and MongoDb.
 tags:
   - Rust
