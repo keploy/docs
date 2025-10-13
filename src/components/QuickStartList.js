@@ -299,7 +299,7 @@ const quickstarts = [
   },
 
   {
-    title: "NextJS + SQL",
+    title: "NextJS + Postgres",
     language: "JS/TS",
     server: "Local",
     description:
