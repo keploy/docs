@@ -2,6 +2,7 @@
 id: samples-gin
 title: Sample URL Shortener App (Golang)
 sidebar_label: Gin + Mongo
+sidebar_class_name: hidden-sidebar-item
 description: The following sample app showcases how to use gin framework and the Keploy Platform.
 tags:
   - go

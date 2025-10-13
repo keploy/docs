@@ -757,4 +757,7 @@ textarea {
   background-color: #e67643 !important;
 }
 
-
+/* This rule hides any list item in the sidebar that has the class .hidden-sidebar-item */
+.hidden-sidebar-item {
+  display: none !important;
+}

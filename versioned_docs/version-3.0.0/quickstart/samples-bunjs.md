@@ -2,6 +2,7 @@
 id: samples-bunjs
 title: BunJS Sample Application
 sidebar_label: BunJS + Mongo
+sidebar_class_name: hidden-sidebar-item
 description: The following sample app showcases how to use BunJS framework and the Keploy Platform.
 tags:
   - javascript

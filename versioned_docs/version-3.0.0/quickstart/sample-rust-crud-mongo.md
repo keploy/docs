@@ -2,6 +2,7 @@
 id: sample-rust-crud-mongo
 title: CRUD REST API with MongoDB
 sidebar_label: Rust + MongoDB (REST)
+sidebar_class_name: hidden-sidebar-item
 description: A sample CRUD REST API application to test Keploy integration capabilities using Rust and MongoDB.
 tags:
   - Rust

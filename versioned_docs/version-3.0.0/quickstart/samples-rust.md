@@ -2,6 +2,7 @@
 id: samples-rust
 title: GraphQL Application with MongoDB
 sidebar_label: Rust + Mongo (GraphQL)
+sidebar_class_name: hidden-sidebar-item
 description: The following sample app to test Keploy integration capabilities using rust and MongoDb.
 tags:
   - Rust

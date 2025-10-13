@@ -2,6 +2,7 @@
 id: java-spring-boot-mongo
 title: Sample Rest API with Spring-Boot and MongoDB
 sidebar_label: Potion App (MongoDb)
+sidebar_class_name: hidden-sidebar-item
 description: This CRUD Application is about managing the data of Magical Potions in the Keploy inventory.
 tags:
   - java
