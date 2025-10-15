@@ -19,14 +19,14 @@ keyword:
   - Auto Testcase generation
 ---
 
-import InstallReminder from '@site/src/components/InstallReminder';
+import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
 # Using Docker Compose 🐳
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Clone a sample user authentication app 🧪
 
@@ -234,7 +234,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Clone a sample user authentication app 🧪
 

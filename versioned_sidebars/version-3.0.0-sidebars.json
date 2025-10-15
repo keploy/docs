@@ -89,7 +89,6 @@
                 "quickstart/openhospital",
                 "quickstart/pet-clinic",
                 "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
                 "quickstart/java-spring-boot-xml"
               ]
             },
@@ -104,8 +103,6 @@
               "collapsed": true,
               "items": [
                 "quickstart/samples-echo",
-                "quickstart/samples-gin",
-                "quickstart/samples-redis",
                 "quickstart/samples-mux",
                 "quickstart/samples-mysql",
                 "quickstart/samples-fasthttp"
@@ -121,13 +118,9 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-microservices",
                 "quickstart/samples-django",
-                "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
+                "quickstart/samples-fastapi-twilio"
               ]
             },
             {
@@ -140,26 +133,10 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-bunjs",
                 "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
                 "quickstart/samples-node-jwt",
                 "quickstart/express-postgresql-prisma",
                 "quickstart/samples-typescript"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Rust",
-              "link": {
-                "type": "doc",
-                "id": "quickstart/rust-filter"
-              },
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-rust",
-                "quickstart/sample-rust-crud-mongo"
               ]
             },
             {
@@ -199,15 +176,36 @@
         {
           "type": "category",
           "label": "Keploy Enterprise",
+          "collapsed": true,
           "items": [
-            "keploy-cloud/cloud-installation",
-            "keploy-cloud/time-freezing",
-            "keploy-cloud/mock-registry",
-            "keploy-cloud/keploy-console",
-            "keploy-cloud/auto-test-generation",
-            "keploy-cloud/deduplication",
-            "keploy-explained/common-errors"
+            {
+              "type": "category",
+              "label": "Features",
+              "items": [
+                "keploy-cloud/cloud-installation",
+                "keploy-cloud/time-freezing",
+                "keploy-cloud/mock-registry",
+                "keploy-cloud/keploy-console",
+                "keploy-cloud/auto-test-generation",
+                "keploy-cloud/deduplication"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "QuickStarts",
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-redis",
+                "quickstart/flask-redis",
+                "quickstart/samples-microservices"
+              ]
+            }
           ]
+        },
+        {
+          "type": "doc",
+          "label": "Common Erros",
+          "id": "keploy-explained/common-errors"
         },
         {
           "type": "doc",
