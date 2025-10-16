@@ -41,10 +41,6 @@ Once your account is set up, you can start exploring features of Keploy Cloud. H
 
 To get started with Keploy Cloud, you will need to install the Keploy Cloud Agent and authenticate your account.
 
-import PlatformRequirements from '../concepts/platform-requirements.md'
-
-<PlatformRequirements/>
-
 ## Installation 🛠️
 
 Install and Validate the Keploy Cloud Agent by following the steps below:

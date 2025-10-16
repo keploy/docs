@@ -79,11 +79,13 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       icon: <IoLogoJavascript size={36} color="#F7DF1E" />,
       bg: "#FFF8E1",
     },
-    {
+
+    /*{
       name: "Rust",
       icon: <FaRust size={36} color="#DEA584" />,
       bg: "#FFF3E0",
     },
+    */
     {
       name: "C#",
       icon: <TbBrandCSharp size={36} color="#512BD4" />,

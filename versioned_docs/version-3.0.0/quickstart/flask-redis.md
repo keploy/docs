@@ -26,9 +26,9 @@ keyword:
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'
-import InstallReminder from '@site/src/components/InstallReminder';
+import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Get Started! 🎬
 
