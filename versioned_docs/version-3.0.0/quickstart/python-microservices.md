@@ -23,7 +23,7 @@ keyword:
   - Auto case generation
 ---
 
-import InstallReminder from '@site/src/components/InstallReminder';
+import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 
 ## Using Docker Compose 🐳
 
@@ -37,7 +37,7 @@ This guide will walk you through testing an E-commerce microservices application
 
 Each service uses its own **MySQL database**, and **LocalStack SQS** is used for messaging. Keploy will help you automatically generate test cases and mocks for these services.
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Clone the Sample Application
 
