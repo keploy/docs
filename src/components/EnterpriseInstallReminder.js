@@ -22,7 +22,7 @@ export default function EnterpriseInstallReminder() {
     <div
       style={containerStyle}
     >
-      <h3 style={{color: isDark ? "#fff" : "#222"}}>Don’t have Keploy installed yet?</h3>
+      <h3 style={{marginTop: 0, color: isDark ? "#fff" : "#222"}}>Don’t have Keploy installed yet?</h3>
       <p style={{color: isDark ? "#ccc" : undefined}}>
         Before running this sample, make sure Keploy Enterprise version is
         installed on your system.
