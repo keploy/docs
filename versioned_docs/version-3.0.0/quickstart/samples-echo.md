@@ -46,12 +46,6 @@ Using the docker-compose file we will start our postgres instance:-
 docker compose up
 ```
 
-#### Creating Docker Volume
-
-```bash
-docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
-```
-
 ### Capture the Testcases
 
 Now, we will create the binary of our application:-
@@ -159,12 +153,12 @@ Using the docker-compose file we will start our Postgres instance:-
 docker-compose up -d
 ```
 
-> **Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `localhost`.**
+> **Since we are using docker to run the application, we need to update the `postgres` host on line 40 in `main.go`, update the host to `localhost`.**
 
 Now, we will create the binary of our application:-
 
 ```go
-go build -cover
+go build echo-psql-url-shortener
 ```
 
 ### Capture the Testcases
@@ -172,8 +166,6 @@ go build -cover
 ```shell
 sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 ```
-
-![Testcase](/img/echo-postgress-run-testcase.png?raw=true)
 
 ### Generate testcases
 
@@ -214,7 +206,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
+sudo -E PATH=$PATH keploy test -c "./echo-psql-url-shortener"
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.

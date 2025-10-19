@@ -1,5 +1,6 @@
 import React, {useState, useMemo} from "react";
 import Layout from "@theme/Layout";
+import BackToTopButton from "@theme/BackToTopButton";
 
 import {glossaryEntries} from "../../../../static/data/glossaryEntries";
 import GlossaryCard from "../../../components/GlossaryCard";
@@ -127,6 +128,7 @@ function Glossary() {
             </div>
           )}
         </div>
+        <BackToTopButton />
       </main>
     </Layout>
   );

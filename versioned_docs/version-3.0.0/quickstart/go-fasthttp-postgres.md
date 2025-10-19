@@ -234,8 +234,6 @@ keploy record -c "./app"
 Keep an eye out for the `-c` flag! It's the command charm to run the app. Whether you're using `go run main.go` or the binary path like `./app`, it's your call.
 If you're seeing logs that resemble the ones below, you're on the right track:
 
-![Testcase](/img/fasthttp-postgress-test.png)
-
 Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch,
 
 or even the classic curl - take your pick!

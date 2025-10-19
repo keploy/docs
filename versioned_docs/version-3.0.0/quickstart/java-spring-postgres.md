@@ -164,10 +164,10 @@ keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --d
 ```
 
 Your CLI should look something like this
-<img src="/docs/img/pet-test1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-postgress-1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
 This is a summary of the test cases recorded
-<img src="/docs/img/pet-test2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-postgress2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.

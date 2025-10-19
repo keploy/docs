@@ -59,7 +59,7 @@ docker build -t fastapi-twilio:1.0 .
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0"
+keploy record -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -222,7 +222,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0" --delay 10
+keploy test -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

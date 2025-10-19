@@ -252,9 +252,7 @@ keploy record -c "go run main.go handler.go"
 Keep an eye out for the `-c `flag! It's the command charm to run the app. Whether you're using `go run main.go handler.go` or the binary path like `./test-app-url-shortener`, it's your call.
 If you're seeing logs that resemble the ones below, you're on the right track:
 
-   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
-  
-  Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
+Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
 #### Generate shortened url
 
@@ -385,8 +383,6 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
 Your results should be looking all _snazzy_, like this:
-
-<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Did you spot that, the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
