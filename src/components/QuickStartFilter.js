@@ -109,8 +109,8 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   // ----- Styles -----
   const headingStyle = {
     textAlign: "left",
-    marginLeft: "1rem",
-    fontSize: "1.4rem",
+    marginLeft: typeof window !== "undefined" && window.innerWidth < 480 ? "0.75rem" : "1rem",
+    fontSize: typeof window !== "undefined" && window.innerWidth < 480 ? "1.2rem" : "1.4rem",
     fontWeight: "600",
     color: isDark ? "#fff" : "#222",
   };
