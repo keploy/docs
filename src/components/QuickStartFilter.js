@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
@@ -31,25 +31,9 @@ const IconWrapper = ({icon, bg}) => (
   </div>
 );
 
-
-export function useMediaQuery(query) {
-  const [matches, setMatches] = useState(false);
-
-  useEffect(() => {
-    const media = window.matchMedia(query);
-    setMatches(media.matches);
-    const listener = () => setMatches(media.matches);
-    media.addEventListener("change", listener);
-    return () => media.removeEventListener("change", listener);
-  }, [query]);
-
-  return matches;
-}
-
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
-  const isMobile = useMediaQuery("(max-width: 480px)");
   // 👇 initialize with defaultLanguage if provided
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
@@ -124,8 +108,8 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   // ----- Styles -----
   const headingStyle = {
     textAlign: "left",
-    marginLeft: isMobile ? "0.75rem" : "1rem",
-    fontSize: isMobile ? "1.2rem" : "1.4rem",
+    marginLeft: "1rem",
+    fontSize: "1.4rem",
     fontWeight: "600",
     color: isDark ? "#fff" : "#222",
   };
@@ -196,8 +180,16 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   // ----- Render -----
   return (
     <div style={{marginTop: "2rem"}}>
+    <style>{`
+        @media (max-width: 480px) {
+          .responsive-heading {
+            margin-left: 0.75rem !important;
+            font-size: 1.2rem !important;
+          }
+        }
+      `}</style>
       {/* Language Selection */}
-      <h2 style={headingStyle}>Choose your language</h2>
+      <h2 className="responsive-heading" style={headingStyle}>Choose your language</h2>
       <div style={stepContainer}>
         {languages.map((lang) => (
           <button
@@ -237,7 +229,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       </div>
 
       {/* Server Selection */}
-      <h2 style={{...headingStyle, marginTop: "2rem"}}>
+      <h2 className="responsive-heading" style={{...headingStyle, marginTop: "2rem"}}>
         Where do you want to run the app server?
       </h2>
       <div style={serverContainer}>
@@ -279,7 +271,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       {/* Quickstarts */}
       {language && server && (
         <>
-          <h2 style={{...headingStyle, marginTop: "2rem"}}>
+          <h2 className="responsive-heading" style={{...headingStyle, marginTop: "2rem"}}>
             ✨ AI Suggested Sample Apps
           </h2>
           <div style={gridContainer}>
