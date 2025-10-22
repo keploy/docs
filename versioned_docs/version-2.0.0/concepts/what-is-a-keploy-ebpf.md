@@ -14,7 +14,6 @@ keywords:
 A Keploy eBPF is a language-agnostic library that offers APIs to do the following:
 
 1. Capture all the network calls like
-
    - API Request
    - Dependency calls
    - API Response
