@@ -2,7 +2,7 @@ import React from "react";
 import Link from "@docusaurus/Link";
 import {useColorMode} from "@docusaurus/theme-common";
 
-export default function InstallReminder() {
+export default function EnterpriseInstallReminder() {
   const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
 
@@ -24,11 +24,11 @@ export default function InstallReminder() {
     >
       <h3 style={{marginTop: 0, color: isDark ? "#fff" : "#222"}}>Don’t have Keploy installed yet?</h3>
       <p style={{color: isDark ? "#ccc" : undefined}}>
-        Before running this sample, make sure Keploy is installed on your
-        system.
+        Before running this sample, make sure Keploy Enterprise version is
+        installed on your system.
       </p>
       <Link
-        to="/docs/server/installation/"
+        to="/docs/keploy-cloud/cloud-installation/"
         style={{
           display: "inline-block",
           marginTop: "0.5rem",

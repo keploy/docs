@@ -25,10 +25,6 @@ keyword:
 
 This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
 
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
-
 ## Get Started! 🎬
 
 ## Clone a sample user data CRUD app 🧪

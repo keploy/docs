@@ -13,7 +13,7 @@ tags:
 
 In this blog, we will learn how test bench of keploy works and how you can contribute to keploy's code coverage.
 
-## Keploy test Keploy?
+## Keploy Test?
 
 - Keploy's test bench is built on the principle that Keploy can test itself, operating in two distinct modes: `RECORD` and `TEST`. Each mode activates different sections of the codebase, with some overlap between the two. These modes can be executed concurrently to enhance testing efficiency.
 

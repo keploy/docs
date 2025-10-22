@@ -6,7 +6,6 @@
       "collapsed": true,
       "items": [
         "running-keploy/api-test-generator",
-
         {
           "type": "category",
           "label": "Getting Started",
@@ -16,7 +15,7 @@
             "running-keploy/api-testing-chrome-extension"
           ]
         },
-         {
+        {
           "type": "category",
           "label": "Test Operations",
           "collapsed": false,
@@ -25,8 +24,8 @@
             "running-keploy/share-tests",
             "running-keploy/self-healing-ai-api-tests",
             "running-keploy/run-ai-generated-api-tests",
-            "running-keploy/api-testing-cicd"
-
+            "running-keploy/api-testing-cicd",
+            "running-keploy/api-testing-webhook"
           ]
         },
         {
@@ -55,7 +54,6 @@
           "label": "Installation",
           "id": "server/installation"
         },
-
         {
           "type": "category",
           "label": "Running Guide",
@@ -68,38 +66,43 @@
             "running-keploy/keploy-templatize"
           ]
         },
-
         {
           "type": "category",
           "label": "QuickStarts",
-          "link": { "type": "doc", "id": "quickstart/quickstart-filter" },
+          "link": {
+            "type": "doc",
+            "id": "quickstart/quickstart-filter"
+          },
           "collapsible": true,
           "collapsed": true,
           "items": [
             {
               "type": "category",
               "label": "Java",
-              "link": { "type": "doc", "id": "quickstart/java-springboot-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/java-springboot-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
                 "quickstart/openhospital",
                 "quickstart/pet-clinic",
                 "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
                 "quickstart/java-spring-boot-xml"
               ]
             },
             {
               "type": "category",
               "label": "Golang",
-              "link": { "type": "doc", "id": "quickstart/golang-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/golang-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
                 "quickstart/samples-echo",
-                "quickstart/samples-gin",
-                "quickstart/samples-redis",
                 "quickstart/samples-mux",
                 "quickstart/samples-mysql",
                 "quickstart/samples-fasthttp"
@@ -108,28 +111,29 @@
             {
               "type": "category",
               "label": "Python",
-              "link": { "type": "doc", "id": "quickstart/python-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/python-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
                 "quickstart/samples-django",
-                "quickstart/samples-flask",
                 "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
+                "quickstart/samples-fastapi-twilio"
               ]
             },
             {
               "type": "category",
               "label": "Javascript",
-              "link": { "type": "doc", "id": "quickstart/javascript-filter" },
+              "link": {
+                "type": "doc",
+                "id": "quickstart/javascript-filter"
+              },
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-bunjs",
                 "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
                 "quickstart/samples-node-jwt",
                 "quickstart/express-postgresql-prisma",
                 "quickstart/samples-typescript"
@@ -137,21 +141,12 @@
             },
             {
               "type": "category",
-              "label": "Rust",
-              "link": { "type": "doc", "id": "quickstart/rust-filter" },
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-rust",
-                "quickstart/sample-rust-crud-mongo"
-              ]
-            },
-            {
-              "type": "category",
               "label": "C# (.NET Core)",
               "collapsible": true,
               "collapsed": true,
-              "items": ["quickstart/samples-csharp"]
+              "items": [
+                "quickstart/samples-csharp"
+              ]
             }
           ]
         },
@@ -167,7 +162,10 @@
         {
           "type": "category",
           "label": "Test Coverage Integration",
-          "link": { "type": "doc", "id": "quickstart/code-coverage" },
+          "link": {
+            "type": "doc",
+            "id": "quickstart/code-coverage"
+          },
           "items": [
             "server/sdk-installation/go",
             "server/sdk-installation/java",
@@ -178,15 +176,36 @@
         {
           "type": "category",
           "label": "Keploy Enterprise",
+          "collapsed": true,
           "items": [
-            "keploy-cloud/cloud-installation",
-            "keploy-cloud/time-freezing",
-            "keploy-cloud/mock-registry",
-            "keploy-cloud/keploy-console",
-            "keploy-cloud/auto-test-generation",
-            "keploy-cloud/deduplication",
-            "keploy-explained/common-errors"
+            {
+              "type": "category",
+              "label": "Features",
+              "items": [
+                "keploy-cloud/cloud-installation",
+                "keploy-cloud/time-freezing",
+                "keploy-cloud/mock-registry",
+                "keploy-cloud/keploy-console",
+                "keploy-cloud/auto-test-generation",
+                "keploy-cloud/deduplication"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "QuickStarts",
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-redis",
+                "quickstart/flask-redis",
+                "quickstart/samples-microservices"
+              ]
+            }
           ]
+        },
+        {
+          "type": "doc",
+          "label": "Common Erros",
+          "id": "keploy-explained/common-errors"
         },
         {
           "type": "doc",
