@@ -18,7 +18,7 @@ jobs:
           reporter: github-pr-check
           # Fails the action if there are errors
           fail_on_error: true
-          # Lint the files in the "versioned_docs/version-2.0.0/" directory
+          # Lint the files in the "versioned_docs/version-3.0.0/" directory
           files: 'versioned_docs/version-3.0.0'
           # Specify the Vale version
           version: 3.0.3
