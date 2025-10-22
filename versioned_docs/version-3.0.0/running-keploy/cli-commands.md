@@ -271,6 +271,8 @@ keploy gen [flags]
 
 The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
 
+This command is now “risk-aware” to prevent accidental acceptance of breaking API changes. By default, it will automatically update tests that failed with Low or Medium risk, but it will refuse to normalize any test that failed with a High risk, printing a warning instead.
+
 <b> Usage: </b>
 
 ```bash
@@ -297,6 +299,12 @@ keploy normalize [flags]
 
   ```bash
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
+  ```
+
+- `--allow-high-risk` - Allow normalization of high-risk test failures. This flag overrides the default safe behavior and updates all failed tests, including those with breaking changes.
+
+  ```bash
+  keploy normalize --allow-high-risk
   ```
 
 ## [rerecord](#rerecord)
