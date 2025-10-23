@@ -19,37 +19,23 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-A sample url shortener app to test Keploy integration capabilities using Echo and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+# Using Docker Compose 🐳
 
-import InstallationGuide from '../concepts/installation.md'
+A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Clone a sample URL shortener app 🧪
+### Clone a sample URL shortener app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
 go mod download
 ```
 
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
 We will be using Docker compose to run the application as well as Postgres on Docker container.
-
-### Lights, Camera, Record! 🎥
 
 #### Start Postgres Instance
 
@@ -58,12 +44,6 @@ Using the docker-compose file we will start our postgres instance:-
 ```bash
 # Start Postgres
 docker compose up
-```
-
-#### Creating Docker Volume
-
-```bash
-docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
 ```
 
 ### Capture the Testcases
@@ -76,13 +56,15 @@ docker build -t echo-app:1.0 .
 
 Once we have our binary file ready,this command will start the recording of API calls using ebpf:-
 
+#### Lights, Camera, Record! 🎥
+
 ```shell
 keploy record -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-network echo-app:1.0"
 ```
 
 Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
-#### Generate testcases
+### Generate testcases
 
 To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
@@ -117,7 +99,7 @@ curl --request GET \
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of postgres operations. Here's what the folder structure look like:
 
-![Testcase](/img/testcase-echo.png?raw=true)
+![Testcase](/img/echo-postgress-run-testcase.png?raw=true)
 
 Now, let's see the magic! ✨💫
 
@@ -147,7 +129,22 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-## Running App Locally on Linux/WSL 🐧
+<SectionDivider />
+
+---
+
+# Running App Locally on Linux/WSL 🐧
+
+A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
+
+<InstallReminder />
+
+### Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
 Using the docker-compose file we will start our Postgres instance:-
@@ -156,12 +153,12 @@ Using the docker-compose file we will start our Postgres instance:-
 docker-compose up -d
 ```
 
-> **Since we are using docker to run the application, we need to update the `postgres` host on line 28 in `main.go`, update the host to `localhost`.**
+> **Since we are using docker to run the application, we need to update the `postgres` host on line 40 in `main.go`, update the host to `localhost`.**
 
 Now, we will create the binary of our application:-
 
 ```go
-go build -cover
+go build echo-psql-url-shortener
 ```
 
 ### Capture the Testcases
@@ -170,9 +167,7 @@ go build -cover
 sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 ```
 
-![Testcase](/img/testcase-echo.png?raw=true)
-
-#### Generate testcases
+### Generate testcases
 
 To genereate testcases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl
 
@@ -211,7 +206,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
+sudo -E PATH=$PATH keploy test -c "./echo-psql-url-shortener"
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.

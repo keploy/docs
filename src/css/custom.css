@@ -229,6 +229,7 @@ div[class^="sidebar_"] .button svg {
 
 .navbar__items--right {
   @apply justify-end ml-auto flex-row-reverse;
+  gap: 13px;
 }
 
 .navbar__items--right > :last-child {
@@ -242,7 +243,7 @@ div[class^="sidebar_"] .button svg {
 /* Search */
 
 .DocSearch-Button {
-  @apply rounded-lg p-5 !important;
+  @apply rounded-lg px-3 py-2 !important;
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
@@ -272,7 +273,7 @@ footer svg {
   }
 
   .DocSearch-Button {
-    @apply mr-[-18px] !important;
+    @apply mr-2 !important;
   }
 
   /* .footer .footer__block {
@@ -742,3 +743,18 @@ a {
 textarea {
   resize: vertical;
 }
+
+.theme-back-to-top-button {
+  background-color: #FF914D !important;
+  color: white !important;
+}
+
+.theme-back-to-top-button svg {
+  fill: white !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
+
