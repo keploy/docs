@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
@@ -31,10 +31,25 @@ const IconWrapper = ({icon, bg}) => (
   </div>
 );
 
+
+export function useMediaQuery(query) {
+  const [matches, setMatches] = useState(false);
+
+  useEffect(() => {
+    const media = window.matchMedia(query);
+    setMatches(media.matches);
+    const listener = () => setMatches(media.matches);
+    media.addEventListener("change", listener);
+    return () => media.removeEventListener("change", listener);
+  }, [query]);
+
+  return matches;
+}
+
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
-
+  const isMobile = useMediaQuery("(max-width: 480px)");
   // 👇 initialize with defaultLanguage if provided
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
@@ -109,8 +124,8 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   // ----- Styles -----
   const headingStyle = {
     textAlign: "left",
-    marginLeft: "1rem",
-    fontSize: "1.4rem",
+    marginLeft: isMobile ? "0.75rem" : "1rem",
+    fontSize: isMobile ? "1.2rem" : "1.4rem",
     fontWeight: "600",
     color: isDark ? "#fff" : "#222",
   };
