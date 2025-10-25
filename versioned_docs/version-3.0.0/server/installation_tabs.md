@@ -157,27 +157,27 @@ brew install lima
 
 3. **Create a Debian instance** \[or any instance of your choice]
 
-   ```bash
-   limactl create template://debian-12
-   ```
+```bash
+limactl create template://debian-12
+```
 
 4. **Start the instance**
 
-   ```bash
-   limactl start debian-12
-   ```
+```bash
+limactl start debian-12
+```
 
 5. **Enter the Linux shell**
 
-   ```bash
-   limactl shell debian-12
-   ```
+```bash
+limactl shell debian-12
+```
 
 6. **Install Keploy inside Lima**
 
-   ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
 
 7. **Once done, You should see something like this:**
 
@@ -225,9 +225,9 @@ You’ve successfully set up **Keploy on macOS** using **Lima**.
 
 2. **Install Keploy**
 
-   ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
 
 3. **Verify the installation**
 
@@ -296,9 +296,9 @@ Run the following command in PowerShell (as Administrator):
 
 1. **Enable WSL**
 
-   ```shell
-   wsl --install -d <Distribution Name>
-   ```
+```shell
+wsl --install -d <Distribution Name>
+```
 
 👉 We recommend using **Ubuntu-22.04** for the best experience.
 (You can also choose a different distribution if needed.)
@@ -306,9 +306,9 @@ Run the following command in PowerShell (as Administrator):
 2. **Install Keploy Binary**
    Inside your WSL terminal, run:
 
-   ```shell
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+```shell
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
 
 3. **Verify Installation**
 
@@ -356,9 +356,9 @@ You’ve successfully set up **Keploy on Windows** using **WSL**.
 
 2. **Install Keploy**
 
-   ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
 
 3. **Verify the installation**
 
