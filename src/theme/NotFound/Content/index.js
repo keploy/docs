@@ -8,7 +8,7 @@ export default function Index() {
   useEffect(() => {
     const timer = setTimeout(() => {
       window.location.href = "/docs/";
-    }, 2000);
+    }, 1000);
 
 
     return () => clearTimeout(timer);
