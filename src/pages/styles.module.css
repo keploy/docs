@@ -141,22 +141,25 @@
 }
 
 .announcement {
-  font-weight: bold;
-  font-size: 24px;
-  padding: 48px;
+  background: linear-gradient(90deg, #ffcc33, #ff884d);
+  font-weight: 600;
+  font-size: 1.1rem;
+  color: #000;
+  padding: 1.5rem 0;
   margin: 0 auto;
   text-align: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
 .announcementDark {
-  background-color: #20232a;
+  background: linear-gradient(90deg, #1e1e2f, #3a3a5c);
   color: #fff;
   /* Reapply the primary color, because it has been locally overridden as
    * the dark theme color */
-  --ifm-link-color: var(--ifm-color-primary);
+  --ifm-link-color: #ffd966;
 }
 
 .announcementInner {
   margin: 0 auto;
-  max-width: 768px;
+  max-width: 900px;
 }
