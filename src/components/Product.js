@@ -238,14 +238,13 @@ function UTG() {
 
 export const Products = () => {
   return (
-    <section className="mb-4 mt-12 w-full">
-      <div className="text-center mb-8 md:mb-12">
-        <h2 className="mb-4 text-2xl md:text-3xl lg:text-4xl font-bold tracking-wide">
+    <section className="mt-12 text-bold w-full">
+      <div className="text-start mb-8">
+        <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
           Products 🛠️
         </h2>
-        <p className="text-base md:text-lg max-w-3xl mx-auto leading-relaxed text-[color:var(--ifm-color-emphasis-700)]">
-          Keploy provides three key products that help you streamline your testing
-          workflow and ensure comprehensive test coverage.
+        <p className="text-l mb-8 max-w-4xl">
+          Keploy provides three key products that help you streamline your testing workflow:
         </p>
       </div>
         <UTG />
