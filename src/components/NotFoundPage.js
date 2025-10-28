@@ -1,5 +1,5 @@
 import React from "react";
-import error from "../../static/img/error404.png";
+import error from "/static/img/error404.png";
 
 const NotFoundPage = () => {
   return (
@@ -17,7 +17,9 @@ const NotFoundPage = () => {
               style={{margin: "0 auto"}}
             />
             <h1 className="hero__title">🐰 Oops! 🐰</h1>
-            <p className="hero__subtitle margin-vert--md">404 - Page Not Found</p>
+            <p className="hero__subtitle margin-vert--md">
+              404 - Page Not Found
+            </p>
             <div className="margin-vert--lg">
               <div className="loading-dots">
                 <span>Redirecting to documentation</span>
