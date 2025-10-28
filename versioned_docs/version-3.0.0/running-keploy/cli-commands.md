@@ -25,11 +25,13 @@ Here are some examples of how to use some common flags:
 
 | Mode        | Flags Available                                                                                                                                                                                                                                                                                                                          |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                    |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                      |
 | `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
-| `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
+| `normalize` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
+| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                           |
+| `sanitize`  | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                          |
 | `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
 
 ## [record](#record)
@@ -71,6 +73,18 @@ keploy record [flags]
   ```bash
   keploy record -c "node src/app.js" -d 10
   ```
+
+- `--metadata string` - Key-value pairs to be added as metadata in the config.yaml file. If a `name` key is provided, it will be used as the test set name.
+
+  ```bash
+  keploy record -c "node src/app.js" --metadata "name=mac,env=production,service=gin-mongo,version=2.0.0,team.members[0]=alice,team.members[1]=bob,team.members[2]=carol,labels[0]=canary,labels[1]=stable,config.timeout=30s,config.timeout=60s,complex=a\\,b\\,c\\,d,database.urls[0]=db1.internal,database.urls[1]=db2.internal,database.urls[2]=db3.internal,mode=fast,mode=slow"
+  ```
+
+  ```bash
+  keploy record -c "node src/app.js" --metadata "name=mac,env=production,service=gin-mongo,version=2.0.0,team.members[0]=alice,team.members[1]=bob,team.members[2]=carol,labels[0]=canary,labels[1]=stable,config.timeout=30s,config.timeout=60s,complex=a\\,b\\,c\\,d,database.urls[0]=db1.internal,database.urls[1]=db2.internal,database.urls[2]=db3.internal,mode=fast,mode=slow"
+  ```
+
+  > **Note:** If the same key is used multiple times, the last occurrence will be used.
 
 - `- n, --network-name string` - Name of the docker network in which the user application is running.
 
@@ -257,6 +271,8 @@ keploy gen [flags]
 
 The `normalize` cmd in Keploy allows user to change the response of the testcases according to the latest test run response that is executed by the user, this is useful when the API response of the testcases are changed due to code change or any other intentional change in the application.
 
+This command is now “risk-aware” to prevent accidental acceptance of breaking API changes. By default, it will automatically update tests that failed with Low or Medium risk, but it will refuse to normalize any test that failed with a High risk, printing a warning instead.
+
 <b> Usage: </b>
 
 ```bash
@@ -285,15 +301,92 @@ keploy normalize [flags]
   keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
   ```
 
+- `--allow-high-risk` - Allow normalization of high-risk test failures. This flag overrides the default safe behavior and updates all failed tests, including those with breaking changes.
+
+  ```bash
+  keploy normalize --allow-high-risk
+  ```
+
 ## [rerecord](#rerecord)
 
-The `rerecord`cmd allow user to record new keploy testcases/mocks from the existing test cases for the given testset(s)
+The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testset(s).
 
-<b> Usage: </b>
+**Usage:**
 
 ```bash
 keploy rerecord -c "node src/app.js" -t "test-set-0"
 ```
+
+**Docker Example:**
+
+To re-record test cases for an application running inside a Docker container, use the Docker run command as the value for the `-c` flag:
+
+```bash
+keploy rerecord -c "sudo docker run -p 5000:5000 --name flask-jwt-app --network keploy-network flask-jwt-app" -t "test-set-0" --delay 10
+```
+
+**`--delay` flag:**
+
+The `--delay` flag specifies the number of seconds Keploy should wait after starting your application before replaying requests to re-record.
+This is useful if your application takes some time to start (for example, when running inside a Docker container or a heavy framework).
+
+- Adjust the delay to match your app's startup time.
+- For example, use `--delay 10` to wait for 10 seconds.
+
+## [report](#report)
+
+The `report` command in Keploy is used to display a detailed summary of test results. It can show a compact table-style diff or full body diffs (with colorized JSON), and it can read from the latest test run or a specific report file.
+
+<b> Usage: </b>
+
+```bash
+keploy report [flags]
+```
+
+<b> Available flags: </b>
+
+- `-t, --test-sets strings` - Testsets to report, e.g., `--test-sets "test-set-1, test-set-2"`. If omitted, all test sets in the latest run are considered.
+
+  ```bash
+  keploy report -t "test-set-1"
+  ```
+
+- `-p, --path string` - Path to the local directory where generated testcases/mocks are stored. Default is ".".
+
+  ```bash
+  keploy report -p "./keploy-tests"
+  ```
+
+- `--report-path, -r string` - **Absolute** path to a specific report file to display results from (must point to a file, not a directory). You can still combine this with other flags like `--summary` or `--test-case`.
+
+  ```bash
+  keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
+  ```
+
+- `--full` - Show full diffs instead of the default compact table view. For JSON bodies, this produces colorized expected/actual comparisons.
+
+  ```bash
+  keploy report -t "test-set-1" --full
+  ```
+
+- `--summary` - Print only a summarized view (grand totals and per–test-set table with time taken). Useful for a quick dashboard-style overview. Can be combined with `-t/--test-sets` and `--report-path`.
+
+  ```bash
+  keploy report --summary
+  ```
+
+- `--test-case strings` (alias: `--tc`) - Filter output to specific test case IDs.
+
+  ```bash
+  keploy report --test-case "test-1"
+  ```
+
+> **Notes**
+>
+> - By default, `report` shows only **failed** tests with a compact, human-readable diff (status, headers—including trailers/content-length where applicable—and body changes).
+> - Use `--full` to see the complete expected vs actual bodies (with JSON colorization).
+> - `--summary` prints just the totals and a per–test-set table, optionally restricted with `-t/--test-sets`.
+> - When `--report-path` is provided, Keploy reads that file directly. Legacy files that contain only a `tests` list are supported.
 
 ## [templatize](#templatize)
 

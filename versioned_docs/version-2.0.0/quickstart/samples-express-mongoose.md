@@ -72,7 +72,7 @@ sudo -E env PATH=$PATH keploy record -c 'npm start'
 
 #### Let's generate the testcases.
 
-Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 🎉 Woohoo! With a simple API call, you've crafted a test case with a mock! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml` after doing below steps
 

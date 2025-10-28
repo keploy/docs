@@ -13,15 +13,15 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+## Running Natively on Linux/WSL
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-<InstallationGuide/>
-
-## Get Started! 🎬
+<InstallReminder />
 
 ### Setup app
 
@@ -45,15 +45,6 @@ Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 2. Sign Up/Sign In and create new project
 3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
 4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env
-
-## Running the Application 📥
-
-There are 2 ways you can run this sample application.
-
-- [Running Natively on Linux/WSL](#running-natively-on-linuxwsl)
-- [Running the app using Docker](#running-the-app-using-docker)
-
-## Running Natively on Linux/WSL
 
 We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
 
@@ -196,7 +187,40 @@ You will be able to see the summary of your test cases run in your terminal!
 
 Now its time for you to experiment further with different API calls and tweak the responses accordingly!
 
+<SectionDivider />
+
 ## Running the app using Docker
+
+This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
+
+<InstallReminder />
+
+### Setup app
+
+Clone and install the necessary packages with the below command
+
+```bash
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/ts-nhost
+```
+
+```bash
+npm install
+```
+
+### Creating .env
+
+Create a .env file which should contain `HASURA_ADMIN_SECRET`and `GRAPHQL_ENDPOINT` (as mentioned in ts-nhost/sample.env)
+
+Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
+
+1. Go to nhost
+2. Sign Up/Sign In and create new project
+3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
+4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env
+
+We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
+
+Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 
 We will be using Docker compose to run the application as well as GraphQL on Docker container.
 
@@ -205,10 +229,10 @@ We will be using Docker compose to run the application as well as GraphQL on Doc
 We will run the keploy in record mode with docker-compose to start our application:-
 
 ```bash
-keploy record -c "sudo docker-compose up" --containerName "ts-nhost"
+keploy record -c "sudo docker compose up" --containerName "ts-nhost"
 ```
 
-<img src="/docs/img/wsl-record-ts.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nhost.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
 
 ### Generate the testcases
 
@@ -260,25 +284,17 @@ curl --request POST \
 Let's run our captured test cases
 
 ```bash
-keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
+keploy test -c 'sudo docker compose up' --containerName "ts-nhost" --delay 10
 ```
 
 This is what your response should look like!
 
-<img src="/docs/img/wsl-test-ts.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-nhost.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
 
-<img src="/docs/img/wsl-test-summary-ts.png" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-report-nhost.png" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Wrapping it up 🎉
 
 🎉 **Congratulations on Reaching This Milestone!** 🎉
 
 You've successfully tested the tool and created your mocks and test cases—fantastic work! Now that you've laid a solid foundation, it's time to elevate your achievements even further.
-
-Here’s to building more, innovating, and reaching new heights with your project! 🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

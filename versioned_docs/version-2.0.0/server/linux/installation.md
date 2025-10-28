@@ -68,7 +68,7 @@ Run this command on your terminal to start the recording of API calls:-
 sudo -E keploy record -c "CMD_TO_RUN_APP"
 ```
 
-Make API Calls using [Postman](https://www.postman.com/) or cURL command.
+Make API Calls using Postman or cURL command.
 
 Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
 mocks into `YAML` format.

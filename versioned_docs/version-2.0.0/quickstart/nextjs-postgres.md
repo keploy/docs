@@ -1,7 +1,7 @@
 ---
 id: samples-nextjs
 title: NextJs Sample Application
-sidebar_label: NextJS + SQL
+sidebar_label: NextJS + PostgreSQL
 description: The following sample app to test Keploy integration capabilities using NextJS,Drizzle and Postgres.
 tags:
   - NextJs
@@ -16,10 +16,6 @@ keyword:
 ## Introduction
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
-
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
 
 ## Get Started! 🎬
 
@@ -107,7 +103,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

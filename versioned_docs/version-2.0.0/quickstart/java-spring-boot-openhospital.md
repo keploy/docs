@@ -42,11 +42,10 @@ If you want to try this quickstart setup on a Mac, use Lima. If you're on Window
 ## Setup the Core
 
 ```bash
-git clone https://github.com/keploy/openhospital-core
+git clone https://github.com/keploy/openhospital-core && cd openhospital-core/
 git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 docker compose up
-
 ```
 
 Note: If you face any issues while setting up the database, please try running docker compose up again. The issue should not occur the second time.
@@ -114,7 +113,3 @@ Here `delay` is the time it takes for your application to get started, after whi
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

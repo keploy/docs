@@ -71,11 +71,11 @@ Use "keploy [command] --help" for more information about a command.
 <details>
 <summary>Install using Docker</summary>
 
-### Downloading and running Keploy in Docker
+**_Downloading and running Keploy in Docker_**
 
-#### On macOS
+#### On macOS/Windows
 
-Note : Keploy is not supported natively on MacOS, so you can follow the below method to run with docker
+Note : Keploy is not supported natively on MacOS and Windows, so you can follow the below method to run with docker
 
 1. Open up a terminal window.
 
@@ -85,18 +85,32 @@ Note : Keploy is not supported natively on MacOS, so you can follow the below me
 docker network create keploy-network
 ```
 
-3. Run the following command to start the Keploy container:
+2. Install Keploy
+
+```shell
+ curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+#### Examples:
+
+**Record:**
 
 ```bash
-alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
+```
+
+**Test:**
+
+```bash
+keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --network keploy-network <applicationImage>" --delay 10
 ```
 
 </details>
 
 <details>
-<summary>Downloading and running Keploy in Native</summary>
+<summary>Install Natively</summary>
 
-### Downloading and running Keploy in Native
+**_Downloading and running Keploy in Native_**
 
 **Prequisites:**
 
@@ -129,7 +143,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 
 > Note: Keploy is not supported on MacOS natively.
 
-### Setting up the Docker Desktop for WSL 2
+**_Setting up the Docker Desktop for WSL 2_**
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 

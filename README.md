@@ -78,7 +78,6 @@ The command starts a local development server and opens a browser window.
 
 > 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
 
-
 ## Running Vale Locally for Documentation Linting
 
 To help maintain consistency in our documentation, we use Vale, a syntax-aware linter that checks for spelling, grammar, and style issues.
@@ -121,10 +120,10 @@ MinAlertLevel = error
 
 ### Running Vale
 
-1. Linting Documentation: To check all markdown files in versioned_docs/version-2.0.0/ for errors, run:
+1. Linting Documentation: To check all markdown files in versioned_docs/version-3.0.0/ for errors, run:
 
 ```bash
-vale versioned_docs/version-2.0.0/**/*.md
+vale versioned_docs/version-3.0.0/**/*.md
 ```
 
 2. Review Errors:

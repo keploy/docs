@@ -4,6 +4,12 @@ import Link from "@docusaurus/Link";
 
 const links = [
   {
+    type: "video",
+    title: "AI Powered API testing",
+    length: "1 min watch",
+    url: "https://youtu.be/W6kh-TCUQH0?feature=shared",
+  },
+  {
     type: "article",
     title: "What's Keploy?",
     length: "3-20 min reads",
