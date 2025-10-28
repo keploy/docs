@@ -19,7 +19,7 @@ See https://twitter.com/JoshWComeau/status/1332015868725891076
 }
 
 :global(.hash-link::before) {
-  content: '#';
+  content: "#";
 }
 
 :global(.hash-link:focus),

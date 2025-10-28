@@ -145,20 +145,14 @@
               "label": "C# (.NET Core)",
               "collapsible": true,
               "collapsed": true,
-              "items": [
-                "quickstart/samples-csharp"
-              ]
+              "items": ["quickstart/samples-csharp"]
             }
           ]
         },
         {
           "type": "category",
           "label": "CI/CD Integration",
-          "items": [
-            "ci-cd/github",
-            "ci-cd/gitlab",
-            "ci-cd/jenkins"
-          ]
+          "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
         },
         {
           "type": "category",
