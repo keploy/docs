@@ -1,6 +1,6 @@
 ---
 id: javascript
-title: Merge Unit Test Coverage Data
+title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Javascript
 tags:
   - javascript
@@ -20,10 +20,6 @@ keywords:
   - tap
   - Typescript
 ---
-
-import WhatAreKeployFeatures from './index.md'
-
-<WhatAreKeployFeatures/>
 
 ## 🛠️ Language Specific Requirements
 
@@ -47,7 +43,36 @@ Update the `package.json` file that runs the application:
   }
 ```
 
+#### Install nyc:
+
+```
+npm i nyc
+```
+
 In the test script, the --coverage flag triggers report generation for Jest. For other testing frameworks like Mocha, Intern, or Tap, you will need to use their respective coverage tools.
+
+#### Run keploy test command:
+
+Once it has been done, run keploy test command:
+
+```
+keploy test -c "your_application_command"
+```
+
+After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
+
+```
+keploy
+├── reports
+│   └── test-run-0
+│       ├── coverage.yaml
+│       └── test-set-0-report.yaml
+└── test-set-0
+    ├── mocks.yaml
+    └── tests
+        ├── test-1.yaml
+        └── test-2.yaml
+```
 
 To generate coverage report for your unit tests, Run:
 
