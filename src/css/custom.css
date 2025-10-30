@@ -440,6 +440,12 @@ td img {
   }
 }
 
+@media screen and (max-width: 1000px) {
+  .product-grid {
+    grid-template-columns: repeat(1, 1fr); 
+  }
+}
+
 .docs-image-legend-wrapper {
   width: 100%;
   margin: 0;
