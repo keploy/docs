@@ -5,7 +5,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 function UTG() {
   return (
     <div className="rounded-lg">
-      <ul className="product-grid grid auto-cols-[300px] gap-3 md:grid-flow-col lg:gap-5">
+      <ul className="product-grid grid gap-3 lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             className="text-foreground-light flex-grow text-sm"
