@@ -1,6 +1,6 @@
 ---
 id: java
-title: Merge Unit Test Coverage Data
+title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Java
 tags:
   - java
@@ -17,10 +17,6 @@ keyword:
   - Auto Testcase generation
   - Junit
 ---
-
-import WhatAreKeployFeatures from './index.md'
-
-<WhatAreKeployFeatures/>
 
 ## 🛠️ Language Specific Requirements
 
@@ -109,6 +105,27 @@ You will need to add the following plugins in `pom.xml` file of your application
 		<!-- your plugins will go here -->
 	</plugins>
 </build>
+```
+
+Once it has been done, run keploy test command:
+
+```
+keploy test -c "your_application_command"
+```
+
+After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
+
+```
+keploy
+├── reports
+│   └── test-run-0
+│       ├── coverage.yaml
+│       └── test-set-0-report.yaml
+└── test-set-0
+    ├── mocks.yaml
+    └── tests
+        ├── test-1.yaml
+        └── test-2.yaml
 ```
 
 Now, To get the combined report as well as coverage report for your unit tests, Run
