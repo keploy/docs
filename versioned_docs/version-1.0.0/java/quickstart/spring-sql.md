@@ -209,8 +209,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
           </plugin>
          ```
 
-  {'<'}/details{'>'}
-  2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
+  {'<'}/details{'>'} 2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
 
   {'<'}details{'>'}{'<'}summary{'>'}
   Add plugin
@@ -253,8 +252,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
          </plugin>
        ```
 
-  {'<'}/details{'>'}
-  3.  Run your tests using command : `mvn test`.
+  {'<'}/details{'>'} 3. Run your tests using command : `mvn test`.
 
 It will create .html files as test-reports which can be found in your target folder !!
 
