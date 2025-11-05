@@ -295,10 +295,10 @@ keploy normalize [flags]
   keploy normalize -p "./tests" --test-run "test-run-10"
   ```
 
-- `--tests string` - by default normalization considers all the testcases for normalization but if user want to normalize only few particular testcases this flag can be used
+- `--tests string` - by default normalization considers all the testcases for normalization but if user want to normalize only few particular testcases or testsets this flag can be used
 
   ```bash
-  keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-case-1 test-case-2,test-set-2:test-case-1 test-case-2"
+  keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-1 test-2, test-set-2, test-set-3, test-set-4:test-3"
   ```
 
 - `--allow-high-risk` - Allow normalization of high-risk test failures. This flag overrides the default safe behavior and updates all failed tests, including those with breaking changes.
