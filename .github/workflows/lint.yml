@@ -16,7 +16,7 @@ jobs:
           fetch-depth: 0
 
       - name: Set up Node.js
-        uses: uses: actions/setup-node@v5
+        uses: actions/setup-node@v5
         with:
           node-version: '20.0.0'
 

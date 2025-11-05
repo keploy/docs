@@ -39,15 +39,12 @@ Sync dependencies or to _build.gradle_:
 2. Install Keploy Jar
 
 - Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar) (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
-
   - Add the jar into the `main` directory
-
     - **Copy** `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
       (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
 
       You can set this through 3 ways:-
-
       1.  {'<'}details{'>'}{'<'}summary{'>'}
           Using Intellij
           {'<'}/summary{'>'}
@@ -181,12 +178,10 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
 ```
 
 - **Using IDE:** _(for local use-case we prefer running tests via IDE)_
-
   1. Run your application.
   2. You can also run the application with coverage to see the test coverage.
 
 - **Using CLI**
-
   1. Add maven-surefire-plugin to your `pom.xml`. In `<argLine > </ argLine >` **don't** add jacoco agent if you don't want coverage report.
 
   {'<'}details{'>'}{'<'}summary{'>'}
@@ -215,7 +210,6 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
          ```
 
   {'<'}/details{'>'}
-
   2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
 
   {'<'}details{'>'}{'<'}summary{'>'}
@@ -260,7 +254,6 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
        ```
 
   {'<'}/details{'>'}
-
   3.  Run your tests using command : `mvn test`.
 
 It will create .html files as test-reports which can be found in your target folder !!
