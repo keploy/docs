@@ -1,7 +1,7 @@
 ---
 id: samples-java
 title: Java Sample Application
-sidebar_label: Employer (PostgresDb)
+sidebar_label: Employer App
 description: The following sample app showcases how to use java framework and the Keploy Platform.
 tags:
   - java
