@@ -19,20 +19,20 @@ keploy [command] [flags]
 
 You can use `--help, -h` flag for all the commands to see available flag options and their purpose.
 
-## Modes and Flags
+## Commands and Flags
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                          |
-| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                      |
-| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
-| `normalize` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
-| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                      |
-| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                           |
-| `sanitize`  | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                          |
-| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                |
+| Command     | Flags Available                                                                                                                                                                                                                                                                                                                                                                            |
+| ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                        |
+| `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
+| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
+| `normalize` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
+| `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                        |
+| `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                                                             |
+| `sanitize`  | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                                                            |
+| `config`    | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                  |
 
 ## [record](#record)
 
@@ -232,6 +232,26 @@ keploy test [flags]
   ```
 
 - `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
+
+- `--proto-dir string` - Path of the directory where all protos of a service are located. Used for GRPC test cases to enable better deterministic and proper comparison of protobuf responses.
+
+  ```bash
+  keploy test -c "node src/app.js" --proto-dir "./protos"
+  ```
+
+- `--proto-file string` - Path of main proto file. Used for GRPC test cases to enable better deterministic and proper comparison of protobuf responses. Either `--proto-file` or `--proto-dir` must be provided for GRPC tests.
+
+  ```bash
+  keploy test -c "node src/app.js" --proto-file "./protos/main.proto"
+  ```
+
+- `--proto-include stringArray` - Path of directories to be included while parsing import statements in proto files. This is optional and used for GRPC test cases when proto files have import dependencies.
+
+  ```bash
+  keploy test -c "node src/app.js" --proto-file "./protos/main.proto" --proto-include "./protos/common,./protos/shared"
+  ```
+
+  > **Note for GRPC Tests:** When running GRPC test cases, it's recommended to provide proto information using either `--proto-file` or `--proto-dir` flags. If proto information is not provided, Keploy will use basic canonical matching of the protoscopic textual format of GRPC response body, which may be less accurate than proto-based comparison.
 
 ## [gen](#gen)
 
