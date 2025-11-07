@@ -1,22 +1,13 @@
-import React, {useEffect} from "react";
-import {PageMetadata} from "@docusaurus/theme-common";
+import { useEffect } from "react";
 
-export default function Index() {
+export default function NotFound() {
   useEffect(() => {
-    window.location.href = "/docs/";
-  }, 2000);
-  [];
+    if (typeof window !== "undefined") {
+      // immediate redirect without adding to browser history
+      window.location.replace("/docs");
+    }
+  }, []);
 
-  return (
-    <>
-      <PageMetadata title="Redirecting..." />
-      <main className="margin-vert--xl container">
-        <div className="row">
-          <div className="col col--6 col--offset-3">
-            <h1 className="hero__title">Redirecting to home page...</h1>
-          </div>
-        </div>
-      </main>
-    </>
-  );
+  // render nothing (no content shown)
+  return null;
 }
