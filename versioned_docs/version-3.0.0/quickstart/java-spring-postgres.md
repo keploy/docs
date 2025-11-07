@@ -1,7 +1,7 @@
 ---
 id: pet-clinic
 title: Keploy Integration with PetClinic App
-sidebar_label: PetClinic (PostgresDb)
+sidebar_label: PetClinic
 description: This sample app shows how to use Keploy to generate test cases and mocks for the popular Spring Boot Java app, PetClinic.
 tags:
   - java
@@ -112,13 +112,44 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 
 🎉 Hooray! You've made it to the end of the binary section! 🎉
 
-## <SectionDivider />
+<SectionDivider />
 
-# Instructions For Starting Using Docker
+## Instructions For Starting Using Docker
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 <InstallReminder />
+
+## Setup the frontend
+
+### Prerequisites For Frontend:
+
+1. Node version 16.x and above
+
+```bash
+git clone https://github.com/keploy/samples-java.git
+cd samples-java/spring-petclinic/spring-petclinic-angular
+npm i --legacy-peer-deps
+```
+
+## Start the frontend
+
+```bash
+npm run start
+```
+
+Now it's time to setup the backend of our application. Let's move to the backend directory and get started.
+
+```bash
+cd samples-java/spring-petclinic/spring-petclinic-rest
+```
+
+Prerequisites For API backend Binary:
+
+1. OpenJDK 17+
+2. MVN version 3.6+
+
+## Recording the testcases with Keploy
 
 ```bash
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
@@ -133,10 +164,10 @@ keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --d
 ```
 
 Your CLI should look something like this
-<img src="/docs/img/pet-test1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-postgress-1.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
 This is a summary of the test cases recorded
-<img src="/docs/img/pet-test2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-postgress2.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.

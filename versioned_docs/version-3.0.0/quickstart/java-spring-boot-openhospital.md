@@ -1,7 +1,7 @@
 ---
 id: openhospital
 title: Keploy with OpenHospital
-sidebar_label: OpenHospital (Mysql)
+sidebar_label: OpenHospital
 description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
 tags:
   - java
@@ -40,10 +40,10 @@ This project has Three parts - the UI, Core and API, since Keploy is a backend t
 
 ```bash
 git clone https://github.com/keploy/openhospital-core
+cd openhospital-core/
 git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 docker compose up
-
 ```
 
 Note: If you face any issues while setting up the database, please try running docker compose up again. The issue should not occur the second time.
@@ -54,6 +54,7 @@ Now it's time to setup the backend of our application. Let's Install the Openhos
 
 ```bash
 git clone https://github.com/keploy/openhospital-api
+cd openhospital-api/
 git checkout integration-with-keploy
 mvn clean install -DskipTests=true
 ```
@@ -74,12 +75,13 @@ Prerequisites For Binary:
 keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
 ```
 
-<img src="/docs/img/Keploy-record-openhospital.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-record-java.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Start the frontend
 
 ```bash
 git clone https://github.com/keploy/openhospital-ui
+cd openhospital-ui/
 git checkout integration-with-keploy
 npm install
 npm start
@@ -102,10 +104,10 @@ keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.sp
 🎉 Hooray! You've made it to the end of the binary section! 🎉
 
 Your CLI should look something like this
-<img src="/docs/img/Keploy-test-openhospital.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-openhospital.jpg" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
 This is a summary of the test cases recorded
-<img src="/docs/img/result-openhospital.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-testcase-openhospital.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.

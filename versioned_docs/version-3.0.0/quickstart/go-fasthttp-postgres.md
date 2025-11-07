@@ -19,31 +19,23 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-🪄 Dive into the world of CRUD applications and see how seamlessly Keploy integrates with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+# Using Docker Compose 🐳
 
-import InstallationGuide from '../concepts/installation.md'
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Clone the sample CRUD application 🧪
+### Clone a sample CRUD application 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
 go mod download
 ```
 
-## Installation 📥
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose: running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
-We will be using Docker Compose to run the application as well as Postgres on Docker container.
+We will be using Docker Compose to run both the application and Postgres inside Docker containers.
 
 ### Lights, Camera, Record! 🎥
 
@@ -56,8 +48,10 @@ Fire up the application and Postgres instance with Keploy. Keep an eye on the tw
 keploy record -c "docker compose up" --container-name "fasthttpPostgresApp"
 ```
 
+> Keploy waits for the container to be up before intercepting. If your compose services need extra time to build or initialize, you can add `--build-delay <seconds>` to the command.
+
 Getting logs like this? Perfect! 👌
-![Testcase](https://github.com/keploy/samples-go/raw/main/fasthttp-postgres/img/testcases.png)
+![Testcase](/img/fasthttp-postgress-test.png)
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -184,8 +178,7 @@ keploy test -c "docker compose up" --container-name "fasthttpPostgresApp" --dela
 
 Your results should be looking like this:
 
-![Testrun](https://github.com/keploy/samples-go/raw/main/fasthttp-postgres/img/testrun.png)
-
+![Testrun](/img/go-fasthttp-testrun.png)
 Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
@@ -196,48 +189,58 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
+<SectionDivider />
+
 ---
 
-## Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL 🐧
+
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
+
+<InstallReminder />
+
+### Clone the sample CRUD application 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started! 🎉
 
-If you are using WSL on Windows then use below to start WSL in the user's home directory:
+If you’re using WSL on Windows, start in your home directory:
 
 ```bash
 wsl ~
 ```
 
-First things first, update the Postgres URL to `localhost:5432` on **line 21** of our trusty `main.go` file.
+### Point the app to local Postgres
 
-### 🍃 Kickstart Postgres
+Update the Postgres URL to `localhost:5432` in `main.go` (mentioned at line 21 in the sample).
 
-Let's breathe life into your Postgres container. A simple spell should do the trick:
+### Start Postgres
 
 ```bash
 docker compose up postgres
 ```
 
-### 📼 Recording Time!
-
-Ready, set, record! Here's how:
+### Record with Keploy while running the app
 
 ```bash
 go build -cover
 keploy record -c "./app"
-
 ```
 
 Keep an eye out for the `-c` flag! It's the command charm to run the app. Whether you're using `go run main.go` or the binary path like `./app`, it's your call.
 If you're seeing logs that resemble the ones below, you're on the right track:
-
-![Testcase](https://github.com/keploy/samples-go/raw/main/fasthttp-postgres/img/testcases.png)
 
 Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch,
 
 or even the classic curl - take your pick!
 
 Time to create some users and books:
+
+### Generate traffic
 
 #### Post Requests
 
@@ -266,7 +269,7 @@ keploy test -c "./app" --delay 5
 
 When all is said and done, your test results should look a little something like this:
 
-![Testrun](https://github.com/keploy/samples-go/raw/main/fasthttp-postgres/img/testrun.png)
+![Testrun](/img/go-fasthttp-testrun.png)
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
 

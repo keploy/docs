@@ -43,6 +43,8 @@ keywords:
 
 ## 🚀 Keploy's API Test Generator
 
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-testing-agent.png" alt="Keploy Record Test case" width="100%" />
+
 AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites — no scripts, mocks, or manual setup required.
 
 It supports:
@@ -60,6 +62,8 @@ Every test includes:
 - Full lifecycle coverage (create → mutate → delete)
 - Deduplication and flaky test detection
 - Self-healing for minor API changes
+
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-dashboard.png" alt="Keploy Record Test case" width="100%" />
 
 Whether you're a developer, SDET, or QA manager — Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
 
@@ -102,9 +106,6 @@ Keploy supports multiple ways to generate test cases depending on the API access
 
 Keploy is built with security-first principles and is compliant with major industry standards:
 
-- ✅ **SOC 2**
-- ✅ **ISO 27001**
-- ✅ **GDPR**
-- ✅ **HIPAA**
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/compliance-images.png" alt="Keploy Record Test case" width="100%" />
 
-Your data and test traffic are handled securely, with the option to run Keploy entirely within your network using our self-hosted agent or BYOLLM infrastructure. Learn more on our [security page](https://keploy.io/security).
+Your data and test traffic are handled securely, with the option to run Keploy entirely within your network using our self-hosted agent or BYOLLM infrastructure. To Learn more on our [security page](https://trust.keploy.io).
