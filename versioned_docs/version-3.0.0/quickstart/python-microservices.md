@@ -1,7 +1,7 @@
 ---
 id: samples-microservices
 title: E-commerce Microservices
-sidebar_label: Microservices
+sidebar_label: E-commerce Microservices
 description: The following sample microservices app shows how Keploy helps you test microservices applications. In the sample microservices app, we have 3 microservices:user service, product service, and order service, each with its own MySQL database, plus LocalStack SQS for messaging.
 
 tags:
@@ -25,9 +25,11 @@ keyword:
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 
-## Using Docker Compose 🐳
+import CollapsibleCode from '@site/src/components/CollapsibleCode';
 
-### Introduction
+## Keploy Integration testing
+
+#### Introduction
 
 This guide will walk you through testing an E-commerce microservices application with Keploy. The app contains three microservices:
 
@@ -48,11 +50,13 @@ git clone https://github.com/keploy/ecommerce_sample_app.git
 cd ecommerce_sample_app
 ```
 
-_Note: You can view the **architecture diagram** of the application [here](https://keploy-devrel.s3.us-west-2.amazonaws.com/Microservices-architecture.png)_
+_Note: You can view the **architecture diagram** of the application_
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_arch.png" alt="Sample Keploy Record Microservices" />
 
 #### Start the Microservices
 
-The app is set up with **Docker Compose**, making it easy to start all services together. Let’s begin with the **User Service**.
+The app is set up with **Docker Compose**, making it easy to start all services together. Let’s begin with the **Order Service**.
 
 ### Capture Test Cases with Keploy
 
@@ -62,11 +66,1029 @@ To start capturing API test cases, use the following command:
 keploy record -c "docker compose up" --container-name="order_service" --build-delay 40 --path="./order_service" --config-path="./order_service"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-record-microservice-updated.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_record_microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
-Once the services are up, use the **Postman collection** provided with the app to make some API calls. Keploy will capture these requests and create test cases.
+Now the question arises how to make an API call? We’ve made it simple! You can just import the Postman collection and try sending an API call.
 
-You can see in the logs that Keploy starts recording all the network calls.
+#### You can download the Postman collection from this URL and import it into Postman:
+
+```bash
+https://github.com/keploy/ecommerce_sample_app/tree/main/postman
+
+```
+
+                              (or)
+
+#### If you prefer an easier way, you can simply click the copy full collections button the below.
+
+<CollapsibleCode
+language="json"
+previewLines={10}
+code={`
+{
+"info": {
+"name": "E-commerce Full Stack (Gateway + Microservices)",
+"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+},
+"item": [
+{
+"name": "API Gateway",
+"item": [
+{
+"name": "Login (via user service path)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/login",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.token) pm.environment.set('jwt', j.token);",
+"pm.test('got token', function(){ pm.expect(!!pm.environment.get('jwt')).to.be.true; });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create address",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/users/{{user_id}}/addresses",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"users",
+"{{user_id}}",
+"addresses"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"line1\": \"1 Main St\",\n \"city\": \"NYC\",\n \"state\": \"NY\",\n \"postal_code\": \"10001\",\n \"country\": \"US\",\n \"phone\": \"+1-555-0000\",\n \"is_default\": true\n}"
+}
+}
+},
+{
+"name": "Delete user (via gateway)",
+"request": {
+"method": "DELETE",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/users/{{user_id}}",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"users",
+"{{user_id}}"
+]
+}
+}
+},
+{
+"name": "Create order (shippingAddressId)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/orders",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{user_id}}\",\n \"items\": [ { \"productId\": \"{{product_id}}\", \"quantity\": 1 } ],\n \"shippingAddressId\": \"{{address_id}}\"\n}"
+}
+}
+},
+{
+"name": "Get order details (enriched)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/orders/{{order_id}}/details",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"orders",
+"{{order_id}}",
+"details"
+]
+}
+}
+}
+]
+},
+{
+"name": "User Service",
+"item": [
+{
+"name": "Login (get token)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{user_base}}/login",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"var j={}; try{ j=pm.response.json(); }catch(e){};",
+"if (j.token) pm.environment.set('jwt', j.token);",
+"pm.test('got token', function(){ pm.expect(!!pm.environment.get('jwt')).to.be.true; });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create user",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"email\": \"{{email}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('user created', function(){",
+" pm.expect([200,201]).to.include(pm.response.code);",
+"});",
+"var json = {}; try { json = pm.response.json(); } catch(e){}",
+"if (json.id) { pm.environment.set('last_user_id', json.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Add address (default)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}/addresses",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}",
+"addresses"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"line1\": \"1 Main St\",\n \"city\": \"NYC\",\n \"state\": \"NY\",\n \"postal_code\": \"10001\",\n \"country\": \"US\",\n \"phone\": \"+1-555-0000\",\n \"is_default\": true\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('address created', function(){ pm.expect([200,201]).to.include(pm.response.code); });",
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.id){ pm.environment.set('last_address_id', j.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "List addresses",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}/addresses",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}",
+"addresses"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('addresses listed', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get user",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('user fetched', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Delete user",
+"request": {
+"method": "DELETE",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('deleted or not found', function(){ pm.expect([200,404]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Login",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{user_base}}/login",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('login ok', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+}
+]
+},
+{
+"name": "Product Service",
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('laptop_id') || !pm.environment.get('mouse_id')) {",
+" // Fetch products once to seed IDs",
+" pm.sendRequest({ url: pm.environment.get('product_base') + '/products', method: 'GET' }, function(err, res) {",
+" if (!err) {",
+" var arr = res.json();",
+" if (arr && arr.length) {",
+" pm.environment.set('laptop_id', arr[0].id);",
+" if (arr.length > 1) pm.environment.set('mouse_id', arr[1].id);",
+" }",
+" }",
+" });",
+"}"
+],
+"type": "text/javascript"
+}
+}
+],
+"item": [
+{
+"name": "List products",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products"
+]
+}
+}
+},
+{
+"name": "Get product (laptop)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}"
+]
+}
+}
+},
+{
+"name": "Reserve laptop",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}/reserve",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}",
+"reserve"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"quantity\": 1\n}"
+}
+}
+},
+{
+"name": "Release laptop",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}/release",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}",
+"release"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"quantity\": 1\n}"
+}
+}
+}
+]
+},
+{
+"name": "Order Service",
+"item": [
+{
+"name": "Create order (laptop x1)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{laptop_id}}\", \"quantity\": 1 } ],\n \"shippingAddressId\": \"{{last_address_id}}\"\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('idempotency_key')) { pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}')); }"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created', function(){ pm.expect([200,201]).to.include(pm.response.code); });",
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.id){ pm.environment.set('last_order_id', j.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create order (fallback default addr)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{mouse_id}}\", \"quantity\": 1 } ]\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}'));"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created', function(){ pm.expect([200,201]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "List my orders",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders?userId={{last_user_id}}&limit=5",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+],
+"query": [
+{
+"key": "userId",
+"value": "{{last_user_id}}"
+},
+{
+"key": "limit",
+"value": "5"
+}
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('listed', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get order",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('got order', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get order details (enriched)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/details",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"details"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('got details', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Pay order",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/pay",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"pay"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('paid or already paid', function(){ pm.expect([200].concat([200])).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Cancel order (expect 409 if paid)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/cancel",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"cancel"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('cancel response code', function(){ pm.expect([200,409,404]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create order idempotent (mouse x2)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{mouse_id}}\", \"quantity\": 2 } ]\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('idempotency_key')) { pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}')); }"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created idempotently', function(){ pm.expect([200,201]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+}
+]
+}
+],
+"variable": [
+{
+"key": "gw_base",
+"value": "http://localhost:8083"
+},
+{
+"key": "username",
+"value": "alice"
+},
+{
+"key": "email",
+"value": "alice@example.com"
+},
+{
+"key": "user_base",
+"value": "http://localhost:8082/api/v1"
+},
+{
+"key": "product_base",
+"value": "http://localhost:8081/api/v1"
+},
+{
+"key": "order_base",
+"value": "http://localhost:8080/api/v1"
+},
+{
+"key": "jwt",
+"value": ""
+},
+{
+"key": "last_user_id",
+"value": ""
+},
+{
+"key": "laptop_id",
+"value": ""
+},
+{
+"key": "mouse_id",
+"value": ""
+},
+{
+"key": "idempotency_key",
+"value": ""
+}
+]
+}
+
+...
+
+`
+}
+
+/>
+
+**Step 1: If you’ve already downloaded the collection, upload it.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_1.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 2: Once it is uploaded, you will see the Ecommerce microservices in the left tab.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_2.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 3: Click the User Service and hit the login URL to get the token.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_3.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 4: We need to create a user before placing an order. So, create a user using the Create User API.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_4.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 5: Then, create an address for the user.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_5.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 6: Once you’re done creating the user details, let’s fetch the product details. This will be helpful when placing an order.\*\***
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_6.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 7: Create an order, but before that, copy the mouse_id to place the order.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_7.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 8: You can verify it using the List Order API.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_8.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 9: Once you’ve created an order, use the Payment API to pay for the order.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_9.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+**Step 10: You can use the Get Order API to check the status of your order.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_10.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+> _Note: You can see that Keploy only captures the network calls related to the order service. It can’t capture other network calls because we are recording only for the order service._
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-capture-test-updated.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} />
 
@@ -278,18 +1300,6 @@ spec:
   restimestampmock: 2025-09-04T11:27:46.162389255Z
 ```
 
-## Check Test Coverage
-
-Keploy also helps you track **test coverage** for your app.
-
-The overall coverage report by files:
-
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Microservices-test-report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
-
-The overall coverage report by functions:
-
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Microservices-python-coverage-report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
-
 ### Run the Tests
 
 Now, let’s run the tests that were automatically generated by Keploy. Use this command:
@@ -298,12 +1308,1217 @@ Now, let’s run the tests that were automatically generated by Keploy. Use this
 keploy test -c "docker compose up" --containerName="order_service" --delay 30 --path="./order_service" --config-path="./order_service"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-replay-microservice.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_test.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} />
 
 The `--delay` flag gives the app a short pause (in seconds) before running the tests. After the tests finish, you can inspect the results and tweak the test data in the `mocks.yml` or `test-x.yml` files.
 
+### Check Test Coverage
+
+Keploy also helps you track **test coverage** for your app.
+
+The coverage files will be generated automatically by Keploy. You can find those files in the coverage directory.Click on any one of the HTML files to see the test coverage.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_coverage_files.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Let's see the overall coverage report:**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_overall_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Let's see the overall coverage report by functions:**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_function_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Once you’ve got the coverage, let’s check the test reports in the Keploy Dashboard.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_dashboard_ecommerce.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Let’s take a look at the Test Reports section.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Now, let’s go to the individual Test Report section and review the output.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_run_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**Two tests have failed — let’s check why they failed.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_test_run_individual.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+
+**From the dashboard, you can see the diff that explains why it failed.**
+
 _Note: We have just tested only one microservice (Order Service). You can use the same command to test other microservices by changing the name and config path._
+
+## Keploy API testing
+
+#### This section will walk you through testing an E-commerce microservices application using Keploy API Testing.
+
+We’ll use the Keploy Chrome extension to generate and run API tests — no coding or manual setup required.
+
+Use the following link to install the [Chrome Extension](https://chromewebstore.google.com/detail/keploy-api-test-recorder/ohcclfkaidblnjnggclkiecgkpgldihe)
+
+**Note: This extension works only on the Chrome browser. Make sure you’re using Chrome to try it out.**
+
+Once done, Go to [Keploy Enterprise UI](https://app.keploy.io) to try out Keploy API Testing. Once you sign in, you’ll see a dashboard like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_1.png" alt="Sample Keploy Record Microservices" />
+
+After reaching this step, provide your application URL and the working cURL commands. If the e-commerce application isn’t already running, start it using `docker compose up`.
+
+**Step 1: Let's provide the curl command in the import curl section**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_apitesting_2.png" alt="Sample Keploy Record Microservices" />
+
+Use the following cURL command to import:
+
+```bash
+curl -X POST -H 'Host: localhost:8080' -H 'Accept-Encoding: gzip, deflate, br' -H 'Connection: keep-alive' -H 'Cache-Control: no-cache' -H 'Accept: */*' -H 'Postman-Token: 682f4ac6-a482-44ab-b7f4-14cd4e8bc989' -H 'User-Agent: PostmanRuntime/7.49.1' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' 'http://localhost:8083/api/v1/orders/d5a441bc-94f6-4695-a30e-4bfdb45d7223/pay'
+```
+
+**Step 2: Once you provide the input, you will see a response. This means we are able to reach your application and are now ready to generate tests. We’re just performing a validation before generating the test cases.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_3.png" alt="Sample Keploy Record Microservices" />
+
+**Step 3: Next, it’s time to provide the input — such as cURL commands, Postman collections, or an OpenAPI schema. Remember, the more input or content you provide, the better your test cases will be. For this demo, we’ll use Postman collections and cURL commands.**
+
+Copy this postman collection
+
+<CollapsibleCode
+language="json"
+previewLines={10}
+code={`
+{
+"info": {
+"name": "E-commerce Full Stack (Gateway + Microservices)",
+"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+},
+"item": [
+{
+"name": "API Gateway",
+"item": [
+{
+"name": "Login (via user service path)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/login",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.token) pm.environment.set('jwt', j.token);",
+"pm.test('got token', function(){ pm.expect(!!pm.environment.get('jwt')).to.be.true; });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create address",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/users/{{user_id}}/addresses",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"users",
+"{{user_id}}",
+"addresses"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"line1\": \"1 Main St\",\n \"city\": \"NYC\",\n \"state\": \"NY\",\n \"postal_code\": \"10001\",\n \"country\": \"US\",\n \"phone\": \"+1-555-0000\",\n \"is_default\": true\n}"
+}
+}
+},
+{
+"name": "Delete user (via gateway)",
+"request": {
+"method": "DELETE",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/users/{{user_id}}",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"users",
+"{{user_id}}"
+]
+}
+}
+},
+{
+"name": "Create order (shippingAddressId)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/orders",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{user_id}}\",\n \"items\": [ { \"productId\": \"{{product_id}}\", \"quantity\": 1 } ],\n \"shippingAddressId\": \"{{address_id}}\"\n}"
+}
+}
+},
+{
+"name": "Get order details (enriched)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{gw_base}}/api/v1/orders/{{order_id}}/details",
+"host": [
+"{{gw_base}}"
+],
+"path": [
+"api",
+"v1",
+"orders",
+"{{order_id}}",
+"details"
+]
+}
+}
+}
+]
+},
+{
+"name": "User Service",
+"item": [
+{
+"name": "Login (get token)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{user_base}}/login",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"var j={}; try{ j=pm.response.json(); }catch(e){};",
+"if (j.token) pm.environment.set('jwt', j.token);",
+"pm.test('got token', function(){ pm.expect(!!pm.environment.get('jwt')).to.be.true; });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create user",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"email\": \"{{email}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('user created', function(){",
+" pm.expect([200,201]).to.include(pm.response.code);",
+"});",
+"var json = {}; try { json = pm.response.json(); } catch(e){}",
+"if (json.id) { pm.environment.set('last_user_id', json.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Add address (default)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}/addresses",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}",
+"addresses"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"line1\": \"1 Main St\",\n \"city\": \"NYC\",\n \"state\": \"NY\",\n \"postal_code\": \"10001\",\n \"country\": \"US\",\n \"phone\": \"+1-555-0000\",\n \"is_default\": true\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('address created', function(){ pm.expect([200,201]).to.include(pm.response.code); });",
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.id){ pm.environment.set('last_address_id', j.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "List addresses",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}/addresses",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}",
+"addresses"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('addresses listed', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get user",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('user fetched', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Delete user",
+"request": {
+"method": "DELETE",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{user_base}}/users/{{last_user_id}}",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"users",
+"{{last_user_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('deleted or not found', function(){ pm.expect([200,404]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Login",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+}
+],
+"url": {
+"raw": "{{user_base}}/login",
+"host": [
+"{{user_base}}"
+],
+"path": [
+"login"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"username\": \"{{username}}\",\n \"password\": \"p@ssw0rd\"\n}"
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('login ok', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+}
+]
+},
+{
+"name": "Product Service",
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('laptop_id') || !pm.environment.get('mouse_id')) {",
+" // Fetch products once to seed IDs",
+" pm.sendRequest({ url: pm.environment.get('product_base') + '/products', method: 'GET' }, function(err, res) {",
+" if (!err) {",
+" var arr = res.json();",
+" if (arr && arr.length) {",
+" pm.environment.set('laptop_id', arr[0].id);",
+" if (arr.length > 1) pm.environment.set('mouse_id', arr[1].id);",
+" }",
+" }",
+" });",
+"}"
+],
+"type": "text/javascript"
+}
+}
+],
+"item": [
+{
+"name": "List products",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products"
+]
+}
+}
+},
+{
+"name": "Get product (laptop)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}"
+]
+}
+}
+},
+{
+"name": "Reserve laptop",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}/reserve",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}",
+"reserve"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"quantity\": 1\n}"
+}
+}
+},
+{
+"name": "Release laptop",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{product_base}}/products/{{laptop_id}}/release",
+"host": [
+"{{product_base}}"
+],
+"path": [
+"products",
+"{{laptop_id}}",
+"release"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"quantity\": 1\n}"
+}
+}
+}
+]
+},
+{
+"name": "Order Service",
+"item": [
+{
+"name": "Create order (laptop x1)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{laptop_id}}\", \"quantity\": 1 } ],\n \"shippingAddressId\": \"{{last_address_id}}\"\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('idempotency_key')) { pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}')); }"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created', function(){ pm.expect([200,201]).to.include(pm.response.code); });",
+"var j={}; try{ j=pm.response.json(); }catch(e){}; if (j.id){ pm.environment.set('last_order_id', j.id); }"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create order (fallback default addr)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{mouse_id}}\", \"quantity\": 1 } ]\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}'));"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created', function(){ pm.expect([200,201]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "List my orders",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders?userId={{last_user_id}}&limit=5",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+],
+"query": [
+{
+"key": "userId",
+"value": "{{last_user_id}}"
+},
+{
+"key": "limit",
+"value": "5"
+}
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('listed', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get order",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('got order', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Get order details (enriched)",
+"request": {
+"method": "GET",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/details",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"details"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('got details', function(){ pm.expect(pm.response.code).to.eql(200); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Pay order",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/pay",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"pay"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('paid or already paid', function(){ pm.expect([200].concat([200])).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Cancel order (expect 409 if paid)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders/{{last_order_id}}/cancel",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders",
+"{{last_order_id}}",
+"cancel"
+]
+}
+},
+"event": [
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('cancel response code', function(){ pm.expect([200,409,404]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+},
+{
+"name": "Create order idempotent (mouse x2)",
+"request": {
+"method": "POST",
+"header": [
+{
+"key": "Content-Type",
+"value": "application/json"
+},
+{
+"key": "Idempotency-Key",
+"value": "{{idempotency_key}}"
+},
+{
+"key": "Authorization",
+"value": "Bearer {{jwt}}"
+}
+],
+"url": {
+"raw": "{{order_base}}/orders",
+"host": [
+"{{order_base}}"
+],
+"path": [
+"orders"
+]
+},
+"body": {
+"mode": "raw",
+"raw": "{\n \"userId\": \"{{last_user_id}}\",\n \"items\": [ { \"productId\": \"{{mouse_id}}\", \"quantity\": 2 } ]\n}"
+}
+},
+"event": [
+{
+"listen": "prerequest",
+"script": {
+"exec": [
+"if (!pm.environment.get('idempotency_key')) { pm.environment.set('idempotency_key', pm.variables.replaceIn('{{$guid}}')); }"
+],
+"type": "text/javascript"
+}
+},
+{
+"listen": "test",
+"script": {
+"exec": [
+"pm.test('order created idempotently', function(){ pm.expect([200,201]).to.include(pm.response.code); });"
+],
+"type": "text/javascript"
+}
+}
+]
+}
+]
+}
+],
+"variable": [
+{
+"key": "gw_base",
+"value": "http://localhost:8083"
+},
+{
+"key": "username",
+"value": "alice"
+},
+{
+"key": "email",
+"value": "alice@example.com"
+},
+{
+"key": "user_base",
+"value": "http://localhost:8082/api/v1"
+},
+{
+"key": "product_base",
+"value": "http://localhost:8081/api/v1"
+},
+{
+"key": "order_base",
+"value": "http://localhost:8080/api/v1"
+},
+{
+"key": "jwt",
+"value": ""
+},
+{
+"key": "last_user_id",
+"value": ""
+},
+{
+"key": "laptop_id",
+"value": ""
+},
+{
+"key": "mouse_id",
+"value": ""
+},
+{
+"key": "idempotency_key",
+"value": ""
+}
+]
+}
+
+...
+
+`
+}
+
+/>
+
+Paste the collections in the postman collections section.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_4.png" alt="Sample Keploy Record Microservices" />
+
+**Also copy the curl commands:**
+
+<CollapsibleCode
+language="curl"
+previewLines={10}
+code={`
+
+# Create an order
+
+curl --request POST \
+ --url http://localhost:8080/api/v1/orders \
+ --header 'Connection: keep-alive' \
+ --header 'Idempotency-Key: f0f86385-1d98-438c-b5a0-2b70385a4f8e' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Postman-Token: 24ef30da-b00d-46d6-ba1b-93578987e51a' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
+ --header 'Accept: */\_' \
+ --header 'Cache-Control: no-cache' \
+ --header 'Host: localhost:8080' \
+ --header 'Content-Type: application/json' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --data '{
+"userId": "6b6c9d87-92b0-4007-87ce-6356699648a8",
+"items": [
+{
+"productId": "11111111-1111-4111-8111-111111111111",
+"quantity": 1
+}
+],
+"shippingAddressId": "4aba342f-e7dd-4f05-b0db-6f28cf75dd34"
+}'
+
+# Get last order
+
+curl --request GET \
+ --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Connection: keep-alive' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Accept: */\_' \
+ --header 'Cache-Control: no-cache' \
+ --header 'Postman-Token: 6109e22b-dfb5-4394-b74e-5d0e8ce5466e' \
+ --header 'Host: localhost:8080'
+
+# Get last order (alternate call)
+
+curl --request GET \
+ --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Accept: */\_' \
+ --header 'Cache-Control: no-cache' \
+ --header 'Postman-Token: 0f9a2f3e-6248-404a-adbf-74fcb9c68ff7' \
+ --header 'Host: localhost:8080' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Connection: keep-alive' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ'
+
+# Get order details
+
+curl --request GET \
+ --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/details \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Accept: */\_' \
+ --header 'Cache-Control: no-cache' \
+ --header 'Postman-Token: 3b8a7f27-4ada-4486-b27c-845d6a874763' \
+ --header 'Host: localhost:8080' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Connection: keep-alive'
+
+# Cancel an order
+
+curl --request POST \
+ --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/cancel \
+ --header 'Accept: */\_' \
+ --header 'Postman-Token: 9743c0e3-7b2b-4909-818d-6fe73311bc24' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+ --header 'Host: localhost:8080' \
+ --header 'Connection: keep-alive' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Cache-Control: no-cache'
+
+# Create another order with new idempotency key
+
+curl --request POST \
+ --url http://localhost:8080/api/v1/orders \
+ --header 'Host: localhost:8080' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Accept: _/_' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Content-Type: application/json' \
+ --header 'Postman-Token: d494c3c8-8c24-437f-8ed7-f0d1527bf989' \
+ --header 'Idempotency-Key: 2fb62e17-8ace-4528-ab51-0e7cf025237a' \
+ --header 'Connection: keep-alive' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+ --header 'Cache-Control: no-cache' \
+ --data '{
+"userId": "6b6c9d87-92b0-4007-87ce-6356699648a8",
+"items": [
+{
+"productId": "11111111-1111-4111-8111-111111111111",
+"quantity": 1
+}
+],
+"shippingAddressId": "4aba342f-e7dd-4f05-b0db-6f28cf75dd34"
+}'
+
+# Pay for an order
+
+curl --request POST \
+ --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/pay \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+ --header 'Accept: */\_' \
+ --header 'Postman-Token: 1925ffdf-3aa4-41a3-8b5a-9a7a56c96932' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Connection: keep-alive' \
+ --header 'Host: localhost:8080' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Cache-Control: no-cache'
+
+# Get all orders for a user
+
+curl --request GET \
+ --url 'http://localhost:8080/api/v1/orders?userId=6b6c9d87-92b0-4007-87ce-6356699648a8' \
+ --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
+ --header 'User-Agent: PostmanRuntime/7.49.1' \
+ --header 'Accept: */\_' \
+ --header 'Cache-Control: no-cache' \
+ --header 'Postman-Token: 4a3c9621-52ef-48f8-8a9e-01acff2353b0' \
+ --header 'Host: localhost:8080' \
+ --header 'Accept-Encoding: gzip, deflate, br' \
+ --header 'Connection: keep-alive'
+`
+}
+/>
+
+Paste the cURL commands in the cURL section.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_5.png" alt="Sample Keploy Record Microservices" />
+
+**Step 4: Before generating the test, review and confirm the generation settings. In this example, the port has been changed to 8083, meaning the application gateway runs on 8083 to access all the services.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_6.png" alt="Sample Keploy Record Microservices" />
+
+**Step 5: After completing the previous steps, click the Generate API Test button to automatically create test cases for your application.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_7.png" alt="Sample Keploy Record Microservices" />
+
+**Step 6: You can see the test suites created by Keploy. Click on an individual test suite to view the request, response, and variables.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_8.png" alt="Sample Keploy Record Microservices" />
+
+**Step 7: To visualize the steps, click the Visualize button. This will display a visual representation of the test flow.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_9.png" alt="Sample Keploy Record Microservices" />
+
+**Step 8: One of the test suites is marked as buggy. This means our application has some issues that Keploy detected. If you’re sure it’s not actually buggy, you can mark it as ‘Not Buggy.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_10.png" alt="Sample Keploy Record Microservices" />
+
+**Step 9: After generating the test, click the Run Tests button to execute it.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_11.png" alt="Sample Keploy Record Microservices" />
 
 ## Conclusion 🎉
 
-Well done! You’ve seen how Keploy helps test your microservices without writing any code. You've generated test cases, run tests, and checked coverage—all with just a few commands. Keep experimenting and enhancing your tests to ensure your app’s reliability.
+Well done! You’ve seen how Keploy helps test your microservices without writing any code. You've generated test cases, run tests, and checked coverage—all with just a few commands.

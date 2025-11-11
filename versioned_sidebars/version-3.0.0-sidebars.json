@@ -177,7 +177,7 @@
         {
           "type": "category",
           "label": "Keploy Enterprise",
-          "collapsed": true,
+          "collapsed": false,
           "items": [
             {
               "type": "category",
@@ -205,7 +205,7 @@
         },
         {
           "type": "doc",
-          "label": "Common Erros",
+          "label": "Troubleshooting Guide",
           "id": "keploy-explained/common-errors"
         },
         {
