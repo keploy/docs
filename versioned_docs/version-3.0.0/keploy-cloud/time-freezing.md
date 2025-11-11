@@ -1,7 +1,7 @@
 ---
 id: time-freezing
 title: Time Freezing
-sidebar_label: Time Freezing 🥶
+sidebar_label: Time Freezing
 tags:
   - explanation
   - feature guide
