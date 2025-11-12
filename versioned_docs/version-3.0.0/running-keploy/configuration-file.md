@@ -105,9 +105,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
 - **`filters`**: API calls to the application to avoid recording. You can also control how these conditions are matched using matchType.
-
   - **`matchType (optional)`**: Determines how urlMethods and headers are evaluated.
-
     - **`"AND"`**: Both must match.
 
     - **`"OR"`**: Either can match.
