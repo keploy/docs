@@ -2,7 +2,7 @@
 id: samples-csharp
 title: Sample CRUD App (CSharp)
 sidebar_label: .Net + Postgres
-description: The following sample app showcases how to use .Net framework and the Keploy Platform.
+description: The following sample app showcases how to use .Net framework and the Keploy Platform
 tags:
   - csharp
   - quickstart
@@ -19,30 +19,26 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with .Net and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
-🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with [.Net](https://dotnet.microsoft.com/en-us/) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+## Running App Locally on Linux/WSL 🐧
 
-import InstallationGuide from '../concepts/installation.md'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Clone a sample user authentication app 🧪
+### Clone a sample user authentication app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
 
-# start the database instance
-docker-compose up
 ```
 
-## Installation 📥
+### start the database instance
 
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Running App Locally on Linux/WSL 🐧
+```bash
+docker-compose up
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -172,5 +168,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-Hope this helps you out, if you still have any questions, reach out to us .

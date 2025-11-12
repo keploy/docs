@@ -1,7 +1,7 @@
 ---
 id: mock-registry
 title: Mock Registry
-sidebar_label: Mock Registry 📦
+sidebar_label: Mock Registry
 tags:
   - explanation
   - feature guide

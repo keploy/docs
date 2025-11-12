@@ -1,7 +1,7 @@
 ---
 id: samples-fastapi-twilio
-title: Sample SMS Sending App (FastAPI-Twilio)
-sidebar_label: FastAPI + Twilio (HTTP)
+title: Sample SMS Sending App
+sidebar_label: FastAPI + Twilio
 description: The following sample app showcases how to use the FastAPI framework with Twilio's SMS Service and the Keploy Platform.
 tags:
   - python
@@ -23,13 +23,15 @@ keyword:
   - Auto case generation
 ---
 
-# Introduction
+## Using Docker Compose 🐳
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-<InstallationGuide/>
+<InstallReminder />
 
 ## Get Started! 🎬
 
@@ -44,17 +46,6 @@ Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the 
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio
 ```
 
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker : running application](#using-docker-compose-)
-- [Running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
 We will be using Docker compose to run the application as well as Mongo on Docker container.
 
 ### Lights, Camera, Record! 🎥
@@ -68,7 +59,7 @@ docker build -t fastapi-twilio:1.0 .
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0"
+keploy record -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -231,7 +222,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0" --delay 10
+keploy test -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -244,23 +235,18 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
+<SectionDivider />
+
 ## Running App Locally on Linux/WSL 🐧
 
-We'll be running our sample application right on Linux. Ready? Let's get the party started!🎉
+🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
-### 📼 Roll the Tape - Recording Time!
+<InstallReminder />
 
-Install Python's virtual environment library:
+## Setup the Twilio Account 💬
 
-```bash
-pip3 install virtualenv
-```
-
-Create a virtual environment and activate it:
-
-```bash
-python3 -m virtualenv venv && source venv/bin/activate
-```
+You can get your Twilio credentials by signing in to Twilio Console.
+Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
 
 Install the dependencies using the `requirements.txt` file:
 
@@ -268,7 +254,13 @@ Install the dependencies using the `requirements.txt` file:
 pip3 install -r requirements.txt
 ```
 
-Ready, set, record! Here's how:
+## Clone the Sample App 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio
+```
+
+### Lights, Camera, Record! 🎥
 
 ```bash
 keploy record -c "uvicorn application.main:app --reload"
@@ -444,5 +436,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the Twilio response 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .

@@ -70,7 +70,7 @@ Mix-and-match them as needed—every example below can live inside the same `ass
 | **Header Exists**     | Header key is present (value ignored).                 | `yaml<br>- type: header_exists<br>  field: x-request-id<br>`                                               | Reverse-proxy injects `x-request-id: 4b087…`                                 |
 | **Header Matches**    | Header value matches a **regex** pattern.              | `yaml<br>- type: header_matches<br>  field: set-cookie<br>  pattern: "sessionId=.*; Path=/; HttpOnly"<br>` | `set-cookie: sessionId=abc123; Path=/; HttpOnly; SameSite=Lax`               |
 
-> **Tip **  
+> **Tip**  
 > Combine multiple assertions in one step to cover status, headers **and** body in a single round-trip. Every assertion is evaluated independently, so one failure pinpoints the exact mismatch.
 
 ## Edit and Manage Test Suites

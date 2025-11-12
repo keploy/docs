@@ -32,6 +32,7 @@
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
   --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
 html[data-theme="dark"] {
@@ -135,7 +136,20 @@ h4,
   display: flex;
 }
 .menu__link--sublist:after {
+  /* Keep sidebar chevron size consistent with leaf items */
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+}
+
+/* Ensure category caret variants use the same icon size in the sidebar */
+div[class^="sidebar_"] .menu__link--sublist-caret:after {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem;
+}
+div[class^="sidebar_"] .menu__caret:before {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 div[class^="sidebar_"]
@@ -143,11 +157,114 @@ div[class^="sidebar_"]
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
+/* Do not highlight category labels (that also have pages) as active; only leaf pages should be highlighted */
+div[class^="sidebar_"] .menu__link--sublist.menu__link--active {
+  color: inherit !important;
+  font-weight: inherit;
+}
+
+/* Do NOT bold category when on its own page */
+div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist {
+  color: inherit !important;
+  font-weight: inherit;
+}
+/* And keep color unchanged even on hover when on its own page */
+div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist:hover {
+  color: inherit !important;
+}
+
+/* Explicitly neutralize color when category link is both sublist and active (own page) */
+div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist.menu__link--active {
+  color: inherit !important;
+}
+
+/* When the category's own page is current, do not change its color/background/weight */
+div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"] {
+  color: inherit !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+}
+div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:hover,
+div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:focus,
+div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"].menu__link--active {
+  color: inherit !important;
+  /* prevent extra link-layer background; container provides unified hover */
+  background-color: transparent !important;
+  font-weight: inherit !important;
+}
+
+/* Strong override: category with its own current page should use normal menu color (not active black) */
+div[class^="sidebar_"] .menu__link--sublist.menu__link--active[aria-current="page"] {
+  color: var(--ifm-menu-color) !important;
+}
+
+/* Extra-specific guard: ensure normal color for category labels on their own page */
+div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"],
+div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
+div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"] {
+  color: var(--ifm-menu-color) !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+}
+
+/* Restore hover background for categories with their own page when hovering that link */
+div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
+div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
+  /* prevent extra link-layer hover; container provides unified hover */
+  background-color: transparent !important;
+}
+
+/* Unify hover background for text + caret (arrow) when category has its own page */
+/* Use unified hover on container; clear child backgrounds to prevent double overlays */
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover {
+  background-color: var(--ifm-menu-color-background-hover) !important;
+}
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link,
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > .menu__caret {
+  background-color: transparent !important;
+}
+
+/* For categories with pages (collapsible) when NOT on their page: hover on arrow OR text gives one unified background */
+div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
+  background-color: var(--ifm-menu-color-background-hover) !important;
+}
+div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > a.menu__link,
+div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > .menu__caret {
+  background-color: transparent !important;
+}
+/* Ensure link text color does not change on hover in this specific case */
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link {
+  color: inherit !important;
+}
+
+/* Remove background highlight when category's own page is active; keep hover behavior */
+div[class^="sidebar_"] .menu__list-item-collapsible--active {
+  background: transparent !important;
+}
+
+
+/* Parent style when a child page is active is handled below for light mode (orange) */
+
+/* Light mode: use orange color (no bold) for parent when a child page is active */
+html[data-theme="light"] div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active) .menu__link--sublist.menu__link--active {
+  color: var(--ifm-color-primary) !important;
+  font-weight: inherit;
+}
+
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
+}
+
+/* Prevent descenders (g, y, p) from clipping in sidebar, including when bold/active */
+div[class^="sidebar_"] .menu__link {
+  line-height: 1.5;
+  padding-bottom: calc(var(--ifm-menu-link-padding-vertical) + 1px);
+}
+div[class^="sidebar_"] .menu__link.menu__link--active {
+  line-height: 1.5; /* ensure active/bold state also has enough leading */
 }
 
 .table-of-contents {
@@ -228,6 +345,7 @@ div[class^="sidebar_"] .button svg {
 
 .navbar__items--right {
   @apply justify-end ml-auto flex-row-reverse;
+  gap: 13px;
 }
 
 .navbar__items--right > :last-child {
@@ -241,7 +359,7 @@ div[class^="sidebar_"] .button svg {
 /* Search */
 
 .DocSearch-Button {
-  @apply rounded-lg p-5 !important;
+  @apply rounded-lg px-3 py-2 !important;
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
@@ -271,7 +389,7 @@ footer svg {
   }
 
   .DocSearch-Button {
-    @apply mr-[-18px] !important;
+    @apply mr-2 !important;
   }
 
   /* .footer .footer__block {
@@ -551,6 +669,25 @@ td img {
     no-repeat;
 }
 
+/* Slack navbar icon to match GitHub size, spacing, color */
+.header-slack-link:hover {
+  opacity: 0.6;
+}
+
+.header-slack-link::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
+[data-theme="dark"] .header-slack-link::before {
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
 div[class^="announcementBar_"] {
   --site-announcement-bar-stripe-color1: hsl(
     var(--site-primary-hue-saturation) 88%
@@ -722,3 +859,18 @@ a {
 textarea {
   resize: vertical;
 }
+
+.theme-back-to-top-button {
+  background-color: #FF914D !important;
+  color: white !important;
+}
+
+.theme-back-to-top-button svg {
+  fill: white !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
+
