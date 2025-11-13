@@ -1068,7 +1068,7 @@ code={`
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_5.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
-**Step 6: Once you’re done creating the user details, let’s fetch the product details. This will be helpful when placing an order.\*\***
+**Step 6: Once you’re done creating the user details, let’s fetch the product details. This will be helpful when placing an order.**
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_6.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
@@ -1357,6 +1357,10 @@ We’ll use the Keploy Chrome extension to generate and run API tests — no cod
 Use the following link to install the [Chrome Extension](https://chromewebstore.google.com/detail/keploy-api-test-recorder/ohcclfkaidblnjnggclkiecgkpgldihe)
 
 **Note: This extension works only on the Chrome browser. Make sure you’re using Chrome to try it out.**
+
+**Also, please verify that the Keploy Chrome Extension is installed and running.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_0.png" alt="Sample Keploy Record Microservices" />
 
 Once done, Go to [Keploy Enterprise UI](https://app.keploy.io) to try out Keploy API Testing. Once you sign in, you’ll see a dashboard like this:
 
@@ -2515,10 +2519,22 @@ Paste the cURL commands in the cURL section.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_10.png" alt="Sample Keploy Record Microservices" />
 
-**Step 9: After generating the test, click the Run Tests button to execute it.**
+**Step 9: After generating the test, click the Run Tests button to execute it. Ensure that Private Mode is turned on before running the tests.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_11.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_12.png" alt="Sample Keploy microservices" />
+
+**Step 10: After completion, you’ll be able to see the executed test results.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_13.png" alt="Sample Keploy microservices" />
+
+**Step 11: To view detailed reports, including test run count, pass/fail status, and other insights, go to the Test Report section.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_14.png" alt="Sample Keploy microservices" />
+
+**Step 12: To visualize analytics such as daily API test runs, test activity, and HTTP methods, navigate to the Dashboard section. It provides a complete overview of your testing insights.**
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_15.png" alt="Sample Keploy microservices" />
 
 ## Conclusion 🎉
 
-Well done! You’ve seen how Keploy helps test your microservices without writing any code. You've generated test cases, run tests, and checked coverage—all with just a few commands.
+Well done! You’ve seen how Keploy helps test your microservices without writing any code. You've generated test cases, run tests, and checked coverage—all with just a few steps.
