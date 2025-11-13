@@ -12,19 +12,19 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
-  --ifm-color-primary-lighter: #FFF;
+  --ifm-color-primary-lighter: #fff;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
@@ -37,11 +37,10 @@
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #fff;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -112,7 +111,7 @@ html[data-theme="light"] {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
 h1,
@@ -329,7 +328,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 
 /* Pagination */
 .pagination-nav {
-  @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
+  @apply mt-12 flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
 .pagination-nav__item {
   @apply w-full max-w-md;
@@ -344,7 +343,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 .navbar__items--right {
-  @apply justify-end ml-auto flex-row-reverse;
+  @apply ml-auto flex-row-reverse justify-end;
   gap: 13px;
 }
 
@@ -452,7 +451,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -688,21 +687,38 @@ td img {
   background-size: 24px 24px;
 }
 
-div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
-  font-weight: bold;
+.theme-announcement-bar,
+.announcementBar_mb4j {
+  background: linear-gradient(90deg, #fadf8b, #f9bc5f) !important;
+  color: #000 !important;
+  position: relative !important;
+  font-weight: 600 !important;
+  font-size: 1.1rem !important;
+  text-align: center;
+  padding: 1.5rem 0 !important;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.01);
+}
+
+/* Optional: Dark theme gradient */
+html[data-theme="dark"] .theme-announcement-bar,
+html[data-theme="dark"] .announcementBar_mb4j {
+  background: linear-gradient(90deg, #1e1e2f, #3a3a5c) !important;
+  color: #fff !important;
+}
+
+.announcementBarClose_gvF7 {
+  position: absolute !important;
+  right: 1rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer;
+  opacity: 0.8;
+}
+
+.announcementBarClose_gvF7:hover {
+  opacity: 1;
 }
 
 .list-disc > a {
@@ -720,13 +736,14 @@ a[class="breadcrumbs__link"] {
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
+  border-color: theme("borderColor.DEFAULT", currentColor);
 }
 
 * {
@@ -739,7 +756,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  font-family: theme("fontFamily.sans", ui-sans-serif, system-ui, sans-serif);
 }
 
 body {
@@ -793,9 +810,9 @@ html {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -822,12 +839,12 @@ menu {
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline: 2px solid theme("colors.blue.600", #2563eb);
   outline-offset: 2px;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -861,7 +878,7 @@ textarea {
 }
 
 .theme-back-to-top-button {
-  background-color: #FF914D !important;
+  background-color: #ff914d !important;
   color: white !important;
 }
 
@@ -872,5 +889,3 @@ textarea {
 .theme-back-to-top-button:hover {
   background-color: #e67643 !important;
 }
-
-
