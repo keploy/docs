@@ -6,7 +6,7 @@ sidebar_label: PostgresSQL
 
 ## Introduction
 
-The [Postgres Wire Protocol](https://www.postgresql.org/docs/current/protocol.html/) is a communication protocol used for client-server interaction in PostgreSQL, allowing clients to communicate with the PostgreSQL database server for executing queries, retrieving results, and performing various database operations.
+The Postgres Wire Protocol is a communication protocol used for client-server interaction in PostgreSQL, allowing clients to communicate with the PostgreSQL database server for executing queries, retrieving results, and performing various database operations.
 
 **Port :** The default port number for `postgres` or `pgAdmin` instances is 5432. The port number for `postgres` or `pgAdmin` is configurable and may vary.
 
@@ -71,7 +71,3 @@ type RegularPacket struct {
 ```
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

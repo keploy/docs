@@ -120,10 +120,10 @@ MinAlertLevel = error
 
 ### Running Vale
 
-1. Linting Documentation: To check all markdown files in versioned_docs/version-2.0.0/ for errors, run:
+1. Linting Documentation: To check all markdown files in versioned_docs/version-3.0.0/ for errors, run:
 
 ```bash
-vale versioned_docs/version-2.0.0/**/*.md
+vale versioned_docs/version-3.0.0/**/*.md
 ```
 
 2. Review Errors:

@@ -41,10 +41,6 @@ keploy-test-job: # This job runs in the test stage.
     ...
 ```
 
-> **Note: if you are using `arm_64` as runner use below to download keploy binary**
-
-`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp`
-
 Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [flask-mongo](https://github.com/keploy/samples-python) sample-application, steps in our `script:` would look like below:-
 
 ```yaml
@@ -66,17 +62,15 @@ In your `.gitlab-ci.yml file`, in last step we have `keploy test` command to run
 
 ### 📝 Note
 
-Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`...and thought, _"Wait, am I hacking the kernel or something?"_ 😅
+Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`
 
 Don’t worry — these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
 
 So we install `kmod`, `linux-headers-generic`, and `bpfcc-tools` to make that tracing possible.
 
-Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs` — it’s like giving Keploy the **backstage pass** it needs to watch your app in action.
+Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs`
 
-No black magic. Just some low-level Linux stuff helping your tests run like magic! 🪄✨
-
-We will get to see output : -
+We would output something like below:-
 
 ```sh
 $ keploy test -c "python3 app.py"  --delay 50
@@ -148,7 +142,3 @@ Integrating Keploy with GitLab CI automates the testing process, ensuring that t
 If you’re thinking, “This pipeline looks cool, but I need the _whole thing_ to integrate with your application!” — well, you're in luck! Check it out [here](https://github.com/keploy/samples-python) and get ready to copy-paste your way to success! ✨🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

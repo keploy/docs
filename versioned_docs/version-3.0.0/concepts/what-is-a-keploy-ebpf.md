@@ -14,7 +14,6 @@ keywords:
 A Keploy eBPF is a language-agnostic library that offers APIs to do the following:
 
 1. Capture all the network calls like
-
    - API Request
    - Dependency calls
    - API Response
@@ -27,7 +26,3 @@ Comparing the expected and actual responses for an API call happens at the Keplo
 A Keploy eBPF mocks the external dependencies while testing APIs, eliminating the need to setup test-environment. This allows the application to isolate itself from external dependencies.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

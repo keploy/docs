@@ -1,6 +1,6 @@
 ---
 id: go
-title: Merge Unit Test Coverage Data
+title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Go
 tags:
   - go
@@ -18,17 +18,15 @@ keyword:
   - Go Test
 ---
 
-import WhatAreKeployFeatures from './index.md'
-
-<WhatAreKeployFeatures/>
-
 ## 🛠️ Language Specific Requirements
 
-| Programming Language | Prerequisites                                                                                                                                                                                                                                                       |
-| :------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-|          go          | 1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer [appendix](#graceful-shutdown) for basic implementation of graceful shutdown function. <br/> 2. The go binary should be built with `-cover` flag. |
+There are two requirements to get coverage for Go: first, you need to perform a graceful shutdown, and second, you must build the binary using the `-cover` flag. Once that’s done, run `keploy test`.
 
-## Graceful Shutdown
+| Programming Language | Prerequisites                                                                                                                                                                                                                                   |
+| :------------------: | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|          go          | 1. The application should have a graceful shutdown to stop the API server on `SIGTERM` or `SIGINT` signals. Refer below code for basic implementation of graceful shutdown function. <br/> 2. The go binary should be built with `-cover` flag. |
+
+## 1. Graceful Shutdown
 
 It is important that the application is shutdown gracefully. In case of Golang, function for graceful shutdown:
 
@@ -60,12 +58,33 @@ func main() {
 }
 ```
 
-## Usage
+## 2. Usage
 
 For keploy test coverage the binary must built with `-cover` flag:
 
 ```go
 go build -cover
+```
+
+Once it has been done, run keploy test command:
+
+```
+keploy test -c "your_application_command"
+```
+
+After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
+
+```
+keploy
+├── reports
+│   └── test-run-0
+│       ├── coverage.yaml
+│       └── test-set-0-report.yaml
+└── test-set-0
+    ├── mocks.yaml
+    └── tests
+        ├── test-1.yaml
+        └── test-2.yaml
 ```
 
 To get the coverage data for unit tests :

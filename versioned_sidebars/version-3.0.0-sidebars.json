@@ -2,36 +2,43 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Unit Testing",
-      "collapsed": false,
+      "label": "API Testing",
+      "collapsed": true,
       "items": [
-        "running-keploy/about-unit-testing",
+        "running-keploy/api-test-generator",
         {
           "type": "category",
-          "label": "Integration",
+          "label": "Getting Started",
+          "collapsed": false,
           "items": [
-            "running-keploy/utg-pr-agent",
-            "running-keploy/utg-vscode-extension",
-            "keploy-explained/integrations-pr-agent"
+            "running-keploy/generate-api-tests-using-ai",
+            "running-keploy/api-testing-chrome-extension"
           ]
         },
         {
           "type": "category",
-          "label": "FAQs",
+          "label": "Test Operations",
+          "collapsed": false,
           "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/supported-languages",
-            "keploy-explained/unit-testing-faq"
+            "running-keploy/review-and-improve-ai-generated-tests",
+            "running-keploy/share-tests",
+            "running-keploy/self-healing-ai-api-tests",
+            "running-keploy/run-ai-generated-api-tests",
+            "running-keploy/api-testing-cicd",
+            "running-keploy/api-testing-webhook"
           ]
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/api-testing-faq"
         }
       ]
     },
     {
       "type": "category",
       "label": "Integration Testing",
-      "collapsed": false,
+      "collapsed": true,
       "items": [
         {
           "type": "category",
@@ -56,7 +63,93 @@
             "running-keploy/docker-tls",
             "running-keploy/configuration-file",
             "running-keploy/custom-mocks",
-            "running-keploy/keploy-templatize"
+            "running-keploy/keploy-templatize",
+            "running-keploy/risk-profile-analysis"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "QuickStarts",
+          "link": {
+            "type": "doc",
+            "id": "quickstart/quickstart-filter"
+          },
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "category",
+              "label": "Java",
+              "link": {
+                "type": "doc",
+                "id": "quickstart/java-springboot-filter"
+              },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/openhospital",
+                "quickstart/pet-clinic",
+                "quickstart/samples-java",
+                "quickstart/java-spring-boot-xml"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Golang",
+              "link": {
+                "type": "doc",
+                "id": "quickstart/golang-filter"
+              },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-echo",
+                "quickstart/samples-mux",
+                "quickstart/samples-mysql",
+                "quickstart/samples-fasthttp",
+                "quickstart/samples-s3-keploy"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Python",
+              "link": {
+                "type": "doc",
+                "id": "quickstart/python-filter"
+              },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-django",
+                "quickstart/samples-fastapi",
+                "quickstart/samples-fastapi-twilio"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Javascript",
+              "link": {
+                "type": "doc",
+                "id": "quickstart/javascript-filter"
+              },
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-nextjs",
+                "quickstart/samples-node-jwt",
+                "quickstart/express-postgresql-prisma",
+                "quickstart/samples-typescript"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "C# (.NET Core)",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-csharp"
+              ]
+            }
           ]
         },
         {
@@ -71,6 +164,10 @@
         {
           "type": "category",
           "label": "Test Coverage Integration",
+          "link": {
+            "type": "doc",
+            "id": "quickstart/code-coverage"
+          },
           "items": [
             "server/sdk-installation/go",
             "server/sdk-installation/java",
@@ -80,133 +177,64 @@
         },
         {
           "type": "category",
-          "label": "QuickStarts",
-          "collapsible": true,
-          "collapsed": true,
+          "label": "Keploy Enterprise",
+          "collapsed": false,
           "items": [
             {
               "type": "category",
-              "label": "Java (SpringBoot)",
-              "collapsible": true,
-              "collapsed": true,
+              "label": "Features",
               "items": [
-                "quickstart/openhospital",
-                "quickstart/pet-clinic",
-                "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
-                "quickstart/java-spring-boot-xml"
+                "keploy-cloud/cloud-installation",
+                "keploy-cloud/time-freezing",
+                "keploy-cloud/mock-registry",
+                "keploy-cloud/keploy-console",
+                "keploy-cloud/auto-test-generation",
+                "keploy-cloud/deduplication"
               ]
             },
             {
               "type": "category",
-              "label": "Golang",
-              "collapsible": true,
+              "label": "QuickStarts",
               "collapsed": true,
               "items": [
-                "quickstart/samples-echo",
-                "quickstart/samples-gin",
                 "quickstart/samples-redis",
-                "quickstart/samples-mux",
-                "quickstart/samples-mysql",
-                "quickstart/samples-fasthttp",
-                "quickstart/samples-s3-keploy"
+                "quickstart/flask-redis",
+                "quickstart/samples-microservices"
               ]
-            },
-            {
-              "type": "category",
-              "label": "Python",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-django",
-                "quickstart/samples-flask",
-                "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Javascript",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-bunjs",
-                "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
-                "quickstart/samples-node-jwt",
-                "quickstart/crud-nodejs",
-                "quickstart/express-postgresql-prisma",
-                "quickstart/samples-typescript"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Rust",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-rust",
-                "quickstart/sample-rust-crud-mongo"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "C# (.NET Core)",
-              "collapsible": true,
-              "collapsed": true,
-              "items": ["quickstart/samples-csharp"]
             }
           ]
         },
         {
-          "type": "category",
-          "label": "Keploy Enterprise",
-          "items": [
-            "keploy-cloud/cloud-installation",
-            "keploy-cloud/time-freezing",
-            "keploy-cloud/mock-registry",
-            "keploy-cloud/keploy-console",
-            "keploy-cloud/auto-test-generation",
-            "keploy-cloud/deduplication",
-            "keploy-explained/common-errors",
-            "keploy-explained/integration-testing-faq"
-          ]
+          "type": "doc",
+          "label": "Troubleshooting Guide",
+          "id": "keploy-explained/common-errors"
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/integration-testing-faq"
         }
       ]
     },
     {
       "type": "category",
-      "label": "API Testing",
-      "collapsed": false,
+      "label": "Unit Testing",
+      "collapsed": true,
       "items": [
-        "running-keploy/about-api-testing",
-        "running-keploy/api-test-generator",
-        "running-keploy/test-generate",
-        "running-keploy/test-run-reports",
+        "running-keploy/about-unit-testing",
         {
           "type": "category",
-          "label": "Operations",
+          "label": "Integration",
           "items": [
-            "running-keploy/best-practices-api-testing",
-            "operation/web-ui-operations"
+            "running-keploy/utg-pr-agent",
+            "running-keploy/utg-vscode-extension",
+            "keploy-explained/integrations-pr-agent"
           ]
         },
         {
           "type": "doc",
-          "label": "CI/CD Integration",
-          "id": "ci-cd/github"
-        },
-        {
-          "type": "category",
           "label": "FAQs",
-          "items": [
-            "keploy-explained/keploy-security",
-            "keploy-explained/keploy-privacy",
-            "keploy-explained/ai-models",
-            "keploy-explained/api-testing-faq"
-          ]
+          "id": "keploy-explained/unit-testing-faq"
         }
       ]
     }

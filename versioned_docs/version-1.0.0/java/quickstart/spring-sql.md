@@ -39,15 +39,12 @@ Sync dependencies or to _build.gradle_:
 2. Install Keploy Jar
 
 - Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar) (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
-
   - Add the jar into the `main` directory
-
     - **Copy** `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
       (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
 
       You can set this through 3 ways:-
-
       1.  {'<'}details{'>'}{'<'}summary{'>'}
           Using Intellij
           {'<'}/summary{'>'}
@@ -101,7 +98,7 @@ mvn clean install -D maven.test.skip=true
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/) or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
 
 ### 1. Make an employee entry
 
@@ -181,12 +178,10 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
 ```
 
 - **Using IDE:** _(for local use-case we prefer running tests via IDE)_
-
   1. Run your application.
   2. You can also run the application with coverage to see the test coverage.
 
 - **Using CLI**
-
   1. Add maven-surefire-plugin to your `pom.xml`. In `<argLine > </ argLine >` **don't** add jacoco agent if you don't want coverage report.
 
   {'<'}details{'>'}{'<'}summary{'>'}
@@ -214,9 +209,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
           </plugin>
          ```
 
-  {'<'}/details{'>'}
-
-  2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
+  {'<'}/details{'>'} 2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
 
   {'<'}details{'>'}{'<'}summary{'>'}
   Add plugin
@@ -259,9 +252,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
          </plugin>
        ```
 
-  {'<'}/details{'>'}
-
-  3.  Run your tests using command : `mvn test`.
+  {'<'}/details{'>'} 3. Run your tests using command : `mvn test`.
 
 It will create .html files as test-reports which can be found in your target folder !!
 
@@ -269,7 +260,7 @@ It will create .html files as test-reports which can be found in your target fol
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![testruns](https://i.imgur.com/tg6OT0n.png "Summary")
+![testruns](https://keploy-devrel.s3.us-west-2.amazonaws.com/samples-java-v1-test.png "Summary")
 
 **OR**
 
@@ -340,6 +331,6 @@ You'll notice the failed test-case in the output.
 2022-08-26 13:10:10.312  INFO 70155 --- [       Thread-1] io.keploy.service.GrpcService            : || passed overall: FALSE ||
 ```
 
-To deep dive the problem go to [test runs](http://localhost:6789/testruns)
+To deep dive the problem go to localhost:6789/testrun
 
 ![testruns](/img/IntroduceBugJava.png "Recent testruns")

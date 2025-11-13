@@ -1,7 +1,7 @@
 ---
 id: deduplication
-title: Remove Duplicates Tests 🧹
-sidebar_label: Remove Duplicate Tests 🧹
+title: Remove Duplicates Tests
+sidebar_label: Remove Duplicate Tests
 tags:
   - explanation
   - feature guide
@@ -11,10 +11,7 @@ keywords:
   - keploy cloud
   - deduplication
   - duplicate tests
-  - python
-  - java
-  - nodejs
-  - node
+  - golang
   - testcases
 ---
 
@@ -29,161 +26,56 @@ It simplifies the testing process by removing redundant test cases, which saves 
 To detect duplicate tests, simply run the below command, like so:
 
 ```bash
-keploy dedup -c "<CMD_TO_RUN_APP>" -t="<TESTSETS_TO_RUN>"
+keploy test -c "docker compose up" --containerName containerName --dedup
 ```
 
-### For Node Applications
+### For Golang Applications
 
-**1. Pre-requsite**
+**1. Pre-requisite**
 
-Install the `keploy/sdk` and `nyc` package : -
+Install the `keploy/go-sdk/v3/keploy` : -
 
 ```bash
-npm i @keploy/sdk nyc@15.0.0
+go get github.com/keploy/go-sdk/v3/keploy
 ```
 
-Add the the following on top of your main application js file (index.js/server.js/app.js/main.js) : -
+Add the following on top of your main application file : -
 
 ```bash
-const kmiddleware = require('@keploy/sdk/dist/v2/dedup/middleware.js')
+import _ "github.com/keploy/go-sdk/v3/keploy"
+```
 
-app.use(kmiddleware())
+Update the go build command in Dockerfile to add new flags which is required for deduplication (use same flags for native builds)
+
+```bash
+RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 ```
 
 **2. Run Deduplication**
 
-```
-keploy dedup -c "<CMD_TO_RUN_APP>" --delay 10 -t="<TESTSETS_TO_RUN>"
-```
-
-#### Example
-
-Let's use the [expresss-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) application to test dedup feature. In our `src/app.js` file we need to have imported and initialized `@keploy/sdk` package, so now let's run the de-duplication command to check : -
+For Docker, run:
 
 ```bash
-keploy dedup -c "node src/app.js" -t "test-set-1"
+keploy test -c "docker compose up" --containerName containerName --dedup
 ```
 
-<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f" />
-
-Voila! Keploy will now detect duplicate tests .
-
-### For Java Applications
-
-**1. Pre-requsite**
-
-Put the latest keploy-sdk in your pom.xml file : -
-
-```xml
-<dependency>
-    <groupId>io.keploy</groupId>
-    <artifactId>keploy-sdk</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-</dependency>
-```
-
-Now that we have added keploy-sdk, let's import it in our main class : -
-
-```java
-import io.keploy.servlet.KeployMiddleware;
-
-@Import(KeployMiddleware.class)
-public class SamplesJavaApplication {
-    public static void main(String[] args) {
-        SpringApplication.run(SamplesJavaApplication.class, args);
-    }
-}
-```
-
-**2. Run Deduplication**
-
-We need to create Jar file via : -
+For Native, run:
 
 ```bash
-mvn clean install -DskipTests
+keploy test -c ./main --dedup
 ```
 
-Once we have our jar file ready, we can run following command : -
+This will generate a dedupData.yaml file
+
+After this Run
 
 ```bash
-keploy dedup -c "java -javaagent:<PATH_TO_JacocoAgent>=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver -jar <PATH_TO_JAR_FILE>"  --delay 10 -t="test-set-0"
+keploy dedup
 ```
 
-Voila! Keploy will now detect duplicate tests .
+This command will create a duplicates.yaml file which will contain all the test cases which was found to be duplicate.
 
-### For Python Applications
-
-Deduplication works only on test mode there are no special instructions to record your tests.
-
-**1. Pre-requsite**
-
-Put the latest keploy-sdk in your file : -
-
-```bash
-pip install keploy coverage requests fastapi
-```
-
-In your main app file add the following with along with the other imports. And add Keploy's middleware along with the other middlewares for your app based on your framework:
-
-1. In FastAPI -
-
-```py
-# existing imports
-from keploy import FastApiCoverageMiddleware
-
-app.add_middleware(FastApiCoverageMiddleware)
-# existing functions
-```
-
-2. In Flask -
-
-```py
-# existing imports
-from keploy import FlaskCoverageMiddleware
-
-app.wsgi_app = FlaskCoverageMiddleware(app.wsgi_app)
-
-# existing functions
-```
-
-3. In Django - Open `settings.py` and add the middleware class to the **MIDDLEWARE** list.
-
-```py
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'keploy.DjangoCoverageMiddleware',  # Add keploy middleware here
-],
-
-# Other settings
-```
-
-**2. Run Deduplication**
-
-Run keploy with test-sets in which you want to check for the duplicate testcases :
-
-```sh
-keploy dedup -c "<command to run your Python app>" --delay "<time required for your application to start>"
-```
-
-#### Example
-
-Let's use the [flask-mongo](https://github.com/keploy/samples-python/tree/main/flask-mongo) application to test dedup feature. In our `app.py` file we need to have imported and initialized `keploy` package, since this is a flask application we can follow above flask approach. Once we have added package, let's run the de-duplication command to check : -
-
-```bash
-keploy dedup -c "python3 app.py" -t "test-set-1"
-```
-
-<img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e"/>
-
-## Remove Duplicate Tests
-
-You can simply remove duplicate tests with :
+In order to remove all the duplicate test cases, run the following command:
 
 ```bash
 keploy dedup --rm

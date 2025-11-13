@@ -20,37 +20,30 @@ Software Testing Life Cycle, more commonly known as STLC, is a process to test s
 Software Testing Life Cycle (STLC) comprises several phases that guide the testing process from inception to completion. The key phases include:
 
 1. **Requirement Analysis**:
-
    - **Objective**: Understand software requirements and define test objectives.
    - **Activities**: Review requirements, identify testable features, and plan test strategy.
 
 2. **Test Planning**:
-
    - **Objective**: Define test scope, resources, and timelines.
    - **Activities**: Develop test plan, determine testing types, and establish metrics.
 
 3. **Test Design**:
-
    - **Objective**: Create detailed test cases and scenarios.
    - **Activities**: Write test cases, define test data, and prioritize tests.
 
 4. **Test Environment Setup**:
-
    - **Objective**: Prepare the testing infrastructure.
    - **Activities**: Configure hardware, software, and test tools.
 
 5. **Test Execution**:
-
    - **Objective**: Execute test cases and identify defects.
    - **Activities**: Run tests, log results, and capture evidence.
 
 6. **Defect Reporting**:
-
    - **Objective**: Document and prioritize defects.
    - **Activities**: Report issues, classify severity, and assign to developers.
 
 7. **Defect Retesting and Regression Testing**:
-
    - **Objective**: Verify defect fixes and ensure no new issues arise.
    - **Activities**: Re-execute failed tests, perform regression testing, and validate fixes.
 
@@ -58,7 +51,7 @@ Software Testing Life Cycle (STLC) comprises several phases that guide the testi
    - **Objective**: Assess testing completion and readiness for release.
    - **Activities**: Evaluate test results, generate reports, and obtain stakeholder sign-off.
 
-![Software Testing Life Cycle Phases](https://cdn.hashnode.com/res/hashnode/image/upload/v1689231300018/f466f393-e402-4b1f-adef-259c93508aa8.png)
+![Software Testing Life Cycle Phases](https://keploy-devrel.s3.us-west-2.amazonaws.com/software-development-lifecycle.png)
 
 ## What are some common Practices in STLC ?
 

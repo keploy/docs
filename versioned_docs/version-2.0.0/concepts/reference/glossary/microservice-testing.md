@@ -2,7 +2,8 @@
 id: microservice-testing
 title: Microservice Testing with Keploy
 sidebar_label: Microservice Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: Understand microservice testing with Keploy. This glossary explains key terms and concepts that help beginners grasp testing in a microservices architecture.
+
 tags:
   - explanation
   - glossary
@@ -25,7 +26,6 @@ Microservice testing is the process of validating individual components of a mic
 ## Challenges in Microservices Testing:
 
 - **Complex service dependencies** :
-
   - Microservices often rely on other services, databases, or third-party APIs, making it challenging to test in isolation.
 
 - **Difficulty in replicating production environments**

@@ -24,31 +24,26 @@ keywords:
 
 Behavior Driven Development (BDD) is an Agile methodology that emphasizes collaboration among developers, testers, and business stakeholders. It ensures that software meets users' needs by writing tests that describe the desired behavior in plain language. This approach encourages clear communication and shared understanding of software requirements, ultimately leading to better quality and more maintainable code.
 
-![Behavior Driven Development (BDD)](https://images.spiceworks.com/wp-content/uploads/2022/09/29100419/BDD-Development-Process.png)
+![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD-Development-Process.png)
 
 ## BDD Fundamentals
 
 1. **Collaboration and Communication:**
-
    - BDD fosters close collaboration among developers, testers, and business stakeholders.
    - Open communication ensures that everyone has a shared understanding of the requirements and desired behavior.
 
 2. **User Stories:**
-
    - BDD starts with user stories written from the perspective of the end user, typically formatted as:  
      "As a [role], I want [feature] so that [benefit]."
 
 3. **Scenarios and Examples:**
-
    - Detailed scenarios illustrate specific behaviors of the software using the Given-When-Then format.
    - These scenarios serve as clear acceptance criteria that define when a user story is complete.
 
 4. **Gherkin Language:**
-
    - BDD employs Gherkin, a simple, human-readable syntax that uses keywords like Given, When, Then, And, and But to structure scenarios.
 
 5. **Acceptance Criteria:**
-
    - Scenarios double as acceptance criteria, ensuring all functional requirements are testable and clearly defined.
 
 6. **Automated Testing:**
@@ -57,15 +52,12 @@ Behavior Driven Development (BDD) is an Agile methodology that emphasizes collab
 ## Techniques of BDD
 
 1. **Three Amigos Meetings:**
-
    - A collaborative session involving a developer, tester, and business analyst to discuss and refine user stories and scenarios, ensuring alignment across teams.
 
 2. **Example Mapping:**
-
    - A technique to break down user stories into concrete examples, helping to identify edge cases and clarify requirements.
 
 3. **Writing Gherkin Scenarios:**
-
    - Scenarios are written in Gherkin syntax. For example:
      ```gherkin
      Scenario: User logs in successfully
@@ -75,7 +67,6 @@ Behavior Driven Development (BDD) is an Agile methodology that emphasizes collab
      ```
 
 4. **Automating Scenarios with BDD Tools:**
-
    - Tools like Cucumber, SpecFlow, Behave, JBehave, Gauge, and Reqnroll parse Gherkin syntax and link it to executable test code. For example, using Cucumber with Java:
 
      ```java
@@ -96,11 +87,9 @@ Behavior Driven Development (BDD) is an Agile methodology that emphasizes collab
      ```
 
 5. **Continuous Integration (CI) and Continuous Delivery (CD):**
-
    - BDD scenarios are integrated into CI/CD pipelines to run automated tests with every build, ensuring that new changes do not break existing functionality.
 
 6. **Living Documentation:**
-
    - BDD scenarios act as up-to-date documentation that evolves with the system, making it accessible and understandable to both technical and non-technical stakeholders.
 
 7. **Refactoring:**
@@ -168,7 +157,7 @@ Popular BDD tools include:
 | **Emphasis**         | Code correctness                        | Meeting user expectations and business goals                        |
 | **Collaboration**    | Within the development team             | Across all stakeholders                                             |
 
-![BDD vs. TDD](https://images.ctfassets.net/vrc8wif0t20g/6YGzPeOoQlewSQ07sX7a9P/6815d8dffd1523e43040b17e78a39f73/BDD_vs._TDD__Differences_Explained.png)
+![BDD vs. TDD](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD_vs._TDD__Differences_Explained.png)
 
 ## Conclusion
 
