@@ -873,4 +873,10 @@ textarea {
   background-color: #e67643 !important;
 }
 
+/* 🔹 Keploy Docs Announcement Bar Custom Styling */
 
+/* Announcement Banner background + text */
+.announcementBarContent_xLdY {
+  background-color: #1E73E8 !important;
+  color: #FFFFFF !important;
+}

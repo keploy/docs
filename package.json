@@ -20,9 +20,9 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
-    "@docusaurus/core": "^3.2.1",
+    "@docusaurus/core": "^3.8.1",
     "@docusaurus/plugin-sitemap": "^3.2.1",
-    "@docusaurus/preset-classic": "^3.2.1",
+    "@docusaurus/preset-classic": "^3.8.1",
     "@mdx-js/react": "^3.0.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
