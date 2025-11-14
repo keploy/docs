@@ -688,21 +688,37 @@ td img {
   background-size: 24px 24px;
 }
 
-div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
-  font-weight: bold;
+/* GLOBAL ANNOUNCEMENT BAR STYLES */
+div[class*="announcementBar_"],
+div[class*="announcementBarContent_"] {
+  font-weight: 600 !important;
+  font-size: 16px !important;
+  text-align: center !important;
+  padding: 10px 0 !important;
+  border-bottom: 1px solid #FF7A00 !important;
+  transition: background 0.3s ease-in-out;
+}
+
+/* LIGHT MODE — soft but NOT white */
+html[data-theme="light"] div[class*="announcementBar_"] {
+  background: linear-gradient(
+    90deg,
+    #FFE5CC 0%,   /* soft light orange, not white */
+    #FFCC99 50%,  /* warm pastel orange */
+    #FF9933 100%  /* logo-like orange */
+  ) !important;
+  color: #000 !important;
+}
+
+/* DARK MODE — muted version for dark backgrounds */
+html[data-theme="dark"] div[class*="announcementBar_"] {
+  background: linear-gradient(
+    90deg,
+    #4A3728 0%,   /* muted warm tint */
+    #CC7A3A 40%,  /* softer orange blend */
+    #FF7A00 100%  /* keploy orange */
+  ) !important;
+  color: #ffffff !important;
 }
 
 .list-disc > a {
