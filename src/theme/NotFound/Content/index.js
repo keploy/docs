@@ -1,22 +1,27 @@
 import React, {useEffect} from "react";
 import {PageMetadata} from "@docusaurus/theme-common";
 
-export default function Index() {
+export default function NotFound() {
   useEffect(() => {
-    window.location.href = "/docs/";
-  }, 2000);
-  [];
+    // Immediate redirect after 1s without showing any error
+    if (typeof window !== "undefined") {
+      const id = setTimeout(() => {
+        window.location.href = "/docs/";
+      }, 1000);
+      return () => clearTimeout(id);
+    }
+    return undefined;
+  }, []);
 
   return (
     <>
       <PageMetadata title="Redirecting..." />
-      <main className="margin-vert--xl container">
-        <div className="row">
-          <div className="col col--6 col--offset-3">
-            <h1 className="hero__title">Redirecting to home page...</h1>
-          </div>
-        </div>
-      </main>
+      <main
+        style={{
+          height: "100vh",
+          backgroundColor: "var(--ifm-background-color)",
+        }}
+      />
     </>
   );
 }
