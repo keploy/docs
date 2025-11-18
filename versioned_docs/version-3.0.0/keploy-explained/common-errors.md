@@ -1,13 +1,13 @@
 ---
 id: common-errors
-title: Common Errors in Keploy
-sidebar_label: Common Errors
+title: Keploy Troubleshooting Guide
+sidebar_label: Troubleshooting Guide
 tags:
   - explanation
   - faq
 ---
 
-Let's check some of the common errors that you might encounter while working with Keploy!
+Let’s explore some frequently encountered issues and how to resolve them effectively.
 
 ### 1. Dependency Not Found Error
 
@@ -193,4 +193,6 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 - Confirm the supported protocols (currently HTTP/REST and GraphQL).
 - Consider alternative tools or frameworks for unsupported protocols.
 
-If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team or consult the community forums for additional support. Happy testing!
+If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.slack.com/join/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg)
+
+Happy Testing!
