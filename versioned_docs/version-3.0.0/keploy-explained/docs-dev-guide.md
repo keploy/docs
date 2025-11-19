@@ -12,7 +12,7 @@ tags:
 
 We encourage contributions from the community.
 
-**Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
+**Create a [GitHub issue](https://github.com/keploy/keploy/issues/new/choose) for any changes beyond typos and small fixes.**
 
 If you do create a pull request (PR), please follow our style guidance.
 
@@ -24,12 +24,12 @@ The README in GitHub's [first-contributions repo](https://github.com/firstcontri
 
 ## How to set up the docs website locally?
 
-The Keploy documentation site uses Docusaurus 2 which is a static website generator.
+The Keploy documentation site uses Docusaurus which is a static website generator.
 
 You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
+However, if you want to build the site and preview changes in the browser, you need to have Docusaurus dependencies installed.
 
-Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) or [`npm`](https://docs.npmjs.com/cli/v10) once in the root directory of the repo.
+Initialize Docusaurus in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) or [`npm`](https://docs.npmjs.com/cli/v10) once in the root directory of the repo.
 
 Now you can build and view the site locally:
 
