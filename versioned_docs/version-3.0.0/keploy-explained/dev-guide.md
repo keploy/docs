@@ -10,7 +10,7 @@ tags:
 
 # Contribution Guide 🚀
 
-Welcome to the world of Keploy development! Here, we'll get you up and running smoothly, making your Keploy journey a breeze.
+Welcome to the world of Keploy development! This guide will help you set up Keploy locally.
 
 ### 1. **Setting Up Your Platform**:
 

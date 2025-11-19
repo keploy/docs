@@ -1,6 +1,6 @@
 ---
 id: docs-dev-guide
-title: docs-dev-guide
+title: Keploy Docs Contribution Guide
 sidebar_label: Docs Dev Guide
 tags:
   - dev guide
@@ -8,18 +8,24 @@ tags:
   - contributing
 ---
 
-# How to contribute
+We welcome and appreciate contributions from the community. There are several ways you can help improve the documentation:
 
-We encourage contributions from the community.
+### Ways to Contribute:
 
-**Create a [GitHub issue](https://github.com/keploy/keploy/issues/new/choose) for any changes beyond typos and small fixes.**
+**1. Code Contribution**.
 
-If you do create a pull request (PR), please follow our style guidance.
+**2. Report bugs or suggest improvements**.
 
-We review GitHub issues and PRs on a regular schedule.
+**3. Suggest UI/UX enhancements**.
 
-To ensure that each change is relevant and properly peer reviewed, please adhere to best practices for open-source contributions.
-This means that if you are outside the Keploy organization, you must fork the repository and create PRs from branches on your own fork.
+**4. Contribute to translations**.
+
+Your contributions help strengthen the documentation and support the Keploy community
+
+**Note: Create a [GitHub issue](https://github.com/keploy/keploy/issues/new/choose) for any changes beyond typos and small fixes.**
+
+If you do create a pull request (PR) or Github issues, please follow our style guidance.
+
 The README in GitHub's [first-contributions repo](https://github.com/firstcontributions/first-contributions) provides an example.
 
 ## How to set up the docs website locally?
