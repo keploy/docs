@@ -3,6 +3,7 @@ import Layout from "@theme/Layout";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, KeployCloud, Resources, QuickStart} from "../components";
 import {Products} from "../components/Product";
+import RagChat from "../components/Ragchat";
 //import {Intro} from "../components";
 export default function Home() {
   const context = useDocusaurusContext();
@@ -22,6 +23,7 @@ export default function Home() {
           <Products />
           <Resources />
           <Community />
+          <RagChat />
           {/*<GSoC/>*/}
           <KeployCloud />
         </main>
