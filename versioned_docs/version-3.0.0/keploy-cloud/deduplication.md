@@ -109,7 +109,3 @@ In order to remove all the duplicate test cases, run the following command:
 ```bash
 keploy dedup --rm
 ```
-
-```
-
-```
