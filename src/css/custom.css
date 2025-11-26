@@ -689,20 +689,34 @@ td img {
 }
 
 div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary) 0%,
+    var(--ifm-color-primary-light) 100%
   );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
+  color: #ffffff;
   font-weight: bold;
+  border-bottom: 2px solid var(--ifm-color-primary-dark);
+}
+
+div[class^="announcementBar_"] a {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+div[class^="announcementBar_"] a:hover {
+  color: var(--ifm-color-primary-lightest);
+  text-decoration: underline;
+}
+
+html[data-theme="dark"] div[class^="announcementBar_"] {
+  background: linear-gradient(
+    135deg,
+    var(--ifm-color-primary) 0%,
+    var(--ifm-color-primary-dark) 100%
+  );
+  color: #ffffff;
+  border-bottom: 2px solid var(--ifm-color-primary-darker);
 }
 
 .list-disc > a {
