@@ -34,7 +34,6 @@ const IconWrapper = ({icon, bg}) => (
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
-
   // 👇 initialize with defaultLanguage if provided
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
@@ -181,8 +180,18 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   // ----- Render -----
   return (
     <div style={{marginTop: "2rem"}}>
+    <style>{`
+        @media (max-width: 480px) {
+          .responsive-heading {
+            margin-left: 0.2rem !important;
+            word-break: normal;
+            overflow-wrap: break-word;
+            white-space: normal;
+          }
+        }
+      `}</style>
       {/* Language Selection */}
-      <h2 style={headingStyle}>Choose your language</h2>
+      <h2 className="responsive-heading" style={headingStyle}>Choose your language</h2>
       <div style={stepContainer}>
         {languages.map((lang) => (
           <button
@@ -222,7 +231,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       </div>
 
       {/* Server Selection */}
-      <h2 style={{...headingStyle, marginTop: "2rem"}}>
+      <h2 className="responsive-heading" style={{...headingStyle, marginTop: "2rem"}}>
         Where do you want to run the app server?
       </h2>
       <div style={serverContainer}>
@@ -264,7 +273,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       {/* Quickstarts */}
       {language && server && (
         <>
-          <h2 style={{...headingStyle, marginTop: "2rem"}}>
+          <h2 className="responsive-heading" style={{...headingStyle, marginTop: "2rem"}}>
             ✨ AI Suggested Sample Apps
           </h2>
           <div style={gridContainer}>
