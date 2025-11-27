@@ -183,8 +183,10 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     <style>{`
         @media (max-width: 480px) {
           .responsive-heading {
-            margin-left: 0.75rem !important;
-            font-size: 1.2rem !important;
+            margin-left: 0.2rem !important;
+            word-break: normal;
+            overflow-wrap: break-word;
+            white-space: normal;
           }
         }
       `}</style>
