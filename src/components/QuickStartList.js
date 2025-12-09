@@ -267,7 +267,7 @@ const quickstarts = [
     server: "Local",
     description:
       "A sample SMS Sending app to demonstrate how seamlessly Keploy integrates with FastAPI and Twilio.",
-    link: "docs/quickstart/samples-fastapi-twilio/#running-app-locally-on-linuxwsl-",
+    link: "/docs/quickstart/samples-fastapi-twilio/#running-app-locally-on-linuxwsl-",
   },
   {
     title: "FastAPI + Twilio ",
@@ -342,7 +342,7 @@ const quickstarts = [
     server: "Docker",
     description:
       "A sample CRUD app to demonstrate Keploy integration built with Node, JWT, and PostgreSQL.",
-    link: "docs/quickstart/samples-node-jwt/#using-docker-compose-",
+    link: "/docs/quickstart/samples-node-jwt/#using-docker-compose-",
   },
 
   {
