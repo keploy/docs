@@ -1052,13 +1052,15 @@ code={`
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_1.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
-**Step 2: Once it is uploaded, you will see the Ecommerce microservices in the left tab.**
+**Step 2: After the upload is complete, you will see the Ecommerce Microservices collection in the left panel. Open the collection to continue.**
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_2.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
-**Step 3: Click the User Service and hit the login URL to get the token.**
+**Step 3: Before sending any requests, ensure you have generated a JWT token. Click on User Service. Use the Login API and enter the following credentials: `Username: admin` and `Password: admin123`. After a successful login, you will receive a JWT token. Copy the token and paste it into your Environment settings.**
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_3.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
 
 **Step 4: We need to create a user before placing an order. So, create a user using the Create User API.**
 
@@ -1370,17 +1372,18 @@ After reaching this step, provide your application URL and the working cURL comm
 
 **Step 1: Let's provide the curl command in the import curl section**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_apitesting_2.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_inital_curl_request.png" alt="Sample Keploy Record Microservices" />
 
 Use the following cURL command to import:
 
 ```bash
-curl -X POST -H 'Host: localhost:8080' -H 'Accept-Encoding: gzip, deflate, br' -H 'Connection: keep-alive' -H 'Cache-Control: no-cache' -H 'Accept: */*' -H 'Postman-Token: 682f4ac6-a482-44ab-b7f4-14cd4e8bc989' -H 'User-Agent: PostmanRuntime/7.49.1' -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' 'http://localhost:8083/api/v1/orders/d5a441bc-94f6-4695-a30e-4bfdb45d7223/pay'
+curl --location --request POST 'http://localhost:8083/api/v1/orders/d08d8383-57c1-49c6-9a6a-b3920a46b43d/pay' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI3ZWJmZDZmMS02MDFmLTRmYzItYjc1Yy1iNWJkNjhlM2M5N2IiLCJ1c2VybmFtZSI6ImFkbWlubmV3IiwiaWF0IjoxNzY1MzA1NzQ0LCJleHAiOjE3Njc4OTc3NDR9.4pGTa6FgCzZRXYl_0cMpDGc_2XO1GxBlrTlnB7QAhaU'
 ```
 
 **Step 2: Once you provide the input, you will see a response. This means we are able to reach your application and are now ready to generate tests. We’re just performing a validation before generating the test cases.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_3.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_initial_curl_validate.png" alt="Sample Keploy Record Microservices" />
 
 **Step 3: Next, it’s time to provide the input — such as cURL commands, Postman collections, or an OpenAPI schema. Remember, the more input or content you provide, the better your test cases will be. For this demo, we’ll use Postman collections and cURL commands.**
 
@@ -2353,7 +2356,7 @@ code={`
 
 />
 
-Paste the collections in the postman collections section.
+_Paste the collections in the postman collections section._
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_4.png" alt="Sample Keploy Record Microservices" />
 
@@ -2495,11 +2498,261 @@ curl --request GET \
 }
 />
 
-Paste the cURL commands in the cURL section.
+_Paste the cURL commands in the cURL section._
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_5.png" alt="Sample Keploy Record Microservices" />
 
-**Step 4: Before generating the test, review and confirm the generation settings. In this example, the port has been changed to 8083, meaning the application gateway runs on 8083 to access all the services.**
+**Also copy the openapi schema for the order service**
+
+<CollapsibleCode
+language="curl"
+previewLines={10}
+code={`
+
+openapi: 3.1.0
+info:
+title: Order Service API
+version: 1.0.0
+components:
+securitySchemes:
+bearerAuth:
+type: http
+scheme: bearer
+bearerFormat: JWT
+security:
+
+- bearerAuth: []
+  paths:
+  /api/v1/orders:
+  post:
+  summary: Create order
+  parameters: - in: header
+  name: Idempotency-Key
+  required: false
+  schema:
+  type: string
+  maxLength: 64
+  description: Prevent duplicate order creation. If provided, repeated requests return the same order.
+  requestBody:
+  required: true
+  content:
+  application/json:
+  schema:
+  type: object
+  required: - userId - items
+  properties:
+  userId:
+  type: string
+  items:
+  type: array
+  items:
+  type: object
+  required: - productId - quantity
+  properties:
+  productId:
+  type: string
+  quantity:
+  type: integer
+  minimum: 1
+  shippingAddressId:
+  type: string
+  nullable: true
+  responses:
+  '201':
+  description: Created
+  content:
+  application/json:
+  schema:
+  type: object
+  properties:
+  id:
+  type: string
+  status:
+  type: string
+  enum: [PENDING, PAID, CANCELLED]
+  '200':
+  description: Returned existing order for idempotent request
+  '400':
+  description: Bad request
+  '503':
+  description: Dependency unavailable
+  get:
+  summary: List orders
+  parameters: - in: query
+  name: userId
+  schema:
+  type: string - in: query
+  name: status
+  schema:
+  type: string
+  enum: [PENDING, PAID, CANCELLED] - in: query
+  name: limit
+  schema:
+  type: integer
+  minimum: 1
+  maximum: 100
+  default: 20 - in: query
+  name: cursor
+  schema:
+  type: string
+  responses:
+  '200':
+  description: OK
+  content:
+  application/json:
+  schema:
+  type: object
+  properties:
+  orders:
+  type: array
+  items:
+  type: object
+  properties:
+  id:
+  type: string
+  user_id:
+  type: string
+  status:
+  type: string
+  total_amount:
+  type: number
+  created_at:
+  type: string
+  format: date-time
+  nextCursor:
+  type: string
+  nullable: true
+  /api/v1/orders/{orderId}:
+  get:
+  summary: Get order by ID
+  parameters: - in: path
+  name: orderId
+  required: true
+  schema:
+  type: string
+  responses:
+  '200':
+  description: OK
+  content:
+  application/json:
+  schema:
+  type: object
+  properties:
+  id:
+  type: string
+  user_id:
+  type: string
+  status:
+  type: string
+  total_amount:
+  type: number
+  shipping_address_id:
+  type: string
+  nullable: true
+  created_at:
+  type: string
+  format: date-time
+  updated_at:
+  type: string
+  format: date-time
+  items:
+  type: array
+  items:
+  type: object
+  properties:
+  product_id:
+  type: string
+  quantity:
+  type: integer
+  price:
+  type: number
+  '404':
+  description: Not found
+  /api/v1/orders/{orderId}/details:
+  get:
+  summary: Get order by ID with enriched user and product details
+  parameters: - in: path
+  name: orderId
+  required: true
+  schema:
+  type: string
+  responses:
+  '200':
+  description: OK
+  content:
+  application/json:
+  schema:
+  type: object
+  properties:
+  id: { type: string }
+  status: { type: string }
+  total_amount: { type: number }
+  created_at: { type: string, format: date-time }
+  updated_at: { type: string, format: date-time }
+  userId: { type: string }
+  shippingAddressId: { type: string, nullable: true }
+  shippingAddress:
+  type: object
+  nullable: true
+  user:
+  type: object
+  nullable: true
+  items:
+  type: array
+  items:
+  type: object
+  properties:
+  productId: { type: string }
+  quantity: { type: integer }
+  product:
+  type: object
+  nullable: true
+  /api/v1/orders/{orderId}/cancel:
+  post:
+  summary: Cancel order
+  parameters: - in: path
+  name: orderId
+  required: true
+  schema:
+  type: string
+  responses:
+  '200':
+  description: Cancelled
+  '404':
+  description: Not found
+  '409':
+  description: Conflict
+  /api/v1/orders/{orderId}/pay:
+  post:
+  summary: Mark order paid
+  parameters: - in: path
+  name: orderId
+  required: true
+  schema:
+  type: string
+  responses:
+  '200':
+  description: Paid
+  '404':
+  description: Not found
+  '409':
+  description: Conflict
+  /health:
+  get:
+  summary: Health check
+  security: []
+  responses:
+  '200':
+  description: OK
+
+`}
+/>
+
+_Also Paste the OpenAPI schema into the Schema Document section. Once completed, you will be able to view the schema coverage._
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_microservices_schema_Coverage.png" alt="Sample Keploy Record Microservices" />
+
+**Step 4: After providing the OpenAPI schema, cURL commands, and Postman collection, click the Generate API Tests button. Then, review and confirm the generation settings. In this example, the port is changed to 8083, which means the application gateway will run on port 8083 to access all services.**
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_6.png" alt="Sample Keploy Record Microservices" />
 
