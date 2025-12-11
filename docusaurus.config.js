@@ -106,7 +106,6 @@ module.exports = {
       darkTheme: prismThemes.dracula,
       additionalLanguages: ["java", "ruby", "php", "bash"],
     },
-    // hideableSidebar: true,
     navbar: {
       hideOnScroll: false,
       logo: {
@@ -264,7 +263,6 @@ module.exports = {
                     }
                     node.value = "// @ts-nocheck\n" + node.value.trim();
                   }
-
                   visit(tree, "code", visitor);
                 },
               {},
