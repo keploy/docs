@@ -873,4 +873,71 @@ textarea {
   background-color: #e67643 !important;
 }
 
+/* Mobile responsiveness fixes */
+@media screen and (max-width: 768px) {
+  * {
+    max-width: 100vw;
+  }
+  
+  html, body {
+    overflow-x: hidden !important;
+    width: 100%;
+    max-width: 100vw;
+  }
+  
+  footer, .navbar, article, main, .main-wrapper {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+    width: 100% !important;
+  }
+  
+  footer {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  .footer__icons {
+    flex-wrap: wrap !important;
+    justify-content: center !important;
+    width: 100% !important;
+  }
+  
+  .footer__copyright, .footer__link-item {
+    width: 100% !important;
+    text-align: center !important;
+  }
+  
+  .DocSearch-Button {
+    width: 100% !important;
+    max-width: 200px !important;
+  }
+  
+  .navbar__items {
+    max-width: 100% !important;
+  }
+  
+  .navbar__inner {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+  
+  img, video, iframe, pre, table {
+    max-width: 100% !important;
+  }
+}
+
+/* Fix Products section - reduce size on tablet */
+@media screen and (min-width: 641px) and (max-width: 1024px) {
+  ul.grid-flow-col {
+    grid-auto-columns: 220px !important;
+  }
+}
+
+/* Fix Products section - stack on mobile */
+@media screen and (max-width: 640px) {
+  ul.grid-flow-col {
+    grid-auto-flow: row !important;
+    grid-auto-columns: unset !important;
+  }
+}
 
