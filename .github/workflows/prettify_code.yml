@@ -27,14 +27,15 @@ jobs:
             BASE_SHA="${{ github.event.before }}"
           fi
           
-          git diff --name-only --diff-filter=ACMR -z $BASE_SHA HEAD | \
+          # Get files and store as space-separated string
+          CHANGED_FILES=$(git diff --name-only --diff-filter=ACMR -z $BASE_SHA HEAD | \
             grep -zE '\.(js|md)$' | \
-            xargs -0 -r echo > changed_files.txt
+            xargs -0 -r)
           
-          if [ -s changed_files.txt ]; then
+          if [ -n "$CHANGED_FILES" ]; then
+            echo "files=$CHANGED_FILES" >> $GITHUB_OUTPUT
             echo "has_files=true" >> $GITHUB_OUTPUT
-            echo "Changed files:"
-            cat changed_files.txt
+            echo "Changed files: $CHANGED_FILES"
           else
             echo "has_files=false" >> $GITHUB_OUTPUT
           fi
@@ -44,5 +45,5 @@ jobs:
         uses: creyD/prettier_action@v4.6
         with:
           prettier_version: 2.8.8
-          prettier_options: --check $(cat changed_files.txt)
-          dry_run: true
+          prettier_options: --check ${{ steps.changed-files.outputs.files }}
+          dry: true
