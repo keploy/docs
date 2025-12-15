@@ -12,7 +12,8 @@ function About() {
       permalink="/about"
       description="User General Information about Keploy's Documentation"
     >
-      <main className="margin-vert--lg container">
+      
+<main className="margin-vert--lg container">
         <h1>About the docs</h1>
         <div className="margin-bottom--lg">
           <h2 id="latest">Documentation SLA</h2>
