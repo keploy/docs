@@ -247,8 +247,10 @@ export const Products = () => {
           Keploy provides three key products that help you streamline your
           testing workflow:
         </p>
+        <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
+          <UTG />
+        </div>
       </div>
-      <UTG />
     </section>
   );
 };
