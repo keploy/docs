@@ -5,7 +5,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 function UTG() {
   return (
     <div className="rounded-lg">
-      <ul className="grid auto-cols-[300px] grid-flow-col gap-3 lg:gap-5">
+      <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3 lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             className="text-foreground-light flex-grow text-sm"
@@ -247,7 +247,7 @@ export const Products = () => {
         workflow:
       </p>
 
-      <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
+      <div className="grid gap-4 grid-cols-1 sm:grid-cols-3 xl:gap-6">
         <UTG />
       </div>
     </section>
