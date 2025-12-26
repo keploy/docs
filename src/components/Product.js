@@ -239,7 +239,6 @@ function UTG() {
 export const Products = () => {
   return (
     <section className="mb-4 mt-12">
-      <div>
         <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
           Products 🛠️
         </h2>
@@ -250,7 +249,6 @@ export const Products = () => {
         <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
           <UTG />
         </div>
-      </div>
     </section>
   );
 };
