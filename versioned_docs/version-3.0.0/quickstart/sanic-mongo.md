@@ -1,8 +1,9 @@
 ---
 id: sanic-mongo
-title: Sample Movie Management App (Sanic + Mongo)
+title: Sample Movie API with Sanic and MongoDB
+
 sidebar_label: Sanic + Mongo
-description: This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
+description: A simple movie management API using Python Sanic and MongoDB. Perform CRUD operations on movie records with a lightweight, high-performance backend.
 
 tags:
   - python
@@ -28,19 +29,20 @@ keyword:
 
 This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-# Get Started! 🎬
+### Get Started! 🎬
 
-## Clone the app 🧪
+### Clone the app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/sanic-mongo
 ```
 
-## Download the requirements.txt file and DB setup
+### Download the requirements.txt file and DB setup
 
 Head to the folder of the application and run
 
@@ -68,7 +70,7 @@ keploy record -c "python3 server.py"
 
 You should be able to see this in your terminal
 
-<img src="/docs/img/sanic-mongo-record.png" alt="Sample Keploy record sanic mongo" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-python-sanic.png" alt="Sample Keploy record sanic mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -158,6 +160,6 @@ spec:
 
 This is how your terminal would look like :
 
-<img src="/docs/img/sanic-mongo-test.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-test-sanic-python.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response

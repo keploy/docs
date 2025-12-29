@@ -34,10 +34,6 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
   ...
 ```
 
-> **Note: if you are using `arm_64` as runner use below to download keploy binary**
-
-`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp`
-
 ### Example with Scripts
 
 While using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application with keploy test in GitHub CI, the workflow would like:-
@@ -216,7 +212,3 @@ sudo -E keploy test -c node src/app.js --delay 10 --path ./
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

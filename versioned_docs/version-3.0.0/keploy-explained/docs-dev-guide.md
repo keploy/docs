@@ -1,6 +1,6 @@
 ---
 id: docs-dev-guide
-title: docs-dev-guide
+title: Keploy Docs Contribution Guide
 sidebar_label: Docs Dev Guide
 tags:
   - dev guide
@@ -8,36 +8,36 @@ tags:
   - contributing
 ---
 
-# How to contribute
+We welcome and appreciate contributions from the community. There are several ways you can help improve the documentation:
 
-We encourage contributions from the community.
+### Ways to Contribute:
 
-**Create a [GitHub issue](https://github.com/keploy/docs/issues) for any changes beyond typos and small fixes.**
+**1. Code Contribution**.
 
-If you do create a pull request (PR), please follow our style guidance.
+**2. Report bugs or suggest improvements**.
 
-We review GitHub issues and PRs on a regular schedule.
+**3. Suggest UI/UX enhancements**.
 
-To ensure that each change is relevant and properly peer reviewed, please adhere to best practices for open-source contributions.
-This means that if you are outside the Keploy organization, you must fork the repository and create PRs from branches on your own fork.
+**4. Contribute to translations**.
+
+Your contributions help strengthen the documentation and support the Keploy community
+
+**Note: Create a [GitHub issue](https://github.com/keploy/keploy/issues/new/choose) for any changes beyond typos and small fixes.**
+
+If you do create a pull request (PR) or Github issues, please follow our style guidance.
+
 The README in GitHub's [first-contributions repo](https://github.com/firstcontributions/first-contributions) provides an example.
 
 ## How to set up the docs website locally?
 
-The Keploy documentation site uses Docusaurus 2 which is a static website generator.
+The Keploy documentation site uses Docusaurus which is a static website generator.
 
 You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
+However, if you want to build the site and preview changes in the browser, you need to have Docusaurus dependencies installed.
 
-Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) or [`npm`](https://docs.npmjs.com/cli/v10) once in the root directory of the repo.
+Initialize Docusaurus in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) or [`npm`](https://docs.npmjs.com/cli/v10) once in the root directory of the repo.
 
 Now you can build and view the site locally:
-
-```shell
-npm start
-```
-
-or
 
 ```shell
 npm start
@@ -164,8 +164,4 @@ If you have ideas on how we can improve, please share them with us by creating a
 
 Right now our interfaces do not support translations and we also don't have a translation strategy in place. But we want to change this. We want our projects to be accessible to non-English speakers. If you have any ideas then please share them with us by creating a [new issue].
 
-Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
+Hope this helps you out, if you still have any questions, reach out to us

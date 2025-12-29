@@ -1,7 +1,7 @@
 ---
 id: samples-nextjs
 title: NextJs Sample Application
-sidebar_label: NextJS + SQL
+sidebar_label: NextJS + PostgreSQL
 description: The following sample app to test Keploy integration capabilities using NextJS,Drizzle and Postgres.
 tags:
   - NextJs
@@ -13,17 +13,18 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+## Running App Locally on Linux/WSL 🐧
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
+### Get Started! 🎬
 
-Now that we have bun installed, we will setup our application.
+Now that we have bun installed, we will se tup our application.
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
@@ -35,12 +36,6 @@ npm install
 docker-compose up
 ```
 
-## Installation 📥
-
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Running App Locally on Linux/WSL 🐧
-
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
 
 ### Capture testcase
@@ -50,6 +45,8 @@ Ready, set, record! Here's how:
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'npm run dev'
 ```
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
 
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls!
 
@@ -82,7 +79,7 @@ This will return the response:
 curl -X GET http://localhost:3000/api/users
 ```
 
-![Test Record](../../../static/img/nextjs-postgres-record.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-output-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
 
 Give yourself a pat on the back! With that simple spell, you've conjured up test cases with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
@@ -96,7 +93,7 @@ Time to put things to the test 🧪
 sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
-![Test Run](../../../static/img/nextjs-postgres-test.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-result-output-postgres-nextjs.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
@@ -105,9 +102,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

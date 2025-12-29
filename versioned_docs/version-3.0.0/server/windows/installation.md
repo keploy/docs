@@ -73,7 +73,7 @@ Run this command on your terminal to start the recording of API calls:-
 sudo -E keploy record -c "path/to/the/application/binary"
 ```
 
-Make API Calls using [Postman](https://www.postman.com/) or cURL command.
+Make API Calls using Postman or cURL command.
 
 Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
 mocks into `YAML` format.
@@ -104,7 +104,7 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 
 For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
 
-### Creating Alias
+### Create a network
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.

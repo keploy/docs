@@ -1,7 +1,7 @@
 ---
 id: keploy-console
-title: Keploy Console 📘
-sidebar_label: Keploy Console 🛠️
+title: Keploy Console
+sidebar_label: Keploy Console
 tags:
   - explanation
   - feature guide
