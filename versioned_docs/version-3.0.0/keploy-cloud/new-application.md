@@ -17,6 +17,10 @@ keywords:
   - API key
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ### Start Keploy Agent
 
 Before adding a new application or performing record-replay operations, please ensure that the keploy agent is running. You can bring up the agent by running

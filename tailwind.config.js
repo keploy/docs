@@ -8,6 +8,7 @@ const em = (px, base) => `${round(px / base)}em`;
 
 module.exports = {
   mode: "jit",
+  darkMode: ["class", '[data-theme="dark"]'],
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/pages/**/*.{js,ts,jsx,tsx}",

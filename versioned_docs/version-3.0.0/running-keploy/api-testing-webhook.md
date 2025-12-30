@@ -18,6 +18,10 @@ keywords:
   - custom logic
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ## Keploy ATG Webhook Integration Guide
 
 ### 1. Overview
