@@ -149,6 +149,8 @@ const quickstarts = [
       "A sample URL Shortener app to demonstrate Keploy integration capabilities using Mux and MySQL.",
     link: "/docs/quickstart/samples-mysql/#running-app-locally-on-linuxwsl-",
   },
+
+  /*
   {
     title: "FastHttp + Postgres",
     language: "Go",
@@ -157,6 +159,7 @@ const quickstarts = [
       "A sample CRUD application to demonstrate how seamlessly Keploy integrates with FastHttp and Postgres.",
     link: "/docs/quickstart/samples-fasthttp/#using-docker-compose-",
   },
+  */
 
   {
     title: "FastHttp + Postgres",

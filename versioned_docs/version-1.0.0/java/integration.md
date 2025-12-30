@@ -34,13 +34,17 @@ Sync dependencies or to _build.gradle_:
     compile 'io.keploy:keploy-sdk:1.0.13'
 
 2. Install Keploy Jar
+
    - Download the latest jar from [here](https://search.maven.org/artifact/io.keploy/keploy-sdk/1.2.6/jar) (eg: 1.2.6) to mock external/internal dependency calls like DB queries, GMaps, S3 etc..
+
      - Add the jar into the `main` directory
+
        - Add `-javaagent:` prefix with absolute classpath of Keploy jar downloaded above
 
          (For example: `-javaagent:/Users/jhon/project/src/main/agent-1.2.5.jar`)
 
          You can set this through 3 ways:-
+
          1. {'<'}details{'>'}{'<'}summary{'>'}
             Using Intellij
             {'<'}/summary{'>'}
@@ -71,6 +75,7 @@ Sync dependencies or to _build.gradle_:
 ## Supported Frameworks
 
 - **For Spring based application**
+
   - Add `@Import(KeployMiddleware.class)` below `@SpringBootApplication` in your main class.
 
     ```java
@@ -88,6 +93,7 @@ Sync dependencies or to _build.gradle_:
     ```
 
 - **For Java EE application**
+
   - Specify the below filter above all other filters and servlets in the **web.xml** file.
 
     ```xml

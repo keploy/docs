@@ -2,41 +2,6 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "API Testing",
-      "collapsed": true,
-      "items": [
-        "running-keploy/api-test-generator",
-        {
-          "type": "category",
-          "label": "Getting Started",
-          "collapsed": false,
-          "items": [
-            "running-keploy/generate-api-tests-using-ai",
-            "running-keploy/api-testing-chrome-extension"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Test Operations",
-          "collapsed": false,
-          "items": [
-            "running-keploy/review-and-improve-ai-generated-tests",
-            "running-keploy/share-tests",
-            "running-keploy/self-healing-ai-api-tests",
-            "running-keploy/run-ai-generated-api-tests",
-            "running-keploy/api-testing-cicd",
-            "running-keploy/api-testing-webhook"
-          ]
-        },
-        {
-          "type": "doc",
-          "label": "FAQs",
-          "id": "keploy-explained/api-testing-faq"
-        }
-      ]
-    },
-    {
-      "type": "category",
       "label": "Integration Testing",
       "collapsed": true,
       "items": [
@@ -196,6 +161,7 @@
               "label": "QuickStarts",
               "collapsed": true,
               "items": [
+                "quickstart/k8s-proxy",
                 "quickstart/samples-redis",
                 "quickstart/flask-redis",
                 "quickstart/samples-microservices"
@@ -212,6 +178,41 @@
           "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/integration-testing-faq"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Testing",
+      "collapsed": true,
+      "items": [
+        "running-keploy/api-test-generator",
+        {
+          "type": "category",
+          "label": "Getting Started",
+          "collapsed": false,
+          "items": [
+            "running-keploy/generate-api-tests-using-ai",
+            "running-keploy/api-testing-chrome-extension"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Test Operations",
+          "collapsed": false,
+          "items": [
+            "running-keploy/review-and-improve-ai-generated-tests",
+            "running-keploy/share-tests",
+            "running-keploy/self-healing-ai-api-tests",
+            "running-keploy/run-ai-generated-api-tests",
+            "running-keploy/api-testing-cicd",
+            "running-keploy/api-testing-webhook"
+          ]
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/api-testing-faq"
         }
       ]
     },

@@ -127,10 +127,6 @@ module.exports = {
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
             },
-            {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent",
-            },
           ],
         },
         {
