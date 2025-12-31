@@ -14,6 +14,10 @@ keywords:
   - Test Automation
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Auto Test Generation simplifies the testing process by automating the generation of test cases based on the provided OpenAPI Schema file.
 
 ## Usage 🛠️

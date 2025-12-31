@@ -11,6 +11,10 @@ keywords:
   - commands
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 ### Usage
 
 ```bash

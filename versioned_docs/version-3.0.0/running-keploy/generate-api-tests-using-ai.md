@@ -5,6 +5,10 @@ sidebar_label: Generate API Tests
 description: Learn how to use Keploy’s API Test Generator to generate high-quality API test suites using AI from OpenAPI, curl, Postman, or traffic.
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This guide will help you generate automated API tests using Keploy's AI-based test engine by providing structured inputs like OpenAPI specs, curl commands, Postman collections, or live endpoints.
 
 > 👉 If you want to record API flows by interacting with your web app through a browser, follow this guide instead: [Record API Tests via Chrome Extension](https://keploy.io/docs/running-keploy/api-testing-chrome-extension/)

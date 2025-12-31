@@ -22,8 +22,11 @@ keyword:
 
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker 🐳
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample url shortener app to test Keploy integration capabilities using Mux and MySQL.
 
@@ -122,6 +125,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 ---
 
 # Running App Locally on Linux/WSL 🐧
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySql.
 

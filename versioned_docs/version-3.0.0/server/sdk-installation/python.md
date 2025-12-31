@@ -16,6 +16,10 @@ keyword:
   - Pytest
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 | Programming Language | Prerequisites                                                             |
 | :------------------: | :------------------------------------------------------------------------ |
 |        python        | [Python 3 and above](https://www.python.org/downloads/) <br/> coverage.py |

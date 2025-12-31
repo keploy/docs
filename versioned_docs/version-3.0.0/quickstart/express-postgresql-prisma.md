@@ -20,8 +20,11 @@ keyword:
 
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 ## Running App Locally on Linux/WSL
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
 
@@ -42,19 +45,19 @@ git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-postgresql-prisma
 ```
 
-#### Install the dependencies
+### Install the dependencies
 
 ```bash
 npm install
 ```
 
-#### Set up environment variables:
+### Set up environment variables:
 
 ```bash
 cp .env.example .env
 ```
 
-#### Start PostgreSQL Container
+### Start PostgreSQL Container
 
 ```bash
 docker run --name my-postgres -e POSTGRES_PASSWORD=mysecretpassword -p 5432:5432 -d postgres
@@ -69,7 +72,7 @@ PORT=3000
 DATABASE_URL="postgresql://postgres:mysecretpassword@localhost:5432/postgres"
 ```
 
-#### Migrate the database:
+### Migrate the database:
 
 ```bash
 npm run generate
@@ -111,7 +114,7 @@ nt in 50ms
 └─────────────────────────────────────────────────────────┘
 ```
 
-#### Start the application:
+### Start the application:
 
 ```bash
 npm run dev
@@ -128,7 +131,7 @@ Server is listening at PORT 3000
 
 Now we walkthrough how to leverage Keploy to automatically generate test cases for the application, and later test the application using Keploy.
 
-#### Generate Test Cases
+### Generate Test Cases
 
 > Note: Build the application first using `npm run build`
 
@@ -172,7 +175,7 @@ The above command will start recording the API calls made to the application and
 
 > 💡 You can use Postman or any other API testing tool to test the API calls. Additionally, the application will run a swagger UI on `http://localhost:3000/api/docs` to visualize the API calls.
 
-#### Test the Application
+### Test the Application
 
 ```bash
 keploy test -c "npm start"
@@ -181,6 +184,8 @@ keploy test -c "npm start"
 <SectionDivider />
 
 ## Running App using Docker Compose 🐳
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
 
@@ -201,13 +206,13 @@ git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-postgresql-prisma
 ```
 
-#### Install the dependencies
+### Install the dependencies
 
 ```bash
 npm install
 ```
 
-#### Set up environment variables:
+### Set up environment variables:
 
 ```bash
 cp .env.example .env

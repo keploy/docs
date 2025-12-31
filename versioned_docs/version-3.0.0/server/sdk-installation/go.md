@@ -18,6 +18,10 @@ keyword:
   - Go Test
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ## 🛠️ Language Specific Requirements
 
 There are two requirements to get coverage for Go: first, you need to perform a graceful shutdown, and second, you must build the binary using the `-cover` flag. Once that’s done, run `keploy test`.

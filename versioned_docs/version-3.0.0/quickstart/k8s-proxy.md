@@ -15,6 +15,10 @@ keyword:
 
 # Kubernetes Live Record & Replay using Keploy Proxy
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This guide demonstrates how to use **Keploy Proxy** to perform **live traffic recording and replay in a Kubernetes environment**.
 
 ## Get the Sample Application

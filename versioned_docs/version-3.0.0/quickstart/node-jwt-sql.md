@@ -20,8 +20,11 @@ keyword:
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 ## Running App Locally on Linux/WSL 🐧
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
@@ -197,6 +200,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 <SectionDivider />
 
 ## Using Docker Compose 🐳
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
