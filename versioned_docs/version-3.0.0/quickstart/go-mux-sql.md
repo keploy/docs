@@ -20,33 +20,21 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-🪄 Dive into the world of Product catelog and see how seamlessly Keploy integrates with [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+# Using Docker Compose 🐳
 
-import InstallationGuide from '../concepts/installation.md'
+A sample product catalog app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org).
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Clone a sample Product Catalog App🧪
+### Clone a sample Product Catalog App 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
 go mod download
 ```
-
-## Installation 📥
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Using Docker Compose 🐳
-
-We will be using Docker compose to run the application as well as Postgres on Docker container.
 
 ### Lights, Camera, Record! 🎥
 
@@ -55,11 +43,13 @@ Fire up the application and Postgres instance with Keploy. Keep an eye on the tw
 
 `--container-name`: The container name in the `docker-compose.yml` for traffic interception.
 
-#### Capture the TestCase
+#### Capture the test case
 
 ```bash
 keploy record -c "docker compose up" --container-name "muxSqlApp" --build-delay 50
 ```
+
+> `--build-delay` adds a buffer (in seconds) to allow images to build/pull and services to start before Keploy begins interception. If your services are already up, you can omit it.
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -183,7 +173,13 @@ spec:
 #### Fetch Product from Catalog
 
 ```bash
-curl --request GET \  --url http://localhost:8010/products
+curl --request GET --url http://localhost:8010/products
+```
+
+Example response:
+
+```json
+[{"id": 1, "name": "Bubbles", "price": 123}]
 ```
 
 Or just type `http://localhost:8010/products` in your browser. Your choice!
@@ -208,13 +204,26 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
+<SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+---
+
+# Running App Locally on Linux/WSL 🐧
+
+A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [PostgreSQL](https://www.postgresql.org).
+
+<InstallReminder />
+
+### Clone a sample Product Catalog App 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
+go mod download
+```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
 
-First things first, update the First things first, update the postgres host on **line 10** in main.go, update the host to `localhost`.
+First things first, update the postgres host on **line 10** in `main.go` to `localhost`.
 
 #### 🍃 Kickstart PostgresDB
 
@@ -362,7 +371,13 @@ Now, the real fun begins. Let's weave more spells!
 🚀 Follow the URL road...!
 
 ```bash
-curl --request GET \  --url http://localhost:8010/products
+curl --request GET --url http://localhost:8010/products
+```
+
+Example response:
+
+```json
+[{"id": 1, "name": "Bubbles", "price": 123}]
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8010/products`.
@@ -386,7 +401,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

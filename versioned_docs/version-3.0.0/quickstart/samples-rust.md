@@ -1,6 +1,6 @@
 ---
 id: samples-rust
-title: Rust Sample Application
+title: GraphQL Application with MongoDB
 sidebar_label: Rust + Mongo (GraphQL)
 description: The following sample app to test Keploy integration capabilities using rust and MongoDb.
 tags:
@@ -15,25 +15,19 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
 
-This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride! 🎢
+This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride!
 
-import InstallationGuide from '../concepts/installation.md'
+## Running App Locally on Linux/WSL 🐧
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Setup app
-
-Now that we have bun installed, we will setup our application.
+### Clone a sample Rust app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-rust && cd samples-rust/gql-mongo
 ```
-
-## Running App Locally on Linux/WSL 🐧
 
 We will be using Docker compose to run Mongo on Docker container.
 
@@ -51,7 +45,7 @@ sudo -E env PATH=$PATH keploy record -c 'cargo run'
 
 #### Generate testcase
 
-Go to the http://127.0.0.1:8000 and create some queries.
+Go to the localhost:8000 and create some queries.
 
 We will get the following output in our terminal
 
@@ -70,7 +64,3 @@ sudo -E env PATH=$PATH keploy test -c 'cargo run'
 _Voila!! Our testcases has passed 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

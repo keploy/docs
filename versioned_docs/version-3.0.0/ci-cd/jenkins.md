@@ -47,10 +47,6 @@ pipeline {
 
 ```
 
-> **Note: if you are using `arm_64` as runner use below to download keploy binary**
-
-`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp`
-
 ### Example
 
 Now that we have Keploy installed, and all ready, we need switch to path where `keploy` folder is present in our application and install all the application related dependencies. Since we are using [gin-mongo](https://github.com/keploy/samples-go/tree/main/gin-mongo) sample-application, steps in our `script` would look like below:-
@@ -106,15 +102,13 @@ pipeline {
 
 ### 📝 Note
 
-Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`...and thought, _"Wait, am I hacking the kernel or something?"_ 😅
+Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`
 
 Don’t worry — these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
 
 So we install `kmod`, `linux-headers-generic`, and `bpfcc-tools` to make that tracing possible.
 
-Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs` — it’s like giving Keploy the **backstage pass** it needs to watch your app in action.
-
-No black magic. Just some low-level Linux stuff helping your tests run like magic! 🪄✨
+Some CI systems don’t have `/sys/kernel/debug` and `/sys/kernel/tracing` by default, so we create them and mount `debugfs` and `tracefs`
 
 We would output something like below:-
 
@@ -173,7 +167,3 @@ Testrun passed for testcase with id: "test-2"
 _And... voila! You have successfully integrated keploy in Jenkins CI/CD pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

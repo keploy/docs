@@ -104,7 +104,13 @@ The `record` section in the Keploy-config file allows you to define parameters f
 
 - **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
 
-- **`filters`**: API calls to the application to avoid recording.
+- **`filters`**: API calls to the application to avoid recording. You can also control how these conditions are matched using matchType.
+
+  - **`matchType (optional)`**: Determines how urlMethods and headers are evaluated.
+
+    - **`"AND"`**: Both must match.
+
+    - **`"OR"`**: Either can match.
 
   Example:
 
@@ -113,11 +119,12 @@ The `record` section in the Keploy-config file allows you to define parameters f
     filters:
       - path: "/user/app"
         urlMethods: ["GET"]
-        headers: {"^asdf*": "^test"}
+        headers: {"^x-client-id": "^abc.*"}
         host: "dc.services.visualstudio.com"
+        matchType: "AND"
   ```
 
-  This will avoid recording the API calls to the path `/user/app` with the method `GET`, headers starting with `asdf` and host `dc.services.visualstudio.com`.
+  This will avoid recording the API calls to the path `/user/app` only when the method is `GET`, headers starting with `abc`.
 
 - **`tests`**: Filters to record Tests.
 
@@ -230,6 +237,25 @@ The tests section enables you to specify conditions for recording tests during A
 #### Using Test Filters Together or Independently
 
 You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
+
+### Managing Secrets with `secret.yaml`
+
+Keploy allows you to manage sensitive information like API keys or tokens securely, without hardcoding them into your test files. This is done using a `secret.yaml` file within each test set directory.
+
+1.  **Create `secret.yaml`**: Inside your test set directory (e.g., `keploy/test-set-0/`), create a file named `secret.yaml`.
+
+2.  **Define Your Secrets**: Add your secrets as key-value pairs.
+
+    ```yaml
+    Authorization: Bearer xyz.abc.123
+    ```
+
+3.  **Use Secrets in Tests**: Reference these values in your test cases or mocks using the `{{.secret.KEY}}` syntax.
+    ```yaml
+    header:
+      Authorization: "{{string .secret.Authorization }}"
+    ```
+    For your security, Keploy will automatically add `/*/secret.yaml` to your `.gitignore` file to prevent accidentally committing secrets.
 
 ### Bypass Rules Section
 

@@ -21,17 +21,16 @@ keyword:
   - typescript
 ---
 
-# Introduction
+## Running App Locally on Linux/WSL 🐧
 
 This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
 
-import InstallationGuide from '../concepts/installation.md'
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
 
-<InstallationGuide/>
+<InstallReminder />
 
-## Get Started! 🎬
-
-## Clone a sample user data CRUD app 🧪
+### Clone a sample user data CRUD app 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
@@ -40,16 +39,6 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 
 bun install
 ```
-
-## Installation Keploy
-
-Depending on your OS, choose your adventure:
-
-There are 2 ways you can run this sample application.
-
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-
-## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -380,9 +369,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

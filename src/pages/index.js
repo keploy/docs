@@ -4,7 +4,7 @@ import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {Community, KeployCloud, Resources, QuickStart} from "../components";
 import {Products} from "../components/Product";
-import {Intro} from "../components";
+//import {Intro} from "../components";
 export default function Home() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
@@ -85,7 +85,7 @@ export default function Home() {
           <QuickStart />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
-          <Intro />
+          {/*<Intro />*/}
           <Products />
           <Resources />
           <Community />

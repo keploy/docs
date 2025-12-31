@@ -17,17 +17,17 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
+
+## Running App Locally on Linux/WSL 🐧
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
+<InstallReminder />
 
-<InstallationGuide/>
-
-## Get Started! 🎬
-
-## Setup application
+### Setup application
 
 Clone the repository and move to express-mongo folder
 
@@ -37,16 +37,6 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 # Install the dependencies
 npm install
 ```
-
-## Installation 📥
-
-Depending on your OS, choose your adventure:
-There are 2 ways you can run this sample application.
-
-- [Using Docker container for Postgres and running application locally](#running-app-locally-on-linuxwsl-)
-- [Using Docker compose : running application as well as Postgres on Docker container](#using-docker-compose-)
-
-## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (postgres) chill on Docker. Ready? Let's get the party started!🎉
 
@@ -68,9 +58,11 @@ docker-compose up -d
 sudo -E env PATH=$PATH keploy record -c 'node app.js'
 ```
 
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-record-local.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+
 ### Let's Generate the testcases.
 
-Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
 
@@ -92,7 +84,7 @@ we will get the output:
 
 We will get the following output in our terminal
 
-<img src="/docs/img/jwt-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-capture.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
 Let's go ahead create few more testcases for different endpoints!
 
@@ -173,21 +165,28 @@ sudo -E env PATH=$PATH keploy test -c 'npm run app.js' --delay 10
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
 
-<img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-1.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
 
 ```
-        noise:
-        |   - header.Date
-        |   - header.Etag
-        |   - body.accessToken
+  globalNoise:
+          global: {}
+          test-sets:
+            test-set-0:
+              body:
+                accessToken: []
+              header:
+                Etag: []
+                Date: []
+
 ```
 
 Now, let's run the keploy in test mode again:-
 
-<img src="/docs/img/jwt-test-pass.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+
+But wait — one test is still failing due to the time-freezing. To try out the time-freezing feature, you can use Keploy Enterprise.
 
 ### Wrapping it up 🎉
 
@@ -195,11 +194,24 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
-
----
+<SectionDivider />
 
 ## Using Docker Compose 🐳
+
+A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
+
+<InstallReminder />
+
+### Setup application
+
+Clone the repository and move to express-mongo folder
+
+```bash
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-jwt
+
+# Install the dependencies
+npm install
+```
 
 We will be using Docker compose to run the application as well as Postgres on Docker container.
 
@@ -210,12 +222,14 @@ Since we have setup our sample-app using docker, we need to update the postgres 
 We will run the keploy in record mode with docker-compose to start our application:-
 
 ```bash
-keploy record -c "docker-compose up" --container-name "jwtSqlApp"
+keploy record -c "docker compose up" --container-name "jwtSqlApp"
 ```
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
 #### Let's generate the testcases.
 
-Make API Calls using [Postman](https://postman.com) or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 1. Create User
 
@@ -237,7 +251,7 @@ we will get the output:
 
 We will get the following output in our terminal
 
-<img src="/docs/img/jwt-record.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-capture.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
 Let's go ahead create few more testcases for different endpoints!
 
@@ -312,34 +326,34 @@ User Content
 ## Running the testcases
 
 ```bash
-keploy test -c 'sudo docker-compose up'  --container-name "jwtSqlApp" --delay 10
+keploy test -c 'sudo docker compose up'  --container-name "jwtSqlApp" --delay 10
 ```
 
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
 
-<img src="/docs/img/jwt-test-fail.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-1.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `test-3.yml` on line 45 under `header.Date`. The file would look like:-
+But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
 
 ```
-        noise:
-        |   - header.Date
-        |   - header.Etag
-        |   - body.accessToken
+  globalNoise:
+          global: {}
+          test-sets:
+            test-set-0:
+              body:
+                accessToken: []
+              header:
+                Etag: []
+                Date: []
+
 ```
 
 Now, let's run the keploy in test mode again:-
 
-<img src="/docs/img/jwt-test-pass.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
+
+But wait — one test is still failing due to the time-freezing. To try out the time-freezing feature, you can use Keploy Enterprise.
 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***

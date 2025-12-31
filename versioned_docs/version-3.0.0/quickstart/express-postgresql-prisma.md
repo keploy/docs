@@ -18,15 +18,14 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Introduction
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
 
-A sample Task Management application and see how seamlessly Keploy integrates with Express, [PostgreSQL](https://www.postgresql.org/) and Prisma ORM. Buckle up, it's gonna be a fun ride! 🎢
+## Running App Locally on Linux/WSL
 
-import InstallationGuide from '../concepts/installation.md'
+A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
 
-<InstallationGuide/>
-
-## Get Started! 🎬
+<InstallReminder />
 
 ### Prerequisites
 
@@ -42,8 +41,6 @@ Clone the repository and move to express-postgresql-prisma folder
 git clone https://github.com/keploy/samples-typescript.git
 cd samples-typescript/express-postgresql-prisma
 ```
-
-### Running App Locally on Linux/WSL
 
 #### Install the dependencies
 
@@ -175,7 +172,46 @@ The above command will start recording the API calls made to the application and
 
 > 💡 You can use Postman or any other API testing tool to test the API calls. Additionally, the application will run a swagger UI on `http://localhost:3000/api/docs` to visualize the API calls.
 
-### Running App using Docker Compose 🐳
+#### Test the Application
+
+```bash
+keploy test -c "npm start"
+```
+
+<SectionDivider />
+
+## Running App using Docker Compose 🐳
+
+A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
+
+<InstallReminder />
+
+### Prerequisites
+
+Ensure you have the following installed:
+
+- Docker
+- Node.js and npm
+- Keploy CLI
+
+Clone the repository and move to express-postgresql-prisma folder
+
+```bash
+git clone https://github.com/keploy/samples-typescript.git
+cd samples-typescript/express-postgresql-prisma
+```
+
+#### Install the dependencies
+
+```bash
+npm install
+```
+
+#### Set up environment variables:
+
+```bash
+cp .env.example .env
+```
 
 We will be using Docker compose to run the application as well as PostreSql on Docker container.
 
@@ -192,7 +228,7 @@ keploy record -c "docker compose up" --container-name "express-postgresql-prisma
 
 ### Interact with Application
 
-Make API Calls using [Postman](https://www.postman.com/) or [cURL](https://curl.se/) command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ### API Routes
 
@@ -333,14 +369,6 @@ curl -X 'DELETE' \
 > 🐰 Test Data and Configuration: After recording the interactions, a `keploy` folder will be created containing the recorded test data. Additionally, a `keploy.yml` file will be created as the configuration file.
 
 ### Test the Application using Keploy
-
-#### on Linux/WSL
-
-```bash
-keploy test -c "npm start"
-```
-
-#### On Docker Compose 🐳
 
 ```bash
 keploy test -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50 --delay 10
