@@ -24,6 +24,9 @@ keyword:
 ---
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 import CollapsibleCode from '@site/src/components/CollapsibleCode';
 

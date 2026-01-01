@@ -23,9 +23,15 @@ keyword:
   - JAXB
 ---
 
-## Introduction
+import ProductTier from '@site/src/components/ProductTier';
 
-🌟 Explore creating REST APIs with XML responses using Spring-Boot. Discover the ease of integrating XML serialization through JAXB. Let's dive right in! 🚀
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
+Explore creating REST APIs with XML responses using Spring-Boot. Discover the ease of integrating XML serialization through JAXB. Let's dive right in!
+
+import InstallReminder from '@site/src/components/InstallReminder';
+
+<InstallReminder />
 
 ## Pre-Requisite 🛠️
 

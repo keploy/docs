@@ -5,6 +5,10 @@ sidebar_label: Share Test Suite
 description: Learn how to use Keploy’s API Test Generator to generate high-quality API test suites using AI from OpenAPI, curl, Postman, or traffic.
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy makes it easy to share any test suite so others can review results or run the tests in their own environments—without copying JSON or clunky exports.
 
 ## Open the Share Dialog

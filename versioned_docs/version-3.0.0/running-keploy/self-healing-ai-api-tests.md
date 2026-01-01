@@ -15,6 +15,10 @@ keywords:
   - keploy ai testing
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy can automatically fix failing test cases using its built-in AI engine. This is useful when:
 
 - Your API responses have changed slightly (e.g. new fields, formats)

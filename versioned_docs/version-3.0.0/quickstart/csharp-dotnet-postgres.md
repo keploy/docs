@@ -19,11 +19,15 @@ keyword:
   - Auto Testcase generation
 ---
 
-🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with .Net and Postgres. Buckle up, it's gonna be a fun ride! 🎢
-
 ## Running App Locally on Linux/WSL 🐧
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 import InstallReminder from '@site/src/components/InstallReminder';
+
+🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with .Net and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
 <InstallReminder />
 

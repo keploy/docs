@@ -24,6 +24,10 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 # Using Docker Compose 🐳
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
 
 <InstallReminder />
@@ -114,6 +118,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 ---
 
 # Running App Locally on Linux/WSL 🐧
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
 

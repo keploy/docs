@@ -15,10 +15,13 @@ keyword:
 
 ## Running App Locally on Linux/WSL 🐧
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
+import ProductTier from '@site/src/components/ProductTier';
 
 <InstallReminder />
 
