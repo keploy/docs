@@ -27,6 +27,10 @@ keyword:
   - React
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 import Link from '@docusaurus/Link'

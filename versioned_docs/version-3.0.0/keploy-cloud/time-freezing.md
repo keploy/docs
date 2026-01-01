@@ -14,6 +14,10 @@ keywords:
   - time sensitive fields
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ## Why Time Freezing? ❄️
 
 While making tests, **time-sensitive objects like JWT tokens are a challenge** as they expire, leading to test failures. This increases the maintenance effort of test suites and also impacts reliability.

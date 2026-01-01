@@ -9,7 +9,7 @@ function UTG() {
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             className="text-foreground-light flex-grow text-sm"
-            to={useBaseUrl("/running-keploy/unit-test-generator/")}
+            to={useBaseUrl("/quickstart/k8s-proxy/")}
           >
             <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
               <div className="flex items-center space-x-4">
@@ -25,15 +25,13 @@ function UTG() {
                     fill="#FF914D"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">
-                  Unit Testing Agent
-                </h2>
+                <h2 className="mb-4 text-xl font-semibold">K8s Agent</h2>
               </div>
               <ul>
                 <li>
                   <p className="font">
-                    Generate reliable, validated tests as you code, ensuring
-                    coverage and stability.
+                    Live record and replay your tests in your k8s cluster,
+                    ensuring coverage and stability.
                   </p>
                 </li>
               </ul>

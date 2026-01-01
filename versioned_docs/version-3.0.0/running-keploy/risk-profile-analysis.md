@@ -18,6 +18,10 @@ keywords:
   - Schema Broken
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 When API contracts change, tests are expected to fail. However, not all failures are equal. A minor, backward-compatible change (like adding a new optional field) is very different from a major, breaking change (like removing a field or changing a data type).
 
 The **Risk Profile Analysis** feature addresses this by automatically categorizing each test failure based on its potential impact. It assigns a risk level of **High**, **Medium**, or **Low**, giving developers immediate insight into the severity and nature of API changes. This helps distinguish between intentional contract updates and unintentional bugs right from the test report.
@@ -27,9 +31,11 @@ The **Risk Profile Analysis** feature addresses this by automatically categorizi
 When a test fails, it is now assigned a risk level:
 
 - **HIGH**: Indicates a likely breaking change to the API contract. This is the highest level of risk.
+
   - **Triggers**: Status code changes, `Content-Type` header changes, removing fields from a JSON body, or changing the data type of a field (e.g., string to number).
 
 - **MEDIUM**: Indicates a change that might affect consumers but is not a direct contract violation.
+
   - **Triggers**: Changes in header values (other than `Content-Type`), or changes to field values within a JSON body while new fields are also being added.
 
 - **LOW**: Indicates a backward-compatible, non-breaking change.
