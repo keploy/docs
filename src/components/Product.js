@@ -5,7 +5,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 function UTG() {
   return (
     <div className="rounded-lg">
-      <ul className="grid auto-cols-[300px] grid-flow-col gap-3 lg:gap-5">
+      <ul className="product-grid grid gap-3 lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             className="text-foreground-light flex-grow text-sm"
@@ -241,10 +241,9 @@ export const Products = () => {
         Products 🛠️
       </h2>
       <p className="text-l max-w-3xxl">
-        Keploy provides three key products that help you streamline your testing
-        workflow:
+        Keploy provides three key products that help you streamline your
+        testing workflow:
       </p>
-
       <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
         <UTG />
       </div>
