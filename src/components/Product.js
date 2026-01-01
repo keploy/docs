@@ -239,16 +239,16 @@ function UTG() {
 export const Products = () => {
   return (
     <section className="mb-4 mt-12">
-        <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
-          Products 🛠️
-        </h2>
-        <p className="text-l max-w-3xxl">
-          Keploy provides three key products that help you streamline your
-          testing workflow:
-        </p>
-        <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
-          <UTG />
-        </div>
+      <h2 className="mb-4 text-2xl font-semibold tracking-wide md:text-3xl">
+        Products 🛠️
+      </h2>
+      <p className="text-l max-w-3xxl">
+        Keploy provides three key products that help you streamline your
+        testing workflow:
+      </p>
+      <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
+        <UTG />
+      </div>
     </section>
   );
 };
