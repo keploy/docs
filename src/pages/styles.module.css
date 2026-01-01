@@ -160,3 +160,69 @@
   margin: 0 auto;
   max-width: 768px;
 }
+
+.notFoundContainer {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  align-items: center;
+  padding: 4rem 6rem;
+}
+
+.notFoundTitle {
+  font-size: 72px;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+}
+
+.notFoundSubtitle {
+  font-size: 56px;
+  font-weight: 700;
+  color: var(--ifm-color-primary);
+  margin-bottom: 1.5rem;
+}
+
+.notFoundDescription {
+  font-size: 18px;
+  color: #6b7280;
+  max-width: 520px;
+  margin-bottom: 2rem;
+}
+
+.notFoundActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.notFoundPrimaryBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  background: var(--ifm-color-primary);
+  color: #fff;
+  font-weight: 600;
+}
+
+.notFoundSecondaryBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 999px;
+  border: 1px solid var(--ifm-color-primary);
+  background: transparent;
+  color: var(--ifm-color-primary);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.notFoundImageWrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.notFoundImage {
+  max-width: 420px;
+  width: 100%;
+}
+
+.notFoundLogo {
+  max-width: 260px;
+  opacity: 0.9;
+}
