@@ -97,7 +97,9 @@ export default function DocItem(props) {
   const modifiedTime = toIsoDate(
     metadata?.lastUpdatedAt || frontMatter?.lastUpdatedAt
   );
-  const publishedTime = toIsoDate(frontMatter?.date || frontMatter?.publishedAt);
+  const publishedTime = toIsoDate(
+    frontMatter?.date || frontMatter?.publishedAt
+  );
   const schemaTypeFromFrontMatter =
     frontMatter?.schemaType || frontMatter?.schema_type;
   const isApi =

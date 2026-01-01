@@ -218,7 +218,7 @@ module.exports = {
      <div className="footer__icons footer">
     <a class="footer__link-item" href="https://docs.google.com/forms/d/e/1FAIpQLSdj9q7dyRh3D7ZzRExHLWRRkNPOnLnFfrbKqSwqH3Ur4HzP4g/viewform">Have a Keploy use-case? Let's Talk!</a> 
     </div> 
-      <div class="footer__copyright"><span class="footer__block">Copyright © ${new Date().getFullYear()}</span> Keploy Inc.</div>
+      <div class="footer__copyright"><span class="footer__block">Copyright © 2026 </span> Keploy Inc.</div>
       <div>
         <a class="footer__link-item" href="/about">About</a>
         <span class="footer__separators"> | </span>
