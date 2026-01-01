@@ -10,7 +10,7 @@ export const Community = () => {
         Are you curious, 🤔 or do you have questions burning in your mind? 🔥
         Look no further! Join our lively Community Forum where you can:
       </p>
-      <ul className="grid list-none  gap-6 sm:grid-cols-2 xl:gap-8">
+      <ul className="grid list-none gap-4 sm:grid-cols-2 sm:gap-6 xl:gap-8">
         {/*<li>*/}
         {/*  <a*/}
         {/*    href="https://community.keploy.io/"*/}
@@ -42,12 +42,12 @@ export const Community = () => {
         <li>
           <a
             href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
           >
             <svg
               fill="currentColor"
               // Hotfix: add viewBox to prevent icon from being cut off after tailwind preflight disabled
-              className="h-12 w-12 flex-none text-red-500 "
+              className="h-10 w-10 sm:h-12 sm:w-12 flex-none text-red-500"
               viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
@@ -66,14 +66,14 @@ export const Community = () => {
         <li>
           <a
             href="https://testgpt.substack.com/"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
             target="_blank"
             rel="noopener noreferrer"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               viewBox="0 0 512 512"
-              className="h-12 w-12 flex-none"
+              className="h-10 w-10 sm:h-12 sm:w-12 flex-none"
             >
               <rect width="512" height="512" fill="white" />
               <rect x="96" y="128" width="320" height="42.7" fill="#FF6719" />
@@ -94,12 +94,12 @@ export const Community = () => {
         <li>
           <a
             href="https://github.com/keploy"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
           >
             <svg
               fill="currentColor"
               // Hotfix: add viewBox to prevent icon from being cut off after tailwind preflight disabled
-              className="h-12 w-12 flex-none text-black "
+              className="h-10 w-10 sm:h-12 sm:w-12 flex-none text-black"
               viewBox="0 0  48 48"
             >
               <rect width="48" height="48" rx="12" />
@@ -118,11 +118,11 @@ export const Community = () => {
         <li>
           <a
             href="https://twitter.com/keployio"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
           >
             <svg
               fill="currentColor"
-              className="h-12 w-12 flex-none      text-black"
+              className="h-10 w-10 sm:h-12 sm:w-12 flex-none text-black"
               viewBox="0 0 512 509.64"
             >
               <rect width="509.64" height="512" rx="120" />
@@ -144,10 +144,10 @@ export const Community = () => {
         <li>
           <a
             href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
           >
             <svg
-              className="h-12 w-12 flex-none text-blue-400 "
+              className="h-10 w-10 sm:h-12 sm:w-12 flex-none text-blue-400"
               viewBox="0 0 1610 1610"
             >
               <title>slack-logo-icon</title>
@@ -205,10 +205,10 @@ export const Community = () => {
         <li>
           <a
             href="https://keploy.io/blog"
-            className="flex items-start space-x-4"
+            className="flex items-start space-x-3 sm:space-x-4"
           >
             <svg
-              class="h-12 w-12 flex-none "
+              class="h-10 w-10 sm:h-12 sm:w-12 flex-none"
               width="48"
               height="48"
               viewBox="0 0 48 48"

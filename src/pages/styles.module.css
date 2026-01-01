@@ -133,6 +133,73 @@
   .securityPageHeaders {
     text-align: left;
   }
+
+  /* Improve text feature layout on mobile */
+  .textFeature {
+    margin: 10px auto;
+    padding: 0 1rem;
+  }
+
+  /* Fix form on mobile */
+  .formFeature {
+    margin: 30px auto;
+    max-width: 100%;
+    padding: 0 1rem;
+  }
+
+  /* Ensure buttons stack properly on mobile */
+  .buttons {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  /* Fix features section on mobile */
+  .features {
+    padding: 1rem 0;
+  }
+
+  .featureImageContainer {
+    height: 5rem;
+    width: 5rem;
+  }
+}
+
+/* Additional mobile styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .heroBanner {
+    padding: 1.5rem 1rem;
+  }
+
+  .videoContainer {
+    margin: 10px auto;
+    padding: 0 1rem;
+    max-width: 100%;
+  }
+
+  .announcement {
+    font-size: 18px;
+    padding: 24px 16px;
+  }
+
+  .justifyCenter {
+    padding: 0 1rem;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .heroBanner {
+    padding: 1rem 0.5rem;
+  }
+
+  .announcement {
+    font-size: 16px;
+    padding: 16px 12px;
+  }
+
+  .featureImageContainer {
+    height: 4rem;
+    width: 4rem;
+  }
 }
 
 .viewCompleteLibraryLink {
