@@ -874,3 +874,14 @@ textarea {
 }
 
 
+
+/* Hide global components on 404 page */
+html.keploy-notfound-active .navbar,
+html.keploy-notfound-active nav.navbar,
+html.keploy-notfound-active div[class*="announcementBar"],
+html.keploy-notfound-active div[class^="announcementBar_"] {
+  display: none !important;
+  height: 0 !important;
+  visibility: hidden !important;
+  overflow: hidden !important;
+}
