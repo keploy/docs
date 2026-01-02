@@ -26,6 +26,10 @@ keyword:
 
 # Example Employee-Manager App
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
 and **PostgreSQL**.
 
@@ -211,6 +215,10 @@ Next we move on to the instructions to start the application using docker.
 <SectionDivider />
 
 ## Instructions For Starting Using Docker
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
+A sample Employee-Manager app to test Keploy integration capabilities using SpringBoot and PostgreSQL.
 
 <InstallReminder />
 

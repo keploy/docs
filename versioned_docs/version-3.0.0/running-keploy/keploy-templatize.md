@@ -12,6 +12,10 @@ keywords:
   - running-guide
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 Sometimes keploy test and keploy rerecord fail because there are fields which are noisy but they are used in requests so when their values change, the subsequent requests also fail.
 
 eg: If an application is returning a JWT token in the response of a testcase and that token is being used in the request of another testcase, then that testcase will also fail when a new token is issued and the test is still using the old one that has been expired.

@@ -16,6 +16,10 @@ keywords:
   - installation
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 import StartKeploy from '@site/src/components/StartKeploy';

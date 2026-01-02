@@ -5,6 +5,10 @@ sidebar_label: Review & Improve Tests
 description: Learn how to inspect, edit, self-heal, and enhance Keploy’s AI-generated API test suites for maximum coverage and reliability.
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 After you’ve generated a starter test suite with Keploy’s AI engine, the next step is to review, refine, and harden those tests so they stay trustworthy as your API evolves.
 
 ## Open the Test Review Workspace

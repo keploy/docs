@@ -27,6 +27,10 @@ keyword:
 
 # Instructions For Starting Using API backend Binary
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
 import Link from '@docusaurus/Link'
@@ -115,6 +119,8 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 <SectionDivider />
 
 ## Instructions For Starting Using Docker
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 

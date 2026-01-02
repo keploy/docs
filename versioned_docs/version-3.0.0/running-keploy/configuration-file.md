@@ -9,6 +9,10 @@ keywords:
   - configuration
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 ## Introduction
 
 Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴
