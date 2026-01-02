@@ -29,7 +29,7 @@ function Languages() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Languages</h2>
       </div>
-      <ul className="grid grid-cols-3 gap-3  md:grid-cols-3 lg:gap-5">
+      <ul className="grid grid-cols-2 gap-3  md:grid-cols-3 lg:gap-5">
         {/* <ul className="grid grid-cols-2 gap-6 xl:gap-8"> */}
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
@@ -135,7 +135,7 @@ function Frameworks() {
         </svg>
         <h2 className="mb-4 text-xl font-semibold">Dependencies Support</h2>
       </div>
-      <ul className="grid grid-cols-3 gap-3  lg:gap-5">
+      <ul className="grid grid-cols-2 gap-3 md:grid-cols-3 lg:gap-5">
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/mongo")}

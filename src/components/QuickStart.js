@@ -7,7 +7,7 @@ import {FaWindows, FaLinux, FaApple} from "react-icons/fa";
 export const QuickStart = () => {
   return (
     <section className="mt-1">
-      <h1 className="mb-4 text-4xl font-semibold tracking-wide md:text-4xl">
+      <h1 className="mb-4 text-3xl font-semibold tracking-wide md:text-4xl">
         Welcome to Keploy Documentation! 🚀
       </h1>
       <p className="text-l max-w-3xl">

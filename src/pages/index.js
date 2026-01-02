@@ -77,11 +77,11 @@ export default function Home() {
         )}
       </Head>
       <Layout
-        className="mx-auto my-2 w-full max-w-screen-lg px-8 shadow-none"
+        className="mx-auto my-2 w-full max-w-screen-lg px-4 md:px-8 shadow-none"
         title={`${siteConfig.title}`}
         description={`${siteConfig.tagline}`}
       >
-        <main className="mx-auto max-w-screen-lg p-6 md:p-10">
+        <main className="mx-auto max-w-screen-lg p-4 md:p-10">
           <QuickStart />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
