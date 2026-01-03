@@ -11,11 +11,11 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("/quickstart/k8s-proxy/")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
+                  className="h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
                   viewBox="0 0 64 64"
                   width="13"
                   height="16"
@@ -25,7 +25,7 @@ function UTG() {
                     fill="#FF914D"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">K8s Agent</h2>
+                <h2 className="text-xl font-semibold mb-0">K8s Agent</h2>
               </div>
               <ul>
                 <li>
@@ -43,11 +43,11 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("keploy-explained/introduction")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
+                  className="h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
                   viewBox="0 0 100 100"
                   width="13"
                   height="16"
@@ -73,9 +73,7 @@ function UTG() {
                     d="M39.802 14.307l-.117 11.834c0 2.21-2.085 3.666-4.036 3.666-1.951 0-4.217-1.439-4.217-3.649l.037-12.58c0-1.307 1.607-2.451 2.801-2.451 1.194 0 2.345 1.149 2.345 2.456l.021 10.829c0 0-.083.667-1.005.645-.507-.012-1.145-.356-1.016-.906v-9.843h-.813l-.021 9.708c0 1.38.54 1.948 1.875 1.948s1.959-.714 1.959-2.094V13.665c0-2.271-1.36-3.5-3.436-3.5s-3.564 1.261-3.564 3.532l.032 12.11c0 3.04 2.123 4.906 4.968 4.906 2.845 0 5-1.71 5-4.75V14.307H39.802zM53.114 52.307h-23c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h23c.276 0 .5.224.5.5S53.391 52.307 53.114 52.307zM44.114 59.307h-14c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h14c.276 0 .5.224.5.5S44.391 59.307 44.114 59.307zM70.114 59.307h-24c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h24c.276 0 .5.224.5.5S70.391 59.307 70.114 59.307zM61.114 66.307h-11c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h11c.276 0 .5.224.5.5S61.391 66.307 61.114 66.307zM71.114 66.307h-8c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h8c.276 0 .5.224.5.5S71.391 66.307 71.114 66.307zM48.114 66.307h-18c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h18c.276 0 .5.224.5.5S48.391 66.307 48.114 66.307zM70.114 73.307h-13c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h13c.276 0 .5.224.5.5S70.391 73.307 70.114 73.307zM54.114 73.307h-24c-.276 0-.5-.224-.5-.5s.224-.5.5-.5h24c.276 0 .5.224.5.5S54.391 73.307 54.114 73.307z"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">
-                  Integration Testing
-                </h2>
+                <h2 className="text-xl font-semibold mb-0">Integration Testing</h2>
               </div>
               <ul>
                 <li>
@@ -93,11 +91,11 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("running-keploy/api-test-generator")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
-              <div className="flex items-center space-x-4">
+            <div className="flex flex-col items-center justify-center space-y-3 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 text-center shadow-lg transition-transform duration-200 hover:scale-105">
+              <div className="flex items-center justify-center mb-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
-                  className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
+                  className="h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
                   viewBox="0 0 64 64"
                   width="100"
                   height="100"
@@ -214,9 +212,7 @@ function UTG() {
                   </g>
                   undefined
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold">
-                  API Testing Agent
-                </h2>
+                <h2 className="text-xl font-semibold mb-0">API Testing Agent</h2>
               </div>
               <ul>
                 <li>
@@ -245,7 +241,7 @@ export const Products = () => {
         workflow:
       </p>
 
-      <div className="grid gap-4  sm:grid-cols-3 xl:gap-6">
+      <div className="grid gap-4 sm:grid-cols-3 xl:gap-6">
         <UTG />
       </div>
     </section>
