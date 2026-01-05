@@ -1,8 +1,8 @@
 //@ts-check
 
-import {themes as prismThemes} from "prism-react-renderer";
+import { themes as prismThemes } from "prism-react-renderer";
 const path = require("path");
-import {visit} from "unist-util-visit";
+import { visit } from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -51,7 +51,7 @@ module.exports = {
         content:
           "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
-      {name: "twitter:card", content: "summary_large_image"},
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     headTags: [
       // Preconnect tag
@@ -218,7 +218,7 @@ module.exports = {
      <div className="footer__icons footer">
     <a class="footer__link-item" href="https://docs.google.com/forms/d/e/1FAIpQLSdj9q7dyRh3D7ZzRExHLWRRkNPOnLnFfrbKqSwqH3Ur4HzP4g/viewform">Have a Keploy use-case? Let's Talk!</a> 
     </div> 
-      <div class="footer__copyright"><span class="footer__block">Copyright © ${new Date().getFullYear()}</span> Keploy Inc.</div>
+      <div class="footer__copyright"><span class="footer__block">Copyright © ${new Date().getFullYear()} </span> Keploy Inc.</div>
       <div>
         <a class="footer__link-item" href="/about">About</a>
         <span class="footer__separators"> | </span>
