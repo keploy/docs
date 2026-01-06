@@ -15,11 +15,14 @@ keyword:
 
 ## Running Natively on Linux/WSL
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 <InstallReminder />
 
@@ -190,6 +193,8 @@ Now its time for you to experiment further with different API calls and tweak th
 <SectionDivider />
 
 ## Running the app using Docker
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 

@@ -15,6 +15,10 @@ keywords:
   - mock with test
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 If you can't run a dependency service and want to mock it, keploy supports adding manually written mocks.
 
 When adding a mock to the Keploy mock file, it's crucial to ensure that all fields are accurately filled out and that the **timestamps align with the request and response timestamps** of the mock's respective test case.

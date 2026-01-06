@@ -11,6 +11,10 @@ keywords:
   - commands
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+
 ### Usage
 
 ```bash
@@ -27,7 +31,6 @@ Here are some examples of how to use some common flags:
 | ----------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                        |
 | `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
-| `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
 | `normalize` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
 | `rerecord`  | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                        |
 | `report`    | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                                                             |
@@ -252,40 +255,6 @@ keploy test [flags]
   ```
 
   > **Note for GRPC Tests:** When running GRPC test cases, it's recommended to provide proto information using either `--proto-file` or `--proto-dir` flags. If proto information is not provided, Keploy will use basic canonical matching of the protoscopic textual format of GRPC response body, which may be less accurate than proto-based comparison.
-
-## [gen](#gen)
-
-The `gen` cmd in Keploy allows user to generate unit tests using LLM Models.
-
-<b> Usage: </b>
-
-```bash
-keploy gen [flags]
-```
-
-<b> Available flags: </b>
-
-- `sourceFilePath` - Path to the source file for which tests are to be generated.
-
-- `testFilePath` - Path where the generated tests will be saved.
-
-- `coverageReportPath` - Path to generate the coverage report.
-
-- `testCommand` - Command to execute tests and generate the coverage report.
-
-- `coverageFormat` - Type of the coverage report by default report is in "cobertura" format.
-
-- `expectedCoverage` - Desired coverage percentage by default it is set to be at 100%.
-
-- `maxIterations` - Maximum number of iterations for refining tests (default 5).
-
-- `testDir` - Directory where tests will be written.
-
-- `llmBaseUrl` - Base url of the llm.
-
-- `model` - Specifies the AI model to use by default it uses "gpt-4o" model.
-
-- `llmApiVersion` - API version of the llm if any.
 
 ## [normalize](#normalize)
 

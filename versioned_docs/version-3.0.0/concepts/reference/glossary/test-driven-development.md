@@ -62,6 +62,7 @@ TDD is particularly effective in scenarios such as:
 ### Core Principles
 
 - **Red-Green-Refactor Cycle:**
+
   - **Red:** Write a test that fails.
   - **Green:** Write code to pass the test.
   - **Refactor:** Clean up the code while ensuring that tests still pass.

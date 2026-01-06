@@ -21,181 +21,13 @@ keyword:
 
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker Compose 🐳
-
-This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
-
-<InstallReminder />
-
-### Clone a sample CRUD application 🧪
-
-```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
-go mod download
-```
-
-We will be using Docker Compose to run both the application and Postgres inside Docker containers.
-
-### Lights, Camera, Record! 🎥
-
-Fire up the application and Postgres instance with Keploy. Keep an eye on the two key flags:
-`-c`: Command to run the app (e.g., `docker compose up`).
-
-`--container-name`: The container name in the `docker-compose.yml` for traffic interception.
-
-```bash
-keploy record -c "docker compose up" --container-name "fasthttpPostgresApp"
-```
-
-> Keploy waits for the container to be up before intercepting. If your compose services need extra time to build or initialize, you can add `--build-delay <seconds>` to the command.
-
-Getting logs like this? Perfect! 👌
-![Testcase](/img/fasthttp-postgress-test.png)
-
-🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
-
-Let's create some users and books:
-
-#### Post Requests
-
-```bash
-curl -X POST -H "Content-Type: application/json" -d '{"name":"Author Name"}' http://localhost:8080/authors
-curl -X POST -H "Content-Type: application/json" -d '{"title":"Book Title","author_id":1}' http://localhost:8080/books
-```
-
-#### Get Request
-
-```bash
-curl -i http://localhost:8080/books
-```
-
-🎉 Woohoo! With simple API calls, you've crafted test cases with mocks! Dive into the Keploy directory and feast your eyes on the newly minted `test-1.yml` and `mocks.yml`.
-
-Here's a peek of what you get:
-
-```yaml
-version: api.keploy.io/v1beta1
-kind: Http
-name: test-1
-spec:
-  metadata: {}
-  req:
-    method: POST
-    proto_major: 1
-    proto_minor: 1
-    url: http://localhost:8080/authors
-    header:
-      Accept: "*/*"
-      Content-Length: "22"
-      Content-Type: application/json
-      Host: localhost:8080
-      User-Agent: curl/7.88.1
-    body: '{"name":"Author Name"}'
-    timestamp: 2024-06-24T13:05:47.732915734+05:30
-  resp:
-    status_code: 201
-    header:
-      Content-Length: "0"
-      Date: Mon, 24 Jun 2024 07:35:47 GMT
-      Server: Server
-    body: ""
-    status_message: Created
-    proto_major: 0
-    proto_minor: 0
-    timestamp: 2024-06-24T13:05:49.810554677+05:30
-  objects: []
-  assertions:
-    noise:
-      header.Date: []
-  created: 1719214549
-curl: |-
-  curl --request POST \
-    --url http://localhost:8080/authors \
-    --header 'Host: localhost:8080' \
-    --header 'User-Agent: curl/7.88.1' \
-    --header 'Accept: */*' \
-    --header 'Content-Type: application/json' \
-    --data '{"name":"Author Name"}'
-```
-
-This is how the generated **mock.yml** will look like:
-
-```yaml
-version: api.keploy.io/v1beta1
-kind: Postgres
-name: mock-0
-spec:
-  metadata:
-    type: config
-  postgresrequests:
-    - identifier: StartupRequest
-      length: 96
-      payload: AAAAYAADAAB1c2VyAHBvc3RncmVzAGNsaWVudF9lbmNvZGluZwBVVEY4AGV4dHJhX2Zsb2F0X2RpZ2l0cwAyAGRhdGFiYXNlAGRiAGRhdGVzdHlsZQBJU08sIE1EWQAA
-      startup_message:
-        protocolversion: 196608
-        parameters:
-          client_encoding: UTF8
-          database: db
-          datestyle: ISO, MDY
-          extra_float_digits: "2"
-          user: postgres
-      auth_type: 0
-  postgresresponses:
-    - header: [R]
-      identifier: ServerResponse
-      length: 96
-      authentication_md5_password:
-        salt: [200, 42, 157, 175]
-      msg_type: 82
-      auth_type: 5
-  reqtimestampmock: 2024-06-24T13:05:47.736932812+05:30
-  restimestampmock: 2024-06-24T13:05:47.74668502+05:30
-connectionId: "0"
-```
-
-_Time to perform more API magic!_
-
-#### Get All Books
-
-```bash
-curl -i http://localhost:8080/books
-```
-
-Or just type `http://localhost:8080/books` in your browser. Your choice!
-
-Spotted the new test and mock files in your project? High five! 🙌
-
-### Run Tests 🏃‍♀️
-
-Time to put things to the test 🧪
-
-```bash
-keploy test -c "docker compose up" --container-name "fasthttpPostgresApp" --delay 10
-```
-
-> The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
-
-Your results should be looking like this:
-
-![Testrun](/img/go-fasthttp-testrun.png)
-Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
-
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
-
-### Wrapping it up 🎉
-
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
-
-Happy coding! ✨👩‍💻👨‍💻✨
-
-<SectionDivider />
-
----
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 # Running App Locally on Linux/WSL 🐧
 
-This guide walks you through generating tests and DB mocks for a sample CRUD app built with [FastHttp](https://github.com/valyala/fasthttp) and [Postgres](https://www.postgresql.org) using Keploy.
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
 
 <InstallReminder />
 
@@ -208,31 +40,33 @@ go mod download
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started! 🎉
 
-If you’re using WSL on Windows, start in your home directory:
+#### Point the app to local Postgres
 
-```bash
-wsl ~
-```
+Update the Postgres URL to `localhost:5432` in `app.go` (mentioned at line 21 in the sample).
 
-### Point the app to local Postgres
-
-Update the Postgres URL to `localhost:5432` in `main.go` (mentioned at line 21 in the sample).
-
-### Start Postgres
+#### Start Postgres
 
 ```bash
 docker compose up postgres
 ```
 
-### Record with Keploy while running the app
+#### Record with Keploy while running the app
 
 ```bash
-go build -cover
+go build -o app
+```
+
+### Lights, Camera, Record! 🎥
+
+```bash
 keploy record -c "./app"
 ```
 
 Keep an eye out for the `-c` flag! It's the command charm to run the app. Whether you're using `go run main.go` or the binary path like `./app`, it's your call.
+
 If you're seeing logs that resemble the ones below, you're on the right track:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
 
 Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch,
 
@@ -246,6 +80,10 @@ Time to create some users and books:
 
 ```bash
 curl -X POST -H "Content-Type: application/json" -d '{"name":"Author Name"}' http://localhost:8080/authors
+
+```
+
+```bash
 curl -X POST -H "Content-Type: application/json" -d '{"title":"Book Title","author_id":1}' http://localhost:8080/books
 ```
 
@@ -255,7 +93,7 @@ curl -X POST -H "Content-Type: application/json" -d '{"title":"Book Title","auth
 curl -i http://localhost:8080/books
 ```
 
-🎉 Look at you go! With a few simple API calls, you've crafted test cases with mocks! Peek into the Keploy directory and behold the freshly minted `test-1.yml` and `mocks.yml`.
+Look at you go! With a few simple API calls, you've crafted test cases with mocks! Peek into the Keploy directory and behold the freshly minted `test-1.yml` and `mocks.yml`.
 
 ### 🏃‍♀️ Run the Tests!
 
@@ -269,14 +107,12 @@ keploy test -c "./app" --delay 5
 
 When all is said and done, your test results should look a little something like this:
 
-![Testrun](/img/go-fasthttp-testrun.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!
 
 ### Wrapping it up 🎉
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-Hope this helps you out, if you still have any questions, reach out to us .

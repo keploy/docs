@@ -25,11 +25,14 @@ keyword:
 
 ## Using Docker Compose 🐳
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 <InstallReminder />
 
@@ -238,6 +241,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 <SectionDivider />
 
 ## Running App Locally on Linux/WSL 🐧
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 

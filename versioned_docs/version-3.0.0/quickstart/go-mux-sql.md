@@ -21,11 +21,14 @@ keyword:
 ---
 
 import InstallReminder from '@site/src/components/InstallReminder';
+import ProductTier from '@site/src/components/ProductTier';
 import SectionDivider from '@site/src/components/SectionDivider';
 
 # Using Docker Compose 🐳
 
-A sample product catalog app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [Postgres](https://www.postgresql.org).
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
+A sample product catalog app to test Keploy integration capabilities using Mux and Postgres
 
 <InstallReminder />
 
@@ -210,7 +213,9 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 # Running App Locally on Linux/WSL 🐧
 
-A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [PostgreSQL](https://www.postgresql.org).
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
+A Sample url shortener app to test Keploy integration capabilities using Mux and PostgreSQL
 
 <InstallReminder />
 

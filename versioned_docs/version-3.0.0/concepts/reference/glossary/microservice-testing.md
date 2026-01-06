@@ -26,6 +26,7 @@ Microservice testing is the process of validating individual components of a mic
 ## Challenges in Microservices Testing:
 
 - **Complex service dependencies** :
+
   - Microservices often rely on other services, databases, or third-party APIs, making it challenging to test in isolation.
 
 - **Difficulty in replicating production environments**

@@ -14,6 +14,10 @@ tags:
   - plugin
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy can integrated with Jenkins to ensure continuous testing as part of your CI/CD pipeline.
 
 ## Prerequisites

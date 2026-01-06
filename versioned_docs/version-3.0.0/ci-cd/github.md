@@ -14,6 +14,10 @@ tags:
   - plugin
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy can be integrated with GitHub by two methods:-
 
 1. [Using Shell Scripts](#shell-scripts)

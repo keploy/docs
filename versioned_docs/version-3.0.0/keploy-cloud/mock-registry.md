@@ -13,6 +13,10 @@ keywords:
   - cloud storage
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Mock Registry uploads mock files to cloud storage, keeping the application's repository lightweight and manageable.
 
 When dealing with large mock files during tests, committing them to git repositories can be cumbersome. **Uploading such mocks to cloud storage** instead helps maintain a clean and performant repository, reducing complexity.

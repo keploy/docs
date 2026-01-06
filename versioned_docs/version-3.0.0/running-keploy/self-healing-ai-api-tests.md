@@ -15,6 +15,10 @@ keywords:
   - keploy ai testing
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy can automatically fix failing test cases using its built-in AI engine. This is useful when:
 
 - Your API responses have changed slightly (e.g. new fields, formats)
@@ -24,21 +28,27 @@ Keploy can automatically fix failing test cases using its built-in AI engine. Th
 ### 🔧 How to Use Self-Healing
 
 1. **Go to the Test Report**
+
    - Navigate to the test report where failures are listed.
 
 2. **Click on a Failed Test**
+
    - Open the specific failing test case you'd like to fix.
 
 3. **Click "Fix with AI"**
+
    - This will trigger Keploy AI to update the assertions based on the current API response.
 
 4. _(Optional)_ **Add Context**
+
    - You can provide hints or expectations to help the AI fix it more precisely.
 
 5. _(Optional)_ **Bulk Fix**
+
    - From the **Test Suites** page, select multiple suites and click **"Fix with AI"** to heal them all in one go.
 
 6. **Wait for AI to Heal**
+
    - The process may take a few seconds to complete.
 
 7. **Find Updated Tests**

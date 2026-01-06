@@ -100,7 +100,7 @@ const quickstarts = [
   },
   */
 
-  /*{
+  {
     title: "Gin + Redis",
     language: "Go",
     server: "Docker",
@@ -116,7 +116,6 @@ const quickstarts = [
       "A sample User Authentication app to demonstrate how seamlessly Keploy integrates with Gin and Redis.",
     link: "/docs/quickstart/samples-redis/#running-app-locally-on-linuxwsl-",
   },
-  */
   {
     title: "Mux + Postgres",
     language: "Go",
@@ -149,6 +148,8 @@ const quickstarts = [
       "A sample URL Shortener app to demonstrate Keploy integration capabilities using Mux and MySQL.",
     link: "/docs/quickstart/samples-mysql/#running-app-locally-on-linuxwsl-",
   },
+
+  /*
   {
     title: "FastHttp + Postgres",
     language: "Go",
@@ -157,6 +158,7 @@ const quickstarts = [
       "A sample CRUD application to demonstrate how seamlessly Keploy integrates with FastHttp and Postgres.",
     link: "/docs/quickstart/samples-fasthttp/#using-docker-compose-",
   },
+  */
 
   {
     title: "FastHttp + Postgres",
@@ -201,7 +203,7 @@ const quickstarts = [
 
   // python list
 
-  /*{
+  {
     title: "E-commerce Microservices",
     language: "Python",
     server: "Docker",
@@ -209,7 +211,6 @@ const quickstarts = [
       "This guide walks you through testing an E-commerce microservices application using Keploy.",
     link: "/docs/quickstart/samples-microservices/",
   },
-*/
   {
     title: "Django + Postgres",
     language: "Python",
@@ -278,6 +279,15 @@ const quickstarts = [
     link: "/docs/quickstart/samples-fastapi-twilio/#using-docker-compose-",
   },
 
+  {
+    title: "Python + K8s",
+    language: "Python",
+    server: "Docker",
+    description:
+      "A sample guide demonstrating how to perform live traffic recording and replay in a Kubernetes environment.",
+    link: "/docs/quickstart/k8s-proxy/",
+  },
+
   /*{
     title: "Sanic + Mongo",
     language: "Python",
@@ -287,15 +297,14 @@ const quickstarts = [
     link: "/docs/quickstart/sanic-mongo/",
   },
 */
-  /*{
-      title: "Flask + Redis",
-      language: "Python",
-      server: "Docker",
-      description:
-        "A sample Student CRUD app to demonstrate how seamlessly Keploy integrates with Flask and Redis.",
-      link: "/docs/quickstart/flask-redis/",
-    },
-  */
+  {
+    title: "Flask + Redis",
+    language: "Python",
+    server: "Docker",
+    description:
+      "A sample Student CRUD app to demonstrate how seamlessly Keploy integrates with Flask and Redis.",
+    link: "/docs/quickstart/flask-redis/",
+  },
 
   //Javascript list
 
