@@ -11,7 +11,7 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("/quickstart/k8s-proxy/")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
+            <div className="h-full rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
               <div className="flex items-center space-x-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +43,7 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("keploy-explained/introduction")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
+            <div className="h-full rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
               <div className="flex items-center space-x-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@ function UTG() {
             className="text-foreground-light flex-grow text-sm"
             to={useBaseUrl("running-keploy/api-test-generator")}
           >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
+            <div className="h-full rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
               <div className="flex items-center space-x-4">
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -212,7 +212,7 @@ function UTG() {
                       fill="#FF914D"
                     />
                   </g>
-                  undefined
+
                 </svg>
                 <h2 className="mb-4 text-xl font-semibold">
                   API Testing Agent
