@@ -1,43 +1,12 @@
-import Layout from "@theme/Layout";
-import Link from "@docusaurus/Link";
-import styles from "./styles.module.css";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import { useEffect } from "react";
+import { useHistory } from "@docusaurus/router";
 
 export default function Custom404() {
-  return (
-    <Layout title="404 - Not Found">
-      <main className={styles.notFoundContainer}>
-        <div className={styles.notFoundContent}>
-          <h1 className={styles.notFoundTitle}>Oops! 404</h1>
-          <h2 className={styles.notFoundSubtitle}>Not Found...</h2>
+  const history = useHistory();
 
-          <p className={styles.notFoundDescription}>
-            Looks like you've wandered off the beaten path. Our team is working
-            to get you back on track and find what you're looking for.
-          </p>
+  useEffect(() => {
+    history.replace("/docs");
+  }, [history]);
 
-          <div className={styles.notFoundActions}>
-            <Link className={styles.notFoundPrimaryBtn} to="/">
-              Back To Home
-            </Link>
-
-            <button
-              className={styles.notFoundSecondaryBtn}
-              onClick={() => window.history.back()}
-            >
-              Back to Previous Page
-            </button>
-          </div>
-        </div>
-
-        <div className={styles.notFoundImageWrapper}>
-            <img
-                src={useBaseUrl("/img/keploy-logo-dark.svg")}
-                alt="Keploy logo"
-                className={styles.notFoundLogo}
-            />
-        </div>
-      </main>
-    </Layout>
-  );
+  return null;
 }
