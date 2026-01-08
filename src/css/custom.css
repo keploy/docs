@@ -357,9 +357,17 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 /* Search */
-
 .DocSearch-Button {
-  @apply rounded-lg px-3 py-2 !important;
+  height: 36px;
+  font-size: 0.875rem;
+  border-radius: 12px;
+}
+.navbar__inner {
+  padding-left: 24px;
+  padding-right: 24px;
+}
+.navbar__item:hover {
+  background-color: rgba(255, 145, 77, 0.08);
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
