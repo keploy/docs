@@ -376,11 +376,46 @@ footer svg {
 }
 
 .footer .footer__svg {
-  @apply m-8 inline fill-current;
+  @apply inline fill-current;
+  margin: 0.75rem;
 }
 
 .footer .footer__link-item span svg {
   @apply hidden;
+}
+
+.footer__content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  padding: 0 18px;
+  text-align: center;
+}
+
+.footer__icons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+}
+
+.footer__icons .footer__svg {
+  margin: 0.75rem;
+}
+
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.footer__links .footer__link-item:not(:last-child)::after {
+  content: "|";
+  margin-left: 12px;
+  color: inherit;
+  opacity: 0.6;
 }
 
 @media (max-width: 996px) {
@@ -390,6 +425,22 @@ footer svg {
 
   .DocSearch-Button {
     @apply mr-2 !important;
+  }
+
+  .footer__icons {
+    gap: 16px;
+  }
+
+  .footer__icons .footer__svg {
+    margin: 0.5rem;
+  }
+
+  .footer__links {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
   }
 
   /* .footer .footer__block {
@@ -414,6 +465,19 @@ footer svg {
 }
 
 .docs-image-max-width-20 {
+    .footer__icons {
+      gap: 16px;
+    }
+
+    .footer__icons .footer__svg {
+      margin: 0.5rem;
+    }
+
+    .footer__links {
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+    }
   width: 20%;
 }
 
