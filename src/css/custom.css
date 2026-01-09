@@ -339,6 +339,14 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 /* Navbar */
+/* Search */
+.navbar__items--right {
+  @apply justify-end ml-auto flex-row-reverse;
+  gap: 13px;
+  align-items: center;
+  padding: 9px 0;
+}
+
 .navbar__inner {
   @apply mx-auto w-full max-w-none px-4 shadow-none lg:px-10;
 }
@@ -356,13 +364,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
   @apply mb-3;
 }
 
-/* Search */
-.navbar__items--right {
-  @apply justify-end ml-auto flex-row-reverse;
-  gap: 13px;
-  align-items: center;
-  padding: 9px 0;
-}
+
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
   color: #ffffff;
