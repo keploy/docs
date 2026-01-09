@@ -10,13 +10,5 @@ export default function NotFound() {
     }
   }, [homeUrl]);
 
-  return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <h1 className="mb-4 text-6xl font-extrabold md:text-8xl">
-        <span className="bg-gradient-to-r from-orange-400 via-orange-500 to-red-500 bg-clip-text text-transparent">
-          404
-        </span>
-      </h1>
-    </div>
-  );
+  return null;
 }
