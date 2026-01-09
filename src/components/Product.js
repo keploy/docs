@@ -212,7 +212,6 @@ function UTG() {
                       fill="#FF914D"
                     />
                   </g>
-
                 </svg>
                 <h2 className="mb-4 text-xl font-semibold">
                   API Testing Agent
