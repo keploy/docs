@@ -77,7 +77,7 @@ export default function Home() {
         )}
       </Head>
       <Layout
-        className="mx-auto my-2 w-full max-w-screen-lg px-4 md:px-8 shadow-none"
+        className="mx-auto my-2 w-full max-w-screen-lg px-4 shadow-none md:px-8"
         title={`${siteConfig.title}`}
         description={`${siteConfig.tagline}`}
       >

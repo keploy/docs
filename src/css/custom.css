@@ -12,19 +12,19 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
-  --ifm-color-primary-lighter: #FFF;
+  --ifm-color-primary-lighter: #fff;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
@@ -37,11 +37,10 @@
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #fff;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -112,7 +111,7 @@ html[data-theme="light"] {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
 h1,
@@ -164,29 +163,43 @@ div[class^="sidebar_"] .menu__link--sublist.menu__link--active {
 }
 
 /* Do NOT bold category when on its own page */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist {
   color: inherit !important;
   font-weight: inherit;
 }
 /* And keep color unchanged even on hover when on its own page */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist:hover {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist:hover {
   color: inherit !important;
 }
 
 /* Explicitly neutralize color when category link is both sublist and active (own page) */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist.menu__link--active {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist.menu__link--active {
   color: inherit !important;
 }
 
 /* When the category's own page is current, do not change its color/background/weight */
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"] {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"] {
   color: inherit !important;
   background: transparent !important;
   font-weight: inherit !important;
 }
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:hover,
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:focus,
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"].menu__link--active {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:focus,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"].menu__link--active {
   color: inherit !important;
   /* prevent extra link-layer background; container provides unified hover */
   background-color: transparent !important;
@@ -194,22 +207,35 @@ div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="pa
 }
 
 /* Strong override: category with its own current page should use normal menu color (not active black) */
-div[class^="sidebar_"] .menu__link--sublist.menu__link--active[aria-current="page"] {
+div[class^="sidebar_"]
+  .menu__link--sublist.menu__link--active[aria-current="page"] {
   color: var(--ifm-menu-color) !important;
 }
 
 /* Extra-specific guard: ensure normal color for category labels on their own page */
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"],
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
-div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"] {
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"],
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"] {
   color: var(--ifm-menu-color) !important;
   background: transparent !important;
   font-weight: inherit !important;
 }
 
 /* Restore hover background for categories with their own page when hovering that link */
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
-div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
   /* prevent extra link-layer hover; container provides unified hover */
   background-color: transparent !important;
 }
@@ -219,21 +245,32 @@ div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.
 div[class^="sidebar_"] .menu__list-item-collapsible--active:hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > .menu__caret {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > .menu__caret {
   background-color: transparent !important;
 }
 
 /* For categories with pages (collapsible) when NOT on their page: hover on arrow OR text gives one unified background */
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > .menu__caret {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > .menu__caret {
   background-color: transparent !important;
 }
 /* Ensure link text color does not change on hover in this specific case */
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link {
   color: inherit !important;
 }
 
@@ -242,11 +279,13 @@ div[class^="sidebar_"] .menu__list-item-collapsible--active {
   background: transparent !important;
 }
 
-
 /* Parent style when a child page is active is handled below for light mode (orange) */
 
 /* Light mode: use orange color (no bold) for parent when a child page is active */
-html[data-theme="light"] div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active) .menu__link--sublist.menu__link--active {
+html[data-theme="light"]
+  div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active)
+  .menu__link--sublist.menu__link--active {
   color: var(--ifm-color-primary) !important;
   font-weight: inherit;
 }
@@ -329,7 +368,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 
 /* Pagination */
 .pagination-nav {
-  @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
+  @apply mt-12 flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
 .pagination-nav__item {
   @apply w-full max-w-md;
@@ -344,7 +383,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 .navbar__items--right {
-  @apply justify-end ml-auto flex-row-reverse;
+  @apply ml-auto flex-row-reverse justify-end;
   gap: 13px;
 }
 
@@ -465,19 +504,19 @@ footer svg {
 }
 
 .docs-image-max-width-20 {
-    .footer__icons {
-      gap: 16px;
-    }
+  .footer__icons {
+    gap: 16px;
+  }
 
-    .footer__icons .footer__svg {
-      margin: 0.5rem;
-    }
+  .footer__icons .footer__svg {
+    margin: 0.5rem;
+  }
 
-    .footer__links {
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-    }
+  .footer__links {
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+  }
   width: 20%;
 }
 
@@ -516,7 +555,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -784,13 +823,14 @@ a[class="breadcrumbs__link"] {
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
+  border-color: theme("borderColor.DEFAULT", currentColor);
 }
 
 * {
@@ -803,7 +843,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  font-family: theme("fontFamily.sans", ui-sans-serif, system-ui, sans-serif);
 }
 
 body {
@@ -857,9 +897,9 @@ html {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -886,12 +926,12 @@ menu {
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline: 2px solid theme("colors.blue.600", #2563eb);
   outline-offset: 2px;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -925,7 +965,7 @@ textarea {
 }
 
 .theme-back-to-top-button {
-  background-color: #FF914D !important;
+  background-color: #ff914d !important;
   color: white !important;
 }
 
@@ -936,5 +976,3 @@ textarea {
 .theme-back-to-top-button:hover {
   background-color: #e67643 !important;
 }
-
-
