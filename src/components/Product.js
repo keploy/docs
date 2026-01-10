@@ -25,7 +25,9 @@ function UTG() {
                     fill="#FF914D"
                   />
                 </svg>
-                <h2 className="mb-4 text-xl font-semibold lg:whitespace-nowrap">K8s Agent</h2>
+                <h2 className="mb-4 text-xl font-semibold lg:whitespace-nowrap">
+                  K8s Agent
+                </h2>
               </div>
               <ul>
                 <li>
