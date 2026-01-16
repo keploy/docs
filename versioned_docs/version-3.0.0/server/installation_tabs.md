@@ -279,7 +279,7 @@ You’ve successfully set up **Keploy on macOS** using **Docker**.
 <br />
 
 :::info
-You can run Keploy **Natively**, using **WSL** or **Docker**. If you are trying to install Keploy natively, make sure to do it as an administrator.
+You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to run Keploy natively, make sure to do it as an administrator.
 :::
 
 👉 **Choose your preferred method:**
