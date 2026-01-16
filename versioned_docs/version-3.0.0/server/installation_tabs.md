@@ -288,13 +288,39 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
   <TabItem value="windows-native" label="Native">
  <br />
 
-### 1. Install Keploy
+### 1. Create a Directory
 
-    ```bash
-    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    Use this command to create a directory for Keploy:
+
+    ```powershell
+    New-Item -ItemType Directory -Force -Path "$env:APPDATA\Keploy\bin"
     ```
 
-    ### 2. Once done, You should see something like this:
+    ### 2. Install Keploy
+
+    Run this command to install the Keploy exe:
+
+    ```powershell
+    Invoke-WebRequest -Uri "https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.exe" -OutFile "$env:APPDATA\Keploy\bin\keploy.exe"
+    ```
+
+    ### 3. Set Environment Variable
+
+    Add the following path to your System User Settings Environment Variables:
+
+    ```text
+    C:\Users\"Your User"\AppData\Roaming\Keploy\bin
+    ```
+
+    ### 4. Finalize Setup
+
+    1. Checks: Close all the terminals.
+    2. Run as Admin: Open your terminal as **Administrator**.
+    3. Troubleshooting: If you face issues, ensure `cmd.exe` and `powershell.exe` (default paths in Windows) are in your system environment variables.
+
+    ### 5. Verify Installation
+
+    Once done, You should see something like this:
 
     ```bash
        ▓██▓▄
@@ -323,7 +349,6 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
 
     Use "keploy [command] --help" for more information about a command.
     ```
-
 ## 🎉 Congratulations!
 
 You’ve successfully installed **Keploy on Windows**.
