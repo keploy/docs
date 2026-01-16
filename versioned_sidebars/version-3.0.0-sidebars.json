@@ -2,41 +2,6 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "API Testing",
-      "collapsed": true,
-      "items": [
-        "running-keploy/api-test-generator",
-        {
-          "type": "category",
-          "label": "Getting Started",
-          "collapsed": false,
-          "items": [
-            "running-keploy/generate-api-tests-using-ai",
-            "running-keploy/api-testing-chrome-extension"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Test Operations",
-          "collapsed": false,
-          "items": [
-            "running-keploy/review-and-improve-ai-generated-tests",
-            "running-keploy/share-tests",
-            "running-keploy/self-healing-ai-api-tests",
-            "running-keploy/run-ai-generated-api-tests",
-            "running-keploy/api-testing-cicd",
-            "running-keploy/api-testing-webhook"
-          ]
-        },
-        {
-          "type": "doc",
-          "label": "FAQs",
-          "id": "keploy-explained/api-testing-faq"
-        }
-      ]
-    },
-    {
-      "type": "category",
       "label": "Integration Testing",
       "collapsed": true,
       "items": [
@@ -54,18 +19,19 @@
           "label": "Installation",
           "id": "server/installation"
         },
-        {
-          "type": "category",
-          "label": "Running Guide",
-          "items": [
-            "running-keploy/cli-commands",
-            "running-keploy/rename-testcases",
-            "running-keploy/docker-tls",
-            "running-keploy/configuration-file",
-            "running-keploy/custom-mocks",
-            "running-keploy/keploy-templatize"
-          ]
-        },
+        "keploy-cloud/cloud-installation",
+        "running-keploy/cli-commands",
+        "running-keploy/rename-testcases",
+        "running-keploy/docker-tls",
+        "running-keploy/configuration-file",
+        "running-keploy/custom-mocks",
+        "running-keploy/keploy-templatize",
+        "running-keploy/risk-profile-analysis",
+        "keploy-cloud/time-freezing",
+        "keploy-cloud/mock-registry",
+        "keploy-cloud/keploy-console",
+        "keploy-cloud/auto-test-generation",
+        "keploy-cloud/deduplication",
         {
           "type": "category",
           "label": "QuickStarts",
@@ -89,7 +55,6 @@
                 "quickstart/openhospital",
                 "quickstart/pet-clinic",
                 "quickstart/samples-java",
-                "quickstart/java-spring-boot-mongo",
                 "quickstart/java-spring-boot-xml"
               ]
             },
@@ -104,7 +69,6 @@
               "collapsed": true,
               "items": [
                 "quickstart/samples-echo",
-                "quickstart/samples-gin",
                 "quickstart/samples-redis",
                 "quickstart/samples-mux",
                 "quickstart/samples-mysql",
@@ -121,13 +85,12 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-microservices",
                 "quickstart/samples-django",
-                "quickstart/samples-flask",
+                "quickstart/flask-redis",
+                "quickstart/k8s-proxy",
+                "quickstart/samples-microservices",
                 "quickstart/samples-fastapi",
-                "quickstart/samples-fastapi-twilio",
-                "quickstart/sanic-mongo",
-                "quickstart/flask-redis"
+                "quickstart/samples-fastapi-twilio"
               ]
             },
             {
@@ -140,26 +103,10 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-bunjs",
                 "quickstart/samples-nextjs",
-                "quickstart/samples-nodejs",
                 "quickstart/samples-node-jwt",
                 "quickstart/express-postgresql-prisma",
                 "quickstart/samples-typescript"
-              ]
-            },
-            {
-              "type": "category",
-              "label": "Rust",
-              "link": {
-                "type": "doc",
-                "id": "quickstart/rust-filter"
-              },
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "quickstart/samples-rust",
-                "quickstart/sample-rust-crud-mongo"
               ]
             },
             {
@@ -197,22 +144,35 @@
           ]
         },
         {
-          "type": "category",
-          "label": "Keploy Enterprise",
-          "items": [
-            "keploy-cloud/cloud-installation",
-            "keploy-cloud/time-freezing",
-            "keploy-cloud/mock-registry",
-            "keploy-cloud/keploy-console",
-            "keploy-cloud/auto-test-generation",
-            "keploy-cloud/deduplication",
-            "keploy-explained/common-errors"
-          ]
+          "type": "doc",
+          "label": "Troubleshooting Guide",
+          "id": "keploy-explained/common-errors"
         },
         {
           "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/integration-testing-faq"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Testing",
+      "collapsed": true,
+      "items": [
+        "running-keploy/api-test-generator",
+        "running-keploy/generate-api-tests-using-ai",
+        "running-keploy/api-testing-chrome-extension",
+        "running-keploy/review-and-improve-ai-generated-tests",
+        "running-keploy/share-tests",
+        "running-keploy/self-healing-ai-api-tests",
+        "running-keploy/run-ai-generated-api-tests",
+        "running-keploy/api-testing-cicd",
+        "running-keploy/api-testing-webhook",
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/api-testing-faq"
         }
       ]
     },
@@ -246,10 +206,7 @@
       "collapsible": true,
       "items": [
         "keploy-explained/contribution-guide",
-        "keploy-explained/docs-dev-guide",
-        "keploy-explained/debugger-guide",
-        "keploy-explained/testing-guide",
-        "keploy-explained/mac-linux"
+        "keploy-explained/docs-dev-guide"
       ]
     }
   ]

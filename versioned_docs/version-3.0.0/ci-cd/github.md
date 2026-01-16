@@ -14,6 +14,10 @@ tags:
   - plugin
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy can be integrated with GitHub by two methods:-
 
 1. [Using Shell Scripts](#shell-scripts)
@@ -33,10 +37,6 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
     sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
   ...
 ```
-
-> **Note: if you are using `arm_64` as runner use below to download keploy binary**
-
-`curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp`
 
 ### Example with Scripts
 

@@ -5,6 +5,10 @@ sidebar_label: Run Tests
 description: Discover how to execute Keploy’s AI-generated API test suites—locally, on-demand from the console, or automatically in CI/CD—and interpret the results to keep your API stable.
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Once you’ve finished curating a suite , it’s time to hit **Run** and see how your API behaves against the latest contract.
 
 ## Open the **Run Tests** Modal

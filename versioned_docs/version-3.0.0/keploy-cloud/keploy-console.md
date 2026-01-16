@@ -1,7 +1,7 @@
 ---
 id: keploy-console
-title: Keploy Console 📘
-sidebar_label: Keploy Console 🛠️
+title: Keploy Console
+sidebar_label: Keploy Console
 tags:
   - explanation
   - feature guide
@@ -12,6 +12,10 @@ keywords:
   - installation
   - API key
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 ### Pre-requisite 📝
 

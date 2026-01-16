@@ -22,11 +22,14 @@ keyword:
 
 ## Using Docker Compose 🐳
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 <InstallReminder />
 
@@ -250,9 +253,13 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Running App Locally on Linux/WSL 🐧
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
+
+<InstallReminder />
 
 ### Clone a sample user data CRUD app 🧪
 

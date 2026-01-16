@@ -17,6 +17,10 @@ keywords:
   - github
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 Keploy makes it super simple to run API tests during your CI/CD pipeline on GitHub. Here’s a step-by-step guide to help you set it up in just a few minutes!
 
 ## Step 1: Get the Test Command from Keploy Dashboard

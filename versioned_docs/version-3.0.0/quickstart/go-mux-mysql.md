@@ -22,8 +22,11 @@ keyword:
 
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker Compose 🐳
+# Using Docker 🐳
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample url shortener app to test Keploy integration capabilities using Mux and MySQL.
 
@@ -42,12 +45,6 @@ We will be using Docker compose to run the application as well as MySQL on Docke
 
 ```bash
 docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
-```
-
-#### Create Docker volume (optional)
-
-```bash
-docker volume create --driver local --opt type=debugfs --opt device=debugfs debugfs
 ```
 
 ### Capture the Testcases
@@ -94,7 +91,7 @@ this will return the shortened url. The ts would automatically be ignored during
 #### Access all shortened URLs
 
 ```bash
-curl --request GET --url http://localhost:8080/all
+curl  http://localhost:8080/all
 ```
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
@@ -129,6 +126,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 # Running App Locally on Linux/WSL 🐧
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySql.
 
 <InstallReminder />
@@ -140,10 +139,7 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-mysql
 go mod download
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MySQL) chill on Docker. Ready? Let's get the party started!🎉
-
-> To establish a network for your application using Keploy on Docker, follow these steps.
-> If you're using a docker-compose network, replace keploy-network with your app's `docker_compose_network_name` below.
+We’ll run our sample application locally, with the database running inside a Docker container. Ready? Let’s get the party started! 🎉
 
 ### Start the MySQL instance
 
@@ -165,7 +161,7 @@ go build -o main
 sudo -E PATH=$PATH keploy record -c "./main"
 ```
 
-![Testrun](/img/mux-mysql-testcase.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_record_docs.png" alt="Sample Keploy record header" width="100%" style={{ borderRadius: '5px' }} />
 
 ### Generate testcases
 
@@ -195,7 +191,9 @@ this will return the shortened url.
 #### Redirect to original url from shortened url
 
 ```zsh
-curl -request GET localhost:8080/links/1
+
+curl http://localhost:8080/links/1
+
 ```
 
 Now, let's see the magic! 🪄💫 Both these API calls were captured as a test case and should be visible on the Keploy CLI. You should see a `keploy` folder with the test cases and data mocks created.
@@ -211,10 +209,10 @@ sudo -E PATH=$PATH keploy test -c "./main" --delay 10
 No need to set up dependencies like MySQL or write mocks for your testing. The application thinks it's talking to MySQL. 😄
 
 We will get output something like this:
-![Testrun](/img/go-mux-mysql-test-cases.png)
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_replay_docs.png
+" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
-
-Hope this helps you out, if you still have any questions, reach out to us .

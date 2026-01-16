@@ -1,7 +1,7 @@
 ---
 id: samples-fastapi-twilio
 title: Sample SMS Sending App
-sidebar_label: FastAPI + Twilio (HTTP)
+sidebar_label: FastAPI + Twilio
 description: The following sample app showcases how to use the FastAPI framework with Twilio's SMS Service and the Keploy Platform.
 tags:
   - python
@@ -25,11 +25,14 @@ keyword:
 
 ## Using Docker Compose 🐳
 
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 <InstallReminder />
 
@@ -59,7 +62,7 @@ docker build -t fastapi-twilio:1.0 .
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0"
+keploy record -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -222,7 +225,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "docker run -p 8000:8000 --name fastapi-twilio fastapi-twilio:1.0" --delay 10
+keploy test -c "docker run -p 8000:8000 --name fastapi-twilio --network keploy-network fastapi-twilio:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -238,6 +241,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 <SectionDivider />
 
 ## Running App Locally on Linux/WSL 🐧
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 

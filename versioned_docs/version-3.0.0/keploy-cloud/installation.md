@@ -1,62 +1,72 @@
 ---
 id: cloud-installation
-title: Keploy Cloud Installation
-sidebar_label: Installation 🛠️
+title: Keploy Enterprise Installation
+sidebar_label: Enterprise Installation
 tags:
   - explanation
   - feature guide
-  - keploy cloud
+  - keploy enterprise
   - installation
 keywords:
-  - keploy cloud
+  - keploy enterprise
   - installation
   - API key
 ---
 
-## Introduction 📘
+import ProductTier from '@site/src/components/ProductTier';
 
-#### Welcome to the Keploy Cloud Guide!
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-In this guide, you will find information about Keploy Cloud, onboarding, features, and how to use them.
+This guide provides a complete overview of **Keploy Enterprise**, including onboarding instructions, key features, and steps to get started. It is designed to help teams quickly adopt Keploy Enterprise and integrate it into their development and testing workflows.
 
-#### Requesting a Keploy Cloud Account
+### Requesting a Keploy Enterprise Account
 
-To request a Keploy Cloud account, please complete the request form [here](https://forms.gle/jGBbyRyh9H7AKXZX6). Our team will review your request and get back to you as soon as possible.
+To get access to Keploy Enterprise, you’ll first need an enterprise account.
 
-#### Getting Started with Keploy Cloud
+#### Note: You can request one by reaching out to us [here](https://calendar.app.google/cXVaj6hbMUjvmrnt9).
 
-Once your account is set up, you can start exploring features of Keploy Cloud. Here are some key features to can get started with:
+---
 
-- **Time Freezing** ❄️: Keploy Cloud allows you to freeze/rollback the time in every test run, back to when the test case was recorded. This allows developers to ensure time-sensitive objects don’t expire or change, making tests consistent and more reliable.
+### Getting Started with Keploy Enterprise
 
-- **AI-Driven Test Generation** 🧠: Keploy will automatically uncover your API's edge cases and generate test cases to expose more code paths, thereby increasing code coverage.
+Once your enterprise account is set up, you can begin exploring and using the core features of Keploy Enterprise. Below are some of the key capabilities that help teams achieve reliable, scalable, and production-grade API testing.
 
-- **Test Deduplication** 📊 : Keploy detects duplicate/redundant tests automatically, which will be particularly useful if you plan to record numerous scenarios from a live environment and wish to retain only unique scenario tests.
+- **Time Freezing** ❄️  
+  Keploy Enterprise allows you to freeze or roll back time during every test run to the exact moment when the test case was recorded. This ensures that time-sensitive data does not expire or change, making test executions consistent and highly reliable.
 
-- **Keploy Console** 📈: We are ensuring a smooth experience of visualising bugs found with Keploy and sharing reports with your team.
+- **AI-Driven Test Generation** 🧠  
+  Keploy Enterprise automatically identifies edge cases in your APIs and generates test cases to uncover additional execution paths. This helps improve overall code coverage and detect issues that are often missed in manual testing.
 
-- **Asynchronous Processes Support** ⏱ : Keploy V2 captures and replays asynchronous tasks effectively. We're also incorporating support for adding custom user-defined behaviours or assertions.
+- **Test Deduplication** 📊  
+  Keploy Enterprise intelligently detects and removes duplicate or redundant test cases. This is especially useful when recording scenarios from live environments, allowing teams to retain only meaningful and unique test coverage.
 
-- **Mock Registry** 📂: The Mock Registry is a system designed to handle large mock files by uploading them to cloud storage, preventing these sizable files from being committed to Git repositories. This approach optimizes repository size and performance while maintaining an efficient and streamlined development workflow.
+- **Keploy Console** 📈  
+  The Keploy Console provides a seamless experience for visualizing bugs, analyzing test results, and sharing reports across teams. It enables better collaboration and faster feedback cycles.
 
-To get started with Keploy Cloud, you will need to install the Keploy Cloud Agent and authenticate your account.
+- **Asynchronous Processes Support** ⏱  
+  Keploy v2 effectively captures and replays asynchronous workflows. In addition, support for custom user-defined behaviors and assertions is being incorporated to provide greater flexibility in testing complex systems.
 
-import PlatformRequirements from '../concepts/platform-requirements.md'
+- **Mock Registry** 📂  
+  The Mock Registry is designed to manage large mock files by storing them in cloud storage instead of committing them to Git repositories. This helps keep repositories lightweight while ensuring efficient mock management at scale.
 
-<PlatformRequirements/>
+To begin using Keploy Enterprise, you need to install the **Keploy Enterprise Agent** and authenticate using your API key.
+
+---
 
 ## Installation 🛠️
 
-Install and Validate the Keploy Cloud Agent by following the steps below:
+Follow the steps below to install and validate the Keploy Enterprise Agent:
 
 ```bash
 curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 ```
 
-Enter your **API Key** when prompted, ask your org Admin to re-regenerate the API key in case you lose it.
+When recording API calls using the Enterprise Agent, you will be prompted to provide your **API key**.
 
-Once validated, you can start using Keploy Cloud to record-test.
+An API key typically looks like this:
 
-### Need Help?
+```
+b1dNl....
+```
 
-If you have any questions or need assistance, our support team is here to help. You can reach out to us through our support portal, Slack or by emailing us at hello[at]keploy.io.
+Once the API key is successfully validated, the Keploy Enterprise Agent will begin recording API calls.

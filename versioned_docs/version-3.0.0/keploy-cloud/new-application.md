@@ -3,7 +3,7 @@ id: application-settings
 title: Keploy Cloud Application Settings Guide
 description: Learn how to configure application settings in Keploy Cloud. Manage environments, toggle features, and optimize your testing setup with this step-by-step guide.
 
-sidebar_label: Add Application 📝
+sidebar_label: Add Application
 tags:
   - explanation
   - feature guide
@@ -16,6 +16,10 @@ keywords:
   - installation
   - API key
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 ### Start Keploy Agent
 

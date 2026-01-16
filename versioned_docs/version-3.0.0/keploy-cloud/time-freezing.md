@@ -1,7 +1,7 @@
 ---
 id: time-freezing
 title: Time Freezing
-sidebar_label: Time Freezing 🥶
+sidebar_label: Time Freezing
 tags:
   - explanation
   - feature guide
@@ -13,6 +13,10 @@ keywords:
   - jwt
   - time sensitive fields
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 ## Why Time Freezing? ❄️
 

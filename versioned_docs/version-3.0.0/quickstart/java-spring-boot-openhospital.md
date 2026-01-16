@@ -1,7 +1,7 @@
 ---
 id: openhospital
 title: Keploy with OpenHospital
-sidebar_label: OpenHospital (Mysql)
+sidebar_label: OpenHospital
 description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
 tags:
   - java
@@ -26,6 +26,10 @@ keyword:
   - Junit
   - React
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 

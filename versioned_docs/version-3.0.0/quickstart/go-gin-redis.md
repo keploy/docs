@@ -19,14 +19,17 @@ keyword:
   - Auto Testcase generation
 ---
 
-import InstallReminder from '@site/src/components/InstallReminder';
+import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker Compose 🐳
 
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Clone a sample user authentication app 🧪
 
@@ -232,9 +235,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 # Running App Locally on Linux/WSL 🐧
 
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
-<InstallReminder />
+<EnterpriseInstallReminder />
 
 ### Clone a sample user authentication app 🧪
 
@@ -244,13 +249,6 @@ go mod download
 ```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
-
-### Clone a sample user authentication app 🧪
-
-```bash
-git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-redis
-go mod download
-```
 
 ### 📼 Roll the Tape - Recording Time!
 

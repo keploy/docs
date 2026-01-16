@@ -45,14 +45,14 @@ const quickstarts = [
     link: "/docs/quickstart/samples-java/#instructions-for-starting-using-docker",
   },
 
-  {
+  /*{
     title: "Springboot + MongoDB",
     language: "Java",
     server: "Local",
     description:
       "A sample REST API app to demonstrate how seamlessly Keploy integrates with Spring Boot and MongoDB.",
     link: "/docs/quickstart/java-spring-boot-mongo/",
-  },
+  },*/
 
   {
     title: "Springboot + XML",
@@ -80,15 +80,17 @@ const quickstarts = [
       "A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL.",
     link: "/docs/quickstart/samples-echo/#running-app-locally-on-linuxwsl-",
   },
-  {
+
+  /*{
     title: "Gin + Mongo",
     language: "Go",
     server: "Docker",
     description:
       "A sample url shortener app to test Keploy integration capabilities using Gin and mongoDB.",
     link: "/docs/quickstart/samples-gin/#using-docker-compose-",
-  },
-  {
+  },*/
+
+  /*{
     title: "Gin + Mongo",
     language: "Go",
     server: "Local",
@@ -96,6 +98,8 @@ const quickstarts = [
       "A sample url shortener app to test Keploy integration capabilities using Gin and mongoDB.",
     link: "/docs/quickstart/samples-gin/#running-app-locally-on-linuxwsl-",
   },
+  */
+
   {
     title: "Gin + Redis",
     language: "Go",
@@ -144,6 +148,8 @@ const quickstarts = [
       "A sample URL Shortener app to demonstrate Keploy integration capabilities using Mux and MySQL.",
     link: "/docs/quickstart/samples-mysql/#running-app-locally-on-linuxwsl-",
   },
+
+  /*
   {
     title: "FastHttp + Postgres",
     language: "Go",
@@ -152,6 +158,7 @@ const quickstarts = [
       "A sample CRUD application to demonstrate how seamlessly Keploy integrates with FastHttp and Postgres.",
     link: "/docs/quickstart/samples-fasthttp/#using-docker-compose-",
   },
+  */
 
   {
     title: "FastHttp + Postgres",
@@ -163,8 +170,9 @@ const quickstarts = [
   },
 
   // rust list
-  {
-    title: "Rust + MongoDB (Graphql",
+
+  /*{
+    title: "Rust + MongoDB (Graphql)",
     language: "Rust",
     server: "Local",
     description:
@@ -180,6 +188,7 @@ const quickstarts = [
       "A sample CRUD REST API app to demonstrate Keploy integration capabilities using Rust and MongoDB.",
     link: "/docs/quickstart/sample-rust-crud-mongo/",
   },
+  */
 
   // c# list
 
@@ -193,6 +202,7 @@ const quickstarts = [
   },
 
   // python list
+
   {
     title: "E-commerce Microservices",
     language: "Python",
@@ -201,7 +211,6 @@ const quickstarts = [
       "This guide walks you through testing an E-commerce microservices application using Keploy.",
     link: "/docs/quickstart/samples-microservices/",
   },
-
   {
     title: "Django + Postgres",
     language: "Python",
@@ -219,7 +228,8 @@ const quickstarts = [
       "A sample User CRUD app to demonstrate how seamlessly Keploy integrates with Django and PostgreSQL.",
     link: "/docs/quickstart/samples-django/#running-app-locally-on-linuxwsl-",
   },
-  {
+
+  /*{
     title: "Flask + MongoDB",
     language: "Python",
     server: "Docker",
@@ -233,7 +243,7 @@ const quickstarts = [
     description: "A Python Flask app connected to MongoDB running locally.",
     link: "/docs/quickstart/samples-flask/#how-to-run-the-app-locally-on-linuxwsl-",
   },
-
+*/
   {
     title: "FastAPI + Postgres",
     language: "Python",
@@ -258,7 +268,7 @@ const quickstarts = [
     server: "Local",
     description:
       "A sample SMS Sending app to demonstrate how seamlessly Keploy integrates with FastAPI and Twilio.",
-    link: "docs/quickstart/samples-fastapi-twilio/#running-app-locally-on-linuxwsl-",
+    link: "/docs/quickstart/samples-fastapi-twilio/#running-app-locally-on-linuxwsl-",
   },
   {
     title: "FastAPI + Twilio ",
@@ -270,6 +280,15 @@ const quickstarts = [
   },
 
   {
+    title: "Python + K8s",
+    language: "Python",
+    server: "Docker",
+    description:
+      "A sample guide demonstrating how to perform live traffic recording and replay in a Kubernetes environment.",
+    link: "/docs/quickstart/k8s-proxy/",
+  },
+
+  /*{
     title: "Sanic + Mongo",
     language: "Python",
     server: "Local",
@@ -277,7 +296,7 @@ const quickstarts = [
       "A sample Movie Management API app to demonstrate CRUD operations using Python's Sanic framework and MongoDB.",
     link: "/docs/quickstart/sanic-mongo/",
   },
-
+*/
   {
     title: "Flask + Redis",
     language: "Python",
@@ -289,24 +308,26 @@ const quickstarts = [
 
   //Javascript list
 
-  {
-    title: "BunJS + Mongo",
-    language: "JS/TS",
-    server: "Local",
-    description:
-      "A sample app to demonstrate Keploy integration capabilities using Bun.js and MongoDB.",
-    link: "/docs/quickstart/samples-bunjs/",
-  },
+  /*  {
+      title: "BunJS + Mongo",
+      language: "JS/TS",
+      server: "Local",
+      description:
+        "A sample app to demonstrate Keploy integration capabilities using Bun.js and MongoDB.",
+      link: "/docs/quickstart/samples-bunjs/",
+    },
+    */
 
   {
-    title: "NextJS + SQL",
+    title: "NextJS + Postgres",
     language: "JS/TS",
     server: "Local",
     description:
       "A sample app to demonstrate Keploy integration capabilities using NextJS and PostgreSQL with Drizzle ORM.",
     link: "/docs/quickstart/samples-nextjs/",
   },
-  {
+
+  /*{
     title: "NodeJS - Express+ Mongoose",
     language: "JS/TS",
     server: "Docker",
@@ -322,13 +343,15 @@ const quickstarts = [
       "A sample CRUD app to demonstrate how seamlessly Keploy integrates with Express and MongoDB.",
     link: "/docs/quickstart/samples-nodejs/#running-app-locally-on-linuxwsl-",
   },
+  */
+
   {
     title: "NodeJS - JWT + Postgres",
     language: "JS/TS",
     server: "Docker",
     description:
       "A sample CRUD app to demonstrate Keploy integration built with Node, JWT, and PostgreSQL.",
-    link: "docs/quickstart/samples-node-jwt/#using-docker-compose-",
+    link: "/docs/quickstart/samples-node-jwt/#using-docker-compose-",
   },
 
   {
@@ -351,7 +374,7 @@ const quickstarts = [
   {
     title: "Express + Postgres + Prisma ",
     language: "JS/TS",
-    server: "Docker",
+    server: "Local",
     description:
       "A sample Task Management app to demonstrate how seamlessly Keploy integrates with Express, PostgreSQL, and Prisma ORM.",
     link: "/docs/quickstart/express-postgresql-prisma/#running-app-locally-on-linuxwsl",

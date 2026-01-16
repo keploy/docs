@@ -79,6 +79,36 @@ module.exports = {
           logo: "https://keploy.io/docs/img/favicon.png",
         }),
       },
+      {
+        tagName: "script",
+        attributes: {
+          type: "application/ld+json",
+        },
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "Organization",
+          name: "Keploy",
+          url: "https://keploy.io/",
+          logo: "https://keploy.io/docs/img/favicon.png",
+        }),
+      },
+      {
+        tagName: "script",
+        attributes: {
+          type: "application/ld+json",
+        },
+        innerHTML: JSON.stringify({
+          "@context": "https://schema.org/",
+          "@type": "WebSite",
+          name: "Keploy Documentation",
+          url: "https://keploy.io/docs/",
+          potentialAction: {
+            "@type": "SearchAction",
+            target: "https://keploy.io/docs/search?q={search_term_string}",
+            "query-input": "required name=search_term_string",
+          },
+        }),
+      },
     ],
     colorMode: {
       defaultMode: "light",
@@ -126,10 +156,6 @@ module.exports = {
             {
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
-            },
-            {
-              label: "Unit Testing",
-              to: "/running-keploy/utg-pr-agent",
             },
           ],
         },
@@ -192,7 +218,7 @@ module.exports = {
      <div className="footer__icons footer">
     <a class="footer__link-item" href="https://docs.google.com/forms/d/e/1FAIpQLSdj9q7dyRh3D7ZzRExHLWRRkNPOnLnFfrbKqSwqH3Ur4HzP4g/viewform">Have a Keploy use-case? Let's Talk!</a> 
     </div> 
-      <div class="footer__copyright"><span class="footer__block">Copyright © ${new Date().getFullYear()}</span> Keploy Inc.</div>
+      <div class="footer__copyright"><span class="footer__block">Copyright © ${new Date().getFullYear()} </span> Keploy Inc.</div>
       <div>
         <a class="footer__link-item" href="/about">About</a>
         <span class="footer__separators"> | </span>

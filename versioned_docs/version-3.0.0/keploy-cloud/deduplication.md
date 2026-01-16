@@ -1,7 +1,7 @@
 ---
 id: deduplication
-title: Remove Duplicates Tests 🧹
-sidebar_label: Remove Duplicate Tests 🧹
+title: Remove Duplicates Tests
+sidebar_label: Remove Duplicate Tests
 tags:
   - explanation
   - feature guide
@@ -14,6 +14,10 @@ keywords:
   - golang
   - testcases
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 ## Why Deduplication? ❄️
 
@@ -45,13 +49,42 @@ Add the following on top of your main application file : -
 import _ "github.com/keploy/go-sdk/v3/keploy"
 ```
 
-Update the go build command in Dockerfile to add new flags which is required for deduplication (use same flags for native builds)
+**2. Build Configuration**
+
+Update the `go build` command in your Dockerfile (or native build script) to include coverage flags. These are required for deduplication to calculate coverage accurately.
 
 ```bash
 RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 ```
 
-**2. Run Deduplication**
+**3. Dockerfile Configuration (Important for Docker Users)**
+
+If you are using a multi-stage Docker build (e.g., building in one stage and running in a slim image), you **must** ensure the Go toolchain and `go.mod` files are preserved in the final runtime image. The deduplication feature requires access to the Go runtime to map coverage data correctly.
+
+Update your final runtime stage in the `Dockerfile` to include the following:
+
+```dockerfile
+# ... inside your final runtime stage ...
+
+# 1. Copy Go toolchain from the builder stage
+COPY --from=builder /usr/local/go /usr/local/go
+
+# 2. Set Go environment variables so the app can use internal go tools
+ENV GOROOT=/usr/local/go
+ENV PATH=/usr/local/go/bin:${PATH}
+
+# 3. Copy go.mod and go.sum (Required for dependency resolution during coverage)
+COPY --from=builder /src/go.mod /src/go.sum /app/
+
+# 4. Set the GOMOD environment variable
+ENV GOMOD=/app/go.mod
+
+# ... rest of your dockerfile ...
+```
+
+> **Note:** If you face issues with toolchain downloads in restricted environments, you may also need to set `ENV GOTOOLCHAIN=local` and configure your `GOPROXY` in the Dockerfile.
+
+**4. Run Deduplication**
 
 For Docker, run:
 
@@ -65,15 +98,15 @@ For Native, run:
 keploy test -c ./main --dedup
 ```
 
-This will generate a dedupData.yaml file
+This will generate a `dedupData.yaml` file.
 
-After this Run
+After this, run:
 
 ```bash
 keploy dedup
 ```
 
-This command will create a duplicates.yaml file which will contain all the test cases which was found to be duplicate.
+This command will create a `duplicates.yaml` file which will contain all the test cases which were found to be duplicate.
 
 In order to remove all the duplicate test cases, run the following command:
 

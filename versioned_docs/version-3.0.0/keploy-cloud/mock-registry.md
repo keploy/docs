@@ -1,7 +1,7 @@
 ---
 id: mock-registry
 title: Mock Registry
-sidebar_label: Mock Registry 📦
+sidebar_label: Mock Registry
 tags:
   - explanation
   - feature guide
@@ -12,6 +12,10 @@ keywords:
   - efficient testing
   - cloud storage
 ---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Mock Registry uploads mock files to cloud storage, keeping the application's repository lightweight and manageable.
 
