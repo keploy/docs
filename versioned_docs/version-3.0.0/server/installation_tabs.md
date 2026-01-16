@@ -275,12 +275,58 @@ You’ve successfully set up **Keploy on macOS** using **Docker**.
 <br />
 
 :::info
-Keploy does not natively support Windows. However, you can run it using **WSL** or **Docker**.
+You can run Keploy **Natively**, using **WSL** or **Docker**. If you are trying to install Keploy natively, make sure to do it as an administrator.
 :::
 
 👉 **Choose your preferred method:**
 
 <Tabs>
+  <TabItem value="windows-native" label="Native">
+ <br />
+
+### 1. Install Keploy
+
+    ```bash
+    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    ```
+
+    ### 2. Once done, You should see something like this:
+
+    ```bash
+       ▓██▓▄
+    ▓▓▓▓██▓█▓▄
+     ████████▓▒
+          ▀▓▓███▄      ▄▄   ▄               ▌
+         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
+       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
+      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
+       ▓▌                           ▐█▌                   █▌
+        ▓
+
+    Keploy CLI
+
+    Available Commands:
+      example           Example to record and test via keploy
+      config --generate generate the keploy configuration file
+      record            record the keploy testcases from the API calls
+      test              run the recorded testcases and execute assertions
+      update            Update Keploy
+
+    Flags:
+          --debug     Run in debug mode
+      -h, --help      help for keploy
+      -v, --version   version for keploy
+
+    Use "keploy [command] --help" for more information about a command.
+    ```
+
+## 🎉 Congratulations!
+
+You’ve successfully installed **Keploy on Windows**.
+
+<StartKeploy />
+  </TabItem>
+
   <TabItem value="wsl" label="WSL">
 
 ## Install Keploy with WSL
