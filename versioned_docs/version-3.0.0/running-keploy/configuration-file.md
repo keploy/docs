@@ -40,6 +40,9 @@ port: 0
 proxyPort: 16789
 dnsPort: 26789
 debug: false
+debugModules:
+  include: []
+  exclude: []
 disableTele: false
 inDocker: false
 generateGithubActions: true
@@ -91,6 +94,27 @@ keploy test
 Visit the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) to know more about the flags/parameters and their usage.
 
 ## Configuration Sections
+
+### Debug Logging
+
+The `debug` and `debugModules` settings control debug log output.
+
+- **`debug`**: Enables debug logs. When `false`, debug logs are suppressed and `debugModules` is ignored.
+
+- **`debugModules.include`**: Whitelist of module prefixes. When set, only matching modules emit debug logs. When empty, all modules are allowed (if `debug` is `true`).
+
+- **`debugModules.exclude`**: Blacklist of module prefixes applied after `include`.
+
+Module names are logger prefixes (for example: `proxy`, `record`, `test`, `hooks`, `telemetry`, `proxy.http`, `proxy.mysql`). Matching is hierarchical: `proxy` matches `proxy.http` and `proxy.mysql`.
+
+Example:
+
+```yaml
+debug: true
+debugModules:
+  include: ["proxy", "record"]
+  exclude: ["proxy.mysql"]
+```
 
 ### Record Section
 

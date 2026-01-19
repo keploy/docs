@@ -38,6 +38,19 @@ Here are some examples of how to use some common flags:
 | `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                                                            |
 | `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                  |
 
+### Module-level Debug Filtering
+
+`--debug` enables debug logs. To filter debug logs by module, set `debugModules` in the config file:
+
+```yaml
+debug: true
+debugModules:
+  include: ["proxy", "record"]
+  exclude: ["proxy.mysql"]
+```
+
+See the [Configuration File](configuration-file) doc for details and hierarchical matching behavior.
+
 ## [record](#record)
 
 The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
