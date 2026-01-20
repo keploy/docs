@@ -293,6 +293,7 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
     Use this command to create a directory for Keploy:
 
     ```powershell
+
     New-Item -ItemType Directory -Force -Path "$env:APPDATA\Keploy\bin"
     ```
 
@@ -306,10 +307,10 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
 
     ### 3. Set Environment Variable
 
-    Add the following path to your System User Settings Environment Variables:
+Add the directory containing the Keploy binary to your system user’s `PATH` environment variable to make the `keploy` command available globally.
 
     ```text
-    C:\Users\"Your User"\AppData\Roaming\Keploy\bin
+    C:\Users\"Your Username"\AppData\Roaming\Keploy\bin
     ```
 
     ### 4. Finalize Setup
