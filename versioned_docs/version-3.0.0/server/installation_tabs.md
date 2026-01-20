@@ -288,6 +288,8 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
   <TabItem value="windows-native" label="Native">
  <br />
 
+`Note: Native Windows support is available only for AMD. For ARM-based systems, please use WSL or Docker.`
+
 ### 1. Create a Directory
 
     Use this command to create a directory for Keploy:
