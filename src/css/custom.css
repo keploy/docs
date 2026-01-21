@@ -359,7 +359,7 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 /* Search */
 
 .DocSearch-Button {
-  @apply rounded-lg px-3 py-2 !important;
+  @apply rounded-lg !important;
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
