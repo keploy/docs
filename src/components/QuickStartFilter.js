@@ -4,7 +4,7 @@ import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
 import {FaJava} from "react-icons/fa";
 import {FaLaptopCode} from "react-icons/fa";
-import {FaRust} from "react-icons/fa";
+// import {FaRust} from "react-icons/fa";
 import {TbBrandCSharp} from "react-icons/tb";
 import {FaPython} from "react-icons/fa";
 import {FaDocker} from "react-icons/fa";
@@ -23,7 +23,7 @@ const IconWrapper = ({icon, bg}) => (
       borderRadius: "50%",
       backgroundColor: bg,
       boxShadow: "0 3px 6px rgba(0,0,0,0.1)",
-      transition: "transform 0.2s ease",
+      transition: "all 0.2s ease",
     }}
     className="icon-wrapper"
   >
@@ -35,7 +35,6 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
   const isDark = colorMode === "dark";
 
-  // 👇 initialize with defaultLanguage if provided
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
 
@@ -46,7 +45,6 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     );
   });
 
-  // Icon backgrounds for dark mode
   const darkIconBgs = {
     Go: "#223044",
     Python: "#243447",
@@ -59,54 +57,19 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   };
 
   const languages = [
-    {
-      name: "Go",
-      icon: <FaGolang size={36} color="#00ADD8" />,
-      bg: "#E0F7FA",
-    },
-    {
-      name: "Python",
-      icon: <FaPython size={36} color="#3776AB" />,
-      bg: "#E8F0FE",
-    },
-    {
-      name: "Java",
-      icon: <FaJava size={36} color="#007396" />,
-      bg: "#FDEDED",
-    },
-    {
-      name: "JS/TS",
-      icon: <IoLogoJavascript size={36} color="#F7DF1E" />,
-      bg: "#FFF8E1",
-    },
-
-    /*{
-      name: "Rust",
-      icon: <FaRust size={36} color="#DEA584" />,
-      bg: "#FFF3E0",
-    },
-    */
-    {
-      name: "C#",
-      icon: <TbBrandCSharp size={36} color="#512BD4" />,
-      bg: "#EDE7F6",
-    },
+    { name: "Go", icon: <FaGolang size={36} color="#00ADD8" />, bg: "#E0F7FA" },
+    { name: "Python", icon: <FaPython size={36} color="#3776AB" />, bg: "#E8F0FE" },
+    { name: "Java", icon: <FaJava size={36} color="#007396" />, bg: "#FDEDED" },
+    { name: "JS/TS", icon: <IoLogoJavascript size={36} color="#F7DF1E" />, bg: "#FFF8E1" },
+    { name: "C#", icon: <TbBrandCSharp size={36} color="#512BD4" />, bg: "#EDE7F6" },
   ];
 
   const servers = [
-    {
-      name: "Local",
-      icon: <FaLaptopCode size={36} color="#f97316" />,
-      bg: "#FFF3E0",
-    },
-    {
-      name: "Docker",
-      icon: <FaDocker size={36} color="#2496ED" />,
-      bg: "#E3F2FD",
-    },
+    { name: "Local", icon: <FaLaptopCode size={36} color="#f97316" />, bg: "#FFF3E0" },
+    { name: "Docker", icon: <FaDocker size={36} color="#2496ED" />, bg: "#E3F2FD" },
   ];
 
-  // ----- Styles -----
+  // ----- Base Styles (Desktop) -----
   const headingStyle = {
     textAlign: "left",
     marginLeft: "1rem",
@@ -115,22 +78,13 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     color: isDark ? "#fff" : "#222",
   };
 
-  const serverContainer = {
+  const containerStyle = {
     display: "flex",
     flexWrap: "wrap",
     gap: "1.5rem",
     justifyContent: "flex-start",
     marginTop: "1.5rem",
     marginLeft: "1rem",
-  };
-
-  const stepContainer = {
-    display: "flex",
-    flexWrap: "wrap",
-    gap: "1.5rem",
-    marginLeft: "1rem",
-    justifyContent: "flex-start",
-    marginTop: "1.5rem",
   };
 
   const buttonCard = {
@@ -178,90 +132,117 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     textDecoration: "none",
   };
 
-  // ----- Render -----
   return (
     <div style={{marginTop: "2rem"}}>
+      {/* CSS Media Queries:
+        1. Hide label text on mobile.
+        2. Remove button border/background/shadow on mobile.
+        3. Add visual indicator to the icon-wrapper when selected on mobile.
+      */}
+      <style>{`
+        @media (max-width: 768px) {
+          .selection-label {
+            display: none !important;
+          }
+          .selection-button {
+            border: none !important;
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            min-width: auto !important;
+            width: auto !important;
+          }
+          /* Add ring to the icon circle itself when selected on mobile */
+          .selection-button.selected .icon-wrapper {
+            border: 3px solid #f97316;
+            transform: scale(1.1);
+          }
+        }
+      `}</style>
+
       {/* Language Selection */}
       <h2 style={headingStyle}>Choose your language</h2>
-      <div style={stepContainer}>
-        {languages.map((lang) => (
-          <button
-            key={lang.name}
-            onClick={() => setLanguage(lang.name)}
-            style={{
-              ...buttonCard,
-              border:
-                language === lang.name
-                  ? "2px solid #f97316"
-                  : buttonCard.border,
-              boxShadow:
-                language === lang.name
+      <div style={containerStyle}>
+        {languages.map((lang) => {
+          const isSelected = language === lang.name;
+          return (
+            <button
+              key={lang.name}
+              onClick={() => setLanguage(lang.name)}
+              className={`selection-button ${isSelected ? "selected" : ""}`}
+              style={{
+                ...buttonCard,
+                border: isSelected ? "2px solid #f97316" : buttonCard.border,
+                boxShadow: isSelected
                   ? isDark
                     ? "0 3px 12px rgba(249,115,22,0.2)"
                     : "0 3px 8px rgba(249, 115, 22, 0.3)"
                   : buttonCard.boxShadow,
-            }}
-          >
-            <IconWrapper
-              icon={lang.icon}
-              bg={isDark ? darkIconBgs[lang.name] || "#222" : lang.bg}
-            />
-            <p
-              style={{
-                margin: 0,
-                fontWeight: "500",
-                color: isDark ? "#fff" : "#222",
-                opacity: language === lang.name ? 1 : 0.7,
-                transition: "color 0.2s, opacity 0.2s",
               }}
             >
-              {lang.name}
-            </p>
-          </button>
-        ))}
+              <IconWrapper
+                icon={lang.icon}
+                bg={isDark ? darkIconBgs[lang.name] || "#222" : lang.bg}
+              />
+              <p
+                className="selection-label"
+                style={{
+                  margin: 0,
+                  fontWeight: "500",
+                  color: isDark ? "#fff" : "#222",
+                  opacity: isSelected ? 1 : 0.7,
+                }}
+              >
+                {lang.name}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
       {/* Server Selection */}
       <h2 style={{...headingStyle, marginTop: "2rem"}}>
         Where do you want to run the app server?
       </h2>
-      <div style={serverContainer}>
-        {servers.map((srv) => (
-          <button
-            key={srv.name}
-            onClick={() => setServer(srv.name)}
-            style={{
-              ...buttonCard,
-              border:
-                server === srv.name ? "2px solid #f97316" : buttonCard.border,
-              boxShadow:
-                server === srv.name
+      <div style={containerStyle}>
+        {servers.map((srv) => {
+          const isSelected = server === srv.name;
+          return (
+            <button
+              key={srv.name}
+              onClick={() => setServer(srv.name)}
+              className={`selection-button ${isSelected ? "selected" : ""}`}
+              style={{
+                ...buttonCard,
+                border: isSelected ? "2px solid #f97316" : buttonCard.border,
+                boxShadow: isSelected
                   ? isDark
                     ? "0 3px 12px rgba(249,115,22,0.2)"
                     : "0 3px 8px rgba(249, 115, 22, 0.3)"
                   : buttonCard.boxShadow,
-            }}
-          >
-            <IconWrapper
-              icon={srv.icon}
-              bg={isDark ? darkIconBgs[srv.name] || "#222" : srv.bg}
-            />
-            <p
-              style={{
-                margin: 0,
-                fontWeight: "500",
-                color: isDark ? "#fff" : "#222",
-                opacity: server === srv.name ? 1 : 0.7,
-                transition: "color 0.2s, opacity 0.2s",
               }}
             >
-              {srv.name}
-            </p>
-          </button>
-        ))}
+              <IconWrapper
+                icon={srv.icon}
+                bg={isDark ? darkIconBgs[srv.name] || "#222" : srv.bg}
+              />
+              <p
+                className="selection-label"
+                style={{
+                  margin: 0,
+                  fontWeight: "500",
+                  color: isDark ? "#fff" : "#222",
+                  opacity: isSelected ? 1 : 0.7,
+                }}
+              >
+                {srv.name}
+              </p>
+            </button>
+          );
+        })}
       </div>
 
-      {/* Quickstarts */}
+      {/* Quickstarts Grid */}
       {language && server && (
         <>
           <h2 style={{...headingStyle, marginTop: "2rem"}}>
