@@ -20,6 +20,8 @@
     "**/*": "prettier --write --ignore-unknown"
   },
   "dependencies": {
+    "@docsearch/core": "^4.5.0",
+    "@docsearch/react": "^4.5.0",
     "@docusaurus/core": "^3.2.1",
     "@docusaurus/plugin-sitemap": "^3.2.1",
     "@docusaurus/preset-classic": "^3.2.1",
