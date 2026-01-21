@@ -54,6 +54,14 @@ module.exports = {
       {name: "twitter:card", content: "summary_large_image"},
     ],
     headTags: [
+      // Viewport meta tag for mobile responsiveness
+      {
+        tagName: "meta",
+        attributes: {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes",
+        },
+      },
       // Preconnect tag
       {
         tagName: "link",
