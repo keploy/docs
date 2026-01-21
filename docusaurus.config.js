@@ -129,7 +129,7 @@ module.exports = {
     },
     announcementBar: {
       id: "announcementBar_1", // Increment on change
-      content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
+      content: `⭐️ <span class="custom-announcement">If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️</span>`,
     },
     prism: {
       theme: prismThemes.vsLight,
