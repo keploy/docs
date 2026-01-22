@@ -105,7 +105,7 @@ The `debug` and `debugModules` settings control debug log output.
 
 - **`debugModules.exclude`**: Blacklist of module prefixes applied after `include`.
 
-Module names are logger prefixes (for example: `proxy`, `record`, `test`, `hooks`, `telemetry`, `proxy.http`, `proxy.mysql`). Matching is hierarchical: `proxy` matches `proxy.http` and `proxy.mysql`.
+Module names are logger prefixes such as `proxy`, `record`, `test`, `hooks`, `telemetry`, `proxy.http`, and `proxy.mysql`. Matching is hierarchical: `proxy` matches `proxy.http` and `proxy.mysql`.
 
 Example:
 
