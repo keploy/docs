@@ -49,7 +49,7 @@ debugModules:
   exclude: ["proxy.mysql"]
 ```
 
-See the [Configuration File](configuration-file) doc for details and hierarchical matching behavior.
+See the [Configuration File](configuration-file.md) doc for details and hierarchical matching behavior.
 
 ## [record](#record)
 
