@@ -101,9 +101,9 @@ The `debug` and `debugModules` settings control debug log output.
 
 - **`debug`**: Enables debug logs. When `false`, debug logs are suppressed and `debugModules` is ignored.
 
-- **`debugModules.include`**: Whitelist of module prefixes. When set, only matching modules emit debug logs. When empty, all modules are allowed (if `debug` is `true`).
+- **`debugModules.include`**: Allowlist of module prefixes. When set, only matching modules emit debug logs. When empty, all modules are allowed (if `debug` is `true`).
 
-- **`debugModules.exclude`**: Blacklist of module prefixes applied after `include`.
+- **`debugModules.exclude`**: Denylist of module prefixes applied after `include`.
 
 Module names are logger prefixes such as `proxy`, `record`, `test`, `hooks`, `telemetry`, `proxy.http`, and `proxy.mysql`. Matching is hierarchical: `proxy` matches `proxy.http` and `proxy.mysql`.
 
