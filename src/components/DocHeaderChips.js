@@ -1,124 +1,115 @@
 import React from 'react';
-import { FaLock, FaUnlock, FaCloud, FaServer, FaFlask, FaStar } from 'react-icons/fa';
 
 /**
- * DocHeaderChips - Display tier/offering badges at the top of doc pages
- * Replaces the old gray "Tier/Offering" box with a modern badge row
+ * DocHeaderChips - Minimal metadata strip for doc pages
+ * Shows tier/availability as subtle inline badges, not a competing card
  *
  * Usage in MDX:
  * import DocHeaderChips from '@site/src/components/DocHeaderChips';
- * <DocHeaderChips chips={['enterprise', 'cloud']} />
+ * <DocHeaderChips tier="oss" version="4.0.0" />
+ * <DocHeaderChips tier="enterprise" />
  *
- * Available chip types: 'enterprise', 'oss', 'cloud', 'selfhosted', 'dedicated', 'beta', 'new'
+ * Props:
+ * - tier: 'oss' | 'enterprise' | 'cloud' (optional)
+ * - version: string (optional, e.g., "4.0.0")
+ * - availability: array of strings (optional, e.g., ['cli', 'cloud'])
  */
 
-const chipConfig = {
-  enterprise: {
-    label: 'Enterprise',
-    icon: FaLock,
-    bg: 'linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%)',
-    color: '#fff',
-    borderColor: 'transparent',
-  },
+const tierStyles = {
   oss: {
     label: 'Open Source',
-    icon: FaUnlock,
-    bg: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-    color: '#fff',
-    borderColor: 'transparent',
+    color: '#059669',
+    bg: 'rgba(16, 185, 129, 0.08)',
+    dotColor: '#10b981',
+  },
+  enterprise: {
+    label: 'Enterprise',
+    color: '#7c3aed',
+    bg: 'rgba(139, 92, 246, 0.08)',
+    dotColor: '#8b5cf6',
   },
   cloud: {
     label: 'Cloud',
-    icon: FaCloud,
-    bg: 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)',
-    color: '#fff',
-    borderColor: 'transparent',
-  },
-  selfhosted: {
-    label: 'Self-hosted',
-    icon: FaServer,
-    bg: 'rgba(16, 185, 129, 0.1)',
-    color: '#059669',
-    borderColor: '#10b981',
-  },
-  dedicated: {
-    label: 'Dedicated',
-    icon: FaServer,
-    bg: 'rgba(59, 130, 246, 0.1)',
     color: '#2563eb',
-    borderColor: '#3b82f6',
-  },
-  beta: {
-    label: 'Beta',
-    icon: FaFlask,
-    bg: 'rgba(245, 158, 11, 0.1)',
-    color: '#d97706',
-    borderColor: '#f59e0b',
-  },
-  new: {
-    label: 'New',
-    icon: FaStar,
-    bg: 'rgba(236, 72, 153, 0.1)',
-    color: '#db2777',
-    borderColor: '#ec4899',
+    bg: 'rgba(59, 130, 246, 0.08)',
+    dotColor: '#3b82f6',
   },
 };
 
-export default function DocHeaderChips({ chips = [] }) {
-  if (!chips || chips.length === 0) return null;
+export default function DocHeaderChips({ tier, version, availability = [] }) {
+  const hasTier = tier && tierStyles[tier.toLowerCase()];
+  const hasVersion = version && version.trim();
+  const hasAvailability = availability && availability.length > 0;
+
+  // Don't render if nothing to show
+  if (!hasTier && !hasVersion && !hasAvailability) return null;
+
+  const tierConfig = hasTier ? tierStyles[tier.toLowerCase()] : null;
 
   return (
-    <div className="doc-chips-container">
-      {chips.map((chip) => {
-        const config = chipConfig[chip.toLowerCase()];
-        if (!config) return null;
-        const Icon = config.icon;
-        const isPrimary = ['enterprise', 'oss', 'cloud'].includes(chip.toLowerCase());
-
-        return (
-          <span
-            key={chip}
-            className={`doc-chip ${isPrimary ? 'doc-chip--primary' : 'doc-chip--secondary'}`}
-            style={{
-              background: config.bg,
-              color: config.color,
-              border: isPrimary ? 'none' : `1px solid ${config.borderColor}`,
-            }}
-          >
-            <Icon size={12} />
-            {config.label}
-          </span>
-        );
-      })}
+    <div className="doc-meta">
+      {tierConfig && (
+        <span className="doc-meta__tier" style={{ color: tierConfig.color }}>
+          <span className="doc-meta__dot" style={{ background: tierConfig.dotColor }} />
+          {tierConfig.label}
+        </span>
+      )}
+      {hasVersion && (
+        <span className="doc-meta__version">
+          v{version.replace(/^v/i, '')}
+        </span>
+      )}
+      {hasAvailability && (
+        <span className="doc-meta__availability">
+          {availability.join(' · ')}
+        </span>
+      )}
       <style>{`
-        .doc-chips-container {
-          display: flex;
-          flex-wrap: wrap;
-          gap: 0.5rem;
-          margin-bottom: 1.5rem;
-          margin-top: -0.5rem;
+        .doc-meta {
+          display: inline-flex;
+          align-items: center;
+          gap: 0.75rem;
+          font-size: 0.75rem;
+          color: #6b7280;
+          margin-bottom: 0.5rem;
         }
-        .doc-chip {
+        .doc-meta__tier {
           display: inline-flex;
           align-items: center;
           gap: 0.375rem;
-          padding: 0.375rem 0.75rem;
-          font-size: 0.75rem;
           font-weight: 600;
-          text-transform: uppercase;
-          letter-spacing: 0.04em;
-          border-radius: 6px;
-          white-space: nowrap;
+          letter-spacing: 0.01em;
         }
-        .doc-chip--primary {
-          box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        .doc-meta__dot {
+          width: 6px;
+          height: 6px;
+          border-radius: 50%;
+          flex-shrink: 0;
         }
-        .doc-chip--secondary {
-          background: transparent !important;
+        .doc-meta__version {
+          font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, monospace;
+          font-size: 0.6875rem;
+          font-weight: 500;
+          color: #9ca3af;
+          background: rgba(0, 0, 0, 0.04);
+          padding: 0.125rem 0.375rem;
+          border-radius: 4px;
         }
-        html[data-theme="dark"] .doc-chip--secondary {
-          border-color: currentColor !important;
-          opacity: 0.9;
+        .doc-meta__availability {
+          color: #9ca3af;
+          font-weight: 500;
+        }
+
+        /* Dark mode */
+        html[data-theme="dark"] .doc-meta {
+          color: #9ca3af;
+        }
+        html[data-theme="dark"] .doc-meta__version {
+          color: #6b7280;
+          background: rgba(255, 255, 255, 0.06);
+        }
+        html[data-theme="dark"] .doc-meta__availability {
+          color: #6b7280;
         }
       `}</style>
     </div>
