@@ -27,7 +27,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 <InstallationGuide/>
 
-## 🎬 Capturing Testcases
+## 🎬 Capturing Test Cases {#capturing-test-cases}
 
 To initiate the recording of API calls, execute this command in your terminal:
 
@@ -41,7 +41,7 @@ For example, if you're using a simple Golang program, the **CMD_TO_RUN_APP** wou
 keploy record -c "go run main.go"
 ```
 
-## 🏃 Running Testcases
+## 🏃 Running Test Cases
 
 To run the testcases and see if there are any regressions introduced, use this terminal command:
 
