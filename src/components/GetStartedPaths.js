@@ -174,7 +174,7 @@ export const GetStartedPaths = () => {
             {/* Sub-Options */}
             <div className="mt-auto space-y-3 pt-2">
               <Link
-                to={useBaseUrl("/docs/running-keploy/record-replay-in-kubernetes/")}
+                to={useBaseUrl("/docs/quickstart/k8s-proxy/")}
                 className="group/option flex items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 min-h-[92px] transition-all duration-200 hover:border-purple-300 hover:bg-purple-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-purple-500/50 dark:hover:bg-purple-900/10"
               >
                 <div className="flex items-start gap-3">
