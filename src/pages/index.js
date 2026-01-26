@@ -87,13 +87,14 @@ export default function Home() {
           <TestingCapabilities />
           <QuickStartTabs />
           <WhatIsKeploy />
+          <Community />
           <EcosystemSupport />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
           {/*<Intro />*/}
           {/*<Products />*/}
           {/*<Resources />*/}
-          <Community />
+
           {/*<GSoC/>*/}
 
           {/*<KeployCloud />*/}

@@ -339,22 +339,40 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 /* Navbar */
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+  padding: 0.5rem 0;
+}
+
+html[data-theme="dark"] .navbar {
+  background: #141414;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .navbar__inner {
-  @apply mx-auto w-full max-w-none px-4 shadow-none lg:px-10;
+  @apply mx-auto w-full max-w-none px-4 lg:px-10;
 }
 
 .navbar__items--right {
   @apply justify-end ml-auto flex-row-reverse;
-  gap: 13px;
+  gap: 12px;
 }
 
 .navbar__items--right > :last-child {
-  @apply pr-5;
+  @apply pr-0;
 }
 
 .navbar__brand {
-  @apply mb-3;
+  @apply mb-0;
 }
+
+.navbar__brand img {
+  height: 32px;
+}
+
+/* Search box styling */
 
 /* Search */
 
@@ -396,6 +414,7 @@ footer svg {
     display: block;
   } */
 }
+
 
 /* Docs */
 
@@ -669,7 +688,7 @@ td img {
     no-repeat;
 }
 
-/* Slack navbar icon to match GitHub size, spacing, color */
+/* Slack navbar icon styling */
 .header-slack-link:hover {
   opacity: 0.6;
 }
@@ -688,21 +707,27 @@ td img {
   background-size: 24px 24px;
 }
 
+/* Announcement bar - modern styling */
 div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
-  font-weight: bold;
+  background: linear-gradient(135deg, #ff914d 0%, #ff6b35 100%);
+  font-weight: 500;
+  font-size: 0.875rem;
+  padding: 0.5rem 0;
+  border: none;
+}
+
+div[class^="announcementBar_"] a {
+  color: #fff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+div[class^="announcementBar_"] a:hover {
+  opacity: 0.9;
+}
+
+html[data-theme="dark"] div[class^="announcementBar_"] {
+  background: linear-gradient(135deg, #c95919 0%, #be2c1b 100%);
 }
 
 .list-disc > a {
