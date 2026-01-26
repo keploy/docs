@@ -9,3 +9,5 @@ export {Hacktoberfest} from "./Hacktoberfest";
 export {GetStartedPaths} from "./GetStartedPaths";
 export {TestingCapabilities} from "./TestingCapabilities";
 export {QuickStartTabs} from "./QuickStartTabs";
+export {WhatIsKeploy} from "./WhatIsKeploy";
+export {EcosystemSupport} from "./EcosystemSupport";

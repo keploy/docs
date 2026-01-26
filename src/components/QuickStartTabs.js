@@ -73,7 +73,7 @@ export const QuickStartTabs = () => {
       ],
       cta: {
         label: "Start OSS Quickstart",
-        link: "/server/installation",
+        link: "/docs/quickstart/samples-java/#instructions-for-starting-using-docker",
         primary: false,
       },
     },
@@ -94,29 +94,6 @@ export const QuickStartTabs = () => {
         <p className="mx-auto max-w-xl text-gray-600 dark:text-gray-400">
           Get up and running in minutes. Choose your path to faster testing.
         </p>
-      </div>
-
-      {/* Tab Switcher */}
-      <div className="mx-auto mb-6 flex max-w-md overflow-hidden rounded-xl border border-gray-200 bg-gray-100 p-1 dark:border-gray-700 dark:bg-gray-800">
-        {Object.values(tabs).map((tab) => {
-          const Icon = tab.icon;
-          const isActive = activeTab === tab.id;
-          return (
-            <button
-              key={tab.id}
-              onClick={() => setActiveTab(tab.id)}
-              className={`flex flex-1 items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-sm font-medium transition-all duration-200 ${
-                isActive
-                  ? "bg-white text-gray-900 shadow-sm dark:bg-gray-700 dark:text-white"
-                  : "text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-              }`}
-            >
-              <Icon className={`h-4 w-4 ${isActive ? "text-orange-500" : ""}`} />
-              <span className="hidden sm:inline">{tab.label}</span>
-              <span className="sm:hidden">{tab.id === "ai" ? "AI" : "OSS"}</span>
-            </button>
-          );
-        })}
       </div>
 
       {/* Two Quickstart Tiles */}
@@ -200,7 +177,7 @@ export const QuickStartTabs = () => {
                 onClick={(e) => e.stopPropagation()}
                 className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:no-underline ${
                   tab.id === "ai"
-                    ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/25 hover:from-orange-600 hover:to-orange-700 hover:shadow-orange-500/40"
+                    ? "bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg shadow-orange-500/25 hover:from-orange-600 hover:to-orange-700 hover:text-white hover:shadow-orange-500/40"
                     : "border-2 border-gray-300 bg-transparent text-gray-700 hover:border-orange-400 hover:bg-orange-50 hover:text-orange-600 dark:border-gray-600 dark:text-gray-300 dark:hover:border-orange-500 dark:hover:bg-orange-900/20 dark:hover:text-orange-400"
                 }`}
               >

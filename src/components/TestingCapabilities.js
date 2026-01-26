@@ -44,41 +44,46 @@ const capabilities = {
 const CapabilityItem = ({ icon: Icon, label, subtitle, badge, color }) => {
   const colorClasses = {
     orange: {
-      iconBg: "bg-orange-100 dark:bg-orange-900/30",
-      iconText: "text-orange-600 dark:text-orange-400",
-      hoverBorder: "hover:border-orange-300 dark:hover:border-orange-500/50",
+      chipBorder: "border-orange-200/70 dark:border-orange-500/30",
+      chipBg: "bg-orange-50/70 dark:bg-orange-900/10",
+      chipText: "text-orange-700 dark:text-orange-200",
+      iconBg: "bg-orange-100 dark:bg-orange-900/20",
+      iconText: "text-orange-600 dark:text-orange-300",
+      hover: "hover:bg-orange-100/70 dark:hover:bg-orange-900/20 hover:border-orange-300/80 dark:hover:border-orange-500/40",
     },
     purple: {
-      iconBg: "bg-purple-100 dark:bg-purple-900/30",
-      iconText: "text-purple-600 dark:text-purple-400",
-      hoverBorder: "hover:border-purple-300 dark:hover:border-purple-500/50",
+      chipBorder: "border-purple-200/70 dark:border-purple-500/30",
+      chipBg: "bg-purple-50/70 dark:bg-purple-900/10",
+      chipText: "text-purple-700 dark:text-purple-200",
+      iconBg: "bg-purple-100 dark:bg-purple-900/20",
+      iconText: "text-purple-600 dark:text-purple-200",
+      hover: "hover:bg-purple-100/70 dark:hover:bg-purple-900/20 hover:border-purple-300/80 dark:hover:border-purple-500/40",
     },
   };
 
   const classes = colorClasses[color];
 
   return (
-    <div
-      className={`flex items-center gap-3 rounded-xl border border-gray-200 bg-white/70 p-3 transition-all duration-200 dark:border-gray-700 dark:bg-gray-800/50 ${classes.hoverBorder}`}
-    >
+    <div className="group">
       <div
-        className={`flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg ${classes.iconBg} ${classes.iconText}`}
+        className={`inline-flex max-w-full items-center gap-2 rounded-full border px-3 py-1.5 text-sm transition-all ${classes.chipBorder} ${classes.chipBg} ${classes.hover}`}
+        title={subtitle || label}
       >
-        <Icon className="h-5 w-5" />
+        <span className={`flex h-6 w-6 items-center justify-center rounded-full ${classes.iconBg} ${classes.iconText}`}>
+          <Icon className="h-3.5 w-3.5" />
+        </span>
+        <span className={`truncate font-medium ${classes.chipText}`}>{label}</span>
+        {badge ? (
+          <span className="ml-1 rounded-full border border-gray-200 bg-white/70 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-700 dark:border-gray-700 dark:bg-gray-900/40 dark:text-gray-200">
+            {badge}
+          </span>
+        ) : null}
       </div>
-      <div className="min-w-0">
-        <div className="flex flex-wrap items-center gap-2">
-          <p className="truncate text-sm font-medium text-gray-900 dark:text-white">{label}</p>
-          {badge ? (
-            <span className="rounded-md bg-gray-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-gray-700 dark:bg-gray-700 dark:text-gray-200">
-              {badge}
-            </span>
-          ) : null}
-        </div>
-        {subtitle && (
-          <p className="mt-0.5 text-xs text-gray-500 dark:text-gray-400">{subtitle}</p>
-        )}
-      </div>
+
+      {/* Subtitle: visible on mobile, tooltip-only on desktop */}
+      {subtitle ? (
+        <p className="mt-1 text-xs text-gray-500 dark:text-gray-400 md:hidden">{subtitle}</p>
+      ) : null}
     </div>
   );
 };
@@ -99,17 +104,19 @@ export const TestingCapabilities = () => {
         </p>
       </div>
 
-      {/* Two Column Grid */}
-      <div className="grid gap-6 md:grid-cols-2">
-        {/* Functional Testing */}
-        <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-orange-50/30 p-6 dark:border-gray-700 dark:from-gray-800 dark:to-orange-950/10">
-          <div className="mb-4 flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-orange-500"></div>
+      {/* Stacked Sections */}
+      <div className="mx-auto max-w-5xl">
+        {/* Functional */}
+        <div>
+          <div className="mb-3 flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-orange-500" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {capabilities.functional.title}
             </h3>
+            <span className="text-xs text-gray-500 dark:text-gray-400">• What you run</span>
           </div>
-          <div className="space-y-3">
+
+          <div className="flex flex-wrap gap-2">
             {capabilities.functional.items.map((item, index) => (
               <CapabilityItem
                 key={index}
@@ -123,15 +130,20 @@ export const TestingCapabilities = () => {
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="my-8 h-px w-full bg-gray-200/70 dark:bg-gray-700/70" />
+
         {/* Quality Gates */}
-        <div className="rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-purple-50/30 p-6 dark:border-gray-700 dark:from-gray-800 dark:to-purple-950/10">
-          <div className="mb-4 flex items-center gap-2">
-            <div className="h-2 w-2 rounded-full bg-purple-500"></div>
+        <div>
+          <div className="mb-3 flex items-center gap-2">
+            <div className="h-2 w-2 rounded-full bg-purple-500" />
             <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
               {capabilities.qualityGates.title}
             </h3>
+            <span className="text-xs text-gray-500 dark:text-gray-400">• What blocks/permits merges</span>
           </div>
-          <div className="space-y-3">
+
+          <div className="flex flex-wrap gap-2">
             {capabilities.qualityGates.items.map((item, index) => (
               <CapabilityItem
                 key={index}
