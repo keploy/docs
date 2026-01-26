@@ -1,8 +1,12 @@
 ---
 id: quickstart-filter
-title: Quickstart filter
-hide_table_of_contents: true
-sidebar_label: Sample apps
+title: Quickstart Guide
+sidebar_label: Quickstarts
+description: Choose your language and environment to find the right Keploy quickstart for you.
+tags:
+  - quickstart
+  - tutorial
+  - guide
 ---
 
 # Keploy Quickstarts
