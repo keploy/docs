@@ -38,6 +38,6 @@ You’ve successfully installed **Keploy on Linux**.
 
 ## What's Next?
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/#-capturing-testcases)
+### 🎬 [Start Capturing Test Cases](/docs/server/installation/)
 
 Begin recording your API calls and automatically generate test cases with Keploy.

@@ -6,3 +6,6 @@ export {Community} from "./Community";
 export {Resources} from "./Resources";
 export {QuickStart} from "./QuickStart";
 export {Hacktoberfest} from "./Hacktoberfest";
+export {GetStartedPaths} from "./GetStartedPaths";
+export {TestingCapabilities} from "./TestingCapabilities";
+export {QuickStartTabs} from "./QuickStartTabs";
