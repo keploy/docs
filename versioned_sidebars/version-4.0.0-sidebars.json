@@ -2,49 +2,36 @@
   "sidebarExplanation": [
     {
       "type": "category",
-      "label": "Getting Started",
-      "collapsed": false,
-      "items": [
-        "keploy-explained/introduction",
-        "keploy-explained/why-keploy",
-        "server/installation"
-      ]
-    },
-    {
-      "type": "category",
       "label": "Integration Testing",
       "collapsed": true,
       "items": [
         {
           "type": "category",
-          "label": "Core Concepts",
+          "label": "Explanation",
           "items": [
+            "keploy-explained/introduction",
             "keploy-explained/how-keploy-works",
-            "running-keploy/cli-commands",
-            "running-keploy/configuration-file"
+            "keploy-explained/why-keploy"
           ]
         },
         {
-          "type": "category",
-          "label": "Recording & Replaying",
-          "items": [
-            "running-keploy/rename-testcases",
-            "running-keploy/custom-mocks",
-            "running-keploy/docker-tls",
-            "running-keploy/keploy-templatize"
-          ]
+          "type": "doc",
+          "label": "Installation",
+          "id": "server/installation"
         },
-        {
-          "type": "category",
-          "label": "Enterprise Features",
-          "items": [
-            "keploy-cloud/time-freezing",
-            "keploy-cloud/mock-registry",
-            "keploy-cloud/deduplication",
-            "keploy-cloud/keploy-console",
-            "running-keploy/risk-profile-analysis"
-          ]
-        },
+        "keploy-cloud/cloud-installation",
+        "running-keploy/cli-commands",
+        "running-keploy/rename-testcases",
+        "running-keploy/docker-tls",
+        "running-keploy/configuration-file",
+        "running-keploy/custom-mocks",
+        "running-keploy/keploy-templatize",
+        "running-keploy/risk-profile-analysis",
+        "keploy-cloud/time-freezing",
+        "keploy-cloud/mock-registry",
+        "keploy-cloud/keploy-console",
+        "keploy-cloud/auto-test-generation",
+        "keploy-cloud/deduplication",
         {
           "type": "category",
           "label": "QuickStarts",
@@ -135,7 +122,16 @@
         },
         {
           "type": "category",
-          "label": "Test Coverage",
+          "label": "CI/CD Integration",
+          "items": [
+            "ci-cd/github",
+            "ci-cd/gitlab",
+            "ci-cd/jenkins"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Test Coverage Integration",
           "link": {
             "type": "doc",
             "id": "quickstart/code-coverage"
@@ -149,6 +145,11 @@
         },
         {
           "type": "doc",
+          "label": "Troubleshooting Guide",
+          "id": "keploy-explained/common-errors"
+        },
+        {
+          "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/integration-testing-faq"
         }
@@ -159,33 +160,15 @@
       "label": "API Testing",
       "collapsed": true,
       "items": [
-        {
-          "type": "category",
-          "label": "Getting Started",
-          "items": [
-            "running-keploy/about-api-testing",
-            "running-keploy/generate-api-tests-using-ai",
-            "running-keploy/api-testing-chrome-extension"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Managing Tests",
-          "items": [
-            "running-keploy/review-and-improve-ai-generated-tests",
-            "running-keploy/run-ai-generated-api-tests",
-            "running-keploy/self-healing-ai-api-tests",
-            "running-keploy/share-tests"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "CI/CD Integration",
-          "items": [
-            "running-keploy/api-testing-cicd",
-            "running-keploy/api-testing-webhook"
-          ]
-        },
+        "running-keploy/api-test-generator",
+        "running-keploy/generate-api-tests-using-ai",
+        "running-keploy/api-testing-chrome-extension",
+        "running-keploy/review-and-improve-ai-generated-tests",
+        "running-keploy/share-tests",
+        "running-keploy/self-healing-ai-api-tests",
+        "running-keploy/run-ai-generated-api-tests",
+        "running-keploy/api-testing-cicd",
+        "running-keploy/api-testing-webhook",
         {
           "type": "doc",
           "label": "FAQs",
@@ -195,20 +178,24 @@
     },
     {
       "type": "category",
-      "label": "CI/CD Integration",
+      "label": "Unit Testing",
       "collapsed": true,
       "items": [
-        "ci-cd/github",
-        "ci-cd/gitlab",
-        "ci-cd/jenkins"
-      ]
-    },
-    {
-      "type": "category",
-      "label": "Troubleshooting",
-      "collapsed": true,
-      "items": [
-        "keploy-explained/common-errors"
+        "running-keploy/about-unit-testing",
+        {
+          "type": "category",
+          "label": "Integration",
+          "items": [
+            "running-keploy/utg-pr-agent",
+            "running-keploy/utg-vscode-extension",
+            "keploy-explained/integrations-pr-agent"
+          ]
+        },
+        {
+          "type": "doc",
+          "label": "FAQs",
+          "id": "keploy-explained/unit-testing-faq"
+        }
       ]
     }
   ],
