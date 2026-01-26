@@ -13,11 +13,15 @@ module.exports = {
   url: "https://keploy.io",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
-  onBrokenMarkdownLinks: "warn",
   trailingSlash: true,
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
   plugins: [
     function preloadFontPlugin() {
       return {
