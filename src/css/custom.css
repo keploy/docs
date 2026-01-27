@@ -2602,3 +2602,37 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
 }
 
 
+/* === Keploy custom paginator styling === */
+.keploy-doc-paginator {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}
+
+/* Force styles through wrapper */
+.keploy-doc-paginator a {
+  border: 1px solid var(--ifm-color-emphasis-200);
+  border-radius: 4px;
+  padding: 0.6rem 0.75rem;
+  background: transparent;
+  box-shadow: none;
+}
+
+/* Hover state */
+.keploy-doc-paginator a:hover {
+  border-color: var(--ifm-color-emphasis-400);
+  background-color: var(--ifm-hover-overlay);
+  text-decoration: none;
+}
+
+/* Compact text */
+.keploy-doc-paginator .pagination-nav__label {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  opacity: 0.6;
+}
+
+.keploy-doc-paginator .pagination-nav__sublabel {
+  font-size: 0.85rem;
+  font-weight: 500;
+}
