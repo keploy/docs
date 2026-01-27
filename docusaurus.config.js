@@ -13,12 +13,6 @@ module.exports = {
   url: "https://keploy.io",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: 'warn',
-    },
-  },
-  // onBrokenMarkdownLinks: "warn",
   trailingSlash: true,
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
