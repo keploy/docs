@@ -245,10 +245,11 @@ export default function DocItem(props) {
                 </article>
               </div>
             </article>
-            <div>
+            <div className="mt-8">
               <KeployCloud />
             </div>
             <DocPaginator previous={metadata.previous} next={metadata.next} />
+            <hr className="my-8 border-t border-gray-200 dark:border-gray-800" />
           </div>
         </div>
 
