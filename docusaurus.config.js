@@ -22,6 +22,11 @@ module.exports = {
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
+  markdown: {
+    hooks: {
+      onBrokenMarkdownLinks: "warn",
+    },
+  },
   plugins: [
     function preloadFontPlugin() {
       return {
@@ -264,7 +269,7 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: "3.0.0",
+          lastVersion: "4.0.0",
           versions: {
             "1.0.0": {
               label: "1.0.0",
@@ -276,8 +281,13 @@ module.exports = {
               path: "2.0.0",
               banner: "unmaintained",
             },
+            "3.0.0": {
+              label: "3.0.0",
+              path: "3.0.0",
+              banner: "unmaintained",
+            },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [

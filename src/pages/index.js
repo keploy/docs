@@ -2,7 +2,7 @@ import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {Community, KeployCloud, Resources, QuickStart} from "../components";
+import {Community, KeployCloud, Resources, QuickStart, GetStartedPaths, TestingCapabilities, QuickStartTabs, WhatIsKeploy, EcosystemSupport} from "../components";
 import {Products} from "../components/Product";
 //import {Intro} from "../components";
 export default function Home() {
@@ -82,15 +82,22 @@ export default function Home() {
         description={`${siteConfig.tagline}`}
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
-          <QuickStart />
+
+          <GetStartedPaths />
+          <TestingCapabilities />
+          <QuickStartTabs />
+          <WhatIsKeploy />
+          <Community />
+          <EcosystemSupport />
           {/* <Hacktoberfest /> */}
           {/*<GitTogether />*/}
           {/*<Intro />*/}
-          <Products />
-          <Resources />
-          <Community />
+          {/*<Products />*/}
+          {/*<Resources />*/}
+
           {/*<GSoC/>*/}
-          <KeployCloud />
+
+          {/*<KeployCloud />*/}
         </main>
       </Layout>
     </div>
