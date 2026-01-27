@@ -245,10 +245,10 @@ export default function DocItem(props) {
                 </article>
               </div>
             </article>
-            <div>
+            <div className="px-2 lg:prose-lg md:px-6">
               <KeployCloud />
+              <DocPaginator previous={metadata.previous} next={metadata.next} />
             </div>
-            <DocPaginator previous={metadata.previous} next={metadata.next} />
           </div>
         </div>
 

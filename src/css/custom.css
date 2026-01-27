@@ -428,7 +428,7 @@ html[data-theme="dark"] .navbar {
 
 /* Footer */
 footer {
-  margin-top: 4%;
+  margin-top: auto;
 }
 
 footer svg {
