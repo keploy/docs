@@ -245,10 +245,18 @@ export default function DocItem(props) {
                 </article>
               </div>
             </article>
-            <div>
-              <KeployCloud />
-            </div>
-            <DocPaginator previous={metadata.previous} next={metadata.next} />
+            <hr className="my-8 border-[color:var(--ifm-toc-border-color)]" />
+
+<KeployCloud />
+
+<hr className="my-8 border-[color:var(--ifm-toc-border-color)]" />
+
+<div className="keploy-doc-paginator">
+  <DocPaginator previous={metadata.previous} next={metadata.next} />
+</div>
+
+<hr className="my-6 border-[color:var(--ifm-color-emphasis-200)]" />
+            
           </div>
         </div>
 
