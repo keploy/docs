@@ -37,28 +37,85 @@ This guide walks you through generating tests and DB mocks for a sample CRUD app
 git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
 go mod download
 ```
+We can run the application in two ways:
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started! 🎉
+1. Run with Docker
+2. Run without Docker
 
-#### Point the app to local Postgres
+### Option 1: Run with Docker
 
-Update the Postgres URL to `localhost:5432` in `app.go` (mentioned at line 21 in the sample).
-
-#### Start Postgres
-
-```bash
-docker compose up postgres
+#### Capture testcases:
+```shell
+keploy record -c "docker compose up" --container-name=fasthttp_app
 ```
 
-#### Record with Keploy while running the app
+Keep an eye out for the `-c` flag! It's the command charm to run the app. Whether you're using `docker compose up` or `go run main.go`, it's your call.
 
+If you're seeing logs that resemble the ones below, you're on the right track:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+
+Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch,
+
+or even the classic curl - take your pick!
+
+Time to create some users and books:
+
+##### To genereate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`: -
+
+###### 1. Post Requests
+```shell
+curl -X POST -H "Content-Type: application/json" -d '{"name":"Author Name"}' http://localhost:8080/authors
+```
+
+```shell
+curl -X POST -H "Content-Type: application/json" -d '{"title":"Book Title","author_id":1}' http://localhost:8080/books
+```
+
+###### 2. Get Requests
+```bash
+curl -i http://localhost:8080/books
+```
+
+#### Run captured tests:
+
+Now that we have our testcase captured, run the test file.
+
+
+```shell
+keploy test -c "docker compose up" --container-name=fasthttp_app --delay 10
+```
+When all is said and done, your test results should look a little something like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
+
+### Option 2: Run Without Docker
+
+> Note: This application requires the following database environment variables 
+> to be set in order to run correctly.
+>
+> Create a .env file in this directory with the following values:
+>
+> ```env
+> DB_HOST=localhost
+> DB_PORT=5432
+> DB_USER=postgres
+> DB_PASSWORD=password
+> DB_NAME=db
+> ```
+
+#### Start the Postgres container:
+```bash
+docker compose up -d postgres
+```
+
+### Build the Application
 ```bash
 go build -o app
 ```
 
-### Lights, Camera, Record! 🎥
-
-```bash
+#### Capture testcases:
+```shell
 keploy record -c "./app"
 ```
 
@@ -74,33 +131,32 @@ or even the classic curl - take your pick!
 
 Time to create some users and books:
 
-### Generate traffic
+> Note: The server would be running on http://localhost:8080
 
-#### Post Requests
 
-```bash
+##### To genereate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`: - 
+
+###### 1. Post Requests
+```shell
 curl -X POST -H "Content-Type: application/json" -d '{"name":"Author Name"}' http://localhost:8080/authors
-
 ```
-
-```bash
+```shell
 curl -X POST -H "Content-Type: application/json" -d '{"title":"Book Title","author_id":1}' http://localhost:8080/books
 ```
 
-#### Get Request
-
+###### 2. Get Requests
 ```bash
 curl -i http://localhost:8080/books
 ```
 
-Look at you go! With a few simple API calls, you've crafted test cases with mocks! Peek into the Keploy directory and behold the freshly minted `test-1.yml` and `mocks.yml`.
 
-### 🏃‍♀️ Run the Tests!
 
-Time to put it all to the test:
+#### Run captured tests
 
-```bash
-keploy test -c "./app" --delay 5
+Now that we have our testcase captured, run the test file.
+
+```shell
+keploy test -c "./app" --delay 10
 ```
 
 > That `--delay` flag? Just a little pause (in seconds) to let your app catch its breath before the test cases start rolling in.
