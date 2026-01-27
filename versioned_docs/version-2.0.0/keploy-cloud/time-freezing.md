@@ -91,10 +91,10 @@ RUN go build -tags=faketime <your_main_file>
 3. Only Add `faketime` tag to your build script during <u>**Test MODE**</u>
 
 4. Re-Build your Docker image.
-5. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
+5. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freeze-time
+keploy test -c "<appCmd>" --freezeTime
 ```
 
 Voila! Your tests will now run with time freezing enabled.
@@ -130,10 +130,10 @@ ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 ```
 
 3. Re-Build your Docker image.
-4. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
+4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freeze-time
+keploy test -c "<appCmd>" --freezeTime
 ```
 
 Voila! Your tests will now run with time freezing enabled.
