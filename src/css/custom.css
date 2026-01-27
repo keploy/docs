@@ -873,4 +873,107 @@ textarea {
   background-color: #e67643 !important;
 }
 
+/* Support strip (Need help? Slack | Demo) */
+.support-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  background: var(--ifm-color-emphasis-100); /* Slim strip look */
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
 
+#support span {
+  color: #6b6a6a;
+}
+
+#support a {
+  font-weight: 600;
+  color: #ff7849;
+  text-decoration: none;
+}
+
+#support a:hover {
+  color: #ffa07a;
+}
+
+/* ===== FINAL Compact Pagination ===== */
+
+.pagination-nav {
+  border-top: 2.5px solid var(--ifm-color-emphasis-200);
+  padding-top: 2rem;
+  margin-top: 2rem;
+}
+
+.pagination-nav__link {
+  padding: 0.5rem 1rem !important; 
+  border-radius: 6px !important;
+  box-shadow: none !important;    
+  border: 1.5px solid var(--ifm-color-emphasis-200) !important;
+  background: transparent !important; 
+  min-height: auto !important;
+  display: flex;
+  flex-direction: column;
+}
+
+.pagination-nav__label {
+  font-weight: 700 !important;
+  color: var(--ifm-color-emphasis-900) !important;
+  font-size: 0.9rem;
+}
+
+.pagination-nav__sublabel {
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Hover */
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary);
+  background-color: var(--ifm-color-emphasis-100);
+  text-decoration: none;
+}
+
+
+
+/* Title */
+.pagination-nav__title {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  line-height: 1.9;
+}
+
+/* Arrows subtle */
+.pagination-nav__link svg {
+  transform: scale(0.7);
+  opacity: 1.65;
+}
+
+[data-theme='dark'] .pagination-nav__link {
+  border-color: var(--ifm-color-emphasis-100); /* softer than before */
+}
+
+[data-theme='dark'] .pagination-nav__label {
+  color: var(--ifm-color-emphasis-500);
+}
+
+/* ===== Divider Between Pagination and Footer ===== */
+
+/* Add space below pagination */
+.pagination-nav {
+  margin-bottom: 3rem;
+}
+
+/* Add a top border to footer */
+.footer {
+  border-top: 1px solid var(--ifm-toc-border-color);
+  margin-top: 0;
+  padding-top: 2rem;
+}
+
+[data-theme='dark'] .footer {
+  border-top: 1px solid var(--ifm-color-emphasis-200);
+}

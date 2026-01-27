@@ -68,7 +68,7 @@ Noisy fields are ignored for assertion when the test-cases runs. Say, `Date` and
 
 <img src="/docs/img/keploy-cloud/noise.png?raw=true" alt="Noise"/>
 
-You'd see the changes in the test-case file locally, new noisy fields are added under noise param in the test case.
+You’ll see the changes in the test-case file locally. New noisy fields are added under the noise parameter in the test case configuration.
 
 <img src="/docs/img/keploy-cloud/denoise.png?raw=true" alt="De-noise"/>
 
