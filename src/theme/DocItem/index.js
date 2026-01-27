@@ -20,6 +20,7 @@ import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
 import Head from "@docusaurus/Head";
 import MDXContent from "@theme/MDXContent";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import {useDocsVersion} from "@docusaurus/plugin-content-docs/client";
 import {KeployCloud} from "@site/src/components/KeployCloud";
 
 export default function DocItem(props) {
@@ -33,7 +34,19 @@ export default function DocItem(props) {
     toc_max_heading_level: tocMaxHeadingLevel,
   } = frontMatter;
   const {description, title} = metadata;
-  const image = assets.image ?? frontMatter.image; // We only add a title if:
+  const image = assets.image ?? frontMatter.image;
+
+  // Get current version info to hide badge on latest version
+  let isLatestVersion = true;
+  try {
+    const versionInfo = useDocsVersion();
+    isLatestVersion = versionInfo?.isLast ?? true;
+  } catch (e) {
+    // If hook fails, assume latest version
+    isLatestVersion = true;
+  }
+
+  // We only add a title if:
   // - user asks to hide it with front matter
   // - the markdown content does not already contain a top-level h1 heading
 
@@ -193,7 +206,11 @@ export default function DocItem(props) {
             <article>
               {/*Removing breadcrumb as the component is downranking SEO. not a valid breadcrumb component according to schema.org */}
               <DocBreadcrumbs />
-              <DocVersionBadge />
+
+              {/* Meta row: version badge (on older versions) - sits between breadcrumbs and H1 */}
+              <div className="doc-meta-row">
+                {!isLatestVersion && <DocVersionBadge />}
+              </div>
 
               {canRenderTOC && (
                 <TOCCollapsible
