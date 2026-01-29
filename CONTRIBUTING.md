@@ -75,7 +75,7 @@ When we merge your PR, a new build automatically occurs and your changes publish
 
 ## How to Contribute Code?
 
-Bug fixes, performance improvements, code formatting, ...
+Bug fixes, performance improvements, new quickstart guides, code formatting, ...
 There are a lot ways in which you can contribute code!
 The issues list of a project is a great place to find something that you can help us with.
 
@@ -85,6 +85,25 @@ To increase the chances of your code getting merged, please ensure that:
 - Your pull request:
   - Passes all checks and has no conflicts.
   - Has a well-written title and message that briefly explains your proposed changes.
+
+## How to Open a Pull Request for Documentation
+
+We welcome documentation contributions, including new Quickstarts and improvements to existing docs.
+
+Before opening a PR:
+- Make sure your changes are added to the **latest docs version**
+- Follow the existing docs structure and design
+- Ensure the docs build passes locally
+
+👉 For detailed steps on adding a new Quickstart, see:  
+[Adding a New Quickstart Guide](./ADDING_A_QUICKSTART.md)
+
+Once ready:
+1. Fork the repository
+2. Create a new branch from `main`
+3. Commit your changes with a clear message
+4. Open a Pull Request with a short description of what you’ve added
+
 
 ## How to Report Bugs, Provide Feedback or Request Features?
 
@@ -102,7 +121,7 @@ We welcome all kinds of bug reports, user feedback and feature requests! We've c
 
 6. After you are finished, click `Submit new issue`
 
-## How to Open a Pull Request to Add New Documentation or Fix Bugs?
+## How to Open a Pull Request to Fix Bugs?
 
 After you have cloned the documentation repo to your computer locally, edit the files that you wish to change and follow the steps to open a pull request.
 
