@@ -21,8 +21,9 @@ import {
 import {
   SiKubernetes,
   SiDocker,
-  SiGithubactions
+  SiGithubactions,
 } from 'react-icons/si';
+import { TbBrandRust } from 'react-icons/tb';
 
 /**
  * SidebarCategoryIcon - Icon component for sidebar top-level categories
@@ -48,12 +49,13 @@ const categoryIcons = {
   'security': FaShieldAlt,
   'operation': FaTools,
 
-  // Language/Framework categories
+  // Language / Framework categories
   'java': FaCode,
   'golang': FaCode,
   'python': FaCode,
   'javascript': FaCode,
   'typescript': FaCode,
+  'rust': FaCode,
 
   // Infrastructure
   'docker': SiDocker,
@@ -79,7 +81,11 @@ export function getCategoryIcon(categoryLabel) {
   return categoryIcons[key] || null;
 }
 
-export default function SidebarCategoryIcon({ category, size = 16, className = '' }) {
+export default function SidebarCategoryIcon({
+  category,
+  size = 16,
+  className = '',
+}) {
   const Icon = getCategoryIcon(category);
 
   if (!Icon) return null;
@@ -113,4 +119,3 @@ export default function SidebarCategoryIcon({ category, size = 16, className = '
 
 // Export icon mapping for use in sidebar configuration
 export { categoryIcons };
-
