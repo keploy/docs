@@ -53,6 +53,10 @@ keploy record -c "docker compose up" --container-name "fasthttp_app" --build-del
 
 > `--build-delay` adds a buffer (in seconds) to allow images to build/pull and services to start before Keploy begins interception. If your services are already up, you can omit it.
 
+If you're seeing logs that resemble the ones below, you're on the right track:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
 #### Generate a Test Case
@@ -126,6 +130,10 @@ keploy test -c "docker compose up" --container-name "fasthttp_app" --build-delay
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
+When all is said and done, your test results should look a little something like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
+
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
 ### Wrapping it up 🎉
@@ -192,6 +200,10 @@ keploy record -c "./app"
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app. Whether you're using `go run main.go` or the binary path like `./app`, it's your call.
 
+If you're seeing logs that resemble the ones below, you're on the right track:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
 #### Generate a Test Case
@@ -232,6 +244,10 @@ Ready to put your spells to the test?
 ```bash
 keploy test -c "./app" --delay 10
 ```
+
+When all is said and done, your test results should look a little something like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
 
