@@ -44,7 +44,7 @@ const cards = [
     id: "comparison",
     title: "Keploy vs traditional testing tools",
     description: "Where record–replay and AI-generated flows fit vs Postman, contract testing, and mocking libraries.",
-    link: "/docs/keploy-explained/why-keploy/",
+    link: "/keploy-explained/why-keploy/",
     tone: "secondary",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
