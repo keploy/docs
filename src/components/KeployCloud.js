@@ -4,7 +4,7 @@ export const KeployCloud = () => {
   return (
     <section
       id="cloud"
-      className="mb-8 mt-12 flex max-w-7xl items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 shadow-md"
+      className="mb-8 mt-12 flex max-w-full items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 shadow-md"
     >
       <div className="prose prose-orange max-w-3xl text-left">
         <h1 className="text-left">Questions? 🤔💭</h1>
