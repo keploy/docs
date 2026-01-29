@@ -39,10 +39,43 @@ A simple **Notes REST API** built with **Rust** and **MongoDB**, showcasing **Ke
 git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
 cd Keploy-Rust-Mongodb-QuickStart
 ```
+### Rust (Cargo)
+
+Rust is required to build and run the application.
+
+Install Rust using **rustup**:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+```
+**Verify installation**:
+```bash
+rustc --version
+cargo --version
+```
+
+### Docker & Docker Compose
+
+Docker is required to run MongoDB and to use the Docker-based setup.
+
+**Linux (Debian / Ubuntu)**:
+
+```bash
+sudo apt update
+sudo apt install -y docker.io docker-compose-plugin
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+**Verify installation** :
+```bash
+docker --version
+docker compose version
+```
 
 We will use Docker Compose to run MongoDB and the Rust application.
 
-Lights, Camera, Record! 🎥
+### Lights, Camera, Record! 🎥
 
 Setup MongoDB 📦
 
@@ -76,7 +109,7 @@ Expected response:
 ```bash
 🚀 Rust + MongoDB + Keploy Quickstart is running!
 ```
-Capture Test Cases 🎬
+### Capture Test Cases 🎬
 
 Start recording with Keploy:
 
@@ -129,7 +162,7 @@ keploy/test-set-0/tests
 keploy/test-set-0/mocks
 ```
 
-Run Tests ▶️
+### Run Tests ▶️
 
 Replay the recorded test cases:
 
@@ -156,6 +189,47 @@ In local mode:
 
 <EnterpriseInstallReminder />
 
+## Clone the Sample Application 🧪
+
+```bash
+git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
+cd Keploy-Rust-Mongodb-QuickStart
+```
+### Rust (Cargo)
+
+Rust is required to build and run the application locally.
+
+Install Rust using **rustup**:
+```bash
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+```
+
+**Verify installation**:
+```bash
+rustc --version
+cargo --version
+```
+
+### Docker (for MongoDB)
+
+Docker is required only to run MongoDB in local setup.
+The Rust application runs natively using cargo run.
+
+**Linux (Debian / Ubuntu)**:
+```bash
+sudo apt update
+sudo apt install -y docker.io docker-compose-plugin
+sudo usermod -aG docker $USER
+newgrp docker
+```
+
+**Verify installation** :
+```bash
+docker --version
+docker compose version
+```
+
 Start MongoDB 📦
 
 ```bash
@@ -172,7 +246,7 @@ You should see:
 ```bash
 🚀 Server running at http://localhost:8000
 ```
-Record Tests (Local) 🎥
+### Record Tests (Local) 🎥
 
 Start recording:
 
@@ -216,7 +290,7 @@ Stop recording:
 
 - `Ctrl + C`
 
-Replay Tests (Local) ▶️
+### Replay Tests (Local) ▶️
 
 ```bash
 keploy test -c "cargo run" --delay 10
