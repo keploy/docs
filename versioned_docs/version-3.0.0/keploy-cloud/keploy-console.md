@@ -13,6 +13,10 @@ keywords:
   - API key
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ### Pre-requisite 📝
 
 Ensure you have [installed keploy enterprise](/docs/keploy-cloud/cloud-installation/#installation-%EF%B8%8F).
