@@ -427,6 +427,9 @@ html[data-theme="dark"] .navbar {
 }
 
 /* Footer */
+footer {
+  margin-top: 0;
+}
 
 footer svg {
   display: inline;
