@@ -61,7 +61,7 @@ If you already have WSL, Go to Step 2.
 
 ## What's Next?
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/)
+### 🎬 [Start Capturing Test Cases](../server/installation.md#capturing-test-cases)
 
 Begin recording your API calls and automatically generate test cases with Keploy.
 
