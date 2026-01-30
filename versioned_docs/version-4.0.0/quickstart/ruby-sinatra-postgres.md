@@ -52,10 +52,12 @@ We will be using Docker compose to run the application as well as PostgreSQL on 
 git clone https://github.com/Nsanjayboruds/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
 ```
 
-### Build and Start Services
+### Lights, Camera, Record! 🎥
+
+Capture the test-cases-
 
 ```bash
-docker-compose up --build
+keploy record -c "docker-compose up --build" --container-name "ruby-books-app"
 ```
 
 This will:
@@ -63,25 +65,6 @@ This will:
 - Build and start the Ruby application container
 - Initialize the database with sample data
 - Expose the API on port 8000
-
-### Verify the Setup
-
-```bash
-curl http://localhost:8000/health
-```
-
-Expected Response:
-```json
-{"status":"healthy","service":"Ruby Books API"}
-```
-
-### Lights, Camera, Record! 🎥
-
-Capture the test-cases-
-
-```bash
-keploy record -c "docker-compose up" --container-name "ruby-books-app"
-```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -135,6 +118,12 @@ curl -X DELETE http://localhost:8000/books/1
 
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up test cases with mocks! Explore the **keploy** directory and you'll discover your handiwork in the `tests` directory and `mocks.yml`.
 
+### Stop the Running Services
+
+```bash
+docker-compose down
+```
+
 Want to see if everything works as expected?
 
 ### Run Tests 🧪
@@ -143,6 +132,12 @@ Time to put things to the test 🧪
 
 ```bash
 keploy test -c "docker-compose up" --container-name "ruby-books-app" --delay 10
+```
+
+After tests complete, stop the services:
+
+```bash
+docker-compose down
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
