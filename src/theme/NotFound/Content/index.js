@@ -1,13 +1,14 @@
 import {useEffect} from "react";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 export default function NotFound() {
+  const homeUrl = useBaseUrl("/");
+
   useEffect(() => {
     if (typeof window !== "undefined") {
-      // immediate redirect without adding to browser history
-      window.location.replace("/docs");
+      window.location.replace(homeUrl);
     }
-  }, []);
+  }, [homeUrl]);
 
-  // render nothing (no content shown)
   return null;
 }
