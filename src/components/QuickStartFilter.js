@@ -4,6 +4,7 @@ import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
 import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft} from "react-icons/fa";
 import {TbBrandCSharp} from "react-icons/tb";
+import { TbBrandRust } from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
 
@@ -28,6 +29,8 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     {name: "Java", icon: <FaJava size={24} />, color: "#007396"},
     {name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E"},
     {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
+    {name: "Rust", icon: <TbBrandRust size={24} />, color: "#DEA584"},
+
   ];
 
   const servers = [
