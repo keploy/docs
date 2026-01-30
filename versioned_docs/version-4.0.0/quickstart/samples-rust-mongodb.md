@@ -33,7 +33,7 @@ A simple **Notes REST API** built with **Rust** and **MongoDB**, showcasing **Ke
 
 ---
 
-## Clone the Sample Application
+### Clone the Sample Application
 
 ```bash
 git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
@@ -53,27 +53,6 @@ source "$HOME/.cargo/env"
 rustc --version
 cargo --version
 ```
-
-### Docker & Docker Compose
-
-Docker is required to run MongoDB and to use the Docker-based setup.
-
-**Linux (Debian / Ubuntu)**:
-
-```bash
-sudo apt update
-sudo apt install -y docker.io docker-compose-plugin
-sudo usermod -aG docker $USER
-newgrp docker
-```
-
-**Verify installation** :
-```bash
-docker --version
-docker compose version
-```
-
-We will use Docker Compose to run MongoDB and the Rust application.
 
 ### Lights, Camera, Record!
 
@@ -185,7 +164,7 @@ In local mode:
 
 - Rust application runs using cargo run
 
-## Clone the Sample Application
+### Clone the Sample Application
 
 ```bash
 git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
@@ -206,34 +185,15 @@ source "$HOME/.cargo/env"
 rustc --version
 cargo --version
 ```
+### Lights, Camera, Record!
 
-### Docker (for MongoDB)
-
-Docker is required only to run MongoDB in local setup.
-
-The Rust application runs natively using cargo run.
-
-**Linux (Debian / Ubuntu)**:
-```bash
-sudo apt update
-sudo apt install -y docker.io docker-compose-plugin
-sudo usermod -aG docker $USER
-newgrp docker
-```
-
-**Verify installation** :
-```bash
-docker --version
-docker compose version
-```
-
-Start MongoDB
+**Start MongoDB**
 
 ```bash
 docker compose up -d mongo mongo-express
 ```
 
-Run the Application
+**Run the Application**
 
 ```bash
 cargo run
