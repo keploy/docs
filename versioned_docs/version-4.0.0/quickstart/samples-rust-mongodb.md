@@ -33,7 +33,7 @@ A simple **Notes REST API** built with **Rust** and **MongoDB**, showcasing **Ke
 
 ---
 
-## Clone the Sample Application 🧪
+## Clone the Sample Application
 
 ```bash
 git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
@@ -75,23 +75,14 @@ docker compose version
 
 We will use Docker Compose to run MongoDB and the Rust application.
 
-### Lights, Camera, Record! 🎥
+### Lights, Camera, Record!
 
-Setup MongoDB 📦
 
 Start MongoDB and Mongo Express using Docker Compose:
 
 ```bash
 docker compose up -d mongo mongo-express
 ```
-
-MongoDB URI:
-
-mongodb://localhost:27017
-
-Mongo Express UI:
-
-http://localhost:8081
 
 Build & Run the Application 🛠️
 
@@ -107,9 +98,9 @@ curl http://localhost:8000/
 
 Expected response:
 ```bash
-🚀 Rust + MongoDB + Keploy Quickstart is running!
+Rust + MongoDB + Keploy Quickstart is running!
 ```
-### Capture Test Cases 🎬
+### Capture Test Cases
 
 Start recording with Keploy:
 
@@ -117,7 +108,7 @@ Start recording with Keploy:
 keploy record -c "docker compose up --build app" --container-name keploy-rust-app
 ```
 
-🔥 Now make some API calls (via curl, Postman, or Hoppscotch).
+ Now make some API calls (via curl, Postman, or Hoppscotch).
 
 1️⃣ Create a Note
 
@@ -148,8 +139,11 @@ Response:
   "text": "hello keploy"
 }
 ```
+We will get output something like this:
 
-🎉 Keploy automatically records:
+![Keploy Record Mode](../../../static/img/rust-mongodb-docker-record.png)
+
+Keploy automatically records:
 
 - HTTP test cases
 
@@ -169,27 +163,29 @@ Replay the recorded test cases:
 ```bash
 keploy test -c "docker compose up --build app" --delay 10 --container-name keploy-rust-app
 ```
+We will get output something like this:
+
+![Keploy Replay Mode](../../../static/img/rust-mongodb-docker-replay.png)
 
 The --delay flag allows the application time to start before replay begins.
-
-✅ MongoDB calls are mocked
-✅ No new DB records are created
-✅ Replay works even if MongoDB is stopped
 
 <SectionDivider />
 # Running Locally on Linux / WSL 🐧 {#running-app-locally}
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+A simple Notes REST API built with Rust and MongoDB, showcasing Keploy’s record & replay capabilities without writing manual test cases.
+
+<EnterpriseInstallReminder />
+
 
 In local mode:
+
 
 - MongoDB runs in Docker
 
 - Rust application runs using cargo run
 
-<EnterpriseInstallReminder />
-
-## Clone the Sample Application 🧪
+## Clone the Sample Application
 
 ```bash
 git clone https://github.com/Gagan202005/Keploy-Rust-Mongodb-QuickStart.git
@@ -214,6 +210,7 @@ cargo --version
 ### Docker (for MongoDB)
 
 Docker is required only to run MongoDB in local setup.
+
 The Rust application runs natively using cargo run.
 
 **Linux (Debian / Ubuntu)**:
@@ -230,13 +227,13 @@ docker --version
 docker compose version
 ```
 
-Start MongoDB 📦
+Start MongoDB
 
 ```bash
 docker compose up -d mongo mongo-express
 ```
 
-Run the Application 🚀
+Run the Application
 
 ```bash
 cargo run
@@ -244,9 +241,9 @@ cargo run
 
 You should see:
 ```bash
-🚀 Server running at http://localhost:8000
+Server running at http://localhost:8000
 ```
-### Record Tests (Local) 🎥
+### Record Tests (Local)
 
 Start recording:
 
@@ -254,7 +251,7 @@ Start recording:
 keploy record -c "cargo run"
 ```
 
-🔥 Now make some API calls (via curl, Postman, or Hoppscotch).
+Now make some API calls (via curl, Postman, or Hoppscotch).
 
 1️⃣ Create a Note
 
@@ -285,48 +282,27 @@ Response:
   "text": "hello keploy"
 }
 ```
+We will get output something like this:
+
+![Keploy Replay Mode](../../../static/img/rust-mongodb-local-record.png)
+
 
 Stop recording:
 
 - `Ctrl + C`
 
-### Replay Tests (Local) ▶️
+### Replay Tests (Local)
 
 ```bash
 keploy test -c "cargo run" --delay 10
 ```
+We will get output something like this:
 
-✅ MongoDB is mocked
-✅ Replay works without a running database
+![Keploy Replay Mode](../../../static/img/rust-mongodb-local-replay.png)
 
+<SectionDivider />
 
-# 🛠 Troubleshooting
-
-❌ Port 8000 already in use
-
-Check:
-
-```bash
-sudo lsof -i :8000
-```
-Kill:
-
-```bash
-sudo fuser -k 8000/tcp
-```
-❌ Mongo not running
-
-Restart:
-
-```bash
-docker compose down -v
-docker compose up -d mongo mongo-express
-```
-
-
-
-
-# Wrapping It Up 🎉
+# Wrapping It Up
 
 You’ve successfully:
 
