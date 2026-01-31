@@ -2598,4 +2598,46 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
   }
 }
 
+/* Card */
+.questions-card {
+  @apply w-full rounded-2xl p-10 mt-8
+         bg-gray-50 dark:bg-[rgb(19,19,19)]
+         shadow-lg transition-colors;
+}
 
+/* Title */
+.questions-title {
+  @apply text-3xl font-bold text-center mb-10
+         text-black dark:text-white;
+}
+
+/* Rows */
+.questions-row {
+  @apply flex flex-col
+         gap-4
+         lg:flex-row
+         lg:items-center
+         lg:justify-between
+         mb-6;
+}
+
+.questions-row a {
+  @apply self-center lg:self-auto;
+}
+
+/* Text */
+.questions-text {
+  @apply text-lg font-medium
+         text-gray-900 dark:text-gray-200;
+}
+
+/* Buttons */
+.questions-btn {
+  @apply bg-orange-500 hover:bg-orange-600
+         text-white font-semibold
+         py-2 px-6 rounded-full
+         shadow-md transition
+         cursor-pointer
+         active:scale-95
+         lg:hover:scale-105;
+}
