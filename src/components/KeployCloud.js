@@ -1,31 +1,40 @@
 import React from "react";
+import Link from "@docusaurus/Link";
 
 export const KeployCloud = () => {
   return (
-    <section
-      id="cloud"
-      className="mb-8 mt-12 flex max-w-7xl items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 shadow-md"
-    >
-      <div className="prose prose-orange max-w-3xl text-left">
-        <h1 className="text-left">Questions? 🤔💭</h1>
-        <p className="my-3 block text-left">
-          For any support please{" "}
-          <a
-            href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
-            className="text-orange-500 underline hover:text-orange-400"
-          >
-            join keploy slack community
-          </a>{" "}
-          to get help from fellow users, or{" "}
-          <a
-            href="https://calendar.app.google/cXVaj6hbMUjvmrnt9"
-            className="text-orange-500 underline hover:text-orange-400"
-          >
-            book a demo
-          </a>{" "}
-          if you're exploring enterprise use cases.
-        </p>
-      </div>
-    </section>
+    <div className="max-w-5xl mx-auto">
+    {/* Questions Card */}
+    <div className="questions-card">
+    <h2 className="questions-title">
+      Questions <span className="text-orange-500">?</span>
+    </h2>
+
+    <div className="questions-row">
+      <p className="questions-text">
+        Stuck with a question? Our Slack community is here to help.
+      </p>
+
+      <a href="https://slack.com">
+        <button className="questions-btn">
+         Join Slack
+        </button>
+      </a>
+    </div>
+
+    <div className="questions-row">
+      <p className="questions-text">
+        Exploring enterprise use cases? Book a demo with us.
+      </p>
+
+      <a href="https://calendar.app.google/cXVaj6hbMUjvmrnt9">
+        <button className="questions-btn">
+        Book Demo
+        </button>
+      </a>
+    </div>
+    </div>
+  </div>
+
   );
 };
