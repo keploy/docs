@@ -54,11 +54,11 @@ Create a file named `kind-cluster.yaml` with the following contents:
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 nodes:
-- role: control-plane
-  extraPortMappings:
-    - containerPort: 30080
-      hostPort: 30080
-      protocol: TCP
+  - role: control-plane
+    extraPortMappings:
+      - containerPort: 30080
+        hostPort: 30080
+        protocol: TCP
 ```
 
 ### 1.3 Create the Cluster
@@ -66,7 +66,7 @@ nodes:
 Run:
 
 ```bash
-sudo kind create cluster --config kind-cluster.yaml
+kind create cluster --config kind-cluster.yaml
 ```
 
 ### 1.4 Verify the Cluster is Ready
@@ -74,7 +74,7 @@ sudo kind create cluster --config kind-cluster.yaml
 Confirm the cluster components are running:
 
 ```bash
-sudo kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces
 ```
 
 Expected output should look similar to:
@@ -100,15 +100,16 @@ local-path-storage   local-path-provisioner-67b8995b4b-csn49           1/1     R
 
 ### 2.1 Create Cluster Entry in Keploy
 
-1. Go to: https://app.keploy.io/clusters  
+1. Go to: https://app.keploy.io/clusters
 2. Click **Connect New Cluster**
 3. Enter:
    - **Cluster Name**
-   - **Ingress URL** (use localhost or your VM IP with the NodePort)
+   - **Ingress URL**: Use `http://localhost:30080`
 
-Examples:
-- `http://localhost:30080`
-- `https://<IP_ADDRESS>:30080`
+> [!NOTE]
+> This setup has been tested with **Google Chrome**. Browsers treat `localhost` as a secure context, which allows features that would otherwise require HTTPS. If you use an IP address instead, HTTPS would be required with a properly signed TLS certificate.
+>
+> If your cluster is running on a VM, see [SSH Port Forwarding](#23-optional-ssh-port-forwarding-access-keploy-nodeport-from-your-laptop) to access it via `localhost` from your laptop.
 
 4. Click **Connect**
 
@@ -139,15 +140,16 @@ helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --versio
 
 ---
 
-## 2.3 Optional: SSH Port Forwarding (Access Keploy NodePort from Your Laptop)
+### 2.3 Optional: SSH Port Forwarding (Access Keploy NodePort from Your Laptop)
 
 If your Kubernetes cluster is running **inside a VM** and you want to use **Chrome on your local machine** to reach the Keploy NodePort (e.g., `30080`), you can tunnel the port over SSH.
 
 This is useful when:
+
 - The NodePort is reachable **from the VM**, but not directly from your laptop due to NAT / firewall rules, or
 - You want to avoid exposing the NodePort to your LAN.
 
-### Example: Forward Local `30080` → VM `30080`
+#### Example: Forward Local `30080` → VM `30080`
 
 Run this on your **local machine**:
 
@@ -163,7 +165,7 @@ After this is running, you should be able to open the NodePort via:
 
 …and use that value for `ingressUrl` in the Keploy UI / Helm values.
 
-### Troubleshooting: `channel ... open failed: connect failed: Connection refused`
+#### Troubleshooting: `channel ... open failed: connect failed: Connection refused`
 
 If you see something like:
 
@@ -171,7 +173,7 @@ If you see something like:
 channel 2: open failed: connect failed: Connection refused
 ```
 
-It typically means **the VM could not connect to the target IP:port** from *its own network namespace*.
+It typically means **the VM could not connect to the target IP:port** from _its own network namespace_.
 
 Common fixes:
 
@@ -209,7 +211,7 @@ Common fixes:
 Check all namespaces:
 
 ```bash
-sudo kubectl get pods --all-namespaces
+kubectl get pods --all-namespaces
 ```
 
 You should see Keploy components in the `keploy` namespace, similar to:
