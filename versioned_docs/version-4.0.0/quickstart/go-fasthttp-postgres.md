@@ -27,13 +27,13 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-A sample CRUD app to test Keploy integration capabilities using FastHttp and Postgres
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
 
 <InstallReminder />
 
 ## Using Docker Compose
 
-### Clone a sample CRUD App 🧪
+### Clone the sample CRUD App 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
@@ -66,6 +66,8 @@ Keploy captures these requests to automatically generate test suites with test c
 
 #### Generate a Test Case
 
+##### Post Requests
+
 ```bash
 curl --request POST \
 --url http://localhost:8080/authors \
@@ -73,62 +75,18 @@ curl --request POST \
 --data '{"name":"Author Name"}'
 ```
 
-Here's a peek of what you get:
-
-```json
-{"id": 1, "name": "Author Name"}
-```
-
 This API call generates a test case along with the required mocks. You can find the generated files in the Keploy directory, including `test-1.yml` and `mocks.yml`.
 
 You can continue by making additional API calls to generate more test cases.
 
-```yaml
-version: api.keploy.io/v1beta2
-kind: Http
-name: test-1
-spec:
-  metadata: {}
-  req:
-    method: POST
-    proto_major: 1
-    proto_minor: 1
-    url: http://localhost:8080/authors
-    header:
-      Accept: "*/*"
-      Content-Length: "23"
-      Content-Type: application/json
-      Host: localhost:8080
-      User-Agent: curl/7.68.0
-    body: |-
-      {"name":"Author Name"}
-    body_type: ""
-  resp:
-    status_code: 201
-    header:
-      Content-Type: application/json
-    body: '{"id": 1, "name": "Author Name"}'
-    body_type: ""
-    status_message: ""
-    proto_major: 0
-    proto_minor: 0
-  objects: []
-  assertions:
-    noise:
-      - header.Date
-  created: 1696834280
-```
-
-#### Fetch Books from App
+##### Get Requests
 
 ```bash
 curl --request GET --url http://localhost:8080/books
 ```
 
-After running this request, more new test and mock files will be generated in your project directory.
 
-
-### Run Tests
+### 🏃‍♀️ Run the Tests
 
 Time to run the testcases which were generated from the previous API calls..
 
@@ -158,11 +116,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-A sample CRUD app to test Keploy integration capabilities using FastHttp and Postgres
+This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
 
 <InstallReminder />
 
-### Clone a sample CRUD App 🧪
+### Clone the sample CRUD App 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-postgres
@@ -220,7 +178,7 @@ With the application running successfully, you can begin generating test cases b
 
 #### Generate a Test Case
 
-A simple POST call:
+##### Post Requests
 
 ```bash
 curl --request POST \
@@ -229,26 +187,18 @@ curl --request POST \
 --data '{"name":"Author Name"}'
 ```
 
-An Author entry appears:
-
-```json
-{"id": 1, "name": "Author Name"}
-```
-
 This API call generates a test case along with the required mocks. You can find the generated files in the Keploy directory, including `test-1.yml` and `mocks.yml`.
 
 You can continue by making additional API calls to generate more test cases.
 
-#### Fetch Books from App
-
+##### Get Requests
 
 ```bash
 curl --request GET --url http://localhost:8080/books
 ```
 
-You should now see the newly generated test and mock files in your project directory.
 
-### Run Tests 
+### 🏃‍♀️ Run the Tests 
 
 You are now ready to run the generated test cases.
 
