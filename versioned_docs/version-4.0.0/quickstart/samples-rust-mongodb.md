@@ -154,7 +154,6 @@ The --delay flag allows the application time to start before replay begins.
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 A simple Notes REST API built with Rust and MongoDB, showcasing Keploy’s record & replay capabilities without writing manual test cases.
 
-<EnterpriseInstallReminder />
 
 
 In local mode:
