@@ -129,6 +129,9 @@ You can also check the test summary from your CLI.
 bundle install
 ```
 
+![Bundle Install Sinatra](/img/sinatra-postgres/bundle-install.png)
+
+
 2. **Set up environment variables:**
 
 ```bash
@@ -152,6 +155,9 @@ keploy record -c "bundle exec ruby app.rb"
 ```
 
 Then make API calls as shown above.
+
+![Generate Testcases Sinatra](/img/sinatra-postgres/generate-testcases-sinatra.png)
+
 
 ### Run Tests
 
