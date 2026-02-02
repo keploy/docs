@@ -23,7 +23,6 @@ import {
   SiDocker,
   SiGithubactions,
 } from 'react-icons/si';
-import { TbBrandRust } from 'react-icons/tb';
 
 /**
  * SidebarCategoryIcon - Icon component for sidebar top-level categories
