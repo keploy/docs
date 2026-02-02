@@ -20,6 +20,7 @@
           "id": "server/installation"
         },
         "keploy-cloud/cloud-installation",
+        "keploy-cloud/kubernetes-local-setup",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",

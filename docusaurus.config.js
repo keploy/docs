@@ -22,11 +22,6 @@ module.exports = {
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
-  markdown: {
-    hooks: {
-      onBrokenMarkdownLinks: "warn",
-    },
-  },
   plugins: [
     function preloadFontPlugin() {
       return {
@@ -377,6 +372,11 @@ module.exports = {
     },
     {
       src: "/docs/scripts/clarity.js",
+      async: true,
+      defer: true,
+    },
+    {
+      src: "/docs/js/apollo-init.js",
       async: true,
       defer: true,
     },
