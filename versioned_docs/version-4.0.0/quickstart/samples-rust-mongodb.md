@@ -87,7 +87,7 @@ Start recording with Keploy:
 keploy record -c "docker compose up --build app" --container-name keploy-rust-app
 ```
 
- Now make some API calls (via curl, Postman, or Hoppscotch).
+Now make some API calls (via curl, Postman, or Hoppscotch).
 
 1️⃣ Create a Note
 
