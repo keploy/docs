@@ -3,8 +3,7 @@ import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
 import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft} from "react-icons/fa";
-import {TbBrandCSharp} from "react-icons/tb";
-import { TbBrandRust } from "react-icons/tb";
+import {TbBrandCSharp, TbBrandRust} from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
 
