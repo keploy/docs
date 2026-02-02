@@ -51,6 +51,8 @@ Capture the test cases:
 keploy record -c "docker compose up" --container-name "sinatra-app" --buildDelay 50
 ```
 
+![Keploy Record Sinatra](/img/sinatra-postgres/keploy-record-sinatra.png)
+
 🔥 **Make some API calls**. Postman, Hoppscotch, or even curl - take your pick!
 
 ### Generate testcases
@@ -97,6 +99,8 @@ curl http://localhost:4567/users/1
 curl -X DELETE http://localhost:4567/users/2
 ```
 
+![Generate Testcases Sinatra](/img/sinatra-postgres/generate-testcases-sinatra.png)
+
 And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up test cases with mocks! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
 
 ### Time to run the testcases 🏃
@@ -104,6 +108,8 @@ And once you are done, you can stop the recording and give yourself a pat on the
 ```bash
 keploy test -c "docker compose up" --containerName "sinatra-app" --delay 10
 ```
+
+![Keploy Test Sinatra](/img/sinatra-postgres/keploy-test-sinatra.png)
 
 You can also check the test summary from your CLI.
 
