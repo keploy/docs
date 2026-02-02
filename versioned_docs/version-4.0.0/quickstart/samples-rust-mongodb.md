@@ -243,7 +243,7 @@ Response:
 ```
 We will get output something like this:
 
-![Keploy Replay Mode](../../../static/img/rust-mongodb-local-record.png)
+![Keploy Record Mode](../../../static/img/rust-mongodb-local-record.png)
 
 
 Stop recording:
