@@ -946,7 +946,13 @@ textarea {
 }
 
 #support span {
-  color: #6b6a6a;
+  color: #585757;
+  font-weight: 400;
+}
+
+/* Dark mode */
+[data-theme='dark'] #support span {
+  color: #ffffff; /* or a softer light gray like #e0e0e0 */
 }
 
 #support a {
@@ -957,6 +963,7 @@ textarea {
 
 #support a:hover {
   color: #ffa07a;
+  text-decoration: underline;
 }
 
 /* ===== FINAL Compact Pagination ===== */
