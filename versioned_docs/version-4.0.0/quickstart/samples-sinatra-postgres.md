@@ -157,9 +157,12 @@ export DATABASE_PASSWORD=postgres
 keploy record -c "bundle exec ruby app.rb"
 ```
 
+![Keploy Record Local](/img/sinatra-postgres/keploy-record-local.png)
+
 Then make API calls as shown above (in a separate terminal).
 
-![Generate Testcases Sinatra](/img/sinatra-postgres/generate-testcases-sinatra.png)
+![Generate Testcases Local](/img/sinatra-postgres/generate-testcases-local.png)
+
 
 
 ### Run Tests
@@ -167,6 +170,9 @@ Then make API calls as shown above (in a separate terminal).
 ```bash
 keploy test -c "bundle exec ruby app.rb" --delay 5
 ```
+
+![Keploy Test Local](/img/sinatra-postgres/keploy-test-local.png)
+
 
 ### Conclusion
 
