@@ -24,26 +24,22 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrates with Sinatra and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
+Get started with the User CRUD Application.
 
 import Link from '@docusaurus/Link'
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 
 <EnterpriseInstallReminder />
 
-### Get Started! 🎬
+### Get Started
 
-### Clone the application 🧪
+### Clone the application
 
 ```bash
 git clone https://github.com/keploy/samples-ruby.git && cd samples-ruby/sinatra-postgres
 ```
 
-## Using Docker Compose 🐳
-
-We will be using Docker Compose to run the application as well as PostgreSQL in Docker containers.
-
-### Lights, Camera, Record! 🎥
+### Capture the test cases
 
 Capture the test cases:
 
@@ -53,11 +49,9 @@ keploy record -c "docker compose up" --container-name "sinatra-app" --buildDelay
 
 ![Keploy Record Sinatra](/img/sinatra-postgres/keploy-record-sinatra.png)
 
-🔥 **Make some API calls**. Postman, Hoppscotch, or even curl - take your pick!
-
 ### Generate testcases
 
-To generate testcases we just need to **make some API calls.**
+To generate testcases we need to make some API calls. Open a **new terminal window** and run the following commands:
 
 1. **Health check:**
 
@@ -101,9 +95,9 @@ curl -X DELETE http://localhost:4567/users/2
 
 ![Generate Testcases Sinatra](/img/sinatra-postgres/generate-testcases-sinatra.png)
 
-And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up test cases with mocks! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
+Once you are done, you can stop the recording in the first terminal (Ctrl+C). Keploy will save the test cases in the `keploy` directory.
 
-### Time to run the testcases 🏃
+### Run the testcases
 
 ```bash
 keploy test -c "docker compose up" --containerName "sinatra-app" --delay 10
@@ -113,7 +107,7 @@ keploy test -c "docker compose up" --containerName "sinatra-app" --delay 10
 
 You can also check the test summary from your CLI.
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally on Linux/WSL
 
 ### Prerequisites
 
@@ -154,7 +148,7 @@ createdb keploy_demo
 keploy record -c "bundle exec ruby app.rb"
 ```
 
-Then make API calls as shown above.
+Then make API calls as shown above (in a separate terminal).
 
 ![Generate Testcases Sinatra](/img/sinatra-postgres/generate-testcases-sinatra.png)
 
@@ -165,6 +159,6 @@ Then make API calls as shown above.
 keploy test -c "bundle exec ruby app.rb" --delay 5
 ```
 
-### Wrapping it up 🎉
+### Conclusion
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your Ruby coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+You have successfully recorded and replayed API tests for a Ruby Sinatra application using Keploy.

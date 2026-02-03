@@ -127,6 +127,15 @@
               "items": [
                 "quickstart/samples-sinatra-postgres"
               ]
+            },
+            {
+              "type": "category",
+              "label": "Rust",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/rust-actix-postgres"
+              ]
             }
           ]
         },
