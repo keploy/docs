@@ -20,7 +20,6 @@
           "id": "server/installation"
         },
         "keploy-cloud/cloud-installation",
-        "keploy-cloud/kubernetes-local-setup",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
@@ -117,6 +116,15 @@
               "collapsed": true,
               "items": [
                 "quickstart/samples-csharp"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Ruby",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-ruby"
               ]
             }
           ]
