@@ -63,7 +63,6 @@ If you're seeing logs that resemble the ones below, you're on the right track:
 Make API calls using **cURL**, **Postman**, or **Hoppscotch**.
 Keploy captures these requests to automatically generate test suites with test cases and data mocks.
 
-
 #### Generate a Test Case
 
 ##### Post Requests
@@ -85,7 +84,6 @@ You can continue by making additional API calls to generate more test cases.
 curl --request GET --url http://localhost:8080/books
 ```
 
-
 ### 🏃‍♀️ Run the Tests
 
 Time to run the testcases which were generated from the previous API calls..
@@ -99,6 +97,8 @@ keploy test -c "docker compose up" --container-name "fasthttp_app" --build-delay
 When all is said and done, your test results should look a little something like this:
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
+
+<img src="/docs/img/fasthttp-postgres-test.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!
 
@@ -127,9 +127,9 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/fasthttp-pos
 go mod download
 ```
 
-We'll be running our sample application right on Linux, but just to make things a bit more thrilling, We'll have our database (Postgres) running on Docker. 
+We'll be running our sample application right on Linux, but just to make things a bit more thrilling, We'll have our database (Postgres) running on Docker.
 
-> Note: This application requires the following database environment variables 
+> Note: This application requires the following database environment variables
 > to be set in order to run correctly.
 >
 > Create a .env file in this directory with the following values:
@@ -150,6 +150,7 @@ Let's start your Postgres container:
 docker compose up -d postgres
 
 ```
+
 > The `-d` flag runs the PostgreSQL container in detached mode (in the background).
 
 This would start your postgres container which will be running on docker.
@@ -197,8 +198,7 @@ You can continue by making additional API calls to generate more test cases.
 curl --request GET --url http://localhost:8080/books
 ```
 
-
-### 🏃‍♀️ Run the Tests 
+### 🏃‍♀️ Run the Tests
 
 You are now ready to run the generated test cases.
 
@@ -210,11 +210,13 @@ When all is said and done, your test results should look a little something like
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
 
+<img src="/docs/img/fasthttp-postgres-test.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
+
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!
 
 ### Wrapping it up 🎉
 
-Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
