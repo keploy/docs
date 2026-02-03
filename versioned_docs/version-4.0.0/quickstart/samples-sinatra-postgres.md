@@ -117,7 +117,20 @@ You can also check the test summary from your CLI.
 
 ### Setup
 
-1. **Install dependencies:**
+1. **Start PostgreSQL Container:**
+
+Since we are running the app locally, we need a database. We can spin up a PostgreSQL container easily:
+
+```bash
+docker run -d \
+  --name postgres-local \
+  -p 5432:5432 \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=keploy_demo \
+  postgres:15
+```
+
+2. **Install dependencies:**
 
 ```bash
 bundle install
@@ -126,20 +139,16 @@ bundle install
 ![Bundle Install Sinatra](/img/sinatra-postgres/bundle-install.png)
 
 
-2. **Set up environment variables:**
+3. **Set up environment variables:**
+
+Note: We use `127.0.0.1` instead of `localhost` to ensure IPv4 connection.
 
 ```bash
-export DATABASE_HOST=localhost
+export DATABASE_HOST=127.0.0.1
 export DATABASE_PORT=5432
 export DATABASE_NAME=keploy_demo
 export DATABASE_USER=postgres
 export DATABASE_PASSWORD=postgres
-```
-
-3. **Create the database:**
-
-```bash
-createdb keploy_demo
 ```
 
 ### Record Test Cases
