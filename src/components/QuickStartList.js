@@ -415,23 +415,6 @@ const quickstarts = [
     link: "/docs/quickstart/samples-sinatra-postgres/#running-app-locally-on-linuxwsl-",
   },
 
-  // Rust list
-  {
-    title: "Actix + Postgres",
-    language: "Rust",
-    server: "Docker",
-    description:
-      "A sample Actix-web app to demonstrate how seamlessly Keploy integrates with Rust and PostgreSQL.",
-    link: "/docs/quickstart/rust-actix-postgres/#option-1-using-docker-compose-",
-  },
-  {
-    title: "Actix + Postgres",
-    language: "Rust",
-    server: "Local",
-    description:
-      "A sample Actix-web app to demonstrate how seamlessly Keploy integrates with Rust and PostgreSQL.",
-    link: "/docs/quickstart/rust-actix-postgres/#option-2-running-locally-",
-  },
 ];
 
 export default quickstarts;

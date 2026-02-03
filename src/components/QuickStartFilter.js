@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
-import { FaGolang, FaRust } from "react-icons/fa6";
+import { FaGolang } from "react-icons/fa6";
 import { FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft } from "react-icons/fa";
 import { TbBrandCSharp } from "react-icons/tb";
 import { DiRuby } from "react-icons/di";
@@ -30,7 +30,6 @@ export default function QuickstartFilter({ defaultLanguage = null }) {
     { name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E" },
     { name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4" },
     { name: "Ruby", icon: <DiRuby size={24} />, color: "#CC342D" },
-    { name: "Rust", icon: <FaRust size={24} />, color: "#DEA584" },
   ];
 
   const servers = [
