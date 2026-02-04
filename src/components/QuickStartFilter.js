@@ -1,14 +1,14 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
-import {FaGolang} from "react-icons/fa6";
-import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft} from "react-icons/fa";
-import {TbBrandCSharp} from "react-icons/tb";
-import {IoLogoJavascript} from "react-icons/io5";
-import {useColorMode} from "@docusaurus/theme-common";
+import { FaGolang, FaRust } from "react-icons/fa6";
+import { FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft } from "react-icons/fa";
+import { TbBrandCSharp } from "react-icons/tb";
+import { IoLogoJavascript } from "react-icons/io5";
+import { useColorMode } from "@docusaurus/theme-common";
 
-export default function QuickstartFilter({defaultLanguage = null}) {
-  const {colorMode} = useColorMode();
+export default function QuickstartFilter({ defaultLanguage = null }) {
+  const { colorMode } = useColorMode();
   const isDark = colorMode === "dark";
 
   const [currentStep, setCurrentStep] = useState(defaultLanguage ? 2 : 1);
@@ -23,22 +23,23 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   });
 
   const languages = [
-    {name: "Go", icon: <FaGolang size={24} />, color: "#00ADD8"},
-    {name: "Python", icon: <FaPython size={24} />, color: "#3776AB"},
-    {name: "Java", icon: <FaJava size={24} />, color: "#007396"},
-    {name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E"},
-    {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
+    { name: "Go", icon: <FaGolang size={24} />, color: "#00ADD8" },
+    { name: "Python", icon: <FaPython size={24} />, color: "#3776AB" },
+    { name: "Java", icon: <FaJava size={24} />, color: "#007396" },
+    { name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E" },
+    { name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4" },
+    { name: "Rust", icon: <FaRust size={24} />, color: "#DEA584" },
   ];
 
   const servers = [
-    {name: "Local", icon: <FaLaptopCode size={24} />, description: "Run directly on your machine"},
-    {name: "Docker", icon: <FaDocker size={24} />, description: "Run in a Docker container"},
+    { name: "Local", icon: <FaLaptopCode size={24} />, description: "Run directly on your machine" },
+    { name: "Docker", icon: <FaDocker size={24} />, description: "Run in a Docker container" },
   ];
 
   const steps = [
-    {id: 1, label: "Language", icon: languages.find(l => l.name === language)?.icon || null},
-    {id: 2, label: "Environment", icon: server === "Docker" ? <FaDocker size={16} /> : server === "Local" ? <FaLaptopCode size={16} /> : null},
-    {id: 3, label: "Quickstart", icon: null},
+    { id: 1, label: "Language", icon: languages.find(l => l.name === language)?.icon || null },
+    { id: 2, label: "Environment", icon: server === "Docker" ? <FaDocker size={16} /> : server === "Local" ? <FaLaptopCode size={16} /> : null },
+    { id: 3, label: "Quickstart", icon: null },
   ];
 
   const handleLanguageSelect = (lang) => {
@@ -372,10 +373,10 @@ export default function QuickstartFilter({defaultLanguage = null}) {
               </div>
               <span>{step.label}</span>
               {currentStep > step.id && step.id === 1 && language && (
-                <span style={{color: '#ff914d', marginLeft: '0.25rem'}}>({language})</span>
+                <span style={{ color: '#ff914d', marginLeft: '0.25rem' }}>({language})</span>
               )}
               {currentStep > step.id && step.id === 2 && server && (
-                <span style={{color: '#ff914d', marginLeft: '0.25rem'}}>({server})</span>
+                <span style={{ color: '#ff914d', marginLeft: '0.25rem' }}>({server})</span>
               )}
             </div>
             {idx < steps.length - 1 && (
@@ -402,7 +403,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
                   <div className="wizard-option-radio">
                     {language === lang.name && <FaCheck size={10} color="#fff" />}
                   </div>
-                  <div className="wizard-option-icon" style={{color: lang.color}}>
+                  <div className="wizard-option-icon" style={{ color: lang.color }}>
                     {lang.icon}
                   </div>
                   <span className="wizard-option-label">{lang.name}</span>
@@ -417,15 +418,15 @@ export default function QuickstartFilter({defaultLanguage = null}) {
           <>
             <h3 className="wizard-title">Select your environment</h3>
             <p className="wizard-subtitle">Choose where you want to run the application server</p>
-            <div className="wizard-options" style={{gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))'}}>
+            <div className="wizard-options" style={{ gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))' }}>
               {servers.map((srv) => (
                 <button
                   key={srv.name}
                   className={`wizard-option ${server === srv.name ? 'selected' : ''}`}
                   onClick={() => handleServerSelect(srv.name)}
-                  style={{flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem'}}
+                  style={{ flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem' }}
                 >
-                  <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%'}}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%' }}>
                     <div className="wizard-option-radio">
                       {server === srv.name && <FaCheck size={10} color="#fff" />}
                     </div>
@@ -434,7 +435,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
                     </div>
                     <span className="wizard-option-label">{srv.name}</span>
                   </div>
-                  <p className="wizard-option-desc" style={{marginLeft: '3.5rem'}}>{srv.description}</p>
+                  <p className="wizard-option-desc" style={{ marginLeft: '3.5rem' }}>{srv.description}</p>
                 </button>
               ))}
             </div>
