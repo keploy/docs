@@ -395,6 +395,24 @@ const quickstarts = [
       "A sample app to demonstrate Keploy integration capabilities using TypeScript and Nhost.",
     link: "/docs/quickstart/samples-typescript/#running-the-app-using-docker",
   },
+
+  // Perl List
+  {
+    title: "Perl + MongoDB",
+    language: "Perl",
+    server: "Local",
+    description:
+      "A sample URL Shortener app to demonstrate Keploy integration capabilities using Perl and MongoDB.",
+    link: "/docs/quickstart/perl-mongo/#running-app-locally-on-linuxwsl-",
+  },
+  {
+    title: "Perl + MongoDB",
+    language: "Perl",
+    server: "Docker",
+    description:
+      "A sample URL Shortener app to demonstrate Keploy integration capabilities using Perl and MongoDB.",
+    link: "/docs/quickstart/perl-mongo/#running-app-using-docker-compose-",
+  },
 ];
 
 export default quickstarts;
