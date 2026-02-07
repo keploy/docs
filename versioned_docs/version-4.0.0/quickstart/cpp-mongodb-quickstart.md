@@ -1,6 +1,4 @@
 ---
-````markdown
----
 id: samples-cpp-mongodb
 title: Sample CRUD App (C++)
 sidebar_label: C++ + MongoDB
@@ -20,60 +18,11 @@ keyword:
   - Keploy
   - API Test generator
 ---
-
-import InstallReminder from '@site/src/components/InstallReminder';
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
-
-<InstallReminder />
-
-## Overview
-
-This quickstart shows how to run a small C++ REST API (built using `cpp-httplib`) backed by **MongoDB**, and how to use Keploy to record and replay API tests. The repo contains both Docker and non-Docker workflows so you can follow whichever matches your environment.
-
----
-
-## Clone the example repository
-
-```bash
-git clone https://github.com/mishraa-G/keploy-cpp-mongodb-quickstart.git
-cd keploy-cpp-mongodb-quickstart
 ```
-
-## Prerequisites
-
-- A C++17 compatible compiler (gcc/clang)
-- CMake
-- MongoDB C Driver (libmongoc / libbson)
-- Docker & docker-compose (recommended for an isolated run)
-
-Install helpers (examples):
-````markdown
----
-id: samples-cpp-mongodb
-title: Sample CRUD App (C++)
-sidebar_label: C++ + MongoDB
-description: A beginner-friendly quickstart showing how to use a C++ REST API with MongoDB and Keploy record & replay.
-tags:
-  - cpp
-  - mongodb
-  - quickstart
-  - samples
-  - examples
-  - tutorial
-  - mongo-c-driver
-keyword:
-  - C++
-  - MongoDB
-  - cpp-httplib
-  - Keploy
-  - API Test generator
----
-
 import InstallReminder from '@site/src/components/InstallReminder';
-import SectionDivider from '@site/src/components/SectionDivider';
+
 import ProductTier from '@site/src/components/ProductTier';
+```
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
@@ -274,5 +223,3 @@ You’ve successfully:
 Explore `keploy/` to see generated YAMLs, mocks, and testcases. Tweak them and re-run `keploy test` to validate changes.
 
 Happy testing! 🚀
-
-````
