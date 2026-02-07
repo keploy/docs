@@ -12,7 +12,6 @@ tags:
 # PHP + PostgreSQL — Quick Starter
 
 import InstallReminder from '@site/src/components/InstallReminder';
-import SectionDivider from '@site/src/components/SectionDivider';
 
 <InstallReminder />
 
