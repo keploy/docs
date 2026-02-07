@@ -21,7 +21,6 @@ keyword:
   - API Test generator
 ---
 
-import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 import ProductTier from '@site/src/components/ProductTier';
