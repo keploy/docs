@@ -154,9 +154,3 @@ keploy test -c "docker compose up" --container-name app --delay 10 --buildDelay 
 
 ---
 
-If you'd like, I can:
-
-- Add this quick-starter to the top-level `docs/quickstart/` folder so it's available in the main docs site
-- Add a short `devcontainer` snippet (Codespaces) that pre-installs the Keploy CLI and helper scripts (`scripts/record.sh`, `scripts/replay.sh`) as suggested in the upstream README
-
-Which would you like next?
