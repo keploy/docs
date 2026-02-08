@@ -219,6 +219,38 @@ const quickstarts = [
       "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and MySQL.",
     link: "/docs/quickstart/samples-php/#running-app-locally-on-linuxwsl-",
   },
+  {
+    title: "Slim + PostgreSQL",
+    language: "PHP",
+    server: "Docker",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and PostgreSQL.",
+    link: "/docs/quickstart/samples-php-postgres/#using-docker-compose-",
+  },
+  {
+    title: "Slim + PostgreSQL",
+    language: "PHP",
+    server: "Local",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and PostgreSQL.",
+    link: "/docs/quickstart/samples-php-postgres/#running-app-locally-on-linuxwsl-",
+  },
+  {
+    title: "Slim + MongoDB",
+    language: "PHP",
+    server: "Docker",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and MongoDB.",
+    link: "/docs/quickstart/samples-php-mongodb/#using-docker-compose-",
+  },
+  {
+    title: "Slim + MongoDB",
+    language: "PHP",
+    server: "Local",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and MongoDB.",
+    link: "/docs/quickstart/samples-php-mongodb/#running-app-locally-on-linuxwsl-",
+  },
 
   // python list
 

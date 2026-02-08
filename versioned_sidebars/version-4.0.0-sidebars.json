@@ -125,7 +125,9 @@
               "collapsible": true,
               "collapsed": true,
               "items": [
-                "quickstart/samples-php"
+                "quickstart/samples-php",
+                "quickstart/samples-php-postgres",
+                "quickstart/samples-php-mongodb"
               ]
             }
           ]
