@@ -1,8 +1,8 @@
 ---
 id: samples-php
-title: PHP Sample Application
+title: PHP Slim + MySQL Sample Application
 sidebar_label: PHP - Slim + MySQL
-description: The following sample app showcases how to use PHP Slim framework and the Keploy Platform.
+description: The following sample app showcases how to use the PHP Slim framework with MySQL and the Keploy Platform.
 tags:
   - php
   - quickstart
@@ -49,7 +49,7 @@ First, let's set up the environment and start recording. Keep an eye on the key 
 docker network create keploy-network
 
 # Start MySQL database
-docker compose up mysql -d
+docker compose up -d mysql
 
 # Build the application
 docker compose build app
@@ -162,7 +162,7 @@ docker network create keploy-network
 Now, let's breathe life into your MySQL container. A simple spell should do the trick:
 
 ```bash
-docker compose up mysql -d
+docker compose up -d mysql
 ```
 
 #### Configure Environment

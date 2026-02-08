@@ -49,7 +49,7 @@ First, let's set up the environment and start recording. Keep an eye on the key 
 docker network create keploy-network
 
 # Start PostgreSQL database
-docker compose up postgres -d
+docker compose up -d postgres
 
 # Build the application
 docker compose build app
@@ -162,7 +162,7 @@ docker network create keploy-network
 Now, let's breathe life into your PostgreSQL container. A simple spell should do the trick:
 
 ```bash
-docker compose up postgres -d
+docker compose up -d postgres
 ```
 
 #### Configure Environment

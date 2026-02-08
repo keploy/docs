@@ -49,7 +49,7 @@ First, let's set up the environment and start recording. Keep an eye on the key 
 docker network create keploy-network
 
 # Start MongoDB database
-docker compose up mongodb -d
+docker compose up -d mongodb
 
 # Build the application
 docker compose build app
@@ -164,7 +164,7 @@ docker network create keploy-network
 Now, let's breathe life into your MongoDB container. A simple spell should do the trick:
 
 ```bash
-docker compose up mongodb -d
+docker compose up -d mongodb
 ```
 
 #### Configure Environment
