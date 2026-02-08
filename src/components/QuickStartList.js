@@ -201,6 +201,25 @@ const quickstarts = [
     link: "/docs/quickstart/samples-csharp/",
   },
 
+  // php list
+
+  {
+    title: "Slim + MySQL",
+    language: "PHP",
+    server: "Docker",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and MySQL.",
+    link: "/docs/quickstart/samples-php/#using-docker-compose-",
+  },
+  {
+    title: "Slim + MySQL",
+    language: "PHP",
+    server: "Local",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with PHP Slim and MySQL.",
+    link: "/docs/quickstart/samples-php/#running-app-locally-on-linuxwsl-",
+  },
+
   // python list
 
   {
