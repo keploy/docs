@@ -1,8 +1,7 @@
-//@ts-check
+// @ts-nocheck
 
-import {themes as prismThemes} from "prism-react-renderer";
-const path = require("path");
-import {visit} from "unist-util-visit";
+const { themes: prismThemes } = require("prism-react-renderer");
+const visit = require("unist-util-visit");
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
@@ -50,7 +49,7 @@ module.exports = {
         content:
           "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
-      {name: "twitter:card", content: "summary_large_image"},
+      { name: "twitter:card", content: "summary_large_image" },
     ],
     headTags: [
       // Preconnect tag
@@ -259,7 +258,8 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: "4.0.0",
+          // Previous v3.0.0 archived in versioned_docs/version-3.0.0-archive
+          lastVersion: "3.0.0",
           versions: {
             "1.0.0": {
               label: "1.0.0",
@@ -271,13 +271,8 @@ module.exports = {
               path: "2.0.0",
               banner: "unmaintained",
             },
-            "3.0.0": {
-              label: "3.0.0",
-              path: "3.0.0",
-              banner: "unmaintained",
-            },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
@@ -343,11 +338,12 @@ module.exports = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-        gtag: {
-          trackingID: "G-LLS95VWZPC",
-          // Optional fields.
-          anonymizeIP: true, // Should IPs be anonymized?
-        },
+        // Temporarily disabled gtag due to "window.gtag is not a function" error
+        // gtag: {
+        //   trackingID: "G-LLS95VWZPC",
+        //   // Optional fields.
+        //   anonymizeIP: true, // Should IPs be anonymized?
+        // },
         // Will be passed to @docusaurus/plugin-content-sitemap
         sitemap: {
           // Per v2.0.0-alpha.72 cacheTime is now deprecated

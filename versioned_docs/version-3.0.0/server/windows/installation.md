@@ -1,5 +1,5 @@
 ---
-id: installation
+id: windows-installation
 title: Windows Installation
 sidebar_label: Windows
 tags:

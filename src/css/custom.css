@@ -2721,3 +2721,208 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
     line-height: 1.4;
   }
 }
+
+/* ===== CONSISTENT SPACING FOR DOCUMENTATION PAGES ===== */
+/* Fix inconsistent vertical spacing in documentation content */
+article header + * {
+  margin-top: 2rem !important; /* Consistent space after page title */
+}
+
+article h1 {
+  margin-bottom: 1.5rem !important; /* Consistent space after H1 */
+}
+
+article h2 {
+  margin-top: 2.5rem !important; /* Consistent space before H2 */
+  margin-bottom: 1rem !important; /* Consistent space after H2 */
+}
+
+article h3 {
+  margin-top: 2rem !important; /* Consistent space before H3 */
+  margin-bottom: 0.75rem !important; /* Consistent space after H3 */
+}
+
+article p {
+  margin-bottom: 1rem !important; /* Consistent space after paragraphs */
+}
+
+article img {
+  margin-top: 1.5rem !important; /* Consistent space before images */
+  margin-bottom: 1.5rem !important; /* Consistent space after images */
+}
+
+article \u003e div[style*='backgroundColor'] {
+  margin-top: 1.5rem !important; /* Consistent space before styled divs */
+  margin-bottom: 1.5rem !important; /* Consistent space after styled divs */
+}
+
+
+/* Override Tailwind prose spacing for better consistency */
+.prose.md\\:prose-md {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* More specific overrides for prose elements */
+.prose p {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose h1 {
+  margin-top: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.prose h2 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose h3 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose img {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Fix the large top margin on first element after header */
+.markdown \u003e *:first-child,
+article \u003e .markdown \u003e *:first-child {
+  margin-top: 1.5rem !important;
+}
+
+
+/* Fix clipped descenders in headings (y, g, p, q, j) */
+article h1,
+.prose h1 {
+  line-height: 1.3 !important; /* Increase line-height to prevent clipping */
+  padding-bottom: 0.2rem !important; /* Add padding to ensure descenders are visible */
+  overflow: visible !important; /* Ensure text isn't clipped */
+}
+
+article h2,
+.prose h2 {
+  line-height: 1.4 !important;
+  padding-bottom: 0.15rem !important;
+  overflow: visible !important;
+}
+
+article h3,
+.prose h3 {
+  line-height: 1.4 !important;
+  padding-bottom: 0.1rem !important;
+  overflow: visible !important;
+}
+
+
+/* Reduce excessive spacing - fine-tuned values */
+article h1,
+.prose h1 {
+  margin-bottom: 1rem !important; /* Reduced from 1.5rem */
+}
+
+/* Reduce top margin on first paragraph after title */
+article h1 + p,
+.prose h1 + p {
+  margin-top: 1rem !important; /* Consistent spacing after H1 */
+}
+
+/* Adjust H2 spacing to be less aggressive */
+article h2,
+.prose h2 {
+  margin-top: 1.75rem !important; /* Reduced from 2rem */
+  margin-bottom: 0.75rem !important; /* Reduced from 1rem */
+}
+
+/* Adjust paragraph spacing */
+article p,
+.prose p {
+  margin-top: 0.75rem !important; /* Reduced */
+  margin-bottom: 0.75rem !important; /* Reduced */
+}
+
+/* Adjust image spacing */
+article img,
+.prose img {
+  margin-top: 1.25rem !important; /* Reduced from 1.5rem */
+  margin-bottom: 1.25rem !important; /* Reduced from 1.5rem */
+}
+
+
+/* Reduce top padding/margin above page title across all docs pages */
+article,
+.markdown,
+[class*='docItemContainer'] article {
+  padding-top: 1rem !important; /* Reduced top padding */
+}
+
+/* Reduce margin-top on the H1 title itself */
+article h1:first-of-type,
+.prose h1:first-of-type,
+.markdown h1:first-of-type {
+  margin-top: 0.5rem !important; /* Minimal top margin for first H1 */
+}
+
+/* Remove excessive top margin from article header */
+article header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Reduce top margin on first element after breadcrumbs */
+.theme-doc-breadcrumbs + * {
+  margin-top: 1rem !important;
+}
+
+
+/* OVERRIDE: Reduce top margin/padding on markdown container - more specific selectors */
+div.theme-doc-markdown.markdown,
+.theme-doc-markdown,
+[class*='theme-doc-markdown'] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important; /* Minimal top padding */
+}
+
+/* Target the prose container specifically */
+.prose.md\\:prose-md.prose-auto.my-12 {
+  margin-top: 1rem !important; /* Override my-12 class */
+  margin-bottom: 1rem !important;
+}
+
+/* Remove large top margin from article/main content */
+main article,
+[class*='docItemContainer'] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+}
+
+
+/* EQUAL SPACING: Make top and bottom spacing around H1 consistent */
+/* This creates better visual balance for documentation pages */
+
+/* Set consistent spacing after breadcrumbs */
+nav.theme-doc-breadcrumbs {
+  margin-bottom: 1.5rem !important; /* Equal to H1 bottom margin */
+}
+
+/* Ensure H1 has equal spacing on both sides */
+article h1:first-of-type,
+.prose h1:first-of-type {
+  margin-top: 0 !important; /* No extra top margin */
+  margin-bottom: 1.5rem !important; /* Match breadcrumb spacing */
+}
+
+/* Remove any extra padding from containers */
+.theme-doc-markdown.markdown {
+  padding-top: 0 !important;
+}
+
+/* Table header vertical alignment - align headers to top of cells */
+table th {
+  vertical-align: top !important;
+}
+

@@ -1,5 +1,5 @@
 ---
-id: installation
+id: macos-installation
 title: MacOS Installation
 sidebar_label: MacOS
 tags:
