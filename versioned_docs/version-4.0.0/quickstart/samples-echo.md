@@ -22,7 +22,7 @@ keyword:
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Echo and PostgresSQL Sample URL Shortner
 
 import ProductTier from '@site/src/components/ProductTier';
 
@@ -31,6 +31,8 @@ import ProductTier from '@site/src/components/ProductTier';
 A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
 
 <InstallReminder />
+
+##  Using Docker Compose 🐳
 
 ### Clone a sample URL shortener app 🧪
 
@@ -117,7 +119,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+## Running App Locally on Linux/WSL 🐧
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
