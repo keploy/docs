@@ -375,6 +375,11 @@ module.exports = {
       async: true,
       defer: true,
     },
+    {
+      src: "/docs/scripts/chatwoot.js",
+      async: true,
+      defer: true,
+    },
     /*{
       src: "/docs/scripts/chat.js",
       async: true,
