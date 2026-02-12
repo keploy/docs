@@ -170,6 +170,10 @@
         "running-keploy/run-ai-generated-api-tests",
         "running-keploy/api-testing-cicd",
         "running-keploy/api-testing-webhook",
+        "running-keploy/api-testing-edit-suites",
+        "running-keploy/api-testing-custom-assertions",
+        "running-keploy/api-testing-assertion-tree",
+        "running-keploy/api-testing-sharing-reports",
         "running-keploy/api-testing-auth-setup",
         {
           "type": "doc",
