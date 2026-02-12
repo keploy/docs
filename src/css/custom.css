@@ -1465,12 +1465,15 @@ article.markdown p {
 /* Heading hierarchy - clear visual distinction */
 article.markdown h1 {
   margin-top: 0;
-  margin-bottom: 1rem;
   font-size: 2.5rem;
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.2;
   color: #111827;
+}
+h1 {
+  margin-bottom: 1.5rem;   /* increased spacing */
+  padding-bottom: 0.75rem; /* add space before divider */
 }
 
 html[data-theme="dark"] article.markdown h1 {
