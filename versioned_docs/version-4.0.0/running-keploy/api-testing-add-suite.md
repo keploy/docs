@@ -1,5 +1,5 @@
 ---
-id: api-testing-add-suites
+id: api-testing-add-suite
 title: Adding New Test Suites
 description: Guide to adding to new Suites using "Add New"
 sidebar_label: Adding New Suite
