@@ -21,7 +21,7 @@ import {
 import {
   SiKubernetes,
   SiDocker,
-  SiGithubactions
+  SiGithubactions,
 } from 'react-icons/si';
 
 /**
@@ -48,12 +48,13 @@ const categoryIcons = {
   'security': FaShieldAlt,
   'operation': FaTools,
 
-  // Language/Framework categories
+  // Language / Framework categories
   'java': FaCode,
   'golang': FaCode,
   'python': FaCode,
   'javascript': FaCode,
   'typescript': FaCode,
+  'rust': FaCode,
 
   // Infrastructure
   'docker': SiDocker,
@@ -79,7 +80,11 @@ export function getCategoryIcon(categoryLabel) {
   return categoryIcons[key] || null;
 }
 
-export default function SidebarCategoryIcon({ category, size = 16, className = '' }) {
+export default function SidebarCategoryIcon({
+  category,
+  size = 16,
+  className = '',
+}) {
   const Icon = getCategoryIcon(category);
 
   if (!Icon) return null;
@@ -113,4 +118,3 @@ export default function SidebarCategoryIcon({ category, size = 16, className = '
 
 // Export icon mapping for use in sidebar configuration
 export { categoryIcons };
-
