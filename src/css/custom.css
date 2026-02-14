@@ -426,6 +426,54 @@ html[data-theme="dark"] .navbar {
   color: #ffffff;
 }
 
+/* 1. Create gap between Magnifying Glass and the orange input box */
+.DocSearch-MagnifierLabel {
+  margin-left: 0.2px !important; /* Adjust this value for a larger/smaller gap */
+  margin-right: 8px !important;  /* Space between icon and the text you type */
+  color: var(--ifm-color-primary) !important; /* Optional: makes icon match Keploy blue */
+}
+
+/* Make form stretch fully */
+.DocSearch-Form {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  border: 2px solid orange !important;
+  border-radius: 6px;
+  padding: 0;
+}
+
+/* Let wrapper take full width */
+.DocSearch-InputWrapper {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  box-shadow: none !important;
+  border: none !important;
+  padding-left: 12px;
+}
+
+/* Clean input */
+.DocSearch-Input {
+  flex: 1;
+  border: none !important;
+  outline: none !important;
+  min-width: 0;
+  background: transparent;
+
+  /* 👇 prevents text from going under clear button */
+  padding-right: 110px; 
+}
+
+/* Keep clear text spacing */
+.DocSearch-Clear {
+  margin-left: 8px;
+  white-space: nowrap;
+}
+
+
+
+
 /* Footer */
 
 footer svg {
