@@ -1,5 +1,5 @@
 ---
-id: installation
+id: linux-installation
 title: Linux Installation
 sidebar_label: Linux
 tags:

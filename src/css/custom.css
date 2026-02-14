@@ -12,9 +12,9 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
@@ -24,19 +24,21 @@
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
   --doc-sidebar-width: 275px !important;
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
-  --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --site-primary-hue-saturation-light: 0 0%;
+  /* do we really need this extra one? */
   --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
 }
 
 /* Global overflow control */
-html, body {
+html,
+body {
   overflow-x: hidden;
   max-width: 100vw;
 }
@@ -54,8 +56,8 @@ html, body {
   width: 100% !important;
 }
 
-.navbar > .container,
-.navbar > .container-fluid {
+.navbar>.container,
+.navbar>.container-fluid {
   max-width: 100% !important;
   width: 100% !important;
   padding: 0 1rem;
@@ -89,11 +91,11 @@ html[data-theme="dark"] main {
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
+
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #FFF;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -128,7 +130,8 @@ html[data-theme="light"] {
   --ifm-badge-background-color: rgba(239, 246, 255);
 
   --card-color: rgba(239, 246, 255);
-  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2);
+  /* Dark shadow for light theme */
 }
 
 @font-face {
@@ -164,9 +167,10 @@ html[data-theme="light"] {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
+
 h1,
 h2,
 h3,
@@ -183,9 +187,10 @@ h4,
 }
 
 /* otherwise external references in menu bar (see Go) have the icon screwed up */
-.menu__list-item > .menu__link > span {
+.menu__list-item>.menu__link>span {
   display: flex;
 }
+
 .menu__link--sublist:after {
   /* Keep sidebar chevron size consistent with leaf items */
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
@@ -197,14 +202,14 @@ div[class^="sidebar_"] .menu__link--sublist-caret:after {
   height: 1.5rem;
   min-width: 1.5rem;
 }
+
 div[class^="sidebar_"] .menu__caret:before {
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
   height: 1.5rem;
   width: 1.5rem;
 }
 
-div[class^="sidebar_"]
-  .menu__link.menu__link--active:not(.menu__link--sublist) {
+div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) {
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
@@ -219,6 +224,7 @@ div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist
   color: inherit !important;
   font-weight: inherit;
 }
+
 /* And keep color unchanged even on hover when on its own page */
 div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist:hover {
   color: inherit !important;
@@ -235,6 +241,7 @@ div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="pa
   background: transparent !important;
   font-weight: inherit !important;
 }
+
 div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:hover,
 div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:focus,
 div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"].menu__link--active {
@@ -250,17 +257,17 @@ div[class^="sidebar_"] .menu__link--sublist.menu__link--active[aria-current="pag
 }
 
 /* Extra-specific guard: ensure normal color for category labels on their own page */
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"],
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
-div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"] {
+div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"],
+div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
+div[class^="sidebar_"] li.menu__list-item>div.menu__list-item-collapsible>a.menu__link.menu__link--sublist[aria-current="page"] {
   color: var(--ifm-menu-color) !important;
   background: transparent !important;
   font-weight: inherit !important;
 }
 
 /* Restore hover background for categories with their own page when hovering that link */
-div[class^="sidebar_"] li.menu__list-item > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
-div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
+div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"]:hover,
+div[class^="sidebar_"] li.menu__list-item>div.menu__list-item-collapsible>a.menu__link.menu__link--sublist[aria-current="page"]:hover {
   /* prevent extra link-layer hover; container provides unified hover */
   background-color: transparent !important;
 }
@@ -270,8 +277,9 @@ div[class^="sidebar_"] li.menu__list-item > div.menu__list-item-collapsible > a.
 div[class^="sidebar_"] .menu__list-item-collapsible--active:hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > .menu__caret {
+
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>a.menu__link,
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>.menu__caret {
   background-color: transparent !important;
 }
 
@@ -279,12 +287,14 @@ div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > .menu__caret
 div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover > .menu__caret {
+
+div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover>a.menu__link,
+div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover>.menu__caret {
   background-color: transparent !important;
 }
+
 /* Ensure link text color does not change on hover in this specific case */
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover > a.menu__link {
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>a.menu__link {
   color: inherit !important;
 }
 
@@ -305,6 +315,7 @@ html[data-theme="light"] div[class^="sidebar_"] .menu__list-item-collapsible:not
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
+
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
@@ -314,8 +325,10 @@ div[class^="sidebar_"] .menu__link {
   line-height: 1.5;
   padding-bottom: calc(var(--ifm-menu-link-padding-vertical) + 1px);
 }
+
 div[class^="sidebar_"] .menu__link.menu__link--active {
-  line-height: 1.5; /* ensure active/bold state also has enough leading */
+  line-height: 1.5;
+  /* ensure active/bold state also has enough leading */
 }
 
 /* TOC styles moved to modern sidebar section below */
@@ -332,7 +345,8 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 }
 
 .center {
-  text-align: center; /* needed so that blog post heading is centered in the single blog post view */
+  text-align: center;
+  /* needed so that blog post heading is centered in the single blog post view */
 }
 
 /*
@@ -373,11 +387,13 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
 .pagination-nav {
   @apply flex mt-12 flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
 }
+
 .pagination-nav__item {
   @apply w-full max-w-md;
 }
+
 .pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5 text-lg shadow-lg transition-transform hover:scale-105;
 }
 
 /* Navbar */
@@ -402,7 +418,7 @@ html[data-theme="dark"] .navbar {
   gap: 12px;
 }
 
-.navbar__items--right > :last-child {
+.navbar__items--right> :last-child {
   @apply pr-0;
 }
 
@@ -510,7 +526,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -647,43 +663,52 @@ td img {
 } */
 
 /* hacks to counteract tailwind typography clashing with docusaurus tabs */
-.prose .tabs-container > .tabs > .tabs__item::before {
+.prose .tabs-container>.tabs>.tabs__item::before {
   content: none;
 }
-.prose .tabs-container > .tabs > .tabs__item {
+
+.prose .tabs-container>.tabs>.tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
   margin-bottom: 0em;
   opacity: 0.5;
 }
-.prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
+
+.prose .tabs-container>.tabs>.tabs__item.tabs__item--active {
   opacity: 1;
 }
 
 .prose .tabs {
   padding: 0 !important;
 }
+
 .prose .tabs-container ul {
   margin: 0;
   margin-bottom: -1.25rem;
 }
-.prose .tabs-container > .margin-vert--md pre {
+
+.prose .tabs-container>.margin-vert--md pre {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on inline images */
 .prose li img {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on li children */
-.prose > ol > li > :first-child,
-.prose > ul > li > :first-child,
-.prose > ol > li > :last-child,
-.prose > ul > li > :last-child {
-  margin: 0 !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+.prose>ol>li> :first-child,
+.prose>ul>li> :first-child,
+.prose>ol>li> :last-child,
+.prose>ul>li> :last-child {
+  margin: 0 !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
-.prose li > ul {
-  margin-top: 1rem !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+
+.prose li>ul {
+  margin-top: 1rem !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
 
 .prose :where(a code) {
@@ -700,12 +725,12 @@ td img {
   padding: 0;
   font-size: 0.95em;
 }
+
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
-[data-theme="light"]
-  .prose
-  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+
+[data-theme="light"] .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background-color: #ffffff;
 }
 
@@ -718,13 +743,11 @@ td img {
   width: 24px;
   height: 24px;
   display: flex;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
 [data-theme="dark"] .header-github-link::before {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
-    no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
 }
 
 /* Slack navbar icon styling */
@@ -769,7 +792,7 @@ html[data-theme="dark"] div[class^="announcementBar_"] {
   background: linear-gradient(135deg, #c95919 0%, #be2c1b 100%);
 }
 
-.list-disc > a {
+.list-disc>a {
   display: inherit;
 }
 
@@ -780,7 +803,8 @@ html[data-theme="dark"] div[class^="announcementBar_"] {
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
@@ -976,7 +1000,7 @@ html[data-theme="dark"] .theme-doc-sidebar-container {
 }
 
 /* Inner sidebar - sticky behavior */
-.theme-doc-sidebar-container > div {
+.theme-doc-sidebar-container>div {
   position: sticky !important;
   top: 0;
   height: 100vh;
@@ -984,7 +1008,7 @@ html[data-theme="dark"] .theme-doc-sidebar-container {
   background: var(--sidebar-bg) !important;
 }
 
-aside.theme-doc-sidebar-container > div {
+aside.theme-doc-sidebar-container>div {
   background: var(--sidebar-bg) !important;
 }
 
@@ -1003,8 +1027,8 @@ div[class^="sidebar_"] .menu {
    ============================================ */
 
 /* Top-level category styling - full-width rows */
-div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible,
-div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
+div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible,
+div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
   display: flex;
   align-items: center;
   width: 100%;
@@ -1019,14 +1043,14 @@ div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
   color: var(--sidebar-category-color);
 }
 
-div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover,
-div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist:hover {
+div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover,
+div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist:hover {
   background: var(--sidebar-hover);
 }
 
 /* Top-level category label - PURPLE */
-div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible > a.menu__link,
-div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
+div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible>a.menu__link,
+div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
   font-weight: 600;
   font-size: 0.875rem;
   letter-spacing: 0.01em;
@@ -1038,7 +1062,7 @@ div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
 }
 
 /* Divider between top-level categories */
-div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
+div[class^="sidebar_"]>nav>ul>li:not(:last-child) {
   border-bottom: 1px solid var(--sidebar-border);
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1067,7 +1091,7 @@ div[class^="sidebar_"] .menu__link--sublist::after {
 }
 
 /* Purple chevron for top-level categories */
-div[class^="sidebar_"] > nav > ul > li .menu__caret::before {
+div[class^="sidebar_"]>nav>ul>li .menu__caret::before {
   filter: hue-rotate(260deg) saturate(1.5);
 }
 
@@ -1145,15 +1169,15 @@ div[class^="sidebar_"] .menu__link:hover {
    CATEGORY ROW HOVER LIFT EFFECT
    ============================================ */
 
-div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible {
+div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible {
   transition: all 0.15s ease, box-shadow 0.15s ease;
 }
 
-div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover {
+div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
-html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover {
+html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
 }
 
@@ -2076,7 +2100,7 @@ html[data-theme="dark"] .breadcrumbs__item:not(:last-child)::after {
    ============================================ */
 
 /* Version dropdown in navbar */
-.navbar__items--right .dropdown > .navbar__link {
+.navbar__items--right .dropdown>.navbar__link {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
   background: rgba(139, 92, 246, 0.1);
@@ -2085,7 +2109,7 @@ html[data-theme="dark"] .breadcrumbs__item:not(:last-child)::after {
   font-weight: 600;
 }
 
-html[data-theme="dark"] .navbar__items--right .dropdown > .navbar__link {
+html[data-theme="dark"] .navbar__items--right .dropdown>.navbar__link {
   background: rgba(139, 92, 246, 0.15);
   color: #a78bfa;
 }
@@ -2397,7 +2421,7 @@ html[data-theme="dark"] .menu__link:hover {
   color: var(--sidebar-text);
 }
 
-html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible > a.menu__link {
+html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible>a.menu__link {
   color: var(--sidebar-category-color) !important;
 }
 
@@ -2412,7 +2436,7 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
     min-width: unset !important;
   }
 
-  .theme-doc-sidebar-container > div {
+  .theme-doc-sidebar-container>div {
     position: relative !important;
     height: auto;
   }
@@ -2430,7 +2454,7 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
     padding-right: 0;
   }
 
-  div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
+  div[class^="sidebar_"]>nav>ul>li:not(:last-child) {
     border-bottom: none;
     padding-bottom: 0.25rem;
     margin-bottom: 0.25rem;
@@ -2588,7 +2612,8 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
   justify-content: center;
   gap: 15px;
   padding: 10px;
-  background: var(--ifm-color-emphasis-100); /* Slim strip look */
+  background: var(--ifm-color-emphasis-100);
+  /* Slim strip look */
   border-radius: 4px;
   margin-bottom: 20px;
 }
@@ -2600,7 +2625,8 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
 
 /* Dark mode */
 [data-theme='dark'] #support span {
-  color: #ffffff; /* or a softer light gray like #e0e0e0 */
+  color: #ffffff;
+  /* or a softer light gray like #e0e0e0 */
 }
 
 #support a {
@@ -2623,11 +2649,11 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
 }
 
 .pagination-nav__link {
-  padding: 0.5rem 1rem !important; 
+  padding: 0.5rem 1rem !important;
   border-radius: 6px !important;
-  box-shadow: none !important;    
+  box-shadow: none !important;
   border: 1.5px solid var(--ifm-color-emphasis-200) !important;
-  background: transparent !important; 
+  background: transparent !important;
   min-height: auto !important;
   display: flex;
   flex-direction: column;
@@ -2668,7 +2694,8 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
 }
 
 [data-theme='dark'] .pagination-nav__link {
-  border-color: var(--ifm-color-emphasis-100); /* softer than before */
+  border-color: var(--ifm-color-emphasis-100);
+  /* softer than before */
 }
 
 [data-theme='dark'] .pagination-nav__label {
@@ -2703,7 +2730,8 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
 
   .pagination-nav {
     display: flex !important;
-    flex-direction: column !important; /* stack vertically */
+    flex-direction: column !important;
+    /* stack vertically */
     gap: 12px;
   }
 
@@ -2720,4 +2748,237 @@ html[data-theme="dark"] div[class^="sidebar_"] > nav > ul > li > .menu__list-ite
     font-size: 0.9rem !important;
     line-height: 1.4;
   }
+}
+
+/* ===== CONSISTENT SPACING FOR DOCUMENTATION PAGES ===== */
+/* Fix inconsistent vertical spacing in documentation content */
+article header+* {
+  margin-top: 2rem !important;
+  /* Consistent space after page title */
+}
+
+article h1 {
+  margin-bottom: 1.5rem !important;
+  /* Consistent space after H1 */
+}
+
+article h2 {
+  margin-top: 2.5rem !important;
+  /* Consistent space before H2 */
+  margin-bottom: 1rem !important;
+  /* Consistent space after H2 */
+}
+
+article h3 {
+  margin-top: 2rem !important;
+  /* Consistent space before H3 */
+  margin-bottom: 0.75rem !important;
+  /* Consistent space after H3 */
+}
+
+article p {
+  margin-bottom: 1rem !important;
+  /* Consistent space after paragraphs */
+}
+
+article img {
+  margin-top: 1.5rem !important;
+  /* Consistent space before images */
+  margin-bottom: 1.5rem !important;
+  /* Consistent space after images */
+}
+
+article>div[style*='backgroundColor'] {
+  margin-top: 1.5rem !important;
+  /* Consistent space before styled divs */
+  margin-bottom: 1.5rem !important;
+  /* Consistent space after styled divs */
+}
+
+
+/* Override Tailwind prose spacing for better consistency */
+.prose.md\\:prose-md {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* More specific overrides for prose elements */
+.prose p {
+  margin-top: 1rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose h1 {
+  margin-top: 0 !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.prose h2 {
+  margin-top: 2rem !important;
+  margin-bottom: 1rem !important;
+}
+
+.prose h3 {
+  margin-top: 1.5rem !important;
+  margin-bottom: 0.75rem !important;
+}
+
+.prose img {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+}
+
+/* Fix the large top margin on first element after header */
+.markdown>*:first-child,
+article>.markdown>*:first-child {
+  margin-top: 1.5rem !important;
+}
+
+
+/* Fix clipped descenders in headings (y, g, p, q, j) */
+article h1,
+.prose h1 {
+  line-height: 1.3 !important;
+  /* Increase line-height to prevent clipping */
+  padding-bottom: 0.2rem !important;
+  /* Add padding to ensure descenders are visible */
+  overflow: visible !important;
+  /* Ensure text isn't clipped */
+}
+
+article h2,
+.prose h2 {
+  line-height: 1.4 !important;
+  padding-bottom: 0.15rem !important;
+  overflow: visible !important;
+}
+
+article h3,
+.prose h3 {
+  line-height: 1.4 !important;
+  padding-bottom: 0.1rem !important;
+  overflow: visible !important;
+}
+
+
+/* Reduce excessive spacing - fine-tuned values */
+article h1,
+.prose h1 {
+  margin-bottom: 1rem !important;
+  /* Reduced from 1.5rem */
+}
+
+/* Reduce top margin on first paragraph after title */
+article h1+p,
+.prose h1+p {
+  margin-top: 1rem !important;
+  /* Consistent spacing after H1 */
+}
+
+/* Adjust H2 spacing to be less aggressive */
+article h2,
+.prose h2 {
+  margin-top: 1.75rem !important;
+  /* Reduced from 2rem */
+  margin-bottom: 0.75rem !important;
+  /* Reduced from 1rem */
+}
+
+/* Adjust paragraph spacing */
+article p,
+.prose p {
+  margin-top: 0.75rem !important;
+  /* Reduced */
+  margin-bottom: 0.75rem !important;
+  /* Reduced */
+}
+
+/* Adjust image spacing */
+article img,
+.prose img {
+  margin-top: 1.25rem !important;
+  /* Reduced from 1.5rem */
+  margin-bottom: 1.25rem !important;
+  /* Reduced from 1.5rem */
+}
+
+
+/* Reduce top padding/margin above page title across all docs pages */
+article,
+.markdown,
+[class*='docItemContainer'] article {
+  padding-top: 1rem !important;
+  /* Reduced top padding */
+}
+
+/* Reduce margin-top on the H1 title itself */
+article h1:first-of-type,
+.prose h1:first-of-type,
+.markdown h1:first-of-type {
+  margin-top: 0.5rem !important;
+  /* Minimal top margin for first H1 */
+}
+
+/* Remove excessive top margin from article header */
+article header {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+/* Reduce top margin on first element after breadcrumbs */
+.theme-doc-breadcrumbs+* {
+  margin-top: 1rem !important;
+}
+
+
+/* OVERRIDE: Reduce top margin/padding on markdown container - more specific selectors */
+div.theme-doc-markdown.markdown,
+.theme-doc-markdown,
+[class*='theme-doc-markdown'] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+  /* Minimal top padding */
+}
+
+/* Target the prose container specifically */
+.prose.md\\:prose-md.prose-auto.my-12 {
+  margin-top: 1rem !important;
+  /* Override my-12 class */
+  margin-bottom: 1rem !important;
+}
+
+/* Remove large top margin from article/main content */
+main article,
+[class*='docItemContainer'] {
+  margin-top: 0 !important;
+  padding-top: 0.5rem !important;
+}
+
+
+/* EQUAL SPACING: Make top and bottom spacing around H1 consistent */
+/* This creates better visual balance for documentation pages */
+
+/* Set consistent spacing after breadcrumbs */
+nav.theme-doc-breadcrumbs {
+  margin-bottom: 1.5rem !important;
+  /* Equal to H1 bottom margin */
+}
+
+/* Ensure H1 has equal spacing on both sides */
+article h1:first-of-type,
+.prose h1:first-of-type {
+  margin-top: 0 !important;
+  /* No extra top margin */
+  margin-bottom: 1.5rem !important;
+  /* Match breadcrumb spacing */
+}
+
+/* Remove any extra padding from containers */
+.theme-doc-markdown.markdown {
+  padding-top: 0 !important;
+}
+
+/* Table header vertical alignment - align headers to top of cells */
+table th {
+  vertical-align: top !important;
 }

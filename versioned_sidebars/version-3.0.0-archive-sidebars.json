@@ -20,7 +20,6 @@
           "id": "server/installation"
         },
         "keploy-cloud/cloud-installation",
-        "keploy-cloud/kubernetes-local-setup",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
@@ -170,7 +169,6 @@
         "running-keploy/run-ai-generated-api-tests",
         "running-keploy/api-testing-cicd",
         "running-keploy/api-testing-webhook",
-        "running-keploy/api-testing-auth-setup",
         {
           "type": "doc",
           "label": "FAQs",
