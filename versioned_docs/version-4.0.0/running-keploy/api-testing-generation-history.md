@@ -10,14 +10,11 @@ tags:
   - job-tracking
   - test-management
 ---
+import ProductTier from '@site/src/components/ProductTier';
 
-# Test Generation History
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide explains how to use the generation history page in Keploy to track and manage your test generation jobs. The history provides detailed insights into each generation run, including acceptance rates, errors, and inputs used.
-
-## Overview
-
-The generation history page displays a comprehensive list of all test generation jobs, allowing you to monitor the success rate of your test generations and take action on rejected or buggy tests.
+This guide explains how to use the generation history to track and manage your test generation jobs. 
 
 ## Generation History Features
 
@@ -45,7 +42,6 @@ To view details of a specific generation:
 
 2. **Review Job Statistics**
    - See the breakdown of accepted, recovered, rejected, and buggy test suites
-   - Understand the success rate of each generation
 
 3. **Check Input Parameters**
    - View the inputs used for that generation
@@ -66,26 +62,12 @@ If you find rejected test suites that you want to include:
    - Click on the **+** (plus) icon next to any rejected test suite
    - This action will add the rejected test to your current list of test suites
 
-3. **Review and Modify**
-   - The test suite will appear in your current test suite list
-   - You can now review, edit, and fix any issues
-   - Make necessary adjustments before running the test
-
-4. **Re-validate**
-   - After modifications, re-run the test to validate
-   - Monitor if it moves from rejected to accepted status
-
 ## Understanding Test Statuses
 
 ### Accepted Tests ✅
 - Tests that passed all validation checks
 - Successfully generated and ready to use
 - No issues detected in the test suite
-
-### Recovered Tests 🔄
-- Tests that encountered errors but were successfully recovered
-- May have required automatic fixes or adjustments
-- Review recommended to ensure correctness
 
 ### Rejected Tests ❌
 - Tests that failed validation checks
@@ -112,7 +94,6 @@ If you find rejected test suites that you want to include:
 │                                                                 │
 │ Statistics:                                                     │
 │   ✅ Accepted: 45                                               │
-│   🔄 Recovered: 12                                              │
 │   ❌ Rejected: 8                                                │
 │   🐛 Buggy: 3                                                   │
 │                                                                 │
@@ -132,7 +113,6 @@ If you find rejected test suites that you want to include:
 │                                                                 │
 │ Statistics:                                                     │
 │   ✅ Accepted: 32                                               │
-│   🔄 Recovered: 5                                               │
 │   ❌ Rejected: 15                                               │
 │   🐛 Buggy: 7                                                   │
 │                                                                 │
@@ -190,23 +170,3 @@ If you find rejected test suites that you want to include:
    - Archive old generation jobs periodically
    - Focus on recent and relevant generations
    - Keep track of successful generation patterns
-
-## Filtering and Sorting
-
-You can filter and sort generation history by:
-- **Date Range**: View generations within a specific time period
-- **Status**: Filter by acceptance rate or overall status
-- **Job ID**: Search for specific generation jobs
-- **Endpoint**: Filter by endpoints used in generation
-- **Success Rate**: Sort by acceptance percentage
-
-## Benefits of Generation History
-
-- **Transparency**: Complete visibility into test generation process
-- **Traceability**: Track which inputs produced which tests
-- **Quality Control**: Monitor and improve test generation quality
-- **Recovery**: Easily recover and fix rejected tests
-- **Analytics**: Understand patterns and optimize generation strategy
-- **Audit Trail**: Maintain records of all test generation activities
-
-By leveraging the generation history feature, you can maintain high-quality test suites, recover valuable rejected tests, and continuously improve your API testing strategy.

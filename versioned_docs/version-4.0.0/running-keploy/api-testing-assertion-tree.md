@@ -36,6 +36,7 @@ Instead of viewing tests as isolated steps, the Assertion Tree gives you a compl
 3. The system renders the full test suite in a **tree format**
 
 ---
+![Assertion tree](https://keploy-devrel.s3.us-west-2.amazonaws.com/assertion-tree-1.png)
 
 ## What You Can See
 
@@ -44,8 +45,6 @@ The Assertion Tree provides a visual representation of:
 - All test steps in execution order  
 - Request details for each step  
 - Attached assertions  
-- Response validations  
-- Parent-child relationships between steps (if applicable)
 
 Each node in the tree represents a test step and contains:
 
@@ -55,16 +54,12 @@ Each node in the tree represents a test step and contains:
 
 This makes it easier to understand how your test suite behaves as a complete workflow.
 
----
-
 ## What You Can Do
 
 The Assertion Tree is fully interactive. You can:
 
 ### 1. View Complete Flow
 Understand the entire API workflow from start to finish without switching between screens.
-
----
 
 ### 2. Inspect Assertions Inline
 Quickly see which assertions are attached to each step, including:
@@ -74,8 +69,6 @@ Quickly see which assertions are attached to each step, including:
 - Header validations  
 - Schema validations  
 - Custom function validations  
-
----
 
 ### 3. Add a New Step in the Flow
 
@@ -90,21 +83,6 @@ This allows you to:
 
 The new step becomes part of the structured execution sequence.
 
----
-
-### 4. Modify Existing Steps
-
-From the tree view, you can:
-
-- Edit request configurations  
-- Update assertions  
-- Adjust execution order  
-- Refine validation logic  
-
-All changes reflect directly in the test suite.
-
----
-
 ## Why Use the Assertion Tree?
 
 The Assertion Tree is particularly useful when:
@@ -117,8 +95,6 @@ The Assertion Tree is particularly useful when:
 
 It transforms test management from a flat list into a structured execution graph.
 
----
-
 ## Typical Use Cases
 
 - Authentication → Resource Creation → Validation → Cleanup flows  
@@ -126,8 +102,6 @@ It transforms test management from a flat list into a structured execution graph
 - E-commerce checkout journeys  
 - Webhook-triggered event testing  
 - Integration testing across services  
-
----
 
 ## Best Practices
 
@@ -137,6 +111,5 @@ It transforms test management from a flat list into a structured execution graph
 - Review flow dependencies to avoid unintended execution order
 - Use visualization to debug failing multi-step tests faster
 
----
 
 The Assertion Tree enables you to design, inspect, and extend complex API workflows with clarity and precision — all from a single visual interface.

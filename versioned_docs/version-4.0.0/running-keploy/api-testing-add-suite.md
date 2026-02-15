@@ -9,7 +9,9 @@ tags:
   - test-suite
   - test-management
 ---
-# Adding a Test Suite
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 In this guide, we will walk through the process of adding a test suite in Keploy. Users can either manually provide the details for the test suite or directly import a curl command to create one.
 
@@ -24,7 +26,8 @@ In this guide, we will walk through the process of adding a test suite in Keploy
      - **Name**: Enter a unique name for the test suite.
      - **Details**: Provide a brief description of the test suite.
      - **Request**: Specify the request details, such as the HTTP method, URL, headers, and body.
-     - **Associations**: Define any associations or dependencies related to the test suite.
+     - **Assertions**: Define any Assertions related to the test suite.
+![Add Suite](https://keploy-devrel.s3.us-west-2.amazonaws.com/add-new-suite-1.png)
 
 3. **Import a Curl Command (Optional)**
    - If you have a curl command, you can directly import it to create the test suite.
@@ -51,9 +54,7 @@ In this guide, we will walk through the process of adding a test suite in Keploy
       "username": "test_user",
       "password": "secure_password"
     }
-  },
-  "associations": ["auth-service", "user-database"]
-}
+  }}
 ```
 
 ### Importing a Curl Command

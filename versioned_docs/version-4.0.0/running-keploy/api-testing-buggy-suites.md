@@ -9,14 +9,15 @@ tags:
   - test-failures
   - troubleshooting
 ---
+import ProductTier from '@site/src/components/ProductTier';
 
-# Buggy Test Suites
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 When Keploy generates tests, some test cases might fail due to various reasons such as endpoint issues, data mismatches, or API changes. The buggy test suites page helps you identify, understand, and fix these failing tests.
 
 ## Viewing Buggy Test Suites
 
-Navigate to the test suites generated with the red esclamation icon to view all test suites that contain failing test cases. Each buggy suite displays:
+Navigate to the test suites generated with the red exclamation icon to view all test suites that contain failing test cases. Each buggy suite displays:
 
 - **Suite Name**: The name of the test suite containing failed tests
 - **Test Steps**: Steps in the suite 
@@ -88,22 +89,6 @@ Assertion: json_body_equals
 Message: Response body structure completely different from expected
 ```
 
-### Response Time Assertions
-```yaml
-Expected: < 2000ms
-Actual: 5432ms
-Assertion: response_time_less_than
-Message: Response time exceeded acceptable threshold
-```
-
-### Header Assertions
-```yaml
-Expected: "application/json"
-Actual: "text/html"
-Assertion: content_type_equals
-Message: Content-Type header mismatch indicates server error
-```
-
 ## Debugging Actions
 
 For each buggy test case, you can take several debugging actions:
@@ -113,7 +98,6 @@ Click on any failed test to see:
 - Complete request details (URL, headers, body)
 - Full response details (status, headers, body)
 - All assertion results with expected vs actual values
-- Test execution timeline
 
 ### 2. Compare with Recorded Version
 View the side-by-side comparison between:
@@ -140,62 +124,6 @@ If the API behavior has legitimately changed:
 1. **Re-record the test**: Capture new expected behavior
 2. **Update assertions**: Modify expected values to match new API
 3. **Add new test cases**: Cover additional scenarios if needed
-
-## Common Debugging Scenarios
-
-### Scenario 1: Environment Differences
-**Problem**: Tests pass in development but fail in staging/production
-
-**Solution**:
-- Check environment-specific configurations
-- Verify database state and test data
-- Review environment variables and secrets
-- Ensure consistent API versions across environments
-
-### Scenario 2: Timing Issues
-**Problem**: Tests fail intermittently due to timing
-
-**Solution**:
-- Increase response timeout thresholds
-- Add delays between dependent API calls
-- Review database transaction handling
-- Consider eventual consistency in distributed systems
-
-### Scenario 3: Data Dependencies
-**Problem**: Tests fail because required data doesn't exist
-
-**Solution**:
-- Set up proper test data fixtures
-- Use data factory patterns for test preparation
-- Implement database seeding for test environments
-- Review test isolation and cleanup procedures
-
-## Best Practices for Fixing Buggy Suites
-
-1. **Start with Environment Verification**
-   - Ensure all required services are running
-   - Verify database connectivity and state
-   - Check configuration and environment variables
-
-2. **Analyze Failure Patterns**
-   - Group similar failures together
-   - Identify if failures are systematic or random
-   - Look for common root causes across multiple tests
-
-3. **Fix Root Causes, Not Symptoms**
-   - Address underlying API issues rather than just updating tests
-   - Collaborate with development teams on API stability
-   - Document breaking changes and migration paths
-
-4. **Maintain Test Quality**
-   - Regularly review and update test suites
-   - Remove obsolete or flaky tests
-   - Add new tests for changed functionality
-
-5. **Monitor Test Health**
-   - Set up alerts for test failure rates
-   - Track test suite reliability over time
-   - Review test results as part of deployment process
 
 ## Getting Help
 

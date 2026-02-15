@@ -9,7 +9,10 @@ tags:
   - test-suite
   - test-management
 ---
-# Filtering Test Suites
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This guide explains how to filter test suites in Keploy to quickly find and manage your API tests. You can apply various filters to narrow down your test suites based on different criteria.
 
@@ -52,21 +55,9 @@ Keploy provides multiple filtering options to help you efficiently locate and or
 
 ## How to Apply Filters
 
-1. **Access the Filter Panel**
-   - Navigate to the test suites section in Keploy
-   - Look for the filter icon or filter panel
-
-2. **Select Filter Criteria**
-   - Choose one or more filter options from the available categories
-   - Filters can be combined for more precise results
-
-3. **Apply Filters**
-   - Click "Apply" or the filters will be applied automatically
-   - The test suite list will update to show only matching results
-
-4. **Clear Filters**
-   - Use the "Clear Filters" or "Reset" button to remove all active filters
-   - Return to viewing all test suites
+- Access the Filter Panel
+- Select Filter Criteria
+- Click "Apply" or the filters will be applied automatically
 
 ## Example Use Cases
 
@@ -76,27 +67,6 @@ Filter by Status Code: 4xx, 5xx
 ```
 This will show all tests that resulted in client or server errors.
 
-### Reviewing POST Requests
-```
-Filter by HTTP Method: POST
-```
-This displays all tests using the POST method.
-
-### Testing a Specific API
-```
-Filter by Endpoint: /api/v1/users
-```
-This shows all tests for the users endpoint.
-
-### Combining Filters
-```
-Filter by:
-- HTTP Method: GET
-- Status Code: 200
-- Endpoint: /api/v1/products
-```
-This shows all successful GET requests to the products endpoint.
-
 ## Benefits of Filtering
 
 - **Faster Navigation**: Quickly find specific tests without scrolling through long lists
@@ -105,4 +75,4 @@ This shows all successful GET requests to the products endpoint.
 - **Test Analysis**: Understand patterns in your API behavior
 - **Maintenance**: Easier to update or remove tests for specific endpoints or methods
 
-By using these filtering options, you can efficiently manage and analyze your test suites in Keploy.
+By using these filtering options, you can efficiently manage and analyze your test suites.

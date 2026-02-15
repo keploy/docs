@@ -11,7 +11,9 @@ tags:
   - test-management
 ---
 
-# Schema Coverage and Generation
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This guide explains how to use the schema coverage page in Keploy to analyze your API schema coverage and automatically generate additional test suites to cover missing scenarios.
 

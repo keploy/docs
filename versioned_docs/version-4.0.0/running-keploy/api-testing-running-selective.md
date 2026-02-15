@@ -10,7 +10,10 @@ tags:
   - test-management
 ---
 
-# Running Selective Test Suites
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Keploy allows you to select specific test suites from your test collection and perform bulk actions like running tests, deleting suites, or adding labels. This selective approach helps you manage large test collections efficiently and run only the tests you need.
 

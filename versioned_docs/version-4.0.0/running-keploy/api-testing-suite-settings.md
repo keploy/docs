@@ -10,7 +10,9 @@ tags:
   - bulk-operations
 ---
 
-# Test Suite Settings & Actions
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 The test suite panel in Keploy provides a comprehensive set of actions and settings to manage your test suites effectively. From basic operations like running and sharing tests to advanced features like bulk schema editing and global configurations, the suite panel offers everything you need for efficient test management.
 

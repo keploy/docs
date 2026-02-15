@@ -10,14 +10,11 @@ tags:
   - test-results
   - test-management
 ---
+import ProductTier from '@site/src/components/ProductTier';
 
-# Test Run Reports
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide explains how to use the run report page in Keploy to track and analyze your test execution results. The run reports provide comprehensive insights into test performance, failures, and bugs with detailed diagnostic information.
-
-## Overview
-
-The run report page displays a list of all test execution runs, allowing you to monitor test results, identify failures, and debug issues efficiently. Each report provides detailed information about individual test cases and their outcomes.
+This guide explains how to use the run report page to track and analyze your test execution results. 
 
 ## Run Report List View
 
@@ -26,7 +23,7 @@ The run report page displays a list of all test execution runs, allowing you to 
 For each test run, you can view:
 
 1. **Report ID**: Unique identifier for the test run
-2. **Created**: Timestamp when the test run was executed
+2. **Created On**: Timestamp when the test run was executed
 3. **Creator**: User or system that initiated the test run
 4. **Total Suites**: Total number of test suites executed
 5. **Status Distribution**:

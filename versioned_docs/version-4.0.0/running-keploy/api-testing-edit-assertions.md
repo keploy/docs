@@ -11,7 +11,9 @@ tags:
   - test-management
 ---
 
-# Editing Test Suites and Custom Assertions
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This guide explains how to edit test suites in Keploy, including adding custom variables to URLs and request bodies, and creating custom assertion functions for advanced test validation.
 
@@ -33,16 +35,10 @@ This gives you fine-grained control over how your APIs are validated.
 ### Step 1: Navigate to Test Suites
 
 1. Go to your **Test Suites**
-2. Click on the **Test Suite** 
-3. Locate the suite you want to modify
-
-### Step 2: Open Test Step Editor
-
-#### Using Three Dots Menu
-
-1. Click the **three dots (⋮)** next to the test suite
 2. Select **"Edit Test Step"**
 3. The Test Step Editor will open
+
+![Edit Assertions](https://keploy-devrel.s3.us-west-2.amazonaws.com/edit-assertions-1.png)
 
 Editing the Request
 
@@ -67,16 +63,11 @@ You can:
 - Edit JSON payload
 - Inject variables into any field
 
-### Using Variables for dynamic tests
-
-For understanding how to use variables : 
-
 ## Editing Existing Assertions
 You can choose from multiple assertion categories:
 - Status Code Assertion
 - Header Assertion
 - Body / JSON Path Assertion
 - Schema Assertion
-- Adding Custom Assertions: For custom assertions using functions refer: 
 
 
