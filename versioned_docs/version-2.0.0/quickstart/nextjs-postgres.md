@@ -22,7 +22,7 @@ This is a sample app to test Keploy integration capabilities using NextJS and Po
 Now that we have bun installed, we will setup our application.
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/nextjs-postgres
 
 ## Download node modules
 npm install
