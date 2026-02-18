@@ -21,8 +21,6 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-## Sharing Reports
-
 Keploy allows you to securely share test execution reports with members inside your workspace.
 
 ## How Report Sharing Works
@@ -39,7 +37,6 @@ Reports can be shared in two ways:
 
 The selected user will gain access to view the report inside their dashboard.
 
-
 ### 2. Add a New User and Share
 
 If the person is not yet part of your workspace:
@@ -51,7 +48,6 @@ If the person is not yet part of your workspace:
 
 Once added, they become a workspace member and can access shared reports based on permissions.
 
-
 ## What Shared Reports Include
 
 When you share a report, the recipient can view:
@@ -60,7 +56,6 @@ When you share a report, the recipient can view:
 - Total test cases executed
 - Passed / Failed count
 - Execution duration
-- Environment details
 - Step-Level Results
 - Request & Response Details
 
@@ -69,5 +64,4 @@ When you share a report, the recipient can view:
 - Share reports instead of exporting logs
 - Add relevant team members directly from the dashboard
 - Maintain proper role-based access control
-- Review assertion-level failures before escalating issues
-- Remove access when no longer required
+

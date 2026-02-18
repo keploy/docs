@@ -172,6 +172,7 @@
         "running-keploy/run-ai-generated-api-tests",
         "running-keploy/api-testing-cicd",
         "running-keploy/api-testing-webhook",
+        "running-keploy/api-testing-run-report",
         "running-keploy/api-testing-add-suite",
         "running-keploy/api-testing-edit-suites",
         "running-keploy/api-testing-buggy-suites",
@@ -187,7 +188,6 @@
         "running-keploy/api-testing-suite-settings",
         "running-keploy/api-testing-filter-suites",
         "running-keploy/api-testing-generation-history",
-        "running-keploy/api-testing-run-report",
         {
           "type": "doc",
           "label": "FAQs",

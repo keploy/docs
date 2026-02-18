@@ -2,7 +2,7 @@
 id: api-testing-run-report
 title: Test Run Reports
 description: Guide to viewing and analyzing test run reports with detailed execution results and filtering
-sidebar_label: Run Reports
+sidebar_label: Test Run Reports
 tags:
   - api-testing
   - run-reports
@@ -23,8 +23,8 @@ This guide explains how to use the run report page to track and analyze your tes
 For each test run, you can view:
 
 1. **Report ID**: Unique identifier for the test run
-2. **Created On**: Timestamp when the test run was executed
-3. **Creator**: User or system that initiated the test run
+2. **Ran on**: Timestamp when the test run was executed
+3. **Ran by**: User or system that initiated the test run
 4. **Total Suites**: Total number of test suites executed
 5. **Status Distribution**:
    - **Pass**: Number of test suites that passed ✅
@@ -76,7 +76,7 @@ Click on any report from the list to view detailed execution results:
   - External API failures affecting the test
   - Database connection issues
 
-#### Buggy Tests 🐛
+#### Buggy Tests 
 - Tests with identified bugs or inconsistent behavior
 - **Buggy Reasons Displayed**:
   - Shown on top of the particular test step
@@ -126,15 +126,8 @@ Filter by API endpoint or URL path:
 1. **Open Filter Panel**
    - Click on the filter icon in the report view
    - Select desired filter criteria
+   - You can also apply multiple filters simultaneously
 
-2. **Combine Multiple Filters**
-   - Apply multiple filters simultaneously
-   - Narrow down results to specific scenarios
-   - Example: Failed POST requests to /api/v1/users
-
-3. **Clear Filters**
-   - Reset filters to view all results
-   - Remove individual filter criteria
 
 ## Detailed Test Step Information
 
@@ -172,8 +165,8 @@ For each test case, you can see:
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
 │ Report ID: run-2026-02-13-001                                   │
-│ Created: 2026-02-13 14:25:30                                    │
-│ Creator: john.doe@example.com                                   │
+│ Ran On: 2026-02-13 14:25:30                                    │
+│ Ran by: john.doe@example.com                                   │
 │ Total Suites: 150                                               │
 │                                                                 │
 │ Distribution:                                                   │
@@ -181,7 +174,7 @@ For each test case, you can see:
 │   ❌ Fail: 18 (12%)                                             │
 │   🐛 Buggy: 7 (5%)                                              │
 │                                                                 │
-│ [View Details]                                                  │
+│ [Test Suite Details]                                                  │
 │                                                                 │
 ├─────────────────────────────────────────────────────────────────┤
 │                                                                 │
@@ -195,168 +188,10 @@ For each test case, you can see:
 │   ❌ Fail: 15 (7.5%)                                            │
 │   🐛 Buggy: 5 (2.5%)                                            │
 │                                                                 │
-│ [View Details]                                                  │
+│ [Test Suite Details]                                                  │
 │                                                                 │
 └─────────────────────────────────────────────────────────────────┘
 ```
-
-### Detailed Report View Example
-
-```
-┌─────────────────────────────────────────────────────────────────┐
-│ Run Report: run-2026-02-13-001                                  │
-│                                                                 │
-│ Filters: [Suite Status: All] [Status Code: All] [Method: All]  │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ ❌ FAILED: Create User - POST /api/v1/users                     │
-│                                                                 │
-│ Status Code: 400 Bad Request                                    │
-│ Execution Time: 145ms                                           │
-│                                                                 │
-│ Failure Reason:                                                 │
-│   - Assertion Failed: Expected status code 201, got 400         │
-│   - Response body validation error                              │
-│                                                                 │
-│ Association Failures:                                           │
-│   - Email validation service returned error                     │
-│   - Database constraint violation: duplicate email              │
-│                                                                 │
-│ Test Steps:                                                     │
-│   1. ✅ Prepare request payload                                 │
-│   2. ✅ Send POST request                                       │
-│   3. ❌ Validate response status (Expected 201, got 400)        │
-│   4. ❌ Validate response schema (Missing field: userId)        │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ 🐛 BUGGY: Get Product Details - GET /api/v1/products/123       │
-│                                                                 │
-│ Status Code: 200 OK                                             │
-│ Execution Time: 2350ms (Timeout Warning)                        │
-│                                                                 │
-│ Buggy Reason (on Step 2):                                       │
-│   - Intermittent timeout on external pricing service            │
-│   - Response time exceeded threshold (>2000ms)                  │
-│   - Inconsistent data: price field sometimes null               │
-│                                                                 │
-│ Test Steps:                                                     │
-│   1. ✅ Send GET request                                        │
-│   2. 🐛 Wait for response (2350ms - Slow)                       │
-│      └─ Error: External pricing API timeout                     │
-│   3. ⚠️  Validate response (Warning: price field is null)       │
-│                                                                 │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│ ✅ PASSED: Login User - POST /api/v1/auth/login                 │
-│                                                                 │
-│ Status Code: 200 OK                                             │
-│ Execution Time: 95ms                                            │
-│                                                                 │
-│ All assertions passed successfully                              │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
-
-## Analyzing Test Failures
-
-### Common Failure Patterns
-
-1. **Assertion Failures**
-   - Response doesn't match expected schema
-   - Incorrect status codes
-   - Missing or unexpected fields
-   - Data type mismatches
-
-2. **Association Failures**
-   - Dependent service unavailable
-   - Database connection errors
-   - Third-party API failures
-   - Authentication/authorization issues
-
-3. **Performance Issues**
-   - Timeout errors
-   - Slow response times
-   - Resource exhaustion
-
-### Debugging Failed Tests
-
-1. **Review Failure Reasons**
-   - Read detailed error messages
-   - Check expected vs actual values
-   - Identify the failing step
-
-2. **Check Association Failures**
-   - Verify dependent services are running
-   - Check network connectivity
-   - Review external API status
-
-3. **Analyze Buggy Tests**
-   - Review the buggy reason displayed on the test step
-   - Check for intermittent issues
-   - Look for patterns in bug occurrences
-
-4. **Use Filters for Analysis**
-   - Filter by specific endpoints showing failures
-   - Group failures by HTTP method
-   - Analyze status code patterns
-
-## Report Metrics and Insights
-
-### Key Metrics
-
-- **Pass Rate**: Percentage of successful tests
-- **Failure Rate**: Percentage of failed tests
-- **Bug Rate**: Percentage of buggy tests
-- **Average Execution Time**: Mean time across all tests
-- **Success Trend**: Historical pass rate over time
-
-### Performance Insights
-
-- **Slowest Endpoints**: Identify performance bottlenecks
-- **Most Failed Tests**: Tests requiring attention
-- **Flaky Tests**: Tests with inconsistent results (buggy)
-- **Association Dependencies**: Most common external failures
-
-## Best Practices
-
-1. **Regular Report Review**
-   - Check reports after each test run
-   - Monitor pass rate trends
-   - Address failures promptly
-
-2. **Use Filters Effectively**
-   - Filter failed tests to prioritize fixes
-   - Group by endpoint to identify problematic APIs
-   - Filter by status code to categorize issues
-
-3. **Document Failures**
-   - Note recurring failure patterns
-   - Document association dependencies
-   - Track bug fixes and resolutions
-
-4. **Investigate Buggy Tests**
-   - Review buggy reasons carefully
-   - Check for timing issues or race conditions
-   - Stabilize flaky tests
-
-5. **Monitor Associations**
-   - Track external service reliability
-   - Set up alerts for association failures
-   - Maintain fallback strategies
-
-6. **Share Reports**
-   - Share reports with team members
-   - Include reports in CI/CD pipelines
-   - Use reports for sprint retrospectives
-
-## Exporting and Sharing
-
-- **Export Reports**: Download reports in various formats (PDF, CSV, JSON)
-- **Share Links**: Generate shareable links to specific reports
-- **Schedule Reports**: Set up automated report distribution
-- **Integration**: Connect with project management tools
 
 ## Benefits of Run Reports
 
