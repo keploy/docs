@@ -22,7 +22,7 @@ import ProductTier from '@site/src/components/ProductTier';
 Keploy can automatically fix failing test cases using its built-in AI engine. This is useful when:
 
 - Your API responses have changed slightly (e.g. new fields, formats)
-- Assertion mismatches are minor
+- You're handling schema changes, such as added fields, changed date formats, or updated static metadata.
 - You want to fix many tests without editing them one-by-one
 
 ### 🔧 How to Use Self-Healing
@@ -37,7 +37,8 @@ Keploy can automatically fix failing test cases using its built-in AI engine. Th
 
 3. **Click "Fix with AI"**
 
-   - This will trigger Keploy AI to update the assertions based on the current API response.
+   - Keploy AI analyzes the diff between the expected and actual response. It then proposes updated assertions, allowing you to review and accept the 'healed' version as 
+     the new source of truth.
 
 4. _(Optional)_ **Add Context**
 
