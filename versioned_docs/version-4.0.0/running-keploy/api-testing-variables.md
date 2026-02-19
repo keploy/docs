@@ -20,20 +20,21 @@ Variables in Keploy act as placeholders for dynamic data that changes between te
 ### 1. Extraction from Responses
 To reuse data, you define a mapping that tells Keploy exactly where to look in a previous response. 
 
-![Variable Extraction](/static/img/var-extraction.png)
+<img src="/docs/img/var-extraction.png?raw=true" alt="Keploy Architecture"/>
+
 
 **Example Context:** In the view above, we are extracting the unique ID of a record. The mapping `steps["Create_Owner"].response.body.id` captures the value from the **Create_Owner** step. Note the **Unused** badge; Keploy provides this visual hint when a variable has been defined but hasn't been injected into any subsequent request yet.
 
 ### 2. Injection into Requests
 Injection allows you to replace static values with dynamic variables, ensuring your tests remain flexible across different environments and data states.
 
-![Variable Injection](/static/img/var-injection.png)
+<img src="/docs/img/var-injection.png?raw=true"/>
 
 **Example Context:** This view shows the **Request Details** for an API call to the `/owners` endpoint. By defining the method (e.g., **POST**), you can then use placeholders like `{{owner_id}}` in the URL path or body. Keploy will automatically swap the placeholder with the actual value captured during test execution.
 
 ### 3. Global Variable Management
 Global variables serve as the centralized source of truth for your testing environment.
 
-![Global Variables](/static/img/global-vars.png)
+<img src="/docs/img/global-vars.png?raw=true"/>
 
 **Example Context:** The **Global Variables** dashboard allows you to manage workspace-wide data. This includes static entries like the **base URL** and dynamic **Global Custom Functions**. For instance, `generateCompanyId()` is a function that returns a unique string starting with `COMP_` followed by a timestamp, ensuring unique identifiers for every test run.

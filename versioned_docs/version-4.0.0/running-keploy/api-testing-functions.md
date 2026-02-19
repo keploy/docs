@@ -20,14 +20,14 @@ Assertions define the **"Pass/Fail"** criteria for your tests. While standard ch
 ### 1. Selecting Fields to Assert
 Choose specifically which parts of a JSON response Keploy should validate during a replay.
 
-![Schema Assertion UI](/static/img/schema-assertion.png)
+<img src="/docs/img/schema-assertion.png?raw=true"/>
 
 **Example Context:** In this window, we are targeting a `GET` request on the `/visits/-1` endpoint that expects a `400` status code. Under **Response Fields**, specific keys like `className` and `exMessage` are selected. Toggling these ensures Keploy validates that these fields are returned as the correct data type (strings) during every replay.
 
 ### 2. Multi-Type Assertions
 Stack different assertion types, such as verifying a status code while simultaneously checking if a specific field contains a certain value.
 
-![Multi-Assertion Setup](/static/img/multi-assertion.png)
+<img src="/docs/img/multi-assertion.png?raw=true"/>
 
 **Example Context:** This setup enforces two rules simultaneously:
 1. **Status Code**: Validates that the server returns a `201` (Created).
@@ -38,13 +38,14 @@ Stack different assertion types, such as verifying a status code while simultane
 ### 1. Writing Inline Logic
 Access the `request` and `response` objects directly to create complex rules within the assertion panel.
 
-![Custom Function Editor](/static/img/custom-function.png)
+<img src="/docs/img/custom-function.png?raw=true" alt="Custom Functions"/>
 
 **Example Context:** The editor shows a function signature: `function customFunction(request, response)`. This gives you direct access to the full objects, allowing you to write JavaScript logic to determine if the test should pass based on dynamic conditions.
 
 ### 2. Global Function Library
 Save repeatable validation rules to the Global Custom Functions library so they can be reused across your entire development team.
 
-![Global Function Library](/static/img/global-functions.png)
+<img src="/docs/img/global-functions.png?raw=true" alt="Global Functions"/>
+
 
 **Example Context:** The library shows reusable logic stored globally. For example, the `customFunction` at the bottom demonstrates an `assert.greater(response.status, 399)` utility, creating a standardized rule to verify error-level status codes across multiple suites.

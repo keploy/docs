@@ -173,6 +173,8 @@
         "running-keploy/api-testing-cicd",
         "running-keploy/api-testing-webhook",
         "running-keploy/api-testing-run-report",
+        "running-keploy/api-testing-functions",
+        "running-keploy/api-testing-variables",
         "running-keploy/api-testing-add-suite",
         "running-keploy/api-testing-edit-suites",
         "running-keploy/api-testing-buggy-suites",
