@@ -111,7 +111,7 @@ kubectl get pods
 
 Wait until all pods are in the **Running** state.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/k8s_pods.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/k8s_pods.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 5. Access the Application
 
@@ -150,7 +150,7 @@ https://app.keploy.io
 - Connect a new cluster
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/connect_cluster.png
-" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 3. Configure Cluster Details
 
@@ -163,7 +163,7 @@ Provide the following information:
   http://localhost:8080
   ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/cluster_config.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/cluster_config.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 This allows the Keploy Proxy to observe and record live traffic from your Kubernetes application.
 
@@ -173,7 +173,7 @@ Note: For this quickstart, I am running it locally. If you are running your appl
 
 Once you have provided the cluster details, you can install the Keploy Proxy in your Kubernetes cluster using Helm.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/k8s_helm_command.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/k8s_helm_command.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 5. Verify the Installation
 
@@ -185,7 +185,7 @@ Note: The Keploy Proxy will be installed in the `keploy` namespace.
 kubectl get pods -n keploy
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_proxy.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_proxy.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Note: You need to port-forward the Keploy Proxy when running this setup on a local machine.
 
@@ -197,55 +197,55 @@ kubectl port-forward -n keploy svc/k8s-proxy 8080:8080
 
 Once the Keploy Proxy is installed, you can view the list of running pods in the dashboard.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_list_pods.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_list_pods.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 7. Start Recording
 
 You can start recording live traffic from any of your pods by clicking Start Recording. For this quickstart, the `apigateway` pod is used.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_start_recording.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_start_recording.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 8. Keploy is ready to Capture Live Traffic
 
 Send a request to your API Gateway pod, and Keploy will capture the traffic.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_live_capturing.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_live_capturing.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 9. Record Live Traffic
 
 Once you have sent a request to your API Gateway pod, you can see the live traffic being captured.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_record_live_traffic.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_record_live_traffic.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 10. Stop Recording
 
 Once you have sent a request to your API Gateway pod, you can stop recording by clicking Stop Recording. To view the list of recordings, navigate to the recordings page, where you can see the captured traffic.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_recordings_total.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_recordings_total.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 11. Generate Tests using AI
 
 Did you notice something interesting in the dashboard? Once you have recorded a test, you can use AI to increase coverage. To generate additional tests, click **Use AI for Tests**.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_recording_dashboard.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_recording_dashboard.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 12. Verify the Generation settings
 
 Once you click **Use AI for Tests**, you can view the generation settings.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_atg.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_atg.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 13. Verify the Generation
 
 Once initiated, you can see the AI start generating test cases from the recorded traffic. The recorded traffic is used as input to create additional test cases.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_generation.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_generation.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 14. View the Test Cases
 
 After test generation, you can view the total number of test suites categorized as accepted, buggy, and rejected.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_reports.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_k8s_reports.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Conclusion
 
