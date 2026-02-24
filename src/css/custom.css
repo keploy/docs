@@ -3202,3 +3202,54 @@ html[data-theme="dark"] .docs-inline-footer__slack {
     font-size: 0.95rem;
   }
 }
+
+/* ===== PERFORMANCE: Rendering & paint optimisations ===== */
+
+/*
+ * content-visibility: auto — lets the browser skip layout/paint for
+ * off-screen sections, reducing LCP and INP on mobile.
+ * contain-intrinsic-size gives the browser a size estimate so the
+ * scroll-bar doesn't jump when content is rendered.
+ */
+footer,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 200px;
+}
+
+/* Sidebar is always below the fold on small viewports */
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
+}
+
+/*
+ * Lazy-decoded images — any <img> without an explicit loading attribute
+ * should at minimum decode off the main thread.
+ */
+img:not([loading]) {
+  decoding: async;
+}
+
+/*
+ * Reduce paint layers for the announcement bar (it's a position:sticky
+ * element and can cause extra compositing cost on mobile).
+ */
+.announcementBar_mb4j {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/*
+ * Font-display: swap fallback for any @font-face rules Docusaurus injects.
+ * This prevents invisible text during webfont load (FOIT → FOUT).
+ * The actual font files are already preloaded via webpack-font-preload-plugin;
+ * this rule is a safety net for any font loaded via a stylesheet.
+ */
+@supports (font-display: swap) {
+  @font-face {
+    font-display: swap;
+  }
+}
