@@ -8,3 +8,41 @@
 
 ## Note: if you are looking for Redirects
 # they have been moved to /static/_redirects to make it more manageable - swyx
+
+# ── Performance: Cache headers ────────────────────────────────────────────────
+# Hashed JS/CSS bundles emitted by Docusaurus/webpack → safe to cache 1 year
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Static images, fonts served from /img and /fonts
+[[headers]]
+  for = "/img/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, stale-while-revalidate=604800"
+
+[[headers]]
+  for = "/fonts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Static JS helpers (non-hashed scripts in /docs/js and /docs/scripts)
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+[[headers]]
+  for = "/scripts/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400"
+
+# ── Security headers (improves PageSpeed Best Practices score) ──────────────
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
