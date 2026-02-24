@@ -2755,20 +2755,16 @@ img:not([loading]) {
 /*
  * Reduce paint layers for the announcement bar (it's a position:sticky
  * element and can cause extra compositing cost on mobile).
+ * Using attribute substring selector to avoid relying on a hashed class name
+ * that changes between Docusaurus builds.
  */
-.announcementBar_mb4j {
+[class*="announcementBar"] {
   will-change: auto;
   transform: translateZ(0);
 }
 
 /*
- * Font-display: swap fallback for any @font-face rules Docusaurus injects.
- * This prevents invisible text during webfont load (FOIT → FOUT).
- * The actual font files are already preloaded via webpack-font-preload-plugin;
- * this rule is a safety net for any font loaded via a stylesheet.
+ * Font-display: swap is configured per @font-face declaration in
+ * src/fonts. Docusaurus-injected Google Fonts links already include
+ * &display=swap in the URL, so no additional override is needed here.
  */
-@supports (font-display: swap) {
-  @font-face {
-    font-display: swap;
-  }
-}

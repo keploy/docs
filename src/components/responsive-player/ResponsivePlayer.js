@@ -16,8 +16,12 @@ function ResponsivePlayer({url, loop, playing}) {
         fallback={
           <div
             className="absolute left-0 top-0 flex h-full w-full items-center justify-center bg-gray-100 dark:bg-gray-800"
+            role="status"
             aria-label="Loading video player"
-          />
+          >
+            <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-400 border-t-transparent dark:border-gray-500" />
+            <span className="sr-only">Loading video player</span>
+          </div>
         }
       >
         <ReactPlayer
