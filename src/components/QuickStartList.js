@@ -395,6 +395,23 @@ const quickstarts = [
       "A sample app to demonstrate Keploy integration capabilities using TypeScript and Nhost.",
     link: "/docs/quickstart/samples-typescript/#running-the-app-using-docker",
   },
+  // Rust list
+  {
+    title: "Actix + Postgres",
+    language: "Rust",
+    server: "Docker",
+    description:
+      "A sample Actix-web app to demonstrate how seamlessly Keploy integrates with Rust and PostgreSQL.",
+    link: "/docs/quickstart/rust-actix-postgres/#option-1-using-docker-compose-",
+  },
+  {
+    title: "Actix + Postgres",
+    language: "Rust",
+    server: "Local",
+    description:
+      "A sample Actix-web app to demonstrate how seamlessly Keploy integrates with Rust and PostgreSQL.",
+    link: "/docs/quickstart/rust-actix-postgres/#option-2-running-locally-",
+  },
 ];
 
 export default quickstarts;
