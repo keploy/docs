@@ -395,6 +395,26 @@ const quickstarts = [
       "A sample app to demonstrate Keploy integration capabilities using TypeScript and Nhost.",
     link: "/docs/quickstart/samples-typescript/#running-the-app-using-docker",
   },
+
+  // rust list
+{
+  title: "Rust + MongoDB",
+  language: "Rust",
+  server: "Local",
+  description:
+    "A sample Rust CRUD notes application using MongoDB to demonstrate how Keploy records API calls and database interactions automatically and replays them without manual test writing.",
+  link: "/docs/quickstart/samples-rust-mongodb/#running-app-locally",
+},
+{
+  title: "Rust + MongoDB",
+  language: "Rust",
+  server: "Docker",
+  description:
+    "A sample Rust CRUD notes application using MongoDB to demonstrate Keploy record & replay workflows using Docker Compose.",
+  link: "/docs/quickstart/samples-rust-mongodb/#using-docker-compose",
+},
+
+
 ];
 
 export default quickstarts;

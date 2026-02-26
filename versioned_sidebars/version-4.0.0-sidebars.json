@@ -118,7 +118,24 @@
               "items": [
                 "quickstart/samples-csharp"
               ]
-            }
+            },
+            {
+  "type": "category",
+  "label": "Rust",
+  "link": {
+    "type": "doc",
+    "id": "quickstart/rust-filter"
+  },
+  "collapsible": true,
+  "collapsed": true,
+  "items": [
+    "quickstart/samples-rust-mongodb"
+  ]
+}
+
+
+
+
           ]
         },
         {
