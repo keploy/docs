@@ -27,7 +27,145 @@ import StartKeployDocker from '@site/src/components/StartKeployDocker';
 
 # Installing Keploy
 
+Keploy captures real API calls and database interactions, then helps you replay them as tests without rebuilding your full production environment.
 Keploy uses eBPF to intercept API calls at the network layer and generate test cases and mocks/stubs.  
+
+## Choose your setup path
+
+### Recommended: Keploy Proprietary CLI
+
+Use this if you want the fastest setup, browser-based sign-in, and access to Keploy’s proprietary capabilities.
+
+### Open-source only
+
+Use this if you want the pure OSS route and are okay with a more manual setup.
+The recommended path below should be the default experience across docs, keploy.io, and GitHub.
+
+---
+
+## Recommended Setup: Keploy Proprietary CLI
+
+This is the preferred way to install and use Keploy.
+With this setup:
+* you install the recommended Keploy binary
+* you start using Keploy immediately
+* if authentication is required, Keploy opens a browser and signs you in automatically
+* you do not need to manually fetch or paste an API key
+* once the flow is complete, Keploy is ready to use for record and test
+
+## How authentication works
+
+Keploy uses an **auto-login flow** for the recommended CLI experience.
+When you run a command like:
+* `keploy record`
+* `keploy test`
+
+and you are not already signed in, Keploy will:
+1. open a browser window
+2. ask you to sign in
+3. return you to the CLI automatically
+4. complete authentication in the background
+
+Commands like `keploy --help` and `keploy --version` should not trigger login.
+
+**Placeholder for final wording:** Confirm exact product language once Gourav finalizes the binary and auth flow.
+
+--- 
+
+## Install the recommended Keploy CLI
+
+Follow the step below to install the Keploy Enterprise Agent:
+
+```bash
+curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+```
+
+## Record Your First Test
+
+Once Keploy is installed, run your application through Keploy.
+This captures your real API calls and database interactions.
+`keploy record -c "YOUR_START_COMMAND"`
+
+Example:
+`keploy record -c "npm start"`
+or
+`keploy record -c "go run main.go"`
+
+If you are not authenticated yet, the recommended CLI will automatically open the browser login flow and continue after sign-in.
+
+---
+
+## Replay and Verify
+
+After recording is complete, stop your app and run:
+
+```bash
+keploy test -c "YOUR_START_COMMAND" --delay 10
+```
+
+Keploy will replay the captured traffic so you can run your tests without depending on the original database or external services.
+
+## Automatic Cloud / Sandbox Behavior
+
+Cloud backup and sandbox sync will be documented here very soon, once the rollout is live.
+
+---
+
+## Why this is the recommended path
+
+Use the recommended Keploy CLI if you want:
+* the easiest install experience
+* built-in browser-based authentication
+* less manual setup
+* access to proprietary Keploy capabilities
+* a smoother path for integrations and team workflows
+
+## Which path should I choose?
+
+:::info
+The Open Source version is best for **HTTP / REST** protocol.
+If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integration workflows,** use the **Proprietary** version.
+For broader framework and protocol support, we recommend installing **Paid / Pro**.
+:::
+
+### Feature Comparison
+
+| Feature | Open Source | Paid / Pro |
+|---------|-------------|------------|
+| **Core Testing** |  |  |
+| Record & Replay | Yes | Yes |
+| GraphQL Support | Yes | Yes |
+| REST API Testing | Yes | Yes |
+
+| **Advanced Integrations** |  |  |
+| gRPC Incoming | Yes | Yes |
+| gRPC Outgoing | No | Yes |
+| Redis Support | No | Yes |
+
+| **Workflow & Automation** |  |  |
+| CI/CD Integration | Yes | Yes |
+| Implicit CLI Auto-Login | No | Yes |
+| Automated Sandbox Push | No | Yes |
+| Webhook Support | No | Yes |
+| Sandbox Registry | No | Yes |
+
+| **Enterprise Intelligence** |  |  |
+| AI-Driven Test Generation | No | Yes |
+| Test Deduplication | No | Yes |
+| Time Freezing | No | Yes |
+| Asynchronous Process Support | No | Yes |
+| Keploy Console | No | Yes |
+
+| **Enterprise & Support** |  |  |
+| Team Collaboration | No | Yes |
+| SSO Integration | No | Yes |
+| Priority Support | No | Yes |
+| Unlimited Test Runs | No | Yes |
+
+---
+
+## Setup: Open-source only
+
 Choose your OS to get started 🚀
 
 <Tabs>
