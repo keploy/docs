@@ -53,12 +53,60 @@ module.exports = {
       {name: "twitter:card", content: "summary_large_image"},
     ],
     headTags: [
-      // Preconnect tag
+      // ── Preconnect / DNS-prefetch for critical third-party origins ─────
+      // Keploy CDN
       {
         tagName: "link",
         attributes: {
           rel: "preconnect",
           href: "https://keploy.io/",
+        },
+      },
+      // Google Fonts (used by Docusaurus default theme)
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "anonymous",
+        },
+      },
+      // Algolia search
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://WZTL8PLCOD-dsn.algolia.net",
+          crossorigin: "anonymous",
+        },
+      },
+      // Analytics (dns-prefetch only — not render-blocking)
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.clarity.ms",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.googletagmanager.com",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.google-analytics.com",
         },
       },
       {
