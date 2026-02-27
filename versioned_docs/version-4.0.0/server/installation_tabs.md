@@ -18,6 +18,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 <ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
 
 import Tabs from '@theme/Tabs';
@@ -25,25 +26,22 @@ import TabItem from '@theme/TabItem';
 import StartKeploy from '@site/src/components/StartKeploy';
 import StartKeployDocker from '@site/src/components/StartKeployDocker';
 
-# Installing Keploy
+# Install Keploy
 
 Keploy captures real API calls and database interactions, then helps you replay them as tests without rebuilding your full production environment.
-Keploy uses eBPF to intercept API calls at the network layer and generate test cases and mocks/stubs.  
 
 ## Choose your setup path
 
-### Recommended: Keploy Proprietary CLI
+:::info
+#### Recommended: Keploy Enterprise CLI
 
 Use this if you want the **fastest setup**, **browser-based sign-in**, and access to Keploy's Enterprise capabilities.
+:::
 
-### Open-source only
+## Keploy Enterprise CLI
 
-Use this if you want the **pure OSS route** and are okay with a more manual setup.
-The recommended path below should be the default experience across docs, keploy.io, and GitHub.
-
----
-
-## Recommended Setup: Keploy Proprietary CLI
+<details>
+<summary><strong>Keploy Enterprise CLI</strong></summary>
 
 This is the preferred way to install and use Keploy.
 
@@ -51,12 +49,10 @@ With this setup:
 * you install the recommended Keploy binary
 * you start using Keploy immediately
 * if authentication is required, Keploy opens a browser and signs you in automatically
-* you do not need to manually fetch or paste an API key
 * once the flow is complete, Keploy is ready to use for record and test
 
-## How authentication works
+### How authentication works
 
-Keploy uses an **auto-login flow** for the recommended CLI experience.
 When you run a command like:
 * `keploy record`
 * `keploy test`
@@ -65,13 +61,7 @@ and you are not already signed in, Keploy will:
 1. open a browser window
 2. ask you to sign in
 3. return you to the CLI automatically
-4. complete authentication in the background
-
-Commands like `keploy --help` and `keploy --version` should not trigger login.
-
-**Placeholder for final wording:** Confirm exact product language once Gourav finalizes the binary and auth flow.
-
---- 
+</details>
 
 ## Install the recommended Keploy CLI
 
@@ -85,7 +75,10 @@ curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 
 Once Keploy is installed, run your application through Keploy.
 This captures your real API calls and database interactions.
-`keploy record -c "YOUR_START_COMMAND"`
+
+```bash 
+keploy record -c "YOUR_START_COMMAND"
+```
 
 Example:
 `keploy record -c "npm start"`
@@ -94,7 +87,6 @@ or
 
 If you are not authenticated yet, the recommended CLI will automatically open the browser login flow and continue after sign-in.
 
----
 
 ## Replay and Verify
 
@@ -112,53 +104,65 @@ Cloud backup and sandbox sync will be documented here very soon, once the rollou
 
 ---
 
-## Why this is the recommended path
-
-Use the recommended Keploy CLI if you want:
+## Why this is the recommended path?
+<details>
+<summary><strong>Why this is recommended path?</strong></summary>
+Use the recommended Keploy Enterprise CLI if you want:
 * the easiest install experience
 * built-in browser-based authentication
 * less manual setup
-* access to proprietary Keploy capabilities
+* access to Enterprise Keploy capabilities
 * a smoother path for integrations and team workflows
+</details>
 
 ## Which path should I choose?
 
 :::info
 The Open Source version is best for **HTTP / REST** protocol.
 
-If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integration workflows,** use the **Proprietary** version.
+If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integration workflows,** use the **Enterprise** version.
 
 For broader framework and protocol support, we recommend installing Keploy Enterprise.
 :::
 
 ### Feature Comparison
 
-| Feature | Open Source | Enterprise |
-|---------|-------------|------------|
-| **Dependencies** |  |  |
-| HTTP | Yes | Yes |
-| MySQL | Yes | Yes |
-| gRPC Outgoing | No | Yes |
-| Mongo | No | Yes |
-| Postgres | No | Yes |
-| Redis | No | Yes |
-| SQS | No | Yes |
-| Kafka | No | Yes |
-| HTTP2 | No | Yes |
+<table style="width:100%">
+<thead>
+<tr>
+<th>Feature</th>
+<th>Open Source</th>
+<th>Enterprise</th>
+</tr>
+</thead>
 
-| **Incoming Tests** |  |  |
-| HTTP | Yes | Yes |
-| gRPC Incoming | Yes | Yes |
+<tbody>
 
-| **Extra Features** |  |  |
-| Mock Upload | No | Yes |
-| Time Freezing | No | Yes |
-| Deduplication (Static + Codepath) | No | Yes |
-| Sandboxing for Existing E2E / Integration Tests | No | Yes |
+<tr><td colspan="3"><strong>Dependencies</strong></td></tr>
+<tr><td>HTTP</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>MySQL</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>gRPC Outgoing</td><td>No</td><td>Yes</td></tr>
+<tr><td>Mongo</td><td>No</td><td>Yes</td></tr>
+<tr><td>Postgres</td><td>No</td><td>Yes</td></tr>
+<tr><td>Redis</td><td>No</td><td>Yes</td></tr>
+<tr><td>SQS</td><td>No</td><td>Yes</td></tr>
+<tr><td>Kafka</td><td>No</td><td>Yes</td></tr>
+<tr><td>HTTP2</td><td>No</td><td>Yes</td></tr>
 
----
+<tr><td colspan="3"><strong>Incoming Tests</strong></td></tr>
+<tr><td>HTTP</td><td>Yes</td><td>Yes</td></tr>
+<tr><td>gRPC Incoming</td><td>Yes</td><td>Yes</td></tr>
 
-## Setup: Open-source only
+<tr><td colspan="3"><strong>Extra Features</strong></td></tr>
+<tr><td>Mock Upload</td><td>No</td><td>Yes</td></tr>
+<tr><td>Time Freezing</td><td>No</td><td>Yes</td></tr>
+<tr><td>Deduplication (Static + Codepath)</td><td>No</td><td>Yes</td></tr>
+<tr><td>Sandboxing for Existing E2E / Integration Tests</td><td>No</td><td>Yes</td></tr>
+
+</tbody>
+</table>
+
+## Setup: Open-source 
 
 Choose your OS to get started 🚀
 
