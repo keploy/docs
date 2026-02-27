@@ -34,11 +34,11 @@ Keploy uses eBPF to intercept API calls at the network layer and generate test c
 
 ### Recommended: Keploy Proprietary CLI
 
-Use this if you want the fastest setup, browser-based sign-in, and access to Keploy’s proprietary capabilities.
+Use this if you want the **fastest setup**, **browser-based sign-in**, and access to Keploy's Enterprise capabilities.
 
 ### Open-source only
 
-Use this if you want the pure OSS route and are okay with a more manual setup.
+Use this if you want the **pure OSS route** and are okay with a more manual setup.
 The recommended path below should be the default experience across docs, keploy.io, and GitHub.
 
 ---
@@ -46,6 +46,7 @@ The recommended path below should be the default experience across docs, keploy.
 ## Recommended Setup: Keploy Proprietary CLI
 
 This is the preferred way to install and use Keploy.
+
 With this setup:
 * you install the recommended Keploy binary
 * you start using Keploy immediately
@@ -124,24 +125,40 @@ Use the recommended Keploy CLI if you want:
 
 :::info
 The Open Source version is best for **HTTP / REST** protocol.
+
 If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integration workflows,** use the **Proprietary** version.
-For broader framework and protocol support, we recommend installing **Paid / Pro**.
+
+For broader framework and protocol support, we recommend installing Keploy Enterprise.
 :::
 
 ### Feature Comparison
 
-| Category | Feature | Open Source | Paid / Pro |
-|-----------|---------|-------------|------------|
-| Core Testing | Record & Replay | Yes | Yes |
-| Core Testing | GraphQL Support | Yes | Yes |
-| Core Testing | REST API Testing | Yes | Yes |
-| Advanced Integrations | gRPC Incoming | Yes | Yes |
-| Advanced Integrations | gRPC Outgoing | No | Yes |
-| Advanced Integrations | Redis Support | No | Yes |
-| Workflow & Automation | CI/CD Integration | Yes | Yes |
-| Workflow & Automation | Implicit CLI Auto-Login | No | Yes |
-| Enterprise Intelligence | AI-Driven Test Generation | No | Yes |
-| Enterprise & Support | Team Collaboration | No | Yes |
+### Feature Comparison
+
+### Feature Comparison
+
+| Feature | Open Source | Enterprise |
+|---------|-------------|------------|
+| **Dependencies** |  |  |
+| HTTP | Yes | Yes |
+| MySQL | Yes | Yes |
+| gRPC Outgoing | No | Yes |
+| Mongo | No | Yes |
+| Postgres | No | Yes |
+| Redis | No | Yes |
+| SQS | No | Yes |
+| Kafka | No | Yes |
+| HTTP2 | No | Yes |
+
+| **Incoming Tests** |  |  |
+| HTTP | Yes | Yes |
+| gRPC Incoming | Yes | Yes |
+
+| **Extra Features** |  |  |
+| Mock Upload | No | Yes |
+| Time Freezing | No | Yes |
+| Deduplication (Static + Codepath) | No | Yes |
+| Sandboxing for Existing E2E / Integration Tests | No | Yes |
 
 ---
 
