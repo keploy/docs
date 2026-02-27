@@ -3,7 +3,7 @@ id: installation
 title: Installing Keploy
 sidebar_label: Installation
 description: Installation guide for Keploy on Linux, macOS, and Windows.
-hide_table_of_contents: true
+hide_table_of_contents: false
 tags:
   - installation
 keywords:
@@ -130,10 +130,6 @@ If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integrati
 
 For broader framework and protocol support, we recommend installing Keploy Enterprise.
 :::
-
-### Feature Comparison
-
-### Feature Comparison
 
 ### Feature Comparison
 
