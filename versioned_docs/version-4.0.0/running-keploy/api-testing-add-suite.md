@@ -54,7 +54,8 @@ In this guide, we will walk through the process of adding a test suite in Keploy
       "username": "test_user",
       "password": "secure_password"
     }
-  }}
+  }
+}
 ```
 
 ### Importing a Curl Command

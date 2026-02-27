@@ -12,8 +12,6 @@ tags:
 keywords:
   - webhook
   - API testing
-  - PreExecute
-  - PostExecute
   - external validation
   - custom logic
 ---
@@ -64,7 +62,7 @@ Keploy supports custom functions for advanced assertion logic. You can:
 - Use JavaScript expressions for complex validations
 - Reference external validation logic
 
-For detailed information on custom functions, [reference here](#).
+For detailed information on custom functions, [reference here](/versioned_docs/version-4.0.0/running-keploy/api-testing-functions.md).
 ### Creating and Using Variables
 
 Variables allow you to create reusable values across your test suite:
@@ -75,7 +73,7 @@ Variables allow you to create reusable values across your test suite:
 
 ## How to Create Variables
 
-For in detail usage of variables refer here : 
+For in detail usage of variables refer here : [Using Variables](/versioned_docs/version-4.0.0/running-keploy/api-testing-variables.md)
 
 ## Best Practices
 

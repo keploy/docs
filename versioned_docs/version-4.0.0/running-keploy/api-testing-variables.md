@@ -5,6 +5,10 @@ sidebar_label: Variables
 description: Capture, store, and reuse dynamic data across test steps to build complex API workflows.
 ---
 
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+
 ## A. Variables: Implementation & Data Chaining
 
 Variables in Keploy act as placeholders for dynamic data that changes between test executions, primarily facilitating **"Data Chaining."** This allows you to create advanced workflows where the response from one API (such as an `owner_id` generated during a creation step) provides the necessary input for a subsequent request, such as updating or deleting that specific record.
