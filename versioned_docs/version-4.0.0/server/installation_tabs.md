@@ -130,37 +130,18 @@ For broader framework and protocol support, we recommend installing **Paid / Pro
 
 ### Feature Comparison
 
-| Feature | Open Source | Paid / Pro |
-|---------|-------------|------------|
-| **Core Testing** |  |  |
-| Record & Replay | Yes | Yes |
-| GraphQL Support | Yes | Yes |
-| REST API Testing | Yes | Yes |
-
-| **Advanced Integrations** |  |  |
-| gRPC Incoming | Yes | Yes |
-| gRPC Outgoing | No | Yes |
-| Redis Support | No | Yes |
-
-| **Workflow & Automation** |  |  |
-| CI/CD Integration | Yes | Yes |
-| Implicit CLI Auto-Login | No | Yes |
-| Automated Sandbox Push | No | Yes |
-| Webhook Support | No | Yes |
-| Sandbox Registry | No | Yes |
-
-| **Enterprise Intelligence** |  |  |
-| AI-Driven Test Generation | No | Yes |
-| Test Deduplication | No | Yes |
-| Time Freezing | No | Yes |
-| Asynchronous Process Support | No | Yes |
-| Keploy Console | No | Yes |
-
-| **Enterprise & Support** |  |  |
-| Team Collaboration | No | Yes |
-| SSO Integration | No | Yes |
-| Priority Support | No | Yes |
-| Unlimited Test Runs | No | Yes |
+| Category | Feature | Open Source | Paid / Pro |
+|-----------|---------|-------------|------------|
+| Core Testing | Record & Replay | Yes | Yes |
+| Core Testing | GraphQL Support | Yes | Yes |
+| Core Testing | REST API Testing | Yes | Yes |
+| Advanced Integrations | gRPC Incoming | Yes | Yes |
+| Advanced Integrations | gRPC Outgoing | No | Yes |
+| Advanced Integrations | Redis Support | No | Yes |
+| Workflow & Automation | CI/CD Integration | Yes | Yes |
+| Workflow & Automation | Implicit CLI Auto-Login | No | Yes |
+| Enterprise Intelligence | AI-Driven Test Generation | No | Yes |
+| Enterprise & Support | Team Collaboration | No | Yes |
 
 ---
 
