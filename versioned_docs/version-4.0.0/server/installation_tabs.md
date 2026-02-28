@@ -127,40 +127,26 @@ For broader framework and protocol support, we recommend installing Keploy Enter
 
 ### Feature Comparison
 
-<table style="width:100%">
-<thead>
-<tr>
-<th>Feature</th>
-<th>Open Source</th>
-<th>Enterprise</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr><td colspan="3"><strong>Dependencies</strong></td></tr>
-<tr><td>HTTP</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>MySQL</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>gRPC Outgoing</td><td>No</td><td>Yes</td></tr>
-<tr><td>Mongo</td><td>No</td><td>Yes</td></tr>
-<tr><td>Postgres</td><td>No</td><td>Yes</td></tr>
-<tr><td>Redis</td><td>No</td><td>Yes</td></tr>
-<tr><td>SQS</td><td>No</td><td>Yes</td></tr>
-<tr><td>Kafka</td><td>No</td><td>Yes</td></tr>
-<tr><td>HTTP2</td><td>No</td><td>Yes</td></tr>
-
-<tr><td colspan="3"><strong>Incoming Tests</strong></td></tr>
-<tr><td>HTTP</td><td>Yes</td><td>Yes</td></tr>
-<tr><td>gRPC Incoming</td><td>Yes</td><td>Yes</td></tr>
-
-<tr><td colspan="3"><strong>Extra Features</strong></td></tr>
-<tr><td>Mock Upload</td><td>No</td><td>Yes</td></tr>
-<tr><td>Time Freezing</td><td>No</td><td>Yes</td></tr>
-<tr><td>Deduplication (Static + Codepath)</td><td>No</td><td>Yes</td></tr>
-<tr><td>Sandboxing for Existing E2E / Integration Tests</td><td>No</td><td>Yes</td></tr>
-
-</tbody>
-</table>
+| Feature | Open Source | Enterprise |
+|----------|-------------|------------|
+| **Dependencies** |  |  |
+| HTTP | Yes | Yes |
+| MySQL | Yes | Yes |
+| gRPC Outgoing | No | Yes |
+| Mongo | No | Yes |
+| Postgres | No | Yes |
+| Redis | No | Yes |
+| SQS | No | Yes |
+| Kafka | No | Yes |
+| HTTP2 | No | Yes |
+| **Incoming Tests** |  |  |
+| HTTP | Yes | Yes |
+| gRPC Incoming | Yes | Yes |
+| **Extra Features** |  |  |
+| Mock Upload | No | Yes |
+| Time Freezing | No | Yes |
+| Deduplication (Static + Codepath) | No | Yes |
+| Sandboxing for Existing E2E / Integration Tests | No | Yes | 
 
 ## Setup: Open-source 
 
