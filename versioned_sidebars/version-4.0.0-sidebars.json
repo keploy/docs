@@ -118,6 +118,15 @@
               "items": [
                 "quickstart/samples-csharp"
               ]
+            },
+            {
+              "type": "category",
+              "label": "Ruby",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/samples-sinatra-postgres"
+              ]
             }
           ]
         },
