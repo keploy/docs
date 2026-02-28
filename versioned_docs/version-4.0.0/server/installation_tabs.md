@@ -18,7 +18,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Enterprise" />
 <ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
 
 import Tabs from '@theme/Tabs';
