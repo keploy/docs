@@ -41,7 +41,7 @@ Use this if you want the **fastest setup**, **browser-based sign-in**, and acces
 ## Keploy Enterprise CLI
 
 <details>
-<summary><strong>Keploy Enterprise CLI</strong></summary>
+<summary><strong>Know More</strong></summary>
 
 This is the preferred way to install and use Keploy.
 
@@ -87,7 +87,6 @@ or
 
 If you are not authenticated yet, the recommended CLI will automatically open the browser login flow and continue after sign-in.
 
-
 ## Replay and Verify
 
 After recording is complete, stop your app and run:
@@ -102,11 +101,11 @@ Keploy will replay the captured traffic so you can run your tests without depend
 
 Cloud backup and sandbox sync will be documented here very soon, once the rollout is live.
 
----
+## Why is this the recommended path?
 
-## Why this is the recommended path?
 <details>
-<summary><strong>Why this is recommended path?</strong></summary>
+<summary><strong>Know More</strong></summary>
+
 Use the recommended Keploy Enterprise CLI if you want:
 * the easiest install experience
 * built-in browser-based authentication
@@ -127,26 +126,46 @@ For broader framework and protocol support, we recommend installing Keploy Enter
 
 ### Feature Comparison
 
-| Feature | Open Source | Enterprise |
-|----------|-------------|------------|
-| **Dependencies** |  |  |
-| HTTP | Yes | Yes |
-| MySQL | Yes | Yes |
-| gRPC Outgoing | No | Yes |
-| Mongo | No | Yes |
-| Postgres | No | Yes |
-| Redis | No | Yes |
-| SQS | No | Yes |
-| Kafka | No | Yes |
-| HTTP2 | No | Yes |
-| **Incoming Tests** |  |  |
-| HTTP | Yes | Yes |
-| gRPC Incoming | Yes | Yes |
-| **Extra Features** |  |  |
-| Mock Upload | No | Yes |
-| Time Freezing | No | Yes |
-| Deduplication (Static + Codepath) | No | Yes |
-| Sandboxing for Existing E2E / Integration Tests | No | Yes | 
+<table style={{ width: "100%" }}>
+<thead>
+<tr>
+<th style={{ width: "55%", textAlign: "left" }}>Feature</th>
+<th align="center" style={{ width: "22%", textAlign: "center" }}>Open Source</th>
+<th align="center" style={{ width: "23%", textAlign: "center" }}>Enterprise</th>
+</tr>
+</thead>
+
+<tbody>
+
+<tr>
+<td colspan="3"><strong>Dependencies</strong></td>
+</tr>
+<tr><td>HTTP</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>MySQL</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>gRPC Outgoing</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Mongo</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Postgres</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Redis</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>SQS</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Kafka</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>HTTP2</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+
+<tr>
+<td colspan="3"><strong>Incoming Tests</strong></td>
+</tr>
+<tr><td>HTTP</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>gRPC Incoming</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+
+<tr>
+<td colspan="3"><strong>Extra Features</strong></td>
+</tr>
+<tr><td>Mock Upload</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Time Freezing</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Deduplication (Static + Codepath)</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+<tr><td>Sandboxing for Existing E2E / Integration Tests</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
+
+</tbody>
+</table>
 
 ## Setup: Open-source 
 
