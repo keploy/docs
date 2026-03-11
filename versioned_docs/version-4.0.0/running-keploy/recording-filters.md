@@ -25,8 +25,6 @@ Filters are **optional**. If none are configured, Keploy records **all traffic**
 
 Filters are configured in **Step 2 (Record config)** of the **Start Recording** flow.
 
-![Recording Filters UI](../assets/recording-filters-step.png)
-
 To get there:
 
 1. Go to **Clusters** and open your connected cluster.
