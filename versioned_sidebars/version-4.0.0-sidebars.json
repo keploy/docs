@@ -25,6 +25,7 @@
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
+        "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
