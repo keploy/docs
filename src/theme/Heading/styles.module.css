@@ -4,7 +4,7 @@ the browser does not scroll that anchor behind the navbar
 See https://twitter.com/JoshWComeau/status/1332015868725891076
  */
 .anchorWithStickyNavbar {
-  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.5rem);
+  scroll-margin-top: calc(var(--ifm-navbar-height) + 0.2rem);
 }
 
 .anchorWithHideOnScrollNavbar {
