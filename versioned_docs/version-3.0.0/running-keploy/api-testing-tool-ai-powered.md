@@ -43,7 +43,7 @@ keywords:
 
 ## 🚀 Keploy's API Test Generator
 
- <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-testing-agent.png" alt="Keploy Record Test case" width="100%" />
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-testing-agent.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 AI-powered testing engine that turns your API specs or traffic into stable, end-to-end test suites — no scripts, mocks, or manual setup required.
 
@@ -63,7 +63,7 @@ Every test includes:
 - Deduplication and flaky test detection
 - Self-healing for minor API changes
 
- <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-dashboard.png" alt="Keploy Record Test case" width="100%" />
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-dashboard.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 Whether you're a developer, SDET, or QA manager — Keploy helps you increase test coverage, reduce test debt, and ensure reliable releases across environments.
 
@@ -106,6 +106,6 @@ Keploy supports multiple ways to generate test cases depending on the API access
 
 Keploy is built with security-first principles and is compliant with major industry standards:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/compliance-images.png" alt="Keploy Record Test case" width="100%" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/compliance-images.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 Your data and test traffic are handled securely, with the option to run Keploy entirely within your network using our self-hosted agent or BYOLLM infrastructure. To Learn more on our [security page](https://trust.keploy.io).

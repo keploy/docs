@@ -161,7 +161,7 @@ go build -o main
 sudo -E PATH=$PATH keploy record -c "./main"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_record_docs.png" alt="Sample Keploy record header" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_record_docs.png" alt="Sample Keploy record header" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Generate testcases
 
@@ -211,7 +211,7 @@ No need to set up dependencies like MySQL or write mocks for your testing. The a
 We will get output something like this:
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_replay_docs.png
-" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
+" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Wrapping it up 🎉
 
