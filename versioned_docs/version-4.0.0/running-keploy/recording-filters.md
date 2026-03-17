@@ -14,7 +14,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 
 Keploy lets you configure **filters when starting a recording on any deployment**. Filters give you precise control over which requests get captured. You can limit recording to specific paths, methods, hosts, or headers, or explicitly exclude traffic you do not need.
