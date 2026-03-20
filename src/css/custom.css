@@ -1,3 +1,9 @@
+/* Also reveal copy button when the container or button has keyboard focus */
+div[class*="codeBlockContainer"]:focus-within button[class*="copyButton"],
+div[class*="codeBlockContainer"] button[class*="copyButton"]:focus-visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
 /* --- Force DM Sans on Docs Pages --- */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
 
@@ -1950,7 +1956,7 @@ html[data-theme="dark"] code:not(pre code) {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 145, 77, 0.3) transparent;
   border-left: none !important;
-  }
+}
 
 /* TOC column - must allow sticky */
 .col.col--3 {

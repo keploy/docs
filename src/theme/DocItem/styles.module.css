@@ -1,26 +1,6 @@
 /* --- Modern Visual Hierarchy & Layout --- */
 
 /* Center and widen main content area */
-.row {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
-  gap: 2.5rem;
-}
-
-@media (max-width: 1400px) {
-  .row {
-    max-width: 98vw;
-    gap: 1.5rem;
-  }
-}
-
-@media (max-width: 996px) {
-  .row {
-    max-width: 100vw;
-    gap: 0.5rem;
-  }
-}
 
 /* Sidebar: clearer grouping, bolder active state, modern look */
 .menu__list {
