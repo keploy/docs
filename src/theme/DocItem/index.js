@@ -211,7 +211,6 @@ export default function DocItem(props) {
               <div className="doc-meta-row">
                 {!isLatestVersion && <DocVersionBadge />}
               </div>
-
               {canRenderTOC && (
                 <TOCCollapsible
                   toc={DocContent.toc}
