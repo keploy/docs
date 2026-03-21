@@ -3,7 +3,7 @@ id: installation
 title: Installing Keploy
 sidebar_label: Installation
 description: Installation guide for Keploy on Linux, macOS, and Windows.
-hide_table_of_contents: false
+hide_table_of_contents: true
 tags:
   - installation
 keywords:
@@ -18,7 +18,6 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Enterprise" />
 <ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
 
 import Tabs from '@theme/Tabs';
@@ -26,149 +25,9 @@ import TabItem from '@theme/TabItem';
 import StartKeploy from '@site/src/components/StartKeploy';
 import StartKeployDocker from '@site/src/components/StartKeployDocker';
 
-# Install Keploy
+# Installing Keploy
 
-Keploy captures real API calls and database interactions, then helps you replay them as tests without rebuilding your full production environment.
-
-## Choose your setup path
-
-:::info
-#### Recommended: Keploy Enterprise CLI
-
-Use this if you want the **fastest setup**, **browser-based sign-in**, and access to Keploy's Enterprise capabilities.
-:::
-
-## Keploy Enterprise CLI
-
-<details>
-<summary><strong>Know More</strong></summary>
-
-This is the preferred way to install and use Keploy.
-
-With this setup:
-* you install the recommended Keploy binary
-* you start using Keploy immediately
-* if authentication is required, Keploy opens a browser and signs you in automatically
-* once the flow is complete, Keploy is ready to use for record and test
-
-### How authentication works
-
-When you run a command like:
-* `keploy record`
-* `keploy test`
-
-and you are not already signed in, Keploy will:
-1. open a browser window
-2. ask you to sign in
-3. return you to the CLI automatically
-</details>
-
-## Install the recommended Keploy CLI
-
-Follow the step below to install the Keploy Enterprise Agent:
-
-```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
-```
-
-## Record Your First Test
-
-Once Keploy is installed, run your application through Keploy.
-This captures your real API calls and database interactions.
-
-```bash 
-keploy record -c "YOUR_START_COMMAND"
-```
-
-Example:
-`keploy record -c "npm start"`
-or
-`keploy record -c "go run main.go"`
-
-If you are not authenticated yet, the recommended CLI will automatically open the browser login flow and continue after sign-in.
-
-## Replay and Verify
-
-After recording is complete, stop your app and run:
-
-```bash
-keploy test -c "YOUR_START_COMMAND" --delay 10
-```
-
-Keploy will replay the captured traffic so you can run your tests without depending on the original database or external services.
-
-## Automatic Cloud / Sandbox Behavior
-
-Cloud backup and sandbox sync will be documented here very soon, once the rollout is live.
-
-## Why is this the recommended path?
-
-<details>
-<summary><strong>Know More</strong></summary>
-
-Use the recommended Keploy Enterprise CLI if you want:
-* the easiest install experience
-* built-in browser-based authentication
-* less manual setup
-* access to Enterprise Keploy capabilities
-* a smoother path for integrations and team workflows
-</details>
-
-## Which path should I choose?
-
-:::info
-The Open Source version is best for **HTTP / REST** protocol.
-
-If you need support for **gRPC, Redis, GraphQL, webhooks, and advanced integration workflows,** use the **Enterprise** version.
-
-For broader framework and protocol support, we recommend installing Keploy Enterprise.
-:::
-
-### Feature Comparison
-
-<table style={{ width: "100%" }}>
-<thead>
-<tr>
-<th style={{ width: "55%", textAlign: "left" }}>Feature</th>
-<th align="center" style={{ width: "22%", textAlign: "center" }}>Open Source</th>
-<th align="center" style={{ width: "23%", textAlign: "center" }}>Enterprise</th>
-</tr>
-</thead>
-
-<tbody>
-
-<tr>
-<td colspan="3"><strong>Dependencies</strong></td>
-</tr>
-<tr><td>HTTP</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>MySQL</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>gRPC Outgoing</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Mongo</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Postgres</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Redis</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>SQS</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Kafka</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>HTTP2</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-
-<tr>
-<td colspan="3"><strong>Incoming Tests</strong></td>
-</tr>
-<tr><td>HTTP</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>gRPC Incoming</td><td style={{ textAlign: "center" }}>Yes</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-
-<tr>
-<td colspan="3"><strong>Extra Features</strong></td>
-</tr>
-<tr><td>Mock Upload</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Time Freezing</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Deduplication (Static + Codepath)</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-<tr><td>Sandboxing for Existing E2E / Integration Tests</td><td style={{ textAlign: "center" }}>No</td><td style={{ textAlign: "center" }}>Yes</td></tr>
-
-</tbody>
-</table>
-
-## Setup: Open-source 
-
+Keploy uses eBPF to intercept API calls at the network layer and generate test cases and mocks/stubs.  
 Choose your OS to get started 🚀
 
 <Tabs>
