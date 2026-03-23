@@ -30,7 +30,7 @@ Here are some examples of how to use some common flags:
 | Command            | Flags Available                                                                                                                                                                                                                                                                                                                                                                            |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `record`           | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                        |
-| `test`             | `--api-timeout`, `-c, --command`, `--config-path`, `--container-name`, `-d, --delay`, `--host`, `--port`, `--grpc-port`, `--base-path`, `--mongo-password`, `-n, --network-name`, `--pass-through-ports`, `-p, --path`, `--proxy-port`, `-t, --test-sets`, `--debug`, `--remove-unused-mocks`, `--ignore-ordering`, `--skip-coverage`, `--jacoco-agent-path`, `--proto-dir`, `--proto-file`, `--proto-include` |
+| `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
 | `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
 | `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
 | `rerecord`         | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                        |
@@ -203,30 +203,6 @@ keploy test -c "node src/app.js" --proxy-port 8080
 keploy test -c "node src/app.js" -t "test-set-1,test-set-3" --delay 10
 ```
 
-- `--host string` - Replace the recorded host during replay. Keploy uses this only when no `replaceWith` rule matched. The default is `localhost`.
-
-```bash
-keploy test -c "node src/app.js" --host "staging.internal"
-```
-
-- `--port uint32` - Replace the replay target port for HTTP test cases.
-
-```bash
-keploy test -c "node src/app.js" --port 8080
-```
-
-- `--grpc-port uint32` - Replace the replay target port for gRPC test cases.
-
-```bash
-keploy test -c "node src/app.js" --grpc-port 50051 --proto-dir "./protos"
-```
-
-- `--base-path string` - Replace the recorded HTTP base URL or origin before replay. When this flag is set, Keploy replays against the provided target and does not start or instrument the application command.
-
-```bash
-keploy test --base-path "https://staging.example.com/api"
-```
-
 - `--debug` - To start executing testcases with debug mode enabled.
 
 ```bash
@@ -280,10 +256,6 @@ keploy test -c "node src/app.js" --proto-file "./protos/main.proto" --proto-incl
 ```
 
 > **Note for GRPC Tests:** When running GRPC test cases, it's recommended to provide proto information using either `--proto-file` or `--proto-dir` flags. If proto information is not provided, Keploy will use basic canonical matching of the protoscopic textual format of GRPC response body, which may be less accurate than proto-based comparison.
-
-> **Replay target resolution order:** For HTTP testcases, `--base-path` rewrites the recorded URL first. Keploy then evaluates `replaceWith`, applies `--host` only if no replacement matched, uses the recorded `app_port` when present, and finally lets `--port` or `--grpc-port` override the port. If a `replaceWith` value already includes a port, that port wins.
->
-> **ReplaceWith rule matching:** If multiple `replaceWith` keys can match the same target, do not rely on their order. Keploy stops at the first matching key it encounters.
 
 ## [gen](#gen)
 
