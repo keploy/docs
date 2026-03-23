@@ -48,18 +48,27 @@ networkName: ""
 buildDelay: 30
 test:
   selectedTests: {}
+  ignoredTests: {}
   globalNoise:
     global: {}
     test-sets: {}
+  replaceWith:
+    global: {}
+    test-sets: {}
   delay: 5
+  host: "localhost"
+  port: 0
+  grpcPort: 0
   apiTimeout: 5
-  coverage: false
   skipCoverage: false
   coverageReportPath: ""
   ignoreOrdering: true
   mongoPassword: "default@123"
   language: ""
   removeUnusedMocks: false
+  basePath: ""
+  mocking: true
+  disableMockUpload: true
 record:
   recordTimer: 0s
   filters: []
@@ -67,7 +76,7 @@ configPath: ""
 bypassRules: []
 cmdType: "native"
 enableTesting: false
-keployContainer: "keploy-v2"
+keployContainer: "keploy-v3"
 keployNetwork: "keploy-network"
 # Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
 ```
@@ -190,11 +199,52 @@ The `test` section in the Keploy-config file allows you to define parameters for
   test-sets: {}
   ```
 
+- **`replaceWith`**: URL or gRPC `:authority` replacements applied during replay. Keploy supports global rules and test-set-specific overrides.
+  Example:
+
+  ```yaml
+  test:
+    replaceWith:
+      global:
+        url:
+          "api.keploy.dev": "localhost"
+          "payments.keploy.dev": "localhost:9001"
+      test-sets:
+        "test-set-1":
+          url:
+            "api.keploy.dev": "staging.internal:8080"
+  ```
+
+  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only the first match it applies.
+
+- **`host`**: Custom host to replace the recorded host during replay. The default is `localhost`. Keploy applies `host` only when no `replaceWith` rule matched.
+
+- **`port`**: Custom HTTP port to replace the replay target port for HTTP test cases.
+
+- **`grpcPort`**: Custom gRPC port to replace the replay target port for gRPC test cases.
+
+- **`basePath`**: Custom base URL or origin for replaying HTTP test cases against an already running application. When this is set, Keploy rewrites the recorded request URL before replay and does not start or instrument the application command.
+
+#### Replay Target Resolution Order
+
+When Keploy replays a testcase, it resolves the final target in this order:
+
+1. If `test.basePath` is set for an HTTP testcase, Keploy rewrites the recorded URL to that base URL first.
+2. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule.
+3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement.
+4. If the replacement value already contains an explicit port, that port becomes final and later host or port overrides are skipped.
+5. If no `replaceWith` rule matched, `test.host` replaces the host.
+6. Keploy then uses the recorded `app_port` from the testcase when present.
+7. Finally, `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
+8. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
+
+> **Note:** Do not rely on the order of multiple matching `replaceWith` rules. Keploy stores these rules in a map and stops at the first matching key it encounters. Use non-overlapping match keys whenever possible.
+
 - **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
 
 - **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
 
-- **` bypassRules`**: A bypass for mocking API calls.
+- **`bypassRules`**: A bypass for mocking API calls.
 
   ```yaml
   bypassRules:
@@ -204,7 +254,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
       port: 0
   ```
 
-- **`withCoverage`**: Whether to generate coverage reports during testing. Default is `false`.
+- **`skipCoverage`**: Whether to skip coverage report generation during testing. Default is `false`.
 
 - **`coverageReportPath`**: Path to store the coverage report.
   Example:
