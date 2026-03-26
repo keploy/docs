@@ -59,6 +59,14 @@ test:
   host: "localhost"
   port: 0
   grpcPort: 0
+  ssePort: 0
+  protocol:
+    http:
+      port: 0
+    sse:
+      port: 0
+    grpc:
+      port: 0
   apiTimeout: 5
   skipCoverage: false
   coverageReportPath: ""
@@ -199,7 +207,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
   test-sets: {}
   ```
 
-- **`replaceWith`**: URL or gRPC `:authority` replacements applied during replay. Keploy supports global rules and test-set-specific overrides.
+- **`replaceWith`**: URL/gRPC `:authority` replacements and port-to-port mappings applied during replay. Keploy supports global rules and test-set-specific overrides.
   Example:
 
   ```yaml
@@ -209,34 +217,57 @@ The `test` section in the Keploy-config file allows you to define parameters for
         url:
           "api.keploy.dev": "localhost"
           "payments.keploy.dev": "localhost:9001"
+        port:
+          8033: 8043
       test-sets:
         "test-set-1":
           url:
             "api.keploy.dev": "staging.internal:8080"
+          port:
+            8033: 9090
   ```
 
-  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target.
+  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target. `port` maps a source port to a destination port; this is applied last and overrides all other port resolution.
 
 - **`host`**: Custom host to replace the recorded host during replay. The default is `localhost`. Keploy applies `host` only when no `replaceWith` rule matched.
 
-- **`port`**: Custom HTTP port to replace the replay target port for HTTP test cases.
+- **`port`**: Custom HTTP port to replace the replay target port for all HTTP test cases (including SSE).
 
 - **`grpcPort`**: Custom gRPC port to replace the replay target port for gRPC test cases.
+
+- **`ssePort`**: Custom SSE port to replace the replay target port for SSE test cases (detected via `text/event-stream` Content-Type or Accept header). Overrides `port` for SSE requests. Also available as the `--sse-port` CLI flag.
+
+- **`protocol`**: Per-protocol port overrides. New protocols can be added without code changes.
+  Example:
+
+  ```yaml
+  test:
+    protocol:
+      http:
+        port: 8000
+      sse:
+        port: 8047
+      grpc:
+        port: 8034
+  ```
+
+  Each protocol key (e.g. `http`, `sse`, `grpc`) supports a `port` field. When a protocol port is non-zero, it overrides the corresponding top-level port (`port`, `ssePort`, `grpcPort`). This is extensible: new protocols or new keys within a protocol can be added in future.
 
 - **`basePath`**: Custom base URL or origin for replaying HTTP test cases against an already running application. When this is set, Keploy rewrites the recorded request URL before replay and does not start or instrument the application command.
 
 #### Replay Target Resolution Order
 
-When Keploy replays a testcase, it resolves the final target in this order:
+When Keploy replays a testcase, it resolves the final target in this order (lowest to highest priority):
 
 1. If `test.basePath` is set for an HTTP testcase, Keploy rewrites the recorded URL to that base URL first.
-2. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule.
-3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement.
-4. If the replacement value already contains an explicit port, that port becomes final and later host or port overrides are skipped.
-5. If no `replaceWith` rule matched, `test.host` replaces the host.
-6. Keploy then uses the recorded `app_port` from the testcase when present.
-7. Finally, `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
-8. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
+2. Keploy uses the recorded `app_port` from the testcase when present.
+3. `test.port` for HTTP (including SSE) or `test.grpcPort` for gRPC overrides the port.
+4. For SSE requests, `test.ssePort` overrides the port from step 3.
+5. `test.protocol.<protocol>.port` overrides the port from the previous steps when non-zero (e.g. `protocol.sse.port` overrides `ssePort` for SSE requests, `protocol.http.port` overrides `port` for non-SSE HTTP requests, `protocol.grpc.port` overrides `grpcPort` for gRPC).
+6. If no `replaceWith` rule matched, `test.host` replaces the host.
+7. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule. Keploy applies a single substring replacement. If the replacement value contains an explicit port, that port overrides steps 2-5.
+8. `replaceWith.port` mappings are applied last. If the resolved port matches a key in the port map, it is replaced with the mapped value. This is the highest priority override.
+9. If no port is available after all steps, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
 
 > **Note:** Do not rely on the order of multiple matching `replaceWith` rules. Keploy stores these rules in a map and stops at the first matching key it encounters. Use non-overlapping match keys whenever possible.
 
