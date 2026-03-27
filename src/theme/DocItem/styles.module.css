@@ -1,3 +1,180 @@
+/* --- Modern Visual Hierarchy & Layout --- */
+
+/* Center and widen main content area */
+
+/* Sidebar: clearer grouping, bolder active state, modern look */
+.menu__list {
+  margin-bottom: 2.2rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #f3f4f6;
+}
+.menu__list-item {
+  margin-bottom: 0.2rem;
+}
+.menu__link {
+  border-radius: 6px;
+  padding: 0.55rem 1.1rem;
+  font-size: 1.08rem;
+  color: #222831;
+  transition: background 0.15s, color 0.15s;
+}
+.menu__link.menu__link--active {
+  background: #ffe5d0 !important;
+  color: #ff914d !important;
+  font-weight: 700;
+  border-left: 4px solid #ff914d;
+}
+.menu__link:hover {
+  background: #f8fafc;
+  color: #ff914d;
+}
+.menu__list .menu__list {
+  margin-left: 0.7rem;
+  border-left: none;
+}
+
+/* Sidebar section headings */
+.menu__list-item > .menu__link.menu__link--sublist {
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: #ff914d;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  background: none;
+  border-left: none;
+}
+
+/* TOC: right pane clarity and spacing */
+.col.col--3 {
+  padding-left: 0;
+  padding-right: 0;
+  min-width: 800px;
+  max-width: 900px;
+}
+.table-of-contents {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.04);
+  padding: 1.2rem 1.2rem 1.2rem 1.5rem;
+  margin-top: 2.5rem;
+  font-size: 1rem;
+}
+
+/* Dropdown style for h3 under h2 in TOC (if ever enabled again) */
+.table-of-contents__link--sub {
+  margin-left: 1.2em;
+  font-size: 0.97em;
+  display: none;
+}
+.table-of-contents__item--active > .table-of-contents__link--sub {
+  display: block;
+}
+.table-of-contents__link {
+  color: #222831;
+  border-radius: 4px;
+  padding: 0.25rem 0.5rem;
+  transition: background 0.15s, color 0.15s;
+}
+.table-of-contents__link--active {
+  color: #ff914d !important;
+  font-weight: 700;
+  background: #ffe5d0;
+}
+.table-of-contents__link:hover {
+  background: #f8fafc;
+  color: #ff914d;
+}
+
+/* --- End Modern Visual Hierarchy & Layout --- */
+/* --- Docs Page Visual Revamp --- */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+
+/* Apply DM Sans font to the entire docs page, including side panes, headings, nav, TOC, etc. */
+.docs-wrapper, .main-wrapper, .docItemContainer, .row, .col, .col--3,
+.menu, .menu__list, .menu__link, .table-of-contents, .table-of-contents__link,
+.markdown, .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6,
+.table-of-contents__link--active, .menu__link--active, .doc-meta, .doc-meta__tier, .doc-meta__version, .doc-meta__availability {
+  font-family: 'DM Sans', sans-serif !important;
+}
+
+.docItemContainer {
+  color: rgb(99, 114, 119);
+  font-size: 20px;
+  line-height: 1.6;
+  background: #fff;
+  padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  border-radius: 18px;
+  box-shadow: 0 2px 16px 0 rgba(60,60,60,0.04);
+  margin: 2.5rem 0;
+}
+
+@media (max-width: 996px) {
+  .docItemContainer {
+    padding: 1.25rem 0.5rem;
+    border-radius: 10px;
+    margin: 1.25rem 0;
+  }
+}
+
+.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+  color: #222831;
+  font-weight: 700;
+  margin-top: 2.2em;
+  margin-bottom: 0.7em;
+  line-height: 1.2;
+}
+
+.markdown h1 { font-size: 2.5rem; }
+.markdown h2 { font-size: 2rem; }
+.markdown h3 { font-size: 1.5rem; }
+.markdown h4 { font-size: 1.2rem; }
+
+.markdown p, .markdown ul, .markdown ol {
+  margin-bottom: 1.3em;
+  color: rgb(99, 114, 119);
+}
+
+.markdown ul, .markdown ol {
+  padding-left: 1.5em;
+}
+
+.markdown strong {
+  color: #222831;
+}
+
+/* Sidebar and TOC spacing */
+.row {
+  gap: 2.5rem;
+}
+
+@media (max-width: 996px) {
+  .row {
+    gap: 0.5rem;
+  }
+}
+
+/* Sidebar active item highlight */
+.menu__link.menu__link--active {
+  background: #ffe5d0 !important;
+  color: #ff914d !important;
+  border-radius: 8px;
+  font-weight: 700;
+}
+
+/* TOC desktop spacing */
+.col.col--3 {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Table of contents tweaks */
+.table-of-contents__link--active {
+  color: #ff914d !important;
+  font-weight: 700;
+}
+
+/* --- End Docs Page Visual Revamp --- */
 /**
  * Copyright (c) Facebook, Inc. and its affiliates.
  *

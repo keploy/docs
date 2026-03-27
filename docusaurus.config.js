@@ -31,6 +31,10 @@ module.exports = {
     "docusaurus-tailwindcss-loader",
   ],
   themeConfig: {
+    tableOfContents: {
+      minHeadingLevel: 2,
+      maxHeadingLevel: 2,
+    },
     canonicalBase: "https://www.keploy.io/",
     metadata: [
       {
