@@ -231,8 +231,8 @@ jobs:
             echo "Attempt $i — Status: $STATUS"
             case "$STATUS" in
               COMPLETED) echo "Tests passed"; break ;;
-              FAILED)    echo "Tests failed. View details: https://app.keploy.io"; exit 1 ;;
-              CANCELLED|STOPPED) echo "Job $STATUS"; exit 1 ;;
+              FAILED)    echo "Tests failed. Inspect: curl -s \"$BASE/apps/$APP_ID/test-runs\" -H \"$AUTH\" | jq"; exit 1 ;;
+              CANCELLED|STOPPED) echo "Job $STATUS. Check: curl -s \"$BASE/jobs/$JOB_ID\" -H \"$AUTH\" | jq"; exit 1 ;;
               *)         sleep 10 ;;
             esac
           done
