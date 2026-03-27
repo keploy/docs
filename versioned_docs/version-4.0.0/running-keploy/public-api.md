@@ -35,7 +35,7 @@ The Keploy Public API gives you programmatic access to everything you can do in 
 
 Every request requires a **scoped API key**. Send it in one of these headers:
 
-```bash
+```text
 # Option 1: Bearer token
 Authorization: Bearer kep_...
 
@@ -109,6 +109,8 @@ All endpoints return a consistent JSON envelope:
   "meta": { "request_id": "550e8400-...", "timestamp": "2025-01-01T00:00:00Z" }
 }
 ```
+
+On success, `error` is omitted (not `null`). On error, `data` is omitted. The `meta` object is always present.
 
 ### Error codes
 
