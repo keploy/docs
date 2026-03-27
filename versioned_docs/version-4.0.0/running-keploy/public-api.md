@@ -79,10 +79,10 @@ The response includes the full key — **save it immediately**. It is only shown
     "key": "kep_dGVzdGtleXRl...full-key-here",
     "name": "CI Pipeline",
     "scopes": ["read", "write"],
-    "created_at": 1711500000,
-    "expires_at": 1719276000
+    "created_at": 1735689600,
+    "expires_at": 1743465600
   },
-  "meta": { "request_id": "550e8400-...", "timestamp": "2026-03-27T12:00:00Z" }
+  "meta": { "request_id": "550e8400-...", "timestamp": "2025-01-01T00:00:00Z" }
 }
 ```
 
@@ -98,7 +98,7 @@ All endpoints return a consistent JSON envelope:
   "data": { ... },
   "meta": {
     "request_id": "550e8400-...",
-    "timestamp": "2026-03-27T12:00:00Z",
+    "timestamp": "2025-01-01T00:00:00Z",
     "pagination": { "has_next_page": true, "next_cursor": "abc123", "total_count": 42 }
   }
 }
@@ -106,7 +106,7 @@ All endpoints return a consistent JSON envelope:
 // Error
 {
   "error": { "code": "VALIDATION_ERROR", "message": "name is required" },
-  "meta": { "request_id": "550e8400-...", "timestamp": "2026-03-27T12:00:00Z" }
+  "meta": { "request_id": "550e8400-...", "timestamp": "2025-01-01T00:00:00Z" }
 }
 ```
 
