@@ -133,16 +133,17 @@ Every response includes rate-limit headers:
 ```
 X-RateLimit-Limit: 100
 X-RateLimit-Remaining: 87
-X-RateLimit-Reset: 0
+X-RateLimit-Reset: 3
 ```
 
-When the limit is reached, you receive a `429` response with a `Retry-After` header (in seconds).
+- `X-RateLimit-Reset` is the number of **seconds** until at least one token is available again. A value of `0` means you have tokens remaining.
+- When the limit is reached, you receive a `429` response with a `Retry-After` header (also in seconds).
 
 ---
 
 ## Quick start: Generate and run tests from the command line
 
-This example generates AI-powered test suites for your API, then runs them — all from `curl`.
+This example generates AI-powered test suites for your API, then runs them — all from `curl`. The examples use [`jq`](https://jqlang.github.io/jq/) to parse JSON responses. Install it with `brew install jq` (macOS) or `apt-get install jq` (Linux).
 
 ### 1. Generate test suites
 
@@ -421,6 +422,14 @@ Valid scopes: `read`, `write`, `admin`. Omit `ttl_days` for a key that never exp
 ---
 
 ## Pagination
+
+Set these variables first (same as the quick start section above):
+
+```bash
+API_KEY="kep_your_key"
+APP_ID="your-app-id"
+BASE="https://api.keploy.io/client/v1"
+```
 
 **Cursor-based** (test suites, suite reports):
 
