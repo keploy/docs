@@ -27,7 +27,10 @@ import ProductTier from '@site/src/components/ProductTier';
 
 The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io) — create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
 
-**Base URL:** `https://app.keploy.io/api/v1`
+**Base URL:**
+
+- **Keploy Cloud:** `https://app.keploy.io/api/v1`
+- **Self-Hosted / Dedicated:** `https://<your-keploy-domain>/api/v1` — replace with the host where your Keploy Console is running.
 
 ---
 
@@ -219,18 +222,27 @@ jobs:
             -d '{"base_url": "https://staging.example.com"}' \
             | jq -r '.data.job_id')
 
+          if [ -z "$JOB_ID" ] || [ "$JOB_ID" = "null" ]; then
+            echo "Failed to start test job. Check APP_ID and API key."
+            exit 1
+          fi
           echo "Job: $JOB_ID"
 
-          # Poll until done
-          while true; do
+          # Poll until done (timeout after ~10 minutes)
+          for i in $(seq 1 60); do
             STATUS=$(curl -s "$BASE/jobs/$JOB_ID" -H "$AUTH" | jq -r '.data.job_status')
-            echo "Status: $STATUS"
+            echo "Attempt $i — Status: $STATUS"
             case "$STATUS" in
               COMPLETED) echo "Tests passed"; break ;;
-              FAILED) echo "Tests failed. View details at: https://app.keploy.io or fetch: $BASE/apps/$APP_ID/test-runs"; exit 1 ;;
+              FAILED)    echo "Tests failed. View details: https://app.keploy.io"; exit 1 ;;
+              CANCELLED|STOPPED) echo "Job $STATUS"; exit 1 ;;
               *)         sleep 10 ;;
             esac
           done
+          if [ "$STATUS" != "COMPLETED" ]; then
+            echo "Timed out waiting for job $JOB_ID"
+            exit 1
+          fi
 ```
 
 > Add `KEPLOY_API_KEY` as a GitHub Actions secret: **Repo Settings → Security → Actions → New Repository Secret**.
