@@ -379,6 +379,13 @@ module.exports = {
       async: true,
       defer: true,
     },
+    {
+      src: "https://telemetry.keploy.io/sessions/sdk.js",
+      async: true,
+      defer: true,
+      "data-endpoint": "https://telemetry.keploy.io/sessions/collect",
+      "data-source": "docs",
+    },
     /*{
       src: "/docs/scripts/chat.js",
       async: true,
