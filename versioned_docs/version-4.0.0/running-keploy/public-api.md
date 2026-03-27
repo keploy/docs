@@ -292,6 +292,14 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 { "name": "My API", "endpoint": "https://api.example.com" }
 ```
 
+### Schema coverage
+
+| Method | Path | Scope | Description |
+|--------|------|-------|-------------|
+| `GET` | `/apps/{appId}/schema-coverage` | read | Get [schema coverage](/docs/running-keploy/api-testing-schema-coverage/) report |
+
+Returns coverage percentage, covered/uncovered/partly-covered lines, and per-endpoint details. Requires the app to have an OpenAPI schema configured.
+
 ### Test suites
 
 | Method | Path | Scope | Description |
@@ -303,6 +311,8 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 | `DELETE` | `/apps/{appId}/test-suites/{suiteId}` | write | Delete a test suite |
 | `POST` | `/apps/{appId}/test-suites/generate` | write | [Generate tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) |
 | `POST` | `/apps/{appId}/test-suites/run` | write | [Run test suites](/docs/running-keploy/run-ai-generated-api-tests/) |
+| `POST` | `/apps/{appId}/test-suites/bulk-delete` | write | Delete multiple test suites |
+| `POST` | `/apps/{appId}/test-suites/{suiteId}/validate` | write | Validate a test suite against your API |
 
 **Generate request:**
 
@@ -335,19 +345,57 @@ Omit `test_suite_ids` to run all suites. Both return `202 Accepted` with a `job_
 | `GET` | `/jobs/{jobId}` | read | Get a job |
 | `POST` | `/jobs/{jobId}/stop` | write | Stop a running job |
 | `GET` | `/jobs/{jobId}/events` | read | Stream events (NDJSON) |
+| `GET` | `/jobs/{jobId}/validation-result` | read | Get validation result for a validate job |
 
 The `/events` endpoint returns newline-delimited JSON. Connect with `curl -N` or any streaming HTTP client.
 
-### Test runs and reports
+### Test runs, reports, and normalization
 
 | Method | Path | Scope | Description |
 |--------|------|-------|-------------|
 | `GET` | `/apps/{appId}/test-runs` | read | List test runs |
 | `GET` | `/apps/{appId}/test-runs/{runId}` | read | Get a test run |
+| `POST` | `/apps/{appId}/test-runs/{runId}/normalize` | write | [Normalize](/docs/running-keploy/self-healing-ai-api-tests/) a test run (AI) |
 | `GET` | `/apps/{appId}/test-runs/{runId}/suite-reports` | read | List suite reports (cursor-paginated) |
 | `GET` | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}` | read | Get a suite report |
+| `POST` | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}/normalize` | write | Normalize a single suite report (AI) |
 
 > See [Test Run Reports](/docs/running-keploy/api-testing-run-report/) for how to interpret report data.
+
+### Load tests
+
+| Method | Path | Scope | Description |
+|--------|------|-------|-------------|
+| `POST` | `/apps/{appId}/load-tests` | write | Start a load test |
+| `GET` | `/apps/{appId}/load-tests` | read | List load test runs |
+| `GET` | `/apps/{appId}/load-tests/{runId}` | read | Get load test report |
+| `POST` | `/apps/{appId}/load-tests/{runId}/stop` | write | Stop a running load test |
+| `GET` | `/apps/{appId}/load-tests/{runId}/events` | read | Stream load test events (NDJSON) |
+
+**Start load test request:**
+
+```json
+{
+  "base_url": "https://staging.example.com",
+  "virtual_users": 10,
+  "duration_secs": 60,
+  "profile": "constant"
+}
+```
+
+### Generation history
+
+| Method | Path | Scope | Description |
+|--------|------|-------|-------------|
+| `GET` | `/apps/{appId}/generation-history` | read | List [generation history](/docs/running-keploy/api-testing-generation-history/) entries |
+| `GET` | `/apps/{appId}/generation-history/{jobId}` | read | Get generation details for a specific job |
+
+### Subscription and usage
+
+| Method | Path | Scope | Description |
+|--------|------|-------|-------------|
+| `GET` | `/company/subscription` | read | Get current subscription plan and status |
+| `GET` | `/company/usage` | read | Get test generation and run usage counts |
 
 ### Users and API keys
 
