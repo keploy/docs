@@ -21,7 +21,7 @@ keywords:
   - programmatic
 ---
 
-import ProductTier from "@site/src/components/ProductTier";
+import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
@@ -92,7 +92,7 @@ The response includes the full key — **save it immediately**. It is only shown
 
 All endpoints return a consistent JSON envelope:
 
-```json
+```js
 // Success
 {
   "data": { ... },
@@ -227,7 +227,7 @@ jobs:
             echo "Status: $STATUS"
             case "$STATUS" in
               COMPLETED) echo "Tests passed"; break ;;
-              FAILED)    echo "Tests failed"; exit 1 ;;
+              FAILED) echo "Tests failed. View details at: https://app.keploy.io or fetch: $BASE/apps/$APP_ID/test-runs"; exit 1 ;;
               *)         sleep 10 ;;
             esac
           done
@@ -238,15 +238,16 @@ jobs:
 ### Python
 
 ```python
-import requests, json, time
+import requests, json
 
 API_KEY = "kep_your_key"
+APP_ID = "your-app-id"
 BASE = "https://app.keploy.io/api/v1"
 HEADERS = {"Authorization": f"Bearer {API_KEY}"}
 
 # Trigger test run
 resp = requests.post(
-    f"{BASE}/apps/{app_id}/test-suites/run",
+    f"{BASE}/apps/{APP_ID}/test-suites/run",
     headers=HEADERS,
     json={"base_url": "https://staging.example.com"},
 )
@@ -368,16 +369,16 @@ Valid scopes: `read`, `write`, `admin`. Omit `ttl_days` for a key that never exp
 
 ```bash
 # First page
-curl "$BASE/apps/APP_ID/test-suites?page_size=10"
+curl -H "Authorization: Bearer $API_KEY" "$BASE/apps/$APP_ID/test-suites?page_size=10"
 
 # Next page
-curl "$BASE/apps/APP_ID/test-suites?page_size=10&after=CURSOR"
+curl -H "Authorization: Bearer $API_KEY" "$BASE/apps/$APP_ID/test-suites?page_size=10&after=CURSOR"
 ```
 
 **Offset-based** (apps, test runs, jobs):
 
 ```bash
-curl "$BASE/apps?offset=0&limit=20"
+curl -H "Authorization: Bearer $API_KEY" "$BASE/apps?offset=0&limit=20"
 ```
 
 Maximum `limit` is 100. Default is 20.
