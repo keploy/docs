@@ -23,14 +23,11 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Dedicated" />
 
 The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io) — create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
 
-**Base URL:**
-
-- **Keploy Cloud:** `https://app.keploy.io/api/v1`
-- **Self-Hosted / Dedicated:** `https://<your-keploy-domain>/api/v1` — replace with the host where your Keploy Console is running.
+**Base URL:** `https://app.keploy.io/api/v1`
 
 ---
 
