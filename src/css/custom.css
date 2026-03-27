@@ -518,7 +518,7 @@ footer svg {
     display: block;
   } */
   .footer__copyright+div {
-    text-align: -webkit-center;
+    text-align: center;
   }
 
   .footer__icons.footer {
