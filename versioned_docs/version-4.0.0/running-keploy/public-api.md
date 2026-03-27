@@ -27,7 +27,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io) — create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
 
-**Base URL:** `https://app.keploy.io/api/v1`
+**Base URL:** `https://api.keploy.io/client/v1`
 
 ---
 
@@ -60,7 +60,7 @@ You need an existing `admin`-scoped key to create keys via the API. To bootstrap
 Once you have an admin key:
 
 ```bash
-curl -X POST https://app.keploy.io/api/v1/api-keys \
+curl -X POST https://api.keploy.io/client/v1/api-keys \
   -H "Authorization: Bearer kep_YOUR_ADMIN_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -149,7 +149,7 @@ This example generates AI-powered test suites for your API, then runs them — a
 ```bash
 APP_ID="your-app-id"    # from the Keploy Console
 API_KEY="kep_your_key"
-BASE="https://app.keploy.io/api/v1"
+BASE="https://api.keploy.io/client/v1"
 
 JOB_ID=$(curl -s -X POST "$BASE/apps/$APP_ID/test-suites/generate" \
   -H "Authorization: Bearer $API_KEY" \
@@ -210,7 +210,7 @@ jobs:
           KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
         run: |
           APP_ID="your-app-id"
-          BASE="https://app.keploy.io/api/v1"
+          BASE="https://api.keploy.io/client/v1"
           AUTH="Authorization: Bearer $KEPLOY_API_KEY"
 
           # Start a test run
@@ -251,7 +251,7 @@ import requests, json
 
 API_KEY = "kep_your_key"
 APP_ID = "your-app-id"
-BASE = "https://app.keploy.io/api/v1"
+BASE = "https://api.keploy.io/client/v1"
 HEADERS = {"Authorization": f"Bearer {API_KEY}"}
 
 # Trigger test run
@@ -274,7 +274,7 @@ with requests.get(f"{BASE}/jobs/{job_id}/events", headers=HEADERS, stream=True) 
 
 ## Endpoint reference
 
-All paths are relative to `https://app.keploy.io/api/v1`.
+All paths are relative to `https://api.keploy.io/client/v1`.
 
 ### Apps
 
