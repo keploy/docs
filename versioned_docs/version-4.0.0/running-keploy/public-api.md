@@ -47,11 +47,11 @@ X-API-Key: kep_...
 
 API keys are created with one or more scopes that control access:
 
-| Scope | What it allows |
-|-------|----------------|
-| `read` | All `GET` endpoints (view apps, suites, runs, jobs) |
+| Scope   | What it allows                                               |
+| ------- | ------------------------------------------------------------ |
+| `read`  | All `GET` endpoints (view apps, suites, runs, jobs)          |
 | `write` | Everything in `read` + create, update, delete, generate, run |
-| `admin` | Everything in `write` + API key management + app deletion |
+| `admin` | Everything in `write` + API key management + app deletion    |
 
 ### Create your first API key
 
@@ -82,7 +82,7 @@ The response includes the full key — **save it immediately**. It is only shown
     "created_at": 1735689600,
     "expires_at": 1743465600
   },
-  "meta": { "request_id": "550e8400-...", "timestamp": "2025-01-01T00:00:00Z" }
+  "meta": {"request_id": "550e8400-...", "timestamp": "2025-01-01T00:00:00Z"}
 }
 ```
 
@@ -114,15 +114,15 @@ On success, `error` is omitted (not `null`). On error, `data` is omitted. The `m
 
 ### Error codes
 
-| Code | HTTP | When it happens |
-|------|------|-----------------|
-| `AUTHENTICATION_REQUIRED` | 401 | Missing, invalid, or expired API key |
-| `INSUFFICIENT_SCOPE` | 403 | Key does not have the required scope |
-| `RESOURCE_NOT_FOUND` | 404 | The resource does not exist or is not in your organization |
-| `VALIDATION_ERROR` | 400 | Bad request body or missing required fields |
-| `CONFLICT` | 409 | Duplicate resource |
-| `RATE_LIMITED` | 429 | Too many requests — check `Retry-After` header |
-| `INTERNAL_ERROR` | 500 | Unexpected server error — include `request_id` when reporting |
+| Code                      | HTTP | When it happens                                               |
+| ------------------------- | ---- | ------------------------------------------------------------- |
+| `AUTHENTICATION_REQUIRED` | 401  | Missing, invalid, or expired API key                          |
+| `INSUFFICIENT_SCOPE`      | 403  | Key does not have the required scope                          |
+| `RESOURCE_NOT_FOUND`      | 404  | The resource does not exist or is not in your organization    |
+| `VALIDATION_ERROR`        | 400  | Bad request body or missing required fields                   |
+| `CONFLICT`                | 409  | Duplicate resource                                            |
+| `RATE_LIMITED`            | 429  | Too many requests — check `Retry-After` header                |
+| `INTERNAL_ERROR`          | 500  | Unexpected server error — include `request_id` when reporting |
 
 ---
 
@@ -281,41 +281,41 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 
 ### Apps
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/apps` | read | List all apps |
-| `POST` | `/apps` | write | Create an app |
-| `GET` | `/apps/{appId}` | read | Get an app |
-| `PUT` | `/apps/{appId}` | write | Update an app |
+| Method   | Path            | Scope | Description   |
+| -------- | --------------- | ----- | ------------- |
+| `GET`    | `/apps`         | read  | List all apps |
+| `POST`   | `/apps`         | write | Create an app |
+| `GET`    | `/apps/{appId}` | read  | Get an app    |
+| `PUT`    | `/apps/{appId}` | write | Update an app |
 | `DELETE` | `/apps/{appId}` | admin | Delete an app |
 
 **Create app request:**
 
 ```json
-{ "name": "My API", "endpoint": "https://api.example.com" }
+{"name": "My API", "endpoint": "https://api.example.com"}
 ```
 
 ### Schema coverage
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/apps/{appId}/schema-coverage` | read | Get [schema coverage](/docs/running-keploy/api-testing-schema-coverage/) report |
+| Method | Path                            | Scope | Description                                                                     |
+| ------ | ------------------------------- | ----- | ------------------------------------------------------------------------------- |
+| `GET`  | `/apps/{appId}/schema-coverage` | read  | Get [schema coverage](/docs/running-keploy/api-testing-schema-coverage/) report |
 
 Returns coverage percentage, covered/uncovered/partly-covered lines, and per-endpoint details. Requires the app to have an OpenAPI schema configured.
 
 ### Test suites
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/apps/{appId}/test-suites` | read | List test suites (cursor-paginated) |
-| `POST` | `/apps/{appId}/test-suites` | write | Create a test suite |
-| `GET` | `/apps/{appId}/test-suites/{suiteId}` | read | Get a test suite |
-| `PUT` | `/apps/{appId}/test-suites/{suiteId}` | write | Update a test suite |
-| `DELETE` | `/apps/{appId}/test-suites/{suiteId}` | write | Delete a test suite |
-| `POST` | `/apps/{appId}/test-suites/generate` | write | [Generate tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) |
-| `POST` | `/apps/{appId}/test-suites/run` | write | [Run test suites](/docs/running-keploy/run-ai-generated-api-tests/) |
-| `POST` | `/apps/{appId}/test-suites/bulk-delete` | write | Delete multiple test suites |
-| `POST` | `/apps/{appId}/test-suites/{suiteId}/validate` | write | Validate a test suite against your API |
+| Method   | Path                                           | Scope | Description                                                                  |
+| -------- | ---------------------------------------------- | ----- | ---------------------------------------------------------------------------- |
+| `GET`    | `/apps/{appId}/test-suites`                    | read  | List test suites (cursor-paginated)                                          |
+| `POST`   | `/apps/{appId}/test-suites`                    | write | Create a test suite                                                          |
+| `GET`    | `/apps/{appId}/test-suites/{suiteId}`          | read  | Get a test suite                                                             |
+| `PUT`    | `/apps/{appId}/test-suites/{suiteId}`          | write | Update a test suite                                                          |
+| `DELETE` | `/apps/{appId}/test-suites/{suiteId}`          | write | Delete a test suite                                                          |
+| `POST`   | `/apps/{appId}/test-suites/generate`           | write | [Generate tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) |
+| `POST`   | `/apps/{appId}/test-suites/run`                | write | [Run test suites](/docs/running-keploy/run-ai-generated-api-tests/)          |
+| `POST`   | `/apps/{appId}/test-suites/bulk-delete`        | write | Delete multiple test suites                                                  |
+| `POST`   | `/apps/{appId}/test-suites/{suiteId}/validate` | write | Validate a test suite against your API                                       |
 
 **Generate request:**
 
@@ -342,38 +342,38 @@ Omit `test_suite_ids` to run all suites. Both return `202 Accepted` with a `job_
 
 ### Jobs
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/jobs` | read | List all jobs |
-| `GET` | `/jobs/{jobId}` | read | Get a job |
-| `POST` | `/jobs/{jobId}/stop` | write | Stop a running job |
-| `GET` | `/jobs/{jobId}/events` | read | Stream events (NDJSON) |
-| `GET` | `/jobs/{jobId}/validation-result` | read | Get validation result for a validate job |
+| Method | Path                              | Scope | Description                              |
+| ------ | --------------------------------- | ----- | ---------------------------------------- |
+| `GET`  | `/jobs`                           | read  | List all jobs                            |
+| `GET`  | `/jobs/{jobId}`                   | read  | Get a job                                |
+| `POST` | `/jobs/{jobId}/stop`              | write | Stop a running job                       |
+| `GET`  | `/jobs/{jobId}/events`            | read  | Stream events (NDJSON)                   |
+| `GET`  | `/jobs/{jobId}/validation-result` | read  | Get validation result for a validate job |
 
 The `/events` endpoint returns newline-delimited JSON. Connect with `curl -N` or any streaming HTTP client.
 
 ### Test runs, reports, and normalization
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/apps/{appId}/test-runs` | read | List test runs |
-| `GET` | `/apps/{appId}/test-runs/{runId}` | read | Get a test run |
-| `POST` | `/apps/{appId}/test-runs/{runId}/normalize` | write | [Normalize](/docs/running-keploy/self-healing-ai-api-tests/) a test run (AI) |
-| `GET` | `/apps/{appId}/test-runs/{runId}/suite-reports` | read | List suite reports (cursor-paginated) |
-| `GET` | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}` | read | Get a suite report |
-| `POST` | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}/normalize` | write | Normalize a single suite report (AI) |
+| Method | Path                                                                 | Scope | Description                                                                  |
+| ------ | -------------------------------------------------------------------- | ----- | ---------------------------------------------------------------------------- |
+| `GET`  | `/apps/{appId}/test-runs`                                            | read  | List test runs                                                               |
+| `GET`  | `/apps/{appId}/test-runs/{runId}`                                    | read  | Get a test run                                                               |
+| `POST` | `/apps/{appId}/test-runs/{runId}/normalize`                          | write | [Normalize](/docs/running-keploy/self-healing-ai-api-tests/) a test run (AI) |
+| `GET`  | `/apps/{appId}/test-runs/{runId}/suite-reports`                      | read  | List suite reports (cursor-paginated)                                        |
+| `GET`  | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}`           | read  | Get a suite report                                                           |
+| `POST` | `/apps/{appId}/test-runs/{runId}/suite-reports/{reportId}/normalize` | write | Normalize a single suite report (AI)                                         |
 
 > See [Test Run Reports](/docs/running-keploy/api-testing-run-report/) for how to interpret report data.
 
 ### Load tests
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `POST` | `/apps/{appId}/load-tests` | write | Start a load test |
-| `GET` | `/apps/{appId}/load-tests` | read | List load test runs |
-| `GET` | `/apps/{appId}/load-tests/{runId}` | read | Get load test report |
-| `POST` | `/apps/{appId}/load-tests/{runId}/stop` | write | Stop a running load test |
-| `GET` | `/apps/{appId}/load-tests/{runId}/events` | read | Stream load test events (NDJSON) |
+| Method | Path                                      | Scope | Description                      |
+| ------ | ----------------------------------------- | ----- | -------------------------------- |
+| `POST` | `/apps/{appId}/load-tests`                | write | Start a load test                |
+| `GET`  | `/apps/{appId}/load-tests`                | read  | List load test runs              |
+| `GET`  | `/apps/{appId}/load-tests/{runId}`        | read  | Get load test report             |
+| `POST` | `/apps/{appId}/load-tests/{runId}/stop`   | write | Stop a running load test         |
+| `GET`  | `/apps/{appId}/load-tests/{runId}/events` | read  | Stream load test events (NDJSON) |
 
 **Start load test request:**
 
@@ -388,26 +388,26 @@ The `/events` endpoint returns newline-delimited JSON. Connect with `curl -N` or
 
 ### Generation history
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/apps/{appId}/generation-history` | read | List [generation history](/docs/running-keploy/api-testing-generation-history/) entries |
-| `GET` | `/apps/{appId}/generation-history/{jobId}` | read | Get generation details for a specific job |
+| Method | Path                                       | Scope | Description                                                                             |
+| ------ | ------------------------------------------ | ----- | --------------------------------------------------------------------------------------- |
+| `GET`  | `/apps/{appId}/generation-history`         | read  | List [generation history](/docs/running-keploy/api-testing-generation-history/) entries |
+| `GET`  | `/apps/{appId}/generation-history/{jobId}` | read  | Get generation details for a specific job                                               |
 
 ### Subscription and usage
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/company/subscription` | read | Get current subscription plan and status |
-| `GET` | `/company/usage` | read | Get test generation and run usage counts |
+| Method | Path                    | Scope | Description                              |
+| ------ | ----------------------- | ----- | ---------------------------------------- |
+| `GET`  | `/company/subscription` | read  | Get current subscription plan and status |
+| `GET`  | `/company/usage`        | read  | Get test generation and run usage counts |
 
 ### Users and API keys
 
-| Method | Path | Scope | Description |
-|--------|------|-------|-------------|
-| `GET` | `/users/me` | read | Get current authenticated user info |
-| `POST` | `/api-keys` | admin | Create a new API key |
-| `GET` | `/api-keys` | admin | List all API keys for your organization |
-| `DELETE` | `/api-keys/{keyId}` | admin | Revoke an API key |
+| Method   | Path                | Scope | Description                             |
+| -------- | ------------------- | ----- | --------------------------------------- |
+| `GET`    | `/users/me`         | read  | Get current authenticated user info     |
+| `POST`   | `/api-keys`         | admin | Create a new API key                    |
+| `GET`    | `/api-keys`         | admin | List all API keys for your organization |
+| `DELETE` | `/api-keys/{keyId}` | admin | Revoke an API key                       |
 
 **Create API key request:**
 

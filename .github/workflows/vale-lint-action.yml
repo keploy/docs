@@ -9,19 +9,18 @@ jobs:
     steps:
       - uses: actions/checkout@v4.1.1
 
-      # Set up Vale Action
+      # Set up Vale Action — only lint changed lines to avoid flagging pre-existing issues.
       - uses: errata-ai/vale-action@v2.1.1
         with:
-          # Filter mode can be set to: added, diff_context, file, nofilter
-          filter_mode: nofilter
-          # Set the reporter to display the output: github-pr-check, github-pr-review, github-check
+          # Only check lines added/modified in the PR diff.
+          filter_mode: diff_context
+          # Set the reporter to display the output
           reporter: github-pr-check
           # Fails the action if there are errors
           fail_on_error: true
-          # Lint the files in the "versioned_docs/version-3.0.0/" directory
-          files: 'versioned_docs/version-3.0.0'
+          # Lint docs across all versioned directories
+          files: 'versioned_docs'
           # Specify the Vale version
           version: 3.0.3
         env:
-          # GitHub token for authentication, automatically set by GitHub Actions
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
