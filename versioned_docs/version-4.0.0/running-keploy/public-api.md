@@ -25,7 +25,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Dedicated" />
 
-The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io) — create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
+The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io)—create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
 
 **Base URL:** `https://api.keploy.io/client/v1`
 
@@ -70,7 +70,7 @@ curl -X POST https://api.keploy.io/client/v1/api-keys \
   }'
 ```
 
-The response includes the full key — **save it immediately**. It is only shown once and cannot be retrieved again.
+The response includes the full key—**save it immediately**. It is only shown once and cannot be retrieved again.
 
 ```json
 {
@@ -114,15 +114,15 @@ On success, `error` is omitted (not `null`). On error, `data` is omitted. The `m
 
 ### Error codes
 
-| Code                      | HTTP | When it happens                                               |
-| ------------------------- | ---- | ------------------------------------------------------------- |
-| `AUTHENTICATION_REQUIRED` | 401  | Missing, invalid, or expired API key                          |
-| `INSUFFICIENT_SCOPE`      | 403  | Key does not have the required scope                          |
-| `RESOURCE_NOT_FOUND`      | 404  | The resource does not exist or is not in your organization    |
-| `VALIDATION_ERROR`        | 400  | Bad request body or missing required fields                   |
-| `CONFLICT`                | 409  | Duplicate resource                                            |
-| `RATE_LIMITED`            | 429  | Too many requests — check `Retry-After` header                |
-| `INTERNAL_ERROR`          | 500  | Unexpected server error — include `request_id` when reporting |
+| Code                      | HTTP | When it happens                                             |
+| ------------------------- | ---- | ----------------------------------------------------------- |
+| `AUTHENTICATION_REQUIRED` | 401  | Missing, invalid, or expired API key                        |
+| `INSUFFICIENT_SCOPE`      | 403  | Key does not have the required scope                        |
+| `RESOURCE_NOT_FOUND`      | 404  | The resource does not exist or is not in your organization  |
+| `VALIDATION_ERROR`        | 400  | Bad request body or missing required fields                 |
+| `CONFLICT`                | 409  | Duplicate resource                                          |
+| `RATE_LIMITED`            | 429  | Too many requests—check `Retry-After` header                |
+| `INTERNAL_ERROR`          | 500  | Unexpected server error—include `request_id` when reporting |
 
 ---
 
@@ -145,7 +145,7 @@ X-RateLimit-Reset: 3
 
 ## Quick start: Generate and run tests from the command line
 
-This example generates AI-powered test suites for your API, then runs them — all from `curl`. The examples use [`jq`](https://jqlang.github.io/jq/) to parse JSON responses. Install it with `brew install jq` (macOS) or `apt-get install jq` (Linux).
+This example generates AI-powered test suites for your API, then runs them—all from `curl`. The examples use [`jq`](https://jqlang.github.io/jq/) to parse JSON responses. Install it with `brew install jq` (macOS) or `apt-get install jq` (Linux).
 
 ### 1. Generate test suites
 
@@ -170,7 +170,7 @@ curl -N -H "Authorization: Bearer $API_KEY" \
   "$BASE/jobs/$JOB_ID/events"
 ```
 
-This returns [NDJSON](https://ndjson.org/) — one JSON object per line, streamed as events happen.
+This returns [NDJSON](https://ndjson.org/)—one JSON object per line, streamed as events happen.
 
 ### 3. Run all test suites
 
@@ -231,7 +231,7 @@ jobs:
           # Poll until done (timeout after ~10 minutes)
           for i in $(seq 1 60); do
             STATUS=$(curl -s "$BASE/jobs/$JOB_ID" -H "$AUTH" | jq -r '.data.job_status')
-            echo "Attempt $i — Status: $STATUS"
+            echo "Attempt $i—Status: $STATUS"
             case "$STATUS" in
               COMPLETED) echo "Tests passed"; break ;;
               FAILED)    echo "Tests failed. Inspect: curl -s \"$BASE/apps/$APP_ID/test-runs\" -H \"$AUTH\" | jq"; exit 1 ;;
@@ -245,7 +245,7 @@ jobs:
           fi
 ```
 
-> Add `KEPLOY_API_KEY` as a GitHub Actions secret: **Repo Settings → Security → Actions → New Repository Secret**.
+> Add `KEPLOY_API_KEY` as a GitHub Actions secret: **Repository Settings → Security → Actions → New Repository Secret**.
 
 ### Python
 
@@ -301,7 +301,7 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 | ------ | ------------------------------- | ----- | ------------------------------------------------------------------------------- |
 | `GET`  | `/apps/{appId}/schema-coverage` | read  | Get [schema coverage](/docs/running-keploy/api-testing-schema-coverage/) report |
 
-Returns coverage percentage, covered/uncovered/partly-covered lines, and per-endpoint details. Requires the app to have an OpenAPI schema configured.
+Returns coverage percentage, covered, uncovered, and partly covered lines, and per-endpoint details. Requires the app to have an OpenAPI schema configured.
 
 ### Test suites
 
@@ -455,10 +455,10 @@ Maximum `limit` is 100. Default is 20.
 
 ## Related guides
 
-- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — step-by-step guide for test generation
-- [Run AI-generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — executing test suites
-- [CI/CD Integration (CLI)](/docs/running-keploy/api-testing-cicd/) — GitHub Actions with the Keploy CLI
-- [Authentication Setup](/docs/running-keploy/api-testing-auth-setup/) — configure auth for your API under test
-- [Webhook Integration](/docs/running-keploy/api-testing-webhook/) — trigger custom logic during test lifecycle
-- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — understand test results
-- [Schema Coverage](/docs/running-keploy/api-testing-schema-coverage/) — measure API coverage
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/)—step-by-step guide for test generation
+- [Run AI-generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/)—executing test suites
+- [CI/CD Integration (CLI)](/docs/running-keploy/api-testing-cicd/)—GitHub Actions with the Keploy CLI
+- [Authentication Setup](/docs/running-keploy/api-testing-auth-setup/)—configure auth for your API under test
+- [Webhook Integration](/docs/running-keploy/api-testing-webhook/)—trigger custom logic during test lifecycle
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/)—understand test results
+- [Schema Coverage](/docs/running-keploy/api-testing-schema-coverage/)—measure API coverage
