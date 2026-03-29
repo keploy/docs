@@ -33,7 +33,7 @@ Keploy's agent-based test generation lets AI coding assistants (Claude Code, Cur
 3. **Reads coverage gaps** from the output and generates targeted tests
 4. **Syncs results** to the Keploy platform for team-wide visibility
 
-This eliminates the "double LLM tax" — the agent writes tests directly instead of calling a second LLM.
+This eliminates the "double LLM tax"—the agent writes tests directly instead of calling a second LLM.
 
 ## Prerequisites
 
@@ -79,8 +79,9 @@ keploy-runner init --dir ./keploy
 ```
 
 This creates:
-- `keploy/tests/example.yaml` — a working example test suite
-- `keploy/keploy-runner.yaml` — a configuration reference template
+
+- `keploy/tests/example.yaml`—a working example test suite
+- `keploy/keploy-runner.yaml`—a configuration reference template
 
 ### 2. Generate tests with your AI agent
 
@@ -96,7 +97,7 @@ The agent writes YAML test files directly to `keploy/tests/`.
 keploy-runner run --base-url http://localhost:8080 --output json
 ```
 
-The JSON output includes pass/fail status, assertion failures, and extracted variables — the agent reads this to fix failing tests.
+The JSON output includes pass/fail status, assertion failures, and extracted variables—the agent reads this to fix failing tests.
 
 ### 4. Coverage feedback loop
 
@@ -106,7 +107,7 @@ Add `--spec` to include coverage analysis:
 keploy-runner run --base-url http://localhost:8080 --spec openapi.yaml --output json
 ```
 
-The output now includes a `coverage` section with `next_steps` — prioritized suggestions for uncovered endpoints. The agent reads these and generates targeted tests automatically.
+The output now includes a `coverage` section with `next_steps`—prioritized suggestions for uncovered endpoints. The agent reads these and generates targeted tests automatically.
 
 ### 5. Sync results to platform
 
@@ -126,40 +127,40 @@ Results appear on your Keploy dashboard for team-wide visibility, reports, and a
 
 Execute test suites against a running API server.
 
-| Flag | Description | Default |
-|------|-------------|---------|
-| `--base-url` | API server URL (required) | — |
-| `--test-dir` | Directory with test YAML files | `./keploy/tests` |
-| `--output` | Output format: `text`, `json`, `junit` | `text` |
-| `--spec` | OpenAPI spec for coverage analysis | — |
-| `--suite` | Run specific suites by name | all |
-| `--ci` | Exit 1 on failure or low coverage | `false` |
-| `--min-coverage` | Coverage target (with `--ci`) | `80` |
-| `--flaky-runs` | Re-run failed suites N times | `0` |
-| `--sync` | Push results to Keploy platform | `false` |
-| `--app-id` | Keploy app ID (with `--sync`) | — |
-| `--api-key` | Keploy API key | `$KEPLOY_API_KEY` |
-| `--auth-header` | Auth header as `"Key: Value"` (quote in shell) | — |
-| `--rate-limit` | Max requests per second | unlimited |
-| `--timeout` | Per-request timeout (seconds) | `30` |
+| Flag             | Description                                    | Default           |
+| ---------------- | ---------------------------------------------- | ----------------- |
+| `--base-url`     | API server URL (required)                      | —                 |
+| `--test-dir`     | Directory with test YAML files                 | `./keploy/tests`  |
+| `--output`       | Output format: `text`, `json`, `junit`         | `text`            |
+| `--spec`         | OpenAPI spec for coverage analysis             | —                 |
+| `--suite`        | Run specific suites by name                    | all               |
+| `--ci`           | Exit 1 on failure or low coverage              | `false`           |
+| `--min-coverage` | Coverage target (with `--ci`)                  | `80`              |
+| `--flaky-runs`   | Re-run failed suites N times                   | `0`               |
+| `--sync`         | Push results to Keploy platform                | `false`           |
+| `--app-id`       | Keploy app ID (with `--sync`)                  | —                 |
+| `--api-key`      | Keploy API key                                 | `$KEPLOY_API_KEY` |
+| `--auth-header`  | Auth header as `"Key: Value"` (quote in shell) | —                 |
+| `--rate-limit`   | Max requests per second                        | unlimited         |
+| `--timeout`      | Per-request timeout (seconds)                  | `30`              |
 
 ### `keploy-runner coverage`
 
 Standalone coverage analysis without executing tests.
 
-| Flag | Description | Default |
-|------|-------------|---------|
-| `--spec` | OpenAPI spec file (required) | — |
-| `--test-dir` | Directory with test YAML files | `./keploy/tests` |
-| `--output` | Output format: `text`, `json` | `text` |
-| `--min-coverage` | Coverage target percentage | `80` |
+| Flag             | Description                    | Default          |
+| ---------------- | ------------------------------ | ---------------- |
+| `--spec`         | OpenAPI spec file (required)   | —                |
+| `--test-dir`     | Directory with test YAML files | `./keploy/tests` |
+| `--output`       | Output format: `text`, `json`  | `text`           |
+| `--min-coverage` | Coverage target percentage     | `80`             |
 
 ### `keploy-runner init`
 
 Scaffold a test directory with examples.
 
-| Flag | Description | Default |
-|------|-------------|---------|
+| Flag    | Description             | Default    |
+| ------- | ----------------------- | ---------- |
 | `--dir` | Directory to initialize | `./keploy` |
 
 ## Test Suite YAML Format
@@ -201,20 +202,20 @@ steps:
 
 ### Assertion Types
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `status_code` | Exact HTTP status match | `expected_string: "200"` |
-| `status_code_class` | Status class match | `expected_string: "2xx"` |
-| `status_code_in` | Status in list | `expected_string: "200,201,204"` |
-| `json_equal` | Exact match at gjson path | `key: $.id`, `expected_string: '"abc"'` |
-| `json_contains` | Subset match at gjson path | `key: $.data`, `expected_string: '{"name":"John"}'` |
-| `json_path` | Alias for json_equal | `key: $.id`, `expected_string: '"abc"'` |
-| `header_equal` | Exact header match | `key: Content-Type`, `expected_string: "application/json"` |
-| `header_contains` | Header substring | `key: Content-Type`, `expected_string: "json"` |
-| `header_exists` | Header presence | `key: X-Request-Id`, `expected_string: "true"` |
-| `header_matches` | Header regex match | `key: Content-Type`, `expected_string: "application/.*json"` |
-| `schema` | JSON Schema validation | `expected_string: '{"type":"object","properties":{"id":{"type":"string"}}}'` |
-| `custom_functions` | JS function assertion | `expected_string: 'function(req, res) { return res.status === 200; }'` |
+| Type                | Description                | Example                                                                      |
+| ------------------- | -------------------------- | ---------------------------------------------------------------------------- |
+| `status_code`       | Exact HTTP status match    | `expected_string: "200"`                                                     |
+| `status_code_class` | Status class match         | `expected_string: "2xx"`                                                     |
+| `status_code_in`    | Status in list             | `expected_string: "200,201,204"`                                             |
+| `json_equal`        | Exact match at gjson path  | `key: $.id`, `expected_string: '"abc"'`                                      |
+| `json_contains`     | Subset match at gjson path | `key: $.data`, `expected_string: '{"name":"John"}'`                          |
+| `json_path`         | Alias for json_equal       | `key: $.id`, `expected_string: '"abc"'`                                      |
+| `header_equal`      | Exact header match         | `key: Content-Type`, `expected_string: "application/json"`                   |
+| `header_contains`   | Header substring           | `key: Content-Type`, `expected_string: "json"`                               |
+| `header_exists`     | Header presence            | `key: X-Request-Id`, `expected_string: "true"`                               |
+| `header_matches`    | Header regex match         | `key: Content-Type`, `expected_string: "application/.*json"`                 |
+| `schema`            | JSON Schema validation     | `expected_string: '{"type":"object","properties":{"id":{"type":"string"}}}'` |
+| `custom_functions`  | JS function assertion      | `expected_string: 'function(req, res) { return res.status === 200; }'`       |
 
 ### Variable Extraction
 
@@ -229,10 +230,11 @@ extract:
 Use in later steps: `url: /users/{{user_id}}`
 
 **Key rules:**
+
 - Variables are scoped to the test suite (not shared between suites)
 - Must be extracted before use (by a previous step)
 - gjson path syntax: `$.field` or `field`, `$.nested.field` or `nested.field` (the `$.` prefix is optional and stripped automatically)
-- Use dot notation for arrays: `$.users.0.id` (correct) instead of `$.users[0].id` (incorrect — brackets are not supported by gjson)
+- Use dot notation for arrays: `$.users.0.id` (correct) instead of `$.users[0].id` (incorrect—brackets are not supported by gjson)
 
 ## CI/CD Integration
 
@@ -256,10 +258,10 @@ Use in later steps: `url: /users/{{user_id}}`
 
 ### Exit Codes
 
-| Code | Meaning |
-|------|---------|
-| 0 | All tests pass, coverage above threshold |
-| 1 | Test failures, validation errors, coverage below threshold, or sync failure (in `--ci` mode) |
+| Code | Meaning                                                                                      |
+| ---- | -------------------------------------------------------------------------------------------- |
+| 0    | All tests pass, coverage above threshold                                                     |
+| 1    | Test failures, validation errors, coverage below threshold, or sync failure (in `--ci` mode) |
 
 ## Coverage Feedback Loop
 
