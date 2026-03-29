@@ -139,7 +139,7 @@ Execute test suites against a running API server.
 | `--sync` | Push results to Keploy platform | `false` |
 | `--app-id` | Keploy app ID (with `--sync`) | — |
 | `--api-key` | Keploy API key | `$KEPLOY_API_KEY` |
-| `--auth-header` | Auth header as `Key: Value` | — |
+| `--auth-header` | Auth header as `"Key: Value"` (quote in shell) | — |
 | `--rate-limit` | Max requests per second | unlimited |
 | `--timeout` | Per-request timeout (seconds) | `30` |
 
@@ -231,7 +231,7 @@ Use in later steps: `url: /users/{{user_id}}`
 **Key rules:**
 - Variables are scoped to the test suite (not shared between suites)
 - Must be extracted before use (by a previous step)
-- gjson path syntax: `$.field`, `$.nested.field`, `$.array.0.field`
+- gjson path syntax: `$.field` or `field`, `$.nested.field` or `nested.field` (the `$.` prefix is optional and stripped automatically)
 - Use dot notation for arrays: `$.users.0.id` (correct) instead of `$.users[0].id` (incorrect — brackets are not supported by gjson)
 
 ## CI/CD Integration
