@@ -208,10 +208,13 @@ steps:
 | `status_code_in` | Status in list | `expected_string: "200,201,204"` |
 | `json_equal` | Exact match at gjson path | `key: $.id`, `expected_string: '"abc"'` |
 | `json_contains` | Subset match at gjson path | `key: $.data`, `expected_string: '{"name":"John"}'` |
-| `header_equal` | Exact header match | `key: Content-Type` |
-| `header_contains` | Header substring | `key: Content-Type` |
-| `header_exists` | Header presence | `key: X-Request-Id` |
-| `schema` | JSON Schema validation | `expected_string: '{"type":"object"}'` |
+| `json_path` | Alias for json_equal | `key: $.id`, `expected_string: '"abc"'` |
+| `header_equal` | Exact header match | `key: Content-Type`, `expected_string: "application/json"` |
+| `header_contains` | Header substring | `key: Content-Type`, `expected_string: "json"` |
+| `header_exists` | Header presence | `key: X-Request-Id`, `expected_string: "true"` |
+| `header_matches` | Header regex match | `key: Content-Type`, `expected_string: "application/.*json"` |
+| `schema` | JSON Schema validation | `expected_string: '{"type":"object","properties":{"id":{"type":"string"}}}'` |
+| `custom_functions` | JS function assertion | `expected_string: 'function(req, res) { return res.status === 200; }'` |
 
 ### Variable Extraction
 
