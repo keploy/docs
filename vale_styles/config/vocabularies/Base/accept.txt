@@ -38,7 +38,7 @@ json_contains
 json_equal
 json_path
 JUnit
-keploy-test-gen
+test-gen
 [Kk]eploy
 LLMs
 mabl
@@ -55,7 +55,6 @@ Pytest
 realtime
 Redis
 Reqnroll
-respository
 SDK
 signin
 Spotify
