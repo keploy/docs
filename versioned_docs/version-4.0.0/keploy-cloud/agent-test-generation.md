@@ -37,7 +37,7 @@ This eliminates the "double LLM tax" — the agent writes tests directly instead
 
 ## Prerequisites
 
-- Go 1.26+ installed
+- Go 1.26+ installed (the version required by the enterprise module)
 - A running API server to test against
 - An OpenAPI spec (optional, enables coverage feedback loop)
 
