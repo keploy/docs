@@ -229,7 +229,7 @@ Use in later steps: `url: /users/{{user_id}}`
 - Variables are scoped to the test suite (not shared between suites)
 - Must be extracted before use (by a previous step)
 - gjson path syntax: `$.field`, `$.nested.field`, `$.array.0.field`
-- Do NOT use bracket notation: `$.users.0.id` not `$.users[0].id`
+- Use dot notation for arrays: `$.users.0.id` (correct) instead of `$.users[0].id` (incorrect — brackets are not supported by gjson)
 
 ## CI/CD Integration
 
