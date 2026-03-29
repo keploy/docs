@@ -65,7 +65,8 @@ templatize
 wiremessages
 middleware
 distros
-urlgjson
+url
+gjson
 json_equal
 json_contains
 json_path
