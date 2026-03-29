@@ -265,6 +265,9 @@ module.exports = {
           // excludeNextVersionDocs: false,
           lastVersion: "4.0.0",
           versions: {
+            "4.0.0": {
+              label: "3.0.0",
+            },
             "1.0.0": {
               label: "1.0.0",
               path: "1.0.0",
@@ -275,13 +278,8 @@ module.exports = {
               path: "2.0.0",
               banner: "unmaintained",
             },
-            "3.0.0": {
-              label: "3.0.0",
-              path: "3.0.0",
-              banner: "unmaintained",
-            },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0", "3.0.0", "4.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0", "4.0.0"],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
