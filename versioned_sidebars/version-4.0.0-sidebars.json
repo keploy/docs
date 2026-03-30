@@ -33,7 +33,6 @@
         "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
-        "keploy-cloud/agent-test-generation",
         "keploy-cloud/deduplication",
         {
           "type": "category",
@@ -165,6 +164,7 @@
       "items": [
         "running-keploy/api-test-generator",
         "running-keploy/generate-api-tests-using-ai",
+        "running-keploy/agent-test-generation",
         "running-keploy/api-testing-chrome-extension",
         "running-keploy/api-testing-local-agent",
         "running-keploy/api-testing-auth-setup",
