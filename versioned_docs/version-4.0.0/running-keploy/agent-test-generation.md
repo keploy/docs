@@ -93,7 +93,9 @@ The examples below include an API key in configuration files. **Do not commit AP
 
 Replace `https://your-keploy-host` with your Keploy instance URL (e.g., `https://api.keploy.io` for Keploy Cloud, or your self-hosted domain).
 
-### Setup for Claude Code
+### MCP Client Configuration
+
+#### Claude Code
 
 Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: url` field (other clients do not).
 
@@ -117,7 +119,7 @@ Then ask Claude Code:
 
 Claude Code will call `generate_and_wait`, `run_and_report`, and `get_coverage_gaps` tools directly.
 
-### Setup for Cursor
+#### Cursor
 
 Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.json`):
 
@@ -136,7 +138,7 @@ Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.
 
 Cursor's AI agent can then discover and use all Keploy tools natively.
 
-### Setup for GitHub Copilot
+#### GitHub Copilot
 
 GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in your project (add this file to `.gitignore` since it contains credentials).
 
@@ -155,7 +157,7 @@ GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in 
 }
 ```
 
-### Setup for Antigravity
+#### Antigravity
 
 Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MCP settings. Note: Antigravity uses `serverUrl` (not `url`) for the endpoint field.
 
