@@ -138,7 +138,9 @@ Cursor's AI agent can then discover and use all Keploy tools natively.
 
 ### Setup for GitHub Copilot
 
-GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in your project (add this file to `.gitignore` since it contains credentials):
+GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in your project (add this file to `.gitignore` since it contains credentials).
+
+> **Note:** GitHub Copilot uses the top-level key `servers` (not `mcpServers` as other clients use). This is Copilot-specific.
 
 ```json
 {
@@ -180,7 +182,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 6. The agent reads the coverage gaps and generates additional test suites for uncovered endpoints
 7. This loop continues until coverage targets are met
 
-The MCP endpoint uses the same API key as the REST API. All tools proxy to `/client/v1` endpoints using the caller's credentials.
+The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods: `Authorization: Bearer kep_...` or `X-API-Key: kep_...`. See the [Public API docs](/running-keploy/public-api) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
 
 ## Workflow
 
