@@ -68,7 +68,7 @@ Use the same test format documentation as system instructions or project context
 
 ## MCP Server (Recommended for AI Agents)
 
-Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **native tool access** to the ATG platform. Instead of the agent parsing CLI output, it calls structured tools directly and gets typed JSON responses.
+Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **native tool access** to the Automated Test Generation (ATG) platform. Instead of the agent parsing CLI output, it calls structured tools directly and gets typed JSON responses.
 
 The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools are auto-generated from the OpenAPI spec—when the API evolves, tools update automatically.
 
@@ -87,6 +87,12 @@ The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools 
 | `get_coverage_gaps`  | Get uncovered endpoints with prioritized suggestions                     |
 | _...39+ API tools_   | Every `/client/v1` endpoint is available as an MCP tool                  |
 
+:::caution API Key Security
+The examples below include an API key in configuration files. **Do not commit API keys to version control.** Use environment variables or add the config file to `.gitignore`. For CI/CD, use secret management.
+:::
+
+Replace `https://your-keploy-host` with your Keploy instance URL (e.g., `https://api.keploy.io` for Keploy Cloud, or your self-hosted domain).
+
 ### Setup for Claude Code
 
 Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level):
@@ -96,7 +102,7 @@ Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level
   "mcpServers": {
     "keploy": {
       "type": "url",
-      "url": "https://api.keploy.io/client/v1/mcp",
+      "url": "https://your-keploy-host/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -119,7 +125,7 @@ Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.
 {
   "mcpServers": {
     "keploy": {
-      "url": "https://api.keploy.io/client/v1/mcp",
+      "url": "https://your-keploy-host/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -132,13 +138,13 @@ Cursor's AI agent can then discover and use all Keploy tools natively.
 
 ### Setup for GitHub Copilot
 
-GitHub Copilot supports MCP in agent mode. Configure in your `.github/copilot-mcp.json`:
+GitHub Copilot supports MCP in agent mode. Configure in your Copilot settings (ensure this file is in `.gitignore` if it contains credentials):
 
 ```json
 {
   "servers": {
     "keploy": {
-      "url": "https://api.keploy.io/client/v1/mcp",
+      "url": "https://your-keploy-host/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -155,7 +161,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 {
   "mcpServers": {
     "keploy": {
-      "serverUrl": "https://api.keploy.io/client/v1/mcp",
+      "serverUrl": "https://your-keploy-host/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
