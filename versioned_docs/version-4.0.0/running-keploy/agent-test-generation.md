@@ -184,7 +184,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 6. The agent reads the coverage gaps and generates additional test suites for uncovered endpoints
 7. This loop continues until coverage targets are met
 
-The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods: `Authorization: Bearer kep_...` or `X-API-Key: kep_...`. See the [Public API docs](/docs/running-keploy/public-api/) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
+The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods. The examples above use `Authorization: Bearer kep_...`, but you can also use `X-API-Key: kep_...` as an alternative (replace the `Authorization` header with `"X-API-Key": "kep_YOUR_API_KEY"` in the config). See the [Public API docs](/docs/running-keploy/public-api/) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
 
 ## Workflow
 
