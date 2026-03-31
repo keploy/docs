@@ -66,6 +66,116 @@ Create a `.cursorrules` file in your project root with the same test format refe
 
 Use the same test format documentation as system instructions or project context.
 
+## MCP Server (Recommended for AI Agents)
+
+Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **native tool access** to the ATG platform. Instead of the agent parsing CLI output, it calls structured tools directly and gets typed JSON responses.
+
+The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools are auto-generated from the OpenAPI spec—when the API evolves, tools update automatically.
+
+### Available Tools
+
+| Tool                 | What it does                                                             |
+| -------------------- | ------------------------------------------------------------------------ |
+| `listApps`           | List all applications                                                    |
+| `createApp`          | Create a new application                                                 |
+| `generateTestSuites` | Trigger AI test generation from an OpenAPI spec                          |
+| `runTestSuites`      | Execute test suites against a target API                                 |
+| `listTestSuites`     | List test suites for an app                                              |
+| `createTestSuite`    | Create a test suite from steps JSON                                      |
+| `generate_and_wait`  | Generate tests and wait for completion (composite)                       |
+| `run_and_report`     | Run tests and return results with failures and coverage gaps (composite) |
+| `get_coverage_gaps`  | Get uncovered endpoints with prioritized suggestions                     |
+| _...39+ API tools_   | Every `/client/v1` endpoint is available as an MCP tool                  |
+
+### Setup for Claude Code
+
+Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level):
+
+```json
+{
+  "mcpServers": {
+    "keploy": {
+      "type": "url",
+      "url": "https://api.keploy.io/client/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer kep_YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+Then ask Claude Code:
+
+> "Use the Keploy MCP tools to generate API tests for my OpenAPI spec, run them against my staging server, and show me coverage gaps"
+
+Claude Code will call `generate_and_wait`, `run_and_report`, and `get_coverage_gaps` tools directly.
+
+### Setup for Cursor
+
+Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.json`):
+
+```json
+{
+  "mcpServers": {
+    "keploy": {
+      "url": "https://api.keploy.io/client/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer kep_YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+Cursor's AI agent can then discover and use all Keploy tools natively.
+
+### Setup for GitHub Copilot
+
+GitHub Copilot supports MCP in agent mode. Configure in your `.github/copilot-mcp.json`:
+
+```json
+{
+  "servers": {
+    "keploy": {
+      "url": "https://api.keploy.io/client/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer kep_YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### Setup for Antigravity
+
+Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MCP settings:
+
+```json
+{
+  "mcpServers": {
+    "keploy": {
+      "serverUrl": "https://api.keploy.io/client/v1/mcp",
+      "headers": {
+        "Authorization": "Bearer kep_YOUR_API_KEY"
+      }
+    }
+  }
+}
+```
+
+### How it Works
+
+1. The agent discovers available tools via `tools/list`
+2. When you ask "generate API tests", the agent calls `generate_and_wait` with your OpenAPI spec
+3. The tool triggers AI generation on the Keploy platform, polls until complete, and returns the created suites
+4. The agent calls `run_and_report` to execute suites against your API
+5. The tool returns pass/fail results, assertion failures, and coverage gaps
+6. The agent reads the coverage gaps and generates additional test suites for uncovered endpoints
+7. This loop continues until coverage targets are met
+
+The MCP endpoint uses the same API key as the REST API. All tools proxy to `/client/v1` endpoints using the caller's credentials.
+
 ## Workflow
 
 ### 1. Initialize the test directory
