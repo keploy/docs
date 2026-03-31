@@ -95,7 +95,7 @@ Replace `https://your-keploy-host` with your Keploy instance URL (e.g., `https:/
 
 ### Setup for Claude Code
 
-Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `"type": "url"` field (other clients do not).
+Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: url` field (other clients do not).
 
 ```json
 {
