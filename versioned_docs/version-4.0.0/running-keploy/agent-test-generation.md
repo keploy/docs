@@ -138,7 +138,7 @@ Cursor's AI agent can then discover and use all Keploy tools natively.
 
 ### Setup for GitHub Copilot
 
-GitHub Copilot supports MCP in agent mode. Configure in your Copilot settings (ensure this file is in `.gitignore` if it contains credentials):
+GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in your project (add this file to `.gitignore` since it contains credentials):
 
 ```json
 {
