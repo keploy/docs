@@ -68,7 +68,7 @@ Use the same test format documentation as system instructions or project context
 
 ## MCP Server (Recommended for AI Agents)
 
-Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **native tool access** to the Automated Test Generation (ATG) platform. Instead of the agent parsing CLI output, it calls structured tools directly and gets typed JSON responses.
+Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **native tool access** to the Automated Test Generation (ATG) platform. Instead of the agent parsing CLI output, it calls structured tools directly and gets typed JSON responses. The CLI workflow described later on this page is an alternative for environments where MCP is not available.
 
 The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools are auto-generated from the OpenAPI spec—when the API evolves, tools update automatically.
 
@@ -174,7 +174,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 
 ### How it Works
 
-1. The agent discovers available tools via `tools/list`
+1. The agent discovers available tools via the MCP `tools/list` method
 2. When you ask "generate API tests", the agent calls `generate_and_wait` with your OpenAPI spec
 3. The tool triggers AI generation on the Keploy platform, polls until complete, and returns the created suites
 4. The agent calls `run_and_report` to execute suites against your API
