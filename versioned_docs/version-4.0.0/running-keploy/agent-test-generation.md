@@ -74,22 +74,22 @@ The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools 
 
 ### Available Tools
 
-| Tool                        | What it does                                                             |
-| --------------------------- | ------------------------------------------------------------------------ |
-| `listApps`                  | List all applications                                                    |
-| `createApp`                 | Create a new application                                                 |
-| `generateTestSuites`        | Trigger AI test generation from an OpenAPI spec                          |
-| `runTestSuites`             | Execute test suites against a target API                                 |
-| `listTestSuites`            | List test suites for an app                                              |
-| `createTestSuite`           | Create a test suite from steps JSON                                      |
-| `listAppsWithRecordings`    | List apps that have integration test recordings from Keploy              |
-| `listRecordings`            | List recording sessions (test sets) for an app                           |
-| `getRecording`              | Get recorded HTTP request/response pairs and dependency mocks            |
-| `getGeneratedSchema`        | Get the auto-generated OpenAPI schema from captured traffic              |
-| `generate_and_wait`         | Generate tests and wait for completion (composite)                       |
-| `run_and_report`            | Run tests and return results with failures and coverage gaps (composite) |
-| `get_coverage_gaps`         | Get uncovered endpoints with prioritized suggestions                     |
-| _...43+ API tools_          | Every `/client/v1` endpoint is available as an MCP tool                  |
+| Tool                     | What it does                                                             |
+| ------------------------ | ------------------------------------------------------------------------ |
+| `listApps`               | List all applications                                                    |
+| `createApp`              | Create a new application                                                 |
+| `generateTestSuites`     | Trigger AI test generation from an OpenAPI spec                          |
+| `runTestSuites`          | Execute test suites against a target API                                 |
+| `listTestSuites`         | List test suites for an app                                              |
+| `createTestSuite`        | Create a test suite from steps JSON                                      |
+| `listAppsWithRecordings` | List apps that have integration test recordings from Keploy              |
+| `listRecordings`         | List recording sessions (test sets) for an app                           |
+| `getRecording`           | Get recorded HTTP request/response pairs and dependency mocks            |
+| `getGeneratedSchema`     | Get the auto-generated OpenAPI schema from captured traffic              |
+| `generate_and_wait`      | Generate tests and wait for completion (composite)                       |
+| `run_and_report`         | Run tests and return results with failures and coverage gaps (composite) |
+| `get_coverage_gaps`      | Get uncovered endpoints with prioritized suggestions                     |
+| _...43+ API tools_       | Every `/client/v1` endpoint is available as an MCP tool                  |
 
 :::caution API Key Security
 The examples below include an API key in configuration files. **Do not commit API keys to version control.** Use environment variables or add the config file to `.gitignore`. For CI/CD, use secret management.
