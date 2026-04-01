@@ -22,28 +22,18 @@
           "items": [
             {
               "type": "doc",
-              "label": "Keploy OSS",
+              "label": "Local",
               "id": "server/installation"
             },
-            "keploy-cloud/cloud-installation"
-          ]
-        },
-        {
-          "type": "category",
-          "label": "Kubernetes",
-          "collapsible": true,
-          "collapsed": true,
-          "items": [
-            "keploy-cloud/kubernetes-local-setup",
             {
-              "type": "category",
-              "label": "GitOps Deployment",
-              "collapsible": true,
-              "collapsed": true,
-              "items": [
-                "keploy-cloud/gitops-argocd",
-                "keploy-cloud/gitops-flux"
-              ]
+              "type": "doc",
+              "label": "Enterprise",
+              "id": "keploy-cloud/cloud-installation"
+            },
+            {
+              "type": "doc",
+              "label": "Kubernetes",
+              "id": "keploy-cloud/kubernetes"
             }
           ]
         },
