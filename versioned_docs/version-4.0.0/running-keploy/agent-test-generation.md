@@ -74,18 +74,22 @@ The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools 
 
 ### Available Tools
 
-| Tool                 | What it does                                                             |
-| -------------------- | ------------------------------------------------------------------------ |
-| `listApps`           | List all applications                                                    |
-| `createApp`          | Create a new application                                                 |
-| `generateTestSuites` | Trigger AI test generation from an OpenAPI spec                          |
-| `runTestSuites`      | Execute test suites against a target API                                 |
-| `listTestSuites`     | List test suites for an app                                              |
-| `createTestSuite`    | Create a test suite from steps JSON                                      |
-| `generate_and_wait`  | Generate tests and wait for completion (composite)                       |
-| `run_and_report`     | Run tests and return results with failures and coverage gaps (composite) |
-| `get_coverage_gaps`  | Get uncovered endpoints with prioritized suggestions                     |
-| _...39+ API tools_   | Every `/client/v1` endpoint is available as an MCP tool                  |
+| Tool                     | What it does                                                             |
+| ------------------------ | ------------------------------------------------------------------------ |
+| `listApps`               | List all applications                                                    |
+| `createApp`              | Create a new application                                                 |
+| `generateTestSuites`     | Trigger AI test generation from an OpenAPI spec                          |
+| `runTestSuites`          | Execute test suites against a target API                                 |
+| `listTestSuites`         | List test suites for an app                                              |
+| `createTestSuite`        | Create a test suite from steps JSON                                      |
+| `listAppsWithRecordings` | List apps that have integration test recordings from Keploy              |
+| `listRecordings`         | List recording sessions (test sets) for an app                           |
+| `getRecording`           | Get recorded HTTP request/response pairs and dependency mocks            |
+| `getGeneratedSchema`     | Get the auto-generated OpenAPI schema from captured traffic              |
+| `generate_and_wait`      | Generate tests and wait for completion (composite)                       |
+| `run_and_report`         | Run tests and return results with failures and coverage gaps (composite) |
+| `get_coverage_gaps`      | Get uncovered endpoints with prioritized suggestions                     |
+| _...43+ API tools_       | Every `/client/v1` endpoint is available as an MCP tool                  |
 
 :::caution API Key Security
 The examples below include an API key in configuration files. **Do not commit API keys to version control.** Use environment variables or add the config file to `.gitignore`. For CI/CD, use secret management.
@@ -97,13 +101,13 @@ The examples below use the Keploy Cloud URL (`https://api.keploy.io`). If you're
 
 #### Claude Code
 
-Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: url` field (other clients do not).
+Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: http` field for StreamableHTTP transport (other clients do not need it).
 
 ```json
 {
   "mcpServers": {
     "keploy": {
-      "type": "url",
+      "type": "http",
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
@@ -183,6 +187,23 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 5. The tool returns pass/fail results, assertion failures, and coverage gaps
 6. The agent reads the coverage gaps and generates additional test suites for uncovered endpoints
 7. This loop continues until coverage targets are met
+
+### Using Recorded Traffic for Better Tests
+
+If you use Keploy's integration testing (`k8s-proxy` or local agent), recorded HTTP traffic is available to AI agents via MCP. This produces higher-quality test suites because the AI can reference real request/response patterns instead of guessing from the OpenAPI spec alone.
+
+```
+Agent workflow:
+1. listAppsWithRecordings → find apps with real traffic data
+2. listRecordings → browse recording sessions
+3. getRecording → get actual HTTP request/response pairs + dependency mocks
+4. getGeneratedSchema → get the OpenAPI spec auto-generated from traffic
+5. generate_and_wait (with examples from step 3) → produce realistic test suites
+```
+
+Ask your agent:
+
+> "Use the Keploy MCP tools to find apps with recorded traffic, fetch the recordings, and use them as examples to generate comprehensive API tests"
 
 The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods. The examples above use `Authorization: Bearer kep_...`, but you can also use `X-API-Key: kep_...` as an alternative (replace the `Authorization` header with `"X-API-Key": "kep_YOUR_API_KEY"` in the config). See the [Public API docs](/docs/running-keploy/public-api/) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
 
