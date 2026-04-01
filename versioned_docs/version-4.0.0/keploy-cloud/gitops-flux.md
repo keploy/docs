@@ -24,12 +24,12 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide walks you through deploying **Keploy's k8s-proxy** using **Flux CD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
+This guide walks you through deploying **Keploy's `k8s-proxy`** using **Flux CD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
 
-Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy and an **HTTPProxy** for Contour routing.
+Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the `k8s-proxy` and an **HTTPProxy** for Contour routing.
 
 > [!NOTE]
-> This guide assumes you have already completed the [Kubernetes Local Setup](/docs/keploy-cloud/kubernetes-local-setup) and have a running Kind cluster with Keploy connected. For Contour setup details, see the [ArgoCD guide](/docs/keploy-cloud/gitops-argocd#2-deploy-contour-ingress-controller) — the Contour steps are identical.
+> This guide assumes you have already completed the [Kubernetes Local Setup](/docs/keploy-cloud/kubernetes-local-setup) and have a running Kind cluster with Keploy connected. For Contour setup details, see the [ArgoCD guide](/docs/keploy-cloud/gitops-argocd#2-deploy-contour-ingress-controller)—the Contour steps are identical.
 
 ---
 
@@ -107,7 +107,7 @@ spec:
 
 ---
 
-## 4) Create the HelmRelease for k8s-proxy
+## 4) Create the HelmRelease for `k8s-proxy`
 
 Create `clusters/staging/keploy-k8s-proxy.yaml` in your Git repo:
 
@@ -152,8 +152,8 @@ spec:
 
 Replace:
 
-- `<YOUR_CLUSTER_NAME>` — the name you entered in the Keploy UI
-- `<YOUR_INGRESS_HOST>` — the hostname that resolves to your cluster
+- `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
+- `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster
 
 ---
 
@@ -181,7 +181,7 @@ spec:
 Replace `<YOUR_INGRESS_HOST>` with the same hostname used in `keploy.ingressUrl`.
 
 > [!NOTE]
-> TLS passthrough is required because the k8s-proxy serves HTTPS natively. Envoy forwards the encrypted connection directly to the k8s-proxy without terminating TLS. See the [ArgoCD guide](/docs/keploy-cloud/gitops-argocd#5-create-the-httpproxy-for-tls-passthrough) for a detailed explanation.
+> TLS passthrough is required because the `k8s-proxy` serves HTTPS natively. Envoy forwards the encrypted connection directly to the `k8s-proxy` without terminating TLS. See the [ArgoCD guide](/docs/keploy-cloud/gitops-argocd#5-create-the-httpproxy-for-tls-passthrough) for a detailed explanation.
 
 ---
 
@@ -249,13 +249,13 @@ clusters/
 
 To add Keploy to an existing Flux setup, you need:
 
-| What              | File                             | Purpose                                    |
-| ----------------- | -------------------------------- | ------------------------------------------ |
-| Helm source       | `keploy-source.yaml`             | OCI Helm repository for Keploy charts      |
-| HelmRelease       | `keploy-k8s-proxy.yaml`          | Deploy k8s-proxy from Keploy's Helm chart  |
-| Contour HTTPProxy | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough    |
-| Kubernetes Secret | `kubectl create secret` (manual) | Access key for Keploy cloud authentication |
+| What              | File                             | Purpose                                     |
+| ----------------- | -------------------------------- | ------------------------------------------- |
+| Helm source       | `keploy-source.yaml`             | OCI Helm repository for Keploy charts       |
+| HelmRelease       | `keploy-k8s-proxy.yaml`          | Deploy `k8s-proxy` from Keploy's Helm chart |
+| Contour HTTPProxy | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough     |
+| Kubernetes Secret | `kubectl create secret` (manual) | Access key for Keploy cloud authentication  |
 
-Your existing application manifests and Flux configurations remain **completely untouched**. Keploy works alongside your app — not inside it.
+Your existing application manifests and Flux configurations remain **completely untouched**. Keploy works alongside your app—not inside it.
 
-For a reference implementation with both ArgoCD and Flux CD manifests, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository — the `flux/` directory contains ready-to-use HelmRepository, HelmRelease, and HTTPProxy manifests for staging and production.
+For a reference implementation with both ArgoCD and Flux CD manifests, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository—the `flux/` directory contains ready-to-use HelmRepository, HelmRelease, and HTTPProxy manifests for staging and production.

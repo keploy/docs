@@ -251,13 +251,13 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 ## GitOps Deployment
 
-If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's k8s-proxy declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**.
+If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's `k8s-proxy` declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**.
 
 ---
 
 ## Ingress with TLS Passthrough (Optional)
 
-Keploy's k8s-proxy serves **HTTPS natively** on its backend port. If you want to route external traffic through an ingress controller instead of a direct NodePort, you need one that supports **TLS passthrough** — forwarding the encrypted connection directly to the k8s-proxy without terminating it.
+Keploy's `k8s-proxy` serves **HTTPS natively** on its backend port. If you want to route external traffic through an ingress controller instead of a direct NodePort, you need one that supports **TLS passthrough**—forwarding the encrypted connection directly to the `k8s-proxy` without terminating it.
 
 This section uses [Contour](https://projectcontour.io/) as an example. You can use any ingress controller that supports TLS passthrough (e.g. NGINX Ingress with `ssl-passthrough`, Traefik, HAProxy). If you're using a direct NodePort or LoadBalancer service, skip this section.
 
@@ -289,7 +289,7 @@ kubectl patch svc envoy -n projectcontour --type='json' -p='[
 This puts the **HTTPS listener on NodePort 30080** (mapped to the host) and the HTTP listener on 30081.
 
 > [!TIP]
-> For cloud clusters (EKS/GKE/AKS), skip this patch. The default LoadBalancer type works — your cloud provider assigns an external IP automatically.
+> For cloud clusters (EKS/GKE/AKS), skip this patch. The default LoadBalancer type works—your cloud provider assigns an external IP automatically.
 
 ### Verify Contour
 
@@ -309,7 +309,7 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ## Create the HTTPProxy for TLS Passthrough
 
-If you're using Contour as your ingress controller, create an HTTPProxy resource to route traffic to the k8s-proxy via TLS passthrough.
+If you're using Contour as your ingress controller, create an HTTPProxy resource to route traffic to the `k8s-proxy` via TLS passthrough.
 
 Create a file named `k8s-proxy-httpproxy.yaml`:
 
@@ -342,7 +342,7 @@ kubectl apply -f k8s-proxy-httpproxy.yaml
 
 ## Deploy with ArgoCD
 
-If you already use ArgoCD to manage your applications, adding Keploy requires just an ArgoCD Application YAML for the k8s-proxy Helm chart. No changes to your existing app code or manifests.
+If you already use ArgoCD to manage your applications, adding Keploy requires just an ArgoCD Application YAML for the `k8s-proxy` Helm chart. No changes to your existing app code or manifests.
 
 ### Install ArgoCD
 
@@ -369,7 +369,7 @@ kubectl -n argocd port-forward svc/argocd-server 8443:443 &
 
 Open `https://localhost:8443` in your browser. Login with username `admin` and the password from above.
 
-### Create the ArgoCD Application for k8s-proxy
+### Create the ArgoCD Application for `k8s-proxy`
 
 Create a file named `keploy-k8s-proxy.yaml`:
 
@@ -420,8 +420,8 @@ spec:
 
 Replace:
 
-- `<YOUR_CLUSTER_NAME>` — the name you entered in the Keploy UI
-- `<YOUR_INGRESS_HOST>` — the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
+- `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
+- `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
 
 Apply it:
 
@@ -451,7 +451,7 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 
 ### Deploy Your Application with ArgoCD
 
-Your application needs **no changes** for Keploy. Deploy it as you normally would with ArgoCD — either from Helm charts or raw K8s manifests:
+Your application needs **no changes** for Keploy. Deploy it as you normally would with ArgoCD—either from Helm charts or raw `K8s` manifests:
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -482,7 +482,7 @@ Once deployed, your application appears in the Keploy UI under your cluster's **
 
 ## Deploy with Flux CD
 
-Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy Helm chart.
+Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the `k8s-proxy` Helm chart.
 
 ### Bootstrap Flux
 
@@ -523,7 +523,7 @@ spec:
   url: oci://docker.io/keploy
 ```
 
-### Create the HelmRelease for k8s-proxy
+### Create the HelmRelease for `k8s-proxy`
 
 Create `clusters/staging/keploy-k8s-proxy.yaml` in your Git repo:
 
@@ -568,8 +568,8 @@ spec:
 
 Replace:
 
-- `<YOUR_CLUSTER_NAME>` — the name you entered in the Keploy UI
-- `<YOUR_INGRESS_HOST>` — the hostname that resolves to your cluster
+- `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
+- `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster
 
 ### Create the HTTPProxy for TLS Passthrough
 
@@ -595,7 +595,7 @@ spec:
 Replace `<YOUR_INGRESS_HOST>` with the same hostname used in `keploy.ingressUrl`.
 
 > [!NOTE]
-> TLS passthrough is required because the k8s-proxy serves HTTPS natively. Envoy forwards the encrypted connection directly to the k8s-proxy without terminating TLS. See the [TLS passthrough explanation](#ingress-with-tls-passthrough-optional) above.
+> TLS passthrough is required because the `k8s-proxy` serves HTTPS natively. Envoy forwards the encrypted connection directly to the `k8s-proxy` without terminating TLS. See the [TLS passthrough explanation](#ingress-with-tls-passthrough-optional) above.
 
 ### Push and Let Flux Reconcile
 

@@ -24,9 +24,9 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide walks you through deploying **Keploy's k8s-proxy** using **ArgoCD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
+This guide walks you through deploying **Keploy's `k8s-proxy`** using **ArgoCD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
 
-If you already use ArgoCD to manage your applications, adding Keploy requires **just two files** — an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
+If you already use ArgoCD to manage your applications, adding Keploy requires **just two files**—an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
 
 > [!NOTE]
 > This guide assumes you have already completed the [Kubernetes Local Setup](/docs/keploy-cloud/kubernetes-local-setup) and have a running Kind cluster with Keploy connected.
@@ -73,7 +73,7 @@ Open `https://localhost:8443` in your browser. Login with username `admin` and t
 
 ## 2) Deploy Contour ingress controller
 
-Keploy's k8s-proxy serves **HTTPS natively** on its backend port. You need an ingress controller that supports **TLS passthrough** — forwarding the encrypted connection directly to the k8s-proxy without terminating it.
+Keploy's `k8s-proxy` serves **HTTPS natively** on its backend port. You need an ingress controller that supports **TLS passthrough**—forwarding the encrypted connection directly to the `k8s-proxy` without terminating it.
 
 [Contour](https://projectcontour.io/) is a CNCF ingress controller powered by Envoy that supports this via its **HTTPProxy** CRD.
 
@@ -105,7 +105,7 @@ kubectl patch svc envoy -n projectcontour --type='json' -p='[
 This puts the **HTTPS listener on NodePort 30080** (mapped to the host) and the HTTP listener on 30081.
 
 > [!TIP]
-> For cloud clusters (EKS/GKE/AKS), skip this patch. The default LoadBalancer type works — your cloud provider assigns an external IP automatically.
+> For cloud clusters (EKS/GKE/AKS), skip this patch. The default LoadBalancer type works—your cloud provider assigns an external IP automatically.
 
 ### 2.3 Verify Contour
 
@@ -141,7 +141,7 @@ kubectl -n keploy create secret generic keploy-credentials \
 
 ---
 
-## 4) Create the ArgoCD Application for k8s-proxy
+## 4) Create the ArgoCD Application for `k8s-proxy`
 
 Create a file named `keploy-k8s-proxy.yaml`:
 
@@ -192,8 +192,8 @@ spec:
 
 Replace:
 
-- `<YOUR_CLUSTER_NAME>` — the name you entered in the Keploy UI
-- `<YOUR_INGRESS_HOST>` — the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
+- `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
+- `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
 
 Apply it:
 
@@ -205,7 +205,7 @@ kubectl apply -f keploy-k8s-proxy.yaml
 
 ## 5) Create the HTTPProxy for TLS passthrough
 
-The k8s-proxy serves HTTPS on its backend. A standard Kubernetes `Ingress` only supports HTTP backends, so you need Contour's **HTTPProxy** CRD with TLS passthrough.
+The `k8s-proxy` serves HTTPS on its backend. A standard Kubernetes `Ingress` only supports HTTP backends, so you need Contour's **HTTPProxy** CRD with TLS passthrough.
 
 Create a file named `k8s-proxy-httpproxy.yaml`:
 
@@ -248,10 +248,10 @@ Envoy (port 30080)           ← reads SNI hostname, does NOT decrypt
 k8s-proxy (port 8080)        ← terminates TLS itself
 ```
 
-Envoy looks at the **SNI** (Server Name Indication) — the hostname in the TLS Client Hello — to decide where to route the connection. It then passes the encrypted bytes straight through to the k8s-proxy without inspecting them. This is why the `fqdn` in the HTTPProxy must match the hostname the client uses.
+Envoy looks at the **SNI** (Server Name Indication)—the hostname in the TLS Client Hello—to decide where to route the connection. It then passes the encrypted bytes straight through to the `k8s-proxy` without inspecting them. This is why the `fqdn` in the HTTPProxy must match the hostname the client uses.
 
 > [!NOTE]
-> SNI matching means you **must** access the k8s-proxy using the hostname (e.g. `https://your-host:30080`), not the raw IP address. Add an `/etc/hosts` entry if needed.
+> SNI matching means you **must** access the `k8s-proxy` using the hostname (e.g. `https://your-host:30080`), not the raw IP address. Add an `/etc/hosts` entry if needed.
 
 ---
 
@@ -279,7 +279,7 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 
 ## 7) Deploy your application with ArgoCD
 
-Your application needs **no changes** for Keploy. Deploy it as you normally would with ArgoCD — either from Helm charts or raw K8s manifests:
+Your application needs **no changes** for Keploy. Deploy it as you normally would with ArgoCD—either from Helm charts or raw `K8s` manifests:
 
 ```yaml
 apiVersion: argoproj.io/v1alpha1
@@ -312,12 +312,12 @@ Once deployed, your application appears in the Keploy UI under your cluster's **
 
 To add Keploy to an existing ArgoCD setup, you need:
 
-| What               | File                             | Purpose                                    |
-| ------------------ | -------------------------------- | ------------------------------------------ |
-| ArgoCD Application | `keploy-k8s-proxy.yaml`          | Deploy k8s-proxy from Keploy's Helm chart  |
-| Contour HTTPProxy  | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough    |
-| Kubernetes Secret  | `kubectl create secret` (manual) | Access key for Keploy cloud authentication |
+| What               | File                             | Purpose                                     |
+| ------------------ | -------------------------------- | ------------------------------------------- |
+| ArgoCD Application | `keploy-k8s-proxy.yaml`          | Deploy `k8s-proxy` from Keploy's Helm chart |
+| Contour HTTPProxy  | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough     |
+| Kubernetes Secret  | `kubectl create secret` (manual) | Access key for Keploy cloud authentication  |
 
-Your existing application code, manifests, and ArgoCD Applications remain **completely untouched**. Keploy works alongside your app — not inside it.
+Your existing application code, manifests, and ArgoCD Applications remain **completely untouched**. Keploy works alongside your app—not inside it.
 
 For a complete reference implementation, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository.
