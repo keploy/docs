@@ -91,7 +91,7 @@ The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools 
 The examples below include an API key in configuration files. **Do not commit API keys to version control.** Use environment variables or add the config file to `.gitignore`. For CI/CD, use secret management.
 :::
 
-Replace `https://your-keploy-host` with your Keploy instance URL (e.g., `https://api.keploy.io` for Keploy Cloud, or your self-hosted domain).
+The examples below use the Keploy Cloud URL (`https://api.keploy.io`). If you're self-hosting, replace it with your own API server address.
 
 ### MCP Client Configuration
 
@@ -104,7 +104,7 @@ Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level
   "mcpServers": {
     "keploy": {
       "type": "url",
-      "url": "https://your-keploy-host/client/v1/mcp",
+      "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -127,7 +127,7 @@ Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.
 {
   "mcpServers": {
     "keploy": {
-      "url": "https://your-keploy-host/client/v1/mcp",
+      "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -148,7 +148,7 @@ GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in 
 {
   "servers": {
     "keploy": {
-      "url": "https://your-keploy-host/client/v1/mcp",
+      "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
@@ -165,7 +165,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 {
   "mcpServers": {
     "keploy": {
-      "serverUrl": "https://your-keploy-host/client/v1/mcp",
+      "serverUrl": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
       }
