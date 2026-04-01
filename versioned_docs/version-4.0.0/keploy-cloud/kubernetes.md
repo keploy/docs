@@ -251,18 +251,15 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 ## GitOps Deployment
 
-If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's k8s-proxy declaratively. The sections below cover **ArgoCD** and **Flux CD** — both use **Contour** as the ingress controller for TLS passthrough.
-
-> [!NOTE]
-> The GitOps guides below assume you have already completed the [local Kind cluster setup](#1-create-a-local-kind-cluster-with-nodeport-mapping) above and have a running cluster with Keploy connected.
+If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's k8s-proxy declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**.
 
 ---
 
-## Deploy Contour Ingress Controller
+## Ingress with TLS Passthrough (Optional)
 
-Keploy's k8s-proxy serves **HTTPS natively** on its backend port. You need an ingress controller that supports **TLS passthrough** — forwarding the encrypted connection directly to the k8s-proxy without terminating it.
+Keploy's k8s-proxy serves **HTTPS natively** on its backend port. If you want to route external traffic through an ingress controller instead of a direct NodePort, you need one that supports **TLS passthrough** — forwarding the encrypted connection directly to the k8s-proxy without terminating it.
 
-[Contour](https://projectcontour.io/) is a CNCF ingress controller powered by Envoy that supports this via its **HTTPProxy** CRD.
+This section uses [Contour](https://projectcontour.io/) as an example. You can use any ingress controller that supports TLS passthrough (e.g. NGINX Ingress with `ssl-passthrough`, Traefik, HAProxy). If you're using a direct NodePort or LoadBalancer service, skip this section.
 
 ### Install Contour
 
@@ -312,9 +309,7 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ## Create the Keploy Access Key Secret
 
-> Skip if you already created this during the [local setup above](#2-connect-the-cluster-to-keploy-nodeport-setup).
-
-Go to the Keploy UI → **Clusters** → **Connect New Cluster**. Enter your cluster name and ingress URL (e.g. `https://your-host:30080`). Click **Connect** to get your access key.
+If you haven't already created a cluster entry in the Keploy UI, go to **Clusters** → **Connect New Cluster**. Enter your cluster name and ingress URL. Click **Connect** to get your access key.
 
 ```bash
 kubectl create namespace keploy
@@ -330,7 +325,7 @@ kubectl -n keploy create secret generic keploy-credentials \
 
 ## Create the HTTPProxy for TLS Passthrough
 
-The k8s-proxy serves HTTPS on its backend. A standard Kubernetes `Ingress` only supports HTTP backends, so you need Contour's **HTTPProxy** CRD with TLS passthrough.
+If you're using Contour as your ingress controller, create an HTTPProxy resource to route traffic to the k8s-proxy via TLS passthrough.
 
 Create a file named `k8s-proxy-httpproxy.yaml`:
 
@@ -382,12 +377,7 @@ Envoy looks at the **SNI** (Server Name Indication) — the hostname in the TLS 
 
 ## Deploy with ArgoCD
 
-If you already use ArgoCD to manage your applications, adding Keploy requires **just two files** — an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
-
-### Prerequisites
-
-1. **ArgoCD** installed on the cluster
-2. **Contour** deployed ([see above](#deploy-contour-ingress-controller))
+If you already use ArgoCD to manage your applications, adding Keploy requires just an ArgoCD Application YAML for the k8s-proxy Helm chart. No changes to your existing app code or manifests.
 
 ### Install ArgoCD
 
@@ -539,13 +529,7 @@ Your existing application code, manifests, and ArgoCD Applications remain **comp
 
 ## Deploy with Flux CD
 
-Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy and an **HTTPProxy** for Contour routing.
-
-### Prerequisites
-
-1. **Flux CLI** installed ([installation guide](https://fluxcd.io/flux/installation/))
-2. **A Git repository** (GitHub, GitLab, Bitbucket) for Flux to watch
-3. **Contour** deployed ([see above](#deploy-contour-ingress-controller))
+Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy Helm chart.
 
 ### Bootstrap Flux
 
