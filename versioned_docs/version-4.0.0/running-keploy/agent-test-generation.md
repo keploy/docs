@@ -103,7 +103,7 @@ Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level
 {
   "mcpServers": {
     "keploy": {
-      "type": "url",
+      "type": "http",
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
         "Authorization": "Bearer kep_YOUR_API_KEY"
