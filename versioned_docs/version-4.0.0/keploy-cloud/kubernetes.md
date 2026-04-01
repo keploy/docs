@@ -138,11 +138,11 @@ Example command:
 helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --version <LATEST_VERSION> \
   --namespace keploy \
   --create-namespace \
-  --set keploy.accessKey="<YOUR_KEY>" \
-  --set keploy.clusterName="doc-test-2" \
-  --set keploy.apiServerUrl="https://api.keploy.io" \
+  --set accessKey="<YOUR_KEY>" \
+  --set clusterName="doc-test-2" \
+  --set apiServerUrl="https://api.keploy.io" \
   --set service.type=NodePort \
-  --set keploy.ingressUrl="http://localhost:30080" \
+  --set ingressUrl="http://localhost:30080" \
   --set service.nodePort=30080 \
   --set environment="prod" \
   --set proxy.insecure.enabled=true
