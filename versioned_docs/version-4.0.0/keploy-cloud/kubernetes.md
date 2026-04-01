@@ -259,6 +259,8 @@ If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keplo
 The GitOps examples use a Kubernetes Secret for the access key. Create it before proceeding:
 
 ```bash
+kubectl create namespace keploy
+
 kubectl -n keploy create secret generic keploy-credentials \
   --from-literal=access-key="<YOUR_ACCESS_KEY>"
 ```
@@ -433,6 +435,7 @@ Replace:
 
 - `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
 - `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
+- `:30080`—the NodePort from the Contour patch. For cloud clusters (EKS/GKE/AKS) using a LoadBalancer, use `:443` instead
 
 Apply it:
 
@@ -582,6 +585,7 @@ Replace:
 
 - `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
 - `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster
+- `:30080`—the NodePort from the Contour patch. For cloud clusters (EKS/GKE/AKS) using a LoadBalancer, use `:443` instead
 
 ### Create the HTTPProxy for TLS Passthrough
 
