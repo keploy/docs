@@ -338,25 +338,6 @@ Apply it:
 kubectl apply -f k8s-proxy-httpproxy.yaml
 ```
 
-### How TLS Passthrough Works
-
-```text
-Client (Keploy cloud)
-  │
-  │  HTTPS (encrypted)
-  ▼
-Envoy (port 30080)           ← reads SNI hostname, does NOT decrypt
-  │
-  │  forwards encrypted bytes
-  ▼
-k8s-proxy (port 8080)        ← terminates TLS itself
-```
-
-Envoy looks at the **SNI** (Server Name Indication) — the hostname in the TLS Client Hello — to decide where to route the connection. It then passes the encrypted bytes straight through to the k8s-proxy without inspecting them. This is why the `fqdn` in the HTTPProxy must match the hostname the client uses.
-
-> [!NOTE]
-> SNI matching means you **must** access the k8s-proxy using the hostname (e.g. `https://your-host:30080`), not the raw IP address. Add an `/etc/hosts` entry if needed.
-
 ---
 
 ## Deploy with ArgoCD
