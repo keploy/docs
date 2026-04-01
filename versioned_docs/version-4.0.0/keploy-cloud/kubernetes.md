@@ -725,4 +725,4 @@ To add Keploy to an existing Flux setup, you need:
 
 Your existing application manifests and Flux configurations remain **completely untouched**. Keploy works alongside your app — not inside it.
 
-For a reference implementation with both ArgoCD and Flux CD manifests, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository.
+For a reference implementation with both ArgoCD and Flux CD manifests, see the [keploy-k8s-demo](https://github.com/officialasishkumar/keploy-k8s-demo) repository.
