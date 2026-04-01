@@ -253,6 +253,16 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's `k8s-proxy` declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**.
 
+> [!WARNING]
+> Choose **either** the manual Helm install (section 2.2) **or** a GitOps-based install below—not both. If you already installed `k8s-proxy` with Helm, uninstall it first (`helm uninstall k8s-proxy -n keploy`) before applying GitOps manifests.
+
+The GitOps examples use a Kubernetes Secret for the access key. Create it before proceeding:
+
+```bash
+kubectl -n keploy create secret generic keploy-credentials \
+  --from-literal=access-key="<YOUR_ACCESS_KEY>"
+```
+
 ---
 
 ## Ingress with TLS Passthrough (Optional)
