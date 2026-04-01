@@ -29,7 +29,7 @@ This guide walks you through deploying **Keploy's `k8s-proxy`** using **ArgoCD**
 If you already use ArgoCD to manage your applications, adding Keploy requires **just two files**—an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
 
 > [!NOTE]
-> This guide assumes you have already completed the [Kubernetes Local Setup](/docs/keploy-cloud/kubernetes-local-setup) and have a running Kind cluster with Keploy connected.
+> This guide assumes you have already completed the [Kubernetes Setup](/docs/keploy-cloud/kubernetes) and have a running Kind cluster with Keploy connected.
 
 ---
 
