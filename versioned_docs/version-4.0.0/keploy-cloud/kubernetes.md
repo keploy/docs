@@ -307,22 +307,6 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ---
 
-## Create the Keploy Access Key Secret
-
-If you haven't already created a cluster entry in the Keploy UI, go to **Clusters** → **Connect New Cluster**. Enter your cluster name and ingress URL. Click **Connect** to get your access key.
-
-```bash
-kubectl create namespace keploy
-
-kubectl -n keploy create secret generic keploy-credentials \
-  --from-literal=access-key="<YOUR_ACCESS_KEY>"
-```
-
-> [!WARNING]
-> Never commit access keys to Git. Use `existingSecret` in Helm values or a secrets manager (Sealed Secrets, Vault, External Secrets Operator).
-
----
-
 ## Create the HTTPProxy for TLS Passthrough
 
 If you're using Contour as your ingress controller, create an HTTPProxy resource to route traffic to the k8s-proxy via TLS passthrough.
