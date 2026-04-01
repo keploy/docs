@@ -595,7 +595,7 @@ spec:
 Replace `<YOUR_INGRESS_HOST>` with the same hostname used in `keploy.ingressUrl`.
 
 > [!NOTE]
-> TLS passthrough is required because the k8s-proxy serves HTTPS natively. Envoy forwards the encrypted connection directly to the k8s-proxy without terminating TLS. See the [TLS passthrough explanation](#how-tls-passthrough-works) above.
+> TLS passthrough is required because the k8s-proxy serves HTTPS natively. Envoy forwards the encrypted connection directly to the k8s-proxy without terminating TLS. See the [TLS passthrough explanation](#ingress-with-tls-passthrough-optional) above.
 
 ### Push and Let Flux Reconcile
 
