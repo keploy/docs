@@ -190,7 +190,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 
 ### Using Recorded Traffic for Better Tests
 
-If you use Keploy's integration testing (k8s-proxy or local agent), recorded HTTP traffic is available to AI agents via MCP. This produces higher-quality test suites because the AI can reference real request/response patterns instead of guessing from the OpenAPI spec alone.
+If you use Keploy's integration testing (`k8s-proxy` or local agent), recorded HTTP traffic is available to AI agents via MCP. This produces higher-quality test suites because the AI can reference real request/response patterns instead of guessing from the OpenAPI spec alone.
 
 ```
 Agent workflow:
