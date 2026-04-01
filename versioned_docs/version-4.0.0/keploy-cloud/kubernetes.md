@@ -259,8 +259,6 @@ If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keplo
 The GitOps examples use a Kubernetes Secret for the access key. Create it before proceeding:
 
 ```bash
-kubectl create namespace keploy
-
 kubectl -n keploy create secret generic keploy-credentials \
   --from-literal=access-key="<YOUR_ACCESS_KEY>"
 ```
