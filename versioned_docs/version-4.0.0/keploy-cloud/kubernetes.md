@@ -637,16 +637,3 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 ```
 
 ✅ Open the Keploy UI → **Clusters** → your cluster should show as **Connected**. You can now record and replay traffic on any deployment.
-
-### Flux Git Repository Structure
-
-After adding Keploy, your Flux repo should look like:
-
-```text
-clusters/
-└── staging/
-    ├── keploy-source.yaml            # OCI Helm repository for Keploy
-    ├── keploy-k8s-proxy.yaml         # HelmRelease for k8s-proxy
-    ├── k8s-proxy-httpproxy.yaml       # Contour HTTPProxy (TLS passthrough)
-    └── your-other-apps/               # Your existing Flux manifests
-```
