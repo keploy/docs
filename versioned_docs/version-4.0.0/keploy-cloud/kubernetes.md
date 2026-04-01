@@ -258,13 +258,13 @@ If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keplo
 
 ---
 
-### Deploy Contour ingress controller
+## Deploy Contour Ingress Controller
 
 Keploy's k8s-proxy serves **HTTPS natively** on its backend port. You need an ingress controller that supports **TLS passthrough** — forwarding the encrypted connection directly to the k8s-proxy without terminating it.
 
 [Contour](https://projectcontour.io/) is a CNCF ingress controller powered by Envoy that supports this via its **HTTPProxy** CRD.
 
-#### Install Contour
+### Install Contour
 
 ```bash
 kubectl apply -f https://projectcontour.io/quickstart/contour.yaml
@@ -277,7 +277,7 @@ kubectl -n projectcontour rollout status deployment/contour
 kubectl -n projectcontour rollout status daemonset/envoy
 ```
 
-#### Patch Envoy for Kind/VM clusters
+### Patch Envoy for Kind/VM Clusters
 
 Kind only maps specific ports to the host. Since TLS passthrough uses Envoy's HTTPS listener (port 443), you need to assign it to the mapped NodePort:
 
@@ -294,7 +294,7 @@ This puts the **HTTPS listener on NodePort 30080** (mapped to the host) and the 
 > [!TIP]
 > For cloud clusters (EKS/GKE/AKS), skip this patch. The default LoadBalancer type works — your cloud provider assigns an external IP automatically.
 
-#### Verify Contour
+### Verify Contour
 
 ```bash
 kubectl get pods -n projectcontour
@@ -310,7 +310,7 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ---
 
-### Create the Keploy access key secret
+## Create the Keploy Access Key Secret
 
 > Skip if you already created this during the [local setup above](#2-connect-the-cluster-to-keploy-nodeport-setup).
 
@@ -328,7 +328,7 @@ kubectl -n keploy create secret generic keploy-credentials \
 
 ---
 
-### Create the HTTPProxy for TLS passthrough
+## Create the HTTPProxy for TLS Passthrough
 
 The k8s-proxy serves HTTPS on its backend. A standard Kubernetes `Ingress` only supports HTTP backends, so you need Contour's **HTTPProxy** CRD with TLS passthrough.
 
@@ -359,7 +359,7 @@ Apply it:
 kubectl apply -f k8s-proxy-httpproxy.yaml
 ```
 
-#### How TLS passthrough works
+### How TLS Passthrough Works
 
 ```text
 Client (Keploy cloud)
@@ -380,16 +380,16 @@ Envoy looks at the **SNI** (Server Name Indication) — the hostname in the TLS 
 
 ---
 
-### Option A: Deploy with ArgoCD
+## Deploy with ArgoCD
 
 If you already use ArgoCD to manage your applications, adding Keploy requires **just two files** — an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
 
-#### Prerequisites
+### Prerequisites
 
 1. **ArgoCD** installed on the cluster
 2. **Contour** deployed ([see above](#deploy-contour-ingress-controller))
 
-#### Install ArgoCD
+### Install ArgoCD
 
 > Skip this if ArgoCD is already installed on your cluster.
 
@@ -414,7 +414,7 @@ kubectl -n argocd port-forward svc/argocd-server 8443:443 &
 
 Open `https://localhost:8443` in your browser. Login with username `admin` and the password from above.
 
-#### Create the ArgoCD Application for k8s-proxy
+### Create the ArgoCD Application for k8s-proxy
 
 Create a file named `keploy-k8s-proxy.yaml`:
 
@@ -473,7 +473,7 @@ Apply it:
 kubectl apply -f keploy-k8s-proxy.yaml
 ```
 
-#### Verify ArgoCD deployment
+### Verify ArgoCD Deployment
 
 ```bash
 # Check ArgoCD sees the app
@@ -493,7 +493,7 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 
 ✅ Open the Keploy UI → **Clusters** → your cluster should show as **Connected**. You can now record and replay traffic on any deployment.
 
-#### Deploy your application with ArgoCD
+### Deploy Your Application with ArgoCD
 
 Your application needs **no changes** for Keploy. Deploy it as you normally would with ArgoCD — either from Helm charts or raw K8s manifests:
 
@@ -522,7 +522,7 @@ spec:
 
 Once deployed, your application appears in the Keploy UI under your cluster's **Deployments** tab. Click **Record** to start capturing live traffic.
 
-#### ArgoCD summary
+### ArgoCD Summary
 
 To add Keploy to an existing ArgoCD setup, you need:
 
@@ -536,17 +536,17 @@ Your existing application code, manifests, and ArgoCD Applications remain **comp
 
 ---
 
-### Option B: Deploy with Flux CD
+## Deploy with Flux CD
 
 Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy and an **HTTPProxy** for Contour routing.
 
-#### Prerequisites
+### Prerequisites
 
 1. **Flux CLI** installed ([installation guide](https://fluxcd.io/flux/installation/))
 2. **A Git repository** (GitHub, GitLab, Bitbucket) for Flux to watch
 3. **Contour** deployed ([see above](#deploy-contour-ingress-controller))
 
-#### Bootstrap Flux
+### Bootstrap Flux
 
 > Skip this if Flux is already installed on your cluster.
 
@@ -569,7 +569,7 @@ Verify Flux is running:
 flux check
 ```
 
-#### Add the Keploy Helm repository source
+### Add the Keploy Helm Repository Source
 
 Create `clusters/staging/keploy-source.yaml` in your Git repo:
 
@@ -585,7 +585,7 @@ spec:
   url: oci://docker.io/keploy
 ```
 
-#### Create the HelmRelease for k8s-proxy
+### Create the HelmRelease for k8s-proxy
 
 Create `clusters/staging/keploy-k8s-proxy.yaml` in your Git repo:
 
@@ -632,7 +632,7 @@ Replace:
 - `<YOUR_CLUSTER_NAME>` — the name you entered in the Keploy UI
 - `<YOUR_INGRESS_HOST>` — the hostname that resolves to your cluster
 
-#### Create the HTTPProxy for TLS passthrough
+### Create the HTTPProxy for TLS Passthrough
 
 Create `clusters/staging/k8s-proxy-httpproxy.yaml` in your Git repo:
 
@@ -658,7 +658,7 @@ Replace `<YOUR_INGRESS_HOST>` with the same hostname used in `keploy.ingressUrl`
 > [!NOTE]
 > TLS passthrough is required because the k8s-proxy serves HTTPS natively. Envoy forwards the encrypted connection directly to the k8s-proxy without terminating TLS. See the [TLS passthrough explanation](#how-tls-passthrough-works) above.
 
-#### Push and let Flux reconcile
+### Push and Let Flux Reconcile
 
 Commit and push all three files:
 
@@ -683,7 +683,7 @@ flux get helmreleases -n keploy
 kubectl get httpproxy -A
 ```
 
-#### Verify Flux deployment
+### Verify Flux Deployment
 
 ```bash
 # Check k8s-proxy is running
@@ -699,7 +699,7 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 
 ✅ Open the Keploy UI → **Clusters** → your cluster should show as **Connected**. You can now record and replay traffic on any deployment.
 
-#### Flux Git repository structure
+### Flux Git Repository Structure
 
 After adding Keploy, your Flux repo should look like:
 
@@ -712,7 +712,7 @@ clusters/
     └── your-other-apps/               # Your existing Flux manifests
 ```
 
-#### Flux CD summary
+### Flux CD Summary
 
 To add Keploy to an existing Flux setup, you need:
 
