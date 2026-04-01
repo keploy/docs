@@ -15,12 +15,38 @@
           ]
         },
         {
-          "type": "doc",
+          "type": "category",
           "label": "Installation",
-          "id": "server/installation"
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "doc",
+              "label": "Keploy OSS",
+              "id": "server/installation"
+            },
+            "keploy-cloud/cloud-installation",
+            {
+              "type": "category",
+              "label": "Kubernetes",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "keploy-cloud/kubernetes-local-setup",
+                {
+                  "type": "category",
+                  "label": "GitOps Deployment",
+                  "collapsible": true,
+                  "collapsed": true,
+                  "items": [
+                    "keploy-cloud/gitops-argocd",
+                    "keploy-cloud/gitops-flux"
+                  ]
+                }
+              ]
+            }
+          ]
         },
-        "keploy-cloud/cloud-installation",
-        "keploy-cloud/kubernetes-local-setup",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
