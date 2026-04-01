@@ -497,18 +497,6 @@ spec:
 
 Once deployed, your application appears in the Keploy UI under your cluster's **Deployments** tab. Click **Record** to start capturing live traffic.
 
-### ArgoCD Summary
-
-To add Keploy to an existing ArgoCD setup, you need:
-
-| What               | File                             | Purpose                                    |
-| ------------------ | -------------------------------- | ------------------------------------------ |
-| ArgoCD Application | `keploy-k8s-proxy.yaml`          | Deploy k8s-proxy from Keploy's Helm chart  |
-| Contour HTTPProxy  | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough    |
-| Kubernetes Secret  | `kubectl create secret` (manual) | Access key for Keploy cloud authentication |
-
-Your existing application code, manifests, and ArgoCD Applications remain **completely untouched**. Keploy works alongside your app — not inside it.
-
 ---
 
 ## Deploy with Flux CD
@@ -681,16 +669,3 @@ clusters/
     ├── k8s-proxy-httpproxy.yaml       # Contour HTTPProxy (TLS passthrough)
     └── your-other-apps/               # Your existing Flux manifests
 ```
-
-### Flux CD Summary
-
-To add Keploy to an existing Flux setup, you need:
-
-| What              | File                             | Purpose                                    |
-| ----------------- | -------------------------------- | ------------------------------------------ |
-| Helm source       | `keploy-source.yaml`             | OCI Helm repository for Keploy charts      |
-| HelmRelease       | `keploy-k8s-proxy.yaml`          | Deploy k8s-proxy from Keploy's Helm chart  |
-| Contour HTTPProxy | `k8s-proxy-httpproxy.yaml`       | Route HTTPS traffic via TLS passthrough    |
-| Kubernetes Secret | `kubectl create secret` (manual) | Access key for Keploy cloud authentication |
-
-Your existing application manifests and Flux configurations remain **completely untouched**. Keploy works alongside your app — not inside it.
