@@ -125,7 +125,7 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ## 3) Create the Keploy access key secret
 
-> Skip if you already created this during the [Kubernetes Local Setup](/docs/keploy-cloud/kubernetes-local-setup).
+> Skip if you already created this during the [Kubernetes Setup](/docs/keploy-cloud/kubernetes).
 
 Go to the Keploy UI → **Clusters** → **Connect New Cluster**. Enter your cluster name and ingress URL (e.g. `https://your-host:30080`). Click **Connect** to get your access key.
 
@@ -164,6 +164,7 @@ spec:
         replicaCount: 1
         environment: "staging"
         selfHosted: false
+        fullnameOverride: "k8s-proxy"
 
         keploy:
           existingSecret: "keploy-credentials"

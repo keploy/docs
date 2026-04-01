@@ -392,6 +392,7 @@ spec:
         replicaCount: 1
         environment: "staging"
         selfHosted: false
+        fullnameOverride: "k8s-proxy"
 
         keploy:
           existingSecret: "keploy-credentials"
@@ -549,6 +550,7 @@ spec:
     replicaCount: 1
     environment: "staging"
     selfHosted: false
+    fullnameOverride: "k8s-proxy"
 
     keploy:
       existingSecret: "keploy-credentials"
