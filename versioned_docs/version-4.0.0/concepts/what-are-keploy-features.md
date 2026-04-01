@@ -2,7 +2,7 @@
 id: what-are-keploy-features
 title: Keploy Features
 sidebar_label: Keploy Features
-description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
+description: Keploy features include automatic test generation from real traffic, production-like sandboxes, dependency virtualization, AI-powered flaky test elimination, infrastructure mocking, legacy application testing, migration regression testing, continuous validation, and CI/CD integration — all without code changes.
 tags:
   - explanation
   - keploy features
@@ -11,12 +11,23 @@ tags:
   - mock mutations
 keywords:
   - test cases
-  - data dumps
+  - dependency virtualization
+  - production sandbox
+  - infrastructure mocking
+  - flaky test elimination
+  - legacy application testing
+  - migration regression testing
+  - continuous validation
+  - production behavior replay
+  - AI-driven testing
+  - release confidence
   - keploy features
   - features
   - record replay test
   - mock mutations
 ---
+
+Keploy's key features include automatic test generation from real user traffic, production-like sandbox environments, dependency virtualization for databases and external services, AI-powered noise detection for flaky test elimination, infrastructure mocking for message queues and APIs, legacy application testing without code changes, migration regression testing against production baselines, continuous validation in CI/CD pipelines, and Time Freezing for deterministic replay — enabling teams to ship with AI-driven code velocity while maintaining release confidence.
 
 ## Key Features
 
