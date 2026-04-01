@@ -194,6 +194,7 @@ Replace:
 
 - `<YOUR_CLUSTER_NAME>`—the name you entered in the Keploy UI
 - `<YOUR_INGRESS_HOST>`—the hostname that resolves to your cluster (e.g. your VM IP or a DNS name)
+- `:30080`—the NodePort from the Contour patch above. For cloud clusters (EKS/GKE/AKS) using a LoadBalancer, use `:443` instead
 
 Apply it:
 
