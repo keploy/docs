@@ -342,32 +342,7 @@ kubectl apply -f k8s-proxy-httpproxy.yaml
 
 ## Deploy with ArgoCD
 
-If you already use ArgoCD to manage your applications, adding Keploy requires just an ArgoCD Application YAML for the k8s-proxy Helm chart. No changes to your existing app code or manifests.
-
-### Install ArgoCD
-
-> Skip this if ArgoCD is already installed on your cluster.
-
-```bash
-kubectl create namespace argocd
-kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
-kubectl -n argocd rollout status deployment/argocd-server
-```
-
-Get the admin password:
-
-```bash
-kubectl -n argocd get secret argocd-initial-admin-secret \
-  -o jsonpath="{.data.password}" | base64 -d; echo
-```
-
-Access the ArgoCD UI:
-
-```bash
-kubectl -n argocd port-forward svc/argocd-server 8443:443 &
-```
-
-Open `https://localhost:8443` in your browser. Login with username `admin` and the password from above.
+Adding Keploy requires just an ArgoCD Application YAML for the k8s-proxy Helm chart. No changes to your existing app code or manifests.
 
 ### Create the ArgoCD Application for k8s-proxy
 
@@ -482,30 +457,7 @@ Once deployed, your application appears in the Keploy UI under your cluster's **
 
 ## Deploy with Flux CD
 
-Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the k8s-proxy Helm chart.
-
-### Bootstrap Flux
-
-> Skip this if Flux is already installed on your cluster.
-
-Bootstrap Flux with your GitHub repository:
-
-```bash
-flux bootstrap github \
-  --owner=<YOUR_GITHUB_USERNAME> \
-  --repository=<YOUR_REPO_NAME> \
-  --branch=main \
-  --path=clusters/staging \
-  --personal
-```
-
-This installs Flux on your cluster and creates the `clusters/staging` directory in your Git repo where you'll add Keploy manifests.
-
-Verify Flux is running:
-
-```bash
-flux check
-```
+Adding Keploy requires a **HelmRepository** source and a **HelmRelease** for the k8s-proxy Helm chart.
 
 ### Add the Keploy Helm Repository Source
 
