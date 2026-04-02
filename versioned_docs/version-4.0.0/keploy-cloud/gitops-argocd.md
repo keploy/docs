@@ -321,5 +321,3 @@ To add Keploy to an existing ArgoCD setup, you need:
 | Kubernetes Secret  | `kubectl create secret` (manual) | Access key for Keploy cloud authentication  |
 
 Your existing application code, manifests, and ArgoCD Applications remain **completely untouched**. Keploy works alongside your app—not inside it.
-
-For a complete reference implementation, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository.

@@ -259,5 +259,3 @@ To add Keploy to an existing Flux setup, you need:
 | Kubernetes Secret | `kubectl create secret` (manual) | Access key for Keploy cloud authentication  |
 
 Your existing application manifests and Flux configurations remain **completely untouched**. Keploy works alongside your app—not inside it.
-
-For a reference implementation with both ArgoCD and Flux CD manifests, see the [keploy-argocd-demo](https://github.com/officialasishkumar/keploy-argocd-demo) repository—the `flux/` directory contains ready-to-use HelmRepository, HelmRelease, and HTTPProxy manifests for staging and production.
