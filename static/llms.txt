@@ -36,3 +36,8 @@
 - [Unit Testing FAQ](https://keploy.io/docs/keploy-explained/unit-testing-faq/): Auto-generated unit tests, mock generation, coverage
 - [API Testing FAQ](https://keploy.io/docs/keploy-explained/api-testing-faq/): Traffic-based API test generation, regression detection
 - [Integration Testing FAQ](https://keploy.io/docs/keploy-explained/integration-testing-faq/): Dependency virtualization, production sandboxes
+
+## Related Resources
+- [Keploy Homepage](https://keploy.io): Product overview, pricing, and enterprise information
+- [Keploy Blog](https://keploy.io/blog): Technical articles on API testing, eBPF, test automation, and developer productivity
+- [Keploy Cloud](https://app.keploy.io): Managed Keploy cloud platform

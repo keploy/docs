@@ -35,7 +35,7 @@ module.exports = {
       minHeadingLevel: 2,
       maxHeadingLevel: 2,
     },
-    canonicalBase: "https://www.keploy.io/",
+    canonicalBase: "https://keploy.io/",
     metadata: [
       {
         description: "Documentation for Keploy Backend Test Generator",
@@ -71,15 +71,42 @@ module.exports = {
           type: "application/ld+json",
         },
         innerHTML: JSON.stringify({
-          "@context": "https://schema.org/",
-          "@type": "Product",
-          description:
-            "Keploy - Open source tool that generates integration tests like unit tests with mocks or stubs from API calls.",
-          keywords:
-            "API testing, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
-          name: "Keploy",
-          url: "https://keploy.io/",
-          logo: "https://keploy.io/docs/img/favicon.png",
+          "@context": "https://schema.org",
+          "@type": "SoftwareApplication",
+          "name": "Keploy",
+          "description": "Keploy is an open-source, AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF. It helps developers achieve 90% test coverage in minutes with zero code changes.",
+          "applicationCategory": "DeveloperTool",
+          "applicationSubCategory": "Test Automation",
+          "operatingSystem": ["Linux", "macOS", "Windows"],
+          "license": "https://www.apache.org/licenses/LICENSE-2.0",
+          "softwareHelp": "https://docs.keploy.io",
+          "codeRepository": "https://github.com/keploy/keploy",
+          "downloadUrl": "https://github.com/keploy/keploy/releases",
+          "isAccessibleForFree": true,
+          "url": "https://keploy.io",
+          "featureList": [
+            "Automatic test case generation from real user traffic",
+            "Production-like sandbox environments from captured traffic",
+            "AI-powered dependency virtualization and mock generation",
+            "Record and replay testing with eBPF kernel capture",
+            "AI noise detection for flaky test elimination",
+            "Legacy application testing without code changes",
+            "Migration regression testing against production baselines",
+            "Continuous validation in CI/CD pipelines",
+            "Multi-language support (Go, Java, TypeScript, Python)"
+          ],
+          "keywords": [
+            "test automation", "API testing", "API test generation",
+            "unit testing", "integration testing", "mock generation",
+            "dependency virtualization", "eBPF-based testing",
+            "record and replay", "production sandbox"
+          ],
+          "programmingLanguage": ["Go", "Java", "TypeScript", "JavaScript", "Python"],
+          "publisher": {
+            "@type": "Organization",
+            "name": "Keploy",
+            "url": "https://keploy.io"
+          }
         }),
       },
       {
@@ -93,6 +120,12 @@ module.exports = {
           name: "Keploy",
           url: "https://keploy.io/",
           logo: "https://keploy.io/docs/img/favicon.png",
+          sameAs: [
+            "https://github.com/keploy",
+            "https://twitter.com/Keployio",
+            "https://www.linkedin.com/company/keploy",
+            "https://www.youtube.com/@keploy"
+          ],
         }),
       },
       {
@@ -356,6 +389,7 @@ module.exports = {
           //cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: "weekly",
           priority: 0.5,
+          filename: "sitemap.xml",
         },
       },
     ],
