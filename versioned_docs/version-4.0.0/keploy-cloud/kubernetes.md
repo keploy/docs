@@ -317,7 +317,7 @@ envoy     NodePort   10.96.65.35   <none>        80:30081/TCP,443:30080/TCP   2m
 
 ---
 
-## Create the HTTPProxy for TLS Passthrough
+### Create the HTTPProxy for TLS Passthrough
 
 If you're using Contour as your ingress controller, create an HTTPProxy resource to route traffic to the `k8s-proxy` via TLS passthrough.
 
