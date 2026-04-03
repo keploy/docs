@@ -1,13 +1,12 @@
-import {useEffect} from "react";
+import React, { useEffect } from 'react';
+import { useHistory } from '@docusaurus/router';
 
-export default function NotFound() {
+export default function NotFoundContent() {
+  const history = useHistory();
+
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      // immediate redirect without adding to browser history
-      window.location.replace("/docs");
-    }
-  }, []);
+    history.push('/docs/');
+  }, [history]);
 
-  // render nothing (no content shown)
   return null;
 }
