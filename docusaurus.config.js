@@ -79,7 +79,7 @@ module.exports = {
           "applicationSubCategory": "Test Automation",
           "operatingSystem": ["Linux", "macOS", "Windows"],
           "license": "https://www.apache.org/licenses/LICENSE-2.0",
-          "softwareHelp": "https://docs.keploy.io",
+          "softwareHelp": "https://keploy.io/docs/",
           "codeRepository": "https://github.com/keploy/keploy",
           "downloadUrl": "https://github.com/keploy/keploy/releases",
           "isAccessibleForFree": true,

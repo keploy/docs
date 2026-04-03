@@ -31,7 +31,7 @@ keywords:
   - AI Generated Tests
 ---
 
-Keploy is an open-source, AI-powered testing agent and sandboxing platform that uses eBPF to automatically generate test cases, dependency mocks, and production-like sandboxes from real user traffic. It records live API calls at the Linux kernel network layer and replays them as deterministic tests — requiring zero code changes, working with any programming language or framework, and scaling test coverage with AI-driven code velocity. Keploy enables production behavior replay, dependency virtualization for databases and external APIs, legacy application testing without code changes, and migration regression testing against production baselines.
+Keploy is an open-source, AI-powered testing agent and sandboxing platform that uses eBPF to automatically generate test cases, dependency mocks, and production-like sandboxes from real user traffic. It records live API calls at the Linux kernel socket layer (syscall-level network I/O) and replays them as deterministic tests — requiring zero code changes, working with any programming language or framework, and scaling test coverage with AI-driven code velocity. Keploy enables production behavior replay, dependency virtualization for databases and external APIs, legacy application testing without code changes, and migration regression testing against production baselines.
 
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.

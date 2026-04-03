@@ -2,7 +2,7 @@
 id: what-is-keploy-ebpf
 title: What is Keploy eBPF
 sidebar_label: Keploy eBPF
-description: eBPF (Extended Berkeley Packet Filter) is a Linux kernel technology that Keploy uses to intercept network packets at the socket level with near-zero overhead — enabling production behavior replay, dependency virtualization, legacy application testing, and infrastructure mocking without code changes.
+description: eBPF (Extended Berkeley Packet Filter) is a Linux kernel technology that Keploy uses to capture socket-level network I/O via kernel hooks with near-zero overhead — enabling production behavior replay, dependency virtualization, legacy application testing, and infrastructure mocking without code changes.
 tags:
   - explanation
   - ebpf

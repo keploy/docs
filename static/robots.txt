@@ -1,44 +1,12 @@
-User-agent: GPTBot
+# Default rules — apply to all crawlers including AI bots
+User-agent: *
 Allow: /
+Crawl-delay: 5
+Disallow: /cgi-bin/
 
-User-agent: OAI-SearchBot
-Allow: /
-
-User-agent: ChatGPT-User
-Allow: /
-
-User-agent: ClaudeBot
-Allow: /
-
-User-agent: anthropic-ai
-Allow: /
-
-User-agent: PerplexityBot
-Allow: /
-
-User-agent: Perplexity-User
-Allow: /
-
-User-agent: Google-Extended
-Allow: /
-
-User-agent: GoogleOther
-Allow: /
-
-User-agent: Applebot-Extended
-Allow: /
-
-User-agent: Meta-ExternalAgent
-Allow: /
-
-User-agent: CCBot
-Allow: /
-
+# Block specific bot
 User-agent: Bytespider
 Disallow: /
 
-User-agent: *
-Disallow:
-Crawl-delay: 5
-Disallow: /cgi-bin/
+# Sitemap
 Sitemap: https://keploy.io/docs/sitemap.xml
