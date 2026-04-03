@@ -2,8 +2,18 @@
 
 > Technical documentation for Keploy, an open-source AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF kernel technology. Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.
 
+## About Keploy
+Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with 17,000+ GitHub stars and 1,000,000+ VS Code extension installs. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
+
+## Recognition & Awards
+- API World 2023 Award: Best in API Infrastructure
+- CNCF Landscape Project
+- Google for Startups Accelerator
+- Google Summer of Code Mentoring Organization
+
 ## Getting Started
 - [Installation](https://keploy.io/docs/server/installation/): Install Keploy on Linux, macOS, or Docker
+- [Platform Requirements](https://keploy.io/docs/concepts/platform-requirements/): OS and kernel version requirements
 - [Quick Start](https://keploy.io/docs/quickstart/): Get up and running with your first test in minutes
 
 ## Core Concepts
@@ -11,33 +21,51 @@
 - [How Keploy Works](https://keploy.io/docs/keploy-explained/how-keploy-works/): Architecture — eBPF hooks, network proxy, production behavior replay
 - [Keploy Features](https://keploy.io/docs/concepts/what-are-keploy-features/): Dependency virtualization, noise detection, CI/CD integration
 - [eBPF-Based Testing](https://keploy.io/docs/concepts/what-is-a-keploy-ebpf/): Kernel-level traffic capture without code instrumentation
+- [Why Keploy?](https://keploy.io/docs/keploy-explained/why-keploy/): Comparison with traditional testing approaches
+- [Supported Languages](https://keploy.io/docs/keploy-explained/supported-languages/): Go, Java, Node.js, Python, Rust, C#
 
-## Use Cases
-- [API Test Generation](https://keploy.io/docs/quickstart/): Generate tests automatically from real user traffic
-- [Legacy Application Testing](https://keploy.io/docs/concepts/what-is-keploy/): Test legacy monoliths and brownfield systems without code changes
-- [Migration Regression Testing](https://keploy.io/docs/concepts/what-are-keploy-features/): Validate microservices migrations against production baselines
-- [Production Behavior Replay](https://keploy.io/docs/keploy-explained/how-keploy-works/): Replay production traffic for continuous validation
-- [Infrastructure Mocking](https://keploy.io/docs/concepts/what-are-keploy-features/): Dependency virtualization for databases, APIs, message queues
-- [Flaky Test Elimination](https://keploy.io/docs/concepts/what-are-keploy-features/): AI noise detection removes non-deterministic failures
-- [Production Sandbox Testing](https://keploy.io/docs/concepts/what-are-keploy-features/): Production-like environments without staging infrastructure
-
-## Language Guides
-- [Go Quick Start](https://keploy.io/docs/quickstart/go/): Gin, Echo, Fiber, Chi
-- [Java Quick Start](https://keploy.io/docs/quickstart/java/): Spring Boot, Quarkus, Micronaut
-- [Node.js Quick Start](https://keploy.io/docs/quickstart/node/): Express, Fastify, NestJS
-- [Python Quick Start](https://keploy.io/docs/quickstart/python/): Django, Flask, FastAPI
+## Quickstart Guides by Language
+- [Go](https://keploy.io/docs/quickstart/samples-echo/): Gin, Echo, Fiber, Chi, Mux, FastHTTP
+- [Java](https://keploy.io/docs/quickstart/samples-java/): Spring Boot (MongoDB, PostgreSQL, XML)
+- [Node.js / TypeScript](https://keploy.io/docs/quickstart/samples-node-mongo/): Express, NestJS, Bun.js with MongoDB, PostgreSQL, Prisma
+- [Python](https://keploy.io/docs/quickstart/python-flask-mongo/): Django, Flask, FastAPI, Sanic with MongoDB, SQL, Redis
+- [Rust](https://keploy.io/docs/quickstart/samples-rust/): Actix Web with MongoDB
+- [C# / .NET](https://keploy.io/docs/quickstart/csharp-dotnet-postgres/): .NET with PostgreSQL
+- [Code Coverage](https://keploy.io/docs/quickstart/code-coverage/): Measure coverage of Keploy-generated tests
 
 ## CI/CD Integration
 - [GitHub Actions](https://keploy.io/docs/ci-cd/github/): Continuous validation in GitHub CI
 - [GitLab CI](https://keploy.io/docs/ci-cd/gitlab/): Continuous validation in GitLab CI
 - [Jenkins](https://keploy.io/docs/ci-cd/jenkins/): Continuous validation in Jenkins pipelines
 
+## Use Cases
+- API Test Generation: Generate tests automatically from real user traffic
+- Legacy Application Testing: Test legacy monoliths and brownfield systems without code changes
+- Migration Regression Testing: Validate microservices migrations against production baselines
+- Production Behavior Replay: Replay production traffic for continuous validation
+- Infrastructure Mocking: Dependency virtualization for databases, APIs, message queues
+- Flaky Test Elimination: AI noise detection removes non-deterministic failures
+- Production Sandbox Testing: Production-like environments without staging infrastructure
+
+## Keploy Cloud & Integrations
+- [Keploy Cloud](https://keploy.io/docs/keploy-cloud/): Managed cloud platform for teams
+- [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation
+- [PR Agent Integration](https://keploy.io/docs/keploy-explained/integrations-pr-agent/): Automated test suggestions on pull requests
+
 ## FAQ
 - [Unit Testing FAQ](https://keploy.io/docs/keploy-explained/unit-testing-faq/): Auto-generated unit tests, mock generation, coverage
 - [API Testing FAQ](https://keploy.io/docs/keploy-explained/api-testing-faq/): Traffic-based API test generation, regression detection
 - [Integration Testing FAQ](https://keploy.io/docs/keploy-explained/integration-testing-faq/): Dependency virtualization, production sandboxes
+- [Common Errors](https://keploy.io/docs/keploy-explained/common-errors/): Troubleshooting guide for common issues
+
+## Contributing
+- [Contribution Guide](https://keploy.io/docs/keploy-explained/dev-guide/): How to contribute to Keploy
+- [Docs Dev Guide](https://keploy.io/docs/keploy-explained/docs-dev-guide/): How to contribute to documentation
+- [Google Summer of Code](https://keploy.io/docs/gsoc/): GSoC mentoring organization
 
 ## Related Resources
 - [Keploy Homepage](https://keploy.io): Product overview, pricing, and enterprise information
 - [Keploy Blog](https://keploy.io/blog): Technical articles on API testing, eBPF, test automation, and developer productivity
 - [Keploy Cloud](https://app.keploy.io): Managed Keploy cloud platform
+- [GitHub Repository](https://github.com/keploy/keploy): Source code (Apache 2.0 license)
+- [Slack Community](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg): Developer community
