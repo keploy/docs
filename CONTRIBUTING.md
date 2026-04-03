@@ -12,7 +12,7 @@ To ensure that each change is relevant and properly peer reviewed, please adhere
 This means that if you are outside the Keploy organization, you must fork the repository and create PRs from branches on your own fork.
 The README in GitHub's [first-contributions repo](https://github.com/firstcontributions/first-contributions) provides an example.
 
-## ## How to set up the docs website locally?
+## How to set up the docs website locally?
 
 The Keploy documentation site uses Docusaurus 2 which is a static website generator.
 
