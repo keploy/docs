@@ -10,7 +10,9 @@ tags:
   - record-test-case
 ---
 
-## 🌟 Keploy V2 Architecture 🌟
+## How does Keploy work?
+
+Keploy uses eBPF hooks at the Linux kernel level to intercept incoming and outgoing network traffic from an application without requiring any code changes. In record mode, it captures API calls and their downstream dependency interactions, storing them as YAML test cases and stubs. In test mode, Keploy replays those recorded requests and auto-mocks all external dependencies, enabling deterministic regression testing.
 
 ### 🎯 Goals
 
@@ -20,7 +22,9 @@ tags:
 - 🔒 **TLS Support:** Secure connections in HTTPS or databases are supported.
 - 🔄 **Request Matching:** Mocking responses during testing by matching requests.
 
-## 🏗 High-level architecture
+## What is Keploy's high-level architecture?
+
+Keploy's architecture consists of three core components: an eBPF hooks loader that intercepts ingress and egress network traffic at the kernel level, a transparent network proxy that records or mocks outgoing calls to databases and external services, and an API server that manages test execution and resource lifecycle. This design enables zero-code instrumentation across any language or framework.
 
 Keploy uses eBPF to instrument applications without code changes. Key components include:
 
@@ -49,7 +53,9 @@ The Network Proxy acts as a transparent proxy for recording or mocking outgoing 
 
 The API server manages commands for start/stop and resource management (e.g., testicles, stubs). It's evolving to enable full agent mode, beyond just CLI.
 
-## 🧪 Example
+## How does Keploy record and replay tests?
+
+Keploy operates in two modes. In record mode, eBPF hooks capture all incoming HTTP requests and redirect outgoing TCP/UDP traffic through a proxy that saves interactions as YAML files. In test mode, Keploy reads those YAML files, replays the recorded HTTP requests against the application, and mocks all outgoing dependency calls to prevent side effects.
 
 Consider an application server serving HTTP APIs for clients like web/mobile apps, postman, or curl, and depending on a database and another API.
 
