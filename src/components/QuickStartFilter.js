@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
-import {FaGolang} from "react-icons/fa6";
+import {FaGolang, FaPhp} from "react-icons/fa6";
 import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft} from "react-icons/fa";
 import {TbBrandCSharp} from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
@@ -28,6 +28,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     {name: "Java", icon: <FaJava size={24} />, color: "#007396"},
     {name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E"},
     {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
+    {name: "PHP", icon: <FaPhp size={24} />, color: "#777BB4"},
   ];
 
   const servers = [
