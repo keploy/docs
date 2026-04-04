@@ -104,10 +104,10 @@ module.exports = {
           "programmingLanguage": ["Go", "Java", "TypeScript", "JavaScript", "Python"],
           "aggregateRating": {
             "@type": "AggregateRating",
-            "ratingValue": "4.6",
-            "bestRating": "5",
-            "ratingCount": "11",
-            "reviewCount": "11"
+            "ratingValue": 4.6,
+            "bestRating": 5,
+            "ratingCount": 11,
+            "reviewCount": 11
           },
           "publisher": {
             "@type": "Organization",

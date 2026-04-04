@@ -14,7 +14,7 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 ## Getting Started
 - [Installation](https://keploy.io/docs/server/installation/): Install Keploy on Linux, macOS, or Docker
 - [Platform Requirements](https://keploy.io/docs/concepts/platform-requirements/): OS and kernel version requirements
-- [Quick Start](https://keploy.io/docs/quickstart/): Get up and running with your first test in minutes
+- [Quick Start](https://keploy.io/docs/quickstart/quickstart-filter/): Get up and running with your first test in minutes
 
 ## Core Concepts
 - [What is Keploy?](https://keploy.io/docs/concepts/what-is-keploy/): AI-powered testing agent with eBPF-based traffic capture
@@ -27,10 +27,10 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 ## Quickstart Guides by Language
 - [Go](https://keploy.io/docs/quickstart/samples-echo/): Gin, Echo, Fiber, Chi, Mux, FastHTTP
 - [Java](https://keploy.io/docs/quickstart/samples-java/): Spring Boot (MongoDB, PostgreSQL, XML)
-- [Node.js / TypeScript](https://keploy.io/docs/quickstart/samples-node-mongo/): Express, NestJS, Bun.js with MongoDB, PostgreSQL, Prisma
-- [Python](https://keploy.io/docs/quickstart/python-flask-mongo/): Django, Flask, FastAPI, Sanic with MongoDB, SQL, Redis
+- [Node.js / TypeScript](https://keploy.io/docs/quickstart/crud-nodejs/): Express, NestJS, Bun.js with MongoDB, PostgreSQL, Prisma
+- [Python](https://keploy.io/docs/quickstart/samples-flask/): Django, Flask, FastAPI, Sanic with MongoDB, SQL, Redis
 - [Rust](https://keploy.io/docs/quickstart/samples-rust/): Actix Web with MongoDB
-- [C# / .NET](https://keploy.io/docs/quickstart/csharp-dotnet-postgres/): .NET with PostgreSQL
+- [C# / .NET](https://keploy.io/docs/quickstart/samples-csharp/): .NET with PostgreSQL
 - [Code Coverage](https://keploy.io/docs/quickstart/code-coverage/): Measure coverage of Keploy-generated tests
 
 ## CI/CD Integration
@@ -48,7 +48,7 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - Production Sandbox Testing: Production-like environments without staging infrastructure
 
 ## Keploy Cloud & Integrations
-- [Keploy Cloud](https://keploy.io/docs/keploy-cloud/): Managed cloud platform for teams
+- [Keploy Cloud](https://keploy.io/docs/keploy-cloud/cloud-installation/): Managed cloud platform for teams
 - [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation
 - [PR Agent Integration](https://keploy.io/docs/keploy-explained/integrations-pr-agent/): Automated test suggestions on pull requests
 
@@ -59,9 +59,9 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Common Errors](https://keploy.io/docs/keploy-explained/common-errors/): Troubleshooting guide for common issues
 
 ## Contributing
-- [Contribution Guide](https://keploy.io/docs/keploy-explained/dev-guide/): How to contribute to Keploy
+- [Contribution Guide](https://keploy.io/docs/keploy-explained/contribution-guide/): How to contribute to Keploy
 - [Docs Dev Guide](https://keploy.io/docs/keploy-explained/docs-dev-guide/): How to contribute to documentation
-- [Google Summer of Code](https://keploy.io/docs/gsoc/): GSoC mentoring organization
+- [Google Summer of Code](https://keploy.io/docs/gsoc/contribution-guide/): GSoC mentoring organization
 
 ## Related Resources
 - [Keploy Homepage](https://keploy.io): Product overview, pricing, and enterprise information
