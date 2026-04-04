@@ -46,6 +46,7 @@
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
+        "keploy-cloud/junit-xml-reports",
         "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
