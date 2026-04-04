@@ -120,11 +120,28 @@ module.exports = {
           name: "Keploy",
           url: "https://keploy.io/",
           logo: "https://keploy.io/docs/img/favicon.png",
+          foundingDate: "2021-01-01",
+          knowsAbout: [
+            "API Testing",
+            "Test Automation",
+            "eBPF-based Testing",
+            "Dependency Virtualization",
+            "AI-Powered Testing"
+          ],
+          award: [
+            "API World 2023 Award: Best in API Infrastructure",
+            "CNCF Landscape",
+            "Google for Startups Accelerator",
+            "Google Summer of Code Mentoring Organization"
+          ],
           sameAs: [
             "https://github.com/keploy",
             "https://twitter.com/Keployio",
             "https://www.linkedin.com/company/keploy",
-            "https://www.youtube.com/@keploy"
+            "https://www.youtube.com/@keploy",
+            "https://www.gartner.com/reviews/product/keploy-618993540",
+            "https://www.g2.com/products/keploy/reviews",
+            "https://www.capterra.in/software/1070466/Keploy"
           ],
         }),
       },
