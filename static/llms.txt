@@ -25,12 +25,12 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Supported Languages](https://keploy.io/docs/keploy-explained/supported-languages/): Unit-testing language support; Go supported, more languages coming soon
 
 ## Quickstart Guides by Language
-- [Go](https://keploy.io/docs/quickstart/samples-echo/): Gin, Echo, Fiber, Chi, Mux, FastHTTP
-- [Java](https://keploy.io/docs/quickstart/samples-java/): Spring Boot (MongoDB, PostgreSQL, XML)
-- [Node.js / TypeScript](https://keploy.io/docs/quickstart/crud-nodejs/): Express, NestJS, Bun.js with MongoDB, PostgreSQL, Prisma
-- [Python](https://keploy.io/docs/quickstart/samples-flask/): Django, Flask, FastAPI, Sanic with MongoDB, SQL, Redis
-- [Rust](https://keploy.io/docs/quickstart/samples-rust/): Actix Web with MongoDB
-- [C# / .NET](https://keploy.io/docs/quickstart/samples-csharp/): .NET with PostgreSQL
+- [Go](https://keploy.io/docs/quickstart/samples-echo/): Echo + PostgreSQL sample app
+- [Java](https://keploy.io/docs/quickstart/samples-java/): Spring Boot + MongoDB sample app
+- [Node.js / TypeScript](https://keploy.io/docs/quickstart/crud-nodejs/): Express + MongoDB CRUD sample
+- [Python](https://keploy.io/docs/quickstart/samples-flask/): Flask + MongoDB sample app
+- [Rust](https://keploy.io/docs/quickstart/samples-rust/): Rust GraphQL + MongoDB sample
+- [C# / .NET](https://keploy.io/docs/quickstart/samples-csharp/): .NET + PostgreSQL sample
 - [Code Coverage](https://keploy.io/docs/quickstart/code-coverage/): Measure coverage of Keploy-generated tests
 
 ## CI/CD Integration
@@ -68,4 +68,4 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Keploy Blog](https://keploy.io/blog): Technical articles on API testing, eBPF, test automation, and developer productivity
 - [Keploy Cloud](https://app.keploy.io): Managed Keploy cloud platform
 - [GitHub Repository](https://github.com/keploy/keploy): Source code (Apache 2.0 license)
-- [Slack Community](https://keploy.io/docs/keploy-explained/contribution-guide/): Developer community
+- [Community & Contributing](https://keploy.io/docs/keploy-explained/contribution-guide/): Join the developer community and contribute
