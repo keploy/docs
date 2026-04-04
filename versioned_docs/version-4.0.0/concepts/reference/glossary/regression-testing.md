@@ -1,8 +1,8 @@
 ---
 id: regression-testing
-title: Using Keploy for Regression Testing
+title: "Regression Testing: What It Is & How to Automate It"
 sidebar_label: Regression Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: "Learn what regression testing is, the different types (full, partial, risk-based), and how to automate it with tools like Keploy for faster releases."
 tags:
   - explanation
   - Glossary

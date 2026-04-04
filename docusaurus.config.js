@@ -302,11 +302,11 @@ module.exports = {
           /**
            * Whether to display the author who last updated the doc.
            */
-          showLastUpdateAuthor: false,
+          showLastUpdateAuthor: true,
           /**
            * Whether to display the last date the doc was updated.
            */
-          showLastUpdateTime: false,
+          showLastUpdateTime: true,
           /**
            * Skip the next release docs when versioning is enabled.
            * This will not generate HTML files in the production build for documents
