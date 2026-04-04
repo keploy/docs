@@ -1,8 +1,8 @@
 ---
 id: black-box-testing
-title: Mastering Black Box Testing Techniques
+title: "What is Black Box Testing? Types, Techniques & Examples"
 sidebar_label: Black Box Testing
-description: Learn black box testing fundamentals, techniques like boundary value analysis, and best practices to boost software quality without needing internal code access.
+description: "Learn what black box testing is, explore key techniques like boundary value analysis and equivalence partitioning, and see real-world examples."
 tags:
   - explanation
   - Glossary

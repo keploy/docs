@@ -1,8 +1,8 @@
 ---
 id: performance-testing
-title: What is Performance Testing?
+title: "Performance Testing: Types, Tools & Metrics"
 sidebar_label: Performance Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: "Discover performance testing types including load, stress, and endurance testing. Learn key metrics, top tools, and how to optimize application speed."
 tags:
   - explanation
   - Glossary
