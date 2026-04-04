@@ -484,8 +484,78 @@ html[data-theme="dark"] .navbar {
 /* Search */
 
 .DocSearch-Button {
-  @apply rounded-lg px-3 py-2 !important;
+ @apply rounded-lg !important;
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 12px !important;
+  height: 44px !important;
+  gap: 8px !important;
 }
+
+/* Search icon */
+.DocSearch-Button .DocSearch-Search-Icon {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+}
+
+/* Search placeholder text */
+.DocSearch-Button .DocSearch-Button-Placeholder {
+  line-height: 1;
+  padding: 0 !important;
+  margin: 0;
+}
+
+/* Keyboard shortcut keys */
+.DocSearch-Button .DocSearch-Button-Keys {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-width: auto !important;
+  padding: 0 !important;
+}
+
+.DocSearch-Button .DocSearch-Button-Key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px !important;
+  margin: 0 !important;
+  line-height: 1;
+}
+
+/* Search button focus/hover */
+.DocSearch-Button:focus,
+.DocSearch-Button:hover {
+  box-shadow: inset 0 0 0 2px var(--ifm-color-primary) !important;
+  outline: none !important;
+}
+
+/* Search modal icon */
+.DocSearch-Modal .DocSearch-MagnifierLabel {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+
+/* Search modal input */
+.DocSearch-Modal .DocSearch-Input {
+  padding-left: 0 !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  box-sizing: border-box !important;
+  outline: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+/* Search modal form */
+.DocSearch-Modal .DocSearch-Form {
+  padding: 0 12px !important;
+  gap: 8px;
+  overflow: hidden;
+  align-items: center;
+}
+
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
   color: #ffffff;
