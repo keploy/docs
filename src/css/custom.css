@@ -517,6 +517,13 @@ footer svg {
   /* .footer .footer__block {
     display: block;
   } */
+  .footer__copyright+div {
+    text-align: center;
+  }
+
+  .footer__icons.footer {
+    text-align: center;
+  }
 }
 
 
