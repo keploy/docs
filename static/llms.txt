@@ -3,7 +3,7 @@
 > Technical documentation for Keploy, an open-source AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF kernel technology. Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.
 
 ## About Keploy
-Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with 17,000+ GitHub stars and 1,000,000+ VS Code extension installs. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
+Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with a growing open-source community and widely used VS Code extension. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
 
 ## Recognition & Awards
 - API World 2023 Award: Best in API Infrastructure
@@ -20,9 +20,9 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [What is Keploy?](https://keploy.io/docs/concepts/what-is-keploy/): AI-powered testing agent with eBPF-based traffic capture
 - [How Keploy Works](https://keploy.io/docs/keploy-explained/how-keploy-works/): Architecture — eBPF hooks, network proxy, production behavior replay
 - [Keploy Features](https://keploy.io/docs/concepts/what-are-keploy-features/): Dependency virtualization, noise detection, CI/CD integration
-- [eBPF-Based Testing](https://keploy.io/docs/concepts/what-is-a-keploy-ebpf/): Kernel-level traffic capture without code instrumentation
+- [eBPF-Based Testing](https://keploy.io/docs/concepts/what-is-keploy-ebpf/): Kernel-level traffic capture without code instrumentation
 - [Why Keploy?](https://keploy.io/docs/keploy-explained/why-keploy/): Comparison with traditional testing approaches
-- [Supported Languages](https://keploy.io/docs/keploy-explained/supported-languages/): Go, Java, Node.js, Python, Rust, C#
+- [Supported Languages](https://keploy.io/docs/keploy-explained/supported-languages/): Unit-testing language support; Go supported, more languages coming soon
 
 ## Quickstart Guides by Language
 - [Go](https://keploy.io/docs/quickstart/samples-echo/): Gin, Echo, Fiber, Chi, Mux, FastHTTP
@@ -39,13 +39,13 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Jenkins](https://keploy.io/docs/ci-cd/jenkins/): Continuous validation in Jenkins pipelines
 
 ## Use Cases
-- API Test Generation: Generate tests automatically from real user traffic
-- Legacy Application Testing: Test legacy monoliths and brownfield systems without code changes
-- Migration Regression Testing: Validate microservices migrations against production baselines
-- Production Behavior Replay: Replay production traffic for continuous validation
-- Infrastructure Mocking: Dependency virtualization for databases, APIs, message queues
-- Flaky Test Elimination: AI noise detection removes non-deterministic failures
-- Production Sandbox Testing: Production-like environments without staging infrastructure
+- [API Test Generation](https://keploy.io/docs/running-keploy/api-test-generator/): Generate tests automatically from real user traffic
+- [Legacy Application Testing](https://keploy.io/docs/keploy-explained/how-keploy-works/): Test legacy monoliths and brownfield systems without code changes
+- [Migration Regression Testing](https://keploy.io/docs/keploy-explained/how-keploy-works/): Validate microservices migrations against production baselines
+- [Production Behavior Replay](https://keploy.io/docs/concepts/what-is-keploy/): Replay production traffic for continuous validation
+- [Infrastructure Mocking](https://keploy.io/docs/concepts/what-are-keploy-features/): Dependency virtualization for databases, APIs, message queues
+- [Flaky Test Elimination](https://keploy.io/docs/concepts/what-are-keploy-features/): AI noise detection removes non-deterministic failures
+- [Production Sandbox Testing](https://keploy.io/docs/concepts/what-is-keploy/): Production-like environments without staging infrastructure
 
 ## Keploy Cloud & Integrations
 - [Keploy Cloud](https://keploy.io/docs/keploy-cloud/cloud-installation/): Managed cloud platform for teams
@@ -68,4 +68,4 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Keploy Blog](https://keploy.io/blog): Technical articles on API testing, eBPF, test automation, and developer productivity
 - [Keploy Cloud](https://app.keploy.io): Managed Keploy cloud platform
 - [GitHub Repository](https://github.com/keploy/keploy): Source code (Apache 2.0 license)
-- [Slack Community](https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg): Developer community
+- [Slack Community](https://keploy.io/docs/keploy-explained/contribution-guide/): Developer community

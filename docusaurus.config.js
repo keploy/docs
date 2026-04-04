@@ -102,13 +102,6 @@ module.exports = {
             "record and replay", "production sandbox"
           ],
           "programmingLanguage": ["Go", "Java", "TypeScript", "JavaScript", "Python"],
-          "aggregateRating": {
-            "@type": "AggregateRating",
-            "ratingValue": 4.6,
-            "bestRating": 5,
-            "ratingCount": 11,
-            "reviewCount": 11
-          },
           "publisher": {
             "@type": "Organization",
             "name": "Keploy",
@@ -127,7 +120,7 @@ module.exports = {
           name: "Keploy",
           url: "https://keploy.io/",
           logo: "https://keploy.io/docs/img/favicon.png",
-          foundingDate: "2021",
+          foundingDate: "2021-01-01",
           knowsAbout: [
             "API Testing",
             "Test Automation",
