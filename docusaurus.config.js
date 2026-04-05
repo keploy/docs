@@ -57,7 +57,7 @@ module.exports = {
       {name: "twitter:card", content: "summary_large_image"},
     ],
     headTags: [
-      // Google Fonts - DM Sans (non-render-blocking)
+      // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
       {
         tagName: "link",
         attributes: {
