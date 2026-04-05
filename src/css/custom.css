@@ -818,27 +818,48 @@ td img {
   background-size: 24px 24px;
 }
 
-/* Announcement bar - modern styling */
-div[class^="announcementBar_"] {
-  background: linear-gradient(135deg, #ff914d 0%, #ff6b35 100%);
-  font-weight: 500;
+/* Announcement bar - striped orange styling */
+div[class*="announcementBar"] {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.15),
+    rgba(255, 145, 77, 0.15) 10px,
+    rgba(255, 145, 77, 0.05) 10px,
+    rgba(255, 145, 77, 0.05) 20px
+  ) !important;
+  font-weight: 600;
   font-size: 0.875rem;
   padding: 0.5rem 0;
-  border: none;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 145, 77, 0.2) !important;
+  color: #00163D !important;
 }
 
-div[class^="announcementBar_"] a {
-  color: #fff;
+div[class*="announcementBar"] a {
+  color: #ff914d !important;
   text-decoration: underline;
   text-underline-offset: 2px;
+  font-weight: 700;
 }
 
-div[class^="announcementBar_"] a:hover {
-  opacity: 0.9;
+div[class*="announcementBar"] a:hover {
+  color: #e07030 !important;
 }
 
-html[data-theme="dark"] div[class^="announcementBar_"] {
-  background: linear-gradient(135deg, #c95919 0%, #be2c1b 100%);
+html[data-theme="dark"] div[class*="announcementBar"] {
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.12),
+    rgba(255, 145, 77, 0.12) 10px,
+    rgba(255, 145, 77, 0.04) 10px,
+    rgba(255, 145, 77, 0.04) 20px
+  ) !important;
+  color: #f3f4f6 !important;
+  border-bottom-color: rgba(255, 145, 77, 0.15) !important;
+}
+
+html[data-theme="dark"] div[class*="announcementBar"] a {
+  color: #ff914d !important;
 }
 
 .list-disc>a {
@@ -1424,6 +1445,7 @@ main .container {
 [class*="docsWrapper"] {
   max-width: 100% !important;
   width: 100% !important;
+  margin-top: 0 !important;
 }
 
 /* Main doc wrapper - fix layout for full width */
