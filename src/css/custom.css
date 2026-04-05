@@ -1107,8 +1107,8 @@ html[data-theme="dark"] .theme-doc-sidebar-container {
 .theme-doc-sidebar-container {
   background: var(--sidebar-bg) !important;
   border-right: 1px solid var(--sidebar-border) !important;
-  width: 260px !important;
-  min-width: 260px !important;
+  width: var(--doc-sidebar-width, 260px) !important;
+  min-width: var(--doc-sidebar-width, 260px) !important;
   flex-shrink: 0;
 }
 
@@ -2819,8 +2819,8 @@ article.markdown td {
   }
 
   .theme-doc-sidebar-container {
-    width: 200px !important;
-    min-width: 200px !important;
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
   }
 
   .col[class*="docItemCol"] {
@@ -2857,8 +2857,8 @@ article.markdown td {
   }
 
   .theme-doc-sidebar-container {
-    width: 180px !important;
-    min-width: 180px !important;
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
   }
 }
 
@@ -2881,8 +2881,8 @@ article.markdown td {
   }
 
   .theme-doc-sidebar-container {
-    width: 280px !important;
-    min-width: 280px !important;
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
   }
 
   .col[class*="docItemCol"] {
