@@ -10,7 +10,7 @@ tags:
   - java
 ---
 
-# 🌍 Supported Languages for Unit Testing
+# Supported Languages for Unit Testing
 
 Keploy is a vertical AI testing agent—built to deliver real, valuable tests (not just code snippets!) for your codebase.
 

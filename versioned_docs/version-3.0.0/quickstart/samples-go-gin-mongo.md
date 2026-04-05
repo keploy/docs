@@ -22,7 +22,7 @@ keyword:
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Using Docker Compose
 
 A sample url shortener app to test Keploy integration capabilities using Gin and MongoDB
 

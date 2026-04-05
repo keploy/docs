@@ -22,7 +22,7 @@ keyword:
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Using Docker Compose
 
 import ProductTier from '@site/src/components/ProductTier';
 

@@ -25,7 +25,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-# Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL
 
 This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
 
