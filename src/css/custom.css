@@ -1523,6 +1523,10 @@ main .container {
 [class*="docsWrapper"] {
   max-width: 100% !important;
   width: 100% !important;
+}
+
+/* Remove top margin on docs pages only */
+.plugin-docs .docusaurus-mt-lg {
   margin-top: 0 !important;
 }
 
