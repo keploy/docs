@@ -8,7 +8,7 @@ tags:
   - contribution guide
 ---
 
-# Contribution Guide 🚀
+# Contribution Guide
 
 Welcome to the world of Keploy development! This guide will help you set up Keploy locally.
 
