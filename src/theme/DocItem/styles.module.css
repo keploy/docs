@@ -54,7 +54,7 @@
 .table-of-contents {
   background: #fff;
   border-radius: 12px;
-  box-shadow: 0 2px 12px 0 rgba(60,60,60,0.04);
+  box-shadow: 0 2px 12px 0 rgba(60, 60, 60, 0.04);
   padding: 1.2rem 1.2rem 1.2rem 1.5rem;
   margin-top: 2.5rem;
   font-size: 1rem;
@@ -88,14 +88,34 @@
 /* --- End Modern Visual Hierarchy & Layout --- */
 /* --- Docs Page Visual Revamp --- */
 
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+/* DM Sans loaded via headTags in docusaurus.config.js */
 
 /* Apply DM Sans font to the entire docs page, including side panes, headings, nav, TOC, etc. */
-.docs-wrapper, .main-wrapper, .docItemContainer, .row, .col, .col--3,
-.menu, .menu__list, .menu__link, .table-of-contents, .table-of-contents__link,
-.markdown, .markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6,
-.table-of-contents__link--active, .menu__link--active, .doc-meta, .doc-meta__tier, .doc-meta__version, .doc-meta__availability {
-  font-family: 'DM Sans', sans-serif !important;
+.docs-wrapper,
+.main-wrapper,
+.docItemContainer,
+.row,
+.col,
+.col--3,
+.menu,
+.menu__list,
+.menu__link,
+.table-of-contents,
+.table-of-contents__link,
+.markdown,
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6,
+.table-of-contents__link--active,
+.menu__link--active,
+.doc-meta,
+.doc-meta__tier,
+.doc-meta__version,
+.doc-meta__availability {
+  font-family: "DM Sans", sans-serif !important;
 }
 
 .docItemContainer {
@@ -105,7 +125,7 @@
   background: #fff;
   padding: 2.5rem 2.5rem 2.5rem 2.5rem;
   border-radius: 18px;
-  box-shadow: 0 2px 16px 0 rgba(60,60,60,0.04);
+  box-shadow: 0 2px 16px 0 rgba(60, 60, 60, 0.04);
   margin: 2.5rem 0;
 }
 
@@ -117,7 +137,12 @@
   }
 }
 
-.markdown h1, .markdown h2, .markdown h3, .markdown h4, .markdown h5, .markdown h6 {
+.markdown h1,
+.markdown h2,
+.markdown h3,
+.markdown h4,
+.markdown h5,
+.markdown h6 {
   color: #222831;
   font-weight: 700;
   margin-top: 2.2em;
@@ -125,17 +150,28 @@
   line-height: 1.2;
 }
 
-.markdown h1 { font-size: 2.5rem; }
-.markdown h2 { font-size: 2rem; }
-.markdown h3 { font-size: 1.5rem; }
-.markdown h4 { font-size: 1.2rem; }
+.markdown h1 {
+  font-size: 2.5rem;
+}
+.markdown h2 {
+  font-size: 2rem;
+}
+.markdown h3 {
+  font-size: 1.5rem;
+}
+.markdown h4 {
+  font-size: 1.2rem;
+}
 
-.markdown p, .markdown ul, .markdown ol {
+.markdown p,
+.markdown ul,
+.markdown ol {
   margin-bottom: 1.3em;
   color: rgb(99, 114, 119);
 }
 
-.markdown ul, .markdown ol {
+.markdown ul,
+.markdown ol {
   padding-left: 1.5em;
 }
 

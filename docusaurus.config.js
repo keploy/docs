@@ -57,6 +57,29 @@ module.exports = {
       {name: "twitter:card", content: "summary_large_image"},
     ],
     headTags: [
+      // Google Fonts - DM Sans (non-render-blocking)
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://fonts.googleapis.com",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://fonts.gstatic.com",
+          crossorigin: "anonymous",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap",
+        },
+      },
       // Preconnect tag
       {
         tagName: "link",

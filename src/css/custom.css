@@ -1,5 +1,4 @@
-/* --- Force DM Sans on Docs Pages --- */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+/* --- DM Sans loaded via headTags in docusaurus.config.js --- */
 
 /* Also reveal copy button when the container or button has keyboard focus */
 div[class*="codeBlockContainer"]:focus-within button[class*="copyButton"],
@@ -879,14 +878,14 @@ div[class*="announcementBar"]:not([class*="Content"]):not([class*="Close"]) {
 }
 
 div[class*="announcementBar"] a {
-  color: #ff914d !important;
+  color: #c45a1a !important;
   text-decoration: underline;
   text-underline-offset: 2px;
   font-weight: 700;
 }
 
 div[class*="announcementBar"] a:hover {
-  color: #e07030 !important;
+  color: #a0460f !important;
 }
 
 html[data-theme="dark"]
