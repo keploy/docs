@@ -194,8 +194,8 @@ module.exports = {
       // },
     },
     announcementBar: {
-      id: "announcementBar_2", // Increment on change
-      content: `🚀 Keploy v4 is here — zero-code API testing powered by eBPF. <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">Star us on GitHub (10K+)</a> and join the community on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a>!`,
+      id: "announcementBar_1", // Increment on change
+      content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
     },
     prism: {
       theme: prismThemes.vsLight,
