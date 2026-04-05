@@ -73,18 +73,19 @@ module.exports = {
         innerHTML: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "SoftwareApplication",
-          "name": "Keploy",
-          "description": "Keploy is an open-source, AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF. It helps developers achieve 90% test coverage in minutes with zero code changes. Native support is available on Linux; macOS and Windows require a Linux environment such as Lima, WSL, or Docker.",
-          "applicationCategory": "DeveloperTool",
-          "applicationSubCategory": "Test Automation",
-          "operatingSystem": "Linux",
-          "license": "https://www.apache.org/licenses/LICENSE-2.0",
-          "softwareHelp": "https://keploy.io/docs/",
-          "codeRepository": "https://github.com/keploy/keploy",
-          "downloadUrl": "https://github.com/keploy/keploy/releases",
-          "isAccessibleForFree": true,
-          "url": "https://keploy.io",
-          "featureList": [
+          name: "Keploy",
+          description:
+            "Keploy is an open-source, AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF. It helps developers achieve 90% test coverage in minutes with zero code changes. Native support is available on Linux; macOS and Windows require a Linux environment such as Lima, WSL, or Docker.",
+          applicationCategory: "DeveloperTool",
+          applicationSubCategory: "Test Automation",
+          operatingSystem: "Linux",
+          license: "https://www.apache.org/licenses/LICENSE-2.0",
+          softwareHelp: "https://keploy.io/docs/",
+          codeRepository: "https://github.com/keploy/keploy",
+          downloadUrl: "https://github.com/keploy/keploy/releases",
+          isAccessibleForFree: true,
+          url: "https://keploy.io",
+          featureList: [
             "Automatic test case generation from real user traffic",
             "Production-like sandbox environments from captured traffic",
             "AI-powered dependency virtualization and mock generation",
@@ -93,20 +94,32 @@ module.exports = {
             "Legacy application testing without code changes",
             "Migration regression testing against production baselines",
             "Continuous validation in CI/CD pipelines",
-            "Multi-language support (Go, Java, TypeScript, Python)"
+            "Multi-language support (Go, Java, TypeScript, Python)",
           ],
-          "keywords": [
-            "test automation", "API testing", "API test generation",
-            "unit testing", "integration testing", "mock generation",
-            "dependency virtualization", "eBPF-based testing",
-            "record and replay", "production sandbox"
+          keywords: [
+            "test automation",
+            "API testing",
+            "API test generation",
+            "unit testing",
+            "integration testing",
+            "mock generation",
+            "dependency virtualization",
+            "eBPF-based testing",
+            "record and replay",
+            "production sandbox",
           ],
-          "programmingLanguage": ["Go", "Java", "TypeScript", "JavaScript", "Python"],
-          "publisher": {
+          programmingLanguage: [
+            "Go",
+            "Java",
+            "TypeScript",
+            "JavaScript",
+            "Python",
+          ],
+          publisher: {
             "@type": "Organization",
-            "name": "Keploy",
-            "url": "https://keploy.io"
-          }
+            name: "Keploy",
+            url: "https://keploy.io",
+          },
         }),
       },
       {
@@ -126,13 +139,13 @@ module.exports = {
             "Test Automation",
             "eBPF-based Testing",
             "Dependency Virtualization",
-            "AI-Powered Testing"
+            "AI-Powered Testing",
           ],
           award: [
             "API World 2023 Award: Best in API Infrastructure",
             "CNCF Landscape",
             "Google for Startups Accelerator",
-            "Google Summer of Code Mentoring Organization"
+            "Google Summer of Code Mentoring Organization",
           ],
           sameAs: [
             "https://github.com/keploy",
@@ -141,7 +154,7 @@ module.exports = {
             "https://www.youtube.com/@keploy",
             "https://www.gartner.com/reviews/product/keploy-618993540",
             "https://www.g2.com/products/keploy/reviews",
-            "https://www.capterra.in/software/1070466/Keploy"
+            "https://www.capterra.in/software/1070466/Keploy",
           ],
         }),
       },
@@ -204,7 +217,7 @@ module.exports = {
           items: [
             {
               label: "Integration Testing",
-              to: "install",
+              to: "server/install",
             },
             {
               label: "API Testing (AI)",

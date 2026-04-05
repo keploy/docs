@@ -5,7 +5,7 @@ div[class*="codeBlockContainer"] button[class*="copyButton"]:focus-visible {
   transform: translateY(0);
 }
 /* --- Force DM Sans on Docs Pages --- */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
 
 body[data-docs-root] *,
 .docs-wrapper *,
@@ -23,7 +23,7 @@ body[data-docs-root] *,
 .doc-meta__tier *,
 .doc-meta__version *,
 .doc-meta__availability * {
-  font-family: 'DM Sans', sans-serif !important;
+  font-family: "DM Sans", sans-serif !important;
 }
 
 /* --- Revert code blocks to default monospace font --- */
@@ -41,7 +41,8 @@ body[data-docs-root] samp *,
 .markdown pre *,
 .prism-code,
 .prism-code * {
-  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace !important;
 }
 
 /* --- End Force DM Sans on Docs Pages --- */
@@ -72,7 +73,7 @@ body[data-docs-root] samp *,
   --ifm-code-padding-vertical: 0.2rem !important;
   --ifm-code-border-radius: 6px !important;
 
-  --ifm-color-primary-lighter: #FFF;
+  --ifm-color-primary-lighter: #fff;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
@@ -110,8 +111,8 @@ body {
   width: 100% !important;
 }
 
-.navbar>.container,
-.navbar>.container-fluid {
+.navbar > .container,
+.navbar > .container-fluid {
   max-width: 100% !important;
   width: 100% !important;
   padding: 0 1rem;
@@ -146,9 +147,8 @@ html[data-theme="dark"] main {
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
 
-
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF;
+  --ifm-color-primary-lighter: #fff;
 
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
@@ -247,7 +247,7 @@ h4,
 }
 
 /* otherwise external references in menu bar (see Go) have the icon screwed up */
-.menu__list-item>.menu__link>span {
+.menu__list-item > .menu__link > span {
   display: flex;
 }
 
@@ -269,7 +269,8 @@ div[class^="sidebar_"] .menu__caret:before {
   width: 1.5rem;
 }
 
-div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) {
+div[class^="sidebar_"]
+  .menu__link.menu__link--active:not(.menu__link--sublist) {
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
@@ -280,31 +281,45 @@ div[class^="sidebar_"] .menu__link--sublist.menu__link--active {
 }
 
 /* Do NOT bold category when on its own page */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist {
   color: inherit !important;
   font-weight: inherit;
 }
 
 /* And keep color unchanged even on hover when on its own page */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist:hover {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist:hover {
   color: inherit !important;
 }
 
 /* Explicitly neutralize color when category link is both sublist and active (own page) */
-div[class^="sidebar_"] .menu__list-item-collapsible--active .menu__link--sublist.menu__link--active {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist.menu__link--active {
   color: inherit !important;
 }
 
 /* When the category's own page is current, do not change its color/background/weight */
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"] {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"] {
   color: inherit !important;
   background: transparent !important;
   font-weight: inherit !important;
 }
 
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:hover,
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"]:focus,
-div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="page"].menu__link--active {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:focus,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"].menu__link--active {
   color: inherit !important;
   /* prevent extra link-layer background; container provides unified hover */
   background-color: transparent !important;
@@ -312,22 +327,35 @@ div[class^="sidebar_"] .menu__list-item-collapsible .menu__link[aria-current="pa
 }
 
 /* Strong override: category with its own current page should use normal menu color (not active black) */
-div[class^="sidebar_"] .menu__link--sublist.menu__link--active[aria-current="page"] {
+div[class^="sidebar_"]
+  .menu__link--sublist.menu__link--active[aria-current="page"] {
   color: var(--ifm-menu-color) !important;
 }
 
 /* Extra-specific guard: ensure normal color for category labels on their own page */
-div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"],
-div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
-div[class^="sidebar_"] li.menu__list-item>div.menu__list-item-collapsible>a.menu__link.menu__link--sublist[aria-current="page"] {
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"],
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"] {
   color: var(--ifm-menu-color) !important;
   background: transparent !important;
   font-weight: inherit !important;
 }
 
 /* Restore hover background for categories with their own page when hovering that link */
-div[class^="sidebar_"] li.menu__list-item>a.menu__link.menu__link--sublist[aria-current="page"]:hover,
-div[class^="sidebar_"] li.menu__list-item>div.menu__list-item-collapsible>a.menu__link.menu__link--sublist[aria-current="page"]:hover {
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
   /* prevent extra link-layer hover; container provides unified hover */
   background-color: transparent !important;
 }
@@ -338,23 +366,34 @@ div[class^="sidebar_"] .menu__list-item-collapsible--active:hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
 
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>.menu__caret {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > .menu__caret {
   background-color: transparent !important;
 }
 
 /* For categories with pages (collapsible) when NOT on their page: hover on arrow OR text gives one unified background */
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
   background-color: var(--ifm-menu-color-background-hover) !important;
 }
 
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover>a.menu__link,
-div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover>.menu__caret {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > .menu__caret {
   background-color: transparent !important;
 }
 
 /* Ensure link text color does not change on hover in this specific case */
-div[class^="sidebar_"] .menu__list-item-collapsible--active:hover>a.menu__link {
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link {
   color: inherit !important;
 }
 
@@ -363,11 +402,13 @@ div[class^="sidebar_"] .menu__list-item-collapsible--active {
   background: transparent !important;
 }
 
-
 /* Parent style when a child page is active is handled below for light mode (orange) */
 
 /* Light mode: use orange color (no bold) for parent when a child page is active */
-html[data-theme="light"] div[class^="sidebar_"] .menu__list-item-collapsible:not(.menu__list-item-collapsible--active) .menu__link--sublist.menu__link--active {
+html[data-theme="light"]
+  div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active)
+  .menu__link--sublist.menu__link--active {
   color: var(--ifm-color-primary) !important;
   font-weight: inherit;
 }
@@ -443,8 +484,6 @@ div[class^="sidebar_"] .menu__link.menu__link--active {
   @apply mx-auto my-16 max-w-screen-lg px-10;
 }
 
-
-
 /* Navbar */
 .navbar {
   background: #fff;
@@ -463,11 +502,11 @@ html[data-theme="dark"] .navbar {
 }
 
 .navbar__items--right {
-  @apply justify-end ml-auto flex-row-reverse;
+  @apply ml-auto flex-row-reverse justify-end;
   gap: 12px;
 }
 
-.navbar__items--right> :last-child {
+.navbar__items--right > :last-child {
   @apply pr-0;
 }
 
@@ -518,7 +557,6 @@ footer svg {
     display: block;
   } */
 }
-
 
 /* Docs */
 
@@ -712,11 +750,11 @@ td img {
 } */
 
 /* hacks to counteract tailwind typography clashing with docusaurus tabs */
-.prose .tabs-container>.tabs>.tabs__item::before {
+.prose .tabs-container > .tabs > .tabs__item::before {
   content: none;
 }
 
-.prose .tabs-container>.tabs>.tabs__item {
+.prose .tabs-container > .tabs > .tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
   padding-bottom: 0.5em;
@@ -724,7 +762,7 @@ td img {
   opacity: 0.5;
 }
 
-.prose .tabs-container>.tabs>.tabs__item.tabs__item--active {
+.prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
   opacity: 1;
 }
 
@@ -737,7 +775,7 @@ td img {
   margin-bottom: -1.25rem;
 }
 
-.prose .tabs-container>.margin-vert--md pre {
+.prose .tabs-container > .margin-vert--md pre {
   margin: 0;
 }
 
@@ -747,15 +785,15 @@ td img {
 }
 
 /* otherwise tailwind typography gives very ugly margins on li children */
-.prose>ol>li> :first-child,
-.prose>ul>li> :first-child,
-.prose>ol>li> :last-child,
-.prose>ul>li> :last-child {
+.prose > ol > li > :first-child,
+.prose > ul > li > :first-child,
+.prose > ol > li > :last-child,
+.prose > ul > li > :last-child {
   margin: 0 !important;
   /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
 
-.prose li>ul {
+.prose li > ul {
   margin-top: 1rem !important;
   /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
@@ -779,7 +817,9 @@ td img {
   background-color: #ffffff;
 }
 
-[data-theme="light"] .prose :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+[data-theme="light"]
+  .prose
+  :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
   background-color: #ffffff;
 }
 
@@ -792,11 +832,13 @@ td img {
   width: 24px;
   height: 24px;
   display: flex;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+    no-repeat;
 }
 
 [data-theme="dark"] .header-github-link::before {
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E") no-repeat;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath fill='white' d='M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12'/%3E%3C/svg%3E")
+    no-repeat;
 }
 
 /* Slack navbar icon styling */
@@ -832,7 +874,7 @@ div[class*="announcementBar"] {
   padding: 0.5rem 0;
   border: none !important;
   border-bottom: 1px solid rgba(255, 145, 77, 0.2) !important;
-  color: #00163D !important;
+  color: #00163d !important;
 }
 
 div[class*="announcementBar"] a {
@@ -862,7 +904,7 @@ html[data-theme="dark"] div[class*="announcementBar"] a {
   color: #ff914d !important;
 }
 
-.list-disc>a {
+.list-disc > a {
   display: inherit;
 }
 
@@ -880,7 +922,7 @@ html[data-theme="dark"] div[class*="announcementBar"] a {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
+  border-color: theme("borderColor.DEFAULT", currentColor);
 }
 
 * {
@@ -893,7 +935,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  font-family: theme("fontFamily.sans", ui-sans-serif, system-ui, sans-serif);
 }
 
 body {
@@ -947,9 +989,9 @@ html {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -976,12 +1018,12 @@ menu {
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline: 2px solid theme("colors.blue.600", #2563eb);
   outline-offset: 2px;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -1015,7 +1057,7 @@ textarea {
 }
 
 .theme-back-to-top-button {
-  background-color: #FF914D !important;
+  background-color: #ff914d !important;
   color: white !important;
 }
 
@@ -1070,7 +1112,7 @@ html[data-theme="dark"] .theme-doc-sidebar-container {
 }
 
 /* Inner sidebar - sticky behavior */
-.theme-doc-sidebar-container>div {
+.theme-doc-sidebar-container > div {
   position: sticky !important;
   top: 0;
   height: 100vh;
@@ -1078,10 +1120,9 @@ html[data-theme="dark"] .theme-doc-sidebar-container {
   background: var(--sidebar-bg) !important;
 }
 
-aside.theme-doc-sidebar-container>div {
+aside.theme-doc-sidebar-container > div {
   background: var(--sidebar-bg) !important;
 }
-
 
 /* Sidebar menu container padding */
 .theme-doc-sidebar-menu {
@@ -1097,8 +1138,8 @@ div[class^="sidebar_"] .menu {
    ============================================ */
 
 /* Top-level category styling - full-width rows */
-div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible,
-div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
   display: flex;
   align-items: center;
   width: 100%;
@@ -1113,14 +1154,19 @@ div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
   color: var(--sidebar-category-color);
 }
 
-div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover,
-div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist:hover {
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist:hover {
   background: var(--sidebar-hover);
 }
 
 /* Top-level category label - PURPLE */
-div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible>a.menu__link,
-div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
+div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible
+  > a.menu__link,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
   font-weight: 600;
   font-size: 0.875rem;
   letter-spacing: 0.01em;
@@ -1132,7 +1178,7 @@ div[class^="sidebar_"]>nav>ul>li>a.menu__link--sublist {
 }
 
 /* Divider between top-level categories */
-div[class^="sidebar_"]>nav>ul>li:not(:last-child) {
+div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
   border-bottom: 1px solid var(--sidebar-border);
   padding-bottom: 0.5rem;
   margin-bottom: 0.5rem;
@@ -1161,7 +1207,7 @@ div[class^="sidebar_"] .menu__link--sublist::after {
 }
 
 /* Purple chevron for top-level categories */
-div[class^="sidebar_"]>nav>ul>li .menu__caret::before {
+div[class^="sidebar_"] > nav > ul > li .menu__caret::before {
   filter: hue-rotate(20deg) saturate(1.8);
 }
 
@@ -1208,7 +1254,8 @@ div[class^="sidebar_"] .menu__list .menu__list .menu__list .menu__link {
    ============================================ */
 
 /* Active page - pill highlight with left accent */
-div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) {
+div[class^="sidebar_"]
+  .menu__link.menu__link--active:not(.menu__link--sublist) {
   background: var(--sidebar-active-bg) !important;
   color: var(--sidebar-active-border) !important;
   font-weight: 600 !important;
@@ -1217,8 +1264,9 @@ div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist) 
 }
 
 /* Left accent indicator */
-div[class^="sidebar_"] .menu__link.menu__link--active:not(.menu__link--sublist)::before {
-  content: '';
+div[class^="sidebar_"]
+  .menu__link.menu__link--active:not(.menu__link--sublist)::before {
+  content: "";
   position: absolute;
   left: 0;
   top: 50%;
@@ -1239,15 +1287,20 @@ div[class^="sidebar_"] .menu__link:hover {
    CATEGORY ROW HOVER LIFT EFFECT
    ============================================ */
 
-div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible {
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible {
   transition: all 0.15s ease, box-shadow 0.15s ease;
 }
 
-div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover {
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
 }
 
-html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible:hover {
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible:hover {
   box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
 }
 
@@ -1305,36 +1358,60 @@ html[data-theme="dark"] .sidebar-badge--cloud {
 .enterprise-content,
 .admonition-enterprise {
   border-left: 4px solid #7c3aed !important;
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.05) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 100%
+  ) !important;
 }
 
 html[data-theme="dark"] .enterprise-content,
 html[data-theme="dark"] .admonition-enterprise {
-  background: linear-gradient(90deg, rgba(139, 92, 246, 0.1) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 100%
+  ) !important;
 }
 
 /* OSS content indicator - green left border */
 .oss-content,
 .admonition-oss {
   border-left: 4px solid #10b981 !important;
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.05) 0%,
+    transparent 100%
+  ) !important;
 }
 
 html[data-theme="dark"] .oss-content,
 html[data-theme="dark"] .admonition-oss {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.1) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  ) !important;
 }
 
 /* Cloud content indicator - blue left border */
 .cloud-content,
 .admonition-cloud {
   border-left: 4px solid #3b82f6 !important;
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.05) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 100%
+  ) !important;
 }
 
 html[data-theme="dark"] .cloud-content,
 html[data-theme="dark"] .admonition-cloud {
-  background: linear-gradient(90deg, rgba(59, 130, 246, 0.1) 0%, transparent 100%) !important;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 100%
+  ) !important;
 }
 
 /* Enterprise callout box */
@@ -1347,7 +1424,7 @@ html[data-theme="dark"] .admonition-cloud {
 }
 
 .callout-enterprise::before {
-  content: '🔒 Enterprise';
+  content: "🔒 Enterprise";
   display: block;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1376,7 +1453,7 @@ html[data-theme="dark"] .callout-enterprise::before {
 }
 
 .callout-oss::before {
-  content: '🔓 Open Source';
+  content: "🔓 Open Source";
   display: block;
   font-size: 0.75rem;
   font-weight: 700;
@@ -1569,7 +1646,7 @@ article.markdown h1 {
   font-weight: 800;
   letter-spacing: -0.03em;
   line-height: 1.4;
-  color: #00163D;
+  color: #00163d;
 }
 
 html[data-theme="dark"] article.markdown h1 {
@@ -1585,7 +1662,7 @@ article.markdown h2 {
   line-height: 1.3;
   padding-bottom: 0.75rem;
   border-bottom: 1px solid rgba(0, 0, 0, 0.08);
-  color: #00163D;
+  color: #00163d;
 }
 
 html[data-theme="dark"] article.markdown h2 {
@@ -1713,8 +1790,6 @@ div[class*="codeBlockContainer"] {
   transition: transform 0.2s ease;
 }
 
-
-
 /* Code block content wrapper */
 div[class*="codeBlockContent"] {
   max-width: 100%;
@@ -1759,7 +1834,9 @@ div[class*="codeBlockContainer"]:hover button[class*="copyButton"] {
   transform: translateY(0);
 }
 
-html[data-theme="dark"] div[class*="codeBlockContainer"] button[class*="copyButton"] {
+html[data-theme="dark"]
+  div[class*="codeBlockContainer"]
+  button[class*="copyButton"] {
   background: #2d2d31 !important;
   border-color: rgba(255, 255, 255, 0.1) !important;
   color: #94a3b8 !important;
@@ -2054,7 +2131,7 @@ html[data-theme="dark"] [class*="tableOfContents"]::-webkit-scrollbar-thumb {
 
 /* TOC header */
 .table-of-contents::before {
-  content: 'On this page';
+  content: "On this page";
   display: flex !important;
   align-items: center;
   width: 100% !important;
@@ -2066,7 +2143,8 @@ html[data-theme="dark"] [class*="tableOfContents"]::-webkit-scrollbar-thumb {
   margin-bottom: 1rem;
   padding-bottom: 0;
   border-bottom: none;
-  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 6H21M3 12H15M3 18H9' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") no-repeat left center;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 6H21M3 12H15M3 18H9' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat left center;
   background-size: 20px;
   padding-left: 28px;
 }
@@ -2205,7 +2283,7 @@ html[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
 
 /* Breadcrumb separator - arrow aligned vertically */
 .breadcrumbs__item:not(:last-child)::after {
-  content: '›';
+  content: "›";
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -2233,7 +2311,7 @@ html[data-theme="dark"] .breadcrumbs__item:not(:last-child)::after {
    ============================================ */
 
 /* Version dropdown in navbar */
-.navbar__items--right .dropdown>.navbar__link {
+.navbar__items--right .dropdown > .navbar__link {
   font-size: 0.75rem;
   padding: 0.25rem 0.625rem;
   background: rgba(139, 92, 246, 0.1);
@@ -2242,7 +2320,7 @@ html[data-theme="dark"] .breadcrumbs__item:not(:last-child)::after {
   font-weight: 600;
 }
 
-html[data-theme="dark"] .navbar__items--right .dropdown>.navbar__link {
+html[data-theme="dark"] .navbar__items--right .dropdown > .navbar__link {
   background: rgba(139, 92, 246, 0.15);
   color: #a78bfa;
 }
@@ -2361,7 +2439,7 @@ input:focus-visible {
 }
 
 .admonition::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 0;
   top: 0;
@@ -2396,7 +2474,11 @@ input:focus-visible {
 
 /* Note */
 .admonition.admonition-note {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.08) 0%, rgba(99, 102, 241, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(99, 102, 241, 0.02) 100%
+  );
   border-color: rgba(99, 102, 241, 0.2);
 }
 
@@ -2406,7 +2488,11 @@ input:focus-visible {
 
 /* Tip */
 .admonition.admonition-tip {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.08) 0%, rgba(16, 185, 129, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.08) 0%,
+    rgba(16, 185, 129, 0.02) 100%
+  );
   border-color: rgba(16, 185, 129, 0.2);
 }
 
@@ -2417,7 +2503,11 @@ input:focus-visible {
 /* Warning */
 .admonition.admonition-warning,
 .admonition.admonition-caution {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.08) 0%, rgba(245, 158, 11, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.08) 0%,
+    rgba(245, 158, 11, 0.02) 100%
+  );
   border-color: rgba(245, 158, 11, 0.2);
 }
 
@@ -2428,7 +2518,11 @@ input:focus-visible {
 
 /* Danger */
 .admonition.admonition-danger {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.08) 0%, rgba(239, 68, 68, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.08) 0%,
+    rgba(239, 68, 68, 0.02) 100%
+  );
   border-color: rgba(239, 68, 68, 0.2);
 }
 
@@ -2438,7 +2532,11 @@ input:focus-visible {
 
 /* Info */
 .admonition.admonition-info {
-  background: linear-gradient(135deg, rgba(255, 145, 77, 0.08) 0%, rgba(255, 145, 77, 0.02) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.08) 0%,
+    rgba(255, 145, 77, 0.02) 100%
+  );
   border-color: rgba(255, 145, 77, 0.2);
 }
 
@@ -2448,28 +2546,48 @@ input:focus-visible {
 
 /* Dark mode admonitions */
 html[data-theme="dark"] .admonition.admonition-note {
-  background: linear-gradient(135deg, rgba(99, 102, 241, 0.15) 0%, rgba(99, 102, 241, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(99, 102, 241, 0.05) 100%
+  );
   border-color: rgba(99, 102, 241, 0.25);
 }
 
 html[data-theme="dark"] .admonition.admonition-tip {
-  background: linear-gradient(135deg, rgba(16, 185, 129, 0.15) 0%, rgba(16, 185, 129, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15) 0%,
+    rgba(16, 185, 129, 0.05) 100%
+  );
   border-color: rgba(16, 185, 129, 0.25);
 }
 
 html[data-theme="dark"] .admonition.admonition-warning,
 html[data-theme="dark"] .admonition.admonition-caution {
-  background: linear-gradient(135deg, rgba(245, 158, 11, 0.15) 0%, rgba(245, 158, 11, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(245, 158, 11, 0.05) 100%
+  );
   border-color: rgba(245, 158, 11, 0.25);
 }
 
 html[data-theme="dark"] .admonition.admonition-danger {
-  background: linear-gradient(135deg, rgba(239, 68, 68, 0.15) 0%, rgba(239, 68, 68, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(239, 68, 68, 0.05) 100%
+  );
   border-color: rgba(239, 68, 68, 0.25);
 }
 
 html[data-theme="dark"] .admonition.admonition-info {
-  background: linear-gradient(135deg, rgba(255, 145, 77, 0.15) 0%, rgba(255, 145, 77, 0.05) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.15) 0%,
+    rgba(255, 145, 77, 0.05) 100%
+  );
   border-color: rgba(255, 145, 77, 0.25);
 }
 
@@ -2554,7 +2672,13 @@ html[data-theme="dark"] .menu__link:hover {
   color: var(--sidebar-text);
 }
 
-html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collapsible>a.menu__link {
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible
+  > a.menu__link {
   color: var(--sidebar-category-color) !important;
 }
 
@@ -2563,20 +2687,13 @@ html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collap
    ============================================ */
 
 @media (max-width: 996px) {
-  /* Reset footer offset on mobile */
-  .plugin-docs .theme-layout-footer.footer,
-  .plugin-docs footer.footer,
-  [class*="docsWrapper"] ~ footer {
-    margin-left: 0 !important;
-  }
-
   .theme-doc-sidebar-container {
     background: var(--sidebar-bg) !important;
     width: 100% !important;
     min-width: unset !important;
   }
 
-  .theme-doc-sidebar-container>div {
+  .theme-doc-sidebar-container > div {
     position: relative !important;
     height: auto;
   }
@@ -2594,7 +2711,7 @@ html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collap
     padding-right: 0;
   }
 
-  div[class^="sidebar_"]>nav>ul>li:not(:last-child) {
+  div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
     border-bottom: none;
     padding-bottom: 0.25rem;
     margin-bottom: 0.25rem;
@@ -2772,7 +2889,6 @@ article.markdown td {
   }
 }
 
-
 /* Support strip (Need help? Slack | Demo) */
 .support-strip {
   display: flex;
@@ -2792,7 +2908,7 @@ article.markdown td {
 }
 
 /* Dark mode */
-[data-theme='dark'] #support span {
+[data-theme="dark"] #support span {
   color: #ffffff;
   /* or a softer light gray like #e0e0e0 */
 }
@@ -2886,11 +3002,11 @@ article.markdown td {
   opacity: 1.65;
 }
 
-[data-theme='dark'] .pagination-nav__link {
+[data-theme="dark"] .pagination-nav__link {
   border-color: var(--ifm-color-emphasis-100) !important;
 }
 
-[data-theme='dark'] .pagination-nav__label {
+[data-theme="dark"] .pagination-nav__label {
   color: var(--ifm-color-emphasis-500) !important;
 }
 
@@ -2903,12 +3019,14 @@ article.markdown td {
   padding-top: 2rem;
 }
 
-/* On doc pages, offset footer so it doesn't overlap sidebar */
-.plugin-docs .theme-layout-footer.footer,
-.docs-wrapper ~ .theme-layout-footer.footer,
-[class*="docsWrapper"] ~ footer,
-.plugin-docs footer.footer {
-  margin-left: 260px !important;
+/* On doc pages, offset footer so it doesn't overlap sidebar (desktop only) */
+@media (min-width: 997px) {
+  .plugin-docs .theme-layout-footer.footer,
+  .docs-wrapper ~ .theme-layout-footer.footer,
+  [class*="docsWrapper"] ~ footer,
+  .plugin-docs footer.footer {
+    margin-left: 260px !important;
+  }
 }
 
 /* Remove border ONLY on landing page */
