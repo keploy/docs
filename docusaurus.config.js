@@ -204,7 +204,7 @@ module.exports = {
           items: [
             {
               label: "Integration Testing",
-              to: "server/installation",
+              to: "install",
             },
             {
               label: "API Testing (AI)",
