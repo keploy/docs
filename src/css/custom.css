@@ -1,11 +1,12 @@
+/* --- Force DM Sans on Docs Pages --- */
+@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
+
 /* Also reveal copy button when the container or button has keyboard focus */
 div[class*="codeBlockContainer"]:focus-within button[class*="copyButton"],
 div[class*="codeBlockContainer"] button[class*="copyButton"]:focus-visible {
   opacity: 1 !important;
   transform: translateY(0);
 }
-/* --- Force DM Sans on Docs Pages --- */
-@import url("https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap");
 
 body[data-docs-root] *,
 .docs-wrapper *,
@@ -82,7 +83,7 @@ body[data-docs-root] samp *,
 
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
-  --doc-sidebar-width: 275px !important;
+  --doc-sidebar-width: 260px !important;
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
@@ -2809,14 +2810,13 @@ article.markdown td {
     padding-left: 0.25rem !important;
   }
 
+  :root {
+    --doc-sidebar-width: 200px !important;
+  }
+
   .theme-doc-sidebar-container {
     width: 200px !important;
     min-width: 200px !important;
-  }
-
-  .plugin-docs .theme-layout-footer.footer,
-  .plugin-docs footer.footer {
-    margin-left: 200px !important;
   }
 
   .col[class*="docItemCol"] {
@@ -2848,14 +2848,13 @@ article.markdown td {
     padding-right: 0.5rem !important;
   }
 
+  :root {
+    --doc-sidebar-width: 180px !important;
+  }
+
   .theme-doc-sidebar-container {
     width: 180px !important;
     min-width: 180px !important;
-  }
-
-  .plugin-docs .theme-layout-footer.footer,
-  .plugin-docs footer.footer {
-    margin-left: 180px !important;
   }
 }
 
@@ -2873,14 +2872,13 @@ article.markdown td {
     padding-right: 1.5rem !important;
   }
 
+  :root {
+    --doc-sidebar-width: 280px !important;
+  }
+
   .theme-doc-sidebar-container {
     width: 280px !important;
     min-width: 280px !important;
-  }
-
-  .plugin-docs .theme-layout-footer.footer,
-  .plugin-docs footer.footer {
-    margin-left: 280px !important;
   }
 
   .col[class*="docItemCol"] {
@@ -3025,7 +3023,7 @@ article.markdown td {
   .docs-wrapper ~ .theme-layout-footer.footer,
   [class*="docsWrapper"] ~ footer,
   .plugin-docs footer.footer {
-    margin-left: 260px !important;
+    margin-left: var(--doc-sidebar-width, 260px) !important;
   }
 }
 
