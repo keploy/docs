@@ -2563,6 +2563,13 @@ html[data-theme="dark"] div[class^="sidebar_"]>nav>ul>li>.menu__list-item-collap
    ============================================ */
 
 @media (max-width: 996px) {
+  /* Reset footer offset on mobile */
+  .plugin-docs .theme-layout-footer.footer,
+  .plugin-docs footer.footer,
+  [class*="docsWrapper"] ~ footer {
+    margin-left: 0 !important;
+  }
+
   .theme-doc-sidebar-container {
     background: var(--sidebar-bg) !important;
     width: 100% !important;
@@ -2690,6 +2697,11 @@ article.markdown td {
     min-width: 200px !important;
   }
 
+  .plugin-docs .theme-layout-footer.footer,
+  .plugin-docs footer.footer {
+    margin-left: 200px !important;
+  }
+
   .col[class*="docItemCol"] {
     padding-left: 1rem !important;
     padding-right: 0.5rem !important;
@@ -2723,6 +2735,11 @@ article.markdown td {
     width: 180px !important;
     min-width: 180px !important;
   }
+
+  .plugin-docs .theme-layout-footer.footer,
+  .plugin-docs footer.footer {
+    margin-left: 180px !important;
+  }
 }
 
 /* Large screens */
@@ -2742,6 +2759,11 @@ article.markdown td {
   .theme-doc-sidebar-container {
     width: 280px !important;
     min-width: 280px !important;
+  }
+
+  .plugin-docs .theme-layout-footer.footer,
+  .plugin-docs footer.footer {
+    margin-left: 280px !important;
   }
 
   .col[class*="docItemCol"] {
@@ -2872,7 +2894,7 @@ article.markdown td {
   color: var(--ifm-color-emphasis-500) !important;
 }
 
-/* ===== Remove footer border on landing page only ===== */
+/* ===== Footer scoped to content area on doc pages ===== */
 
 /* Default: footer border ON everywhere */
 .theme-layout-footer.footer {
@@ -2881,7 +2903,16 @@ article.markdown td {
   padding-top: 2rem;
 }
 
+/* On doc pages, offset footer so it doesn't overlap sidebar */
+.plugin-docs .theme-layout-footer.footer,
+.docs-wrapper ~ .theme-layout-footer.footer,
+[class*="docsWrapper"] ~ footer,
+.plugin-docs footer.footer {
+  margin-left: 260px !important;
+}
+
 /* Remove border ONLY on landing page */
 .plugin-pages.plugin-id-default .theme-layout-footer.footer {
   border-top: none !important;
+  margin-left: 0 !important;
 }
