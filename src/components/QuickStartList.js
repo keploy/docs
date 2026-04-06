@@ -395,6 +395,26 @@ const quickstarts = [
       "A sample app to demonstrate Keploy integration capabilities using TypeScript and Nhost.",
     link: "/docs/quickstart/samples-typescript/#running-the-app-using-docker",
   },
+
+  // Ruby list
+
+  {
+    title: "Sinatra + Postgres",
+    language: "Ruby",
+    server: "Docker",
+    description:
+      "A sample User CRUD app to demonstrate how seamlessly Keploy integrates with Sinatra and PostgreSQL.",
+    link: "/docs/quickstart/samples-sinatra-postgres/#using-docker-compose-",
+  },
+  {
+    title: "Sinatra + Postgres",
+    language: "Ruby",
+    server: "Local",
+    description:
+      "A sample User CRUD app to demonstrate how seamlessly Keploy integrates with Sinatra and PostgreSQL.",
+    link: "/docs/quickstart/samples-sinatra-postgres/#running-app-locally-on-linuxwsl-",
+  },
+
 ];
 
 export default quickstarts;
