@@ -18,8 +18,9 @@ See https://twitter.com/JoshWComeau/status/1332015868725891076
   user-select: none;
 }
 
+/* Removed the '#' after headings */
 :global(.hash-link::before) {
-  content: '#';
+  content: '';
 }
 
 :global(.hash-link:focus),

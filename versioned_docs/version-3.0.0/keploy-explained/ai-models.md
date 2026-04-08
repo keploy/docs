@@ -11,7 +11,7 @@ tags:
   - GPT-4
 ---
 
-# 🤖 AI Models at Keploy
+# AI Models at Keploy
 
 Keploy is a vertical testing agent, built to generate high-quality unit tests using the world’s best AI.
 
