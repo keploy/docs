@@ -2227,12 +2227,13 @@ html[data-theme="dark"] .table-of-contents__link--active {
 /* Sticky breadcrumbs wrapper */
 nav[class*="theme-doc-breadcrumb"] {
   position: sticky !important;
-  top: 76px !important;
+  top: var(--ifm-navbar-height, 0px) !important;
   z-index: 10 !important;
   background: #ffffff !important;
-  margin-bottom: 0.1rem !important;
-  padding: 0.1rem 0 !important;
-  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
 }
 
 html[data-theme="dark"] nav[class*="theme-doc-breadcrumb"] {
