@@ -94,3 +94,12 @@ Woohoo
 wsl
 WSL
 YAMLs
+nullable
+enum
+nextCursor
+orderId
+shippingAddress
+total_amount
+created_at
+updated_at
+shipping_address_id
