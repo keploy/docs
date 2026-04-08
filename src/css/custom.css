@@ -3047,7 +3047,9 @@ article.markdown td {
 }
 
 /* Hide the global Docusaurus footer on docs pages; footer is rendered inline in DocItem */
-.docs-doc-page .theme-layout-footer.footer {
+.docs-doc-page .theme-layout-footer.footer,
+.docs-doc-page footer.footer,
+.plugin-docs footer.footer {
   display: none !important;
 }
 

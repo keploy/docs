@@ -19,6 +19,7 @@ import DocBreadcrumbs from "@theme/DocBreadcrumbs";
 import Link from "@docusaurus/Link";
 import Head from "@docusaurus/Head";
 import MDXContent from "@theme/MDXContent";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {useDocsVersion} from "@docusaurus/plugin-content-docs/client";
 import {KeployCloud} from "@site/src/components/KeployCloud";
@@ -141,7 +142,8 @@ export default function DocItem(props) {
   const proficiencyLevel = frontMatter?.proficiencyLevel;
   const currentYear = new Date().getFullYear();
   const image = assets?.image ?? frontMatter?.image;
-  const socialImage = toAbsoluteUrl(siteConfig?.url, image);
+  const imageWithBaseUrl = useBaseUrl(image || "");
+  const socialImage = image ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl) : null;
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
