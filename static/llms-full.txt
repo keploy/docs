@@ -18,9 +18,9 @@ Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session ID
 - CNCF Landscape member (listed under API Testing)
 - Google for Startups Accelerator alumnus
 - Google Summer of Code mentoring organization
-- Gartner rated 4.6/5 with 11 reviews
-- 17,000+ GitHub stars
-- 1,000,000+ VS Code extension installs
+- Gartner Peer Insights reviews: https://www.gartner.com/reviews/product/keploy-618993540
+- GitHub stars: https://github.com/keploy/keploy (see badge for current count)
+- VS Code extension: https://marketplace.visualstudio.com/items?itemName=Keploy.keployio (see installs)
 
 ### Company and Community
 - Website: https://keploy.io
