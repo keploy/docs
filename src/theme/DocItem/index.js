@@ -16,6 +16,7 @@ import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
+import Link from "@docusaurus/Link";
 import Head from "@docusaurus/Head";
 import MDXContent from "@theme/MDXContent";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
@@ -24,8 +25,9 @@ import {KeployCloud} from "@site/src/components/KeployCloud";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
-  const {metadata, frontMatter} = DocContent;
+  const {metadata, frontMatter, assets} = DocContent;
   const {
+    keywords: frontMatterKeywords,
     hide_title: hideTitle,
     hide_table_of_contents: hideTableOfContents,
     toc_min_heading_level: tocMinHeadingLevel,
@@ -132,11 +134,17 @@ export default function DocItem(props) {
   const contributorList = toPersonList(frontMatter?.contributor);
   const combinedContributors = [...maintainerList, ...contributorList];
   const keywords = frontMatter?.keywords || metadata?.keywords;
+  const metaKeywords = frontMatterKeywords ?? metadata?.keywords;
   const programmingLanguage =
     frontMatter?.programmingLanguage || frontMatter?.programmingLanguages;
   const targetPlatform = frontMatter?.targetPlatform;
   const proficiencyLevel = frontMatter?.proficiencyLevel;
   const currentYear = new Date().getFullYear();
+  const image = assets?.image ?? frontMatter?.image;
+  const socialImage = toAbsoluteUrl(siteConfig?.url, image);
+  const normalizedMetaKeywords = Array.isArray(metaKeywords)
+    ? metaKeywords.join(", ")
+    : metaKeywords;
   const articleSchema =
     pageUrl && title
       ? {
@@ -174,6 +182,14 @@ export default function DocItem(props) {
       <Head>
         <title>{title}</title>
         {description && <meta name="description" content={description} />}
+        {normalizedMetaKeywords && (
+          <meta name="keywords" content={normalizedMetaKeywords} />
+        )}
+        {socialImage && <meta property="og:image" content={socialImage} />}
+        {socialImage && <meta name="twitter:image" content={socialImage} />}
+        {socialImage && (
+          <meta name="twitter:card" content="summary_large_image" />
+        )}
         {modifiedTime && (
           <meta property="article:modified_time" content={modifiedTime} />
         )}
@@ -238,7 +254,7 @@ export default function DocItem(props) {
               <KeployCloud />
             </div>
             <DocPaginator previous={metadata.previous} next={metadata.next} />
-            <div className="docs-inline-footer">
+            <footer className="docs-inline-footer" aria-label="Docs footer">
               <div className="docs-inline-footer__social">
                 <a href="https://github.com/keploy/keploy" aria-label="GitHub">
                   <svg viewBox="0 0 24 24" aria-hidden="true">
@@ -285,14 +301,14 @@ export default function DocItem(props) {
               <div className="docs-inline-footer__meta">
                 <span>Copyright © {currentYear} Keploy Inc.</span>
                 <div className="docs-inline-footer__links">
-                  <a href="/about">About</a>
+                  <Link to="/about">About</Link>
                   <span className="docs-inline-footer__sep">|</span>
                   <a href="https://keploy.io/docs/security/">Security</a>
                   <span className="docs-inline-footer__sep">|</span>
-                  <a href="/privacy-policy">Privacy Policy</a>
+                  <Link to="/privacy-policy">Privacy Policy</Link>
                 </div>
               </div>
-            </div>
+            </footer>
           </div>
         </div>
 
