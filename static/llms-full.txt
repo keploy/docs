@@ -363,7 +363,7 @@ For API/integration testing (record-replay): Keploy is language-agnostic because
 eBPF (extended Berkeley Packet Filter) is a Linux kernel technology that allows programs to run safely within the kernel. Keploy uses eBPF to intercept network packets at the socket level with near-zero overhead, capturing all API traffic and dependency calls without code changes, language-specific SDKs, or application restarts.
 
 **Is Keploy open source?**
-Yes. Keploy's core platform is open-source under the Apache 2.0 license with 17,000+ GitHub stars. Advanced features (time freezing, deduplication, mock registry, self-healing, console UI) are available through the managed cloud platform at app.keploy.io.
+Yes. Keploy's core platform is open-source under the Apache 2.0 license. For the current GitHub star count, see https://github.com/keploy/keploy. Advanced features (time freezing, deduplication, mock registry, self-healing, console UI) are available through the managed cloud platform at app.keploy.io.
 
 **Does Keploy require code changes to integrate?**
 No. Keploy can be integrated without any changes to application code. It operates at the network layer using eBPF, capturing traffic transparently.
@@ -413,7 +413,7 @@ Gemini 2.5 Pro (Google), GPT-4 family (OpenAI), and other specialized models. Ta
 Install Keploy with a one-line command, run your application in Record mode to capture real traffic, then switch to Test mode to replay generated tests with automatic dependency mocking. Visit https://keploy.io/docs for language-specific quickstart guides.
 
 **Is Keploy free to use?**
-Yes. The open-source core is free under Apache 2.0. The cloud platform offers Free, Devs ($8/user), Team ($19/user), and Enterprise (custom) tiers.
+Yes. The open-source core is free under Apache 2.0. The cloud platform offers Free, Devs, Team, and Enterprise tiers. For current pricing and plan details, see https://keploy.io/pricing.
 
 ---
 
