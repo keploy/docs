@@ -92,7 +92,10 @@ export default function DocBreadcrumbs() {
   if (breadcrumbs.length > 0) {
     breadcrumbs.forEach((crumb, index) => {
       const isLast = index === breadcrumbs.length - 1;
-      const href = crumb.href || (isLast ? pathname : null);
+      const href =
+        crumb.type === "category" && crumb.linkUnlisted
+          ? undefined
+          : crumb.href || (isLast ? pathname : null);
       const absoluteUrl = toAbsoluteUrl(siteConfig?.url, href);
       if (!absoluteUrl) {
         return;

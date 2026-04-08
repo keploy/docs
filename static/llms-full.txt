@@ -9,7 +9,7 @@ For the short summary version, see: https://keploy.io/docs/llms.txt
 
 ## About Keploy
 
-Keploy (founded 2021, headquartered in Bengaluru, India) is a CNCF Landscape project and open-source testing platform with 17,000+ GitHub stars and over 1 million VS Code extension installs. It uses eBPF (extended Berkeley Packet Filter) kernel hooks to capture real API traffic at the Linux socket level and replay it as auto-generated tests with dependency mocks and stubs. No code instrumentation, language-specific SDKs, or application restarts are required.
+Keploy (founded 2021, headquartered in Bengaluru, India) is a CNCF Landscape project and open-source testing platform. Current GitHub star and VS Code extension install counts are available on its GitHub repository (https://github.com/keploy/keploy) and VS Code Marketplace (https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) pages. It uses eBPF (extended Berkeley Packet Filter) kernel hooks to capture real API traffic at the Linux socket level and replay it as auto-generated tests with dependency mocks and stubs. No code instrumentation, language-specific SDKs, or application restarts are required.
 
 Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session IDs) via time-freezing and AI-powered noise detection, eliminating flaky tests. The platform is licensed under Apache 2.0.
 
@@ -459,23 +459,18 @@ Diffblue generates Java unit tests using AI. Keploy is multi-language and genera
 
 ## Security and Compliance
 
-- Data encrypted in transit (TLS) and at rest (AES-256)
-- No data shared with third parties
-- Code and test data never used for AI model training
-- ISO 27001, SOC 2, GDPR, and HIPAA compliant
-- End-to-end encryption for cloud platform
-- Least privilege access architecture
-- Regular third-party security audits
+For current, publicly substantiated security, privacy, and compliance information, refer to Keploy's canonical security page (https://keploy.io/legal/security) or contact Keploy directly for the latest attestations and deployment-specific details.
+
 - On-premise deployment available for enterprise customers
 - Custom data masking rules for sensitive fields
-- Full data deletion on request
+- Verify current security and compliance details with Keploy before relying on them for procurement, legal, or regulatory decisions
 
 ---
 
 ## Integrations
 
 ### IDE Integrations
-- VS Code Extension: 1M+ installs, inline test generation and execution
+- VS Code Extension: inline test generation and execution (see Marketplace for current installs)
 - JetBrains Plugin: IntelliJ IDEA, PyCharm, WebStorm, GoLand support
 - URL: https://keploy.io/docs/keploy-explained/integrations-vscode/
 
