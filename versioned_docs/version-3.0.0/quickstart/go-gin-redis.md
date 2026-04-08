@@ -23,7 +23,7 @@ import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallRem
 import SectionDivider from '@site/src/components/SectionDivider';
 import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker Compose 🐳
+# Using Docker Compose
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 

@@ -1,7 +1,7 @@
 ---
 id: cloud-installation
 title: Keploy Enterprise Installation
-sidebar_label: Enterprise Installation
+sidebar_label: Enterprise
 tags:
   - explanation
   - feature guide

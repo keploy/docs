@@ -15,16 +15,33 @@
           ]
         },
         {
-          "type": "doc",
+          "type": "category",
           "label": "Installation",
-          "id": "server/installation"
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "doc",
+              "label": "Local",
+              "id": "server/install"
+            },
+            {
+              "type": "doc",
+              "label": "Enterprise",
+              "id": "keploy-cloud/cloud-installation"
+            },
+            {
+              "type": "doc",
+              "label": "Kubernetes",
+              "id": "keploy-cloud/kubernetes"
+            }
+          ]
         },
-        "keploy-cloud/cloud-installation",
-        "keploy-cloud/kubernetes-local-setup",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
+        "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
@@ -163,6 +180,7 @@
       "items": [
         "running-keploy/api-test-generator",
         "running-keploy/generate-api-tests-using-ai",
+        "running-keploy/agent-test-generation",
         "running-keploy/api-testing-chrome-extension",
         "running-keploy/api-testing-local-agent",
         "running-keploy/api-testing-auth-setup",
@@ -195,6 +213,14 @@
           "label": "FAQs",
           "id": "keploy-explained/api-testing-faq"
         }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Reference",
+      "collapsed": false,
+      "items": [
+        "running-keploy/public-api"
       ]
     },
     {

@@ -16,9 +16,10 @@ import Heading from "@theme/Heading";
 import styles from "./styles.module.css";
 import {ThemeClassNames, useWindowSize} from "@docusaurus/theme-common";
 import DocBreadcrumbs from "@theme/DocBreadcrumbs";
-import Layout from "@docusaurus/core/lib/client/theme-fallback/Layout";
+import Link from "@docusaurus/Link";
 import Head from "@docusaurus/Head";
 import MDXContent from "@theme/MDXContent";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {useDocsVersion} from "@docusaurus/plugin-content-docs/client";
 import {KeployCloud} from "@site/src/components/KeployCloud";
@@ -34,7 +35,6 @@ export default function DocItem(props) {
     toc_max_heading_level: tocMaxHeadingLevel,
   } = frontMatter;
   const {description, title} = metadata;
-  const image = assets.image ?? frontMatter.image;
 
   // Get current version info to hide badge on latest version
   let isLatestVersion = true;
@@ -140,6 +140,13 @@ export default function DocItem(props) {
     frontMatter?.programmingLanguage || frontMatter?.programmingLanguages;
   const targetPlatform = frontMatter?.targetPlatform;
   const proficiencyLevel = frontMatter?.proficiencyLevel;
+  const currentYear = new Date().getFullYear();
+  const image = assets?.image ?? frontMatter?.image;
+  const imageWithBaseUrl = useBaseUrl(image || "");
+  const socialImage = image ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl) : null;
+  const normalizedMetaKeywords = Array.isArray(metaKeywords)
+    ? metaKeywords.join(", ")
+    : metaKeywords;
   const articleSchema =
     pageUrl && title
       ? {
@@ -177,6 +184,14 @@ export default function DocItem(props) {
       <Head>
         <title>{title}</title>
         {description && <meta name="description" content={description} />}
+        {normalizedMetaKeywords && (
+          <meta name="keywords" content={normalizedMetaKeywords} />
+        )}
+        {socialImage && <meta property="og:image" content={socialImage} />}
+        {socialImage && <meta name="twitter:image" content={socialImage} />}
+        {socialImage && (
+          <meta name="twitter:card" content="summary_large_image" />
+        )}
         {modifiedTime && (
           <meta property="article:modified_time" content={modifiedTime} />
         )}
@@ -186,15 +201,6 @@ export default function DocItem(props) {
           </script>
         )}
       </Head>
-      <Layout
-        {...{
-          title,
-          description,
-          keywords: metaKeywords,
-          image,
-        }}
-      />
-
       <div className="row">
         <div
           className={clsx("col", {
@@ -211,7 +217,6 @@ export default function DocItem(props) {
               <div className="doc-meta-row">
                 {!isLatestVersion && <DocVersionBadge />}
               </div>
-
               {canRenderTOC && (
                 <TOCCollapsible
                   toc={DocContent.toc}
@@ -225,30 +230,89 @@ export default function DocItem(props) {
               )}
 
               <div
-                className={clsx(ThemeClassNames.docs.docMarkdown, "markdown")}
+                className={clsx(
+                  ThemeClassNames.docs.docMarkdown,
+                  "markdown",
+                  "md:prose-md prose mx-auto my-12 max-w-full px-2 lg:prose-lg md:px-6"
+                )}
               >
-                <article className="md:prose-md prose mx-auto my-12 max-w-full px-2 lg:prose-lg md:px-6">
-                  {/*
+                {/*
                 Title can be declared inside md content or declared through
                 front matter and added manually. To make both cases consistent,
                 the added title is added under the same div.markdown block
                 See https://github.com/facebook/docusaurus/pull/4882#issuecomment-853021120
                 */}
-                  {shouldAddTitle && (
-                    <header>
-                      <Heading as="h1">{title}</Heading>
-                    </header>
-                  )}
-                  <MDXContent>
-                    <MDXComponent />
-                  </MDXContent>
-                </article>
+                {shouldAddTitle && (
+                  <header>
+                    <Heading as="h1">{title}</Heading>
+                  </header>
+                )}
+                <MDXContent>
+                  <MDXComponent />
+                </MDXContent>
               </div>
             </article>
             <div>
               <KeployCloud />
             </div>
             <DocPaginator previous={metadata.previous} next={metadata.next} />
+            <footer className="docs-inline-footer" aria-label="Docs footer">
+              <div className="docs-inline-footer__social">
+                <a href="https://github.com/keploy/keploy" aria-label="GitHub">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.21 11.39.6.11.79-.26.79-.58v-2.23c-3.34.72-4.03-1.42-4.03-1.42-.55-1.39-1.33-1.75-1.33-1.75-1.09-.75.08-.73.08-.73 1.21.08 1.84 1.24 1.84 1.24 1.07 1.83 2.81 1.3 3.49 1 .11-.78.42-1.31.76-1.61-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23A11.4 11.4 0 0 1 12 6.8c1.02.01 2.05.14 3 .4 2.3-1.55 3.3-1.23 3.3-1.23.66 1.66.24 2.88.12 3.18.77.84 1.23 1.91 1.23 3.22 0 4.61-2.81 5.62-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.19.69.8.58C20.57 21.8 24 17.3 24 12 24 5.37 18.63 0 12 0z" />
+                  </svg>
+                </a>
+                <a href="https://twitter.com/keployio" aria-label="X">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M18.9 2H22l-6.77 7.74L23.2 22h-6.3l-4.9-6.29L6.6 22H3.5l7.23-8.26L1 2h6.37l4.43 5.69L18.9 2Zm-1.1 18h1.76L6.4 3.9H4.52L17.8 20Z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg"
+                  aria-label="YouTube"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M19.62 3.18c-3.6-.25-11.63-.24-15.23 0C.49 3.45.03 5.8 0 12c.03 6.19.48 8.55 4.38 8.82 3.6.24 11.63.25 15.23 0 3.9-.27 4.36-2.62 4.39-8.82-.03-6.18-.49-8.55-4.39-8.82ZM9 16V8l8 4-8 4Z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://www.instagram.com/keploy.io/"
+                  aria-label="Instagram"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm9.1 1.4a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
+                  </svg>
+                </a>
+                <a
+                  href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+                  aria-label="Slack"
+                >
+                  <span className="docs-inline-footer__slack" aria-hidden="true" />
+                </a>
+              </div>
+              <div className="docs-inline-footer__usecase">
+                <a
+                  href="https://calendar.app.google/cXVaj6hbMUjvmrnt9"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Have a Keploy use-case? Let&apos;s Talk!
+                </a>
+              </div>
+              <div className="docs-inline-footer__meta">
+                <span>Copyright © {currentYear} Keploy Inc.</span>
+                <div className="docs-inline-footer__links">
+                  <a href="https://keploy.io/about">About</a>
+                  <span className="docs-inline-footer__sep">|</span>
+                  <Link to="/security">Security</Link>
+                  <span className="docs-inline-footer__sep">|</span>
+                  <a href="https://keploy.io/legal/privacy-policy">
+                    Privacy Policy
+                  </a>
+                </div>
+              </div>
+            </footer>
           </div>
         </div>
 
