@@ -7,5 +7,11 @@
 
 .breadcrumbsContainer {
   --ifm-breadcrumb-size-multiplier: 0.8;
-  margin-bottom: 0.8rem;
+  position: sticky;
+  top: var(--ifm-navbar-height, 0px);
+  z-index: 20;
+  background: var(--ifm-background-color);
+  margin-bottom: 0.5rem;
+  margin-top: 0;
+  padding-top: 0;
 }

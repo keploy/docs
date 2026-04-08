@@ -1519,10 +1519,12 @@ main .container {
 
 /* Docusaurus specific wrappers */
 .docusaurus-mt-lg,
+
 .docs-doc-page,
 [class*="docsWrapper"] {
   max-width: 100% !important;
   width: 100% !important;
+  margin-top: 0 !important;
 }
 
 /* Remove top margin on docs pages only */
@@ -1533,6 +1535,7 @@ main .container {
 /* Main doc wrapper - fix layout for full width */
 .docs-wrapper,
 [class*="docMainContainer"] {
+  padding-top: 0 !important;
   display: flex;
   width: 100% !important;
   max-width: 100% !important;
@@ -1566,6 +1569,8 @@ main .container {
 
 /* Doc item container - NO overflow hidden (breaks sticky) */
 [class*="docItemContainer"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
   max-width: 100% !important;
   width: 100% !important;
 }
@@ -1585,6 +1590,7 @@ main .container {
 
 /* Main content column - NO overflow hidden */
 main[class*="docMainContainer"] {
+  padding-top: 0 !important;
   flex: 1;
   min-width: 0;
   max-width: 100% !important;
@@ -2237,6 +2243,7 @@ html[data-theme="dark"] nav[class*="theme-doc-breadcrumb"] {
 .breadcrumbs {
   font-size: 0.8125rem;
   margin-bottom: 0 !important;
+  margin-top: 0;
   display: flex;
   align-items: center;
   flex-wrap: wrap;
@@ -2704,6 +2711,7 @@ html[data-theme="dark"]
   }
 
   main[class*="docMainContainer"] {
+  padding-top: 0 !important;
     max-width: 100%;
   }
 
@@ -3035,4 +3043,158 @@ article.markdown td {
 .plugin-pages.plugin-id-default .theme-layout-footer.footer {
   border-top: none !important;
   margin-left: 0 !important;
+}
+
+/* Hide the global Docusaurus footer on docs pages; footer is rendered inline in DocItem */
+.docs-doc-page .theme-layout-footer.footer {
+  display: none !important;
+}
+
+.docs-inline-footer {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  padding: 1.25rem 0 1.4rem;
+}
+
+.docs-inline-footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5.5rem;
+  margin-bottom: 2rem;
+}
+
+.docs-inline-footer__social a,
+.docs-inline-footer__usecase a,
+.docs-inline-footer__meta a {
+  color: #111827;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.docs-inline-footer__social a:hover,
+.docs-inline-footer__usecase a:hover,
+.docs-inline-footer__meta a:hover {
+  color: #374151;
+}
+
+.docs-inline-footer__social svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  display: block;
+}
+
+.docs-inline-footer__slack {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background: var(--slack-logo) center / contain no-repeat;
+  vertical-align: middle;
+}
+
+.docs-inline-footer__usecase {
+  margin-bottom: 0.65rem;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.docs-inline-footer__usecase a {
+  color: #6b7280;
+}
+
+.docs-inline-footer__meta {
+  font-size: 1rem;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.docs-inline-footer__meta > span {
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.docs-inline-footer__links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.docs-inline-footer__links a {
+  color: #6b7280;
+}
+
+.docs-inline-footer__sep {
+  color: #6b7280;
+}
+
+html[data-theme="dark"] .docs-inline-footer__social a,
+html[data-theme="dark"] .docs-inline-footer__meta {
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .docs-inline-footer__social a:hover,
+html[data-theme="dark"] .docs-inline-footer__meta a:hover,
+html[data-theme="dark"] .docs-inline-footer__usecase a:hover {
+  color: #f3f4f6;
+}
+
+html[data-theme="dark"] .docs-inline-footer__usecase a,
+html[data-theme="dark"] .docs-inline-footer__links a,
+html[data-theme="dark"] .docs-inline-footer__sep {
+  color: #d1d5db;
+}
+
+html[data-theme="dark"] .docs-inline-footer__slack {
+  filter: brightness(1.8);
+}
+
+/* ===== MOBILE FIX FOR PREV / NEXT CARDS ===== */
+@media (max-width: 768px) {
+
+  .pagination-nav {
+    display: flex !important;
+    flex-direction: column !important; /* stack vertically */
+    gap: 12px;
+  }
+
+  .pagination-nav__link {
+    width: 100% !important;
+    padding: 14px !important;
+  }
+
+  .pagination-nav__label {
+    font-size: 0.85rem !important;
+  }
+
+  .pagination-nav__title {
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+  }
+
+  .docs-inline-footer {
+    max-width: 100%;
+    padding: 0.4rem 0 0.85rem;
+  }
+
+  .docs-inline-footer__social svg,
+  .docs-inline-footer__slack {
+    width: 22px;
+    height: 22px;
+  }
+
+  .docs-inline-footer__social {
+    gap: 2rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .docs-inline-footer__usecase {
+    font-size: 0.95rem;
+  }
+
+  .docs-inline-footer__meta {
+    font-size: 0.95rem;
+  }
 }
