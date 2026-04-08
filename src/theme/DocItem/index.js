@@ -301,11 +301,13 @@ export default function DocItem(props) {
               <div className="docs-inline-footer__meta">
                 <span>Copyright © {currentYear} Keploy Inc.</span>
                 <div className="docs-inline-footer__links">
-                  <Link to="/about">About</Link>
+                  <a href="https://keploy.io/about">About</a>
                   <span className="docs-inline-footer__sep">|</span>
-                  <a href="https://keploy.io/docs/security/">Security</a>
+                  <Link to="/security">Security</Link>
                   <span className="docs-inline-footer__sep">|</span>
-                  <Link to="/privacy-policy">Privacy Policy</Link>
+                  <a href="https://keploy.io/legal/privacy-policy">
+                    Privacy Policy
+                  </a>
                 </div>
               </div>
             </footer>
