@@ -2,6 +2,7 @@
 id: windows-installation
 title: Running Keploy on Windows
 sidebar_label: Windows Installation
+description: "Install Keploy on Windows using WSL or Docker — step-by-step guide for eBPF-based API test generation on Windows."
 tags:
   - windows
   - ebpf

@@ -9,7 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
-keyword:
+keywords:
   - NodeJS Framework
   - Postgres
   - NodeJS

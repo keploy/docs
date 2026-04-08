@@ -2,6 +2,7 @@
 id: postgres
 title: PostgresSQL Support
 sidebar_label: PostgresSQL
+description: "How Keploy intercepts and mocks PostgreSQL wire protocol traffic — parsing database queries for automated test recording."
 ---
 
 ## Introduction

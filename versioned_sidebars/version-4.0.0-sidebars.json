@@ -11,7 +11,8 @@
           "items": [
             "keploy-explained/introduction",
             "keploy-explained/how-keploy-works",
-            "keploy-explained/why-keploy"
+            "keploy-explained/why-keploy",
+            "concepts/comparisons"
           ]
         },
         {

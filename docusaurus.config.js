@@ -55,6 +55,12 @@ module.exports = {
           "API testing, Keploy docs, incident replay, network calls, code paths, test scenarios, code coverage, stubs, junit, go-test, live environment, production incidents, open source, regression tests, ai tests",
       },
       {name: "twitter:card", content: "summary_large_image"},
+      {
+        property: "og:image",
+        content: "https://keploy.io/images/keploy-hero.png",
+      },
+      {property: "og:image:width", content: "1200"},
+      {property: "og:image:height", content: "630"},
     ],
     headTags: [
       // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
@@ -155,7 +161,7 @@ module.exports = {
           "@type": "Organization",
           name: "Keploy",
           url: "https://keploy.io/",
-          logo: "https://keploy.io/docs/img/favicon.png",
+          logo: "https://keploy.io/images/keploy-logo-full.svg",
           foundingDate: "2021-01-01",
           knowsAbout: [
             "API Testing",
@@ -443,6 +449,25 @@ module.exports = {
           changefreq: "weekly",
           priority: 0.5,
           filename: "sitemap.xml",
+          createSitemapItems: async (params) => {
+            const {defaultCreateSitemapItems, ...rest} = params;
+            const items = await defaultCreateSitemapItems(rest);
+            return items.map((item) => {
+              if (item.url.includes("/quickstart/")) {
+                return {...item, priority: 0.8, changefreq: "weekly"};
+              }
+              if (
+                item.url.includes("/concepts/") ||
+                item.url.includes("/keploy-explained/")
+              ) {
+                return {...item, priority: 0.7, changefreq: "weekly"};
+              }
+              if (item.url.includes("/keploy-cloud/")) {
+                return {...item, priority: 0.6, changefreq: "monthly"};
+              }
+              return item;
+            });
+          },
         },
       },
     ],

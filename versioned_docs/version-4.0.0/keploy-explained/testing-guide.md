@@ -2,6 +2,7 @@
 id: testing-guide
 title: testing Guide
 sidebar_label: Testing Guide
+description: "Learn how Keploy's test bench works using record and test modes, and how to contribute to Keploy's code coverage."
 tags:
   - explanation
   - running guide

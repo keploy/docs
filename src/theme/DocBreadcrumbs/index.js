@@ -22,35 +22,25 @@ import styles from "./styles.module.css";
 function BreadcrumbsItemLink({children, href, isLast}) {
   const className = "breadcrumbs__link";
   if (isLast) {
-    return (
-      <span className={className} itemProp="name">
-        {children}
-      </span>
-    );
+    return <span className={className}>{children}</span>;
   }
   return href ? (
-    <Link className={className} href={href} itemProp="item">
-      <span itemProp="name">{children}</span>
+    <Link className={className} href={href}>
+      <span>{children}</span>
     </Link>
   ) : (
     <span className={className}>{children}</span>
   );
 }
 
-function BreadcrumbsItem({children, active, index, addMicrodata}) {
+function BreadcrumbsItem({children, active}) {
   return (
     <li
-      {...(addMicrodata && {
-        itemScope: true,
-        itemProp: "itemListElement",
-        itemType: "https://schema.org/ListItem",
-      })}
       className={clsx("breadcrumbs__item", {
         "breadcrumbs__item--active": active,
       })}
     >
       {children}
-      <meta itemProp="position" content={String(index + 1)} />
     </li>
   );
 }
@@ -148,11 +138,7 @@ export default function DocBreadcrumbs() {
           description: "The ARIA label for the breadcrumbs",
         })}
       >
-        <ul
-          className="breadcrumbs"
-          itemScope
-          itemType="https://schema.org/BreadcrumbList"
-        >
+        <ul className="breadcrumbs">
           {homePageRoute && <HomeBreadcrumbItem />}
           {breadcrumbs.map((item, idx) => {
             const isLast = idx === breadcrumbs.length - 1;
@@ -161,12 +147,7 @@ export default function DocBreadcrumbs() {
                 ? undefined
                 : item.href;
             return (
-              <BreadcrumbsItem
-                key={idx}
-                active={isLast}
-                index={idx}
-                addMicrodata={!!href}
-              >
+              <BreadcrumbsItem key={idx} active={isLast}>
                 <BreadcrumbsItemLink href={href} isLast={isLast}>
                   {item.label}
                 </BreadcrumbsItemLink>

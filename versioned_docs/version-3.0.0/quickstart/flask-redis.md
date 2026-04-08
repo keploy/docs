@@ -12,7 +12,7 @@ tags:
   - tutorial
   - python-framework
   - redis
-keyword:
+keywords:
   - FastAPI Framework
   - Flask
   - Redis

@@ -2,6 +2,8 @@
 
 > Technical documentation for Keploy, an open-source AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF kernel technology. Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.
 
+For comprehensive details, see: https://keploy.io/docs/llms-full.txt
+
 ## About Keploy
 Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with a growing open-source community and widely used VS Code extension. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
 

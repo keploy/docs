@@ -2,6 +2,7 @@
 id: gitops-flux
 title: Deploy Keploy with Flux CD
 sidebar_label: Flux CD
+description: "Deploy Keploy k8s-proxy with Flux CD GitOps on Kubernetes — HelmRelease setup with Contour ingress controller."
 tags:
   - explanation
   - feature guide

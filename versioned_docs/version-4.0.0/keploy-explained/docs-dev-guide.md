@@ -2,6 +2,7 @@
 id: docs-dev-guide
 title: Keploy Docs Contribution Guide
 sidebar_label: Docs Dev Guide
+description: "Guide to contributing to Keploy documentation — set up the docs site locally, follow style guidelines, and submit pull requests."
 tags:
   - dev guide
   - explanation

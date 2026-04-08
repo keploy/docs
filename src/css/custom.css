@@ -1532,6 +1532,11 @@ main .container {
   margin-top: 0 !important;
 }
 
+/* Remove top margin on docs pages only */
+.plugin-docs .docusaurus-mt-lg {
+  margin-top: 0 !important;
+}
+
 /* Main doc wrapper - fix layout for full width */
 .docs-wrapper,
 [class*="docMainContainer"] {

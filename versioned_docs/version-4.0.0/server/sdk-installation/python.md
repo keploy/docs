@@ -2,10 +2,11 @@
 id: python
 title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Python
+description: "Merge Keploy and Python unit test coverage using coverage.py — combine integration and unit test reports seamlessly."
 tags:
   - python
   - coverage
-keyword:
+keywords:
   - Pytest Framework
   - Flask Framework
   - coverage

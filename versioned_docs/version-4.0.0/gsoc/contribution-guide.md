@@ -2,6 +2,7 @@
 id: contribution-guide
 title: GSoC Hacktoberfest Contribution
 label: GSoC
+description: "Get started with Google Summer of Code at Keploy — project ideas, contribution guidelines, and how to submit a proposal."
 keywords:
   - GSoC
   - Open Source

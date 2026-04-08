@@ -2,6 +2,7 @@
 id: time-freezing
 title: Time Freezing
 sidebar_label: Time Freezing
+description: "Freeze time during Keploy test runs to handle JWT tokens and time-sensitive data — ensure consistent, reliable test results."
 tags:
   - explanation
   - feature guide
