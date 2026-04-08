@@ -8,9 +8,9 @@ tags:
   - faq
 ---
 
-# Got Questions? We’ve Got Answers! 🚀
+# Integration Testing FAQ
 
-Let’s get to the heart of Keploy with some fun Q&A!
+Frequently asked questions about Keploy’s integration testing platform.
 
 ### 1. What is Keploy?
 

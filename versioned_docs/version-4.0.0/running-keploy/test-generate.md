@@ -2,7 +2,7 @@
 id: test-generate
 title: AI-Powered API Test Generation
 sidebar_label: Generate Tests
-description: This section documents what is API Testing and why we need it
+description: "Generate comprehensive API test suites automatically using AI — powered by live requests, API schemas, and documentation in Keploy."
 tags:
   - API testing
   - API mocks

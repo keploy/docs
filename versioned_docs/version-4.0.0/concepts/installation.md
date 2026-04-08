@@ -25,7 +25,7 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 <PlatformRequirements/>
 
-# Keploy Installation
+# Installation Overview
 
 ## Quick Installation Using CLI
 

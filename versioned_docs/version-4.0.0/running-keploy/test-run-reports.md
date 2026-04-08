@@ -2,7 +2,7 @@
 id: test-run-reports
 title: Keploy Test Run Reports
 sidebar_label: Test Report generation
-description: This section documents what is API Testing and why we need it
+description: "Track and manage API test run outcomes with detailed reporting on test executions, results, and creators in Keploy."
 tags:
   - API testing
   - API mocks

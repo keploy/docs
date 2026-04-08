@@ -8,9 +8,9 @@ tags:
   - faq
 ---
 
-# Got Questions? We’ve Got Answers! 🚀
+# Unit Testing FAQ
 
-Let’s get to the heart of Keploy Unit Testing with some fun Q&A!
+Frequently asked questions about Keploy’s Unit Test Generator.
 
 ### 1. What is Keploy's Unit Test Generator (UTG)?
 
