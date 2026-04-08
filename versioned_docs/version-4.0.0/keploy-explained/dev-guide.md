@@ -2,6 +2,7 @@
 id: contribution-guide
 title: Contribution Guide
 sidebar_label: Contribution Guide
+description: "Step-by-step guide to setting up Keploy locally for development — clone the repo, build from source, and contribute code."
 tags:
   - explanation
   - dev guide

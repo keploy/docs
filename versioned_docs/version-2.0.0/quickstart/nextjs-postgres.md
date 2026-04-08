@@ -6,7 +6,7 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - NextJs
   - Postgres
-keyword:
+keywords:
   - NextJS
   - Postgres
   - API Test generator

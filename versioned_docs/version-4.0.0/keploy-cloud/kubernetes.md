@@ -2,6 +2,7 @@
 id: kubernetes
 title: Kubernetes Setup
 sidebar_label: Kubernetes
+description: "Set up Keploy Enterprise on Kubernetes — create a Kind cluster and connect it to Keploy for live traffic recording and replay."
 tags:
   - explanation
   - feature guide

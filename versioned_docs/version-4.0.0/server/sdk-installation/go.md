@@ -2,10 +2,11 @@
 id: go
 title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Go
+description: "Merge Keploy and Go unit test coverage data — graceful shutdown setup, building with -cover flag, and combined reports."
 tags:
   - go
   - coverage
-keyword:
+keywords:
   - coverage
   - Echo Framework
   - Gorilla/Mux Framework

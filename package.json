@@ -22,9 +22,10 @@
   "dependencies": {
     "@docsearch/core": "^4.5.0",
     "@docsearch/react": "^4.5.0",
-    "@docusaurus/core": "^3.7.0",
-    "@docusaurus/plugin-sitemap": "^3.7.0",
-    "@docusaurus/preset-classic": "^3.7.0",
+    "@docusaurus/core": "3.9.2",
+    "@docusaurus/plugin-sitemap": "3.9.2",
+    "@docusaurus/preset-classic": "3.9.2",
+    "webpackbar": "6.0.1",
     "@mdx-js/react": "^3.0.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
@@ -54,7 +55,7 @@
     ]
   },
   "devDependencies": {
-    "@docusaurus/plugin-client-redirects": "^3.7.0",
+    "@docusaurus/plugin-client-redirects": "3.9.2",
     "@tailwindcss/typography": "^0.5.0",
     "autoprefixer": "^10.4.0",
     "docusaurus": "^1.14.7",
@@ -73,5 +74,9 @@
   },
   "engines": {
     "node": ">=18.0"
+  },
+  "overrides": {
+    "webpackbar": "6.0.1",
+    "webpack": "5.97.1"
   }
 }

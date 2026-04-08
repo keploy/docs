@@ -2,6 +2,7 @@
 id: gitops-argocd
 title: Deploy Keploy with ArgoCD
 sidebar_label: ArgoCD
+description: "Deploy Keploy k8s-proxy with ArgoCD GitOps on Kubernetes — Helm chart setup with Contour ingress controller."
 tags:
   - explanation
   - feature guide

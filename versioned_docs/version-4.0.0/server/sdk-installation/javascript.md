@@ -1,7 +1,8 @@
 ---
 id: javascript
 title: Merge Unit and Keploy Test Coverage Data
-sidebar_label: Javascript
+sidebar_label: JavaScript
+description: "Merge Keploy and JavaScript unit test coverage using nyc — combine integration and unit test reports for full visibility."
 tags:
   - javascript
   - js

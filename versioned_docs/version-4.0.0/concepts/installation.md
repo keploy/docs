@@ -2,6 +2,7 @@
 id: installation
 title: Keploy Installation
 sidebar_label: Installation
+description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows."
 tags:
   - linux
   - ebpf

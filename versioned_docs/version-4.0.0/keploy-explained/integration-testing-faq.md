@@ -2,6 +2,7 @@
 id: integration-testing-faq
 title: Frequently Asked Questions
 sidebar_label: FAQs
+description: "Frequently asked questions about Keploy integration testing — how it works, mocking support, CI/CD integration, and microservices."
 tags:
   - explanation
   - faq
@@ -9,7 +10,7 @@ tags:
 
 # Got Questions? We’ve Got Answers! 🚀
 
-Let's get to the heart of Keploy with some fun Q&A!
+Let’s get to the heart of Keploy with some fun Q&A!
 
 ### 1. What is Keploy?
 

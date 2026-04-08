@@ -2,10 +2,11 @@
 id: java
 title: Merge Unit and Keploy Test Coverage Data
 sidebar_label: Java
+description: "Merge Keploy and Java unit test coverage using JaCoCo — combine integration and unit test reports for full visibility."
 tags:
   - java
   - coverage
-keyword:
+keywords:
   - MongoDB
   - Jacoco
   - Maven

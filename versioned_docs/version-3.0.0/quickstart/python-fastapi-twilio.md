@@ -14,7 +14,7 @@ tags:
   - postgres
   - sms
   - twilio
-keyword:
+keywords:
   - FastAPI Framework
   - Twilio
   - SMS
