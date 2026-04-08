@@ -1,6 +1,6 @@
 ---
 id: crud-nodejs
-title: NodeJS Sample Application
+title: Node.js MongoDB Sample
 sidebar_label: NodeJS - Express + Mongoose
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:

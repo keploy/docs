@@ -1,6 +1,6 @@
 ---
 id: unit-testing-faq
-title: Frequently Asked Questions
+title: Unit Testing FAQ
 sidebar_label: FAQs
 description: "Frequently asked questions about Keploy Unit Test Generator — privacy, supported AI models, languages, and how UTG works."
 tags:

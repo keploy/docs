@@ -1,6 +1,6 @@
 ---
 id: integrations-vscode
-title: Integrations & Connected Tools
+title: IDE Integrations — VS Code
 sidebar_label: Integrations & Connected Tools
 description: Learn about IDE integrations for Keploy’s AI-powered unit testing.
 tags:

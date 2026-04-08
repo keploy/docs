@@ -1,6 +1,6 @@
 ---
 id: installation
-title: Keploy Installation
+title: Installation Overview
 sidebar_label: Installation
 description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows."
 tags:

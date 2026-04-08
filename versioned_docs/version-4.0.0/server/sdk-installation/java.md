@@ -1,6 +1,6 @@
 ---
 id: java
-title: Merge Unit and Keploy Test Coverage Data
+title: Merge Test Coverage Data — Java
 sidebar_label: Java
 description: "Merge Keploy and Java unit test coverage using JaCoCo — combine integration and unit test reports for full visibility."
 tags:

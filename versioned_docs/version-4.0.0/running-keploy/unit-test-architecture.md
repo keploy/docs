@@ -1,6 +1,6 @@
 ---
 id: unit-test-architecture
-title: Behind the Scenes
+title: Unit Test Architecture
 sidebar_label: Behind the Scenes
 description: How Keploy's AI-powered unit testing architecture works.
 tags:

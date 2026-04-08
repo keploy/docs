@@ -1,6 +1,6 @@
 ---
 id: test-run-reports
-title: What is API testing?
+title: Keploy Test Run Reports
 sidebar_label: Test Report generation
 description: This section documents what is API Testing and why we need it
 tags:

@@ -1,6 +1,6 @@
 ---
 id: test-generate
-title: What is API testing?
+title: AI-Powered API Test Generation
 sidebar_label: Generate Tests
 description: This section documents what is API Testing and why we need it
 tags:
