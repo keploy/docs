@@ -3050,11 +3050,12 @@ article.markdown td {
   display: none !important;
 }
 
+/* Inline docs footer under prev/next pagination */
 .docs-inline-footer {
   width: 100%;
   max-width: 100%;
   text-align: center;
-  padding: 1.25rem 0 1.4rem;
+  padding: 1.25rem 0 1.2rem;
 }
 
 .docs-inline-footer__social {
