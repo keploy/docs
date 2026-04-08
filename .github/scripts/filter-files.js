@@ -1,7 +1,4 @@
-/**
- * filter-files.js
- * Filters a list of changed file paths to only those relevant for design review.
- */
+// filters a list of changed file paths to only those relevant for design review
 
 const ALLOWED_EXTENSIONS = [
   ".css",
@@ -25,7 +22,7 @@ const IGNORED_PATHS = [
 ];
 
 /**
- * @param {string[]} files - array of file paths from the diff
+ * @param {string[]} files array of file paths from the diff
  * @returns {string[]} filtered file paths
  */
 function filterFiles(files) {
