@@ -21,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
@@ -52,4 +52,47 @@ jobs:
           invalidation: /docs*
           delete-removed: true
           cache: "public, max-age:86400"
-          private: true    
+          private: true
+
+      - name: Submit docs URLs to IndexNow
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+        continue-on-error: true
+        run: |
+          # Use the built sitemap as the source of truth for URLs.
+          SITEMAP="build/docs/sitemap.xml"
+          if [ ! -f "$SITEMAP" ]; then
+            echo "Sitemap not found at $SITEMAP, skipping IndexNow"
+            exit 0
+          fi
+
+          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" || true)
+
+          if [ -z "$URLS" ]; then
+            echo "No URLs found in sitemap, skipping"
+            exit 0
+          fi
+
+          URL_COUNT=$(echo "$URLS" | wc -l)
+          echo "Submitting $URL_COUNT docs URLs to IndexNow"
+
+          KEY="${INDEXNOW_KEY:-9ded60b43b8b40578588fc42b04c3e5d}"
+          JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))' || true)
+
+          if [ -z "$JSON_URLS" ]; then
+            echo "Failed to build JSON URL list, skipping"
+            exit 0
+          fi
+
+          RESPONSE_FILE=$(mktemp)
+          HTTP_CODE=$(curl -s -o "$RESPONSE_FILE" -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"keploy.io\",\"key\":\"$KEY\",\"urlList\":$JSON_URLS}" || echo "000")
+
+          echo "IndexNow response: $HTTP_CODE"
+          if [ "$HTTP_CODE" -ge 400 ] || [ "$HTTP_CODE" = "000" ]; then
+            echo "IndexNow submission failed (HTTP $HTTP_CODE) — will not block deployment."
+            echo "Verify the key file is hosted at https://keploy.io/${KEY}.txt"
+            cat "$RESPONSE_FILE" 2>/dev/null || true
+          fi
+          rm -f "$RESPONSE_FILE"

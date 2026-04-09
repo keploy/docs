@@ -25,7 +25,6 @@
     "@docusaurus/core": "3.9.2",
     "@docusaurus/plugin-sitemap": "3.9.2",
     "@docusaurus/preset-classic": "3.9.2",
-    "webpackbar": "6.0.1",
     "@mdx-js/react": "^3.0.0",
     "ajv": "^6.12.6",
     "ajv-keywords": "^3.5.2",
@@ -76,7 +75,6 @@
     "node": ">=18.0"
   },
   "overrides": {
-    "webpackbar": "6.0.1",
     "webpack": "5.97.1"
   }
 }
