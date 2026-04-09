@@ -21,9 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 2
+      - uses: actions/checkout@v4
       
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
@@ -56,56 +54,45 @@ jobs:
           cache: "public, max-age:86400"
           private: true
 
-      - name: Submit changed docs URLs to IndexNow
+      - name: Submit docs URLs to IndexNow
+        env:
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
         run: |
           set -e
 
-          # Get markdown files changed in this push
-          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx' || true)
-
-          if [ -z "$CHANGED_FILES" ]; then
-            echo "No docs content changed, skipping IndexNow"
+          # Use the built sitemap as the source of truth for URLs.
+          # This avoids unreliable file-path-to-URL mapping (frontmatter id/slug
+          # overrides, versioned doc prefixes, index pages).
+          SITEMAP="build/docs/sitemap.xml"
+          if [ ! -f "$SITEMAP" ]; then
+            echo "Sitemap not found at $SITEMAP, skipping IndexNow"
             exit 0
           fi
 
-          # Map changed file paths to live URLs
-          URLS=""
-          while IFS= read -r file; do
-            slug=""
-            if [[ "$file" == versioned_docs/version-4.0.0/* ]]; then
-              slug="${file#versioned_docs/version-4.0.0/}"
-            elif [[ "$file" == docs/* ]]; then
-              slug="${file#docs/}"
-            else
-              continue
-            fi
-            slug="${slug%.md}"
-            slug="${slug%.mdx}"
-            slug="${slug%/index}"
-            if [ -n "$slug" ]; then
-              URLS="${URLS}https://keploy.io/docs/${slug}/
-          "
-            fi
-          done <<< "$CHANGED_FILES"
-
-          URLS=$(echo "$URLS" | sort -u | head -100)
+          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" | head -100)
 
           if [ -z "$URLS" ]; then
-            echo "No mappable URLs found, skipping"
+            echo "No URLs found in sitemap, skipping"
             exit 0
           fi
 
-          URL_COUNT=$(echo "$URLS" | grep -c .)
-          echo "Submitting $URL_COUNT changed docs URLs to IndexNow"
-          echo "$URLS"
+          URL_COUNT=$(echo "$URLS" | wc -l)
+          echo "Submitting $URL_COUNT docs URLs to IndexNow"
 
+          # IndexNow key is public by design (hosted at keploy.io/{key}.txt),
+          # but stored as a secret for easy rotation.
+          KEY="${INDEXNOW_KEY:-9ded60b43b8b40578588fc42b04c3e5d}"
           JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
 
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+          RESPONSE_FILE=$(mktemp)
+          HTTP_CODE=$(curl -s -o "$RESPONSE_FILE" -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
-            -d "{\"host\":\"keploy.io\",\"key\":\"9ded60b43b8b40578588fc42b04c3e5d\",\"urlList\":$JSON_URLS}")
+            -d "{\"host\":\"keploy.io\",\"key\":\"$KEY\",\"urlList\":$JSON_URLS}")
 
           echo "IndexNow response: $HTTP_CODE"
           if [ "$HTTP_CODE" -ge 400 ]; then
-            echo "::warning::IndexNow submission returned HTTP $HTTP_CODE"
-          fi    
+            echo "IndexNow submission returned HTTP $HTTP_CODE — will not block deployment."
+            echo "Verify the key file is hosted at https://keploy.io/${KEY}.txt"
+            cat "$RESPONSE_FILE"
+          fi
+          rm -f "$RESPONSE_FILE"
