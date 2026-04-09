@@ -52,4 +52,37 @@ jobs:
           invalidation: /docs*
           delete-removed: true
           cache: "public, max-age:86400"
-          private: true    
+          private: true
+
+      - name: Submit latest 100 docs URLs to IndexNow
+        run: |
+          set -e
+
+          SITEMAP="build/docs/sitemap.xml"
+          if [ ! -f "$SITEMAP" ]; then
+            echo "::warning::Sitemap not found at $SITEMAP, fetching from live site"
+            curl -s --compressed https://keploy.io/docs/sitemap.xml -o /tmp/sitemap.xml
+            SITEMAP="/tmp/sitemap.xml"
+          fi
+
+          # Extract URLs, take latest 100 (Docusaurus lists newest content first)
+          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" | head -100)
+
+          if [ -z "$URLS" ]; then
+            echo "No URLs found, submitting docs index"
+            URLS="https://keploy.io/docs/"
+          fi
+
+          URL_COUNT=$(echo "$URLS" | wc -l)
+          echo "Submitting $URL_COUNT docs URLs to IndexNow"
+
+          JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"keploy.io\",\"key\":\"9ded60b43b8b40578588fc42b04c3e5d\",\"urlList\":$JSON_URLS}")
+
+          echo "IndexNow response: $HTTP_CODE"
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::warning::IndexNow submission returned HTTP $HTTP_CODE"
+          fi
