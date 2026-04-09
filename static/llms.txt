@@ -4,6 +4,7 @@
 
 For comprehensive details, see: /docs/llms-full.txt
 
+
 ## About Keploy
 Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with a growing open-source community and widely used VS Code extension. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
 
@@ -34,6 +35,7 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Rust](https://keploy.io/docs/quickstart/samples-rust/): Rust GraphQL + MongoDB sample
 - [C# / .NET](https://keploy.io/docs/quickstart/samples-csharp/): .NET + PostgreSQL sample
 - [Code Coverage](https://keploy.io/docs/quickstart/code-coverage/): Measure coverage of Keploy-generated tests
+
 
 ## Language Guides
 - [Go Quick Start](https://keploy.io/docs/quickstart/go/): Gin, Echo, Fiber, Chi
