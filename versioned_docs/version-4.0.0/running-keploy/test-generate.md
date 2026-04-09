@@ -18,7 +18,7 @@ keywords:
   - OpenAI
 ---
 
-# 🧪 AI-Powered API Test Suite Generation
+# 🧪 AI-Powered API Test Generation
 
 Keploy enables you to automatically generate **comprehensive API test suites** for your application using AI, based on live requests, API schemas, and supporting documentation.
 

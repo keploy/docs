@@ -10,7 +10,7 @@ tags:
   - curl
 ---
 
-# 🛠️ API Testing Architecture
+# 🛠️ API Test Architecture
 
 With Keploy, go from API specs to real, production-grade API tests—**instantly!**  
 Here’s how our architecture works under the hood.
