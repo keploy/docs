@@ -22,6 +22,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
@@ -54,27 +56,52 @@ jobs:
           cache: "public, max-age:86400"
           private: true
 
-      - name: Submit latest 100 docs URLs to IndexNow
+      - name: Submit changed docs URLs to IndexNow
         run: |
           set -e
 
-          SITEMAP="build/docs/sitemap.xml"
-          if [ ! -f "$SITEMAP" ]; then
-            echo "::warning::Sitemap not found at $SITEMAP, fetching from live site"
-            curl -s --compressed https://keploy.io/docs/sitemap.xml -o /tmp/sitemap.xml
-            SITEMAP="/tmp/sitemap.xml"
+          # Get markdown files changed in this push
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx' || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No docs content changed, skipping IndexNow"
+            exit 0
           fi
 
-          # Extract URLs, take latest 100 (Docusaurus lists newest content first)
-          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" | head -100)
+          # Map changed file paths to live URLs
+          # versioned_docs/version-4.0.0/foo/bar.md -> https://keploy.io/docs/foo/bar/
+          # docs/foo/bar.md -> https://keploy.io/docs/foo/bar/
+          URLS=""
+          while IFS= read -r file; do
+            # Strip directory prefix and .md/.mdx extension
+            slug=""
+            if [[ "$file" == versioned_docs/version-4.0.0/* ]]; then
+              slug="${file#versioned_docs/version-4.0.0/}"
+            elif [[ "$file" == docs/* ]]; then
+              slug="${file#docs/}"
+            else
+              continue
+            fi
+            slug="${slug%.md}"
+            slug="${slug%.mdx}"
+            # Remove /index suffix (index pages map to parent path)
+            slug="${slug%/index}"
+            if [ -n "$slug" ]; then
+              URLS="${URLS}https://keploy.io/docs/${slug}/
+          "
+            fi
+          done <<< "$CHANGED_FILES"
+
+          URLS=$(echo "$URLS" | sort -u | head -100)
 
           if [ -z "$URLS" ]; then
-            echo "No URLs found, submitting docs index"
-            URLS="https://keploy.io/docs/"
+            echo "No mappable URLs found, skipping"
+            exit 0
           fi
 
-          URL_COUNT=$(echo "$URLS" | wc -l)
-          echo "Submitting $URL_COUNT docs URLs to IndexNow"
+          URL_COUNT=$(echo "$URLS" | grep -c .)
+          echo "Submitting $URL_COUNT changed docs URLs to IndexNow"
+          echo "$URLS"
 
           JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
 
