@@ -9,17 +9,6 @@
 ## Note: if you are looking for Redirects
 # they have been moved to /static/_redirects to make it more manageable - swyx
 
-# noindex headers for deprecated doc versions
-[[headers]]
-  for = "/docs/1.0.0/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
-[[headers]]
-  for = "/docs/2.0.0/*"
-  [headers.values]
-    X-Robots-Tag = "noindex, nofollow"
-
 # Security headers for all pages
 [[headers]]
   for = "/*"
