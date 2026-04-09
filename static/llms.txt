@@ -38,10 +38,10 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 
 
 ## Language Guides
-- [Go Quick Start](https://keploy.io/docs/quickstart/go/): Gin, Echo, Fiber, Chi
-- [Java Quick Start](https://keploy.io/docs/quickstart/java/): Spring Boot, Quarkus, Micronaut
-- [Node.js Quick Start](https://keploy.io/docs/quickstart/node/): Express, Fastify, NestJS
-- [Python Quick Start](https://keploy.io/docs/quickstart/python/): Django, Flask, FastAPI
+- [Go Quick Start](https://keploy.io/docs/quickstart/golang-filter/): Gin, Echo, Fiber, Chi
+- [Java Quick Start](https://keploy.io/docs/quickstart/java-springboot-filter/): Spring Boot, Quarkus, Micronaut
+- [Node.js Quick Start](https://keploy.io/docs/quickstart/javascript-filter/): Express, Fastify, NestJS
+- [Python Quick Start](https://keploy.io/docs/quickstart/python-filter/): Django, Flask, FastAPI
 
 ## CI/CD Integration
 - [GitHub Actions](https://keploy.io/docs/ci-cd/github/): Continuous validation in GitHub CI
