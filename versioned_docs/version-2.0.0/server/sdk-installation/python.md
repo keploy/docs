@@ -5,7 +5,7 @@ sidebar_label: Python
 tags:
   - python
   - coverage
-keyword:
+keywords:
   - Pytest Framework
   - Flask Framework
   - coverage

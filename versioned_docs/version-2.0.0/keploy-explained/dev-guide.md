@@ -132,7 +132,7 @@ keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network kep
 
 #### Build Docker Image:
 
-Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
+Run the below command inside the keploy repository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .

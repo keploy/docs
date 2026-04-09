@@ -1,5 +1,12 @@
+# Block specific bot
+User-agent: Bytespider
+Disallow: /
+
+# Default rules — apply to all crawlers including AI bots
 User-agent: *
-Disallow: 
+Allow: /
 Crawl-delay: 5
 Disallow: /cgi-bin/
+
+# Sitemap
 Sitemap: https://keploy.io/docs/sitemap.xml

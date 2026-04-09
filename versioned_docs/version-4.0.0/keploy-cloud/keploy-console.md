@@ -2,6 +2,7 @@
 id: keploy-console
 title: Keploy Console
 sidebar_label: Keploy Console
+description: "Use the Keploy Console to visualize test results, debug failing tests, and manage your test suites from a web dashboard."
 tags:
   - explanation
   - feature guide

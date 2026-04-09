@@ -1,7 +1,8 @@
 ---
 id: installation
-title: MacOS Installation
-sidebar_label: MacOS
+title: macOS Installation
+sidebar_label: macOS
+description: "Install the Keploy server on macOS using Colima or Docker Desktop — one-click and manual setup options for eBPF testing."
 tags:
   - hello-world
   - macos

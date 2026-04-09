@@ -11,7 +11,7 @@ tags:
   - tutorial
   - redis
   - gin-framework
-keyword:
+keywords:
   - Gin Framework
   - Redis
   - Golang

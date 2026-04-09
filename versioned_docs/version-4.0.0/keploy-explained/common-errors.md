@@ -2,6 +2,7 @@
 id: common-errors
 title: Keploy Troubleshooting Guide
 sidebar_label: Troubleshooting Guide
+description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, and their solutions."
 tags:
   - explanation
   - faq

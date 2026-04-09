@@ -17,13 +17,15 @@ This guide will help you generate automated API tests using Keploy's AI-based te
 
 - Go to the [Keploy Console](https://app.keploy.io/api-testing/generate)
 - Upload your API input (schema, collection, or curl)
-- 👊 Hit **Generate Tests** and Keploy will parse your input, hit the API, and generate validated test flows with response-based assertions.
+- 👊 Keploy’s engine triggers live requests against your target environment to capture the full execution context—including the API response and the resulting
+  dependency interactions (DB queries, internal gRPC calls)—creating a deterministic 'Digital Twin' of the transaction.
 - If private endpoints are detected, follow the agent setup prompt
 - Review and edit your generated tests
 
 ## ⚠️ Private Endpoint API Warning
 
-If your API is not publicly accessible, Keploy will show a warning when attempting to reach those endpoints. **To resolve this**, install the Keploy Agent proxy locally
+If your API is not publicly accessible, Keploy will show a warning when attempting to reach those endpoints. **To resolve this**, install the Keploy Agent proxy locally.
+The Agent acts as a local interceptor that uses eBPF to record your service's interactions with its dependencies (Databases, APIs), ensuring tests can be replayed without environment setup.
 
 ### Keploy Agent Installation
 
@@ -33,7 +35,8 @@ If your API is not publicly accessible, Keploy will show a warning when attempti
 | **Linux**   | - Run the following in your terminal: <br /><br /> `curl -L -O https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/keploy-agent-linux-amd64.tar.gz` <br /><br /> `tar -xzf keploy-agent-linux-amd64.tar.gz` <br /><br /> `./keploy-agent` <br /><br /> |
 | **Windows** | - [Download](https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/Keploy+Agent-windows_amd64.zip) <br /><br /> Extract the zip file and Launch the Keploy Agent. <br />                                                                                 |
 
-> ✅ Once installed and running, return to the Keploy Console and hit **Generate API Tests**. The agent will proxy your local API to allow secure test generation.
+> ✅ Once installed and running, return to the Keploy Console and hit **Generate API Tests**. The Keploy Agent creates a secure bridge to your local or private
+> environment, enabling our engine to interact with your service as if it were in production, capturing the underlying dependency calls (DB, 3rd party APIs) without code changes.
 
 ## BEST Practices for BEST Test Output
 

@@ -2,6 +2,7 @@
 id: redis
 title: Redis Support
 sidebar_label: Redis Support
+description: "How Keploy intercepts and mocks Redis wire protocol traffic — RESP parsing for automated test recording and replay."
 ---
 
 ## Introduction

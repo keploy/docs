@@ -7,7 +7,7 @@ tags:
   - Rust
   - MongoDB
   - GraphQL
-keyword:
+keywords:
   - Rust
   - MongoDB
   - GraphQL
