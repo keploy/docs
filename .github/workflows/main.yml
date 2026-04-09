@@ -22,6 +22,8 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 2
       
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
@@ -52,4 +54,58 @@ jobs:
           invalidation: /docs*
           delete-removed: true
           cache: "public, max-age:86400"
-          private: true    
+          private: true
+
+      - name: Submit changed docs URLs to IndexNow
+        run: |
+          set -e
+
+          # Get markdown files changed in this push
+          CHANGED_FILES=$(git diff --name-only HEAD~1 HEAD -- '*.md' '*.mdx' || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "No docs content changed, skipping IndexNow"
+            exit 0
+          fi
+
+          # Map changed file paths to live URLs
+          URLS=""
+          while IFS= read -r file; do
+            slug=""
+            if [[ "$file" == versioned_docs/version-4.0.0/* ]]; then
+              slug="${file#versioned_docs/version-4.0.0/}"
+            elif [[ "$file" == docs/* ]]; then
+              slug="${file#docs/}"
+            else
+              continue
+            fi
+            slug="${slug%.md}"
+            slug="${slug%.mdx}"
+            slug="${slug%/index}"
+            if [ -n "$slug" ]; then
+              URLS="${URLS}https://keploy.io/docs/${slug}/
+          "
+            fi
+          done <<< "$CHANGED_FILES"
+
+          URLS=$(echo "$URLS" | sort -u | head -100)
+
+          if [ -z "$URLS" ]; then
+            echo "No mappable URLs found, skipping"
+            exit 0
+          fi
+
+          URL_COUNT=$(echo "$URLS" | grep -c .)
+          echo "Submitting $URL_COUNT changed docs URLs to IndexNow"
+          echo "$URLS"
+
+          JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
+
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"keploy.io\",\"key\":\"9ded60b43b8b40578588fc42b04c3e5d\",\"urlList\":$JSON_URLS}")
+
+          echo "IndexNow response: $HTTP_CODE"
+          if [ "$HTTP_CODE" -ge 400 ]; then
+            echo "::warning::IndexNow submission returned HTTP $HTTP_CODE"
+          fi    
