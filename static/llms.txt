@@ -35,6 +35,12 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [C# / .NET](https://keploy.io/docs/quickstart/samples-csharp/): .NET + PostgreSQL sample
 - [Code Coverage](https://keploy.io/docs/quickstart/code-coverage/): Measure coverage of Keploy-generated tests
 
+## Language Guides
+- [Go Quick Start](https://keploy.io/docs/quickstart/go/): Gin, Echo, Fiber, Chi
+- [Java Quick Start](https://keploy.io/docs/quickstart/java/): Spring Boot, Quarkus, Micronaut
+- [Node.js Quick Start](https://keploy.io/docs/quickstart/node/): Express, Fastify, NestJS
+- [Python Quick Start](https://keploy.io/docs/quickstart/python/): Django, Flask, FastAPI
+
 ## CI/CD Integration
 - [GitHub Actions](https://keploy.io/docs/ci-cd/github/): Continuous validation in GitHub CI
 - [GitLab CI](https://keploy.io/docs/ci-cd/gitlab/): Continuous validation in GitLab CI
@@ -53,6 +59,7 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Keploy Cloud](https://keploy.io/docs/keploy-cloud/cloud-installation/): Managed cloud platform for teams
 - [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation
 - [PR Agent Integration](https://keploy.io/docs/keploy-explained/integrations-pr-agent/): Automated test suggestions on pull requests
+
 
 ## FAQ
 - [Unit Testing FAQ](https://keploy.io/docs/keploy-explained/unit-testing-faq/): Auto-generated unit tests, mock generation, coverage
