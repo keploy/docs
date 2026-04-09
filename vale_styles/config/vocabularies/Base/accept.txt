@@ -103,5 +103,5 @@ total_amount
 created_at
 updated_at
 shipping_address_id
-linux
-env
+[Ll]inux
+[Ee]nv
