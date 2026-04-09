@@ -34,7 +34,7 @@ Here are some examples of how to use some common flags:
 | `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
 | `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
 | `rerecord`         | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                        |
-| `report`           | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                                                             |
+| `report`           | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body` `--format` |                                                                                                                                                                                                                                                                                                                            |
 | `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                                                            |
 | `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                  |
 
@@ -406,9 +406,20 @@ keploy report --summary
 ```bash
 keploy report --test-case "test-1"
 ```
+- `--format string` - Output format for the report. Accepted values: `text` (default), `junit`. When set to `junit`, outputs standard JUnit XML to stdout.
+```bash
+keploy report --format junit > test-results.xml
+```
 
-> **Notes**
->
+To scope the JUnit report to specific test-sets:
+```bash
+keploy report --format junit --test-sets "test-set-1"
+```
+
+See [JUnit XML Reports](/docs/keploy-cloud/junit-xml-reports) for CI integration examples.
+
+### Notes
+
 > - By default, `report` shows only **failed** tests with a compact, human-readable diff (status, headers—including trailers/content-length where applicable—and body changes).
 > - Use `--full` to see the complete expected vs actual bodies (with JSON colorization).
 > - `--summary` prints just the totals and a per–test-set table, optionally restricted with `-t/--test-sets`.
