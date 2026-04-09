@@ -23,13 +23,15 @@ import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallRem
 import SectionDivider from '@site/src/components/SectionDivider';
 import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker Compose 🐳
+# Gin and Redis Sample User Authentication App
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
 <EnterpriseInstallReminder />
+
+## Using Docker Compose 🐳
 
 ### Clone a sample user authentication app 🧪
 
@@ -233,7 +235,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+## Running App Locally on Linux/WSL 🐧
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 

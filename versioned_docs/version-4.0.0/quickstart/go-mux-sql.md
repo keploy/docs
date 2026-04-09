@@ -24,13 +24,15 @@ import InstallReminder from '@site/src/components/InstallReminder';
 import ProductTier from '@site/src/components/ProductTier';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Mux and PostgreSQL Sample Product Catalog App
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample product catalog app to test Keploy integration capabilities using Mux and Postgres
 
 <InstallReminder />
+
+## Using Docker Compose 🐳
 
 ### Clone a sample Product Catalog App 🧪
 
@@ -211,7 +213,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+## Running App Locally on Linux/WSL 🐧
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
