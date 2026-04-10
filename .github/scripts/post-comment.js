@@ -1,5 +1,5 @@
 // posts the design review results as a github comment
-// on a pr: posts a pr review comment
+// on a pr: posts an issue comment on the pr (via /issues/{PR_NUMBER}/comments, not the PR Reviews API)
 // on a push: posts a commit comment
 // on a manual workflow_dispatch: posts a commit comment (best effort to get some comment for manual runs, but may not be perfect depending on repo state)
 

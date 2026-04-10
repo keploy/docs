@@ -10,6 +10,7 @@ const ALLOWED_EXTENSIONS = [
   ".jsx",
   ".js",
   ".ts",
+  ".svg", // SVGs are text diffs and design-relevant (e.g. static/keploy-logo.svg)
 ];
 
 const IGNORED_PATHS = [

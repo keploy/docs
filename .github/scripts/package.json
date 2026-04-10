@@ -1,0 +1,9 @@
+{
+  "name": "keploy-design-review-agent",
+  "version": "1.0.0",
+  "description": "AI-powered design review agent for Keploy Docs",
+  "private": true,
+  "dependencies": {
+    "@anthropic-ai/sdk": "0.32.1"
+  }
+}
