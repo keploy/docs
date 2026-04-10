@@ -806,7 +806,8 @@ td img {
   margin: 0;
 }
 
-.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
+[class^="codeBlockContainer_"],
+[class*=" codeBlockContainer_"] {
   box-shadow: none !important;
   margin: 0;
   padding: 0;
@@ -3202,3 +3203,50 @@ html[data-theme="dark"] .docs-inline-footer__slack {
     font-size: 0.95rem;
   }
 }
+
+/* ===== PERFORMANCE: Rendering & paint optimisations ===== */
+
+/*
+ * content-visibility: auto — lets the browser skip layout/paint for
+ * off-screen sections, reducing LCP and INP on mobile.
+ * contain-intrinsic-size gives the browser a size estimate so the
+ * scroll-bar doesn't jump when content is rendered.
+ */
+footer,
+.footer {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 200px;
+}
+
+/* Sidebar is always below the fold on small viewports */
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    content-visibility: auto;
+    contain-intrinsic-size: 0 600px;
+  }
+}
+
+/*
+ * Lazy-decoded images — any <img> without an explicit loading attribute
+ * should at minimum decode off the main thread.
+ */
+img:not([loading]) {
+  decoding: async;
+}
+
+/*
+ * Reduce paint layers for the announcement bar (it's a position:sticky
+ * element and can cause extra compositing cost on mobile).
+ * Using attribute substring selector to avoid relying on a hashed class name
+ * that changes between Docusaurus builds.
+ */
+[class*="announcementBar"] {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/*
+ * Font-display: swap is configured per @font-face declaration in
+ * src/fonts. Docusaurus-injected Google Fonts links already include
+ * &display=swap in the URL, so no additional override is needed here.
+ */

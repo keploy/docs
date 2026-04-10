@@ -63,7 +63,16 @@ module.exports = {
       {property: "og:image:height", content: "630"},
     ],
     headTags: [
-      // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
+      // ── Preconnect / DNS-prefetch for critical third-party origins ─────
+      // Keploy CDN
+      {
+        tagName: "link",
+        attributes: {
+          rel: "preconnect",
+          href: "https://keploy.io/",
+        },
+      },
+      // Google Fonts (used by Docusaurus default theme)
       {
         tagName: "link",
         attributes: {
@@ -79,6 +88,7 @@ module.exports = {
           crossorigin: "anonymous",
         },
       },
+      // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
       {
         tagName: "link",
         attributes: {
@@ -86,12 +96,35 @@ module.exports = {
           href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap",
         },
       },
-      // Preconnect tag
+      // Algolia search
       {
         tagName: "link",
         attributes: {
           rel: "preconnect",
-          href: "https://keploy.io/",
+          href: "https://WZTL8PLCOD-dsn.algolia.net",
+          crossorigin: "anonymous",
+        },
+      },
+      // Analytics (dns-prefetch only — not render-blocking)
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.clarity.ms",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.googletagmanager.com",
+        },
+      },
+      {
+        tagName: "link",
+        attributes: {
+          rel: "dns-prefetch",
+          href: "https://www.google-analytics.com",
         },
       },
       {
