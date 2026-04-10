@@ -1,10 +1,10 @@
 name: Design Review Agent
 
 on:
-  # pull_request_target runs with repo secrets on the BASE branch's workflow code,
+  # pull_request_target runs with repo secrets using the BASE branch's workflow code,
   # so a PR cannot modify .github/scripts/* and exfiltrate ANTHROPIC_API_KEY.
-  # The script checkout is pinned to github.event.pull_request.head.sha so we
-  # still diff the PR's actual changes, not the base branch content.
+  # The checkout uses the PR base ref (trusted code); the PR's actual changes are
+  # fetched separately via the GitHub API diff endpoint in get-diff.js.
   pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
@@ -21,14 +21,13 @@ on:
     branches:
       - "**"
     paths:
-      - "**.css"
-      - "**.scss"
-      - "**.mdx"
-      - "**.md"
-      - "**.tsx"
-      - "**.jsx"
-      - "**.js"
-      - "**.ts"
+      # Scoped to the same directories filter-files.js actually reviews.
+      # Excludes .github/ and DESIGN_GUIDELINES.md to avoid "nothing to review" runs.
+      - "src/**"
+      - "docs/**"
+      - "versioned_docs/**"
+      - "blog/**"
+      - "static/**"
 
   workflow_dispatch:
 

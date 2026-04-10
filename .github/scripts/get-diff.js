@@ -77,7 +77,13 @@ function getManualDiff() {
 async function getDiff() {
   let diff = "";
 
-  if (GITHUB_EVENT_NAME === "pull_request") {
+  if (
+    GITHUB_EVENT_NAME === "pull_request" ||
+    GITHUB_EVENT_NAME === "pull_request_target"
+  ) {
+    // Both events carry PR_NUMBER and use the GitHub API diff endpoint.
+    // pull_request_target is used so secrets are available on fork PRs
+    // while still reviewing the actual PR changes via the API.
     diff = await fetchPRDiff();
   } else if (GITHUB_EVENT_NAME === "push") {
     diff = getCommitDiff();

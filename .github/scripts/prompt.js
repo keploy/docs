@@ -24,14 +24,16 @@ function loadGuidelines() {
 
   if (full.length <= MAX_GUIDELINES_CHARS) return full;
 
-  // Guidelines exceed the budget. Extract only Section 11 (PR Review Checklist)
-  // which contains the binary rules the agent needs. This keeps prompts lean
-  // while preserving the most actionable content.
-  const section11Match = full.match(/## 11\. PR Review Checklist[\s\S]*/);
+  // Guidelines exceed the budget. Extract only the Section 11 block (PR Review
+  // Checklist) — stop at the next ## heading (e.g. Appendix) so the Appendix
+  // doesn't consume the character budget and truncate the checklist itself.
+  const section11Match = full.match(
+    /## 11\. PR Review Checklist[\s\S]*?(?=\n## |\n---\n#|$)/
+  );
   if (section11Match) {
     const section11 = section11Match[0].slice(0, MAX_GUIDELINES_CHARS);
     return (
-      "<!-- Guidelines truncated to PR Review Checklist (Section 11) due to size -->\n\n" +
+      "<!-- Guidelines truncated: sending Section 11 (PR Review Checklist) only -->\n\n" +
       section11
     );
   }
