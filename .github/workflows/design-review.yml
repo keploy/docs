@@ -1,7 +1,11 @@
 name: Design Review Agent
 
 on:
-  pull_request:
+  # pull_request_target runs with repo secrets on the BASE branch's workflow code,
+  # so a PR cannot modify .github/scripts/* and exfiltrate ANTHROPIC_API_KEY.
+  # The script checkout is pinned to github.event.pull_request.head.sha so we
+  # still diff the PR's actual changes, not the base branch content.
+  pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
       - "**.css"
@@ -39,14 +43,17 @@ jobs:
     runs-on: ubuntu-latest
 
     # skip if the PR title or commit message contains [skip design-review]
-    # uses || '' fallback because head_commit is null on pull_request events
+    # uses || '' fallback because head_commit is null on pull_request_target events
     if: "!contains(github.event.pull_request.title || github.event.head_commit.message || '', '[skip design-review]')"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # fetch 2 commits so git diff HEAD~1 works on push events
+          # For pull_request_target, always check out the BASE branch's trusted
+          # workflow scripts. The diff is fetched from the GitHub API separately.
+          # For push/manual, fetch-depth 2 is needed for git diff HEAD~1.
+          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.ref || github.ref }}
           fetch-depth: 2
 
       - name: Setup Node.js
@@ -68,4 +75,5 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_SHA: ${{ github.sha }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-4-6' }}
         run: node .github/scripts/design-review.js

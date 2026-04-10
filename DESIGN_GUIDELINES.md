@@ -62,7 +62,13 @@ The Keploy Docs site is a **developer documentation platform** — not a marketi
 
 ### 2.1 Color System
 
-All colors are defined as CSS custom properties. **Never hard-code hex values in component files** — always use the appropriate variable.
+All UI-facing colors should resolve through CSS custom properties or existing theme tokens.
+
+> **Rule:** Do **not** hard-code hex values in component implementation files — e.g. files under `src/components/`, MDX component wrappers, or any JSX/TSX/React UI code. Always use the appropriate existing CSS variable or token.
+>
+> **Allowed locations:** Hard-coded hex values are acceptable in token-definition and global-style layers where the palette is established: `tailwind.config.js`, `src/css/custom.css`, and other centralised theme/config files.
+>
+> **Migration note:** Existing hard-coded values in non-component files (e.g. `tailwind.config.js`) are pre-established palette definitions and should not be flagged. New component-level hard-coded hex values remain a Blocker.
 
 #### Primary Brand Colors
 
@@ -550,6 +556,8 @@ font-weight:    600
 | `:::warning` / `:::caution` | Warning | Potential issues, gotchas |
 | `:::danger` | Danger | Destructive actions, data loss risks |
 | `:::info` | Info | Keploy-specific callouts, feature notes |
+
+> **Admonition syntax note:** Use the Docusaurus `:::type` syntax for all **new** documentation. Legacy files (primarily under `versioned_docs/`) may contain GitHub-style admonitions (`> [!NOTE]`, `> [!TIP]`) — these are tolerated in versioned content but should not be used in new pages under `docs/`. Migrate to `:::type` syntax when touching those files.
 
 **Visual Rules:**
 ```
@@ -1079,7 +1087,7 @@ All custom animations/transitions must be covered by this media query.
 
 | # | Rule | Severity |
 |---|------|----------|
-| A1 | No hard-coded hex values in CSS/SCSS — use CSS variables | ❌ Blocker |
+| A1 | No hard-coded hex values in **component files** (`src/components/`, JSX/TSX) — use CSS variables. Hard-coded hex in `tailwind.config.js` / `custom.css` (token-definition files) is allowed. | ❌ Blocker |
 | A2 | Primary accent color is `#ff914d` — no alternative primary introduced | ❌ Blocker |
 | A3 | Admonition colors match defined semantic palette (indigo/green/amber/red/orange) | ❌ Blocker |
 | A4 | Tier badge colors are only green (`#16a34a`), purple (`#7c3aed`), blue (`#3b82f6`) | ❌ Blocker |

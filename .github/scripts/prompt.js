@@ -1,24 +1,46 @@
-/**
- * Builds the system and user prompts for the design review agent.
- */
+// Builds the system and user prompts for the design review agent.
 
 const fs = require("fs");
 const path = require("path");
 
-// Max characters of diff to send, keeps tokens under control
+// Max characters for the diff sent to Claude
 const MAX_DIFF_CHARS = 80000;
 
+// Max characters for DESIGN_GUIDELINES.md.
+// claude-sonnet-4-6 has a 200k token context window (~4 chars/token).
+// Budget: 80k diff + 40k guidelines + ~4k system prompt + 4k response = ~128k tokens.
+// 40,000 chars leaves comfortable headroom.
+const MAX_GUIDELINES_CHARS = 40000;
+
 function loadGuidelines() {
-  const guidelinesPath = path.resolve(
-    __dirname,
-    "../../DESIGN_GUIDELINES.md"
-  );
+  const guidelinesPath = path.resolve(__dirname, "../../DESIGN_GUIDELINES.md");
   if (!fs.existsSync(guidelinesPath)) {
     throw new Error(
       "DESIGN_GUIDELINES.md not found at repo root. Cannot run design review."
     );
   }
-  return fs.readFileSync(guidelinesPath, "utf8");
+
+  const full = fs.readFileSync(guidelinesPath, "utf8");
+
+  if (full.length <= MAX_GUIDELINES_CHARS) return full;
+
+  // Guidelines exceed the budget. Extract only Section 11 (PR Review Checklist)
+  // which contains the binary rules the agent needs. This keeps prompts lean
+  // while preserving the most actionable content.
+  const section11Match = full.match(/## 11\. PR Review Checklist[\s\S]*/);
+  if (section11Match) {
+    const section11 = section11Match[0].slice(0, MAX_GUIDELINES_CHARS);
+    return (
+      "<!-- Guidelines truncated to PR Review Checklist (Section 11) due to size -->\n\n" +
+      section11
+    );
+  }
+
+  // Fallback: hard truncate with a note
+  return (
+    full.slice(0, MAX_GUIDELINES_CHARS) +
+    "\n\n[guidelines truncated — see DESIGN_GUIDELINES.md for full content]"
+  );
 }
 
 function truncateDiff(diff) {
@@ -30,7 +52,7 @@ function truncateDiff(diff) {
 }
 
 /**
- * @param {string} diff - unified diff string
+ * @param {string} diff - unified diff string (already filtered to relevant files)
  * @param {string[]} changedFiles - list of changed file paths
  * @returns {{ system: string, user: string }}
  */

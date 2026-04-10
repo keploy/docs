@@ -10,6 +10,10 @@ const { filterFiles } = require("./filter-files");
 const { buildPrompt } = require("./prompt");
 const { postComment } = require("./post-comment");
 
+// Model is configurable via the CLAUDE_MODEL repo variable so it can be updated
+// without a code change if the model is renamed or a newer version is preferred.
+const CLAUDE_MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-4-6";
+
 if (!process.env.GITHUB_TOKEN) {
   console.error("ERROR: GITHUB_TOKEN environment variable is not set.");
   process.exit(1);
@@ -42,6 +46,7 @@ function filterDiffToRelevantFiles(fullDiff, relevantFiles) {
 async function run() {
   console.log("=== Keploy Design Review Agent ===");
   console.log(`Trigger: ${process.env.GITHUB_EVENT_NAME}`);
+  console.log(`Model: ${CLAUDE_MODEL}`);
 
   // Step 1: Get the diff
   console.log("Fetching diff...");
@@ -70,12 +75,18 @@ async function run() {
   }
 
   // Step 3: Check API key — only required if we actually have files to review.
-  // This prevents failures on fork PRs where secrets are unavailable but
-  // there are no design files to review anyway (already handled above).
+  // On fork PRs secrets are unavailable; post an informational comment and exit
+  // cleanly (exit 0) rather than failing the check — the maintainer can rerun.
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_API_KEY) {
-    console.error("ERROR: ANTHROPIC_API_KEY environment variable is not set.");
-    process.exit(1);
+    console.log("ANTHROPIC_API_KEY not available — skipping review.");
+    await postComment(
+      "## Keploy Design Review\n\n" +
+      "⚪ Design review was skipped because `ANTHROPIC_API_KEY` is not available in this workflow run.\n\n" +
+      "This typically happens on PRs from forks where secrets are not exposed. " +
+      "A maintainer can rerun this workflow once the PR is trusted."
+    );
+    return;
   }
 
   // Step 4: Trim the diff to only the hunks for relevant files
@@ -86,20 +97,22 @@ async function run() {
   const { system, user } = buildPrompt(filteredDiff, relevantFiles);
 
   // Step 6: Call Claude API
-  console.log("Calling Claude API...");
+  console.log(`Calling Claude API (model: ${CLAUDE_MODEL})...`);
   const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
 
-  const message = await client.messages.create({
-    model: "claude-sonnet-4-6",
-    max_tokens: 4096,
-    messages: [
-      {
-        role: "user",
-        content: user,
-      },
-    ],
-    system,
-  });
+  let message;
+  try {
+    message = await client.messages.create({
+      model: CLAUDE_MODEL,
+      max_tokens: 4096,
+      messages: [{ role: "user", content: user }],
+      system,
+    });
+  } catch (err) {
+    throw new Error(
+      `Claude API request failed (model: ${CLAUDE_MODEL}): ${err.message}`
+    );
+  }
 
   const reviewText = message.content
     .filter((block) => block.type === "text")
