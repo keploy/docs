@@ -556,12 +556,15 @@ footer svg {
   /* .footer .footer__block {
     display: block;
   } */
-  .footer__copyright+div {
-    text-align: center;
+  
+}
+@media (max-width: 996px) {
+.footer__copyright+div {
+    text-align: -webkit-center;
   }
 
   .footer__icons.footer {
-    text-align: center;
+    text-align: -webkit-center;
   }
 }
 
