@@ -12,7 +12,7 @@ tags:
   - sinatra
   - postgresql
   - ruby-framework
-keyword:
+keywords:
   - Sinatra Framework
   - PostgreSQL
   - Ruby
@@ -198,6 +198,8 @@ The API will be available at `http://localhost:8000`
 
 ### Verify the Setup
 
+In a new terminal (keep `keploy record` running in the first terminal), verify the app is healthy:
+
 ```bash
 curl http://localhost:8000/health
 ```
@@ -210,11 +212,7 @@ Expected Response:
 
 ### Lights, Camera, Record! 🎥
 
-If you stopped the app after verification, restart recording:
-
-```bash
-keploy record -c "bundle exec ruby app.rb"
-```
+Keep the same recording session running and start making API calls.
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
