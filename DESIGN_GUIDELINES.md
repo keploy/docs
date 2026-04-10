@@ -49,7 +49,7 @@ The Keploy Docs site is a **developer documentation platform** — not a marketi
 
 | Layer | Technology |
 |-------|-----------|
-| Framework | Docusaurus v2 (Classic theme) |
+| Framework | Docusaurus v3 (Classic theme) |
 | Design tokens | Infima CSS variables |
 | Utility CSS | Tailwind CSS 3.0.1 |
 | Custom overrides | `src/css/custom.css` (3200+ lines) |

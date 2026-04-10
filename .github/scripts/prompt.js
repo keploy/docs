@@ -1,12 +1,11 @@
 /**
- * prompt.js
- * Builds the system and user prompts for the Claude design review agent.
+ * Builds the system and user prompts for the design review agent.
  */
 
 const fs = require("fs");
 const path = require("path");
 
-// Max characters of diff to send — keeps tokens under control
+// Max characters of diff to send, keeps tokens under control
 const MAX_DIFF_CHARS = 80000;
 
 function loadGuidelines() {
@@ -26,7 +25,7 @@ function truncateDiff(diff) {
   if (diff.length <= MAX_DIFF_CHARS) return diff;
   return (
     diff.slice(0, MAX_DIFF_CHARS) +
-    "\n\n[diff truncated — only first 80,000 characters reviewed]"
+    "\n\n[diff truncated, only first 80,000 characters reviewed]"
   );
 }
 
@@ -71,7 +70,7 @@ Low-impact suggestions. If none, write "None".
 - **[RuleID]** \`filename\`: description
 
 ### ✅ Passed Checks
-List 3–5 design rules that were correctly followed in this diff.
+List 3 to 5 design rules that were correctly followed in this diff.
 
 ---
 *Reviewed against DESIGN_GUIDELINES.md — Keploy Docs Design System*`;

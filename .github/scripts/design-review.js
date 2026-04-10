@@ -1,25 +1,14 @@
-
-/**
- * Flow:
- *   1. Get diff (PR diff or git diff depending on trigger)
- *   2. Filter to design-relevant files
- *   3. Build Claude prompt with guidelines + diff
- *   4. Call Claude API
- *   5. Post review comment to GitHub
- */
+// get diff (pr diff or git diff depending on trigger)
+// filter to design-relevant files
+// build Claude prompt with guidelines + diff
+// call Claude API
+// post review comment to GitHub
 
 const Anthropic = require("@anthropic-ai/sdk");
 const { getDiff } = require("./get-diff");
 const { filterFiles } = require("./filter-files");
 const { buildPrompt } = require("./prompt");
 const { postComment } = require("./post-comment");
-
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
-
-if (!ANTHROPIC_API_KEY) {
-  console.error("ERROR: ANTHROPIC_API_KEY environment variable is not set.");
-  process.exit(1);
-}
 
 if (!process.env.GITHUB_TOKEN) {
   console.error("ERROR: GITHUB_TOKEN environment variable is not set.");
@@ -29,6 +18,25 @@ if (!process.env.GITHUB_TOKEN) {
 if (!process.env.GITHUB_REPOSITORY) {
   console.error("ERROR: GITHUB_REPOSITORY environment variable is not set.");
   process.exit(1);
+}
+
+/**
+ * Filter the full unified diff down to only hunks belonging to relevantFiles.
+ * Prevents the agent from seeing or commenting on non-design files.
+ *
+ * @param {string} fullDiff - raw unified diff
+ * @param {string[]} relevantFiles - file paths that passed filterFiles()
+ * @returns {string} filtered diff containing only relevant file sections
+ */
+function filterDiffToRelevantFiles(fullDiff, relevantFiles) {
+  const relevantSet = new Set(relevantFiles);
+  const sections = fullDiff.split(/^(?=diff --git )/m);
+  return sections
+    .filter((section) => {
+      const match = section.match(/^diff --git a\/(.+) b\/.+/);
+      return match && relevantSet.has(match[1]);
+    })
+    .join("");
 }
 
 async function run() {
@@ -56,16 +64,28 @@ async function run() {
   if (relevantFiles.length === 0) {
     console.log("No design-relevant files changed. Skipping review.");
     await postComment(
-      "## Keploy Design Review\n\n✅ No design-relevant files changed in this diff (no `.css`, `.scss`, `.mdx`, `.md`, `.tsx`, `.jsx`, or `.js` files). Nothing to review."
+      "## Keploy Design Review\n\n✅ No design-relevant files changed in this diff. Nothing to review."
     );
     return;
   }
 
-  // Step 3: Build the prompt
-  console.log("Building review prompt...");
-  const { system, user } = buildPrompt(diff, relevantFiles);
+  // Step 3: Check API key — only required if we actually have files to review.
+  // This prevents failures on fork PRs where secrets are unavailable but
+  // there are no design files to review anyway (already handled above).
+  const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
+  if (!ANTHROPIC_API_KEY) {
+    console.error("ERROR: ANTHROPIC_API_KEY environment variable is not set.");
+    process.exit(1);
+  }
 
-  // Step 4: Call Claude API
+  // Step 4: Trim the diff to only the hunks for relevant files
+  const filteredDiff = filterDiffToRelevantFiles(diff, relevantFiles);
+
+  // Step 5: Build the prompt
+  console.log("Building review prompt...");
+  const { system, user } = buildPrompt(filteredDiff, relevantFiles);
+
+  // Step 6: Call Claude API
   console.log("Calling Claude API...");
   const client = new Anthropic({ apiKey: ANTHROPIC_API_KEY });
 
@@ -91,7 +111,7 @@ async function run() {
   console.log(reviewText.slice(0, 500) + (reviewText.length > 500 ? "..." : ""));
   console.log("---------------------");
 
-  // Step 5: Post the comment
+  // Step 7: Post the comment
   await postComment(reviewText);
   console.log("=== Design review complete ===");
 }

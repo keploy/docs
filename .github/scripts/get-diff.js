@@ -1,8 +1,4 @@
-/**
- * get-diff.js
- * Returns the unified diff of changed files.
- * Switches strategy based on event type: pull_request vs push vs workflow_dispatch.
- */
+// returns the unified diff string and list of changed files for the current GitHub event (PR or push)
 
 const { execSync } = require("child_process");
 const https = require("https");
@@ -13,10 +9,7 @@ const PR_NUMBER = process.env.PR_NUMBER;
 const GITHUB_EVENT_NAME = process.env.GITHUB_EVENT_NAME;
 const GITHUB_SHA = process.env.GITHUB_SHA;
 
-/**
- * Fetch PR diff from GitHub API.
- * Returns raw unified diff string.
- */
+// fetch the pr diff from the GitHub API, using the "diff" media type to get a unified diff string, returns raw unified diff string
 function fetchPRDiff() {
   return new Promise((resolve, reject) => {
     const [owner, repo] = GITHUB_REPOSITORY.split("/");
@@ -34,16 +27,25 @@ function fetchPRDiff() {
       .get(options, (res) => {
         let data = "";
         res.on("data", (chunk) => (data += chunk));
-        res.on("end", () => resolve(data));
+        res.on("end", () => {
+          if (res.statusCode < 200 || res.statusCode >= 300) {
+            reject(
+              new Error(
+                `GitHub API returned ${res.statusCode} fetching PR diff. ` +
+                `Check GITHUB_TOKEN permissions and that PR_NUMBER=${PR_NUMBER} is valid. ` +
+                `Response: ${data.trim().slice(0, 300)}`
+              )
+            );
+            return;
+          }
+          resolve(data);
+        });
       })
       .on("error", reject);
   });
 }
 
-/**
- * Get diff for a push event using git.
- * Compares HEAD to its parent (HEAD~1).
- */
+// get diff for a push event using git. Compares HEAD to its parent (HEAD~1).
 function getCommitDiff() {
   try {
     const diff = execSync("git diff HEAD~1 HEAD", {
@@ -52,7 +54,7 @@ function getCommitDiff() {
     });
     return diff;
   } catch {
-    // First commit edge case — diff against empty tree
+    // first commit edge case, diff against empty tree
     const diff = execSync(
       "git diff 4b825dc642cb6eb9a060e54bf8d69288fbee4904 HEAD",
       { encoding: "utf8", maxBuffer: 10 * 1024 * 1024 }
@@ -61,18 +63,17 @@ function getCommitDiff() {
   }
 }
 
-/**
- * For manual workflow_dispatch: diff the last commit.
- */
+// for manual workflow_dispatch: diff the last commit. this is a best practice to get some diff for manual runs, but may not be perfect depending on the repo state.
+
 function getManualDiff() {
   return getCommitDiff();
 }
 
-/**
- * Main export: returns { diff, changedFiles }
- * diff        - raw unified diff string
- * changedFiles - array of file paths that changed
- */
+// main export function that returns the diff and list of changed files based on the GitHub event type (pull_request or push)
+
+// diff : raw unified diff string
+// changedFiles: array of file paths that changed (extracted from diff headers)
+
 async function getDiff() {
   let diff = "";
 

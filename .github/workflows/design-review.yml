@@ -3,12 +3,20 @@ name: Design Review Agent
 on:
   pull_request:
     types: [opened, synchronize, reopened]
+    paths:
+      - "**.css"
+      - "**.scss"
+      - "**.mdx"
+      - "**.md"
+      - "**.tsx"
+      - "**.jsx"
+      - "**.js"
+      - "**.ts"
 
   push:
     branches:
       - "**"
     paths:
-      # Only run on push if design-relevant files changed
       - "**.css"
       - "**.scss"
       - "**.mdx"
@@ -19,11 +27,6 @@ on:
       - "**.ts"
 
   workflow_dispatch:
-    inputs:
-      sha:
-        description: "Commit SHA to review (leave blank for latest)"
-        required: false
-        default: ""
 
 permissions:
   contents: read
@@ -35,27 +38,27 @@ jobs:
     name: Run Design Review
     runs-on: ubuntu-latest
 
-    # Skip if the PR title or commit message contains [skip design-review]
-    # Uses || '' fallback because head_commit is null on pull_request events
+    # skip if the PR title or commit message contains [skip design-review]
+    # uses || '' fallback because head_commit is null on pull_request events
     if: "!contains(github.event.pull_request.title || github.event.head_commit.message || '', '[skip design-review]')"
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch 2 commits so git diff HEAD~1 works on push events
+          # fetch 2 commits so git diff HEAD~1 works on push events
           fetch-depth: 2
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v5
         with:
-          node-version: "20"
+          node-version: "20.0.0"
 
       - name: Install dependencies
         run: |
           cd .github/scripts
           npm init -y --quiet
-          npm install @anthropic-ai/sdk@latest --save --quiet
+          npm install @anthropic-ai/sdk@0.32.1 --save-exact --quiet
 
       - name: Run design review agent
         env:
