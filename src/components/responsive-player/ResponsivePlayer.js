@@ -20,7 +20,9 @@ function ResponsivePlayer({url, loop, playing}) {
             aria-label="Loading video player"
           >
             <div className="h-8 w-8 animate-spin rounded-full border-2 border-gray-400 border-t-transparent dark:border-gray-500" />
-            <span className="sr-only">Loading video player</span>
+            <span className="ml-3 text-sm font-medium text-gray-600 dark:text-gray-300">
+              Loading video player...
+            </span>
           </div>
         }
       >

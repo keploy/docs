@@ -806,7 +806,8 @@ td img {
   margin: 0;
 }
 
-.codeBlockContainer_node_modules-\@docusaurus-theme-classic-lib-next-theme-CodeBlock-styles-module {
+[class^="codeBlockContainer_"],
+[class*=" codeBlockContainer_"] {
   box-shadow: none !important;
   margin: 0;
   padding: 0;
