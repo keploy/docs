@@ -1136,7 +1136,7 @@ All custom animations/transitions must be covered by this media query.
 
 | # | Rule | Severity |
 |---|------|----------|
-| D1 | Callouts use `:::type` Docusaurus syntax — not custom `<div>` elements | ❌ Blocker |
+| D1 | Callouts in `docs/**` use `:::type` Docusaurus syntax — not custom `<div>` elements. GitHub-style admonitions (`> [!NOTE]`) are tolerated in `versioned_docs/**` (legacy) but must not be introduced in new pages. | ❌ Blocker (for `docs/**`), ⚠️ Major (if introduced new in `versioned_docs/**`) |
 | D2 | Correct admonition type is used semantically (danger only for destructive, etc.) | ⚠️ Major |
 | D3 | Code blocks have a language identifier (e.g., ` ```bash `) | ⚠️ Major |
 | D4 | No inline `style` attribute on `<pre>`, `<code>`, or heading elements | ❌ Blocker |

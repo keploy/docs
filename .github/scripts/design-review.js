@@ -15,12 +15,19 @@ const { postComment } = require("./post-comment");
 const CLAUDE_MODEL = process.env.CLAUDE_MODEL || "claude-sonnet-4-6";
 
 if (!process.env.GITHUB_TOKEN) {
-  console.error("ERROR: GITHUB_TOKEN environment variable is not set.");
+  console.error(
+    "ERROR: GITHUB_TOKEN is not set. This is automatically provided by GitHub Actions — " +
+    "ensure the workflow step has not overridden it and that the job has 'issues: write' permission."
+  );
   process.exit(1);
 }
 
 if (!process.env.GITHUB_REPOSITORY) {
-  console.error("ERROR: GITHUB_REPOSITORY environment variable is not set.");
+  console.error(
+    "ERROR: GITHUB_REPOSITORY is not set. This is automatically provided by GitHub Actions " +
+    "as 'owner/repo'. Ensure it is passed via the 'env:' block in the workflow step: " +
+    "GITHUB_REPOSITORY: ${{ github.repository }}"
+  );
   process.exit(1);
 }
 
