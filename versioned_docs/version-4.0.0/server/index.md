@@ -8,6 +8,6 @@ description: "Get Keploy installed on Windows, Linux, or macOS — choose your p
 Let's get Keploy up and running on your Windows, Linux, or macOS machine, so you can start crafting test cases in
 minutes. ⏱️
 
-- [Windows](versioned_docs/version-2.0.0/server/windows/installation.md) <img src="/docs/img/os/windows-logo.svg" width="2%" />
-- [Linux](versioned_docs/version-2.0.0/server/linux/installation.md) <img src="/docs/img/os/linux-logo.svg" width="2%" />
-- [MacOS](versioned_docs/version-2.0.0/server/macos/installation.md) <img src="/docs/img/os/apple-logo.svg" width="2%" />
+- [Windows](versioned_docs/version-2.0.0/server/windows/installation.md) <img src="/docs/img/os/windows-logo.svg" width="2%" loading="lazy" decoding="async"/>
+- [Linux](versioned_docs/version-2.0.0/server/linux/installation.md) <img src="/docs/img/os/linux-logo.svg" width="2%" loading="lazy" decoding="async"/>
+- [MacOS](versioned_docs/version-2.0.0/server/macos/installation.md) <img src="/docs/img/os/apple-logo.svg" width="2%" loading="lazy" decoding="async"/>
