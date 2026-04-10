@@ -64,11 +64,11 @@ The Keploy Docs site is a **developer documentation platform** — not a marketi
 
 All UI-facing colors should resolve through CSS custom properties or existing theme tokens.
 
-> **Rule:** Do **not** hard-code hex values in component implementation files — e.g. files under `src/components/`, MDX component wrappers, or any JSX/TSX/React UI code. Always use the appropriate existing CSS variable or token.
+> **Token-definition exception:** Hard-coded hex/RGB values are acceptable **only when defining design tokens or CSS custom properties** — i.e. inside `:root {}` / `[data-theme]` blocks in `src/css/custom.css`, or inside `theme.extend.colors` in `tailwind.config.js`. These are the single authoritative locations where the palette is established.
 >
-> **Allowed locations:** Hard-coded hex values are acceptable in token-definition and global-style layers where the palette is established: `tailwind.config.js`, `src/css/custom.css`, and other centralised theme/config files.
+> **Visible-style rule:** Once a token or CSS variable exists, use that variable everywhere else. Do **not** write hard-coded hex directly in `color`, `background`, `border`, `fill`, `stroke`, or `box-shadow` properties on components, pages, or MDX wrappers. Use the appropriate `var(--ifm-...)` or Tailwind token instead.
 >
-> **Migration note:** Existing hard-coded values in non-component files (e.g. `tailwind.config.js`) are pre-established palette definitions and should not be flagged. New component-level hard-coded hex values remain a Blocker.
+> **Migration note:** Existing hard-coded hex in non-component files is acceptable only if it is defining a token. If a hard-coded hex in `custom.css` is directly styling a visible element rather than defining a variable, it should be replaced on the next touch. New direct-use hex in component or page files is always a Blocker.
 
 #### Primary Brand Colors
 
@@ -849,7 +849,7 @@ border-bottom:  1px solid rgba(255,145,77,0.2)
 ### Theme Rules
 
 1. **Every new CSS rule that sets color, background, or border must have a dark mode counterpart** inside `html[data-theme="dark"]`
-2. Never use hard-coded hex in CSS properties that affect visible elements — use CSS variables
+2. Hard-coded hex/RGB values are allowed **only when defining design tokens** (e.g. inside `:root {}` / `[data-theme]` blocks in `custom.css`, or in `tailwind.config.js` theme tokens). When styling visible elements in components or pages, always use CSS variables — never literal color values.
 3. Contrast ratios must meet WCAG AA minimum (4.5:1 for body text, 3:1 for large text) in both modes
 4. The primary orange `#ff914d` is the **same in both modes** — it has sufficient contrast in both
 

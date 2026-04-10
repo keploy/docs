@@ -19,7 +19,7 @@ on:
 
   push:
     branches:
-      - "**"
+      - "main"
     paths:
       # Scoped to the same directories filter-files.js actually reviews.
       # Excludes .github/ and DESIGN_GUIDELINES.md to avoid "nothing to review" runs.
@@ -31,29 +31,26 @@ on:
 
   workflow_dispatch:
 
-permissions:
-  contents: write   # needed to post commit comments on push/workflow_dispatch runs
-  pull-requests: write
-  issues: write
-
 jobs:
-  design-review:
-    name: Run Design Review
+  # PR job: only needs issues:write to post a PR comment. contents:read is enough
+  # because the PR diff is fetched via the API, not by reading local git history.
+  design-review-pr:
+    name: Run Design Review (PR)
     runs-on: ubuntu-latest
-
-    # skip if the PR title or commit message contains [skip design-review]
-    # uses || '' fallback because head_commit is null on pull_request_target events
-    if: "!contains(github.event.pull_request.title || github.event.head_commit.message || '', '[skip design-review]')"
+    if: "github.event_name == 'pull_request_target' && !contains(github.event.pull_request.title || '', '[skip design-review]')"
+    permissions:
+      contents: read
+      pull-requests: read
+      issues: write
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # For pull_request_target, always check out the BASE branch's trusted
-          # workflow scripts. The diff is fetched from the GitHub API separately.
-          # For push/manual, fetch-depth 2 is needed for git diff HEAD~1.
-          ref: ${{ github.event_name == 'pull_request_target' && github.event.pull_request.base.ref || github.ref }}
-          fetch-depth: 2
+          # Always check out the BASE branch's trusted workflow scripts.
+          # The PR's actual changes are fetched from the GitHub API in get-diff.js.
+          ref: ${{ github.event.pull_request.base.ref }}
+          fetch-depth: 1
 
       - name: Setup Node.js
         uses: actions/setup-node@v5
@@ -61,10 +58,10 @@ jobs:
           node-version: "20.0.0"
 
       - name: Install dependencies
-        run: |
-          cd .github/scripts
-          npm init -y --quiet
-          npm install @anthropic-ai/sdk@0.32.1 --save-exact --quiet
+        # npm ci uses the committed package.json + package-lock.json for reproducible,
+        # supply-chain-safe installs. --ignore-scripts prevents postinstall hooks
+        # from running arbitrary code in CI.
+        run: npm ci --prefix .github/scripts --ignore-scripts --quiet
 
       - name: Run design review agent
         env:
@@ -74,5 +71,40 @@ jobs:
           GITHUB_EVENT_NAME: ${{ github.event_name }}
           GITHUB_SHA: ${{ github.sha }}
           PR_NUMBER: ${{ github.event.pull_request.number }}
+          CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-4-6' }}
+        run: node .github/scripts/design-review.js
+
+  # Push/manual job: needs contents:write to post commit comments via the
+  # /commits/{sha}/comments API. Runs only on push to main and workflow_dispatch.
+  design-review-push:
+    name: Run Design Review (Push / Manual)
+    runs-on: ubuntu-latest
+    if: "github.event_name != 'pull_request_target' && !contains(github.event.head_commit.message || '', '[skip design-review]')"
+    permissions:
+      contents: write
+      issues: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # fetch-depth 2 is needed so git diff HEAD~1 HEAD works.
+          fetch-depth: 2
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: "20.0.0"
+
+      - name: Install dependencies
+        run: npm ci --prefix .github/scripts --ignore-scripts --quiet
+
+      - name: Run design review agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          GITHUB_EVENT_NAME: ${{ github.event_name }}
+          GITHUB_SHA: ${{ github.sha }}
           CLAUDE_MODEL: ${{ vars.CLAUDE_MODEL || 'claude-sonnet-4-6' }}
         run: node .github/scripts/design-review.js
