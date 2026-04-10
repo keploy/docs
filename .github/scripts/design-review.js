@@ -75,16 +75,17 @@ async function run() {
   }
 
   // Step 3: Check API key — only required if we actually have files to review.
-  // On fork PRs secrets are unavailable; post an informational comment and exit
-  // cleanly (exit 0) rather than failing the check — the maintainer can rerun.
+  // Exit cleanly (exit 0) so the check doesn't fail and block the PR.
   const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY;
   if (!ANTHROPIC_API_KEY) {
     console.log("ANTHROPIC_API_KEY not available — skipping review.");
     await postComment(
       "## Keploy Design Review\n\n" +
       "⚪ Design review was skipped because `ANTHROPIC_API_KEY` is not available in this workflow run.\n\n" +
-      "This typically happens on PRs from forks where secrets are not exposed. " +
-      "A maintainer can rerun this workflow once the PR is trusted."
+      "Possible causes: the secret is not configured in repo Settings → Secrets → Actions, " +
+      "it is restricted to a specific environment that this workflow cannot access, " +
+      "or the workflow trigger was changed from `pull_request_target` to `pull_request` " +
+      "which may not expose secrets. A maintainer can verify and rerun once resolved."
     );
     return;
   }

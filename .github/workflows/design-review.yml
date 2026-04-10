@@ -8,14 +8,14 @@ on:
   pull_request_target:
     types: [opened, synchronize, reopened]
     paths:
-      - "**.css"
-      - "**.scss"
-      - "**.mdx"
-      - "**.md"
-      - "**.tsx"
-      - "**.jsx"
-      - "**.js"
-      - "**.ts"
+      # Scoped to the same site directories filter-files.js actually reviews.
+      # Prevents noisy "nothing to review" comments on PRs that only touch
+      # .github/**, root config files, or DESIGN_GUIDELINES.md.
+      - "src/**"
+      - "docs/**"
+      - "versioned_docs/**"
+      - "blog/**"
+      - "static/**"
 
   push:
     branches:
@@ -32,7 +32,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write   # needed to post commit comments on push/workflow_dispatch runs
   pull-requests: write
   issues: write
 
