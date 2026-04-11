@@ -75,7 +75,7 @@ const ProductTier = ({ tiers, offerings }) => {
           letter-spacing: 0.01em;
         }
         html[data-theme="dark"] .product-tier-chip {
-          opacity: 0.9;
+          background: rgba(255, 255, 255, 0.15) !important;
         }
       `}</style>
     </div>

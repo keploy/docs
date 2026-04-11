@@ -1,7 +1,8 @@
 ---
 id: javascript-filter
-title: Sample Javascript Apps
-sidebar_label: Sample Javascript Apps
+title: Sample JavaScript Apps
+sidebar_label: Sample JavaScript Apps
+description: "Browse sample JavaScript and TypeScript applications with Keploy integration — quick start guides for automated API testing."
 hide_table_of_contents: true
 ---
 

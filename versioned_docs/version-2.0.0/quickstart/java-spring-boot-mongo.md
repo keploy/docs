@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - mongodb
-keyword:
+keywords:
   - MongoDB
   - Maven
   - Springboot Framework

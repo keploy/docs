@@ -13,7 +13,7 @@ tags:
   - python-framework
   - mongodb
   - flask-framework
-keyword:
+keywords:
   - Flask Framework
   - MongoDB
   - NoSQL

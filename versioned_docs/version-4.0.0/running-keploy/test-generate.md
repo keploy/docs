@@ -1,8 +1,8 @@
 ---
 id: test-generate
-title: What is API testing?
+title: AI-Powered API Test Generation
 sidebar_label: Generate Tests
-description: This section documents what is API Testing and why we need it
+description: "Generate comprehensive API test suites automatically using AI — powered by live requests, API schemas, and documentation in Keploy."
 tags:
   - API testing
   - API mocks
@@ -18,7 +18,7 @@ keywords:
   - OpenAI
 ---
 
-# 🧪 AI-Powered API Test Suite Generation
+# 🧪 AI-Powered API Test Generation
 
 Keploy enables you to automatically generate **comprehensive API test suites** for your application using AI, based on live requests, API schemas, and supporting documentation.
 

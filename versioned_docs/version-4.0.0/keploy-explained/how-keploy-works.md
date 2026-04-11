@@ -2,13 +2,25 @@
 id: how-keploy-works
 title: How Keploy Works?
 sidebar_label: Architecture
+description: Keploy uses eBPF hooks in the Linux kernel to capture real user traffic in Record mode and replay it in production-like sandboxed environments in Test mode — enabling production behavior replay, dependency virtualization, and continuous validation with automatic regression detection.
 tags:
   - explanation
   - replay-test-case
   - replay-guide
   - record-guide
   - record-test-case
+keywords:
+  - eBPF-based testing
+  - production behavior replay
+  - dependency virtualization
+  - continuous validation
+  - production sandbox
+  - infrastructure mocking
+  - migration regression testing
+  - legacy application testing
 ---
+
+Keploy generates tests by using eBPF hooks in the Linux kernel to capture socket-level application traffic. In Record mode, it captures every incoming HTTP request and outgoing dependency call — database queries, API calls, message queue interactions — saving them as YAML test cases. In Test mode, it replays those requests in a sandboxed environment that closely mimics production, with all dependencies automatically virtualized and responses compared to detect regressions. This production behavior replay enables continuous validation, migration regression testing, and legacy application testing without code changes.
 
 ## 🌟 Keploy V2 Architecture 🌟
 

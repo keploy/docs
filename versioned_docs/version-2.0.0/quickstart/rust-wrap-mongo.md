@@ -6,7 +6,7 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - Rust
   - MongoDB
-keyword:
+keywords:
   - Rust
   - MongoDB
   - API Test generator

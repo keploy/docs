@@ -2,6 +2,7 @@
 id: code-contribution
 title: Code Contribution
 label: Hacktoberfest
+description: "Contribute code to Keploy during Hacktoberfest — fix bugs, implement features, or build sample demo applications."
 ---
 
 # Code Contribution to Keploy Projects

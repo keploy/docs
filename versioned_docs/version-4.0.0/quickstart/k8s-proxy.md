@@ -6,7 +6,7 @@ tags:
   - K8s
   - Microservices
   - Postgres
-keyword:
+keywords:
   - Kubernetes
   - Record Replay
   - API Test generator

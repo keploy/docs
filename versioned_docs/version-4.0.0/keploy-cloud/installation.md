@@ -1,7 +1,8 @@
 ---
 id: cloud-installation
 title: Keploy Enterprise Installation
-sidebar_label: Enterprise Installation
+sidebar_label: Enterprise
+description: "Install Keploy Enterprise — onboarding guide, feature overview, and steps to integrate enterprise API testing into your workflow."
 tags:
   - explanation
   - feature guide

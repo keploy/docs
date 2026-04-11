@@ -1,7 +1,7 @@
 ---
 id: javascript
 title: Merge Unit and Keploy Test Coverage Data
-sidebar_label: Javascript
+sidebar_label: JavaScript
 tags:
   - javascript
   - js
@@ -19,6 +19,7 @@ keywords:
   - IoT.js
   - tap
   - Typescript
+description: "Merge Keploy and JavaScript unit test coverage using nyc — combine integration and unit test reports for full visibility."
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
