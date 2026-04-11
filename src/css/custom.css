@@ -1660,6 +1660,10 @@ article.markdown h1 {
   color: #00163d;
 }
 
+.markdown article > header h1 {
+  padding-bottom: 0.75rem;
+}
+
 html[data-theme="dark"] article.markdown h1 {
   color: #f9fafb;
 }
