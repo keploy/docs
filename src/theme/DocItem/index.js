@@ -149,10 +149,10 @@ export default function DocItem(props) {
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
-  // LIVE-13: suppress Article / BlogPosting / APIReference schema on the
-  // /docs/ root and any category index pages. Article schema on a hub
-  // page is a type mismatch because a hub does not have a single author,
-  // single publication date, or single headline — it is an index of
+  // Suppress Article / BlogPosting / APIReference schema on the /docs/
+  // root and any category index pages. Article schema on a hub page is
+  // a type mismatch because a hub does not have a single author, a
+  // single publication date, or a single headline — it is an index of
   // content. Hub pages emit only the normal DocBreadcrumbs JSON-LD.
   const permalink = metadata?.permalink || "";
   const isDocsRoot =
@@ -204,12 +204,11 @@ export default function DocItem(props) {
         {normalizedMetaKeywords && (
           <meta name="keywords" content={normalizedMetaKeywords} />
         )}
-        {/* LIVE-12: per-page og:title and og:description override the
-            docusaurus.config.js site-level defaults, which previously
-            emitted "Keploy Documentation" as og:title on every docs
-            page regardless of content. Social card previews now reflect
-            the actual page title (e.g. "What is Idempotency in REST
-            APIs? Complete Guide"). */}
+        {/* Per-page og:title and og:description override the
+            docusaurus.config.js site-level defaults, which would
+            otherwise emit the same og:title on every docs page
+            regardless of content. Social card previews now reflect
+            the actual page title. */}
         <meta property="og:title" content={title} />
         {description && (
           <meta property="og:description" content={description} />

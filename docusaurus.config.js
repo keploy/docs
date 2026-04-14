@@ -449,8 +449,8 @@ module.exports = {
           changefreq: "weekly",
           priority: 0.5,
           filename: "sitemap.xml",
-          // Task 35: differentiate docs sitemap priorities by content type
-          // so search engines spend crawl budget proportional to how
+          // Differentiate docs sitemap priorities by content type so
+          // search engines spend crawl budget proportional to how
           // canonical each page is. Priority buckets:
           //   1.0  → /docs/ root (highest — primary entry point)
           //   0.9  → /docs/quickstart/* (highest-intent user flow)

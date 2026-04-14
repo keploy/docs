@@ -51,13 +51,11 @@ export default function DocBreadcrumbs() {
   const {siteConfig} = useDocusaurusContext();
   const {pathname} = useLocation();
 
-  // LIVE-20 fix. Previously this component early-returned when
-  // useSidebarBreadcrumbs() returned null/undefined, which caused
-  // glossary and reference pages not in the sidebar config to ship
-  // with zero BreadcrumbList schema (audited 2026-04-14 on
-  // /docs/concepts/reference/glossary/idempotency/).
-  // Now we treat null/undefined as "no sidebar trail, emit Home + Docs
-  // schema anyway" so AI crawlers always get a hierarchy signal.
+  // Previously this component early-returned when useSidebarBreadcrumbs()
+  // returned null/undefined, which caused glossary and reference pages
+  // not in the sidebar config to ship with zero BreadcrumbList schema.
+  // Treat null/undefined as "no sidebar trail, emit Home + Docs schema
+  // anyway" so AI crawlers always get a hierarchy signal.
   const sidebarTrail = Array.isArray(breadcrumbs) ? breadcrumbs : [];
 
   const toAbsoluteUrl = (baseUrl, url) => {
