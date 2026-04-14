@@ -1,0 +1,148 @@
+name: Design Review Agent
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    paths:
+      - "src/**"
+      - "src/css/**"
+      - "src/theme/**"
+      - "src/components/**"
+      - "docs/**"
+      - "versioned_docs/**"
+      - "static/**"
+      - "design-agent/**"
+      - "tailwind.config.*"
+      - "docusaurus.config.*"
+      - ".github/workflows/design-review.yml"
+
+  issue_comment:
+    types: [created]
+
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: "Pull request number to review"
+        required: true
+        type: string
+
+permissions:
+  pull-requests: write
+  issues: write
+  contents: read
+
+jobs:
+  design-review:
+    name: Run Design Review
+    runs-on: ubuntu-latest
+    if: >-
+      (github.event_name == 'issue_comment'
+        && github.event.action == 'created'
+        && github.event.issue.pull_request != null
+        && github.event.comment.body == '/design-review'
+        && contains(fromJson('["OWNER","MEMBER","COLLABORATOR"]'), github.event.comment.author_association))
+      || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: Resolve PR number
+        id: pr
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if [[ "${{ github.event_name }}" == "issue_comment" ]]; then
+            echo "pr_number=${{ github.event.issue.number }}" >> "$GITHUB_OUTPUT"
+          elif [[ "${{ github.event_name }}" == "workflow_dispatch" ]]; then
+            echo "pr_number=${{ github.event.inputs['pr-number'] }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "pr_number=${{ github.event.pull_request.number }}" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Resolve PR metadata (head sha / head repo / external)
+        id: meta
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
+        run: |
+          set -euo pipefail
+
+          pr_json="$(curl -sS \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls/${PR_NUMBER}")"
+
+          head_sha="$(echo "${pr_json}" | jq -r '.head.sha')"
+          head_repo="$(echo "${pr_json}" | jq -r '.head.repo.full_name')"
+          base_repo="$(echo "${pr_json}" | jq -r '.base.repo.full_name')"
+          default_branch="$(echo "${pr_json}" | jq -r '.base.repo.default_branch')"
+
+          if [[ -z "${head_sha}" || "${head_sha}" == "null" ]]; then
+            echo "Failed to resolve head.sha" >&2
+            exit 1
+          fi
+          if [[ -z "${head_repo}" || "${head_repo}" == "null" ]]; then
+            echo "Failed to resolve head.repo.full_name" >&2
+            exit 1
+          fi
+          if [[ -z "${base_repo}" || "${base_repo}" == "null" ]]; then
+            echo "Failed to resolve base.repo.full_name" >&2
+            exit 1
+          fi
+          if [[ -z "${default_branch}" || "${default_branch}" == "null" ]]; then
+            echo "Failed to resolve base.repo.default_branch" >&2
+            exit 1
+          fi
+
+          is_external="false"
+          if [[ "${head_repo}" != "${base_repo}" ]]; then
+            is_external="true"
+          fi
+
+          echo "head_sha=${head_sha}" >> "$GITHUB_OUTPUT"
+          echo "head_repo_full_name=${head_repo}" >> "$GITHUB_OUTPUT"
+          echo "base_repo_full_name=${base_repo}" >> "$GITHUB_OUTPUT"
+          echo "default_branch=${default_branch}" >> "$GITHUB_OUTPUT"
+          echo "is_external=${is_external}" >> "$GITHUB_OUTPUT"
+
+      - name: Checkout (internal PR: head sha)
+        if: steps.meta.outputs.is_external != 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.meta.outputs.head_sha }}
+          fetch-depth: 1
+
+      - name: Checkout (external PR: default branch)
+        if: steps.meta.outputs.is_external == 'true'
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ steps.meta.outputs.default_branch }}
+          fetch-depth: 1
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        shell: bash
+        run: |
+          set -euo pipefail
+          python3 -m pip install --upgrade pip
+          python3 -m pip install -r design-agent/requirements.txt
+
+      - name: Run design review agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          DESIGN_COMMONS_TOKEN: ${{ secrets.DESIGN_COMMONS_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
+          COMMON_GUIDELINES_REPO: keploy/landing-page
+          COMMON_GUIDELINES_PATH: design-agent/COMMON_DESIGN_GUIDELINES.md
+          COMMON_GUIDELINES_REF: main
+          PR_NUMBER: ${{ steps.pr.outputs.pr_number }}
+          PR_HEAD_SHA: ${{ steps.meta.outputs.head_sha }}
+          PR_HEAD_REPO_FULL_NAME: ${{ steps.meta.outputs.head_repo_full_name }}
+          IS_EXTERNAL_PR: ${{ steps.meta.outputs.is_external }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+        run: python3 design-agent/scripts/design_review.py

@@ -1,0 +1,183 @@
+// posts the design review results as a github comment
+// on a pr: posts an issue comment on the pr (via /issues/{PR_NUMBER}/comments, not the PR Reviews API)
+// on a push: posts a commit comment
+// on a manual workflow_dispatch: posts a commit comment (best effort to get some comment for manual runs, but may not be perfect depending on repo state)
+
+const https = require("https");
+
+const GITHUB_TOKEN = process.env.GITHUB_TOKEN;
+const GITHUB_REPOSITORY = process.env.GITHUB_REPOSITORY;
+const PR_NUMBER = process.env.PR_NUMBER;
+const GITHUB_EVENT_NAME = process.env.GITHUB_EVENT_NAME;
+const GITHUB_SHA = process.env.GITHUB_SHA;
+
+// Unique HTML marker embedded in every comment body.
+// Used to identify and clean up previous bot comments precisely —
+// won't match comments from other bots that happen to say "Keploy Design Review".
+const COMMENT_MARKER = "<!-- keploy-design-review-agent -->";
+
+function githubRequest(method, path, body) {
+  return new Promise((resolve, reject) => {
+    const payload = JSON.stringify(body);
+    const options = {
+      hostname: "api.github.com",
+      path,
+      method,
+      headers: {
+        Authorization: `Bearer ${GITHUB_TOKEN}`,
+        Accept: "application/vnd.github.v3+json",
+        "Content-Type": "application/json",
+        "Content-Length": Buffer.byteLength(payload),
+        "User-Agent": "keploy-design-review-agent",
+      },
+    };
+
+    const req = https.request(options, (res) => {
+      let data = "";
+      res.on("data", (chunk) => (data += chunk));
+      res.on("end", () => {
+        if (res.statusCode >= 200 && res.statusCode < 300) {
+          // 204 No Content (DELETE) returns empty body — safe parse
+          resolve(data.length > 0 ? JSON.parse(data) : {});
+        } else {
+          reject(
+            new Error(`GitHub API error ${res.statusCode}: ${data}`)
+          );
+        }
+      });
+    });
+
+    req.on("error", reject);
+    req.write(payload);
+    req.end();
+  });
+}
+
+/**
+ * Parse the GitHub API `Link` header and return the path for the `next` page,
+ * or null if there is no next page.
+ * @param {string|undefined} linkHeader
+ * @returns {string|null}
+ */
+function parseNextLink(linkHeader) {
+  if (!linkHeader) return null;
+  for (const part of linkHeader.split(",")) {
+    const match = part.match(/<([^>]+)>;\s*rel="([^"]+)"/);
+    if (match && match[2] === "next") {
+      const u = new URL(match[1]);
+      return `${u.pathname}${u.search}`;
+    }
+  }
+  return null;
+}
+
+/**
+ * Fetch ALL comments on a PR, following pagination (?per_page=100 + Link header).
+ * GitHub defaults to 30 per page; without pagination a previous bot comment may
+ * be missed on busy PRs and left as a stale duplicate.
+ * @param {string} owner
+ * @param {string} repo
+ * @returns {Promise<Array>}
+ */
+function fetchAllPRComments(owner, repo) {
+  return new Promise((resolve, reject) => {
+    const allComments = [];
+
+    function fetchPage(path) {
+      const options = {
+        hostname: "api.github.com",
+        path,
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${GITHUB_TOKEN}`,
+          Accept: "application/vnd.github.v3+json",
+          "User-Agent": "keploy-design-review-agent",
+        },
+      };
+
+      https
+        .get(options, (res) => {
+          let data = "";
+          res.on("data", (c) => (data += c));
+          res.on("end", () => {
+            if (res.statusCode < 200 || res.statusCode >= 300) {
+              reject(new Error(`GitHub API error ${res.statusCode} listing PR comments: ${data}`));
+              return;
+            }
+            const page = data.length > 0 ? JSON.parse(data) : [];
+            allComments.push(...(Array.isArray(page) ? page : []));
+            const next = parseNextLink(res.headers.link);
+            if (next) {
+              fetchPage(next);
+            } else {
+              resolve(allComments);
+            }
+          });
+        })
+        .on("error", reject);
+    }
+
+    fetchPage(`/repos/${owner}/${repo}/issues/${PR_NUMBER}/comments?per_page=100`);
+  });
+}
+
+/**
+ * Find and delete any previous design review comment on the PR.
+ * Matches by:
+ *   1. author is github-actions[bot]  (our specific bot, not other bots)
+ *   2. body contains the unique COMMENT_MARKER HTML comment
+ */
+async function deletePreviousReviewComment(owner, repo) {
+  const comments = await fetchAllPRComments(owner, repo);
+
+  const botComments = comments.filter(
+    (c) =>
+      c.user.login === "github-actions[bot]" &&
+      c.body.includes(COMMENT_MARKER)
+  );
+
+  for (const comment of botComments) {
+    await githubRequest(
+      "DELETE",
+      `/repos/${owner}/${repo}/issues/comments/${comment.id}`,
+      {}
+    ).catch(() => {}); // ignore delete errors — stale comment is non-critical
+  }
+}
+
+/**
+ * @param {string} reviewBody - the Markdown review text from Claude
+ */
+async function postComment(reviewBody) {
+  const [owner, repo] = GITHUB_REPOSITORY.split("/");
+
+  // Embed the unique marker so we can find and replace this comment on re-runs
+  const bodyWithMarker = `${COMMENT_MARKER}\n${reviewBody}`;
+
+  if (
+    (GITHUB_EVENT_NAME === "pull_request" ||
+      GITHUB_EVENT_NAME === "pull_request_target") &&
+    PR_NUMBER
+  ) {
+    // Clean up previous bot comment first
+    await deletePreviousReviewComment(owner, repo);
+
+    // Post fresh PR comment
+    await githubRequest(
+      "POST",
+      `/repos/${owner}/${repo}/issues/${PR_NUMBER}/comments`,
+      { body: bodyWithMarker }
+    );
+    console.log(`Design review posted to PR #${PR_NUMBER}`);
+  } else {
+    // Post as commit comment (push or manual trigger)
+    await githubRequest(
+      "POST",
+      `/repos/${owner}/${repo}/commits/${GITHUB_SHA}/comments`,
+      { body: bodyWithMarker }
+    );
+    console.log(`Design review posted to commit ${GITHUB_SHA}`);
+  }
+}
+
+module.exports = { postComment };
