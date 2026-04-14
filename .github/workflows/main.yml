@@ -101,7 +101,19 @@ jobs:
           URL_COUNT=$(printf '%s\n' "$URLS" | wc -l | tr -d '[:space:]')
           echo "Submitting $URL_COUNT docs URLs to IndexNow"
 
-          JSON_URLS=$(printf '%s\n' "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
+          # Explicit jq availability + payload-build checks: under
+          # `set -euo pipefail` a missing/failing jq would abort the step
+          # before the error/troubleshooting branches below could run,
+          # leaving an unannotated "process exited 1" in the Actions UI.
+          if ! command -v jq >/dev/null 2>&1; then
+            echo "::error::jq is required to build the IndexNow request payload. Install jq or use a runner image that includes it, then rerun this workflow."
+            exit 1
+          fi
+
+          if ! JSON_URLS=$(printf '%s\n' "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))'); then
+            echo "::error::Failed to build the IndexNow JSON payload from the sitemap URL list. Inspect the URLs above for unexpected characters and rerun the workflow."
+            exit 1
+          fi
 
           # Capture curl exit status separately from HTTP code so network/DNS
           # failures are distinguishable from real non-2xx responses.
@@ -128,8 +140,8 @@ jobs:
           cat "$RESPONSE_FILE" 2>/dev/null || true
           echo ""
           echo "Troubleshooting:"
-          echo "  1. Verify key file is publicly reachable: curl -sS $INDEXNOW_KEY_LOC"
+          echo "  1. Verify key file is publicly reachable: curl -sS \"$INDEXNOW_KEY_LOC\""
           echo "  2. Reproduce request:"
-          echo "     curl -sS -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \\"
+          echo "     curl -sS -X POST \"https://api.indexnow.org/indexnow\" -H 'Content-Type: application/json' \\"
           echo "       -d '{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":[\"https://${INDEXNOW_HOST}/docs/\"]}'"
           exit 1
