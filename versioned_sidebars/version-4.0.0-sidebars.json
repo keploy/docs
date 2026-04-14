@@ -168,6 +168,11 @@
         },
         {
           "type": "doc",
+          "label": "Keploy vs Alternatives",
+          "id": "keploy-explained/keploy-vs-alternatives"
+        },
+        {
+          "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/integration-testing-faq"
         }
