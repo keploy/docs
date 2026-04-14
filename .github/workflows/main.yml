@@ -56,43 +56,70 @@ jobs:
 
       - name: Submit docs URLs to IndexNow
         env:
-          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY }}
+          INDEXNOW_HOST: keploy.io
+          # The default key is the one served from keploy.io/<key>.txt by the
+          # landing repo; override via a repo secret only if rotating.
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY || 'feeeddbe661a4686ba6e4d5cb663b2cb' }}
         continue-on-error: true
         run: |
-          # Use the built sitemap as the source of truth for URLs.
+          set -euo pipefail
+
+          INDEXNOW_KEY_LOC="https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt"
+
+          # Use the just-built sitemap so URLs are guaranteed to exist on the
+          # deployed site (the previous S3 sync step pushed it up moments ago).
           SITEMAP="build/docs/sitemap.xml"
           if [ ! -f "$SITEMAP" ]; then
-            echo "Sitemap not found at $SITEMAP, skipping IndexNow"
+            echo "::warning::Sitemap not found at $SITEMAP, skipping IndexNow submission"
             exit 0
           fi
 
-          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" || true)
+          # Filter to the current (unversioned) docs only:
+          # - drop auto-generated /tags/ pages (low-value for search indexing)
+          # - drop legacy versioned docs (/docs/1.0.0/, 2.0.0/, 3.0.0/) since
+          #   robots.txt disallows them and they're marked noindex anyway
+          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" \
+            | grep -v '/tags/' \
+            | grep -vE '/docs/(1|2|3)\.[0-9]+\.[0-9]+/' \
+            | sort -u)
 
           if [ -z "$URLS" ]; then
-            echo "No URLs found in sitemap, skipping"
+            echo "::warning::No current-version docs URLs parsed from $SITEMAP, skipping"
             exit 0
           fi
 
-          URL_COUNT=$(echo "$URLS" | wc -l)
+          URL_COUNT=$(printf '%s\n' "$URLS" | wc -l | tr -d '[:space:]')
           echo "Submitting $URL_COUNT docs URLs to IndexNow"
 
-          KEY="${INDEXNOW_KEY:-9ded60b43b8b40578588fc42b04c3e5d}"
-          JSON_URLS=$(echo "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))' || true)
+          JSON_URLS=$(printf '%s\n' "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))')
 
-          if [ -z "$JSON_URLS" ]; then
-            echo "Failed to build JSON URL list, skipping"
+          # Capture curl exit status separately from HTTP code so network/DNS
+          # failures are distinguishable from real non-2xx responses.
+          CURL_EXIT=0
+          HTTP_CODE=$(curl -sS -o /tmp/indexnow-resp.txt -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":${JSON_URLS}}") || CURL_EXIT=$?
+
+          if [ "$CURL_EXIT" -ne 0 ]; then
+            echo "::error::IndexNow request failed to execute (curl exit $CURL_EXIT)."
+            echo "  Check connectivity: curl -I https://api.indexnow.org/"
+            exit 1
+          fi
+
+          # IndexNow returns 200 for processed and 202 for accepted-pending-
+          # verification; both are success per the spec.
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "Submitted $URL_COUNT URLs to IndexNow (HTTP $HTTP_CODE)"
             exit 0
           fi
 
-          RESPONSE_FILE=$(mktemp)
-          HTTP_CODE=$(curl -s -o "$RESPONSE_FILE" -w "%{http_code}" -X POST "https://api.indexnow.org/indexnow" \
-            -H "Content-Type: application/json" \
-            -d "{\"host\":\"keploy.io\",\"key\":\"$KEY\",\"urlList\":$JSON_URLS}" || echo "000")
-
-          echo "IndexNow response: $HTTP_CODE"
-          if [ "$HTTP_CODE" -ge 400 ] || [ "$HTTP_CODE" = "000" ]; then
-            echo "IndexNow submission failed (HTTP $HTTP_CODE) — will not block deployment."
-            echo "Verify the key file is hosted at https://keploy.io/${KEY}.txt"
-            cat "$RESPONSE_FILE" 2>/dev/null || true
-          fi
-          rm -f "$RESPONSE_FILE"
+          echo "::error::IndexNow returned HTTP $HTTP_CODE. Response body:"
+          cat /tmp/indexnow-resp.txt 2>/dev/null || true
+          echo ""
+          echo "Troubleshooting:"
+          echo "  1. Verify key file is publicly reachable: curl -sS $INDEXNOW_KEY_LOC"
+          echo "  2. Reproduce request:"
+          echo "     curl -sS -X POST https://api.indexnow.org/indexnow -H 'Content-Type: application/json' \\"
+          echo "       -d '{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":[\"https://${INDEXNOW_HOST}/docs/\"]}'"
+          exit 1
