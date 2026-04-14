@@ -1,0 +1,71 @@
+{
+  "src/components/responsive-player/ResponsivePlayer.js": [
+    "src/components/index.js"
+  ],
+  "src/components/shared/Button.js": [
+    "src/components/index.js"
+  ],
+  "src/components/KeployCloud.js": [
+    "src/components/index.js"
+  ],
+  "src/components/Community.js": [
+    "src/components/index.js"
+  ],
+  "src/components/Intro.js": [
+    "src/components/index.js"
+  ],
+  "src/components/Resources.js": [
+    "src/components/index.js"
+  ],
+  "src/components/QuickStart.js": [
+    "src/components/index.js"
+  ],
+  "src/components/Hacktoberfest.js": [
+    "src/components/index.js"
+  ],
+  "src/components/GetStartedPaths.js": [
+    "src/components/index.js"
+  ],
+  "src/components/TestingCapabilities.js": [
+    "src/components/index.js"
+  ],
+  "src/components/QuickStartTabs.js": [
+    "src/components/index.js"
+  ],
+  "src/components/WhatIsKeploy.js": [
+    "src/components/index.js"
+  ],
+  "src/components/EcosystemSupport.js": [
+    "src/components/index.js"
+  ],
+  "src/components/DocHeaderChips.js": [
+    "src/components/index.js"
+  ],
+  "src/components/SidebarBadge.js": [
+    "src/components/index.js"
+  ],
+  "src/components/SidebarCategoryIcon.js": [
+    "src/components/index.js"
+  ],
+  "src/components/TierCallout.js": [
+    "src/components/index.js"
+  ],
+  "src/components/QuickStartList.js": [
+    "src/components/QuickStartFilter.js"
+  ],
+  "versioned_docs/version-2.0.0/server/sdk-installation/index.md": [
+    "versioned_docs/version-2.0.0/server/sdk-installation/go.md",
+    "versioned_docs/version-2.0.0/server/sdk-installation/java.md",
+    "versioned_docs/version-2.0.0/server/sdk-installation/javascript.md",
+    "versioned_docs/version-2.0.0/server/sdk-installation/python.md"
+  ],
+  "versioned_docs/version-1.0.0/go/supported-frameworks.md": [
+    "versioned_docs/version-1.0.0/go/integration.md"
+  ],
+  "versioned_docs/version-1.0.0/go/integration-with-go-test.md": [
+    "versioned_docs/version-1.0.0/go/replay.md"
+  ],
+  "versioned_docs/version-1.0.0/java/integration-with-junit.md": [
+    "versioned_docs/version-1.0.0/java/replay.md"
+  ]
+}

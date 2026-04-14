@@ -1,0 +1,89 @@
+name: QA Review Agent
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+  push:
+    branches-ignore:
+      - main
+      - master
+
+  issue_comment:
+    types: [created]
+
+  workflow_dispatch:
+    inputs:
+      pr-number:
+        description: "PR number to review"
+        required: true
+      review-mode:
+        description: "full (with second-order analysis) or fast"
+        required: false
+        default: "full"
+
+jobs:
+  # NOTE: update-codebase-map job which automatically commits back changes has been omitted 
+  # to satisfy constraints regarding git commits to GitHub. We expect manual codebase map rebuilds.
+
+  # ---------------------------------------------------------------
+  # the actual PR review
+  # ---------------------------------------------------------------
+  qa-review:
+    name: QA Review
+    runs-on: ubuntu-latest
+
+    if: |
+      github.event_name == 'pull_request' ||
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'issue_comment' &&
+        github.event.issue.pull_request != null &&
+        (
+          contains(github.event.comment.body, '/qa-review')
+        )
+      )
+
+    permissions:
+      pull-requests: write
+      contents: read
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r qa-agent/requirements.txt
+
+      - name: Resolve PR number and review mode
+        id: context
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "pr_number=${{ github.event.inputs.pr-number }}" >> $GITHUB_OUTPUT
+            echo "mode=${{ github.event.inputs.review-mode }}" >> $GITHUB_OUTPUT
+          elif [ "${{ github.event_name }}" = "issue_comment" ]; then
+            echo "pr_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+            # check if comment says /qa-review fast
+            if echo "${{ github.event.comment.body }}" | grep -q "fast"; then
+              echo "mode=fast" >> $GITHUB_OUTPUT
+            else
+              echo "mode=full" >> $GITHUB_OUTPUT
+            fi
+          else
+            echo "pr_number=${{ github.event.pull_request.number }}" >> $GITHUB_OUTPUT
+            echo "mode=full" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Run QA review agent
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PR_NUMBER: ${{ steps.context.outputs.pr_number }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          REVIEW_MODE: ${{ steps.context.outputs.mode }}
+        run: python qa-agent/scripts/qa_review.py
