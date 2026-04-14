@@ -80,17 +80,19 @@ jobs:
             exit 0
           fi
 
-          # Filter to the current (unversioned) docs only:
+          # Filter the sitemap URL list:
           # - drop auto-generated /tags/ pages (low-value for search indexing)
-          # - drop legacy versioned docs (/docs/1.0.0/, 2.0.0/, 3.0.0/) to keep
-          #   submissions focused on the preferred current doc paths
+          # - drop any versioned doc path like /docs/N.M.P/ so only the
+          #   current (unversioned) docs are submitted. Matching any numeric
+          #   major-minor-patch prefix keeps the rule correct when a future
+          #   v5/v6 archive lands alongside today's v1-v3 legacy versions.
           #
           # `|| true` makes the pipeline non-fatal under `set -euo pipefail`:
           # if every URL happens to be filtered out, grep returns 1, which
           # would otherwise abort the step before the empty-result check below.
           URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" \
             | grep -v '/tags/' \
-            | grep -vE '/docs/(1|2|3)\.[0-9]+\.[0-9]+/' \
+            | grep -vE '/docs/[0-9]+\.[0-9]+\.[0-9]+/' \
             | sort -u || true)
 
           if [ -z "$URLS" ]; then
@@ -100,6 +102,12 @@ jobs:
 
           URL_COUNT=$(printf '%s\n' "$URLS" | wc -l | tr -d '[:space:]')
           echo "Submitting $URL_COUNT docs URLs to IndexNow"
+
+          # Log a small sample so jq/curl failures below have enough context
+          # to debug from the log alone (otherwise the only artifact is a
+          # count, and the operator can't tell which URL broke the payload).
+          echo "First 5 URLs:"
+          printf '%s\n' "$URLS" | head -5 | sed 's/^/  /'
 
           # Explicit jq availability + payload-build checks: under
           # `set -euo pipefail` a missing/failing jq would abort the step
@@ -111,7 +119,7 @@ jobs:
           fi
 
           if ! JSON_URLS=$(printf '%s\n' "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))'); then
-            echo "::error::Failed to build the IndexNow JSON payload from the sitemap URL list. Inspect the URLs above for unexpected characters and rerun the workflow."
+            echo "::error::Failed to build the IndexNow JSON payload from the sitemap URL list. See the 'First 5 URLs' sample logged above for unexpected characters, then rerun the workflow."
             exit 1
           fi
 
