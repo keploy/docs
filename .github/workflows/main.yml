@@ -66,25 +66,35 @@ jobs:
 
           INDEXNOW_KEY_LOC="https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt"
 
+          # Unique temp file for the IndexNow response body; cleaned up on
+          # every exit path via trap so stale data can't leak into future
+          # reads and repeat runs of this step don't collide.
+          RESPONSE_FILE=$(mktemp)
+          trap 'rm -f "$RESPONSE_FILE"' EXIT
+
           # Use the just-built sitemap so URLs are guaranteed to exist on the
           # deployed site (the previous S3 sync step pushed it up moments ago).
           SITEMAP="build/docs/sitemap.xml"
           if [ ! -f "$SITEMAP" ]; then
-            echo "::warning::Sitemap not found at $SITEMAP, skipping IndexNow submission"
+            echo "::notice::Sitemap not found at $SITEMAP, skipping IndexNow submission"
             exit 0
           fi
 
           # Filter to the current (unversioned) docs only:
           # - drop auto-generated /tags/ pages (low-value for search indexing)
-          # - drop legacy versioned docs (/docs/1.0.0/, 2.0.0/, 3.0.0/) since
-          #   robots.txt disallows them and they're marked noindex anyway
+          # - drop legacy versioned docs (/docs/1.0.0/, 2.0.0/, 3.0.0/) to keep
+          #   submissions focused on the preferred current doc paths
+          #
+          # `|| true` makes the pipeline non-fatal under `set -euo pipefail`:
+          # if every URL happens to be filtered out, grep returns 1, which
+          # would otherwise abort the step before the empty-result check below.
           URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" \
             | grep -v '/tags/' \
             | grep -vE '/docs/(1|2|3)\.[0-9]+\.[0-9]+/' \
-            | sort -u)
+            | sort -u || true)
 
           if [ -z "$URLS" ]; then
-            echo "::warning::No current-version docs URLs parsed from $SITEMAP, skipping"
+            echo "::notice::No current-version docs URLs parsed from $SITEMAP, skipping"
             exit 0
           fi
 
@@ -96,7 +106,7 @@ jobs:
           # Capture curl exit status separately from HTTP code so network/DNS
           # failures are distinguishable from real non-2xx responses.
           CURL_EXIT=0
-          HTTP_CODE=$(curl -sS -o /tmp/indexnow-resp.txt -w "%{http_code}" \
+          HTTP_CODE=$(curl -sS -o "$RESPONSE_FILE" -w "%{http_code}" \
             -X POST "https://api.indexnow.org/indexnow" \
             -H "Content-Type: application/json" \
             -d "{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":${JSON_URLS}}") || CURL_EXIT=$?
@@ -115,7 +125,7 @@ jobs:
           fi
 
           echo "::error::IndexNow returned HTTP $HTTP_CODE. Response body:"
-          cat /tmp/indexnow-resp.txt 2>/dev/null || true
+          cat "$RESPONSE_FILE" 2>/dev/null || true
           echo ""
           echo "Troubleshooting:"
           echo "  1. Verify key file is publicly reachable: curl -sS $INDEXNOW_KEY_LOC"
