@@ -7,40 +7,28 @@
 
 # =============================================================================
 # ALLOW — AI search / answer engines
+# Legacy-version disallows are repeated inside this group because a bot that
+# matches a named User-agent group only reads rules from THAT group; it does
+# not fall through to `User-agent: *`. Without these lines, Perplexity/
+# Applebot/OAI-SearchBot/etc. would still crawl /docs/{1,2,3}.0.0/ despite
+# the global block further below.
 # =============================================================================
 
 User-agent: OAI-SearchBot
-Allow: /
-
 User-agent: ChatGPT-User
-Allow: /
-
 User-agent: Claude-SearchBot
-Allow: /
-
 User-agent: Claude-User
-Allow: /
-
 User-agent: PerplexityBot
-Allow: /
-
 User-agent: Perplexity-User
-Allow: /
-
 User-agent: Gemini-Deep-Research
-Allow: /
-
 User-agent: GoogleOther
-Allow: /
-
 User-agent: Applebot
-Allow: /
-
 User-agent: DuckAssistBot
-Allow: /
-
 User-agent: Amazonbot
 Allow: /
+Disallow: /docs/1.0.0/
+Disallow: /docs/2.0.0/
+Disallow: /docs/3.0.0/
 
 # =============================================================================
 # DISALLOW — Training-only crawlers
