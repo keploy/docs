@@ -26,6 +26,8 @@ User-agent: Applebot
 User-agent: DuckAssistBot
 User-agent: Amazonbot
 Allow: /
+Crawl-delay: 5
+Disallow: /cgi-bin/
 Disallow: /docs/1.0.0/
 Disallow: /docs/2.0.0/
 Disallow: /docs/3.0.0/
