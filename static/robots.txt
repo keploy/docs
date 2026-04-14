@@ -1,12 +1,108 @@
-# Block specific bot
+# Keploy docs robots.txt
+# Policy: allow AI search/answer engines, block training-only crawlers,
+# block Bytespider. Search bots drive visibility in ChatGPT, Claude,
+# Perplexity, Copilot, Gemini answers. Training bots feed future model
+# weights and provide nothing back.
+# Reference: Speedscale / Katalon / Testsigma split policy (2026 competitor audit)
+
+# =============================================================================
+# ALLOW — AI search / answer engines
+# =============================================================================
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Gemini-Deep-Research
+Allow: /
+
+User-agent: GoogleOther
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: DuckAssistBot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# =============================================================================
+# DISALLOW — Training-only crawlers
+# =============================================================================
+
+User-agent: GPTBot
+Disallow: /
+
+User-agent: ClaudeBot
+Disallow: /
+
+User-agent: anthropic-ai
+Disallow: /
+
+User-agent: CCBot
+Disallow: /
+
+User-agent: Google-Extended
+Disallow: /
+
+User-agent: Applebot-Extended
+Disallow: /
+
+User-agent: Meta-ExternalAgent
+Disallow: /
+
+User-agent: FacebookBot
+Disallow: /
+
+User-agent: cohere-ai
+Disallow: /
+
+User-agent: Diffbot
+Disallow: /
+
+User-agent: Omgilibot
+Disallow: /
+
+User-agent: ImagesiftBot
+Disallow: /
+
+# Always-block scraper
 User-agent: Bytespider
 Disallow: /
 
-# Default rules — apply to all crawlers including AI bots
+# =============================================================================
+# DEFAULT — Googlebot, Bingbot, and all other crawlers
+# =============================================================================
+
 User-agent: *
 Allow: /
 Crawl-delay: 5
 Disallow: /cgi-bin/
 
+# Block unmaintained legacy doc versions (already set via noindex + canonical,
+# belt-and-braces for crawlers that ignore those signals).
+Disallow: /docs/1.0.0/
+Disallow: /docs/2.0.0/
+Disallow: /docs/3.0.0/
+
+# =============================================================================
 # Sitemap
+# =============================================================================
+
 Sitemap: https://keploy.io/docs/sitemap.xml
