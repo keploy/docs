@@ -143,7 +143,9 @@ export default function DocItem(props) {
   const currentYear = new Date().getFullYear();
   const image = assets?.image ?? frontMatter?.image;
   const imageWithBaseUrl = useBaseUrl(image || "");
-  const socialImage = image ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl) : null;
+  const socialImage = image
+    ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl)
+    : null;
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
@@ -159,8 +161,7 @@ export default function DocItem(props) {
     permalink.endsWith("/docs/index") ||
     permalink.endsWith("/docs/");
   const isCategoryIndex =
-    frontMatter?.slug === "index" ||
-    /\/category\/|\/index\/?$/.test(permalink);
+    frontMatter?.slug === "index" || /\/category\/|\/index\/?$/.test(permalink);
   const suppressArticleSchema = isDocsRoot || isCategoryIndex;
 
   const articleSchema =
@@ -318,7 +319,10 @@ export default function DocItem(props) {
                   href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
                   aria-label="Slack"
                 >
-                  <span className="docs-inline-footer__slack" aria-hidden="true" />
+                  <span
+                    className="docs-inline-footer__slack"
+                    aria-hidden="true"
+                  />
                 </a>
               </div>
               <div className="docs-inline-footer__usecase">

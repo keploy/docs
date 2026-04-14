@@ -479,9 +479,7 @@ module.exports = {
               if (url.includes("/running-keploy/")) {
                 return {...item, priority: 0.8, changefreq: "weekly"};
               }
-              if (
-                url.includes("/concepts/reference/glossary/")
-              ) {
+              if (url.includes("/concepts/reference/glossary/")) {
                 // Glossary entries are numerous, long-tail, and often
                 // off-topic for core product queries. Keep them in the
                 // sitemap but mark them low priority.
@@ -510,10 +508,7 @@ module.exports = {
               ) {
                 return {...item, priority: 0.7, changefreq: "weekly"};
               }
-              if (
-                url.includes("/keploy-cloud/") ||
-                url.includes("/ci-cd/")
-              ) {
+              if (url.includes("/keploy-cloud/") || url.includes("/ci-cd/")) {
                 return {...item, priority: 0.6, changefreq: "monthly"};
               }
               return item;

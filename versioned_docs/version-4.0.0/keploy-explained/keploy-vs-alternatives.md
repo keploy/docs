@@ -20,16 +20,16 @@ The shared axis across every tool: **how do tests get created and how expensive 
 
 ## Feature comparison matrix
 
-| Capability | Keploy | Postman | Katalon | WireMock | Testcontainers |
-|---|---|---|---|---|---|
-| Test generation model | Auto from real traffic (eBPF capture) | Manual scripts | Manual + low-code | Manual + record/playback | Manual + real containers |
-| SDK / code changes required | None (kernel-level eBPF) | Newman CLI integration | Groovy scripts or record | Java SDK or standalone proxy | Java / Go / Node / Python SDK |
-| Mock generation | Automatic, per-dependency | Manual per endpoint | Built-in mock server | Central mock definitions | Real container instances |
-| Non-determinism handling | Built-in (timestamps, UUIDs, tokens) | Manual regex matchers | Test data profiles | Request matcher rules | Not applicable |
-| Secret masking at capture | Automatic (Bearer, Stripe, AWS, JWT, PCI) | Manual | Manual | Manual | Not applicable |
-| CI/CD integration | GitHub Actions, GitLab, Jenkins, CircleCI | Newman in any CI | Built-in | Any JVM CI | Any CI with Docker |
-| License | Apache 2.0 (OSS) | Freemium (commercial) | Commercial | Apache 2.0 | Apache 2.0 |
-| Kernel version requirement | Linux 5.5+ (CO-RE) | N/A | N/A | N/A | N/A |
+| Capability                  | Keploy                                    | Postman                | Katalon                  | WireMock                     | Testcontainers                |
+| --------------------------- | ----------------------------------------- | ---------------------- | ------------------------ | ---------------------------- | ----------------------------- |
+| Test generation model       | Auto from real traffic (eBPF capture)     | Manual scripts         | Manual + low-code        | Manual + record/playback     | Manual + real containers      |
+| SDK / code changes required | None (kernel-level eBPF)                  | Newman CLI integration | Groovy scripts or record | Java SDK or standalone proxy | Java / Go / Node / Python SDK |
+| Mock generation             | Automatic, per-dependency                 | Manual per endpoint    | Built-in mock server     | Central mock definitions     | Real container instances      |
+| Non-determinism handling    | Built-in (timestamps, UUIDs, tokens)      | Manual regex matchers  | Test data profiles       | Request matcher rules        | Not applicable                |
+| Secret masking at capture   | Automatic (Bearer, Stripe, AWS, JWT, PCI) | Manual                 | Manual                   | Manual                       | Not applicable                |
+| CI/CD integration           | GitHub Actions, GitLab, Jenkins, CircleCI | Newman in any CI       | Built-in                 | Any JVM CI                   | Any CI with Docker            |
+| License                     | Apache 2.0 (OSS)                          | Freemium (commercial)  | Commercial               | Apache 2.0                   | Apache 2.0                    |
+| Kernel version requirement  | Linux 5.5+ (CO-RE)                        | N/A                    | N/A                      | N/A                          | N/A                           |
 
 ## Approach differences
 
