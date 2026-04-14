@@ -457,7 +457,9 @@ module.exports = {
           //   0.8  → /docs/running-keploy/* (primary product docs)
           //   0.7  → /docs/concepts/*, /docs/keploy-explained/*
           //   0.6  → /docs/keploy-cloud/*, /docs/ci-cd/*
-          //   0.6  → /docs/faq, /docs/troubleshooting (reference-style)
+          //   0.6  → /docs/keploy-explained/*-faq/ (3 FAQ pages) and
+          //          /docs/keploy-explained/common-errors/ (troubleshooting)
+          //          — reference-style, lower crawl priority than core docs
           //   0.5  → /docs/concepts/reference/glossary/* (long-tail
           //          glossary; noindexed legacy versions excluded via
           //          netlify headers + robots.txt)
@@ -485,6 +487,23 @@ module.exports = {
                 // sitemap but mark them low priority.
                 return {...item, priority: 0.5, changefreq: "monthly"};
               }
+              // FAQ + troubleshooting match FIRST, because these pages live
+              // under /keploy-explained/ in the v4 docs (e.g.
+              // /docs/keploy-explained/integration-testing-faq/,
+              // /docs/keploy-explained/api-testing-faq/,
+              // /docs/keploy-explained/unit-testing-faq/,
+              // /docs/keploy-explained/common-errors/ — "common-errors" is
+              // the troubleshooting guide, labelled "Troubleshooting Guide"
+              // in the sidebar). Without matching first, they would be
+              // captured by the /keploy-explained/ rule below and get
+              // priority 0.7 instead of the intended 0.6.
+              if (
+                url.includes("-faq/") ||
+                url.includes("-faq") ||
+                url.includes("/common-errors")
+              ) {
+                return {...item, priority: 0.6, changefreq: "monthly"};
+              }
               if (
                 url.includes("/concepts/") ||
                 url.includes("/keploy-explained/")
@@ -494,12 +513,6 @@ module.exports = {
               if (
                 url.includes("/keploy-cloud/") ||
                 url.includes("/ci-cd/")
-              ) {
-                return {...item, priority: 0.6, changefreq: "monthly"};
-              }
-              if (
-                url.includes("/faq") ||
-                url.includes("/troubleshooting")
               ) {
                 return {...item, priority: 0.6, changefreq: "monthly"};
               }
