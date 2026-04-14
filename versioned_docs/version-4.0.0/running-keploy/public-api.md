@@ -29,6 +29,8 @@ The Keploy Public API gives you programmatic access to everything you can do in 
 
 **Base URL:** `https://api.keploy.io/client/v1`
 
+**API Docs:** [`https://api.keploy.io/client/v1/docs`](https://api.keploy.io/client/v1/docs)
+
 ---
 
 ## Authentication
