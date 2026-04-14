@@ -51,9 +51,14 @@ export default function DocBreadcrumbs() {
   const {siteConfig} = useDocusaurusContext();
   const {pathname} = useLocation();
 
-  if (!breadcrumbs) {
-    return null;
-  }
+  // LIVE-20 fix. Previously this component early-returned when
+  // useSidebarBreadcrumbs() returned null/undefined, which caused
+  // glossary and reference pages not in the sidebar config to ship
+  // with zero BreadcrumbList schema (audited 2026-04-14 on
+  // /docs/concepts/reference/glossary/idempotency/).
+  // Now we treat null/undefined as "no sidebar trail, emit Home + Docs
+  // schema anyway" so AI crawlers always get a hierarchy signal.
+  const sidebarTrail = Array.isArray(breadcrumbs) ? breadcrumbs : [];
 
   const toAbsoluteUrl = (baseUrl, url) => {
     if (!url) {
@@ -89,9 +94,9 @@ export default function DocBreadcrumbs() {
     }
   }
 
-  if (breadcrumbs.length > 0) {
-    breadcrumbs.forEach((crumb, index) => {
-      const isLast = index === breadcrumbs.length - 1;
+  if (sidebarTrail.length > 0) {
+    sidebarTrail.forEach((crumb, index) => {
+      const isLast = index === sidebarTrail.length - 1;
       const href =
         crumb.type === "category" && crumb.linkUnlisted
           ? undefined
@@ -130,35 +135,37 @@ export default function DocBreadcrumbs() {
           </script>
         </Head>
       )}
-      <nav
-        className={clsx(
-          ThemeClassNames.docs.docBreadcrumbs,
-          styles.breadcrumbsContainer
-        )}
-        aria-label={translate({
-          id: "theme.docs.breadcrumbs.navAriaLabel",
-          message: "Breadcrumbs",
-          description: "The ARIA label for the breadcrumbs",
-        })}
-      >
-        <ul className="breadcrumbs">
-          {homePageRoute && <HomeBreadcrumbItem />}
-          {breadcrumbs.map((item, idx) => {
-            const isLast = idx === breadcrumbs.length - 1;
-            const href =
-              item.type === "category" && item.linkUnlisted
-                ? undefined
-                : item.href;
-            return (
-              <BreadcrumbsItem key={idx} active={isLast}>
-                <BreadcrumbsItemLink href={href} isLast={isLast}>
-                  {item.label}
-                </BreadcrumbsItemLink>
-              </BreadcrumbsItem>
-            );
+      {sidebarTrail.length > 0 && (
+        <nav
+          className={clsx(
+            ThemeClassNames.docs.docBreadcrumbs,
+            styles.breadcrumbsContainer
+          )}
+          aria-label={translate({
+            id: "theme.docs.breadcrumbs.navAriaLabel",
+            message: "Breadcrumbs",
+            description: "The ARIA label for the breadcrumbs",
           })}
-        </ul>
-      </nav>
+        >
+          <ul className="breadcrumbs">
+            {homePageRoute && <HomeBreadcrumbItem />}
+            {sidebarTrail.map((item, idx) => {
+              const isLast = idx === sidebarTrail.length - 1;
+              const href =
+                item.type === "category" && item.linkUnlisted
+                  ? undefined
+                  : item.href;
+              return (
+                <BreadcrumbsItem key={idx} active={isLast}>
+                  <BreadcrumbsItemLink href={href} isLast={isLast}>
+                    {item.label}
+                  </BreadcrumbsItemLink>
+                </BreadcrumbsItem>
+              );
+            })}
+          </ul>
+        </nav>
+      )}
     </>
   );
 }
