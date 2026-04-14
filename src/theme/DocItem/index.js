@@ -147,8 +147,24 @@ export default function DocItem(props) {
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
+  // LIVE-13: suppress Article / BlogPosting / APIReference schema on the
+  // /docs/ root and any category index pages. Article schema on a hub
+  // page is a type mismatch because a hub does not have a single author,
+  // single publication date, or single headline — it is an index of
+  // content. Hub pages emit only the normal DocBreadcrumbs JSON-LD.
+  const permalink = metadata?.permalink || "";
+  const isDocsRoot =
+    permalink === "/docs/" ||
+    permalink === "/docs" ||
+    permalink.endsWith("/docs/index") ||
+    permalink.endsWith("/docs/");
+  const isCategoryIndex =
+    frontMatter?.slug === "index" ||
+    /\/category\/|\/index\/?$/.test(permalink);
+  const suppressArticleSchema = isDocsRoot || isCategoryIndex;
+
   const articleSchema =
-    pageUrl && title
+    pageUrl && title && !suppressArticleSchema
       ? {
           "@context": "https://schema.org",
           "@type": schemaType,
@@ -186,6 +202,20 @@ export default function DocItem(props) {
         {description && <meta name="description" content={description} />}
         {normalizedMetaKeywords && (
           <meta name="keywords" content={normalizedMetaKeywords} />
+        )}
+        {/* LIVE-12: per-page og:title and og:description override the
+            docusaurus.config.js site-level defaults, which previously
+            emitted "Keploy Documentation" as og:title on every docs
+            page regardless of content. Social card previews now reflect
+            the actual page title (e.g. "What is Idempotency in REST
+            APIs? Complete Guide"). */}
+        <meta property="og:title" content={title} />
+        {description && (
+          <meta property="og:description" content={description} />
+        )}
+        <meta name="twitter:title" content={title} />
+        {description && (
+          <meta name="twitter:description" content={description} />
         )}
         {socialImage && <meta property="og:image" content={socialImage} />}
         {socialImage && <meta name="twitter:image" content={socialImage} />}

@@ -449,20 +449,58 @@ module.exports = {
           changefreq: "weekly",
           priority: 0.5,
           filename: "sitemap.xml",
+          // Task 35: differentiate docs sitemap priorities by content type
+          // so search engines spend crawl budget proportional to how
+          // canonical each page is. Priority buckets:
+          //   1.0  → /docs/ root (highest — primary entry point)
+          //   0.9  → /docs/quickstart/* (highest-intent user flow)
+          //   0.8  → /docs/running-keploy/* (primary product docs)
+          //   0.7  → /docs/concepts/*, /docs/keploy-explained/*
+          //   0.6  → /docs/keploy-cloud/*, /docs/ci-cd/*
+          //   0.6  → /docs/faq, /docs/troubleshooting (reference-style)
+          //   0.5  → /docs/concepts/reference/glossary/* (long-tail
+          //          glossary; noindexed legacy versions excluded via
+          //          netlify headers + robots.txt)
           createSitemapItems: async (params) => {
             const {defaultCreateSitemapItems, ...rest} = params;
             const items = await defaultCreateSitemapItems(rest);
             return items.map((item) => {
-              if (item.url.includes("/quickstart/")) {
+              const url = item.url;
+              // The /docs/ home page is the highest-priority entry point
+              // for the whole docs subtree.
+              if (url.endsWith("/docs/") || url.endsWith("/docs")) {
+                return {...item, priority: 1.0, changefreq: "weekly"};
+              }
+              if (url.includes("/quickstart/")) {
+                return {...item, priority: 0.9, changefreq: "weekly"};
+              }
+              if (url.includes("/running-keploy/")) {
                 return {...item, priority: 0.8, changefreq: "weekly"};
               }
               if (
-                item.url.includes("/concepts/") ||
-                item.url.includes("/keploy-explained/")
+                url.includes("/concepts/reference/glossary/")
+              ) {
+                // Glossary entries are numerous, long-tail, and often
+                // off-topic for core product queries. Keep them in the
+                // sitemap but mark them low priority.
+                return {...item, priority: 0.5, changefreq: "monthly"};
+              }
+              if (
+                url.includes("/concepts/") ||
+                url.includes("/keploy-explained/")
               ) {
                 return {...item, priority: 0.7, changefreq: "weekly"};
               }
-              if (item.url.includes("/keploy-cloud/")) {
+              if (
+                url.includes("/keploy-cloud/") ||
+                url.includes("/ci-cd/")
+              ) {
+                return {...item, priority: 0.6, changefreq: "monthly"};
+              }
+              if (
+                url.includes("/faq") ||
+                url.includes("/troubleshooting")
+              ) {
                 return {...item, priority: 0.6, changefreq: "monthly"};
               }
               return item;
