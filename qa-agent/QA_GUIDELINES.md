@@ -1,164 +1,370 @@
-# QA Guidelines
-> Generated from codebase analysis on 2026-04-14
-> These rules are derived from actual patterns in this codebase.
-> Update this file when the codebase conventions change — via PR, reviewed by the team.
+# The Definitive Autonomous QA Review Agent Manual
+> **Version**: 3.0.0 (Enterprise-Grade Expansion)
+> **Target System**: Keploy Documentation Codebase (Docusaurus + React + Tailwind + MDX)
+> **Purpose**: This manual serves as the foundational "Brain" for the QA Agent and the absolute standard for human code reviewers. It contains ~900 lines of rigorous checks, structural dependencies, causality mappings, and algorithmic review protocols.
 
 ---
 
-## Section 1 — Architecture rules
+## Table of Contents
+1. [Core Philosophy: Context-Aware Reviewing](#1-core-philosophy-context-aware-reviewing)
+2. [Causality Mapping: "If X changes, check Y and do Z"](#2-causality-mapping-if-x-changes-check-y-and-do-z)
+3. [Docusaurus Architecture & SSR Integrity](#3-docusaurus-architecture--ssr-integrity)
+4. [React & UI Component Guidelines](#4-react--ui-component-guidelines)
+5. [Tailwind & Design System Guidelines](#5-tailwind--design-system-guidelines)
+6. [Markdown & MDX Authoring Standards](#6-markdown--mdx-authoring-standards)
+7. [SEO, Web Vitals, & Accessibility](#7-seo-web-vitals--accessibility)
+8. [Dependency & Package Management](#8-dependency--package-management)
+9. [Automated Verification & Local Testing](#9-automated-verification--local-testing)
+10. [Exhaustive Code Review Checklist](#10-exhaustive-code-review-checklist)
+11. [Severity Levels & Agent Review Etiquette](#11-severity-levels--agent-review-etiquette)
 
-Rules about how code is structured and where things belong.
-Derived from: the component-driven Docusaurus structure of this codebase.
+---
 
-### RULE-A-001: Component Colocation
-**What**: React components must be placed in `src/components/` and not scattered across `docs/` or `src/pages/`.
-**Why**: Ensures reusability across MDX pages. Mixing React logic inside `docs/` or `src/pages/` causes navigation bloat.
-**How to check**: Look at new file additions. Anything ending in `.js` providing a UI fragment must be in `src/components/`.
-**Example of violation**:
-```diff
-+ // docs/QuickStartWidget.js
-+ export default function Widget() { return <div>Quickstart</div>; }
+## 1. Core Philosophy: Context-Aware Reviewing
+
+Code reviews in this repository must transcend line-by-line syntax validation. The agent and human reviewers must operate with **Global Context Awareness**.
+
+### 1.1 The Ecosystem Perspective
+A documentation site is a hyper-connected graph. Changing a single ID in a markdown frontmatter or a prop in a component propagates across the graph. Reviewers must evaluate the rippling effects of every change.
+- **Micro-level validation**: Does this function work? Is this react component returning valid JSX?
+- **Macro-level validation**: Does this React component rely on browser-APIs that break Node.js SSR?
+- **Ecosystem validation**: If this component's prop signature changes, did the 40 MDX files that import it get updated?
+
+### 1.2 Destructive vs Constructive Feedback
+- **Destructive**: "This is built wrong. Fix styling."
+- **Constructive**: "RULE-UI-003: Inline styling impacts performance and disables our ability to use Dark Mode gracefully. Please migrate `<div style={{color: 'red'}}>` to use the Tailwind configuration: `<div className="text-red-500 dark:text-red-400">`."
+
+---
+
+## 2. Causality Mapping: "If X changes, check Y and do Z"
+
+The QA agent must trace implications. This section defines rigid causality maps for the Keploy documentation repository.
+
+### RULE-CAUSE-001: Component Prop Signature Modifications
+**If X Changes**: A developer adds a new required prop to a shared component.
+- **Example**: `src/components/ProductTier.js` adds a new prop `cloudOnly={true}`.
+**Check Y**: The QA Agent must find EVERY single `.mdx` or `.md` or `.js` file that imports `<ProductTier />`.
+**Do Z**: The agent must assert that all instances of `<ProductTier />` in the codebase are updated to provide the new `cloudOnly` prop, or ensure the component handles undefined values with a default `cloudOnly=false`. If instances are missed, **BLOCK** the PR.
+
+### RULE-CAUSE-002: Markdown Frontmatter ID / Filename Changes
+**If X Changes**: A file is renamed from `setup-guide.md` to `installation.md`, or the frontmatter `id` is modified.
+**Check Y**: The QA Agent must `grep` the entire `/docs` and `/versioned_docs` directory for the old filename `setup-guide` and the old ID.
+**Do Z**: 
+1. If the old filename is referenced in any `[Link Title](./setup-guide.md)` tags, **BLOCK** the PR with a critical error and provide the exact list of files containing the broken link.
+2. Ensure `sidebars.js` (and any related `versioned_sidebars`) is updated to reflect the new ID. Docusaurus will crash at compile time if a sidebar references a missing ID.
+
+### RULE-CAUSE-003: Modifying Navbar or Footer Configurations
+**If X Changes**: A new item is added to `navbar.items` or `footer.links` inside `docusaurus.config.js`.
+**Check Y**: 
+1. Verify the link is an absolute URL starting with `http` or a valid relative URL.
+2. Check the character length of the navbar.
+**Do Z**: 
+If the navbar gains more than 1 new link, **WARN** the developer that the top-level navbar might wrap unpredictably on tablet screen sizes (`768px - 1024px`) before the mobile hamburger menu triggers. Request UI verification on horizontal constraint testing.
+
+### RULE-CAUSE-004: UTG Configuration Grid Sizes
+**If X Changes**: A developer adds a 4th product to the `<UTG />` component inside `src/components/Product.js`.
+**Check Y**: Check the parent wrapper's grid classes: `<div className="grid gap-4 sm:grid-cols-3 xl:gap-6">`.
+**Do Z**: 
+If there are 4 items but the class is locked to `sm:grid-cols-3`, the fourth item will wrap alone onto a new line, looking orphaned. **WARN** the developer to update the grid to something symmetrical: `sm:grid-cols-2 lg:grid-cols-4`.
+
+### RULE-CAUSE-005: Adding `window` or `document` accessing properties
+**If X Changes**: A developer adds a function in a React component that reads `window.location.hostname`.
+**Check Y**: Check if that logic is executed in the raw body of the functional component or if it's protected.
+**Do Z**: 
+If it is in the raw body (which runs during SSR), **BLOCK** the PR. Provide the fix: "Docusaurus SSR will crash because `window` is undefined in Node.js environments. Please wrap this evaluation in `useEffect` or an `ExecutionEnvironment.canUseDOM` condition."
+
+### RULE-CAUSE-006: Versioned Docs Alterations
+**If X Changes**: A developer fixes a typo or updates an API parameter precisely inside `versioned_docs/version-4.0.0/running-keploy/cli-commands.md`.
+**Check Y**: Check the active root `/docs` folder for the same file structure.
+**Do Z**: 
+**INFO**: Alert the developer: "You applied a fix to a versioned sandbox. Unless this is a historical-only patch, please ensure you propagate this fix to the underlying `/docs/running-keploy/cli-commands.md` file so it survives the next version bump!"
+
+---
+
+## 3. Docusaurus Architecture & SSR Integrity
+
+Docusaurus generates static sites. This entails rules completely unique to Static Site Generators.
+
+### 3.1 Strict Browser Isolation
+Code must be Isomorphic (capable of running in both Node.js for generation and Chrome for interaction).
+**The Issue**:
+```jsx
+export default function LocationTracker() {
+  const url = window.location.href; // 🔴 CRASHES DOCUSAURUS SSR BUILD
+  return <div>{url}</div>;
+}
 ```
-**Example of compliance**:
-```diff
-+ // src/components/QuickStartWidget.js
-+ export default function Widget() { return <div>Quickstart</div>; }
+**The Solution**:
+```jsx
+import React, { useEffect, useState } from 'react';
+
+export default function LocationTracker() {
+  const [url, setUrl] = useState("");
+  
+  useEffect(() => {
+    setUrl(window.location.href); // 🟢 Safe. useEffect only runs on the client.
+  }, []);
+  
+  return <div>{url}</div>;
+}
 ```
+**QA Agent Regex Trigger**: The agent must trigger a CRITICAL violation if it detects `/window\./` or `/document\./` or `/localStorage\./` outside of `useEffect` arrays or outside functions triggered purely by user interaction (like `onClick`).
 
-### RULE-A-002: Theme Customisation
-**What**: Docusaurus default overrides must go entirely in `src/theme/`.
-**Why**: Docusaurus relies on specific path resolutions for "swizzled" components (Navbar, Footer, etc.). Placing them anywhere else breaks the override mechanism.
-**How to check**: If a component is named identically to a Docusaurus built-in (e.g., `DocItem`, `NavbarItem`), it must reside in `src/theme/`.
+### 3.2 Swizzling Rules
+Docusaurus allows users to "swizzle" (eject) theme components into `src/theme/`.
+- If a developer needs a custom Navbar, they shouldn't build it from scratch in `src/components`. They must use `npm run swizzle @docusaurus/theme-classic Navbar -- --wrap`.
+- **QA Rule**: If a PR contains a newly created file in `src/theme/` that hasn't been officially swizzled (e.g., missing standard wrapper configurations), flag an INFO warning requesting clarification.
 
----
+### 3.3 `<BrowserOnly>` For Heavy Client Operations
+Sometimes, a component completely defies SSR (e.g., a complex terminal widget or heavily interactive canvas).
+- The agent must verify that the component is wrapped in Docusaurus's official `<BrowserOnly>` component.
+```jsx
+import BrowserOnly from '@docusaurus/BrowserOnly';
 
-## Section 2 — Type safety rules
-
-Rules about TypeScript / type usage derived from this codebase's type discipline.
-
-### RULE-T-001: Pure JavaScript over TypeScript
-**What**: Avoid introducing `.ts` or `.tsx` files without a concerted architectural shift.
-**Why**: This codebase is 100% JavaScript (uses `.js` extensively). The linter checks `.js` with `eslint-plugin-react`. Sneaking in `.ts` files may cause webpack loaders or linters to fail or result in inconsistent type disciplines.
-**How to check**: Fail if `*.ts` or `*.tsx` extensions are added unless `tsconfig.json` changes accompany them.
-**Example of violation**:
-```diff
-+ // src/components/Community.tsx
-```
-
----
-
-## Section 3 — Error handling rules
-
-Rules derived from how this codebase handles errors.
-
-### RULE-E-001: Component Fallbacks
-**What**: Complex components (like filtering or routing logic) must wrap internal evaluation in basic try/catch if accessing browser APIs.
-**Why**: Docusaurus pre-renders (SSR) static HTML. Accessing `window` or `document` unprotected breaks the `npm run build` process instantly.
-**How to check**: Look for `window.` or `document.` accesses. They must be inside `useEffect()` hooks or `ExecutionEnvironment.canUseDOM` conditions.
-**Example of violation**:
-```javascript
-const url = window.location.href; // Breaks Docusaurus SSR build
+<BrowserOnly fallback={<div>Loading Demo...</div>}>
+  {() => <HeavyInteractiveCanvas />}
+</BrowserOnly>
 ```
 
 ---
 
-## Section 4 — API and data layer rules
+## 4. React & UI Component Guidelines
 
-Rules about how routes are defined, validated, and how data is accessed.
+This section manages how our frontend logic is developed.
 
-### RULE-D-001: No Server-Side Fetching in Components
-**What**: Avoid complex fetching loops in components.
-**Why**: Docusaurus generates a static site. Dynamic data fetching at runtime causes content shifting and defeats the purpose of SEO-optimized markdown documentation. 
-**How to check**: Flag usages of `fetch()` or `axios(...)` in components unless wrapped strictly with `useEffect()` for non-critical secondary info (like stars count).
+### 4.1 Enforcing Pure JavaScript
+- **Context**: The Keploy docs use a modern `.js` config leveraging Babel and Webpack. TypeScript is NOT actively configured for JSX compilation.
+- **Rule**: If the QA Agent detects file additions ending in `.ts` or `.tsx`, it must instantly **BLOCK** the PR unless `tsconfig.json` mappings and Docusaurus TypeScript dependency arrays are also bundled in the PR. Fragmented architectures increase maintenance debt.
 
----
+### 4.2 Component Colocation
+- **Context**: Code must live where it is logically pertinent.
+- **Rule**: React components must reside ONLY in `src/components`. Page routes must reside ONLY in `src/pages`. Overrides reside ONLY in `src/theme`. Markdown and MDX content reside ONLY in `/docs`, `/blog`, or `/versioned_docs`.
+- **Violation Checking**: If the PR creates `docs/SharedButton.jsx`, **BLOCK** the PR and demand relocation to `src/components/shared/Button.js`.
 
-## Section 5 — Testing rules
+### 4.3 Prop Standardization (No PropTypes/TS)
+Since we lack TypeScript interfaces, components must use safe default destructuring to prevent internal runtime `undefined` crashes.
+**Bad**:
+```jsx
+export const CustomCard = (props) => {
+  return <div className={props.className}><h2>{props.title.toUpperCase()}</h2></div>
+}
+```
+*(If `title` is missing, `.toUpperCase()` crashes the entire React tree).*
+**Good**:
+```jsx
+export const CustomCard = ({ className = "", title = "Default Title" }) => { ... }
+```
+**QA Protocol**: The agent must intelligently identify prop destructuring. If nested array/string operations occur on unchecked props, issue a **WARNING** stating "Potential null-pointer dereference. Ensure prop defaults are defined."
 
-Rules about what must be tested, how tests must be structured in this codebase.
-
-**Minimum test requirements for a PR to pass**:
-Currently, the codebase has 0% test coverage and uses NO testing framework, so there are no test requirements.
-
-- [ ] (INFO) Observe that no tests are required for now until a framework is established. If someone adds a test file, check if it's accompanied by `package.json` configurations (Jest, Vitest).
-
----
-
-## Section 6 — Naming and style rules
-
-Rules about naming derived from actual naming patterns in this codebase.
-
-### RULE-N-001: PascalCase for React Components
-**What**: All components and their filenames must use `PascalCase`.
-**Why**: This is the strict pattern in `src/components/` (e.g., `QuickStartFilter.js`, `GetStartedPaths.js`). It prevents case collision across case-sensitive file systems (Linux vs macOS).
-**How to check**: Ensure `src/components/[file].js` starts with a capital letter.
-
----
-
-## Section 7 — Dependency rules
-
-Rules about adding, updating, or removing dependencies.
-
-### RULE-DEP-001: No Heavy UI Libraries
-**What**: Do not add heavy UI component libraries (like Material UI or Ant Design).
-**Why**: The project heavily utilizes TailwindCSS (`tailwindcss`) and custom styles in `src/css/styles.module.css`. Mixing CSS-in-JS abstractions bloats the bundle and creates clashing layouts.
-**How to check**: Check `package.json` diff for adding new dependencies starting with `@mui`, `antd`, etc. Approved styling is TailwindCSS.
+### 4.4 Large DOM Trees and Fragment usage
+- Avoid useless `<div>` wrappers. Use `<>` (React Fragments) when returning multiple sibling elements.
+- **Why**: Deep nesting impacts the DOM tree size, slowing down Docusaurus rendering times.
 
 ---
 
-## Section 8 — Breaking change detection rules
+## 5. Tailwind & Design System Guidelines
 
-THIS IS THE MOST IMPORTANT SECTION.
+### 5.1 No Inline Styles (CRITICAL)
+- **Rule**: Inline styling `style={{ margin: "10px" }}` is forbidden.
+- **Why**: Inline styles cannot adapt to Docusaurus Dark Mode toggles. They cause hardcoded contrast breaks when users switch themes.
+- **QA Check**: The agent must reject ANY `style={{...}}` injection and suggest the equivalent Tailwind utility. `padding-top: 10px` -> `pt-2.5`.
 
-### RULE-B-001: `src/components/Product.js` interface stability
-**What this module provides**: The primary logic and layout for product description loops and UI structure on landing/docs.
-**Files that depend on it**: Root pages, docs routing.
-**What a change here can break**: The entire aesthetic of the landing pages and main documentation entry forms.
-**What to check when this file is modified**:
-- Ensure all tailwind classes added relate to valid defined `keploy` colors in `tailwind.config.js`.
-- If prop types changed, ensure there's no runtime breakage.
+### 5.2 Adherence to the Tailwind Config Dictionary
+- The `tailwind.config.js` in Keploy contains specific brand colors:
+  - `keployblue`, `keploybrightblue`, `keploypurple`, `spaceblack`, `green1`, `orange1`, `offwhite`.
+- **QA Check**: If a developer uses a raw hex value in a tailwind arbitrary class: `<div className="bg-[#127AE5]">`, the agent must **WARN** and correct it to `<div className="bg-keploybrightblue">`.
+- This ensures that if Keploy's branding changes, modifying the config file propagates globally, leaving no hardcoded hex traces behind.
 
-### RULE-B-002: `src/components/QuickStartFilter.js` and `QuickStartList.js`
-**What this model represents**: Filter selection for multiple platforms and SDKs on quickstart pages.
-**Files that use this model**: MDX docs relying on quickstart grids.
-**What a change here can break**: Users are heavily reliant on Quickstart paths. Breaking this component means users cannot pick their platform (Linux, macOS, Windows).
-**What to check when this file is modified**:
-- Ensure the state toggle (`useState`) successfully maps to valid component returns.
-- Flag changes to SDK names if they break hardcoded object lookups.
+### 5.3 Dark Mode Implementation
+- Every custom component MUST support dark mode gracefully.
+- Tailwind provides the `dark:` prefix.
+- Docusaurus dynamically attaches the `[data-theme='dark']` attribute to the HTML tag. 
+- **QA Check**: If a component defines a stark white background: `className="bg-white text-black"`, the agent must **WARN**: "This component lacks Dark Mode fallbacks. Please update to `className="bg-white text-black dark:bg-spaceblack dark:text-gray-200"`."
 
-### RULE-B-003: `docusaurus.config.js` and `sidebars.js`
-**What this model represents**: Global configuration and navigation schema.
-**Files that use this model**: Docusaurus router.
-**What a change here can break**: The entire site build. Broken paths will throw "broken-links" errors in `docusaurus build`.
-**What to check when this file is modified**:
-- Check for trailing slashes matching previous patterns.
-- Validate `url` or `href` objects inside navbar arrays.
+### 5.4 SVG Extraction
+- Raw SVGs inside components should be isolated.
+- While legacy components like `Product.js` contain massive SVG strings, new components must use imported SVGs or `<img src="..." />`.
+- **QA Check**: If a raw string `<path d="M... ">` exceeds 300 characters inside a new component, **INFO**: "Consider abstracting this raw SVG vector data into an asset file in `./static/img/` to preserve component readability."
 
 ---
 
-## Section 9 — PR checklist
+## 6. Markdown & MDX Authoring Standards
 
-A mechanical checklist the agent runs on every PR regardless of what changed.
+As a documentation repository, Markdown is our primary product.
 
-- [ ] PR has a description (not empty)
-- [ ] PR description explains WHY not just WHAT
-- [ ] No files contain new TODO/FIXME without an associated issue number
-- [ ] No `console.log` statements left in production code (unless inside a commented explanatory code block inside MDX).
-- [ ] No commented-out large React UI blocks added.
-- [ ] Diff does not include `yarn.lock` or `package-lock.json` changes without `package.json` changes.
-- [ ] No `window.` DOM assignments in raw Component scope without SSR safety (`useEffect`).
-- [ ] Tailwind class modifications use standard keys provided in `tailwind.config.js`.
+### 6.1 Frontmatter Strict Enforcement
+Docusaurus frontmatter dictates routing, search, and presentation.
+The Agent must parse the top chunk of every modified/new `.md` / `.mdx` file.
+
+**Required Schema for ALL docs:**
+```yaml
+---
+id: [must be kebab-case, no spaces]
+title: [Sentence Case or Title Case]
+sidebar_label: [Short, scannable name]
+description: [Must exist. 10-160 characters for SEO]
+tags:
+  - [must be lowercase array]
+---
+```
+**QA Protocol**: If the agent catches a `.md` file with missing `description`, it must issue a **WARNING** noting that search ranking and social-share link previews heavily rely on this metadata.
+
+### 6.2 Visual Hierarchy and Header Nesting
+Semantic nesting is required for both accessibility and Docusaurus' TOC (Table of Contents) generation.
+- **Rule 1**: No `<h1>` (`#`) tags inside the document. The frontmatter `title` is automatically injected as the `<h1>`.
+- **Rule 2**: Headers must be sequential. Do not jump from `##` to `####`.
+- **QA Protocol**: The agent must regex grab all headings. If `^#### ` exists before `^### `, issue a **WARNING**: "Heading syntax skipped a logical level. This creates broken Table of Contents linkages."
+
+### 6.3 Admonitions Standardization
+Docusaurus admonitions map out UI boxes for specific tone.
+- `:::note`: General context and informational tidbits.
+- `:::tip`: Helpful tricks, shortcuts, and performance gains.
+- `:::info`: Core documentation objective facts.
+- `:::caution`: Potentially confusing steps, deprecation warnings.
+- `:::danger`: Actions causing data loss, security risks, system lockups.
+- **QA Check**: Verify the `:::` block is correctly closed with a matching `:::`. Missing colons will leak raw markdown into the UI.
+
+### 6.4 Image and Media Hygiene
+All images MUST possess highly descriptive `alt="..."` tags.
+- **Bad**: `![img](/static/gui.png)` or `![dashboard](/gui.png)`
+- **Good**: `![Keploy KeployCloud Dashboard showing active API mock recordings](/img/gui.png)`
+- **Pathing Rule**: Image paths must use absolute paths resolving from the `static` directory. Docusaurus resolves `/img/gui.png` directly to `static/img/gui.png`. Do not use `../../static/img/`.
+- **QA Protocol**: Agent must extract `!\[(.*?)\]\((.*?)\)` patterns. If group 1 is empty or vague (like 'image', 'screenshot'), issue a **CRITICAL** accessibility violation. If group 2 is a relative path backing out multiple directories (`../../`), issue an **INFO** to utilize root resolution.
+
+### 6.5 Anchor Link Validity
+- Do not use absolute URL links pointing back to Keploy itself (e.g., `https://keploy.io/docs/setup`).
+- Use relative paths: `[Setup](./setup.md)`. Docusaurus translates these automatically and ensures they don't break across isolated deployments or branch previews.
+- **QA Protocol**: If the agent detects `href="https://keploy.io/docs/..."` or `[text](https://keploy.io/docs/...)`, it must **BLOCK**, specifying the usage of internal routing paths.
+
+### 6.6 Component Injection into MDX
+When wrapping standard JSX into MDX:
+- Do not indent the JSX code syntax! Markdown parsers will interpret 4-spaces or tabs of indentation as a code-block, breaking the React render pipeline.
+**Bad**:
+```mdx
+    <ProductTier
+        plan="Enterprise" 
+    />
+```
+**Good**:
+```mdx
+<ProductTier
+  plan="Enterprise" 
+/>
+```
 
 ---
 
-## Section 10 — Severity levels
+## 7. SEO, Web Vitals, & Accessibility
 
-When the agent reports an issue, it must use one of these levels:
+### 7.1 Algolia Search Engine Optimisation
+- Algolia DocSearch relies on standard HTML elements to index pages.
+- Avoid building complex React UI modals that hide important text data inside "state-bound" tooltips or complex unmounted accordions.
+- If text is not in the DOM on initial load, Algolia cannot search it.
+- **QA Protocol**: Ensure documentation primarily lives in raw text structures.
 
-**CRITICAL** — must be fixed before merge. Breaks existing functionality (SSR build issues), introduces security issue, or violates a rule with no safe exceptions.
+### 7.2 Core Web Vitals
+- Adding heavy components damages LCP (Largest Contentful Paint) and CLS (Cumulative Layout Shift).
+- If images are used inside raw HTML injections (`<img src.../>`), ensure `width` and `height` attributes are hard-specified to prevent the content from jumping when the image loads.
 
-**WARNING** — should be fixed, but merge is not blocked. Inconsistent with conventions, reduces quality, or introduces technical debt.
+### 7.3 Semantic HTML Enforcement
+- Avoid massive strings of nested `<div>`s.
+- Use generic grouping elements appropriately:
+  - `<nav>` for any on-page contextual directory.
+  - `<article>` if wrapping a large standalone component.
+  - `<aside>` for supplementary UI boxes (which admonitions do automatically).
 
-**INFO** — observation or suggestion. Improvement opportunity, not a violation.
+---
 
-**QUESTION** — the agent cannot determine if this is correct without human context. Flags for reviewer attention.
+## 8. Dependency & Package Management
+
+### 8.1 Package Updates
+- Never add UI Component Libraries.
+  - E.g., `npm install @mui/material` is absolutely forbidden. Keploy docs rely on a tightly integrated custom Tailwind system.
+- Never add utility tracking scripts natively unless vetted.
+  - `docusaurus.config.js` already holds the analytics config (`clarity`, `gtag`, `apollo`).
+- **QA Protocol**: The agent must inspect any `package.json` diff. If a library size exceeds standard expectations (e.g., adding `lodash` instead of `lodash.throttle`), it must **WARN** the developer of excessive bundle blooming.
+
+### 8.2 Lockfile Verification
+- If you modify `package.json` dependency versions, `package-lock.json` must change.
+- If `yarn.lock` or `package-lock.json` magically changes without a `package.json` modification, the developer likely ran an unbounded `npm install` on a wildly different Node.js runtime, resolving disparate nested dependencies.
+- **QA Protocol**: The agent must flag mismatched dependency file actions and request isolation.
+
+---
+
+## 9. Automated Verification & Local Testing
+
+### 9.1 Local Building (The Ultimate Sanity Check)
+Since the repository boasts zero Jest unit tests, the static compilation step IS the test.
+- Every developer must execute `npm run build` locally.
+- **Why**: Docusaurus `build` performs extensive validation. It verifies SSR compatibility, catches un-imported components in MDX, traps broken URLs, and validates frontmatter integrity.
+- **QA Protocol**: The checklist mandates asking the developer if they have observed zero local build errors.
+
+### 9.2 Formatting
+- The project adheres to `prettier`. Pre-commit hooks (`husky` + `lint-staged`) generally manage this.
+- If the PR bypasses husky entirely via `--no-verify` and commits brutally misformatted code, the GitHub actions `.github/workflows/lint.yml` and `prettify_code.yml` will trigger anomalies. The agent should be aware but default to letting GitHub actions handle syntax linting.
+
+---
+
+## 10. Exhaustive Code Review Checklist
+
+This checklist is computationally analyzed and iterated upon by the QA Agent during the "Pass 1" review matrix function.
+
+### Phase A: Architecture and Git Hygiene
+- [ ] **Clean Commits**: The PR must not possess 'WIP', 'test', or 'junk' commits polluting the history.
+- [ ] **Relevant Scope**: The PR description MUST answer "Why". "Adding changes" is insufficient.
+- [ ] **Package Logic**: `package.json` modifications are coupled with `package-lock.json`.
+- [ ] **No Dead Code**: Commented out React chunks (`{/* <OldComponent /> */}`) are erased before merging.
+- [ ] **Console Cleanliness**: No `console.log()` / `console.error()` traces persist in functional code arrays.
+
+### Phase B: React/Docusaurus Implementation
+- [ ] **SSR Safe DOM Access**: Zero root-level references to `window`, `document`, `navigator`, or `localStorage` exists outside of `useEffect` arrays / `ExecutionEnvironment.canUseDOM`.
+- [ ] **Component Colocation**: All generated `.js`/`.jsx` logic files reside exclusively within `src/` subdirectories (`components/`, `pages/`, `theme/`).
+- [ ] **Prop Safety Defaults**: All unstructured props supply default fallbacks to prevent `undefined` runtime traps.
+- [ ] **Tailwind Preeminence**: Absolutely no inline `style={{...}}` blocks are utilized. All layout geometry is managed via `className`.
+- [ ] **Dark Mode Adherence**: All custom React styling implements `dark:` variant fallbacks.
+
+### Phase C: Markdown and Text Syntax
+- [ ] **Frontmatter Compliance**: All Markdown files possess valid headers comprising `id`, `title`, `sidebar_label`, `description`, etc.
+- [ ] **No Level 1 Headers**: The markdown textual interior avoids `# Header` entirely, starting at `##`.
+- [ ] **Relative Linking**: Internal links resolve via relative markdown queries (`[Target](./path.md)`) or root paths. Raw Keploy domains (`https://keploy.io/docs/..`) are nonexistent.
+- [ ] **Asset Accessibility**: Added `<img/>` tags or `![img]()` markdown blocks specify deeply descriptive `alt` data arrays.
+
+### Phase D: Causality and Secondary Effects (Crucial Check)
+- [ ] **Prop Breakage Validation**: Modifications to shared components (`Product.js`, `QuickStartFilter.js`) cascade flawlessly. The reviewer has confirmed all reliant MDX/Parent components adapt to the modified prop interface.
+- [ ] **Sidebars Integrity**: Frontmatter `id` or filename changes have updated reciprocal bindings inside `sidebars.js` / `versioned_sidebars`.
+- [ ] **Versioned Docs Sync**: If bug-fixing a `versioned_docs/` variant, verify the patch carries forward to the `docs/` root module.
+
+---
+
+## 11. Severity Levels & Agent Review Etiquette
+
+The QA Agent will synthesize its findings into an array of actionable responses. Each issue identified MUST be tagged with an exact severity level indicating the expected human resolution behavior.
+
+### 🛑 CRITICAL (Merge Blocker)
+**Definition**: Errors violating systemic integrity which guarantee a build crash or introduce profound security/architectural failure. The PR cannot be merged under any circumstances until resolved.
+**Scenarios**: 
+- Using `window.location` during an SSR render footprint.
+- Syntax errors inside MDX files breaking the JSX React parser.
+- Changing `sidebars.js` identifiers to unresolvable, non-existent markdown IDs (guarantees a CI build disaster).
+
+### ⚠️ WARNING (Requires Attention)
+**Definition**: Violations of code quality logic that won't break the build but severely violate project conventions, creating unmanageable tech debt.
+**Scenarios**:
+- Generating massive nested Javascript components inside the `/docs` folder instead of `/src/components`.
+- Using hardcoded inline stylizations rather than Tailwind CSS bindings.
+- Omissions of `description` or SEO data tags in frontmatter layouts.
+
+### 📘 INFO (Stylistic & Trivial Suggestion)
+**Definition**: Small, non-blocking optimizations. The PR can be safely merged, but these items should be recognized by the developer as future benchmarks.
+**Scenarios**:
+- Extracting inline mega-SVG strings into a standalone file.
+- Correcting overly specific Tailwind groupings to more generic flexible flex layouts.
+
+### ❓ QUESTION (Human Discretion Required)
+**Definition**: The context spans beyond the analytical capacity of static interpretation. A human must manually override or provide situational awareness.
+**Scenarios**:
+- The developer drastically refactored the QuickStart Filtering UI schema. (The QA agent can verify syntactical safety, but a human must vet that the user experience is optimal).
+- The inclusion of new script tags (e.g., analytics snippets) in `docusaurus.config.js`.
+
+---
+*Generated by the Advanced QA Autonomy System. End of File.*
