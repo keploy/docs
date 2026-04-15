@@ -143,12 +143,36 @@ export default function DocItem(props) {
   const currentYear = new Date().getFullYear();
   const image = assets?.image ?? frontMatter?.image;
   const imageWithBaseUrl = useBaseUrl(image || "");
-  const socialImage = image ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl) : null;
+  const socialImage = image
+    ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl)
+    : null;
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
+  // Suppress Article / BlogPosting / APIReference schema on the /docs/
+  // root, versioned docs roots like /docs/4.0.0/, and any category
+  // index pages. Article schema on a hub page is a type mismatch
+  // because a hub does not have a single author, a single publication
+  // date, or a single headline — it is an index of content. Hub pages
+  // emit only the normal DocBreadcrumbs JSON-LD.
+  const permalink = metadata?.permalink || "";
+  // Versioned root pattern: /docs/<version>/ or /docs/<version> where
+  // <version> starts with a digit. Covers current and archived
+  // versions listed in docusaurus.config.js onlyIncludeVersions.
+  const isVersionedDocsRoot =
+    /^\/docs\/\d[\w.-]*(?:\/index)?\/?$/.test(permalink);
+  const isDocsRoot =
+    permalink === "/docs/" ||
+    permalink === "/docs" ||
+    permalink.endsWith("/docs/index") ||
+    permalink.endsWith("/docs/") ||
+    isVersionedDocsRoot;
+  const isCategoryIndex =
+    frontMatter?.slug === "index" || /\/category\/|\/index\/?$/.test(permalink);
+  const suppressArticleSchema = isDocsRoot || isCategoryIndex;
+
   const articleSchema =
-    pageUrl && title
+    pageUrl && title && !suppressArticleSchema
       ? {
           "@context": "https://schema.org",
           "@type": schemaType,
@@ -186,6 +210,19 @@ export default function DocItem(props) {
         {description && <meta name="description" content={description} />}
         {normalizedMetaKeywords && (
           <meta name="keywords" content={normalizedMetaKeywords} />
+        )}
+        {/* Per-page og:title and og:description override the
+            docusaurus.config.js site-level defaults, which would
+            otherwise emit the same og:title on every docs page
+            regardless of content. Social card previews now reflect
+            the actual page title. */}
+        <meta property="og:title" content={title} />
+        {description && (
+          <meta property="og:description" content={description} />
+        )}
+        <meta name="twitter:title" content={title} />
+        {description && (
+          <meta name="twitter:description" content={description} />
         )}
         {socialImage && <meta property="og:image" content={socialImage} />}
         {socialImage && <meta name="twitter:image" content={socialImage} />}
@@ -288,7 +325,10 @@ export default function DocItem(props) {
                   href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
                   aria-label="Slack"
                 >
-                  <span className="docs-inline-footer__slack" aria-hidden="true" />
+                  <span
+                    className="docs-inline-footer__slack"
+                    aria-hidden="true"
+                  />
                 </a>
               </div>
               <div className="docs-inline-footer__usecase">
