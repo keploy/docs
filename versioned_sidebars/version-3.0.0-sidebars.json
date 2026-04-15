@@ -72,7 +72,8 @@
                 "quickstart/samples-redis",
                 "quickstart/samples-mux",
                 "quickstart/samples-mysql",
-                "quickstart/samples-fasthttp"
+                "quickstart/samples-fasthttp",
+                "quickstart/samples-s3-keploy"
               ]
             },
             {
