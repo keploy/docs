@@ -58,10 +58,10 @@ Correct alternative:
 <span className="rounded-full bg-purple-100 px-2 py-1 text-purple-700 dark:bg-purple-900/30 dark:text-purple-200" />
 ```
 
-Or, for doc-wide theming:
+Or, for doc-wide theming, prefer a class that references the theme variable:
 
 ```jsx
-<span style={{ color: "var(--ifm-color-primary)" }} />
+<span className="text-[var(--ifm-color-primary)]" />
 ```
 
 Seen in:

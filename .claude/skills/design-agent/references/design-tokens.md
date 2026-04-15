@@ -1,6 +1,6 @@
 # Keploy Docs design tokens
 
-This repo does not have a single token source of truth. Core theme tokens live in [`src/css/custom.css`](/Users/amaan-bhati/Documents/docs/src/css/custom.css), custom Tailwind extensions live in [`tailwind.config.js`](/Users/amaan-bhati/Documents/docs/tailwind.config.js), and newer components also use Tailwind's default palette directly. Sections marked `[inferred]` come from repeated class usage rather than explicit config.
+This repo does not have a single token source of truth. Core theme tokens live in [`src/css/custom.css`](../../../../src/css/custom.css), custom Tailwind extensions live in [`tailwind.config.js`](../../../../tailwind.config.js), and newer components also use Tailwind's default palette directly. Sections marked `[inferred]` come from repeated class usage rather than explicit config.
 
 ## Stack
 
@@ -40,6 +40,8 @@ This repo does not have a single token source of truth. Core theme tokens live i
 | `--ifm-color-emphasis-300` | `#505050` | inherited | `src/css/custom.css` |
 | `--ifm-color-input-background` | `#ffffff` | inherited | `src/css/custom.css` |
 | `--collapse-button-bg-color-dark` | inherited | `transparent` | `src/css/custom.css` |
+
+Note: `--ifm-background-color` is the base theme token, but it is not always the final rendered docs-page surface. `src/css/custom.css` also hard-overrides `.docs-wrapper` and `main` to `#fff` in light mode and `#18181b` in dark mode, so treat the token and the rendered page background as related but distinct values.
 
 ### Tailwind custom colors
 
@@ -163,11 +165,11 @@ No custom spacing scale is defined in `tailwind.config.js`. The repo uses Tailwi
 | Token/class | Value | Source |
 | --- | --- | --- |
 | `--ifm-code-border-radius` | `6px` | `src/css/custom.css` |
-| `rounded-md` | Tailwind default `0.375rem` `[inferred]` | `shared/Button.js`, newer buttons |
-| `rounded-lg` | Tailwind default `0.5rem` `[inferred]` | legacy cards, player shell |
-| `rounded-xl` | Tailwind default `0.75rem` `[inferred]` | newer CTAs, nested cards |
-| `rounded-2xl` | Tailwind default `1rem` `[inferred]` | primary modern card surfaces |
-| `rounded-full` | full pill radius `[inferred]` | badges and pills |
+| `rounded-md` | Tailwind default `0.375rem` `[inferred]` | `src/components/shared/Button.js` |
+| `rounded-lg` | Tailwind default `0.5rem` `[inferred]` | `src/components/QuickStart.js`, `src/components/responsive-player/ResponsivePlayer.js` |
+| `rounded-xl` | Tailwind default `0.75rem` `[inferred]` | `src/components/GlossaryCard.js`, `src/components/Community.js` |
+| `rounded-2xl` | Tailwind default `1rem` `[inferred]` | `src/components/GetStartedPaths.js`, `src/components/QuickStartTabs.js`, `src/components/WhatIsKeploy.js` |
+| `rounded-full` | full pill radius `[inferred]` | `src/components/TestingCapabilities.js`, `src/components/Community.js` |
 | image radius in prose | `0.5rem` | `tailwind.config.js` typography extension |
 
 ## Shadows
