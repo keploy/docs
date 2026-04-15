@@ -2,6 +2,8 @@
 
 These are patterns already present in the repo that a design-review agent should flag in PRs instead of normalizing as "okay".
 
+These examples are primarily copy-forward risks. Their presence in existing legacy files does not automatically mean every touched file should be rewritten unless the PR is already changing that surface in a meaningful way.
+
 ## 1. Inline styles for color, spacing, borders, or layout
 
 What it looks like:
@@ -222,6 +224,11 @@ Seen in:
 - `src/components/Intro.js`
 - `src/components/Product.js`
 - `src/components/UtgMethods.js`
+
+Review note:
+
+- Prefer not to spread this pattern into new work.
+- If a PR only makes a small content edit inside one of these legacy sections, do not require a full card-system rewrite unless that mismatch is central to the review.
 
 ## 8. `focus:outline-none` without a clear replacement
 

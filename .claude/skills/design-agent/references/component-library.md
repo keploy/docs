@@ -7,6 +7,8 @@ This repo has two layers of reusable UI:
 
 Files marked as legacy are still reusable, but they do not match the newer homepage design language as closely.
 
+Use this file as a reuse guide, not a requirement to retrofit older sections wholesale. When a PR adds a new docs landing section, prefer the newer homepage patterns; when it edits a legacy helper, preserve its role unless the change is explicitly a redesign.
+
 ## App components
 
 ### `Button`

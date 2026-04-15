@@ -118,6 +118,9 @@ This file contains only design-system rules and review guidance that are specifi
 - [inferred] Older sections still use `rounded-lg`, `shadow-lg`, and simpler card markup; reviewers should avoid spreading that older pattern into new work unless the PR is editing the legacy section in place.
   Evidence: `QuickStart.js`, `SDKs.js`, `Intro.js`, `Product.js`, `UtgMethods.js`, `GSoC.js`, `Hacktoberfest.js`, `GitTogether.js`.
 
+- [inferred] When a PR only makes a small change inside one of those legacy sections, reviewers should prefer targeted consistency fixes over requiring a full visual rewrite.
+  Evidence: the repo currently keeps both the older helper-card style and the newer homepage-card style side by side.
+
 ## Docs-specific component inventory and usage rules
 
 ### Theme overrides

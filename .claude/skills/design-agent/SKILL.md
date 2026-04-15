@@ -10,6 +10,7 @@ Load commons guidelines first, then apply these repo-specific overrides. In case
 
 When to use
 Use this skill for PRs or commits in `keploy/docs` that touch Docusaurus pages, MDX helpers, docs theme overrides, sidebar or breadcrumb behavior, docs layout, `src/css/custom.css`, `tailwind.config.js`, or any reusable component under `src/components` or `src/theme`.
+Evaluate the current file contents in the PR diff before repeating feedback from earlier review rounds; do not assume an older comment still applies if the relevant text or implementation has already changed.
 
 What to review
 Review only docs-specific overrides beyond the commons:
@@ -40,6 +41,7 @@ Flag regressions in keyboard focus visibility, missing accessible names on icon-
 
 7. Docs-specific anti-patterns
 Flag repo-local issues already present here and likely to spread: inline visual styles in React helpers, duplicated chip systems with local color maps, arbitrary-value classes for visual tokens, invalid JSX/SVG attributes, and mixing legacy `rounded-lg shadow-lg` cards into newer docs homepage sections without intent.
+When a PR edits an older helper component, prefer small consistency fixes over opportunistic visual rewrites unless the PR is explicitly modernizing that surface.
 
 How to deliver feedback
 When reviewing a PR, structure feedback as:

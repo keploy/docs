@@ -1,6 +1,7 @@
 # Keploy Docs design tokens
 
 This repo does not have a single token source of truth. Core theme tokens live in [`src/css/custom.css`](../../../../src/css/custom.css), custom Tailwind extensions live in [`tailwind.config.js`](../../../../tailwind.config.js), and newer components also use Tailwind's default palette directly. Sections marked `[inferred]` come from repeated class usage rather than explicit config.
+For review, prefer values that are explicitly defined in config or CSS variables over inferred design intent from class names alone.
 
 ## Stack
 
@@ -161,6 +162,8 @@ No custom spacing scale is defined in `tailwind.config.js`. The repo uses Tailwi
 | `md:p-10` | `2.5rem` | homepage shell padding |
 
 ## Radii
+
+These radius values should be treated as the effective utilities and styles used in this repo today, not as a broader promise that every radius utility is backed by a custom token layer.
 
 | Token/class | Value | Source |
 | --- | --- | --- |
