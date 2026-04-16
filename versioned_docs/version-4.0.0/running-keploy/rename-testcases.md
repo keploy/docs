@@ -54,4 +54,14 @@ curl --request POST \
 
 ## Rename Test-Sets
 
-To rename your test set, you can manually override the default name from `test-set-0` to a `kTest-0` in the `keploy` folder.
+To rename a Test-Set, rename its folder directly inside the `keploy/` directory. For example, rename `test-set-0` to `checkout-flow`. Keploy discovers Test-Sets by listing every subdirectory of `keploy/`, so any name works.
+
+The only names to avoid are the reserved folders that Keploy itself writes to: `reports`, `testReports`, and `schema`.
+
+Once renamed, pass the new name to `--test-sets` (or `-t`) when you run `keploy test`:
+
+```bash
+keploy test -c "<your app cmd>" -t "checkout-flow"
+```
+
+Report files generated before the rename keep the old Test-Set name in their filenames under `keploy/reports/test-run-*/`. Runs after the rename use the new name.
