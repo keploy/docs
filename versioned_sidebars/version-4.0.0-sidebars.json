@@ -135,6 +135,15 @@
               "items": [
                 "quickstart/samples-csharp"
               ]
+            },
+            {
+              "type": "category",
+              "label": "Rust",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/rust-actix-postgres"
+              ]
             }
           ]
         },
