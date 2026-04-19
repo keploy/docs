@@ -15,14 +15,33 @@
           ]
         },
         {
-          "type": "doc",
+          "type": "category",
           "label": "Installation",
-          "id": "server/installation"
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "doc",
+              "label": "Local",
+              "id": "server/install"
+            },
+            {
+              "type": "doc",
+              "label": "Enterprise",
+              "id": "keploy-cloud/cloud-installation"
+            },
+            {
+              "type": "doc",
+              "label": "Kubernetes",
+              "id": "keploy-cloud/kubernetes"
+            }
+          ]
         },
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
+        "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
@@ -170,18 +189,47 @@
       "items": [
         "running-keploy/api-test-generator",
         "running-keploy/generate-api-tests-using-ai",
+        "running-keploy/agent-test-generation",
         "running-keploy/api-testing-chrome-extension",
-        "running-keploy/review-and-improve-ai-generated-tests",
+        "running-keploy/api-testing-local-agent",
+        "running-keploy/api-testing-auth-setup",
+        "running-keploy/api-testing-schema-coverage",
         "running-keploy/share-tests",
         "running-keploy/self-healing-ai-api-tests",
         "running-keploy/run-ai-generated-api-tests",
         "running-keploy/api-testing-cicd",
         "running-keploy/api-testing-webhook",
+        "running-keploy/api-testing-run-report",
+        "running-keploy/api-testing-functions",
+        "running-keploy/api-testing-variables",
+        "running-keploy/api-testing-add-suite",
+        "running-keploy/api-testing-edit-suites",
+        "running-keploy/api-testing-buggy-suites",
+        "running-keploy/api-testing-custom-assertions",
+        "running-keploy/api-testing-assertion-tree",
+        "running-keploy/api-testing-bulk-assertions",
+        "running-keploy/api-testing-edit-assertions",
+        "running-keploy/api-testing-sharing-reports",
+        "running-keploy/api-testing-mark-unbuggy",
+        "running-keploy/api-testing-running-selective",
+        "running-keploy/api-testing-adding-labels",
+        "running-keploy/review-and-improve-ai-generated-tests",
+        "running-keploy/api-testing-suite-settings",
+        "running-keploy/api-testing-filter-suites",
+        "running-keploy/api-testing-generation-history",
         {
           "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/api-testing-faq"
         }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "API Reference",
+      "collapsed": false,
+      "items": [
+        "running-keploy/public-api"
       ]
     },
     {

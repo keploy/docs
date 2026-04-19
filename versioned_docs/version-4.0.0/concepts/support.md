@@ -2,6 +2,7 @@
 id: support
 title: Contact Us
 sidebar_label: Contact Us
+description: "Get help with Keploy — contact the team via email, join the Slack community, or open a GitHub discussion."
 tags:
   - support
   - contact

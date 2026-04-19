@@ -8,3 +8,12 @@
 
 ## Note: if you are looking for Redirects
 # they have been moved to /static/_redirects to make it more manageable - swyx
+
+# Security headers for all pages
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"

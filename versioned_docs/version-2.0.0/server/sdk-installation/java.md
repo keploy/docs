@@ -5,7 +5,7 @@ sidebar_label: Java
 tags:
   - java
   - coverage
-keyword:
+keywords:
   - MongoDB
   - Jacoco
   - Maven

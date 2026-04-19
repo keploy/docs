@@ -28,6 +28,7 @@ module.exports = {
             color: "var(--ifm-color)",
             h1: {
               color: "var(--ifm-color)",
+              lineHeight: "1.5",
             },
             h2: {
               color: "var(--ifm-color)",
@@ -95,6 +96,13 @@ module.exports = {
               "&:hover": {
                 color: "#C95919",
               },
+            },
+          },
+        },
+        lg: {
+          css: {
+            h1: {
+              lineHeight: "1.2",
             },
           },
         },

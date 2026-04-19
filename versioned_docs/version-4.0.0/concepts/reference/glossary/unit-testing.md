@@ -1,8 +1,8 @@
 ---
 id: unit-testing
-title: Using Keploy to leaverage unit testcases
+title: "Unit Testing: Complete Developer Guide"
 sidebar_label: Unit Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: "Master unit testing with this complete guide covering benefits, frameworks, best practices, and how to write effective unit tests for reliable software."
 tags:
   - explanation
   - Glossary

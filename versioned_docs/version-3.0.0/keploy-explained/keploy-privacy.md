@@ -9,7 +9,7 @@ tags:
   - security
 ---
 
-# 🛡️ Privacy at Keploy
+# Privacy at Keploy
 
 Your code is yours—always.  
 Keploy is built with privacy as a core value. Here’s how we keep your code and data safe:
