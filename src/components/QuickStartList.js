@@ -314,7 +314,7 @@ const quickstarts = [
     server: "Docker",
     description:
       "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with Ruby (Sinatra) and PostgreSQL.",
-    link: "/docs/quickstart/samples-ruby/#using-docker-compose-",
+    link: "/docs/4.0.0/quickstart/samples-ruby/#using-docker-compose-",
   },
 
   {
@@ -323,7 +323,7 @@ const quickstarts = [
     server: "Local",
     description:
       "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with Ruby (Sinatra) and PostgreSQL.",
-    link: "/docs/quickstart/samples-ruby/#running-app-locally-on-linuxwsl-",
+    link: "/docs/4.0.0/quickstart/samples-ruby/#running-app-locally-on-linuxwsl-",
   },
 
   //Javascript list

@@ -19,7 +19,6 @@
           "label": "Installation",
           "id": "server/installation"
         },
-        "keploy-cloud/cloud-installation",
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",

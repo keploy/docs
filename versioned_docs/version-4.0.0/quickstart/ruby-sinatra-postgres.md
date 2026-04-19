@@ -51,7 +51,7 @@ We will be using Docker compose to run the application as well as PostgreSQL on 
 ### Clone the Application 🧪
 
 ```bash
-git clone https://github.com/Nsanjayboruds/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
+git clone https://github.com/keploy/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
 ```
 
 ### Lights, Camera, Record! 🎥
@@ -156,7 +156,7 @@ We'll be running our sample application locally on Linux/WSL. There are 2 ways y
 ### Clone the Application 🧪
 
 ```bash
-git clone https://github.com/Nsanjayboruds/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
+git clone https://github.com/keploy/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
 ```
 
 ### Install Dependencies
