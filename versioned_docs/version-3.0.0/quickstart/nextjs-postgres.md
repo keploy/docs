@@ -6,7 +6,7 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - NextJs
   - Postgres
-keyword:
+keywords:
   - NextJS
   - Postgres
   - API Test generator
@@ -30,7 +30,7 @@ import ProductTier from '@site/src/components/ProductTier';
 Now that we have bun installed, we will se tup our application.
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/nextjs-postgres
 
 ## Download node modules
 npm install

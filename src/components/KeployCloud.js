@@ -3,28 +3,31 @@ import React from "react";
 export const KeployCloud = () => {
   return (
     <section
-      id="cloud"
-      className="mb-8 mt-12 flex max-w-7xl items-center space-x-6 rounded-lg bg-[color:var(--ifm-card-background-color)] p-6 shadow-md"
+      id="support"
+      className="my-10 w-full border-y border-white/10 py-4"
     >
-      <div className="prose prose-orange max-w-3xl text-left">
-        <h1 className="text-left">Questions? 🤔💭</h1>
-        <p className="my-3 block text-left">
-          For any support please{" "}
-          <a
-            href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
-            className="text-orange-500 underline hover:text-orange-400"
-          >
-            join keploy slack community
-          </a>{" "}
-          to get help from fellow users, or{" "}
-          <a
-            href="https://calendar.app.google/cXVaj6hbMUjvmrnt9"
-            className="text-orange-500 underline hover:text-orange-400"
-          >
-            book a demo
-          </a>{" "}
-          if you're exploring enterprise use cases.
-        </p>
+      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 text-sm text-gray-400">
+        <span className="opacity-70">Need help?</span>
+
+        <a
+          href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-orange-500 hover:text-orange-400"
+        >
+          Join Slack
+        </a>
+
+        <span className="opacity-30">|</span>
+
+        <a
+          href="https://calendar.app.google/cXVaj6hbMUjvmrnt9"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-semibold text-orange-500 hover:text-orange-400"
+        >
+          Book a Demo
+        </a>
       </div>
     </section>
   );

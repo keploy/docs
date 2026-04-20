@@ -2,6 +2,7 @@
 id: debugger-guide
 title: Debugger Guide
 sidebar_label: Debugger Guide
+description: "Learn how to debug Keploy using the VS Code integrated debugger with launch.json configurations for record and test modes."
 tags:
   - explanation
   - dev guide

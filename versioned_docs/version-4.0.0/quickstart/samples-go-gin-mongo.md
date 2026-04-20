@@ -11,7 +11,7 @@ tags:
   - tutorial
   - mongodb
   - gin-framework
-keyword:
+keywords:
   - Gin Framework
   - MongoDB Mock
   - Golang

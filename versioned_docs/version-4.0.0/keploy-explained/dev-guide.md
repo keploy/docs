@@ -2,6 +2,7 @@
 id: contribution-guide
 title: Contribution Guide
 sidebar_label: Contribution Guide
+description: "Step-by-step guide to setting up Keploy locally for development — clone the repo, build from source, and contribute code."
 tags:
   - explanation
   - dev guide
@@ -85,7 +86,7 @@ Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
 
 #### Build Docker Image:
 
-Note: Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
+Note: Run the below command inside the keploy repository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .

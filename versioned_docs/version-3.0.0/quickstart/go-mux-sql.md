@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - mux-framework
-keyword:
+keywords:
   - Mux Framework
   - Postgres
   - SQL
@@ -24,7 +24,7 @@ import InstallReminder from '@site/src/components/InstallReminder';
 import ProductTier from '@site/src/components/ProductTier';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Using Docker Compose
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 

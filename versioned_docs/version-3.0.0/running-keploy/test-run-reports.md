@@ -18,7 +18,7 @@ keywords:
   - OpenAI
 ---
 
-# 🧪 Keploy Test Run Reports
+# Keploy Test Run Reports
 
 Easily track and manage the outcome of your API test runs with detailed reporting on test executions, results, and creators.
 

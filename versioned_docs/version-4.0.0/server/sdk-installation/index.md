@@ -1,10 +1,10 @@
 ---
 id: index
 title: SDK Installation Guide for Server
-
+description: "Install the Keploy server SDK to generate combined code coverage reports from Keploy tests and your existing unit tests."
 tags:
   - coverage
-keyword:
+keywords:
   - coverage
   - unit tests
   - code coverage

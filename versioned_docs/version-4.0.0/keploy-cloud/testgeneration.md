@@ -2,6 +2,7 @@
 id: auto-test-generation
 title: Auto Test Generation
 sidebar_label: Test Generation
+description: "Automatically generate API test cases with Keploy Enterprise using your OpenAPI schema file — no manual scripting required."
 tags:
   - Auto Test Generation
   - OpenAPI

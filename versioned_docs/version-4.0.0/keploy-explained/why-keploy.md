@@ -2,6 +2,7 @@
 id: why-keploy
 title: Why Keploy?
 sidebar_label: Why Keploy?
+description: "Compare Keploy with traditional test-scripting and record-replay tools — see how Keploy automates test generation with zero code changes."
 tags:
   - explanation
   - why keploy

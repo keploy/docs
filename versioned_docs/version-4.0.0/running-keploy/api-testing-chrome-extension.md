@@ -15,7 +15,7 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
 
 ## What the API Test Recorder does
 
-**Browser-side traffic capture** — Sniffs XHR / fetch calls as you click around.
+**Browser-side traffic capture** — Captures full-stack XHR/fetch traffic, including headers, cookies, and authentication context, ensuring the recorded flows are ready for authenticated replay.
 
 **Instant replay formats** — Export the captured calls as cURL, JSON, or native Keploy YAML.
 
@@ -43,7 +43,7 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
 4. Watch the live counters:
    - **Captured calls** – total XHR/fetch requests intercepted.
    - **Complete req/resp** – pairs where both request _and_ response were fully captured.
-5. If the count of req/res is lower than expected, hit **Debug** to repair missing pairs.  
+5. Keploy automatically synchronizes asynchronous background requests. Use the **Debug** feature to repair any pending request/response pairs before generating your suite.  
    Example :
 
 ```

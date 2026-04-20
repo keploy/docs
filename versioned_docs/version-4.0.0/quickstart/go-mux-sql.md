@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - mux-framework
-keyword:
+keywords:
   - Mux Framework
   - Postgres
   - SQL

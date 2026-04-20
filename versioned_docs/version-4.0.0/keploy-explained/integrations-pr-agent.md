@@ -1,6 +1,6 @@
 ---
 id: integrations-pr-agent
-title: Integrations & Connected Tools
+title: SCM Integrations — PR Agent
 sidebar_label: Integrations & Connected Tools
 description: See which platforms Keploy integrates with for automated PR testing.
 tags:
@@ -9,7 +9,7 @@ tags:
   - PR agent
 ---
 
-# 🔗 Integrations with SCM
+# 🔗 SCM Integrations — PR Agent
 
 Keploy’s PR Agent helps automate code reviews, testing, and feedback—right where you work.
 

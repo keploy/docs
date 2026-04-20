@@ -2,6 +2,7 @@
 id: deduplication
 title: Remove Duplicates Tests
 sidebar_label: Remove Duplicate Tests
+description: "Remove duplicate test cases with Keploy Enterprise deduplication — save time and resources by eliminating redundant tests."
 tags:
   - explanation
   - feature guide

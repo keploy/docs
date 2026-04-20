@@ -1,8 +1,8 @@
 ---
 id: code-coverage
-title: How to increase Code Coverage with Keploy
+title: "Code Coverage: What It Is & Why It Matters"
 sidebar_label: Code Coverage
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: "Understand code coverage metrics like line, branch, and condition coverage. Learn why code coverage matters and how to improve it with practical strategies."
 tags:
   - explanation
   - Glossary

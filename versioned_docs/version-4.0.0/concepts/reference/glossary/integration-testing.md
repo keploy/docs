@@ -1,8 +1,8 @@
 ---
 id: integration-testing
-title: Integration Testing With Keploy
+title: "Integration Testing: Types, Tools & Best Practices"
 sidebar_label: Integration Testing
-description: Learn how to perform integration testing using Keploy.
+description: "Learn what integration testing is, explore top-down vs bottom-up approaches, and discover tools and best practices for testing module interactions."
 tags:
   - explanation
 keywords:

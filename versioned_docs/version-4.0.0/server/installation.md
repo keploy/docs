@@ -1,7 +1,9 @@
 ---
 id: install
-title: Keploy Installation
-sidebar_label: Installation
+title: Keploy Local Installation
+sidebar_label: Local
+hide_title: true
+description: "Install Keploy locally on Linux using eBPF — record API calls, generate test cases, and replay tests with one command."
 tags:
   - hello-world
   - linux

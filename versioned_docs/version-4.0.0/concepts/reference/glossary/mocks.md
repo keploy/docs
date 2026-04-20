@@ -1,8 +1,8 @@
 ---
 id: mocks
-title: How to perform Data Mocking using AI
+title: "What are Mocks in Testing? Mocks vs Stubs vs Fakes"
 sidebar_label: Mocks
-description: Mocks or Data mocks are fake data that is used to simulate real data in a controlled environment.
+description: "Learn what mocks are in software testing, how they differ from stubs and fakes, and when to use data mocking for faster, more reliable test suites."
 tags:
   - explanation
   - Glossary

@@ -2,6 +2,7 @@
 id: no-code-contribution
 title: No-Code Contribution
 label: Hacktoberfest
+description: "Non-code ways to contribute to Keploy — write blog posts, improve documentation, create tutorials, and help with translations."
 ---
 
 # Non-Code Contributions to Keploy

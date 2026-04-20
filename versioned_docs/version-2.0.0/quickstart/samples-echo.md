@@ -10,7 +10,7 @@ tags:
   - examples
   - tutorial
   - postgres
-keyword:
+keywords:
   - Echo Framework
   - Postgres
   - SQL

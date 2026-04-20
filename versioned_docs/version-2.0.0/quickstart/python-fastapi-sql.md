@@ -13,7 +13,7 @@ tags:
   - fast-api-framework
   - postgres
   - pytest
-keyword:
+keywords:
   - FastAPI Framework
   - Postgres
   - SQL

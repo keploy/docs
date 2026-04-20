@@ -2,6 +2,7 @@
 id: installation
 title: Linux Installation
 sidebar_label: Linux
+description: "Install the Keploy server on Linux — one-click install script and manual installation steps for Ubuntu and other distros."
 tags:
   - hello-world
   - linux

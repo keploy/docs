@@ -2,6 +2,7 @@
 id: mock-registry
 title: Mock Registry
 sidebar_label: Mock Registry
+description: "Upload Keploy mock files to cloud storage with Mock Registry — keep your Git repository lightweight and manageable."
 tags:
   - explanation
   - feature guide

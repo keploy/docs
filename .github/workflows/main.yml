@@ -21,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
@@ -52,4 +52,104 @@ jobs:
           invalidation: /docs*
           delete-removed: true
           cache: "public, max-age:86400"
-          private: true    
+          private: true
+
+      - name: Submit docs URLs to IndexNow
+        env:
+          INDEXNOW_HOST: keploy.io
+          # The default key is the one served from keploy.io/<key>.txt by the
+          # landing repo; override via a repo secret only if rotating.
+          INDEXNOW_KEY: ${{ secrets.INDEXNOW_KEY || 'feeeddbe661a4686ba6e4d5cb663b2cb' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+
+          INDEXNOW_KEY_LOC="https://${INDEXNOW_HOST}/${INDEXNOW_KEY}.txt"
+
+          # Unique temp file for the IndexNow response body; cleaned up on
+          # every exit path via trap so stale data can't leak into future
+          # reads and repeat runs of this step don't collide.
+          RESPONSE_FILE=$(mktemp)
+          trap 'rm -f "$RESPONSE_FILE"' EXIT
+
+          # Use the just-built sitemap so URLs are guaranteed to exist on the
+          # deployed site (the previous S3 sync step pushed it up moments ago).
+          SITEMAP="build/docs/sitemap.xml"
+          if [ ! -f "$SITEMAP" ]; then
+            echo "::notice::Sitemap not found at $SITEMAP, skipping IndexNow submission"
+            exit 0
+          fi
+
+          # Filter the sitemap URL list:
+          # - drop auto-generated /tags/ pages (low-value for search indexing)
+          # - drop any versioned doc path like /docs/N.M.P/ so only the
+          #   current (unversioned) docs are submitted. Matching any numeric
+          #   major-minor-patch prefix keeps the rule correct when a future
+          #   v5/v6 archive lands alongside today's v1-v3 legacy versions.
+          #
+          # `|| true` makes the pipeline non-fatal under `set -euo pipefail`:
+          # if every URL happens to be filtered out, grep returns 1, which
+          # would otherwise abort the step before the empty-result check below.
+          URLS=$(grep -oP '<loc>\K[^<]+' "$SITEMAP" \
+            | grep -v '/tags/' \
+            | grep -vE '/docs/[0-9]+\.[0-9]+\.[0-9]+/' \
+            | sort -u || true)
+
+          if [ -z "$URLS" ]; then
+            echo "::notice::No current-version docs URLs parsed from $SITEMAP, skipping"
+            exit 0
+          fi
+
+          URL_COUNT=$(printf '%s\n' "$URLS" | wc -l | tr -d '[:space:]')
+          echo "Submitting $URL_COUNT docs URLs to IndexNow"
+
+          # Log a small sample so jq/curl failures below have enough context
+          # to debug from the log alone (otherwise the only artifact is a
+          # count, and the operator can't tell which URL broke the payload).
+          echo "First 5 URLs:"
+          printf '%s\n' "$URLS" | head -5 | sed 's/^/  /'
+
+          # Explicit jq availability + payload-build checks: under
+          # `set -euo pipefail` a missing/failing jq would abort the step
+          # before the error/troubleshooting branches below could run,
+          # leaving an unannotated "process exited 1" in the Actions UI.
+          if ! command -v jq >/dev/null 2>&1; then
+            echo "::error::jq is required to build the IndexNow request payload. Install jq or use a runner image that includes it, then rerun this workflow."
+            exit 1
+          fi
+
+          if ! JSON_URLS=$(printf '%s\n' "$URLS" | jq -R -s 'split("\n") | map(select(length > 0))'); then
+            echo "::error::Failed to build the IndexNow JSON payload from the sitemap URL list. See the 'First 5 URLs' sample logged above for unexpected characters, then rerun the workflow."
+            exit 1
+          fi
+
+          # Capture curl exit status separately from HTTP code so network/DNS
+          # failures are distinguishable from real non-2xx responses.
+          CURL_EXIT=0
+          HTTP_CODE=$(curl -sS -o "$RESPONSE_FILE" -w "%{http_code}" \
+            -X POST "https://api.indexnow.org/indexnow" \
+            -H "Content-Type: application/json" \
+            -d "{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":${JSON_URLS}}") || CURL_EXIT=$?
+
+          if [ "$CURL_EXIT" -ne 0 ]; then
+            echo "::error::IndexNow request failed to execute (curl exit $CURL_EXIT)."
+            echo "  Check connectivity: curl -I https://api.indexnow.org/"
+            exit 1
+          fi
+
+          # IndexNow returns 200 for processed and 202 for accepted-pending-
+          # verification; both are success per the spec.
+          if [ "$HTTP_CODE" -ge 200 ] && [ "$HTTP_CODE" -lt 300 ]; then
+            echo "Submitted $URL_COUNT URLs to IndexNow (HTTP $HTTP_CODE)"
+            exit 0
+          fi
+
+          echo "::error::IndexNow returned HTTP $HTTP_CODE. Response body:"
+          cat "$RESPONSE_FILE" 2>/dev/null || true
+          echo ""
+          echo "Troubleshooting:"
+          echo "  1. Verify key file is publicly reachable: curl -sS \"$INDEXNOW_KEY_LOC\""
+          echo "  2. Reproduce request:"
+          echo "     curl -sS -X POST \"https://api.indexnow.org/indexnow\" -H 'Content-Type: application/json' \\"
+          echo "       -d '{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":[\"https://${INDEXNOW_HOST}/docs/\"]}'"
+          exit 1

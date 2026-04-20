@@ -9,7 +9,7 @@ tags:
   - qa
   - devs
   - software quality
-keyword:
+keywords:
   - code coverage
   - schema coverage
   - branch coverage
@@ -20,7 +20,7 @@ keyword:
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
 
-# Code Coverage 📊
+# Code Coverage
 
 Code coverage is a **metric that measures how much of your source code is executed while running automated tests**.  
 It helps teams understand the quality of their tests and identify untested areas of the codebase.

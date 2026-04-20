@@ -2,6 +2,7 @@
 id: http
 title: HTTP Support
 sidebar_label: HTTP
+description: "How Keploy intercepts and mocks HTTP wire protocol traffic — request and response capture for automated API testing."
 ---
 
 ## Introduction

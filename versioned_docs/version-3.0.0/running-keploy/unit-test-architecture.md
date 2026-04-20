@@ -10,7 +10,7 @@ tags:
   - workflow
 ---
 
-# 🏗️ Unit Testing Architecture
+# Unit Testing Architecture
 
 Unit testing at scale isn’t just about writing individual test cases—it's about building a workflow that can generate, filter, and review tests with minimal manual effort.  
 Here’s how Keploy leverages AI (LLM) to automate and streamline the unit testing process:

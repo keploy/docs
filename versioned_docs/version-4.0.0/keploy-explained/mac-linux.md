@@ -2,6 +2,7 @@
 id: mac-linux
 title: "Running Keploy Natively on MacOS by setting up a linux env"
 sidebar_label: Keploy on MacOS native
+description: "Run Keploy natively on macOS by setting up a Debian Linux VM with Lima — step-by-step installation guide."
 ---
 
 # Running Keploy Natively on MacOS by setting up a linux env
