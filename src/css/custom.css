@@ -98,12 +98,14 @@ body {
   max-width: 100vw;
 }
 
-/* Navbar - always full viewport width */
+/* Navbar - always full viewport width, sticks below the announcement bar */
 .navbar {
   width: 100vw !important;
   max-width: 100vw !important;
   left: 0;
   right: 0;
+  position: sticky !important;
+  top: var(--docusaurus-announcement-bar-height, 0px) !important;
 }
 
 .navbar__inner {
@@ -860,49 +862,13 @@ td img {
   background-size: 24px 24px;
 }
 
-/* Announcement bar - striped orange styling (top-level container only) */
-div[class*="announcementBar"]:not([class*="Content"]):not([class*="Close"]) {
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 145, 77, 0.15),
-    rgba(255, 145, 77, 0.15) 10px,
-    rgba(255, 145, 77, 0.05) 10px,
-    rgba(255, 145, 77, 0.05) 20px
-  ) !important;
-  font-weight: 600;
-  font-size: 0.875rem;
-  padding: 0.5rem 0;
+/* Announcement bar - custom marquee implementation.
+   Strip all Docusaurus default styles so our Tailwind component renders cleanly. */
+div[class*="announcementBar"] {
+  background: none !important;
+  padding: 0 !important;
   border: none !important;
-  border-bottom: 1px solid rgba(255, 145, 77, 0.2) !important;
-  color: #00163d !important;
-}
-
-div[class*="announcementBar"] a {
-  color: #c45a1a !important;
-  text-decoration: underline;
-  text-underline-offset: 2px;
-  font-weight: 700;
-}
-
-div[class*="announcementBar"] a:hover {
-  color: #a0460f !important;
-}
-
-html[data-theme="dark"]
-  div[class*="announcementBar"]:not([class*="Content"]):not([class*="Close"]) {
-  background: repeating-linear-gradient(
-    135deg,
-    rgba(255, 145, 77, 0.12),
-    rgba(255, 145, 77, 0.12) 10px,
-    rgba(255, 145, 77, 0.04) 10px,
-    rgba(255, 145, 77, 0.04) 20px
-  ) !important;
-  color: #f3f4f6 !important;
-  border-bottom-color: rgba(255, 145, 77, 0.15) !important;
-}
-
-html[data-theme="dark"] div[class*="announcementBar"] a {
-  color: #ff914d !important;
+  color: inherit !important;
 }
 
 .list-disc > a {

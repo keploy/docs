@@ -223,8 +223,8 @@ module.exports = {
       // },
     },
     announcementBar: {
-      id: "announcementBar_1", // Increment on change
-      content: `⭐️ If you like Keploy, give it a star on <a target="_blank" rel="noopener noreferrer" href="https://github.com/keploy/keploy">GitHub</a> and follow us on <a target="_blank" rel="noopener noreferrer" href="https://twitter.com/keployio">Twitter</a> ❤️ `,
+      id: "announcementBar_gittogether_sf_2026", // Increment on change to reset dismissed state
+      content: "GitTogether SF — May 14, 2026 — Register Now",
     },
     prism: {
       theme: prismThemes.vsLight,
