@@ -1,5 +1,6 @@
 import React, {useEffect, useRef, useState} from "react";
 import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 import {useThemeConfig} from "@docusaurus/theme-common";
 import {useAnnouncementBar} from "@docusaurus/theme-common/internal";
 import {ArrowRight, X} from "lucide-react";
@@ -47,9 +48,9 @@ function MarqueeContent({content}) {
 
   return (
     <>
-      {items.map((item) => (
+      {items.map((item, index) => (
         <span
-          key={item}
+          key={`announcement-item-${index}`}
           style={{whiteSpace: "nowrap"}}
           className="inline-flex items-center gap-3 text-[12px] text-[#23120a] sm:text-[13px] lg:text-[14px]"
         >
@@ -85,6 +86,7 @@ export default function AnnouncementBar() {
     announcementBar?.content || "GitTogether SF • May 14, 2026 • San Francisco"
   );
   const isCloseable = announcementBar?.isCloseable !== false;
+  const backgroundImageUrl = useBaseUrl("/img/GitTogether.jpg");
 
   useEffect(() => {
     if (!isActive || !containerRef.current) {
@@ -227,14 +229,13 @@ export default function AnnouncementBar() {
       ref={containerRef}
       role="banner"
       aria-label="Event announcement"
-      className="sticky top-0 z-[100] border-b border-white/40 bg-cover bg-center bg-no-repeat shadow-[0_12px_30px_rgba(234,88,12,0.16)] backdrop-blur"
+      className="announcementBar keploy-announcement-bar sticky top-0 z-[100] border-b border-white/40 bg-cover bg-center bg-no-repeat shadow-[0_12px_30px_rgba(234,88,12,0.16)] backdrop-blur"
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
       onTouchCancel={handleTouchEnd}
       style={{
-        backgroundImage:
-          "url('https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/announcement-bar-bg.webp')",
+        backgroundImage: `url('${backgroundImageUrl}')`,
         transform: dismissing ? "translateY(-110%)" : undefined,
         opacity: dismissing ? 0 : undefined,
         transition: dismissing
@@ -250,12 +251,17 @@ export default function AnnouncementBar() {
       <div className="relative mx-auto max-w-[1440px] px-3 py-1 sm:px-5 sm:pr-12 lg:px-12 lg:py-1.5">
         {/* Mobile: single row with marquee, dismiss control, and compact CTA. */}
         <div className="flex min-w-0 items-center gap-2 lg:hidden">
-          <div
+          <Link
+            to={ANNOUNCEMENT.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the GitTogether SF registration page"
             onMouseEnter={() => setIsMarqueePaused(true)}
             onMouseLeave={() => setIsMarqueePaused(false)}
             onPointerEnter={() => setIsMarqueePaused(true)}
             onPointerLeave={() => setIsMarqueePaused(false)}
-            className="min-w-0 flex-1 overflow-hidden"
+            className="min-w-0 flex-1 overflow-hidden no-underline"
+            style={{textDecoration: "none"}}
           >
             <MarqueeTrack
               paused={isMarqueePaused}
@@ -265,7 +271,7 @@ export default function AnnouncementBar() {
             >
               <MarqueeContent content={marqueeContent} />
             </MarqueeTrack>
-          </div>
+          </Link>
 
           {isCloseable && (
             <button
@@ -302,8 +308,13 @@ export default function AnnouncementBar() {
             {ANNOUNCEMENT.eyebrow}
           </span>
 
-          <div
-            className="min-w-0 flex-1 overflow-hidden"
+          <Link
+            to={ANNOUNCEMENT.href}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Open the GitTogether SF registration page"
+            className="min-w-0 flex-1 overflow-hidden no-underline"
+            style={{textDecoration: "none"}}
             onMouseEnter={() => setIsMarqueePaused(true)}
             onMouseLeave={() => setIsMarqueePaused(false)}
             onPointerEnter={() => setIsMarqueePaused(true)}
@@ -317,7 +328,7 @@ export default function AnnouncementBar() {
             >
               <MarqueeContent content={marqueeContent} />
             </MarqueeTrack>
-          </div>
+          </Link>
 
           <Link
             to={ANNOUNCEMENT.href}

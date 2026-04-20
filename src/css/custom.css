@@ -98,6 +98,13 @@ body {
   max-width: 100vw;
 }
 
+:root {
+  --keploy-header-offset: calc(
+    var(--docusaurus-announcement-bar-height, 0px) +
+      var(--ifm-navbar-height, 0px)
+  );
+}
+
 /* Navbar - always full viewport width, sticks below the announcement bar */
 .navbar {
   width: 100vw !important;
@@ -864,6 +871,7 @@ td img {
 
 /* Announcement bar - custom marquee implementation.
    Strip all Docusaurus default styles so our Tailwind component renders cleanly. */
+.keploy-announcement-bar,
 div[class*="announcementBar"] {
   background: none !important;
   padding: 0 !important;
@@ -1485,7 +1493,6 @@ main .container {
 
 /* Docusaurus specific wrappers */
 .docusaurus-mt-lg,
-
 .docs-doc-page,
 [class*="docsWrapper"] {
   max-width: 100% !important;
@@ -2193,7 +2200,7 @@ html[data-theme="dark"] .table-of-contents__link--active {
 /* Sticky breadcrumbs wrapper */
 nav[class*="theme-doc-breadcrumb"] {
   position: sticky !important;
-  top: var(--ifm-navbar-height, 0px) !important;
+  top: var(--keploy-header-offset) !important;
   z-index: 10 !important;
   background: #ffffff !important;
   margin-top: 0 !important;
@@ -2678,7 +2685,7 @@ html[data-theme="dark"]
   }
 
   main[class*="docMainContainer"] {
-  padding-top: 0 !important;
+    padding-top: 0 !important;
     max-width: 100%;
   }
 
@@ -3123,7 +3130,6 @@ html[data-theme="dark"] .docs-inline-footer__slack {
 
 /* ===== MOBILE FIX FOR PREV / NEXT CARDS ===== */
 @media (max-width: 768px) {
-
   .pagination-nav {
     display: flex !important;
     flex-direction: column !important; /* stack vertically */
