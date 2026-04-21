@@ -91,7 +91,7 @@ export default function AnnouncementBar() {
   );
   const marqueeItems = buildAnnouncementItems(marqueeContent);
   const isCloseable = announcementBar?.isCloseable !== false;
-  const backgroundImageUrl = useBaseUrl("/img/GitTogether.jpg");
+  const backgroundImageUrl = useBaseUrl("https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/announcement-bar-bg.webp");
   const srAnnouncementText = [ANNOUNCEMENT.eyebrow, ...marqueeItems].join(". ");
 
   useEffect(() => {
