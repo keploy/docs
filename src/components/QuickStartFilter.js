@@ -15,16 +15,25 @@ import {
 import {TbBrandCSharp} from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
+import {useLocation} from "@docusaurus/router";
 
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
+  const {pathname} = useLocation();
   const isDark = colorMode === "dark";
+
+  const versionMatch = pathname.match(/\/docs\/(\d+\.\d+\.\d+)\//);
+  const supportsRubyQuickstarts = !versionMatch || versionMatch[1] === "4.0.0";
 
   const [currentStep, setCurrentStep] = useState(defaultLanguage ? 2 : 1);
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
 
   const filteredQuickstarts = quickstarts.filter((app) => {
+    if (app.language === "Ruby" && !supportsRubyQuickstarts) {
+      return false;
+    }
+
     return (
       (!language || app.language === language) &&
       (!server || app.server === server)
@@ -37,8 +46,11 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     {name: "Java", icon: <FaJava size={24} />, color: "#007396"},
     {name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E"},
     {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
-    {name: "Ruby", icon: <FaGem size={24} />, color: "#CC342D"},
   ];
+
+  if (supportsRubyQuickstarts) {
+    languages.push({name: "Ruby", icon: <FaGem size={24} />, color: "#CC342D"});
+  }
 
   const servers = [
     {
