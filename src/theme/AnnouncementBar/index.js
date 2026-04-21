@@ -14,6 +14,7 @@ const ANNOUNCEMENT = {
 function MarqueeTrack({paused, children, repeat = 10, duration, gap}) {
   return (
     <div
+      aria-hidden="true"
       className="group flex overflow-hidden [gap:var(--gap)]"
       style={{"--duration": duration, "--gap": gap}}
     >
@@ -87,6 +88,7 @@ export default function AnnouncementBar() {
   );
   const isCloseable = announcementBar?.isCloseable !== false;
   const backgroundImageUrl = useBaseUrl("/img/GitTogether.jpg");
+  const srAnnouncementText = `${ANNOUNCEMENT.eyebrow}. ${marqueeContent}. Keploy is hosting a community meetup in San Francisco! Tickets are selling fast. Limited seats available, register now!`;
 
   useEffect(() => {
     if (!isActive || !containerRef.current) {
@@ -98,10 +100,16 @@ export default function AnnouncementBar() {
     const syncHeight = () => setBarHeight(`${node.offsetHeight}px`);
 
     syncHeight();
+    window.addEventListener("resize", syncHeight);
+
+    if (typeof ResizeObserver === "undefined") {
+      return () => {
+        window.removeEventListener("resize", syncHeight);
+      };
+    }
 
     const ro = new ResizeObserver(syncHeight);
     ro.observe(node);
-    window.addEventListener("resize", syncHeight);
 
     return () => {
       ro.disconnect();
@@ -247,6 +255,7 @@ export default function AnnouncementBar() {
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 bg-white/10"
       />
+      <span className="sr-only">{srAnnouncementText}</span>
 
       <div className="relative mx-auto max-w-[1440px] px-3 py-1 sm:px-5 sm:pr-12 lg:px-12 lg:py-1.5">
         {/* Mobile: single row with marquee, dismiss control, and compact CTA. */}
