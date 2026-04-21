@@ -40,13 +40,15 @@ function stripHtml(value) {
     .trim();
 }
 
-function MarqueeContent({content}) {
-  const items = [
+function buildAnnouncementItems(content) {
+  return [
     content,
     "Keploy is hosting a community meetup in San Francisco!",
     "Tickets are selling fast. Limited seats available, register now!",
   ];
+}
 
+function MarqueeContent({items}) {
   return (
     <>
       {items.map((item, index) => (
@@ -83,12 +85,26 @@ export default function AnnouncementBar() {
   const dragFrameRef = useRef(null);
   const dismissTimeoutRef = useRef(null);
   const reduceMotionQueryRef = useRef(null);
+  // The marquee is intentionally text-only; links/actions are provided separately.
   const marqueeContent = stripHtml(
     announcementBar?.content || "GitTogether SF • May 14, 2026 • San Francisco"
   );
+  const marqueeItems = buildAnnouncementItems(marqueeContent);
   const isCloseable = announcementBar?.isCloseable !== false;
   const backgroundImageUrl = useBaseUrl("/img/GitTogether.jpg");
-  const srAnnouncementText = `${ANNOUNCEMENT.eyebrow}. ${marqueeContent}. Keploy is hosting a community meetup in San Francisco! Tickets are selling fast. Limited seats available, register now!`;
+  const srAnnouncementText = [ANNOUNCEMENT.eyebrow, ...marqueeItems].join(". ");
+
+  useEffect(() => {
+    if (
+      process.env.NODE_ENV !== "production" &&
+      announcementBar?.content &&
+      /<[^>]+>/.test(announcementBar.content)
+    ) {
+      console.warn(
+        "Custom AnnouncementBar treats themeConfig.announcementBar.content as plain text and strips HTML tags."
+      );
+    }
+  }, [announcementBar?.content]);
 
   useEffect(() => {
     if (!isActive || !containerRef.current) {
@@ -104,6 +120,7 @@ export default function AnnouncementBar() {
 
     if (typeof ResizeObserver === "undefined") {
       return () => {
+        setBarHeight("0px");
         window.removeEventListener("resize", syncHeight);
       };
     }
@@ -112,6 +129,7 @@ export default function AnnouncementBar() {
     ro.observe(node);
 
     return () => {
+      setBarHeight("0px");
       ro.disconnect();
       window.removeEventListener("resize", syncHeight);
     };
@@ -276,7 +294,7 @@ export default function AnnouncementBar() {
               duration="25s"
               gap="1.25rem"
             >
-              <MarqueeContent content={marqueeContent} />
+              <MarqueeContent items={marqueeItems} />
             </MarqueeTrack>
           </Link>
 
@@ -331,7 +349,7 @@ export default function AnnouncementBar() {
               duration="35s"
               gap="1.5rem"
             >
-              <MarqueeContent content={marqueeContent} />
+              <MarqueeContent items={marqueeItems} />
             </MarqueeTrack>
           </Link>
 
