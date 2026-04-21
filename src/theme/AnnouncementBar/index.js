@@ -95,18 +95,6 @@ export default function AnnouncementBar() {
   const srAnnouncementText = [ANNOUNCEMENT.eyebrow, ...marqueeItems].join(". ");
 
   useEffect(() => {
-    if (
-      process.env.NODE_ENV !== "production" &&
-      announcementBar?.content &&
-      /<[^>]+>/.test(announcementBar.content)
-    ) {
-      console.warn(
-        "Custom AnnouncementBar treats themeConfig.announcementBar.content as plain text and strips HTML tags."
-      );
-    }
-  }, [announcementBar?.content]);
-
-  useEffect(() => {
     if (!isActive || !containerRef.current) {
       setBarHeight("0px");
       return;
