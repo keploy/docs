@@ -871,9 +871,13 @@ td img {
 
 /* Announcement bar - custom marquee implementation.
    Strip all Docusaurus default styles so our Tailwind component renders cleanly. */
-.keploy-announcement-bar,
-div[class*="announcementBar"] {
-  background: none !important;
+.keploy-announcement-bar {
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+div[class*="announcementBar"]:not(.keploy-announcement-bar) {
+  background-color: transparent !important;
   padding: 0 !important;
   border: none !important;
   color: inherit !important;

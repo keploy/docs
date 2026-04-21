@@ -256,8 +256,6 @@ export default function AnnouncementBar() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Open the GitTogether SF registration page"
-            onMouseEnter={() => setIsMarqueePaused(true)}
-            onMouseLeave={() => setIsMarqueePaused(false)}
             onPointerEnter={() => setIsMarqueePaused(true)}
             onPointerLeave={() => setIsMarqueePaused(false)}
             className="min-w-0 flex-1 overflow-hidden no-underline"
@@ -315,8 +313,6 @@ export default function AnnouncementBar() {
             aria-label="Open the GitTogether SF registration page"
             className="min-w-0 flex-1 overflow-hidden no-underline"
             style={{textDecoration: "none"}}
-            onMouseEnter={() => setIsMarqueePaused(true)}
-            onMouseLeave={() => setIsMarqueePaused(false)}
             onPointerEnter={() => setIsMarqueePaused(true)}
             onPointerLeave={() => setIsMarqueePaused(false)}
           >
