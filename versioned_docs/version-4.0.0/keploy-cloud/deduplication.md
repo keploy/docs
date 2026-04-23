@@ -68,7 +68,7 @@ java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=363
   -jar target/app.jar
 ```
 
-The default JaCoCo endpoint is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`.
+The default JaCoCo endpoint is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`. Add the JaCoCo port to `--pass-through-ports` when running Keploy so coverage-control traffic is not recorded or mocked.
 
 **2. Build Configuration**
 
@@ -110,13 +110,13 @@ Keploy shares its socket directory with the application during deduplication. If
 For Docker, run:
 
 ```bash
-keploy test -c "docker compose up" --containerName containerName --dedup
+keploy test -c "docker compose up" --containerName containerName --dedup --pass-through-ports 36320
 ```
 
 For Native, run:
 
 ```bash
-keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" --dedup
+keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" --dedup --pass-through-ports 36320
 ```
 
 This will generate a `dedupData.yaml` file.
