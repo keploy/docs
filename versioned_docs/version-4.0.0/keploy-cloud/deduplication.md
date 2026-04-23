@@ -34,6 +34,107 @@ To detect duplicate tests, simply run the below command, like so:
 keploy test -c "docker compose up" --containerName containerName --dedup
 ```
 
+### For Java Applications
+
+**1. Pre-requisite**
+
+Add the Keploy Java SDK to your application:
+
+```xml
+<dependency>
+    <groupId>io.keploy</groupId>
+    <artifactId>keploy-sdk</artifactId>
+    <version>N.N.N</version>
+</dependency>
+```
+
+For Spring Boot applications, register the Keploy middleware in your main class:
+
+```java
+import io.keploy.servlet.KeployMiddleware;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Import;
+
+@SpringBootApplication
+@Import(KeployMiddleware.class)
+public class App {
+}
+```
+
+Java dynamic deduplication uses JaCoCo runtime coverage, so start the application with the JaCoCo agent in TCP server mode:
+
+```bash
+java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver \
+  -jar target/app.jar
+```
+
+The default JaCoCo endpoint is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`.
+
+**2. Build Configuration**
+
+Build the application before running Keploy so the Java class files are available for coverage analysis:
+
+```bash
+mvn clean package -DskipTests
+```
+
+By default, the SDK scans `target/classes`, `build/classes/java/main`, and runtime classpath jars. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or jars that should be analyzed.
+
+**3. Dockerfile Configuration (Important for Docker Users)**
+
+When you use Docker or Docker Compose, make sure the final runtime image contains:
+
+- the runnable application jar,
+- the JaCoCo runtime agent jar,
+- the compiled classes or the fat jar that contains the application classes.
+
+For example:
+
+```dockerfile
+COPY target/app.jar /app/app.jar
+COPY target/classes /app/target/classes
+COPY jacocoagent.jar /app/jacocoagent.jar
+```
+
+Then run the app with JaCoCo enabled:
+
+```bash
+java -javaagent:/app/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=/tmp/jacoco-keploy.exec,output=tcpserver \
+  -jar /app/app.jar
+```
+
+Keploy shares its socket directory with the application during deduplication. If your Docker environment is restricted, keep `/tmp` writable and do not override the Keploy socket mount.
+
+**4. Run Deduplication**
+
+For Docker, run:
+
+```bash
+keploy test -c "docker compose up" --containerName containerName --dedup
+```
+
+For Native, run:
+
+```bash
+keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" --dedup
+```
+
+This will generate a `dedupData.yaml` file.
+
+After this, run:
+
+```bash
+keploy dedup
+```
+
+This command will create a `duplicates.yaml` file which will contain all the test cases which were found to be duplicate.
+
+In order to remove all the duplicate test cases, run the following command:
+
+```bash
+keploy dedup --rm
+```
+
 ### For Golang Applications
 
 **1. Pre-requisite**

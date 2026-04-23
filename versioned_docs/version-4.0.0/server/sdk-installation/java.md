@@ -23,6 +23,12 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
+## Java SDK and Dynamic Deduplication
+
+The Java SDK also supports Enterprise dynamic deduplication during replay. Dynamic deduplication uses the Keploy Java SDK with JaCoCo TCP server mode to collect per-test coverage and generate `dedupData.yaml`.
+
+See [Remove Duplicate Tests](/docs/keploy-cloud/deduplication#for-java-applications) for the Java setup, Docker notes, and `keploy test --dedup` commands.
+
 ## 🛠️ Language Specific Requirements
 
 | Programming Language | Prerequisites  |
