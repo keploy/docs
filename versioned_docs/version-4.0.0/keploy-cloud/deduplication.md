@@ -103,9 +103,9 @@ java -javaagent:/app/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=/tmp/
   -jar /app/app.jar
 ```
 
-Keploy shares its socket directory with the application during deduplication. If your Docker environment is restricted, keep `/tmp` writable and do not override the Keploy socket volume.
+Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, bind-mount host `/tmp` into the application container so both processes see the same socket paths.
 
-For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and a writable shared `/tmp` volume for the Keploy control/data sockets and JaCoCo output. The Java SDK uses Unix sockets under `/tmp`, so do not replace the shared socket volume with a separate container-only `tmpfs`.
+For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and host `/tmp` bind-mounted into the container for the Keploy control/data sockets and JaCoCo output. Do not replace the shared `/tmp` bind mount with a container-only `tmpfs` or named volume; Keploy on the host will not be able to reach the Java SDK control socket.
 
 **4. Run Deduplication**
 
