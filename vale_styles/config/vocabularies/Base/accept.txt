@@ -12,6 +12,7 @@ Cmd
 Cobertura
 config
 containerName
+classpath
 custom_functions
 DBs
 declaratively
@@ -36,6 +37,7 @@ Hoppscotch
 html
 HTTPProxy
 Idempotency
+JaCoCo
 Jacoco
 JBehave
 JMeter
@@ -71,6 +73,7 @@ Spotify
 status_code
 status_code_class
 status_code_in
+subcommand
 substring
 templatize
 Testcase
@@ -79,6 +82,7 @@ Testim
 testmode
 Testrun
 testsets
+toolchain
 timeFreezing
 Traefik
 Twilio
