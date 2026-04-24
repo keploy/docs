@@ -21,10 +21,16 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      # fetch-depth: 0 is required so Docusaurus can read git log per file to
+      # emit accurate <lastmod> dates in sitemap.xml. Without it every file gets
+      # the same date (the latest commit) and the Google Indexing diff submits
+      # every URL on every deploy, burning the full daily quota each time.
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       
       - name: Set Node.js 22.x
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version: 22.x
 
@@ -153,3 +159,66 @@ jobs:
           echo "     curl -sS -X POST \"https://api.indexnow.org/indexnow\" -H 'Content-Type: application/json' \\"
           echo "       -d '{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":[\"https://${INDEXNOW_HOST}/docs/\"]}'"
           exit 1
+
+      # Restore the sitemap from the previous successful deploy so the Google
+      # Indexing step can diff and only submit URLs that are new since last run.
+      # key includes github.sha so a fresh entry is saved after every deploy;
+      # restore-keys provides a fallback to the most-recent previous run.
+      - name: Restore previous sitemap cache
+        uses: actions/cache@v4
+        with:
+          path: .sitemap-prev.xml
+          key: sitemap-prev-${{ github.sha }}
+          restore-keys: |
+            sitemap-prev-
+
+      # Submit new/changed URLs to Google Indexing API and ping the GSC sitemap
+      # endpoint. Uses a cached copy of the previous sitemap (restored above) to
+      # diff so we only burn quota on pages that actually changed.
+      #
+      # Required secret: GOOGLE_SERVICE_ACCOUNT_JSON
+      #   — paste the full JSON key of a Google Cloud service account that has
+      #     been granted "Owner" access in GSC (Search Console → Settings →
+      #     Users and permissions → Add user).
+      #   — The service account also needs the "Indexing API" enabled on its
+      #     Cloud project (APIs & Services → Enable APIs → Web Search Indexing API).
+      #
+      # Optional secret: GSC_SITE_URL  (default: https://keploy.io/)
+      #   — must match the property URL exactly as it appears in GSC.
+      - name: Submit changed URLs to Google Indexing API
+        env:
+          GOOGLE_SERVICE_ACCOUNT_JSON: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_JSON }}
+          GSC_SITE_URL: ${{ secrets.GSC_SITE_URL || 'https://keploy.io/' }}
+        continue-on-error: true
+        run: |
+          set -euo pipefail
+
+          SITEMAP="build/docs/sitemap.xml"
+          if [ ! -f "$SITEMAP" ]; then
+            echo "::notice::Sitemap not found at $SITEMAP, skipping Google Indexing submission"
+            exit 0
+          fi
+
+          if [ -z "${GOOGLE_SERVICE_ACCOUNT_JSON:-}" ]; then
+            echo "::notice::GOOGLE_SERVICE_ACCOUNT_JSON secret not set, skipping Google Indexing submission"
+            exit 0
+          fi
+
+          # Install only the auth library — pinned to major version so breaking
+          # changes in a future release don't silently break this step.
+          npm install --no-save google-auth-library@10
+
+          # Use || so set -e doesn't abort on a non-zero exit before cp runs.
+          # SCRIPT_EXIT defaults to 0 (success); || only fires on failure.
+          SCRIPT_EXIT=0
+          node scripts/google-index.js \
+            --sitemap "$SITEMAP" \
+            --prev-sitemap .sitemap-prev.xml \
+            --sitemap-url "https://keploy.io/docs/sitemap.xml" \
+            --site-url "${GSC_SITE_URL}" || SCRIPT_EXIT=$?
+
+          # Always update the cache baseline, even if some submissions failed,
+          # so the next deploy diffs against today's sitemap, not a stale one.
+          cp "$SITEMAP" .sitemap-prev.xml
+
+          exit $SCRIPT_EXIT

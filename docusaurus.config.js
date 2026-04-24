@@ -450,6 +450,10 @@ module.exports = {
           changefreq: "weekly",
           priority: 0.5,
           filename: "sitemap.xml",
+          // Emit <lastmod> using the git commit date of each file so the
+          // Google Indexing API step can diff by date and only resubmit
+          // pages whose content actually changed since the last deploy.
+          lastmod: "date",
           // Differentiate docs sitemap priorities by content type so
           // search engines spend crawl budget proportional to how
           // canonical each page is. Priority buckets:
