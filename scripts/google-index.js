@@ -147,7 +147,7 @@ async function submitUrls(token, updatedUrls, deletedUrls) {
   const toUpdate = updatedUrls.slice(0, DAILY_QUOTA);
   if (updatedUrls.length > DAILY_QUOTA) {
     console.log(
-      `::warning::${updatedUrls.length} URLs to update but daily quota is ${DAILY_QUOTA}; ` +
+      `::notice::${updatedUrls.length} URLs to update but daily quota is ${DAILY_QUOTA}; ` +
       `submitting first ${DAILY_QUOTA}. Request a quota increase at console.cloud.google.com.`
     );
   }
@@ -176,7 +176,7 @@ async function submitUrls(token, updatedUrls, deletedUrls) {
 
   if (deletedUrls.length > toDelete.length) {
     console.log(
-      `::warning::${deletedUrls.length - toDelete.length} deleted URL(s) skipped — ` +
+      `::notice::${deletedUrls.length - toDelete.length} deleted URL(s) skipped — ` +
       `quota exhausted. They will be signalled on the next deploy.`
     );
   }
@@ -202,11 +202,11 @@ async function pingSitemap(token, siteUrl, sitemapUrl) {
     } else {
       const body = await res.text().catch(() => '');
       console.log(
-        `\n::warning::GSC sitemap ping returned HTTP ${res.status}. Body: ${body.slice(0, 300)}`
+        `\n::notice::GSC sitemap ping returned HTTP ${res.status}. Body: ${body.slice(0, 300)}`
       );
     }
   } catch (err) {
-    console.log(`\n::warning::GSC sitemap ping failed: ${err.message}`);
+    console.log(`\n::notice::GSC sitemap ping failed: ${err.message}`);
   }
 }
 
@@ -228,7 +228,7 @@ async function main() {
   try {
     credentials = JSON.parse(saJson);
   } catch {
-    console.log('::error::GOOGLE_SERVICE_ACCOUNT_JSON is not valid JSON.');
+    console.log('::error::GOOGLE_SERVICE_ACCOUNT_JSON is not valid JSON. Ensure the secret contains the raw service account JSON (not base64-encoded), with quotes and newlines preserved correctly.');
     process.exit(1);
   }
 

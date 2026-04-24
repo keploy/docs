@@ -206,19 +206,23 @@ jobs:
 
           # Install only the auth library — pinned to major version so breaking
           # changes in a future release don't silently break this step.
-          npm install --no-save google-auth-library@10
-
-          # Use || so set -e doesn't abort on a non-zero exit before cp runs.
-          # SCRIPT_EXIT defaults to 0 (success); || only fires on failure.
+          # Captured with || so a registry/network failure doesn't abort under
+          # set -e before cp runs, which would leave the cache baseline stale.
           SCRIPT_EXIT=0
-          node scripts/google-index.js \
-            --sitemap "$SITEMAP" \
-            --prev-sitemap .sitemap-prev.xml \
-            --sitemap-url "https://keploy.io/docs/sitemap.xml" \
-            --site-url "${GSC_SITE_URL}" || SCRIPT_EXIT=$?
+          npm install --no-save google-auth-library@10 || SCRIPT_EXIT=$?
 
-          # Always update the cache baseline, even if some submissions failed,
-          # so the next deploy diffs against today's sitemap, not a stale one.
+          if [ "$SCRIPT_EXIT" -eq 0 ]; then
+            node scripts/google-index.js \
+              --sitemap "$SITEMAP" \
+              --prev-sitemap .sitemap-prev.xml \
+              --sitemap-url "https://keploy.io/docs/sitemap.xml" \
+              --site-url "${GSC_SITE_URL}" || SCRIPT_EXIT=$?
+          else
+            echo "::error::Failed to install google-auth-library@10 — retry the workflow or check npm registry connectivity."
+          fi
+
+          # Always update the cache baseline, even if install or submissions
+          # failed, so the next deploy diffs against today's sitemap, not a stale one.
           cp "$SITEMAP" .sitemap-prev.xml
 
           exit $SCRIPT_EXIT
