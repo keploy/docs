@@ -1,141 +1,117 @@
 ---
 id: java
-title: Merge Unit and Keploy Test Coverage Data
+title: Java SDK for Dynamic Deduplication
 sidebar_label: Java
+description: "Configure the Keploy Java SDK for Enterprise dynamic deduplication with JaCoCo TCP server mode."
 tags:
   - java
   - coverage
+  - deduplication
 keywords:
-  - MongoDB
-  - Jacoco
-  - Maven
-  - Springboot Framework
-  - Postgres
-  - SQL
   - Java
-  - API Test generator
-  - Auto Testcase generation
-  - Junit
+  - JaCoCo
+  - Maven
+  - Spring Boot
+  - dynamic deduplication
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-## 🛠️ Language Specific Requirements
+The Java SDK is used for Enterprise dynamic deduplication during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy Enterprise so duplicate testcases can be identified.
 
-| Programming Language | Prerequisites  |
-| :------------------: | :------------- |
-|         java         | [Jacoco 0.8.8] |
+The Java SDK does not record API traffic or mock dependencies. Record your Keploy tests separately, commit the generated test fixtures when you use them in CI, and run Java dedup during `keploy test --dedup`.
 
-**Note**: In case of java application, before running test subcommand, you need to clean the project by removing any previously generated file, and run install command.
+## Requirements
 
-```bash
-mvn clean install -Dmaven.test.skip=true
-```
+- Java 8, 17, or 21
+- `io.keploy:keploy-sdk`
+- JaCoCo runtime agent in TCP server mode
+- Keploy Enterprise with dynamic deduplication enabled
 
-## Usage
+## Add the SDK
 
-### Update `pom.xml` file
-
-You will need to add the following plugins in `pom.xml` file of your application. :-
+Add the Keploy Java SDK dependency:
 
 ```xml
-<build>
-	<plugins>
-		<!-- your plugins would go here -->
-        <plugin>
-            <groupId>org.jacoco</groupId>
-            <artifactId>jacoco-maven-plugin</artifactId>
-            <version>0.8.8</version>
-            <executions>
-                <!-- Prepare the JaCoCo agent to track coverage during tests -->
-                <execution>
-                    <id>prepare-agent</id>
-                    <goals>
-                        <goal>prepare-agent</goal>
-                    </goals>
-                </execution>
-                <!-- Merge e2e & u-t execution data files after tests are run -->
-                <execution>
-                    <id>merge-ut-e2e</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>merge</goal>
-                    </goals>
-                    <configuration>
-                        <fileSets>
-                            <fileSet>
-                                <directory>${project.build.directory}</directory>
-                                <includes>
-                                    <include>jacoco.exec</include>
-                                    <include>keploy-e2e.exec</include>
-                                </includes>
-                            </fileSet>
-                        </fileSets>
-                        <!-- Output of merged data -->
-                        <destFile>${project.build.directory}/ut-e2e-merged.exec</destFile>
-                    </configuration>
-                </execution>
-                <!-- Generate report based on the different execution data -->
-                <!-- Generate unit test report-->
-                <execution>
-                    <id>post-unit-test</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <configuration>
-                        <dataFile>${project.build.directory}/jacoco.exec</dataFile>
-                        <!-- Use merged data file -->
-                        <outputDirectory>${project.reporting.outputDirectory}/ut</outputDirectory>
-                    </configuration>
-                </execution>
-                <!-- Generate combined (e2e+ut) report test report-->
-                <execution>
-                    <id>combined-ut-e2e</id>
-                    <phase>test</phase>
-                    <goals>
-                        <goal>report</goal>
-                    </goals>
-                    <configuration>
-                        <dataFile>${project.build.directory}/ut-e2e-merged.exec</dataFile>
-                        <!-- Use merged data file -->
-                        <outputDirectory>${project.reporting.outputDirectory}/e2e-ut-aggregate</outputDirectory>
-                    </configuration>
-                </execution>
-            </executions>
-        </plugin>
-		<!-- your plugins will go here -->
-	</plugins>
-</build>
+<dependency>
+  <groupId>io.keploy</groupId>
+  <artifactId>keploy-sdk</artifactId>
+  <version>N.N.N</version>
+</dependency>
 ```
 
-Once it has been done, run keploy test command:
+## Start the Dedup Agent
 
-```
-keploy test -c "your_application_command"
-```
+For Spring Boot 2 or other `javax.servlet` applications, import the middleware:
 
-After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
+```java
+import io.keploy.servlet.KeployMiddleware;
+import org.springframework.context.annotation.Import;
 
-```
-keploy
-├── reports
-│   └── test-run-0
-│       ├── coverage.yaml
-│       └── test-set-0-report.yaml
-└── test-set-0
-    ├── mocks.yaml
-    └── tests
-        ├── test-1.yaml
-        └── test-2.yaml
+@Import(KeployMiddleware.class)
+public class Application {
+}
 ```
 
-Now, To get the combined report as well as coverage report for your unit tests, Run
+For Jakarta Servlet, Spring Boot 3, non-servlet frameworks, or custom launchers, start the agent during application startup:
+
+```java
+import io.keploy.dedup.KeployDedupAgent;
+
+KeployDedupAgent.start();
+```
+
+## Run with JaCoCo TCP Server Mode
+
+Run the Java application with the JaCoCo runtime agent in `tcpserver` mode. Keploy uses the JaCoCo TCP port to reset and dump per-testcase coverage during replay.
 
 ```bash
-mvn test
+java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver \
+  -jar target/app.jar
 ```
 
-The html file for unit tests report would be generated in target/site/ut directory and, for combined report it would be generated in target/site/e2e-ut-aggregate directory. Open index.html to visualize the report.
+If your compiled application classes are not under `target/classes` or `build/classes/java/main`, set `KEPLOY_JAVA_CLASS_DIRS`:
+
+```bash
+export KEPLOY_JAVA_CLASS_DIRS=/absolute/path/to/target/classes
+```
+
+## Replay with Dedup
+
+Run Keploy in test mode with dynamic deduplication enabled and pass through the JaCoCo TCP port:
+
+```bash
+keploy test \
+  -c "java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" \
+  --dedup \
+  --pass-through-ports 36320
+```
+
+After replay, run:
+
+```bash
+keploy dedup
+```
+
+To remove duplicate testcases:
+
+```bash
+keploy dedup --rm
+```
+
+## Docker and Restricted Docker
+
+Java dedup uses two Unix sockets shared between Keploy Enterprise and the Java process:
+
+- `/tmp/coverage_control.sock`
+- `/tmp/coverage_data.sock`
+
+For Docker or Docker Compose runs, bind-mount host `/tmp` into the application container as `/tmp` so both processes use the same socket paths. Keep `/tmp` writable even when the root filesystem is read-only.
+
+For restricted containers, the application can run as a non-root user with dropped capabilities and `no-new-privileges` as long as `/tmp` is shared and writable, and the JaCoCo TCP port is reachable from the Java process.
+
+## CI Guidance
+
+CI should run replay/test mode against checked-in Keploy test fixtures. Do not record Java dedup fixtures in the pipeline unless you intentionally want to refresh them.
