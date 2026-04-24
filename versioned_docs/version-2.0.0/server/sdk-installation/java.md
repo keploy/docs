@@ -51,7 +51,7 @@ public class Application {
 }
 ```
 
-For Jakarta Servlet, Spring Boot 3, frameworks without the Servlet API, or custom launchers, start the agent during application startup:
+For Spring Boot 3, Jakarta EE applications, other frameworks, or custom launchers, start the agent during application startup:
 
 ```java
 import io.keploy.dedup.KeployDedupAgent;
