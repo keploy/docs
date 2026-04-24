@@ -221,8 +221,12 @@ jobs:
             echo "::error::Failed to install google-auth-library@10 — retry the workflow or check npm registry connectivity."
           fi
 
-          # Always update the cache baseline, even if install or submissions
-          # failed, so the next deploy diffs against today's sitemap, not a stale one.
-          cp "$SITEMAP" .sitemap-prev.xml
+          # Only advance the cached baseline when ALL submissions completed —
+          # no failures, no quota truncation. If anything was skipped, the
+          # script exits non-zero and we keep the old baseline so the next
+          # deploy re-diffs from the same point and picks up the missed URLs.
+          if [ "$SCRIPT_EXIT" -eq 0 ]; then
+            cp "$SITEMAP" .sitemap-prev.xml
+          fi
 
           exit $SCRIPT_EXIT

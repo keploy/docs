@@ -145,10 +145,17 @@ async function submitUrls(token, updatedUrls, deletedUrls) {
 
   // ── URL_UPDATED ─────────────────────────────────────────────────────────────
   const toUpdate = updatedUrls.slice(0, DAILY_QUOTA);
-  if (updatedUrls.length > DAILY_QUOTA) {
+  const skippedUpdates = updatedUrls.length - toUpdate.length;
+
+  if (skippedUpdates > 0) {
+    // Count skipped URLs as failures so the script exits non-zero and the
+    // workflow does NOT advance the cached sitemap baseline. The next deploy
+    // will re-diff from the same old baseline and pick up all skipped URLs.
+    totalFail += skippedUpdates;
     console.log(
-      `::notice::${updatedUrls.length} URLs to update but daily quota is ${DAILY_QUOTA}; ` +
-      `submitting first ${DAILY_QUOTA}. Request a quota increase at console.cloud.google.com.`
+      `::warning::${updatedUrls.length} URLs to update but daily quota is ${DAILY_QUOTA}; ` +
+      `${skippedUpdates} URL(s) will be retried on the next deploy. ` +
+      `Request a quota increase at console.cloud.google.com.`
     );
   }
 
@@ -166,6 +173,7 @@ async function submitUrls(token, updatedUrls, deletedUrls) {
   // remaining budget after updates.
   const deletionBudget = Math.max(0, DAILY_QUOTA - toUpdate.length);
   const toDelete = deletedUrls.slice(0, deletionBudget);
+  const skippedDeletions = deletedUrls.length - toDelete.length;
 
   if (toDelete.length > 0) {
     console.log(`\nSubmitting ${toDelete.length} URL_DELETED notification(s)…`);
@@ -174,10 +182,13 @@ async function submitUrls(token, updatedUrls, deletedUrls) {
     totalFail += fail;
   }
 
-  if (deletedUrls.length > toDelete.length) {
+  if (skippedDeletions > 0) {
+    // Same as above — count as failures so the baseline is not advanced and
+    // the deleted URLs remain in the cached prev sitemap for the next diff.
+    totalFail += skippedDeletions;
     console.log(
-      `::notice::${deletedUrls.length - toDelete.length} deleted URL(s) skipped — ` +
-      `quota exhausted. They will be signalled on the next deploy.`
+      `::warning::${skippedDeletions} deleted URL(s) skipped — quota exhausted. ` +
+      `They will be signalled on the next deploy.`
     );
   }
 
