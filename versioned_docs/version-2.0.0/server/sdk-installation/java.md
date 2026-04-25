@@ -59,13 +59,12 @@ import io.keploy.dedup.KeployDedupAgent;
 KeployDedupAgent.start();
 ```
 
-## Run with JaCoCo TCP Server Mode
+## Run with the JaCoCo Java Agent
 
-Run the Java application with the JaCoCo runtime agent in `tcpserver` mode. Keploy uses the JaCoCo TCP port to reset and dump per-testcase coverage during replay.
+The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo agent is enough — no TCP server flags, no port choice:
 
 ```bash
-java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver \
-  -jar target/app.jar
+java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar
 ```
 
 If your compiled application classes are not under `target/classes` or `build/classes/java/main`, set `KEPLOY_JAVA_CLASS_DIRS`:
@@ -74,16 +73,25 @@ If your compiled application classes are not under `target/classes` or `build/cl
 export KEPLOY_JAVA_CLASS_DIRS=/absolute/path/to/target/classes
 ```
 
+If the in-process API is unavailable in your environment, the SDK transparently falls back to JaCoCo's TCP server mode. To use the fallback explicitly, launch JaCoCo in `tcpserver` mode and configure `KEPLOY_JACOCO_HOST` / `KEPLOY_JACOCO_PORT` (defaults: `127.0.0.1:36320`):
+
+```bash
+java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,output=tcpserver \
+  -jar target/app.jar
+```
+
 ## Replay with Dedup
 
-Run Keploy in test mode with dynamic deduplication enabled and pass through the JaCoCo TCP port:
+Run Keploy in test mode with dynamic deduplication enabled:
 
 ```bash
 keploy test \
-  -c "java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" \
+  -c "java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar" \
   --dedup \
-  --pass-through-ports 36320
+  --language java
 ```
+
+If you are using the JaCoCo TCP fallback, also pass `--pass-through-ports <jacoco-port>` so Keploy does not try to mock the coverage-control connection.
 
 After replay, run:
 

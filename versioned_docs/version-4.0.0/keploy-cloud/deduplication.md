@@ -61,14 +61,20 @@ public class App {
 }
 ```
 
-Java dynamic deduplication uses JaCoCo runtime coverage, so start the application with the JaCoCo agent in TCP server mode:
+Java dynamic deduplication uses JaCoCo runtime coverage. The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo Java agent is enough — no TCP server flags, no `--pass-through-ports`:
 
 ```bash
-java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver \
+java -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar
+```
+
+If the in-process API is unavailable for some reason (for example, an isolated classloader), the SDK transparently falls back to JaCoCo's TCP server mode. To force the fallback, launch JaCoCo in `tcpserver` mode and tell Keploy to leave that port alone:
+
+```bash
+java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,output=tcpserver \
   -jar target/app.jar
 ```
 
-The default JaCoCo endpoint is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`. Add the JaCoCo port to `--pass-through-ports` when running Keploy so coverage-control traffic is not recorded or mocked.
+The default JaCoCo endpoint for the fallback is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`. When using the fallback, add the JaCoCo port to `--pass-through-ports` so coverage-control traffic is not mocked.
 
 **2. Build Configuration**
 
@@ -96,11 +102,10 @@ COPY target/classes /app/target/classes
 COPY jacocoagent.jar /app/jacocoagent.jar
 ```
 
-Then run the app with JaCoCo enabled:
+Then run the app with the JaCoCo agent attached:
 
 ```bash
-java -javaagent:/app/jacocoagent.jar=address=127.0.0.1,port=36320,destfile=/tmp/jacoco-keploy.exec,output=tcpserver \
-  -jar /app/app.jar
+java -javaagent:/app/jacocoagent.jar -jar /app/app.jar
 ```
 
 Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, bind-mount host `/tmp` into the application container so both processes see the same socket paths.
@@ -112,14 +117,16 @@ For hardened Docker runs, the Java dedup sample is validated with a non-root run
 For Docker, run:
 
 ```bash
-keploy test -c "docker compose up" --containerName containerName --dedup --pass-through-ports 36320
+keploy test -c "docker compose up" --containerName containerName --dedup --language java
 ```
 
 For Native, run:
 
 ```bash
-keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,destfile=target/jacoco-keploy.exec,output=tcpserver -jar target/app.jar" --dedup --pass-through-ports 36320
+keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar" --dedup --language java
 ```
+
+If the SDK falls back to the JaCoCo TCP server, also pass `--pass-through-ports <jacoco-port>` so Keploy does not try to mock the coverage-control connection.
 
 This will generate a `dedupData.yaml` file.
 
