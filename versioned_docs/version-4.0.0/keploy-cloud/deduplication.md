@@ -14,6 +14,8 @@ keywords:
   - duplicate tests
   - golang
   - testcases
+toc_min_heading_level: 2
+toc_max_heading_level: 4
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -36,7 +38,7 @@ keploy test -c "docker compose up" --containerName containerName --dedup
 
 ### For Golang Applications
 
-**1. Pre-requisite**
+#### 1. Pre-requisite
 
 Install the `keploy/go-sdk/v3/keploy` : -
 
@@ -50,7 +52,7 @@ Add the following on top of your main application file : -
 import _ "github.com/keploy/go-sdk/v3/keploy"
 ```
 
-**2. Build Configuration**
+#### 2. Build Configuration
 
 Update the `go build` command in your Dockerfile (or native build script) to include coverage flags. These are required for deduplication to calculate coverage accurately.
 
@@ -58,7 +60,7 @@ Update the `go build` command in your Dockerfile (or native build script) to inc
 RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 ```
 
-**3. Dockerfile Configuration (Important for Docker Users)**
+#### 3. Dockerfile Configuration (Important for Docker Users)
 
 If you are using a multi-stage Docker build (e.g., building in one stage and running in a slim image), you **must** ensure the Go toolchain and `go.mod` files are preserved in the final runtime image. The deduplication feature requires access to the Go runtime to map coverage data correctly.
 
@@ -85,7 +87,7 @@ ENV GOMOD=/app/go.mod
 
 > **Note:** If you face issues with toolchain downloads in restricted environments, you may also need to set `ENV GOTOOLCHAIN=local` and configure your `GOPROXY` in the Dockerfile.
 
-**4. Run Deduplication**
+#### 4. Run Deduplication
 
 For Docker, run:
 
@@ -117,7 +119,7 @@ keploy dedup --rm
 
 ### For Java Applications
 
-**1. Pre-requisite**
+#### 1. Pre-requisite
 
 Add the Keploy Java SDK to your application:
 
@@ -157,7 +159,7 @@ java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=363
 
 The default JaCoCo endpoint for the fallback is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`. When using the fallback, add the JaCoCo port to `--pass-through-ports` so coverage-control traffic is not mocked.
 
-**2. Build Configuration**
+#### 2. Build Configuration
 
 Build the application before running Keploy so the Java class files are available for coverage analysis:
 
@@ -167,7 +169,7 @@ mvn clean package -DskipTests
 
 By default, the SDK scans `target/classes`, `build/classes/java/main`, and runtime classpath jars. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or jars that should be analyzed.
 
-**3. Dockerfile Configuration (Important for Docker Users)**
+#### 3. Dockerfile Configuration (Important for Docker Users)
 
 When you use Docker or Docker Compose, make sure the final runtime image contains:
 
@@ -193,7 +195,7 @@ Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_c
 
 For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and host `/tmp` bind-mounted into the container for the Keploy control/data sockets and JaCoCo output. Do not replace the shared `/tmp` bind mount with a container-only `tmpfs` or named volume; Keploy on the host will not be able to reach the Java SDK control socket.
 
-**4. Run Deduplication**
+#### 4. Run Deduplication
 
 For Docker, run:
 
