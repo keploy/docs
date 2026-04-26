@@ -50,6 +50,7 @@
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication",
+        "keploy-cloud/static-deduplication",
         {
           "type": "category",
           "label": "QuickStarts",

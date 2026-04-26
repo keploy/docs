@@ -105,3 +105,11 @@ updated_at
 shipping_address_id
 [Ll]inux
 [Ee]nv
+[Kk]8s
+[Dd]edup
+[Cc]ron
+[Tt]oolchain
+[Rr]untime[s]?
+normalisation
+behaviour
+polyglot
