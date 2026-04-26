@@ -78,7 +78,7 @@ Put the latest keploy-sdk in your pom.xml file : -
 <dependency>
     <groupId>io.keploy</groupId>
     <artifactId>keploy-sdk</artifactId>
-    <version>2.0.0</version>
+    <version>0.0.1-SNAPSHOT</version>
 </dependency>
 ```
 

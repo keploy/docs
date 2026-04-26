@@ -1,121 +1,120 @@
 ---
 id: java
-title: Java SDK for Dynamic Deduplication
+title: Merge Unit Test Coverage Data
 sidebar_label: Java
-description: "Configure the Keploy Java SDK for Enterprise dynamic deduplication with JaCoCo TCP server mode."
 tags:
   - java
   - coverage
-  - deduplication
 keywords:
-  - Java
-  - JaCoCo
+  - MongoDB
+  - Jacoco
   - Maven
-  - Spring Boot
-  - dynamic deduplication
+  - Springboot Framework
+  - Postgres
+  - SQL
+  - Java
+  - API Test generator
+  - Auto Testcase generation
+  - Junit
 ---
 
-The Java SDK is used for Enterprise dynamic deduplication during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy Enterprise so duplicate testcases can be identified.
+import WhatAreKeployFeatures from './index.md'
 
-The Java SDK does not record API traffic or mock dependencies. Record your Keploy tests separately, commit the generated test fixtures when you use them in CI, and run Java dedup during `keploy test --dedup`.
+<WhatAreKeployFeatures/>
 
-## Requirements
+## 🛠️ Language Specific Requirements
 
-- Java 8, 17, or 21
-- `io.keploy:keploy-sdk`
-- JaCoCo runtime agent in TCP server mode
-- Keploy Enterprise with dynamic deduplication enabled
+| Programming Language | Prerequisites  |
+| :------------------: | :------------- |
+|         java         | [Jacoco 0.8.8] |
 
-## Add the SDK
+**Note**: In case of java application, before running test subcommand, you need to clean the project by removing any previously generated file, and run install command.
 
-Add the Keploy Java SDK dependency:
+```bash
+mvn clean install -Dmaven.test.skip=true
+```
+
+## Usage
+
+### Update `pom.xml` file
+
+You will need to add the following plugins in `pom.xml` file of your application. :-
 
 ```xml
-<dependency>
-  <groupId>io.keploy</groupId>
-  <artifactId>keploy-sdk</artifactId>
-  <version>2.0.0</version>
-</dependency>
+<build>
+	<plugins>
+		<!-- your plugins would go here -->
+        <plugin>
+            <groupId>org.jacoco</groupId>
+            <artifactId>jacoco-maven-plugin</artifactId>
+            <version>0.8.8</version>
+            <executions>
+                <!-- Prepare the JaCoCo agent to track coverage during tests -->
+                <execution>
+                    <id>prepare-agent</id>
+                    <goals>
+                        <goal>prepare-agent</goal>
+                    </goals>
+                </execution>
+                <!-- Merge e2e & u-t execution data files after tests are run -->
+                <execution>
+                    <id>merge-ut-e2e</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>merge</goal>
+                    </goals>
+                    <configuration>
+                        <fileSets>
+                            <fileSet>
+                                <directory>${project.build.directory}</directory>
+                                <includes>
+                                    <include>jacoco.exec</include>
+                                    <include>keploy-e2e.exec</include>
+                                </includes>
+                            </fileSet>
+                        </fileSets>
+                        <!-- Output of merged data -->
+                        <destFile>${project.build.directory}/ut-e2e-merged.exec</destFile>
+                    </configuration>
+                </execution>
+                <!-- Generate report based on the different execution data -->
+                <!-- Generate unit test report-->
+                <execution>
+                    <id>post-unit-test</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/jacoco.exec</dataFile>
+                        <!-- Use merged data file -->
+                        <outputDirectory>${project.reporting.outputDirectory}/ut</outputDirectory>
+                    </configuration>
+                </execution>
+                <!-- Generate combined (e2e+ut) report test report-->
+                <execution>
+                    <id>combined-ut-e2e</id>
+                    <phase>test</phase>
+                    <goals>
+                        <goal>report</goal>
+                    </goals>
+                    <configuration>
+                        <dataFile>${project.build.directory}/ut-e2e-merged.exec</dataFile>
+                        <!-- Use merged data file -->
+                        <outputDirectory>${project.reporting.outputDirectory}/e2e-ut-aggregate</outputDirectory>
+                    </configuration>
+                </execution>
+            </executions>
+        </plugin>
+		<!-- your plugins will go here -->
+	</plugins>
+</build>
 ```
 
-## Start the Dedup Agent
-
-For Spring Boot 2 or other `javax.servlet` applications, import the middleware:
-
-```java
-import io.keploy.servlet.KeployMiddleware;
-import org.springframework.context.annotation.Import;
-
-@Import(KeployMiddleware.class)
-public class Application {
-}
-```
-
-For Spring Boot 3, Jakarta EE applications, other frameworks, or custom launchers, start the agent during application startup:
-
-```java
-import io.keploy.dedup.KeployDedupAgent;
-
-KeployDedupAgent.start();
-```
-
-## Run with the JaCoCo Java Agent
-
-The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo agent is enough — no TCP server flags, no port choice:
+Now, To get the combined report as well as coverage report for your unit tests, Run
 
 ```bash
-java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar
+mvn test
 ```
 
-If your compiled application classes are not under `target/classes` or `build/classes/java/main`, set `KEPLOY_JAVA_CLASS_DIRS`:
-
-```bash
-export KEPLOY_JAVA_CLASS_DIRS=/absolute/path/to/target/classes
-```
-
-If the in-process API is unavailable in your environment, the SDK transparently falls back to JaCoCo's TCP server mode. To use the fallback explicitly, launch JaCoCo in `tcpserver` mode and configure `KEPLOY_JACOCO_HOST` / `KEPLOY_JACOCO_PORT` (defaults: `127.0.0.1:36320`):
-
-```bash
-java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,output=tcpserver \
-  -jar target/app.jar
-```
-
-## Replay with Dedup
-
-Run Keploy in test mode with dynamic deduplication enabled:
-
-```bash
-keploy test \
-  -c "java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar" \
-  --dedup \
-  --language java
-```
-
-If you are using the JaCoCo TCP fallback, also pass `--pass-through-ports <jacoco-port>` so Keploy does not try to mock the coverage-control connection.
-
-After replay, run:
-
-```bash
-keploy dedup
-```
-
-To remove duplicate testcases:
-
-```bash
-keploy dedup --rm
-```
-
-## Docker and Restricted Docker
-
-Java dedup uses two Unix sockets shared between Keploy Enterprise and the Java process:
-
-- `/tmp/coverage_control.sock`
-- `/tmp/coverage_data.sock`
-
-For Docker or Docker Compose runs, bind-mount host `/tmp` into the application container as `/tmp` so both processes use the same socket paths. Keep `/tmp` writable even when the root filesystem is read-only.
-
-For restricted containers, the application can run as a non-root user with dropped capabilities and `no-new-privileges` as long as `/tmp` is shared and writable, and the JaCoCo TCP port is reachable from the Java process.
-
-## CI Guidance
-
-CI should run replay/test mode against checked-in Keploy test fixtures. Do not record Java dedup fixtures in the pipeline unless you intentionally want to refresh them.
+The html file for unit tests report would be generated in target/site/ut directory and, for combined report it would be generated in target/site/e2e-ut-aggregate directory. Open index.html to visualize the report.
