@@ -34,7 +34,7 @@ Add the Keploy Java SDK dependency:
 <dependency>
   <groupId>io.keploy</groupId>
   <artifactId>keploy-sdk</artifactId>
-  <version>N.N.N</version>
+  <version>2.0.0</version>
 </dependency>
 ```
 
