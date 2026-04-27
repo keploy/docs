@@ -38,7 +38,7 @@ keploy test -c "docker compose up" --containerName containerName --dedup
 
 ### For Golang Applications
 
-**1. Pre-requisite**
+#### 1. Pre-requisite
 
 Install the `keploy/go-sdk/v3/keploy` : -
 
@@ -52,7 +52,7 @@ Add the following on top of your main application file : -
 import _ "github.com/keploy/go-sdk/v3/keploy"
 ```
 
-**2. Build Configuration**
+#### 2. Build Configuration
 
 Update the `go build` command in your Dockerfile (or native build script) to include coverage flags. These are required for deduplication to calculate coverage accurately.
 
@@ -60,7 +60,7 @@ Update the `go build` command in your Dockerfile (or native build script) to inc
 RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 ```
 
-**3. Dockerfile Configuration (Important for Docker Users)**
+#### 3. Dockerfile Configuration (Important for Docker Users)
 
 If you are using a multi-stage Docker build (e.g., building in one stage and running in a slim image), you **must** ensure the Go toolchain and `go.mod` files are preserved in the final runtime image. The deduplication feature requires access to the Go runtime to map coverage data correctly.
 
@@ -87,7 +87,7 @@ ENV GOMOD=/app/go.mod
 
 > **Note:** If you face issues with toolchain downloads in restricted environments, you may also need to set `ENV GOTOOLCHAIN=local` and configure your `GOPROXY` in the Dockerfile.
 
-**4. Run Deduplication**
+#### 4. Run Deduplication
 
 For Docker, run:
 
