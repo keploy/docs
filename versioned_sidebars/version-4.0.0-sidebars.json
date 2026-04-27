@@ -22,6 +22,11 @@
           "items": [
             {
               "type": "doc",
+              "label": "Installation",
+              "id": "server/installation"
+            },
+            {
+              "type": "doc",
               "label": "Local",
               "id": "server/install"
             },

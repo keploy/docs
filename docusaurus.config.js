@@ -63,6 +63,12 @@ module.exports = {
       {property: "og:image:height", content: "630"},
     ],
     headTags: [
+      {
+        tagName: "script",
+        attributes: {},
+        innerHTML:
+          "window.dataLayer=window.dataLayer||[];window.gtag=window.gtag||function(){window.dataLayer.push(arguments);};",
+      },
       // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
       {
         tagName: "link",
@@ -438,11 +444,10 @@ module.exports = {
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
-        gtag: {
+        gtag: process.env.NODE_ENV === "production" ? {
           trackingID: "G-LLS95VWZPC",
-          // Optional fields.
-          anonymizeIP: true, // Should IPs be anonymized?
-        },
+          anonymizeIP: true,
+        } : false,
         // Will be passed to @docusaurus/plugin-content-sitemap
         sitemap: {
           // Per v2.0.0-alpha.72 cacheTime is now deprecated
