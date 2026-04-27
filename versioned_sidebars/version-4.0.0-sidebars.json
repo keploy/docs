@@ -106,7 +106,6 @@
               "items": [
                 "quickstart/samples-django",
                 "quickstart/flask-redis",
-                "quickstart/k8s-proxy",
                 "quickstart/samples-microservices",
                 "quickstart/samples-fastapi",
                 "quickstart/samples-fastapi-twilio"
@@ -135,6 +134,16 @@
               "collapsed": true,
               "items": ["quickstart/samples-csharp"]
             }
+          ]
+        },
+        {
+          "type": "category",
+          "label": "K8s Proxy",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "quickstart/k8s-proxy",
+            "running-keploy/k8s-proxy-daemonset-architecture"
           ]
         },
         {
@@ -214,11 +223,7 @@
       "type": "category",
       "label": "API Reference",
       "collapsed": false,
-      "items": [
-        "running-keploy/public-api",
-        "running-keploy/k8s-proxy-api",
-        "running-keploy/k8s-proxy-daemonset-architecture"
-      ]
+      "items": ["running-keploy/public-api", "running-keploy/k8s-proxy-api"]
     },
     {
       "type": "category",
