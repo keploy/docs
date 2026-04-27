@@ -82,27 +82,6 @@ The pieces:
 
 A `replaysessions.keploy.io` CRD ships alongside RecordingSession but is not used by any current replay environment—it exists so the controller-runtime scheme registers cleanly when a future in-cluster served-replay path is wired up.
 
-### Lifecycle of a recording session
-
-1. **Console click → `/record/start`.** The handler in `pkg/http/handlers.go` reads the target Deployment, extracts its pod-selector labels and container names, and creates (or updates) a `RecordingSession` CR named after the Deployment. In DaemonSet mode the entire mutating-webhook + sidecar injection path is short-circuited—no application Pod is touched.
-2. **Per-node reconciler picks up the CR.** Each DaemonSet Pod runs a `SessionReconciler` that listens for CR add/update/delete events. On add/update it:
-   - Lists Pods on its own node matching the CR's `podSelector`.
-   - For each matching Pod, resolves the application container's TGIDs (process IDs the kernel sees) and cgroup IDs.
-   - Inserts those TGIDs into the `target_namespace_pids` BPF map and the cgroup IDs into `target_cgroup_ids`.
-   - The eBPF capture programs filter every observed packet against those two maps; non-matching traffic is dropped without being copied to userspace.
-3. **Pod churn.** The reconciler re-runs on a 15-second cadence even without CR events, so freshly scheduled or restarted Pods get their TGIDs registered before traffic arrives. When a TGID exits, a `tp_btf/sched_process_exit` BPF program removes it from the map automatically (no userspace book-keeping required).
-4. **Capture.** As traffic flows, each DaemonSet agent buffers test cases and mocks locally and uploads them to k8s-proxy over HTTP using a shared bearer token. k8s-proxy persists them to MinIO (mocks) and MongoDB (test cases, reports).
-5. **`/record/stop`.** The proxy deletes the RecordingSession CR. Each agent's reconciler sees the delete event, releases the TGID/cgroup refcounts, and the eBPF filter starts dropping all traffic again. A trailing auto-replay fires automatically (see Part 2).
-
-### Targeting in eBPF: TGIDs and cgroup IDs
-
-You may notice the agent maintains **two** target maps. That's deliberate.
-
-- `target_namespace_pids` is the primary mechanism—TGID matching works in any modern kernel and is cheap. The reconciler resolves a Pod's TGIDs by walking its container statuses.
-- `target_cgroup_ids` is a fallback for environments where TGID resolution is unreliable. On nested PID namespaces (some kind/k3s setups, certain CRI runtimes), the TGID a userspace tool sees does not always match the TGID the kernel reports inside an eBPF program. The reconciler captures each Pod's cgroup ID alongside its TGIDs and the eBPF programs OR-gate the two checks: a packet is captured if **either** its TGID is in `target_namespace_pids` **or** its cgroup ID is in `target_cgroup_ids`.
-
-This dual-targeting closes the gap on platforms that drop TGID-only filters and is one of the reasons DaemonSet mode is robust on managed Kubernetes flavours.
-
 ### What you don't get without the DaemonSet
 
 If `daemonset.enabled=false` in the chart, `/record/start` falls back to the Sidecar path: the proxy injects the agent via the webhook and rolls the application Pod. Both modes drive the same REST API and persist to the same MongoDB schema, so the rest of the Console (Reports, Schema Coverage, Auto-Replay history) does not need to know which mode produced the data.
