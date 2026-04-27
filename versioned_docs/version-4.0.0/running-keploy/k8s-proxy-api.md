@@ -60,8 +60,6 @@ Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-n
 - **Self-updating.** The proxy can roll itself (and the injected agent) forward via `POST /proxy/update`, so upgrades do not require kubectl or a GitOps round-trip—unless you _want_ GitOps to stay authoritative (the proxy detects and reports reverts).
 - **Static deduplication at the edge.** Enable `static_dedup` in the recording config to drop schema-identical traffic _before_ it is ever written as a test case. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/).
 
-If you only need to script a single app outside Kubernetes, the [Public REST API](/docs/running-keploy/public-api/) (`api.keploy.io/client/v1`) is the better fit. The Kubernetes Proxy API is specifically the _live-recording_ control plane.
-
 ---
 
 ## Authentication
@@ -82,11 +80,23 @@ curl -sf https://$PROXY/healthz
 
 ### How the token is provisioned
 
-The proxy generates a 32-byte random value (`crypto/rand`, hex-encoded) on every Pod start and reports it to the Keploy API server in its first heartbeat. The token is **not** sourced from a Helm value, ConfigMap, or Secret, and it rotates whenever the Pod restarts. There is nothing to commit in GitOps and nothing to read out of `kubectl get secret`.
+The shared token is generated **at Helm install time** and stored as a Kubernetes Secret named `<release>-shared-token` in the proxy's namespace. The chart's pre-render step uses Helm's `randAlphaNum 48` to produce the value on the very first install and a `lookup` + `helm.sh/resource-policy: keep` annotation to preserve it across upgrades, so the token is **stable for the lifetime of the release** — Pod restarts and chart upgrades do not rotate it.
+
+The k8s-proxy Deployment and the per-node DaemonSet both mount the Secret as the `KEPLOY_SHARED_TOKEN` env var via `secretKeyRef`. On startup the proxy reports the value to the Keploy API server in its first heartbeat (`POST /cluster/status`) so the Console can display it under the cluster's app entries.
+
+For local/dev runs without a Secret, if `KEPLOY_SHARED_TOKEN` is unset the proxy falls back to generating a random 32-byte value via `crypto/rand` (hex-encoded). This fallback is fresh on every restart and is **not** the path used in any Helm-managed deployment.
 
 ### Retrieve the token
 
-Authenticated callers fetch the current token from the Keploy API server, which mirrors the latest heartbeat from each cluster. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
+Two equally valid paths.
+
+**(a) Read it directly from the Secret** if you have `kubectl` access to the proxy namespace:
+
+```bash
+kubectl -n keploy get secret <release>-shared-token -o jsonpath='{.data.token}' | base64 -d
+```
+
+**(b) Fetch it from the Keploy API server**, which mirrors what the proxy heartbeated. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
 
 ```bash
 API_SERVER="https://api.keploy.io"
@@ -109,7 +119,7 @@ AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
 
 `GET /cluster/getApps` returns the same `sharedToken` field for every proxy-managed app in your organization in a single response, which is convenient when you want to script across many Deployments at once.
 
-> The proxy shared token is cluster-wide, not per-user. The API server still uses normal user JWT/cookie authentication on its own routes (including `/cluster/getApp`). Programmatic callers should re-fetch the shared token on each run, since it changes whenever the proxy Pod restarts.
+> The proxy shared token is cluster-wide, not per-user. The API server still uses normal user JWT/cookie authentication on its own routes (including `/cluster/getApp`). The token is sticky across Pod restarts and chart upgrades, so callers can cache it for the lifetime of the Helm release.
 
 ---
 
