@@ -2,7 +2,7 @@
 id: deduplication
 title: Remove Duplicates Tests
 sidebar_label: Remove Duplicate Tests
-description: "Remove duplicate test cases with Keploy Enterprise deduplication — save time and resources by eliminating redundant tests."
+description: "Remove duplicate test cases with Keploy Enterprise deduplication and save time and resources by eliminating redundant tests."
 tags:
   - explanation
   - feature guide
@@ -144,13 +144,13 @@ public class App {
 }
 ```
 
-Java dynamic deduplication uses JaCoCo runtime coverage. The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo Java agent is enough — no TCP server flags, no `--pass-through-ports`:
+Java dynamic deduplication uses JaCoCo runtime coverage. The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo Java agent is enough: no TCP server flags, no `--pass-through-ports`.
 
 ```bash
 java -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar
 ```
 
-If the in-process API is unavailable for some reason (for example, an isolated classloader), the SDK transparently falls back to JaCoCo's TCP server mode. To force the fallback, launch JaCoCo in `tcpserver` mode and tell Keploy to leave that port alone:
+If the in-process API is unavailable for some reason (for example, an isolated class loader), the SDK transparently falls back to JaCoCo's TCP server mode. To force the fallback, launch JaCoCo in `tcpserver` mode and tell Keploy to leave that port alone:
 
 ```bash
 java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,output=tcpserver \
@@ -191,9 +191,9 @@ Then run the app with the JaCoCo agent attached:
 java -javaagent:/app/jacocoagent.jar -jar /app/app.jar
 ```
 
-Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, bind-mount host `/tmp` into the application container so both processes see the same socket paths.
+Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container so both processes see the same socket paths.
 
-For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and host `/tmp` bind-mounted into the container for the Keploy control/data sockets and JaCoCo output. Do not replace the shared `/tmp` bind mount with a container-only `tmpfs` or named volume; Keploy on the host will not be able to reach the Java SDK control socket.
+For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and Keploy's shared `/tmp` named volume for the Keploy control/data sockets and JaCoCo output. Do not add a conflicting `/tmp` bind mount or `tmpfs`; Keploy requires the injected shared `/tmp` volume to reach the Java SDK control socket.
 
 #### 4. Run Deduplication
 

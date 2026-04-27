@@ -2,7 +2,7 @@
 id: java
 title: Java SDK for Dynamic Deduplication
 sidebar_label: Java
-description: "Configure the Keploy Java SDK for Enterprise dynamic deduplication with JaCoCo TCP server mode."
+description: "Configure the Keploy Java SDK for Enterprise dynamic deduplication with in-process JaCoCo coverage."
 tags:
   - java
   - coverage
@@ -27,7 +27,7 @@ The Java SDK does not record API traffic or mock dependencies. Record your Keplo
 
 - Java 8, 17, or 21
 - `io.keploy:keploy-sdk`
-- JaCoCo runtime agent in TCP server mode
+- JaCoCo Java agent attached to the application JVM
 - Keploy Enterprise with dynamic deduplication enabled
 
 ## Add the SDK
@@ -65,7 +65,7 @@ KeployDedupAgent.start();
 
 ## Run with the JaCoCo Java Agent
 
-The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo agent is enough — no TCP server flags, no port choice:
+The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo agent is enough: no TCP server flags, no port choice.
 
 ```bash
 java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar
@@ -116,9 +116,9 @@ Java dedup uses two Unix sockets shared between Keploy Enterprise and the Java p
 - `/tmp/coverage_control.sock`
 - `/tmp/coverage_data.sock`
 
-For Docker or Docker Compose runs, bind-mount host `/tmp` into the application container as `/tmp` so both processes use the same socket paths. Keep `/tmp` writable even when the root filesystem is read-only.
+For Docker or Docker Compose runs, Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container so both processes use the same socket paths. Do not add a conflicting `/tmp` bind mount or `tmpfs`; keep `/tmp` writable even when the root filesystem is read-only.
 
-For restricted containers, the application can run as a non-root user with dropped capabilities and `no-new-privileges` as long as `/tmp` is shared and writable, and the JaCoCo TCP port is reachable from the Java process.
+For restricted containers, the application can run as a non-root user with dropped capabilities and `no-new-privileges` as long as the injected `/tmp` volume is shared and writable. If the SDK falls back to JaCoCo TCP mode, the JaCoCo TCP port must also be reachable from the Java process.
 
 ## CI Guidance
 
