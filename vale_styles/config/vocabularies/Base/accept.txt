@@ -122,3 +122,13 @@ initialised
 normalisation
 behaviour
 polyglot
+[Dd]aemon[Ss]et[s]?
+[Cc]RD[s]?
+eBPF
+[Mm]utatingAdmissionWebhook
+RecordingSession[s]?
+ReplaySession[s]?
+keploy-daemonset
+keploy-agent
+recordingsessions
+replaysessions

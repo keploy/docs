@@ -39,12 +39,12 @@ Use this API when you want to script the same Kubernetes live-recording flow the
 
 ## Recording modes: Sidecar and DaemonSet
 
-The Kubernetes Proxy supports two recording modes. Both expose the same REST API documented here — pick whichever fits your environment.
+The Kubernetes Proxy supports two recording modes. Both expose the same REST API documented here—pick whichever fits your environment.
 
 - **Sidecar mode (default).** When recording starts, the proxy's `MutatingAdmissionWebhook` injects a `keploy-agent` sidecar container into the target Pod and rolls it. The agent intercepts traffic from the application container alongside it. This is the mode the rest of this document describes.
-- **DaemonSet mode.** A `keploy-daemonset` Pod runs on each node and captures traffic from existing application Pods via eBPF — no sidecar injection, no application-Pod restart. Recording is scoped by a `RecordingSession` Custom Resource that the proxy creates from `/record/start`; the DaemonSet agents pick it up and program their BPF target maps. This is the right mode when application Pods cannot be mutated (read-only RBAC on the application namespace), or when the rollout cost of injecting a sidecar is unacceptable. Cluster-mode auto-replay (a separate replay cluster reached via mounted kubeconfig) is supported in this mode.
+- **DaemonSet mode.** A `keploy-daemonset` Pod runs on each node and captures traffic from existing application Pods via eBPF—no sidecar injection, no application-Pod restart. Recording is scoped by a `RecordingSession` Custom Resource that the proxy creates from `/record/start`; the DaemonSet agents pick it up and program their BPF target maps. This is the right mode when application Pods cannot be mutated (read-only RBAC on the application namespace), or when the rollout cost of injecting a sidecar is unacceptable. Cluster-mode auto-replay (a separate replay cluster reached via mounted kubeconfig) is supported in this mode.
 
-The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and report endpoints work identically across both modes — the difference is purely in how the agent is delivered to the workload.
+The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and report endpoints work identically across both modes—the difference is purely in how the agent is delivered to the workload.
 
 ---
 
