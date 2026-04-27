@@ -24,7 +24,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The Keploy Kubernetes Proxy supports two recording modes—**Sidecar** and **DaemonSet**—and three independent **auto-replay environments** that the same proxy can dispatch to. This page explains the moving parts of DaemonSet recording and then walks through the three replay environments end to end.
+The Keploy Kubernetes Proxy supports two recording modes—**Sidecar** and **DaemonSet**—and two independent **auto-replay environments** that the same proxy can dispatch to. This page explains the moving parts of DaemonSet recording and then walks through both replay environments end to end.
 
 If you only want the install steps, see [the K8s Proxy quickstart](/docs/quickstart/k8s-proxy/) or [the customer cluster-mode setup guide](/docs/running-keploy/k8s-proxy-api/). This document is the "behind the scenes" reference.
 
@@ -111,11 +111,10 @@ If `daemonset.enabled=false` in the chart, `/record/start` falls back to the Sid
 
 ## Part 2—Auto-replay environments
 
-When a recording session ends—either because the cooldown window expires or because `/record/stop` was called—the proxy fires an auto-replay against the freshly recorded test sets. Where that replay actually runs is controlled by `KEPLOY_AUTO_REPLAY_MODE`. Three values are supported, deliberately independent of each other:
+When a recording session ends—either because the cooldown window expires or because `/record/stop` was called—the proxy fires an auto-replay against the freshly recorded test sets. Where that replay actually runs is controlled by `KEPLOY_AUTO_REPLAY_MODE`. Two values are supported, deliberately independent of each other:
 
 | Mode      | Replay runs on…                           | Best for                                                                                                               |
 | --------- | ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------- |
-| `crd`     | the source Kubernetes cluster (legacy)    | Dev/staging where Keploy already has write RBAC on the application namespace.                                          |
 | `runner`  | a Docker daemon outside the cluster       | Customers who don't want any pod scheduling for replay; long-lived runners that pull work over HTTP.                   |
 | `cluster` | a separate Kubernetes cluster you provide | Production with read-only RBAC on the source cluster; replay runs against an isolated Pod in a customer-owned cluster. |
 
@@ -123,35 +122,13 @@ When a recording session ends—either because the cooldown window expires or be
 
 ### How dispatch works
 
-`/record/stop` runs the recording teardown synchronously and then enters a dispatch branch in `pkg/http/handlers.go`. The branch reads `cfg.AutoReplayMode` and routes to one of three handlers, each of which knows how to stand up a replay environment from the captured test cases. All three eventually drive the OSS replayer (`go.keploy.io/server/v3/pkg/service/replay`)—what differs is **where the application under test actually runs** during replay.
+`/record/stop` runs the recording teardown synchronously and then enters a dispatch branch in `pkg/http/handlers.go`. The branch reads `cfg.AutoReplayMode` and routes to the matching handler, which stands up a replay environment from the captured test cases. Both modes eventually drive the OSS replayer (`go.keploy.io/server/v3/pkg/service/replay`)—what differs is **where the application under test actually runs** during replay.
 
-The default replay-start delay is **10 seconds** in all three modes. This gives the replayed application time to bind its port before the OSS replayer fires the first test case. Callers can override it via `auto_replay_config.delay` in the `/record/start` body.
-
----
-
-### Mode A—`crd` (legacy in-cluster)
-
-```
-[/record/stop]
-      │
-      ▼
-k8s-proxy
-  • creates a standalone Pod + Service in the source cluster
-    by stamping out the source Deployment's PodTemplate
-    minus the application's container args
-  • injects a keploy-agent sidecar (same webhook path
-    Sidecar-mode recording uses)
-  • drives the OSS replayer against the standalone Service
-  • tears down the Pod + Service when replay ends
-```
-
-**RBAC required on the application namespace:** `create / patch / delete` on Pods, Services, and NetworkPolicies. This is exactly what the read-only-source threat model rules out, which is why the other two modes exist.
-
-**When to use it:** dev / staging clusters where Keploy already has write RBAC. Mode is selected with `KEPLOY_AUTO_REPLAY_MODE=crd`. No additional config is required.
+The default replay-start delay is **10 seconds** in both modes. This gives the replayed application time to bind its port before the OSS replayer fires the first test case. Callers can override it via `auto_replay_config.delay` in the `/record/start` body.
 
 ---
 
-### Mode B—`runner` (Docker daemon)
+### Mode A—`runner` (Docker daemon)
 
 ```
 [/record/stop]
@@ -212,7 +189,7 @@ The runner heartbeats while a job is in progress and POSTs the final report back
 
 ---
 
-### Mode C—`cluster` (separate replay cluster)
+### Mode B—`cluster` (separate replay cluster)
 
 This is the **recommended** production mode and is also the default. It keeps the source cluster strictly read-only and runs every replay in a customer-provided second cluster reached through a kubeconfig.
 
@@ -253,7 +230,7 @@ This is the **recommended** production mode and is also the default. It keeps th
 4. It opens a SPDY port-forward through the replay cluster's API server to the agent port and the recorded application port. The OSS replayer drives test cases through that local forward—k8s-proxy never needs in-cluster network reachability into the replay cluster.
 5. When replay ends, the proxy deletes the Pod, Service, and NetworkPolicy. ConfigMaps and Secrets are left in place; they're rehydrated again next run if the source spec changed.
 
-**What stays the same as `crd` mode:** the OSS replayer, the report shape, the Mongo collections (`testrunReports`, `testsetReports`, `testcaseReports`, `autoReplayMetrics`, `k8sSchemaCoverageReports`), and the Console UI.
+**What stays the same as `runner` mode:** the OSS replayer, the report shape, the Mongo collections (`testrunReports`, `testsetReports`, `testcaseReports`, `autoReplayMetrics`, `k8sSchemaCoverageReports`), and the Console UI.
 
 **What's different:** every Pod / Service / NetworkPolicy write goes to the replay cluster. The source cluster never sees a write from Keploy.
 
@@ -280,7 +257,7 @@ extraVolumeMounts:
 
 The kubeconfig in the Secret should grant the proxy `create / update / patch / delete` on Pods, Services, NetworkPolicies, ConfigMaps, and Secrets **in the replay namespace only**, plus `pods/portforward` and `pods/log`. See the customer setup guide for a copy-paste Role + RoleBinding template.
 
-**Graceful fallback:** if `KEPLOY_AUTO_REPLAY_MODE=cluster` is set but `KEPLOY_REPLAY_KUBECONFIG_PATH` is empty or the file is missing, k8s-proxy logs a warning and falls back to `crd` mode rather than failing fast—this makes phased migrations low-risk.
+**Graceful fallback:** if `KEPLOY_AUTO_REPLAY_MODE=cluster` is set but `KEPLOY_REPLAY_KUBECONFIG_PATH` is empty or the file is missing, k8s-proxy logs a warning and skips the trailing replay rather than failing the recording session.
 
 **When to use it:** any production environment where the source cluster must remain untouched, or where you want hard isolation between recording and replay environments. The trade-off is operating a second Kubernetes cluster; for many teams a small managed cluster (1 or 2 small nodes) is sufficient since replays are short-lived and serialized per `(namespace, deployment)` pair.
 
@@ -292,9 +269,9 @@ Recording mode and replay environment are orthogonal—every combination is vali
 
 | You want…                                                                                      | Recording mode | Replay environment |
 | ---------------------------------------------------------------------------------------------- | -------------- | ------------------ |
-| Fastest path to "first recording" in dev, comfortable with pod restarts                        | Sidecar        | `crd`              |
-| No application restart, dev cluster has write RBAC                                             | DaemonSet      | `crd`              |
+| Fastest setup, you already have a Docker host outside the cluster                              | Sidecar        | `runner`           |
+| No application restart, you already have a Docker host outside the cluster                     | DaemonSet      | `runner`           |
 | Production with read-only RBAC on the source namespace, second K8s cluster available           | DaemonSet      | `cluster`          |
 | Production with read-only RBAC on the source namespace, no spare K8s cluster but a Docker host | DaemonSet      | `runner`           |
 
-For the operational walkthrough of the cluster-mode setup, see the K8s Proxy REST API guide's setup section. For the dev loop on kind, see the local-testing notes in the Keploy enterprise repo.
+For the operational walkthrough of the cluster-mode setup, see the K8s Proxy REST API guide's setup section.
