@@ -170,3 +170,13 @@ randAlphaNum
 secretKeyRef
 HostPath
 PostStart
+[Cc]group[s]?
+[Uu]serspace
+[Tt]eardown
+[Rr]eplayer
+[Rr]ehydrate[ds]?
+[Rr]eachability
+[Ww]alkthrough
+[Dd]ev
+[Cc]Rs?
+[Ss]ubresource[s]?

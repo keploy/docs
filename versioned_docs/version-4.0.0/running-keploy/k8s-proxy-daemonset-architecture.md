@@ -282,7 +282,7 @@ The kubeconfig in the Secret should grant the proxy `create / update / patch / d
 
 **Graceful fallback:** if `KEPLOY_AUTO_REPLAY_MODE=cluster` is set but `KEPLOY_REPLAY_KUBECONFIG_PATH` is empty or the file is missing, k8s-proxy logs a warning and falls back to `crd` mode rather than failing fast—this makes phased migrations low-risk.
 
-**When to use it:** any production environment where the source cluster must remain untouched, or where you want hard isolation between recording and replay environments. The trade-off is operating a second Kubernetes cluster; for many teams a small managed cluster (1–2 small nodes) is sufficient since replays are short-lived and serialized per `(namespace, deployment)` pair.
+**When to use it:** any production environment where the source cluster must remain untouched, or where you want hard isolation between recording and replay environments. The trade-off is operating a second Kubernetes cluster; for many teams a small managed cluster (1 or 2 small nodes) is sufficient since replays are short-lived and serialized per `(namespace, deployment)` pair.
 
 ---
 
