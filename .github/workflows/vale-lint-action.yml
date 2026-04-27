@@ -8,19 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4.1.1
-        with:
-          fetch-depth: 0
-
-      - name: Collect changed docs
-        id: changed-docs
-        shell: bash
-        run: |
-          files=$(git diff --name-only --diff-filter=ACMRT "${{ github.event.pull_request.base.sha }}" "${{ github.sha }}" -- 'versioned_docs/**/*.md' | paste -sd, -)
-          echo "files=${files}" >> "$GITHUB_OUTPUT"
 
       # Set up Vale Action — only lint changed lines to avoid flagging pre-existing issues.
       - uses: errata-ai/vale-action@v2.1.1
-        if: steps.changed-docs.outputs.files != ''
         with:
           # Only check lines added/modified in the PR diff.
           filter_mode: diff_context
@@ -28,11 +18,8 @@ jobs:
           reporter: github-pr-check
           # Fails the action if there are errors
           fail_on_error: true
-          # Lint only changed versioned docs. The action fails on all Vale output
-          # before reviewdog filters annotations, so a broad directory here makes
-          # pre-existing docs issues fail unrelated PRs.
-          files: ${{ steps.changed-docs.outputs.files }}
-          separator: ','
+          # Lint docs across all versioned directories
+          files: 'versioned_docs'
           # Specify the Vale version
           version: 3.0.3
         env:
