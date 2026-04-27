@@ -22,15 +22,15 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-## Why Deduplication? ❄️
+## Why Dynamic Deduplication? ❄️
 
 When developing or maintaining a software, it is common for test suites to grow in size. This often results in redundancy, as many test cases cover the same functions or scenarios. This is where Test Deduplication comes into play.
 
-It simplifies the testing process by removing redundant test cases, which saves time and resources while keeping the testcases which adds value to the overall coverage of the application.
+It simplifies the testing process by identifying redundant test cases, which saves time and resources while keeping the testcases that add value to the overall coverage of the application.
 
 ## Usage 🛠️
 
-To detect duplicate tests, simply run the below command, like so:
+To collect coverage for dynamic deduplication, run:
 
 ```bash
 keploy test -c "docker compose up" --containerName containerName --dedup
@@ -38,7 +38,7 @@ keploy test -c "docker compose up" --containerName containerName --dedup
 
 ### For Golang Applications
 
-#### 1. Pre-requisite
+**1. Pre-requisite**
 
 Install the `keploy/go-sdk/v3/keploy` : -
 
@@ -52,7 +52,7 @@ Add the following on top of your main application file : -
 import _ "github.com/keploy/go-sdk/v3/keploy"
 ```
 
-#### 2. Build Configuration
+**2. Build Configuration**
 
 Update the `go build` command in your Dockerfile (or native build script) to include coverage flags. These are required for deduplication to calculate coverage accurately.
 
@@ -60,7 +60,7 @@ Update the `go build` command in your Dockerfile (or native build script) to inc
 RUN go build -cover -covermode=atomic -coverpkg=./... -o /app/main .
 ```
 
-#### 3. Dockerfile Configuration (Important for Docker Users)
+**3. Dockerfile Configuration (Important for Docker Users)**
 
 If you are using a multi-stage Docker build (e.g., building in one stage and running in a slim image), you **must** ensure the Go toolchain and `go.mod` files are preserved in the final runtime image. The deduplication feature requires access to the Go runtime to map coverage data correctly.
 
@@ -87,7 +87,7 @@ ENV GOMOD=/app/go.mod
 
 > **Note:** If you face issues with toolchain downloads in restricted environments, you may also need to set `ENV GOTOOLCHAIN=local` and configure your `GOPROXY` in the Dockerfile.
 
-#### 4. Run Deduplication
+**4. Run Deduplication**
 
 For Docker, run:
 
@@ -131,7 +131,7 @@ Add the Keploy Java SDK to your application:
 </dependency>
 ```
 
-For Spring Boot applications, register the Keploy middleware in your main class:
+For Spring Boot 2 or other `javax.servlet` applications, register the Keploy middleware in your main class:
 
 ```java
 import io.keploy.servlet.KeployMiddleware;
@@ -142,6 +142,14 @@ import org.springframework.context.annotation.Import;
 @Import(KeployMiddleware.class)
 public class App {
 }
+```
+
+For Spring Boot 3, Jakarta EE applications, other frameworks, or custom launchers, start the agent during application startup:
+
+```java
+import io.keploy.dedup.KeployDedupAgent;
+
+KeployDedupAgent.start();
 ```
 
 Java dynamic deduplication uses JaCoCo runtime coverage. The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo Java agent is enough: no TCP server flags, no `--pass-through-ports`.
@@ -200,7 +208,7 @@ For hardened Docker runs, the Java dedup sample is validated with a non-root run
 For Docker, run:
 
 ```bash
-keploy test -c "docker compose up" --containerName containerName --dedup --language java
+keploy test -c "docker compose up" --container-name containerName --dedup --language java
 ```
 
 For Native, run:
@@ -219,9 +227,9 @@ After this, run:
 keploy dedup
 ```
 
-This command will create a `duplicates.yaml` file which will contain all the test cases which were found to be duplicate.
+This command will create a `duplicates.yaml` file containing the test cases that dynamic deduplication marked as redundant.
 
-In order to remove all the duplicate test cases, run the following command:
+To apply the dynamic deduplication cleanup to the local Keploy test set, run:
 
 ```bash
 keploy dedup --rm

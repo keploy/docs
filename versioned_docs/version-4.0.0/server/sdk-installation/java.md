@@ -103,7 +103,7 @@ After replay, run:
 keploy dedup
 ```
 
-To remove duplicate testcases:
+To apply the dynamic deduplication cleanup:
 
 ```bash
 keploy dedup --rm

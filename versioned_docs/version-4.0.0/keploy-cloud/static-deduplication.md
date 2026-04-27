@@ -185,6 +185,6 @@ Pair with [recording filters](/docs/running-keploy/recording-filters/) when you 
 
 ## Related guides
 
-- [Dynamic Deduplication (coverage-based dedup)](/docs/keploy-cloud/deduplication/)—post-replay dedup with `keploy dedup`.
+- [Remove Duplicate Tests (coverage-based dedup)](/docs/keploy-cloud/deduplication/)—post-replay dedup with `keploy dedup`.
 - [Recording filters](/docs/running-keploy/recording-filters/)—exclude traffic before it reaches dedup.
 - [Configuration file](/docs/running-keploy/configuration-file/)—all `keploy.yml` options in one place.
