@@ -29,11 +29,22 @@ import ProductTier from '@site/src/components/ProductTier';
 The **Keploy Kubernetes Proxy** runs as an in-cluster service that drives recording, replay, and observability for Deployments in one or more namespaces. Its REST API has two groups of routes:
 
 - **Operational routes** such as `/record/start`, `/record/status`, `/test/start`, `/deployments`, and `/proxy/update`. These are the routes used to control live in-cluster recording and replay.
-- **API-server-compatible data routes** under `/k8s-proxy/*`. The Console and CLI use these paths for stored test cases, mocks, reports, schema, schema coverage, and saved configs. In SaaS mode these paths are served by the API server. In self-hosted mode the proxy can serve the same paths directly.
+- **API-server-compatible data routes** under `/k8s-proxy/*`. The Console and CLI use these paths for stored test cases, mocks, reports, schema, schema coverage, and saved configs. The proxy can serve these paths directly.
 
 Use this API when you want to script the same Kubernetes live-recording flow the Keploy Console drives from CI/CD pipelines, operators, or internal tooling without running the `keploy` CLI on each node.
 
 **Base URL:** `https://<your-proxy-ingress>` - the externally reachable address configured as `ingressUrl` when you installed the `k8s-proxy` Helm chart. In-cluster callers can use `https://<release-fullname>.<release-namespace>.svc:8080` by default, or `http://<release-fullname>.<release-namespace>.svc:8081` when `proxy.insecure.enabled=true`.
+
+---
+
+## Recording modes: Sidecar and DaemonSet
+
+The Kubernetes Proxy supports two recording modes. Both expose the same REST API documented here — pick whichever fits your environment.
+
+- **Sidecar mode (default).** When recording starts, the proxy's `MutatingAdmissionWebhook` injects a `keploy-agent` sidecar container into the target Pod and rolls it. The agent intercepts traffic from the application container alongside it. This is the mode the rest of this document describes.
+- **DaemonSet mode.** A `keploy-daemonset` Pod runs on each node and captures traffic from existing application Pods via eBPF — no sidecar injection, no application-Pod restart. Recording is scoped by a `RecordingSession` Custom Resource that the proxy creates from `/record/start`; the DaemonSet agents pick it up and program their BPF target maps. This is the right mode when application Pods cannot be mutated (read-only RBAC on the application namespace), or when the rollout cost of injecting a sidecar is unacceptable. Cluster-mode auto-replay (a separate replay cluster reached via mounted kubeconfig) is supported in this mode.
+
+The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and report endpoints work identically across both modes — the difference is purely in how the agent is delivered to the workload.
 
 ---
 
@@ -78,7 +89,7 @@ The proxy generates a 32-byte random value (`crypto/rand`, hex-encoded) on every
 Authenticated callers fetch the current token from the Keploy API server, which mirrors the latest heartbeat from each cluster. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
 
 ```bash
-API_SERVER="https://api.keploy.io"   # or your self-hosted api-server URL
+API_SERVER="https://api.keploy.io"
 NS="default"
 DEPLOY="orders-api"
 CLUSTER="prod-use1"
@@ -340,7 +351,7 @@ Omit `selectedTests` to replay every set.
 
 ### API-server-compatible data routes
 
-These routes are all mounted under `/k8s-proxy`. They are served directly by the proxy in self-hosted mode and by the API server in SaaS mode. Direct proxy calls use the proxy shared token. API-server calls use normal Console/API-server authentication and role checks.
+These routes are all mounted under `/k8s-proxy` and are served directly by the proxy. Direct proxy calls use the proxy shared token; calls routed through the API server use normal Console/API-server authentication and role checks.
 
 #### Health
 
