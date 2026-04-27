@@ -1,8 +1,8 @@
 ---
 id: deduplication
-title: Remove Duplicates Tests
-sidebar_label: Remove Duplicate Tests
-description: "Remove duplicate test cases with Keploy Enterprise deduplication and save time and resources by eliminating redundant tests."
+title: Dynamic Deduplication
+sidebar_label: Dynamic Deduplication
+description: "Use Keploy Enterprise dynamic deduplication to identify redundant test cases and save time and resources."
 tags:
   - explanation
   - feature guide
