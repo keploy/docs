@@ -106,7 +106,6 @@
               "items": [
                 "quickstart/samples-django",
                 "quickstart/flask-redis",
-                "quickstart/k8s-proxy",
                 "quickstart/samples-microservices",
                 "quickstart/samples-fastapi",
                 "quickstart/samples-fastapi-twilio"
@@ -133,20 +132,24 @@
               "label": "C# (.NET Core)",
               "collapsible": true,
               "collapsed": true,
-              "items": [
-                "quickstart/samples-csharp"
-              ]
+              "items": ["quickstart/samples-csharp"]
             }
           ]
         },
         {
           "type": "category",
-          "label": "CI/CD Integration",
+          "label": "K8s Proxy",
+          "collapsible": true,
+          "collapsed": true,
           "items": [
-            "ci-cd/github",
-            "ci-cd/gitlab",
-            "ci-cd/jenkins"
+            "quickstart/k8s-proxy",
+            "running-keploy/k8s-proxy-daemonset-architecture"
           ]
+        },
+        {
+          "type": "category",
+          "label": "CI/CD Integration",
+          "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
         },
         {
           "type": "category",
@@ -220,10 +223,7 @@
       "type": "category",
       "label": "API Reference",
       "collapsed": false,
-      "items": [
-        "running-keploy/public-api",
-        "running-keploy/k8s-proxy-api"
-      ]
+      "items": ["running-keploy/public-api", "running-keploy/k8s-proxy-api"]
     },
     {
       "type": "category",
