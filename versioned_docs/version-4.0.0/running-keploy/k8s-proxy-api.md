@@ -80,7 +80,7 @@ curl -sf https://$PROXY/healthz
 
 ### How the token is provisioned
 
-The shared token is generated **at Helm install time** and stored as a Kubernetes Secret named `<release>-shared-token` in the proxy's namespace. The chart's pre-render step uses Helm's `randAlphaNum 48` to produce the value on the very first install and a `lookup` + `helm.sh/resource-policy: keep` annotation to preserve it across upgrades, so the token is **stable for the lifetime of the release** — Pod restarts and chart upgrades do not rotate it.
+The shared token is generated **at Helm install time** and stored as a Kubernetes Secret named `<release>-shared-token` in the proxy's namespace. The chart's pre-render step uses Helm's `randAlphaNum 48` to produce the value on the very first install and a `lookup` + `helm.sh/resource-policy: keep` annotation to preserve it across upgrades, so the token is **stable for the lifetime of the release**—Pod restarts and chart upgrades do not rotate it.
 
 The k8s-proxy Deployment and the per-node DaemonSet both mount the Secret as the `KEPLOY_SHARED_TOKEN` env var via `secretKeyRef`. On startup the proxy reports the value to the Keploy API server in its first heartbeat (`POST /cluster/status`) so the Console can display it under the cluster's app entries.
 
@@ -96,7 +96,7 @@ Two equally valid paths.
 kubectl -n keploy get secret <release>-shared-token -o jsonpath='{.data.token}' | base64 -d
 ```
 
-**(b) Fetch it from the Keploy API server**, which mirrors what the proxy heartbeated. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
+**(b) Fetch it from the Keploy API server**, which mirrors what the proxy reported in its last heartbeat. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
 
 ```bash
 API_SERVER="https://api.keploy.io"
