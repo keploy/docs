@@ -54,7 +54,7 @@ We will be using Docker compose to run the application as well as PostgreSQL on 
 git clone https://github.com/keploy/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
 ```
 
-![Ruby Docker setup](/img/ruby_postgrel_docker_setup.png)
+![Ruby Docker setup](/img/ruby_postgres_docker_setup.png)
 *Screenshot: Docker and PostgreSQL setup for the Ruby quickstart.*
 
 ### Lights, Camera, Record! 🎥
