@@ -151,7 +151,7 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 
 ## Running App Locally on Linux/WSL 🐧
 
-We'll be running our sample application locally on Linux/WSL. There are 2 ways you can run this application:
+We'll be running our sample application locally on Linux/WSL using the workflow below:
 
 ### Clone the Application 🧪
 
