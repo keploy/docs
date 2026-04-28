@@ -9,7 +9,7 @@ tags:
   - limitations
 ---
 
-# Testing Guide 🧪
+# Testing Guide
 
 In this blog, we will learn how test bench of keploy works and how you can contribute to keploy's code coverage.
 

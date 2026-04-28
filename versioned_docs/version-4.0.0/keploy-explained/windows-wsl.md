@@ -2,6 +2,7 @@
 id: windows-wsl
 title: "Running Keploy Natively on Windows"
 sidebar_label: Keploy on Windows native
+description: "Install and run Keploy natively on Windows using WSL — prerequisites, setup steps, and running your first test."
 tags:
   - windows
   - ebpf

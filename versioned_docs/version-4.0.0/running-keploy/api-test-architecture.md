@@ -1,6 +1,6 @@
 ---
 id: api-test-architecture
-title: Behind the Scenes
+title: API Test Architecture
 sidebar_label: Behind the Scenes
 description: How Keploy turns your schema and API requests into edge-case API tests—instantly.
 tags:
@@ -10,7 +10,7 @@ tags:
   - curl
 ---
 
-# 🛠️ API Testing Architecture
+# 🛠️ API Test Architecture
 
 With Keploy, go from API specs to real, production-grade API tests—**instantly!**  
 Here’s how our architecture works under the hood.

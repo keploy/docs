@@ -10,7 +10,7 @@ tags:
   - examples
   - tutorial
   - nodejs
-keyword:
+keywords:
   - Express Framework
   - PostgreSQL
   - Prisma ORM

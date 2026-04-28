@@ -73,7 +73,7 @@ export const QuickStartTabs = () => {
       ],
       cta: {
         label: "Start OSS Quickstart",
-        link: "/docs/quickstart/samples-java/#instructions-for-starting-using-docker",
+        link: "/docs/quickstart/quickstart-filter/",
         primary: false,
       },
     },

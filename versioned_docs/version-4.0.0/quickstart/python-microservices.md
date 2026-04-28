@@ -14,7 +14,7 @@ tags:
   - microservices
   - mysql
   - flask-framework
-keyword:
+keywords:
   - Flask Framework
   - mysql
   - python microservices

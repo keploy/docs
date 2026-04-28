@@ -2,6 +2,7 @@
 id: kubernetes-local-setup
 title: Kubernetes Local Setup (Kind)
 sidebar_label: Kubernetes Local Setup
+description: "Set up a local Kind Kubernetes cluster with Keploy Enterprise — live record and replay API traffic for Pods via NodePort."
 tags:
   - explanation
   - feature guide

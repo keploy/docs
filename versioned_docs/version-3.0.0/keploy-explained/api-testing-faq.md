@@ -8,7 +8,7 @@ tags:
   - faq
 ---
 
-# Got Questions? We’ve Got Answers! 🚀
+# Got Questions? We’ve Got Answers!
 
 Let's get to the heart of Keploy API Testing with some fun Q&A!
 

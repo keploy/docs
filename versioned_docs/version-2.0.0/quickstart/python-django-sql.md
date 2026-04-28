@@ -12,7 +12,7 @@ tags:
   - python-framework
   - postgres
   - pytest
-keyword:
+keywords:
   - Django Framework
   - Postgres
   - SQL

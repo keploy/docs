@@ -12,7 +12,7 @@ tags:
   - mysql
   - sql
   - mux-framework
-keyword:
+keywords:
   - Mux Framework
   - MySQL
   - Golang

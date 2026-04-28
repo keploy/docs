@@ -2,6 +2,7 @@
 id: utg-best-practices
 title: Best practices for unit testing and UTG?
 sidebar_label: Best Practices?
+description: "Best practices for unit testing with Keploy UTG — single responsibility tests, automation strategies, and maximizing test ROI."
 tags:
   - explanation
   - why keploy

@@ -7,7 +7,7 @@ tags:
   - Rust
   - MongoDB
   - REST API
-keyword:
+keywords:
   - Rust
   - MongoDB
   - API Test generator

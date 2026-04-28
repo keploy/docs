@@ -1,6 +1,6 @@
 ---
 id: unit-test-architecture
-title: Behind the Scenes
+title: Unit Test Architecture
 sidebar_label: Behind the Scenes
 description: How Keploy's AI-powered unit testing architecture works.
 tags:
@@ -10,7 +10,7 @@ tags:
   - workflow
 ---
 
-# 🏗️ Unit Testing Architecture
+# 🏗️ Unit Test Architecture
 
 Unit testing at scale isn’t just about writing individual test cases—it's about building a workflow that can generate, filter, and review tests with minimal manual effort.  
 Here’s how Keploy leverages AI (LLM) to automate and streamline the unit testing process:

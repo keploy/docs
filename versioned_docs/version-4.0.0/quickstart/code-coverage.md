@@ -9,7 +9,7 @@ tags:
   - qa
   - devs
   - software quality
-keyword:
+keywords:
   - code coverage
   - schema coverage
   - branch coverage

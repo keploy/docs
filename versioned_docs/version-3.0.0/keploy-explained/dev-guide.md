@@ -8,7 +8,7 @@ tags:
   - contribution guide
 ---
 
-# Contribution Guide 🚀
+# Contribution Guide
 
 Welcome to the world of Keploy development! This guide will help you set up Keploy locally.
 
@@ -85,7 +85,7 @@ Note: Use the `--debug` flag to run Keploy in debug mode for detailed logs.
 
 #### Build Docker Image:
 
-Note: Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
+Note: Run the below command inside the keploy repository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .

@@ -9,7 +9,7 @@ tags:
   - reliability
 ---
 
-# 🔒 Security at Keploy
+# Security at Keploy
 
 At Keploy, your trust and data protection are our top priorities.  
 We provide a secure, reliable, and resilient platform—designed from the ground up with security in mind, following industry best practices every step of the way.

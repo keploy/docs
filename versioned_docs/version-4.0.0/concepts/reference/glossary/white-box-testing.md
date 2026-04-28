@@ -1,8 +1,8 @@
 ---
 id: white-box-testing
-title: How to Perform White Box Testing
+title: "What is White Box Testing? Techniques & Best Practices"
 sidebar_label: White Box Testing
-description: Explore how to perform white box testing with key techniques and tools. Learn to test internal code logic and improve software quality with structured approaches.
+description: "Explore white box testing techniques like statement, branch, and path coverage. Learn best practices and tools to test internal code logic effectively."
 
 tags:
   - explanation

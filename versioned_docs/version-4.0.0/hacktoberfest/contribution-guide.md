@@ -2,6 +2,7 @@
 id: contribution-guide
 title: Keploy Hacktoberfest Contribution
 label: Hacktoberfest
+description: "Join Keploy for Hacktoberfest — contribute code, docs, tutorials, or translations to open-source API testing projects."
 ---
 
 # About the Event

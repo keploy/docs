@@ -19,6 +19,10 @@ keywords:
   - AI Generated Tests
 ---
 
+## What is Keploy?
+
+Keploy is an open-source, AI-powered testing agent that generates backend API test cases and dependency mocks by recording real application network calls. Using eBPF kernel-level hooks, Keploy captures traffic without code changes, achieves up to 90% test coverage in minutes, and replays recorded interactions as automated regression tests with built-in stubs for databases, caches, and third-party services.
+
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.
 

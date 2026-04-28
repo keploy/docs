@@ -1,8 +1,8 @@
 ---
 id: load-testing
-title: Load Testing
+title: "Load Testing: Tools, Strategy & Best Practices"
 sidebar_label: Load Testing
-description: Learn what Load Testing is, why it's critical for system reliability, and explore its methodology, tools, and best practices.
+description: "Learn what load testing is, why it matters for system reliability, and explore top tools, strategies, and best practices to handle peak traffic."
 tags:
   - explanation
   - Performance Testing

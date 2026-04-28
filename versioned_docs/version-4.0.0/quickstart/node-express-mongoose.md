@@ -1,6 +1,6 @@
 ---
 id: samples-nodejs
-title: NodeJS Sample Application
+title: Node.js Express Mongoose Sample
 sidebar_label: NodeJS - Express + Mongoose
 description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
 tags:
@@ -9,7 +9,7 @@ tags:
   - samples
   - examples
   - tutorial
-keyword:
+keywords:
   - NodeJS Framework
   - MongoDB
   - NodeJS

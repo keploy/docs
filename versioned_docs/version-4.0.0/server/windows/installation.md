@@ -2,6 +2,7 @@
 id: installation
 title: Windows Installation
 sidebar_label: Windows
+description: "Install the Keploy server on Windows — one-click install script and manual installation steps for WSL environments."
 tags:
   - hello-world
   - windows

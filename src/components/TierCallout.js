@@ -86,7 +86,7 @@ export default function TierCallout({ chips = [], type, children }) {
             line-height: 1.5;
           }
           html[data-theme="dark"] .tier-note__content {
-            color: #9ca3af;
+            color: #e5e7eb;
           }
           .tier-note__content p:last-child {
             margin-bottom: 0;
@@ -129,7 +129,7 @@ export default function TierCallout({ chips = [], type, children }) {
         
         /* Dark mode adjustments */
         html[data-theme="dark"] .tier-chip {
-          opacity: 0.9;
+          background: rgba(255, 255, 255, 0.15) !important;
         }
       `}</style>
     </div>

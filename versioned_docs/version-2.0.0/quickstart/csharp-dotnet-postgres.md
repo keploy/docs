@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - dotnet-framework
-keyword:
+keywords:
   - DotNet Framework
   - Postgres
   - CSharp
