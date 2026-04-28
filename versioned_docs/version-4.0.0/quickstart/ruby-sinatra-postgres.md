@@ -54,6 +54,9 @@ We will be using Docker compose to run the application as well as PostgreSQL on 
 git clone https://github.com/keploy/keploy-ruby-postgresql-quickstart.git && cd keploy-ruby-postgresql-quickstart
 ```
 
+![Ruby Docker setup](/img/ruby_postgrel_docker_setup.png)
+*Screenshot: Docker and PostgreSQL setup for the Ruby quickstart.*
+
 ### Lights, Camera, Record! 🎥
 
 Capture the test-cases-
@@ -74,6 +77,9 @@ This will:
 ### Generate Testcases
 
 To generate testcases we just need to **make some API calls.**
+
+![Recorded testcase example](/img/ruby_testcase.png)
+*Screenshot: Example recorded testcase captured during the quickstart.*
 
 #### 1. Get All Books
 
