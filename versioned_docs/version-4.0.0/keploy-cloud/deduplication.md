@@ -121,47 +121,53 @@ keploy dedup --rm
 
 #### 1. Pre-requisite
 
-Add the Keploy Java SDK to your application:
+Copy the Keploy Java agent jar during your build. Do not add it as an application dependency, and do not import Keploy classes from application code.
 
 ```xml
-<dependency>
-    <groupId>io.keploy</groupId>
-    <artifactId>keploy-sdk</artifactId>
-    <version>2.0.0</version>
-</dependency>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>3.6.1</version>
+  <executions>
+    <execution>
+      <id>copy-keploy-java-agent</id>
+      <phase>package</phase>
+      <goals>
+        <goal>copy</goal>
+      </goals>
+      <configuration>
+        <artifactItems>
+          <artifactItem>
+            <groupId>io.keploy</groupId>
+            <artifactId>keploy-sdk</artifactId>
+            <version>2.0.1</version>
+            <outputDirectory>${project.build.directory}</outputDirectory>
+            <destFileName>keploy-sdk.jar</destFileName>
+          </artifactItem>
+        </artifactItems>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 ```
 
-For Spring Boot 2 or other `javax.servlet` applications, register the Keploy middleware in your main class:
+Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to start the dedup control socket, and attach the JaCoCo Java agent to provide coverage data. In the common path there are no TCP server flags and no `--pass-through-ports`.
 
-```java
-import io.keploy.servlet.KeployMiddleware;
-import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.Import;
-
-@SpringBootApplication
-@Import(KeployMiddleware.class)
-public class App {
-}
-```
-
-For Spring Boot 3, Jakarta EE applications, other frameworks, or custom launchers, start the agent during application startup:
-
-```java
-import io.keploy.dedup.KeployDedupAgent;
-
-KeployDedupAgent.start();
-```
-
-Java dynamic deduplication uses JaCoCo runtime coverage. The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo Java agent is enough: no TCP server flags, no `--pass-through-ports`.
+The Java agent is framework-agnostic. It can be attached to Spring Boot apps, Dropwizard/Jersey apps, plain executable jars, classpath-based apps, servlet/WAR-style archives, and other JVM frameworks as long as the application JVM also runs the JaCoCo agent.
 
 ```bash
-java -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar
+java \
+  -javaagent:target/keploy-sdk.jar \
+  -javaagent:/path/to/org.jacoco.agent-runtime.jar \
+  -jar target/app.jar
 ```
 
 If the in-process API is unavailable for some reason (for example, an isolated class loader), the SDK transparently falls back to JaCoCo's TCP server mode. To force the fallback, launch JaCoCo in `tcpserver` mode and tell Keploy to leave that port alone:
 
 ```bash
-java -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,output=tcpserver \
+java \
+  -javaagent:target/keploy-sdk.jar \
+  -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,output=tcpserver \
   -jar target/app.jar
 ```
 
@@ -175,13 +181,14 @@ Build the application before running Keploy so the Java class files are availabl
 mvn clean package -DskipTests
 ```
 
-By default, the SDK scans `target/classes`, `build/classes/java/main`, and runtime classpath jars. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or jars that should be analyzed.
+By default, the SDK scans Maven `target/classes`, Gradle `build/classes/java/main`, executable jars, Spring Boot `BOOT-INF/classes`, servlet `WEB-INF/classes`, and runtime classpath archives. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or archives that should be analyzed.
 
 #### 3. Dockerfile Configuration (Important for Docker Users)
 
 When you use Docker or Docker Compose, make sure the final runtime image contains:
 
 - the runnable application jar,
+- the Keploy Java agent jar,
 - the JaCoCo runtime agent jar,
 - the compiled classes or the fat jar that contains the application classes.
 
@@ -189,6 +196,7 @@ For example:
 
 ```dockerfile
 COPY target/app.jar /app/app.jar
+COPY target/keploy-sdk.jar /app/keploy-sdk.jar
 COPY target/classes /app/target/classes
 COPY jacocoagent.jar /app/jacocoagent.jar
 ```
@@ -196,7 +204,7 @@ COPY jacocoagent.jar /app/jacocoagent.jar
 Then run the app with the JaCoCo agent attached:
 
 ```bash
-java -javaagent:/app/jacocoagent.jar -jar /app/app.jar
+java -javaagent:/app/keploy-sdk.jar -javaagent:/app/jacocoagent.jar -jar /app/app.jar
 ```
 
 Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container so both processes see the same socket paths.
@@ -214,7 +222,7 @@ keploy test -c "docker compose up" --container-name containerName --dedup --lang
 For Native, run:
 
 ```bash
-keploy test -c "java -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar" --dedup --language java
+keploy test -c "java -javaagent:target/keploy-sdk.jar -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar" --dedup --language java
 ```
 
 If the SDK falls back to the JaCoCo TCP server, also pass `--pass-through-ports <jacoco-port>` so Keploy does not try to mock the coverage-control connection.

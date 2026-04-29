@@ -1,8 +1,8 @@
 ---
 id: java
-title: Java SDK for Dynamic Deduplication
+title: Java Agent for Dynamic Deduplication
 sidebar_label: Java
-description: "Configure the Keploy Java SDK for Enterprise dynamic deduplication with in-process JaCoCo coverage."
+description: "Configure the Keploy Java agent for Enterprise dynamic deduplication with in-process JaCoCo coverage."
 tags:
   - java
   - coverage
@@ -12,6 +12,7 @@ keywords:
   - JaCoCo
   - Maven
   - Spring Boot
+  - WAR
   - dynamic deduplication
 ---
 
@@ -19,59 +20,63 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The Java SDK is used for Enterprise dynamic deduplication during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy Enterprise so duplicate testcases can be identified.
+The Keploy Java SDK is used as a Java agent for Enterprise dynamic deduplication during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy Enterprise so duplicate testcases can be identified.
 
-The Java SDK does not record API traffic or mock dependencies. Record your Keploy tests separately, commit the generated test fixtures when you use them in CI, and run Java dedup during `keploy test --dedup`.
+The Java agent does not record API traffic or mock dependencies. Record your Keploy tests separately, commit the generated test fixtures when you use them in CI, and run Java dedup during `keploy test --dedup`.
+
+Because the SDK is a Java agent, it is framework-agnostic. It can be attached to Spring Boot apps, Dropwizard/Jersey apps, plain executable jars, classpath-based apps, servlet/WAR-style archives, and other JVM frameworks as long as the application JVM also runs the JaCoCo agent.
 
 ## Requirements
 
 - Java 8, 17, or 21
-- `io.keploy:keploy-sdk`
+- `io.keploy:keploy-sdk` version with Java-agent support
 - JaCoCo Java agent attached to the application JVM
 - Keploy Enterprise with dynamic deduplication enabled
 
-## Add the SDK
+## Copy the Keploy Java Agent
 
-Add the Keploy Java SDK dependency:
+Copy the Keploy Java agent jar during your build. Do not add it under `<dependencies>`, and do not import Keploy classes from your application code.
 
 ```xml
-<dependency>
-  <groupId>io.keploy</groupId>
-  <artifactId>keploy-sdk</artifactId>
-  <version>2.0.0</version>
-</dependency>
+<plugin>
+  <groupId>org.apache.maven.plugins</groupId>
+  <artifactId>maven-dependency-plugin</artifactId>
+  <version>3.6.1</version>
+  <executions>
+    <execution>
+      <id>copy-keploy-java-agent</id>
+      <phase>package</phase>
+      <goals>
+        <goal>copy</goal>
+      </goals>
+      <configuration>
+        <artifactItems>
+          <artifactItem>
+            <groupId>io.keploy</groupId>
+            <artifactId>keploy-sdk</artifactId>
+            <version>2.0.1</version>
+            <outputDirectory>${project.build.directory}</outputDirectory>
+            <destFileName>keploy-sdk.jar</destFileName>
+          </artifactItem>
+        </artifactItems>
+      </configuration>
+    </execution>
+  </executions>
+</plugin>
 ```
 
-## Start the Dedup Agent
+## Run with the Keploy and JaCoCo Java Agents
 
-For Spring Boot 2 or other `javax.servlet` applications, import the middleware:
-
-```java
-import io.keploy.servlet.KeployMiddleware;
-import org.springframework.context.annotation.Import;
-
-@Import(KeployMiddleware.class)
-public class Application {
-}
-```
-
-For Spring Boot 3, Jakarta EE applications, other frameworks, or custom launchers, start the agent during application startup:
-
-```java
-import io.keploy.dedup.KeployDedupAgent;
-
-KeployDedupAgent.start();
-```
-
-## Run with the JaCoCo Java Agent
-
-The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attaching the JaCoCo agent is enough: no TCP server flags, no port choice.
+The SDK reads coverage in-process via JaCoCo's runtime API (`org.jacoco.agent.rt.RT.getAgent()`), so attach both agents in the application JVM: the Keploy agent starts the dedup control socket, and the JaCoCo agent provides runtime coverage.
 
 ```bash
-java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar
+java \
+  -javaagent:target/keploy-sdk.jar \
+  -javaagent:/path/to/jacocoagent.jar \
+  -jar target/app.jar
 ```
 
-If your compiled application classes are not under `target/classes` or `build/classes/java/main`, set `KEPLOY_JAVA_CLASS_DIRS`:
+The SDK automatically looks for application classes in Maven `target/classes`, Gradle `build/classes/java/main`, executable jars, Spring Boot `BOOT-INF/classes`, servlet `WEB-INF/classes`, and the runtime classpath. If your compiled application classes live somewhere else, set `KEPLOY_JAVA_CLASS_DIRS` to the class directory or archive that should be analyzed:
 
 ```bash
 export KEPLOY_JAVA_CLASS_DIRS=/absolute/path/to/target/classes
@@ -80,7 +85,9 @@ export KEPLOY_JAVA_CLASS_DIRS=/absolute/path/to/target/classes
 If the in-process API is unavailable in your environment, the SDK transparently falls back to JaCoCo's TCP server mode. To use the fallback explicitly, launch JaCoCo in `tcpserver` mode and configure `KEPLOY_JACOCO_HOST` / `KEPLOY_JACOCO_PORT` (defaults: `127.0.0.1:36320`):
 
 ```bash
-java -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,output=tcpserver \
+java \
+  -javaagent:target/keploy-sdk.jar \
+  -javaagent:/path/to/jacocoagent.jar=address=127.0.0.1,port=36320,output=tcpserver \
   -jar target/app.jar
 ```
 
@@ -90,7 +97,7 @@ Run Keploy in test mode with dynamic deduplication enabled:
 
 ```bash
 keploy test \
-  -c "java -javaagent:/path/to/jacocoagent.jar -jar target/app.jar" \
+  -c "java -javaagent:target/keploy-sdk.jar -javaagent:/path/to/jacocoagent.jar -jar target/app.jar" \
   --dedup \
   --language java
 ```
