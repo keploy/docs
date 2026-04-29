@@ -221,8 +221,7 @@
       "label": "API Reference",
       "collapsed": false,
       "items": [
-        "running-keploy/public-api",
-        "running-keploy/k8s-proxy-api"
+        "running-keploy/public-api"
       ]
     },
     {
