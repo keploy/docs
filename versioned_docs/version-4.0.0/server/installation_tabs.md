@@ -44,7 +44,7 @@ Once done, you should see something like this:
        ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
       ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
        ▓▌                           ▐█▌                   █▌
-        ▓                                         COMMUNITY EDITION
+        ▓
 
 Keploy: 3.3.8
 
@@ -118,6 +118,30 @@ If a browser cannot open (for example in a remote terminal):
 keploy login --manual-login
 ```
 
+When prompted, enter your Keploy API key. To get your API key:
+
+1. Log in to [app.keploy.io](https://app.keploy.io)
+2. Click on your **user profile** at the bottom left
+3. Go to **Account Settings**
+4. In the sidebar, select **API Keys**
+5. Click **Generate new token**
+6. Fill in the details:
+   - **Token name** — give it a recognizable name
+   - **Scopes** — select the access level you need:
+     - **Read** — read-only access to resources
+     - **Write** — read and write access
+     - **Admin** — full administrative access
+   - **Expiration** — default is 90 days
+7. Click **Generate token**
+8. **Copy the token immediately** — it will not be shown again
+
+Once your API key is verified, you will see:
+
+```bash
+API key verified successfully!
+You are on the Keploy Community plan.
+```
+
 </TabItem>
 <TabItem value="apikey" label="API Key (CI/CD)">
 
@@ -149,6 +173,13 @@ export KEPLOY_API_KEY=<YOUR_API_KEY>
    - **Expiration** — default is 90 days
 7. Click **Generate token**
 8. **Copy the token immediately** — it will not be shown again
+
+Once your API key is verified, you will see:
+
+```bash
+API key verified successfully!
+You are on the Keploy Community plan.
+```
 
 </TabItem>
 </Tabs>
