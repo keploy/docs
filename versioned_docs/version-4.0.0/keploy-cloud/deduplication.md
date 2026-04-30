@@ -186,7 +186,7 @@ Build the application before running Keploy so the Java class files are availabl
 mvn clean package -DskipTests
 ```
 
-By default, the SDK scans Maven `target/classes`, Gradle `build/classes/java/main`, executable jars, Spring Boot `BOOT-INF/classes`, servlet `WEB-INF/classes`, and runtime classpath archives. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or archives that should be analyzed.
+By default, the SDK scans Maven `target/classes`, Gradle `build/classes/java/main`, executable jars, Spring Boot `BOOT-INF/classes`, servlet `WEB-INF/classes`, and runtime classpath archives. For custom layouts or restricted Docker images, set `KEPLOY_JAVA_CLASS_DIRS` to the class directories or archives that should be analyzed. For shaded or uber-jar Docker images, copy the compiled application classes into the image and point `KEPLOY_JAVA_CLASS_DIRS` at that directory so dependency classes do not participate in dedup signatures.
 
 #### 3. Dockerfile Configuration (Important for Docker Users)
 
@@ -196,7 +196,9 @@ When you use Docker or Docker Compose, copy four artifacts into the runtime imag
 COPY target/app.jar           /app/app.jar
 COPY target/keploy-sdk.jar    /app/keploy-sdk.jar
 COPY target/jacocoagent.jar   /app/jacocoagent.jar
-COPY target/classes           /app/target/classes
+COPY target/classes           /app/classes
+
+ENV KEPLOY_JAVA_CLASS_DIRS=/app/classes
 
 ENTRYPOINT ["java", \
   "-javaagent:/app/keploy-sdk.jar", \

@@ -118,6 +118,13 @@ keploy dedup --rm   # removes the redundant testcases from the local Keploy test
 
 Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container at replay time, so the dedup sockets are visible on both sides. Keep `/tmp` writable; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
 
+For shaded or uber-jar images, also copy the compiled application classes into the runtime image and set `KEPLOY_JAVA_CLASS_DIRS` so dependency classes do not participate in dedup signatures:
+
+```dockerfile
+COPY target/classes /app/classes
+ENV KEPLOY_JAVA_CLASS_DIRS=/app/classes
+```
+
 ## CI Guidance
 
 CI should run replay/test mode against checked-in Keploy test fixtures. Do not record Java dedup fixtures in the pipeline unless you intentionally want to refresh them.
