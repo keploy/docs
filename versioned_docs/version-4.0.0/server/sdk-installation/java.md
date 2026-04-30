@@ -54,7 +54,7 @@ Copy the Keploy Java agent jar during your build. Do not add it under `<dependen
           <artifactItem>
             <groupId>io.keploy</groupId>
             <artifactId>keploy-sdk</artifactId>
-            <version>2.0.1</version>
+            <version>2.0.6</version>
             <outputDirectory>${project.build.directory}</outputDirectory>
             <destFileName>keploy-sdk.jar</destFileName>
           </artifactItem>
