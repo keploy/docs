@@ -35,7 +35,7 @@ Because the SDK is a Java agent, it is framework-agnostic. It can be attached to
 
 ## Copy the Keploy SDK and JaCoCo Agents
 
-Both jars are runtime agents — copy them into `target/` at build time. Do not add the Keploy SDK under `<dependencies>` and do not import Keploy classes from your code.
+Both jars are runtime agents. Copy them into `target/` at build time. Do not add the Keploy SDK under `<dependencies>` and do not import Keploy classes from your code.
 
 ```xml
 <plugin>
@@ -116,7 +116,7 @@ keploy dedup --rm   # removes the redundant testcases from the local Keploy test
 
 ## Docker
 
-Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container at replay time — that's how the dedup sockets are visible on both sides. Keep `/tmp` writable; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
+Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container at replay time, so the dedup sockets are visible on both sides. Keep `/tmp` writable; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
 
 ## CI Guidance
 

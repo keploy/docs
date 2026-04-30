@@ -48,6 +48,7 @@ json_contains
 json_equal
 json_path
 JUnit
+[Kk]araf
 kubectl
 kubernetes
 test-gen

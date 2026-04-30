@@ -121,9 +121,9 @@ keploy dedup --rm
 
 #### 1. Pre-requisite
 
-Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to emit per-test coverage signals, and attach the JaCoCo runtime agent so the SDK can read the coverage data. The Java agent is framework-agnostic — Spring Boot, Dropwizard/Jersey, plain executable jars, classpath-based apps, servlet/WAR archives, etc.
+Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to emit per-test coverage signals, and attach the JaCoCo runtime agent so the SDK can read the coverage data. The Java agent is framework-agnostic across Spring Boot, Dropwizard/Jersey, plain executable jars, classpath-based apps, servlet/WAR archives, etc.
 
-Copy both jars into `target/` during your Maven build (do not add the Keploy SDK as an application dependency, and do not import Keploy classes from your code). Tested with JaCoCo `0.8.12`.
+Copy both jars into `target/` during your Maven build (do not add the Keploy SDK as an application dependency, and do not import Keploy classes from your code).
 
 ```xml
 <plugin>
@@ -220,7 +220,7 @@ For Native, run:
 keploy test -c "java -javaagent:target/keploy-sdk.jar -javaagent:target/jacocoagent.jar -jar target/app.jar" --dedup --language java
 ```
 
-This produces `dedupData.yaml` — a per-testcase coverage map (`testSetID/testCaseID` → executed lines per source file) Keploy uses to compute redundancy.
+This produces `dedupData.yaml`, a per-testcase coverage map (`testSetID/testCaseID` to executed lines per source file) Keploy uses to compute redundancy.
 
 ```bash
 keploy dedup
