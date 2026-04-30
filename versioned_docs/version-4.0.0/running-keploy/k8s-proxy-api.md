@@ -136,6 +136,10 @@ The pre-flight check counts how many sandbox suites are linked to the app. When 
 
 ## Authentication
 
+:::info In development
+The authentication flow is currently in development.
+:::
+
 Every protected proxy endpoint requires the cluster **shared token**. Send it as a Bearer token:
 
 ```text

@@ -2,7 +2,7 @@
 id: static-deduplication
 title: Static Deduplication
 sidebar_label: Static Deduplication
-description: Drop schema-identical live traffic at record time so only distinct request shapes become test cases. Configure per-endpoint value-aware dedup with custom fields.
+description: Drop schema-identical live traffic at record time so only distinct request shapes become test cases. Mark fields with custom-dedup-fields to keep value-distinct traffic and surface observed values as enums in the generated OpenAPI schema.
 tags:
   - deduplication
   - recording
@@ -17,6 +17,8 @@ keywords:
   - recording dedup
   - keploy enterprise
   - dedup stats
+  - openapi enum
+  - schema enum generation
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -72,17 +74,9 @@ record:
 
 agent:
   static-dedup: true
-  # Optional: sharpen dedup on specific endpoints—see below.
-  custom-dedup-fields:
-    - method: POST
-      path: /orders
-      statusCode: 201
-      fields:
-        - response.status
-        - request.currency
 ```
 
-`record.static-dedup` enables the feature for `keploy record`; `agent.static-dedup` (and `agent.custom-dedup-fields`) are forwarded to the agent process so it applies the filter in real time.
+`record.static-dedup` enables the feature for `keploy record`; `agent.static-dedup` is forwarded to the agent process so it applies the filter in real time.
 
 ### Kubernetes Proxy
 
@@ -101,79 +95,77 @@ curl -s -X POST "$PROXY/record/start" \
   }'
 ```
 
-The same session will stream a `static_dedup_stats` array in its `/record/status` updates so you can watch dedup effectiveness live from the Keploy Console.
+## Custom dedup fields → OpenAPI enum values
 
-## Custom dedup fields (value-aware dedup)
+Marking specific request or response fields with `custom-dedup-fields` does two things during a recording:
 
-The default signature is **shape-based**: two POST `/orders` requests with the same JSON field types collapse, even if their values differ. That is usually what you want—but sometimes distinct _values_ represent distinct behaviour you want to capture (e.g. `response.status: "SUCCESS"` vs `"REFUNDED"`).
+1. **Sharper signatures.** Values from those fields are appended to the dedup hash, so two requests with the same shape but different marked-field values stay as distinct test cases instead of collapsing into one.
+2. **Enum-aware schema generation.** When auto-replay generates the OpenAPI document for the recorded service, the distinct scalar values observed for each marked field are emitted as an `enum` array on the matching response (or request) property—turning the dedup hints into machine-readable contract documentation.
 
-Configure `custom-dedup-fields` to append a value-based fingerprint to the signature for matching endpoints:
+### Configure marked fields
+
+Add a `custom-dedup-fields` block under `agent:` in `keploy.yml`:
 
 ```yaml
 agent:
   static-dedup: true
   custom-dedup-fields:
-    - method: POST
-      path: /orders/{id}/refund
+    - method: GET
+      path: /products/{id}
       statusCode: 200
       fields:
-        - response.status # look in response body
-        - request.currency # look in request body
-        - customerTier # try request body, then response body
+        - response.product_id
+    - method: GET
+      path: /api/v1/data
+      statusCode: 200
+      fields:
+        - response.version
 ```
 
-**Field-path rules:**
+For Kubernetes Proxy recordings, send the same list inside `record_config.custom_dedup_fields` on `POST /record/start`. Updating the config applies to newly started or restarted agent processes.
+
+Field-path rules:
 
 - `request.X`—resolve `X` (dot-notated) in the request body.
 - `response.X`—resolve it in the response body.
 - Bare `X`—try the request body first, fall back to the response body.
-- Missing or non-JSON fields contribute a `__MISSING__` sentinel, so _present-but-empty_ stays distinct from _absent_.
+- Path matching uses the same `{id}` normalisation as the base signature, so `/products/42` in traffic matches `/products/{id}` in config. Method matching is case-insensitive.
 
-Paths are matched case-insensitively on method, and the URL path uses the same normalisation as the base signature—so `/orders/42/refund` in traffic matches `/orders/{id}/refund` in config.
-
-You can also pass this from the CLI as JSON:
+You can also pass the same JSON via the CLI:
 
 ```bash
 keploy enterprise record --static-dedup \
-  --custom-dedup-fields='[{"method":"POST","path":"/orders/{id}/refund","statusCode":200,"fields":["response.status","request.currency"]}]' \
+  --custom-dedup-fields='[{"method":"GET","path":"/products/{id}","statusCode":200,"fields":["response.product_id"]}]' \
   -c "docker compose up"
 ```
 
-For Kubernetes Proxy recordings, custom fields are sent in `record_config.custom_dedup_fields` and passed to the injected agent with the recording session. Updating the config applies to newly started or restarted agent processes.
+### What ends up in the schema
 
-## Observe dedup effectiveness
+Suppose the recorded session captures these `GET /products/{id}` responses across the run:
 
-The agent exposes a live stats endpoint when static dedup is enabled:
-
-```bash
-curl -s http://<agent-host>:<port>/dedup/stats | jq
+```text
+GET /products/1   → { "name": "...", "price": ..., "product_id": "1"   }
+GET /products/42  → { "name": "...", "price": ..., "product_id": "42"  }
+GET /products/999 → { "name": "...", "price": ..., "product_id": "999" }
 ```
+
+After auto-replay, the OpenAPI document Keploy generates for the service includes an `enum` listing every distinct value observed for the marked field:
 
 ```json
-[
-  {
-    "method": "POST",
-    "url": "/orders",
-    "status_code": 201,
-    "total_count": 14832,
-    "duplicate_count": 14816,
-    "schema_key": "POST|/orders|content-type_authorization|201|content-type|17834...|93482..."
+"GetProducts200Response": {
+  "properties": {
+    "name":  { "type": "string" },
+    "price": { "type": "number" },
+    "product_id": {
+      "enum": ["1", "42", "999"],
+      "type": "string"
+    }
   },
-  {
-    "method": "GET",
-    "url": "/orders/{id}",
-    "status_code": 200,
-    "total_count": 4201,
-    "duplicate_count": 4198,
-    "schema_key": "GET|/orders/{id}|authorization|200|content-type|0|81921..."
-  }
-]
+  "type": "object"
+}
 ```
 
-- `total_count`—how many times this signature was seen.
-- `duplicate_count`—how many of those were dropped (always `total_count - 1` when the first was recorded).
-
-When static dedup is disabled, `/dedup/stats` is not available for that agent. Depending on how the agent was started, callers may see a `404` route-not-found response or `static dedup disabled`. Through the Kubernetes Proxy, the same data is embedded in each `/record/status` event as `static_dedup_stats`, so you rarely need to call `/dedup/stats` directly.
+Without the `custom-dedup-fields` entry the property would be `"product_id": { "type": "string" }`—the inferred type is still correct, but the discrete value space is lost. The same generated document is what the **Schemas** section of the Keploy console renders, so the enum values are visible directly in the UI.
 
 ## When should I use this?
 
