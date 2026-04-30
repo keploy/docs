@@ -74,23 +74,9 @@ A naive recorder turns a load test of `GET /users/42` into 50,000 identical test
 
 Enable per-recording with `record_config.static_dedup`, and optionally narrow the dedup key per endpoint with `record_config.custom_dedup_fields`, which declares which JSON paths in the request body, plus method/path/status, define "the same test." The agent enforces this _at capture time_ before anything is written to storage, and per-pod dedup stats stream back into the recording status endpoint so you can watch duplicates being dropped live. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/) for the full configuration reference.
 
-### 3. REST API _and_ MCP server
+### 3. REST API for in-cluster automation
 
-Keploy exposes automation surfaces at two layers:
-
-- The **Kubernetes Proxy REST API** ([Endpoint reference](#endpoint-reference)) handles in-cluster operations such as starting/stopping recording, kicking off replay, fetching session status, and reading logs or reports. All routes outside `/healthz` and the admission webhook sit behind shared-token Bearer auth.
-- The **Keploy API server MCP endpoint** exposes higher-level tools for AI coding tools, including Claude Code, Cursor, Windsurf, and VS Code. This is how an AI agent in your editor authors test suites, runs replays, and scaffolds CI pipelines without you copy-pasting curl commands.
-
-The MCP surface includes around a dozen tools. The headline ones:
-
-- `generate_and_wait`: build a suite from an OpenAPI spec.
-- `run_and_report`: run a suite and return failures + coverage.
-- `get_coverage_gaps`: list which endpoints lack test coverage.
-- `create_test_suite` / `update_test_suite`: programmatically author and validate suites. Writes are gated through Keploy's own branching model (parallel to git), so AI agents can iterate without polluting `main`.
-- `start_rerecord_session` / `start_integration_test_session`: kick off a sandbox session locally.
-- `scaffold_pipeline_workflow`: generate a CI workflow file (covered in benefit 6).
-
-A non-obvious detail: when an AI agent authors a test suite that mutates state (POST/PUT/PATCH), the MCP refuses to insert it unless every mutating step's body references at least one per-run dynamic variable, and the rejection error _names_ the dynamic variables already in scope. The result is suites that survive a second run by construction. They are authored and verified to be safe to retry.
+Every action you perform from the Console or `kubectl-keploy` is also available as a REST call. The [endpoint reference](#endpoint-reference) covers the full surface—`/record/start`, `/record/stop`, `/test/start`, `/deployments`, `/proxy/update`, the streaming status endpoints, the log and report endpoints, and the `/k8s-proxy/*` data routes the Console uses for stored test cases, mocks, schema, and reports.
 
 ### 4. Schema Generation and Management
 
