@@ -2,7 +2,7 @@
 id: static-deduplication
 title: Static Deduplication
 sidebar_label: Static Deduplication
-description: Drop schema-identical live traffic at record time so only distinct request shapes become test cases. Configure per-endpoint value-aware dedup with custom fields.
+description: Drop schema-identical live traffic at record time so only distinct request shapes become test cases. Mark fields with custom-dedup-fields to keep value-distinct traffic and surface observed values as enums in the generated OpenAPI schema.
 tags:
   - deduplication
   - recording
@@ -17,6 +17,8 @@ keywords:
   - recording dedup
   - keploy enterprise
   - dedup stats
+  - openapi enum
+  - schema enum generation
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -92,6 +94,84 @@ curl -s -X POST "$PROXY/record/start" \
     "record_config": { "static_dedup": true }
   }'
 ```
+
+## Custom dedup fields → OpenAPI enum values
+
+Marking specific request or response fields with `custom-dedup-fields` does two things during a recording:
+
+1. **Sharper signatures.** Values from those fields are appended to the dedup hash, so two requests with the same shape but different marked-field values stay as distinct test cases instead of collapsing into one.
+2. **Enum-aware schema generation.** When auto-replay generates the OpenAPI document for the recorded service, the distinct scalar values observed for each marked field are emitted as an `enum` array on the matching response (or request) property — turning the dedup hints into machine-readable contract documentation.
+
+### Configure marked fields
+
+Add a `custom-dedup-fields` block under `agent:` in `keploy.yml`:
+
+```yaml
+agent:
+  static-dedup: true
+  custom-dedup-fields:
+    - method: GET
+      path: /products/{id}
+      statusCode: 200
+      fields:
+        - response.product_id
+    - method: GET
+      path: /api/v1/data
+      statusCode: 200
+      fields:
+        - response.version
+```
+
+For Kubernetes Proxy recordings, send the same list inside `record_config.custom_dedup_fields` on `POST /record/start`. Updating the config applies to newly started or restarted agent processes.
+
+Field-path rules:
+
+- `request.X` — resolve `X` (dot-notated) in the request body.
+- `response.X` — resolve it in the response body.
+- Bare `X` — try the request body first, fall back to the response body.
+- Path matching uses the same `{id}` normalisation as the base signature, so `/products/42` in traffic matches `/products/{id}` in config. Method matching is case-insensitive.
+
+You can also pass the same JSON via the CLI:
+
+```bash
+keploy enterprise record --static-dedup \
+  --custom-dedup-fields='[{"method":"GET","path":"/products/{id}","statusCode":200,"fields":["response.product_id"]}]' \
+  -c "docker compose up"
+```
+
+### What ends up in the schema
+
+Suppose the recorded session captures these `GET /products/{id}` responses across the run:
+
+```text
+GET /products/1   → { "name": "...", "price": ..., "product_id": "1"   }
+GET /products/42  → { "name": "...", "price": ..., "product_id": "42"  }
+GET /products/999 → { "name": "...", "price": ..., "product_id": "999" }
+```
+
+After auto-replay, the OpenAPI document Keploy generates for the service includes an `enum` listing every distinct value observed for the marked field:
+
+```json
+"GetProducts200Response": {
+  "properties": {
+    "name":  { "type": "string" },
+    "price": { "type": "number" },
+    "product_id": {
+      "enum": ["1", "42", "999"],
+      "type": "string"
+    }
+  },
+  "type": "object"
+}
+```
+
+Without the `custom-dedup-fields` entry the property would be `"product_id": { "type": "string" }` — the inferred type is still correct, but the discrete value space is lost. The same generated document is what the **Schemas** section of the Keploy console renders, so the enum values are visible directly in the UI.
+
+### Caveats
+
+- **Scalar leaves only.** Object and array values are skipped — point field paths at primitives (string, number, boolean, null).
+- **Saturation cap.** If a marked field crosses **50 distinct values** during a single schema generation, Keploy drops the `enum` for that field entirely rather than emit a misleadingly truncated list. The property's `type` is still inferred normally.
+- **Object response shape.** If an endpoint returns a top-level JSON array (e.g. `[{"id":...}, ...]`), a path like `response.id` does not resolve into the array elements and no enum is emitted for that endpoint.
 
 ## When should I use this?
 
