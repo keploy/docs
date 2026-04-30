@@ -121,7 +121,9 @@ keploy dedup --rm
 
 #### 1. Pre-requisite
 
-Copy the Keploy Java agent jar during your build. Do not add it as an application dependency, and do not import Keploy classes from application code.
+Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to emit per-test coverage signals, and attach the JaCoCo runtime agent so the SDK can read the coverage data. The Java agent is framework-agnostic — Spring Boot, Dropwizard/Jersey, plain executable jars, classpath-based apps, servlet/WAR archives, etc.
+
+Copy both jars into `target/` during your Maven build (do not add the Keploy SDK as an application dependency, and do not import Keploy classes from your code). Tested with JaCoCo `0.8.12`.
 
 ```xml
 <plugin>
@@ -132,9 +134,7 @@ Copy the Keploy Java agent jar during your build. Do not add it as an applicatio
     <execution>
       <id>copy-keploy-java-agent</id>
       <phase>package</phase>
-      <goals>
-        <goal>copy</goal>
-      </goals>
+      <goals><goal>copy</goal></goals>
       <configuration>
         <artifactItems>
           <artifactItem>
@@ -147,31 +147,36 @@ Copy the Keploy Java agent jar during your build. Do not add it as an applicatio
         </artifactItems>
       </configuration>
     </execution>
+    <execution>
+      <id>copy-jacoco-agent</id>
+      <phase>package</phase>
+      <goals><goal>copy</goal></goals>
+      <configuration>
+        <artifactItems>
+          <artifactItem>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <version>0.8.12</version>
+            <classifier>runtime</classifier>
+            <type>jar</type>
+            <outputDirectory>${project.build.directory}</outputDirectory>
+            <destFileName>jacocoagent.jar</destFileName>
+          </artifactItem>
+        </artifactItems>
+      </configuration>
+    </execution>
   </executions>
 </plugin>
 ```
 
-Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to start the dedup control socket, and attach the JaCoCo Java agent to provide coverage data. In the common path there are no TCP server flags and no `--pass-through-ports`.
-
-The Java agent is framework-agnostic. It can be attached to Spring Boot apps, Dropwizard/Jersey apps, plain executable jars, classpath-based apps, servlet/WAR-style archives, and other JVM frameworks as long as the application JVM also runs the JaCoCo agent.
+Run the app with both agents attached:
 
 ```bash
 java \
   -javaagent:target/keploy-sdk.jar \
-  -javaagent:/path/to/org.jacoco.agent-runtime.jar \
+  -javaagent:target/jacocoagent.jar \
   -jar target/app.jar
 ```
-
-If the in-process API is unavailable for some reason (for example, an isolated class loader), the SDK transparently falls back to JaCoCo's TCP server mode. To force the fallback, launch JaCoCo in `tcpserver` mode and tell Keploy to leave that port alone:
-
-```bash
-java \
-  -javaagent:target/keploy-sdk.jar \
-  -javaagent:/path/to/org.jacoco.agent-runtime.jar=address=127.0.0.1,port=36320,output=tcpserver \
-  -jar target/app.jar
-```
-
-The default JaCoCo endpoint for the fallback is `127.0.0.1:36320`. You can override it with `KEPLOY_JACOCO_HOST` and `KEPLOY_JACOCO_PORT`, or with the JVM properties `keploy.jacoco.host` and `keploy.jacoco.port`. When using the fallback, add the JaCoCo port to `--pass-through-ports` so coverage-control traffic is not mocked.
 
 #### 2. Build Configuration
 
@@ -185,31 +190,21 @@ By default, the SDK scans Maven `target/classes`, Gradle `build/classes/java/mai
 
 #### 3. Dockerfile Configuration (Important for Docker Users)
 
-When you use Docker or Docker Compose, make sure the final runtime image contains:
-
-- the runnable application jar,
-- the Keploy Java agent jar,
-- the JaCoCo runtime agent jar,
-- the compiled classes or the fat jar that contains the application classes.
-
-For example:
+When you use Docker or Docker Compose, copy four artifacts into the runtime image and attach both agents in the entrypoint:
 
 ```dockerfile
-COPY target/app.jar /app/app.jar
-COPY target/keploy-sdk.jar /app/keploy-sdk.jar
-COPY target/classes /app/target/classes
-COPY jacocoagent.jar /app/jacocoagent.jar
+COPY target/app.jar           /app/app.jar
+COPY target/keploy-sdk.jar    /app/keploy-sdk.jar
+COPY target/jacocoagent.jar   /app/jacocoagent.jar
+COPY target/classes           /app/target/classes
+
+ENTRYPOINT ["java", \
+  "-javaagent:/app/keploy-sdk.jar", \
+  "-javaagent:/app/jacocoagent.jar", \
+  "-jar", "/app/app.jar"]
 ```
 
-Then run the app with the JaCoCo agent attached:
-
-```bash
-java -javaagent:/app/keploy-sdk.jar -javaagent:/app/jacocoagent.jar -jar /app/app.jar
-```
-
-Keploy and the Java SDK exchange per-test coverage signals over `/tmp/coverage_control.sock` and `/tmp/coverage_data.sock`. For Docker and Docker Compose, Keploy injects a shared `keploy-sockets-vol:/tmp` mount into the application container and the Keploy agent container so both processes see the same socket paths.
-
-For hardened Docker runs, the Java dedup sample is validated with a non-root runtime user, a read-only root filesystem, dropped Linux capabilities, `no-new-privileges`, and Keploy's shared `/tmp` named volume for the Keploy control/data sockets and JaCoCo output. Do not add a conflicting `/tmp` bind mount or `tmpfs`; Keploy requires the injected shared `/tmp` volume to reach the Java SDK control socket.
+Keploy injects a shared `keploy-sockets-vol:/tmp` mount into both the application container and the Keploy agent container at replay time so the dedup sockets are visible on both sides. Keep `/tmp` writable in the container; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
 
 #### 4. Run Deduplication
 
@@ -222,22 +217,16 @@ keploy test -c "docker compose up" --container-name containerName --dedup --lang
 For Native, run:
 
 ```bash
-keploy test -c "java -javaagent:target/keploy-sdk.jar -javaagent:/path/to/org.jacoco.agent-runtime.jar -jar target/app.jar" --dedup --language java
+keploy test -c "java -javaagent:target/keploy-sdk.jar -javaagent:target/jacocoagent.jar -jar target/app.jar" --dedup --language java
 ```
 
-If the SDK falls back to the JaCoCo TCP server, also pass `--pass-through-ports <jacoco-port>` so Keploy does not try to mock the coverage-control connection.
-
-This will generate a `dedupData.yaml` file.
-
-After this, run:
+This produces `dedupData.yaml` — a per-testcase coverage map (`testSetID/testCaseID` → executed lines per source file) Keploy uses to compute redundancy.
 
 ```bash
 keploy dedup
 ```
 
-This command will create a `duplicates.yaml` file containing the test cases that dynamic deduplication marked as redundant.
-
-To apply the dynamic deduplication cleanup to the local Keploy test set, run:
+This reads `dedupData.yaml` and writes `duplicates.yaml`, listing the testcases that dedup marked redundant (grouped by test-set). To remove those testcases from the local Keploy test set:
 
 ```bash
 keploy dedup --rm
