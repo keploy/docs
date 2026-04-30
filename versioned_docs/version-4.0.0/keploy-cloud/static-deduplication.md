@@ -100,7 +100,7 @@ curl -s -X POST "$PROXY/record/start" \
 Marking specific request or response fields with `custom-dedup-fields` does two things during a recording:
 
 1. **Sharper signatures.** Values from those fields are appended to the dedup hash, so two requests with the same shape but different marked-field values stay as distinct test cases instead of collapsing into one.
-2. **Enum-aware schema generation.** When auto-replay generates the OpenAPI document for the recorded service, the distinct scalar values observed for each marked field are emitted as an `enum` array on the matching response (or request) property — turning the dedup hints into machine-readable contract documentation.
+2. **Enum-aware schema generation.** When auto-replay generates the OpenAPI document for the recorded service, the distinct scalar values observed for each marked field are emitted as an `enum` array on the matching response (or request) property—turning the dedup hints into machine-readable contract documentation.
 
 ### Configure marked fields
 
@@ -126,9 +126,9 @@ For Kubernetes Proxy recordings, send the same list inside `record_config.custom
 
 Field-path rules:
 
-- `request.X` — resolve `X` (dot-notated) in the request body.
-- `response.X` — resolve it in the response body.
-- Bare `X` — try the request body first, fall back to the response body.
+- `request.X`—resolve `X` (dot-notated) in the request body.
+- `response.X`—resolve it in the response body.
+- Bare `X`—try the request body first, fall back to the response body.
 - Path matching uses the same `{id}` normalisation as the base signature, so `/products/42` in traffic matches `/products/{id}` in config. Method matching is case-insensitive.
 
 You can also pass the same JSON via the CLI:
@@ -165,11 +165,11 @@ After auto-replay, the OpenAPI document Keploy generates for the service include
 }
 ```
 
-Without the `custom-dedup-fields` entry the property would be `"product_id": { "type": "string" }` — the inferred type is still correct, but the discrete value space is lost. The same generated document is what the **Schemas** section of the Keploy console renders, so the enum values are visible directly in the UI.
+Without the `custom-dedup-fields` entry the property would be `"product_id": { "type": "string" }`—the inferred type is still correct, but the discrete value space is lost. The same generated document is what the **Schemas** section of the Keploy console renders, so the enum values are visible directly in the UI.
 
 ### Caveats
 
-- **Scalar leaves only.** Object and array values are skipped — point field paths at primitives (string, number, boolean, null).
+- **Scalar leaves only.** Object and array values are skipped—point field paths at primitives (`string`, `number`, `bool`, `null`).
 - **Saturation cap.** If a marked field crosses **50 distinct values** during a single schema generation, Keploy drops the `enum` for that field entirely rather than emit a misleadingly truncated list. The property's `type` is still inferred normally.
 - **Object response shape.** If an endpoint returns a top-level JSON array (e.g. `[{"id":...}, ...]`), a path like `response.id` does not resolve into the array elements and no enum is emitted for that endpoint.
 
