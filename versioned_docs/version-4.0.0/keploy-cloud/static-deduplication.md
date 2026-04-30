@@ -167,12 +167,6 @@ After auto-replay, the OpenAPI document Keploy generates for the service include
 
 Without the `custom-dedup-fields` entry the property would be `"product_id": { "type": "string" }`—the inferred type is still correct, but the discrete value space is lost. The same generated document is what the **Schemas** section of the Keploy console renders, so the enum values are visible directly in the UI.
 
-### Caveats
-
-- **Scalar leaves only.** Object and array values are skipped—point field paths at primitives (`string`, `number`, `bool`, `null`).
-- **Saturation cap.** If a marked field crosses **50 distinct values** during a single schema generation, Keploy drops the `enum` for that field entirely rather than emit a misleadingly truncated list. The property's `type` is still inferred normally.
-- **Object response shape.** If an endpoint returns a top-level JSON array (e.g. `[{"id":...}, ...]`), a path like `response.id` does not resolve into the array elements and no enum is emitted for that endpoint.
-
 ## When should I use this?
 
 - **Live traffic capture in prod or pre-prod.** Recording a service behind a load balancer without dedup almost always produces a pile of nearly identical tests. Static dedup keeps the suite small and focused.
