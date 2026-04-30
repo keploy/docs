@@ -164,11 +164,6 @@
         },
         {
           "type": "category",
-          "label": "Test Coverage Integration",
-          "items": ["test-coverage/integration"]
-        },
-        {
-          "type": "category",
           "label": "K8s Proxy",
           "collapsible": true,
           "collapsed": true,
