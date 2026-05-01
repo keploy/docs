@@ -221,7 +221,7 @@ A successful exchange returns:
 
 - `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
 - `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
-- `deploymentType`—`"saas"` for the hosted control plane, `"self-hosted"` for self-hosted installs.
+- `deploymentType`—either `"saas"` for the hosted control plane or `"self-hosted"` for self-hosted installs.
 
 The shared token is **stable for the lifetime of the Helm release**—Pod restarts and chart upgrades do not rotate it—so a caller can exchange the PAT once at the start of a CI job and cache the result for the rest of the run.
 
