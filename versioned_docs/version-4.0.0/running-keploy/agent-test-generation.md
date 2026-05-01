@@ -106,11 +106,11 @@ Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level
 ```json
 {
   "mcpServers": {
-    "keploy": {
+    "keploy-atg": {
       "type": "http",
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
-        "Authorization": "Bearer kep_YOUR_API_KEY"
+        "Authorization": "Bearer <YOUR_KEPLOY_API_KEY>"
       }
     }
   }
