@@ -158,19 +158,19 @@ curl -sf https://$PROXY/healthz
 
 ### Why a two-step exchange?
 
-The PAT identifies a specific user; the shared token authorizes calls against a specific cluster. Splitting the two means callers (CI scripts, AI agents, internal tooling) only ever hold a short-scoped credential they can rotate per-user from the Console, while the proxy itself is the only thing that ever sees the cluster-wide shared token. CI/CD pipelines never need `kubectl` access to the proxy's namespace and never need an interactive user login — they store one PAT and exchange it on every run.
+The PAT identifies a specific user; the shared token authorizes calls against a specific cluster. Splitting the two means callers (CI scripts, AI agents, internal tooling) only ever hold a short-scoped credential they can rotate per-user from the Console, while the proxy itself is the only thing that ever sees the cluster-wide shared token. CI/CD pipelines never need `kubectl` access to the proxy's namespace and never need an interactive user login—they store one PAT and exchange it on every run.
 
 ### 1. Issue a PAT
 
 In the Keploy Console, open **Settings → Personal Access Tokens** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
 
 - The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to. The proxy will reject cross-tenant PATs with `403 Forbidden`.
-- Treat the PAT like a password — it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
+- Treat the PAT like a password—it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
 - A user can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
 
 ### 2. Exchange the PAT for the shared token
 
-There are three ways to do the exchange. Pick whichever fits your workflow — they all hit the same `POST /get-shared-token` endpoint.
+There are three ways to do the exchange. Pick whichever fits your workflow—they all hit the same `POST /get-shared-token` endpoint.
 
 #### Option A: From the Keploy Console
 
@@ -186,7 +186,7 @@ On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deployment
 
 ![Successful exchange showing sharedToken, ingressUrl, deploymentType](/img/k8s-proxy-shared-token-success.png)
 
-The PAT is held in browser memory for the lifetime of the dialog only — it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
+The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
 
 #### Option B: Try it right here
 
@@ -219,11 +219,11 @@ A successful exchange returns:
 }
 ```
 
-- `sharedToken` — use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
-- `ingressUrl` — echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
-- `deploymentType` — `"saas"` for the hosted control plane, `"self-hosted"` for self-hosted installs.
+- `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
+- `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
+- `deploymentType`—`"saas"` for the hosted control plane, `"self-hosted"` for self-hosted installs.
 
-The shared token is **stable for the lifetime of the Helm release** — Pod restarts and chart upgrades do not rotate it — so a caller can exchange the PAT once at the start of a CI job and cache the result for the rest of the run.
+The shared token is **stable for the lifetime of the Helm release**—Pod restarts and chart upgrades do not rotate it—so a caller can exchange the PAT once at the start of a CI job and cache the result for the rest of the run.
 
 ### Exchange failure modes
 
@@ -231,7 +231,7 @@ The shared token is **stable for the lifetime of the Helm release** — Pod rest
 | ------ | ----------------------------------------------------------------------------------- |
 | `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.   |
 | `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster.       |
-| `502`  | The proxy could not reach the API server to validate the PAT (transient — retry).   |
+| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).     |
 | `503`  | The proxy is still booting and has not authenticated to the API server yet (retry). |
 
 Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
@@ -244,7 +244,7 @@ Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on t
 
 Most routes return `application/json`. Successful responses are handler-specific (e.g. `{"record":"started","id":"default-orders-api"}`); validation errors are always `{"error": "..."}` with a 4xx status. Auth-failure shape is covered in [Authentication](#authentication).
 
-A few endpoints stream **newline-delimited JSON** (`application/x-ndjson`) instead — `/record/status` and `/test/status`. Read these line-by-line, not as a single JSON document.
+A few endpoints stream **newline-delimited JSON** (`application/x-ndjson`) instead—`/record/status` and `/test/status`. Read these line-by-line, not as a single JSON document.
 
 | HTTP | When it happens                                                                                 |
 | ---- | ----------------------------------------------------------------------------------------------- |

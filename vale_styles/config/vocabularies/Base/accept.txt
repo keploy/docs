@@ -184,3 +184,7 @@ PostStart
 [Dd]ev
 [Cc]Rs?
 [Ss]ubresource[s]?
+sharedToken
+deploymentType
+ingressUrl
+[Cc]leartext
