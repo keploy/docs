@@ -101,7 +101,7 @@ The examples below use the Keploy Cloud URL (`https://api.keploy.io`). If you're
 
 #### Claude Code
 
-Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: http` field for StreamableHTTP transport (other clients do not need it).
+Add to your Claude Code MCP settings (`~/.claude.json` or project-level). Note: Claude Code requires the `type: http` field for StreamableHTTP transport (other clients do not need it).
 
 ```json
 {
