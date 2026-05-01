@@ -23,7 +23,6 @@ keywords:
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
-import SharedTokenExchanger from '@site/src/components/SharedTokenExchanger';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
@@ -188,13 +187,7 @@ On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deployment
 
 The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
 
-#### Option B: Try it right here
-
-Paste your proxy ingress URL and PAT to fire a live `POST /get-shared-token`. The PAT stays in your browser and is sent only to the URL you supply.
-
-<SharedTokenExchanger />
-
-#### Option C: From a shell
+#### Option B: From a shell
 
 ```bash
 PROXY="https://your-proxy-ingress"
@@ -241,8 +234,6 @@ Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on t
 ---
 
 ## Response format
-
-Most routes return `application/json`. Successful responses are handler-specific (e.g. `{"record":"started","id":"default-orders-api"}`); validation errors are always `{"error": "..."}` with a 4xx status. Auth-failure shape is covered in [Authentication](#authentication).
 
 A few endpoints stream **newline-delimited JSON** (`application/x-ndjson`) instead—`/record/status` and `/test/status`. Read these line-by-line, not as a single JSON document.
 
