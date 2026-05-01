@@ -227,12 +227,12 @@ The shared token is **stable for the lifetime of the Helm release** — Pod rest
 
 ### Exchange failure modes
 
-| Status | When                                                                                  |
-| ------ | ------------------------------------------------------------------------------------- |
-| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.     |
-| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster.         |
-| `502`  | The proxy could not reach the API server to validate the PAT (transient — retry).     |
-| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).   |
+| Status | When                                                                                |
+| ------ | ----------------------------------------------------------------------------------- |
+| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.   |
+| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster.       |
+| `502`  | The proxy could not reach the API server to validate the PAT (transient — retry).   |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry). |
 
 Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
 
@@ -403,9 +403,9 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 
 ### Bootstrap
 
-| Method | Path                 | Auth                            | Description                                                                                                                  |
-| ------ | -------------------- | ------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>`   | Exchange a Personal Access Token for the proxy's shared token. See [Retrieve the token (c)](#retrieve-the-token) for details. |
+| Method | Path                | Auth                          | Description                                                                                                                   |
+| ------ | ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| `POST` | `/get-shared-token` | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Retrieve the token (c)](#retrieve-the-token) for details. |
 
 This is the only protected endpoint that does **not** use the shared token; it gates on a PAT instead because the caller does not yet have the shared token. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
 

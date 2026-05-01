@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, {useState, useMemo} from "react";
 
 /**
  * SharedTokenExchanger - Interactive widget that calls
@@ -73,7 +73,8 @@ export default function SharedTokenExchanger({
     return `curl -sS -X POST "${proxyForCurl}/get-shared-token" \\\n  -H "Authorization: Bearer ${patForCurl}"`;
   }, [trimmedProxy, pat]);
 
-  const canSubmit = trimmedProxy.length > 0 && pat.trim().length > 0 && !pending;
+  const canSubmit =
+    trimmedProxy.length > 0 && pat.trim().length > 0 && !pending;
 
   async function exchange() {
     if (!canSubmit) return;
@@ -84,7 +85,7 @@ export default function SharedTokenExchanger({
     try {
       const resp = await fetch(url, {
         method: "POST",
-        headers: { Authorization: `Bearer ${pat.trim()}` },
+        headers: {Authorization: `Bearer ${pat.trim()}`},
       });
       const text = await resp.text();
       let body;
@@ -93,7 +94,7 @@ export default function SharedTokenExchanger({
       } catch {
         body = text;
       }
-      setResult({ ok: resp.ok, status: resp.status, body });
+      setResult({ok: resp.ok, status: resp.status, body});
     } catch (err) {
       setResult({
         ok: false,
@@ -111,7 +112,8 @@ export default function SharedTokenExchanger({
     navigator.clipboard.writeText(text).catch(() => {});
   }
 
-  const success = result && result.ok && result.body && typeof result.body === "object";
+  const success =
+    result && result.ok && result.body && typeof result.body === "object";
   const successBg = "rgba(16, 185, 129, 0.10)";
   const successBorder = "1px solid rgba(16, 185, 129, 0.35)";
   const errorBg = "rgba(239, 68, 68, 0.10)";
@@ -137,7 +139,7 @@ export default function SharedTokenExchanger({
           flexWrap: "wrap",
         }}
       >
-        <strong style={{ fontSize: "0.95rem" }}>Try it: exchange a PAT</strong>
+        <strong style={{fontSize: "0.95rem"}}>Try it: exchange a PAT</strong>
         <span
           style={{
             fontSize: "0.75rem",
@@ -148,7 +150,7 @@ export default function SharedTokenExchanger({
         </span>
       </div>
 
-      <div style={{ display: "grid", gap: "0.75rem", marginBottom: "0.75rem" }}>
+      <div style={{display: "grid", gap: "0.75rem", marginBottom: "0.75rem"}}>
         <div>
           <label style={labelStyle} htmlFor="ste-proxy">
             Proxy ingress URL
@@ -168,7 +170,7 @@ export default function SharedTokenExchanger({
           <label style={labelStyle} htmlFor="ste-pat">
             Personal Access Token
           </label>
-          <div style={{ display: "flex", gap: "0.5rem" }}>
+          <div style={{display: "flex", gap: "0.5rem"}}>
             <input
               id="ste-pat"
               type={showPat ? "text" : "password"}
@@ -177,7 +179,7 @@ export default function SharedTokenExchanger({
               placeholder="kep_..."
               spellCheck={false}
               autoComplete="off"
-              style={{ ...inputStyle, flex: 1 }}
+              style={{...inputStyle, flex: 1}}
             />
             <button
               type="button"
@@ -201,12 +203,20 @@ export default function SharedTokenExchanger({
               fontSize: "0.75rem",
             }}
           >
-            The PAT stays in your browser. It is sent only to the proxy URL above.
+            The PAT stays in your browser. It is sent only to the proxy URL
+            above.
           </small>
         </div>
       </div>
 
-      <div style={{ display: "flex", gap: "0.5rem", alignItems: "center", flexWrap: "wrap" }}>
+      <div
+        style={{
+          display: "flex",
+          gap: "0.5rem",
+          alignItems: "center",
+          flexWrap: "wrap",
+        }}
+      >
         <button
           type="button"
           onClick={exchange}
@@ -289,10 +299,20 @@ export default function SharedTokenExchanger({
             </strong>
           </div>
           {result.error && (
-            <div style={{ fontFamily: "var(--ifm-font-family-base)", marginBottom: "0.5rem" }}>
+            <div
+              style={{
+                fontFamily: "var(--ifm-font-family-base)",
+                marginBottom: "0.5rem",
+              }}
+            >
               {result.error}
               {result.cause && (
-                <div style={{ marginTop: "0.25rem", color: "var(--ifm-color-emphasis-700)" }}>
+                <div
+                  style={{
+                    marginTop: "0.25rem",
+                    color: "var(--ifm-color-emphasis-700)",
+                  }}
+                >
                   Reason: {result.cause}
                 </div>
               )}
