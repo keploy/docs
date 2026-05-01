@@ -48,7 +48,7 @@ The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and rep
 
 ---
 
-## Why the Kubernetes Proxy instead of keploy enterprise directly?
+## Why the Kubernetes Proxy instead of Keploy Enterprise directly?
 
 Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
 
@@ -92,7 +92,7 @@ Current auto-replay already performs the in-session curation work:
 
 - **Cross-pod uniqueness within a session.** When a Deployment with `replicas=5` records into the same session, each pod's local `test-N` counter does not collide with any other pod's. The proxy keeps them distinct so you don't end up with five different captures all named `test-1`.
 - **Noise vs. failure separation.** During auto-replay, captures with extractable timestamp/UUID-style diffs are tagged as noisy and kept in the test set (excluded from failure counts), while real regressions and low-risk captures without extractable noise are tagged as failures. The noise tag itself is useful information because it tells later replays which fields to ignore for that endpoint.
-- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical-testset consolidation support exists in the codebase, but it is not active in the current record/start path.
+- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical test set consolidation support exists in the codebase, but it is not active in the current record/start path.
 
 Combined with capture-time static deduplication (benefit 2), this keeps the current replay set small, stable, and CI-gateable even when the underlying traffic is noisy.
 
