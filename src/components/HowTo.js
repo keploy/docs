@@ -99,20 +99,18 @@ export default function HowTo({
           <h3 style={{marginTop: 0}}>{name}</h3>
           {description && <p>{description}</p>}
           <ol>
-            {steps.map((s, i) => {
-              // Build a unique element id even when multiple steps share
-              // the same `s.url` (which is common — e.g. several sub-steps
-              // grouped under the same #anchor on the docs page).
-              const slug =
-                s.url && s.url.startsWith("#") ? s.url.slice(1) : null;
-              const itemId = slug ? `${slug}-step-${i + 1}` : undefined;
-              return (
-                <li key={i} id={itemId}>
-                  <strong>{s.name || `Step ${i + 1}`}</strong>
-                  {s.text && <div>{s.text}</div>}
-                </li>
-              );
-            })}
+            {/* Don't derive an `id` from `s.url`. In docs usage `step.url`
+                often points at an existing heading anchor on the page (e.g.
+                `#capturing-testcases`), so reusing that as a list-item id
+                would produce duplicate ids in the DOM whenever `visible`
+                is enabled. The list is the readable view; `step.url` in
+                the JSON-LD already covers the schema linkage. */}
+            {steps.map((s, i) => (
+              <li key={i}>
+                <strong>{s.name || `Step ${i + 1}`}</strong>
+                {s.text && <div>{s.text}</div>}
+              </li>
+            ))}
           </ol>
         </section>
       )}

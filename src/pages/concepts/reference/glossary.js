@@ -34,13 +34,19 @@ const glossaryStructuredData = [
     description:
       "Definitions for software testing, test automation, and quality engineering terminology, maintained by the Keploy documentation team.",
     url: GLOSSARY_URL,
-    hasDefinedTerm: allGlossaryItems.map((entry) => ({
-      "@type": "DefinedTerm",
-      name: entry.name,
-      description: entry.description,
-      url: `${SITE}${withTrailingSlash(entry.link)}`,
-      inDefinedTermSet: TERMSET_ID,
-    })),
+    // Defensive: an entry without a valid `link` (e.g. a typoed key like
+    // `ink:`) would emit `https://keploy.ioundefined` into the JSON-LD.
+    // Drop those entries here so structured data never carries a malformed
+    // URL even if `glossaryEntries` has gaps.
+    hasDefinedTerm: allGlossaryItems
+      .filter((entry) => typeof entry.link === "string" && entry.link.length > 0)
+      .map((entry) => ({
+        "@type": "DefinedTerm",
+        name: entry.name,
+        description: entry.description,
+        url: `${SITE}${withTrailingSlash(entry.link)}`,
+        inDefinedTermSet: TERMSET_ID,
+      })),
   },
   {
     "@context": "https://schema.org",
