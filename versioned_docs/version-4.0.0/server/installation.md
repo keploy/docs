@@ -25,7 +25,39 @@ keywords:
 
 Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs.
 
+import HowTo from '@site/src/components/HowTo';
 import InstallationGuide from '../concepts/installation.md'
+
+<HowTo
+  name="Install Keploy on Linux and capture your first test"
+  description="Install the Keploy CLI locally and start recording API calls in under five minutes."
+  totalTime="PT5M"
+  estimatedCost={{currency: "USD", value: "0"}}
+  tools={["bash", "curl", "Linux kernel >= 5.10"]}
+  supplies={["A Linux or WSL2 machine", "Sudo access"]}
+  visible={false}
+  steps={[
+    {
+      name: "Download and install the Keploy binary",
+      text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
+      url: "#-capturing-testcases",
+    },
+    {
+      name: "Verify the installation",
+      text: "Run: keploy --version",
+    },
+    {
+      name: "Record API calls for your app",
+      text: "Run: keploy record -c \"CMD_TO_RUN_APP\" (for example, keploy record -c \"go run main.go\").",
+      url: "#-capturing-testcases",
+    },
+    {
+      name: "Replay the recorded tests",
+      text: "Run: keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay testcases and detect regressions.",
+      url: "#-running-testcases",
+    },
+  ]}
+/>
 
 <InstallationGuide/>
 

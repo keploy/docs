@@ -62,6 +62,12 @@ export default function Home() {
           },
         }
       : null;
+  // SEO: docs landing previously rendered with title "Keploy Documentation" (20c)
+  // and meta description "API Test Generator Tool" (23c). Both were too short
+  // to capture the intent of a docs visitor (install, capture, replay, SDK).
+  const docsHomeTitle = "Keploy Documentation — Install, Capture & Replay API Tests";
+  const docsHomeDescription = "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
+
   return (
     <div className="main">
       <Head>
@@ -78,10 +84,11 @@ export default function Home() {
       </Head>
       <Layout
         className="mx-auto my-2 w-full max-w-screen-lg px-8 shadow-none"
-        title={`${siteConfig.title}`}
-        description={`${siteConfig.tagline}`}
+        title={docsHomeTitle}
+        description={docsHomeDescription}
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
+          <h1 className="sr-only">{docsHomeTitle}</h1>
 
           <GetStartedPaths />
           <TestingCapabilities />

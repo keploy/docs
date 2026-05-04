@@ -1,8 +1,8 @@
 ---
 id: python
-title: Merge Test Coverage Data — Python
+title: Keploy Python SDK — Install & Merge Test Coverage
 sidebar_label: Python
-description: "Merge Keploy and Python unit test coverage using coverage.py — combine integration and unit test reports seamlessly."
+description: "Install the Keploy server SDK for Python and merge Keploy + Python unit-test coverage with coverage.py. Combined reports seamlessly."
 tags:
   - python
   - coverage

@@ -1,7 +1,43 @@
 import React from "react";
 import Layout from "@theme/Layout";
+import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import useBaseUrl from "@docusaurus/useBaseUrl";
+
+// Custom React pages under src/pages/ are not covered by the docs schema
+// plugin — add Article + BreadcrumbList JSON-LD inline so the page is
+// machine-readable for search engines and AI crawlers.
+const aboutStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: "About the Keploy Documentation",
+    description:
+      "Information about Keploy's documentation, contribution guidelines, and licensing.",
+    url: "https://keploy.io/docs/about",
+    publisher: {
+      "@type": "Organization",
+      name: "Keploy",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://keploy.io/docs/img/favicon.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": "https://keploy.io/docs/about",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {"@type": "ListItem", position: 1, name: "Home", item: "https://keploy.io"},
+      {"@type": "ListItem", position: 2, name: "Docs", item: "https://keploy.io/docs"},
+      {"@type": "ListItem", position: 3, name: "About", item: "https://keploy.io/docs/about"},
+    ],
+  },
+];
 
 function About() {
   const context = useDocusaurusContext();
@@ -12,6 +48,13 @@ function About() {
       permalink="/about"
       description="User General Information about Keploy's Documentation"
     >
+      <Head>
+        {aboutStructuredData.map((schema, i) => (
+          <script key={i} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
+      </Head>
       <main className="margin-vert--lg container">
         <h1>About the docs</h1>
         <div className="margin-bottom--lg">
