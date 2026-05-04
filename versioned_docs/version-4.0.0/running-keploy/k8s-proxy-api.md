@@ -48,7 +48,7 @@ The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and rep
 
 ---
 
-## Why the Kubernetes Proxy instead of keploy enterprise directly?
+## Why the Kubernetes Proxy instead of Keploy Enterprise directly?
 
 Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
 
@@ -74,23 +74,9 @@ A naive recorder turns a load test of `GET /users/42` into 50,000 identical test
 
 Enable per-recording with `record_config.static_dedup`, and optionally narrow the dedup key per endpoint with `record_config.custom_dedup_fields`, which declares which JSON paths in the request body, plus method/path/status, define "the same test." The agent enforces this _at capture time_ before anything is written to storage, and per-pod dedup stats stream back into the recording status endpoint so you can watch duplicates being dropped live. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/) for the full configuration reference.
 
-### 3. REST API _and_ MCP server
+### 3. REST API for in-cluster automation
 
-Keploy exposes automation surfaces at two layers:
-
-- The **Kubernetes Proxy REST API** ([Endpoint reference](#endpoint-reference)) handles in-cluster operations such as starting/stopping recording, kicking off replay, fetching session status, and reading logs or reports. Protected routes use shared-token Bearer auth; `/get-shared-token` is the bootstrap exception and uses PAT Bearer auth.
-- The **Keploy API server MCP endpoint** exposes higher-level tools for AI coding tools, including Claude Code, Cursor, Windsurf, and VS Code. This is how an AI agent in your editor authors test suites, runs replays, and scaffolds CI pipelines without you copy-pasting curl commands.
-
-The MCP surface includes around a dozen tools. The headline ones:
-
-- `generate_and_wait`: build a suite from an OpenAPI spec.
-- `run_and_report`: run a suite and return failures + coverage.
-- `get_coverage_gaps`: list which endpoints lack test coverage.
-- `create_test_suite` / `update_test_suite`: programmatically author and validate suites. Writes are gated through Keploy's own branching model (parallel to git), so AI agents can iterate without polluting `main`.
-- `start_rerecord_session` / `start_integration_test_session`: kick off a sandbox session locally.
-- `scaffold_pipeline_workflow`: generate a CI workflow file (covered in benefit 6).
-
-A non-obvious detail: when an AI agent authors a test suite that mutates state (POST/PUT/PATCH), the MCP refuses to insert it unless every mutating step's body references at least one per-run dynamic variable, and the rejection error _names_ the dynamic variables already in scope. The result is suites that survive a second run by construction. They are authored and verified to be safe to retry.
+Every action you perform from the Console or `kubectl-keploy` is also available as a REST call. The [endpoint reference](#endpoint-reference) covers the full surface—`/record/start`, `/record/stop`, `/test/start`, `/deployments`, `/proxy/update`, the streaming status endpoints, the log and report endpoints, and the `/k8s-proxy/*` data routes the Console uses for stored test cases, mocks, schema, and reports.
 
 ### 4. Schema Generation and Management
 
@@ -106,33 +92,9 @@ Current auto-replay already performs the in-session curation work:
 
 - **Cross-pod uniqueness within a session.** When a Deployment with `replicas=5` records into the same session, each pod's local `test-N` counter does not collide with any other pod's. The proxy keeps them distinct so you don't end up with five different captures all named `test-1`.
 - **Noise vs. failure separation.** During auto-replay, captures with extractable timestamp/UUID-style diffs are tagged as noisy and kept in the test set (excluded from failure counts), while real regressions and low-risk captures without extractable noise are tagged as failures. The noise tag itself is useful information because it tells later replays which fields to ignore for that endpoint.
-- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical-testset consolidation support exists in the codebase, but it is not active in the current record/start path.
+- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical test set consolidation support exists in the codebase, but it is not active in the current record/start path.
 
 Combined with capture-time static deduplication (benefit 2), this keeps the current replay set small, stable, and CI-gateable even when the underlying traffic is noisy.
-
-### 6. Local CI replay
-
-> **Status:**
->
-> - **The replay step itself:** Shipped for any CI provider. It is invoked through the `keploy test sandbox` CLI, which runs unchanged on GitHub Actions, GitLab CI, CircleCI, Jenkins, Bitbucket Pipelines, Azure Pipelines, or a self-hosted runner.
-> - **Auto-generated workflow YAML:** Shipped for **GitHub Actions** via the MCP `scaffold_pipeline_workflow` tool. Native scaffolds for other CI providers are upcoming. Until then, the GitHub Actions workflow can be hand-ported because the replay command and its flags are identical across providers, and only the surrounding CI syntax changes.
-
-Local CI replay runs your Keploy test suites against a fresh build of your service _inside the CI runner_, on every pull request. Docker Compose brings the service's dependencies up; the Keploy enterprise CLI starts the service itself under instrumentation, replays each recorded request, serves the recorded mocks for every outbound dependency call, and byte-compares the live response against the captured one. The aggregated pass/fail becomes the PR gate.
-
-The "local" qualifier distinguishes this path from the SaaS replay path (`run_and_report`), which targets a publicly reachable URL such as staging and rejects local-only URLs. Local CI replay targets `http://localhost:$APP_PORT` inside the runner, so the thing under test is the code on the pull request branch, not staging.
-
-The generated workflow performs the following steps:
-
-1. Checks out the repository and installs the Keploy enterprise CLI.
-2. Brings the Docker Compose stack up with `docker compose up -d --wait`, then stops and removes the application service so the CLI can start it under instrumentation.
-3. Runs `keploy test sandbox` with the appropriate flags, including `--create-branch "${{ github.head_ref }}"`. Keploy branches use find-or-create semantics: the first run on a pull request creates a Keploy branch named after the git branch, and subsequent retries reuse it. The workflow is therefore idempotent across force-pushes.
-4. Uploads `keploy/reports` as a workflow artifact on every run, including failures.
-5. Dumps Docker Compose logs on failure.
-6. Tears the Compose stack down.
-
-The pre-flight check counts how many sandbox suites are linked to the app. When zero suites are linked, the scaffold response warns you before you add the workflow; the CI run remains a no-op until suites are created and rerecorded. The generated YAML is annotated `# Auto-generated by keploy scaffold_pipeline_workflow — edit freely.` and can be modified or extended without losing the ability to regenerate.
-
----
 
 ## Authentication
 
