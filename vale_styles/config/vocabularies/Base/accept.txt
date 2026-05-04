@@ -20,10 +20,12 @@ Deduplication
 distros
 dockerfile
 Docusaurus
+Dropwizard
 expected_string
 Functionize
 GitHub
 gjson
+Gradle
 graphql
 Hacktoberfest
 HAProxy
@@ -40,11 +42,13 @@ Idempotency
 JaCoCo
 Jacoco
 JBehave
+Jersey
 JMeter
 json_contains
 json_equal
 json_path
 JUnit
+[Kk]araf
 kubectl
 kubernetes
 test-gen
@@ -68,6 +72,7 @@ Redis
 [Rr]epo
 Reqnroll
 SDK
+servlet
 signin
 Spotify
 status_code

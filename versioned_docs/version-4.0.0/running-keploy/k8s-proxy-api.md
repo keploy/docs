@@ -48,19 +48,53 @@ The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and rep
 
 ---
 
-## Why the Kubernetes Proxy instead of `keploy enterprise` directly?
+## Why the Kubernetes Proxy instead of Keploy Enterprise directly?
 
-Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy removes that friction:
+Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
 
-- **Zero-touch agent setup.** The proxy registers a `MutatingAdmissionWebhook` (`/mutate`) so the Keploy recording agent is injected into target Pods on the next rollout. No image rebuild, sidecar template change, or per-app config knob is required.
-- **One API for every Deployment.** A single shared-token-authenticated endpoint starts or stops recording for any Deployment in the watched scope. `podsCount` controls how many pods are recorded and is capped by the Deployment replicas or HPA max replicas.
-- **Cluster-wide or namespace-scoped.** Install once per cluster, or set `watchNamespace` to pin the proxy to a single team's namespace. Cross-namespace calls are rejected with `403`.
-- **Stored session outputs.** Recording, replay, and schema-coverage outputs are persisted through the configured platform storage. Per-session and proxy logs are available through the log endpoints when log retention/support-bundle storage is enabled.
-- **Auto-replay loop.** A recording session can kick off an auto-replay on a cadence (`autoReplayInterval`) against freshly recorded test sets, giving you self-validating live traffic without a separate pipeline.
-- **Self-updating.** The proxy can roll itself (and the injected agent) forward via `POST /proxy/update`, so upgrades do not require kubectl or a GitOps round-trip—unless you _want_ GitOps to stay authoritative (the proxy detects and reports reverts).
-- **Static deduplication at the edge.** Enable `static_dedup` in the recording config to drop schema-identical traffic _before_ it is ever written as a test case. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/).
+### 1. Auto-replay
 
----
+The proxy auto-replays captured traffic against a fresh Pod and reports back which captures behave as deterministic tests. This happens continuously while you record (every `autoReplayInterval` minutes, default 5) and once more, against any trailing captures, the moment you call `POST /record/stop`. The whole loop collapses the "record now, find out tomorrow which tests are flaky" wait into the recording session itself.
+
+This is also why replay belongs in the Kubernetes Proxy instead of a one-off CLI run: the proxy has the cluster, Deployment, release, and recording-session context needed to make replay release-aware. For a new-release flow, the proxy layer is designed to coordinate replaying the traffic captured for the new release together with the historical traffic the service has recorded before, so a release is checked against both the latest behavior and the behavior users already depended on. When the smart test set gets shipped, that historical input becomes the curated smart set: newly recorded traffic plus the latest duplicate-free version of the service's long-lived test coverage.
+
+Each test case is exercised once against a freshly rolled Pod and classified into one of three buckets:
+
+- **Pass:** kept as a real, stable test case.
+- **High-risk failure:** marked as failed (a real regression to investigate).
+- **Low-risk failure with extractable noise:** marked as noisy and kept in the test set but excluded from failure counts. These are typically captures whose only diff is a timestamp, request-ID, or generated UUID. If the proxy cannot extract the noisy fields, the capture is kept as a failed test case so it can be investigated.
+
+While the proxy is at it, mocks the test case did not actually need are pruned. So even if the original Pod made 200 dependency calls per request, the final test case only carries the mocks it depended on, and your test sets stay tiny.
+
+The cadence is configured via `autoReplayInterval` (see [Auto-replay configuration](#auto-replay-configuration) below). When auto-replay runs as part of a re-record job, the proxy first asks the API server which suites passed last time. Replay still runs against the recorded test sets, but suite linking is gated so only suites that passed upstream and pass the fresh replay are linked forward.
+
+### 2. Deduplication
+
+A naive recorder turns a load test of `GET /users/42` into 50,000 identical test cases. Keploy's deduplication keeps the canonical capture, counts the rest, and drops them, so a real test set comes out of even a noisy production traffic sample.
+
+Enable per-recording with `record_config.static_dedup`, and optionally narrow the dedup key per endpoint with `record_config.custom_dedup_fields`, which declares which JSON paths in the request body, plus method/path/status, define "the same test." The agent enforces this _at capture time_ before anything is written to storage, and per-pod dedup stats stream back into the recording status endpoint so you can watch duplicates being dropped live. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/) for the full configuration reference.
+
+### 3. REST API for in-cluster automation
+
+Every action you perform from the Console or `kubectl-keploy` is also available as a REST call. The [endpoint reference](#endpoint-reference) covers the full surface—`/record/start`, `/record/stop`, `/test/start`, `/deployments`, `/proxy/update`, the streaming status endpoints, the log and report endpoints, and the `/k8s-proxy/*` data routes the Console uses for stored test cases, mocks, schema, and reports.
+
+### 4. Schema Generation and Management
+
+**Schema generation and per-release storage.** Recording produces a free OpenAPI 3.0.3 schema as a side effect. The proxy infers it from the captured traffic, so the spec reflects the requests and responses Keploy actually observed during that recording. Schema records store namespace, deployment, app name, app release, cluster name, and tenant metadata; release-specific versions are selected by `appRelease`, which is typically your image tag or git SHA. That lets `orders-api@v1.4.2` and `orders-api@v1.4.3` be stored as separate release snapshots instead of overwriting each other. Coverage reporting layered on top tells you which endpoints have been exercised, and how deeply. Endpoints are documented under [Reports and schema coverage](#reports-and-schema-coverage).
+
+**Schema-conflict detection during auto-replay.** During auto-replay, the proxy fetches the latest stored schema, generates a schema from the recorded test cases, and merges the two. If replay produces failed test-case details, the report records a schema conflict and stores the new schema accordingly. Compatible same-release additions update the existing schema; new releases or replay-detected conflicts insert a new schema document.
+
+### 5. Smart test set (Upcoming)
+
+The direct user benefit is simple: this layer is meant to maintain a smart, replay-ready test set for the service instead of leaving you to manage scattered recording sessions by hand. The goal is to keep the latest useful, duplicate-free version of the behavior your service has recorded over time. When you add an API endpoint, the new behavior can be folded in; when you delete an endpoint, stale coverage can be removed; when you change a request or response shape, the latest captured version can replace the old one. Future release replays can then run the newly recorded traffic plus this smart test set instead of every duplicate capture ever seen, which keeps replay fast, efficient, and easier to trust as a CI gate.
+
+Current auto-replay already performs the in-session curation work:
+
+- **Cross-pod uniqueness within a session.** When a Deployment with `replicas=5` records into the same session, each pod's local `test-N` counter does not collide with any other pod's. The proxy keeps them distinct so you don't end up with five different captures all named `test-1`.
+- **Noise vs. failure separation.** During auto-replay, captures with extractable timestamp/UUID-style diffs are tagged as noisy and kept in the test set (excluded from failure counts), while real regressions and low-risk captures without extractable noise are tagged as failures. The noise tag itself is useful information because it tells later replays which fields to ignore for that endpoint.
+- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical test set consolidation support exists in the codebase, but it is not active in the current record/start path.
+
+Combined with capture-time static deduplication (benefit 2), this keeps the current replay set small, stable, and CI-gateable even when the underlying traffic is noisy.
 
 ## Authentication
 
