@@ -147,7 +147,7 @@ Every other protected route on the proxy is then gated on the shared token sent 
 Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>
 ```
 
-Only `GET /healthz` and the admission webhook `POST /mutate` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
+Only `GET /healthz`, the admission webhook `POST /mutate`, the bootstrap `POST /get-shared-token`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
 
 ```bash
 # Verify the proxy is up (no auth required)
@@ -208,15 +208,50 @@ A successful exchange returns:
 {
   "ingressUrl": "https://your-proxy-ingress",
   "sharedToken": "3e14be232bce3e3cf6f6d58f284b6eb88db3280c54d93a7951e5000c6bbe3e9a",
-  "deploymentType": "saas"
+  "deploymentType": "saas",
+  "tokenId": "408aaecaba458939",
+  "issuedAt": 1777883713
 }
 ```
 
 - `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
 - `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
 - `deploymentType`—either `"saas"` for the hosted control plane or `"self-hosted"` for self-hosted installs.
+- `tokenId`—a short non-secret identifier that changes whenever the proxy regenerates `sharedToken`. Cache it alongside the token; use `GET /shared-token/info` to check whether your cached value is still current.
+- `issuedAt`—unix timestamp when the proxy minted this `sharedToken`.
 
-The current proxy generates the shared token at startup, so a Pod restart rotates it. Exchange the PAT at the start of each CI job and cache the returned shared token only for that run.
+### Shared token lifetime and rotation
+
+The shared token is generated **fresh in process memory at every Pod startup** with `crypto/rand` (32 bytes, hex-encoded). It is _not_ stored in a Kubernetes Secret, _not_ persisted to disk, and _not_ stable across restarts. Concretely, the token rotates whenever:
+
+- the proxy Pod restarts (CrashLoop, eviction, node drain, OOM),
+- `helm upgrade` rolls the proxy Deployment,
+- you call `POST /proxy/update` and the new image becomes ready.
+
+Treat the shared token as **scoped to one running process**, not "the lifetime of the install". A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
+
+#### Detecting a rotated token
+
+`GET /shared-token/info` returns only the current `tokenId` and `issuedAt`—never the token itself, so it is safe to call without the shared token.
+
+```bash
+curl -sS "$PROXY/shared-token/info"
+# {"tokenId":"408aaecaba458939","issuedAt":1777883713}
+```
+
+Recommended pattern in CI: cache `(tokenId, sharedToken)` together when you exchange, and before every long-running operation (or as a quick guard at the start of every step) hit `/shared-token/info` to compare. If `tokenId` differs from your cached value, re-exchange the PAT.
+
+```bash
+CACHED_TOKEN_ID="$(jq -r '.tokenId' < ~/.cache/keploy-proxy.json)"
+CURRENT_TOKEN_ID="$(curl -sS "$PROXY/shared-token/info" | jq -r '.tokenId')"
+if [ "$CACHED_TOKEN_ID" != "$CURRENT_TOKEN_ID" ]; then
+  # proxy was restarted, re-exchange the PAT
+  RESP=$(curl -sS -X POST "$PROXY/get-shared-token" -H "Authorization: Bearer $PAT")
+  echo "$RESP" > ~/.cache/keploy-proxy.json
+fi
+```
+
+If you instead see a sudden `401 Invalid token` on a previously working `sharedToken`, that's the same signal: the proxy was rolled. Re-exchange the PAT and retry once.
 
 ### Exchange failure modes
 
@@ -394,11 +429,12 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 
 ### Bootstrap
 
-| Method | Path                | Auth                          | Description                                                                                                                                                       |
-| ------ | ------------------- | ----------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `POST` | `/get-shared-token` | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Exchange the PAT for the shared token](#2-exchange-the-pat-for-the-shared-token) for details. |
+| Method | Path                 | Auth                          | Description                                                                                                                                                                          |
+| ------ | -------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Exchange the PAT for the shared token](#2-exchange-the-pat-for-the-shared-token) for details.                    |
+| `GET`  | `/shared-token/info` | None                          | Return only the current `tokenId` and `issuedAt`; never the token itself. Use this to detect when the proxy has rotated the shared token (Pod restart, `helm upgrade`, self-update). |
 
-This is the only protected endpoint that does **not** use the shared token; it gates on a PAT instead because the caller does not yet have the shared token. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
+`POST /get-shared-token` gates on a PAT instead of the shared token because the caller does not yet have one. `GET /shared-token/info` is unauthenticated because the response leaks no credential material. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
 
 ### Deployments
 
