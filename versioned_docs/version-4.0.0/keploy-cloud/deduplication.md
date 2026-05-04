@@ -123,11 +123,11 @@ keploy dedup --rm
 
 Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to emit per-test coverage signals, and attach the JaCoCo runtime agent so the SDK can read the coverage data. The Java agent is framework-agnostic across Spring Boot, Dropwizard/Jersey, plain executable jars, classpath-based apps, servlet/WAR archives, etc.
 
-Both agents attach at JVM startup via `-javaagent:`. They do not modify your application bytecode either at compile time or while classes load, so no source code or `pom.xml` changes are required to enable dedup. 
+Both agents attach at JVM startup via `-javaagent:`. They do not modify your application bytecode either at compile time or while classes load, so no source code or `pom.xml` changes are required to enable dedup.
 
 You only need `keploy-sdk.jar` and `jacocoagent.jar` available on disk wherever you reference them with `-javaagent:` at runtime. Fetch them in whichever way fits your workflow:
 
-**Option A**, one-off fetch with the Maven CLI: 
+**Option A**, one-off fetch with the Maven CLI:
 
 ```bash
 mvn dependency:copy \
