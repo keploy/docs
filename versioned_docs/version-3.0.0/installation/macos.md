@@ -68,7 +68,7 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 
 ## What's Next?
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/)
+### 🎬 [Start Capturing Test Cases](/server/installation/)
 
 Begin recording your API calls and automatically generate test cases with Keploy.
 
