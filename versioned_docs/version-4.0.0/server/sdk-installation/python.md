@@ -2,7 +2,7 @@
 id: python
 title: Keploy Python SDK — Install & Merge Test Coverage
 sidebar_label: Python
-description: "Install the Keploy server SDK for Python and merge Keploy + Python unit-test coverage with coverage.py. Combined reports seamlessly."
+description: "Install the Keploy server SDK for Python and merge Keploy + Python unit-test coverage with coverage.py to produce a single combined report."
 tags:
   - python
   - coverage

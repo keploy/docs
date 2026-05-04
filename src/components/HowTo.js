@@ -99,12 +99,20 @@ export default function HowTo({
           <h3 style={{marginTop: 0}}>{name}</h3>
           {description && <p>{description}</p>}
           <ol>
-            {steps.map((s, i) => (
-              <li key={i} id={s.url && s.url.startsWith("#") ? s.url.slice(1) : undefined}>
-                <strong>{s.name || `Step ${i + 1}`}</strong>
-                {s.text && <div>{s.text}</div>}
-              </li>
-            ))}
+            {steps.map((s, i) => {
+              // Build a unique element id even when multiple steps share
+              // the same `s.url` (which is common — e.g. several sub-steps
+              // grouped under the same #anchor on the docs page).
+              const slug =
+                s.url && s.url.startsWith("#") ? s.url.slice(1) : null;
+              const itemId = slug ? `${slug}-step-${i + 1}` : undefined;
+              return (
+                <li key={i} id={itemId}>
+                  <strong>{s.name || `Step ${i + 1}`}</strong>
+                  {s.text && <div>{s.text}</div>}
+                </li>
+              );
+            })}
           </ol>
         </section>
       )}
