@@ -123,7 +123,33 @@ keploy dedup --rm
 
 Java dynamic deduplication uses JaCoCo runtime coverage. Attach the Keploy Java agent to emit per-test coverage signals, and attach the JaCoCo runtime agent so the SDK can read the coverage data. The Java agent is framework-agnostic across Spring Boot, Dropwizard/Jersey, plain executable jars, classpath-based apps, servlet/WAR archives, etc.
 
-Copy both jars into `target/` during your Maven build (do not add the Keploy SDK as an application dependency, and do not import Keploy classes from your code).
+Both agents attach at JVM startup via `-javaagent:`. They do not modify your application bytecode at compile time and do not retransform classes at load time, so **no source code or `pom.xml` changes are required** to enable dedup. Do not add the Keploy SDK as an application dependency, and do not import Keploy classes from your code.
+
+You only need `keploy-sdk.jar` and `jacocoagent.jar` available on disk wherever you reference them with `-javaagent:` at runtime. Fetch them in whichever way fits your workflow:
+
+**Option A — one-off fetch with the Maven CLI (no `pom.xml` edit):**
+
+```bash
+mvn dependency:copy \
+  -Dartifact=io.keploy:keploy-sdk:2.0.6 \
+  -DoutputDirectory=target -Dmdep.stripVersion=true
+
+mvn dependency:copy \
+  -Dartifact=org.jacoco:org.jacoco.agent:0.8.12:jar:runtime \
+  -DoutputDirectory=target -Dmdep.stripVersion=true
+```
+
+**Option B — direct download from Maven Central (no Maven required):**
+
+```bash
+curl -L -o target/keploy-sdk.jar \
+  https://repo.maven.apache.org/maven2/io/keploy/keploy-sdk/2.0.6/keploy-sdk-2.0.6.jar
+
+curl -L -o target/jacocoagent.jar \
+  https://repo.maven.apache.org/maven2/org/jacoco/org.jacoco.agent/0.8.12/org.jacoco.agent-0.8.12-runtime.jar
+```
+
+**Option C — let your Maven build copy them automatically.** If you'd rather Maven fetch the agents during your normal build, add the following plugin block to your `pom.xml`. It runs at the `package` phase and only copies the two JARs alongside your app jar — it does not alter the compile classpath, your application bytecode, or any source file:
 
 ```xml
 <plugin>
