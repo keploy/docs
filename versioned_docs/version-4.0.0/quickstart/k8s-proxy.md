@@ -19,7 +19,7 @@ import HowTo from '@site/src/components/HowTo';
   description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
   totalTime="PT10M"
   estimatedCost={{currency: "USD", value: "0"}}
-  tools={["Keploy CLI", "Docker", "git"]}
+  tools={["Keploy CLI", "Docker", "git", "Kind", "kubectl", "Helm"]}
   visible={false}
   steps={[
     {

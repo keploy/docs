@@ -2,11 +2,14 @@ import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import useBaseUrl from "@docusaurus/useBaseUrl";
 
 // Custom React pages under src/pages/ are not covered by the docs schema
 // plugin — add Article + BreadcrumbList JSON-LD inline so the page is
 // machine-readable for search engines and AI crawlers.
+//
+// Site config sets `trailingSlash: true`, so canonical URLs in the JSON-LD
+// must carry the trailing slash to match the actual emitted href and avoid
+// duplicate URL variants in structured data.
 const aboutStructuredData = [
   {
     "@context": "https://schema.org",
@@ -14,7 +17,7 @@ const aboutStructuredData = [
     headline: "About the Keploy Documentation",
     description:
       "Information about Keploy's documentation, contribution guidelines, and licensing.",
-    url: "https://keploy.io/docs/about",
+    url: "https://keploy.io/docs/about/",
     publisher: {
       "@type": "Organization",
       name: "Keploy",
@@ -25,16 +28,16 @@ const aboutStructuredData = [
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://keploy.io/docs/about",
+      "@id": "https://keploy.io/docs/about/",
     },
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {"@type": "ListItem", position: 1, name: "Home", item: "https://keploy.io"},
-      {"@type": "ListItem", position: 2, name: "Docs", item: "https://keploy.io/docs"},
-      {"@type": "ListItem", position: 3, name: "About", item: "https://keploy.io/docs/about"},
+      {"@type": "ListItem", position: 1, name: "Home", item: "https://keploy.io/"},
+      {"@type": "ListItem", position: 2, name: "Docs", item: "https://keploy.io/docs/"},
+      {"@type": "ListItem", position: 3, name: "About", item: "https://keploy.io/docs/about/"},
     ],
   },
 ];

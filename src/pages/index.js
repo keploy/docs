@@ -41,13 +41,21 @@ export default function Home() {
           ],
         }
       : null;
+  // SEO: docs landing previously rendered with title "Keploy Documentation" (20c)
+  // and meta description "API Test Generator Tool" (23c). Both were too short
+  // to capture the intent of a docs visitor (install, capture, replay, SDK).
+  // The Article JSON-LD below derives its `headline`/`description` from these
+  // same constants so the schema, the rendered <title>, the meta description
+  // and the sr-only H1 all agree — single source of truth.
+  const docsHomeTitle = "Keploy Documentation — Install, Capture & Replay API Tests";
+  const docsHomeDescription = "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
   const articleSchema =
-    docsUrl && siteConfig.title
+    docsUrl
       ? {
           "@context": "https://schema.org",
           "@type": "Article",
-          headline: siteConfig.title,
-          description: siteConfig.tagline,
+          headline: docsHomeTitle,
+          description: docsHomeDescription,
           mainEntityOfPage: {
             "@type": "WebPage",
             "@id": docsUrl,
@@ -62,11 +70,6 @@ export default function Home() {
           },
         }
       : null;
-  // SEO: docs landing previously rendered with title "Keploy Documentation" (20c)
-  // and meta description "API Test Generator Tool" (23c). Both were too short
-  // to capture the intent of a docs visitor (install, capture, replay, SDK).
-  const docsHomeTitle = "Keploy Documentation — Install, Capture & Replay API Tests";
-  const docsHomeDescription = "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
 
   return (
     <div className="main">

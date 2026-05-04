@@ -40,7 +40,7 @@ import InstallationGuide from '../concepts/installation.md'
     {
       name: "Download and install the Keploy binary",
       text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
-      url: "#-capturing-testcases",
+      url: "#capturing-testcases",
     },
     {
       name: "Verify the installation",
@@ -49,19 +49,19 @@ import InstallationGuide from '../concepts/installation.md'
     {
       name: "Record API calls for your app",
       text: "Run: keploy record -c \"CMD_TO_RUN_APP\" (for example, keploy record -c \"go run main.go\").",
-      url: "#-capturing-testcases",
+      url: "#capturing-testcases",
     },
     {
       name: "Replay the recorded tests",
       text: "Run: keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay testcases and detect regressions.",
-      url: "#-running-testcases",
+      url: "#running-testcases",
     },
   ]}
 />
 
 <InstallationGuide/>
 
-## 🎬 Capturing Testcases
+## 🎬 Capturing Testcases {#capturing-testcases}
 
 To initiate the recording of API calls, execute this command in your terminal:
 
@@ -75,7 +75,7 @@ For example, if you're using a simple Golang program, the **CMD_TO_RUN_APP** wou
 keploy record -c "go run main.go"
 ```
 
-## 🏃 Running Testcases
+## 🏃 Running Testcases {#running-testcases}
 
 To run the testcases and see if there are any regressions introduced, use this terminal command:
 

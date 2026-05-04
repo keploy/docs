@@ -10,34 +10,46 @@ import GlossaryCard from "../../../components/GlossaryCard";
 // DefinedTermSet so AI engines can cite individual definitions and engines
 // can surface them as featured-snippet definitions. Mirrors the pattern in
 // landing/app/(default)/what-is-api-testing/layout.tsx.
+//
+// Site config sets `trailingSlash: true`, so every emitted URL must carry a
+// trailing slash to match the canonical href. Otherwise Google treats the
+// no-slash variant as a duplicate URL of the canonical one.
 const allGlossaryItems = Object.values(glossaryEntries).flat();
 const SITE = "https://keploy.io";
+const GLOSSARY_PATH = "/docs/concepts/reference/glossary/";
+const GLOSSARY_URL = `${SITE}${GLOSSARY_PATH}`;
+const TERMSET_ID = `${GLOSSARY_URL}#termset`;
+
+function withTrailingSlash(path) {
+  if (!path) return path;
+  return path.endsWith("/") ? path : `${path}/`;
+}
 
 const glossaryStructuredData = [
   {
     "@context": "https://schema.org",
     "@type": "DefinedTermSet",
-    "@id": `${SITE}/docs/concepts/reference/glossary#termset`,
+    "@id": TERMSET_ID,
     name: "Keploy Software Testing Glossary",
     description:
       "Definitions for software testing, test automation, and quality engineering terminology, maintained by the Keploy documentation team.",
-    url: `${SITE}/docs/concepts/reference/glossary`,
+    url: GLOSSARY_URL,
     hasDefinedTerm: allGlossaryItems.map((entry) => ({
       "@type": "DefinedTerm",
       name: entry.name,
       description: entry.description,
-      url: `${SITE}${entry.link}`,
-      inDefinedTermSet: `${SITE}/docs/concepts/reference/glossary#termset`,
+      url: `${SITE}${withTrailingSlash(entry.link)}`,
+      inDefinedTermSet: TERMSET_ID,
     })),
   },
   {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {"@type": "ListItem", position: 1, name: "Home", item: SITE},
-      {"@type": "ListItem", position: 2, name: "Docs", item: `${SITE}/docs`},
-      {"@type": "ListItem", position: 3, name: "Concepts", item: `${SITE}/docs/concepts`},
-      {"@type": "ListItem", position: 4, name: "Glossary", item: `${SITE}/docs/concepts/reference/glossary`},
+      {"@type": "ListItem", position: 1, name: "Home", item: `${SITE}/`},
+      {"@type": "ListItem", position: 2, name: "Docs", item: `${SITE}/docs/`},
+      {"@type": "ListItem", position: 3, name: "Concepts", item: `${SITE}/docs/concepts/`},
+      {"@type": "ListItem", position: 4, name: "Glossary", item: GLOSSARY_URL},
     ],
   },
 ];
