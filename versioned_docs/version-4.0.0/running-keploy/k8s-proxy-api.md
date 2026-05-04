@@ -268,21 +268,6 @@ Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on t
 
 ---
 
-## Response format
-
-A few endpoints stream **newline-delimited JSON** (`application/x-ndjson`) instead—`/record/status` and `/test/status`. Read these line-by-line, not as a single JSON document.
-
-| HTTP | When it happens                                                                                 |
-| ---- | ----------------------------------------------------------------------------------------------- |
-| 400  | Missing or malformed request body, missing required fields                                      |
-| 401  | Missing or invalid `Authorization: Bearer` header                                               |
-| 403  | Request touches a namespace outside `watchNamespace`, or image repo mismatch on `/proxy/update` |
-| 404  | Recording/replay session ID not found, or deployment/config does not exist                      |
-| 500  | Kubernetes API error, storage backend unavailable, or unexpected server error                   |
-| 503  | Kubernetes client or self-discovery not initialised (proxy is still starting or missing RBAC)   |
-
----
-
 ## Quick start: Trigger and watch a live recording
 
 The golden path: authenticate, pick a Deployment, start a recording, stream its status, and stop it when you have the traffic you need.
