@@ -42,16 +42,29 @@ export default function HowTo({
     return null;
   }
 
+  // Filter to steps that carry both `name` and `text` per Google's HowTo
+  // requirements. Auto-generating "Step N" placeholders or emitting empty
+  // `text` produces low-quality structured data that the rich-results test
+  // flags. If the author gave us nothing usable, drop the schema entirely
+  // rather than ship a hollow HowTo.
+  const validSteps = steps.filter(
+    (s) => typeof s.name === "string" && s.name.trim() &&
+           typeof s.text === "string" && s.text.trim(),
+  );
+  if (validSteps.length === 0) {
+    return null;
+  }
+
   const schema = {
     "@context": "https://schema.org",
     "@type": "HowTo",
     name,
-    step: steps.map((s, i) => {
+    step: validSteps.map((s, i) => {
       const step = {
         "@type": "HowToStep",
         position: i + 1,
-        name: s.name || `Step ${i + 1}`,
-        text: s.text || "",
+        name: s.name,
+        text: s.text,
       };
       if (s.url) step.url = s.url;
       if (s.image) step.image = s.image;
@@ -105,10 +118,10 @@ export default function HowTo({
                 would produce duplicate ids in the DOM whenever `visible`
                 is enabled. The list is the readable view; `step.url` in
                 the JSON-LD already covers the schema linkage. */}
-            {steps.map((s, i) => (
+            {validSteps.map((s, i) => (
               <li key={i}>
-                <strong>{s.name || `Step ${i + 1}`}</strong>
-                {s.text && <div>{s.text}</div>}
+                <strong>{s.name}</strong>
+                <div>{s.text}</div>
               </li>
             ))}
           </ol>

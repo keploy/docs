@@ -472,7 +472,17 @@ module.exports = {
           // additionally carry `noIndex: true` via their `versions` config
           // above; excluding from the sitemap signals that they should not
           // be ranked at all.
+          //
+          // Docusaurus matches `ignorePatterns` against the full route path
+          // including `baseUrl` (`/docs/`), so the patterns must carry that
+          // prefix — bare `/tags/**` and `/1.0.0/**` would never match the
+          // emitted `/docs/tags/...` and `/docs/1.0.0/...` routes. Bare
+          // patterns are kept as defence-in-depth in case `baseUrl` is ever
+          // flattened to `/`.
           ignorePatterns: [
+            "/docs/tags/**",
+            "/docs/1.0.0/**",
+            "/docs/2.0.0/**",
             "/tags/**",
             "/1.0.0/**",
             "/2.0.0/**",
