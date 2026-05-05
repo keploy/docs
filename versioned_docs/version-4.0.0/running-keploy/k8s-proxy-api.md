@@ -125,7 +125,7 @@ The PAT identifies a specific user; the shared token authorizes calls against a 
 
 In the Keploy Console, open **Settings → API Keys** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
 
-- The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to. The proxy will reject cross-tenant PATs with `403 Forbidden`.
+- The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to and include `write` or `admin` scope. The proxy will reject cross-tenant PATs or PATs with insufficient scope with `403 Forbidden`.
 - Treat the PAT like a password—it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
 - A user can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
 
@@ -217,12 +217,12 @@ If you instead see a sudden `401 Invalid token` on a previously working `sharedT
 
 ### Exchange failure modes
 
-| Status | When                                                                                |
-| ------ | ----------------------------------------------------------------------------------- |
-| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.   |
-| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster.       |
-| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).     |
-| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry). |
+| Status | When                                                                                                                        |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.                                           |
+| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster, or it does not include `write`/`admin` scope. |
+| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).                                             |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                         |
 
 Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
 
