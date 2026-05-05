@@ -190,7 +190,7 @@ The shared token is generated **fresh in process memory at every Pod startup** w
 - `helm upgrade` rolls the proxy Deployment,
 - you call `POST /proxy/update` and the new image becomes ready.
 
-Treat the shared token as **scoped to one running process**, not "the lifetime of the install". A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
+Treat the shared token as **scoped to one running process**, not "the lifetime of the install." A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
 
 #### Detecting a rotated token
 
