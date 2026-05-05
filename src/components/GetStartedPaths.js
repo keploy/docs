@@ -204,12 +204,9 @@ export const GetStartedPaths = () => {
                   <div>
                     <h4 className="mb-0.5 flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white">
                       Record Locally
-                      <span className="rounded-md bg-purple-50 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider text-purple-700 dark:bg-purple-900/30 dark:text-purple-200">
-                        Open Source
-                      </span>
                     </h4>
                     <p className="text-xs text-gray-500 dark:text-gray-400">
-                      Classic Open Source experience for rapid iteration
+                      Classic Keploy CLI experience for rapid iteration
                     </p>
                   </div>
                 </div>
