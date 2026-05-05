@@ -794,7 +794,7 @@ Use "keploy [command] --help" for more information about a command.
 
 ## 2. Log in to Keploy
 
-After installing, authenticate with your Keploy account. 
+After installing, authenticate with your Keploy account.
 Choose the method that fits your setup:
 
 <Tabs>
