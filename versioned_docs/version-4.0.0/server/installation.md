@@ -40,7 +40,6 @@ import InstallationGuide from '../concepts/installation.md'
     {
       name: "Download and install the Keploy binary",
       text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
-      url: "#capturing-testcases",
     },
     {
       name: "Verify the installation",

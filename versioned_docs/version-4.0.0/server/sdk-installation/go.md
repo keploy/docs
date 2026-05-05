@@ -2,7 +2,7 @@
 id: go
 title: Keploy Go SDK — Install & Merge Test Coverage
 sidebar_label: Go
-description: "Install the Keploy server SDK for Go and merge Keploy + Go unit-test coverage. Graceful shutdown setup, -cover flag, combined reports."
+description: "Install the Keploy server SDK for Go and merge Keploy + Go unit-test coverage by enabling graceful shutdown, building with the -cover flag, and combining the reports for a unified view."
 tags:
   - go
   - coverage
