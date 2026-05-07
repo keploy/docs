@@ -2,7 +2,17 @@ import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {Community, KeployCloud, Resources, QuickStart, GetStartedPaths, TestingCapabilities, QuickStartTabs, WhatIsKeploy, EcosystemSupport} from "../components";
+import {
+  Community,
+  KeployCloud,
+  Resources,
+  QuickStart,
+  GetStartedPaths,
+  TestingCapabilities,
+  QuickStartTabs,
+  WhatIsKeploy,
+  EcosystemSupport,
+} from "../components";
 import {Products} from "../components/Product";
 //import {Intro} from "../components";
 export default function Home() {
@@ -47,29 +57,30 @@ export default function Home() {
   // The Article JSON-LD below derives its `headline`/`description` from these
   // same constants so the schema, the rendered <title>, the meta description
   // and the sr-only H1 all agree — single source of truth.
-  const docsHomeTitle = "Keploy Documentation — Install, Capture & Replay API Tests";
-  const docsHomeDescription = "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
-  const articleSchema =
-    docsUrl
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: docsHomeTitle,
-          description: docsHomeDescription,
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": docsUrl,
+  const docsHomeTitle =
+    "Keploy Documentation — Install, Capture & Replay API Tests";
+  const docsHomeDescription =
+    "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
+  const articleSchema = docsUrl
+    ? {
+        "@context": "https://schema.org",
+        "@type": "Article",
+        headline: docsHomeTitle,
+        description: docsHomeDescription,
+        mainEntityOfPage: {
+          "@type": "WebPage",
+          "@id": docsUrl,
+        },
+        publisher: {
+          "@type": "Organization",
+          name: "Keploy",
+          logo: {
+            "@type": "ImageObject",
+            url: "https://keploy.io/docs/img/favicon.png",
           },
-          publisher: {
-            "@type": "Organization",
-            name: "Keploy",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://keploy.io/docs/img/favicon.png",
-            },
-          },
-        }
-      : null;
+        },
+      }
+    : null;
 
   return (
     <div className="main">

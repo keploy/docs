@@ -39,7 +39,9 @@ const glossaryStructuredData = [
     // Drop those entries here so structured data never carries a malformed
     // URL even if `glossaryEntries` has gaps.
     hasDefinedTerm: allGlossaryItems
-      .filter((entry) => typeof entry.link === "string" && entry.link.length > 0)
+      .filter(
+        (entry) => typeof entry.link === "string" && entry.link.length > 0
+      )
       .map((entry) => ({
         "@type": "DefinedTerm",
         name: entry.name,
@@ -54,7 +56,12 @@ const glossaryStructuredData = [
     itemListElement: [
       {"@type": "ListItem", position: 1, name: "Home", item: `${SITE}/`},
       {"@type": "ListItem", position: 2, name: "Docs", item: `${SITE}/docs/`},
-      {"@type": "ListItem", position: 3, name: "Concepts", item: `${SITE}/docs/concepts/`},
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Concepts",
+        item: `${SITE}/docs/concepts/`,
+      },
       {"@type": "ListItem", position: 4, name: "Glossary", item: GLOSSARY_URL},
     ],
   },

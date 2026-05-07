@@ -35,9 +35,24 @@ const aboutStructuredData = [
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
     itemListElement: [
-      {"@type": "ListItem", position: 1, name: "Home", item: "https://keploy.io/"},
-      {"@type": "ListItem", position: 2, name: "Docs", item: "https://keploy.io/docs/"},
-      {"@type": "ListItem", position: 3, name: "About", item: "https://keploy.io/docs/about/"},
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: "https://keploy.io/",
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Docs",
+        item: "https://keploy.io/docs/",
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "About",
+        item: "https://keploy.io/docs/about/",
+      },
     ],
   },
 ];

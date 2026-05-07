@@ -48,8 +48,11 @@ export default function HowTo({
   // flags. If the author gave us nothing usable, drop the schema entirely
   // rather than ship a hollow HowTo.
   const validSteps = steps.filter(
-    (s) => typeof s.name === "string" && s.name.trim() &&
-           typeof s.text === "string" && s.text.trim(),
+    (s) =>
+      typeof s.name === "string" &&
+      s.name.trim() &&
+      typeof s.text === "string" &&
+      s.text.trim()
   );
   if (validSteps.length === 0) {
     return null;
@@ -84,12 +87,12 @@ export default function HowTo({
   }
   if (Array.isArray(tools) && tools.length > 0) {
     schema.tool = tools.map((t) =>
-      typeof t === "string" ? {"@type": "HowToTool", name: t} : t,
+      typeof t === "string" ? {"@type": "HowToTool", name: t} : t
     );
   }
   if (Array.isArray(supplies) && supplies.length > 0) {
     schema.supply = supplies.map((s) =>
-      typeof s === "string" ? {"@type": "HowToSupply", name: s} : s,
+      typeof s === "string" ? {"@type": "HowToSupply", name: s} : s
     );
   }
 
