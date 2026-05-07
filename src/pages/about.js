@@ -10,13 +10,24 @@ import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 // Site config sets `trailingSlash: true`, so canonical URLs in the JSON-LD
 // must carry the trailing slash to match the actual emitted href and avoid
 // duplicate URL variants in structured data.
+//
+// Single source of truth for the page's title and description: the Layout
+// `title`/`description` props, the visible H1, and the Article JSON-LD
+// `headline`/`description` all read from these constants. Previously the
+// page shipped Layout title "About the docs" / description "User General
+// Information about..." while the JSON-LD claimed headline "About the
+// Keploy Documentation" / a different description, which confuses snippet
+// generators and leaves rich-result text out of sync with the meta tags.
+const ABOUT_TITLE = "About the Keploy Documentation";
+const ABOUT_DESCRIPTION =
+  "Information about Keploy's documentation, contribution guidelines, and licensing.";
+
 const aboutStructuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
-    headline: "About the Keploy Documentation",
-    description:
-      "Information about Keploy's documentation, contribution guidelines, and licensing.",
+    headline: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
     url: "https://keploy.io/docs/about/",
     publisher: {
       "@type": "Organization",
@@ -62,9 +73,9 @@ function About() {
   const {siteConfig = {}} = context;
   return (
     <Layout
-      title="About the docs"
+      title={ABOUT_TITLE}
       permalink="/about"
-      description="User General Information about Keploy's Documentation"
+      description={ABOUT_DESCRIPTION}
     >
       <Head>
         {aboutStructuredData.map((schema, i) => (
@@ -74,7 +85,7 @@ function About() {
         ))}
       </Head>
       <main className="margin-vert--lg container">
-        <h1>About the docs</h1>
+        <h1>{ABOUT_TITLE}</h1>
         <div className="margin-bottom--lg">
           <h2 id="latest">Documentation SLA</h2>
           <p>
