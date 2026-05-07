@@ -71,6 +71,7 @@ realtime
 Redis
 [Rr]epo
 Reqnroll
+Sanic
 SDK
 servlet
 signin
