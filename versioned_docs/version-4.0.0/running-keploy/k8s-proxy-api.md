@@ -98,17 +98,18 @@ Combined with capture-time static deduplication (benefit 2), this keeps the curr
 
 ## Authentication
 
-:::info In development
-The authentication flow is currently in development.
-:::
+Authenticating to the proxy is a **two-step exchange**:
 
-Every protected proxy endpoint requires the cluster **shared token**. Send it as a Bearer token:
+1. Create a **Personal Access Token (PAT)** in the Keploy Console.
+2. `POST /get-shared-token` with that PAT to receive the cluster's **shared token**.
+
+Every other protected route on the proxy is then gated on the shared token sent as a Bearer header:
 
 ```text
 Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>
 ```
 
-Only `GET /healthz` and the admission webhook `POST /mutate` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
+Only `GET /healthz`, the admission webhook `POST /mutate`, the bootstrap `POST /get-shared-token`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
 
 ```bash
 # Verify the proxy is up (no auth required)
@@ -116,94 +117,136 @@ curl -sf https://$PROXY/healthz
 # {"status":"ok"}
 ```
 
-### How the token is provisioned
+### Why a two-step exchange?
 
-The shared token is generated **at Helm install time** and stored as a Kubernetes Secret named `<release>-shared-token` in the proxy's namespace. The chart's pre-render step uses Helm's `randAlphaNum 48` to produce the value on the very first install and a `lookup` + `helm.sh/resource-policy: keep` annotation to preserve it across upgrades, so the token is **stable for the lifetime of the release**—Pod restarts and chart upgrades do not rotate it.
+The PAT identifies a specific user; the shared token authorizes calls against a specific cluster. Splitting the two lets callers (CI scripts, AI agents, internal tooling) store one user-rotatable PAT and exchange it at run time without `kubectl` access to the proxy namespace or an interactive user login. The shared token is still a cluster-wide secret and can also be surfaced through existing heartbeat-backed Console/API flows, so handle it as sensitive wherever it appears.
 
-The k8s-proxy Deployment and the per-node DaemonSet both mount the Secret as the `KEPLOY_SHARED_TOKEN` env var via `secretKeyRef`. On startup the proxy reports the value to the Keploy API server in its first heartbeat (`POST /cluster/status`) so the Console can display it under the cluster's app entries.
+### 1. Issue a PAT
 
-For local/dev runs without a Secret, if `KEPLOY_SHARED_TOKEN` is unset the proxy falls back to generating a random 32-byte value via `crypto/rand` (hex-encoded). This fallback is fresh on every restart and is **not** the path used in any Helm-managed deployment.
+In the Keploy Console, open **Settings → API Keys** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
 
-### Retrieve the token
+- The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to and include `write` or `admin` scope. The proxy will reject cross-tenant PATs or PATs with insufficient scope with `403 Forbidden`.
+- Treat the PAT like a password—it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
+- A user can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
 
-Two equally valid paths.
+### 2. Exchange the PAT for the shared token
 
-**(a) Read it directly from the Secret** if you have `kubectl` access to the proxy namespace:
+There are two ways to do the exchange. Pick whichever fits your workflow—they both hit the same `POST /get-shared-token` endpoint.
+
+#### Option A: From the Keploy Console
+
+Open the cluster's detail page in the Console. Each cluster card on the top row shows the live ingress URL; the **Get Shared Token** button sits inside that card.
+
+![Get Shared Token button on the Ingress URL card](/img/k8s-proxy-shared-token-button.png)
+
+Clicking it opens a dialog pre-filled with the cluster's ingress URL. Paste your PAT and submit.
+
+![Exchange PAT for shared token dialog](/img/k8s-proxy-shared-token-dialog.png)
+
+On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deploymentType` returned by the proxy. Use the **Copy sharedToken** button to grab the token for your CI script or terminal.
+
+![Successful exchange showing sharedToken, ingressUrl, deploymentType](/img/k8s-proxy-shared-token-success.png)
+
+The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
+
+#### Option B: From a shell
 
 ```bash
-kubectl -n keploy get secret <release>-shared-token -o jsonpath='{.data.token}' | base64 -d
-```
+PROXY="https://your-proxy-ingress"
+PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-**(b) Fetch it from the Keploy API server**, which mirrors what the proxy reported in its last heartbeat. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
+RESP=$(curl -sS -X POST "$PROXY/get-shared-token" \
+  -H "Authorization: Bearer $PAT")
 
-```bash
-API_SERVER="https://api.keploy.io"
-NS="default"
-DEPLOY="orders-api"
-CLUSTER="prod-use1"
-
-# 1. Authenticate as a Keploy user (admin, user, or cicd role)
-JWT=$(curl -s -X POST "$API_SERVER/login" \
-  -H "Content-Type: application/json" \
-  -d '{"email":"you@example.com","password":"..."}' | jq -r '.token')
-
-# 2. Look up the proxy app for this Deployment and read its sharedToken
-K8S_PROXY_SHARED_TOKEN=$(curl -s -H "Authorization: Bearer $JWT" \
-  "$API_SERVER/cluster/getApp?namespace=$NS&deployment=$DEPLOY&clusterName=$CLUSTER" \
-  | jq -r '.sharedToken')
+K8S_PROXY_SHARED_TOKEN=$(echo "$RESP" | jq -r '.sharedToken')
+INGRESS_URL=$(echo "$RESP" | jq -r '.ingressUrl')
 
 AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
 ```
 
-`GET /cluster/getApps` returns the same `sharedToken` field for every proxy-managed app in your organization in a single response, which is convenient when you want to script across many Deployments at once.
+A successful exchange returns:
 
-> The proxy shared token is cluster-wide, not per-user. The API server still uses normal user JWT/cookie authentication on its own routes (including `/cluster/getApp`). The token is sticky across Pod restarts and chart upgrades, so callers can cache it for the lifetime of the Helm release.
-
----
-
-## Response format
-
-Handlers return JSON with `application/json` on success. Validation failures usually return `{"error": "..."}` with a 4xx status; shared-token auth failures return `{"success": false, "message": "Unauthorized: ..."}`. A handful of endpoints stream newline-delimited JSON instead - they are called out explicitly below.
-
-```js
-// Successful record start (200)
-{ "record": "started", "id": "default-orders-api" }
-
-// Validation error (400)
-{ "error": "namespace and deployment are required" }
-
-// Auth error (401)
-{ "success": false, "message": "Unauthorized: Missing authorization header" }
-
-// Namespace-scoped proxy rejecting a cross-namespace call (403)
-{ "error": "this proxy is scoped to namespace \"payments\"" }
+```json
+{
+  "ingressUrl": "https://your-proxy-ingress",
+  "sharedToken": "3e14be232bce3e3cf6f6d58f284b6eb88db3280c54d93a7951e5000c6bbe3e9a",
+  "deploymentType": "saas",
+  "tokenId": "408aaecaba458939",
+  "issuedAt": 1777883713
+}
 ```
 
-### Error status codes
+- `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
+- `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
+- `deploymentType`—either `"saas"` for the hosted control plane or `"self-hosted"` for self-hosted installs.
+- `tokenId`—a short non-secret identifier that changes whenever the proxy regenerates `sharedToken`. Cache it alongside the token; use `GET /shared-token/info` to check whether your cached value is still current.
+- `issuedAt`—unix timestamp when the proxy minted this `sharedToken`.
 
-| HTTP | When it happens                                                                                 |
-| ---- | ----------------------------------------------------------------------------------------------- |
-| 400  | Missing or malformed request body, missing required fields                                      |
-| 401  | Missing or invalid `Authorization: Bearer` header                                               |
-| 403  | Request touches a namespace outside `watchNamespace`, or image repo mismatch on `/proxy/update` |
-| 404  | Recording/replay session ID not found, or deployment/config does not exist                      |
-| 405  | Wrong HTTP method for the route                                                                 |
-| 500  | Kubernetes API error, storage backend unavailable, or unexpected server error                   |
-| 503  | Kubernetes client or self-discovery not initialised (proxy is still starting or missing RBAC)   |
+### Shared token lifetime and rotation
+
+The shared token is generated **fresh in process memory at every Pod startup** with `crypto/rand` (32 bytes, hex-encoded). It is _not_ stored in a Kubernetes Secret, _not_ persisted to disk, and _not_ stable across restarts. Concretely, the token rotates whenever:
+
+- the proxy Pod restarts (CrashLoop, eviction, node drain, OOM),
+- `helm upgrade` rolls the proxy Deployment,
+- you call `POST /proxy/update` and the new image becomes ready.
+
+Treat the shared token as **scoped to one running process**, not "the lifetime of the install." A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
+
+#### Detecting a rotated token
+
+`GET /shared-token/info` returns only the current `tokenId` and `issuedAt`—never the token itself, so it is safe to call without the shared token.
+
+```bash
+curl -sS "$PROXY/shared-token/info"
+# {"tokenId":"408aaecaba458939","issuedAt":1777883713}
+```
+
+Recommended pattern in CI: cache `(tokenId, sharedToken)` together when you exchange, and before every long-running operation (or as a quick guard at the start of every step) hit `/shared-token/info` to compare. If `tokenId` differs from your cached value, re-exchange the PAT.
+
+```bash
+CACHED_TOKEN_ID="$(jq -r '.tokenId' < ~/.cache/keploy-proxy.json)"
+CURRENT_TOKEN_ID="$(curl -sS "$PROXY/shared-token/info" | jq -r '.tokenId')"
+if [ "$CACHED_TOKEN_ID" != "$CURRENT_TOKEN_ID" ]; then
+  # proxy was restarted, re-exchange the PAT
+  RESP=$(curl -sS -X POST "$PROXY/get-shared-token" -H "Authorization: Bearer $PAT")
+  echo "$RESP" > ~/.cache/keploy-proxy.json
+fi
+```
+
+If you instead see a sudden `401 Invalid token` on a previously working `sharedToken`, that's the same signal: the proxy was rolled. Re-exchange the PAT and retry once.
+
+### Exchange failure modes
+
+| Status | When                                                                                                                        |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.                                           |
+| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster, or it does not include `write`/`admin` scope. |
+| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).                                             |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                         |
+
+Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
+
+> The shared token is cluster-wide, not per-user. The PAT-exchange path authenticates who is allowed to bootstrap it, but the returned shared token should still be treated as a sensitive cluster credential.
 
 ---
 
 ## Quick start: Trigger and watch a live recording
 
-The golden path: pick a Deployment, start a recording, stream its status, and stop it when you have the traffic you need.
+The golden path: authenticate, pick a Deployment, start a recording, stream its status, and stop it when you have the traffic you need.
 
-### 1. Set up variables
+### 1. Set up variables and authenticate
 
 ```bash
 PROXY="https://k8s-proxy.example.com"    # ingressUrl from Helm install
-AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
+PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 NS="default"
 DEPLOY="orders-api"
+
+# One-time PAT → shared-token exchange (see Authentication above)
+K8S_PROXY_SHARED_TOKEN=$(curl -sS -X POST "$PROXY/get-shared-token" \
+  -H "Authorization: Bearer $PAT" | jq -r '.sharedToken')
+
+AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
 ```
 
 ### 2. Discover target Deployments
@@ -330,6 +373,15 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 | ------ | ---------- | ---- | ------------------------------------------------------------------- |
 | `GET`  | `/healthz` | No   | Liveness probe. Returns `{"status":"ok"}`.                          |
 | `POST` | `/mutate`  | No   | Kubernetes MutatingAdmissionWebhook endpoint. Do not call directly. |
+
+### Bootstrap
+
+| Method | Path                 | Auth                          | Description                                                                                                                                                                          |
+| ------ | -------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Exchange the PAT for the shared token](#2-exchange-the-pat-for-the-shared-token) for details.                    |
+| `GET`  | `/shared-token/info` | None                          | Return only the current `tokenId` and `issuedAt`; never the token itself. Use this to detect when the proxy has rotated the shared token (Pod restart, `helm upgrade`, self-update). |
+
+`POST /get-shared-token` gates on a PAT instead of the shared token because the caller does not yet have one. `GET /shared-token/info` is unauthenticated because the response leaks no credential material. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
 
 ### Deployments
 
