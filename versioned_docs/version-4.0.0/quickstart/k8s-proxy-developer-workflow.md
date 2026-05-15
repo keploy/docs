@@ -28,10 +28,10 @@ Once recording works in your cluster, the next question is how your team edits t
 
 This page walks through the two halves of that workflow:
 
-1. **Editing test cases and mocks on a branch** — how a developer adds a new mock, edits a test case, or uploads a freshly recorded test set.
-2. **Wiring up your CI pipeline** — how to run cloud replay against the branch on PR open, gate the merge on review, and merge the branch into main when the PR merges.
+1. **Editing test cases and mocks on a branch**—how a developer adds a new mock, edits a test case, or uploads a freshly recorded test set.
+2. **Wiring up your CI pipeline**—how to run cloud replay against the branch on PR open, gate the merge on review, and merge the branch into main when the PR merges.
 
-The pipeline section assumes the application is already recording — see [K8s Record Replay](/docs/quickstart/k8s-proxy) to set that up first.
+The pipeline section assumes the application is already recording—see [K8s Record Replay](/docs/quickstart/k8s-proxy) to set that up first.
 
 ---
 
@@ -39,15 +39,15 @@ The pipeline section assumes the application is already recording — see [K8s R
 
 ### 1. Create a Keploy branch
 
-Every write — adding a mock, editing a test case, uploading a recording — must happen on a branch. Direct writes to `main` are rejected. The branch name typically mirrors your git branch so reviewers can correlate the two.
+Every write—adding a mock, editing a test case, uploading a recording—must happen on a branch. Direct writes to `main` are rejected. The branch name typically mirrors your git branch so reviewers can correlate the two.
 
 There are two ways to create one.
 
-**Option A — From the dashboard.** Open your app → **Branches** → **Create branch** and enter a name (use your git branch name).
+**Option A—From the dashboard.** Open your app → **Branches** → **Create branch** and enter a name (use your git branch name).
 
 <img src={useBaseUrl('/img/k8s-proxy-create-branch.png')} alt="Create a Keploy branch from the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
 
-**Option B — From the MCP server / REST API.** When you're driving Keploy from an IDE agent (Claude Code, Cursor, Windsurf), the agent calls the `create_branch` MCP tool. The same operation is also exposed as a plain REST endpoint for scripts and other automation.
+**Option B—From the MCP server / REST API.** When you're driving Keploy from an IDE agent (Claude Code, Cursor, Windsurf), the agent calls the `create_branch` MCP tool. The same operation is also exposed as a plain REST endpoint for scripts and other automation.
 
 - **MCP tool**: `create_branch`
 
@@ -58,7 +58,7 @@ There are two ways to create one.
   }
   ```
 
-  Returns `{branch_id, name, status, created}`. Find-or-create: passing a name that already exists on a writable branch reuses it (`created: false`); a fresh name mints a new one (`created: true`). Pass the returned `branch_id` to every subsequent write tool — direct writes to `main` are rejected.
+  Returns `{branch_id, name, status, created}`. Find-or-create: passing a name that already exists on a writable branch reuses it (`created: false`); a fresh name mints a new one (`created: true`). Pass the returned `branch_id` to every subsequent write tool—direct writes to `main` are rejected.
 
 - **REST API** (what the MCP tool calls under the hood):
 
@@ -69,13 +69,13 @@ There are two ways to create one.
     -d '{"name": "feat/discount-flow"}'
   ```
 
-  `POST /client/v1/apps/{appId}/branches/ci` — same find-or-create semantics. Returns the branch on success; an existing-but-non-writable name (e.g. already merged) returns `ErrBranchNameTaken`.
+  `POST /client/v1/apps/{appId}/branches/ci`—same find-or-create semantics. Returns the branch on success; an existing-but-non-writable name (e.g. already merged) returns `ErrBranchNameTaken`.
 
 ### 2. Edit test cases or mocks
 
-There are three ways to add or edit test data on the branch. Pick whichever matches how you're working — they all write to the same branch overlay, so the dashboard diff page sees every change regardless of source.
+There are three ways to add or edit test data on the branch. Pick whichever matches how you're working—they all write to the same branch overlay, so the dashboard diff page sees every change regardless of source.
 
-**From your IDE (MCP):** Keploy ships an MCP server that Claude Code, Cursor, and Windsurf can connect to. The agent exposes tools like `create_mock`, `update_mock`, `delete_mock`, `link_mock`, `upload_recording`, and `delete_recording`. All write tools require a `branch_id` argument; calling them without one is rejected, which is what keeps `main` untouched. The full tool surface is auto-generated from the api-server's `/client/v1` OpenAPI spec — browse it at [api.keploy.io/client/v1/docs](https://api.keploy.io/client/v1/docs) for the underlying REST shape each tool wraps.
+**From your IDE (MCP):** Keploy ships an MCP server that Claude Code, Cursor, and Windsurf can connect to. The agent exposes tools like `create_mock`, `update_mock`, `delete_mock`, `link_mock`, `upload_recording`, and `delete_recording`. All write tools require a `branch_id` argument; calling them without one is rejected, which is what keeps `main` untouched. The full tool surface is auto-generated from the api-server's `/client/v1` OpenAPI spec—browse it at [api.keploy.io/client/v1/docs](https://api.keploy.io/client/v1/docs) for the underlying REST shape each tool wraps.
 
 **From the dashboard UI:** open the **Recordings** page, switch to your branch in the branch selector, and use the **+** menu to add a mock or edit an existing test case inline. Edits flow through the same branch overlay.
 
@@ -91,7 +91,7 @@ keploy upload test-set \
   --name checkout-happy-path
 ```
 
-This posts the whole bundle (cases + mocks + mapping) to the JWT-gated `/atg/recordings/bundle` endpoint in one request — much faster than emitting the bundle through MCP tool arguments.
+This posts the whole bundle (cases + mocks + mapping) to the JWT-gated `/atg/recordings/bundle` endpoint in one request—much faster than emitting the bundle through MCP tool arguments.
 
 ### 3. Validate the branch locally
 
@@ -107,7 +107,7 @@ The command fetches the test sets and mocks from the branch view, runs each case
 
 ### 4. Open a pull request
 
-Push your code changes to git and open the PR as usual. The Keploy branch with the same name now travels alongside your code change — the CI pipeline picks it up on the next step.
+Push your code changes to git and open the PR as usual. The Keploy branch with the same name now travels alongside your code change—the CI pipeline picks it up on the next step.
 
 ---
 
@@ -115,7 +115,7 @@ Push your code changes to git and open the PR as usual. The Keploy branch with t
 
 The pipeline has two jobs:
 
-- **On pull-request open / sync**: run `keploy cloud replay` against the PR's branch. If the branch has changes that haven't been reviewed, the command exits non-zero and the CI job fails with a dashboard URL the reviewer can open.
+- **On pull-request open / sync**: run `keploy cloud replay` against the pull request's branch. If the branch has changes that haven't been reviewed, the command exits non-zero and the CI job fails with a dashboard URL the reviewer can open.
 - **On pull-request merge**: run `keploy cloud branch-merge` to fold the branch's overlay into `main` so subsequent runs against `main` see the new test data.
 
 The examples below use GitHub Actions; the same two commands work in GitLab CI, Jenkins, or any other runner.
@@ -149,7 +149,7 @@ jobs:
 
 What happens on each PR:
 
-- Keploy looks up (or creates) a branch named after `github.head_ref` — the same name your developer used in step 1.
+- Keploy looks up (or creates) a branch named after `github.head_ref`—the same name your developer used in step 1.
 - It replays every test set on the branch overlay against your deployed cluster.
 - After the replay finishes, the **CI approval gate** runs. The gate blocks the job (exit code non-zero) when **all four** are true:
   1. The job is running in a CI environment.
@@ -161,7 +161,7 @@ When the gate blocks, the CLI prints a dashboard URL pointing at the branch's di
 
 ### 2. Approve the test-data diff in the dashboard
 
-A reviewer (typically the same person reviewing the code PR) opens the URL the CI job printed. The page shows every changed mock and test case side-by-side — added rows in green, modified rows with inline diff, deleted rows in red.
+A reviewer (typically the same person reviewing the code PR) opens the URL the CI job printed. The page shows every changed mock and test case side-by-side—added rows in green, modified rows with inline diff, deleted rows in red.
 
 After confirming the changes look right, the reviewer clicks **Approve**. The branch's status flips to `approved`, the gate stops blocking, and the next CI run on that PR turns green without any other change.
 
@@ -197,7 +197,7 @@ jobs:
             --branch ${{ github.head_ref }}
 ```
 
-`keploy cloud branch-merge` is idempotent — running it twice on an already-merged branch is a no-op. If the PR was closed without merging, the `if:` guard above keeps the job from firing.
+`keploy cloud branch-merge` is idempotent—running it twice on an already-merged branch is a no-op. If the PR was closed without merging, the `if:` guard above keeps the job from firing.
 
 ---
 
