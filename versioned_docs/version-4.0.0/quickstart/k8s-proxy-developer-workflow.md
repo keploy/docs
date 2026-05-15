@@ -49,27 +49,27 @@ There are two ways to create one.
 
 **Option B — From the MCP server / REST API.** When you're driving Keploy from an IDE agent (Claude Code, Cursor, Windsurf), the agent calls the `create_branch` MCP tool. The same operation is also exposed as a plain REST endpoint for scripts and other automation.
 
-  - **MCP tool**: `create_branch`
+- **MCP tool**: `create_branch`
 
-    ```json
-    {
-      "app_id": "<keploy-app-uuid>",
-      "name": "feat/discount-flow"
-    }
-    ```
+  ```json
+  {
+    "app_id": "<keploy-app-uuid>",
+    "name": "feat/discount-flow"
+  }
+  ```
 
-    Returns `{branch_id, name, status, created}`. Find-or-create: passing a name that already exists on a writable branch reuses it (`created: false`); a fresh name mints a new one (`created: true`). Pass the returned `branch_id` to every subsequent write tool — direct writes to `main` are rejected.
+  Returns `{branch_id, name, status, created}`. Find-or-create: passing a name that already exists on a writable branch reuses it (`created: false`); a fresh name mints a new one (`created: true`). Pass the returned `branch_id` to every subsequent write tool — direct writes to `main` are rejected.
 
-  - **REST API** (what the MCP tool calls under the hood):
+- **REST API** (what the MCP tool calls under the hood):
 
-    ```bash
-    curl -X POST "$KEPLOY_API_SERVER/client/v1/apps/<app-id>/branches/ci" \
-      -H "Authorization: Bearer $KEPLOY_API_KEY" \
-      -H "Content-Type: application/json" \
-      -d '{"name": "feat/discount-flow"}'
-    ```
+  ```bash
+  curl -X POST "$KEPLOY_API_SERVER/client/v1/apps/<app-id>/branches/ci" \
+    -H "Authorization: Bearer $KEPLOY_API_KEY" \
+    -H "Content-Type: application/json" \
+    -d '{"name": "feat/discount-flow"}'
+  ```
 
-    `POST /client/v1/apps/{appId}/branches/ci` — same find-or-create semantics. Returns the branch on success; an existing-but-non-writable name (e.g. already merged) returns `ErrBranchNameTaken`.
+  `POST /client/v1/apps/{appId}/branches/ci` — same find-or-create semantics. Returns the branch on success; an existing-but-non-writable name (e.g. already merged) returns `ErrBranchNameTaken`.
 
 ### 2. Edit test cases or mocks
 
@@ -83,15 +83,15 @@ There are three ways to add or edit test data on the branch. Pick whichever matc
 
 **From the CLI (for whole test sets):** if you just recorded a new flow with `keploy record` on your laptop, upload the resulting `keploy/test-set-N/` directory as a single bundle:
 
-  ```bash
-  keploy upload test-set \
-    --app <namespace>.<deployment> \
-    --branch $(git rev-parse --abbrev-ref HEAD) \
-    --test-set keploy/test-set-0 \
-    --name checkout-happy-path
-  ```
+```bash
+keploy upload test-set \
+  --app <namespace>.<deployment> \
+  --branch $(git rev-parse --abbrev-ref HEAD) \
+  --test-set keploy/test-set-0 \
+  --name checkout-happy-path
+```
 
-  This posts the whole bundle (cases + mocks + mapping) to the JWT-gated `/atg/recordings/bundle` endpoint in one request — much faster than emitting the bundle through MCP tool arguments.
+This posts the whole bundle (cases + mocks + mapping) to the JWT-gated `/atg/recordings/bundle` endpoint in one request — much faster than emitting the bundle through MCP tool arguments.
 
 ### 3. Validate the branch locally
 
