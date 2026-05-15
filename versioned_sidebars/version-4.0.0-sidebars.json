@@ -148,6 +148,7 @@
           "collapsed": true,
           "items": [
             "quickstart/k8s-proxy",
+            "quickstart/k8s-proxy-developer-workflow",
             "running-keploy/k8s-proxy-daemonset-architecture"
           ]
         },
