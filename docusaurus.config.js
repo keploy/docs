@@ -222,11 +222,11 @@ module.exports = {
       //   },
       // },
     },
-    announcementBar: {
-      id: "announcementBar_gittogether_sf_2026", // Increment on change to reset dismissed state
-      content: "GitTogether SF • May 14, 2026 • San Francisco",
-      isCloseable: true,
-    },
+    // announcementBar: {
+    //   id: "announcementBar_gittogether_sf_2026", // Increment on change to reset dismissed state
+    //   content: "GitTogether SF • May 14, 2026 • San Francisco",
+    //   isCloseable: true,
+    // },
     prism: {
       theme: prismThemes.vsLight,
       darkTheme: prismThemes.dracula,
