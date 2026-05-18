@@ -193,9 +193,11 @@ jobs:
           KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
         run: |
           keploy cloud branch-merge \
-            --app <app-id> \
+            --app <namespace>.<deployment> \
             --branch ${{ github.head_ref }}
 ```
+
+`--app` accepts either a `namespace.deployment` identifier (k8s-proxy apps, e.g. `prod.orders`) or a raw app UUID (non-proxy apps). The same form you use for `keploy upload test-set` and `keploy cloud replay` works here.
 
 `keploy cloud branch-merge` is idempotent—running it twice on an already-merged branch is a no-op. If the PR was closed without merging, the `if:` guard above keeps the job from firing.
 
