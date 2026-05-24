@@ -123,12 +123,12 @@ You handle EVERYTHING else autonomously. Discover the app, the branch, the faili
 1. **Branch-first.** Every write to mocks / tests / recordings is branch-scoped. Resolve `branch_id` before any write. If a tool returns "branch_id is required", you skipped this—fix and retry, don't ask the dev.
 2. **Keploy branch name = git branch name.** Detect via `git rev-parse --abbrev-ref HEAD`. Pass that string to `create_branch` (find-or-create, idempotent). Reuse the returned `branch_id` for every subsequent write in this session.
 3. **App resolution from cwd.** `basename $(pwd)` → `listApps({q: <basename>})`. Exactly one match → use it. Multiple → pick the one whose name most specifically matches the dev's compose service. Zero matches → ask the dev once.
-4. **Fix the root cause—app code or test data.** When a test fails because the contract changed intentionally, fix the test on the Keploy branch (`update_mock` / `update_test_suite`). When a test fails because the app regressed, edit the handler code yourself to restore the correct behavior. Announce the file:line change in clear terms before re-running replay so the dev can interrupt if they object; otherwise proceed. Re-run replay to verify in both cases.
+4. **Fix the root cause—app code or test data.** When a test fails because the contract changed intentionally, fix the test on the Keploy branch (`update_mock` / `updateTestCase`). When a test fails because the app regressed, edit the handler code yourself to restore the correct behavior. Announce the file:line change in clear terms before re-running replay so the dev can interrupt if they object; otherwise proceed. Re-run replay to verify in both cases.
 5. **Don't ask what you can find out.** Use `git log`, `git diff`, file reads, and api-server calls. Never ask "what did you change", "which app", or "which branch"—discover them.
 6. **Always end with two dashboard URLs.** The branch diff page and the test-run report page. Format:
    - `Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>`
-   - `Run report: https://app.keploy.io/tr?appId=<app_id>&branch=<branch_name>`
-     Swap the base for self-hosted.
+   - `Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>`
+     The `<test_run_id>` is the id from Phase A1 (or, for Routine B, the id of the most recent run after `keploy cloud replay`). Swap the base for self-hosted.
 
 ## Discovery (run at the start of every conversation, before either routine)
 
@@ -143,45 +143,53 @@ Both values are sticky for the rest of the conversation. Don't re-discover unles
 
 ### Phase A1—Resolve the `test_run_id`
 
-The goal of this phase is exactly one thing: produce a `test_run_id` you can pass to `get_session_report` in Phase A2. Pick how you get it based on the form of Prompt A:
+The goal of this phase is exactly one thing: produce a `test_run_id` you can pass to `getTestReportFull` in Phase A2. Pick how you get it based on the form of Prompt A:
 
-- **Local form** ("my keploy cloud replay is failing…") → call `listTestRuns({app_id, branch_id, kind: "test_suite_run", limit: 5})` (or the equivalent op-id surfaced by the OpenAPI-generated tool list), pick the most recent run whose status is `failed`, and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation.
-- **CI form** ("the keploy cloud replay pipeline is failing…") → the dev usually pastes a CI log URL or dashboard URL. Extract `test_run_id` from it. If they didn't paste anything, fall back to the local-form lookup above—a CI failure posts the same `test_suite_run` record to the api-server, so the latest-failed lookup still finds it.
+- **Local form** ("my keploy cloud replay is failing…") → call `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})`, pick the most recent run (results are already sorted newest-first by `created_at`), and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation—`keploy cloud replay` uploads its report into the legacy `/tr` collection, which is what `listTestReports` queries. Use `getTestReport({appId: app_id, reportId: test_run_id})` if you want a cheap rollup probe before pulling the full report.
+- **CI form** ("the keploy cloud replay pipeline is failing…") → the dev usually pastes a CI log URL or dashboard URL. Extract `test_run_id` from it. If they didn't paste anything, fall back to the local-form lookup above—a CI failure posts the same legacy test-run-report record to the api-server, so the latest-failed lookup still finds it. Use `source: "ci"` on the list call to scope to runs that carry CI metadata.
 
-Either way, Phase A2 onward is identical—same `get_session_report` call, same routes, same fixes.
+Either way, Phase A2 onward is identical—same `getTestReportFull` call, same routes, same fixes.
 
 ### Phase A2—Fetch the full report
 
-Call `get_session_report({app_id, test_run_id, verbose: true})`. Read:
+Call `getTestReportFull({appId: app_id, reportId: test_run_id})`. The OpenAPI-generated tool parameters are camelCase (`appId`, `reportId`) per the spec, even though the playbook caches the value as `app_id`. The default flags (`include_oss_report=true`, `mock_mismatches_only=false`, `max_test_cases_per_set=100`) return the rollup + every test set + every per-case diff + mock mismatches in one round-trip. Read:
 
-- `status`—`has_failures` is your trigger to continue.
-- `failed_steps[]`—for each entry note `suite_id`, `suite_name`, `step_name`, `method`, `url`, `diff`, `authored_assertions`, `authored_response_body`, `mock_mismatch_failure`, `mock_mismatches`.
-- `mock_mismatch_dominant`—true when >50% of failures are mock-mismatches (the signature of a keploy-side egress-hook issue, not an app regression).
+- `report.status`—`FAILED` is your trigger to continue.
+- `report.ci_metadata`—when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
+- `test_sets[]`—per set, each entry carries `tests[]` (per-case name + status rollup) and `test_cases[]` (the inflated per-case rows). Iterate `test_cases[]` and, for any case whose `status` is `FAILED`, read:
+  - `oss_report.req.{method,url}` — which endpoint failed.
+  - `oss_report.result.status_code.{expected,actual}` — status-code diff.
+  - `oss_report.result.headers_result[].{expected,actual,normal}` — per-header diff (`normal=false` means a real mismatch).
+  - `oss_report.result.body_result[].{expected,actual,normal,type}` — per-body diff. This is your primary signal for an authored-response drift.
+  - `oss_report.mock_mismatches.{expected_mocks,actual_mocks}` — set of mocks the replayer recorded versus the set it actually consumed during this run. Populated for both passed and failed cases when consumed-mock data is known. Non-empty + a body diff together is the signature of a mock-driven regression.
+  - `oss_report.failure_info.mock_mismatch` — same shape, legacy fallback for reports produced by replayers older than v3.5.49.
+  - `oss_report.noise` — JSONPaths the recorder has already marked as ignorable (don't re-flag these as drifts).
+- For investigating only mock-driven failures on a large run, pass `mock_mismatches_only=true` — `test_cases[]` is restricted to entries with non-empty `mock_mismatches` (or the legacy fallback) and the response stays token-safe.
 
 ### Phase A3—Diagnose each failing step
 
-Two cases. Decide per step from `git log` / `git diff origin/main...HEAD` (commits on the failing endpoint or its dependencies) and the report's `failed_steps[]` (the test diff and any `mock_mismatches`):
+Two cases. Decide per failing test case from `git log` / `git diff origin/main...HEAD` (commits on the failing endpoint or its dependencies) and the report's `oss_report.result` body/header diff plus `oss_report.mock_mismatches`:
 
 #### Case 1—Bug in the app (regression). You fix the code.
 
-The handler used to behave correctly; a recent commit broke it. Signal: a recent commit touched the failing endpoint or its dependencies AND the test's `authored_response_body` still represents the correct behavior.
+The handler used to behave correctly; a recent commit broke it. Signal: a recent commit touched the failing endpoint or its dependencies AND `oss_report.result.body_result[].expected` (the recorded baseline) still represents the correct behavior.
 
 Action: edit the handler code yourself to restore the expected behavior—minimal change, consistent with the test's contract. Announce the file:line and a one-line description of the edit **before** applying it so the dev can interrupt if they object; otherwise proceed. Do NOT touch the test—its captured baseline is still correct.
 
 #### Case 2—App behavior drifted intentionally. You fix the test data on the branch.
 
-The contract changed on purpose; the test's recorded baseline is stale. Read `failed_steps[].diff` and `mock_mismatches` together, then pick a sub-action:
+The contract changed on purpose; the test's recorded baseline is stale. Read `oss_report.result` (status / headers / body diff) and `oss_report.mock_mismatches` together, then pick a sub-action:
 
-**2a—Only a test diff (no mock mismatch driving it).** Update the test step on the branch:
+**2a—Only a test diff (no mock mismatch driving it).** Update the test data on the branch. The legacy `/tr` flow stores recordings as test cases, so the write tool is `updateTestCase` (or `update_mock` for the response shape if the mismatch is on the recorded response of a downstream call):
 
-- If the diverging field is genuinely non-deterministic (timestamps, request IDs, generated UUIDs—anything that legitimately changes every run), add its JSONPath to the step's `noise` list via `update_test_suite`. Marking a field as noise tells the runner to ignore diffs on that path.
-- Otherwise update the recorded `response` body on the step via `update_test_suite`. **MUST preserve every kept step's existing `id`**—fetch the test first via `getTestSuite`, copy each step's `id` into your merged `steps_json`, and change only the field(s) the new contract dictates. Omitting step IDs is rejected as a "full rewrite".
+- If the diverging field is genuinely non-deterministic (timestamps, request IDs, generated UUIDs—anything that legitimately changes every run), add its JSONPath to the test case's `noise` map via `updateTestCase`. Marking a field as noise tells the runner to ignore diffs on that path; once added, the next replay should treat the same divergence as `normal=true`.
+- Otherwise update the recorded `response` body on the test case via `updateTestCase`. Fetch the existing case first via `getTestCase` so you only mutate the fields the new contract dictates and don't drop unrelated keys.
 
-**2b—Test diff plus a mock mismatch that's plausibly causing the diff.** The recorded mock is what's out of date—the downstream call's shape changed. Update the mock via `update_mock({app_id, test_set_id, mock_id, branch_id, mock_yaml: <updated yaml>})`. Read the existing mock with `getMock` first to preserve fields you're not changing, then re-run replay.
+**2b—Test diff plus a mock mismatch that's plausibly causing the diff.** The recorded mock is what's out of date—the downstream call's shape changed. Look at `oss_report.mock_mismatches.expected_mocks` (what the recorder captured) vs `actual_mocks` (what the replayer actually consumed) — entries that appear in `actual_mocks` but not `expected_mocks` are the new outgoing calls you need to capture. Update the mock via `update_mock({app_id, test_set_id, mock_id, branch_id, mock_yaml: <updated yaml>})`. Read the existing mock with `getMock` first to preserve fields you're not changing, then re-run replay.
 
 - If the test still fails after one or two mock edits, the recorded baseline is too far gone to patch piecemeal. Fall back: drop the stale test data (`delete_recording` on the affected test set) and re-capture from scratch using Routine B's flow (`keploy record` against the current behavior, then `keploy upload test-set --branch <git branch>` to land it on the branch).
 
-Multiple failing steps can land in different cases—handle each independently.
+Multiple failing test cases can land in different cases—handle each independently.
 
 ### Phase A4—Verify
 
@@ -197,13 +205,13 @@ If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proc
 
 ```
 ### Diagnosis
-| Test | Step | Case | Cause |
+| Test set | Test case | Case | Cause |
 | --- | --- | --- | --- |
-| <name> | <step> | 1 / 2a / 2b | <one-line cause from repo inspection> |
+| <test_set_name> | <test_case_name> | 1 / 2a / 2b | <one-line cause from repo inspection> |
 
 ### Fixes applied
 - (Case 1) Edited `<file:line>`—`<one-line change description>`.
-- (Case 2a) `update_test_suite` on `<suite_name>`—set noise on `<path>` OR updated response field `<path>`.
+- (Case 2a) `updateTestCase` on `<test_case_name>`—set noise on `<path>` OR updated response field `<path>`.
 - (Case 2b) `update_mock` on `<mock_name>` (test set `<test_set_id>`) OR `delete_recording` + re-capture via `keploy record` + `keploy upload test-set`.
 - `keploy cloud replay` re-run: `<p>/<t>` tests passed.
 
@@ -213,7 +221,7 @@ If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proc
 - (Retry cap hit) File a keploy bug with `test_run_id=<id>` and the run-report URL.
 
 Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>
-Run report: https://app.keploy.io/tr?appId=<app_id>&branch=<branch_name>
+Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
 ```
 
 ---
@@ -275,7 +283,7 @@ If anything failed, enter Routine A from Phase A2—the diagnosis routine handle
 Open your PR. CI will replay this branch automatically; merge will fold the test data into main.
 
 Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>
-Run report: https://app.keploy.io/tr?appId=<app_id>&branch=<branch_name>
+Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
 ```
 
 ---
@@ -319,14 +327,14 @@ What happens behind the scenes for each:
 
 ### Prompt A—analyse and fix a failing replay (local or CI)
 
-| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             |
-| ----- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A0    | Resolve `app_id` from `basename $(pwd)` + `listApps`. Resolve `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`.                                                                                                                                                                                                                                                                                                                                                                             |
-| A1    | Get a `test_run_id` to fetch the report against. Local form → list the branch's recent test runs and take the latest failed one's id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup if nothing was pasted).                                                                                                                                                                                                                                   |
-| A2    | Fetch the full report (`get_session_report` with `verbose=true`).                                                                                                                                                                                                                                                                                                                                                                                                                                               |
-| A3    | Per failing step, decide Case 1 (bug in the app—recent commit broke it, test is still correct) or Case 2 (app behavior drifted intentionally—test data is stale, with sub-actions 2a noise / 2a response edit / 2b mock edit / 2b delete + re-record). Decision is from `git log` / `git diff` plus the report's `mock_mismatches`, never from a dev question.                                                                                                                                                  |
-| A4    | For Case 1: announce the file:line and a one-line description, then edit the handler code so the dev can stop the agent if they object. For Case 2a: `update_test_suite` to add noise on a non-deterministic field, or to update the recorded `response` body (preserve every existing step `id`). For Case 2b: `update_mock` on the affected mock, or—if the baseline is too far gone—`delete_recording` and re-record via Routine B's flow. Either way, re-run `keploy cloud replay --branch-name` to verify. |
-| A5    | Report: diagnosis table (case per step) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                                                                 |
+| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A0    | Resolve `app_id` from `basename $(pwd)` + `listApps`. Resolve `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`.                                                                                                                                                                                                                                                                                                                                      |
+| A1    | Get a `test_run_id` to fetch the report against. Local form → `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})` and take the most recent run's id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup with `source: "ci"` if nothing was pasted).                                                                                                                                   |
+| A2    | Fetch the full report (`getTestReportFull({appId: app_id, reportId: test_run_id})`). Returns rollup + every test set + per-test-case `oss_report.req`/`resp`/`result`/`mock_mismatches`/`failure_info`/`noise` in one round-trip. Use `mock_mismatches_only=true` to scope to mock-driven failures on large runs.                                                                                                                                                        |
+| A3    | Per failing test case, decide Case 1 (bug in the app—recent commit broke it, test is still correct) or Case 2 (app behavior drifted intentionally—test data is stale, with sub-actions 2a noise / 2a response edit / 2b mock edit / 2b delete + re-record). Decision is from `git log` / `git diff` plus the report's `oss_report.result` diff and `oss_report.mock_mismatches`, never from a dev question.                                                              |
+| A4    | For Case 1: announce the file:line and a one-line description, then edit the handler code so the dev can stop the agent if they object. For Case 2a: `updateTestCase` to add noise on a non-deterministic field, or to update the recorded `response` body. For Case 2b: `update_mock` on the affected mock, or—if the baseline is too far gone—`delete_recording` and re-record via Routine B's flow. Either way, re-run `keploy cloud replay --branch-name` to verify. |
+| A5    | Report: diagnosis table (case per step) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                          |
 
 ### Prompt B—author new keploy tests
 
@@ -361,7 +369,7 @@ You renamed a response field from `username` to `display_name` on `/users/{id}` 
 
 > _"the keploy cloud replay pipeline is failing, please analyse and fix it."_
 
-A3 sees the rename commit and `authored_assertions` pinned to `username` → **Case 2a**. A4 calls `update_test_suite` to swap the field name on the recorded response (preserving every kept step's `id`), re-runs replay (green). A5 reports the test edit + URLs.
+A3 sees the rename commit and the recorded `oss_report.result.body_result[].expected` still pinned to `username` → **Case 2a**. A4 calls `updateTestCase` to swap the field name on the recorded response, re-runs replay (green). A5 reports the test edit + URLs.
 
 ### Scenario 3—Test data drift, non-deterministic field (Case 2a, noise)
 
@@ -369,7 +377,7 @@ The replay started failing on `$.created_at`—a timestamp that differs each run
 
 > _"my keploy cloud replay is failing, please analyse and fix it."_
 
-A3 sees the diverging field is genuinely time-varying with no related commit → **Case 2a (noise)**. A4 calls `update_test_suite` to add `$.created_at` to that step's noise list; replay re-runs green.
+A3 sees the diverging field is genuinely time-varying with no related commit → **Case 2a (noise)**. A4 calls `updateTestCase` to add `$.created_at` to that test case's noise map; replay re-runs green.
 
 ### Scenario 4—Mock drift from a DB query change (Case 2b, mock edit)
 
