@@ -152,7 +152,7 @@ Either way, Phase A2 onward is identical—same `getTestReportFull` call, same r
 
 ### Phase A2—Fetch the full report
 
-Call `getTestReportFull({appId: app_id, reportId: test_run_id})`. The OpenAPI-generated tool parameters are camelCase (`appId`, `reportId`) per the spec, even though the playbook caches the value as `app_id`. The default flags (`include_oss_report=true`, `mock_mismatches_only=false`, `max_test_cases_per_set=100`) return the roll-up + every test set + every per-case diff + mock mismatches in one round-trip. Read:
+Call `getTestReportFull({appId: app_id, reportId: test_run_id})`. The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`) per the spec, while its **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`); pass each one with the literal name the spec declares. The defaults (`include_oss_report=true`, `mock_mismatches_only=false`, `max_test_cases_per_set=100`) return the roll-up + every test set + every per-case diff + mock mismatches in one round-trip. Read:
 
 - `report.status`—`FAILED` is your trigger to continue.
 - `report.ci_metadata`—when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
@@ -166,7 +166,7 @@ Call `getTestReportFull({appId: app_id, reportId: test_run_id})`. The OpenAPI-ge
   - `oss_report.noise` — JSONPaths the recorder has already marked as ignorable (don't re-flag these as drifts).
 - For investigating only mock-driven failures on a large run, pass `mock_mismatches_only=true` — `test_cases[]` is restricted to entries with non-empty `mock_mismatches` (or the legacy fallback) and the response stays token-safe.
 
-### Phase A3—Diagnose each failing step
+### Phase A3—Diagnose each failing test case
 
 Two cases. Decide per failing test case from `git log` / `git diff origin/main...HEAD` (commits on the failing endpoint or its dependencies) and the report's `oss_report.result` body/header diff plus `oss_report.mock_mismatches`:
 
@@ -334,7 +334,7 @@ What happens behind the scenes for each:
 | A2    | Fetch the full report (`getTestReportFull({appId: app_id, reportId: test_run_id})`). Returns roll-up + every test set + per-test-case `oss_report.req`/`resp`/`result`/`mock_mismatches`/`failure_info`/`noise` in one round-trip. Use `mock_mismatches_only=true` to scope to mock-driven failures on large runs.                                                                                                                                                       |
 | A3    | Per failing test case, decide Case 1 (bug in the app—recent commit broke it, test is still correct) or Case 2 (app behavior drifted intentionally—test data is stale, with sub-actions 2a noise / 2a response edit / 2b mock edit / 2b delete + re-record). Decision is from `git log` / `git diff` plus the report's `oss_report.result` diff and `oss_report.mock_mismatches`, never from a dev question.                                                              |
 | A4    | For Case 1: announce the file:line and a one-line description, then edit the handler code so the dev can stop the agent if they object. For Case 2a: `updateTestCase` to add noise on a non-deterministic field, or to update the recorded `response` body. For Case 2b: `update_mock` on the affected mock, or—if the baseline is too far gone—`delete_recording` and re-record via Routine B's flow. Either way, re-run `keploy cloud replay --branch-name` to verify. |
-| A5    | Report: diagnosis table (case per step) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                          |
+| A5    | Report: diagnosis table (case per test case) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                     |
 
 ### Prompt B—author new keploy tests
 
