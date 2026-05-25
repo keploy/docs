@@ -1,7 +1,6 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 
 // Custom React pages under src/pages/ are not covered by the docs schema
 // plugin — add Article + BreadcrumbList JSON-LD inline so the page is
@@ -69,8 +68,6 @@ const aboutStructuredData = [
 ];
 
 function About() {
-  const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
   return (
     <Layout
       title={ABOUT_TITLE}

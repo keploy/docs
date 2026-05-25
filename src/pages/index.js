@@ -4,16 +4,12 @@ import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {
   Community,
-  KeployCloud,
-  Resources,
-  QuickStart,
   GetStartedPaths,
   TestingCapabilities,
   QuickStartTabs,
   WhatIsKeploy,
   EcosystemSupport,
 } from "../components";
-import {Products} from "../components/Product";
 //import {Intro} from "../components";
 export default function Home() {
   const context = useDocusaurusContext();
