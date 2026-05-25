@@ -25,7 +25,7 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 ## Introduction
 
-🪄 Dive into the world of Books CRUD API and see how seamlessly Keploy integrates with [Ruby (Sinatra)](http://sinatrarb.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of Books CRUD API and see how seamlessly Keploy integrates with [Ruby (Sinatra)](https://sinatrarb.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
 <InstallReminder />
 
