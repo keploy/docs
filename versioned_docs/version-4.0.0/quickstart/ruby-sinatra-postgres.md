@@ -46,7 +46,7 @@ import SectionDivider from '@site/src/components/SectionDivider';
 
 ## Using Docker Compose 🐳
 
-We will be using Docker compose to run the application as well as PostgreSQL on Docker container.
+We will be using Docker Compose to run the application as well as PostgreSQL in Docker containers.
 
 ### Clone the Application 🧪
 
