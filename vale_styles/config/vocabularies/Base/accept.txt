@@ -152,6 +152,7 @@ replaysessions
 Reqnroll
 runner
 runner-mode
+Sanic
 SDK
 secretKeyRef
 ServiceAccount[s]?
