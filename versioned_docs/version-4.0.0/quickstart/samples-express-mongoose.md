@@ -20,7 +20,7 @@ keywords:
 import HowTo from '@site/src/components/HowTo';
 
 <HowTo
-name="Sample Course-Selling API (Express) — Record and Replay Tests with Keploy"
+name="Sample Course-Selling API (Express) — record and replay tests with Keploy"
 description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
 totalTime="PT10M"
 estimatedCost={{currency: "USD", value: "0"}}

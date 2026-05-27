@@ -21,24 +21,39 @@ const ABOUT_TITLE = "About the Keploy Documentation";
 const ABOUT_DESCRIPTION =
   "Information about Keploy's documentation, contribution guidelines, and licensing.";
 
+// Derive every canonical URL from a single `SITE` + path constants instead
+// of hardcoding `https://keploy.io/docs/...` in each field — mirrors the
+// pattern in concepts/reference/glossary.js. If the domain or docs baseUrl
+// ever changes, the Article/BreadcrumbList structured data updates in one
+// place instead of going stale field-by-field.
+//
+// Site config sets `trailingSlash: true`, so paths that map to a page carry
+// a trailing slash to match the canonical href and avoid duplicate-URL
+// variants in structured data.
+const SITE = "https://keploy.io";
+const HOME_URL = `${SITE}/`;
+const DOCS_URL = `${SITE}/docs/`;
+const ABOUT_URL = `${SITE}/docs/about/`;
+const LOGO_URL = `${SITE}/docs/img/favicon.png`;
+
 const aboutStructuredData = [
   {
     "@context": "https://schema.org",
     "@type": "Article",
     headline: ABOUT_TITLE,
     description: ABOUT_DESCRIPTION,
-    url: "https://keploy.io/docs/about/",
+    url: ABOUT_URL,
     publisher: {
       "@type": "Organization",
       name: "Keploy",
       logo: {
         "@type": "ImageObject",
-        url: "https://keploy.io/docs/img/favicon.png",
+        url: LOGO_URL,
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": "https://keploy.io/docs/about/",
+      "@id": ABOUT_URL,
     },
   },
   {
@@ -49,19 +64,19 @@ const aboutStructuredData = [
         "@type": "ListItem",
         position: 1,
         name: "Home",
-        item: "https://keploy.io/",
+        item: HOME_URL,
       },
       {
         "@type": "ListItem",
         position: 2,
         name: "Docs",
-        item: "https://keploy.io/docs/",
+        item: DOCS_URL,
       },
       {
         "@type": "ListItem",
         position: 3,
         name: "About",
-        item: "https://keploy.io/docs/about/",
+        item: ABOUT_URL,
       },
     ],
   },

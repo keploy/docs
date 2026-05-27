@@ -16,32 +16,44 @@ keywords:
 import HowTo from '@site/src/components/HowTo';
 
 <HowTo
-name="K8s Record Replay — record and replay tests with Keploy"
-description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
-totalTime="PT10M"
+name="Kubernetes Live Record & Replay with Keploy Proxy — record and replay tests with Keploy"
+description="Deploy a sample app to a local Kind cluster, connect it to the Keploy Dashboard, install the Keploy Proxy via Helm, then record live Kubernetes traffic and generate tests with AI."
+totalTime="PT15M"
 estimatedCost={{currency: "USD", value: "0"}}
-tools={["Keploy CLI", "Docker", "git", "Kind", "kubectl", "Helm"]}
+tools={["Docker", "Kind", "kubectl", "Helm", "git"]}
 visible={false}
 steps={[
 {
-name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+name: "Install prerequisites and clone the sample app",
+text: "Install Docker, Kind, kubectl, and Helm, then clone the ecommerce sample app and check out the k8s branch (git checkout k8s).",
 },
 {
-name: "Clone the sample app",
-text: "Clone the sample repo referenced on this page and install its dependencies.",
+name: "Create a Kind cluster",
+text: "Create a local Kubernetes cluster with kind create cluster --name ecommerce.",
 },
 {
-name: "Start dependencies (database, etc.)",
-text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+name: "Build and load Docker images",
+text: "Build the service images locally and load them into the Kind cluster with kind load docker-image, since the manifests use imagePullPolicy: Never.",
 },
 {
-name: "Record API calls",
-text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+name: "Deploy the application",
+text: "Apply the Kubernetes manifests with kubectl apply -f k8s/, wait until all pods are Running, then port-forward the API gateway (kubectl port-forward service/apigateway 8083:8083).",
 },
 {
-name: "Replay tests",
-text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+name: "Connect your cluster in the Keploy Dashboard",
+text: "In app.keploy.io, open Integration Testing → Clusters, add the cluster, and provide its name and ingress URL so the proxy can observe live traffic.",
+},
+{
+name: "Install the Keploy Proxy via Helm",
+text: "Run the Helm command shown in the dashboard to install the Keploy Proxy into the keploy namespace, then port-forward svc/k8s-proxy (kubectl port-forward -n keploy svc/k8s-proxy 8080:8080).",
+},
+{
+name: "Record live traffic",
+text: "Click Start Recording in the dashboard for the apigateway pod and send requests to capture live Kubernetes traffic as testcases and mocks.",
+},
+{
+name: "Generate tests with AI",
+text: "Use \"Use AI for Tests\" in the dashboard to expand coverage from the recorded traffic, then review the accepted, buggy, and rejected test suites.",
 },
 ]}
 />
