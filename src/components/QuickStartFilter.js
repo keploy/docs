@@ -17,13 +17,40 @@ import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
 import {useLocation} from "@docusaurus/router";
 
+function isVersionAtLeast(version, minimumVersion) {
+  const versionParts = version.split(".").map(Number);
+  const minimumParts = minimumVersion.split(".").map(Number);
+
+  if (
+    versionParts.length !== 3 ||
+    minimumParts.length !== 3 ||
+    versionParts.some(Number.isNaN) ||
+    minimumParts.some(Number.isNaN)
+  ) {
+    return false;
+  }
+
+  for (let index = 0; index < 3; index++) {
+    if (versionParts[index] > minimumParts[index]) {
+      return true;
+    }
+
+    if (versionParts[index] < minimumParts[index]) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
   const {pathname} = useLocation();
   const isDark = colorMode === "dark";
 
   const versionMatch = pathname.match(/\/docs\/(\d+\.\d+\.\d+)\//);
-  const supportsRubyQuickstarts = !versionMatch || versionMatch[1] === "4.0.0";
+  const supportsRubyQuickstarts =
+    !versionMatch || isVersionAtLeast(versionMatch[1], "4.0.0");
 
   const [currentStep, setCurrentStep] = useState(defaultLanguage ? 2 : 1);
   const [language, setLanguage] = useState(defaultLanguage);
