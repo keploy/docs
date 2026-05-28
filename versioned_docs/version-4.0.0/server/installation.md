@@ -3,13 +3,14 @@ id: install
 title: Keploy Local Installation
 sidebar_label: Local
 hide_title: true
-description: "Install Keploy locally on Linux using eBPF — record API calls, generate test cases, and replay tests with one command."
+description: "Install Keploy locally on Linux using eBPF — record API calls, generate test cases, and replay tests with one command. By default, this installs the Keploy Community Edition."
 tags:
   - hello-world
   - linux
   - ebpf
   - installation
   - install
+  - community-edition
 keywords:
   - hello-world
   - ebpf
@@ -21,9 +22,11 @@ keywords:
   - Auto Testcase generation
   - installation-guide
   - server-setup
+  - keploy community edition
+  - community edition
 ---
 
-Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs.
+Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs. By default, the one-click install command below installs the **Keploy Community Edition** — your plan (Community, Pro, or Enterprise) is determined after you log in.
 
 import HowTo from '@site/src/components/HowTo';
 import InstallationGuide from '../concepts/installation.md'

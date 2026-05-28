@@ -2,12 +2,13 @@
 id: installation
 title: Installation Overview
 sidebar_label: Installation
-description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows."
+description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows. By default, this installs the Keploy Community Edition."
 tags:
   - linux
   - ebpf
   - installation
   - install
+  - community-edition
 keywords:
   - ebpf
   - installation
@@ -19,6 +20,8 @@ keywords:
   - Auto Testcase generation
   - installation-guide
   - server-setup
+  - keploy community edition
+  - community edition
 ---
 
 import PlatformRequirements from '../concepts/platform-requirements.md'
@@ -27,6 +30,8 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 # Installation Overview
 
+By default, this guide installs the **Keploy Community Edition**. The install command below is the same for everyone — once you sign in, Keploy detects your plan and enables Community Edition features by default, or Pro / Enterprise features if your account has access to them.
+
 ## Quick Installation Using CLI
 
 Let's get started by setting up the Keploy alias with this command:
@@ -34,6 +39,10 @@ Let's get started by setting up the Keploy alias with this command:
 ```bash
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
+
+:::info
+By default, this command installs the **Keploy Community Edition**. Your plan (Community, Pro, or Enterprise) is determined after you log in.
+:::
 
 You should see something like this:
 
@@ -65,7 +74,7 @@ Flags:
 Use "keploy [command] --help" for more information about a command.
 ```
 
-🎉 Wohoo! You are all set to use Keploy.
+🎉 Wohoo! You are all set to use Keploy (defaults to the **Community Edition** until you sign in with a paid plan).
 
 ## Other Installation Methods
 
