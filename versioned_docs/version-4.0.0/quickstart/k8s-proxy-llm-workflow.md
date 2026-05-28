@@ -197,6 +197,7 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
 3. **Fallback (if step 2 is still red).** Recorded baseline is too far gone to patch piecemeal — choose between a **whole-set** drop and a **scoped** drop based on how many test cases are failing:
 
    **3a — Whole-set re-record (most / all cases in the set are failing):**
+
    ```
    delete_recording({app_id, test_set_id, branch_id})           # drops the entire set
    keploy record -c "<dev run command>" --sync                   # captures all flows
@@ -210,6 +211,7 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
    **3b — Scoped re-record (only one or a few cases in the set are failing):**
 
    > **Availability**: 3b requires an api-server that advertises `test_case_ids` on the `delete_recording` MCP tool. To check, look at the `delete_recording` tool's `inputSchema.properties` in the MCP server's `tools/list` response — if `test_case_ids` (type: array of string) is listed, 3b is available. If it isn't, fall back to 3a until the deployment includes the scoped-delete change.
+
    ```
    delete_recording({                                            # tombstones JUST those cases;
      app_id, test_set_id, branch_id,                             # the rest of the set + its
@@ -410,7 +412,7 @@ What happens behind the scenes for each:
 | B1    | `git diff origin/main...HEAD` to find handler files that changed; extract added/modified endpoints.                                                                                                                                                                                                                                                                                |
 | B2    | Pre-flight: discover the dev's run command from the repo (Makefile → docker-compose.yml → Procfile → package.json → README), start the app, curl any 200-returning endpoint to confirm it's serving traffic, stop it. Then run `keploy record -c "<dev run command>" --sync`, drive a realistic curl per new endpoint, stop the recorder. Recording lands at `keploy/test-set-N/`. |
 | B3    | `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N --name <descriptive-name>` to land the bundle on the Keploy branch.                                                                                                                                                                                                               |
-| B4    | `keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> -c "<dev run command>" --container-name <app container> --disableReportUpload=false` to validate locally (drop the local flags in CI / active-cluster). On failure, drop into Routine A.                                                                                                                                                                                                                                                               |
+| B4    | `keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> -c "<dev run command>" --container-name <app container> --disableReportUpload=false` to validate locally (drop the local flags in CI / active-cluster). On failure, drop into Routine A.                                                                                          |
 | B5    | Report: captured endpoints table + replay result + next-step (open PR) + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                         |
 
 For everything not covered by these two prompts—manually inspecting test data, editing one mock, listing recordings—use the manual flow on the [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page directly. The two-prompt workflow handles the 90% case; the manual flow is the escape hatch.
