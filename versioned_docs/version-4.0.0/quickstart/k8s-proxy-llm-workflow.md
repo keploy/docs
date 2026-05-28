@@ -188,7 +188,15 @@ The contract changed on purpose; the test's recorded baseline is stale. Read `os
 
 **2b—Test diff plus a mock mismatch that's plausibly causing the diff.** The recorded mock is what's out of date—the downstream call's shape changed. Look at `oss_report.mock_mismatches.expected_mocks` (what the recorder captured) vs `actual_mocks` (what the replayer actually consumed) — entries that appear in `actual_mocks` but not `expected_mocks` are the new outgoing calls you need to capture. Update the mock via `update_mock({app_id, test_set_id, mock_id, branch_id, mock_yaml: <updated yaml>})`. Read the existing mock with `getMock` first to preserve fields you're not changing, then re-run replay.
 
-- If the test still fails after one or two mock edits, the recorded baseline is too far gone to patch piecemeal. Fall back: drop the stale test data (`delete_recording` on the affected test set) and re-capture from scratch using Routine B's flow (`keploy record` against the current behavior, then `keploy upload test-set --branch <git branch>` to land it on the branch).
+**Case 2b loop — follow exactly, do not improvise:**
+
+1. **First edit.** `getMock` → mutate the canonical YAML to reflect the new contract → `update_mock`. Re-run replay.
+2. **Second edit (only if step 1 still red on the same mock for the same reason).** Re-read `oss_report.mock_mismatches` for the new run; the diff between `expected_mocks` and `actual_mocks` should now be tighter. `getMock` again (the server may have rewritten derived fields), mutate, `update_mock`. Re-run replay.
+3. **Fallback (if step 2 is still red).** The recorded baseline is too far gone to patch piecemeal. `delete_recording` on the affected test set, then re-capture from scratch via Routine B's flow: `keploy record -c "<dev run command>" --sync` against the current behavior → curl the affected paths → `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N`. Re-run replay.
+
+**Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem between attempts.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the test runs. All mock changes go through `update_mock`. If you find yourself reading or grepping local mock files to "verify the change propagated", the answer is: it does, by construction — the local file is a per-run snapshot, not state you can edit.
+
+**Do NOT recompute hash fields by hand.** Some recorded mocks carry derived fingerprints (e.g. `sqlAstHash` on a Postgres v3 query). These are computed by the proxy from the human-readable fields you actually edit (`sqlNormalized`, `body`, headers, …); the api-server drops them on write so the loader can recompute. Touch only the human-readable fields and the matcher stays consistent automatically. If a tool asks you to author a hash, that's a bug — report it in A5 with the tool name.
 
 Multiple failing test cases can land in different cases—handle each independently.
 
