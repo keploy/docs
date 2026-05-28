@@ -226,7 +226,7 @@ The contract changed on purpose; the test's recorded baseline is stale. Read `os
 
 **Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem between attempts.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the test runs. All mock changes go through `update_mock`. If you find yourself reading or grepping local mock files to "verify the change propagated", the answer is: it does, by construction — the local file is a per-run snapshot, not state you can edit.
 
-**Do NOT recompute hash fields by hand.** Some recorded mocks carry derived fingerprints (e.g. `sqlAstHash` on a Postgres v3 query). These are computed by the proxy from the human-readable fields you actually edit (`sqlNormalized`, `body`, headers, …); the api-server drops them on write so the loader can recompute. Touch only the human-readable fields and the matcher stays consistent automatically. If a tool asks you to author a hash, that's a bug — report it in A5 with the tool name.
+**Do NOT ask the dev which path to take.** Routine A is autonomous. Announce the file:line you intend to change in plain text (so the dev can interrupt if they object), then proceed. Do not call `AskUserQuestion`, do not offer numbered choices, do not pause for confirmation. If two repair paths look equally valid, pick the one the skill recommends (Case 2a noise > body update, Case 2b update_mock > delete + re-record) and proceed. The dev is reviewing the streamed transcript and will Ctrl-C if you're wrong; that's the contract.
 
 Multiple failing test cases can land in different cases—handle each independently.
 
