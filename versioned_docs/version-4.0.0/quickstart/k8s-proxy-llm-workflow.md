@@ -190,6 +190,8 @@ The contract changed on purpose; the test's recorded baseline is stale. Read `os
 
 **Case 2b loop — follow exactly, do not improvise:**
 
+After step 1's `update_mock` lands and the re-replay is still red, your repertoire collapses to **exactly two moves**: another `update_mock` (step 2) or `delete_recording` + re-record (step 3). Anything else — editing `keploy/<test_set_id>/mocks.yaml`, passing `--useLocalMock`, `--disableMockUpload`, or `--useLocalTests` to `keploy cloud replay`, comparing local YAML to spot "what changed", restarting the agent — is **off the menu**. Those flags exist for OSS-level proxy debugging; they appear to work but pin a divergent state to your laptop while the Keploy branch the team replays against stays broken. The contract is "the cloud branch is the only source of truth"; respect it or get out of Routine A.
+
 1. **First edit.** `getMock` → mutate the canonical YAML to reflect the new contract → `update_mock`. Re-run replay.
 2. **Second edit (only if step 1 still red on the same mock for the same reason).** Re-read `oss_report.mock_mismatches` for the new run; the diff between `expected_mocks` and `actual_mocks` should now be tighter. `getMock` again (the server may have rewritten derived fields), mutate, `update_mock`. Re-run replay.
 3. **Fallback (if step 2 is still red).** Recorded baseline is too far gone to patch piecemeal — choose between a **whole-set** drop and a **scoped** drop based on how many test cases are failing:
@@ -206,25 +208,33 @@ The contract changed on purpose; the test's recorded baseline is stale. Read `os
    ```
 
    **3b — Scoped re-record (only one or a few cases in the set are failing):**
+
+   > **Availability**: 3b requires an api-server that advertises `test_case_ids` on the `delete_recording` MCP tool. Run `listMocks`/`getApp`-style discovery once to confirm the input schema lists `test_case_ids`; if it doesn't, fall back to 3a until the deployment includes the scoped-delete change.
    ```
    delete_recording({                                            # tombstones JUST those cases;
      app_id, test_set_id, branch_id,                             # the rest of the set + its
-     test_case_ids: [<id-1>, <id-2>, ...]                        # mocks stay intact
-   })
+     test_case_ids: [<name-1>, <name-2>, ...]                    # mocks stay intact.
+   })                                                            # Names are the same friendly
+                                                                 # identifiers used elsewhere
+                                                                 # (e.g. "get-api-orders-1").
    keploy record -c "<dev run command>" --sync                   # capture only the dropped flows
    # drive curls for ONLY the test cases you tombstoned — use the
    # recorded request body of each as the curl shape
    keploy upload test-set \
      --app <ns.deployment> --branch <git branch> \
-     --test-set keploy/test-set-N --name <fresh-distinct-name>   # NEW name, distinct from
-   # re-run keploy cloud replay                                   # any existing set on this app
+     --test-set keploy/test-set-N \
+     --name <original-set-name>--rerec-<YYYYMMDDHHMM>            # convention: original + rerec suffix
+   # re-run keploy cloud replay                                   # so re-records cluster with the
+                                                                 # set they refresh
    ```
 
-   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name`; the server rejects duplicates with `test set "X" already exists for this app`.
+   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name` using the suffix convention above (or `<original>--rerec-<short-git-sha>` if a deterministic name is preferable); the server rejects duplicates with `test set "X" already exists for this app`, and the suffix keeps the recordings page self-grouping (original + its re-records sort together).
 
    Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
 
-**Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem between attempts.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the test runs. All mock changes go through `update_mock`. If you find yourself reading or grepping local mock files to "verify the change propagated", the answer is: it does, by construction — the local file is a per-run snapshot, not state you can edit.
+**Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the next replay. All mock changes go through `update_mock`. If a local-edit + `--useLocalMock`-style workaround tempts you because cloud round-trip changed the shape of a value (e.g. a Postgres NUMERIC `price` came back as `{int: []}` instead of `{int: "1250", exp: -2}`), that is a step-2 retry signal — go to step 2 of the loop with a corrected payload, or to step 3 if step 2 also fails. Do not paper over the round-trip locally; the next replay on a CI runner or another laptop will undo your fix and the team-visible branch state will diverge from what you tested.
+
+**Do NOT pass `--useLocalMock`, `--useLocalTests`, or `--disableMockUpload` to `keploy cloud replay`.** Those flags belong to OSS-level proxy debugging and pin a laptop-local divergent state — the Keploy branch the rest of the team replays against stays broken regardless of what your local run reports. Every replay you trigger in Routine A must round-trip through the cloud branch; otherwise you are not in Routine A any more.
 
 **Do NOT ask the dev which path to take.** Routine A is autonomous. Announce the file:line you intend to change in plain text (so the dev can interrupt if they object), then proceed. Do not call `AskUserQuestion`, do not offer numbered choices, do not pause for confirmation. If two repair paths look equally valid, pick the one the skill recommends (Case 2a noise > body update, Case 2b update_mock > delete + re-record) and proceed. The dev is reviewing the streamed transcript and will Ctrl-C if you're wrong; that's the contract.
 
@@ -241,7 +251,7 @@ keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-na
 
 `--cluster` resolves the proxy app's identity without requiring an active heartbeat (use the `cluster_name` cached in Discovery). `-c` + `--container-name` start the app locally; omit them in CI / active-cluster runs and let the in-cluster agent run the deployment. `--disableReportUpload=false` makes the `/tr` report persist locally (the CLI silently sets it to `true` for OAuth sessions otherwise).
 
-If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proceed to A5. Cap retry attempts at 3—if it's still red, the failures are likely a keploy-side proxy issue (your fixes aren't taking effect). Report the residual failures honestly with the `test_run_id` and the run-report URL so the dev can file a keploy bug, then stop.
+If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proceed to A5. Cap retry attempts at 3 cloud-replay runs total across the Case 2 loop (i.e. step 1's replay + step 2's replay + step 3's replay = 3 — this is independent of the per-step retry budget within Case 2b, which caps `update_mock` attempts at 2 before forcing the 3a/3b fallback). If it's still red after 3 cloud-replay runs, the failures are likely a keploy-side proxy issue (your fixes aren't taking effect). Report the residual failures honestly with the `test_run_id` and the run-report URL so the dev can file a keploy bug, then stop.
 
 ### Phase A5—Report (exact format)
 
