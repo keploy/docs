@@ -30,7 +30,7 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 # Installation Overview
 
-By default, this guide installs the **Keploy Community Edition**. The install command below is the same for everyone — once you sign in, Keploy detects your plan and enables Community Edition features by default, or Pro / Enterprise features if your account has access to them.
+By default, this guide installs the **Keploy Community Edition**. The install command below is the same for everyone. Once you sign in, Keploy detects your plan and enables Community Edition features by default, or Pro / Enterprise features if your account has access to them.
 
 ## Quick Installation Using CLI
 
@@ -74,7 +74,7 @@ Flags:
 Use "keploy [command] --help" for more information about a command.
 ```
 
-🎉 Wohoo! You are all set to use Keploy (defaults to the **Community Edition** until you sign in with a paid plan).
+🎉 Wohoo! You are all set to use Keploy.
 
 ## Other Installation Methods
 
