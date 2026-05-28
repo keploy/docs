@@ -209,7 +209,7 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
 
    **3b — Scoped re-record (only one or a few cases in the set are failing):**
 
-   > **Availability**: 3b requires an api-server that advertises `test_case_ids` on the `delete_recording` MCP tool. Run `listMocks`/`getApp`-style discovery once to confirm the input schema lists `test_case_ids`; if it doesn't, fall back to 3a until the deployment includes the scoped-delete change.
+   > **Availability**: 3b requires an api-server that advertises `test_case_ids` on the `delete_recording` MCP tool. To check, look at the `delete_recording` tool's `inputSchema.properties` in the MCP server's `tools/list` response — if `test_case_ids` (type: array of string) is listed, 3b is available. If it isn't, fall back to 3a until the deployment includes the scoped-delete change.
    ```
    delete_recording({                                            # tombstones JUST those cases;
      app_id, test_set_id, branch_id,                             # the rest of the set + its
@@ -223,12 +223,14 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
    keploy upload test-set \
      --app <ns.deployment> --branch <git branch> \
      --test-set keploy/test-set-N \
-     --name <original-set-name>--rerec-<YYYYMMDDHHMM>            # convention: original + rerec suffix
+     --name <slug(original-set-name)>--rerec-<YYYYMMDDHHMMZ>     # see naming note below; UTC; slug = lowercase, [a-z0-9-]
    # re-run keploy cloud replay                                   # so re-records cluster with the
                                                                  # set they refresh
    ```
 
-   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name` using the suffix convention above (or `<original>--rerec-<short-git-sha>` if a deterministic name is preferable); the server rejects duplicates with `test set "X" already exists for this app`, and the suffix keeps the recordings page self-grouping (original + its re-records sort together).
+   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name` using the suffix convention above (or `rerec-<short-git-sha>-<YYYYMMDDHHMMZ>` if a deterministic name is preferable); the server rejects duplicates with `test set "X" already exists for this app`, and the suffix keeps the recordings page self-grouping (original + its re-records sort together).
+
+   > **Naming convention details.** `slug(original-set-name)` is the original name lowercased with everything outside `[a-z0-9-]` collapsed to `-` (so `Scenario 4 v8 baseline (4 cases)` → `scenario-4-v8-baseline-4-cases`); raw original names with spaces, parens, or other special chars can fail the api-server's name validator on upload. The timestamp is **UTC** (the trailing `Z` is part of the name) so two agents running in different timezones at the same wall-clock minute produce the same name — preserving the "original + its re-records sort together" intent for cross-timezone CI integrations.
 
    Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
 
