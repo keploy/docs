@@ -192,7 +192,37 @@ The contract changed on purpose; the test's recorded baseline is stale. Read `os
 
 1. **First edit.** `getMock` → mutate the canonical YAML to reflect the new contract → `update_mock`. Re-run replay.
 2. **Second edit (only if step 1 still red on the same mock for the same reason).** Re-read `oss_report.mock_mismatches` for the new run; the diff between `expected_mocks` and `actual_mocks` should now be tighter. `getMock` again (the server may have rewritten derived fields), mutate, `update_mock`. Re-run replay.
-3. **Fallback (if step 2 is still red).** The recorded baseline is too far gone to patch piecemeal. `delete_recording` on the affected test set, then re-capture from scratch via Routine B's flow: `keploy record -c "<dev run command>" --sync` against the current behavior → curl the affected paths → `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N`. Re-run replay.
+3. **Fallback (if step 2 is still red).** Recorded baseline is too far gone to patch piecemeal — choose between a **whole-set** drop and a **scoped** drop based on how many test cases are failing:
+
+   **3a — Whole-set re-record (most / all cases in the set are failing):**
+   ```
+   delete_recording({app_id, test_set_id, branch_id})           # drops the entire set
+   keploy record -c "<dev run command>" --sync                   # captures all flows
+   # drive curls covering the same surface the original set covered
+   keploy upload test-set \
+     --app <ns.deployment> --branch <git branch> \
+     --test-set keploy/test-set-N --name <fresh-descriptive-name>
+   # re-run keploy cloud replay
+   ```
+
+   **3b — Scoped re-record (only one or a few cases in the set are failing):**
+   ```
+   delete_recording({                                            # tombstones JUST those cases;
+     app_id, test_set_id, branch_id,                             # the rest of the set + its
+     test_case_ids: [<id-1>, <id-2>, ...]                        # mocks stay intact
+   })
+   keploy record -c "<dev run command>" --sync                   # capture only the dropped flows
+   # drive curls for ONLY the test cases you tombstoned — use the
+   # recorded request body of each as the curl shape
+   keploy upload test-set \
+     --app <ns.deployment> --branch <git branch> \
+     --test-set keploy/test-set-N --name <fresh-distinct-name>   # NEW name, distinct from
+   # re-run keploy cloud replay                                   # any existing set on this app
+   ```
+
+   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name`; the server rejects duplicates with `test set "X" already exists for this app`.
+
+   Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
 
 **Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem between attempts.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the test runs. All mock changes go through `update_mock`. If you find yourself reading or grepping local mock files to "verify the change propagated", the answer is: it does, by construction — the local file is a per-run snapshot, not state you can edit.
 
