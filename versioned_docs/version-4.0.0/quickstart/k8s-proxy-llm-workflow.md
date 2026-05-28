@@ -223,14 +223,21 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
    keploy upload test-set \
      --app <ns.deployment> --branch <git branch> \
      --test-set keploy/test-set-N \
-     --name <slug(original-set-name)>--rerec-<YYYYMMDDHHMMZ>     # see naming note below; UTC; slug = lowercase, [a-z0-9-]
+     --name <slug-part>--rerec-<utc-timestamp-part>              # build per "Naming convention details" below; do NOT post-process the result
    # re-run keploy cloud replay                                   # so re-records cluster with the
                                                                  # set they refresh
    ```
 
-   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. Mint a fresh `--name` using the suffix convention above (or `rerec-<short-git-sha>-<YYYYMMDDHHMMZ>` if a deterministic name is preferable); the server rejects duplicates with `test set "X" already exists for this app`, and the suffix keeps the recordings page self-grouping (original + its re-records sort together).
+   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. The server rejects duplicate names with `test set "X" already exists for this app`, so the convention below mints a unique `--name` and the shared prefix keeps the recordings page self-grouping (original + its re-records sort together).
 
-   > **Naming convention details.** `slug(original-set-name)` is the original name lowercased with everything outside `[a-z0-9-]` collapsed to `-` (so `Scenario 4 v8 baseline (4 cases)` → `scenario-4-v8-baseline-4-cases`); raw original names with spaces, parens, or other special chars can fail the api-server's name validator on upload. The timestamp is **UTC** (the trailing `Z` is part of the name) so two agents running in different timezones at the same wall-clock minute produce the same name — preserving the "original + its re-records sort together" intent for cross-timezone CI integrations.
+   > **Naming convention details.** Build the name in two parts and concatenate them verbatim — do NOT post-process the whole result.
+   >
+   > 1. **Slug part** — take `<original-set-name>`, lowercase it, replace every maximal run of characters outside `[a-z0-9]` (spaces, parens, dots, underscores, etc.) with a single `-`, then trim leading/trailing `-`. Worked example: `Scenario 4 v8 baseline (4 cases)` → `scenario-4-v8-baseline-4-cases`. This avoids the api-server's name validator rejecting spaces/parens/special chars.
+   > 2. **Suffix part** — append the literal `--rerec-<utc-timestamp>`, where `<utc-timestamp>` is `YYYYMMDDHHMMZ` (the trailing `Z` is uppercase, in UTC, and is part of the literal — do NOT lowercase or slug it). Example suffix: `--rerec-202605281430Z`.
+   >
+   > Combined example: `scenario-4-v8-baseline-4-cases--rerec-202605281430Z`. Two agents running in different timezones at the same wall-clock minute produce the same name — preserving the "original + its re-records sort together" intent for cross-timezone CI integrations.
+   >
+   > **Deterministic alternative.** If the original-set-name isn't available at name-mint time, use `rerec-<short-git-sha>-<utc-timestamp>` where `<short-git-sha>` is the first 7 characters of `git rev-parse HEAD`. This form drops the original-set prefix, so re-records won't sort-group with the original on the recordings page — only use it when the prefix is genuinely unavailable.
 
    Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
 
