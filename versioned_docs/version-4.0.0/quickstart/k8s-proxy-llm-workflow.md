@@ -237,7 +237,7 @@ After step 1's `update_mock` lands and the re-replay is still red, your repertoi
    >
    > Combined example: `scenario-4-v8-baseline-4-cases--rerec-202605281430Z`. Two agents running in different timezones at the same wall-clock minute produce the same name — preserving the "original + its re-records sort together" intent for cross-timezone CI integrations.
    >
-   > **Deterministic alternative.** If the original-set-name isn't available at name-mint time, use `rerec-<short-git-sha>-<utc-timestamp>` where `<short-git-sha>` is the first 7 characters of `git rev-parse HEAD`. This form drops the original-set prefix, so re-records won't sort-group with the original on the recordings page — only use it when the prefix is genuinely unavailable.
+   > **Deterministic alternative.** If the original-set-name isn't available at name-mint time, use `rerec-<short-git-sha>-<utc-timestamp>` where `<short-git-sha>` is the first 7 characters of `git rev-parse HEAD`. The alternative begins with the literal `rerec` (NO leading `-` or `--` — the double-dash in the primary form is the slug/suffix boundary marker, which this form doesn't have because there's no slug part). This form drops the original-set prefix, so re-records won't sort-group with the original on the recordings page — only use it when the prefix is genuinely unavailable.
 
    Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
 
