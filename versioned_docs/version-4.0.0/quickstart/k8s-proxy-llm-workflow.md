@@ -134,8 +134,9 @@ You handle EVERYTHING else autonomously. Discover the app, the branch, the faili
 
 1. **App.** `basename $(pwd)` → `listApps({q: <basename>})` → pick the unambiguous match. Cache `app_id` for the session.
 2. **Branch.** `git rev-parse --abbrev-ref HEAD` → `create_branch({app_id, name: <git branch>})` → cache `branch_id`. If `git rev-parse` returns `HEAD` or exits non-zero, ask the dev for a branch name ONCE.
+3. **Cluster.** `getApp({appId: app_id})` → read `origin.clusterName` (the proxy app's bound cluster). Cache as `cluster_name`. `listApps` does **not** return this — you must call `getApp`. You'll pass it to `--cluster` on every `keploy cloud replay` so a local (no-`--trigger`) run resolves the app's identity without requiring an actively-heartbeating cluster.
 
-Both values are sticky for the rest of the conversation. Don't re-discover unless the dev switches git branches.
+All three values are sticky for the rest of the conversation. Don't re-discover unless the dev switches git branches.
 
 ---
 
@@ -196,8 +197,11 @@ Multiple failing test cases can land in different cases—handle each independen
 After every Case-1 (app code edit) or Case-2 (test data edit) fix, run via Bash:
 
 ```bash
-keploy cloud replay --app <ns.deployment> --branch-name <git branch>
+keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> \
+  -c "<dev run command>" --container-name <app container> --disableReportUpload=false
 ```
+
+`--cluster` resolves the proxy app's identity without requiring an active heartbeat (use the `cluster_name` cached in Discovery). `-c` + `--container-name` start the app locally; omit them in CI / active-cluster runs and let the in-cluster agent run the deployment. `--disableReportUpload=false` makes the `/tr` report persist locally (the CLI silently sets it to `true` for OAuth sessions otherwise).
 
 If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proceed to A5. Cap retry attempts at 3—if it's still red, the failures are likely a keploy-side proxy issue (your fixes aren't taking effect). Report the residual failures honestly with the `test_run_id` and the run-report URL so the dev can file a keploy bug, then stop.
 
@@ -262,9 +266,14 @@ keploy upload test-set \
 
 ### Phase B4—Validate
 
+For **local** validation (dev's laptop) — pass `--cluster` (from Discovery), and start the app yourself via `-c` + `--container-name`:
+
 ```bash
-keploy cloud replay --app <ns.deployment> --branch-name <git branch>
+keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> \
+  -c "<dev run command>" --container-name <app container> --disableReportUpload=false
 ```
+
+For **CI / active-cluster** runs, omit `-c`/`--container-name`/`--disableReportUpload` and let the in-cluster agent run the deployment.
 
 If anything failed, enter Routine A from Phase A2—the diagnosis routine handles it.
 
@@ -344,7 +353,7 @@ What happens behind the scenes for each:
 | B1    | `git diff origin/main...HEAD` to find handler files that changed; extract added/modified endpoints.                                                                                                                                                                                                                                                                                |
 | B2    | Pre-flight: discover the dev's run command from the repo (Makefile → docker-compose.yml → Procfile → package.json → README), start the app, curl any 200-returning endpoint to confirm it's serving traffic, stop it. Then run `keploy record -c "<dev run command>" --sync`, drive a realistic curl per new endpoint, stop the recorder. Recording lands at `keploy/test-set-N/`. |
 | B3    | `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N --name <descriptive-name>` to land the bundle on the Keploy branch.                                                                                                                                                                                                               |
-| B4    | `keploy cloud replay --app <ns.deployment> --branch-name <git branch>` to validate. On failure, drop into Routine A.                                                                                                                                                                                                                                                               |
+| B4    | `keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> -c "<dev run command>" --container-name <app container> --disableReportUpload=false` to validate locally (drop the local flags in CI / active-cluster). On failure, drop into Routine A.                                                                                                                                                                                                                                                               |
 | B5    | Report: captured endpoints table + replay result + next-step (open PR) + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                         |
 
 For everything not covered by these two prompts—manually inspecting test data, editing one mock, listing recordings—use the manual flow on the [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page directly. The two-prompt workflow handles the 90% case; the manual flow is the escape hatch.
