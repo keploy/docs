@@ -20,7 +20,7 @@ Repository for the Keploy documentation website.
 <a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
 <img src="https://img.shields.io/github/issues/keploy/docs" />
 </a>
-<a href="https://join.slack.com/t/keploy/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw" alt="Slack">
+<a href="https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA" alt="Slack">
 <img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
 </a>
 <a href="https://twitter.com/Keployio" alt="Twitter Follow">
@@ -39,7 +39,7 @@ Page slugs (URLs), menu labels, and the location of information are a few of the
 
 The documentation in this repository is published to https://docs.keploy.io.
 
-If information you are looking for seems to be missing, visit the [Keploy community](https://join.slack.com/t/keploy/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw) forum for help.
+If information you are looking for seems to be missing, visit the [Keploy community](https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA) forum for help.
 
 Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md) guide before you submit any pull requests.
 
@@ -186,7 +186,7 @@ Keploy welcomes contributions to the docs website. If you have an idea for a new
 
 Reach out to us. We're here to help!
 
-[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw)
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA)
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/keploy/)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg)
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/Keployio)
