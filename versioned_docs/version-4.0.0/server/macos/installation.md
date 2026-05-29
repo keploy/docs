@@ -50,7 +50,7 @@ url: "#install-with-homebrew",
 
 There are two ways to install Keploy on macOS:
 
-1. [One-click install](#one-click-install-keploy) — **recommended**.
+1. **Recommended:** [One-click install](#one-click-install-keploy).
 2. [Install with Homebrew](#install-with-homebrew).
 
 For users who need eBPF support, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
