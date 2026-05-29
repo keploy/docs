@@ -2,7 +2,7 @@
 id: installation
 title: macOS Installation
 sidebar_label: macOS
-description: "Install the Keploy server on macOS using Colima or Docker Desktop — one-click and manual setup options for eBPF testing."
+description: "Install Keploy on macOS with the one-click curl installer. Docker Desktop and Colima setups are also supported for eBPF testing."
 tags:
   - hello-world
   - macos
@@ -22,26 +22,70 @@ keywords:
   - docker
 ---
 
-As of now there are two ways to use Keploy eBPF in MacOS, i.e. [using Colima](#using-colima)
-and [using Docker Desktop](#using-docker-desktop).
+import HowTo from '@site/src/components/HowTo';
 
-There are two ways to install Keploy eBPF in MacOS, you can use either use:
+<HowTo
+name="Install Keploy on macOS"
+description="Install the Keploy CLI on macOS using the one-click curl installer."
+totalTime="PT5M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["bash", "curl"]}
+supplies={["A macOS machine"]}
+visible={false}
+steps={[
+{
+name: "One-click install",
+text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
+url: "#one-click-install-keploy",
+},
+/* Homebrew install temporarily disabled — the keploy/tap formula has known issues being resolved. Re-enable this step (and the "Install with Homebrew" section below) once the tap is fixed.
+{
+name: "Install with Homebrew",
+text: "Run: brew install keploy/tap/keploy",
+url: "#install-with-homebrew",
+},
+*/
+]}
+/>
 
-1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Setup](#using-docker-desktop).
+The recommended way to install Keploy on macOS is the **one-click curl installer**. For users who need eBPF support, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
 
-## One click install Keploy.
+## One-click install Keploy
+
+Run the following command in your terminal:
 
 ```shell
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-## Using Docker Desktop
+<!--
+## Install with Homebrew
 
-Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must
+_Homebrew installation is temporarily disabled while we resolve known issues with the `keploy/tap` formula. Once fixed, this section will be restored._
+
+If you prefer [Homebrew](https://brew.sh/), install Keploy from the official Keploy tap:
+
+```shell
+brew install keploy/tap/keploy
+```
+
+Verify the install:
+
+```shell
+keploy --version
+```
+-->
+
+## Manual Setup
+
+For eBPF support on macOS, you can run Keploy through either **Docker Desktop** or **Colima**.
+
+### Using Docker Desktop
+
+Note: To run Keploy on macOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must
 be `4.25.2` or above.
 
-### Creating Docker Volume & Network
+#### Creating Docker Volume & Network
 
 We need to create debug volume to run Keploy using Docker-Desktop:
 
@@ -59,9 +103,9 @@ below.
 docker network create keploy-network
 ```
 
-## Using Colima
+### Using Colima
 
-### Install Colima
+#### Install Colima
 
 You need to have the latest version of `brew` installed on your system and then run this command from a terminal:
 
@@ -75,7 +119,7 @@ Start Colima with defaults
 colima start
 ```
 
-### Creating Alias
+#### Creating Alias
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.
@@ -87,7 +131,7 @@ below.
 docker network create keploy-network
 ```
 
-### Recording Testcases and Data Mocks
+#### Recording Testcases and Data Mocks
 
 Here are few points to consider before recording!
 
@@ -110,7 +154,7 @@ Make API Calls using Postman, or cURL commands.
 Keploy will capture the API calls you've conducted, generating test suites comprising **testcases (KTests) and data
 mocks (KMocks)** in `YAML` format.
 
-### Running Testcases
+#### Running Testcases
 
 Now, execute the testcases. Follow these steps in the **root directory** of your application.
 
