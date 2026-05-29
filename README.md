@@ -14,20 +14,20 @@ Repository for the Keploy documentation website.
 > To submit a new issue, please visit the [Keploy community forum](https://github.com/keploy/dashboard/issues) or the main repo’s issue tracker.
 
 <p align="center">
-<a href="https://github.com/keploy/docs" alt="GitHub contributors">
-<img src="https://img.shields.io/github/contributors/keploy/docs.svg" />
+<a href="https://github.com/keploy/docs" aria-label="GitHub contributors">
+<img src="https://img.shields.io/github/contributors/keploy/docs.svg" alt="GitHub contributors" />
 </a>
-<a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
-<img src="https://img.shields.io/github/issues/keploy/docs" />
+<a href="https://github.com/keploy/docs" aria-label="GitHub issues by-label">
+<img src="https://img.shields.io/github/issues/keploy/docs" alt="GitHub issues by-label" />
 </a>
 <a href="https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA" aria-label="Slack">
 <img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" alt="Slack" />
 </a>
-<a href="https://twitter.com/Keployio" alt="Twitter Follow">
-<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" />
+<a href="https://twitter.com/Keployio" aria-label="Twitter Follow">
+<img src="https://img.shields.io/twitter/follow/keploy.svg?label=Follow&style=social" alt="Twitter Follow" />
 </a>
-<a href="https://github.com/keploy/docs" alt="License">
-<img src="https://img.shields.io/github/license/keploy/docs.svg" />
+<a href="https://github.com/keploy/docs" aria-label="License">
+<img src="https://img.shields.io/github/license/keploy/docs.svg" alt="License" />
 </a>
 </p>
 
