@@ -10,6 +10,6 @@ tags:
 
 ## Contact Us
 
-If you have any questions or need help, please feel free to reach out to us at [hello@keploy.io](mailto:hello@keploy.io) or reach out us on
+If you have any questions or need help, please feel free to reach out to us at [hello@keploy.io](mailto:hello@keploy.io) or reach out to us on
 [![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA) or open a discussion on
 [![GitHub Issue](https://img.shields.io/badge/GitHub-%23FFFF.svg?style=for-the-badge&logo=GitHub&logoColor=black)](https://github.com/keploy/keploy)
