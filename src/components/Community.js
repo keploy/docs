@@ -7,7 +7,7 @@ const communityLinks = [
   {
     title: "Slack",
     desc: "Live support, discussions, and quick answers.",
-    href: "https://join.slack.com/t/keploy/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw",
+    href: "https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA",
     Icon: FaSlack,
     iconColor: "text-purple-600 dark:text-purple-400",
     bgColor: "bg-purple-100 dark:bg-purple-900/30",

@@ -322,7 +322,7 @@ export default function DocItem(props) {
                   </svg>
                 </a>
                 <a
-                  href="https://join.slack.com/t/keploy/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw"
+                  href="https://join.slack.com/t/keploy/shared_invite/zt-3zcnuqfgl-WYK1NMhslVHsCtNcA1ULwA"
                   aria-label="Slack"
                 >
                   <span
