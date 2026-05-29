@@ -2,7 +2,7 @@
 id: installation
 title: macOS Installation
 sidebar_label: macOS
-description: "Install Keploy on macOS with the one-click curl installer. Docker Desktop and Colima setups are also supported for eBPF testing."
+description: "Install Keploy on macOS with the one-click curl installer or Homebrew. Docker Desktop and Colima setups are also supported for eBPF testing."
 tags:
   - hello-world
   - macos
@@ -20,35 +20,40 @@ keywords:
   - guide
   - api
   - docker
+  - homebrew
+  - brew install keploy
 ---
 
 import HowTo from '@site/src/components/HowTo';
 
 <HowTo
 name="Install Keploy on macOS"
-description="Install the Keploy CLI on macOS using the one-click curl installer."
+description="Install the Keploy CLI on macOS using the one-click curl installer or Homebrew."
 totalTime="PT5M"
 estimatedCost={{currency: "USD", value: "0"}}
-tools={["bash", "curl"]}
+tools={["bash", "curl", "Homebrew (optional)"]}
 supplies={["A macOS machine"]}
 visible={false}
 steps={[
 {
-name: "One-click install",
+name: "One-click install (recommended)",
 text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
 url: "#one-click-install-keploy",
 },
-/* Homebrew install temporarily disabled — the keploy/tap formula has known issues being resolved. Re-enable this step (and the "Install with Homebrew" section below) once the tap is fixed.
 {
 name: "Install with Homebrew",
 text: "Run: brew install keploy/tap/keploy",
 url: "#install-with-homebrew",
 },
-*/
 ]}
 />
 
-The recommended way to install Keploy on macOS is the **one-click curl installer**. For users who need eBPF support, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
+There are two ways to install Keploy on macOS:
+
+1. **Recommended:** [One-click install](#one-click-install-keploy).
+2. [Install with Homebrew](#install-with-homebrew).
+
+For users who need eBPF support, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
 
 ## One-click install Keploy
 
@@ -58,10 +63,7 @@ Run the following command in your terminal:
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-<!--
 ## Install with Homebrew
-
-_Homebrew installation is temporarily disabled while we resolve known issues with the `keploy/tap` formula. Once fixed, this section will be restored._
 
 If you prefer [Homebrew](https://brew.sh/), install Keploy from the official Keploy tap:
 
@@ -74,7 +76,6 @@ Verify the install:
 ```shell
 keploy --version
 ```
--->
 
 ## Manual Setup
 
