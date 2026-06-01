@@ -1,19 +1,103 @@
 import React from "react";
 import Layout from "@theme/Layout";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import useBaseUrl from "@docusaurus/useBaseUrl";
+import Head from "@docusaurus/Head";
+
+// Custom React pages under src/pages/ are not covered by the docs schema
+// plugin — add Article + BreadcrumbList JSON-LD inline so the page is
+// machine-readable for search engines and AI crawlers.
+//
+// Site config sets `trailingSlash: true`, so canonical URLs in the JSON-LD
+// must carry the trailing slash to match the actual emitted href and avoid
+// duplicate URL variants in structured data.
+//
+// Single source of truth for the page's title and description: the Layout
+// `title`/`description` props, the visible H1, and the Article JSON-LD
+// `headline`/`description` all read from these constants. Previously the
+// page shipped Layout title "About the docs" / description "User General
+// Information about..." while the JSON-LD claimed headline "About the
+// Keploy Documentation" / a different description, which confuses snippet
+// generators and leaves rich-result text out of sync with the meta tags.
+const ABOUT_TITLE = "About the Keploy Documentation";
+const ABOUT_DESCRIPTION =
+  "Information about Keploy's documentation, contribution guidelines, and licensing.";
+
+// Derive every canonical URL from a single `SITE` + path constants instead
+// of hardcoding `https://keploy.io/docs/...` in each field — mirrors the
+// pattern in concepts/reference/glossary.js. If the domain or docs baseUrl
+// ever changes, the Article/BreadcrumbList structured data updates in one
+// place instead of going stale field-by-field.
+//
+// Site config sets `trailingSlash: true`, so paths that map to a page carry
+// a trailing slash to match the canonical href and avoid duplicate-URL
+// variants in structured data.
+const SITE = "https://keploy.io";
+const HOME_URL = `${SITE}/`;
+const DOCS_URL = `${SITE}/docs/`;
+const ABOUT_URL = `${SITE}/docs/about/`;
+const LOGO_URL = `${SITE}/docs/img/favicon.png`;
+
+const aboutStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: ABOUT_TITLE,
+    description: ABOUT_DESCRIPTION,
+    url: ABOUT_URL,
+    publisher: {
+      "@type": "Organization",
+      name: "Keploy",
+      logo: {
+        "@type": "ImageObject",
+        url: LOGO_URL,
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": ABOUT_URL,
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Home",
+        item: HOME_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Docs",
+        item: DOCS_URL,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "About",
+        item: ABOUT_URL,
+      },
+    ],
+  },
+];
 
 function About() {
-  const context = useDocusaurusContext();
-  const {siteConfig = {}} = context;
   return (
     <Layout
-      title="About the docs"
+      title={ABOUT_TITLE}
       permalink="/about"
-      description="User General Information about Keploy's Documentation"
+      description={ABOUT_DESCRIPTION}
     >
+      <Head>
+        {aboutStructuredData.map((schema, i) => (
+          <script key={i} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
+      </Head>
       <main className="margin-vert--lg container">
-        <h1>About the docs</h1>
+        <h1>{ABOUT_TITLE}</h1>
         <div className="margin-bottom--lg">
           <h2 id="latest">Documentation SLA</h2>
           <p>

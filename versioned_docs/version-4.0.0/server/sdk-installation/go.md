@@ -1,8 +1,8 @@
 ---
 id: go
-title: Merge Test Coverage Data — Go
+title: Keploy Go SDK — Install & Merge Test Coverage
 sidebar_label: Go
-description: "Merge Keploy and Go unit test coverage data — graceful shutdown setup, building with -cover flag, and combined reports."
+description: "Install the Keploy server SDK for Go and merge Keploy + Go unit-test coverage by enabling graceful shutdown, building with the -cover flag, and combining the reports for a unified view."
 tags:
   - go
   - coverage

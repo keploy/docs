@@ -13,6 +13,51 @@ keywords:
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Kubernetes Live Record & Replay with Keploy Proxy — record and replay tests with Keploy"
+description="Deploy a sample app to a local Kind cluster, connect it to the Keploy Dashboard, install the Keploy Proxy via Helm, then record live Kubernetes traffic and generate tests with AI."
+totalTime="PT15M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Docker", "Kind", "kubectl", "Helm", "git"]}
+visible={false}
+steps={[
+{
+name: "Install prerequisites and clone the sample app",
+text: "Install Docker, Kind, kubectl, and Helm, then clone the ecommerce sample app and check out the k8s branch (git checkout k8s).",
+},
+{
+name: "Create a Kind cluster",
+text: "Create a local Kubernetes cluster with kind create cluster --name ecommerce.",
+},
+{
+name: "Build and load Docker images",
+text: "Build the service images locally and load them into the Kind cluster with kind load docker-image, since the manifests use imagePullPolicy: Never.",
+},
+{
+name: "Deploy the application",
+text: "Apply the Kubernetes manifests with kubectl apply -f k8s/, wait until all pods are Running, then port-forward the API gateway (kubectl port-forward service/apigateway 8083:8083).",
+},
+{
+name: "Connect your cluster in the Keploy Dashboard",
+text: "In app.keploy.io, open Integration Testing → Clusters, add the cluster, and provide its name and ingress URL so the proxy can observe live traffic.",
+},
+{
+name: "Install the Keploy Proxy via Helm",
+text: "Run the Helm command shown in the dashboard to install the Keploy Proxy into the keploy namespace, then port-forward svc/k8s-proxy (kubectl port-forward -n keploy svc/k8s-proxy 8080:8080).",
+},
+{
+name: "Record live traffic",
+text: "Click Start Recording in the dashboard for the apigateway pod and send requests to capture live Kubernetes traffic as testcases and mocks.",
+},
+{
+name: "Generate tests with AI",
+text: "Use \"Use AI for Tests\" in the dashboard to expand coverage from the recorded traffic, then review the accepted, buggy, and rejected test suites.",
+},
+]}
+/>
+
 # Kubernetes Live Record & Replay using Keploy Proxy
 
 import ProductTier from '@site/src/components/ProductTier';

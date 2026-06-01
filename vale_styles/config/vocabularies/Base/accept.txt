@@ -99,6 +99,8 @@ JaCoCo
 JBehave
 Jersey
 JMeter
+KMocks
+KTests
 json_contains
 json_equal
 json_path
@@ -152,6 +154,7 @@ replaysessions
 Reqnroll
 runner
 runner-mode
+Sanic
 SDK
 secretKeyRef
 ServiceAccount[s]?

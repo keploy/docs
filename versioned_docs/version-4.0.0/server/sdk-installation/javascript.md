@@ -1,7 +1,8 @@
 ---
 id: javascript
-title: Merge Unit and Keploy Test Coverage Data
+title: Keploy JavaScript SDK — Install & Merge Test Coverage
 sidebar_label: JavaScript
+description: "Install the Keploy server SDK for JavaScript/Node and merge Keploy + Jest unit-test coverage into a single combined integration and unit-test report."
 tags:
   - javascript
   - js
@@ -19,7 +20,6 @@ keywords:
   - IoT.js
   - tap
   - Typescript
-description: "Merge Keploy and JavaScript unit test coverage using nyc — combine integration and unit test reports for full visibility."
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
