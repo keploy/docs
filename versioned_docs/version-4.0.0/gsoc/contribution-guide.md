@@ -45,7 +45,7 @@ To get started with GSoC and Keploy, follow these steps:
    applications. You can refer the docs.
 2. You can then check out the [projects](#projects-in-gsoc-2023) that are selected for GSoC 2023 and try completing the tasks in the
    task list. Remember, the tasks will act as a selection criteria for shortlisting candidates.
-3. You can connect with the mentors over slack to clear any of your doubts.
+3. You can connect with the mentors over [Slack](https://keploy.io/slack) to clear any of your doubts.
 4. Submit your proposal and that's it!
 
 ## Projects in GSoC 2023

@@ -112,7 +112,7 @@ Happy testing! 🧪🔍💻
 
 > **Note** :- Run `go run github.com/99designs/gqlgen generate --config pkg/graph/gqlgen.yml` to generate the graphql server stubs which can be used when working with unit testing libraries like JUnit, PyTest, etc..
 
-Hope this helps you out, if you still have any questions, reach out to us on [slack](https://keploy.slack.com/join/shared_invite/zt-3yxf6lxky-Y1OdbFoJsvQt0P0ncoFQaw) .
+Hope this helps you out, if you still have any questions, reach out to us on [slack](https://keploy.io/slack) .
 
 ## Installing the Open Source Build
 
