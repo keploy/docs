@@ -193,6 +193,6 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 - Confirm the supported protocols (currently HTTP/REST and GraphQL).
 - Consider alternative tools or frameworks for unsupported protocols.
 
-If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack)
+If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!
