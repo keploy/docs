@@ -2,7 +2,7 @@
 id: k8s-proxy-llm-workflow
 title: Developer + LLM Workflow with Keploy Proxy
 sidebar_label: LLM Workflow
-description: Wire up Keploy's MCP server, paste a single autonomous playbook into your editor, and run the whole Keploy workflow with exactly two developer prompts—the LLM does everything else.
+description: Wire up Keploy's MCP server, paste a single autonomous playbook into your editor, and run the whole Keploy workflow with two routine prompts (failing-replay analyze-and-fix; add-tests-for-my-changes)—the LLM does everything else.
 tags:
   - K8s
   - Developer Workflow
@@ -30,7 +30,7 @@ keywords:
 
 Save this playbook as an **agent skill**, not a static rules file. Cursor's modern Skills mechanism (and Claude Code's identical `SKILL.md` convention) loads the file on demand when the user issues one of the two prompts below, instead of injecting it as always-on context. That keeps every other unrelated agent task out of this playbook's token cost.
 
-- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~8k-token playbook on every editor interaction.
+- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~9k-token playbook on every editor interaction.
 - **Claude Code:** create `.claude/skills/keploy/SKILL.md` and paste the rest of this page into it. The agent invokes it automatically when the developer's prompt matches one of the entry points below.
 - **Other agents (Windsurf, Antigravity, …):** create the equivalent skill / project-context file. Avoid global / always-on placements for the same token-cost reason.
 
@@ -318,7 +318,7 @@ Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
 
 **Capture:**
 
-1. Run `keploy record -c "<dev run command>" --sync --disable-mapping=false` via Bash. The `-c` value is the exact command from your pre-flight; `--sync` records test cases synchronously so each curl is captured in order with no race against the next one; **`--disable-mapping=false` is MANDATORY** — without it, the host inherits `keploy.yml`'s `disableMapping: true` (the auto-generated default), the agent silently skips writing `mappings.yaml`, and the uploaded bundle lands in mongo with no `mapping_audits` doc → `getMockMapping` returns empty `mocks: []` for every test case → replay matcher falls back to fragile timestamp-windows. Cloud association happens in Phase B3's upload step, not here — `keploy record` itself is the local OSS command and doesn't take `--cloud-app-id`.
+1. Run `keploy record -c "<dev run command>" --sync --disable-mapping=false` via Bash. The `-c` value must be the **foreground** form of the run command — if your pre-flight used the detached/background form (e.g. `docker compose up -d`), pass the foreground variant here (`docker compose up`, no `-d`). Detached commands return immediately on launch and keploy treats the early exit as "app stopped", capturing nothing. `--sync` records test cases synchronously so each curl is captured in order with no race against the next one; **`--disable-mapping=false` is MANDATORY** — without it, the host inherits `keploy.yml`'s `disableMapping: true` (the auto-generated default), the agent silently skips writing `mappings.yaml`, and the uploaded bundle lands in mongo with no `mapping_audits` doc → `getMockMapping` returns empty `mocks: []` for every test case → replay matcher falls back to fragile timestamp-windows. Cloud association happens in Phase B3's upload step, not here — `keploy record` itself is the local OSS command and doesn't take `--cloud-app-id`.
 2. For each new/changed endpoint, drive ONE realistic curl. Infer body shape from the OpenAPI spec if there is one, otherwise from the handler signature itself.
 3. Stop `keploy record` (kill the PID you captured at step 1, or send Ctrl-C equivalent).
 4. The recording lands at `keploy/test-set-N/` on disk.
