@@ -24,17 +24,83 @@ keywords:
   - autonomous agent
 ---
 
-# Keploy MCP playbook—autonomous developer workflow
+# Developer + LLM Workflow with Keploy Proxy
 
-## Installation
+The [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page walks through the manual flow end-to-end — creating a branch, editing mocks and test cases, replaying changes, opening a PR, merging. Every step has an MCP tool behind it. This page goes one step further: install the playbook below as an **agent skill** (Cursor, Claude Code, or any Skills-aware editor) and you only ever say **one of two things** to the agent. It handles the rest.
 
-Save this playbook as an **agent skill**, not a static rules file. Cursor's modern Skills mechanism (and Claude Code's identical `SKILL.md` convention) loads the file on demand when the user issues one of the two prompts below, instead of injecting it as always-on context. That keeps every other unrelated agent task out of this playbook's token cost.
+The two routine prompts are:
 
-- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~9k-token playbook on every editor interaction.
-- **Claude Code:** create `.claude/skills/keploy/SKILL.md` and paste the rest of this page into it. The agent invokes it automatically when the developer's prompt matches one of the entry points below.
-- **Other agents (Windsurf, Antigravity, …):** create the equivalent skill / project-context file. Avoid global / always-on placements for the same token-cost reason.
+1. **"my keploy cloud replay is failing, please analyze and fix it."** — for a local replay that came back red (agent fetches the latest report from the api-server). Say **"the keploy cloud replay pipeline is failing, please analyze and fix it."** when the failure was in CI — agent extracts the `test_run_id` from your CI log instead. Same diagnose-and-fix routine either way.
+2. **"Add new keploy tests for my changes."**
 
-The MCP server itself is configured separately — see the [agent test generation MCP setup](/docs/running-keploy/agent-test-generation#mcp-client-configuration) for the Cursor / Claude Code MCP entries that wire `https://api.keploy.io/client/v1/mcp` into your client.
+The agent discovers the app, resolves the Keploy branch, finds the failing run, reads the diff, decides whether the tests need updating or the app has regressed, applies the fix (a code change to the handler, or a test update on the Keploy branch), re-runs replay, and reports back — without follow-up questions. CI still owns the merge.
+
+This page has three parts:
+
+1. **[Before you start](#before-you-start)** — prerequisites.
+2. **[Step 1 — Wire up the Keploy MCP server](#step-1--wire-up-the-keploy-mcp-server)** — one-time JSON config in your editor.
+3. **[Step 2 — Install the playbook](#step-2--install-the-playbook)** — paste a single block into your agent's Skills directory; it loads automatically whenever the agent sees a Keploy-related prompt.
+
+This page picks up after two one-time setups are already done: the application is [recording in your cluster](/docs/quickstart/k8s-proxy), and the [CI pipeline](/docs/quickstart/k8s-proxy-developer-workflow#wiring-up-your-ci-pipeline) (replay on PR open, branch-merge on PR merge) is wired into your repo as instructed on the Developer Workflow page. The agent only drives the dev-side loop — it never touches CI.
+
+---
+
+## Before you start
+
+- A **Keploy PAT** — Dashboard → Settings → API Keys. Copy the `kep_...` value (shown only once).
+- A **Skills-aware editor**: Cursor (cursor-agent CLI / Cursor IDE), Claude Code, Windsurf, Antigravity, or any agent that loads `.../skills/<name>/SKILL.md` on demand. Older `.cursorrules` / `.windsurfrules` always-on rules files work too but bill the full ~9k-token playbook on every editor interaction — Skills are the modern, on-demand path and what this page recommends.
+
+---
+
+## Step 1 — Wire up the Keploy MCP server
+
+All MCP-aware editors accept the exact same JSON config; only the config file path differs. The Claude Code snippet is shown below as the example; for the equivalent config paths on Cursor, Windsurf / Antigravity, GitHub Copilot, and other clients, see [MCP Client Configuration](/docs/running-keploy/agent-test-generation#mcp-client-configuration) on the Agent Test Generation page — the same JSON shape works there.
+
+**Claude Code** uses `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "keploy": {
+      "type": "http",
+      "url": "https://api.keploy.io/client/v1/mcp",
+      "headers": {"Authorization": "Bearer kep_..."}
+    }
+  }
+}
+```
+
+Fully quit and reopen your editor after editing the config — MCP clients only re-read config on startup.
+
+---
+
+## Step 2 — Install the playbook
+
+The playbook below teaches your agent to run the whole workflow autonomously from the two routine prompts. Without it, the agent has to rediscover the workflow on every call by reading each tool's individual description — slower and prone to skipping the branch-resolution step.
+
+The exact same block works on every Skills-aware editor; only the file path changes. Skills are loaded on demand when the user's prompt matches the skill's `description` — so the playbook only enters your context when actually needed, not on every editor interaction.
+
+### Where the playbook goes
+
+| Editor                                           | Install path                                                                                                                                                                        |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cursor**                                       | `.cursor/skills/keploy/SKILL.md` in the repo (committed). Do **not** use `.cursorrules` — that's the always-on legacy format and would bill the full playbook on every editor turn. |
+| **Claude Code**                                  | `.claude/skills/keploy/SKILL.md` in the repo (committed) **or** `~/.claude/skills/keploy/SKILL.md` (global). Auto-loaded when the dev's prompt matches the skill's `description`.   |
+| **Windsurf / Antigravity / other Skills agents** | The agent's equivalent `skills/<name>/SKILL.md` path. Avoid global / always-on placements (`.windsurfrules`, etc.) for the same token-cost reason.                                  |
+
+Commit the file when you want every teammate's agent to follow the same playbook. After saving, **fully restart the editor** — every editor reads skills only at startup.
+
+### The playbook
+
+Use the copy button on the block below and paste it into the file at the path you picked above. The first `---`-delimited section is the YAML frontmatter Skills-aware editors read to decide when to auto-load the skill; keep it intact.
+
+````markdown
+---
+name: keploy
+description: Use this skill whenever the dev mentions keploy — a failing "cloud replay" (local or CI pipeline), a request to "add new keploy tests" or similar, or any Keploy MCP tool. Drives the autonomous Keploy branch workflow end-to-end from two fixed dev prompts — agent resolves app + branch, diagnoses failing runs (local or CI), fixes mocks/tests on a branch, captures new traffic, and validates without follow-up questions.
+---
+
+# Keploy MCP playbook — autonomous developer workflow
 
 ## Entry points
 
@@ -391,3 +457,4 @@ Everything else—what failed and why, which mock to update, what test-set name 
 - **Inventing a PAT, branch name, or secret value.**
 - **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and gets re-added to context on every subsequent turn — pure waste.
 - **Reading `keploy/cloud-debug.log`, `keploy-logs.txt`, or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.
+````
