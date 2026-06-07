@@ -61,16 +61,39 @@ All three values are sticky for the rest of the conversation. Don't re-discover 
 
 The goal of this phase is exactly one thing: produce a `test_run_id` you can pass to `getTestReportFull` in Phase A2. Pick how you get it based on the form of Prompt A:
 
-- **Local form** ("my keploy cloud replay is failing…") → call `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})` **EXACTLY ONCE**. Pick `data[0]` (newest first by `created_at`) and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation — `keploy cloud replay` uploads its report into the legacy `/tr` collection, which is what `listTestReports` queries. **Do NOT retry with different status / source / branch_id permutations** if the first call returns empty — that wastes context on calls that will all return the same empty set (the run genuinely doesn't exist on this branch yet; tell the dev to run `keploy cloud replay` first). `status` is CASE-SENSITIVE — use the exact value `"FAILED"`, not `"failed"` or `"Failed"`. Use `getTestReport({appId: app_id, reportId: test_run_id})` for a cheap roll-up probe before pulling the full report only when the full report is going to be large.
+- **Local form** ("my keploy cloud replay is failing…") → call `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})` **EXACTLY ONCE for the whole session**. Pick `data[0]` (newest first by `created_at`) and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation — `keploy cloud replay` uploads its report into the legacy `/tr` collection. **Do NOT retry with different status / source / branch_id permutations** if the first call returns empty. **Do NOT re-call after your own `keploy cloud replay` finishes** — the final replay's stdout already shows the new `test_run_id` in its `View test report at: …/tr/<id>` line; parse the URL instead of re-querying. `status` is CASE-SENSITIVE — use the exact value `"FAILED"`, not `"failed"` or `"Failed"`. Use `getTestReport({appId: app_id, reportId: test_run_id})` for a cheap roll-up probe only when the full report is going to be large.
 - **CI form** ("the keploy cloud replay pipeline is failing…") → the dev usually pastes a CI log URL or dashboard URL. Extract `test_run_id` from it. If they didn't paste anything, fall back to the local-form lookup above—a CI failure posts the same legacy test-run-report record to the api-server, so the latest-failed lookup still finds it. Use `source: "ci"` on the list call to scope to runs that carry CI metadata.
 
 Either way, Phase A2 onward is identical—same `getTestReportFull` call, same routes, same fixes.
 
 ### Phase A2—Fetch the full report
 
-Call `getTestReportFull({appId: app_id, reportId: test_run_id, fields: ["failed_steps[].diff", "mock_mismatches", "status", "ci_metadata"]})`. The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`) per the spec, while its **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`); pass each one with the literal name the spec declares.
+Call `getTestReportFull` with a projection that includes EVERYTHING you will need for Phase A3 diagnosis — in one call. The canonical projection covers status + CI metadata + per-case identity + per-case diff + per-case mock mismatches + noise paths:
 
-**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards. Defaults for the other params return roll-up + every test set + every per-case diff in one round-trip. Read:
+```
+getTestReportFull({
+  appId: app_id,
+  reportId: test_run_id,
+  fields: [
+    "status",
+    "ci_metadata",
+    "failed_steps[].diff",
+    "mock_mismatches",
+    "test_sets[].name",
+    "test_sets[].id",
+    "test_sets[].test_cases[].name",
+    "test_sets[].test_cases[].status",
+    "test_sets[].test_cases[].oss_report.req",
+    "test_sets[].test_cases[].oss_report.result",
+    "test_sets[].test_cases[].oss_report.mock_mismatches",
+    "test_sets[].test_cases[].oss_report.noise"
+  ]
+})
+```
+
+The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+
+**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards. **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that re-bills every subsequent turn for the rest of the session.** Read:
 
 - `report.status`—`FAILED` is your trigger to continue.
 - `report.ci_metadata`—when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
