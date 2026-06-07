@@ -49,7 +49,7 @@ You handle EVERYTHING else autonomously. Discover the app, the branch, the faili
 
 1. **App.** `basename $(pwd)` → `listApps({q: <basename>})` → pick the unambiguous match. Cache `app_id` for the session.
 2. **Branch.** `git rev-parse --abbrev-ref HEAD` → `create_branch({app_id, name: <git branch>})` → cache `branch_id`. If `git rev-parse` returns `HEAD` or exits non-zero, ask the dev for a branch name ONCE.
-3. **App context (optional, only when you need cluster/ns/deployment).** `getApp({appId: app_id, fields: ["name","namespace","deployment","origin.clusterName","origin.namespace","origin.deployment"]})`. The full app schema is ~16k tokens; the projected response is ~300 tokens. **Call this AT MOST ONCE per session.** The returned identity fields are sticky — hold them mentally, do not re-call `getApp` later in the conversation for the same `app_id`.
+3. **App context — MANDATORY before any `keploy cloud replay` invocation** (Phase A4 OR Phase B4). `getApp({appId: app_id, fields: ["name","namespace","deployment","origin.clusterName","origin.namespace","origin.deployment"]})`. The full app schema is ~16k tokens; the projected response is ~300 tokens. **Call this AT MOST ONCE per session.** The returned identity fields are sticky — hold them mentally, do not re-call `getApp` later in the conversation for the same `app_id`. **You CANNOT issue `keploy cloud replay` without first resolving `origin.clusterName` here — the CLI requires `--cluster <name>` and the error it returns when the flag is missing (`no active clusters found`) is misleading; it actually means "you forgot `--cluster`".**
 
 All three values are sticky for the rest of the conversation. Don't re-discover unless the dev switches git branches. Re-calling `getApp` mid-session is an anti-pattern — its 16k schema lives in your context for every subsequent step regardless of whether you ask for it again.
 
@@ -285,7 +285,7 @@ keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <
   | grep -E "Total test|Failed Testcases|test passed|test failed|FAIL|ERROR|debug bundle|View test report"
 ```
 
-`--cluster` is mandatory — resolve from the `getApp` call you made in Discovery (you cached `origin.clusterName`; do NOT re-call `getApp`). `--disableReportUpload=false` is mandatory too — OAuth CLIs default it to `true` which silently skips the `/tr` report upload. Pipe through `tail`/`grep` for the same context-cost reason as Phase A4.
+`--cluster` is mandatory — resolve from the `getApp` call you made in Discovery (you cached `origin.clusterName`; do NOT re-call `getApp`). **If you skipped Discovery step 3 because Routine B "starts at git diff" — go back and call `getApp` NOW before replay. Without `--cluster`, the CLI dies with `no active clusters found`, which sounds like "no cluster is running" but actually means "you forgot the flag".** `--disableReportUpload=false` is mandatory too — OAuth CLIs default it to `true` which silently skips the `/tr` report upload. Pipe through `tail`/`grep` for the same context-cost reason as Phase A4.
 
 If anything failed, enter Routine A from Phase A2—the diagnosis routine handles it.
 
