@@ -252,7 +252,7 @@ Multiple failing test cases can land in different cases—handle each independen
 
 ### Phase A4—Verify
 
-**After a Case 1 source edit, rebuild the app's docker image BEFORE replay.** Cloud replay doesn't compile — it uses whatever's currently tagged for the manifest's image ref on the local Docker daemon. Resolve the tag from replay logs (`"Using deployment image": "<repo>:<tag>"`) or `getRecording`/`listRecordings` `resources`, then:
+**After a Case 1 source edit, rebuild the app's docker image BEFORE replay.** Cloud replay doesn't compile — it uses whatever image is currently tagged for the manifest's image ref on the local Docker daemon. Resolve the tag from replay logs (`"Using deployment image": "<repo>:<tag>"`) or `getRecording`/`listRecordings` `resources`, then:
 
 ```bash
 docker build -t <manifest-image-tag> <build-context-dir>
