@@ -24,17 +24,87 @@ keywords:
   - autonomous agent
 ---
 
-# Keploy MCP playbook—autonomous developer workflow
+# Developer + LLM Workflow with Keploy Proxy
 
-## Installation
+import ProductTier from '@site/src/components/ProductTier';
 
-Save this playbook as an **agent skill**, not a static rules file. Cursor's modern Skills mechanism (and Claude Code's identical `SKILL.md` convention) loads the file on demand when the user issues one of the two prompts below, instead of injecting it as always-on context. That keeps every other unrelated agent task out of this playbook's token cost.
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~9k-token playbook on every editor interaction.
-- **Claude Code:** create `.claude/skills/keploy/SKILL.md` and paste the rest of this page into it. The agent invokes it automatically when the developer's prompt matches one of the entry points below.
-- **Other agents (Windsurf, Antigravity, …):** create the equivalent skill / project-context file. Avoid global / always-on placements for the same token-cost reason.
+The [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page walks through the manual flow end-to-end — creating a branch, editing mocks and test cases, replaying changes, opening a PR, merging. Every step has an MCP tool behind it. This page goes one step further: install the playbook below as an **agent skill** (Cursor, Claude Code, or any Skills-aware editor) and you only ever say **one of two things** to the agent. It handles the rest.
 
-The MCP server itself is configured separately — see the [agent test generation MCP setup](/docs/running-keploy/agent-test-generation#mcp-client-configuration) for the Cursor / Claude Code MCP entries that wire `https://api.keploy.io/client/v1/mcp` into your client.
+The two routine prompts are:
+
+1. **"my keploy cloud replay is failing, please analyze and fix it."** — for a local replay that came back red (agent fetches the latest report from the api-server). Say **"the keploy cloud replay pipeline is failing, please analyze and fix it."** when the failure was in CI — agent extracts the `test_run_id` from your CI log instead. Same diagnose-and-fix routine either way.
+2. **"Add new keploy tests for my changes."**
+
+The agent discovers the app, resolves the Keploy branch, finds the failing run, reads the diff, decides whether the tests need updating or the app has regressed, applies the fix (a code change to the handler, or a test update on the Keploy branch), re-runs replay, and reports back — without follow-up questions. CI still owns the merge.
+
+This page has three parts:
+
+1. **[Before you start](#before-you-start)** — prerequisites.
+2. **[Step 1 — Wire up the Keploy MCP server](#step-1--wire-up-the-keploy-mcp-server)** — one-time JSON config in your editor.
+3. **[Step 2 — Install the playbook](#step-2--install-the-playbook)** — paste a single block into your agent's Skills directory; it loads automatically whenever the agent sees a Keploy-related prompt.
+
+This page picks up after two one-time setups are already done: the application is [recording in your cluster](/docs/quickstart/k8s-proxy), and the [CI pipeline](/docs/quickstart/k8s-proxy-developer-workflow#wiring-up-your-ci-pipeline) (replay on PR open, branch-merge on PR merge) is wired into your repo as instructed on the Developer Workflow page. The agent only drives the dev-side loop — it never touches CI.
+
+---
+
+## Before you start
+
+- A **Keploy PAT** — Dashboard → Settings → API Keys. Copy the `kep_...` value (shown only once).
+- A **Skills-aware editor**: Cursor (cursor-agent CLI / Cursor IDE), Claude Code, Windsurf, Antigravity, or any agent that loads `.../skills/<name>/SKILL.md` on demand. Older `.cursorrules` / `.windsurfrules` always-on rules files work too but bill the full ~9k-token playbook on every editor interaction — Skills are the modern, on-demand path and what this page recommends.
+
+---
+
+## Step 1 — Wire up the Keploy MCP server
+
+All MCP-aware editors accept the exact same JSON config; only the config file path differs. The Claude Code snippet is shown below as the example; for the equivalent config paths on Cursor, Windsurf / Antigravity, GitHub Copilot, and other clients, see [MCP Client Configuration](/docs/running-keploy/agent-test-generation#mcp-client-configuration) on the Agent Test Generation page — the same JSON shape works there.
+
+**Claude Code** uses `~/.claude.json`:
+
+```json
+{
+  "mcpServers": {
+    "keploy": {
+      "type": "http",
+      "url": "https://api.keploy.io/client/v1/mcp",
+      "headers": {"Authorization": "Bearer kep_..."}
+    }
+  }
+}
+```
+
+Fully quit and reopen your editor after editing the config — MCP clients only re-read config on startup.
+
+---
+
+## Step 2 — Install the playbook
+
+The playbook below teaches your agent to run the whole workflow autonomously from the two routine prompts. Without it, the agent has to rediscover the workflow on every call by reading each tool's individual description — slower and prone to skipping the branch-resolution step.
+
+The exact same block works on every Skills-aware editor; only the file path changes. Skills are loaded on demand when the user's prompt matches the skill's `description` — so the playbook only enters your context when actually needed, not on every editor interaction.
+
+### Where the playbook goes
+
+| Editor                                           | Install path                                                                                                                                                                        |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cursor**                                       | `.cursor/skills/keploy/SKILL.md` in the repo (committed). Do **not** use `.cursorrules` — that's the always-on legacy format and would bill the full playbook on every editor turn. |
+| **Claude Code**                                  | `.claude/skills/keploy/SKILL.md` in the repo (committed) **or** `~/.claude/skills/keploy/SKILL.md` (global). Auto-loaded when the dev's prompt matches the skill's `description`.   |
+| **Windsurf / Antigravity / other Skills agents** | The agent's equivalent `skills/<name>/SKILL.md` path. Avoid global / always-on placements (`.windsurfrules`, etc.) for the same token-cost reason.                                  |
+
+Commit the file when you want every teammate's agent to follow the same playbook. After saving, **fully restart the editor** — every editor reads skills only at startup.
+
+### The playbook
+
+Use the copy button on the block below and paste it into the file at the path you picked above. The first `---`-delimited section is the YAML frontmatter Skills-aware editors read to decide when to auto-load the skill; keep it intact.
+
+````markdown
+---
+name: keploy
+description: Use this skill whenever the dev mentions keploy — a failing "cloud replay" (local or CI pipeline), a request to "add new keploy tests" or similar, or any Keploy MCP tool. Drives the autonomous Keploy branch workflow end-to-end from two fixed dev prompts — agent resolves app + branch, diagnoses failing runs (local or CI), fixes mocks/tests on a branch, captures new traffic, and validates without follow-up questions.
+---
+
+# Keploy MCP playbook — autonomous developer workflow
 
 ## Entry points
 
@@ -391,3 +461,108 @@ Everything else—what failed and why, which mock to update, what test-set name 
 - **Inventing a PAT, branch name, or secret value.**
 - **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and gets re-added to context on every subsequent turn — pure waste.
 - **Reading `keploy/cloud-debug.log`, `keploy-logs.txt`, or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.
+````
+
+Save the file and fully restart your editor so the skill is available in your next session.
+
+---
+
+## Step 3 — Use the two prompts
+
+That's it. From now on, you only ever type one of:
+
+> **"my keploy cloud replay is failing, please analyze and fix it."**
+
+_or, when the failure was in CI:_
+
+> **"the keploy cloud replay pipeline is failing, please analyze and fix it."**
+
+or
+
+> **"Add new keploy tests for my changes."**
+
+What happens behind the scenes for each:
+
+### Prompt A — analyze and fix a failing replay (local or CI)
+
+| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A0    | Discovery — resolve `app_id` from `basename $(pwd)` + `listApps`, `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`, and cluster identity from `getApp` (cached for the session so `keploy cloud replay --cluster <name>` resolves without an active heartbeat).                                                                                                                                                                                                                                                                                                                                                                                |
+| A1    | Get a `test_run_id`. Local form → `listTestReports({appId, branch_id, status: "FAILED", limit: 5})` exactly once, take the newest id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup if nothing was pasted).                                                                                                                                                                                                                                                                                                                                                                                      |
+| A2    | Fetch the full report via `getTestReportFull` with a `fields=[...]` projection (full report is ~34k tokens; projection brings it to ~5k). Read status, per-test-case `oss_report.req`/`.result`/`.failure_info`, and — for Case-2b mock work — a second projected call with `mock_mismatches_only=true` to surface the affected mock IDs.                                                                                                                                                                                                                                                                                                                          |
+| A3    | Per failing test case, decide **Case 1** (bug in the app — uncommitted edit or recent commit broke it; baseline still correct) or **Case 2** (app behavior drifted intentionally — recorded baseline is stale, with sub-actions **2a noise** / **2a response edit** / **2b mock patch** / **2b recapture**). Decision uses `git status` + `git diff` + commit-message check + the report's `mock_mismatches` — never a dev question.                                                                                                                                                                                                                               |
+| A4    | Apply the fix. **Case 1**: announce file:line, edit the handler code, rebuild the docker image (`docker build -t <tag> <ctx>`), then replay. **Case 2a**: `updateTestCase` MCP — either add the noisy JSONPath to the case's `noise` map, or update the recorded response body. **Case 2b-patch**: `keploy mock patch` CLI (re-derives `sql_ast_hash` for PostgresV3 — don't use MCP `update_mock` for postgres, the hash is stale). **Case 2b-recapture**: only when patching can't fix it — `keploy record` + `keploy upload test-set` + `delete_recording`, in that order. Re-run `keploy cloud replay --cluster <name> --disableReportUpload=false` to verify. |
+| A5    | Report: diagnosis table (case per failing test) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+
+### Prompt B — author new keploy tests
+
+| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| B0    | Discovery (same as A0).                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| B1    | `git diff origin/main...HEAD --name-only` to find handler files that changed; extract added/modified endpoints with method + path.                                                                                                                                                                                                                                                                                                                                                                                                                 |
+| B2    | Pre-flight: discover the dev's run command from the repo (Makefile → docker-compose.yml → Procfile → package.json → README), start the app, curl any 200-returning endpoint to confirm it's serving traffic, stop it cleanly. Then run `keploy record -c "<foreground run cmd>" --sync --disable-mapping=false`, drive a realistic curl per new endpoint, send SIGINT to flush. The `--disable-mapping=false` flag is mandatory — without it the uploaded bundle lands in mongo with no `mapping_audits` doc and replay can't link cases to mocks. |
+| B3    | `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N --name <descriptive-name>` to land the bundle on the Keploy branch.                                                                                                                                                                                                                                                                                                                                                                               |
+| B4    | `keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <name> --disableReportUpload=false` to validate. On failure, drop into Routine A from Phase A2.                                                                                                                                                                                                                                                                                                                                                                    |
+| B5    | Report: captured endpoints table + replay result + next-step (open PR) + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                                                                                                         |
+
+For everything not covered by these two prompts — manually inspecting test data, editing one mock by hand, listing recordings — use the manual flow on the [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page directly. The two-prompt workflow handles the 90% case; the manual flow is the escape hatch.
+
+---
+
+## Putting it together
+
+Here are the typical scenarios the agent handles — one per case it decides between. Every one starts with the same two-prompt UX and ends with the dev pushing once CI catches up. The variable bit is what the agent does in the middle.
+
+### Scenario 1 — App regression (Case 1)
+
+You merged a refactor that accidentally broke the price calculation on `/orders/{id}`. The test still expects the right total.
+
+> _"my keploy cloud replay is failing, please analyze and fix it."_
+
+A0 → A1 (latest failed run) → A2 (report shows `total_amount: 0` vs expected `99.99`). A3 sees your recent commit on the price-calc helper, no uncommitted edits, and the test's authored response is still correct → **Case 1**. A4 announces the edit at `pkg/order/calc.go:42` — restoring the line-item subtotal branch — applies the fix, rebuilds the image, and re-runs replay (green). A5 reports the edit + URLs.
+
+### Scenario 2 — Test data drift on the response (Case 2a, response edit)
+
+You renamed a response field from `username` to `display_name` on `/users/{id}` on purpose. CI replay now fails because the recorded response still says `username`.
+
+> _"the keploy cloud replay pipeline is failing, please analyze and fix it."_
+
+A3 sees the rename commit and the recorded baseline pinned to `username` → **Case 2a**. A4 calls `updateTestCase` to swap the field name on the recorded response, re-runs replay (green). A5 reports the test edit + URLs.
+
+### Scenario 3 — Test data drift, non-deterministic field (Case 2a, noise)
+
+The replay started failing on `$.created_at` — a timestamp that differs each run. No code changes near it.
+
+> _"my keploy cloud replay is failing, please analyze and fix it."_
+
+A3 sees the diverging field is genuinely time-varying with no related commit → **Case 2a (noise)**. A4 calls `updateTestCase` to add `$.created_at` to that step's noise list; replay re-runs green.
+
+### Scenario 4 — Mock drift from a DB query change (Case 2b, patch)
+
+You added a `discount_percent` column to the orders table and updated the `SELECT` to return it. The handler emits the new field, the test expects it, but the recorded mock for the DB call still has the old shape.
+
+> _"my keploy cloud replay is failing, please analyze and fix it."_
+
+A3 sees the schema-change commit and `mock_mismatches` on the SELECT row → **Case 2b-patch**. A4 calls `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <ts> --mock-id <name> --mock-yaml-file <path>` (the CLI re-derives `sql_ast_hash` from the patched `sql_normalized` before sending — MCP `update_mock` can't do that and would write a stale hash). Replay re-runs green.
+
+### Scenario 5 — Mock too far gone, full re-record (Case 2b, recapture)
+
+A downstream gRPC client was swapped for HTTP; the recorded mocks are protobuf bytes that no longer apply.
+
+> _"my keploy cloud replay is failing, please analyze and fix it."_
+
+A3 → **Case 2b**. A4 tries one or two `keploy mock patch` edits — they don't pass because the call graph itself moved, not just field values. The agent falls back to **2b-recapture**: `keploy record -c "<run cmd>" --sync --disable-mapping=false`, drive the curls, `keploy upload test-set --branch <git branch>`, **then** `delete_recording` on the stale set (in that order — delete-first would leave the branch at zero coverage and the next replay would "pass" trivially). Replay re-runs green.
+
+### Scenario 6 — Adding tests for a new endpoint (Routine B)
+
+You added `POST /coupons/redeem`.
+
+> _"Add new keploy tests for my changes."_
+
+B0 → B1 (`git diff origin/main...HEAD --name-only` surfaces the new route). B2 pre-flight: agent finds `make run` in the Makefile, brings the app up, `curl /health` returns 200, stops it. Then `keploy record -c "make run" --sync --disable-mapping=false`, curls `POST /coupons/redeem` with a realistic body, sends SIGINT to flush. B3 uploads via `keploy upload test-set --app <ns.deployment> --branch <git branch> --name coupons-redeem`. B4 replay returns 1/1 passed. B5 reports the captured endpoint + URLs.
+
+---
+
+Across every scenario, you only ever spoke one of two sentences. You push your code change (and, for Case 1, the agent's app-side edit). CI replays the branch on the PR; merge runs `keploy cloud branch-merge` and the test data lands on main.
+
+For the same flow done manually (CLI / dashboard, no agent), see [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow).
