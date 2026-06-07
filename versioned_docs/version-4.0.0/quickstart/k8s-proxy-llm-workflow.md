@@ -228,13 +228,13 @@ Detect this case from the report's `mock_mismatches`:
 - `expected_mocks` lists the calls the recording has mocks for.
 - **If `actual_mocks` contains entries with no match in `expected_mocks`** (e.g. a `SELECT … FOR UPDATE` query that doesn't appear in any recorded mock's `sqlNormalized`), the bundle is missing an entry. Skip the patch ladder and go directly to **2b-recapture** — that is the only path that can introduce a new mock entry without hand-guessing its response shape.
 
-If every `actual_mocks` entry has a matching `expected_mocks` entry but the *values* differ (column order, bind values, response rows), patch IS applicable — proceed to the ladder.
+If every `actual_mocks` entry has a matching `expected_mocks` entry but the _values_ differ (column order, bind values, response rows), patch IS applicable — proceed to the ladder.
 
 **Escalation ladder when patches don't make replay green:** `keploy mock patch` ×≤2 → 2b-recapture (record/upload/delete) ×1 → **then** stop-and-report. Verify each patch with `getMock` readback. Reporting prematurely (after 2 failed patches, skipping recapture) leaves a fixable drift uncaught.
 
-**Pick patch vs recapture by drift *shape*, not "is this deliberate":**
+**Pick patch vs recapture by drift _shape_, not "is this deliberate":**
 
-- **2b-patch — DEFAULT for scoped *value* changes on EXISTING mocks.** Tool: `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
+- **2b-patch — DEFAULT for scoped _value_ changes on EXISTING mocks.** Tool: `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
 
   > **Always use the CLI, not MCP `update_mock`.** The CLI re-derives kind-specific fields the agent can't compute — most importantly `sql_ast_hash` for PostgresV3 (sha256 of the parsed-normalized AST the matcher keys on). MCP `update_mock` with a stale `sql_ast_hash` writes 2xx, `getMock` echoes new SQL back, but replay still fails because the matcher's hash lookup misses.
 
