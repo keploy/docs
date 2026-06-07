@@ -176,7 +176,7 @@ If every `actual_mocks` entry has a matching `expected_mocks` entry but the *val
 
 **Pick patch vs recapture by drift *shape*, not "is this deliberate":**
 
-- **2b-patch — DEFAULT for scoped *value* changes on EXISTING mocks.** Tool: `keploy mock patch --app-id <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
+- **2b-patch — DEFAULT for scoped *value* changes on EXISTING mocks.** Tool: `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
 
   > **Always use the CLI, not MCP `update_mock`.** The CLI re-derives kind-specific fields the agent can't compute — most importantly `sql_ast_hash` for PostgresV3 (sha256 of the parsed-normalized AST the matcher keys on). MCP `update_mock` with a stale `sql_ast_hash` writes 2xx, `getMock` echoes new SQL back, but replay still fails because the matcher's hash lookup misses.
 
