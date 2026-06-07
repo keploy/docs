@@ -68,24 +68,29 @@ Either way, Phase A2 onward is identical—same `getTestReportFull` call, same r
 
 ### Phase A2—Fetch the full report
 
-Call `getTestReportFull` with a projection that includes EVERYTHING you will need for Phase A3 diagnosis — in one call. The canonical projection covers status + CI metadata + per-case identity + per-case diff + per-case mock mismatches + noise paths:
+Call `getTestReportFull` with a projection that includes EVERYTHING you will need for Phase A3 diagnosis — in one call. **The field paths below match the actual response schema verbatim — pasting other forms (`name`/`id` for test cases, `failed_steps[]`, top-level `mock_mismatches`) returns null because those keys do not exist in the response.** The canonical projection:
 
 ```
 getTestReportFull({
   appId: app_id,
   reportId: test_run_id,
+  include_oss_report: true,
+  max_test_cases_per_set: 50,
   fields: [
-    "status",
-    "ci_metadata",
-    "failed_steps[].diff",
-    "mock_mismatches",
-    "test_sets[].name",
-    "test_sets[].id",
-    "test_sets[].test_cases[].name",
+    "report.status",
+    "report.ci_metadata",
+    "report.failed_count",
+    "report.passed_count",
+    "test_sets[].test_set_name",
+    "test_sets[].test_set_id",
+    "test_sets[].status",
+    "test_sets[].test_cases[].test_case_name",
+    "test_sets[].test_cases[].test_case_id",
     "test_sets[].test_cases[].status",
     "test_sets[].test_cases[].oss_report.req",
+    "test_sets[].test_cases[].oss_report.resp",
     "test_sets[].test_cases[].oss_report.result",
-    "test_sets[].test_cases[].oss_report.mock_mismatches",
+    "test_sets[].test_cases[].oss_report.failure_info",
     "test_sets[].test_cases[].oss_report.noise"
   ]
 })
@@ -93,19 +98,37 @@ getTestReportFull({
 
 The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
 
-**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards. **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that re-bills every subsequent turn for the rest of the session.** Read:
+**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that re-bills every subsequent turn for the rest of the session.** Read:
 
-- `report.status`—`FAILED` is your trigger to continue.
-- `report.ci_metadata`—when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
-- `test_sets[]`—per set, each entry carries `tests[]` (per-case name + status roll-up) and `test_cases[]` (the inflated per-case rows). Iterate `test_cases[]` and, for any case whose `status` is `FAILED`, read:
+- `report.status` — `FAILED` is your trigger to continue.
+- `report.ci_metadata` — when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
+- `test_sets[]` — per set, each entry carries `test_set_name`, `test_set_id`, `status`, and `test_cases[]` (the inflated per-case rows). Iterate `test_cases[]` and, for any case whose `status` is `FAILED`, read:
+  - `test_case_name`, `test_case_id` — identity (note these are the FULL field names, NOT `name`/`id`).
   - `oss_report.req.{method,url}` — which endpoint failed.
-  - `oss_report.result.status_code.{expected,actual}` — status-code diff.
+  - `oss_report.result.status_code.{expected,actual,normal}` — status-code diff.
   - `oss_report.result.headers_result[].{expected,actual,normal}` — per-header diff (`normal=false` means a real mismatch).
   - `oss_report.result.body_result[].{expected,actual,normal,type}` — per-body diff. This is your primary signal for an authored-response drift.
-  - `oss_report.mock_mismatches.{expected_mocks,actual_mocks}` — set of mocks the replayer recorded versus the set it actually consumed during this run. Populated for both passed and failed cases when consumed-mock data is known. Non-empty + a body diff together is the signature of a mock-driven regression.
-  - `oss_report.failure_info.mock_mismatch` — same shape, legacy fallback for reports produced by replayers older than v3.5.49.
+  - `oss_report.result.dep_result[]` — per-dependency (downstream mock) diff. Often empty in current api-server builds; `mock_mismatches` (separate call) is the reliable signal.
+  - `oss_report.failure_info.{category,risk,assessment}` — high-level signals: `category` includes tokens like `HEADER_CHANGED`, `BODY_CHANGED`, `SCHEMA_UNCHANGED`; `assessment.value_changes[]` names the specific JSON keys that drifted. Useful for fast classification.
   - `oss_report.noise` — JSONPaths the recorder has already marked as ignorable (don't re-flag these as drifts).
-- For investigating only mock-driven failures on a large run, pass `mock_mismatches_only=true` — `test_cases[]` is restricted to entries with non-empty `mock_mismatches` (or the legacy fallback) and the response stays token-safe.
+
+**Getting mock IDs for Case 2b (separate call with `mock_mismatches_only=true`):** The default report does NOT include `mock_mismatches` per case (the field is omitted by the server unless explicitly requested). When Phase A3 classification routes to Case 2b, make a SECOND projected call with `mock_mismatches_only=true` to discover which mocks need patching:
+
+```
+getTestReportFull({
+  appId: app_id,
+  reportId: test_run_id,
+  mock_mismatches_only: true,
+  fields: [
+    "test_sets[].test_set_id",
+    "test_sets[].test_cases[].test_case_name",
+    "test_sets[].test_cases[].oss_report.mock_mismatches.actual_mocks[].name",
+    "test_sets[].test_cases[].oss_report.mock_mismatches.actual_mocks[].kind"
+  ]
+})
+```
+
+The response will only contain cases that consumed mocks. Read `oss_report.mock_mismatches.actual_mocks[].name` to get the mock IDs (`mock-N` strings) for targeted `getMock` reads. This avoids `listMocks` (which returns ~28k tokens of inventory).
 
 ### Phase A3—Diagnose each failing test case
 
@@ -211,7 +234,7 @@ If every `actual_mocks` entry has a matching `expected_mocks` entry but the *val
 
 - **Fixtures are branch-scoped — never copy across branches.** Each Keploy branch carries its own recorded fixtures, mocks, and mappings, captured against THAT branch's app state. NEVER upload a recording (or a `keploy mock patch` derivative) from a sibling branch or from main onto the current branch as a shortcut "fix." The fixture's recorded app-state assumptions belong to where it was captured; planting it on a branch with different code state silently corrupts replay lineage and confuses every downstream reader of the branch history. If you need fresh fixtures, re-record against the CURRENT branch's app via `keploy record` + `keploy upload test-set --branch <git branch>`.
 
-- **Reuse before re-record.** Before `keploy record` / `keploy upload test-set` for 2b: `listRecordings({app_id, branch_id})`, then `getMock` per ID the report's `mock_mismatches.expected_mocks` named. **Do NOT call `listMocks`** — the report already names drifted IDs; `listMocks` adds ~28k tokens of context-polluting inventory. If a current-branch recording already covers the endpoint with the missing mock entries, `delete_recording` the failing set and stop. Re-record is the LAST resort.
+- **Reuse before re-record.** Before `keploy record` / `keploy upload test-set` for 2b: `listRecordings({app_id, branch_id})`, then `getMock` per ID. The report-based path (`mock_mismatches_only=true` projected call) names mock IDs directly — **prefer that**. `listMocks` should NOT be the default discovery step (it adds ~28k tokens of inventory), but it IS an acceptable FALLBACK when the projected `mock_mismatches_only=true` call returns empty for the test set you care about (e.g., the failure shape is body-only with no consumed mocks). If a current-branch recording already covers the endpoint with the missing mock entries, `delete_recording` the failing set and stop. Re-record is the LAST resort.
 
 Multiple failing test cases can land in different cases—handle each independently.
 
