@@ -2,7 +2,7 @@
 id: k8s-proxy-llm-workflow
 title: Developer + LLM Workflow with Keploy Proxy
 sidebar_label: LLM Workflow
-description: Wire up Keploy's MCP server, paste a single autonomous playbook into your editor, and run the whole Keploy workflow with exactly two developer prompts—the LLM does everything else.
+description: Wire up Keploy's MCP server, paste a single autonomous playbook into your editor, and run the whole Keploy workflow with two routine prompts (failing-replay analyze-and-fix; add-tests-for-my-changes)—the LLM does everything else.
 tags:
   - K8s
   - Developer Workflow
@@ -24,96 +24,23 @@ keywords:
   - autonomous agent
 ---
 
-# Developer + LLM Workflow with Keploy Proxy
-
-import ProductTier from '@site/src/components/ProductTier';
-import useBaseUrl from '@docusaurus/useBaseUrl';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
-The [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page walks through the manual flow end-to-end—things like creating a branch, editing mocks and test cases, replaying changes, opening a PR, merging, and so on. Every step has an MCP tool behind it. This page goes one step further: install the playbook below as a **Claude Code skill** (or the equivalent rules / memory entry in any other MCP-aware editor—Cursor, Windsurf, Claude Desktop, VS Code Copilot, Trae) and you only ever say **one of two things** to the agent. It handles the rest.
-
-The two prompts are:
-
-1. **"my keploy cloud replay is failing, please analyse and fix it."**—for a local replay that came back red (agent fetches the latest report from the api-server). Say **"the keploy cloud replay pipeline is failing, please analyse and fix it."** when the failure was in CI—agent extracts the `test_run_id` from your CI log instead. Same diagnose-and-fix routine either way.
-2. **"Add new keploy tests for my changes."**
-
-The agent discovers the app, resolves the Keploy branch, finds the failing run, reads the diff, decides whether the tests need updating or the app has regressed, applies the fix (a code change to the handler, or a test update on the Keploy branch), re-runs replay, and reports back—without follow-up questions. CI still owns the merge.
-
-This page has three parts:
-
-1. **Wire up the Keploy MCP server in your editor**—one-time config; same JSON shape across every supported editor.
-2. **Install the playbook**—a single block that goes into a Claude Code skill, a Cursor rules file, a Windsurf memory file, or any equivalent. It loads automatically whenever the agent sees a Keploy-related prompt.
-3. **Use the two prompts**—what to type, what the agent does.
-
-This page picks up after two one-time setups are already done: the application is [recording in your cluster](/docs/quickstart/k8s-proxy), and the [CI pipeline](/docs/quickstart/k8s-proxy-developer-workflow#wiring-up-your-ci-pipeline) (replay on PR open, branch-merge on PR merge) is wired into your repo as instructed on the Developer Workflow page. The agent only drives the dev-side loop—it never touches CI.
-
----
-
-## Before you start
-
-- A **Keploy PAT**—Dashboard → Settings → API Keys. Copy the `kep_...` value (shown only once).
-- An **MCP-aware editor**: Claude Code, Cursor, Windsurf, Claude Desktop, VS Code, or Trae.
-
----
-
-## Step 1—Wire up the Keploy MCP server
-
-All MCP-aware editors accept the exact same JSON config; only the config file path differs. The Claude Code snippet is shown below as the example; for the equivalent config paths on Cursor, Windsurf / Antigravity, GitHub Copilot, and other clients, see [MCP Client Configuration](/docs/running-keploy/agent-test-generation#mcp-client-configuration) on the Agent Test Generation page—the same JSON shape works there too.
-
-**Claude Code** uses `~/.claude.json`:
-
-```json
-{
-  "mcpServers": {
-    "keploy": {
-      "type": "http",
-      "url": "https://api.keploy.io/client/v1/mcp",
-      "headers": {"Authorization": "Bearer kep_..."}
-    }
-  }
-}
-```
-
-Fully quit and reopen your editor after editing the config. MCP clients only re-read config on startup.
-
----
-
-## Step 2—Install the playbook
-
-The playbook below teaches your agent to run the whole workflow autonomously from the two prompts. Without it, the agent has to rediscover the workflow on every call by reading each tool's individual description—slower and prone to skipping the branch-resolution step.
-
-The exact same block works on every MCP-aware editor; only the file path changes. The walkthrough below uses Claude Code's native Skills system as the example.
-
-### Where the playbook goes
-
-| Editor             | Install path                                                                                                                                                                 |
-| ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Claude Code**    | `~/.claude/skills/keploy/SKILL.md` (global) **or** `<repo>/.claude/skills/keploy/SKILL.md` (committed). Auto-loaded when the dev's prompt matches the skill's `description`. |
-| **Cursor**         | `.cursor/rules/keploy.md` in the repo (committed) **or** Cursor Settings → Rules for AI (global).                                                                            |
-| **Windsurf**       | `.windsurfrules` at the repo root, **or** `~/.codeium/windsurf/memory/global_rules.md` (global).                                                                             |
-| **Claude Desktop** | A Project's "Project knowledge" section, or paste as the first message of every conversation.                                                                                |
-| **VS Code**        | `.github/copilot-instructions.md` (Copilot Chat reads this) or paste in chat per session.                                                                                    |
-
-All five locations accept exactly the same block below. Only Claude Code reads the YAML frontmatter at the top (the `---`-delimited block) to decide when to load the skill; other editors ignore it harmlessly—either keep it for portability or strip it; both work.
-
-Commit the file when you want every teammate's agent to follow the same playbook. Whichever location you pick, **fully restart the editor afterward**—every editor reads skills / rules / memory only at startup.
-
-### The playbook
-
-Use the copy button on the block below and paste it into the file at the path you picked above.
-
-````markdown
----
-name: keploy
-description: Use this skill whenever the dev mentions keploy—a failing "cloud replay" (local or CI pipeline), a request to "add new keploy tests" or similar, or any Keploy MCP tool. Drives the autonomous Keploy branch workflow end-to-end from two fixed dev prompts—agent resolves app + branch, diagnoses failing runs (local or CI), fixes mocks/tests on a branch, captures new traffic, and validates without follow-up questions.
----
-
 # Keploy MCP playbook—autonomous developer workflow
+
+## Installation
+
+Save this playbook as an **agent skill**, not a static rules file. Cursor's modern Skills mechanism (and Claude Code's identical `SKILL.md` convention) loads the file on demand when the user issues one of the two prompts below, instead of injecting it as always-on context. That keeps every other unrelated agent task out of this playbook's token cost.
+
+- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~9k-token playbook on every editor interaction.
+- **Claude Code:** create `.claude/skills/keploy/SKILL.md` and paste the rest of this page into it. The agent invokes it automatically when the developer's prompt matches one of the entry points below.
+- **Other agents (Windsurf, Antigravity, …):** create the equivalent skill / project-context file. Avoid global / always-on placements for the same token-cost reason.
+
+The MCP server itself is configured separately — see the [agent test generation MCP setup](/docs/running-keploy/agent-test-generation#mcp-client-configuration) for the Cursor / Claude Code MCP entries that wire `https://api.keploy.io/client/v1/mcp` into your client.
+
+## Entry points
 
 The developer will only ever say one of two things to you:
 
-**Prompt A:** "my keploy cloud replay is failing, please analyse and fix it." OR "the keploy cloud replay pipeline is failing, please analyse and fix it."—both forms route to the same routine; the first means the dev's last local replay run failed (find the latest test_run on the branch via api-server), the second means a CI pipeline run failed (the dev should paste the CI log or dashboard URL; extract `test_run_id` from it).
+**Prompt A:** "my keploy cloud replay is failing, please analyze and fix it." OR "the keploy cloud replay pipeline is failing, please analyze and fix it."—both forms route to the same routine; the first means the dev's last local replay run failed (find the latest test_run on the branch via api-server), the second means a CI pipeline run failed (the dev should paste the CI log or dashboard URL; extract `test_run_id` from it).
 **Prompt B:** "Add new keploy tests for my changes."
 
 You handle EVERYTHING else autonomously. Discover the app, the branch, the failing run, the code changes—from the filesystem, from git, and from the Keploy api-server. Make decisions. Execute fixes. Report what you did. Do NOT ask the developer follow-up questions unless you are truly blocked (see "When you may ask" at the bottom).
@@ -123,7 +50,7 @@ You handle EVERYTHING else autonomously. Discover the app, the branch, the faili
 1. **Branch-first.** Every write to mocks / tests / recordings is branch-scoped. Resolve `branch_id` before any write. If a tool returns "branch_id is required", you skipped this—fix and retry, don't ask the dev.
 2. **Keploy branch name = git branch name.** Detect via `git rev-parse --abbrev-ref HEAD`. Pass that string to `create_branch` (find-or-create, idempotent). Reuse the returned `branch_id` for every subsequent write in this session.
 3. **App resolution from cwd.** `basename $(pwd)` → `listApps({q: <basename>})`. Exactly one match → use it. Multiple → pick the one whose name most specifically matches the dev's compose service. Zero matches → ask the dev once.
-4. **Fix the root cause—app code or test data.** When a test fails because the contract changed intentionally, fix the test on the Keploy branch (`update_mock` / `updateTestCase`). When a test fails because the app regressed, edit the handler code yourself to restore the correct behavior. Announce the file:line change in clear terms before re-running replay so the dev can interrupt if they object; otherwise proceed. Re-run replay to verify in both cases.
+4. **Fix the root cause—app code or test data.** When a test fails because the contract changed intentionally, fix the test on the Keploy branch (`keploy mock patch` CLI for mocks; `updateTestCase` MCP tool for test cases). When a test fails because the app regressed, edit the handler code yourself to restore the correct behavior. Announce the file:line change in clear terms before re-running replay so the dev can interrupt if they object; otherwise proceed. Re-run replay to verify in both cases.
 5. **Don't ask what you can find out.** Use `git log`, `git diff`, file reads, and api-server calls. Never ask "what did you change", "which app", or "which branch"—discover them.
 6. **Always end with two dashboard URLs.** The branch diff page and the test-run report page. Format:
    - `Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>`
@@ -134,135 +61,220 @@ You handle EVERYTHING else autonomously. Discover the app, the branch, the faili
 
 1. **App.** `basename $(pwd)` → `listApps({q: <basename>})` → pick the unambiguous match. Cache `app_id` for the session.
 2. **Branch.** `git rev-parse --abbrev-ref HEAD` → `create_branch({app_id, name: <git branch>})` → cache `branch_id`. If `git rev-parse` returns `HEAD` or exits non-zero, ask the dev for a branch name ONCE.
-3. **Cluster.** `getApp({appId: app_id})` → read `origin.clusterName` (the proxy app's bound cluster). Cache as `cluster_name`. `listApps` does **not** return this — you must call `getApp`. You'll pass it to `--cluster` on every `keploy cloud replay` so a local (no-`--trigger`) run resolves the app's identity without requiring an actively-heartbeating cluster.
+3. **App context — MANDATORY before any `keploy cloud replay` invocation** (Phase A4 OR Phase B4). `getApp({appId: app_id, fields: ["name","namespace","deployment","origin.clusterName","origin.namespace","origin.deployment"]})`. The full app schema is ~16k tokens; the projected response is ~300 tokens. **Call this AT MOST ONCE per session.** The returned identity fields are sticky — hold them mentally, do not re-call `getApp` later in the conversation for the same `app_id`. **You CANNOT issue `keploy cloud replay` without first resolving `origin.clusterName` here — the CLI requires `--cluster <name>` and the error it returns when the flag is missing (`no active clusters found`) is misleading; it actually means "you forgot `--cluster`".**
 
-All three values are sticky for the rest of the conversation. Don't re-discover unless the dev switches git branches.
+All three values are sticky for the rest of the conversation. Don't re-discover unless the dev switches git branches. Re-calling `getApp` mid-session is an anti-pattern — its 16k schema lives in your context for every subsequent step regardless of whether you ask for it again.
 
 ---
 
-## Routine A—failing cloud replay (local or CI), analyse and fix
+## Routine A—failing cloud replay (local or CI), analyze and fix
 
 ### Phase A1—Resolve the `test_run_id`
 
 The goal of this phase is exactly one thing: produce a `test_run_id` you can pass to `getTestReportFull` in Phase A2. Pick how you get it based on the form of Prompt A:
 
-- **Local form** ("my keploy cloud replay is failing…") → call `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})`, pick the most recent run (results are already sorted newest-first by `created_at`), and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation—`keploy cloud replay` uploads its report into the legacy `/tr` collection, which is what `listTestReports` queries. Use `getTestReport({appId: app_id, reportId: test_run_id})` if you want a cheap roll-up probe before pulling the full report.
+- **Local form** ("my keploy cloud replay is failing…") → call `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})` **EXACTLY ONCE for the whole session**. Pick `data[0]` (newest first by `created_at`) and take its `id`. That's the dev's last local `keploy cloud replay --branch-name` invocation — `keploy cloud replay` uploads its report into the legacy `/tr` collection. **Do NOT retry with different status / source / branch_id permutations** if the first call returns empty. **Do NOT re-call after your own `keploy cloud replay` finishes** — the final replay's stdout already shows the new `test_run_id` in its `View test report at: …/tr/<id>` line; parse the URL instead of re-querying. `status` is CASE-SENSITIVE — use the exact value `"FAILED"`, not `"failed"` or `"Failed"`. Use `getTestReport({appId: app_id, reportId: test_run_id})` for a cheap roll-up probe only when the full report is going to be large.
 - **CI form** ("the keploy cloud replay pipeline is failing…") → the dev usually pastes a CI log URL or dashboard URL. Extract `test_run_id` from it. If they didn't paste anything, fall back to the local-form lookup above—a CI failure posts the same legacy test-run-report record to the api-server, so the latest-failed lookup still finds it. Use `source: "ci"` on the list call to scope to runs that carry CI metadata.
 
 Either way, Phase A2 onward is identical—same `getTestReportFull` call, same routes, same fixes.
 
 ### Phase A2—Fetch the full report
 
-Call `getTestReportFull({appId: app_id, reportId: test_run_id})`. The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`) per the spec, while its **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`); pass each one with the literal name the spec declares. The defaults (`include_oss_report=true`, `mock_mismatches_only=false`, `max_test_cases_per_set=100`) return the roll-up + every test set + every per-case diff + mock mismatches in one round-trip. Read:
+Call `getTestReportFull` with a projection that includes EVERYTHING you will need for Phase A3 diagnosis — in one call. **The field paths below match the actual response schema verbatim — pasting other forms (`name`/`id` for test cases, `failed_steps[]`, top-level `mock_mismatches`) returns null because those keys do not exist in the response.** The canonical projection:
 
-- `report.status`—`FAILED` is your trigger to continue.
-- `report.ci_metadata`—when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
-- `test_sets[]`—per set, each entry carries `tests[]` (per-case name + status roll-up) and `test_cases[]` (the inflated per-case rows). Iterate `test_cases[]` and, for any case whose `status` is `FAILED`, read:
+```
+getTestReportFull({
+  appId: app_id,
+  reportId: test_run_id,
+  include_oss_report: true,
+  max_test_cases_per_set: 50,
+  fields: [
+    "report.status",
+    "report.ci_metadata",
+    "report.failed_count",
+    "report.passed_count",
+    "test_sets[].test_set_name",
+    "test_sets[].test_set_id",
+    "test_sets[].status",
+    "test_sets[].test_cases[].test_case_name",
+    "test_sets[].test_cases[].test_case_id",
+    "test_sets[].test_cases[].status",
+    "test_sets[].test_cases[].oss_report.req",
+    "test_sets[].test_cases[].oss_report.resp",
+    "test_sets[].test_cases[].oss_report.result",
+    "test_sets[].test_cases[].oss_report.failure_info",
+    "test_sets[].test_cases[].oss_report.noise"
+  ]
+})
+```
+
+The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+
+**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that gets re-added to context every subsequent turn for the rest of the session.** Read:
+
+- `report.status` — `FAILED` is your trigger to continue.
+- `report.ci_metadata` — when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
+- `test_sets[]` — per set, each entry carries `test_set_name`, `test_set_id`, `status`, and `test_cases[]` (the inflated per-case rows). Iterate `test_cases[]` and, for any case whose `status` is `FAILED`, read:
+  - `test_case_name`, `test_case_id` — identity (note these are the FULL field names, NOT `name`/`id`).
   - `oss_report.req.{method,url}` — which endpoint failed.
-  - `oss_report.result.status_code.{expected,actual}` — status-code diff.
+  - `oss_report.result.status_code.{expected,actual,normal}` — status-code diff.
   - `oss_report.result.headers_result[].{expected,actual,normal}` — per-header diff (`normal=false` means a real mismatch).
   - `oss_report.result.body_result[].{expected,actual,normal,type}` — per-body diff. This is your primary signal for an authored-response drift.
-  - `oss_report.mock_mismatches.{expected_mocks,actual_mocks}` — set of mocks the replayer recorded versus the set it actually consumed during this run. Populated for both passed and failed cases when consumed-mock data is known. Non-empty + a body diff together is the signature of a mock-driven regression.
-  - `oss_report.failure_info.mock_mismatch` — same shape, legacy fallback for reports produced by replayers older than v3.5.49.
+  - `oss_report.result.dep_result[]` — per-dependency (downstream mock) diff. Often empty in current api-server builds; `mock_mismatches` (separate call) is the reliable signal.
+  - `oss_report.failure_info.{category,risk,assessment}` — high-level signals: `category` includes tokens like `HEADER_CHANGED`, `BODY_CHANGED`, `SCHEMA_UNCHANGED`; `assessment.value_changes[]` names the specific JSON keys that drifted. Useful for fast classification.
   - `oss_report.noise` — JSONPaths the recorder has already marked as ignorable (don't re-flag these as drifts).
-- For investigating only mock-driven failures on a large run, pass `mock_mismatches_only=true` — `test_cases[]` is restricted to entries with non-empty `mock_mismatches` (or the legacy fallback) and the response stays token-safe.
+
+**Getting mock IDs for Case 2b (separate call with `mock_mismatches_only=true`):** The default report does NOT include `mock_mismatches` per case (the field is omitted by the server unless explicitly requested). When Phase A3 classification routes to Case 2b, make a SECOND projected call with `mock_mismatches_only=true` to discover which mocks need patching:
+
+```
+getTestReportFull({
+  appId: app_id,
+  reportId: test_run_id,
+  mock_mismatches_only: true,
+  fields: [
+    "test_sets[].test_set_id",
+    "test_sets[].test_cases[].test_case_name",
+    "test_sets[].test_cases[].oss_report.mock_mismatches.actual_mocks[].name",
+    "test_sets[].test_cases[].oss_report.mock_mismatches.actual_mocks[].kind"
+  ]
+})
+```
+
+The response will only contain cases that consumed mocks. Read `oss_report.mock_mismatches.actual_mocks[].name` to get the mock IDs (`mock-N` strings) for targeted `getMock` reads. This avoids `listMocks` (which returns ~28k tokens of inventory).
 
 ### Phase A3—Diagnose each failing test case
 
-Two cases. Decide per failing test case from `git log` / `git diff origin/main...HEAD` (commits on the failing endpoint or its dependencies) and the report's `oss_report.result` body/header diff plus `oss_report.mock_mismatches`:
+**Before classifying, verify intent.** The commit-message channel is **asymmetric**: it can confirm "deliberate" with high confidence, but it cannot confirm "bug." Real regressions ship with normal-sounding messages ("add field X", "extract helper", "switch to v2 client") — no one writes `fix(orders): accidentally broke duplicate-detect`. So the message has exactly one trustworthy verdict: deliberate → Case 2. Everything else means "message doesn't decide" — go look at the working tree, then the diff.
+
+Honest classifier — apply in order, stop at the first match:
+
+**Step 0 — Working-tree check (UNCONDITIONAL; run FIRST, before any classifier MCP or git-history call).**
+
+```
+git status -s -- <failing-handler-path>
+git diff -- <failing-handler-path>          # unstaged
+git diff --cached -- <failing-handler-path> # staged but not committed
+```
+
+Run all three **every time**, even when the tree looks clean. The empty result IS the evidence required to advance to Step 1. Skipping = silent misclassification when the assumption is wrong.
+
+**Allowlist of MCP calls permitted before Step 0** (Phase A1 discovery only): `listApps`, `getApp`, `create_branch`, `list_branches`, `listTestReports`, `getTestReport`, `tools/list`. EVERY other call — `getTestReportFull`, `getTestCase`, `getMock`, `listMocks`, `getRecording`, `listRecordings`, `updateTestCase`, `update_mock`, `delete_recording` — is classifier/write and MUST come AFTER Step 0. Reading `getTestCase` first biases toward Case 2 framing.
+
+Any uncommitted edit touching the failing handler's source → **Case 1, mandatory.** Revert (or ask the dev); do NOT proceed to commit-history reasoning. Uncommitted edits beat any committed-history signal — they can't be the deliberate new contract.
+
+**Step 1 — Identify the recording's snapshot anchor.**
+
+If Step 0 is clean (no uncommitted edits on the failing path), find the commit the failing test set was recorded against. Sources, in order of preference:
+
+- The test set's `created_at` timestamp from `listRecordings` / `getRecording` → `git log --until=<ts> -1 --format=%H -- <failing-handler-path>` gives the commit that was HEAD when the recording was captured.
+- The branch's first commit ancestor of HEAD that pre-dates the recording's creation.
+
+Commits **at or before** the anchor are already encoded in the recording — they cannot be a drift source, regardless of how "intentional" their messages read. Skip them.
+
+**Step 2 — Commit-message check (post-anchor commits only).** For each commit strictly after the anchor that touches the failing handler:
+
+- (a) **Message names a feature / refactor / contract change / incident remediation** → **Case 2**. Dev's stated intent is the contract; do NOT rewrite the deliberate code into a non-IO equivalent (still Case 1 in disguise).
+- (b) **Message silent/generic** AND diff touches the exact drifted field per `oss_report.result.body_result[].expected` AND baseline still represents correct contract → **Case 1**. Side-effect regression; the signal is the diff×baseline intersection, not the message.
+- (c) **Otherwise** (silent + drift not in diff, or unclear) → **Case 2** (default to test-data work; silence is not evidence of a bug).
+- (d) **No post-anchor commits touch the failing handler AND Step 0 clean** → ask the dev; flaky/environment/proxy.
+
+Classify each failing test case using `oss_report.result` body/header diff + `oss_report.mock_mismatches`:
 
 #### Case 1—Bug in the app (regression). You fix the code.
 
-The handler used to behave correctly; a recent commit broke it. Signal: a recent commit touched the failing endpoint or its dependencies AND `oss_report.result.body_result[].expected` (the recorded baseline) still represents the correct behavior.
+The handler used to behave correctly; an uncommitted edit or a recent commit broke it as a side effect. Signal: Step 0 flagged an uncommitted edit OR the diff touches the same field the report says drifted, the commit message doesn't claim that field as the intended change, and `oss_report.result.body_result[].expected` (the recorded baseline) still represents the correct behavior.
 
-Action: edit the handler code yourself to restore the expected behavior—minimal change, consistent with the test's contract. Announce the file:line and a one-line description of the edit **before** applying it so the dev can interrupt if they object; otherwise proceed. Do NOT touch the test—its captured baseline is still correct.
+**Action — execute IN THIS ORDER. Skipping or reordering any step is a defect; the rebuild does nothing without the edit, and the replay tells you nothing without the rebuild.**
+
+**Step C1.1 — Edit the source. This is THE fix.** Pick one of:
+
+- **Uncommitted regression (Step 0 fired):** Run `git checkout -- <failing-handler-path>` (or `git restore -- <path>`) via the Bash tool to discard the working-tree edit. This is the literal fix — the test was passing against the committed source, and the working-tree edit is what broke it. Do NOT skip to rebuild expecting the rebuild to "restore" the source; image rebuild reads from the current source, so without the checkout you'll rebuild the same broken code.
+- **Committed regression (Step 2 fired):** Edit the **application source code** (`.go` / `.py` / `.ts` / `.java` / etc.) yourself using the Edit/Write tool to restore the expected behavior — minimal change, consistent with the test's contract.
+
+The fix MUST live in the application source. Do NOT modify `Dockerfile*`, `docker-compose*.yml`, `keploy.yml`, `.env*`, k8s manifests, CI workflows, or the replay command line; do NOT introduce a new env-var-driven branch in code as a way to toggle the bug away at runtime. Announce the file:line and a one-line description of the edit **before** applying it so the dev can interrupt if they object; otherwise proceed. Do NOT touch the test—its captured baseline is still correct.
+
+**Step C1.2 — Verify the edit landed.** Run `git status -s -- <failing-handler-path>` and `git diff -- <failing-handler-path>`. Status + diff MUST both be empty for an uncommitted-regression revert (means working tree matches committed baseline). If either still shows changes, redo C1.1. Do not proceed to rebuild until verification is clean.
+
+**Step C1.3 — Rebuild the image.** Only AFTER C1.2 clean: `docker build -t <image>:<tag> <build-context>`. Cloud replay does not compile from source — see "rebuild before replay" below for tag-matching rules.
+
+**Step C1.4 — Replay.** Then run `keploy cloud replay`. Expect green. If still red after a clean C1.1/C1.2 revert + C1.3 rebuild, investigate further — do NOT flip to Case 2 (the Step 0 signal is the strongest available).
+
+**Anti-patterns (both forbidden):** (1) jumping to `docker build` without executing C1.1 — rebuilds the broken code unchanged; (2) flipping from Case 1 → Case 2 mid-run — Step 0 + Step 2 classification is binding for this iteration. Persistent red after a clean C1.1-C1.3 means ambient state (stale `mock-*-patch.yaml` files, leftover branch test sets) is poisoning the run; surface that to the dev, don't override the classification.
 
 #### Case 2—App behavior drifted intentionally. You fix the test data on the branch.
 
 The contract changed on purpose; the test's recorded baseline is stale. Read `oss_report.result` (status / headers / body diff) and `oss_report.mock_mismatches` together, then pick a sub-action:
 
-**2a—Only a test diff (no mock mismatch driving it).** Update the test data on the branch. The legacy `/tr` flow stores recordings as test cases, so the write tool is `updateTestCase` (or `update_mock` for the response shape if the mismatch is on the recorded response of a downstream call):
+**2a—Only a test diff (no mock mismatch driving it).** Update the test data on the branch. The legacy `/tr` flow stores recordings as test cases, so the write tool is `updateTestCase` MCP tool (or `keploy mock patch` CLI if the mismatch is on the recorded response of a downstream mock):
 
 - If the diverging field is genuinely non-deterministic (timestamps, request IDs, generated UUIDs—anything that legitimately changes every run), add its JSONPath to the test case's `noise` map via `updateTestCase`. Marking a field as noise tells the runner to ignore diffs on that path; once added, the next replay should treat the same divergence as `normal=true`.
 - Otherwise update the recorded `response` body on the test case via `updateTestCase`. Fetch the existing case first via `getTestCase` so you only mutate the fields the new contract dictates and don't drop unrelated keys.
 
-**2b—Test diff plus a mock mismatch that's plausibly causing the diff.** The recorded mock is what's out of date—the downstream call's shape changed. Look at `oss_report.mock_mismatches.expected_mocks` (what the recorder captured) vs `actual_mocks` (what the replayer actually consumed) — entries that appear in `actual_mocks` but not `expected_mocks` are the new outgoing calls you need to capture. Update the mock via `update_mock({app_id, test_set_id, mock_id, branch_id, mock_yaml: <updated yaml>})`. Read the existing mock with `getMock` first to preserve fields you're not changing, then re-run replay.
+**2b—Test diff plus a mock mismatch that's plausibly causing the diff.** The recorded mock is what's out of date—the downstream call's shape changed. Look at `oss_report.mock_mismatches.expected_mocks` (what the recorder captured) vs `actual_mocks` (what the replayer actually consumed) — entries that appear in `actual_mocks` but not `expected_mocks` are the new outgoing calls you need to capture.
 
-**Case 2b loop — follow exactly, do not improvise:**
+**Data flow for Case 2b (internalise before touching anything):**
 
-After step 1's `update_mock` lands and the re-replay is still red, your repertoire collapses to **exactly two moves**: another `update_mock` (step 2) or `delete_recording` + re-record (step 3). Anything else — editing `keploy/<test_set_id>/mocks.yaml`, passing `--useLocalMock`, `--disableMockUpload`, or `--useLocalTests` to `keploy cloud replay`, comparing local YAML to spot "what changed", restarting the agent — is **off the menu**. Those flags exist for OSS-level proxy debugging; they appear to work but pin a divergent state to your laptop while the Keploy branch the team replays against stays broken. The contract is "the cloud branch is the only source of truth"; respect it or get out of Routine A.
+- **Cloud (api-server + mongo) is the single source of truth.** Every write (`keploy mock patch`, `updateTestCase`, `delete_recording`, `keploy upload test-set`) mutates the cloud, not a local file. `keploy cloud replay` re-downloads the bundle into a throwaway local `keploy/<test_set_id>/` cache each run — never hand-edit YAML there, it's wiped on the next run.
+- **A 2xx write is persisted in mongo.** Use `getMock` / `getTestCase` for readback if you want to double-check; you do NOT need to "push" or "force-refresh" the bundle.
+- **`keploy upload test-set` has one valid use: landing a fresh `keploy record` capture on a branch (step 2 of 2b-recapture).** Don't re-upload an edited bundle — it creates a duplicate test set, doesn't replace the failing one.
 
-1. **First edit.** `getMock` → mutate the canonical YAML to reflect the new contract → `update_mock`. Re-run replay.
-2. **Second edit (only if step 1 still red on the same mock for the same reason).** Re-read `oss_report.mock_mismatches` for the new run; the diff between `expected_mocks` and `actual_mocks` should now be tighter. `getMock` again (the server may have rewritten derived fields), mutate, `update_mock`. Re-run replay.
-3. **Fallback (if step 2 is still red).** Recorded baseline is too far gone to patch piecemeal — choose between a **whole-set** drop and a **scoped** drop based on how many test cases are failing:
+**Before the ladder: check whether patch is even applicable.**
 
-   **3a — Whole-set re-record (most / all cases in the set are failing):**
+`keploy mock patch` can only modify an EXISTING mock entry. It cannot add a new one. So if the source change introduced a new outbound call (new SQL query, new downstream HTTP, new redis op) that has no corresponding entry in the recorded mocks, patching is structurally impossible — there is nothing to patch.
 
-   ```
-   delete_recording({app_id, test_set_id, branch_id})           # drops the entire set
-   keploy record -c "<dev run command>" --sync                   # captures all flows
-   # drive curls covering the same surface the original set covered
-   keploy upload test-set \
-     --app <ns.deployment> --branch <git branch> \
-     --test-set keploy/test-set-N --name <fresh-descriptive-name>
-   # re-run keploy cloud replay
-   ```
+Detect this case from the report's `mock_mismatches`:
 
-   **3b — Scoped re-record (only one or a few cases in the set are failing):**
+- `actual_mocks` lists the outbound calls the app made during replay.
+- `expected_mocks` lists the calls the recording has mocks for.
+- **If `actual_mocks` contains entries with no match in `expected_mocks`** (e.g. a `SELECT … FOR UPDATE` query that doesn't appear in any recorded mock's `sqlNormalized`), the bundle is missing an entry. Skip the patch ladder and go directly to **2b-recapture** — that is the only path that can introduce a new mock entry without hand-guessing its response shape.
 
-   > **Availability**: 3b requires an api-server that advertises `test_case_ids` on the `delete_recording` MCP tool. To check, look at the `delete_recording` tool's `inputSchema.properties` in the MCP server's `tools/list` response — if `test_case_ids` (type: array of string) is listed, 3b is available. If it isn't, fall back to 3a until the deployment includes the scoped-delete change.
+If every `actual_mocks` entry has a matching `expected_mocks` entry but the _values_ differ (column order, bind values, response rows), patch IS applicable — proceed to the ladder.
 
-   ```
-   delete_recording({                                            # tombstones JUST those cases;
-     app_id, test_set_id, branch_id,                             # the rest of the set + its
-     test_case_ids: [<name-1>, <name-2>, ...]                    # mocks stay intact.
-   })                                                            # Names are the same friendly
-                                                                 # identifiers used elsewhere
-                                                                 # (e.g. "get-api-orders-1").
-   keploy record -c "<dev run command>" --sync                   # capture only the dropped flows
-   # drive curls for ONLY the test cases you tombstoned — use the
-   # recorded request body of each as the curl shape
-   keploy upload test-set \
-     --app <ns.deployment> --branch <git branch> \
-     --test-set keploy/test-set-N \
-     --name <slug-part>--rerec-<utc-timestamp-part>              # build per "Naming convention details" below; do NOT post-process the result
-   # re-run keploy cloud replay                                   # so re-records cluster with the
-                                                                 # set they refresh
-   ```
+**Escalation ladder when patches don't make replay green:** `keploy mock patch` ×≤2 → 2b-recapture (record/upload/delete) ×1 → **then** stop-and-report. Verify each patch with `getMock` readback. Reporting prematurely (after 2 failed patches, skipping recapture) leaves a fixable drift uncaught.
 
-   In 3b the branch ends with two coexisting test-sets: the original (minus the tombstoned cases) and the new small one with the replacements — both contribute to the next replay. The server rejects duplicate names with `test set "X" already exists for this app`, so the convention below mints a unique `--name` and the shared prefix keeps the recordings page self-grouping (original + its re-records sort together).
+**Pick patch vs recapture by drift _shape_, not "is this deliberate":**
 
-   > **Naming convention details.** Build the name in two parts and concatenate them verbatim — do NOT post-process the whole result.
-   >
-   > 1. **Slug part** — take `<original-set-name>`, lowercase it, replace every maximal run of characters outside `[a-z0-9]` (spaces, parens, dots, underscores, etc.) with a single `-`, then trim leading/trailing `-`. Worked example: `Scenario 4 v8 baseline (4 cases)` → `scenario-4-v8-baseline-4-cases`. This avoids the api-server's name validator rejecting spaces/parens/special chars.
-   > 2. **Suffix part** — append the literal `--rerec-<utc-timestamp>`, where `<utc-timestamp>` is `YYYYMMDDHHMMZ` (the trailing `Z` is uppercase, in UTC, and is part of the literal — do NOT lowercase or slug it). Example suffix: `--rerec-202605281430Z`.
-   >
-   > Combined example: `scenario-4-v8-baseline-4-cases--rerec-202605281430Z`. Two agents running in different timezones at the same wall-clock minute produce the same name — preserving the "original + its re-records sort together" intent for cross-timezone CI integrations.
-   >
-   > **Deterministic alternative.** If the original-set-name isn't available at name-mint time, use `rerec-<short-git-sha>-<utc-timestamp>` where `<short-git-sha>` is the first 7 characters of `git rev-parse HEAD`. The alternative begins with the literal `rerec` (NO leading `-` or `--` — the double-dash in the primary form is the slug/suffix boundary marker, which this form doesn't have because there's no slug part). This form drops the original-set prefix, so re-records won't sort-group with the original on the recordings page — only use it when the prefix is genuinely unavailable.
+- **2b-patch — DEFAULT for scoped _value_ changes on EXISTING mocks.** Tool: `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
 
-   Pick 3a when ≥ ~75% of the set's cases fail, 3b otherwise. Defaulting to 3a when only one case is failing destroys unrelated passing tests for no reason.
+  > **Always use the CLI, not MCP `update_mock`.** The CLI re-derives kind-specific fields the agent can't compute — most importantly `sql_ast_hash` for PostgresV3 (sha256 of the parsed-normalized AST the matcher keys on). MCP `update_mock` with a stale `sql_ast_hash` writes 2xx, `getMock` echoes new SQL back, but replay still fails because the matcher's hash lookup misses.
 
-**Do NOT inspect or edit `keploy/<test_set_id>/mocks.yaml` on the local filesystem.** `keploy cloud replay` re-downloads mocks from the Keploy branch on every run; any local edit is silently overwritten before the next replay. All mock changes go through `update_mock`. If a local-edit + `--useLocalMock`-style workaround tempts you because cloud round-trip changed the shape of a value (e.g. a Postgres NUMERIC `price` came back as `{int: []}` instead of `{int: "1250", exp: -2}`), that is a step-2 retry signal — go to step 2 of the loop with a corrected payload, or to step 3 if step 2 also fails. Do not paper over the round-trip locally; the next replay on a CI runner or another laptop will undo your fix and the team-visible branch state will diverge from what you tested.
+- **2b-recapture — ONLY for sweeping changes that can't be patched cleanly** (call graph rewritten, request/response shapes diverge wholesale, multiple endpoints drifted at once). Order: (1) `keploy record --sync --disable-mapping=false` (the latter two flags are MANDATORY — see Phase B2 below for the full rationale: without them the recording's mock-to-case relationship is lost at upload time), (2) `keploy upload test-set --branch <git branch>`, (3) **only after upload succeeds**, `delete_recording` on the stale set. **Never `delete_recording` first** — reversing leaves the branch at zero coverage and the next replay "passes" trivially (zero tests = zero failures, indistinguishable from a real fix).
 
-**Do NOT pass `--useLocalMock`, `--useLocalTests`, or `--disableMockUpload` to `keploy cloud replay`.** Those flags belong to OSS-level proxy debugging and pin a laptop-local divergent state — the Keploy branch the rest of the team replays against stays broken regardless of what your local run reports. Every replay you trigger in Routine A must round-trip through the cloud branch; otherwise you are not in Routine A any more.
+  > **Recapture is YOU driving traffic. Seed deliberately, drive surgically.** Keploy has no scoped-recapture primitive. Before re-recording, read each existing case's `http_req` + recorded responses to learn what state it assumes (e.g. recorded `GET /api/orders` returned 7 rows but the suite POSTs only 2 → 5 pre-seeded). SQL INSERT / S3 copy / Kafka seed that state, then `keploy record` and drive ONLY the affected case's curls. Driving everything against a fresh DB silently degrades coverage — a `GET ?user_id=Mallory` with no Mallory row captures `{"count":0,"orders":[]}` and replays green without verifying anything.
 
-**Do NOT ask the dev which path to take.** Routine A is autonomous. Announce the file:line you intend to change in plain text (so the dev can interrupt if they object), then proceed. Do not call `AskUserQuestion`, do not offer numbered choices, do not pause for confirmation. If two repair paths look equally valid, pick the one the skill recommends (Case 2a noise > body update, Case 2b update_mock > delete + re-record) and proceed. The dev is reviewing the streamed transcript and will Ctrl-C if you're wrong; that's the contract.
+**Two constraints on every Case 2b action:**
+
+- **Fixtures are branch-scoped — never copy across branches.** Each Keploy branch carries its own recorded fixtures, mocks, and mappings, captured against THAT branch's app state. NEVER upload a recording (or a `keploy mock patch` derivative) from a sibling branch or from main onto the current branch as a shortcut "fix." The fixture's recorded app-state assumptions belong to where it was captured; planting it on a branch with different code state silently corrupts replay lineage and confuses every downstream reader of the branch history. If you need fresh fixtures, re-record against the CURRENT branch's app via `keploy record` + `keploy upload test-set --branch <git branch>`.
+
+- **Reuse before re-record.** Before `keploy record` / `keploy upload test-set` for 2b: `listRecordings({app_id, branch_id})`, then `getMock` per ID. The report-based path (`mock_mismatches_only=true` projected call) names mock IDs directly — **prefer that**. `listMocks` should NOT be the default discovery step (it adds ~28k tokens of inventory), but it IS an acceptable FALLBACK when the projected `mock_mismatches_only=true` call returns empty for the test set you care about (e.g., the failure shape is body-only with no consumed mocks). If a current-branch recording already covers the endpoint with the missing mock entries, `delete_recording` the failing set and stop. Re-record is the LAST resort.
 
 Multiple failing test cases can land in different cases—handle each independently.
 
 ### Phase A4—Verify
 
-After every Case-1 (app code edit) or Case-2 (test data edit) fix, run via Bash:
+**After a Case 1 source edit, rebuild the app's docker image BEFORE replay.** Cloud replay doesn't compile — it uses whatever image is currently tagged for the manifest's image ref on the local Docker daemon. Resolve the tag from replay logs (`"Using deployment image": "<repo>:<tag>"`) or `getRecording`/`listRecordings` `resources`, then:
 
 ```bash
-keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> \
-  -c "<dev run command>" --container-name <app container> --disableReportUpload=false
+docker build -t <manifest-image-tag> <build-context-dir>
 ```
 
-`--cluster` resolves the proxy app's identity without requiring an active heartbeat (use the `cluster_name` cached in Discovery). `-c` + `--container-name` start the app locally; omit them in CI / active-cluster runs and let the in-cluster agent run the deployment. `--disableReportUpload=false` makes the `/tr` report persist locally (the CLI silently sets it to `true` for OAuth sessions otherwise).
+`<build-context-dir>` is where the app's `Dockerfile` lives. If the manifest tag is registry-prefixed, match it exactly — else Docker pulls from the registry and misses your edit. **Case 2 fixes skip this step.**
 
-If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proceed to A5. Cap retry attempts at 3 cloud-replay runs total across the Case 2 loop (i.e. step 1's replay + step 2's replay + step 3's replay = 3 — this is independent of the per-step retry budget within Case 2b, which caps `update_mock` attempts at 2 before forcing the 3a/3b fallback). If it's still red after 3 cloud-replay runs, the failures are likely a keploy-side proxy issue (your fixes aren't taking effect). Report the residual failures honestly with the `test_run_id` and the run-report URL so the dev can file a keploy bug, then stop.
+Then run via Bash — **always pipe the output through `tail` / `grep`** so the ~10-40k tokens of replay log don't enter your context wholesale, AND **always pass `--disableReportUpload=false`** so the `/tr` report row gets written (OAuth-authenticated CLIs default this flag to `true`, which silently skips the upload — without it, `listTestReports` will return empty for this run and the dashboard URL won't print):
+
+```bash
+keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <cluster-name> --disableReportUpload=false 2>&1 \
+  | tail -n 60 \
+  | grep -E "Total test|Failed Testcases|test passed|test failed|FAIL|ERROR|debug bundle|View test report"
+```
+
+The full replay log contains per-mock-match traces, per-testcase debug lines, and a final summary block. Your decisions only need the final summary + any FAIL/ERROR lines + the `View test report at:` URL. Piping at the command level keeps the slice that gets re-added to context on every subsequent step to ~2k tokens instead of the full ~40k — over a retry loop that compounds enormously. Apply the same pipe pattern to every other long-running Bash command: `keploy record` output, `docker build`, `keploy upload test-set`. Read the cached log file directly only when the grep slice doesn't show what you need.
+
+**`--cluster` is mandatory.** Use the `origin.clusterName` you cached from Discovery's `getApp` (do NOT re-call). Without it, auto-select needs a cluster heartbeat within 35s and dies `no active clusters found`.
+
+If still failing, re-enter Phase A2 with the new `test_run_id`. Cap retries at 3 — beyond that, report residual failures with `test_run_id` + run URL and stop.
+
+**Sanity gate before declaring success.** Post-fix `total_tests` must be ≥ pre-fix. A drop (especially "0 passed / 0 failed") = coverage regression from deleting a test set before its replacement uploaded. Re-record + upload to restore.
 
 ### Phase A5—Report (exact format)
 
@@ -275,7 +287,7 @@ If still failing, re-enter Phase A2 with the new `test_run_id`. If passing, proc
 ### Fixes applied
 - (Case 1) Edited `<file:line>`—`<one-line change description>`.
 - (Case 2a) `updateTestCase` on `<test_case_name>`—set noise on `<path>` OR updated response field `<path>`.
-- (Case 2b) `update_mock` on `<mock_name>` (test set `<test_set_id>`) OR `delete_recording` + re-capture via `keploy record` + `keploy upload test-set`.
+- (Case 2b) `keploy mock patch` on `<mock_name>` (test set `<test_set_id>`) OR `delete_recording` + re-capture via `keploy record` + `keploy upload test-set`.
 - `keploy cloud replay` re-run: `<p>/<t>` tests passed.
 
 ### Next step for you
@@ -306,7 +318,7 @@ Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
 
 **Capture:**
 
-1. Run `keploy record -c "<dev run command>" --sync` via Bash. The `-c` value is the exact command from your pre-flight; `--sync` records test cases synchronously so each curl is captured in order with no race against the next one. Cloud association happens in Phase B3's upload step, not here—`keploy record` itself is the local OSS command and doesn't take `--cloud-app-id`.
+1. Run `keploy record -c "<dev run command>" --sync --disable-mapping=false` via Bash. The `-c` value must be the **foreground** form of the run command — if your pre-flight used the detached/background form (e.g. `docker compose up -d`), pass the foreground variant here (`docker compose up`, no `-d`). Detached commands return immediately on launch and keploy treats the early exit as "app stopped", capturing nothing. `--sync` records test cases synchronously so each curl is captured in order with no race against the next one; **`--disable-mapping=false` is MANDATORY** — without it, the host inherits `keploy.yml`'s `disableMapping: true` (the auto-generated default), the agent silently skips writing `mappings.yaml`, and the uploaded bundle lands in mongo with no `mapping_audits` doc → `getMockMapping` returns empty `mocks: []` for every test case → replay matcher falls back to fragile timestamp-windows. Cloud association happens in Phase B3's upload step, not here — `keploy record` itself is the local OSS command and doesn't take `--cloud-app-id`.
 2. For each new/changed endpoint, drive ONE realistic curl. Infer body shape from the OpenAPI spec if there is one, otherwise from the handler signature itself.
 3. Stop `keploy record` (kill the PID you captured at step 1, or send Ctrl-C equivalent).
 4. The recording lands at `keploy/test-set-N/` on disk.
@@ -325,14 +337,13 @@ keploy upload test-set \
 
 ### Phase B4—Validate
 
-For **local** validation (dev's laptop) — pass `--cluster` (from Discovery), and start the app yourself via `-c` + `--container-name`:
-
 ```bash
-keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> \
-  -c "<dev run command>" --container-name <app container> --disableReportUpload=false
+keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <cluster-name> --disableReportUpload=false 2>&1 \
+  | tail -n 60 \
+  | grep -E "Total test|Failed Testcases|test passed|test failed|FAIL|ERROR|debug bundle|View test report"
 ```
 
-For **CI / active-cluster** runs, omit `-c`/`--container-name`/`--disableReportUpload` and let the in-cluster agent run the deployment.
+`--cluster` is mandatory — resolve from the `getApp` call you made in Discovery (you cached `origin.clusterName`; do NOT re-call `getApp`). **If you skipped Discovery step 3 because Routine B "starts at git diff" — go back and call `getApp` NOW before replay. Without `--cluster`, the CLI dies with `no active clusters found`, which sounds like "no cluster is running" but actually means "you forgot the flag".** `--disableReportUpload=false` is mandatory too — OAuth CLIs default it to `true` which silently skips the `/tr` report upload. Pipe through `tail`/`grep` for the same context-cost reason as Phase A4.
 
 If anything failed, enter Routine A from Phase A2—the diagnosis routine handles it.
 
@@ -367,112 +378,16 @@ Everything else—what failed and why, which mock to update, what test-set name 
 
 ## Anti-patterns (refuse these)
 
-- Editing handler code on a Case-2-shaped failure (contract changed intentionally). The test data is what's stale—update it on the branch instead.
-- Writing to `main` (any tool that omits `branch_id`). Always branch-first.
-- Re-recording to absorb a failure without first reading the diff and deciding the route. Re-record only when Route C applies.
-- Inventing a PAT, branch name, or secret value.
-````
-
-Save the file and fully restart your editor so the skill / rules / memory entry is available in your next session.
-
----
-
-## Step 3—Use the two prompts
-
-That's it. From now on, you only ever type one of:
-
-> **"my keploy cloud replay is failing, please analyse and fix it."**
-
-_or, when the failure was in CI:_
-
-> **"the keploy cloud replay pipeline is failing, please analyse and fix it."**
-
-or
-
-> **"Add new keploy tests for my changes."**
-
-What happens behind the scenes for each:
-
-### Prompt A—analyse and fix a failing replay (local or CI)
-
-| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A0    | Resolve `app_id` from `basename $(pwd)` + `listApps`. Resolve `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`.                                                                                                                                                                                                                                                                                                                                      |
-| A1    | Get a `test_run_id` to fetch the report against. Local form → `listTestReports({appId: app_id, branch_id, status: "FAILED", limit: 5})` and take the most recent run's id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup with `source: "ci"` if nothing was pasted).                                                                                                                                   |
-| A2    | Fetch the full report (`getTestReportFull({appId: app_id, reportId: test_run_id})`). Returns roll-up + every test set + per-test-case `oss_report.req`/`resp`/`result`/`mock_mismatches`/`failure_info`/`noise` in one round-trip. Use `mock_mismatches_only=true` to scope to mock-driven failures on large runs.                                                                                                                                                       |
-| A3    | Per failing test case, decide Case 1 (bug in the app—recent commit broke it, test is still correct) or Case 2 (app behavior drifted intentionally—test data is stale, with sub-actions 2a noise / 2a response edit / 2b mock edit / 2b delete + re-record). Decision is from `git log` / `git diff` plus the report's `oss_report.result` diff and `oss_report.mock_mismatches`, never from a dev question.                                                              |
-| A4    | For Case 1: announce the file:line and a one-line description, then edit the handler code so the dev can stop the agent if they object. For Case 2a: `updateTestCase` to add noise on a non-deterministic field, or to update the recorded `response` body. For Case 2b: `update_mock` on the affected mock, or—if the baseline is too far gone—`delete_recording` and re-record via Routine B's flow. Either way, re-run `keploy cloud replay --branch-name` to verify. |
-| A5    | Report: diagnosis table (case per test case) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                     |
-
-### Prompt B—author new keploy tests
-
-| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                |
-| ----- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| B0    | Discovery (same as A0).                                                                                                                                                                                                                                                                                                                                                            |
-| B1    | `git diff origin/main...HEAD` to find handler files that changed; extract added/modified endpoints.                                                                                                                                                                                                                                                                                |
-| B2    | Pre-flight: discover the dev's run command from the repo (Makefile → docker-compose.yml → Procfile → package.json → README), start the app, curl any 200-returning endpoint to confirm it's serving traffic, stop it. Then run `keploy record -c "<dev run command>" --sync`, drive a realistic curl per new endpoint, stop the recorder. Recording lands at `keploy/test-set-N/`. |
-| B3    | `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N --name <descriptive-name>` to land the bundle on the Keploy branch.                                                                                                                                                                                                               |
-| B4    | `keploy cloud replay --app <ns.deployment> --cluster "<cluster_name>" --branch-name <git branch> -c "<dev run command>" --container-name <app container> --disableReportUpload=false` to validate locally (drop the local flags in CI / active-cluster). On failure, drop into Routine A.                                                                                          |
-| B5    | Report: captured endpoints table + replay result + next-step (open PR) + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                         |
-
-For everything not covered by these two prompts—manually inspecting test data, editing one mock, listing recordings—use the manual flow on the [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page directly. The two-prompt workflow handles the 90% case; the manual flow is the escape hatch.
-
----
-
-## Putting it together
-
-Here are the typical scenarios the agent handles—one per case it decides between. Every one starts with the same two-prompt UX and ends with the dev pushing once CI catches up. The variable bit is what the agent does in the middle.
-
-### Scenario 1—App regression (Case 1)
-
-You merged a refactor that accidentally broke the price calculation on `/orders/{id}`. The test still expects the right total.
-
-> _"my keploy cloud replay is failing, please analyse and fix it."_
-
-A0 → A1 (latest failed run) → A2 (report shows `total_amount: 0` vs expected `99.99`). A3 sees your recent commit on the price-calc helper and the test's authored response is still correct → **Case 1**. A4 announces the edit at `pkg/order/calc.go:42`—restoring the line-item subtotal branch—then applies the fix and re-runs replay (green). A5 reports the edit + URLs.
-
-### Scenario 2—Test data drift on the response (Case 2a, response edit)
-
-You renamed a response field from `username` to `display_name` on `/users/{id}` on purpose. CI replay now fails because the recorded response still says `username`.
-
-> _"the keploy cloud replay pipeline is failing, please analyse and fix it."_
-
-A3 sees the rename commit and the recorded `oss_report.result.body_result[].expected` still pinned to `username` → **Case 2a**. A4 calls `updateTestCase` to swap the field name on the recorded response, re-runs replay (green). A5 reports the test edit + URLs.
-
-### Scenario 3—Test data drift, non-deterministic field (Case 2a, noise)
-
-The replay started failing on `$.created_at`—a timestamp that differs each run. No code changes near it.
-
-> _"my keploy cloud replay is failing, please analyse and fix it."_
-
-A3 sees the diverging field is genuinely time-varying with no related commit → **Case 2a (noise)**. A4 calls `updateTestCase` to add `$.created_at` to that test case's noise map; replay re-runs green.
-
-### Scenario 4—Mock drift from a DB query change (Case 2b, mock edit)
-
-You added a `discount_percent` column to the orders table and updated the `SELECT` to return it. The handler emits the new field, the test expects it, but the recorded mock for the DB call still has the old shape.
-
-> _"my keploy cloud replay is failing, please analyse and fix it."_
-
-A3 sees the schema-change commit and `mock_mismatches` on the SELECT row → **Case 2b**. A4 calls `update_mock` to add `discount_percent` to the mock spec; replay re-runs green. A5 reports the mock edit + URLs.
-
-### Scenario 5—Mock too far gone, full re-record (Case 2b, fallback)
-
-A downstream gRPC client was swapped for HTTP; the recorded mocks are protobuf bytes that no longer apply.
-
-> _"my keploy cloud replay is failing, please analyse and fix it."_
-
-A3 → **Case 2b**. A4 tries one `update_mock` edit—it doesn't pass. The agent falls back: `delete_recording` on the affected test set, then re-records via Routine B's flow (pre-flight → `keploy record -c "<run cmd>" --sync` → curl → `keploy upload test-set --branch <git branch>`). Replay re-runs green.
-
-### Scenario 6—Adding tests for a new endpoint (Routine B)
-
-You added `POST /coupons/redeem`.
-
-> _"Add new keploy tests for my changes."_
-
-B0 → B1 (`git diff origin/main...HEAD` surfaces the new route). B2 pre-flight: agent finds `make run` in the Makefile, brings the app up, `curl /health` returns 200, stops it. Then `keploy record -c "make run" --sync`, curls `POST /coupons/redeem` with a realistic body, stops the recorder. B3 uploads via `keploy upload test-set --app <ns.deployment> --branch <git branch> --name coupons-redeem`. B4 replay returns 1/1 passed. B5 reports the captured endpoint + URLs.
-
----
-
-Across every scenario, you only ever spoke one of two sentences. You push your code change (and, for Case 1, the agent's app-side edit). CI replays the branch on the PR; merge runs `keploy cloud branch-merge` and the test data lands on main.
-
-For the same flow done manually (CLI / dashboard, no agent), see [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow).
+- **Editing handler code on a Case-2 failure.** Contract changed intentionally → fix test data on the branch, not source.
+- **Rewriting deliberate code into non-IO equivalents to satisfy stale mocks** (mutex for `SELECT … FOR UPDATE`, local cache for Redis, hardcoded value for HTTP call). Mutates prod behaviour to pass tests; often regresses the safety property the commit added (process-local mutex doesn't survive replicas).
+- **`delete_recording` as the first action of 2b.** Order is record → upload → delete. Delete-first empties the branch; next replay "passes" trivially (zero tests = zero failures).
+- **Hand-editing local `keploy/<test_set_id>/` files.** That dir is re-downloaded each replay; edits are overwritten. Use CLI / MCP write paths.
+- **`keploy upload test-set` to re-publish edited mocks.** Upload is for landing fresh recordings only — it creates a duplicate test set, not a replacement. If `keploy mock patch` + `getMock` confirm the write but replay still fails, that's a matcher defect to report.
+- **Editing anything outside the application source tree.** No `Dockerfile*` / `docker-compose*` / `keploy.yml` / `.env*` / k8s manifests / CI workflows; no env-var-driven runtime bypass branches. Real code fix or test-data fix — nothing in between.
+- **Flipping CLI flags to make a failure go away** (`--freezeTime=false`, `--envs FOO=bar`, `--mocking=false`, `--ignoreOrdering=true`). Always a test-data problem instead.
+- **Writing to `main`** (any tool that omits `branch_id`).
+- **Uploading fixtures from another branch onto the current branch.** Fixtures are branch-scoped — they encode app-state assumptions of where they were captured. Re-record against THIS branch instead.
+- **Uploading fresh recordings without checking existing branch coverage first.** `listRecordings({app_id, branch_id})` + targeted `getMock` first; reuse if covered.
+- **Inventing a PAT, branch name, or secret value.**
+- **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and gets re-added to context on every subsequent turn — pure waste.
+- **Reading `keploy/cloud-debug.log`, `keploy-logs.txt`, or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.

@@ -1,5 +1,6 @@
 [Aa]ir-?gap(?:ped|ping)?
 [Aa]uditable
+[Aa]llowlist
 [Cc]group[s]?
 [Cc]leartext
 [Cc]onfigMap[s]?
@@ -201,3 +202,19 @@ Woohoo
 wsl
 WSL
 YAMLs
+branch_id
+camelCase
+CLI[s]?
+cwd
+hardcoded
+JSONPath[s]?
+matcher
+misclassification
+mutex
+OAuth
+readback
+README
+snake_case
+stdout
+test_run
+unprojected
