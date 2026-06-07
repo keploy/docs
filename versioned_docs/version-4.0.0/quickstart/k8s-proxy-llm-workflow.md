@@ -26,9 +26,21 @@ keywords:
 
 # Keploy MCP playbook—autonomous developer workflow
 
+## Installation
+
+Save this playbook as an **agent skill**, not a static rules file. Cursor's modern Skills mechanism (and Claude Code's identical `SKILL.md` convention) loads the file on demand when the user issues one of the two prompts below, instead of injecting it as always-on context. That keeps every other unrelated agent task out of this playbook's token cost.
+
+- **Cursor:** create `.cursor/skills/keploy/SKILL.md` (or your project's preferred Skills path) and paste the rest of this page into it. Do **not** put this content in `.cursorrules` — `.cursorrules` files are always-on and would bill the full ~8k-token playbook on every editor interaction.
+- **Claude Code:** create `.claude/skills/keploy/SKILL.md` and paste the rest of this page into it. The agent invokes it automatically when the developer's prompt matches one of the entry points below.
+- **Other agents (Windsurf, Antigravity, …):** create the equivalent skill / project-context file. Avoid global / always-on placements for the same token-cost reason.
+
+The MCP server itself is configured separately — see the [agent test generation MCP setup](/docs/running-keploy/agent-test-generation#mcp-client-configuration) for the Cursor / Claude Code MCP entries that wire `https://api.keploy.io/client/v1/mcp` into your client.
+
+## Entry points
+
 The developer will only ever say one of two things to you:
 
-**Prompt A:** "my keploy cloud replay is failing, please analyse and fix it." OR "the keploy cloud replay pipeline is failing, please analyse and fix it."—both forms route to the same routine; the first means the dev's last local replay run failed (find the latest test_run on the branch via api-server), the second means a CI pipeline run failed (the dev should paste the CI log or dashboard URL; extract `test_run_id` from it).
+**Prompt A:** "my keploy cloud replay is failing, please analyze and fix it." OR "the keploy cloud replay pipeline is failing, please analyze and fix it."—both forms route to the same routine; the first means the dev's last local replay run failed (find the latest test_run on the branch via api-server), the second means a CI pipeline run failed (the dev should paste the CI log or dashboard URL; extract `test_run_id` from it).
 **Prompt B:** "Add new keploy tests for my changes."
 
 You handle EVERYTHING else autonomously. Discover the app, the branch, the failing run, the code changes—from the filesystem, from git, and from the Keploy api-server. Make decisions. Execute fixes. Report what you did. Do NOT ask the developer follow-up questions unless you are truly blocked (see "When you may ask" at the bottom).
@@ -55,7 +67,7 @@ All three values are sticky for the rest of the conversation. Don't re-discover 
 
 ---
 
-## Routine A—failing cloud replay (local or CI), analyse and fix
+## Routine A—failing cloud replay (local or CI), analyze and fix
 
 ### Phase A1—Resolve the `test_run_id`
 
@@ -98,7 +110,7 @@ getTestReportFull({
 
 The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
 
-**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that re-bills every subsequent turn for the rest of the session.** Read:
+**Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that gets re-added to context every subsequent turn for the rest of the session.** Read:
 
 - `report.status` — `FAILED` is your trigger to continue.
 - `report.ci_metadata` — when populated this is a CI run; `provider` / `commit_sha` / `pr_number` give you the surrounding context.
@@ -146,7 +158,7 @@ git diff --cached -- <failing-handler-path> # staged but not committed
 
 Run all three **every time**, even when the tree looks clean. The empty result IS the evidence required to advance to Step 1. Skipping = silent misclassification when the assumption is wrong.
 
-**ALLOWLIST of MCP calls permitted before Step 0** (Phase A1 discovery only): `listApps`, `getApp`, `create_branch`, `list_branches`, `listTestReports`, `getTestReport`, `tools/list`. EVERY other call — `getTestReportFull`, `getTestCase`, `getMock`, `listMocks`, `getRecording`, `listRecordings`, `updateTestCase`, `update_mock`, `delete_recording` — is classifier/write and MUST come AFTER Step 0. Reading `getTestCase` first biases toward Case 2 framing.
+**Allowlist of MCP calls permitted before Step 0** (Phase A1 discovery only): `listApps`, `getApp`, `create_branch`, `list_branches`, `listTestReports`, `getTestReport`, `tools/list`. EVERY other call — `getTestReportFull`, `getTestCase`, `getMock`, `listMocks`, `getRecording`, `listRecordings`, `updateTestCase`, `update_mock`, `delete_recording` — is classifier/write and MUST come AFTER Step 0. Reading `getTestCase` first biases toward Case 2 framing.
 
 Any uncommitted edit touching the failing handler's source → **Case 1, mandatory.** Revert (or ask the dev); do NOT proceed to commit-history reasoning. Uncommitted edits beat any committed-history signal — they can't be the deliberate new contract.
 
@@ -256,7 +268,7 @@ keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <
   | grep -E "Total test|Failed Testcases|test passed|test failed|FAIL|ERROR|debug bundle|View test report"
 ```
 
-The full replay log contains per-mock-match traces, per-testcase debug lines, and a final summary block. Your decisions only need the final summary + any FAIL/ERROR lines + the `View test report at:` URL. Piping at the command level keeps the slice that re-bills on every subsequent step to ~2k tokens instead of the full ~40k — over a retry loop that compounds enormously. Apply the same pipe pattern to every other long-running Bash command: `keploy record` output, `docker build`, `keploy upload test-set`. Read the cached log file directly only when the grep slice doesn't show what you need.
+The full replay log contains per-mock-match traces, per-testcase debug lines, and a final summary block. Your decisions only need the final summary + any FAIL/ERROR lines + the `View test report at:` URL. Piping at the command level keeps the slice that gets re-added to context on every subsequent step to ~2k tokens instead of the full ~40k — over a retry loop that compounds enormously. Apply the same pipe pattern to every other long-running Bash command: `keploy record` output, `docker build`, `keploy upload test-set`. Read the cached log file directly only when the grep slice doesn't show what you need.
 
 **`--cluster` is mandatory.** Use the `origin.clusterName` you cached from Discovery's `getApp` (do NOT re-call). Without it, auto-select needs a cluster heartbeat within 35s and dies `no active clusters found`.
 
@@ -377,5 +389,5 @@ Everything else—what failed and why, which mock to update, what test-set name 
 - **Uploading fixtures from another branch onto the current branch.** Fixtures are branch-scoped — they encode app-state assumptions of where they were captured. Re-record against THIS branch instead.
 - **Uploading fresh recordings without checking existing branch coverage first.** `listRecordings({app_id, branch_id})` + targeted `getMock` first; reuse if covered.
 - **Inventing a PAT, branch name, or secret value.**
-- **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and re-bills on every subsequent turn — pure waste.
+- **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and gets re-added to context on every subsequent turn — pure waste.
 - **Reading `keploy/cloud-debug.log`, `keploy-logs.txt`, or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.

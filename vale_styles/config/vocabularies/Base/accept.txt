@@ -1,5 +1,6 @@
 [Aa]ir-?gap(?:ped|ping)?
 [Aa]uditable
+[Aa]llowlist
 [Cc]group[s]?
 [Cc]leartext
 [Cc]onfigMap[s]?
