@@ -48,33 +48,68 @@ The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and rep
 
 ---
 
-## Why the Kubernetes Proxy instead of `keploy enterprise` directly?
+## Why the Kubernetes Proxy instead of Keploy Enterprise directly?
 
-Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy removes that friction:
+Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
 
-- **Zero-touch agent setup.** The proxy registers a `MutatingAdmissionWebhook` (`/mutate`) so the Keploy recording agent is injected into target Pods on the next rollout. No image rebuild, sidecar template change, or per-app config knob is required.
-- **One API for every Deployment.** A single shared-token-authenticated endpoint starts or stops recording for any Deployment in the watched scope. `podsCount` controls how many pods are recorded and is capped by the Deployment replicas or HPA max replicas.
-- **Cluster-wide or namespace-scoped.** Install once per cluster, or set `watchNamespace` to pin the proxy to a single team's namespace. Cross-namespace calls are rejected with `403`.
-- **Stored session outputs.** Recording, replay, and schema-coverage outputs are persisted through the configured platform storage. Per-session and proxy logs are available through the log endpoints when log retention/support-bundle storage is enabled.
-- **Auto-replay loop.** A recording session can kick off an auto-replay on a cadence (`autoReplayInterval`) against freshly recorded test sets, giving you self-validating live traffic without a separate pipeline.
-- **Self-updating.** The proxy can roll itself (and the injected agent) forward via `POST /proxy/update`, so upgrades do not require kubectl or a GitOps round-trip—unless you _want_ GitOps to stay authoritative (the proxy detects and reports reverts).
-- **Static deduplication at the edge.** Enable `static_dedup` in the recording config to drop schema-identical traffic _before_ it is ever written as a test case. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/).
+### 1. Auto-replay
 
----
+The proxy auto-replays captured traffic against a fresh Pod and reports back which captures behave as deterministic tests. This happens continuously while you record (every `autoReplayInterval` minutes, default 5) and once more, against any trailing captures, the moment you call `POST /record/stop`. The whole loop collapses the "record now, find out tomorrow which tests are flaky" wait into the recording session itself.
+
+This is also why replay belongs in the Kubernetes Proxy instead of a one-off CLI run: the proxy has the cluster, Deployment, release, and recording-session context needed to make replay release-aware. For a new-release flow, the proxy layer is designed to coordinate replaying the traffic captured for the new release together with the historical traffic the service has recorded before, so a release is checked against both the latest behavior and the behavior users already depended on. When the smart test set gets shipped, that historical input becomes the curated smart set: newly recorded traffic plus the latest duplicate-free version of the service's long-lived test coverage.
+
+Each test case is exercised once against a freshly rolled Pod and classified into one of three buckets:
+
+- **Pass:** kept as a real, stable test case.
+- **High-risk failure:** marked as failed (a real regression to investigate).
+- **Low-risk failure with extractable noise:** marked as noisy and kept in the test set but excluded from failure counts. These are typically captures whose only diff is a timestamp, request-ID, or generated UUID. If the proxy cannot extract the noisy fields, the capture is kept as a failed test case so it can be investigated.
+
+While the proxy is at it, mocks the test case did not actually need are pruned. So even if the original Pod made 200 dependency calls per request, the final test case only carries the mocks it depended on, and your test sets stay tiny.
+
+The cadence is configured via `autoReplayInterval` (see [Auto-replay configuration](#auto-replay-configuration) below). When auto-replay runs as part of a re-record job, the proxy first asks the API server which suites passed last time. Replay still runs against the recorded test sets, but suite linking is gated so only suites that passed upstream and pass the fresh replay are linked forward.
+
+### 2. Deduplication
+
+A naive recorder turns a load test of `GET /users/42` into 50,000 identical test cases. Keploy's deduplication keeps the canonical capture, counts the rest, and drops them, so a real test set comes out of even a noisy production traffic sample.
+
+Enable per-recording with `record_config.static_dedup`, and optionally narrow the dedup key per endpoint with `record_config.custom_dedup_fields`, which declares which JSON paths in the request body, plus method/path/status, define "the same test." The agent enforces this _at capture time_ before anything is written to storage, and per-pod dedup stats stream back into the recording status endpoint so you can watch duplicates being dropped live. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/) for the full configuration reference.
+
+### 3. REST API for in-cluster automation
+
+Every action you perform from the Console or `kubectl-keploy` is also available as a REST call. The [endpoint reference](#endpoint-reference) covers the full surface—`/record/start`, `/record/stop`, `/test/start`, `/deployments`, `/proxy/update`, the streaming status endpoints, the log and report endpoints, and the `/k8s-proxy/*` data routes the Console uses for stored test cases, mocks, schema, and reports.
+
+### 4. Schema Generation and Management
+
+**Schema generation and per-release storage.** Recording produces a free OpenAPI 3.0.3 schema as a side effect. The proxy infers it from the captured traffic, so the spec reflects the requests and responses Keploy actually observed during that recording. Schema records store namespace, deployment, app name, app release, cluster name, and tenant metadata; release-specific versions are selected by `appRelease`, which is typically your image tag or git SHA. That lets `orders-api@v1.4.2` and `orders-api@v1.4.3` be stored as separate release snapshots instead of overwriting each other. Coverage reporting layered on top tells you which endpoints have been exercised, and how deeply. Endpoints are documented under [Reports and schema coverage](#reports-and-schema-coverage).
+
+**Schema-conflict detection during auto-replay.** During auto-replay, the proxy fetches the latest stored schema, generates a schema from the recorded test cases, and merges the two. If replay produces failed test-case details, the report records a schema conflict and stores the new schema accordingly. Compatible same-release additions update the existing schema; new releases or replay-detected conflicts insert a new schema document.
+
+### 5. Smart test set (Upcoming)
+
+The direct user benefit is simple: this layer is meant to maintain a smart, replay-ready test set for the service instead of leaving you to manage scattered recording sessions by hand. The goal is to keep the latest useful, duplicate-free version of the behavior your service has recorded over time. When you add an API endpoint, the new behavior can be folded in; when you delete an endpoint, stale coverage can be removed; when you change a request or response shape, the latest captured version can replace the old one. Future release replays can then run the newly recorded traffic plus this smart test set instead of every duplicate capture ever seen, which keeps replay fast, efficient, and easier to trust as a CI gate.
+
+Current auto-replay already performs the in-session curation work:
+
+- **Cross-pod uniqueness within a session.** When a Deployment with `replicas=5` records into the same session, each pod's local `test-N` counter does not collide with any other pod's. The proxy keeps them distinct so you don't end up with five different captures all named `test-1`.
+- **Noise vs. failure separation.** During auto-replay, captures with extractable timestamp/UUID-style diffs are tagged as noisy and kept in the test set (excluded from failure counts), while real regressions and low-risk captures without extractable noise are tagged as failures. The noise tag itself is useful information because it tells later replays which fields to ignore for that endpoint.
+- **Fresh-capture curation.** Current auto-replay curates the test sets produced by the active recording session. Historical test set consolidation support exists in the codebase, but it is not active in the current record/start path.
+
+Combined with capture-time static deduplication (benefit 2), this keeps the current replay set small, stable, and CI-gateable even when the underlying traffic is noisy.
 
 ## Authentication
 
-:::info In development
-The authentication flow is currently in development.
-:::
+Authenticating to the proxy is a **two-step exchange**:
 
-Every protected proxy endpoint requires the cluster **shared token**. Send it as a Bearer token:
+1. Create a **Personal Access Token (PAT)** in the Keploy Console.
+2. `POST /get-shared-token` with that PAT to receive the cluster's **shared token**.
+
+Every other protected route on the proxy is then gated on the shared token sent as a Bearer header:
 
 ```text
 Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>
 ```
 
-Only `GET /healthz` and the admission webhook `POST /mutate` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
+Only `GET /healthz`, the admission webhook `POST /mutate`, the bootstrap `POST /get-shared-token`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
 
 ```bash
 # Verify the proxy is up (no auth required)
@@ -82,94 +117,136 @@ curl -sf https://$PROXY/healthz
 # {"status":"ok"}
 ```
 
-### How the token is provisioned
+### Why a two-step exchange?
 
-The shared token is generated **at Helm install time** and stored as a Kubernetes Secret named `<release>-shared-token` in the proxy's namespace. The chart's pre-render step uses Helm's `randAlphaNum 48` to produce the value on the very first install and a `lookup` + `helm.sh/resource-policy: keep` annotation to preserve it across upgrades, so the token is **stable for the lifetime of the release**—Pod restarts and chart upgrades do not rotate it.
+The PAT identifies a specific user; the shared token authorizes calls against a specific cluster. Splitting the two lets callers (CI scripts, AI agents, internal tooling) store one user-rotatable PAT and exchange it at run time without `kubectl` access to the proxy namespace or an interactive user login. The shared token is still a cluster-wide secret and can also be surfaced through existing heartbeat-backed Console/API flows, so handle it as sensitive wherever it appears.
 
-The k8s-proxy Deployment and the per-node DaemonSet both mount the Secret as the `KEPLOY_SHARED_TOKEN` env var via `secretKeyRef`. On startup the proxy reports the value to the Keploy API server in its first heartbeat (`POST /cluster/status`) so the Console can display it under the cluster's app entries.
+### 1. Issue a PAT
 
-For local/dev runs without a Secret, if `KEPLOY_SHARED_TOKEN` is unset the proxy falls back to generating a random 32-byte value via `crypto/rand` (hex-encoded). This fallback is fresh on every restart and is **not** the path used in any Helm-managed deployment.
+In the Keploy Console, open **Settings → API Keys** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
 
-### Retrieve the token
+- The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to and include `write` or `admin` scope. The proxy will reject cross-tenant PATs or PATs with insufficient scope with `403 Forbidden`.
+- Treat the PAT like a password—it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
+- A user can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
 
-Two equally valid paths.
+### 2. Exchange the PAT for the shared token
 
-**(a) Read it directly from the Secret** if you have `kubectl` access to the proxy namespace:
+There are two ways to do the exchange. Pick whichever fits your workflow—they both hit the same `POST /get-shared-token` endpoint.
+
+#### Option A: From the Keploy Console
+
+Open the cluster's detail page in the Console. Each cluster card on the top row shows the live ingress URL; the **Get Shared Token** button sits inside that card.
+
+![Get Shared Token button on the Ingress URL card](/img/k8s-proxy-shared-token-button.png)
+
+Clicking it opens a dialog pre-filled with the cluster's ingress URL. Paste your PAT and submit.
+
+![Exchange PAT for shared token dialog](/img/k8s-proxy-shared-token-dialog.png)
+
+On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deploymentType` returned by the proxy. Use the **Copy sharedToken** button to grab the token for your CI script or terminal.
+
+![Successful exchange showing sharedToken, ingressUrl, deploymentType](/img/k8s-proxy-shared-token-success.png)
+
+The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
+
+#### Option B: From a shell
 
 ```bash
-kubectl -n keploy get secret <release>-shared-token -o jsonpath='{.data.token}' | base64 -d
-```
+PROXY="https://your-proxy-ingress"
+PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 
-**(b) Fetch it from the Keploy API server**, which mirrors what the proxy reported in its last heartbeat. Log in once to obtain a user JWT, then look up the proxy app for the Deployment you want to drive:
+RESP=$(curl -sS -X POST "$PROXY/get-shared-token" \
+  -H "Authorization: Bearer $PAT")
 
-```bash
-API_SERVER="https://api.keploy.io"
-NS="default"
-DEPLOY="orders-api"
-CLUSTER="prod-use1"
-
-# 1. Authenticate as a Keploy user (admin, user, or cicd role)
-JWT=$(curl -s -X POST "$API_SERVER/login" \
-  -H "Content-Type: application/json" \
-  -d '{"email":"you@example.com","password":"..."}' | jq -r '.token')
-
-# 2. Look up the proxy app for this Deployment and read its sharedToken
-K8S_PROXY_SHARED_TOKEN=$(curl -s -H "Authorization: Bearer $JWT" \
-  "$API_SERVER/cluster/getApp?namespace=$NS&deployment=$DEPLOY&clusterName=$CLUSTER" \
-  | jq -r '.sharedToken')
+K8S_PROXY_SHARED_TOKEN=$(echo "$RESP" | jq -r '.sharedToken')
+INGRESS_URL=$(echo "$RESP" | jq -r '.ingressUrl')
 
 AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
 ```
 
-`GET /cluster/getApps` returns the same `sharedToken` field for every proxy-managed app in your organization in a single response, which is convenient when you want to script across many Deployments at once.
+A successful exchange returns:
 
-> The proxy shared token is cluster-wide, not per-user. The API server still uses normal user JWT/cookie authentication on its own routes (including `/cluster/getApp`). The token is sticky across Pod restarts and chart upgrades, so callers can cache it for the lifetime of the Helm release.
-
----
-
-## Response format
-
-Handlers return JSON with `application/json` on success. Validation failures usually return `{"error": "..."}` with a 4xx status; shared-token auth failures return `{"success": false, "message": "Unauthorized: ..."}`. A handful of endpoints stream newline-delimited JSON instead - they are called out explicitly below.
-
-```js
-// Successful record start (200)
-{ "record": "started", "id": "default-orders-api" }
-
-// Validation error (400)
-{ "error": "namespace and deployment are required" }
-
-// Auth error (401)
-{ "success": false, "message": "Unauthorized: Missing authorization header" }
-
-// Namespace-scoped proxy rejecting a cross-namespace call (403)
-{ "error": "this proxy is scoped to namespace \"payments\"" }
+```json
+{
+  "ingressUrl": "https://your-proxy-ingress",
+  "sharedToken": "3e14be232bce3e3cf6f6d58f284b6eb88db3280c54d93a7951e5000c6bbe3e9a",
+  "deploymentType": "saas",
+  "tokenId": "408aaecaba458939",
+  "issuedAt": 1777883713
+}
 ```
 
-### Error status codes
+- `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
+- `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
+- `deploymentType`—either `"saas"` for the hosted control plane or `"self-hosted"` for self-hosted installs.
+- `tokenId`—a short non-secret identifier that changes whenever the proxy regenerates `sharedToken`. Cache it alongside the token; use `GET /shared-token/info` to check whether your cached value is still current.
+- `issuedAt`—unix timestamp when the proxy minted this `sharedToken`.
 
-| HTTP | When it happens                                                                                 |
-| ---- | ----------------------------------------------------------------------------------------------- |
-| 400  | Missing or malformed request body, missing required fields                                      |
-| 401  | Missing or invalid `Authorization: Bearer` header                                               |
-| 403  | Request touches a namespace outside `watchNamespace`, or image repo mismatch on `/proxy/update` |
-| 404  | Recording/replay session ID not found, or deployment/config does not exist                      |
-| 405  | Wrong HTTP method for the route                                                                 |
-| 500  | Kubernetes API error, storage backend unavailable, or unexpected server error                   |
-| 503  | Kubernetes client or self-discovery not initialised (proxy is still starting or missing RBAC)   |
+### Shared token lifetime and rotation
+
+The shared token is generated **fresh in process memory at every Pod startup** with `crypto/rand` (32 bytes, hex-encoded). It is _not_ stored in a Kubernetes Secret, _not_ persisted to disk, and _not_ stable across restarts. Concretely, the token rotates whenever:
+
+- the proxy Pod restarts (CrashLoop, eviction, node drain, OOM),
+- `helm upgrade` rolls the proxy Deployment,
+- you call `POST /proxy/update` and the new image becomes ready.
+
+Treat the shared token as **scoped to one running process**, not "the lifetime of the install." A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
+
+#### Detecting a rotated token
+
+`GET /shared-token/info` returns only the current `tokenId` and `issuedAt`—never the token itself, so it is safe to call without the shared token.
+
+```bash
+curl -sS "$PROXY/shared-token/info"
+# {"tokenId":"408aaecaba458939","issuedAt":1777883713}
+```
+
+Recommended pattern in CI: cache `(tokenId, sharedToken)` together when you exchange, and before every long-running operation (or as a quick guard at the start of every step) hit `/shared-token/info` to compare. If `tokenId` differs from your cached value, re-exchange the PAT.
+
+```bash
+CACHED_TOKEN_ID="$(jq -r '.tokenId' < ~/.cache/keploy-proxy.json)"
+CURRENT_TOKEN_ID="$(curl -sS "$PROXY/shared-token/info" | jq -r '.tokenId')"
+if [ "$CACHED_TOKEN_ID" != "$CURRENT_TOKEN_ID" ]; then
+  # proxy was restarted, re-exchange the PAT
+  RESP=$(curl -sS -X POST "$PROXY/get-shared-token" -H "Authorization: Bearer $PAT")
+  echo "$RESP" > ~/.cache/keploy-proxy.json
+fi
+```
+
+If you instead see a sudden `401 Invalid token` on a previously working `sharedToken`, that's the same signal: the proxy was rolled. Re-exchange the PAT and retry once.
+
+### Exchange failure modes
+
+| Status | When                                                                                                                        |
+| ------ | --------------------------------------------------------------------------------------------------------------------------- |
+| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.                                           |
+| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster, or it does not include `write`/`admin` scope. |
+| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).                                             |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                         |
+
+Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
+
+> The shared token is cluster-wide, not per-user. The PAT-exchange path authenticates who is allowed to bootstrap it, but the returned shared token should still be treated as a sensitive cluster credential.
 
 ---
 
 ## Quick start: Trigger and watch a live recording
 
-The golden path: pick a Deployment, start a recording, stream its status, and stop it when you have the traffic you need.
+The golden path: authenticate, pick a Deployment, start a recording, stream its status, and stop it when you have the traffic you need.
 
-### 1. Set up variables
+### 1. Set up variables and authenticate
 
 ```bash
 PROXY="https://k8s-proxy.example.com"    # ingressUrl from Helm install
-AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
+PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
 NS="default"
 DEPLOY="orders-api"
+
+# One-time PAT → shared-token exchange (see Authentication above)
+K8S_PROXY_SHARED_TOKEN=$(curl -sS -X POST "$PROXY/get-shared-token" \
+  -H "Authorization: Bearer $PAT" | jq -r '.sharedToken')
+
+AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
 ```
 
 ### 2. Discover target Deployments
@@ -296,6 +373,15 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 | ------ | ---------- | ---- | ------------------------------------------------------------------- |
 | `GET`  | `/healthz` | No   | Liveness probe. Returns `{"status":"ok"}`.                          |
 | `POST` | `/mutate`  | No   | Kubernetes MutatingAdmissionWebhook endpoint. Do not call directly. |
+
+### Bootstrap
+
+| Method | Path                 | Auth                          | Description                                                                                                                                                                          |
+| ------ | -------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Exchange the PAT for the shared token](#2-exchange-the-pat-for-the-shared-token) for details.                    |
+| `GET`  | `/shared-token/info` | None                          | Return only the current `tokenId` and `issuedAt`; never the token itself. Use this to detect when the proxy has rotated the shared token (Pod restart, `helm upgrade`, self-update). |
+
+`POST /get-shared-token` gates on a PAT instead of the shared token because the caller does not yet have one. `GET /shared-token/info` is unauthenticated because the response leaks no credential material. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
 
 ### Deployments
 

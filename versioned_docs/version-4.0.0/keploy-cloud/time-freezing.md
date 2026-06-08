@@ -51,11 +51,11 @@ For Docker-based applications, you'll need to make a few adjustments to your Doc
 uname -a
 ```
 
-2. Download the the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
+2. Download the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
 
 ### For Golang(Go) Applications -
 
-> Note: Time freezing is only supported till go **1.22.x** version.
+> Note: Time freezing works on every Go version that supports the `faketime` build tag, i.e. all currently supported Go releases. The mechanism is build-time (the `-tags=faketime` flag swaps Go's `time` package to read from a runtime agent file instead of the OS clock), so it's not tied to any specific Go version.
 
 #### amd64/x86_64 🖥️
 

@@ -35,13 +35,13 @@ curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 
 Use `wget` to download the necessary JAR files:
 
-- [io.keploy.agent-2.0.1.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar)
+- [io.keploy.agent-2.0.2.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.2.jar)
 - [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar
+wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.2.jar
 wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
@@ -54,7 +54,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.1.jar"
+   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.2.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 

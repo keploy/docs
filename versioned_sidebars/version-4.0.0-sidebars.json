@@ -22,6 +22,11 @@
           "items": [
             {
               "type": "doc",
+              "label": "Installation",
+              "id": "server/installation"
+            },
+            {
+              "type": "doc",
               "label": "Local",
               "id": "server/install"
             },
@@ -154,6 +159,8 @@
           "collapsed": true,
           "items": [
             "quickstart/k8s-proxy",
+            "quickstart/k8s-proxy-developer-workflow",
+            "quickstart/k8s-proxy-llm-workflow",
             "running-keploy/k8s-proxy-daemonset-architecture"
           ]
         },

@@ -37,6 +37,10 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 > [!NOTE]
 > This documentation covers **local Kind cluster** setup. Documentation for **hosted cluster** setup is coming soon.
 
+## How Keploy works on Kubernetes
+
+![How Keploy works on Kubernetes architecture overview](/img/k8s-arch.png)
+
 ---
 
 ## Prerequisites
