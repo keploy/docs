@@ -188,6 +188,7 @@ getTestReportFull({
   appId: app_id,
   reportId: test_run_id,
   include_oss_report: true,
+  failed_only: true,
   max_test_cases_per_set: 50,
   fields: [
     "report.status",
@@ -209,7 +210,9 @@ getTestReportFull({
 })
 ```
 
-The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `failed_only`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+
+**`failed_only: true` is the cheapest knob you have.** A passing suite of 50 tests with 3 failures becomes a 3-test response instead of 50. Combined with the projection above, the call drops from ~10k tokens to ~1-2k. Use it on EVERY first `getTestReportFull` call where `report.status` is `FAILED` — the failures are what you're going to analyze; the passes are noise that re-caches on every subsequent turn.
 
 **Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that gets re-added to context every subsequent turn for the rest of the session.** Read:
 
