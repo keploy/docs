@@ -21,7 +21,7 @@ keywords:
 
 ## 🛠️ Best Practices in API Testing
 
-API testing ensures the reliability, security, and performance of your application's backend services. To build robust, scalable test suites, here are the best practices you should follow:
+[API testing](https://keploy.io/blog/community/what-is-api-testing) ensures the reliability, security, and performance of your application's backend services. To build robust, scalable test suites, here are the best practices you should follow:
 
 ### ✅ 1. Define Clear Test Objectives
 
