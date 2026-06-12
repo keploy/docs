@@ -58,9 +58,19 @@ This page picks up after two one-time setups are already done: the application i
 
 ## Step 1 — Wire up the Keploy MCP server
 
-All MCP-aware editors accept the exact same JSON config; only the config file path differs. The Claude Code snippet is shown below as the example; for the equivalent config paths on Cursor, Windsurf / Antigravity, GitHub Copilot, and other clients, see [MCP Client Configuration](/docs/running-keploy/agent-test-generation#mcp-client-configuration) on the Agent Test Generation page — the same JSON shape works there.
+All MCP-aware editors accept the exact same JSON config; only the config file path differs.
 
-**Claude Code** uses `~/.claude.json`:
+### MCP config path per editor
+
+| Editor                      | Config file path                                                                                                                        |
+| --------------------------- | --------------------------------------------------------------------------------------------------------------------------------------- |
+| **Claude Code**             | `~/.claude.json` (global)                                                                                                               |
+| **Cursor IDE**              | `.cursor/mcp.json` in the repo (per-repo, committed) **or** `~/.cursor/mcp.json` (global)                                               |
+| **cursor-agent CLI**        | `~/.cursor/mcp.json` (CLI reads the global path)                                                                                        |
+| **Windsurf / Antigravity**  | `~/.codeium/windsurf/mcp_config.json` or the editor's documented equivalent                                                             |
+| **Other MCP-aware editors** | See [MCP Client Configuration](/docs/running-keploy/agent-test-generation#mcp-client-configuration) — same JSON shape works everywhere. |
+
+### The JSON config (same for every editor)
 
 ```json
 {
@@ -74,7 +84,26 @@ All MCP-aware editors accept the exact same JSON config; only the config file pa
 }
 ```
 
+Two things to swap for your environment:
+
+- **`url`** — `https://api.keploy.io/client/v1/mcp` is the hosted Keploy endpoint. For **self-hosted** deployments use your api-server's URL (commonly `http://localhost:8083/client/v1/mcp` for a local dev install).
+- **`kep_...`** — paste your PAT from Dashboard → Settings → API Keys (shown only once on creation; regenerate if you've lost it).
+
 Fully quit and reopen your editor after editing the config — MCP clients only re-read config on startup.
+
+### Verify the MCP wiring (do this BEFORE Step 2)
+
+After restarting your editor, ask the agent:
+
+> _"List your available tools — do you see any prefixed `keploy-` or `mcp__keploy`?"_
+
+You should see ~100 keploy MCP tools (`listApps`, `getApp`, `listTestReports`, `getTestReportFull`, `getMock`, `getTestCase`, `updateTestCase`, etc.). If you see **zero** keploy tools, the config didn't load — check:
+
+- The file path matches your editor's expected location (see the table above).
+- The PAT in `Bearer kep_...` has no quotes / trailing whitespace issues.
+- The `url` is reachable from your machine: `curl -i <url>` should return **HTTP 401** (auth required), NOT connection-refused. A 401 means the server is up; a connection-refused means the URL is wrong (often the host or port).
+
+> ⚠ **Do NOT proceed to Step 2 if Keploy MCP tools aren't visible.** Without native MCP, the agent silently falls back to shell HTTP calls (`python3 -c 'import urllib.request; ...'` heredocs hitting the api-server endpoint directly). The skill below assumes native MCP and the fallback inflates per-turn token cost by ~55K (3× the native-MCP cost) because the JSON-RPC envelope + auth token + every response becomes new context bytes instead of structured tool envelopes the cache can reuse. Diagnosed empirically against the validation harness (2026-06-08).
 
 ---
 
@@ -86,11 +115,11 @@ The exact same block works on every Skills-aware editor; only the file path chan
 
 ### Where the playbook goes
 
-| Editor                                           | Install path                                                                                                                                                                        |
-| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Cursor**                                       | `.cursor/skills/keploy/SKILL.md` in the repo (committed). Do **not** use `.cursorrules` — that's the always-on legacy format and would bill the full playbook on every editor turn. |
-| **Claude Code**                                  | `.claude/skills/keploy/SKILL.md` in the repo (committed) **or** `~/.claude/skills/keploy/SKILL.md` (global). Auto-loaded when the dev's prompt matches the skill's `description`.   |
-| **Windsurf / Antigravity / other Skills agents** | The agent's equivalent `skills/<name>/SKILL.md` path. Avoid global / always-on placements (`.windsurfrules`, etc.) for the same token-cost reason.                                  |
+| Editor                                           | Install path                                                                                                                                                                                                                                                                                                                                                                                             |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cursor**                                       | `.cursor/skills/keploy/SKILL.md` in the repo (committed). Do **not** use the always-on rule formats (`.cursorrules` legacy single-file, or `.cursor/rules/*.mdc` with `alwaysApply: true`) — they bill the full ~9k-token playbook on every editor turn even for conversations that aren't keploy-related. The skill path loads on-demand only when the user's prompt matches the skill's `description`. |
+| **Claude Code**                                  | `.claude/skills/keploy/SKILL.md` in the repo (committed) **or** `~/.claude/skills/keploy/SKILL.md` (global). Auto-loaded when the dev's prompt matches the skill's `description`.                                                                                                                                                                                                                        |
+| **Windsurf / Antigravity / other Skills agents** | The agent's equivalent `skills/<name>/SKILL.md` path. Avoid global / always-on placements (`.windsurfrules`, etc.) for the same token-cost reason.                                                                                                                                                                                                                                                       |
 
 Commit the file when you want every teammate's agent to follow the same playbook. After saving, **fully restart the editor** — every editor reads skills only at startup.
 
@@ -116,6 +145,8 @@ The developer will only ever say one of two things to you:
 You handle EVERYTHING else autonomously. Discover the app, the branch, the failing run, the code changes—from the filesystem, from git, and from the Keploy api-server. Make decisions. Execute fixes. Report what you did. Do NOT ask the developer follow-up questions unless you are truly blocked (see "When you may ask" at the bottom).
 
 ## Hard rules
+
+0. **Native MCP transport only — NEVER Python+urllib shell fallback.** Before any other discovery step, verify Keploy MCP tools are loaded in your tool list (`listApps`, `getApp`, `listTestReports`, `getTestReportFull`, `getMock`, `getTestCase`, `updateTestCase`, `keploy-create_branch`, etc. — names vary by editor: `keploy-<tool>` or `mcp__keploy*__<tool>`). If you see ZERO keploy MCP tools, the dev's editor MCP config is missing — ask them once to install `~/.cursor/mcp.json` / `~/.claude.json` (see the page's Step 1) and STOP. **Do NOT fall back to `python3 -c 'import urllib.request; ...'` heredocs hitting the api-server's `/client/v1/mcp` endpoint directly** — diagnosed against the validation harness 2026-06-08: the shell fallback embeds the full JSON-RPC envelope + auth token + response in each shell command, inflating per-turn cache_read by ~55K tokens (3× the cost of native MCP) because every heredoc + every result becomes new context bytes instead of structured tool envelopes the cache can reuse. Native MCP is required, not optional.
 
 1. **Branch-first.** Every write to mocks / tests / recordings is branch-scoped. Resolve `branch_id` before any write. If a tool returns "branch_id is required", you skipped this—fix and retry, don't ask the dev.
 2. **Keploy branch name = git branch name.** Detect via `git rev-parse --abbrev-ref HEAD`. Pass that string to `create_branch` (find-or-create, idempotent). Reuse the returned `branch_id` for every subsequent write in this session.
@@ -157,6 +188,7 @@ getTestReportFull({
   appId: app_id,
   reportId: test_run_id,
   include_oss_report: true,
+  failed_only: true,
   max_test_cases_per_set: 50,
   fields: [
     "report.status",
@@ -178,7 +210,9 @@ getTestReportFull({
 })
 ```
 
-The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+The OpenAPI-generated tool's **path** parameters are camelCase (`appId`, `reportId`); **query** parameters stay snake_case (`include_oss_report`, `failed_only`, `mock_mismatches_only`, `max_test_cases_per_set`, `fields`). Pass each with the literal name the spec declares.
+
+**`failed_only: true` is the cheapest knob you have.** A passing suite of 50 tests with 3 failures becomes a 3-test response instead of 50. Combined with the projection above, the call drops from ~10k tokens to ~1-2k. Use it on EVERY first `getTestReportFull` call where `report.status` is `FAILED` — the failures are what you're going to analyze; the passes are noise that re-caches on every subsequent turn.
 
 **Use `fields` aggressively** — full report is ~34k tokens, projection brings it to ~5k. Supports dotted paths + array wildcards (`field[]`). **If your first call missed a field you need, ADD it to a new projected call — NEVER drop `fields=` to "get everything" and never fall back to `include_oss_report=true`/`max_test_cases_per_set=N` without `fields=`. The unprojected response is the 34k-token blob that gets re-added to context every subsequent turn for the rest of the session.** Read:
 
@@ -228,9 +262,9 @@ git diff --cached -- <failing-handler-path> # staged but not committed
 
 Run all three **every time**, even when the tree looks clean. The empty result IS the evidence required to advance to Step 1. Skipping = silent misclassification when the assumption is wrong.
 
-**Allowlist of MCP calls permitted before Step 0** (Phase A1 discovery only): `listApps`, `getApp`, `create_branch`, `list_branches`, `listTestReports`, `getTestReport`, `tools/list`. EVERY other call — `getTestReportFull`, `getTestCase`, `getMock`, `listMocks`, `getRecording`, `listRecordings`, `updateTestCase`, `update_mock`, `delete_recording` — is classifier/write and MUST come AFTER Step 0. Reading `getTestCase` first biases toward Case 2 framing.
+**Allowlist of MCP calls permitted before Step 0** (Phase A1 discovery only): `listApps`, `getApp`, `create_branch`, `list_branches`, `listTestReports`, `getTestReport`, `tools/list`. EVERY other call — `getTestReportFull`, `getTestCase`, `getMock`, `listMocks`, `getRecording`, `listRecordings`, `updateTestCase`, `delete_recording` — is classifier/write and MUST come AFTER Step 0. Reading `getTestCase` first biases toward Case 2 framing.
 
-Any uncommitted edit touching the failing handler's source → **Case 1, mandatory.** Revert (or ask the dev); do NOT proceed to commit-history reasoning. Uncommitted edits beat any committed-history signal — they can't be the deliberate new contract.
+Any code change on the failing handler's path **that could be causing the failure** — committed OR uncommitted — **check intent FIRST**, then classify. Tie the change to the failure first: does the diff touch the same field / SQL / header / status code the report says drifted? If the working-tree edit is unrelated to what's failing, it's not what you're looking for — keep diagnosing. Was the change EXPECTED (intentional contract change) or UNEXPECTED (regression)? Don't assume uncommitted = intentional or committed = intentional. If intent isn't obvious from the diff alone (commit message that explicitly names the contract change, or matching dev request in this session), ASK THE DEV in one short question and stop. Once intent is known: **expected → Case 2** (fix test data on the branch); **unexpected → Case 1** (revert the source change). Never patch a mock to "preserve" an uncommitted edit without confirming intent — uncommitted edits are just as likely to be a half-finished regression as a deliberate contract change.
 
 **Step 1 — Identify the recording's snapshot anchor.**
 
@@ -306,7 +340,7 @@ If every `actual_mocks` entry has a matching `expected_mocks` entry but the _val
 
 - **2b-patch — DEFAULT for scoped _value_ changes on EXISTING mocks.** Tool: `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <tsUUID> --mock-id <name> --mock-yaml-file <path>` (CLI). Read existing with `getMock` first, write patched YAML to a file, invoke CLI. Use when the drift is a value change on an existing mock entry (one operator changed, one column / header / constant differs, response shape same family). **New query / new downstream call → NOT patchable → 2b-recapture.**
 
-  > **Always use the CLI, not MCP `update_mock`.** The CLI re-derives kind-specific fields the agent can't compute — most importantly `sql_ast_hash` for PostgresV3 (sha256 of the parsed-normalized AST the matcher keys on). MCP `update_mock` with a stale `sql_ast_hash` writes 2xx, `getMock` echoes new SQL back, but replay still fails because the matcher's hash lookup misses.
+  > **The CLI is the only mock-write surface.** It re-derives kind-specific fields the agent can't compute — most importantly `sql_ast_hash` for PostgresV3 (sha256 of the parsed-normalized AST the matcher keys on). Read existing with `getMock`, write patched YAML to a file, invoke the CLI.
 
 - **2b-recapture — ONLY for sweeping changes that can't be patched cleanly** (call graph rewritten, request/response shapes diverge wholesale, multiple endpoints drifted at once). Order: (1) `keploy record --sync --disable-mapping=false` (the latter two flags are MANDATORY — see Phase B2 below for the full rationale: without them the recording's mock-to-case relationship is lost at upload time), (2) `keploy upload test-set --branch <git branch>`, (3) **only after upload succeeds**, `delete_recording` on the stale set. **Never `delete_recording` first** — reversing leaves the branch at zero coverage and the next replay "passes" trivially (zero tests = zero failures, indistinguishable from a real fix).
 
@@ -330,10 +364,14 @@ docker build -t <manifest-image-tag> <build-context-dir>
 
 `<build-context-dir>` is where the app's `Dockerfile` lives. If the manifest tag is registry-prefixed, match it exactly — else Docker pulls from the registry and misses your edit. **Case 2 fixes skip this step.**
 
-Then run via Bash — **always pipe the output through `tail` / `grep`** so the ~10-40k tokens of replay log don't enter your context wholesale, AND **always pass `--disableReportUpload=false`** so the `/tr` report row gets written (OAuth-authenticated CLIs default this flag to `true`, which silently skips the upload — without it, `listTestReports` will return empty for this run and the dashboard URL won't print):
+Then run via Bash — **always pipe the output through `tail` / `grep`** so the ~10-40k tokens of replay log don't enter your context wholesale. THREE mandatory flags on every `keploy cloud replay` invocation:
+
+- **`--disableReportUpload=false`** — writes the `/tr` report row. OAuth-authenticated CLIs default this to `true`, which silently skips the upload — without it, `listTestReports` returns empty for this run and the dashboard URL won't print.
+- **`--strict-failure`** — surfaces response-divergent tests as FAILED even when the consumed mock set also drifted. Without it, such tests fall into keploy's OBSOLETE classification (`replay.go:1828` demotes FAILED→OBSOLETE for response-fail + mock-mismatch cases) and the overall run reports PASSED, hiding the diagnostic signal. Added in keploy v3.5.62 (2026-06-08). If your CLI rejects the flag, refresh the binary.
+- **`--cluster <cluster-name>`** — required by the CLI; resolve `<cluster-name>` from the `getApp` discovery step (`origin.clusterName`).
 
 ```bash
-keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <cluster-name> --disableReportUpload=false 2>&1 \
+keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <cluster-name> --disableReportUpload=false --strict-failure 2>&1 \
   | tail -n 60 \
   | grep -E "Total test|Failed Testcases|test passed|test failed|FAIL|ERROR|debug bundle|View test report"
 ```
@@ -485,14 +523,14 @@ What happens behind the scenes for each:
 
 ### Prompt A — analyze and fix a failing replay (local or CI)
 
-| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| ----- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| A0    | Discovery — resolve `app_id` from `basename $(pwd)` + `listApps`, `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`, and cluster identity from `getApp` (cached for the session so `keploy cloud replay --cluster <name>` resolves without an active heartbeat).                                                                                                                                                                                                                                                                                                                                                                                |
-| A1    | Get a `test_run_id`. Local form → `listTestReports({appId, branch_id, status: "FAILED", limit: 5})` exactly once, take the newest id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup if nothing was pasted).                                                                                                                                                                                                                                                                                                                                                                                      |
-| A2    | Fetch the full report via `getTestReportFull` with a `fields=[...]` projection (full report is ~34k tokens; projection brings it to ~5k). Read status, per-test-case `oss_report.req`/`.result`/`.failure_info`, and — for Case-2b mock work — a second projected call with `mock_mismatches_only=true` to surface the affected mock IDs.                                                                                                                                                                                                                                                                                                                          |
-| A3    | Per failing test case, decide **Case 1** (bug in the app — uncommitted edit or recent commit broke it; baseline still correct) or **Case 2** (app behavior drifted intentionally — recorded baseline is stale, with sub-actions **2a noise** / **2a response edit** / **2b mock patch** / **2b recapture**). Decision uses `git status` + `git diff` + commit-message check + the report's `mock_mismatches` — never a dev question.                                                                                                                                                                                                                               |
-| A4    | Apply the fix. **Case 1**: announce file:line, edit the handler code, rebuild the docker image (`docker build -t <tag> <ctx>`), then replay. **Case 2a**: `updateTestCase` MCP — either add the noisy JSONPath to the case's `noise` map, or update the recorded response body. **Case 2b-patch**: `keploy mock patch` CLI (re-derives `sql_ast_hash` for PostgresV3 — don't use MCP `update_mock` for postgres, the hash is stale). **Case 2b-recapture**: only when patching can't fix it — `keploy record` + `keploy upload test-set` + `delete_recording`, in that order. Re-run `keploy cloud replay --cluster <name> --disableReportUpload=false` to verify. |
-| A5    | Report: diagnosis table (case per failing test) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| Phase | What the agent does                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| A0    | Discovery — resolve `app_id` from `basename $(pwd)` + `listApps`, `branch_id` from `git rev-parse --abbrev-ref HEAD` + `create_branch`, and cluster identity from `getApp` (cached for the session so `keploy cloud replay --cluster <name>` resolves without an active heartbeat).                                                                                                                                                                                                                                                                                                                                                                                                                            |
+| A1    | Get a `test_run_id`. Local form → `listTestReports({appId, branch_id, status: "FAILED", limit: 5})` exactly once, take the newest id. CI form → extract `test_run_id` from the CI log or dashboard URL the dev pasted (falls back to the local lookup if nothing was pasted).                                                                                                                                                                                                                                                                                                                                                                                                                                  |
+| A2    | Fetch the full report via `getTestReportFull` with a `fields=[...]` projection (full report is ~34k tokens; projection brings it to ~5k). Read status, per-test-case `oss_report.req`/`.result`/`.failure_info`, and — for Case-2b mock work — a second projected call with `mock_mismatches_only=true` to surface the affected mock IDs.                                                                                                                                                                                                                                                                                                                                                                      |
+| A3    | Per failing test case, decide **Case 1** (bug in the app — uncommitted edit or recent commit broke it; baseline still correct) or **Case 2** (app behavior drifted intentionally — recorded baseline is stale, with sub-actions **2a noise** / **2a response edit** / **2b mock patch** / **2b recapture**). Decision uses `git status` + `git diff` + commit-message check + the report's `mock_mismatches` — never a dev question.                                                                                                                                                                                                                                                                           |
+| A4    | Apply the fix. **Case 1**: announce file:line, edit the handler code, rebuild the docker image (`docker build -t <tag> <ctx>`), then replay. **Case 2a**: `updateTestCase` MCP — either add the noisy JSONPath to the case's `noise` map, or update the recorded response body. **Case 2b-patch**: `keploy mock patch` CLI — the CLI re-derives `sql_ast_hash` from `sql_normalized` via `libpg_query` before sending, which is mandatory for PostgresV3 mocks. **Case 2b-recapture**: only when patching can't fix it — `keploy record` + `keploy upload test-set` + `delete_recording`, in that order. Re-run `keploy cloud replay --cluster <name> --disableReportUpload=false --strict-failure` to verify. |
+| A5    | Report: diagnosis table (case per failing test) + fixes applied + next-step-for-you + branch-diff URL + run-report URL.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        |
 
 ### Prompt B — author new keploy tests
 
@@ -543,7 +581,7 @@ You added a `discount_percent` column to the orders table and updated the `SELEC
 
 > _"my keploy cloud replay is failing, please analyze and fix it."_
 
-A3 sees the schema-change commit and `mock_mismatches` on the SELECT row → **Case 2b-patch**. A4 calls `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <ts> --mock-id <name> --mock-yaml-file <path>` (the CLI re-derives `sql_ast_hash` from the patched `sql_normalized` before sending — MCP `update_mock` can't do that and would write a stale hash). Replay re-runs green.
+A3 sees the schema-change commit and `mock_mismatches` on the SELECT row → **Case 2b-patch**. A4 calls `keploy mock patch --app <appUUID> --branch-id <branchUUID> --test-set-id <ts> --mock-id <name> --mock-yaml-file <path>` — the CLI re-derives `sql_ast_hash` from the patched `sql_normalized` before sending, which is the only safe write path for PostgresV3 mocks (the hash is what the matcher keys on). Replay re-runs green.
 
 ### Scenario 5 — Mock too far gone, full re-record (Case 2b, recapture)
 
