@@ -8,11 +8,16 @@ tags:
   - Glossary
 keywords:
   - API
+head:
+  - tag: link
+    attrs:
+      rel: canonical
+      href: https://keploy.io/blog/community/regression-testing-an-introductory-guide
 ---
 
 ## What is regression testing?
 
-Regression testing is a type of software testing that ensures that changes made to a software application do not negatively impact existing functionality. It is typically performed after a new feature is added, a bug is fixed, or a configuration change is made.
+[Regression testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) is a type of software testing that ensures that changes made to a software application do not negatively impact existing functionality. It is typically performed after a new feature is added, a bug is fixed, or a configuration change is made.
 
 Regression testing can be performed manually or using automated tools. Manual regression testing involves re-running a subset of test cases that have been previously executed to ensure that they still pass. Automated regression testing uses software to execute test cases automatically, which can save time and resources.
 
@@ -44,6 +49,8 @@ Regression testing involves re-running previously executed test cases to ensure 
 Overall, by leveraging Keploy's testing capabilities and integrating it into your regression testing process, you can ensure the stability and reliability of your software by detecting and preventing regression bugs effectively.
 
 ## Key differences between manual regression testing and automated regression testing:
+
+Understanding the difference between manual and [automated regression testing](https://keploy.io/blog/community/automated-regression-testing) helps teams choose the right approach for their context. The table below breaks down the key factors across speed, cost, scalability, and maintenance.
 
 | Feature                  | Manual Regression Testing                                 | Automated Regression Testing                                                     |
 | ------------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
