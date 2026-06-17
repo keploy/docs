@@ -62,7 +62,7 @@ git clone https://github.com/Nsanjayboruds/keploy-ruby-postgresql-quickstart.git
 Capture the test-cases-
 
 ```bash
-keploy record -c "docker compose up --build" --container-name "ruby-books-app"
+keploy record -c "docker compose up --build" --container-name "ruby-books-app" --buildDelay 50
 ```
 
 This will:
@@ -71,6 +71,20 @@ This will:
 - Build and start the Ruby application container
 - Initialize the database with sample data
 - Expose the API on port 8000
+
+### Verify the Setup
+
+In a new terminal, verify the container is up and responding:
+
+```bash
+curl http://localhost:8000/health
+```
+
+Expected Response:
+
+```json
+{"status": "healthy", "service": "Ruby Books API"}
+```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -87,13 +101,7 @@ To generate testcases we just need to **make some API calls.**
 curl http://localhost:8000/books
 ```
 
-#### 2. Get a Specific Book
-
-```bash
-curl http://localhost:8000/books/1
-```
-
-#### 3. Create a New Book
+#### 2. Create a New Book
 
 ```bash
 curl -X POST http://localhost:8000/books \
@@ -104,6 +112,12 @@ curl -X POST http://localhost:8000/books \
     "isbn": "9780547928227",
     "published_year": 1937
   }'
+```
+
+#### 3. Get a Specific Book
+
+```bash
+curl http://localhost:8000/books/1
 ```
 
 #### 4. Update a Book
@@ -140,7 +154,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --container-name "ruby-books-app" --delay 10
+keploy test -c "docker compose up" --container-name "ruby-books-app" --buildDelay 50 --delay 10
 ```
 
 After tests complete, stop the services:
@@ -232,13 +246,7 @@ To generate testcases we just need to **make some API calls.**
 curl http://localhost:8000/books
 ```
 
-#### 2. Get a Specific Book
-
-```bash
-curl http://localhost:8000/books/1
-```
-
-#### 3. Create a New Book
+#### 2. Create a New Book
 
 ```bash
 curl -X POST http://localhost:8000/books \
@@ -249,6 +257,12 @@ curl -X POST http://localhost:8000/books \
     "isbn": "9780547928227",
     "published_year": 1937
   }'
+```
+
+#### 3. Get a Specific Book
+
+```bash
+curl http://localhost:8000/books/1
 ```
 
 #### 4. Update a Book
@@ -282,11 +296,7 @@ Time to put things to the test 🧪
 keploy test -c "bundle exec ruby app.rb" --delay 10
 ```
 
-After tests complete, stop the app:
-
-```bash
-Ctrl+C
-```
+After tests complete, press `Ctrl+C` to stop the app.
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
