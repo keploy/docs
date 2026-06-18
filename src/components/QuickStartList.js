@@ -306,6 +306,26 @@ const quickstarts = [
     link: "/docs/quickstart/flask-redis/",
   },
 
+  // Ruby list
+
+  {
+    title: "Ruby + Postgres",
+    language: "Ruby",
+    server: "Docker",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with Ruby (Sinatra) and PostgreSQL.",
+    link: "/docs/quickstart/samples-ruby/#using-docker-compose-",
+  },
+
+  {
+    title: "Ruby + Postgres",
+    language: "Ruby",
+    server: "Local",
+    description:
+      "A sample Books CRUD API to demonstrate how seamlessly Keploy integrates with Ruby (Sinatra) and PostgreSQL.",
+    link: "/docs/quickstart/samples-ruby/#running-app-locally-on-linuxwsl-",
+  },
+
   //Javascript list
 
   /*  {
