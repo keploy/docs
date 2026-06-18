@@ -237,6 +237,12 @@ export default function DocItem(props) {
             {JSON.stringify(articleSchema)}
           </script>
         )}
+        {Array.isArray(frontMatter.head) &&
+          frontMatter.head.map((headTag, i) => {
+            if (!headTag?.tag) return null;
+            const {tag: tagName, attrs = {}} = headTag;
+            return React.createElement(tagName, {key: i, ...attrs});
+          })}
       </Head>
       <div className="row">
         <div
