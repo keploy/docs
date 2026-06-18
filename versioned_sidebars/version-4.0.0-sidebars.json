@@ -48,6 +48,7 @@
         "running-keploy/configuration-file",
         "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
+        "running-keploy/mock-matching",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
