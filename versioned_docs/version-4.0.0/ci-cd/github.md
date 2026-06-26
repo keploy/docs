@@ -221,92 +221,35 @@ _And... voila! You have successfully integrated keploy in GitHub CI pipeline �
 
 ## Running cloud replay in CI
 
-Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works the same way on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others — and with both Keploy Cloud and a self-hosted Keploy setup. The pipeline authenticates with an API key from an environment variable, so it needs no browser login.
-
-> Cloud replay uses the Enterprise Keploy binary, which the steps below install.
-
-The flow is the same on every CI system:
-
-1. Store your Keploy API key as a secret and expose it as the `KEPLOY_API_KEY` environment variable. The Keploy CLI reads this variable automatically.
-2. Install the Enterprise Keploy binary on the runner.
-3. Run `keploy cloud replay` with your application and cluster details.
-
-Because the replay command is plain CLI, it is identical across CI systems:
-
-```bash
-keploy cloud replay \
-  --app "<NAMESPACE>.<DEPLOYMENT>" \
-  --cluster "<CLUSTER>" \
-  --namespace "<NAMESPACE>" \
-  --delay <DELAY>
-```
-
-Replace `<NAMESPACE>`, `<DEPLOYMENT>`, and `<CLUSTER>` with your own values, and set `<DELAY>` to cover your application's startup time.
-
-### Example: GitHub Actions
-
-```yaml
-jobs:
-  keploy-cloud-replay:
-    runs-on: ubuntu-latest
-    env:
-      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
-    steps:
-      - name: Install Keploy
-        run: |
-          curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
-          sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
-
-      - name: Cloud replay
-        run: |
-          keploy cloud replay \
-            --app "<NAMESPACE>.<DEPLOYMENT>" \
-            --cluster "<CLUSTER>" \
-            --namespace "<NAMESPACE>" \
-            --delay <DELAY>
-```
-
-### Other CI systems
-
-The steps are identical elsewhere — expose `KEPLOY_API_KEY` from your secret store, install the binary, then run the command. For example, GitLab CI uses a masked CI/CD variable and Jenkins uses a credentials binding:
-
-```bash
-export KEPLOY_API_KEY="$KEPLOY_API_KEY" # injected from your CI secret store
-curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
-sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
-keploy cloud replay --app "<NAMESPACE>.<DEPLOYMENT>" --cluster "<CLUSTER>" --namespace "<NAMESPACE>" --delay <DELAY>
-```
-
-> `--delay` sets how long Keploy waits for the application to become ready before it sends requests. If it is shorter than the application's startup time, the tests can fail, so set it to comfortably cover the boot time.
-
-Hope this helps you out, if you still have any questions, reach out to us .
-
----
-
-## Running cloud replay in CI
-
-Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup, and on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others.
 
 ### How authentication works
 
-The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no browser login needed.
 
-- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
-- In CI: add the key as a secret in your CI settings so the system injects it as an environment variable at runtime. Never hard-code it in your pipeline file.
+- **Locally:** `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- **In CI:** store the key as a secret in your CI system so it gets injected as an environment variable at runtime. Never hard-code it in your pipeline file.
 
-In GitHub Actions, secrets are stored under **Settings → Secrets and variables → Actions** and referenced in the pipeline as `${{ secrets.KEPLOY_API_KEY }}`.
+> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
 
 ### Steps
 
-1. Add `KEPLOY_API_KEY` as a repository secret in GitHub (**Settings → Secrets and variables → Actions**).
-2. Install the Enterprise Keploy binary on the runner.
-3. Run `keploy cloud replay` with your application and cluster details.
-
-> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
+1. **Store the API key** — add `KEPLOY_API_KEY` as a secret in your CI system.
+   - GitHub Actions: go to **Settings → Secrets and variables → Actions → New repository secret**, name it `KEPLOY_API_KEY`.
+   - GitLab CI: go to **Settings → CI/CD → Variables**, add it as a masked variable.
+   - Jenkins: add a **Secret text** credential via **Manage Jenkins → Credentials**.
+2. **Install** the Enterprise Keploy binary on the runner.
+3. **Run** `keploy cloud replay` with your application and cluster details.
 
 ### Example: GitHub Actions
 
 ```yaml
+name: Keploy Cloud Replay
+
+on:
+  push:
+    branches: [main]
+
 jobs:
   keploy-cloud-replay:
     runs-on: ubuntu-latest
@@ -327,6 +270,8 @@ jobs:
             --delay <DELAY>
 ```
 
-Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` (in seconds) to comfortably cover your application's startup time.
 
-> `KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}` pulls the secret from GitHub's secret store and makes it available as a plain environment variable in all subsequent steps.
+> `KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}` pulls the value from GitHub's secret store and makes it available as an environment variable in all subsequent steps.
+
+Hope this helps you out, if you still have any questions, reach out to us .
