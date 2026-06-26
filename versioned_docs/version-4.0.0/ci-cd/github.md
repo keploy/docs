@@ -230,7 +230,7 @@ The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no bro
 - **Locally:** `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
 - **In CI:** store the key as a secret in your CI system so it gets injected as an environment variable at runtime. Never hard-code it in your pipeline file.
 
-> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
+> Cloud replay requires the Enterprise binary. Install it with `curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh` — not the open-source `keploy.io/install.sh`.
 
 ### Steps
 
@@ -258,8 +258,7 @@ jobs:
     steps:
       - name: Install Keploy Enterprise
         run: |
-          curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
-          sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
+          curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 
       - name: Cloud replay
         run: |
