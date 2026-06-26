@@ -168,7 +168,7 @@ In GitLab CI, go to **Settings → CI/CD → Variables**, add `KEPLOY_API_KEY` a
 2. Install the Enterprise Keploy binary on the runner.
 3. Run `keploy cloud replay` with your application and cluster details.
 
-> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
+> Cloud replay requires the Enterprise binary. Install it with `curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh` — not the open-source `keploy.io/install.sh`.
 
 ### Example: GitLab CI
 
@@ -179,8 +179,7 @@ keploy-cloud-replay:
   # KEPLOY_API_KEY is injected automatically from the masked CI/CD variable
   script:
     - apt-get update -qq && apt-get install -y -qq curl sudo
-    - curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
-    - chmod +x /tmp/keploy && mv /tmp/keploy /usr/local/bin/keploy
+    - curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
     - |
       keploy cloud replay \
         --app "<NAMESPACE>.<DEPLOYMENT>" \
