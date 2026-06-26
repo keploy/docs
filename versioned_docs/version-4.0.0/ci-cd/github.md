@@ -23,11 +23,11 @@ Keploy can be integrated with GitHub by two methods:-
 1. [Using Shell Scripts](#shell-scripts)
 2. [Using GitHub Actions](#github-actions)
 
-If you run a self-hosted Keploy cluster, you can also [run Cloud Replay from CI](#cloud-replay-self-hosted-in-github-actions).
+You can also [run cloud replay from your CI pipeline](#running-cloud-replay-in-ci).
 
 ## Shell Scripts
 
-GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
+GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to your `github workflow` or create a new workflow `.github/workflows/keploy-test.yml`:-
 
 ```yaml
 - name: Checkout Commit
@@ -219,35 +219,45 @@ _And... voila! You have successfully integrated keploy in GitHub CI pipeline �
 
 ---
 
-## Cloud Replay (Self-Hosted) in GitHub Actions
+## Running cloud replay in CI
 
-If you run a self-hosted Keploy cluster, you can replay your recorded test sets against the cluster directly from CI — with no browser login. CI authenticates using an **API key**, and the replay runs **inside your cluster**.
+Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works the same way on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others — and with both Keploy Cloud and a self-hosted Keploy setup. The pipeline authenticates with an API key from an environment variable, so it needs no browser login.
 
-> Cloud Replay is an **Enterprise** feature and uses the Enterprise Keploy binary (installed in the workflow below), not the open-source binary.
+> Cloud replay uses the Enterprise Keploy binary, which the steps below install.
+
+The flow is the same on every CI system:
+
+1. Store your Keploy API key as a secret and expose it as the `KEPLOY_API_KEY` environment variable. The Keploy CLI reads this variable automatically.
+2. Install the Enterprise Keploy binary on the runner.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+Because the replay command is plain CLI, it is identical across CI systems:
 
 ```bash
-export KEPLOY_API_KEY="<API_KEY>"
+keploy cloud replay \
+  --app "<NAMESPACE>.<DEPLOYMENT>" \
+  --cluster "<CLUSTER>" \
+  --namespace "<NAMESPACE>" \
+  --delay <DELAY>
 ```
 
-The Keploy CLI reads `KEPLOY_API_KEY` from the environment automatically, so no `keploy login` or browser step is needed in CI.
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, and `<CLUSTER>` with your own values, and set `<DELAY>` to cover your application's startup time.
 
-### 2. Add the workflow
-
-Create `.github/workflows/keploy-cloud-replay.yml`:
+### Example: GitHub Actions
 
 ```yaml
 jobs:
   keploy-cloud-replay:
     runs-on: ubuntu-latest
     env:
-      KEPLOY_API_KEY: ${{ KEPLOY_API_KEY }}
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
     steps:
-      - name: Install Keploy (Enterprise)
+      - name: Install Keploy
         run: |
           curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
           sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
 
-      - name: Cloud Replay (in-cluster)
+      - name: Cloud replay
         run: |
           keploy cloud replay \
             --app "<NAMESPACE>.<DEPLOYMENT>" \
@@ -256,11 +266,17 @@ jobs:
             --delay <DELAY>
 ```
 
-Replace `<NAMESPACE>`, `<DEPLOYMENT>`, and `<CLUSTER>` with your own values, and set `<DELAY>` to cover your application's startup time.
+### Other CI systems
 
-> - `--delay` is how long Keploy waits for the app to become ready before sending requests. If it is shorter than the app's cold-start time, the tests can all fail.
-> - The CI runner must be able to reach your cluster's ingress URL.
+The steps are identical elsewhere — expose `KEPLOY_API_KEY` from your secret store, install the binary, then run the command. For example, GitLab CI uses a masked CI/CD variable and Jenkins uses a credentials binding:
 
-The step passes when the replay summary reports `Failed 0`.
+```bash
+export KEPLOY_API_KEY="$KEPLOY_API_KEY" # injected from your CI secret store
+curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
+sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
+keploy cloud replay --app "<NAMESPACE>.<DEPLOYMENT>" --cluster "<CLUSTER>" --namespace "<NAMESPACE>" --delay <DELAY>
+```
+
+> `--delay` sets how long Keploy waits for the application to become ready before it sends requests. If it is shorter than the application's startup time, the tests can fail, so set it to comfortably cover the boot time.
 
 Hope this helps you out, if you still have any questions, reach out to us .
