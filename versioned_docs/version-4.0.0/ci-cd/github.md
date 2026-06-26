@@ -221,7 +221,7 @@ _And... voila! You have successfully integrated keploy in GitHub CI pipeline �
 
 ## Running cloud replay in CI
 
-Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup, and on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others.
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup, and on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others.
 
 ### How authentication works
 

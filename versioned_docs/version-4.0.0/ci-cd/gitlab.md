@@ -151,7 +151,7 @@ Hope this helps you out, if you still have any questions, reach out to us .
 
 ## Running cloud replay in CI
 
-Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
 
 ### How authentication works
 
