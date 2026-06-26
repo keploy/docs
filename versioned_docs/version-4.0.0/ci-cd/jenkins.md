@@ -183,7 +183,7 @@ Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works
 The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
 
 - Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
-- In CI: add the key to Jenkins' credentials store so the system injects it as an environment variable at runtime. Never hardcode it in your Jenkinsfile.
+- In CI: add the key to Jenkins' credentials store so the system injects it as an environment variable at runtime. Never hard-code it in your Jenkins pipeline file.
 
 In Jenkins, go to **Manage Jenkins → Credentials**, add a **Secret text** credential with ID `keploy-api-key`, and use `withCredentials` in your pipeline to bind it to `KEPLOY_API_KEY`.
 

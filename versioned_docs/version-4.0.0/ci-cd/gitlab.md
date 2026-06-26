@@ -158,7 +158,7 @@ Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works
 The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
 
 - Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
-- In CI: add the key as a masked CI/CD variable so the system injects it as an environment variable at runtime. Never hardcode it in your pipeline file.
+- In CI: add the key as a masked CI/CD variable so the system injects it as an environment variable at runtime. Never hard-code it in your pipeline file.
 
 In GitLab CI, go to **Settings → CI/CD → Variables**, add `KEPLOY_API_KEY` as a masked variable, and it is automatically available in all pipeline jobs as `$KEPLOY_API_KEY`.
 
