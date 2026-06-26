@@ -280,3 +280,53 @@ keploy cloud replay --app "<NAMESPACE>.<DEPLOYMENT>" --cluster "<CLUSTER>" --nam
 > `--delay` sets how long Keploy waits for the application to become ready before it sends requests. If it is shorter than the application's startup time, the tests can fail, so set it to comfortably cover the boot time.
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs your recorded test sets from a CI pipeline. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+
+- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- In CI: add the key as a secret in your CI settings so the system injects it as an environment variable at runtime. Never hardcode it in your pipeline file.
+
+In GitHub Actions, secrets are stored under **Settings → Secrets and variables → Actions** and referenced in the pipeline as `${{ secrets.KEPLOY_API_KEY }}`.
+
+### Steps
+
+1. Add `KEPLOY_API_KEY` as a repository secret in GitHub (**Settings → Secrets and variables → Actions**).
+2. Install the Enterprise Keploy binary on the runner.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
+
+### Example: GitHub Actions
+
+```yaml
+jobs:
+  keploy-cloud-replay:
+    runs-on: ubuntu-latest
+    env:
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+    steps:
+      - name: Install Keploy Enterprise
+        run: |
+          curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
+          sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
+
+      - name: Cloud replay
+        run: |
+          keploy cloud replay \
+            --app "<NAMESPACE>.<DEPLOYMENT>" \
+            --cluster "<CLUSTER>" \
+            --namespace "<NAMESPACE>" \
+            --delay <DELAY>
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+
+> `KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}` pulls the secret from GitHub's secret store and makes it available as a plain environment variable in all subsequent steps.
