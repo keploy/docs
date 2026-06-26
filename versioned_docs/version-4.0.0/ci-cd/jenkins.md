@@ -204,7 +204,7 @@ pipeline {
         stage('Install Keploy Enterprise') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+                curl --silent -O -L https://keploy.io/ent/install.sh && . install.sh
                 '''
             }
         }
