@@ -23,6 +23,8 @@ Keploy can be integrated with GitHub by two methods:-
 1. [Using Shell Scripts](#shell-scripts)
 2. [Using GitHub Actions](#github-actions)
 
+If you run a self-hosted Keploy cluster, you can also [run Cloud Replay from CI](#cloud-replay-self-hosted-in-github-actions).
+
 ## Shell Scripts
 
 GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
@@ -214,5 +216,51 @@ sudo -E keploy test -c node src/app.js --delay 10 --path ./
 ```
 
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
+
+---
+
+## Cloud Replay (Self-Hosted) in GitHub Actions
+
+If you run a self-hosted Keploy cluster, you can replay your recorded test sets against the cluster directly from CI — with no browser login. CI authenticates using an **API key**, and the replay runs **inside your cluster**.
+
+> Cloud Replay is an **Enterprise** feature and uses the Enterprise Keploy binary (installed in the workflow below), not the open-source binary.
+
+```bash
+export KEPLOY_API_KEY="<API_KEY>"
+```
+
+The Keploy CLI reads `KEPLOY_API_KEY` from the environment automatically, so no `keploy login` or browser step is needed in CI.
+
+### 2. Add the workflow
+
+Create `.github/workflows/keploy-cloud-replay.yml`:
+
+```yaml
+jobs:
+  keploy-cloud-replay:
+    runs-on: ubuntu-latest
+    env:
+      KEPLOY_API_KEY: ${{ KEPLOY_API_KEY }}
+    steps:
+      - name: Install Keploy (Enterprise)
+        run: |
+          curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
+          sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
+
+      - name: Cloud Replay (in-cluster)
+        run: |
+          keploy cloud replay \
+            --app "<NAMESPACE>.<DEPLOYMENT>" \
+            --cluster "<CLUSTER>" \
+            --namespace "<NAMESPACE>" \
+            --delay <DELAY>
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, and `<CLUSTER>` with your own values, and set `<DELAY>` to cover your application's startup time.
+
+> - `--delay` is how long Keploy waits for the app to become ready before sending requests. If it is shorter than the app's cold-start time, the tests can all fail.
+> - The CI runner must be able to reach your cluster's ingress URL.
+
+The step passes when the replay summary reports `Failed 0`.
 
 Hope this helps you out, if you still have any questions, reach out to us .
