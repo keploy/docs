@@ -181,11 +181,12 @@ keploy-cloud-replay:
     - apt-get update -qq && apt-get install -y -qq curl sudo
     - curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
     - chmod +x /tmp/keploy && mv /tmp/keploy /usr/local/bin/keploy
-    - keploy cloud replay
-      --app "<NAMESPACE>.<DEPLOYMENT>"
-      --cluster "<CLUSTER>"
-      --namespace "<NAMESPACE>"
-      --delay <DELAY>
+    - |
+      keploy cloud replay \
+        --app "<NAMESPACE>.<DEPLOYMENT>" \
+        --cluster "<CLUSTER>" \
+        --namespace "<NAMESPACE>" \
+        --delay <DELAY>
 ```
 
 Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
