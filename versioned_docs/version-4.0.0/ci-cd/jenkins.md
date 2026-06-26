@@ -171,3 +171,61 @@ Testrun passed for testcase with id: "test-2"
 _And... voila! You have successfully integrated keploy in Jenkins CI/CD pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+
+- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- In CI: add the key to Jenkins' credentials store so the system injects it as an environment variable at runtime. Never hard-code it in your Jenkins pipeline file.
+
+In Jenkins, go to **Manage Jenkins → Credentials**, add a **Secret text** credential with ID `keploy-api-key`, and use `withCredentials` in your pipeline to bind it to `KEPLOY_API_KEY`.
+
+### Steps
+
+1. Add `KEPLOY_API_KEY` as a **Secret text** credential in Jenkins (**Manage Jenkins → Credentials**).
+2. Install the Enterprise Keploy binary on the agent.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+> Cloud replay requires the Enterprise binary (`keploy.io/ent/dl/latest/enterprise_linux_amd64`), not the open-source one.
+
+### Example: Jenkins Declarative Pipeline
+
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Install Keploy Enterprise') {
+            steps {
+                sh '''
+                curl --silent --location "https://keploy.io/ent/dl/latest/enterprise_linux_amd64" -o /tmp/keploy
+                sudo chmod +x /tmp/keploy && sudo mv /tmp/keploy /usr/local/bin/keploy
+                '''
+            }
+        }
+        stage('Cloud replay') {
+            steps {
+                withCredentials([string(credentialsId: 'keploy-api-key', variable: 'KEPLOY_API_KEY')]) {
+                    sh '''
+                    keploy cloud replay \
+                      --app "<NAMESPACE>.<DEPLOYMENT>" \
+                      --cluster "<CLUSTER>" \
+                      --namespace "<NAMESPACE>" \
+                      --delay <DELAY>
+                    '''
+                }
+            }
+        }
+    }
+}
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+
+> `withCredentials` binds the Jenkins secret to `KEPLOY_API_KEY` only for the duration of that stage — the CLI picks it up automatically.
