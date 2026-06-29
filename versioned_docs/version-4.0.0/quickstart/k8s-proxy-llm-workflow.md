@@ -97,7 +97,7 @@ After restarting your editor, ask the agent:
 
 > _"List your available tools — do you see any prefixed `keploy-` or `mcp__keploy`?"_
 
-You should see ~100 keploy MCP tools (`listApps`, `getApp`, `listTestReports`, `getTestReportFull`, `getMock`, `getTestCase`, `updateTestCase`, etc.). If you see **zero** keploy tools, the config didn't load — check:
+You should see Keploy MCP tools. Depending on the server version you'll see **either** the full catalog (~100 tools: `listApps`, `getApp`, `listTestReports`, `getTestReportFull`, `getMock`, `getTestCase`, `updateTestCase`, etc.) **or** — when **tool-search mode** is on (the default on newer servers) — just the handful of meta-tools (`search_tools`, `get_tool_schema`, `invoke_tool`, `get_auth_status`, `get_setup_instructions`). **Either is fine**: the playbook's Hard rule 0 handles both and reaches the full catalog by name. Only if you see **zero** keploy tools did the config fail to load — check:
 
 - The file path matches your editor's expected location (see the table above).
 - The PAT in `Bearer kep_...` has no quotes / trailing whitespace issues.
