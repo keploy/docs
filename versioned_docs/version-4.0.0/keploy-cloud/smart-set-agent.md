@@ -89,14 +89,14 @@ The full skill content is included at the end of this page under [Skill referenc
 ### Routine B — add new smart tests
 
 1. **Identify changed endpoints** from the git diff.
-2. **Capture traffic** with `keploy record --sync --disable-mapping=false`, driving one realistic request per new/changed endpoint.
+2. **Capture traffic** with `keploy record -c "<run command>" --sync --disable-mapping=false`, driving one realistic request per new/changed endpoint.
 3. **Upload onto the branch** as a smart set (new contracts ingest as `imported-*`, deduplicated by `schema_ref`; existing ones are skipped).
 4. **Validate on the branch** with `keploy cloud replay`.
 5. **Report and stop** — you review the branch diff and merge; merge reconciles `imported-*` to stable `test-N`.
 
-## Replay flags the agent always uses
+## Replay flags
 
-When the agent runs `keploy cloud replay` for a smart-set app, these flags are required:
+When the agent runs `keploy cloud replay` for a smart-set app, these flags are required on **every** replay — except `--freezeTime`, which is added **only** when the app is built with the Go `faketime` agent:
 
 | Flag                          | Why                                                                                                                                                                                                 |
 | ----------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -137,7 +137,7 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
 
 ## Hard rules
 
-0. **Native MCP transport only.** Verify the Keploy MCP tools are loaded. If your tool list shows only the meta-tools (`get_auth_status`, `search_tools`, `get_tool_schema`, `invoke_tool`), the real tools are hidden server-side to save context — fetch their schemas in ONE batched `get_tool_schema({names:[…]})` call, then run each via `invoke_tool({name, arguments})`. Smart-set names: `listApps`, `getApp`, `listBranches`, `create_branch`, `listTestReports`, `getTestReportFull`, `listSmartTestCases`, `updateSmartTestCase`, `setSmartTestCaseObsolete`, `deleteSmartTestCase`, `upsertSmartMock`, `deleteSmartMock`, `getMock`, `uploadRecordingBundle`.
+0. **Native MCP transport only.** Verify the Keploy MCP tools are loaded. If your tool list shows only the meta-tools (`get_auth_status`, `get_setup_instructions`, `search_tools`, `get_tool_schema`, `invoke_tool`) and none of the Smart-set names below, the real tools are hidden server-side to save context — fetch their schemas in ONE batched `get_tool_schema({names:[…]})` call, then run each via `invoke_tool({name, arguments})`. Smart-set names: `listApps`, `getApp`, `create_branch`, `listTestReports`, `getTestReportFull`, `listSmartTestCases`, `updateSmartTestCase`, `setSmartTestCaseObsolete`, `deleteSmartTestCase`, `upsertSmartMock`, `deleteSmartMock`, `getMock`, `uploadRecordingBundle`.
 1. **Branch-first — the substrate ENFORCES it.** Every edit/delete/obsolete/mock-write is branch-scoped; a write without a `branch_id` is rejected. Resolve `branch_id` before any write.
 2. **Keploy branch name = git branch name** (`git rev-parse --abbrev-ref HEAD`). Pass it to `create_branch` (find-or-create, idempotent); reuse the returned `branch_id`. Never target the reserved `main` branch.
 3. **App resolution from cwd.** `basename $(pwd)` → `listApps({q: <basename>})`. One match → use it; zero/ambiguous → narrow by compose-service name, else ask once.
@@ -152,7 +152,7 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
 1. **App.** `basename $(pwd)` → `listApps({q})` → cache `app_id`.
 2. **Branch.** `git rev-parse --abbrev-ref HEAD` → `create_branch({app_id, name})` → cache `branch_id`.
 3. **App context (once).** `getApp({appId, fields:["name","namespace","deployment","origin.clusterName","origin.namespace","origin.deployment"]})` — you need `origin.clusterName` for `--cluster`.
-4. **Canonical replay command — use ALL these flags on every replay:** `keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <origin.clusterName> --replay-source smart-set --freezeTime --disableReportUpload=false --strict-failure`. Why each: `--replay-source smart-set` (the CLI defaults to latest-release), `--cluster` (from origin.clusterName; omit it and the CLI errors "no active clusters found"), `--freezeTime` (when the app is built with the Go faketime agent), `--disableReportUpload=false` (writes the /tr report row so the run shows on the dashboard), `--strict-failure` (don't silently demote response-divergent cases). These match the "Replay flags" table above.
+4. **Canonical replay command — these flags on every replay** (drop `--freezeTime` for non-faketime apps): `keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <origin.clusterName> --replay-source smart-set --disableReportUpload=false --strict-failure [--freezeTime]`. Why each: `--replay-source smart-set` (the CLI defaults to latest-release), `--cluster` (from origin.clusterName; omit it and the CLI errors "no active clusters found"), `--disableReportUpload=false` (writes the /tr report row so the run shows on the dashboard), `--strict-failure` (don't silently demote response-divergent cases), and `--freezeTime` ONLY when the app is built with the Go faketime agent (omit it otherwise). These match the "Replay flags" table above.
 
 ## Routine A — failing smart-set replay (ON A BRANCH)
 
