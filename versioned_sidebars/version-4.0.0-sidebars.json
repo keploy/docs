@@ -56,6 +56,7 @@
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication",
         "keploy-cloud/static-deduplication",
+        "keploy-cloud/smart-set-agent",
         {
           "type": "category",
           "label": "QuickStarts",
