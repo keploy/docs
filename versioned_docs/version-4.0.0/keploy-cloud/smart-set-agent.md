@@ -57,7 +57,7 @@ The skill is a single Markdown file that teaches your agent the smart-set workfl
 
 ### Cursor
 
-Save the skill as `.cursor/skills/smart-set/SKILL.md` in your project root. Cursor loads project skills automatically; the agent invokes it when your prompt matches a failing smart-set replay or a request to add smart tests.
+Save the skill as `.cursor/skills/smart-set/SKILL.md` in your project root. Cursor auto-discovers [Agent Skills](https://cursor.com/docs/context/skills) from `.cursor/skills/` and invokes this one on demand when your prompt matches a failing smart-set replay or a request to add smart tests. This is the on-demand **skill** mechanism — distinct from always-on `.cursor/rules/*.mdc` project rules, which would bill the full skill on every turn.
 
 ### Claude Code
 
@@ -152,8 +152,7 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
 1. **App.** `basename $(pwd)` → `listApps({q})` → cache `app_id`.
 2. **Branch.** `git rev-parse --abbrev-ref HEAD` → `create_branch({app_id, name})` → cache `branch_id`.
 3. **App context (once).** `getApp({appId, fields:["name","namespace","deployment","origin.clusterName","origin.namespace","origin.deployment"]})` — you need `origin.clusterName` for `--cluster`.
-4. **`--replay-source smart-set` is MANDATORY on every replay** (the CLI defaults to `latest-release`).
-5. **`--freezeTime` is MANDATORY** if the app is built with the Go faketime agent.
+4. **Canonical replay command — use ALL these flags on every replay:** `keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <origin.clusterName> --replay-source smart-set --freezeTime --disableReportUpload=false --strict-failure`. Why each: `--replay-source smart-set` (the CLI defaults to latest-release), `--cluster` (from origin.clusterName; omit it and the CLI errors "no active clusters found"), `--freezeTime` (when the app is built with the Go faketime agent), `--disableReportUpload=false` (writes the /tr report row so the run shows on the dashboard), `--strict-failure` (don't silently demote response-divergent cases). These match the "Replay flags" table above.
 
 ## Routine A — failing smart-set replay (ON A BRANCH)
 
@@ -164,7 +163,7 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
   - **Case A — Value drift.** `updateSmartTestCase` — `noiseJson` for non-deterministic fields, `respBody` for a real value change.
   - **Case B — Shape drift.** `updateSmartTestCase` with `requestJson`/`responseJson`; resolve a `SchemaRefConflict` by obsoleting/deleting the twin, never by blind retry.
   - **Case C — Mock drift.** `upsertSmartMock` for an in-place value drift; re-record when the outbound request changed or the match key can't be hand-authored.
-- **A4 — Verify on the branch.** Rebuild first after a Case 1 edit. Replay piping output through `tail`/`grep`. All cases failing "connection reset"/status 0 = a stale leftover replay container on the app port (`docker rm -f` it), not a code bug. Cap retries at 3.
+- **A4 — Verify on the branch.** Rebuild first after a Case 1 edit. Replay with the **canonical command from Discovery (all flags)**, piping output through `tail`/`grep`. All cases failing "connection reset"/status 0 = a stale leftover replay container on the app port (`docker rm -f` it), not a code bug. Cap retries at 3.
 - **A5 — Report and STOP.** Diagnosis table + fixes applied + the two dashboard URLs. Tell the dev to review & merge.
 
 ## Routine B — add new smart tests
@@ -172,7 +171,7 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
 - **B1 — Identify changes.** `git diff origin/main...HEAD --name-only`, filter to HTTP handlers, list each endpoint's method+path.
 - **B2 — Capture traffic.** Pre-flight the run command, then `keploy record -c "<cmd>" --sync --disable-mapping=false` (both flags mandatory), drive one realistic request per endpoint, stop the recorder by PID.
 - **B3 — Upload onto the branch.** `keploy upload test-set --app <ns.deployment> --branch <git branch> --test-set keploy/test-set-N --smart-test-set --name <name>` (ingests new contracts as `imported-*`, dedup by `schema_ref`).
-- **B4 — Validate** with `keploy cloud replay … --replay-source smart-set --freezeTime`. On failure, enter Routine A from A2.
+- **B4 — Validate** with the **canonical replay command from Discovery (all flags)**. On failure, enter Routine A from A2.
 - **B5 — Report and STOP.** Captured/skipped table + replay result + dashboard URLs; the dev merges (merge reconciles `imported-*` → `test-N`).
 
 ## When you MAY ask the dev
