@@ -31,7 +31,6 @@ If you already have WSL, Go to Step 2.
 1. **Enable WSL**
 
    Make sure you’re on:
-
    - **Windows 10** (version 2004 or later, build 19041+)
    - **Windows 11**
 
@@ -61,7 +60,7 @@ If you already have WSL, Go to Step 2.
 
 ## What's Next?
 
-### 🎬 [Start Capturing Test Cases](/docs/server/installation/)
+### 🎬 [Start Capturing Test Cases](/server/installation/)
 
 Begin recording your API calls and automatically generate test cases with Keploy.
 
