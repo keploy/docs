@@ -82,6 +82,14 @@ keploy cloud replay --app prod.orders --cluster my-cluster \
 
 The `--app` value `prod.orders` is split on the first `.`: `prod` is the namespace and `orders` is the deployment. Pass `--namespace`/`--deployment` explicitly when your names contain dots or when you want to override the derivation.
 
+```bash
+# Shorthand — namespace and deployment are derived from --app
+keploy cloud replay --app prod.orders
+
+# Whole identity spelled out — use when a name contains a dot, or to be explicit under --trigger
+keploy cloud replay --app prod.orders --namespace prod --deployment orders --cluster my-cluster
+```
+
 ---
 
 ## Self-hosted ingress targeting
@@ -135,11 +143,30 @@ All three are required — the mode needs a proxy URL to reach and a PAT to auth
 
 ```bash
 export KEPLOY_API_KEY=kep_xxxxxxxx
-keploy cloud replay \
+export KEPLOY_TLS_SKIP_VERIFY=true
+./enterprise/keploy-enterprise cloud replay \
   --k8s-proxy-auth \
-  --k8s-proxy-url https://keploy-proxy.my-cluster.internal \
-  --app prod.orders \
-  --cluster my-cluster
+  --k8s-proxy-url https://localhost:8085 \
+  --app travelcard.travel-card-api \
+  --cluster aditya-selfhosted \
+  --test-sets test-set-fc5c588bc-travel-card-api-fc5c588bc-xgfbn \
+  --delay 10
+```
+
+Here `KEPLOY_API_KEY` (the PAT) and `KEPLOY_TLS_SKIP_VERIFY` (needed when the proxy serves a [self-signed cert](#tls-to-a-self-signed-proxy)) are set as **environment variables**, while `--k8s-proxy-auth`, `--k8s-proxy-url`, and the rest are passed as **flags**. Each input has both a flag and an environment-variable form (see the table above); when both are set, the flag wins.
+
+`--k8s-proxy-auth` and `--k8s-proxy-url` can also be supplied as environment variables — `KEPLOY_K8S_PROXY_AUTH=true` and `KEPLOY_K8S_PROXY_URL` — which is handy in CI where they sit alongside the other secrets and config:
+
+```bash
+export KEPLOY_API_KEY=kep_xxxxxxxx
+export KEPLOY_TLS_SKIP_VERIFY=true
+export KEPLOY_K8S_PROXY_AUTH=true
+export KEPLOY_K8S_PROXY_URL=https://localhost:8085
+./enterprise/keploy-enterprise cloud replay \
+  --app travelcard.travel-card-api \
+  --cluster aditya-selfhosted \
+  --test-sets test-set-fc5c588bc-travel-card-api-fc5c588bc-xgfbn \
+  --delay 10
 ```
 
 ### What it does
