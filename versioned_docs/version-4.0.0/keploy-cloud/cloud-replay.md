@@ -34,14 +34,14 @@ import ProductTier from '@site/src/components/ProductTier';
 keploy cloud replay --app <namespace>.<deployment> [flags]
 ```
 
-Two axes determine how a run behaves:
+Three axes determine how a run behaves:
 
 - **Where the replay executes** — locally on your machine (the default) or inside the cluster (`--trigger`). See [Trigger vs local replay](#trigger-vs-local-replay).
 - **Where the test data and cluster live** — Keploy **SaaS** (test assets fetched from the api-server) or **self-hosted** (test assets fetched from your in-cluster k8s-proxy ingress). Keploy detects this from the selected cluster's `deployment_type`; some flags (notably [`--k8s-proxy-url`](#--k8s-proxy-url)) apply only to self-hosted clusters.
 - **How the CLI authenticates** — directly against the api-server (the default), or **through the k8s-proxy** for offline/air-gapped self-hosted CI (`--k8s-proxy-auth`). See [Authenticating through the k8s-proxy](#authenticating-through-the-k8s-proxy).
 
 :::tip
-Every flag is also available via `keploy cloud replay --help`. Run with `-v`/`--debug` to see which ingress URL, cluster, and branch a run resolved to.
+Every flag is also available via `keploy cloud replay --help`. Run with `--debug` to see which ingress URL, cluster, and branch a run resolved to.
 :::
 
 ## Quick examples
@@ -73,12 +73,12 @@ keploy cloud replay --app prod.orders --cluster my-cluster \
 
 ## App and cluster selection
 
-| Flag | Default | Required | Description |
-| --- | --- | --- | --- |
-| `--app` | — | **Yes** | App identity. Use `namespace.deployment` for k8s/proxy apps (e.g. `prod.orders`). When `--namespace`/`--deployment` are omitted they are derived from this value. |
-| `--cluster` | — | Conditional | Name of the Keploy-registered k8s cluster. Optional when exactly one cluster is actively heart-beating; **required** when more than one active cluster exists or when none is heart-beating (self-hosted). |
-| `--namespace` | derived from `--app` | Conditional | Kubernetes namespace. Required when `--trigger` is set and it can't be derived from `--app`. |
-| `--deployment` | derived from `--app` | No | Kubernetes deployment name. Derived from `--app` when omitted. |
+| Flag           | Default              | Required    | Description                                                                                                                                                                                                |
+| -------------- | -------------------- | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--app`        | —                    | **Yes**     | App identity. Use `namespace.deployment` for k8s/proxy apps (e.g. `prod.orders`). When `--namespace`/`--deployment` are omitted they are derived from this value.                                          |
+| `--cluster`    | —                    | Conditional | Name of the Keploy-registered k8s cluster. Optional when exactly one cluster is actively heart-beating; **required** when more than one active cluster exists or when none is heart-beating (self-hosted). |
+| `--namespace`  | derived from `--app` | Conditional | Kubernetes namespace. Required when `--trigger` is set and it can't be derived from `--app`.                                                                                                               |
+| `--deployment` | derived from `--app` | No          | Kubernetes deployment name. Derived from `--app` when omitted.                                                                                                                                             |
 
 The `--app` value `prod.orders` is split on the first `.`: `prod` is the namespace and `orders` is the deployment. Pass `--namespace`/`--deployment` explicitly when your names contain dots or when you want to override the derivation.
 
@@ -99,14 +99,14 @@ By default, a self-hosted cloud replay discovers the k8s-proxy ingress from the 
 
 Reach for it when:
 
-- The ingress address reported by the heartbeat is wrong or unreachable from where you run the CLI (split-horizon DNS, a bastion/port-forward, a freshly-changed ingress host).
+- The ingress address reported by the heartbeat is wrong or unreachable from where you run the CLI (split-horizon DNS, a bastion/port-forward, a freshly changed ingress host).
 - You want runs to be reproducible and independent of cluster heartbeat state.
 
 Rules and behaviour:
 
 - Must be an **absolute `http://` or `https://` URL with a host**. Malformed values are rejected up front, before any cluster work, with a clear error. A trailing slash is trimmed automatically.
 - Applies to **self-hosted clusters only**. For a SaaS cluster the value is ignored (replay talks to the api-server directly) and the CLI logs a warning so the flag is never silently dropped.
-- It does **not** bypass cluster registration/activity checks — the cluster must still be registered and (for self-hosted) actively heart-beating. `--k8s-proxy-url` only changes *which ingress URL is used*, not whether the cluster is considered valid.
+- It does **not** bypass cluster registration/activity checks — the cluster must still be registered and (for self-hosted) actively heart-beating. `--k8s-proxy-url` only changes _which ingress URL is used_, not whether the cluster is considered valid.
 - Can also be set in `keploy.yml` as `cloud.k8sProxyUrl`.
 
 ```yaml
@@ -121,15 +121,15 @@ cloud:
 
 **Self-hosted only.** An additive, opt-in authentication mode for CI runners and boxes that can reach **only** the k8s-proxy — no direct route to the Keploy api-server and no internet. When enabled, the CLI authenticates your API key **through** the k8s-proxy (which validates it against the api-server on your behalf) and then skips every other direct api-server call for the rest of the run.
 
-This is distinct from [`--k8s-proxy-url`](#--k8s-proxy-url): that flag only chooses *which ingress the data plane targets*; `--k8s-proxy-auth` changes *how the CLI authenticates and which control-plane calls it makes*. You normally use both together.
+This is distinct from [`--k8s-proxy-url`](#--k8s-proxy-url): that flag only chooses _which ingress the data plane targets_; `--k8s-proxy-auth` changes _how the CLI authenticates and which control-plane calls it makes_. You normally use both together.
 
 ### Enabling it
 
-| Input | Flag | Environment variable | keploy.yml |
-| --- | --- | --- | --- |
-| Turn the mode on | `--k8s-proxy-auth` | `KEPLOY_K8S_PROXY_AUTH=true` | `cloud.k8sProxyAuth: true` |
-| k8s-proxy ingress URL | `--k8s-proxy-url` | `KEPLOY_K8S_PROXY_URL` | `cloud.k8sProxyUrl` |
-| API key (PAT) | `--api-key` | `KEPLOY_API_KEY` | — |
+| Input                 | Flag               | Environment variable         | keploy.yml                 |
+| --------------------- | ------------------ | ---------------------------- | -------------------------- |
+| Turn the mode on      | `--k8s-proxy-auth` | `KEPLOY_K8S_PROXY_AUTH=true` | `cloud.k8sProxyAuth: true` |
+| k8s-proxy ingress URL | `--k8s-proxy-url`  | `KEPLOY_K8S_PROXY_URL`       | `cloud.k8sProxyUrl`        |
+| API key (PAT)         | `--api-key`        | `KEPLOY_API_KEY`             | —                          |
 
 All three are required — the mode needs a proxy URL to reach and a PAT to authenticate. Generate the PAT from **Settings → API Keys** in the dashboard.
 
@@ -175,8 +175,8 @@ Since the mode skips the cluster-list lookup, pass `--cluster <name>` where `<na
 
 ### `--trigger`
 
-| Flag | Default | Description |
-| --- | --- | --- |
+| Flag        | Default | Description                                                                                                                                                                                                                                                                              |
+| ----------- | ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `--trigger` | `false` | When set, the replay runs **inside the cluster**: the CLI calls the k8s-proxy to start an in-cluster replay job and streams its status. When unset (default), the replay runs **locally** — test cases and mocks are downloaded and replayed from your machine against the deployed app. |
 
 - **Local replay (default)** — best for developer pre-PR validation and CI gating. Supports branch-scoped runs ([`--branch-name`](#branch-overlay-selection) etc.).
@@ -186,26 +186,26 @@ Since the mode skips the cluster-list lookup, pass `--cluster <name>` where `<na
 
 ## Test source selection
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `--replay-source` | `latest-release` | Which test cases to replay: `latest-release` (legacy per-release sets) or `smart-set` (the deduped history of every unique flow). `smart-set` requires `EnableSmartTestSet=true` on the app. Invalid values are rejected. |
-| `--release-tag` | — | Replay only the test sets recorded for a specific release, given as the container image reference (e.g. `docker.io/org/app:1.2.3`, matched on image **and** tag). A bare tag like `1.2.3` matches **every** image carrying that tag (their union), so prefer the full reference when the app has more than one image. When set, only that release's test sets are downloaded and the smart-set source is skipped. |
-| `--test-sets`, `-t` | all | Restrict the run to specific test sets, e.g. `--test-sets "test-set-1, test-set-2"`. Supports selective test cases with the colon syntax: `--test-sets "test-set-1:testCaseA testCaseB"`. Ignored on the `--trigger` smart-set path (the smart set is the unit of replay there). |
-| `--useLocalTests` | `false` | Use the local test sets, tests, and mocks already on disk instead of fetching them from the cloud. |
-| `--useLocalMock` | `false` | Use existing local mocks instead of downloading them from the cloud (test cases are still fetched). |
+| Flag                | Default          | Description                                                                                                                                                                                                                                                                                                                                                                                                       |
+| ------------------- | ---------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--replay-source`   | `latest-release` | Which test cases to replay: `latest-release` (legacy per-release sets) or `smart-set` (the deduped history of every unique flow). `smart-set` requires `EnableSmartTestSet=true` on the app. Invalid values are rejected.                                                                                                                                                                                         |
+| `--release-tag`     | —                | Replay only the test sets recorded for a specific release, given as the container image reference (e.g. `docker.io/org/app:1.2.3`, matched on image **and** tag). A bare tag like `1.2.3` matches **every** image carrying that tag (their union), so prefer the full reference when the app has more than one image. When set, only that release's test sets are downloaded and the smart-set source is skipped. |
+| `--test-sets`, `-t` | all              | Restrict the run to specific test sets, e.g. `--test-sets "test-set-1, test-set-2"`. Supports selective test cases with the colon syntax: `--test-sets "test-set-1:testCaseA testCaseB"`. Ignored on the `--trigger` smart-set path (the smart set is the unit of replay there).                                                                                                                                  |
+| `--useLocalTests`   | `false`          | Use the local test sets, tests, and mocks already on disk instead of fetching them from the cloud.                                                                                                                                                                                                                                                                                                                |
+| `--useLocalMock`    | `false`          | Use existing local mocks instead of downloading them from the cloud (test cases are still fetched).                                                                                                                                                                                                                                                                                                               |
 
 ---
 
 ## Branch overlay selection
 
-Cloud replay can run against a [Keploy branch overlay](/docs/quickstart/k8s-proxy-developer-workflow/) instead of `main`. The three branch flags below are **mutually exclusive** — pass at most one. With none set, the run targets `main` (the default). Branch flags are **not** compatible with `--trigger`.
+Cloud replay can run against a [Keploy branch overlay](/docs/quickstart/k8s-proxy-developer-workflow/) instead of `main`. The three **overlay** flags — `--branch-name`, `--branch-id`, and `--create-branch` — are **mutually exclusive**; pass at most one. `--branch` is separate: it is the legacy CI-derived test-data branch name (auto-detected from the CI environment), and `--branch-name` overrides it when both are present. With no overlay flag set, the run targets `main` (the default). Overlay flags are **not** compatible with `--trigger`.
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `--branch-name` | — | Keploy branch **name** to scope the replay to. The CLI resolves the name to its branch ID internally. The common CI/developer choice — pass your git branch name. |
-| `--branch-id` | — | Keploy branch **UUID** to scope the replay to. Use when you already have the ID. |
-| `--create-branch` | — | Create a new Keploy branch with this name and scope the replay to it. Tip: pass your current git branch name. |
-| `--branch` | auto-detected from CI | Legacy test-data branch name. Auto-detected from the CI environment when omitted; `--branch-name` overrides it when both are present. |
+| Flag              | Default               | Description                                                                                                                                                       |
+| ----------------- | --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--branch-name`   | —                     | Keploy branch **name** to scope the replay to. The CLI resolves the name to its branch ID internally. The common CI/developer choice — pass your git branch name. |
+| `--branch-id`     | —                     | Keploy branch **UUID** to scope the replay to. Use when you already have the ID.                                                                                  |
+| `--create-branch` | —                     | Create a new Keploy branch with this name and scope the replay to it. Tip: pass your current git branch name.                                                     |
+| `--branch`        | auto-detected from CI | Legacy test-data branch name. Auto-detected from the CI environment when omitted; `--branch-name` overrides it when both are present.                             |
 
 ```bash
 keploy cloud replay --app prod.orders --branch-name "$(git rev-parse --abbrev-ref HEAD)"
@@ -215,36 +215,36 @@ keploy cloud replay --app prod.orders --branch-name "$(git rev-parse --abbrev-re
 
 ## Mapping and failure semantics
 
-| Flag | Default (cloud replay) | Description |
-| --- | --- | --- |
-| `--disable-mapping` | `false` | Disable test-to-mock mapping during replay. Leave enabled (the default) so the per-test mapping diff is available for diagnostics. |
-| `--strict-failure` | `true` | Mark response-failing tests as **FAILED** even when the consumed mock set also diverged from the recorded mapping. With `--strict-failure=false` such cases are demoted to **OBSOLETE** (the historical behaviour). Cloud replay defaults this **on** because it is the CI-gating path; opt out with `--strict-failure=false` (or `test.strictFailure: false` in `keploy.yml`). |
+| Flag                | Default (cloud replay) | Description                                                                                                                                                                                                                                                                                                                                                                     |
+| ------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disable-mapping` | `false`                | Disable test-to-mock mapping during replay. Leave enabled (the default) so the per-test mapping diff is available for diagnostics.                                                                                                                                                                                                                                              |
+| `--strict-failure`  | `true`                 | Mark response-failing tests as **FAILED** even when the consumed mock set also diverged from the recorded mapping. With `--strict-failure=false` such cases are demoted to **OBSOLETE** (the historical behaviour). Cloud replay defaults this **on** because it is the CI-gating path; opt out with `--strict-failure=false` (or `test.strictFailure: false` in `keploy.yml`). |
 
 ---
 
 ## Replay tuning
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `--delay`, `-d` | `5` | Seconds to wait for the application to start before sending requests. |
-| `--api-timeout` | — | Per-request timeout (seconds) when calling the application under test. |
-| `--mongo-password` | — | Authentication password used when mocking MongoDB connections. |
-| `--image` | from deployment manifest | Application docker image (with tag) to replay against. Falls back to the image in the K8s deployment manifest when omitted. |
-| `--envs` | — | Add or override environment variables for the replay session, e.g. `--envs "GEN_AI=true,DB_URL=postgres://localhost:5432"`. |
-| `--freezeTime` | `true` | Freeze time during the replay run so time-sensitive responses match. Cloud replay enables this by default. |
-| `--channel-binding-shim` | from record config | Enable the eBPF channel-binding shim: on replay it downgrades libpq `channel_binding=require`→`disable` so SCRAM-SHA-256-PLUS apps replay against trust-mode mocks. Requires the enterprise cbshim agent image. Mirrors `keploy.yml` `record.channelBindingShim`. |
-| `--dedup` | `false` | Deduplicate the replay run. |
-| `--generate-compose-file` | `false` | Write the generated docker-compose YAML to disk (`docker-compose-keploy.yaml`) instead of passing it in-memory via stdin. Useful for debugging the generated compose. |
+| Flag                      | Default                  | Description                                                                                                                                                                                                                                                       |
+| ------------------------- | ------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--delay`, `-d`           | `5`                      | Seconds to wait for the application to start before sending requests.                                                                                                                                                                                             |
+| `--api-timeout`           | —                        | Per-request timeout (seconds) when calling the application under test.                                                                                                                                                                                            |
+| `--mongo-password`        | —                        | Authentication password used when mocking MongoDB connections.                                                                                                                                                                                                    |
+| `--image`                 | from deployment manifest | Application docker image (with tag) to replay against. Falls back to the image in the K8s deployment manifest when omitted.                                                                                                                                       |
+| `--envs`                  | —                        | Add or override environment variables for the replay session, e.g. `--envs "GEN_AI=true,DB_URL=postgres://localhost:5432"`.                                                                                                                                       |
+| `--freezeTime`            | `true`                   | Freeze time during the replay run so time-sensitive responses match. Cloud replay enables this by default.                                                                                                                                                        |
+| `--channel-binding-shim`  | from record config       | Enable the eBPF channel-binding shim: on replay it downgrades libpq `channel_binding=require`→`disable` so SCRAM-SHA-256-PLUS apps replay against trust-mode mocks. Requires the enterprise cbshim agent image. Mirrors `keploy.yml` `record.channelBindingShim`. |
+| `--dedup`                 | `false`                  | Deduplicate the replay run.                                                                                                                                                                                                                                       |
+| `--generate-compose-file` | `false`                  | Write the generated docker-compose YAML to disk (`docker-compose-keploy.yaml`) instead of passing it in-memory via stdin. Useful for debugging the generated compose.                                                                                             |
 
 ---
 
 ## Uploads and reporting
 
-| Flag | Default (cloud replay) | Description |
-| --- | --- | --- |
-| `--disableMockUpload` | `true` | Disable uploading mocks back to the cloud. Cloud replay defaults this on (replay consumes mocks, it doesn't re-record them). |
-| `--disableReportUpload` | `false` | Disable uploading the test report to the server. Defaults off so runs appear in the dashboard; OAuth sessions default it on unless the flag is set explicitly. |
-| `--disable-debug-bundle` | `false` | Disable the automatic debug-bundle assembly and upload at the end of the run. By default every run captures a debug-level log and uploads a support bundle to the api-server on exit. |
+| Flag                     | Default (cloud replay) | Description                                                                                                                                                                           |
+| ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disableMockUpload`    | `true`                 | Disable uploading mocks back to the cloud. Cloud replay defaults this on (replay consumes mocks, it doesn't re-record them).                                                          |
+| `--disableReportUpload`  | `false`                | Disable uploading the test report to the server. Defaults off so runs appear in the dashboard; OAuth sessions default it on unless the flag is set explicitly.                        |
+| `--disable-debug-bundle` | `false`                | Disable the automatic debug-bundle assembly and upload at the end of the run. By default every run captures a debug-level log and uploads a support bundle to the api-server on exit. |
 
 ---
 
@@ -252,41 +252,41 @@ keploy cloud replay --app prod.orders --branch-name "$(git rev-parse --abbrev-re
 
 These take precedence over values auto-detected from the CI provider's environment. Set them when running outside a recognised CI environment or to correct auto-detected values.
 
-| Flag | Description |
-| --- | --- |
-| `--ci-provider` | CI provider name (e.g. `github_actions`, `gitlab_ci`). |
-| `--ci-branch` | CI branch name. |
-| `--ci-commit-sha` | CI commit SHA. |
-| `--ci-repository` | CI repository (e.g. `org/repo`). |
-| `--ci-pr-number` | Pull request number. |
-| `--ci-pr-source-branch` | PR source branch. |
-| `--ci-pr-target-branch` | PR target branch. |
-| `--ci-trigger-actor` | User who triggered the pipeline. |
-| `--ci-pipeline-url` | URL of the CI pipeline run. |
+| Flag                    | Description                                            |
+| ----------------------- | ------------------------------------------------------ |
+| `--ci-provider`         | CI provider name (e.g. `github_actions`, `gitlab_ci`). |
+| `--ci-branch`           | CI branch name.                                        |
+| `--ci-commit-sha`       | CI commit SHA.                                         |
+| `--ci-repository`       | CI repository (e.g. `org/repo`).                       |
+| `--ci-pr-number`        | Pull request number.                                   |
+| `--ci-pr-source-branch` | PR source branch.                                      |
+| `--ci-pr-target-branch` | PR target branch.                                      |
+| `--ci-trigger-actor`    | User who triggered the pipeline.                       |
+| `--ci-pipeline-url`     | URL of the CI pipeline run.                            |
 
 ---
 
 ## General flags
 
-| Flag | Default | Description |
-| --- | --- | --- |
-| `--api-key` | `$KEPLOY_API_KEY` | Keploy API key for this invocation. Overrides the `KEPLOY_API_KEY` environment variable. |
-| `--path`, `-p` | `.` | Path to the local directory where test cases, mocks, and reports are stored/downloaded. |
-| `--config-path`, `-c` | `.` | Path to the directory containing `keploy.yml`. |
-| `--debug` | `false` | Verbose debug logging. Useful to confirm the resolved ingress URL, cluster, and branch for a run. |
+| Flag                  | Default           | Description                                                                                       |
+| --------------------- | ----------------- | ------------------------------------------------------------------------------------------------- |
+| `--api-key`           | `$KEPLOY_API_KEY` | Keploy API key for this invocation. Overrides the `KEPLOY_API_KEY` environment variable.          |
+| `--path`, `-p`        | `.`               | Path to the local directory where test cases, mocks, and reports are stored/downloaded.           |
+| `--config-path`, `-c` | `.`               | Path to the directory containing `keploy.yml`.                                                    |
+| `--debug`             | `false`           | Verbose debug logging. Useful to confirm the resolved ingress URL, cluster, and branch for a run. |
 
 ---
 
 ## SaaS vs self-hosted at a glance
 
-| Concern | SaaS | Self-hosted (k8s-proxy) |
-| --- | --- | --- |
-| Where test assets come from | Keploy api-server | In-cluster k8s-proxy ingress |
-| `--cluster` | Optional (single active cluster auto-selected) | Recommended/required; cluster must be registered and active |
-| `--k8s-proxy-url` | Ignored (warned) | **Honored** — overrides the heartbeat-inferred ingress URL |
-| `--k8s-proxy-auth` | N/A | Optional — authenticate through the proxy for offline/CI runs |
-| Auth to the data plane | api-server token | User PAT validated by the k8s-proxy |
-| Test report upload | api-server | k8s-proxy ingress (proxy DB), authenticated with the PAT |
+| Concern                     | SaaS                                           | Self-hosted (k8s-proxy)                                       |
+| --------------------------- | ---------------------------------------------- | ------------------------------------------------------------- |
+| Where test assets come from | Keploy api-server                              | In-cluster k8s-proxy ingress                                  |
+| `--cluster`                 | Optional (single active cluster auto-selected) | Recommended/required; cluster must be registered and active   |
+| `--k8s-proxy-url`           | Ignored (warned)                               | **Honored** — overrides the heartbeat-inferred ingress URL    |
+| `--k8s-proxy-auth`          | N/A                                            | Optional — authenticate through the proxy for offline/CI runs |
+| Auth to the data plane      | api-server token                               | User PAT validated by the k8s-proxy                           |
+| Test report upload          | api-server                                     | k8s-proxy ingress (proxy DB), authenticated with the PAT      |
 
 ---
 
@@ -294,17 +294,17 @@ These take precedence over values auto-detected from the CI provider's environme
 
 Local (non-`--trigger`) self-hosted replay boots the app **and** the Keploy eBPF agent locally via docker-compose, so it has a few environment prerequisites the SaaS path doesn't. The failures below are the common ones, with fixes:
 
-| Symptom | Cause | Fix |
-| --- | --- | --- |
-| `k8s-proxy-auth: … certificate signed by unknown authority` | Proxy serves a self-signed cert | `export KEPLOY_TLS_SKIP_VERIFY=true` (or `SSL_CERT_FILE=<ca.pem>`) |
-| `failed to get test sets: unexpected status code: 400` | Empty `clusterName` sent to the proxy | Pass `--cluster <name>` (the app's registered cluster) |
-| `app <ns>.<dep> not found for the cluster <name>` | `--cluster` doesn't match the app's recorded cluster | Use the exact `KEPLOY_CLUSTER_NAME` the app was recorded under |
-| `blob not found` / `…/mocks.bin not found` | The mock blob isn't in the proxy's object store (e.g. the store was reset after recording) | Re-record the test set; keep the metadata DB and object store lifecycles in sync |
-| `sysctl: executable file not found in $PATH` | The privileged (sudo) re-exec stripped `/usr/sbin`/`/sbin` from `PATH` | Handled by the CLI automatically; on older builds `export PATH="$PATH:/usr/sbin:/sbin"` |
-| `pull access denied for <app-image>` | The app image lives only in the cluster, not the local docker daemon | Load it locally, pass `--image <local-tag>`, or use `--trigger` (in-cluster) |
-| `manifest for keploy/enterprise:v<ver> not found` | The eBPF agent image tag derived from the CLI version isn't published (a dev build resolves to `v<version>-dev`) | Use a release binary, or make that tag resolvable to the local docker daemon |
-| `connection reset by peer` → `ACTUAL STATUS 0` on the first test | The app wasn't listening yet when the first request fired | Raise `--delay` (e.g. `--delay 20`) for slow-starting apps (JVM, etc.) |
-| `no matching mock found for POST /v1/logs` (or similar) | The app exports OpenTelemetry/telemetry to a collector that wasn't mocked | Disable telemetry export for the replay, add the endpoint to `test.globalNoise`, or re-record |
+| Symptom                                                          | Cause                                                                                                            | Fix                                                                                           |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `k8s-proxy-auth: … certificate signed by unknown authority`      | Proxy serves a self-signed cert                                                                                  | `export KEPLOY_TLS_SKIP_VERIFY=true` (or `SSL_CERT_FILE=<ca.pem>`)                            |
+| `failed to get test sets: unexpected status code: 400`           | Empty `clusterName` sent to the proxy                                                                            | Pass `--cluster <name>` (the app's registered cluster)                                        |
+| `app <ns>.<dep> not found for the cluster <name>`                | `--cluster` doesn't match the app's recorded cluster                                                             | Use the exact `KEPLOY_CLUSTER_NAME` the app was recorded under                                |
+| `blob not found` / `…/mocks.bin not found`                       | The mock blob isn't in the proxy's object store (e.g. the store was reset after recording)                       | Re-record the test set; keep the metadata DB and object store lifecycles in sync              |
+| `sysctl: executable file not found in $PATH`                     | The privileged (sudo) re-exec stripped `/usr/sbin`/`/sbin` from `PATH`                                           | Handled by the CLI automatically; on older builds `export PATH="$PATH:/usr/sbin:/sbin"`       |
+| `pull access denied for <app-image>`                             | The app image lives only in the cluster, not the local docker daemon                                             | Load it locally, pass `--image <local-tag>`, or use `--trigger` (in-cluster)                  |
+| `manifest for keploy/enterprise:v<ver> not found`                | The eBPF agent image tag derived from the CLI version isn't published (a dev build resolves to `v<version>-dev`) | Use a release binary, or make that tag resolvable to the local docker daemon                  |
+| `connection reset by peer` → `ACTUAL STATUS 0` on the first test | The app wasn't listening yet when the first request fired                                                        | Raise `--delay` (e.g. `--delay 20`) for slow-starting apps (JVM, etc.)                        |
+| `no matching mock found for POST /v1/logs` (or similar)          | The app exports OpenTelemetry/telemetry to a collector that wasn't mocked                                        | Disable telemetry export for the replay, add the endpoint to `test.globalNoise`, or re-record |
 
 :::tip
 For a cluster-deployed app, in-cluster replay (`--trigger --namespace <ns>`) sidesteps the local docker/image/eBPF prerequisites entirely — it replays where the app and its dependencies already run. It needs a key with `replay:start` (admin-tier or the `ci` scope).
