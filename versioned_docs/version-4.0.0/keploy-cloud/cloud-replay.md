@@ -2,7 +2,7 @@
 id: cloud-replay
 title: Cloud Replay Command Reference
 sidebar_label: Cloud Replay
-description: Complete reference for every flag of the keploy cloud replay command — app and cluster selection, self-hosted vs SaaS targeting, the --proxy-url ingress override, release-tag and branch selection, mapping flags, and trigger vs local replay, with examples.
+description: Complete reference for every flag of the keploy cloud replay command — app and cluster selection, self-hosted vs SaaS targeting, the --k8s-proxy-url ingress override, release-tag and branch selection, mapping flags, and trigger vs local replay, with examples.
 tags:
   - K8s
   - cloud replay
@@ -12,7 +12,7 @@ tags:
 keywords:
   - keploy cloud replay
   - cloud replay flags
-  - proxy-url
+  - k8s-proxy-url
   - k8s-proxy ingress
   - release-tag
   - trigger replay
@@ -37,7 +37,8 @@ keploy cloud replay --app <namespace>.<deployment> [flags]
 Two axes determine how a run behaves:
 
 - **Where the replay executes** — locally on your machine (the default) or inside the cluster (`--trigger`). See [Trigger vs local replay](#trigger-vs-local-replay).
-- **Where the test data and cluster live** — Keploy **SaaS** (test assets fetched from the api-server) or **self-hosted** (test assets fetched from your in-cluster k8s-proxy ingress). Keploy detects this from the selected cluster's `deployment_type`; some flags (notably [`--proxy-url`](#--proxy-url)) apply only to self-hosted clusters.
+- **Where the test data and cluster live** — Keploy **SaaS** (test assets fetched from the api-server) or **self-hosted** (test assets fetched from your in-cluster k8s-proxy ingress). Keploy detects this from the selected cluster's `deployment_type`; some flags (notably [`--k8s-proxy-url`](#--k8s-proxy-url)) apply only to self-hosted clusters.
+- **How the CLI authenticates** — directly against the api-server (the default), or **through the k8s-proxy** for offline/air-gapped self-hosted CI (`--k8s-proxy-auth`). See [Authenticating through the k8s-proxy](#authenticating-through-the-k8s-proxy).
 
 :::tip
 Every flag is also available via `keploy cloud replay --help`. Run with `-v`/`--debug` to see which ingress URL, cluster, and branch a run resolved to.
@@ -57,10 +58,15 @@ keploy cloud replay --app prod.orders --release-tag docker.io/acme/orders:1.4.2
 
 # Self-hosted: target an explicit k8s-proxy ingress instead of the heartbeat-inferred one
 keploy cloud replay --app prod.orders --cluster my-cluster \
-  --proxy-url https://keploy-proxy.my-cluster.internal
+  --k8s-proxy-url https://keploy-proxy.my-cluster.internal
 
 # In-cluster (trigger) replay of the smart set
 keploy cloud replay --app prod.orders --cluster my-cluster --trigger --replay-source smart-set
+
+# Offline/air-gapped self-hosted CI: authenticate through the k8s-proxy (no direct api-server)
+export KEPLOY_API_KEY=kep_xxxxxxxx
+keploy cloud replay --app prod.orders --cluster my-cluster \
+  --k8s-proxy-auth --k8s-proxy-url https://keploy-proxy.my-cluster.internal
 ```
 
 ---
@@ -80,16 +86,16 @@ The `--app` value `prod.orders` is split on the first `.`: `prod` is the namespa
 
 ## Self-hosted ingress targeting
 
-### `--proxy-url`
+### `--k8s-proxy-url`
 
 **Self-hosted only.** The k8s-proxy ingress URL to target directly, e.g. `https://keploy-proxy.my-cluster.internal`.
 
 ```bash
 keploy cloud replay --app prod.orders --cluster my-cluster \
-  --proxy-url https://keploy-proxy.my-cluster.internal
+  --k8s-proxy-url https://keploy-proxy.my-cluster.internal
 ```
 
-By default, a self-hosted cloud replay discovers the k8s-proxy ingress from the selected cluster's **latest heartbeat**. `--proxy-url` makes that endpoint explicit and overridable: when set, it **overrides** the heartbeat-inferred ingress URL for every k8s-proxy call the run makes (fetching test sets, mocks and mappings, and — under `--trigger` — starting the in-cluster replay and streaming its status).
+By default, a self-hosted cloud replay discovers the k8s-proxy ingress from the selected cluster's **latest heartbeat**. `--k8s-proxy-url` makes that endpoint explicit and overridable: when set, it **overrides** the heartbeat-inferred ingress URL for every k8s-proxy call the run makes (fetching test sets, mocks and mappings, and — under `--trigger` — starting the in-cluster replay and streaming its status).
 
 Reach for it when:
 
@@ -100,14 +106,68 @@ Rules and behaviour:
 
 - Must be an **absolute `http://` or `https://` URL with a host**. Malformed values are rejected up front, before any cluster work, with a clear error. A trailing slash is trimmed automatically.
 - Applies to **self-hosted clusters only**. For a SaaS cluster the value is ignored (replay talks to the api-server directly) and the CLI logs a warning so the flag is never silently dropped.
-- It does **not** bypass cluster registration/activity checks — the cluster must still be registered and (for self-hosted) actively heart-beating. `--proxy-url` only changes *which ingress URL is used*, not whether the cluster is considered valid.
-- Can also be set in `keploy.yml` as `cloud.proxyUrl`.
+- It does **not** bypass cluster registration/activity checks — the cluster must still be registered and (for self-hosted) actively heart-beating. `--k8s-proxy-url` only changes *which ingress URL is used*, not whether the cluster is considered valid.
+- Can also be set in `keploy.yml` as `cloud.k8sProxyUrl`.
 
 ```yaml
 # keploy.yml
 cloud:
-  proxyUrl: https://keploy-proxy.my-cluster.internal
+  k8sProxyUrl: https://keploy-proxy.my-cluster.internal
 ```
+
+---
+
+## Authenticating through the k8s-proxy
+
+**Self-hosted only.** An additive, opt-in authentication mode for CI runners and boxes that can reach **only** the k8s-proxy — no direct route to the Keploy api-server and no internet. When enabled, the CLI authenticates your API key **through** the k8s-proxy (which validates it against the api-server on your behalf) and then skips every other direct api-server call for the rest of the run.
+
+This is distinct from [`--k8s-proxy-url`](#--k8s-proxy-url): that flag only chooses *which ingress the data plane targets*; `--k8s-proxy-auth` changes *how the CLI authenticates and which control-plane calls it makes*. You normally use both together.
+
+### Enabling it
+
+| Input | Flag | Environment variable | keploy.yml |
+| --- | --- | --- | --- |
+| Turn the mode on | `--k8s-proxy-auth` | `KEPLOY_K8S_PROXY_AUTH=true` | `cloud.k8sProxyAuth: true` |
+| k8s-proxy ingress URL | `--k8s-proxy-url` | `KEPLOY_K8S_PROXY_URL` | `cloud.k8sProxyUrl` |
+| API key (PAT) | `--api-key` | `KEPLOY_API_KEY` | — |
+
+All three are required — the mode needs a proxy URL to reach and a PAT to authenticate. Generate the PAT from **Settings → API Keys** in the dashboard.
+
+```bash
+export KEPLOY_API_KEY=kep_xxxxxxxx
+keploy cloud replay \
+  --k8s-proxy-auth \
+  --k8s-proxy-url https://keploy-proxy.my-cluster.internal \
+  --app prod.orders \
+  --cluster my-cluster
+```
+
+### What it does
+
+- Authenticates by sending your PAT to the proxy's `/relay-auth` endpoint, which relays it to the api-server's `/auth/apikey` and returns only the verdict — the CLI never contacts the api-server directly.
+- Forces the run into **self-hosted** mode: it skips the cluster-list lookup and targets the proxy ingress directly. Because of this, a `--cluster` name is needed (see below).
+- **Skips** every direct api-server step that would otherwise hang offline: the api-key exchange, role/plan checks, IT-usage check, update check, and the end-of-run debug-bundle upload (which targets the api-server). Authorization is still enforced server-side by the proxy's RBAC on every request.
+
+### TLS to a self-signed proxy
+
+Self-hosted proxies commonly serve a self-signed certificate. If the auth preflight fails with `certificate signed by unknown authority`, either trust the CA or skip verification:
+
+```bash
+# Option A — skip verification (matches the self-hosted data plane)
+export KEPLOY_TLS_SKIP_VERIFY=true
+
+# Option B — keep verification on by trusting the proxy's CA
+export SSL_CERT_FILE=/path/to/proxy-ca.pem
+```
+
+### `--cluster` in this mode
+
+Since the mode skips the cluster-list lookup, pass `--cluster <name>` where `<name>` is the cluster the app was **registered/recorded under** (the deployment's `KEPLOY_CLUSTER_NAME`). The CLI adopts it automatically from the app's record when you omit it; a **wrong** name resolves zero apps (`app <ns>.<dep> not found for the cluster <name>`).
+
+### Permissions
+
+- **Local replay** (no `--trigger`) needs a key with **read + write** — enough to fetch tests and upload the report.
+- **In-cluster replay** (`--trigger`) starts an orchestrated replay via the proxy's `/test/start`, which requires the admin-tier `replay:start` permission (or the `ci` scope). Under `KEPLOY_RBAC_MODE=enforce`, a key without it is rejected.
 
 ---
 
@@ -223,8 +283,32 @@ These take precedence over values auto-detected from the CI provider's environme
 | --- | --- | --- |
 | Where test assets come from | Keploy api-server | In-cluster k8s-proxy ingress |
 | `--cluster` | Optional (single active cluster auto-selected) | Recommended/required; cluster must be registered and active |
-| `--proxy-url` | Ignored (warned) | **Honored** — overrides the heartbeat-inferred ingress URL |
+| `--k8s-proxy-url` | Ignored (warned) | **Honored** — overrides the heartbeat-inferred ingress URL |
+| `--k8s-proxy-auth` | N/A | Optional — authenticate through the proxy for offline/CI runs |
 | Auth to the data plane | api-server token | User PAT validated by the k8s-proxy |
+| Test report upload | api-server | k8s-proxy ingress (proxy DB), authenticated with the PAT |
+
+---
+
+## Troubleshooting self-hosted replay
+
+Local (non-`--trigger`) self-hosted replay boots the app **and** the Keploy eBPF agent locally via docker-compose, so it has a few environment prerequisites the SaaS path doesn't. The failures below are the common ones, with fixes:
+
+| Symptom | Cause | Fix |
+| --- | --- | --- |
+| `k8s-proxy-auth: … certificate signed by unknown authority` | Proxy serves a self-signed cert | `export KEPLOY_TLS_SKIP_VERIFY=true` (or `SSL_CERT_FILE=<ca.pem>`) |
+| `failed to get test sets: unexpected status code: 400` | Empty `clusterName` sent to the proxy | Pass `--cluster <name>` (the app's registered cluster) |
+| `app <ns>.<dep> not found for the cluster <name>` | `--cluster` doesn't match the app's recorded cluster | Use the exact `KEPLOY_CLUSTER_NAME` the app was recorded under |
+| `blob not found` / `…/mocks.bin not found` | The mock blob isn't in the proxy's object store (e.g. the store was reset after recording) | Re-record the test set; keep the metadata DB and object store lifecycles in sync |
+| `sysctl: executable file not found in $PATH` | The privileged (sudo) re-exec stripped `/usr/sbin`/`/sbin` from `PATH` | Handled by the CLI automatically; on older builds `export PATH="$PATH:/usr/sbin:/sbin"` |
+| `pull access denied for <app-image>` | The app image lives only in the cluster, not the local docker daemon | Load it locally, pass `--image <local-tag>`, or use `--trigger` (in-cluster) |
+| `manifest for keploy/enterprise:v<ver> not found` | The eBPF agent image tag derived from the CLI version isn't published (a dev build resolves to `v<version>-dev`) | Use a release binary, or make that tag resolvable to the local docker daemon |
+| `connection reset by peer` → `ACTUAL STATUS 0` on the first test | The app wasn't listening yet when the first request fired | Raise `--delay` (e.g. `--delay 20`) for slow-starting apps (JVM, etc.) |
+| `no matching mock found for POST /v1/logs` (or similar) | The app exports OpenTelemetry/telemetry to a collector that wasn't mocked | Disable telemetry export for the replay, add the endpoint to `test.globalNoise`, or re-record |
+
+:::tip
+For a cluster-deployed app, in-cluster replay (`--trigger --namespace <ns>`) sidesteps the local docker/image/eBPF prerequisites entirely — it replays where the app and its dependencies already run. It needs a key with `replay:start` (admin-tier or the `ci` scope).
+:::
 
 ---
 
