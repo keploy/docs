@@ -145,7 +145,7 @@ Only two inputs are required — a proxy URL to reach and a PAT to authenticate.
 ```bash
 export KEPLOY_API_KEY=kep_xxxxxxxx
 export KEPLOY_TLS_SKIP_VERIFY=true
-./enterprise/keploy-enterprise cloud replay \
+    keploy cloud replay \
   --k8s-proxy-url https://localhost:8085 \
   --app travelcard.travel-card-api \
   --cluster aditya-selfhosted \
@@ -161,7 +161,7 @@ The proxy URL can also be supplied as an environment variable — `KEPLOY_K8S_PR
 export KEPLOY_API_KEY=kep_xxxxxxxx
 export KEPLOY_TLS_SKIP_VERIFY=true
 export KEPLOY_K8S_PROXY_URL=https://localhost:8085
-./enterprise/keploy-enterprise cloud replay \
+    keploy cloud replay \
   --app travelcard.travel-card-api \
   --cluster aditya-selfhosted \
   --test-sets test-set-fc5c588bc-travel-card-api-fc5c588bc-xgfbn \
