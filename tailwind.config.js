@@ -126,9 +126,14 @@ module.exports = {
             transform: "translateY(0)",
           },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
         "fade-in-down": "fade-in-down 0.5s ease-out",
+        marquee: "marquee var(--duration) linear infinite",
       },
       colors: {
         offwhite: "#F2F2F2",

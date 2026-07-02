@@ -146,3 +146,48 @@ Integrating Keploy with GitLab CI automates the testing process, ensuring that t
 If you’re thinking, “This pipeline looks cool, but I need the _whole thing_ to integrate with your application!” — well, you're in luck! Check it out [here](https://github.com/keploy/samples-python) and get ready to copy-paste your way to success! ✨🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+
+- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- In CI: add the key as a masked CI/CD variable so the system injects it as an environment variable at runtime. Never hard-code it in your pipeline file.
+
+In GitLab CI, go to **Settings → CI/CD → Variables**, add `KEPLOY_API_KEY` as a masked variable, and it is automatically available in all pipeline jobs as `$KEPLOY_API_KEY`.
+
+### Steps
+
+1. Add `KEPLOY_API_KEY` as a masked CI/CD variable (**Settings → CI/CD → Variables**).
+2. Install the Enterprise Keploy binary on the runner.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+> Cloud replay requires the Enterprise binary. Install it with `curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh` — not the open-source `keploy.io/install.sh`.
+
+### Example: GitLab CI
+
+```yaml
+keploy-cloud-replay:
+  stage: test
+  image: ubuntu:22.04
+  # KEPLOY_API_KEY is injected automatically from the masked CI/CD variable
+  script:
+    - apt-get update -qq && apt-get install -y -qq curl sudo
+    - curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+    - |
+      keploy cloud replay \
+        --app "<NAMESPACE>.<DEPLOYMENT>" \
+        --cluster "<CLUSTER>" \
+        --namespace "<NAMESPACE>" \
+        --delay <DELAY>
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+
+> Because `KEPLOY_API_KEY` is defined as a masked variable in GitLab, it is already present in the job's environment — no `export` step is needed.

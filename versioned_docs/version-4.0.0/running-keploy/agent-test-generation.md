@@ -72,6 +72,10 @@ Keploy provides an MCP (Model Context Protocol) endpoint that gives AI agents **
 
 The MCP endpoint is built into the Keploy API server at `/client/v1/mcp`. Tools are auto-generated from the OpenAPI spec—when the API evolves, tools update automatically.
 
+:::note Tool-search mode (default)
+To keep the per-session context small, the server runs in **tool-search mode**: `tools/list` shows only a handful of meta-tools (`get_auth_status`, `get_setup_instructions`, `search_tools`, `get_tool_schema`, `invoke_tool`) instead of the full catalog. The tools in the table below are still all available — you reach them by name: `get_tool_schema({names:[...]})` to fetch schemas you already know, `search_tools(query)` to discover ones you don't, then `invoke_tool({name, arguments})` to run them. Hiding affects discovery only, not reachability — a tool can still be called directly by its exact name.
+:::
+
 ### Available Tools
 
 | Tool                     | What it does                                                             |
@@ -101,7 +105,7 @@ The examples below use the Keploy Cloud URL (`https://api.keploy.io`). If you're
 
 #### Claude Code
 
-Add to your Claude Code MCP settings (`~/.claude/settings.json` or project-level). Note: Claude Code requires the `type: http` field for StreamableHTTP transport (other clients do not need it).
+Add to your Claude Code MCP settings (`~/.claude.json` or project-level). Note: Claude Code requires the `type: http` field for StreamableHTTP transport (other clients do not need it).
 
 ```json
 {
@@ -180,7 +184,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
 
 ### How it Works
 
-1. The agent discovers available tools via the MCP `tools/list` method
+1. The agent sees the meta-tools on `tools/list` (tool-search mode, above) and reaches the specific tool it needs by name via `get_tool_schema` / `search_tools` + `invoke_tool`
 2. When you ask "generate API tests", the agent calls `generate_and_wait` with your OpenAPI spec
 3. The tool triggers AI generation on the Keploy platform, polls until complete, and returns the created suites
 4. The agent calls `run_and_report` to execute suites against your API

@@ -1,9 +1,71 @@
 import React, {useState, useMemo} from "react";
 import Layout from "@theme/Layout";
+import Head from "@docusaurus/Head";
 import BackToTopButton from "@theme/BackToTopButton";
 
 import {glossaryEntries} from "../../../../static/data/glossaryEntries";
 import GlossaryCard from "../../../components/GlossaryCard";
+
+// SEO/GEO: turn each glossary entry into a DefinedTerm inside a single
+// DefinedTermSet so AI engines can cite individual definitions and engines
+// can surface them as featured-snippet definitions. Mirrors the pattern in
+// landing/app/(default)/what-is-api-testing/layout.tsx.
+//
+// Site config sets `trailingSlash: true`, so every emitted URL must carry a
+// trailing slash to match the canonical href. Otherwise Google treats the
+// no-slash variant as a duplicate URL of the canonical one.
+const allGlossaryItems = Object.values(glossaryEntries).flat();
+const SITE = "https://keploy.io";
+const GLOSSARY_PATH = "/docs/concepts/reference/glossary/";
+const GLOSSARY_URL = `${SITE}${GLOSSARY_PATH}`;
+const TERMSET_ID = `${GLOSSARY_URL}#termset`;
+
+function withTrailingSlash(path) {
+  if (!path) return path;
+  return path.endsWith("/") ? path : `${path}/`;
+}
+
+const glossaryStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": TERMSET_ID,
+    name: "Keploy Software Testing Glossary",
+    description:
+      "Definitions for software testing, test automation, and quality engineering terminology, maintained by the Keploy documentation team.",
+    url: GLOSSARY_URL,
+    // Defensive: an entry without a valid `link` (e.g. a typoed key like
+    // `ink:`) would emit `https://keploy.ioundefined` into the JSON-LD.
+    // Drop those entries here so structured data never carries a malformed
+    // URL even if `glossaryEntries` has gaps.
+    hasDefinedTerm: allGlossaryItems
+      .filter(
+        (entry) => typeof entry.link === "string" && entry.link.length > 0
+      )
+      .map((entry) => ({
+        "@type": "DefinedTerm",
+        name: entry.name,
+        description: entry.description,
+        url: `${SITE}${withTrailingSlash(entry.link)}`,
+        inDefinedTermSet: TERMSET_ID,
+      })),
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {"@type": "ListItem", position: 1, name: "Home", item: `${SITE}/`},
+      {"@type": "ListItem", position: 2, name: "Docs", item: `${SITE}/docs/`},
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: "Concepts",
+        item: `${SITE}/docs/concepts/`,
+      },
+      {"@type": "ListItem", position: 4, name: "Glossary", item: GLOSSARY_URL},
+    ],
+  },
+];
 
 function Glossary() {
   const [selectedletter, setselectedletter] = useState([]);
@@ -37,10 +99,17 @@ function Glossary() {
 
   return (
     <Layout
-      title="Glossary"
+      title="Software Testing Glossary — Keploy Documentation"
       permalink="/reference/glossary"
-      description="A glossary of terms related to software testing and development."
+      description="Definitions for software testing, test automation, and QA terminology. Acceptance, agile unit, BDD, beta, black-box testing and more."
     >
+      <Head>
+        {glossaryStructuredData.map((schema, i) => (
+          <script key={i} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
+      </Head>
       <main className="container mx-auto my-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">
