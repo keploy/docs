@@ -9,7 +9,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
- <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/api-test-chrome-extension.png" alt="Keploy Record Test case" width="100%" />
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/api-test-chrome-extension.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 Install the extension, hit **Record API Calls**, exercise your web app, then press **Generate Tests** to send the captured traffic to Keploy.
 
@@ -35,7 +35,7 @@ Install the extension, hit **Record API Calls**, exercise your web app, then pre
 
 ## Quick-start workflow
 
- <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-chrome-test-recorder.png" alt="Keploy Record Test case" width="100%" />
+ <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-api-chrome-test-recorder.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 1. **Log in** with the same email you use on app.keploy.io.
 2. Click **Record API Calls**.

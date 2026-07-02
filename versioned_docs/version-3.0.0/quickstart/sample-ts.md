@@ -237,7 +237,7 @@ We will run the keploy in record mode with docker-compose to start our applicati
 keploy record -c "sudo docker compose up" --containerName "ts-nhost"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nhost.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nhost.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Generate the testcases
 
@@ -294,9 +294,9 @@ keploy test -c 'sudo docker compose up' --containerName "ts-nhost" --delay 10
 
 This is what your response should look like!
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-nhost.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-nhost.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-report-nhost.png" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-report-nhost.png" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ## Wrapping it up 🎉
 

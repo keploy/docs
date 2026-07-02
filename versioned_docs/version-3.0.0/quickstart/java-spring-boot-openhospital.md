@@ -79,7 +79,7 @@ Prerequisites For Binary:
 keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
 ```
 
-<img src="/docs/img/keploy-record-java.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-record-java.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ## Start the frontend
 
@@ -92,7 +92,7 @@ npm start
 ```
 
 Note: Login with username `admin` and password `admin`
-<img src="/docs/img/openhospital-ui.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/openhospital-ui.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 If you followed all the steps correctly, you should see a UI similar to the one shown above.
 
@@ -108,10 +108,10 @@ keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.sp
 🎉 Hooray! You've made it to the end of the binary section! 🎉
 
 Your CLI should look something like this
-<img src="/docs/img/keploy-test-openhospital.jpg" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-test-openhospital.jpg" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 This is a summary of the test cases recorded
-<img src="/docs/img/keploy-testcase-openhospital.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="/docs/img/keploy-testcase-openhospital.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.

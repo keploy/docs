@@ -78,7 +78,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 
 If everything goes right, your screen should look a bit like this:
 
-<img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+<img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" loading="lazy" decoding="async"/>
 
 ## Run Application
 

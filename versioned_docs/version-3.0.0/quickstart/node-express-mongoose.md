@@ -52,7 +52,7 @@ Fire up the application and mongoDB instance with Keploy. Keep an eye on the two
 keploy record -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-record-express-new-mongo.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-record-express-new-mongo.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -99,11 +99,11 @@ Time to put things to the test 🧪
 keploy test -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50 --delay 10
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-express-new-mongo.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-test-express-new-mongo.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-result-express-new-mongo.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-result-express-new-mongo.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Wrapping it up 🎉
 
@@ -162,7 +162,7 @@ Ready, set, record! Here's how:
 sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongoose-record-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongoose-record-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
@@ -211,11 +211,11 @@ Ready to put your spells to the test?
 sudo -E env PATH=$PATH keploy test -c "node src/app.js" --delay 10
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongo-test-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongo-test-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 output should look like
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongooose-result-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongooose-result-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Wrapping it up 🎉
 

@@ -52,7 +52,7 @@ You can install the Keploy extension using either of the following methods:
 - Click **Install**.
 
 <!-- vs code extension search screenshot -->
-<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.50.03_PM_o97dfi.png" width="100%" />
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.50.03_PM_o97dfi.png" width="100%" loading="lazy" decoding="async"/>
 
 **Method 2: Direct Link / VS Code Marketplace**
 
@@ -60,7 +60,7 @@ You can install the Keploy extension using either of the following methods:
 - Click **Install** and follow the prompts to open it in VS Code.
 
 <!-- vs code marketplace screenshot -->
-<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.51.22_PM_qytvhv.png" width="100%" />
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747914670/Screenshot_2025-05-22_at_4.51.22_PM_qytvhv.png" width="100%" loading="lazy" decoding="async"/>
 
 ### 2. Generate Unit Tests in a Single Click
 
@@ -71,7 +71,7 @@ Once the extension is installed:
 3. You’ll see a simple interface with a button labeled **“Generate Unit Tests.”**
 4. Click the button - that’s it!
    <!-- one design asset image goes here -->
-   <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915233/Group_33518_1_usvh0v.png" width="100%" />
+   <img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915233/Group_33518_1_usvh0v.png" width="100%" loading="lazy" decoding="async"/>
 
 Keploy will analyze your codebase and automatically generate all relevant unit test files, covering:
 
@@ -89,7 +89,7 @@ After clicking **Generate Unit Tests**, Keploy will:
 - Provide complete test coverage with little to no boilerplate code.
 
 <!-- one design asset will go here -->
-<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915360/Frame_3_vuizpr.png" width="100%" />
+<img src="https://res.cloudinary.com/dqwbkjfuh/image/upload/v1747915360/Frame_3_vuizpr.png" width="100%" loading="lazy" decoding="async"/>
 
 All tests are:
 

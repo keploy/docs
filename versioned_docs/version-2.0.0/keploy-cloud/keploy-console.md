@@ -25,7 +25,7 @@ Before starting the console, run test cases locally.
 keploy test -c "<CMD_TO_RUN_APP>"
 ```
 
-<img src="/docs/img/keploy-cloud/console-test-run.png?raw=true" alt="Keploy TestRun"/>
+<img src="/docs/img/keploy-cloud/console-test-run.png?raw=true" alt="Keploy TestRun" loading="lazy" decoding="async"/>
 
 Let's see what broke and fix it.
 
@@ -37,14 +37,14 @@ Let's see what broke and fix it.
   keploy console
   ```
     <br/>
-    <img src="/docs/img/keploy-cloud/keploy-console-cmd.png?raw=true" alt="Keploy Console"/>
+    <img src="/docs/img/keploy-cloud/keploy-console-cmd.png?raw=true" alt="Keploy Console" loading="lazy" decoding="async"/>
 
 <br/>
 
 - Select your application on [keploy cloud](https://app.keploy.io) and navigate to the **latest** test-report.
 
     <br/>
-    <img src="/docs/img/keploy-cloud/test-reports.png?raw=true" alt="Keploy UI Console"/>
+    <img src="/docs/img/keploy-cloud/test-reports.png?raw=true" alt="Keploy UI Console" loading="lazy" decoding="async"/>
 
 - Select the **latest** test report to make edits.
 
@@ -58,7 +58,7 @@ Edit test-cases locally using keploy console.
 - ♻️ Re-Record Test Suite
 - 🗑️ Delete Test Report
 
-<img src="/docs/img/keploy-cloud/test-operations.png?raw=true" alt="Keploy Test Menu Dialog"/>
+<img src="/docs/img/keploy-cloud/test-operations.png?raw=true" alt="Keploy Test Menu Dialog" loading="lazy" decoding="async"/>
 
 > ✍️ Note that the changes can be made by editing the latest test report only.
 
@@ -66,11 +66,11 @@ Edit test-cases locally using keploy console.
 
 Noisy fields are ignored for assertion when the test-cases runs. Say, `Date` and `Content-Length` are two headers that are not static and can change with each request. We can mark these fields as noisy.
 
-<img src="/docs/img/keploy-cloud/noise.png?raw=true" alt="Noise"/>
+<img src="/docs/img/keploy-cloud/noise.png?raw=true" alt="Noise" loading="lazy" decoding="async"/>
 
 You'd see the changes in the test-case file locally, new noisy fields are added under noise param in the test case.
 
-<img src="/docs/img/keploy-cloud/denoise.png?raw=true" alt="De-noise"/>
+<img src="/docs/img/keploy-cloud/denoise.png?raw=true" alt="De-noise" loading="lazy" decoding="async"/>
 
 ### Normalise Test Report or Test Case
 

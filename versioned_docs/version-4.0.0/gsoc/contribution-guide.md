@@ -26,7 +26,7 @@ all newcomers of open source that are 18 years and older.
 
 You can read more about the format of the program and its goals [here](https://google.github.io/gsocguides/mentor/).
 
-<img src="/docs/img/gsoc-banner.png"/>
+<img src="/docs/img/gsoc-banner.png" loading="lazy" decoding="async"/>
 
 ## Keploy X GSoC
 

@@ -49,7 +49,7 @@ Ready, set, record! Here's how:
 sudo -E env PATH=$PATH keploy record -c 'npm run dev'
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls!
 
@@ -82,7 +82,7 @@ This will return the response:
 curl -X GET http://localhost:3000/api/users
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-output-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-output-nextjs-postgres.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Give yourself a pat on the back! With that simple spell, you've conjured up test cases with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
@@ -96,7 +96,7 @@ Time to put things to the test 🧪
 sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-result-output-postgres-nextjs.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-result-output-postgres-nextjs.png" alt="Sample Keploy Record Javascript" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 

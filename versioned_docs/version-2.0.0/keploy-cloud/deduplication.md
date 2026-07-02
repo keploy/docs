@@ -64,7 +64,7 @@ Let's use the [expresss-mongoose](https://github.com/keploy/samples-typescript/t
 keploy dedup -c "node src/app.js" -t "test-set-1"
 ```
 
-<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f" />
+<img width="1060" alt="image" src="https://github.com/keploy/docs/assets/53110238/641ded9d-c75f-4861-aafd-bc0f2bbeda7f" loading="lazy" decoding="async"/>
 
 Voila! Keploy will now detect duplicate tests .
 
@@ -179,7 +179,7 @@ Let's use the [flask-mongo](https://github.com/keploy/samples-python/tree/main/f
 keploy dedup -c "python3 app.py" -t "test-set-1"
 ```
 
-<img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e"/>
+<img width="1111" alt="image" src="https://github.com/user-attachments/assets/03638c80-ae11-492f-9b4e-bce92d15a04e" loading="lazy" decoding="async"/>
 
 ## Remove Duplicate Tests
 
