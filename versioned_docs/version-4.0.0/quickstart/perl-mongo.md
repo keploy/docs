@@ -19,7 +19,6 @@ keyword:
   - Auto case generation
 ---
 
-import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
@@ -89,7 +88,7 @@ Suppose the received code is `QWERTY`
 curl -v http://localhost:5000/QWERTY
 ```
 
-This is return 302 status code and redirect to the original url if code is correct.
+This will return 302 status code and redirect to the original url if code is correct.
 
 ```bash
 HTTP/1.1 302 Found
@@ -117,7 +116,7 @@ This will return the stats of the short url.
 curl http://localhost:5000/XXXXXX
 ```
 
-This is give error:
+This will give an error:
 
 ```bash
 {
@@ -149,7 +148,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally on Linux/WSL/macOS 🐧
 
 🪄 In this guide, you will set up a Perl-based URL Shortener using MongoDB and learn how Keploy enables automated API testing through record and replay modes. 🎢
 
@@ -218,7 +217,7 @@ keploy record -c "perl app.pl daemon -l http://localhost:5000"
 
 ![Keploy record mode session for Perl and MongoDB application](/img/oss/perl-mongo-1.png)
 
-Keep an eye out for the `-c `flag! It's the command charm to run the app.
+Keep an eye out for the `-c` flag! It's the command charm to run the app.
 
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
@@ -256,7 +255,7 @@ Suppose the received code is `QWERTY`
 curl -v http://localhost:5000/QWERTY
 ```
 
-This is return 302 status code and redirect to the original url if code is correct.
+This will return 302 status code and redirect to the original url if code is correct.
 
 ```bash
 HTTP/1.1 302 Found
@@ -284,7 +283,7 @@ This will return the stats of the short url.
 curl http://localhost:5000/XXXXXX
 ```
 
-This is give error:
+This will give an error:
 
 ```bash
 {
