@@ -139,7 +139,18 @@
               "label": "C# (.NET Core)",
               "collapsible": true,
               "collapsed": true,
-              "items": ["quickstart/samples-csharp"]
+              "items": [
+                "quickstart/samples-csharp"
+              ]
+            },
+            {
+              "type": "category",
+              "label": "Perl",
+              "collapsible": true,
+              "collapsed": true,
+              "items": [
+                "quickstart/perl-mongo"
+              ]
             }
           ]
         },
