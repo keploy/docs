@@ -26,6 +26,7 @@
 [Pp]assthrough
 [Pp]refill[s]?
 [Rr]eachability
+[Rr]ebase[ds]?
 [Rr]efcount[s]?
 [Rr]ehydrate[ds]?
 [Rr]eplayer
@@ -220,3 +221,8 @@ test_run
 unprojected
 libpg_query
 heredocs
+overridable
+libpq
+cbshim
+stdin
+sudo
