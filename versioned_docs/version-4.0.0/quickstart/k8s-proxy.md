@@ -13,6 +13,51 @@ keywords:
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Kubernetes Live Record & Replay with Keploy Proxy — record and replay tests with Keploy"
+description="Deploy a sample app to a local Kind cluster, connect it to the Keploy Dashboard, install the Keploy Proxy via Helm, then record live Kubernetes traffic and generate tests with AI."
+totalTime="PT15M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Docker", "Kind", "kubectl", "Helm", "git"]}
+visible={false}
+steps={[
+{
+name: "Install prerequisites and clone the sample app",
+text: "Install Docker, Kind, kubectl, and Helm, then clone the ecommerce sample app and check out the k8s branch (git checkout k8s).",
+},
+{
+name: "Create a Kind cluster",
+text: "Create a local Kubernetes cluster with kind create cluster --name ecommerce.",
+},
+{
+name: "Build and load Docker images",
+text: "Build the service images locally and load them into the Kind cluster with kind load docker-image, since the manifests use imagePullPolicy: Never.",
+},
+{
+name: "Deploy the application",
+text: "Apply the Kubernetes manifests with kubectl apply -f k8s/, wait until all pods are Running, then port-forward the API gateway (kubectl port-forward service/apigateway 8083:8083).",
+},
+{
+name: "Connect your cluster in the Keploy Dashboard",
+text: "In app.keploy.io, open Integration Testing → Clusters, add the cluster, and provide its name and ingress URL so the proxy can observe live traffic.",
+},
+{
+name: "Install the Keploy Proxy via Helm",
+text: "Run the Helm command shown in the dashboard to install the Keploy Proxy into the keploy namespace, then port-forward svc/k8s-proxy (kubectl port-forward -n keploy svc/k8s-proxy 8080:8080).",
+},
+{
+name: "Record live traffic",
+text: "Click Start Recording in the dashboard for the apigateway pod and send requests to capture live Kubernetes traffic as testcases and mocks.",
+},
+{
+name: "Generate tests with AI",
+text: "Use \"Use AI for Tests\" in the dashboard to expand coverage from the recorded traffic, then review the accepted, buggy, and rejected test suites.",
+},
+]}
+/>
+
 # Kubernetes Live Record & Replay using Keploy Proxy
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -135,6 +180,20 @@ At this point, your e-commerce application is live and ready to receive traffic.
 
 ## Enable Live Record & Replay with Keploy Proxy
 
+### Pick a recording mode
+
+The Keploy Proxy supports two ways to capture traffic from your application Pods. Both modes drive the **same Console UI and REST API**—the rest of this guide works identically in either case. Pick whichever fits your environment.
+
+|                                           | **Sidecar mode (default)**                                                                                                                                        | **DaemonSet mode**                                                                                                                                                                                                            |
+| ----------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| How traffic is captured                   | A `keploy-agent` sidecar container is injected into your application Pod via a `MutatingAdmissionWebhook`. The agent intercepts traffic alongside your container. | A `keploy-daemonset` Pod runs on each node and captures traffic from existing application Pods using **eBPF**—no sidecar, no application Pod restart.                                                                         |
+| What happens on `Start Recording`         | The proxy injects the agent and rolls the application Deployment.                                                                                                 | The proxy creates a `RecordingSession` Custom Resource. The DaemonSet picks it up and programs its BPF target maps to capture matching Pods on each node.                                                                     |
+| Pod mutation on the application namespace | Required (`patch` on Deployments).                                                                                                                                | **Not required.** Application Pods are never modified.                                                                                                                                                                        |
+| Application restart at recording start    | Yes, on first recording.                                                                                                                                          | No.                                                                                                                                                                                                                           |
+| Best for                                  | Dev/staging, teams happy to grant write RBAC to Keploy on the application namespace.                                                                              | Production with read-only RBAC on the application namespace; environments where rolling the application Pod has unacceptable cost; or when you want cluster-mode auto-replay (replay runs in a separate cluster you provide). |
+
+The screenshots below show the **Sidecar** flow because that is the default. To use **DaemonSet** mode instead, set the daemonset values when you run the Helm command in step 4 below—every other step is identical.
+
 ### 1. Open Keploy Dashboard
 
 Visit:
@@ -174,6 +233,38 @@ Note: For this quickstart, I am running it locally. If you are running your appl
 Once you have provided the cluster details, you can install the Keploy Proxy in your Kubernetes cluster using Helm.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/k8s_helm_command.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+
+#### DaemonSet mode (optional)
+
+If you want to use **DaemonSet mode** instead of the default Sidecar mode, append the daemonset values to the Helm command shown in the dashboard. The Helm chart installs the `recordingsessions.keploy.io` and `replaysessions.keploy.io` Custom Resource Definitions, and the per-node DaemonSet that performs the eBPF capture.
+
+```bash
+# add these flags to the Helm command from the dashboard:
+  --set daemonset.enabled=true \
+  --set daemonset.crds.install=true
+```
+
+After install you should see a per-node `k8s-proxy-daemonset-*` Pod alongside the regular proxy Deployment:
+
+```bash
+kubectl get pods -n keploy
+# NAME                                 READY   STATUS    RESTARTS   AGE
+# k8s-proxy-xxxxxxxxxx-xxxxx           1/1     Running   0          1m
+# k8s-proxy-daemonset-xxxxx            1/1     Running   0          1m   ← per node
+# k8s-proxy-daemonset-yyyyy            1/1     Running   0          1m
+# k8s-proxy-mongodb-xxxxxxxxxx-xxxxx   1/1     Running   0          1m
+# k8s-proxy-minio-xxxxxxxxxx-xxxxx     1/1     Running   0          1m
+```
+
+Verify the CRDs registered:
+
+```bash
+kubectl get crd | grep keploy.io
+# recordingsessions.keploy.io   <date>
+# replaysessions.keploy.io      <date>
+```
+
+The rest of this quickstart proceeds identically—the Console **Start Recording** button creates a `RecordingSession` CR which the DaemonSet picks up; you do not need to interact with the CR yourself.
 
 ### 5. Verify the Installation
 

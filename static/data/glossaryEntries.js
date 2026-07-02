@@ -187,7 +187,7 @@ export const glossaryEntries = {
   S: [
     {
       name: "Stubs",
-      ink: "/docs/concepts/reference/glossary/stubs",
+      link: "/docs/concepts/reference/glossary/stubs",
       description: "Simulates methods or APIs during testing.",
     },
     {

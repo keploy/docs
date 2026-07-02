@@ -23,9 +23,11 @@ Keploy can be integrated with GitHub by two methods:-
 1. [Using Shell Scripts](#shell-scripts)
 2. [Using GitHub Actions](#github-actions)
 
+You can also [run cloud replay from your CI pipeline](#running-cloud-replay-in-ci).
+
 ## Shell Scripts
 
-GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to yout `github workflow` or create a new worflow `.github/workflows/keploy-test.yml`:-
+GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. You can either add the following script to your `github workflow` or create a new workflow `.github/workflows/keploy-test.yml`:-
 
 ```yaml
 - name: Checkout Commit
@@ -214,5 +216,61 @@ sudo -E keploy test -c node src/app.js --delay 10 --path ./
 ```
 
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline 🌟_
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup, and on any CI control plane — GitHub Actions, GitLab CI, Jenkins, and others.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no browser login needed.
+
+- **Locally:** `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- **In CI:** store the key as a secret in your CI system so it gets injected as an environment variable at runtime. Never hard-code it in your pipeline file.
+
+> Cloud replay requires the Enterprise binary. Install it with `curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh` — not the open-source `keploy.io/install.sh`.
+
+### Steps
+
+1. **Store the API key** — add `KEPLOY_API_KEY` as a secret in your CI system.
+   - GitHub Actions: go to **Settings → Secrets and variables → Actions → New repository secret**, name it `KEPLOY_API_KEY`.
+   - GitLab CI: go to **Settings → CI/CD → Variables**, add it as a masked variable.
+   - Jenkins: add a **Secret text** credential via **Manage Jenkins → Credentials**.
+2. **Install** the Enterprise Keploy binary on the runner.
+3. **Run** `keploy cloud replay` with your application and cluster details.
+
+### Example: GitHub Actions
+
+```yaml
+name: Keploy Cloud Replay
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  keploy-cloud-replay:
+    runs-on: ubuntu-latest
+    env:
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+    steps:
+      - name: Install Keploy Enterprise
+        run: |
+          curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+
+      - name: Cloud replay
+        run: |
+          keploy cloud replay \
+            --app "<NAMESPACE>.<DEPLOYMENT>" \
+            --cluster "<CLUSTER>" \
+            --namespace "<NAMESPACE>" \
+            --delay <DELAY>
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` (in seconds) to comfortably cover your application's startup time.
+
+> `KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}` pulls the value from GitHub's secret store and makes it available as an environment variable in all subsequent steps.
 
 Hope this helps you out, if you still have any questions, reach out to us .
