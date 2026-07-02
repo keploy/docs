@@ -57,6 +57,7 @@
         "keploy-cloud/deduplication",
         "keploy-cloud/static-deduplication",
         "keploy-cloud/smart-set-agent",
+        "keploy-cloud/cloud-replay",
         {
           "type": "category",
           "label": "QuickStarts",

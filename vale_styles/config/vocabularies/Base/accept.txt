@@ -221,3 +221,8 @@ test_run
 unprojected
 libpg_query
 heredocs
+overridable
+libpq
+cbshim
+stdin
+sudo
