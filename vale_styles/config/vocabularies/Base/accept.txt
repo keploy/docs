@@ -226,3 +226,4 @@ libpq
 cbshim
 stdin
 sudo
+[Rr]eplayable
