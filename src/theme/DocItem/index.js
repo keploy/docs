@@ -159,8 +159,9 @@ export default function DocItem(props) {
   // Versioned root pattern: /docs/<version>/ or /docs/<version> where
   // <version> starts with a digit. Covers current and archived
   // versions listed in docusaurus.config.js onlyIncludeVersions.
-  const isVersionedDocsRoot =
-    /^\/docs\/\d[\w.-]*(?:\/index)?\/?$/.test(permalink);
+  const isVersionedDocsRoot = /^\/docs\/\d[\w.-]*(?:\/index)?\/?$/.test(
+    permalink
+  );
   const isDocsRoot =
     permalink === "/docs/" ||
     permalink === "/docs" ||
@@ -179,9 +180,24 @@ export default function DocItem(props) {
           headline: title,
           description,
           ...(modifiedTime ? {dateModified: modifiedTime} : {}),
-          ...(publishedTime ? {datePublished: publishedTime} : {}),
+          // datePublished falls back to the last-modified time so every doc
+          // carries a freshness signal even when front matter omits `date`.
+          ...(publishedTime || modifiedTime
+            ? {datePublished: publishedTime || modifiedTime}
+            : {}),
           ...(keywords ? {keywords} : {}),
-          ...(authorList.length ? {author: authorList} : {}),
+          // Default author to the Keploy organization when a doc has no
+          // front-matter author, so Article schema always carries an author
+          // (E-E-A-T) instead of dropping the field entirely.
+          ...(authorList.length
+            ? {author: authorList}
+            : {
+                author: {
+                  "@type": "Organization",
+                  name: "Keploy",
+                  url: "https://keploy.io",
+                },
+              }),
           ...(combinedContributors.length
             ? {contributor: combinedContributors}
             : {}),
@@ -327,10 +343,7 @@ export default function DocItem(props) {
                     <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm9.1 1.4a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
                   </svg>
                 </a>
-                <a
-                  href="https://keploy.io/slack"
-                  aria-label="Slack"
-                >
+                <a href="https://keploy.io/slack" aria-label="Slack">
                   <span
                     className="docs-inline-footer__slack"
                     aria-hidden="true"
