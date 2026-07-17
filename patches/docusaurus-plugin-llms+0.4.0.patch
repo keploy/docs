@@ -1,5 +1,5 @@
 diff --git a/node_modules/docusaurus-plugin-llms/lib/utils.js b/node_modules/docusaurus-plugin-llms/lib/utils.js
-index ed9850c..cb1a65a 100644
+index ed9850c..be1c796 100644
 --- a/node_modules/docusaurus-plugin-llms/lib/utils.js
 +++ b/node_modules/docusaurus-plugin-llms/lib/utils.js
 @@ -466,7 +466,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
@@ -23,7 +23,7 @@ index ed9850c..cb1a65a 100644
      }
      // Resolve each partial import
      for (const [componentName, importPath] of imports) {
-@@ -559,6 +556,21 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
+@@ -559,6 +556,42 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
      // We need to be selective to avoid removing XML content from code blocks
      // This regex targets common HTML tags while being more conservative about XML
      cleaned = cleaned.replace(/<\/?(?:div|span|p|br|hr|img|a|strong|em|b|i|u|h[1-6]|ul|ol|li|table|tr|td|th|thead|tbody)\b[^>]*>/gi, '');
@@ -40,8 +40,29 @@ index ed9850c..cb1a65a 100644
 +    // and no underscore (true of every actual component in this codebase, never
 +    // true of these placeholders).
 +    const isRealComponentName = (name) => /[a-z]/.test(name) && !name.includes('_');
-+    cleaned = cleaned.replace(/<([A-Z]\w*)(?:\s+[^<>]*?)?\/>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
-+    cleaned = cleaned.replace(/<\/?([A-Z]\w*)(?:\s+[^<>]*?)?>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
++    // Prop values can legitimately contain '<' or '>' inside quoted strings (e.g.
++    // tools={["Linux kernel >= 5.10"]}), which would otherwise be mistaken for the
++    // tag's own boundary. Mask '<'/'>' found inside quoted spans first (escape-aware,
++    // so a backslash-escaped quote like \" doesn't fool it into ending the string
++    // early), run the simple original tag regex, then restore what remains.
++    // The quote-matching alternatives are mutually exclusive at every position
++    // (backslash-led vs not), so there's no ambiguity for the engine to backtrack
++    // over -- this avoids the catastrophic-backtracking trap a naive version of
++    // this fix hit earlier on ordinary prose full of apostrophes (don't, it's).
++    const LT_MASK = '@@KEPLOY_LT@@';
++    const GT_MASK = '@@KEPLOY_GT@@';
++    // Only double-quoted strings need masking: every real prop value in this
++    // codebase that contains '<' or '>' uses double quotes (verified against the
++    // actual docs content). Single quotes are deliberately NOT masked here --
++    // they appear constantly as English contractions (it's, don't, Let's), and
++    // masking them paired each stray apostrophe with whichever one came next in
++    // the document, sometimes many paragraphs later, incorrectly treating
++    // everything in between (including real tags) as "inside a string".
++    const masked = cleaned.replace(/"(?:[^"\\]|\\.)*"/g, (q) => q.split('<').join(LT_MASK).split('>').join(GT_MASK));
++    const stripped = masked
++        .replace(/<([A-Z]\w*)(?:\s+[^<>]*?)?\/>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match)
++        .replace(/<\/?([A-Z]\w*)(?:\s+[^<>]*?)?>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
++    cleaned = stripped.split(LT_MASK).join('<').split(GT_MASK).join('>');
      // Remove redundant content that just repeats the heading (if requested)
      if (removeDuplicateHeadings) {
          // Split content into lines and process line by line
