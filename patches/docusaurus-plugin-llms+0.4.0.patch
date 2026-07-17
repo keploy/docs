@@ -1,0 +1,47 @@
+diff --git a/node_modules/docusaurus-plugin-llms/lib/utils.js b/node_modules/docusaurus-plugin-llms/lib/utils.js
+index ed9850c..cb1a65a 100644
+--- a/node_modules/docusaurus-plugin-llms/lib/utils.js
++++ b/node_modules/docusaurus-plugin-llms/lib/utils.js
+@@ -466,7 +466,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
+     // Pattern 1: import PartialName from './_partial.mdx'
+     // Pattern 2: import { PartialName } from './_partial.mdx'
+     // Create a fresh regex for each invocation to avoid lastIndex state leakage
+-    const createImportRegex = () => /^\s*import\s+(?:(\w+)|{\s*(\w+)\s*})\s+from\s+['"]([^'"]+_[^'"]+\.mdx?)['"];?\s*$/gm;
++    const createImportRegex = () => /^\s*import\s+(?:(\w+)|{\s*(\w+)\s*})\s+from\s+['"]([^'"]+\.mdx?)['"];?\s*$/gm;
+     const imports = new Map();
+     // First pass: collect all imports
+     let match;
+@@ -474,10 +474,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
+     while ((match = importRegex.exec(content)) !== null) {
+         const componentName = match[1] || match[2];
+         const importPath = match[3];
+-        // Only process imports for partial files (containing underscore)
+-        if (importPath.includes('_')) {
+-            imports.set(componentName, importPath);
+-        }
++        imports.set(componentName, importPath);
+     }
+     // Resolve each partial import
+     for (const [componentName, importPath] of imports) {
+@@ -559,6 +556,21 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
+     // We need to be selective to avoid removing XML content from code blocks
+     // This regex targets common HTML tags while being more conservative about XML
+     cleaned = cleaned.replace(/<\/?(?:div|span|p|br|hr|img|a|strong|em|b|i|u|h[1-6]|ul|ol|li|table|tr|td|th|thead|tbody)\b[^>]*>/gi, '');
++    // Remove leftover custom (PascalCase) React component tags that MDX imports
++    // resolve at real build time but that this plugin doesn't render. Self-closing
++    // tags carry no readable child text, so they're dropped entirely; paired tags
++    // often wrap real content (e.g. <TabItem>...</TabItem>), so only the tag
++    // markers are stripped and their inner text is preserved. Order matters: the
++    // self-closing pass must run first, or the second regex would partially match it.
++    //
++    // Docs also use <YOUR_INGRESS_HOST>-style ALL_CAPS placeholders for readers to
++    // fill in their own values — these also start with a capital letter, so a real
++    // component name is only treated as such when it contains a lowercase letter
++    // and no underscore (true of every actual component in this codebase, never
++    // true of these placeholders).
++    const isRealComponentName = (name) => /[a-z]/.test(name) && !name.includes('_');
++    cleaned = cleaned.replace(/<([A-Z]\w*)(?:\s+[^<>]*?)?\/>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
++    cleaned = cleaned.replace(/<\/?([A-Z]\w*)(?:\s+[^<>]*?)?>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
+     // Remove redundant content that just repeats the heading (if requested)
+     if (removeDuplicateHeadings) {
+         // Split content into lines and process line by line

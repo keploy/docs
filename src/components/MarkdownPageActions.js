@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {Copy, Check, FileText, AlertCircle} from "lucide-react";
 
 /**
@@ -9,10 +9,16 @@ import {Copy, Check, FileText, AlertCircle} from "lucide-react";
  */
 export default function MarkdownPageActions({mdUrl}) {
   const [copyState, setCopyState] = useState("idle");
+  const resetTimeoutRef = useRef(null);
+
+  useEffect(() => {
+    return () => clearTimeout(resetTimeoutRef.current);
+  }, []);
 
   if (!mdUrl) return null;
 
   const handleCopy = async () => {
+    clearTimeout(resetTimeoutRef.current);
     setCopyState("copying");
     try {
       const res = await fetch(mdUrl);
@@ -23,7 +29,7 @@ export default function MarkdownPageActions({mdUrl}) {
     } catch (e) {
       setCopyState("error");
     } finally {
-      setTimeout(() => setCopyState("idle"), 2000);
+      resetTimeoutRef.current = setTimeout(() => setCopyState("idle"), 2000);
     }
   };
 

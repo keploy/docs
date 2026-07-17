@@ -187,6 +187,7 @@ module.exports = {
         generateLLMsFullTxt: true,
         generateMarkdownFiles: true,
         preserveDirectoryStructure: false,
+        excludeImports: true,
       },
     ],
   ],

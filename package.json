@@ -14,7 +14,8 @@
     "write-translations": "docusaurus write-translations",
     "wnrite-heading-ids": "docusaurus write-heading-ids",
     "format": "prettier --write .",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "postinstall": "patch-package"
   },
   "lint-staged": {
     "**/*": "prettier --write --ignore-unknown"
@@ -64,9 +65,11 @@
     "eslint-plugin-react": "^7.23.2",
     "husky": "^6.0.0",
     "lint-staged": "^11.1.2",
+    "patch-package": "^8.0.1",
     "postcss": "^8.4.4",
     "postcss-import": "^14.0.2",
     "postcss-preset-env": "^7.4.1",
+    "postinstall-postinstall": "^2.1.0",
     "prettier": "^2.5.1",
     "prettier-plugin-tailwindcss": "^0.1.4",
     "rimraf": "^6.0.1",
