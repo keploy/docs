@@ -31,10 +31,10 @@ export default function MarkdownPageActions({mdUrl}) {
     copyState === "copying"
       ? "Copying…"
       : copyState === "copied"
-      ? "Copied"
-      : copyState === "error"
-      ? "Copy failed"
-      : "Copy as Markdown";
+        ? "Copied"
+        : copyState === "error"
+          ? "Copy failed"
+          : "Copy as Markdown";
 
   const CopyIcon =
     copyState === "copied" ? Check : copyState === "error" ? AlertCircle : Copy;
@@ -43,8 +43,8 @@ export default function MarkdownPageActions({mdUrl}) {
     copyState === "copied"
       ? "text-green-600 dark:text-green-500"
       : copyState === "error"
-      ? "text-red-600 dark:text-red-500"
-      : "text-gray-500 dark:text-gray-400";
+        ? "text-red-600 dark:text-red-500"
+        : "text-gray-500 dark:text-gray-400";
 
   const linkBase =
     "inline-flex items-center gap-1 text-[12px] leading-[1.2] py-[0.2rem] px-2 m-0 " +
