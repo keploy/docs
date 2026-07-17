@@ -23,6 +23,7 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {useDocsVersion} from "@docusaurus/plugin-content-docs/client";
 import {KeployCloud} from "@site/src/components/KeployCloud";
+import MarkdownPageActions from "@site/src/components/MarkdownPageActions";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -171,6 +172,13 @@ export default function DocItem(props) {
   const isCategoryIndex =
     frontMatter?.slug === "index" || /\/category\/|\/index\/?$/.test(permalink);
   const suppressArticleSchema = isDocsRoot || isCategoryIndex;
+  // .md twins are only generated for the current (4.0.0) version's docs
+  // (docusaurus-plugin-llms docsDir points at versioned_docs/version-4.0.0),
+  // and only for real doc pages, not root/category-index pages.
+  const showMarkdownActions = isLatestVersion && !suppressArticleSchema;
+  const markdownUrl = showMarkdownActions
+    ? `${permalink.replace(/\/+$/, "")}.md`
+    : null;
 
   const articleSchema =
     pageUrl && title && !suppressArticleSchema
@@ -306,6 +314,7 @@ export default function DocItem(props) {
                     <Heading as="h1">{title}</Heading>
                   </header>
                 )}
+                {markdownUrl && <MarkdownPageActions mdUrl={markdownUrl} />}
                 <MDXContent>
                   <MDXComponent />
                 </MDXContent>

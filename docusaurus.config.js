@@ -178,6 +178,17 @@ module.exports = {
       };
     },
     "docusaurus-tailwindcss-loader",
+    [
+      "docusaurus-plugin-llms",
+      {
+        docsDir: "versioned_docs/version-4.0.0",
+        ignoreFiles: ["**/shared/**"],
+        generateLLMsTxt: true,
+        generateLLMsFullTxt: true,
+        generateMarkdownFiles: true,
+        preserveDirectoryStructure: false,
+      },
+    ],
   ],
   themeConfig: {
     tableOfContents: {
