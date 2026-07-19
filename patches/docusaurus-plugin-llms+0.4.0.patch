@@ -1,5 +1,5 @@
 diff --git a/node_modules/docusaurus-plugin-llms/lib/utils.js b/node_modules/docusaurus-plugin-llms/lib/utils.js
-index ed9850c..be1c796 100644
+index ed9850cf..a714772e 100644
 --- a/node_modules/docusaurus-plugin-llms/lib/utils.js
 +++ b/node_modules/docusaurus-plugin-llms/lib/utils.js
 @@ -466,7 +466,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
@@ -23,7 +23,25 @@ index ed9850c..be1c796 100644
      }
      // Resolve each partial import
      for (const [componentName, importPath] of imports) {
-@@ -559,6 +556,42 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
+@@ -555,10 +552,63 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
+         // - import "..."; (side-effect imports)
+         cleaned = cleaned.replace(/^\s*import\s+.*?;?\s*$/gm, '');
+     }
++    // Fenced code blocks (```lang ... ```) often contain '<...>' text that looks
++    // exactly like a tag to the regexes below but isn't one -- a placeholder like
++    // `wsl --install -d <Distribution Name>`, or a literal XML sample response
++    // like `<User>...</User>`. None of the tag-stripping rules know about code
++    // fences, so mask every whole fenced block out first and restore it verbatim
++    // once stripping is done, the same way quoted prop strings are masked below.
++    // Fences nested inside list items are indented (e.g. "   ```shell"), so the
++    // leading whitespace before the backticks is optional and not part of the
++    // backreference -- only the backtick run itself has to match on both ends.
++    const codeBlocks = [];
++    cleaned = cleaned.replace(/^[ \t]*(`{3,})[^\n]*\n[\s\S]*?^[ \t]*\1[ \t]*$/gm, (block) => {
++        codeBlocks.push(block);
++        return `@@KEPLOY_CODEBLOCK_${codeBlocks.length - 1}@@`;
++    });
+     // Remove HTML tags, but preserve XML content in code blocks
      // We need to be selective to avoid removing XML content from code blocks
      // This regex targets common HTML tags while being more conservative about XML
      cleaned = cleaned.replace(/<\/?(?:div|span|p|br|hr|img|a|strong|em|b|i|u|h[1-6]|ul|ol|li|table|tr|td|th|thead|tbody)\b[^>]*>/gi, '');
@@ -63,6 +81,9 @@ index ed9850c..be1c796 100644
 +        .replace(/<([A-Z]\w*)(?:\s+[^<>]*?)?\/>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match)
 +        .replace(/<\/?([A-Z]\w*)(?:\s+[^<>]*?)?>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
 +    cleaned = stripped.split(LT_MASK).join('<').split(GT_MASK).join('>');
++    // Restore fenced code blocks now that tag-stripping is done, so their
++    // original content (placeholders, XML samples, etc.) is left untouched.
++    cleaned = cleaned.replace(/@@KEPLOY_CODEBLOCK_(\d+)@@/g, (_match, index) => codeBlocks[Number(index)]);
      // Remove redundant content that just repeats the heading (if requested)
      if (removeDuplicateHeadings) {
          // Split content into lines and process line by line

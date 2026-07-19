@@ -61,7 +61,7 @@ export default function MarkdownPageActions({mdUrl}) {
     <div className="flex items-center mt-1.5 mb-3 pb-3 border-b border-black/[0.08] dark:border-white/10">
       <button
         type="button"
-        className={`${linkBase} pl-0 bg-transparent border-0 cursor-pointer disabled:cursor-default disabled:opacity-70 ${copyColorClasses}`}
+        className={`${linkBase} pl-0 w-[150px] justify-start whitespace-nowrap bg-transparent border-0 cursor-pointer disabled:cursor-default disabled:opacity-70 ${copyColorClasses}`}
         onClick={handleCopy}
         disabled={copyState === "copying"}
       >
