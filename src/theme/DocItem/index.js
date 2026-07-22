@@ -176,13 +176,17 @@ export default function DocItem(props) {
   // (docusaurus-plugin-llms docsDir points at versioned_docs/version-4.0.0),
   // and only for real doc pages, not root/category-index pages.
   const showMarkdownActions = isLatestVersion && !suppressArticleSchema;
-  // Folder-style permalinks (section landing pages, ending in "/") are
-  // written by docusaurus-plugin-llms as index.md inside that folder,
-  // not as <folder>.md -- so the two cases need different URL shapes.
+  // trailingSlash: true means every permalink ends in "/", for section
+  // landing pages AND normal pages alike -- so the permalink shape alone
+  // can't tell them apart. The doc's source file path can: docusaurus-plugin-llms
+  // writes the twin as <folder>/index.md when the source is index.md/README.md,
+  // and as <page>.md (a sibling of the built page directory) otherwise.
+  const isIndexSource = /\/(index|README)\.mdx?$/i.test(metadata?.source || "");
+  const trimmedPermalink = permalink.replace(/\/+$/, "");
   const markdownUrl = showMarkdownActions
-    ? permalink.endsWith("/")
-      ? `${permalink}index.md`
-      : `${permalink}.md`
+    ? isIndexSource
+      ? `${trimmedPermalink}/index.md`
+      : `${trimmedPermalink}.md`
     : null;
 
   const articleSchema =

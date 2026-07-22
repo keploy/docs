@@ -5,6 +5,12 @@ const path = require("path");
 import {visit} from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
+// Single source of truth for the "current" docs version. Update this one
+// value when cutting a new docs version -- it drives both the versioning
+// config (lastVersion/versions/onlyIncludeVersions) and docusaurus-plugin-llms's
+// docsDir, which otherwise have to be kept in sync by hand.
+const CURRENT_DOCS_VERSION = "4.0.0";
+
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   headTags: [
@@ -181,7 +187,7 @@ module.exports = {
     [
       "docusaurus-plugin-llms",
       {
-        docsDir: "versioned_docs/version-4.0.0",
+        docsDir: `versioned_docs/version-${CURRENT_DOCS_VERSION}`,
         ignoreFiles: ["**/shared/**"],
         generateLLMsTxt: true,
         generateLLMsFullTxt: true,
@@ -374,9 +380,9 @@ module.exports = {
            * in `/docs/next` directory, only versioned docs.
            */
           // excludeNextVersionDocs: false,
-          lastVersion: "4.0.0",
+          lastVersion: CURRENT_DOCS_VERSION,
           versions: {
-            "4.0.0": {
+            [CURRENT_DOCS_VERSION]: {
               label: "3.0.0",
             },
             "1.0.0": {
@@ -392,7 +398,7 @@ module.exports = {
               noIndex: true,
             },
           },
-          onlyIncludeVersions: ["1.0.0", "2.0.0", "4.0.0"],
+          onlyIncludeVersions: ["1.0.0", "2.0.0", CURRENT_DOCS_VERSION],
           includeCurrentVersion: true, // excludeNextVersionDocs is now deprecated
           // // below remark plugin disabled until we can figure out why it is not transpiling to ESNext properly - swyx
           remarkPlugins: [
