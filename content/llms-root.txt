@@ -1,7 +1,3 @@
-# Keploy Documentation
-
-> Technical documentation for Keploy, an open-source AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF kernel technology. Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.
-
 For comprehensive details, see: /docs/llms-full.txt
 
 
