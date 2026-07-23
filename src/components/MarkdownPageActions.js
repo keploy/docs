@@ -21,10 +21,22 @@ export default function MarkdownPageActions({mdUrl}) {
     clearTimeout(resetTimeoutRef.current);
     setCopyState("copying");
     try {
-      const res = await fetch(mdUrl);
-      if (!res.ok) throw new Error(`Request failed: ${res.status}`);
-      const text = await res.text();
-      await navigator.clipboard.writeText(text);
+      // navigator.clipboard.write() must be called synchronously within the
+      // click's user-activation window for Safari to allow it. Passing the
+      // fetch as a Promise<Blob> on the ClipboardItem lets the network
+      // request resolve after the write call has already been registered,
+      // instead of awaiting the fetch before writeText() (which Safari
+      // rejects with NotAllowedError once the activation window has closed).
+      await navigator.clipboard.write([
+        new ClipboardItem({
+          "text/plain": fetch(mdUrl)
+            .then((res) => {
+              if (!res.ok) throw new Error(`Request failed: ${res.status}`);
+              return res.text();
+            })
+            .then((text) => new Blob([text], {type: "text/plain"})),
+        }),
+      ]);
       setCopyState("copied");
     } catch (e) {
       setCopyState("error");
