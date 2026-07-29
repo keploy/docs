@@ -194,6 +194,36 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 - Confirm the supported protocols (currently HTTP/REST and GraphQL).
 - Consider alternative tools or frameworks for unsupported protocols.
 
+### 12. MySQL connection hangs during the handshake
+
+#### Description:
+
+Your application cannot reach MySQL while Keploy is running. The client reports a lost connection during the handshake, and the application often never finishes starting because its connection pool is stuck:
+
+```
+ERROR 2013 (HY000): Lost connection to server at 'handshake: reading initial communication packet'
+```
+
+The same setup connects normally when you run it without Keploy.
+
+#### Possible Cause:
+
+- `disableMysqlAutoDetect` is set to `true`, and the port your database listens on is not listed in `mysqlPorts`.
+- You are running a Keploy version that predates automatic MySQL port detection, which recognised only `3306` and `4000` unless you configured `mysqlPorts`.
+
+#### Solution:
+
+- Remove `disableMysqlAutoDetect` from your config file, or set it to `false`. Keploy then identifies MySQL on any port on its own.
+- If you need detection off, list every MySQL port your application uses:
+
+  ```yaml
+  mysqlPorts: [3307, 6033]
+  ```
+
+- On an older Keploy version, upgrade, or add the port to `mysqlPorts`.
+
+See [MySQL port detection](../running-keploy/configuration-file.md#mysql-port-detection) for how Keploy identifies the protocol during Record and recovers the port during Test.
+
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!

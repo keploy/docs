@@ -74,6 +74,8 @@ record:
   filters: []
 configPath: ""
 bypassRules: []
+mysqlPorts: []
+disableMysqlAutoDetect: false
 cmdType: "native"
 enableTesting: false
 keployContainer: "keploy-v3"
@@ -163,6 +165,40 @@ The `record` section in the Keploy-config file allows you to define parameters f
         host: ""
         port: 0
   ```
+
+- **`mysqlPorts`**: Extra ports to treat as MySQL. You rarely need this — Keploy detects MySQL automatically on any port. See [MySQL port detection](#mysql-port-detection).
+
+- **`disableMysqlAutoDetect`**: Turns off automatic MySQL port detection. Default is `false`.
+
+### MySQL port detection
+
+Keploy identifies MySQL on any port, so you do not have to tell it where your database listens. This matters when MySQL, or a MySQL wire-compatible service, runs somewhere other than the usual `3306` — a second instance on `3307`, ProxySQL on `6033`, MaxScale on `4006`, StarRocks on `9030`, or a Cloud SQL Auth Proxy on whatever port you gave it.
+
+Detection works differently in each mode, because each mode has different information available:
+
+- **During Record**, Keploy reads the first bytes the database server sends. MySQL greets a new connection with a handshake packet, so Keploy identifies the protocol from that greeting and routes the connection to its MySQL parser.
+
+- **During Test**, no database is running — Keploy serves the Mocks it recorded. It recovers the port from those Mocks, which store the address each connection was recorded against.
+
+Together this means a port you recorded on is replayed correctly with no configuration.
+
+#### When to set these fields
+
+Both fields are optional and most projects leave them alone.
+
+Set `mysqlPorts` to skip detection for a port you already know about. Keploy always treats `3306` and `4000` as MySQL; listing a port here adds it to that set. The only practical benefit is avoiding a short probe on the first connection to that port.
+
+```yaml
+mysqlPorts: [3307, 6033]
+```
+
+Set `disableMysqlAutoDetect` to `true` to turn detection off entirely and match `mysqlPorts` strictly:
+
+```yaml
+disableMysqlAutoDetect: true
+```
+
+With detection disabled, a MySQL server on a port outside `mysqlPorts` cannot complete its handshake, and your application fails to connect. Only disable detection if you also list every MySQL port your application uses.
 
 ### Test Section
 
