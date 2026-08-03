@@ -42,7 +42,7 @@ Keploy has [native integrations](/concepts/general-glossary.md#4-interoperabilit
 like `go-test`, `jUnit`, `jest`, `pyTest`. Keploy gives combined test-coverage and can also be integrated in existing CI
 pipelines easily within `go-test`, `jUnit`, `jest`, `pyTest` workflows.
 
-<img src="/docs/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"  width="80%"/>
+<img src="/docs/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"  width="80%" loading="lazy" decoding="async"/>
 
 Run tests with mocks anywhere you like—**locally on the CLI**, in your **CI pipeline**, or even across a **Kubernetes
 cluster**. It's testing wherever you want it! 🌍
@@ -60,7 +60,7 @@ favorite API management tools like Postman or even Curl to generate test cases.
 Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all
 CRUD operations** with correct responses.
 
-<img src="/docs/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
+<img src="/docs/gif/record-replay.gif?raw=true" width="80%" alt="API Tools" loading="lazy" decoding="async"/>
 
 Once recorded, you have the flexibility to replay and simulate the same flow with mutations/write calls locally or
 within your CI environment without needing to connect to external services/dependencies.
@@ -68,12 +68,12 @@ within your CI environment without needing to connect to external services/depen
 No more data dumps, stubs, or mocks for dependencies like DBs, internal services, or third-party services like twilio,
 shopify, or stripe are required anymore. 💡
 
-<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies" style={{backgroundColor: '#EDEDED'}}/>
+<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies" style={{backgroundColor: '#EDEDED'}} loading="lazy" decoding="async"/>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application.
 Multiple Reads after write operations can be replicated automatically too. 🔄
 
-[//]: # '<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>'
+[//]: # '<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools" loading="lazy" decoding="async"/>'
 
 ## ♻️ Multi-Purpose Mocks
 
@@ -97,7 +97,7 @@ timestamps, random values) to ensure high quality tests.
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
-[//]: # '<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>'
+[//]: # '<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration" loading="lazy" decoding="async"/>'
 
 Keploy identifies differences in API responses, marking them as random/noisy fields. 🧐✅
 

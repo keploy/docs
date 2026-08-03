@@ -26,7 +26,7 @@ Keploy is an open-source, AI-powered testing agent that generates backend API te
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.
 
-<img src="/docs/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" />
+<img src="/docs/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" loading="lazy" decoding="async"/>
 
 Keploy acts a proxy in your application that captures and replays all network interaction served to application from any
 source.
@@ -39,7 +39,7 @@ Now, when the application serves an API, all the unique network interactions are
 test-case.
 
 <div style={{backgroundColor:'white', padding:'10px', display:'inline-block', borderRadius:'8px'}}>
-  <img src="/docs/gif/how-keploy-works.gif" alt="Test Case Generator" />
+  <img src="/docs/gif/how-keploy-works.gif" alt="Test Case Generator" loading="lazy" decoding="async"/>
 </div>
 
 ### Step 2 : Replay Test-Cases

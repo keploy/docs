@@ -66,7 +66,7 @@ Keep an eye out for the `-c` flag! It's the command charm to run the app. Whethe
 
 If you're seeing logs that resemble the ones below, you're on the right track:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy_record_fastapi_golang.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch,
 
@@ -107,7 +107,7 @@ keploy test -c "./app" --delay 5
 
 When all is said and done, your test results should look a little something like this:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_test_fastapi_golang.png" alt="Sample Keploy Replay" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!
 

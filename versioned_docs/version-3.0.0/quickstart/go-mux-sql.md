@@ -389,7 +389,7 @@ Or simply wander over to your browser and visit `http://localhost:8010/products`
 
 Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-<img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Run Tests 🏁
 

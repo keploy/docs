@@ -36,6 +36,6 @@ Data mocks refer to the synthetic data that mimics real-world datasets, which is
 
 Keploy can generate dependency mocks in addition to the testcases by recording your application network calls making your testing process not only faster than unit tests but also incredibly efficient.
 
-<img src="https://keploy.io/docs/gif/record-replay.gif?raw=true"/>
+<img src="https://keploy.io/docs/gif/record-replay.gif?raw=true" loading="lazy" decoding="async"/>
 
 Since these data mocks are generated based on the real-time capturing of API calls from your application, they will be from real-world scenarios. This can help to ensure that the data mocks are accurate and that it represents the real data as closely as possible. As well as, it makes the data maintenance process easier by providing a same environment for testing. This can help to identify the source of bugs more easily.

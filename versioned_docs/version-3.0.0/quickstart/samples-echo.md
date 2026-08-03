@@ -87,7 +87,7 @@ curl  http://localhost:8082/GuwHCgoQ
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of postgres operations. Here's what the folder structure look like:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_record_sql_command.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_record_sql_command.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Now, let's see the magic! ✨💫
 
@@ -103,7 +103,7 @@ keploy test -c "docker compose up" --container-name "echoApp" --build-delay 50 -
 
 output should look like
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_sql_command.png" alt="Sample Keploy Test " width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_replay_sql_command.png" alt="Sample Keploy Test " width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
@@ -153,7 +153,7 @@ go build -o echo-psql-url-shortener
 sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-record-echo-sql-binary.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-record-echo-sql-binary.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Generate testcases
 
@@ -203,7 +203,7 @@ The application thinks it's talking to postgres 😄
 
 We will get output something like this:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-replay-echo-sql-binary.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-replay-echo-sql-binary.png" alt="Sample Keploy Record" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Wrapping it up 🎉
 

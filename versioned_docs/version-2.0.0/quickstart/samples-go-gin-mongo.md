@@ -58,7 +58,7 @@ keploy record -c "docker compose up" --container-name "ginMongoApp"
 
 Getting logs like this? Perfect! 👌
 
-   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -176,7 +176,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Want to see if everything works as expected?
 
@@ -192,7 +192,7 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 
 Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -200,7 +200,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Run that keploy record command once more and watch as everything falls into place with all tests passing!🌟
 
@@ -226,7 +226,7 @@ wsl ~
 
 First things first, update the MongoDB URL to `localhost:27017` on **line 21** of our trusty `main.go` file.
 
-<img src="/docs/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### 🍃 Kickstart MongoDB
 
@@ -247,7 +247,7 @@ keploy record -c "go run main.go handler.go"
 Keep an eye out for the `-c `flag! It's the command charm to run the app. Whether you're using `go run main.go handler.go` or the binary path like `./test-app-url-shortener`, it's your call.
 If you're seeing logs that resemble the ones below, you're on the right track:
 
-   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" loading="lazy" decoding="async"/>
   
   Alright! With the app alive and kicking, let's weave some test cases. Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
@@ -365,7 +365,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/gin-mongo-test-sample.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Want to see if everything works as expected?
 
@@ -381,7 +381,7 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 
 Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -389,7 +389,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 

@@ -55,7 +55,7 @@ cd ecommerce_sample_app
 
 _Note: You can view the **architecture diagram** of the application_
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_arch.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_arch.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 #### Start the Microservices
 
@@ -69,7 +69,7 @@ To start capturing API test cases, use the following command:
 keploy record -c "docker compose up" --container-name="order_service" --build-delay 40 --path="./order_service" --config-path="./order_service"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_record_microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_record_microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 Now the question arises how to make an API call? We’ve made it simple! You can just import the Postman collection and try sending an API call.
 
@@ -1053,49 +1053,49 @@ code={`
 
 **Step 1: If you’ve already downloaded the collection, upload it.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_1.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_1.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 2: After the upload is complete, you will see the Ecommerce Microservices collection in the left panel. Open the collection to continue.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_2.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_2.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 3: Before sending any requests, ensure you have generated a JWT token. Click on User Service. Use the Login API and enter the following credentials: `Username: admin` and `Password: admin123`. After a successful login, you will receive a JWT token. Copy the token and paste it into your Environment settings.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_3.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_3.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-microservices.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 4: We need to create a user before placing an order. So, create a user using the Create User API.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_4.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_4.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 5: Then, create an address for the user.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_5.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_5.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 6: Once you’re done creating the user details, let’s fetch the product details. This will be helpful when placing an order.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_6.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_6.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 7: Create an order, but before that, copy the mouse_id to place the order.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_7.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_7.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 8: You can verify it using the List Order API.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_8.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_8.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 9: Once you’ve created an order, use the Payment API to pay for the order.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_9.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_9.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Step 10: You can use the Get Order API to check the status of your order.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_10.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_10.png" alt="Sample Keploy Record Microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 > _Note: You can see that Keploy only captures the network calls related to the order service. It can’t capture other network calls because we are recording only for the order service._
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-capture-test-updated.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-capture-test-updated.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 ### Stop the Recording
 
@@ -1313,7 +1313,7 @@ Now, let’s run the tests that were automatically generated by Keploy. Use this
 keploy test -c "docker compose up" --containerName="order_service" --delay 30 --path="./order_service" --config-path="./order_service"
 ```
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_test.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_postman_test.png" alt="Sample Keploy Record microservices" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 The `--delay` flag gives the app a short pause (in seconds) before running the tests. After the tests finish, you can inspect the results and tweak the test data in the `mocks.yml` or `test-x.yml` files.
 
@@ -1323,31 +1323,31 @@ Keploy also helps you track **test coverage** for your app.
 
 The coverage files will be generated automatically by Keploy. You can find those files in the coverage directory.Click on any one of the HTML files to see the test coverage.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_coverage_files.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_coverage_files.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Let's see the overall coverage report:**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_overall_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_overall_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Let's see the overall coverage report by functions:**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_function_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_function_coverage.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Once you’ve got the coverage, let’s check the test reports in the Keploy Dashboard.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_dashboard_ecommerce.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_dashboard_ecommerce.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Let’s take a look at the Test Reports section.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Now, let’s go to the individual Test Report section and review the output.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_run_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_ecommerce_test_run_report.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **Two tests have failed — let’s check why they failed.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_test_run_individual.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/microservices_test_run_individual.png" alt="Sample Keploy test coverage" width="100%" style={{ borderRadius: '5px' }} loading="lazy" decoding="async"/>
 
 **From the dashboard, you can see the diff that explains why it failed.**
 
@@ -1365,17 +1365,17 @@ Use the following link to install the [Chrome Extension](https://chromewebstore.
 
 **Also, please verify that the Keploy Chrome Extension is installed and running.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_0.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_0.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 Once done, Go to [Keploy Enterprise UI](https://app.keploy.io) to try out Keploy API Testing. Once you sign in, you’ll see a dashboard like this:
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_1.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_1.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 After reaching this step, provide your application URL and the working cURL commands. If the e-commerce application isn’t already running, start it using `docker compose up`.
 
 **Step 1: Let's provide the curl command in the import curl section**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_inital_curl_request.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_inital_curl_request.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 Use the following cURL command to import:
 
@@ -1386,7 +1386,7 @@ curl --location --request POST 'http://localhost:8083/api/v1/orders/d08d8383-57c
 
 **Step 2: Once you provide the input, you will see a response. This means we are able to reach your application and are now ready to generate tests. We’re just performing a validation before generating the test cases.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_initial_curl_validate.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_initial_curl_validate.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 3: Next, it’s time to provide the input — such as cURL commands, Postman collections, or an OpenAPI schema. Remember, the more input or content you provide, the better your test cases will be. For this demo, we’ll use Postman collections and cURL commands.**
 
@@ -2361,7 +2361,7 @@ code={`
 
 _Paste the collections in the postman collections section._
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_4.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_4.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Also copy the curl commands:**
 
@@ -2503,7 +2503,7 @@ curl --request GET \
 
 _Paste the cURL commands in the cURL section._
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_5.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_5.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Also copy the openapi schema for the order service**
 
@@ -2753,43 +2753,43 @@ security:
 
 _Also Paste the OpenAPI schema into the Schema Document section. Once completed, you will be able to view the schema coverage._
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_microservices_schema_Coverage.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_microservices_schema_Coverage.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 4: After providing the OpenAPI schema, cURL commands, and Postman collection, click the Generate API Tests button. Then, review and confirm the generation settings. In this example, the port is changed to 8083, which means the application gateway will run on port 8083 to access all services.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_6.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_6.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 5: After completing the previous steps, click the Generate API Test button to automatically create test cases for your application.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_7.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_7.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 6: You can see the test suites created by Keploy. Click on an individual test suite to view the request, response, and variables.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_8.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_8.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 7: To visualize the steps, click the Visualize button. This will display a visual representation of the test flow.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_9.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_9.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 8: One of the test suites is marked as buggy. This means our application has some issues that Keploy detected. If you’re sure it’s not actually buggy, you can mark it as ‘Not Buggy.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_10.png" alt="Sample Keploy Record Microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_10.png" alt="Sample Keploy Record Microservices" loading="lazy" decoding="async"/>
 
 **Step 9: After generating the test, click the Run Tests button to execute it. Ensure that Private Mode is turned on before running the tests.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_12.png" alt="Sample Keploy microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_12.png" alt="Sample Keploy microservices" loading="lazy" decoding="async"/>
 
 **Step 10: After completion, you’ll be able to see the executed test results.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_13.png" alt="Sample Keploy microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_13.png" alt="Sample Keploy microservices" loading="lazy" decoding="async"/>
 
 **Step 11: To view detailed reports, including test run count, pass/fail status, and other insights, go to the Test Report section.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_14.png" alt="Sample Keploy microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_14.png" alt="Sample Keploy microservices" loading="lazy" decoding="async"/>
 
 **Step 12: To visualize analytics such as daily API test runs, test activity, and HTTP methods, navigate to the Dashboard section. It provides a complete overview of your testing insights.**
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_15.png" alt="Sample Keploy microservices" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_15.png" alt="Sample Keploy microservices" loading="lazy" decoding="async"/>
 
 ## Conclusion 🎉
 
