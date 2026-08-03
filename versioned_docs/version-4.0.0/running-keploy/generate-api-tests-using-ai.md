@@ -27,11 +27,11 @@ If your API is not publicly accessible, Keploy will show a warning when attempti
 
 ### Keploy Agent Installation
 
-| Platform    | Steps                                                                                                                                                                                                                                                                   |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **macOS**   | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent.dmg) <br /><br /> - Open the `.dmg` file and install the app normally. <br /><br /> - Launch the Keploy Agent after installation. <br />                                 |
+| Platform    | Steps                                                                                                                                                                                                                              |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **macOS**   | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent.dmg) <br /><br /> - Open the `.dmg` file and install the app normally. <br /><br /> - Launch the Keploy Agent after installation. <br />                               |
 | **Linux**   | - Run the following in your terminal: <br /><br /> `curl -L -O https://keploy.io/ent/dl/latest/keploy-agent-linux-amd64.tar.gz` <br /><br /> `tar -xzf keploy-agent-linux-amd64.tar.gz` <br /><br /> `./keploy-agent` <br /><br /> |
-| **Windows** | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent-windows_amd64.zip) <br /><br /> Extract the zip file and Launch the Keploy Agent. <br />                                                                                 |
+| **Windows** | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent-windows_amd64.zip) <br /><br /> Extract the zip file and Launch the Keploy Agent. <br />                                                                               |
 
 > ✅ Once installed and running, return to the Keploy Console and hit **Generate API Tests**. The agent will proxy your local API to allow secure test generation.
 
