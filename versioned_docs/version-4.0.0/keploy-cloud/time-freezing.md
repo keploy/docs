@@ -61,7 +61,7 @@ uname -a
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
 
 # set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_amd64
@@ -81,7 +81,7 @@ OR
 ```Dockerfile
 # Download the time freeze agent
 
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
 
 # set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_arm64
@@ -110,7 +110,7 @@ Voila! Your tests will now run with time freezing enabled.
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
 
 #set suitable permissions
 RUN chmod +x /lib/keploy/freeze_time_amd64.so
@@ -125,7 +125,7 @@ OR
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
 
 #set suitable permissions
 RUN chmod +x /lib/keploy/freeze_time_arm64.so
