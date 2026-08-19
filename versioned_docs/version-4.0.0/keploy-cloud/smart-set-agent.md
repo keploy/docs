@@ -215,9 +215,9 @@ You handle EVERYTHING else autonomously — discover the app, the branch, the fa
 5. **Re-record replaces in place only if the `schema_ref` is unchanged** (same shape → refreshes the case, your noise/assertions carry forward). If the re-record changes the shape it lands a NEW `schema_ref` as a separate case — then `deleteSmartTestCase` the stale old one or the suite keeps a red duplicate. Needed when a mock can't be patched in place (Case C) or the shape moved.
 6. **Your boundary is the branch. NEVER merge or rebase.** Merging/rebasing to main is a human/CI-gated action (and is intentionally NOT an MCP tool). After your fix is green ON THE BRANCH, STOP and report — tell the dev to review & merge. Do not attempt `mergeBranch`/`rebaseBranch`, do not look for a merge CLI, do not edit on main.
 7. **Don't ask what you can find out.** Use `git log`, `git diff`, file reads, and api-server calls.
-8. **Always end with two dashboard URLs** — the branch diff page and the test-run report page:
-   - `Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>`
-   - `Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>`
+8. **Always end with two dashboard URLs** — the branch diff page and the test-run report page (URL-encode the git branch name):
+   - `Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branch=<url_encoded_git_branch>`
+   - `Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>&branch=<url_encoded_git_branch>`
 
 ## Discovery (run once at the start, before either routine)
 
@@ -330,8 +330,8 @@ keploy cloud replay --app <ns.deployment> --branch-name <git branch> --cluster <
 - (Case 1) Review the code edit at `<file:line>` and push.
 - (SchemaRefConflict left for you) Two cases share a contract — decide which to keep, or merge-into-existing in the UI.
 
-Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>
-Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
+Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branch=<url_encoded_git_branch>
+Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>&branch=<url_encoded_git_branch>
 ```
 
 ---
@@ -379,8 +379,8 @@ If anything fails, enter Routine A from Phase A2.
 ### Next step
 Review the branch diff and **merge to main yourself (or via CI)** — merge reconciles the `imported-*` cases to stable `test-N`. I import & validate on the branch only.
 
-Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branchId=<branch_id>
-Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>
+Branch diff: https://app.keploy.io/api-testing/branch-diff?appId=<app_id>&branch=<url_encoded_git_branch>
+Run report: https://app.keploy.io/tr/<test_run_id>?appId=<app_id>&branch=<url_encoded_git_branch>
 ```
 
 ---
