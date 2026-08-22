@@ -57,8 +57,8 @@ Congratulations! You've successfully set up Keploy natively on MacOS.
 
 ## What's Next?
 
-### 🎬 [Start Capturing Testcases](/docs/server/installation/)
+### 🎬 [Start Capturing Testcases](/server/installation/)
 
 Begin recording your API calls and generating test cases with Keploy.
 
-#### [Back to Installation Guide](/docs/server/installation/)
+#### [Back to Installation Guide](/server/installation/)
