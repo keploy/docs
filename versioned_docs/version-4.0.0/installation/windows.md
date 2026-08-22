@@ -2,7 +2,7 @@
 id: windows-installation
 title: Running Keploy on Windows
 sidebar_label: Windows Installation
-description: "Install Keploy on Windows — natively with the WinDivert driver, or with WSL or Docker."
+description: "Install Keploy on Windows — natively with no Administrator needed, or with WSL or Docker."
 tags:
   - windows
   - ebpf
@@ -17,7 +17,7 @@ keywords:
 
 # Installing Keploy on Windows
 
-Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. On Windows it intercepts traffic with the WinDivert network driver (there is no eBPF on Windows), which needs Administrator privileges.
+Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads, nothing is installed system-wide, and **you do not need Administrator**.
 
 Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.
 
@@ -33,7 +33,7 @@ Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and 
 
 1. **Install Keploy** — download the Windows build from the [releases page](https://github.com/keploy/keploy/releases) (or your Keploy distribution) and put `keploy.exe` on your `PATH`.
 
-2. **Open an Administrator terminal.** WinDivert loads a network driver, so `keploy` must run elevated (right-click PowerShell or Terminal → _Run as administrator_).
+2. **Open a terminal.** An ordinary PowerShell or Terminal window is enough — Keploy does not need to run elevated.
 
 3. **Record your app** — pass the command that starts it:
 
@@ -57,11 +57,17 @@ Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and 
 
 :::note
 
-Native Windows support is **x86‑64 only**. On Windows/ARM, use WSL or Docker.
+Native Windows support is **x86‑64 only**, and the application under test must be 64-bit. On Windows/ARM, use WSL or Docker.
 
 :::
 
+:::note
 
+Keploy instruments the application **it starts**, so launch your app through `keploy record -c` or `keploy test -c` rather than starting it yourself and pointing Keploy at a running process.
+
+Keploy intercepts TCP — HTTP, HTTPS, gRPC, and database and cache protocols — and resolves hostnames through the application's resolver, so a dependency that no longer exists is still answered from its Mock during a replay. Traffic an application sends over UDP is not recorded.
+
+:::
 
 ## Option 2: Install Keploy with WSL
 
@@ -70,6 +76,7 @@ If you already have WSL, Go to Step 2.
 1. **Enable WSL**
 
    Make sure you’re on:
+
    - **Windows 10** (version 2004 or later, build 19041+)
    - **Windows 11**
 
