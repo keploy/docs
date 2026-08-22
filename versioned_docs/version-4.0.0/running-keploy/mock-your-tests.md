@@ -81,21 +81,27 @@ through a tiny HTTP API. Keploy exports the agent's address into your test proce
 as **`KEPLOY_MOCK_AGENT`**; call it at the start and end of each test:
 
 ```
-POST  {KEPLOY_MOCK_AGENT}/agent/scope/begin   {"name": "<test name>"}
-POST  {KEPLOY_MOCK_AGENT}/agent/scope/end     {"name": "<test name>"}
+POST  {KEPLOY_MOCK_AGENT}/agent/scope/begin   {"name": "<test name>", "pid": <worker pid>}
+POST  {KEPLOY_MOCK_AGENT}/agent/scope/end     {"name": "<test name>", "pid": <worker pid>}
 ```
 
 At record time this writes a per-test `mappings.yaml`; at replay time it restricts
 the served pool to that test's mocks. No scope calls ⇒ suite-level, which is still
 correct.
 
-:::note Sequential execution
-Per-test scoping narrows a **single** served mock pool per test, so it assumes
-your tests run **sequentially**. With parallel workers (pytest-xdist,
-`go test`-parallel, jest workers) the scopes would overlap and stomp each other —
-run those suites **suite-level** (omit the scope calls, or record without them):
-suite-level replay serves the whole set to every test and is safe under
-parallelism.
+:::tip Parallel workers
+Include your **worker's PID** as `pid` (e.g. Node `process.pid`, Python
+`os.getpid()`) and Keploy scopes the served pool **per worker**, so parallel
+runners — Playwright/jest workers, `pytest-xdist`, `go test` -parallel — each get
+only their own test's mocks with no cross-worker interference. Keploy attributes
+an outgoing call to a worker by its process (walking the process tree), so calls
+from a child process the worker spawns are covered too.
+
+`pid` is optional: omit it and scoping falls back to a single shared pool that
+assumes tests run **sequentially** (the pre-parallel behavior). Parallel scoping
+assumes the runner and the Keploy agent share a PID namespace — the normal case
+for `keploy mock <cmd>`; containerized workers in a separate namespace should run
+suite-level.
 :::
 
 **pytest** (`conftest.py`):
@@ -105,9 +111,10 @@ import os, json, urllib.request, pytest
 
 AGENT = os.environ.get("KEPLOY_MOCK_AGENT")
 
-def _post(path, body):
+def _post(path, name):
     if not AGENT:
         return
+    body = {"name": name, "pid": os.getpid()}  # pid → per-worker isolation under pytest-xdist
     req = urllib.request.Request(AGENT + path, data=json.dumps(body).encode(),
                                  headers={"Content-Type": "application/json"}, method="POST")
     try:
@@ -117,9 +124,9 @@ def _post(path, body):
 
 @pytest.fixture(autouse=True)
 def keploy_scope(request):
-    _post("/agent/scope/begin", {"name": request.node.name})
+    _post("/agent/scope/begin", request.node.name)
     yield
-    _post("/agent/scope/end", {"name": request.node.name})
+    _post("/agent/scope/end", request.node.name)
 ```
 
 **go test** (`TestMain` helper):
@@ -130,15 +137,30 @@ func scope(path, name string) {
     if agent == "" {
         return
     }
-    body, _ := json.Marshal(map[string]string{"name": name})
+    // pid → per-worker isolation when tests run in parallel
+    body, _ := json.Marshal(map[string]any{"name": name, "pid": os.Getpid()})
     http.Post(agent+path, "application/json", bytes.NewReader(body))
 }
 
 // In each test:  scope("/agent/scope/begin", t.Name()); defer scope("/agent/scope/end", t.Name())
 ```
 
-**jest / playwright** (a `beforeEach`/`afterEach` or reporter hook) follows the same
-two calls with the test's name.
+**jest / playwright** (a `beforeEach`/`afterEach` or reporter hook) makes the same
+two calls with the test's name and `process.pid` — the `pid` is what keeps
+Playwright's or jest's parallel **workers** isolated from each other:
+
+```js
+// Playwright: in a fixture or beforeEach/afterEach
+const post = (path, name) =>
+  fetch(`${process.env.KEPLOY_MOCK_AGENT}${path}`, {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({name, pid: process.pid}),
+  }).catch(() => {});
+
+test.beforeEach(({}, testInfo) => post("/agent/scope/begin", testInfo.title));
+test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
+```
 
 ## Platforms
 
