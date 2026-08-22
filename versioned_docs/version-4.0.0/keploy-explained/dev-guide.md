@@ -199,7 +199,7 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 <br />
 
 :::info
-Keploy does not natively support macOS. You can run it using **Lima** or **Docker**.
+Keploy runs natively on macOS (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**.
 :::
 
 <Tabs>

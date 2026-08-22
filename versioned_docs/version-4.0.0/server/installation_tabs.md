@@ -230,7 +230,7 @@ Use "keploy [command] --help" for more information about a command.
 <TabItem value="macos" label="macOS">
 <br />
 :::info 
-Keploy does not natively support macOS. However, you can run it using **Lima** or **Docker**. 
+Keploy runs natively on macOS (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. 
 :::
 
 👉 **Choose your preferred method:**

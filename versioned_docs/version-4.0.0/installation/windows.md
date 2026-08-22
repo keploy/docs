@@ -2,7 +2,7 @@
 id: windows-installation
 title: Running Keploy on Windows
 sidebar_label: Windows Installation
-description: "Install Keploy on Windows using WSL or Docker — step-by-step guide for eBPF-based API test generation on Windows."
+description: "Install Keploy on Windows — natively with the WinDivert driver, or with WSL or Docker."
 tags:
   - windows
   - ebpf
@@ -17,15 +17,53 @@ keywords:
 
 # Installing Keploy on Windows
 
-Keploy uses eBPF to intercept API calls on network layer and generates test cases and mocks/stubs. Keploy does not natively support Windows. However, you can still run it using **Wsl** or **Docker**.
+Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. On Windows it intercepts traffic with the WinDivert network driver (there is no eBPF on Windows), which needs Administrator privileges.
+
+Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.
 
 👉 **Choose your preferred method:**
 
-- [Option 1: Install Keploy with WSL](#option-1-install-keploy-with-wsl)
+- [Option 1: Run Keploy natively (recommended)](#option-1-run-keploy-natively)
 
-- [Option 2: Install Keploy with Docker](#option-2-install-keploy-with-docker)
+- [Option 2: Install Keploy with WSL](#option-2-install-keploy-with-wsl)
 
-## Option 1: Install Keploy with WSL
+- [Option 3: Install Keploy with Docker](#option-3-install-keploy-with-docker)
+
+## Option 1: Run Keploy natively
+
+1. **Install Keploy** — download the Windows build from the [releases page](https://github.com/keploy/keploy/releases) (or your Keploy distribution) and put `keploy.exe` on your `PATH`.
+
+2. **Open an Administrator terminal.** WinDivert loads a network driver, so `keploy` must run elevated (right-click PowerShell or Terminal → _Run as administrator_).
+
+3. **Record your app** — pass the command that starts it:
+
+   ```powershell
+   keploy record -c "<your app command>"
+   ```
+
+   For example:
+
+   ```powershell
+   keploy record -c ".\myapp.exe"        # Go
+   keploy record -c "node server.js"     # Node.js
+   keploy record -c "python app.py"      # Python
+   ```
+
+4. **Replay the recorded tests**:
+
+   ```powershell
+   keploy test -c "<your app command>" --delay 10
+   ```
+
+:::note
+
+Native Windows support is **x86‑64 only**. On Windows/ARM, use WSL or Docker.
+
+:::
+
+
+
+## Option 2: Install Keploy with WSL
 
 If you already have WSL, Go to Step 2.
 
@@ -67,7 +105,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 ---
 
-## Option 2: Install Keploy with Docker
+## Option 3: Install Keploy with Docker
 
 1. **Make sure Docker is installed**
    You’ll need **Docker Desktop** running on Windows.
