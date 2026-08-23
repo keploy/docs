@@ -63,8 +63,6 @@ Native macOS support covers **Go, Node.js, Python and Java** apps, including the
 
 :::
 
-
-
 ## Option 2: Install Keploy with Lima
 
 1. **Check if Lima is installed**  
