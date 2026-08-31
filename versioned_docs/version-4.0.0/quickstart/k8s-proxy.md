@@ -41,11 +41,11 @@ text: "Apply the Kubernetes manifests with kubectl apply -f k8s/, wait until all
 },
 {
 name: "Connect your cluster in the Keploy Dashboard",
-text: "In app.keploy.io, open Integration Testing → Clusters, add the cluster, and provide its name and ingress URL so the proxy can observe live traffic.",
+text: "In app.keploy.io, open Integration Testing → Clusters, add the cluster, and choose how Keploy reaches it — the default Keploy tunnel needs no inbound access, or select Ingress URL and provide the URL where the agent is published.",
 },
 {
 name: "Install the Keploy Proxy via Helm",
-text: "Run the Helm command shown in the dashboard to install the Keploy Proxy into the keploy namespace, then port-forward svc/k8s-proxy (kubectl port-forward -n keploy svc/k8s-proxy 8080:8080).",
+text: "Run the Helm command shown in the dashboard to install the Keploy Proxy into the keploy namespace. On the default Keploy tunnel path the agent dials out and is ready once its pods are Running; only the Ingress URL path needs kubectl port-forward -n keploy svc/k8s-proxy 8080:8080.",
 },
 {
 name: "Record live traffic",
@@ -216,17 +216,40 @@ https://app.keploy.io
 Provide the following information:
 
 - **Cluster Name**: `ecommerce`
-- **Ingress URL**:
 
-  ```
-  http://localhost:8080
-  ```
+  This field is optional. Leave it blank and Keploy names the cluster for you.
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/cluster_config.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+- **How should Keploy reach this cluster?**: leave this on its default,
+  **Keploy tunnel — the agent dials out (no inbound access needed)**.
 
-This allows the Keploy Proxy to observe and record live traffic from your Kubernetes application.
+  The proxy opens one outbound connection to Keploy over ordinary HTTPS, and the
+  dashboard reaches it back down that connection. You need no public hostname, no
+  TLS certificate, no LoadBalancer and no firewall rule — and there is no URL to
+  fill in, so there is nothing more to do in this step.
 
-Note: For this quickstart, I am running it locally. If you are running your application in production, provide the necessary ingress URL.
+<!-- TODO(screenshot): the previous cluster_config.png predates the connectivity
+     dropdown — it shows a mandatory Cluster Name and an Ingress URL field, which
+     now contradicts the text above. Removed rather than left stale. Replace with
+     the capture at docs-screenshots/staging/01-connect-cluster-tunnel-default.png
+     once it is uploaded to the keploy-devrel S3 bucket. -->
+
+For more on this path — the Helm values, the network requirements and what the
+tunnel does and does not carry — see
+[Connect a cluster without an ingress](./k8s-proxy-egress-only.md).
+
+#### To use an ingress URL instead
+
+Select **Ingress URL — I will expose the agent at a URL** and an **Ingress URL**
+field appears. Give it the address the browser can reach the agent at — for this
+local quickstart, `http://localhost:8080`; in production, whatever public URL
+your Ingress, Gateway or LoadBalancer publishes.
+
+Pick this when you want the browser to call the cluster directly. It is
+**required for Self-hosted** deployments, which never dial out to Keploy Cloud —
+selecting that deployment type forces this choice and disables the dropdown.
+
+On this path you also need the `kubectl port-forward` in step 5 below. Every
+other step in this guide is identical either way.
 
 ### 4. Install the Keploy Proxy in your k8s Cluster
 
@@ -278,11 +301,16 @@ kubectl get pods -n keploy
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_proxy.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
 
-Note: You need to port-forward the Keploy Proxy when running this setup on a local machine.
+**Ingress path only.** If you chose **Ingress URL** in step 3 and are running
+this setup on a local machine, port-forward the Keploy Proxy so the browser can
+reach it at the address you gave:
 
 ```bash
 kubectl port-forward -n keploy svc/k8s-proxy 8080:8080
 ```
+
+On the default **Keploy tunnel** path you can skip this — the agent dials out, so
+nothing needs to reach it from your machine.
 
 ### 6. Your Keploy Proxy is ready to record live traffic
 

@@ -152,6 +152,7 @@
           "collapsed": true,
           "items": [
             "quickstart/k8s-proxy",
+            "quickstart/k8s-proxy-egress-only",
             "quickstart/k8s-proxy-developer-workflow",
             "quickstart/k8s-proxy-llm-workflow",
             "keploy-cloud/smart-set-agent",
