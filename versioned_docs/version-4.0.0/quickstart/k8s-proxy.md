@@ -227,11 +227,7 @@ Provide the following information:
   TLS certificate, no LoadBalancer and no firewall rule — and there is no URL to
   fill in, so there is nothing more to do in this step.
 
-<!-- TODO(screenshot): the previous cluster_config.png predates the connectivity
-     dropdown — it shows a mandatory Cluster Name and an Ingress URL field, which
-     now contradicts the text above. Removed rather than left stale. Replace with
-     the capture at docs-screenshots/staging/01-connect-cluster-tunnel-default.png
-     once it is uploaded to the keploy-devrel S3 bucket. -->
+![Connect Cluster dialog with Keploy tunnel selected as the default](/img/k8s-proxy-connect-cluster-tunnel.png)
 
 For more on this path — the Helm values, the network requirements and what the
 tunnel does and does not carry — see
@@ -247,6 +243,8 @@ your Ingress, Gateway or LoadBalancer publishes.
 Pick this when you want the browser to call the cluster directly. It is
 **required for Self-hosted** deployments, which never dial out to Keploy Cloud —
 selecting that deployment type forces this choice and disables the dropdown.
+
+![Connect Cluster dialog with Ingress URL selected, showing the URL field](/img/k8s-proxy-connect-cluster-ingress.png)
 
 On this path you also need the `kubectl port-forward` in step 5 below. Every
 other step in this guide is identical either way.

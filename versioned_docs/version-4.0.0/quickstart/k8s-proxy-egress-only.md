@@ -110,10 +110,7 @@ and connect a new cluster.
 
 ### 2. Configure the cluster details
 
-<!-- TODO(screenshot): captured from a local rig, pending upload to the
-     keploy-devrel S3 bucket then swap this comment for an <img> tag.
-     Source: ~/workspace/kd-testing/docs-screenshots/01b-dialog-only.png
-     (Connect New Cluster dialog, tunnel selected by default, no Ingress URL field). -->
+![Connect Cluster dialog with Keploy tunnel selected as the default](/img/k8s-proxy-connect-cluster-tunnel.png)
 
 - **Cluster Name** — optional. Leave it blank and Keploy names the cluster for
   you; you can tell clusters apart by the name shown once the proxy connects.
@@ -303,6 +300,8 @@ published no ingress URL and has no live tunnel — so there is nowhere to send
 the request, and nothing was attempted. Give it one of the two routes: set
 `keploy.ingressUrl`, or set `keploy.tunnel.enabled=true`, then re-run
 `helm upgrade`.
+
+![Cluster page showing the No route to this cluster's agent panel](/img/k8s-proxy-egress-no-route.png)
 
 **"Agent busy — too many requests at once."** The cluster is connected and the
 agent is healthy; every stream slot on its connection is in use. Close other
