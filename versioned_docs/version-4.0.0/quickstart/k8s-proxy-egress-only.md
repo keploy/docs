@@ -141,8 +141,10 @@ helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --versio
 
 - `keploy.tunnel.enabled=true` turns on the outbound connection.
 - `keploy.ingressUrl=""` is emitted deliberately rather than omitted. `helm
-upgrade` merges over a release's previous values, so passing it blank clears a
-  stale ingress from an earlier install instead of silently inheriting it.
+  upgrade` does not merge a release's previous values, so an omitted flag
+  already falls back to the chart default. Passing it blank additionally covers
+  `--reuse-values`, where a stale ingress from an earlier install would
+  otherwise be inherited.
 
 Copy the command from the dashboard rather than from this page — it embeds your
 cluster's access key and the chart version to install.
@@ -169,12 +171,7 @@ heartbeats land, and the cluster's **Agent URL** card in the dashboard shows the
 Keploy tunnel entry with the note _"Reached through the Keploy tunnel — this
 agent dials out."_
 
-<!-- TODO(screenshot): captured from a local rig, pending upload to the
-     keploy-devrel S3 bucket then swap this comment for an <img> tag.
-     Source: ~/workspace/kd-testing/docs-screenshots/06-egress-only-cluster-working.png
-     (Agent URL card reading "Reached through the Keploy tunnel", Deployments
-     loaded over the tunnel). Re-shoot on a real environment so the Agent URL
-     reads https://api.keploy.io/cluster/<id>/proxy rather than a localhost rig. -->
+![Cluster page for a tunnel-connected cluster: status Active, the Agent URL card reading "Reached through the Keploy tunnel — this agent dials out and has no inbound URL", and the Deployments list loaded over the tunnel](/img/k8s-proxy-egress-only-active.png)
 
 From here, recording and replay work exactly as they do on an ingress cluster.
 Continue with [K8s Record Replay](./k8s-proxy.md) from **Start Recording**.
@@ -242,15 +239,29 @@ The proxy logs the exact set it serves at startup under `exposed_routes`.
 
 **Carried:** listing Deployments, starting and stopping recording and replay,
 the ATG sandbox lifecycle, status and log streams, the CI shared-token exchange,
-debug-bundle management, and the proxy restart/update/revert controls.
+debug-bundle *management* — creating, listing and deleting them, not their bytes
+— and the proxy restart/update/revert controls.
 
-**Never carried — bulk downloads.** Log exports, test-asset downloads and debug
-bundles are multi-hundred-megabyte bodies, and the tunnel is one connection
-shared by every live status stream and log tail; a large transfer would stall
-all of them. **These downloads still work on an egress-only cluster.** The proxy
-sends the artifact to Keploy over ordinary egress instead, and your browser
-downloads it from Keploy. You do not have to do anything differently — the
-Download buttons behave the same.
+**Never carried — the bytes of bulk artifacts.** The tunnel is a single
+connection shared by every live status stream and log tail, so one large body
+would head-of-line-block all of them. Log exports and debug bundles are
+therefore never streamed through it, whatever size they happen to be.
+
+**These downloads still work on an egress-only cluster**, through a two-step the
+UI performs for you. First it asks the proxy to *mint* the artifact: that request
+does cross the tunnel, but carries only an id. The proxy builds the artifact and
+uploads it to Keploy over ordinary egress. Your browser then downloads it from
+Keploy on a separate connection. The Download buttons look the same — the only
+visible difference is that the first step can be slow, because minting does not
+return until the artifact has been built and uploaded.
+
+Test-case exports are not in this category at all. Your test cases are stored by
+Keploy as they are recorded, so downloading them reads from Keploy directly and
+never involves the cluster or the tunnel.
+
+**Downloads need a current proxy.** The mint route is not exposed by older
+k8s-proxy versions. On one of those the download fails with _"This cluster's
+proxy is too old to serve downloads over its tunnel"_ — upgrade the proxy.
 
 **One thing that genuinely is unavailable:** the **API Docs** link on the cluster
 header is disabled on an egress-only cluster. The proxy's OpenAPI browser is an
@@ -318,7 +329,7 @@ Then check that the outbound connection is up. The proxy logs the dial and every
 reconnect:
 
 ```bash
-kubectl logs -n keploy deploy/keploy-k8s-proxy | grep -i tunnel
+kubectl logs -n keploy deploy/k8s-proxy | grep -i tunnel
 ```
 
 A cluster egress firewall or a proxy that blocks long-lived outbound
