@@ -141,7 +141,7 @@ helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --versio
 
 - `keploy.tunnel.enabled=true` turns on the outbound connection.
 - `keploy.ingressUrl=""` is emitted deliberately rather than omitted. `helm
-  upgrade` does not merge a release's previous values, so an omitted flag
+upgrade` does not merge a release's previous values, so an omitted flag
   already falls back to the chart default. Passing it blank additionally covers
   `--reuse-values`, where a stale ingress from an earlier install would
   otherwise be inherited.
@@ -239,7 +239,7 @@ The proxy logs the exact set it serves at startup under `exposed_routes`.
 
 **Carried:** listing Deployments, starting and stopping recording and replay,
 the ATG sandbox lifecycle, status and log streams, the CI shared-token exchange,
-debug-bundle *management* — creating, listing and deleting them, not their bytes
+debug-bundle _management_ — creating, listing and deleting them, not their bytes
 — and the proxy restart/update/revert controls.
 
 **Never carried — the bytes of bulk artifacts.** The tunnel is a single
@@ -248,7 +248,7 @@ would head-of-line-block all of them. Log exports and debug bundles are
 therefore never streamed through it, whatever size they happen to be.
 
 **These downloads still work on an egress-only cluster**, through a two-step the
-UI performs for you. First it asks the proxy to *mint* the artifact: that request
+UI performs for you. First it asks the proxy to _mint_ the artifact: that request
 does cross the tunnel, but carries only an id. The proxy builds the artifact and
 uploads it to Keploy over ordinary egress. Your browser then downloads it from
 Keploy on a separate connection. The Download buttons look the same — the only
