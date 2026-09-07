@@ -121,7 +121,7 @@ curl --location 'http://localhost:8000/api/notes/6618fa20875aedcfe96e08ed'
 
 This is how keploy terminal would look like:
 
-![Testcase](../../../static/img/rust-crud-record.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-crud-record.webp" alt="Testcase" width="2994" height="484" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Run the testcases
 

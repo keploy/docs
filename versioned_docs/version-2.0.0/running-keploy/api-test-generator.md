@@ -46,7 +46,7 @@ This guide walks you through generating, editing, running, and managing automate
    → This opens the test generation flow:  
    [https://app.keploy.io/api-testing/generate](https://app.keploy.io/api-testing/generate)
 
-![API testing](/img/api-testing-generate.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/api-testing-generate.webp" alt="API testing" width="2940" height="1764" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Step 2: Add API Information
 
@@ -528,7 +528,7 @@ components:
 ## Step 3: Click 'Generate Test'
 
 Keploy will auto-generate a test suite using the inputs provided.
-![API testing](/img/api-generate-it.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/api-generate-it.webp" alt="API testing" width="2940" height="1654" style={{maxWidth:'100%',height:'auto'}} />
 
 - Click the 'Generate Test' button. Keploy will:
 - Analyze your API endpoints
@@ -546,7 +546,7 @@ Example Test Cases:
 - ❌ Visit_AddToPet_DescriptionTooLong_400
 - ❌ Pet_UpdateOwnersPet_InvalidData_400
 
-![API testing](/img/test-suites.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-suites.webp" alt="API testing" width="2940" height="1522" style={{maxWidth:'100%',height:'auto'}} />
 
 Each test will include:
 
@@ -593,7 +593,7 @@ Type: status_code
 Expected: 200
 ```
 
-![Edit test](/img/test-edit.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-edit.webp" alt="Edit test" width="2940" height="1526" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Step 6: Run Tests and Generate Reports
 
@@ -612,10 +612,10 @@ View test results and download reports for QA or CI pipelines.
 From the dashboard, you can:
 
 **Delete a test suite entirely.**
-![Edit test](/img/delete-suite.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/delete-suite.webp" alt="Edit test" width="2940" height="1010" style={{maxWidth:'100%',height:'auto'}} />
 
 **Delete individual test cases within a suite.**
-![Edit test](/img/delete-individual.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/delete-individual.webp" alt="Edit test" width="2940" height="1516" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Tips for Accurate Results
 
@@ -644,12 +644,13 @@ Keploy supports:
 - **Security**: Never stores raw credentials (uses env variables)
 
 **3. What protocols and formats does Keploy support?**
-| Protocol | Formats | Features |
-|----------|---------|----------|
-| HTTP/HTTPS | JSON, XML | Full support |
-| gRPC | Protocol Buffers | Code generation |
-| WebSockets | JSON, Binary | Session testing |
-| GraphQL | Query/Mutation | Schema validation |
+
+| Protocol   | Formats          | Features          |
+| ---------- | ---------------- | ----------------- |
+| HTTP/HTTPS | JSON, XML        | Full support      |
+| gRPC       | Protocol Buffers | Code generation   |
+| WebSockets | JSON, Binary     | Session testing   |
+| GraphQL    | Query/Mutation   | Schema validation |
 
 **4. How does test generation work for stateful APIs?**
 Keploy handles stateful workflows by:

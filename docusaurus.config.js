@@ -5,6 +5,7 @@ const path = require("path");
 const remarkFaqSchema = require("./src/remark/remarkFaqSchema");
 const {siteGraph} = require("./src/schema/siteEntities");
 const fs = require("fs");
+const remarkImageSize = require("./src/remark/remarkImageSize");
 import {visit} from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
 
@@ -31,28 +32,33 @@ const llmsFullRootContent = fs.readFileSync(
 /** @type {import('@docusaurus/types').DocusaurusConfig} */
 module.exports = {
   headTags: [
-    // Google Fonts - DM Sans (loaded via headTags instead of CSS @import)
+    // DM Sans is now self-hosted (see src/css/custom.css @font-face). The
+    // render-blocking Google Fonts stylesheet + its two preconnects
+    // (fonts.googleapis.com / fonts.gstatic.com) were removed here to cut the
+    // font from the critical render path and drop us to <=4 preconnects.
+    // Preload the latin woff2 so it loads in parallel with the CSS instead of
+    // being discovered only after the stylesheet parses (html -> css -> font
+    // chain). crossorigin is required even same-origin for font preloads.
     {
       tagName: "link",
       attributes: {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
-      },
-    },
-    {
-      tagName: "link",
-      attributes: {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
+        rel: "preload",
+        href: "/docs/fonts/DMSans-latin.woff2",
+        as: "font",
+        type: "font/woff2",
         crossorigin: "anonymous",
       },
     },
+    // DM Sans @font-face (self-hosted from static/fonts). Inlined here rather
+    // than in custom.css because webpack's css-loader can't resolve the stable
+    // /docs/fonts/ URL from within src/css. Variable font, weights 400-700,
+    // font-display:swap; latin + latin-ext subsets.
     {
-      tagName: "link",
-      attributes: {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;700&display=swap",
-      },
+      tagName: "style",
+      attributes: {},
+      innerHTML: `
+@font-face{font-family:"DM Sans";src:url("/docs/fonts/DMSans-latin.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;}
+@font-face{font-family:"DM Sans";src:url("/docs/fonts/DMSans-latin-ext.woff2") format("woff2");font-weight:400 700;font-style:normal;font-display:swap;unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;}`,
     },
     // Preconnect tag
     {
@@ -74,7 +80,9 @@ module.exports = {
       },
       innerHTML: JSON.stringify(siteGraph),
     },
-    // Meta Pixel Code
+    // Meta Pixel Code — fires eagerly (init + PageView) on load so conversion
+    // tracking is accurate from the first paint. Intentionally NOT deferred.
+    // SPA route changes re-fire PageView from src/metaPixelRouteTracker.js.
     {
       tagName: "script",
       attributes: {},
@@ -117,6 +125,18 @@ fbq('track', 'PageView');`,
           return {
             plugins: [new FontPreloadPlugin()],
           };
+        },
+      };
+    },
+    // D11: emit full source maps for the client bundle so first-party JS is
+    // debuggable in production (error tracking / DevTools). Server bundle keeps
+    // its default — no new dependency, no runtime impact, just extra .map files.
+    function clientSourceMapsPlugin() {
+      return {
+        name: "client-source-maps",
+        configureWebpack(_config, isServer) {
+          if (isServer) return {};
+          return {devtool: "source-map"};
         },
       };
     },
@@ -271,13 +291,13 @@ fbq('track', 'PageView');`,
       copyright: `
          
     <div className="footer__icons footer">
-        <a href="https://github.com/keploy/keploy" aria-label="GitHub"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
-        <a href="https://twitter.com/keployio" aria-label="Twitter"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg"  width="27px" height="24px" viewBox="0 0 24 24" version="1.1"><path  d="M 20.476562 0.00390625 L 24.464844 0.00390625 L 15.753906 10.167969 L 26 23.996094 L 17.976562 23.996094 L 11.691406 15.609375 L 4.503906 23.996094 L 0.511719 23.996094 L 9.828125 13.125 L 0 0.00390625 L 8.226562 0.00390625 L 13.90625 7.671875 Z M 19.078125 21.558594 L 21.285156 21.558594 L 7.027344 2.3125 L 4.65625 2.3125 Z M 19.078125 21.558594 "/>
+        <a href="https://github.com/keploy/keploy" aria-label="GitHub"><svg aria-hidden="true" focusable="false" class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg></a>
+        <a href="https://twitter.com/keployio" aria-label="Twitter"><svg aria-hidden="true" focusable="false" class="footer__svg" xmlns="http://www.w3.org/2000/svg"  width="27px" height="24px" viewBox="0 0 24 24" version="1.1"><path  d="M 20.476562 0.00390625 L 24.464844 0.00390625 L 15.753906 10.167969 L 26 23.996094 L 17.976562 23.996094 L 11.691406 15.609375 L 4.503906 23.996094 L 0.511719 23.996094 L 9.828125 13.125 L 0 0.00390625 L 8.226562 0.00390625 L 13.90625 7.671875 Z M 19.078125 21.558594 L 21.285156 21.558594 L 7.027344 2.3125 L 4.65625 2.3125 Z M 19.078125 21.558594 "/>
         </g>
         </svg></a>
-        <a href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg" aria-label="YouTube"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
-        <a href="https://www.instagram.com/keploy.io/" aria-label="Instagram"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
-        <a href="https://keploy.io/slack" aria-label="Slack"><svg class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2447.6 2452.5">
+        <a href="https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg" aria-label="YouTube"><svg aria-hidden="true" focusable="false" class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.245-15.23 0-3.897.266-4.356 2.62-4.385 8.816.029 6.185.484 8.549 4.385 8.816 3.6.245 11.626.246 15.23 0 3.897-.266 4.356-2.62 4.385-8.816-.029-6.185-.484-8.549-4.385-8.816zm-10.615 12.816v-8l8 3.993-8 4.007z"/></svg></a>
+        <a href="https://www.instagram.com/keploy.io/" aria-label="Instagram"><svg aria-hidden="true" focusable="false" class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+        <a href="https://keploy.io/slack" aria-label="Slack"><svg aria-hidden="true" focusable="false" class="footer__svg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 2447.6 2452.5">
         <path d="m897.4 0c-135.3.1-244.8 109.9-244.7 245.2-.1 135.3 109.5 245.1 244.8 245.2h244.8v-245.1c.1-135.3-109.5-245.1-244.9-245.3.1 0 .1 0 0 0m0 654h-652.6c-135.3.1-244.9 109.9-244.8 245.2-.2 135.3 109.4 245.1 244.7 245.3h652.7c135.3-.1 244.9-109.9 244.8-245.2.1-135.4-109.5-245.2-244.8-245.3z" /><path d="m2447.6 899.2c.1-135.3-109.5-245.1-244.8-245.2-135.3.1-244.9 109.9-244.8 245.2v245.3h244.8c135.3-.1 244.9-109.9 244.8-245.3zm-652.7 0v-654c.1-135.2-109.4-245-244.7-245.2-135.3.1-244.9 109.9-244.8 245.2v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.3z" /><path d="m1550.1 2452.5c135.3-.1 244.9-109.9 244.8-245.2.1-135.3-109.5-245.1-244.8-245.2h-244.8v245.2c-.1 135.2 109.5 245 244.8 245.2zm0-654.1h652.7c135.3-.1 244.9-109.9 244.8-245.2.2-135.3-109.4-245.1-244.7-245.3h-652.7c-135.3.1-244.9 109.9-244.8 245.2-.1 135.4 109.4 245.2 244.7 245.3z" /><path d="m0 1553.2c-.1 135.3 109.5 245.1 244.8 245.2 135.3-.1 244.9-109.9 244.8-245.2v-245.2h-244.8c-135.3.1-244.9 109.9-244.8 245.2zm652.7 0v654c-.2 135.3 109.4 245.1 244.7 245.3 135.3-.1 244.9-109.9 244.8-245.2v-653.9c.2-135.3-109.4-245.1-244.7-245.3-135.4 0-244.9 109.8-244.8 245.1 0 0 0 .1 0 0"/>
         </svg></a>
         </div>
@@ -390,6 +410,12 @@ fbq('track', 'PageView');`,
                 },
               {},
             ],
+            // D5 (CLS): stamp intrinsic width/height onto raw <img> tags so the
+            // browser reserves layout space. Docusaurus already sizes Markdown
+            // images natively, so this only touches hand-written <img>.
+            // Dependency-free; skips remote/relative/webp/svg and never
+            // overwrites author dimensions.
+            remarkImageSize,
             // Emit FAQPage JSON-LD (Question/Answer) for FAQ docs so they are
             // eligible for FAQ rich results and AI extraction.
             remarkFaqSchema,
@@ -413,6 +439,9 @@ fbq('track', 'PageView');`,
         theme: {
           customCss: require.resolve("./src/css/custom.css"),
         },
+        // GA fires eagerly via the standard gtag preset (loads on page load +
+        // auto-tracks SPA route changes) so analytics are accurate from the
+        // first paint. Intentionally NOT idle-deferred.
         gtag: {
           trackingID: "G-LLS95VWZPC",
           // Optional fields.
@@ -518,21 +547,13 @@ fbq('track', 'PageView');`,
 
   clientModules: [require.resolve("./src/metaPixelRouteTracker.js")],
   scripts: [
-    {
-      src: "/docs/scripts/feedback.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "/docs/scripts/clarity.js",
-      async: true,
-      defer: true,
-    },
-    {
-      src: "/docs/js/apollo-init.js",
-      async: true,
-      defer: true,
-    },
+    // Analytics loading (see src/metaPixelRouteTracker.js for the full strategy):
+    //   - GA          -> eager via the gtag preset (auto SPA tracking)
+    //   - Meta Pixel  -> eager via the inline snippet in headTags; SPA re-fire
+    //                    from the client module
+    //   - Clarity + Apollo -> lazy, on first user interaction (client module)
+    //   - Hotjar      -> removed
+    // keploy's own first-party telemetry (~2 KiB) stays eager below.
     {
       src: "https://telemetry.keploy.io/sessions/sdk.js",
       async: true,
@@ -540,16 +561,6 @@ fbq('track', 'PageView');`,
       "data-endpoint": "https://telemetry.keploy.io/sessions/collect",
       "data-source": "docs",
     },
-    /*{
-      src: "/docs/scripts/chat.js",
-      async: true,
-      defer: true,
-    },
-     {
-       src: "/scripts/fullstory.js",
-       async: true,
-       defer: true,
-     },*/
   ],
 };
 

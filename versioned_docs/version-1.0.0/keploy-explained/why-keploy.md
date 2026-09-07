@@ -24,4 +24,4 @@ Keploy will test the new version of application with thousands of test cases wit
 
 Keploy has native integrations with native testing libraries like go-test, junit. Code coverage will be reported with existing plus Keploy recorded test cases and doesn't require any change in the CI/CD pipeline to integrate.
 
-![How Keploy is Different](/img/difference.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/difference.webp" alt="How Keploy is Different" width="2084" height="1072" style={{maxWidth:'100%',height:'auto'}} />

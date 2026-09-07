@@ -85,7 +85,7 @@ If you're using Keploy cloud, open [this](https://app.keploy.io/) to see capture
 
 You should be seeing an app named `sample-url-shortener` with the test cases we just captured.
 
-![Gin-Mongo-test-cases](/img/Gin-Mongo-test-cases.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Gin-Mongo-test-cases.webp" alt="Gin-Mongo-test-cases" width="1302" height="451" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! 🪄💫
 
@@ -137,7 +137,7 @@ ok      test-app-url-shortener  6.557s  coverage: 80.3% of statements in ./...
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![Gin-Mongo-test-diff](/img/Gin-Mongo-test-runs.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Gin-Mongo-test-runs.webp" alt="Gin-Mongo-test-diff" width="685" height="479" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Testing using `KEPLOY_MODE` Env Variable
 
@@ -190,4 +190,4 @@ FAIL
 
 To deep dive the problem go to test runs localhost:6789/testruns
 
-![Gin-Mongo-test-diff](/img/Gin-Mongo-test-diff.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Gin-Mongo-test-diff.webp" alt="Gin-Mongo-test-diff" width="749" height="348" style={{maxWidth:'100%',height:'auto'}} />

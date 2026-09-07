@@ -137,15 +137,15 @@ There are two ways to do the exchange. Pick whichever fits your workflow—they 
 
 Open the cluster's detail page in the Console. Each cluster card on the top row shows the live ingress URL; the **Get Shared Token** button sits inside that card.
 
-![Get Shared Token button on the Ingress URL card](/img/k8s-proxy-shared-token-button.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-button.webp" alt="Get Shared Token button on the Ingress URL card" width="2000" height="327" style={{maxWidth:'100%',height:'auto'}} />
 
 Clicking it opens a dialog pre-filled with the cluster's ingress URL. Paste your PAT and submit.
 
-![Exchange PAT for shared token dialog](/img/k8s-proxy-shared-token-dialog.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-dialog.webp" alt="Exchange PAT for shared token dialog" width="1348" height="718" style={{maxWidth:'100%',height:'auto'}} />
 
 On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deploymentType` returned by the proxy. Use the **Copy sharedToken** button to grab the token for your CI script or terminal.
 
-![Successful exchange showing sharedToken, ingressUrl, deploymentType](/img/k8s-proxy-shared-token-success.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-success.webp" alt="Successful exchange showing sharedToken, ingressUrl, deploymentType" width="1384" height="1030" style={{maxWidth:'100%',height:'auto'}} />
 
 The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
 

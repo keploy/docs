@@ -39,7 +39,7 @@ To add the new application to Keploy Cloud, you need to login to [Keploy Console
 
 Now let's add the setup workflow. Add your application name and the setup workflow of the application. For example in the above screenshot you can see the setup workflow script for the [sample Go application](/docs/quickstart/samples-gin/).
 
-<img src="/docs/img/keploy-cloud/keploy-cloud-new-app.png" alt="Add Keploy application"/>.
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/keploy-cloud-new-app.webp" alt="Add Keploy application" width="5030" height="2584" />.
 
 ### Step 3: Edit Keploy Configuration
 

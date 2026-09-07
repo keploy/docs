@@ -50,7 +50,7 @@ Overall, stubs are a valuable tool for software development and testing. They ca
 
 Keploy can generate dependency stubs in addition to the testcases by recording your application network calls making your testing process not only faster than unit tests but also incredibly efficient.
 
-<img src="https://keploy.io/docs/gif/record-replay.gif?raw=true" alt="Keploy recording API calls and replaying them using generated stubs"/>
+<video autoPlay loop muted playsInline width="800" height="348" style={{maxWidth:'100%',height:'auto'}} aria-label="Keploy recording API calls and replaying them using generated stubs" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/record-replay-poster.webp"><source src="/docs/gif/record-replay.mp4" type="video/mp4" /></video>
 
 Since the data stubs are generated based on the real-time capturing of API calls from your application, they will be from real-world scenarios. This can help to ensure that the mock data is accurate and that it represents the real data as closely as possible. As well as, it makes the data maintenance process easier by providing a same environment for testing. This can help to identify the source of bugs more easily.
 

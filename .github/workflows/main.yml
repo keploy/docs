@@ -51,7 +51,7 @@ jobs:
           dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
           invalidation: /docs*
           delete-removed: true
-          cache: "public, max-age:86400"
+          cache: "public, max-age=86400"
           private: true
 
       - name: Submit docs URLs to IndexNow

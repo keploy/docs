@@ -3,23 +3,31 @@
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-        { "key": "X-Content-Type-Options", "value": "nosniff" },
-        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" }
+        {"key": "X-Frame-Options", "value": "SAMEORIGIN"},
+        {"key": "X-Content-Type-Options", "value": "nosniff"},
+        {"key": "Referrer-Policy", "value": "strict-origin-when-cross-origin"},
+        {
+          "key": "Permissions-Policy",
+          "value": "camera=(), microphone=(), geolocation=()"
+        },
+        {
+          "key": "Strict-Transport-Security",
+          "value": "max-age=63072000; includeSubDomains; preload"
+        },
+        {"key": "Cross-Origin-Opener-Policy", "value": "same-origin"},
+        {
+          "key": "Content-Security-Policy-Report-Only",
+          "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://www.google-analytics.com https://connect.facebook.net https://www.clarity.ms https://*.clarity.ms https://telemetry.keploy.io https://assets.apollo.io https://*.algolia.net https://*.algolianet.com; style-src 'self' 'unsafe-inline'; font-src 'self' data:; img-src 'self' data: https:; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://connect.facebook.net https://www.facebook.com https://*.clarity.ms https://telemetry.keploy.io https://keploy.io https://assets.apollo.io https://*.algolia.net https://*.algolianet.com; frame-src 'self' https://www.youtube.com https://www.youtube-nocookie.com; require-trusted-types-for 'script'; upgrade-insecure-requests"
+        }
       ]
     },
     {
       "source": "/docs/1.0.0/(.*)",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
+      "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]
     },
     {
       "source": "/docs/2.0.0/(.*)",
-      "headers": [
-        { "key": "X-Robots-Tag", "value": "noindex, nofollow" }
-      ]
+      "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]
     }
   ]
 }

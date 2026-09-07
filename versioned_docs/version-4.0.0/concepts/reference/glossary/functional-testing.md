@@ -26,7 +26,7 @@ Functional testing is typically performed by providing the software with input d
 
   <div align="center">
 
-![types of testing](../../../../../static/img/glossary/ft.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/glossary/ft.webp" alt="types of testing" width="962" height="952" style={{maxWidth:'100%',height:'auto'}} />
 
 [Functional Testing](https://keploy.io/blog/community/functional-testing-unveiling-types-and-real-world-applications)
 

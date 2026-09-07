@@ -24,11 +24,11 @@ import ProductTier from '@site/src/components/ProductTier';
 
 This guide will help you setup your application Auth in API Test Generation and Run
 
-![Keploy](../../../static/img/auth.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/auth.webp" alt="Keploy" width="2908" height="1300" style={{maxWidth:'100%',height:'auto'}} />
 
 ### 1. Login API
 
-![Keploy](../../../static/img/login-curl.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/login-curl.webp" alt="Keploy" width="2578" height="1038" style={{maxWidth:'100%',height:'auto'}} />
 
 This Auth option is for the application which provides a login API. Keploy will execute this login API when ever the auth token is required and use it in the API calls either in generation or run.
 
@@ -38,7 +38,7 @@ Cookie - Keploy will execute this API and take the cookie from response headers 
 
 ### 2. Bearer Token
 
-![Keploy](../../../static/img/jwt.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/jwt.webp" alt="Keploy" width="2674" height="898" style={{maxWidth:'100%',height:'auto'}} />
 
 This Auth option is for the application which can be authenticated using jwt token. This token is used in all the API calls that are done by Keploy to the application.
 
