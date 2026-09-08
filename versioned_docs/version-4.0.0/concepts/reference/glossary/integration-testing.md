@@ -1,8 +1,8 @@
 ---
 id: integration-testing
-title: Integration Testing With Keploy
+title: "Integration Testing: Types, Tools & Best Practices"
 sidebar_label: Integration Testing
-description: Learn how to perform integration testing using Keploy.
+description: "Learn what integration testing is, explore top-down vs bottom-up approaches, and discover tools and best practices for testing module interactions."
 tags:
   - explanation
 keywords:
@@ -148,3 +148,11 @@ Yes, Keploy can be integrated with existing unit testing frameworks. It seamless
 #### 6. What are the benefits of using Keploy for integration testing compared to traditional methods?
 
 Keploy offers numerous benefits, including automated test case generation, simplified dependency management, enhanced testing efficiency, and improved collaboration between teams. It provides a user-friendly platform that streamlines the integration testing process, even in complex systems.
+
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — precedes integration testing in the pyramid.
+- [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/) — follows integration testing across the full system.
+- [Component Testing](/docs/concepts/reference/glossary/component-testing/) — tests parts before they are integrated.
+- [Stubs](/docs/concepts/reference/glossary/stubs/) — simulate not-yet-ready modules during integration.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

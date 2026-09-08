@@ -151,3 +151,11 @@ Absolutely. gRPC's efficient binary protocol and HTTP/2 multiplexing make it ide
 ### What programming languages support gRPC?
 
 gRPC supports most major programming languages including Go, Java, Python, C++, C#, Node.js, Ruby, PHP, and many others. The Protocol Buffer compiler generates idiomatic code for each supported language.
+
+## Related Terms
+
+- [Microservice Testing](/docs/concepts/reference/glossary/microservice-testing/) — gRPC powers microservice communication.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — validates gRPC service interactions.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — stand in for gRPC dependencies in tests.
+- [Idempotency](/docs/concepts/reference/glossary/idempotency/) — key to reliable RPC retries in distributed systems.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

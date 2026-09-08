@@ -1,8 +1,8 @@
 ---
 id: black-box-testing
-title: Mastering Black Box Testing Techniques
+title: "What is Black Box Testing? Types, Techniques & Examples"
 sidebar_label: Black Box Testing
-description: Learn black box testing fundamentals, techniques like boundary value analysis, and best practices to boost software quality without needing internal code access.
+description: "Learn what black box testing is, explore key techniques like boundary value analysis and equivalence partitioning, and see real-world examples."
 tags:
   - explanation
   - Glossary
@@ -143,6 +143,14 @@ testing with Keploy:
 ## Conclusion
 
 Black-box testing is a valuable tool for ensuring the quality of software. It can be used to find a wide range of defects, and it can be performed by testers with a variety of skill levels. The best testing strategy for a particular software project will depend on the specific needs of the project. In some cases, black-box testing may be sufficient. In other cases, white-box testing may be necessary to find all the defects in the software.
+
+## Related Terms
+
+- [White Box Testing](/docs/concepts/reference/glossary/white-box-testing/) — the opposite, code-aware testing approach.
+- [Gray Box Testing](/docs/concepts/reference/glossary/gray-box-testing/) — combines black-box and white-box techniques.
+- [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — verifies behavior without internal knowledge.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — often done via black-box test cases.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQ
 
