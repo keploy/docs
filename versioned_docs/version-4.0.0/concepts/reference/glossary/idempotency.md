@@ -1,9 +1,9 @@
 ---
 id: idempotency
-title: How Idempotent REST APIs Improve Reliability
+title: "What is Idempotency in REST APIs? Complete Guide"
 
 sidebar_label: Idempotency
-description: Learn how idempotent REST APIs enhance reliability, error handling, and fault tolerance in distributed systems. Explore best practices and testing strategies.
+description: "Learn what idempotency means in REST APIs, which HTTP methods are idempotent, and how to design reliable, fault-tolerant distributed systems."
 tags:
   - explanation
   - glossary
@@ -100,6 +100,14 @@ Imagine an API that updates a user's profile using the **PUT** method. Automated
 ## Conclusion
 
 Idempotency is a foundational principle in designing reliable, scalable RESTful APIs. By ensuring that operations can be retried safely without adverse effects, idempotent APIs contribute to system consistency, error recovery, and overall performance. Implementing idempotent methods involves careful design of HTTP methods, data handling, and error recovery mechanisms. Tools like Keploy simplify this process by providing robust testing frameworks that simulate real-world conditions, ensuring that your APIs maintain their idempotency under all circumstances.
+
+## Related Terms
+
+- [Reliability Testing](/docs/concepts/reference/glossary/reliability-testing/) — idempotency underpins fault-tolerant systems.
+- [Microservice Testing](/docs/concepts/reference/glossary/microservice-testing/) — idempotency matters across service retries.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — verifies idempotent behavior end to end.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — simulate failures to test safe retries.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQ
 
