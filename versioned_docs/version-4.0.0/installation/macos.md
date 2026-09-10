@@ -19,6 +19,18 @@ Keploy now runs **natively on macOS** — you can record and replay an app that 
 
 Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic. Docker and Lima remain available if you prefer to run your app in a container.
 
+:::note Keploy Community needs a free account
+
+`keploy record` and `keploy test` sign you in before they run. The first time you use either, Keploy prints a URL and opens your browser at [app.keploy.io](https://app.keploy.io) to sign in; the session is then cached in `~/.keploy/tokens.yaml` and reused.
+
+- **No browser available** (a remote shell, a container): run with `--manual-login` and paste an API key from your Keploy dashboard when prompted.
+- **CI, or any non-interactive run**: set `KEPLOY_API_KEY` (or pass `--api-key`) and Keploy skips the sign-in prompt entirely.
+- **Offline**: the local mock loop — `keploy mock record --local` and `keploy mock replay --local` — is the one pair that runs without signing in. While you are signed out it logs a harmless `failed to validate user role` line and then runs normally. This is the mock loop, not a replacement for `keploy record` and `keploy test` — see [Mock your tests](/docs/running-keploy/mock-your-tests).
+
+A free account is enough to record and replay. Free-tier runs are subject to a usage allowance.
+
+:::
+
 👉 **Choose your preferred method:**
 
 - [Option 1: Run Keploy natively (recommended)](#option-1-run-keploy-natively)
@@ -101,7 +113,7 @@ Native macOS support covers **Go, Node.js, Python and Java** apps, including the
 7. **Verify the installation**
 
    ```bash
-   keploy version
+   keploy --version
    ```
 
 ✅ If the version shows up, Keploy is installed successfully!
@@ -134,7 +146,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 4. **Verify the installation**
 
    ```bash
-   keploy version
+   keploy --version
    ```
 
 ✅ If the version shows up, Keploy is installed successfully!
