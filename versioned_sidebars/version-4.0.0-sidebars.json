@@ -51,6 +51,7 @@
         "running-keploy/mock-quickstart",
 
         "running-keploy/mock-your-tests",
+        "running-keploy/mock-browser-tests",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
