@@ -39,7 +39,7 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 
 ## How Keploy works on Kubernetes
 
-![How Keploy works on Kubernetes architecture overview](/img/k8s-arch.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-arch.webp" alt="How Keploy works on Kubernetes architecture overview" width="1536" height="1024" style={{maxWidth:'100%',height:'auto'}} />
 
 ---
 
@@ -250,7 +250,7 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 ✅ Once deployments are visible, you can start **recording on any Pod** and later **replay**.
 
-![Keploy Kubernetes Interface](/img/k8s-local-cluster-ui.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-local-cluster-ui.webp" alt="Keploy Kubernetes Interface" width="2726" height="1442" style={{maxWidth:'100%',height:'auto'}} />
 
 ---
 

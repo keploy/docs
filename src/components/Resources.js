@@ -53,6 +53,7 @@ export const Resources = () => {
             {link.type === "article" ? (
               // Article Link Icon
               <svg
+                aria-hidden="true"
                 className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -67,6 +68,7 @@ export const Resources = () => {
             ) : (
               // Other Link Icon (e.g., video, documentation)
               <svg
+                aria-hidden="true"
                 className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
