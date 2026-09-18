@@ -21,6 +21,18 @@ Keploy runs **natively on Windows** — you can record and replay an app that ru
 
 Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.
 
+:::note Keploy Community needs a free account
+
+`keploy record` and `keploy test` sign you in before they run. The first time you use either, Keploy prints a URL and opens your browser at [app.keploy.io](https://app.keploy.io) to sign in; the session is then cached in `%USERPROFILE%\.keploy\tokens.yaml` and reused.
+
+- **No browser available** (a remote shell, a container): run with `--manual-login` and paste an API key from your Keploy dashboard when prompted.
+- **CI, or any non-interactive run**: set `KEPLOY_API_KEY` (or pass `--api-key`) and Keploy skips the sign-in prompt entirely.
+- **Offline**: the local mock loop — `keploy mock record --local` and `keploy mock replay --local` — is the one pair that runs without signing in. While you are signed out it logs a harmless `failed to validate user role` line and then runs normally. This is the mock loop, not a replacement for `keploy record` and `keploy test` — see [Mock your tests](/docs/running-keploy/mock-your-tests).
+
+A free account is enough to record and replay. Free-tier runs are subject to a usage allowance.
+
+:::
+
 👉 **Choose your preferred method:**
 
 - [Option 1: Run Keploy natively (recommended)](#option-1-run-keploy-natively)
@@ -31,7 +43,32 @@ Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and 
 
 ## Option 1: Run Keploy natively
 
-1. **Install Keploy** — download the Windows build from the [releases page](https://github.com/keploy/keploy/releases) (or your Keploy distribution) and put `keploy.exe` on your `PATH`.
+1. **Install Keploy.** The quickest route is Git Bash, which installs the Community build and puts it on your `PATH` for you:
+
+   ```bash
+   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   ```
+
+   Or download it manually in PowerShell:
+
+   ```powershell
+   $ProgressPreference = 'SilentlyContinue'
+   $dir = "$env:USERPROFILE\.keploy\bin"
+   New-Item -ItemType Directory -Force $dir | Out-Null
+   Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
+     -OutFile "$dir\keploy.exe"
+   Unblock-File "$dir\keploy.exe"
+   $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+   if ($userPath -notlike "*$dir*") {
+     [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+   }
+   ```
+
+   Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`.
+
+   **Use the Community build for native Windows.** Native Windows interception ships in the Community build that both routes above install. Its download is named `enterprise_windows_amd64.exe` for historical reasons — a free account is all you need. The `keploy_windows_amd64` asset on the [GitHub releases page](https://github.com/keploy/keploy/releases) is a different, OSS build that intercepts with eBPF and so refuses a native Windows run with _"not supported by this build of Keploy"_. Use that asset only if you are running Keploy inside Docker.
+
+   **If Windows blocks the download.** The Windows build is not yet code-signed, so SmartScreen may show "Windows protected your PC" on first run. The `Unblock-File` line above clears the download marker; if you fetched the binary another way, right-click it, choose **Properties**, and tick **Unblock**.
 
 2. **Open a terminal.** An ordinary PowerShell or Terminal window is enough — Keploy does not need to run elevated.
 
@@ -99,7 +136,7 @@ If you already have WSL, Go to Step 2.
 3. **Verify Installation**
 
    ```bash
-   keploy version
+   keploy --version
    ```
 
    ✅ If you see the version number, Keploy is installed successfully!
@@ -132,7 +169,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 4. **Verify the installation**
 
    ```bash
-   keploy version
+   keploy --version
    ```
 
 ✅ If the version shows up, Keploy is installed successfully!
