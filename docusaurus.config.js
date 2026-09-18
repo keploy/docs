@@ -68,6 +68,37 @@ module.exports = {
         href: "https://keploy.io/",
       },
     },
+    // Algolia search
+    {
+      tagName: "link",
+      attributes: {
+        rel: "preconnect",
+        href: "https://WZTL8PLCOD-dsn.algolia.net",
+        crossorigin: "anonymous",
+      },
+    },
+    // Analytics (dns-prefetch only — not render-blocking)
+    {
+      tagName: "link",
+      attributes: {
+        rel: "dns-prefetch",
+        href: "https://www.clarity.ms",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "dns-prefetch",
+        href: "https://www.googletagmanager.com",
+      },
+    },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "dns-prefetch",
+        href: "https://www.google-analytics.com",
+      },
+    },
     // Site-wide entity graph (Organization, WebSite, SoftwareApplication).
     // These used to be three sibling <script> blocks, each re-declaring its
     // own publisher, which left several disconnected Organization nodes on
