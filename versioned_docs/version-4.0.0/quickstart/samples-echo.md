@@ -72,7 +72,7 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
 go mod download
 ```
 
-#### First things first, update the postgres host on line 41 in main.go to postgres from localhost.
+#### First things first, update the postgres host on line 47 in main.go to postgres from localhost.
 
 We will be using Docker compose to run the application as well as Postgres
 
@@ -172,7 +172,7 @@ Using the docker-compose file we will start our Postgres instance:-
 docker-compose up postgres
 ```
 
-> **Since we are using docker to run the application, we need to update the `postgres` host on line 41 in `main.go`, update the host to `localhost`.**
+> **Since we are using docker to run the application, we need to update the `postgres` host on line 47 in `main.go`, update the host to `localhost`.**
 
 Now, we will create the binary of our application:-
 
