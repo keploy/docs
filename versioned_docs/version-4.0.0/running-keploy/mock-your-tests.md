@@ -31,6 +31,16 @@ so your test code needs **no SDK and no changes**.
 
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
+:::info Running a browser suite?
+
+A Playwright suite is a different shape: the recorded responses are what your
+specs assert on, so one test reaching another test's mock is a false pass rather
+than a harmless substitution. That flow — per-test identity, branch-scoped
+publishing, and re-recording a single test — is covered in
+[Mock a Browser Test Suite (Playwright)](./mock-browser-tests.md).
+
+:::
+
 ## Quick start
 
 ```bash
@@ -42,8 +52,10 @@ keploy mock replay -c "pytest"
 ```
 
 The mocks are written to `keploy/default/mocks.yaml`. Commit them like a VCR
-cassette. Re-recording overwrites the set **in place**, so a "re-record on merge
-to main" job produces a clean, reviewable diff.
+cassette. Re-recording replaces the whole set **in place**, so a "re-record on
+merge to main" job produces a clean, reviewable diff. To keep the set and
+replace only the tests one run exercises, add `--partial` — see
+[re-recording one test](./mock-browser-tests.md#3-re-record-one-test).
 
 ```bash
 # go test
@@ -59,19 +71,20 @@ keploy mock replay -c "npm test" --name orders
 
 When an outgoing call matches no recorded mock, `--on-miss` decides what happens:
 
-| `--on-miss`      | Behaviour                                                                                                       |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| `fail` (default) | The call gets an error (deterministic); the run fails.                                                          |
-| `passthrough`    | The call goes to the **real** dependency; nothing is persisted.                                                 |
-| `record`         | The call goes to the real dependency **and is appended** to the set (VCR "new episodes") — incremental refresh. |
+| `--on-miss`      | Behaviour                                                                                                                                                                 |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `fail` (default) | The call gets an error (deterministic); the run fails.                                                                                                                    |
+| `passthrough`    | The call goes to the **real** dependency; nothing is persisted.                                                                                                           |
+| `record`         | The call goes to the real dependency **and is appended** to the set (VCR "new episodes") — incremental refresh. Local development only: do not publish a set it produced. |
 
 ```bash
 # A new test hit a new endpoint? Capture just that call and keep it:
 keploy mock replay -c "pytest" --on-miss record
 ```
 
-Add `--strict` to fail the run if any _recorded_ mock was **missed** (a dependency
-contract drifted), even when the tests themselves passed.
+Add `--strict` to exit non-zero when any outgoing call matched **no** recording,
+even when the tests themselves passed — a dependency contract drifted, or the
+set is stale.
 
 ## Per-test scoping (optional)
 
@@ -85,9 +98,15 @@ POST  {KEPLOY_MOCK_AGENT}/agent/scope/begin   {"name": "<test name>", "pid": <wo
 POST  {KEPLOY_MOCK_AGENT}/agent/scope/end     {"name": "<test name>", "pid": <worker pid>}
 ```
 
-At record time this writes a per-test `mappings.yaml`; at replay time it restricts
-the served pool to that test's mocks. No scope calls ⇒ suite-level, which is still
-correct.
+At record time this attributes each captured mock to the test that was running;
+at replay time it narrows the served pool to that test's mocks. No scope calls ⇒
+suite-level, which is still correct.
+
+A test that the set has **no** recording for falls back to the whole pool. That is
+deliberate for integration testing, where one recording answering another test's
+request is harmless. Pass `--strict-scope` at replay time to serve such a test
+nothing instead — see
+[strict scoping](./mock-browser-tests.md#strict-scoping).
 
 :::tip Parallel workers
 Include your **worker's PID** as `pid` (e.g. Node `process.pid`, Python
@@ -158,8 +177,14 @@ const post = (path, name) =>
     body: JSON.stringify({name, pid: process.pid}),
   }).catch(() => {});
 
-test.beforeEach(({}, testInfo) => post("/agent/scope/begin", testInfo.title));
-test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
+// titlePath, not title: bare titles collide across spec files, and the
+// recording is keyed on this string.
+const testName = (testInfo) => testInfo.titlePath.join(" > ");
+
+test.beforeEach(({}, testInfo) =>
+  post("/agent/scope/begin", testName(testInfo))
+);
+test.afterEach(({}, testInfo) => post("/agent/scope/end", testName(testInfo)));
 ```
 
 ## Platforms

@@ -142,7 +142,9 @@ spec:
 ```
 
 Commit `keploy/` to your repo like a VCR cassette. Re-recording the same set
-**overwrites it in place**, so refreshing on a merge to `main` is a clean diff.
+**replaces it in place**, so refreshing on a merge to `main` is a clean diff. Add
+`--partial` to keep the set and replace only the tests that run — see
+[Mock a Browser Test Suite](./mock-browser-tests.md#3-re-record-one-test).
 
 ## Step 3 — replay with the dependency off
 
@@ -182,7 +184,8 @@ def test_pro_plan_price():
 
 Start the dependency again and replay with `--on-miss record`. Known calls are
 served from mocks; the new `/plans/pro` call goes to the real API **and is
-appended** to the set:
+appended** to the set. This is a local development affordance — re-record the
+set properly before you publish it anywhere:
 
 ```bash
 keploy mock replay -c "python3 -m pytest -q" --on-miss record
@@ -237,3 +240,6 @@ keploy mock replay -c "docker compose run --rm tests"
 
 - Full reference, `--strict`, and the per-test **scope API** (isolate mocks per
   test from pytest/go/jest): [Mock Your Own Tests](./mock-your-tests.md).
+- Running a Playwright suite with no backend at all, and re-recording one failing
+  test on your own branch:
+  [Mock a Browser Test Suite (Playwright)](./mock-browser-tests.md).
