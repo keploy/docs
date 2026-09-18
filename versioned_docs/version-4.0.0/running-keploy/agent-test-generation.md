@@ -114,7 +114,7 @@ Add to your Claude Code MCP settings (`~/.claude.json` or project-level). Note: 
       "type": "http",
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
-        "Authorization": "Bearer kep_YOUR_API_KEY"
+        "Authorization": "Bearer <YOUR_KEPLOY_API_KEY>"
       }
     }
   }
@@ -137,7 +137,7 @@ Cursor supports MCP servers. Add to your Cursor MCP configuration (`.cursor/mcp.
     "keploy": {
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
-        "Authorization": "Bearer kep_YOUR_API_KEY"
+        "Authorization": "Bearer <YOUR_KEPLOY_API_KEY>"
       }
     }
   }
@@ -158,7 +158,7 @@ GitHub Copilot supports MCP in agent mode. Add to `.github/copilot-mcp.json` in 
     "keploy": {
       "url": "https://api.keploy.io/client/v1/mcp",
       "headers": {
-        "Authorization": "Bearer kep_YOUR_API_KEY"
+        "Authorization": "Bearer <YOUR_KEPLOY_API_KEY>"
       }
     }
   }
@@ -175,7 +175,7 @@ Antigravity (formerly Windsurf) supports MCP servers. Add to your Antigravity MC
     "keploy": {
       "serverUrl": "https://api.keploy.io/client/v1/mcp",
       "headers": {
-        "Authorization": "Bearer kep_YOUR_API_KEY"
+        "Authorization": "Bearer <YOUR_KEPLOY_API_KEY>"
       }
     }
   }
@@ -209,7 +209,7 @@ Ask your agent:
 
 > "Use the Keploy MCP tools to find apps with recorded traffic, fetch the recordings, and use them as examples to generate comprehensive API tests"
 
-The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods. The examples above use `Authorization: Bearer kep_...`, but you can also use `X-API-Key: kep_...` as an alternative (replace the `Authorization` header with `"X-API-Key": "kep_YOUR_API_KEY"` in the config). See the [Public API docs](/docs/running-keploy/public-api/) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
+The MCP endpoint uses the same API key as the REST API and accepts the same two authentication methods. The examples above use `Authorization: Bearer kep_...`, but you can also use `X-API-Key: kep_...` as an alternative (replace the `Authorization` header with `"X-API-Key": "<YOUR_KEPLOY_API_KEY>"` in the config). See the [Public API docs](/docs/running-keploy/public-api/) for details. All tools proxy to `/client/v1` endpoints using the caller's credentials.
 
 ## Workflow
 
