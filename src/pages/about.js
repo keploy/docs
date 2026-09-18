@@ -1,9 +1,15 @@
 import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
+import {
+  DOCS_URL,
+  organizationRef,
+  websiteRef,
+  breadcrumbList,
+} from "../schema/siteEntities";
 
 // Custom React pages under src/pages/ are not covered by the docs schema
-// plugin — add Article + BreadcrumbList JSON-LD inline so the page is
+// plugin — add AboutPage + BreadcrumbList JSON-LD inline so the page is
 // machine-readable for search engines and AI crawlers.
 //
 // Site config sets `trailingSlash: true`, so canonical URLs in the JSON-LD
@@ -21,65 +27,27 @@ const ABOUT_TITLE = "About the Keploy Documentation";
 const ABOUT_DESCRIPTION =
   "Information about Keploy's documentation, contribution guidelines, and licensing.";
 
-// Derive every canonical URL from a single `SITE` + path constants instead
-// of hardcoding `https://keploy.io/docs/...` in each field — mirrors the
-// pattern in concepts/reference/glossary.js. If the domain or docs baseUrl
-// ever changes, the Article/BreadcrumbList structured data updates in one
-// place instead of going stale field-by-field.
-//
-// Site config sets `trailingSlash: true`, so paths that map to a page carry
-// a trailing slash to match the canonical href and avoid duplicate-URL
-// variants in structured data.
-const SITE = "https://keploy.io";
-const HOME_URL = `${SITE}/`;
-const DOCS_URL = `${SITE}/docs/`;
-const ABOUT_URL = `${SITE}/docs/about/`;
-const LOGO_URL = `${SITE}/docs/img/favicon.png`;
+// Canonical URLs derive from the shared site constants so the domain and
+// docs baseUrl live in one place. Site config sets `trailingSlash: true`, so
+// paths that map to a page carry a trailing slash to match the canonical href
+// and avoid duplicate-URL variants in structured data.
+const ABOUT_URL = `${DOCS_URL}about/`;
 
 const aboutStructuredData = [
   {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: ABOUT_TITLE,
+    // AboutPage rather than Article: this is standing information about the
+    // documentation itself (SLA, contribution, licensing), with no author,
+    // byline or publication date for an Article to carry.
+    "@type": "AboutPage",
+    "@id": ABOUT_URL,
+    name: ABOUT_TITLE,
     description: ABOUT_DESCRIPTION,
     url: ABOUT_URL,
-    publisher: {
-      "@type": "Organization",
-      name: "Keploy",
-      logo: {
-        "@type": "ImageObject",
-        url: LOGO_URL,
-      },
-    },
-    mainEntityOfPage: {
-      "@type": "WebPage",
-      "@id": ABOUT_URL,
-    },
+    isPartOf: websiteRef,
+    publisher: organizationRef,
   },
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    itemListElement: [
-      {
-        "@type": "ListItem",
-        position: 1,
-        name: "Home",
-        item: HOME_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 2,
-        name: "Docs",
-        item: DOCS_URL,
-      },
-      {
-        "@type": "ListItem",
-        position: 3,
-        name: "About",
-        item: ABOUT_URL,
-      },
-    ],
-  },
+  breadcrumbList([{name: "About", item: ABOUT_URL}]),
 ];
 
 function About() {

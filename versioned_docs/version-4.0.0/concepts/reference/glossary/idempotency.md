@@ -78,16 +78,16 @@ While **idempotent** methods guarantee the same outcome when repeated, **safe** 
 ### How Keploy Ensures Idempotency
 
 - **Automated Test Cases for Idempotent Operations:**  
-   Keploy lets you create tests that simulate repeated API requests under various conditions—such as network failures, timeouts, or duplicate submissions—to confirm that operations like **PUT**, **DELETE**, and **GET** remain consistent.
+  Keploy lets you create tests that simulate repeated API requests under various conditions—such as network failures, timeouts, or duplicate submissions—to confirm that operations like **PUT**, **DELETE**, and **GET** remain consistent.
 
 - **Simulating Failures and Retrying Requests:**  
-   By simulating transient network issues or service unavailability, Keploy verifies that retry logic does not cause multiple, unintended modifications to the system.
+  By simulating transient network issues or service unavailability, Keploy verifies that retry logic does not cause multiple, unintended modifications to the system.
 
 - **Request and Response Pairing:**  
-   Keploy tracks request-response pairs to ensure that each repeated request produces an identical outcome, validating the correct handling of idempotent tokens (like UUIDs).
+  Keploy tracks request-response pairs to ensure that each repeated request produces an identical outcome, validating the correct handling of idempotent tokens (like UUIDs).
 
 - **Advanced Mocking and Stubbing:**  
-   With Keploy’s capabilities, you can simulate external service interactions, allowing you to test the idempotency of your APIs in isolation and under specific failure conditions.
+  With Keploy’s capabilities, you can simulate external service interactions, allowing you to test the idempotency of your APIs in isolation and under specific failure conditions.
 
 ### Example Use Case
 
@@ -100,6 +100,14 @@ Imagine an API that updates a user's profile using the **PUT** method. Automated
 ## Conclusion
 
 Idempotency is a foundational principle in designing reliable, scalable RESTful APIs. By ensuring that operations can be retried safely without adverse effects, idempotent APIs contribute to system consistency, error recovery, and overall performance. Implementing idempotent methods involves careful design of HTTP methods, data handling, and error recovery mechanisms. Tools like Keploy simplify this process by providing robust testing frameworks that simulate real-world conditions, ensuring that your APIs maintain their idempotency under all circumstances.
+
+## Related Terms
+
+- [Reliability Testing](/docs/concepts/reference/glossary/reliability-testing/) — idempotency underpins fault-tolerant systems.
+- [Microservice Testing](/docs/concepts/reference/glossary/microservice-testing/) — idempotency matters across service retries.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — verifies idempotent behavior end to end.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — simulate failures to test safe retries.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQ
 

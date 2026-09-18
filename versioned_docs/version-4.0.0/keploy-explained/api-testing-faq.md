@@ -1,6 +1,6 @@
 ---
 id: api-testing-faq
-title: API Testing – Frequently Asked Questions
+title: API Testing — Frequently Asked Questions
 sidebar_label: FAQs
 description: Answers to the most common questions about API testing with Keploy.
 tags:
@@ -16,11 +16,11 @@ Let's get to the heart of Keploy API Testing with some fun Q&A!
 
 Keploy automatically creates:
 
-- **Functional Tests** – CRUD operations, endpoint validation
-- **Edge Case Tests** – Invalid payloads, error responses
-- **Performance Tests** – Response time checks
-- **Security Tests** – Input sanitization, auth validation
-- **Dependency Tests** – Mocked external service calls
+- **Functional Tests** — CRUD operations, endpoint validation
+- **Edge Case Tests** — Invalid payloads, error responses
+- **Performance Tests** — Response time checks
+- **Security Tests** — Input sanitization, auth validation
+- **Dependency Tests** — Mocked external service calls
 
 ### 2. How does Keploy handle authentication in API tests?
 
@@ -32,6 +32,8 @@ Keploy supports:
 - **Secure Storage:** No raw credentials stored—uses environment variables
 
 ### 3. What protocols and formats does Keploy support?
+
+Keploy supports HTTP/HTTPS (JSON and XML), gRPC (Protocol Buffers), WebSockets (JSON and binary), and GraphQL (queries and mutations). The full support matrix is below:
 
 | Protocol   | Formats          | Features          |
 | ---------- | ---------------- | ----------------- |
@@ -102,3 +104,10 @@ Have questions or need a security report for your team? [Contact us!](mailto:sup
 Your code, your data, your control. 🔐
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Integration Testing FAQ](/docs/keploy-explained/integration-testing-faq/) — questions on integration testing.
+- [Unit Testing FAQ](/docs/keploy-explained/unit-testing-faq/) — questions on unit test generation.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — the architecture behind API testing.
+- [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — fix common recording and replay errors.

@@ -322,3 +322,10 @@ To add Keploy to an existing ArgoCD setup, you need:
 | Kubernetes Secret  | `kubectl create secret` (manual) | Access key for Keploy cloud authentication  |
 
 Your existing application code, manifests, and ArgoCD Applications remain **completely untouched**. Keploy works alongside your app—not inside it.
+
+## Related
+
+- [Deploy Keploy with Flux CD](/docs/keploy-cloud/gitops-flux/) — the same deployment with Flux GitOps.
+- [Kubernetes Setup](/docs/keploy-cloud/kubernetes/) — prerequisite cluster and k8s-proxy setup.
+- [Kubernetes Local Setup (Kind)](/docs/keploy-cloud/kubernetes-local-setup/) — spin up a local Kind cluster.
+- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install the Enterprise agent.

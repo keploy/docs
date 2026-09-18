@@ -106,3 +106,10 @@ Using Keploy for performance testing offers several benefits:
 - **Early Detection**: Identifies performance issues early in the development cycle, reducing the risk of critical problems in production.
 
 By leveraging Keploy, teams can streamline their performance testing process, enhance test accuracy, and ensure that their software delivers optimal performance in real-world conditions.
+
+## Related Terms
+
+- [Load Testing](/docs/concepts/reference/glossary/load-testing/) — a key type of performance testing under expected load.
+- [Reliability Testing](/docs/concepts/reference/glossary/reliability-testing/) — extends performance checks to long-term stability.
+- [Observability Testing](/docs/concepts/reference/glossary/observability-testing/) — capture metrics during performance runs.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

@@ -74,6 +74,13 @@ On the other hand, automated regression testing provides consistent, repeatable,
 
 Ultimately, the decision should consider the specific needs of the project, balancing the benefits of human judgment in manual testing with the efficiency and scalability offered by automation. Many teams opt for a hybrid approach, combining both methods to maximize test coverage and effectiveness throughout the software development lifecycle.
 
+## Related Terms
+
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate regression suites for faster releases.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — unit tests catch regressions early.
+- [Visual Regression Testing](/docs/concepts/reference/glossary/visual-regression-testing/) — detect unintended UI changes.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### What is regression testing and why is it important?

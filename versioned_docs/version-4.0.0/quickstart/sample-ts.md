@@ -336,3 +336,9 @@ This is what your response should look like!
 🎉 **Congratulations on Reaching This Milestone!** 🎉
 
 You've successfully tested the tool and created your mocks and test cases—fantastic work! Now that you've laid a solid foundation, it's time to elevate your achievements even further.
+
+## Related
+
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — a related Node/JS sample.
+- [BunJS Sample Application](/docs/quickstart/samples-bunjs/) — TypeScript-friendly Bun runtime.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS/TS quickstarts.

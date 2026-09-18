@@ -34,3 +34,9 @@ Think of it as checking each LEGO brick before building the whole castle.
 - **Flaky Tests:** Unstable tests that sometimes pass, sometimes fail (super annoying).
 - **Coverage Gaps:** Missing tests for edge cases or tricky logic.
 - **Maintenance:** Keeping tests up to date as code evolves.
+
+## Related
+
+- [Unit Test Architecture](/docs/running-keploy/unit-test-architecture/) — how Keploy builds unit tests.
+- [Keploy Unit Test Generator](/docs/running-keploy/unit-test-generator/) — generate unit tests automatically.
+- [What is API testing?](/docs/running-keploy/about-api-testing/) — compare with API testing basics.

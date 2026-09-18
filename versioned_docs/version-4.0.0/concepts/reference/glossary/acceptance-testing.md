@@ -69,6 +69,14 @@ To ensure the effectiveness of acceptance testing, consider the following best p
 
 Acceptance testing is a critical step in the software development process, ensuring that the product is ready for deployment and meets the user's needs. By following best practices and involving key stakeholders, organizations can deliver high-quality software that satisfies customer expectations.
 
+## Related Terms
+
+- [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/) — validates complete user flows before release.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — precedes acceptance testing in the cycle.
+- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — defines acceptance criteria in plain language.
+- [Software Testing Life Cycle](/docs/concepts/reference/glossary/software-testing-life-cycle/) — where acceptance testing fits overall.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### What is the difference between UAT and Systematic Testing?

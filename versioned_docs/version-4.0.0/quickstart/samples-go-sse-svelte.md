@@ -124,3 +124,9 @@ Output should look like : -
 ![Testrun](https://github.com/keploy/samples-go/raw/main/sse-svelte/img/testrun.png?raw=true)
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MongoDb 😄**. And with just few clicks we were able to get 42% code coverage of our go backend application.
+
+## Related
+
+- [Sample URL Shortener App (Golang)](/docs/quickstart/samples-gin/) — another Go + Gin sample.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Go + SQL sample.
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse all Go quickstarts.

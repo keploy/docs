@@ -151,6 +151,13 @@ Visual regression testing continues to evolve as applications become more comple
 
 **Performance-Aware Visual Testing**: Future visual regression testing will integrate performance considerations, ensuring that visual quality improvements don't come at the expense of application performance.
 
+## Related Terms
+
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — visual regression is a specialized form of it.
+- [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — complements visual checks with behavior validation.
+- [Component Testing](/docs/concepts/reference/glossary/component-testing/) — test isolated UI components visually.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### Q: Can Keploy handle dynamic content and API-dependent visual states in regression testing?

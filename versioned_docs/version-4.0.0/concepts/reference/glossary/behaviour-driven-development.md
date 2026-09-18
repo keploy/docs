@@ -174,6 +174,14 @@ Popular BDD tools include:
 
 Behavior Driven Development (BDD) is a collaborative Agile methodology that improves communication among developers, testers, and business stakeholders. By focusing on user stories and scenarios written in plain language, BDD ensures that software meets real user needs and business objectives. With the support of BDD tools like Cucumber, Behave, and SpecFlow, teams can automate tests, integrate them into CI/CD pipelines, and maintain living documentation of system behavior. Although BDD requires commitment and may involve a learning curve, its benefits in improving collaboration, testability, and software quality make it a valuable addition to modern development practices.
 
+## Related Terms
+
+- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — BDD evolves from the TDD approach.
+- [Cucumber Testing](/docs/concepts/reference/glossary/cucumber-testing/) — popular tool for automating BDD scenarios.
+- [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — BDD scenarios double as acceptance criteria.
+- [Agile Unit Testing](/docs/concepts/reference/glossary/agile-unit-testing/) — BDD is an Agile collaboration methodology.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs about Behavior Driven Development (BDD)
 
 ### 1. What is Behavior Driven Development (BDD)?

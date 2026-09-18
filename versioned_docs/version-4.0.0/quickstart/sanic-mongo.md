@@ -196,3 +196,9 @@ This is how your terminal would look like :
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-test-sanic-python.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response
+
+## Related
+
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — another Python async API.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python + Mongo CRUD.
+- [Sample Python Apps](/docs/quickstart/python-filter/) — browse all Python quickstarts.

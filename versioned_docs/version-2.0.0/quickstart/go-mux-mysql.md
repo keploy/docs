@@ -109,7 +109,7 @@ curl --request GET http://localhost:8080/all
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
 
-![Testcase](/img/mux-mysql-keploy-record.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-record.webp" alt="Testcase" width="2086" height="1476" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! ✨💫
 
@@ -125,7 +125,7 @@ keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-ne
 
 output should look like
 
-![Testrun](/img/mux-mysql-keploy-tests.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-tests.webp" alt="Testrun" width="2316" height="1494" style={{maxWidth:'100%',height:'auto'}} />
 
 So no need to setup fake database/apis MySQL or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MySQL 😄**
 

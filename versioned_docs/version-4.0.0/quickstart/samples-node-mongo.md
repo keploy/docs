@@ -3,7 +3,7 @@ id: crud-nodejs
 title: Node.js MongoDB Sample
 sidebar_label: NodeJS - Express + Mongoose
 hide_title: true
-description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
+description: Record and replay API tests for a Node.js + MongoDB CRUD app with Keploy — capture real traffic and generate testcases with mocks.
 tags:
   - javascript
   - nodejs
@@ -295,3 +295,9 @@ npm run coverage
 Congratulations! You've conquered Keploy and unleashed its power for effortless testing in your NodeJS application. With Jest by your side, you can ensure rock-solid code coverage. Time to go forth and build amazing things! 🧑🏻‍💻
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — Express + Mongoose variant.
+- [sample course selling api (express)](/docs/quickstart/express-mongoose-application/) — another Express + Mongo app.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS quickstarts.

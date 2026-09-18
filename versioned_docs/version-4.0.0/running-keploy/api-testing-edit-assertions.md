@@ -29,7 +29,6 @@ Editing a test suite allows you to:
 
 This gives you fine-grained control over how your APIs are validated.
 
-
 ## Accessing Test Suite Edit Mode
 
 ### Step 1: Navigate to Test Suites
@@ -64,10 +63,17 @@ You can:
 - Inject variables into any field
 
 ## Editing Existing Assertions
+
 You can choose from multiple assertion categories:
+
 - Status Code Assertion
 - Header Assertion
 - Body / JSON Path Assertion
 - Schema Assertion
 
+## Related
 
+- [Custom Assertions](/docs/running-keploy/api-testing-custom-assertions/) — define validation rules.
+- [Functions & Schema Assertions](/docs/running-keploy/api-testing-functions/) — schema and function assertions.
+- [Edit Test Suites](/docs/running-keploy/api-testing-edit-suites/) — edit suite request details.
+- [Bulk Assertions and Schema Validation](/docs/running-keploy/api-testing-bulk-assertions/) — apply assertions in bulk.

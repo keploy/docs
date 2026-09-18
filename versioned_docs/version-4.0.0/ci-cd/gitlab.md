@@ -14,6 +14,22 @@ tags:
   - plugin
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Run Keploy API tests in GitLab CI"
+description="Add a GitLab CI job that installs Keploy and replays recorded API test suites in the pipeline."
+totalTime="PT10M"
+tools={["GitLab CI", "Keploy CLI"]}
+steps={[
+{name: "Define a test job", text: "Add a keploy-test-job in the test stage using an ubuntu:22.04 image."},
+{name: "Install dependencies", text: "In before_script install curl, python3, git and kernel headers, then clone your application repo."},
+{name: "Install Keploy", text: "Download the Keploy binary and place it on the PATH inside the job."},
+{name: "Run the tests", text: "Run keploy test -c \"<command to run your app>\" to replay the recorded suites."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -191,3 +207,9 @@ keploy-cloud-replay:
 Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
 
 > Because `KEPLOY_API_KEY` is defined as a masked variable in GitLab, it is already present in the job's environment — no `export` step is needed.
+
+## Related
+
+- [Integrating with GitHub CI](/docs/ci-cd/github/) — the GitHub equivalent.
+- [Integrating with Jenkins](/docs/ci-cd/jenkins/) — the Jenkins equivalent.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — API-suite CI setup.

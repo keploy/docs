@@ -606,3 +606,9 @@ B0 → B1 (`git diff origin/main...HEAD --name-only` surfaces the new route). B2
 Across every scenario, you only ever spoke one of two sentences. You push your code change (and, for Case 1, the agent's app-side edit). CI replays the branch on the PR; merge runs `keploy cloud branch-merge` and the test data lands on main.
 
 For the same flow done manually (CLI / dashboard, no agent), see [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow).
+
+## Related
+
+- [K8s Record Replay](/docs/quickstart/k8s-proxy/) — record and replay in Kubernetes.
+- [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/) — the same flow done manually.
+- [E-commerce Microservices](/docs/quickstart/samples-microservices/) — multi-service app to record.

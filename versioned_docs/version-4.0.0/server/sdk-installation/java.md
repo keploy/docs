@@ -16,6 +16,21 @@ keywords:
   - dynamic deduplication
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Set up the Keploy Java agent for dedup and coverage"
+description="Attach the Keploy and JaCoCo Java agents, then replay with dynamic deduplication enabled."
+totalTime="PT10M"
+tools={["Java", "Maven", "Keploy CLI"]}
+steps={[
+{name: "Copy the agents", text: "Use the maven-dependency-plugin to copy the Keploy Java agent and the JaCoCo agent into your build."},
+{name: "Run with both agents", text: "Start the application with the Keploy and JaCoCo javaagents attached so coverage is recorded."},
+{name: "Replay with dedup", text: "Run keploy test with dedup enabled to drop duplicate tests while replaying."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -128,3 +143,9 @@ ENV KEPLOY_JAVA_CLASS_DIRS=/app/classes
 ## CI Guidance
 
 CI should run replay/test mode against checked-in Keploy test fixtures. Do not record Java dedup fixtures in the pipeline unless you intentionally want to refresh them.
+
+## Related
+
+- [Keploy Go SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/go/) — the Go SDK.
+- [Keploy JavaScript SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/javascript/) — the JS SDK.
+- [Keploy Python SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/python/) — the Python SDK.

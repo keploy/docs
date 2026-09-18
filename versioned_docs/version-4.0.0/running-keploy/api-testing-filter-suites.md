@@ -1,7 +1,7 @@
 ---
 id: api-testing-filter-suites
 title: Using Filtering in Test Suites
-description: Guide to add filters for test suites 
+description: Filter API test suites in Keploy by labels, status, or metadata to focus a test run on the specific subset of suites you care about.
 sidebar_label: Filter Test Suites
 tags:
   - api-testing
@@ -21,11 +21,13 @@ This guide explains how to filter test suites in Keploy to quickly find and mana
 Keploy provides multiple filtering options to help you efficiently locate and organize your test suites:
 
 ### 1. Filter by Test Suite
+
 - Filter test suites by their name or identifier
 - Quickly locate specific test suites from a large collection
 - Use search functionality to find test suites by partial name matching
 
 ### 2. Filter by Status Code
+
 - Filter tests based on HTTP response status codes
 - Common status code filters:
   - **2xx Success**: 200 OK, 201 Created, 204 No Content, etc.
@@ -35,6 +37,7 @@ Keploy provides multiple filtering options to help you efficiently locate and or
 - Useful for identifying failing tests or specific response patterns
 
 ### 3. Filter by HTTP Method
+
 - Filter tests based on the HTTP request method:
   - **GET**: Retrieve data from the server
   - **POST**: Submit data to create new resources
@@ -46,6 +49,7 @@ Keploy provides multiple filtering options to help you efficiently locate and or
 - Helps organize tests by the type of operation being tested
 
 ### 4. Filter by Endpoint
+
 - Filter tests based on the API endpoint or URL path
 - Search by:
   - Full endpoint URL
@@ -62,9 +66,11 @@ Keploy provides multiple filtering options to help you efficiently locate and or
 ## Example Use Cases
 
 ### Finding Failed Tests
+
 ```
 Filter by Status Code: 4xx, 5xx
 ```
+
 This will show all tests that resulted in client or server errors.
 
 ## Benefits of Filtering
@@ -76,3 +82,10 @@ This will show all tests that resulted in client or server errors.
 - **Maintenance**: Easier to update or remove tests for specific endpoints or methods
 
 By using these filtering options, you can efficiently manage and analyze your test suites.
+
+## Related
+
+- [Adding Labels to Test Suites](/docs/running-keploy/api-testing-adding-labels/) — filter using labels.
+- [Running Selective Test Suites](/docs/running-keploy/api-testing-running-selective/) — run filtered suites.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — manage suite settings.
+- [Adding New Test Suites](/docs/running-keploy/api-testing-add-suite/) — add suites to filter.

@@ -48,6 +48,9 @@
         "running-keploy/configuration-file",
         "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
+        "running-keploy/mock-quickstart",
+
+        "running-keploy/mock-your-tests",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
@@ -56,7 +59,6 @@
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication",
         "keploy-cloud/static-deduplication",
-        "keploy-cloud/smart-set-agent",
         "keploy-cloud/cloud-replay",
         {
           "type": "category",
@@ -152,6 +154,7 @@
             "quickstart/k8s-proxy",
             "quickstart/k8s-proxy-developer-workflow",
             "quickstart/k8s-proxy-llm-workflow",
+            "keploy-cloud/smart-set-agent",
             "running-keploy/k8s-proxy-daemonset-architecture"
           ]
         },

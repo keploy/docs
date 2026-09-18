@@ -38,3 +38,10 @@ By combining different models, Keploy can generate better test cases, filter out
 - **Model Selection:** We choose models for you automatically, but always with a focus on security, reliability, and test quality.
 
 Want to learn more about how AI powers Keploy? [Contact us](mailto:support@keploy.io)
+
+## Related
+
+- [Unit Testing FAQ](/docs/keploy-explained/unit-testing-faq/) — which AI models power test generation.
+- [API Testing — Frequently Asked Questions](/docs/keploy-explained/api-testing-faq/) — how AI handles API testing.
+- [Supported Languages for Unit Testing](/docs/keploy-explained/supported-languages/) — languages our AI supports.
+- [Code Privacy & Data Protection](/docs/keploy-explained/keploy-privacy/) — your code never trains models.

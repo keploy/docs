@@ -62,3 +62,9 @@ Congratulations! You've successfully set up Keploy natively on MacOS.
 Begin recording your API calls and generating test cases with Keploy.
 
 #### [Back to Installation Guide](/docs/server/installation/)
+
+## Related
+
+- [Running Keploy Natively on Windows](/docs/keploy-explained/windows-wsl/) — the Windows setup.
+- [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — fix common install issues.
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — commands to run after install.

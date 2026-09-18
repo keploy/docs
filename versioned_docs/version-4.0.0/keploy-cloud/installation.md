@@ -71,3 +71,10 @@ b1dNl....
 ```
 
 Once the API key is successfully validated, the Keploy Enterprise Agent will begin recording API calls.
+
+## Related
+
+- [Kubernetes Setup](/docs/keploy-cloud/kubernetes/) — connect a cluster for live record and replay.
+- [Keploy Cloud Application Settings Guide](/docs/keploy-cloud/application-settings/) — add your first application.
+- [Keploy Console](/docs/keploy-cloud/keploy-console/) — visualize and edit test results.
+- [Time Freezing](/docs/keploy-cloud/time-freezing/) — keep time-sensitive tests reliable.

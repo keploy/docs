@@ -13,7 +13,7 @@ keywords:
 
 Integration testing is a software testing process that combines individual software modules into larger subsystems or components to evaluate their interactions. It is conducted after unit testing and before system testing. The primary objective of integration testing is to detect defects that occur when different modules are integrated and interact.
 
-![Testing Pyramid](/img/pyramid-cost.jpg)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/pyramid-cost.webp" alt="Testing Pyramid" width="667" height="510" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Types of Integration Testing
 
@@ -120,6 +120,14 @@ By providing a user-friendly platform with automation capabilities, Keploy simpl
 Furthermore, Keploy's native integration seamlessly integrates with development setups, eliminating the need for complex environment configuration and accelerating testing. It also fosters collaboration between teams by providing a centralized platform for recording test cases and sharing stub configurations, simplifying coordination efforts.
 
 In conclusion, Keploy empowers development teams to overcome the challenges of integration testing effectively, enabling them to deliver high-quality software with confidence and efficiency.
+
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — precedes integration testing in the pyramid.
+- [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/) — follows integration testing across the full system.
+- [Component Testing](/docs/concepts/reference/glossary/component-testing/) — tests parts before they are integrated.
+- [Stubs](/docs/concepts/reference/glossary/stubs/) — simulate not-yet-ready modules during integration.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ### FAQs
 

@@ -1,18 +1,24 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import { FaArrowRight, FaShieldAlt } from "react-icons/fa";
+import {FaArrowRight, FaShieldAlt} from "react-icons/fa";
 
 // Two core docs entry points for this section
 const cards = [
   {
     id: "how-it-works",
     title: "How it works",
-    description: "How Keploy captures behavior, validates it, and turns it into reliable tests.",
+    description:
+      "How Keploy captures behavior, validates it, and turns it into reliable tests.",
     link: "/keploy-explained/introduction",
     tone: "primary",
     icon: (
-      <svg viewBox="0 0 48 48" fill="none" className="h-12 w-12">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 48 48"
+        fill="none"
+        className="h-12 w-12"
+      >
         <circle
           cx="24"
           cy="24"
@@ -43,11 +49,17 @@ const cards = [
   {
     id: "comparison",
     title: "Keploy vs traditional testing tools",
-    description: "Where record–replay and AI-generated flows fit vs Postman, contract testing, and mocking libraries.",
+    description:
+      "Where record–replay and AI-generated flows fit vs Postman, contract testing, and mocking libraries.",
     link: "/docs/keploy-explained/why-keploy/",
     tone: "secondary",
     icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6">
+      <svg
+        aria-hidden="true"
+        viewBox="0 0 24 24"
+        fill="none"
+        className="h-6 w-6"
+      >
         <path
           d="M3 6h18M3 12h18M3 18h18"
           stroke="currentColor"
@@ -76,10 +88,20 @@ export const WhatIsKeploy = () => {
         </h2>
         {/* Narrative paragraph */}
         <p className="mx-auto mb-2 max-w-3xl text-base leading-relaxed text-gray-600 dark:text-gray-300 md:text-lg">
-          As developers, the hardest bugs were never the ones we could reproduce. They were the “works on my machine, breaks in prod” ones—because <b>real user behavior and real dependencies don’t show up in unit tests.</b>
+          As developers, the hardest bugs were never the ones we could
+          reproduce. They were the “works on my machine, breaks in prod”
+          ones—because{" "}
+          <b>
+            real user behavior and real dependencies don’t show up in unit
+            tests.
+          </b>
           <br />
           <br />
-          We struggled to <b>replicate real user behavior</b> exactly like production on the <b>leftmost part</b> of the SDLC (local dev and CI/CD regression checks). That pain is what led to Keploy: capture real API behavior (and its dependencies) and make it replayable, so tests stay reliable across environments.
+          We struggled to <b>replicate real user behavior</b> exactly like
+          production on the <b>leftmost part</b> of the SDLC (local dev and
+          CI/CD regression checks). That pain is what led to Keploy: capture
+          real API behavior (and its dependencies) and make it replayable, so
+          tests stay reliable across environments.
         </p>
       </div>
 
@@ -92,8 +114,8 @@ export const WhatIsKeploy = () => {
             id={card.id}
             className={
               card.tone === "primary"
-                ? "group relative overflow-hidden rounded-2xl border border-orange-200 bg-gradient-to-br from-white to-orange-50/30 p-6 transition-all duration-300 hover:border-orange-400 hover:shadow-lg hover:shadow-orange-100/50 hover:no-underline dark:border-orange-900/50 dark:from-gray-900 dark:to-orange-950/10 dark:hover:border-orange-500 dark:hover:shadow-orange-900/20"
-                : "group relative overflow-hidden rounded-2xl border border-purple-200 bg-gradient-to-br from-white to-purple-50/30 p-6 transition-all duration-300 hover:border-purple-400 hover:shadow-lg hover:shadow-purple-100/50 hover:no-underline dark:border-purple-900/50 dark:from-gray-900 dark:to-purple-950/10 dark:hover:border-purple-500 dark:hover:shadow-purple-900/20"
+                ? "group relative overflow-hidden rounded-2xl border border-orange-200 bg-gradient-to-br from-white to-orange-50/30 p-6 transition-all duration-300 hover:border-orange-400 hover:no-underline hover:shadow-lg hover:shadow-orange-100/50 dark:border-orange-900/50 dark:from-gray-900 dark:to-orange-950/10 dark:hover:border-orange-500 dark:hover:shadow-orange-900/20"
+                : "group relative overflow-hidden rounded-2xl border border-purple-200 bg-gradient-to-br from-white to-purple-50/30 p-6 transition-all duration-300 hover:border-purple-400 hover:no-underline hover:shadow-lg hover:shadow-purple-100/50 dark:border-purple-900/50 dark:from-gray-900 dark:to-purple-950/10 dark:hover:border-purple-500 dark:hover:shadow-purple-900/20"
             }
           >
             <div className="flex items-start gap-5">
@@ -133,7 +155,7 @@ export const WhatIsKeploy = () => {
         <div className="relative overflow-hidden rounded-2xl border border-indigo-200 bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 p-[1px] shadow-lg shadow-indigo-500/10 dark:border-indigo-900/40 dark:shadow-indigo-900/20">
           <div className="relative rounded-2xl bg-white/95 p-6 dark:bg-gray-950/60">
             <div className="absolute -right-20 -top-20 h-56 w-56 rounded-full bg-gradient-to-br from-indigo-400/30 to-pink-400/10 blur-3xl" />
-            <div className="absolute -left-24 -bottom-24 h-64 w-64 rounded-full bg-gradient-to-br from-purple-400/20 to-indigo-400/10 blur-3xl" />
+            <div className="absolute -bottom-24 -left-24 h-64 w-64 rounded-full bg-gradient-to-br from-purple-400/20 to-indigo-400/10 blur-3xl" />
 
             <div className="relative flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
               <div className="flex items-start gap-4">
@@ -145,7 +167,23 @@ export const WhatIsKeploy = () => {
                     Built for enterprise security & compliance
                   </h3>
                   <p className="mt-1 max-w-2xl text-sm text-gray-600 dark:text-gray-300">
-                    Keploy is compliant with <span className="font-semibold text-gray-800 dark:text-gray-100">SOC 2</span>, <span className="font-semibold text-gray-800 dark:text-gray-100">ISO</span>, <span className="font-semibold text-gray-800 dark:text-gray-100">GDPR</span>, and <span className="font-semibold text-gray-800 dark:text-gray-100">HIPAA</span>—with strong security controls designed for modern teams.
+                    Keploy is compliant with{" "}
+                    <span className="font-semibold text-gray-800 dark:text-gray-100">
+                      SOC 2
+                    </span>
+                    ,{" "}
+                    <span className="font-semibold text-gray-800 dark:text-gray-100">
+                      ISO
+                    </span>
+                    ,{" "}
+                    <span className="font-semibold text-gray-800 dark:text-gray-100">
+                      GDPR
+                    </span>
+                    , and{" "}
+                    <span className="font-semibold text-gray-800 dark:text-gray-100">
+                      HIPAA
+                    </span>
+                    —with strong security controls designed for modern teams.
                   </p>
 
                   <div className="mt-3 flex flex-wrap gap-2">
@@ -174,7 +212,7 @@ export const WhatIsKeploy = () => {
                   href="https://trust.keploy.io"
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:from-indigo-700 hover:to-purple-700 hover:text-white hover:shadow-indigo-500/30 hover:no-underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:shadow-indigo-900/30 dark:focus-visible:ring-offset-gray-950"
+                  className="inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-indigo-600 to-purple-600 px-5 py-3 text-sm font-semibold text-white shadow-lg shadow-indigo-500/20 transition-all hover:from-indigo-700 hover:to-purple-700 hover:text-white hover:no-underline hover:shadow-indigo-500/30 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:shadow-indigo-900/30 dark:focus-visible:ring-offset-gray-950"
                   aria-label="Visit Keploy Trust Center"
                 >
                   Trust Center
@@ -193,4 +231,3 @@ export const WhatIsKeploy = () => {
 };
 
 export default WhatIsKeploy;
-

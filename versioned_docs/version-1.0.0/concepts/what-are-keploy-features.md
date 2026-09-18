@@ -14,7 +14,7 @@ keywords:
 
 Keploy captures all the API calls and subsequent network traffic served by the application. You can use any existing API management tools like Postman, curl to generate test-case.
 
-<img src="/docs/img/record-api.gif?raw=true" width="80%" alt="API Tools"/>
+<video autoPlay loop muted playsInline width="800" height="582" style={{width:'80%',height:'auto'}} aria-label="API Tools" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/record-api-poster.webp"><source src="/docs/img/record-api.mp4" type="video/mp4" /></video>
 
 ### 2. Automatically mock Mutations
 
@@ -22,13 +22,13 @@ Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) n
 
 Data dumps, stubs or mocks for dependencies like DBs, internal services, or third party services like twilio, shopify or stripe are **not required**.
 
-<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mock-dependencies.webp" width="50%" alt="Mock Application Dependencies"/>
 
 Please check list of currently supported dependencies in [Go, Java and Node](https://keploy.io/#integrations).
 
 Keploy can safely replay writes or mutations by capturing from local or other environments and replaying without API chaining.
 
-<img src="/docs/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
+<video autoPlay loop muted playsInline width="800" height="348" style={{width:'80%',height:'auto'}} aria-label="API Tools" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/record-replay-poster.webp"><source src="/docs/gif/record-replay.mp4" type="video/mp4" /></video>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application. Multiple Reads after write operations can be replicated automatically too.
 
@@ -38,7 +38,7 @@ Keploy identifies [noisy fields](/concepts/general-glossary.md#3-noisy-field) in
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
-[//]: # '<img src="/docs/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>'
+[//]: # '<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/noise-filtration.webp" alt="Keploy noise filtration" width="2162" height="686" />'
 
 Keploy then compares if the responses of the API requests disagree with each other.
 If any of the fields of the API responses are different they are marked as random/non-deterministic fields.
@@ -49,7 +49,7 @@ Keploy has [native integrations](/concepts/general-glossary.md#4-interoperabilit
 Code coverage will be reported with existing and Keploy recorded test cases and can also be integrated in
 existing CI pipelines easily.
 
-<img src="/docs/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"/>
+<video autoPlay loop muted playsInline width="800" height="450" style={{maxWidth:'100%',height:'auto'}} aria-label="Keploy Integration with Testing Libraries" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/replay-tc-poster.webp"><source src="/docs/gif/replay-tc.mp4" type="video/mp4" /></video>
 
 ### 5. Easy Integration Framework for new Libraries
 

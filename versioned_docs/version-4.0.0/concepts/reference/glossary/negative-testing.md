@@ -107,6 +107,13 @@ The evolution of testing tools like Keploy demonstrates the growing sophisticati
 
 Success in negative testing requires a combination of systematic methodology, appropriate tooling, and continuous adaptation to emerging challenges. Organizations that invest in comprehensive negative testing approaches will be better positioned to deliver reliable, secure, and user-friendly software systems that can withstand the challenges of real-world deployment.
 
+## Related Terms
+
+- [Error Guessing](/docs/concepts/reference/glossary/error-guessing/) — experience-based way to find failure inputs.
+- [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — the positive counterpart to negative testing.
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — test invalid inputs without internal knowledge.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### 1. What is the primary difference between positive and negative testing?

@@ -145,3 +145,9 @@ If both scenarios yield a "passed" result, it signifies that this approach mirro
 <!-- To understand the internals you can refer to this [blog](blog link). -->
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
+- [Best practices for unit testing and UTG?](/docs/keploy-explained/utg-best-practices/) — practical guidance.
+- [Supported Languages for Unit Testing](/docs/keploy-explained/supported-languages/) — language coverage.

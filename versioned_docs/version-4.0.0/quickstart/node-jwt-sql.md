@@ -395,3 +395,10 @@ But wait — one test is still failing due to the time-freezing. To try out the 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse more JS samples.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — another Node.js sample.
+- [Express + PostgreSQL + Prisma Sample Application](/docs/quickstart/express-postgresql-prisma/) — another Postgres JS app.
+- [NextJs Sample Application](/docs/quickstart/samples-nextjs/) — NextJS app on Postgres.

@@ -39,7 +39,7 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 
 ## How Keploy works on Kubernetes
 
-![How Keploy works on Kubernetes architecture overview](/img/k8s-arch.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-arch.webp" alt="How Keploy works on Kubernetes architecture overview" width="1536" height="1024" style={{maxWidth:'100%',height:'auto'}} />
 
 ---
 
@@ -250,7 +250,7 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 ✅ Once deployments are visible, you can start **recording on any Pod** and later **replay**.
 
-![Keploy Kubernetes Interface](/img/k8s-local-cluster-ui.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-local-cluster-ui.webp" alt="Keploy Kubernetes Interface" width="2726" height="1442" style={{maxWidth:'100%',height:'auto'}} />
 
 ---
 
@@ -653,3 +653,9 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 ```
 
 ✅ Open the Keploy UI → **Clusters** → your cluster should show as **Connected**. You can now record and replay traffic on any deployment.
+
+## Related
+
+- [Kubernetes Local Setup (Kind)](/docs/keploy-cloud/kubernetes-local-setup/) — spin up a local Kind cluster.
+- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install the Enterprise agent.
+- [Deploy Keploy with ArgoCD](/docs/keploy-cloud/gitops-argocd/) — GitOps deployment on the cluster.

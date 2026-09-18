@@ -9,6 +9,7 @@ tags:
   - test-failures
   - troubleshooting
 ---
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -20,8 +21,8 @@ When Keploy generates tests, some test cases might fail due to various reasons s
 Navigate to the test suites generated with the red exclamation icon to view all test suites that contain failing test cases. Each buggy suite displays:
 
 - **Suite Name**: The name of the test suite containing failed tests
-- **Test Steps**: Steps in the suite 
-- **Failure Reason**: Reason why the test suite is buggy 
+- **Test Steps**: Steps in the suite
+- **Failure Reason**: Reason why the test suite is buggy
 
 ## Understanding Failure Reasons
 
@@ -30,16 +31,19 @@ For each buggy test suite, you can find the detailed explanations of why tests a
 ### 1. Endpoint Not Found (404 Errors)
 
 **Example Failure Reason:**
+
 ```
 The response returned a 404 status code for the 'Create Owner' step, indicating the endpoint '/owners' was not found. This contradicts the documented cURL examples and schema, which show that this endpoint should exist and return a 201 status code upon successful creation.
 ```
 
 **What this means:**
+
 - The API endpoint that was working during recording is no longer available
 - The endpoint URL might have changed
 - The API server might be down or misconfigured
 
 **How to fix:**
+
 1. Verify the endpoint URL is correct
 2. Check if the API server is running
 3. Review API documentation for any endpoint changes
@@ -48,11 +52,13 @@ The response returned a 404 status code for the 'Create Owner' step, indicating 
 ### 2. Schema Validation Failures
 
 **Example Failure Reason:**
+
 ```
 Response schema validation failed. Expected property 'id' of type 'number' but received 'string'. The API response structure has changed from the recorded version.
 ```
 
 **What this means:**
+
 - The API response format has changed since recording
 - Data types don't match the expected schema
 - New required fields might have been added
@@ -60,11 +66,13 @@ Response schema validation failed. Expected property 'id' of type 'number' but r
 ### 3. Authentication Issues
 
 **Example Failure Reason:**
+
 ```
 Authentication failed with 401 Unauthorized. The API key or token used during recording may have expired or been revoked.
 ```
 
 **What this means:**
+
 - API credentials have expired or changed
 - Authentication method has been updated
 - Permission levels may have changed
@@ -74,6 +82,7 @@ Authentication failed with 401 Unauthorized. The API key or token used during re
 The buggy suites page provides detailed assertion failure information to help you understand exactly what went wrong:
 
 ### Response Status Assertions
+
 ```yaml
 Expected: 201 Created
 Actual: 404 Not Found
@@ -82,6 +91,7 @@ Message: The endpoint returned an unexpected status code
 ```
 
 ### Response Body Assertions
+
 ```yaml
 Expected: {"id": 123, "name": "John Doe", "email": "john@example.com"}
 Actual: {"error": "User not found", "code": 404}
@@ -94,19 +104,25 @@ Message: Response body structure completely different from expected
 For each buggy test case, you can take several debugging actions:
 
 ### 1. View Full Test Details
+
 Click on any failed test to see:
+
 - Complete request details (URL, headers, body)
 - Full response details (status, headers, body)
 - All assertion results with expected vs actual values
 
 ### 2. Compare with Recorded Version
+
 View the side-by-side comparison between:
+
 - **Original Recording**: The request/response captured during recording
 - **Current Execution**: The actual request/response during test execution
 - **Differences Highlighted**: Visual indicators showing what changed
 
 ### 3. Manual Test Execution
+
 Test the endpoint manually to verify:
+
 ```bash
 # Example manual cURL test
 curl -X POST \
@@ -120,7 +136,9 @@ curl -X POST \
 ```
 
 ### 4. Update Test Expectations
+
 If the API behavior has legitimately changed:
+
 1. **Re-record the test**: Capture new expected behavior
 2. **Update assertions**: Modify expected values to match new API
 3. **Add new test cases**: Cover additional scenarios if needed
@@ -135,3 +153,10 @@ If you're unable to resolve buggy test suites:
 4. **Share Test Details**: Provide complete test execution logs when seeking help
 
 Remember, buggy test suites often indicate real issues with your API or environment. Use them as an early warning system to maintain API quality and reliability.
+
+## Related
+
+- [Mark Test Suite as Unbuggy](/docs/running-keploy/api-testing-mark-unbuggy/) — mark suites fixed as unbuggy.
+- [Fix with AI](/docs/running-keploy/api-testing-fix-with-ai/) — auto-repair failing suites.
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — review failures in run reports.
+- [Edit Test Suites](/docs/running-keploy/api-testing-edit-suites/) — manually fix suite issues.

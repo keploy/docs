@@ -119,6 +119,14 @@ Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you aut
 
 White box testing is invaluable for uncovering hidden errors and optimizing performance. While it requires technical expertise, its thorough approach ensures robust, secure, and high-performing software. Combining white box testing with black box testing offers comprehensive coverage, enhancing the overall quality of your applications.
 
+## Related Terms
+
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — the opposite approach with no internal knowledge.
+- [Grey Box Testing](/docs/concepts/reference/glossary/gray-box-testing/) — a hybrid of white and black box testing.
+- [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — measure which code paths tests exercise.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — a common white box technique.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### What is white box testing?

@@ -402,3 +402,9 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Typescript Sample Application](/docs/quickstart/samples-typescript/) — TypeScript on Node.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — Node/Express counterpart.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS/TS quickstarts.

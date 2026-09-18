@@ -261,3 +261,10 @@ This reads `dedupData.yaml` and writes `duplicates.yaml`, listing the testcases 
 ```bash
 keploy dedup --rm
 ```
+
+## Related
+
+- [Static Deduplication](/docs/keploy-cloud/static-deduplication/) — drop duplicate shapes at record time.
+- [Auto Test Generation](/docs/keploy-cloud/auto-test-generation/) — generate tests from an OpenAPI schema.
+- [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/) — replay with the `--dedup` flag.
+- [LLM Workflow (Smart Tests)](/docs/keploy-cloud/smart-set-agent/) — deduplicated smart-set workflow.

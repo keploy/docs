@@ -1,7 +1,14 @@
 import React from "react";
-import { FaYoutube, FaGithub, FaSlack, FaRss, FaArrowRight } from "react-icons/fa";
-import { FaXTwitter } from "react-icons/fa6";
-import { HiOutlineNewspaper } from "react-icons/hi2";
+import Head from "@docusaurus/Head";
+import {
+  FaYoutube,
+  FaGithub,
+  FaSlack,
+  FaRss,
+  FaArrowRight,
+} from "react-icons/fa";
+import {FaXTwitter} from "react-icons/fa6";
+import {HiOutlineNewspaper} from "react-icons/hi2";
 
 const communityLinks = [
   {
@@ -54,9 +61,30 @@ const communityLinks = [
   },
 ];
 
+// ItemList of the community channels so search engines and AI can enumerate
+// the official places to reach Keploy. Built from the same `communityLinks`
+// data the cards render, so the structured data never drifts from the UI.
+const communitySchema = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  name: "Keploy community channels",
+  itemListElement: communityLinks.map((link, i) => ({
+    "@type": "ListItem",
+    position: i + 1,
+    name: link.title,
+    description: link.desc,
+    url: link.href,
+  })),
+};
+
 export const Community = () => {
   return (
     <section className="mb-16" id="community">
+      <Head>
+        <script type="application/ld+json">
+          {JSON.stringify(communitySchema)}
+        </script>
+      </Head>
       {/* Section Header */}
       <div className="mb-8 text-center">
         <span className="mb-2 inline-flex items-center gap-1.5 rounded-full bg-purple-100 px-3 py-1 text-sm font-medium text-purple-700 dark:bg-purple-900/30 dark:text-purple-400">
@@ -66,19 +94,20 @@ export const Community = () => {
           Connect with the Keploy community
         </h2>
         <p className="mx-auto max-w-2xl text-base text-gray-600 dark:text-gray-400">
-          Get help, learn best practices, and stay updated—through the channels you already use.
+          Get help, learn best practices, and stay updated—through the channels
+          you already use.
         </p>
       </div>
 
       {/* Community Links Grid */}
       <div className="mb-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {communityLinks.map(({ title, desc, href, Icon, iconColor, bgColor }) => (
+        {communityLinks.map(({title, desc, href, Icon, iconColor, bgColor}) => (
           <a
             key={title}
             href={href}
             target="_blank"
             rel="noopener noreferrer"
-            className="group flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-orange-300 hover:shadow-md hover:no-underline dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-orange-500/50"
+            className="group flex items-start gap-4 rounded-xl border border-gray-200 bg-white p-4 transition-all duration-200 hover:border-orange-300 hover:no-underline hover:shadow-md dark:border-gray-700 dark:bg-gray-800/50 dark:hover:border-orange-500/50"
           >
             <div
               className={`flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl ${bgColor}`}
@@ -108,7 +137,8 @@ export const Community = () => {
               Want to see a demo of Keploy Enterprise?
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
-              Share your use-case, workflow—and we'll help with any resources you need.
+              Share your use-case, workflow—and we'll help with any resources
+              you need.
             </p>
           </div>
           <a

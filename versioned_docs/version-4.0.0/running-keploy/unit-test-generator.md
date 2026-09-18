@@ -34,3 +34,9 @@ Keploy's UTG aims to:
 1. **PR Agent**: Install a GitHub App on your repo to automatically generate tests when you create a pull request.
 
 2. **VS Code Extension**: Generate test files with a single click directly from your IDE.
+
+## Related
+
+- [Unit Test Architecture](/docs/running-keploy/unit-test-architecture/) — how the generator is structured.
+- [Keploy's PR Agent](/docs/running-keploy/utg-pr-agent/) — generate unit tests on pull requests.
+- [Keploy's VS Code Extension](/docs/running-keploy/utg-vscode-extension/) — generate unit tests in your editor.

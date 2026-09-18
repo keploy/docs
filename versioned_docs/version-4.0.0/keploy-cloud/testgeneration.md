@@ -436,3 +436,9 @@ keploy generate-tests -c "java -jar <JAR_FILE_PATH>" -s "schema.json"
 We will get similar output: -
 
 <img width="881" alt="image" src="https://github.com/keploy/docs/assets/53110238/2586dd57-dee8-46dd-9886-08ad729685c1"/>
+
+## Related
+
+- [Keploy Console](/docs/keploy-cloud/keploy-console/) — trigger and view generation.
+- [LLM Workflow (Smart Tests)](/docs/keploy-cloud/smart-set-agent/) — smarter AI-driven generation.
+- [Keploy Cloud Application Settings Guide](/docs/keploy-cloud/application-settings/) — configure the app first.

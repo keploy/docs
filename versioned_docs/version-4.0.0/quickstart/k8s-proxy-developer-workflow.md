@@ -214,3 +214,9 @@ A typical day with this workflow looks like:
 5. CI replays the branch and either passes or asks for review via the approval gate.
 6. A reviewer approves the test-data diff in the dashboard.
 7. On PR merge, CI runs `keploy cloud branch-merge` and the new test data lands on `main`.
+
+## Related
+
+- [K8s Record Replay](/docs/quickstart/k8s-proxy/) — record and replay in Kubernetes.
+- [Developer + LLM Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-llm-workflow/) — the same flow driven by an LLM.
+- [E-commerce Microservices](/docs/quickstart/samples-microservices/) — multi-service app to record.

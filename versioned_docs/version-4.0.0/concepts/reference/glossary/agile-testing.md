@@ -2,7 +2,7 @@
 id: agile-unit-testing
 title: Agile Unit Testing
 sidebar_label: Agile Unit Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: What agile unit testing is, how it fits iterative development and TDD, and how it keeps fast feedback and code quality high across sprints.
 tags:
   - explanation
   - Glossary
@@ -35,3 +35,11 @@ Agile unit testing is typically done by developers. Developers write unit tests 
 ### Conclusion
 
 Agile unit testing is a valuable tool for improving the quality of software applications. By following the best practices for agile unit testing, developers can help to ensure that their applications are free of defects and meet the needs of their users.
+
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — the core practice agile teams apply frequently.
+- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — a key principle of agile unit testing.
+- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — another Agile, collaboration-focused method.
+- [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — agile tests run automatically in CI.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

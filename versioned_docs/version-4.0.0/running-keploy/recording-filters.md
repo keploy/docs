@@ -16,7 +16,6 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-
 Keploy lets you configure **filters when starting a recording on any deployment**. Filters give you precise control over which requests get captured. You can limit recording to specific paths, methods, hosts, or headers, or explicitly exclude traffic you do not need.
 
 Filters are **optional**. If none are configured, Keploy records **all traffic** on the selected pods.
@@ -26,9 +25,8 @@ Filters are **optional**. If none are configured, Keploy records **all traffic**
 Filters are configured in **Step 2 (Record config)** of the **Start Recording** flow.
 
 <!-- where to configure image goes here -->
+
 ![Where to configure filters](https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/where-to-configure.png)
-
-
 
 To get there:
 
@@ -41,8 +39,8 @@ To get there:
 
 Each filter runs in one of two modes:
 
-* Exclude: Requests that match this filter **will be dropped and not recorded**.
-* Include: Only requests that match this filter **will be recorded**. Everything else is ignored.
+- Exclude: Requests that match this filter **will be dropped and not recorded**.
+- Include: Only requests that match this filter **will be recorded**. Everything else is ignored.
 
 > **Note:**
 > Use **Exclude** when you want to record most traffic but remove noise like health checks, probes, or irrelevant endpoints.
@@ -52,25 +50,25 @@ Each filter runs in one of two modes:
 
 Each filter supports the following fields. You can fill **one or more**. Only the fields you populate are evaluated.
 
-* **Path (Regex)**
-Matches the request path using a regular expression.
-Example: `/api/v1/.*` This captures all paths under `/api/v1/`.
+- **Path (Regex)**
+  Matches the request path using a regular expression.
+  Example: `/api/v1/.*` This captures all paths under `/api/v1/`.
 
-* **Host**
-Matches the target host.
-Example: `api.internal`
+- **Host**
+  Matches the target host.
+  Example: `api.internal`
 
-* **Port**
-Matches the port number.
-Example: `8080`
+- **Port**
+  Matches the port number.
+  Example: `8080`
 
-* **Methods**
-Comma-separated list of HTTP methods.
-Example: `GET`, `POST`
+- **Methods**
+  Comma-separated list of HTTP methods.
+  Example: `GET`, `POST`
 
-* **Headers**
-Matches a specific request header. Enter the header key and a regex as the value.
-Example: key = `x-record`, value = `true`.
+- **Headers**
+  Matches a specific request header. Enter the header key and a regex as the value.
+  Example: key = `x-record`, value = `true`.
 
 You can add multiple header conditions using **+ Add Header**.
 
@@ -88,18 +86,16 @@ For example, if you set Path to `/api/v1/.*` and Methods to `GET`, `POST`, only 
 This filter captures only requests where a specific header value matches a regular expression pattern.
 The filter is set to Include mode, meaning all other traffic is ignored.
 
-
-
 <!-- start recording image goes here -->
+
 ![Include filter with regex header](https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/start-recording.png)
 
 ## Example: Include Filter with Exact Header
 
 This example shows an `Include` filter matching on a header key with the exact value `true`. This is the simplest form of header-based filtering. Only requests carrying that header with that value will be recorded.
 
-
-
 <!-- start-recording-1 image goes here -->
+
 ![Include filter with exact header](https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/start-recording-1.png)
 
 ## Client TLS Private Key
@@ -111,3 +107,9 @@ If your services do not use mTLS, leave this section empty and proceed.
 ## After Filters Are Applied
 
 Once you click Next, Keploy proceeds to Step 3 (Auto replay config) to complete the recording setup. After a recording starts, there is no in-UI view of which specific requests are being captured. Keploy applies your filters in the background and records all matching traffic into test cases automatically.
+
+## Related
+
+- [Adding a custom Mock](/docs/running-keploy/custom-mocks/) — supply mocks for filtered dependencies.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — let selected calls hit the real service.
+- [Configuration File](/docs/running-keploy/configuration-file/) — persist filter settings.

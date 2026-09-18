@@ -149,6 +149,14 @@ testing with Keploy:
 
 Black-box testing is a valuable tool for ensuring the quality of software. It can be used to find a wide range of defects, and it can be performed by testers with a variety of skill levels. The best testing strategy for a particular software project will depend on the specific needs of the project. In some cases, black-box testing may be sufficient. In other cases, white-box testing may be necessary to find all the defects in the software.
 
+## Related Terms
+
+- [White Box Testing](/docs/concepts/reference/glossary/white-box-testing/) — the opposite, code-aware testing approach.
+- [Grey Box Testing](/docs/concepts/reference/glossary/gray-box-testing/) — combines black-box and white-box techniques.
+- [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — verifies behavior without internal knowledge.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — often done via black-box test cases.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQ
 
 ### What is black-box testing?

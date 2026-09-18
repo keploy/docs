@@ -22,6 +22,21 @@ keywords:
   - Typescript
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Merge Keploy test coverage in a JavaScript application"
+description="Install nyc and wire coverage scripts so Keploy and Jest coverage merge into one report."
+totalTime="PT10M"
+tools={["Node.js", "nyc", "Keploy CLI"]}
+steps={[
+{name: "Install nyc", text: "Install nyc, which Keploy uses to collect and merge JavaScript coverage."},
+{name: "Update package.json scripts", text: "Add coverage and coverage:merge scripts that run your tests with coverage and merge the output."},
+{name: "Run and merge", text: "Run keploy test, then merge the nyc and Keploy coverage into a single lcov report."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -96,3 +111,9 @@ To get coverage related information for merged coverage data, Run:
 ```bash
 npm run coverage:report
 ```
+
+## Related
+
+- [Keploy Go SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/go/) — the Go SDK.
+- [Java Agent for Dynamic Deduplication](/docs/server/sdk-installation/java/) — the Java SDK.
+- [Keploy Python SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/python/) — the Python SDK.

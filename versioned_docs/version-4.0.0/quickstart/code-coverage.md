@@ -32,8 +32,8 @@ High code coverage does not always mean good tests, but it ensures that critical
 <Tabs>
 
   <TabItem value="qa" label="For QA">
-  
-  ## ✅ Schema Coverage
+
+## ✅ Schema Coverage
 
 Schema coverage measures how much of your **API schema** (endpoints, request/response fields, contracts) is exercised during testing.
 
@@ -70,3 +70,10 @@ Statement coverage measures how many **individual lines/statements of code** are
 </TabItem>
 
 </Tabs>
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — Go samples to measure coverage.
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — Java samples with coverage reports.
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Python samples to try coverage.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Java app with Jacoco coverage.

@@ -10,11 +10,12 @@ tags:
   - test-results
   - test-management
 ---
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide explains how to use the run report page to track and analyze your test execution results. 
+This guide explains how to use the run report page to track and analyze your test execution results.
 
 ## Run Report List View
 
@@ -34,6 +35,7 @@ For each test run, you can view:
 ### Viewing Report List
 
 1. **Navigate to Run Reports**
+
    - Go to the run reports section in Keploy
    - View the list of all test execution runs
 
@@ -49,6 +51,7 @@ For each test run, you can view:
 Click on any report from the list to view detailed execution results:
 
 1. **Click on Report ID**
+
    - Select a report to view full details
    - Access comprehensive test execution information
 
@@ -60,23 +63,26 @@ Click on any report from the list to view detailed execution results:
 ### Understanding Test Results
 
 #### Passed Tests ✅
+
 - Tests that successfully completed all assertions
 - All validations matched expected results
 - No errors or warnings during execution
 
 #### Failed Tests ❌
+
 - Tests that did not meet assertion criteria
 - **Failure Reasons Displayed**:
   - Assertion mismatches
   - Unexpected response values
   - Status code mismatches
   - Timeout errors
-- **Association Failures**: 
+- **Association Failures**:
   - Failures from dependent services or associations
   - External API failures affecting the test
   - Database connection issues
 
-#### Buggy Tests 
+#### Buggy Tests
+
 - Tests with identified bugs or inconsistent behavior
 - **Buggy Reasons Displayed**:
   - Shown on top of the particular test step
@@ -91,14 +97,18 @@ The run report page provides powerful filtering options to help you analyze spec
 ### Available Filters
 
 #### 1. Filter by Suite Status
+
 Filter tests based on their execution outcome:
+
 - **Passed**: Show only successful tests
 - **Failed**: Show only failed tests
 - **Buggy**: Show only buggy tests
 - **All**: View all test results
 
 #### 2. Filter by Status Code
+
 Filter by HTTP response status codes:
+
 - **2xx Success**: 200 OK, 201 Created, 204 No Content
 - **3xx Redirection**: 301, 302, 304
 - **4xx Client Errors**: 400, 401, 403, 404
@@ -106,7 +116,9 @@ Filter by HTTP response status codes:
 - **Custom Code**: Filter by specific status codes
 
 #### 3. Filter by HTTP Method
+
 Filter tests by request method:
+
 - **GET**: Retrieve operations
 - **POST**: Create operations
 - **PUT**: Update operations
@@ -115,7 +127,9 @@ Filter tests by request method:
 - **OPTIONS, HEAD**: Other HTTP methods
 
 #### 4. Filter by Endpoint
+
 Filter by API endpoint or URL path:
+
 - Full endpoint URL
 - Partial path matching
 - Wildcard patterns
@@ -128,7 +142,6 @@ Filter by API endpoint or URL path:
    - Select desired filter criteria
    - You can also apply multiple filters simultaneously
 
-
 ## Detailed Test Step Information
 
 ### Viewing Step-by-Step Results
@@ -136,17 +149,20 @@ Filter by API endpoint or URL path:
 For each test case, you can see:
 
 1. **Test Steps Breakdown**
+
    - Individual steps within each test
    - Request and response details
    - Execution time for each step
 
 2. **Buggy Reasons on Test Steps**
+
    - Detailed error messages displayed on top of the affected step
    - Root cause analysis
    - Stack traces when available
    - Suggested fixes or actions
 
 3. **Failure Reasons from Assertions**
+
    - Expected vs actual values comparison
    - Schema validation errors
    - Assertion failure details
@@ -204,3 +220,10 @@ For each test case, you can see:
 - **Data-Driven Decisions**: Use metrics to improve test quality
 
 By leveraging the run report features, you can maintain high-quality APIs, quickly identify and fix issues, and ensure comprehensive test coverage across your application.
+
+## Related
+
+- [Sharing Reports](/docs/running-keploy/api-testing-sharing-reports/) — share reports with your team.
+- [Running Selective Test Suites](/docs/running-keploy/api-testing-running-selective/) — run selected suites.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — run reports in CI/CD.
+- [Buggy Test Suites](/docs/running-keploy/api-testing-buggy-suites/) — investigate failing suites.

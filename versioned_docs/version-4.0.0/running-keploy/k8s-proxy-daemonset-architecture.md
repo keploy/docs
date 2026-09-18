@@ -254,3 +254,9 @@ Recording mode and replay environment are orthogonal—every combination is vali
 | Production with read-only RBAC on the source namespace, no spare K8s cluster but a Docker host | DaemonSet      | `runner`           |
 
 For the operational walkthrough of the cluster-mode setup, see the K8s Proxy REST API guide's setup section.
+
+## Related
+
+- [Kubernetes Proxy REST API](/docs/running-keploy/k8s-proxy-api/) — drive recording and replay via REST.
+- [Recording Filters](/docs/running-keploy/recording-filters/) — scope which requests get captured.
+- [Public REST API](/docs/running-keploy/public-api/) — Keploy Cloud control-plane API.

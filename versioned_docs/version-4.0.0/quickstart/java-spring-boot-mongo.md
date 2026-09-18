@@ -180,3 +180,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse more Java samples.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Spring Boot with Postgres.
+- [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot serving XML.
+- [Keploy with OpenHospital](/docs/quickstart/openhospital/) — larger Spring Boot app.

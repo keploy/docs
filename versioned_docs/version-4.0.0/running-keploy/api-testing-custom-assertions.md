@@ -15,7 +15,6 @@ keywords:
   - header validation
   - schema validation
   - custom functions
-
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -26,24 +25,25 @@ Custom assertions allow you to precisely validate API responses beyond basic sta
 
 Keploy supports the following assertion categories:
 
-| Scenario | Recommended Assertion |
-|----------|----------------------|
-| Exact status code validation | Status Code |
-| Accept any success response | Status Code Class |
-| Partial JSON validation | JSON Contains |
-| Strict field validation | JSON Equal |
-| Response structure consistency | Schema |
-| Dynamic value comparison | Custom Function |
-| Validate only important fields | Selected Fields |
-| Security header enforcement | Header Exists / Header Equal |
-
+| Scenario                       | Recommended Assertion        |
+| ------------------------------ | ---------------------------- |
+| Exact status code validation   | Status Code                  |
+| Accept any success response    | Status Code Class            |
+| Partial JSON validation        | JSON Contains                |
+| Strict field validation        | JSON Equal                   |
+| Response structure consistency | Schema                       |
+| Dynamic value comparison       | Custom Function              |
+| Validate only important fields | Selected Fields              |
+| Security header enforcement    | Header Exists / Header Equal |
 
 ## For specific Selected Fields
 
 ### Selected Fields
+
 Allows you to validate only specific parts of a response instead of the entire body.
 
 Useful when:
+
 - Response includes dynamic metadata
 - You want to ignore volatile fields (timestamps, request IDs, etc.)
 - Only certain business-critical fields matter
@@ -53,6 +53,7 @@ Useful when:
 For complex validation logic, Keploy supports custom functions inside assertions.
 
 Custom functions allow you to:
+
 - Write JavaScript expressions
 - Perform conditional validation
 - Compare multiple fields
@@ -60,6 +61,7 @@ Custom functions allow you to:
 - Enforce business rules
 
 ### Example Use Cases
+
 - Validate `totalAmount = sum(lineItems)`
 - Ensure timestamp is within last 5 minutes
 - Compare response field with environment variable
@@ -70,31 +72,33 @@ Custom functions allow you to:
 Consider an e-commerce API that returns order details. You want to validate that the total amount equals the sum of all line items plus tax.
 
 **API Response:**
+
 ```json
 {
   "orderId": "ORD-12345",
   "items": [
-    { "name": "Laptop", "price": 1200.00, "quantity": 1 },
-    { "name": "Mouse", "price": 25.50, "quantity": 2 }
+    {"name": "Laptop", "price": 1200.0, "quantity": 1},
+    {"name": "Mouse", "price": 25.5, "quantity": 2}
   ],
-  "subtotal": 1251.00,
-  "tax": 125.10,
-  "total": 1376.10,
+  "subtotal": 1251.0,
+  "tax": 125.1,
+  "total": 1376.1,
   "timestamp": "2026-02-11T10:30:00Z"
 }
 ```
 
 **Custom Function for Total Validation:**
+
 ```javascript
 // Validate that total = subtotal + tax
 function validateOrderTotal(response) {
   const data = JSON.parse(response.body);
   const expectedTotal = data.subtotal + data.tax;
   const actualTotal = data.total;
-  
+
   return {
     passed: Math.abs(expectedTotal - actualTotal) < 0.01, // Handle floating point precision
-    message: `Expected total ${expectedTotal}, but got ${actualTotal}`
+    message: `Expected total ${expectedTotal}, but got ${actualTotal}`,
   };
 }
 
@@ -102,17 +106,18 @@ function validateOrderTotal(response) {
 function validateSubtotal(response) {
   const data = JSON.parse(response.body);
   const calculatedSubtotal = data.items.reduce((sum, item) => {
-    return sum + (item.price * item.quantity);
+    return sum + item.price * item.quantity;
   }, 0);
-  
+
   return {
     passed: Math.abs(calculatedSubtotal - data.subtotal) < 0.01,
-    message: `Calculated subtotal ${calculatedSubtotal}, but API returned ${data.subtotal}`
+    message: `Calculated subtotal ${calculatedSubtotal}, but API returned ${data.subtotal}`,
   };
 }
 ```
 
 **Usage in Keploy:**
+
 1. Navigate to your test step editor
 2. Add a new assertion
 3. Select "Custom Function" as assertion type
@@ -127,3 +132,10 @@ function validateSubtotal(response) {
 - **Use Custom Functions** for business logic validation
 - **Combine multiple assertions** for stronger test reliability
 - **Keep assertions focused and readable**
+
+## Related
+
+- [Functions & Schema Assertions](/docs/running-keploy/api-testing-functions/) — schema and function assertions.
+- [Bulk Assertions and Schema Validation](/docs/running-keploy/api-testing-bulk-assertions/) — apply assertions in bulk.
+- [Editing Test Suites and Custom Assertions](/docs/running-keploy/api-testing-edit-assertions/) — edit assertions in a suite.
+- [Assertion Tree](/docs/running-keploy/api-testing-assertion-tree/) — visualize assertion flow.

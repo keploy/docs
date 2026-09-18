@@ -430,3 +430,10 @@ When `--spec` is provided, every `run` output includes a `coverage` section:
 The agent reads `next_steps` and generates targeted tests for uncovered endpoints. This loop continues automatically until coverage targets are met.
 
 Without an OpenAPI spec, you can still run tests and sync results. The Keploy platform builds schema coverage progressively from your test execution data over time.
+
+## Related
+
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — generate API tests with AI.
+- [AI-Powered API Test Generation](/docs/running-keploy/test-generate/) — AI-powered test generation workflow.
+- [Run AI-Generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — run the generated tests.
+- [API Test Generator](/docs/running-keploy/api-test-generator/) — how AI test generation works.

@@ -205,3 +205,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+## Related
+
+- [Sample CRUD App (Golang)](/docs/quickstart/samples-fasthttp/) — another Postgres-backed CRUD app.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Go app using Postgres.
+- [Express + PostgreSQL + Prisma Sample Application](/docs/quickstart/express-postgresql-prisma/) — Postgres with an ORM.
+- [NextJs Sample Application](/docs/quickstart/samples-nextjs/) — NextJS app on Postgres.

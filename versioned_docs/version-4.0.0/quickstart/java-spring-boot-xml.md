@@ -152,7 +152,7 @@ If you encounter failing tests due to variable or irrelevant data, like timestam
 
 **Example:**
 
-<img src="/docs/img/java-spring-boot-header.png" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/java-spring-boot-header.webp" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
 
 ```yaml
 globalNoise:
@@ -165,8 +165,15 @@ globalNoise:
 
 After updating `keploy.yml` with the above configuration, rerun your tests, and the issue should be resolved.
 
-<img src="/docs/img/keploy-testcase-employee.png" alt="Sample Keploy Testcases" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Testcases" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Wrapping Up 🎉
 
 Fantastic! You've successfully navigated creating and testing XML APIs with Spring Boot and Keploy. Keep exploring, experimenting, and innovating! If you have any queries, we're here to help!
+
+## Related
+
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse more Java samples.
+- [Sample Rest API with Spring-Boot and MongoDB](/docs/quickstart/java-spring-boot-mongo/) — Spring Boot with MongoDB.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Spring Boot with Postgres.
+- [Java Sample Application](/docs/quickstart/samples-java/) — another Java sample.

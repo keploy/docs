@@ -117,6 +117,13 @@ Organizations that invest in robust reliability testing practices will be better
 
 ---
 
+## Related Terms
+
+- [Load Testing](/docs/concepts/reference/glossary/load-testing/) — assess stability under expected load.
+- [Performance Testing](/docs/concepts/reference/glossary/performance-testing/) — reliability builds on performance results.
+- [Observability Testing](/docs/concepts/reference/glossary/observability-testing/) — monitor failures and recovery over time.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### 1. What is the difference between reliability testing and performance testing?

@@ -63,6 +63,7 @@ Keploy supports custom functions for advanced assertion logic. You can:
 - Reference external validation logic
 
 For detailed information on custom functions, [reference here](/versioned_docs/version-4.0.0/running-keploy/api-testing-functions.md).
+
 ### Creating and Using Variables
 
 Variables allow you to create reusable values across your test suite:
@@ -81,3 +82,10 @@ For in detail usage of variables refer here : [Using Variables](/versioned_docs/
 - **Group related tests**: Organize tests logically within suites (e.g., user authentication, payment processing, etc.)
 - **Keep suites focused**: Each test suite should test a specific feature or workflow
 - **Test multiple aspects**: Include assertions for status codes, response structure, and business logic
+
+## Related
+
+- [Adding New Test Suites](/docs/running-keploy/api-testing-add-suite/) — create suites to edit.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — manage suite settings.
+- [Editing Test Suites and Custom Assertions](/docs/running-keploy/api-testing-edit-assertions/) — edit assertions and variables.
+- [Using Filtering in Test Suites](/docs/running-keploy/api-testing-filter-suites/) — filter suites while editing.

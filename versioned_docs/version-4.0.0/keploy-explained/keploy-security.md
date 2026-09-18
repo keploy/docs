@@ -38,3 +38,9 @@ Your data remains confidential and secure—whether you’re a startup or an ent
 - **Full Transparency:** We are open about our processes and happy to answer any questions you have about security or privacy.
 
 Have questions or need a security report for your team? [Contact us!](mailto:support@keploy.io)
+
+## Related
+
+- [Code Privacy & Data Protection](/docs/keploy-explained/keploy-privacy/) — the privacy counterpart.
+- [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — where data is processed.

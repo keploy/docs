@@ -36,3 +36,9 @@ Here’s how Keploy leverages AI (LLM) to automate and streamline the unit testi
 ## In Short
 
 Keploy’s AI-driven architecture turns CI feedback and your codebase into a robust, scalable set of unit tests—saving you hours and catching regressions before they hit production.
+
+## Related
+
+- [Keploy Unit Test Generator](/docs/running-keploy/unit-test-generator/) — the generator built on this architecture.
+- [What is Unit Testing?](/docs/running-keploy/about-unit-testing/) — unit testing fundamentals.
+- [API Test Architecture](/docs/running-keploy/api-test-architecture/) — the API-side counterpart.

@@ -53,3 +53,10 @@ Keploy offers a comprehensive solution for test data generation, addressing the 
 In conclusion, effective test data generation is essential for ensuring the reliability, accuracy, and performance of software applications. By leveraging automated solutions like Keploy, software development teams can overcome the challenges associated with manual test data management and streamline their testing processes.
 
 With Keploy's dynamic test data generation capabilities, teams can accelerate testing cycles, enhance testing coverage, and ultimately deliver high-quality software products to market faster and more efficiently. By embracing modern test data generation practices facilitated by tools like Keploy, organizations can stay ahead in today's competitive landscape and meet the ever-growing demands for software reliability and innovation.
+
+## Related Terms
+
+- [Data-Driven Testing](/docs/concepts/reference/glossary/data-driven-testing/) — feed generated data sets into tests.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — synthetic data mocks stand in for real sources.
+- [Test-Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — generated data supports test-first workflows.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

@@ -96,3 +96,10 @@ Failed suites:      0
 ## That's it!
 
 With just a few lines of YAML, you’ve added **AI-powered API test automation** into your GitHub CI pipeline. Now every PR or deployment will be automatically tested with Keploy’s smart test engine.
+
+## Related
+
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — review CI test run reports.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — configure run-in-CI settings.
+- [Running Selective Test Suites](/docs/running-keploy/api-testing-running-selective/) — run selected suites in CI.
+- [Sharing Reports](/docs/running-keploy/api-testing-sharing-reports/) — share CI results with team.

@@ -172,7 +172,7 @@ curl -N -H "Authorization: Bearer $API_KEY" \
   "$BASE/jobs/$JOB_ID/events"
 ```
 
-This returns [NDJSON](https://ndjson.org/)—one JSON object per line, streamed as events happen.
+This returns NDJSON—one JSON object per line, streamed as events happen.
 
 ### 3. Run all test suites
 

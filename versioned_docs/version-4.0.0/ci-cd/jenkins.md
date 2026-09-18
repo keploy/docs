@@ -14,6 +14,21 @@ tags:
   - plugin
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Run Keploy API tests in a Jenkins pipeline"
+description="Configure a Jenkins pipeline to install Keploy and replay recorded API test suites on the agent."
+totalTime="PT10M"
+tools={["Jenkins", "Keploy CLI"]}
+steps={[
+{name: "Grant passwordless sudo", text: "Give the jenkins user NOPASSWD sudo so Keploy can attach its eBPF probes."},
+{name: "Install Keploy", text: "Add an Install Keploy stage that downloads the binary onto the Jenkins agent."},
+{name: "Run the tests", text: "Add a stage that runs keploy test -c \"<command to run your app>\" to replay the recorded suites."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -228,3 +243,9 @@ pipeline {
 Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
 
 > `withCredentials` binds the Jenkins secret to `KEPLOY_API_KEY` only for the duration of that stage — the CLI picks it up automatically.
+
+## Related
+
+- [Integrating with GitHub CI](/docs/ci-cd/github/) — the GitHub equivalent.
+- [Integrating with GitLab CI](/docs/ci-cd/gitlab/) — the GitLab equivalent.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — API-suite CI setup.

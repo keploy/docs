@@ -29,14 +29,14 @@ The Agent acts as a local interceptor that uses eBPF to record your service's in
 
 ### Keploy Agent Installation
 
-| Platform    | Steps                                                                                                                                                                                                                                                                   |
-| ----------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **macOS**   | - [Download](https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/Keploy+Agent.dmg) <br /><br /> - Open the `.dmg` file and install the app normally. <br /><br /> - Launch the Keploy Agent after installation. <br />                                 |
-| **Linux**   | - Run the following in your terminal: <br /><br /> `curl -L -O https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/keploy-agent-linux-amd64.tar.gz` <br /><br /> `tar -xzf keploy-agent-linux-amd64.tar.gz` <br /><br /> `./keploy-agent` <br /><br /> |
-| **Windows** | - [Download](https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/Keploy+Agent-windows_amd64.zip) <br /><br /> Extract the zip file and Launch the Keploy Agent. <br />                                                                                 |
+| Platform    | Steps                                                                                                                                                                                                                              |
+| ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **macOS**   | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent.dmg) <br /><br /> - Open the `.dmg` file and install the app normally. <br /><br /> - Launch the Keploy Agent after installation. <br />                               |
+| **Linux**   | - Run the following in your terminal: <br /><br /> `curl -L -O https://keploy.io/ent/dl/latest/keploy-agent-linux-amd64.tar.gz` <br /><br /> `tar -xzf keploy-agent-linux-amd64.tar.gz` <br /><br /> `./keploy-agent` <br /><br /> |
+| **Windows** | - [Download](https://keploy.io/ent/dl/latest/Keploy%20Agent-windows_amd64.zip) <br /><br /> Extract the zip file and Launch the Keploy Agent. <br />                                                                               |
 
 > ✅ Once installed and running, return to the Keploy Console and hit **Generate API Tests**. The Keploy Agent creates a secure bridge to your local or private
-> environment, enabling our engine to interact with your service as if it were in production, capturing the underlying dependency calls (DB, 3rd party APIs) without code changes.
+> environment, enabling our engine to interact with your service as if it were in production, capturing the underlying dependency calls (DB, third-party APIs) without code changes.
 
 ## BEST Practices for BEST Test Output
 

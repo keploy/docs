@@ -49,3 +49,10 @@ Keploy needs to interact with your live API endpoints to generate and validate t
 Ready to try it? [app.keploy.io](https://app.keploy.io)
 
 Questions? [Contact our team](mailto:support@keploy.io).
+
+## Related
+
+- [What is API testing?](/docs/running-keploy/about-api-testing/) — understand API testing fundamentals.
+- [API Test Generator](/docs/running-keploy/api-test-generator/) — generate test suites with AI.
+- [Authentication Setup for API Testing](/docs/running-keploy/api-testing-auth-setup/) — configure auth before generation.
+- [Best Practices for API testing](/docs/running-keploy/best-practices-api-testing/) — recommended API testing practices.

@@ -23,6 +23,13 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import {useDocsVersion} from "@docusaurus/plugin-content-docs/client";
 import {KeployCloud} from "@site/src/components/KeployCloud";
+import MarkdownPageActions from "@site/src/components/MarkdownPageActions";
+import {
+  organizationRef,
+  websiteRef,
+  TERMSET_ID,
+  withTrailingSlash,
+} from "@site/src/schema/siteEntities";
 
 export default function DocItem(props) {
   const {content: DocContent} = props;
@@ -106,7 +113,15 @@ export default function DocItem(props) {
       })
       .filter(Boolean);
   };
-  const pageUrl = toAbsoluteUrl(siteConfig?.url, metadata?.permalink);
+  // `metadata.permalink` omits the trailing slash even under
+  // `trailingSlash: true`, while the canonical tag and og:url both carry it.
+  // Every `@id` derived from pageUrl has to match the canonical URL exactly,
+  // otherwise the nodes keyed on it never merge with the ones the glossary hub
+  // and other pages emit, and the graph fragments again along a bare slash.
+  const canonicalPermalink = siteConfig?.trailingSlash
+    ? withTrailingSlash(metadata?.permalink)
+    : metadata?.permalink;
+  const pageUrl = toAbsoluteUrl(siteConfig?.url, canonicalPermalink);
   const modifiedTime = toIsoDate(
     metadata?.lastUpdatedAt || frontMatter?.lastUpdatedAt
   );
@@ -115,21 +130,34 @@ export default function DocItem(props) {
   );
   const schemaTypeFromFrontMatter =
     frontMatter?.schemaType || frontMatter?.schema_type;
+  const docTags = frontMatter?.tags || [];
   const isApi =
     frontMatter?.apiReference === true ||
     frontMatter?.type === "api" ||
-    (frontMatter?.tags || []).includes?.("api");
+    // Only genuine API/CLI *reference* docs (endpoints, commands) get
+    // APIReference. The `api-testing`/`api` tags and the `api-testing-` path
+    // prefix name Keploy's product feature, not the page genre, so they swept
+    // ~28 task guides (adding-labels, chrome-extension, run-report, …) into
+    // APIReference — the opposite of what they are, and often contradicting the
+    // HowTo block on the same page. Those now fall through to TechArticle.
+    /\/running-keploy\/(public-api|cli-commands)(\/|$)/.test(
+      metadata?.permalink || ""
+    );
   const isBlog =
     frontMatter?.type === "blog" ||
     frontMatter?.blog === true ||
-    (frontMatter?.tags || []).includes?.("blog");
+    docTags.includes?.("blog");
+  // Every Keploy doc is a technical article, so default to TechArticle rather
+  // than the generic Article (both are Article subtypes accepting the same
+  // properties as articleSchema below — no shape change, just a precise type).
+  // API-reference pages use the more specific APIReference.
   const schemaType = schemaTypeFromFrontMatter
     ? schemaTypeFromFrontMatter
     : isApi
     ? "APIReference"
     : isBlog
     ? "BlogPosting"
-    : "Article";
+    : "TechArticle";
   const authorList = toPersonList(frontMatter?.author || frontMatter?.authors);
   const maintainerList = toPersonList(frontMatter?.maintainer);
   const contributorList = toPersonList(frontMatter?.contributor);
@@ -146,6 +174,27 @@ export default function DocItem(props) {
   const socialImage = image
     ? toAbsoluteUrl(siteConfig?.url, imageWithBaseUrl)
     : null;
+  // Article schema requires an `image`; fall back to the site-wide default
+  // social card when a doc has no front-matter image, so every Article carries
+  // a valid image. The card is committed to this repo's static/img/ and served
+  // from /docs/img/, so it can't 404 from a change in the landing repo (the old
+  // https://keploy.io/images/keploy-hero.png fallback did exactly that). Same
+  // 1200x630 card as the og:image default in docusaurus.config.js.
+  const defaultSocialCard = toAbsoluteUrl(
+    siteConfig?.url,
+    `${siteConfig?.baseUrl ?? "/"}img/keploy-docs-card.png`
+  );
+  const articleImage = socialImage || defaultSocialCard;
+  // See the <title> tag below. Append the brand suffix only when the result
+  // stays within SEMrush's 60-char SERP budget, and skip it when the title
+  // already ends in the brand (avoids "… Keploy Docs | Keploy Docs").
+  const TITLE_SUFFIX = " | Keploy Docs";
+  const docTitle =
+    title &&
+    title.length + TITLE_SUFFIX.length <= 60 &&
+    !/keploy docs\s*$/i.test(title)
+      ? `${title}${TITLE_SUFFIX}`
+      : title;
   const normalizedMetaKeywords = Array.isArray(metaKeywords)
     ? metaKeywords.join(", ")
     : metaKeywords;
@@ -159,8 +208,9 @@ export default function DocItem(props) {
   // Versioned root pattern: /docs/<version>/ or /docs/<version> where
   // <version> starts with a digit. Covers current and archived
   // versions listed in docusaurus.config.js onlyIncludeVersions.
-  const isVersionedDocsRoot =
-    /^\/docs\/\d[\w.-]*(?:\/index)?\/?$/.test(permalink);
+  const isVersionedDocsRoot = /^\/docs\/\d[\w.-]*(?:\/index)?\/?$/.test(
+    permalink
+  );
   const isDocsRoot =
     permalink === "/docs/" ||
     permalink === "/docs" ||
@@ -170,18 +220,58 @@ export default function DocItem(props) {
   const isCategoryIndex =
     frontMatter?.slug === "index" || /\/category\/|\/index\/?$/.test(permalink);
   const suppressArticleSchema = isDocsRoot || isCategoryIndex;
+  // .md twins are only generated for the current (4.0.0) version's docs
+  // (docusaurus-plugin-llms docsDir points at versioned_docs/version-4.0.0),
+  // and only for real doc pages, not root/category-index pages.
+  const showMarkdownActions = isLatestVersion && !suppressArticleSchema;
+  // trailingSlash: true means every permalink ends in "/", for section
+  // landing pages AND normal pages alike -- so the permalink shape alone
+  // can't tell them apart. The doc's source file path can: docusaurus-plugin-llms
+  // writes the twin as <folder>/index.md when the source is index.md/README.md,
+  // and as <page>.md (a sibling of the built page directory) otherwise.
+  const isIndexSource = /\/(index|README)\.mdx?$/i.test(metadata?.source || "");
+  const trimmedPermalink = permalink.replace(/\/+$/, "");
+  const markdownUrl = showMarkdownActions
+    ? isIndexSource
+      ? `${trimmedPermalink}/index.md`
+      : `${trimmedPermalink}.md`
+    : null;
 
+  // A section's index.md (e.g. /docs/concepts/) is an index of child docs, not
+  // a single authored article, so it emits a CollectionPage instead of
+  // TechArticle. isIndexSource is true only when the source file is
+  // index.md/README.md; the /docs/ root and versioned roots are React/handled
+  // separately (isDocsRoot).
+  const isCategoryHub = isIndexSource && !isDocsRoot;
+  // Quickstart docs are step-by-step tutorials, so their Article node is also
+  // typed as a LearningResource for education-oriented consumers and AI.
+  const isQuickstart = /\/quickstart\/[^/]+\/?$/.test(permalink);
   const articleSchema =
-    pageUrl && title && !suppressArticleSchema
+    pageUrl && title && !suppressArticleSchema && !isCategoryHub
       ? {
           "@context": "https://schema.org",
-          "@type": schemaType,
+          "@type": isQuickstart ? [schemaType, "LearningResource"] : schemaType,
+          // Give the article its own @id so it's addressable in a graph built
+          // around @id -- distinct from mainEntityOfPage's @id (the WebPage /
+          // document), which is pageUrl without the fragment.
+          "@id": `${pageUrl}#article`,
+          ...(isQuickstart ? {learningResourceType: "Tutorial"} : {}),
           headline: title,
           description,
+          image: [articleImage],
           ...(modifiedTime ? {dateModified: modifiedTime} : {}),
-          ...(publishedTime ? {datePublished: publishedTime} : {}),
+          // datePublished falls back to the last-modified time so every doc
+          // carries a freshness signal even when front matter omits `date`.
+          ...(publishedTime || modifiedTime
+            ? {datePublished: publishedTime || modifiedTime}
+            : {}),
           ...(keywords ? {keywords} : {}),
-          ...(authorList.length ? {author: authorList} : {}),
+          // Default author to the Keploy organization when a doc has no
+          // front-matter author, so Article schema always carries an author
+          // (E-E-A-T) instead of dropping the field entirely.
+          ...(authorList.length
+            ? {author: authorList}
+            : {author: organizationRef}),
           ...(combinedContributors.length
             ? {contributor: combinedContributors}
             : {}),
@@ -192,21 +282,58 @@ export default function DocItem(props) {
             "@type": "WebPage",
             "@id": pageUrl,
           },
-          publisher: {
-            "@type": "Organization",
-            name: "Keploy",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://keploy.io/docs/img/favicon.png",
-            },
-          },
+          isPartOf: websiteRef,
+          publisher: organizationRef,
+        }
+      : null;
+  // Glossary term pages also emit a DefinedTerm belonging to the glossary
+  // hub's DefinedTermSet, so AI engines can cite an individual definition
+  // rather than only the TechArticle wrapping it. Matches a term slug under
+  // /concepts/reference/glossary/ (the hub itself is a React page, so it
+  // never reaches DocItem). Restricted to the current version: 1.0.0 and
+  // 2.0.0 carry `noIndex: true`, and emitting their terms too would put
+  // three competing definitions of the same term in one term set.
+  const isGlossaryTerm =
+    isLatestVersion &&
+    /\/concepts\/reference\/glossary\/[^/]+\/?$/.test(permalink);
+  const definedTermSchema =
+    isGlossaryTerm && pageUrl && title
+      ? {
+          "@context": "https://schema.org",
+          "@type": "DefinedTerm",
+          "@id": `${pageUrl}#term`,
+          name: frontMatter?.sidebar_label || title,
+          description,
+          url: pageUrl,
+          inDefinedTermSet: TERMSET_ID,
+        }
+      : null;
+  // Category hub pages emit a CollectionPage (see isCategoryHub above): a
+  // machine-readable "this page indexes a section" signal in place of the
+  // Article a hub does not qualify for.
+  const collectionPageSchema =
+    isCategoryHub && pageUrl && title
+      ? {
+          "@context": "https://schema.org",
+          "@type": "CollectionPage",
+          "@id": pageUrl,
+          name: title,
+          ...(description ? {description} : {}),
+          url: pageUrl,
+          isPartOf: websiteRef,
+          publisher: organizationRef,
         }
       : null;
   const MDXComponent = props.content;
   return (
     <>
       <Head>
-        <title>{title}</title>
+        {/* Suffix differentiates the <title> from the on-page <h1> (which is
+            also `title`), clearing SEMrush "Duplicate content in h1 and title".
+            Only appended when it keeps the title within SEMrush's 60-char SERP
+            limit, so title hygiene doesn't trade the duplicate-h1 warning for a
+            title-too-long one; skipped if the title already ends in the brand. */}
+        <title>{docTitle}</title>
         {description && <meta name="description" content={description} />}
         {normalizedMetaKeywords && (
           <meta name="keywords" content={normalizedMetaKeywords} />
@@ -235,6 +362,16 @@ export default function DocItem(props) {
         {articleSchema && (
           <script type="application/ld+json">
             {JSON.stringify(articleSchema)}
+          </script>
+        )}
+        {definedTermSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(definedTermSchema)}
+          </script>
+        )}
+        {collectionPageSchema && (
+          <script type="application/ld+json">
+            {JSON.stringify(collectionPageSchema)}
           </script>
         )}
         {Array.isArray(frontMatter.head) &&
@@ -290,6 +427,7 @@ export default function DocItem(props) {
                     <Heading as="h1">{title}</Heading>
                   </header>
                 )}
+                {markdownUrl && <MarkdownPageActions mdUrl={markdownUrl} />}
                 <MDXContent>
                   <MDXComponent />
                 </MDXContent>
@@ -327,10 +465,7 @@ export default function DocItem(props) {
                     <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.95 3.95 0 0 0 3.8 7.75v8.5a3.95 3.95 0 0 0 3.95 3.95h8.5a3.95 3.95 0 0 0 3.95-3.95v-8.5a3.95 3.95 0 0 0-3.95-3.95h-8.5Zm9.1 1.4a1.15 1.15 0 1 1 0 2.3 1.15 1.15 0 0 1 0-2.3ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.8a3.2 3.2 0 1 0 0 6.4 3.2 3.2 0 0 0 0-6.4Z" />
                   </svg>
                 </a>
-                <a
-                  href="https://keploy.io/slack"
-                  aria-label="Slack"
-                >
+                <a href="https://keploy.io/slack" aria-label="Slack">
                   <span
                     className="docs-inline-footer__slack"
                     aria-hidden="true"

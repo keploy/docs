@@ -2,7 +2,7 @@
 id: samples-mysql
 title: Mux MySQL Sample Application
 sidebar_label: Mux + MySQL
-description: The following sample app showcases how to use Mux framework and the Keploy Platform.
+description: Record and replay API tests for a Go Gorilla/Mux app backed by MySQL using Keploy — capture real traffic and generate test cases with mocks.
 tags:
   - go
   - quickstart
@@ -129,7 +129,7 @@ curl  http://localhost:8080/all
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
 
-![Testcase](/img/mux-mysql-keploy-record.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-record.webp" alt="Testcase" width="2086" height="1476" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! ✨💫 Want to see if everything works as expected?
 
@@ -143,7 +143,7 @@ keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-ne
 
 Output should look like this:
 
-![Testrun](/img/mux-mysql-keploy-tests.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-tests.webp" alt="Testrun" width="2316" height="1494" style={{maxWidth:'100%',height:'auto'}} />
 
 No need to set up fake databases/APIs like MySQL or write mocks manually. Keploy automatically mocks them and the application thinks it's talking to MySQL. 😄
 
@@ -249,3 +249,10 @@ We will get output something like this:
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Mux with Postgres.
+- [Sample CRUD App (Golang)](/docs/quickstart/samples-fasthttp/) — another Go SQL app.
+- [Echo SQL Sample Application](/docs/quickstart/samples-echo/) — another Go SQL sample.

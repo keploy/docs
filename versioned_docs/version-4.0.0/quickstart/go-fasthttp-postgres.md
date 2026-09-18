@@ -149,3 +149,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — another Go Postgres app.
+- [Mux MySQL Sample Application](/docs/quickstart/samples-mysql/) — Go with a SQL datastore.
+- [Sample URL Shortener App (Golang)](/docs/quickstart/samples-gin/) — another Go sample.

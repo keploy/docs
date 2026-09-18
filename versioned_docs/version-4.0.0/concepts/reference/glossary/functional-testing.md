@@ -26,7 +26,7 @@ Functional testing is typically performed by providing the software with input d
 
   <div align="center">
 
-![types of testing](../../../../../static/img/glossary/ft.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/glossary/ft.webp" alt="types of testing" width="962" height="952" style={{maxWidth:'100%',height:'auto'}} />
 
 [Functional Testing](https://keploy.io/blog/community/functional-testing-unveiling-types-and-real-world-applications)
 
@@ -210,6 +210,14 @@ Integrate functional tests into your Continuous Integration (CI) pipelines. This
 ## Conclusion
 
 Despite the challenges, functional testing is an important part of the software testing process. By following good functional testing practices, you can help to ensure that the software system meets the specified requirements and meets the intended business needs.
+
+## Related Terms
+
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — functional testing is largely black-box.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — a functional testing type for module interactions.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — re-verifies functionality after changes.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — the most granular functional test level.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## Frequently Asked Questions
 

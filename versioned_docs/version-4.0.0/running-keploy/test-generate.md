@@ -47,7 +47,7 @@ If your API requires authentication, make sure you:
 - Add API keys or bearer tokens in headers
 - Or include auth flows via test inputs below
 
-#### 📎 Paste cURL Snippets _(Recommended: 3–5)_
+#### 📎 Paste cURL Snippets _(Recommended: 3-5)_
 
 Add working `curl` commands representing real user flows. These help the AI infer request types, payloads, and expected outcomes.
 
@@ -74,3 +74,9 @@ Enhance test accuracy by uploading documentation such as:
 - 🗂 **Feature briefs or requirement docs**
 
 These help Keploy better understand the intended logic and behavior of each endpoint.
+
+## Related
+
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — the end-to-end generation guide.
+- [Agent-Based API Test Generation](/docs/running-keploy/agent-test-generation/) — generate from a local agent.
+- [Run AI-Generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — run what you generate.

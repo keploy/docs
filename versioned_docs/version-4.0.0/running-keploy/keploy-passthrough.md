@@ -31,3 +31,9 @@ sudo -E env 'PATH=$PATH' main.go record -c "java -jar path/to/user/jar" --passTh
 ```zsh
 sudo -E env 'PATH=$PATH' main.go test -c "java -jar path/to/user/jar" --delay 25  --passThroughPorts 5672,5432
 ```
+
+## Related
+
+- [Recording Filters](/docs/running-keploy/recording-filters/) — control which calls Keploy captures.
+- [Adding a custom Mock](/docs/running-keploy/custom-mocks/) — hand-author mocks for dependencies.
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — full command and flag reference.

@@ -82,7 +82,7 @@ Go to the localhost:8000 and create some queries.
 
 We will get the following output in our terminal
 
-![Test-case](/img/rust-mongo-test-case.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-test-case.webp" alt="Test-case" width="1498" height="588" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Run the testcases
 
@@ -92,8 +92,14 @@ Now, let's run the keploy in test mode again:-
 sudo -E env PATH=$PATH keploy test -c 'cargo run'
 ```
 
-![TestRun](/img/rust-mongo-test-run.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-test-run.webp" alt="TestRun" width="1512" height="730" style={{maxWidth:'100%',height:'auto'}} />
 
 _Voila!! Our testcases has passed 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [CRUD REST API with MongoDB](/docs/quickstart/sample-rust-crud-mongo/) — Rust CRUD sample.
+- [Rust Sample Application](/docs/quickstart/samples-rust-wrap/) — Rust wrap-mode sample.
+- [Sample Rust Apps](/docs/quickstart/rust-filter/) — browse all Rust quickstarts.

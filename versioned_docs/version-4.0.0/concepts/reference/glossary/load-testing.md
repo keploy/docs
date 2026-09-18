@@ -151,6 +151,13 @@ Load testing is important in the SDLC, since it ensures applications can handle 
 
 As the load testing market continues to expand, organizations that invest in robust load testing practices will be better positioned to deliver exceptional user experiences and maintain a competitive edge.
 
+## Related Terms
+
+- [Performance Testing](/docs/concepts/reference/glossary/performance-testing/) — load testing is a core type of performance testing.
+- [Reliability Testing](/docs/concepts/reference/glossary/reliability-testing/) — validates stability under sustained load.
+- [Observability Testing](/docs/concepts/reference/glossary/observability-testing/) — monitor system behavior during load tests.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### What is load testing in software development?

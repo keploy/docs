@@ -21,6 +21,21 @@ keywords:
   - docker
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Install Keploy on Windows using WSL"
+description="Install Keploy on Windows by running it inside WSL, via the one-click script or Docker."
+totalTime="PT10M"
+tools={["Windows", "WSL", "Keploy CLI"]}
+steps={[
+{name: "Enable WSL", text: "Install WSL and an Ubuntu distribution (recommended Ubuntu-22.04) from an elevated terminal."},
+{name: "One-click install", text: "Inside the WSL shell run: curl --silent -O https://keploy.io/install.sh && source install.sh"},
+{name: "Or use Docker", text: "Alternatively run Keploy via Docker Desktop with the WSL 2 backend enabled."},
+]}
+visible={false}
+/>
+
 Keploy can be installed in two ways:
 
 1. [One-Click Install](#one-click-install-keploy).

@@ -87,3 +87,9 @@ tests:
       category:
         - SCHEMA_ADDED
 ```
+
+## Related
+
+- [Review & Improve AI-Generated API Tests](/docs/running-keploy/review-and-improve-ai-generated-tests/) — act on risk findings.
+- [Run AI-Generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — run suites the analysis scores.
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — the generation step upstream.

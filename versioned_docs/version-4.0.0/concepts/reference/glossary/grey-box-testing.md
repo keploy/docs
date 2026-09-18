@@ -97,6 +97,14 @@ Some commonly used tools for gray box testing include:
 
 Gray box testing is a versatile and effective software testing approach that blends the principles of black box and white box testing. It enables testers to design test cases based on both functional specifications and partial internal knowledge of the application, leading to improved test coverage and defect identification. By leveraging techniques such as matrix testing, regression testing, pattern testing, and more, gray box testing strikes a balance between thoroughness and practicality. This approach is particularly beneficial in identifying security vulnerabilities, ensuring robust error handling, and enhancing overall software quality. Despite its challenges, including the need for intermediate skill levels and potentially higher complexity, the benefits of gray box testing make it a valuable component of a comprehensive testing strategy.
 
+## Related Terms
+
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — tests with no internal knowledge.
+- [White Box Testing](/docs/concepts/reference/glossary/white-box-testing/) — tests with full code knowledge.
+- [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — gray box blends functional and structural views.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — gray box suits integrating complex systems.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQ's
 
 ### What is gray box testing?

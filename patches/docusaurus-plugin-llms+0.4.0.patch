@@ -1,0 +1,89 @@
+diff --git a/node_modules/docusaurus-plugin-llms/lib/utils.js b/node_modules/docusaurus-plugin-llms/lib/utils.js
+index ed9850cf..a714772e 100644
+--- a/node_modules/docusaurus-plugin-llms/lib/utils.js
++++ b/node_modules/docusaurus-plugin-llms/lib/utils.js
+@@ -466,7 +466,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
+     // Pattern 1: import PartialName from './_partial.mdx'
+     // Pattern 2: import { PartialName } from './_partial.mdx'
+     // Create a fresh regex for each invocation to avoid lastIndex state leakage
+-    const createImportRegex = () => /^\s*import\s+(?:(\w+)|{\s*(\w+)\s*})\s+from\s+['"]([^'"]+_[^'"]+\.mdx?)['"];?\s*$/gm;
++    const createImportRegex = () => /^\s*import\s+(?:(\w+)|{\s*(\w+)\s*})\s+from\s+['"]([^'"]+\.mdx?)['"];?\s*$/gm;
+     const imports = new Map();
+     // First pass: collect all imports
+     let match;
+@@ -474,10 +474,7 @@ async function resolvePartialImports(content, filePath, importChain = new Set())
+     while ((match = importRegex.exec(content)) !== null) {
+         const componentName = match[1] || match[2];
+         const importPath = match[3];
+-        // Only process imports for partial files (containing underscore)
+-        if (importPath.includes('_')) {
+-            imports.set(componentName, importPath);
+-        }
++        imports.set(componentName, importPath);
+     }
+     // Resolve each partial import
+     for (const [componentName, importPath] of imports) {
+@@ -555,10 +552,63 @@ function cleanMarkdownContent(content, excludeImports = false, removeDuplicateHe
+         // - import "..."; (side-effect imports)
+         cleaned = cleaned.replace(/^\s*import\s+.*?;?\s*$/gm, '');
+     }
++    // Fenced code blocks (```lang ... ```) often contain '<...>' text that looks
++    // exactly like a tag to the regexes below but isn't one -- a placeholder like
++    // `wsl --install -d <Distribution Name>`, or a literal XML sample response
++    // like `<User>...</User>`. None of the tag-stripping rules know about code
++    // fences, so mask every whole fenced block out first and restore it verbatim
++    // once stripping is done, the same way quoted prop strings are masked below.
++    // Fences nested inside list items are indented (e.g. "   ```shell"), so the
++    // leading whitespace before the backticks is optional and not part of the
++    // backreference -- only the backtick run itself has to match on both ends.
++    const codeBlocks = [];
++    cleaned = cleaned.replace(/^[ \t]*(`{3,})[^\n]*\n[\s\S]*?^[ \t]*\1[ \t]*$/gm, (block) => {
++        codeBlocks.push(block);
++        return `@@KEPLOY_CODEBLOCK_${codeBlocks.length - 1}@@`;
++    });
+     // Remove HTML tags, but preserve XML content in code blocks
+     // We need to be selective to avoid removing XML content from code blocks
+     // This regex targets common HTML tags while being more conservative about XML
+     cleaned = cleaned.replace(/<\/?(?:div|span|p|br|hr|img|a|strong|em|b|i|u|h[1-6]|ul|ol|li|table|tr|td|th|thead|tbody)\b[^>]*>/gi, '');
++    // Remove leftover custom (PascalCase) React component tags that MDX imports
++    // resolve at real build time but that this plugin doesn't render. Self-closing
++    // tags carry no readable child text, so they're dropped entirely; paired tags
++    // often wrap real content (e.g. <TabItem>...</TabItem>), so only the tag
++    // markers are stripped and their inner text is preserved. Order matters: the
++    // self-closing pass must run first, or the second regex would partially match it.
++    //
++    // Docs also use <YOUR_INGRESS_HOST>-style ALL_CAPS placeholders for readers to
++    // fill in their own values — these also start with a capital letter, so a real
++    // component name is only treated as such when it contains a lowercase letter
++    // and no underscore (true of every actual component in this codebase, never
++    // true of these placeholders).
++    const isRealComponentName = (name) => /[a-z]/.test(name) && !name.includes('_');
++    // Prop values can legitimately contain '<' or '>' inside quoted strings (e.g.
++    // tools={["Linux kernel >= 5.10"]}), which would otherwise be mistaken for the
++    // tag's own boundary. Mask '<'/'>' found inside quoted spans first (escape-aware,
++    // so a backslash-escaped quote like \" doesn't fool it into ending the string
++    // early), run the simple original tag regex, then restore what remains.
++    // The quote-matching alternatives are mutually exclusive at every position
++    // (backslash-led vs not), so there's no ambiguity for the engine to backtrack
++    // over -- this avoids the catastrophic-backtracking trap a naive version of
++    // this fix hit earlier on ordinary prose full of apostrophes (don't, it's).
++    const LT_MASK = '@@KEPLOY_LT@@';
++    const GT_MASK = '@@KEPLOY_GT@@';
++    // Only double-quoted strings need masking: every real prop value in this
++    // codebase that contains '<' or '>' uses double quotes (verified against the
++    // actual docs content). Single quotes are deliberately NOT masked here --
++    // they appear constantly as English contractions (it's, don't, Let's), and
++    // masking them paired each stray apostrophe with whichever one came next in
++    // the document, sometimes many paragraphs later, incorrectly treating
++    // everything in between (including real tags) as "inside a string".
++    const masked = cleaned.replace(/"(?:[^"\\]|\\.)*"/g, (q) => q.split('<').join(LT_MASK).split('>').join(GT_MASK));
++    const stripped = masked
++        .replace(/<([A-Z]\w*)(?:\s+[^<>]*?)?\/>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match)
++        .replace(/<\/?([A-Z]\w*)(?:\s+[^<>]*?)?>/g, (match, tagName) => isRealComponentName(tagName) ? '' : match);
++    cleaned = stripped.split(LT_MASK).join('<').split(GT_MASK).join('>');
++    // Restore fenced code blocks now that tag-stripping is done, so their
++    // original content (placeholders, XML samples, etc.) is left untouched.
++    cleaned = cleaned.replace(/@@KEPLOY_CODEBLOCK_(\d+)@@/g, (_match, index) => codeBlocks[Number(index)]);
+     // Remove redundant content that just repeats the heading (if requested)
+     if (removeDuplicateHeadings) {
+         // Split content into lines and process line by line

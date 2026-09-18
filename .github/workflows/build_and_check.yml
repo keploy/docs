@@ -25,3 +25,6 @@ jobs:
 
       - name: Build Documentation
         run: npm run build
+
+      - name: Verify structured-data graph
+        run: npm run verify-schema

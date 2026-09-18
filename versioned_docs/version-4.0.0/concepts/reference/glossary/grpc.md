@@ -130,6 +130,14 @@ Performance optimizations continue to improve efficiency, with new compression a
 
 The growing ecosystem of tools and libraries makes gRPC increasingly accessible to developers. IDE integrations, debugging tools, and testing frameworks reduce the learning curve and improve developer productivity.
 
+## Related Terms
+
+- [Microservice Testing](/docs/concepts/reference/glossary/microservice-testing/) — gRPC powers microservice communication.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — validates gRPC service interactions.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — stand in for gRPC dependencies in tests.
+- [Idempotency](/docs/concepts/reference/glossary/idempotency/) — key to reliable RPC retries in distributed systems.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### What's the main difference between gRPC and REST?

@@ -10,11 +10,12 @@ tags:
   - job-tracking
   - test-management
 ---
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide explains how to use the generation history to track and manage your test generation jobs. 
+This guide explains how to use the generation history to track and manage your test generation jobs.
 
 ## Generation History Features
 
@@ -37,10 +38,12 @@ For each generation job, you can view:
 To view details of a specific generation:
 
 1. **Navigate to Generation History**
+
    - Go to the generation history section in Keploy
    - View the list of all generation jobs
 
 2. **Review Job Statistics**
+
    - See the breakdown of accepted, recovered, rejected, and buggy test suites
 
 3. **Check Input Parameters**
@@ -55,6 +58,7 @@ To view details of a specific generation:
 If you find rejected test suites that you want to include:
 
 1. **Locate Rejected Tests**
+
    - Browse through the generation history
    - Identify jobs with rejected test suites
 
@@ -65,17 +69,20 @@ If you find rejected test suites that you want to include:
 ## Understanding Test Statuses
 
 ### Accepted Tests ✅
+
 - Tests that passed all validation checks
 - Successfully generated and ready to use
 - No issues detected in the test suite
 
 ### Rejected Tests ❌
+
 - Tests that failed validation checks
 - May have incorrect assertions or invalid configurations
 - Require manual review and fixes
 - Can be added back to the test suite list for modification
 
 ### Buggy Tests 🐛
+
 - Tests with identified bugs or issues
 - May have inconsistent behavior or errors
 - Need investigation and debugging
@@ -130,16 +137,19 @@ If you find rejected test suites that you want to include:
 ## Analyzing Generation Trends
 
 ### Success Rate Analysis
+
 - Track the percentage of accepted vs rejected tests over time
 - Identify patterns in test generation quality
 - Optimize inputs based on historical data
 
 ### Input Optimization
+
 - Review which inputs led to higher acceptance rates
 - Compare different configurations and their outcomes
 - Refine your test generation strategy
 
 ### Error Patterns
+
 - Identify common reasons for test rejection
 - Address recurring bugs or issues
 - Improve test generation quality
@@ -147,21 +157,25 @@ If you find rejected test suites that you want to include:
 ## Best Practices
 
 1. **Regular Review**
+
    - Check generation history regularly
    - Monitor acceptance rates and trends
    - Address rejected tests promptly
 
 2. **Learn from Rejected Tests**
+
    - Analyze why tests were rejected
    - Improve input parameters for future generations
    - Document common issues and solutions
 
 3. **Recover and Reuse**
+
    - Use the plus icon to recover rejected tests
    - Fix and validate rejected test suites
    - Build a comprehensive test coverage
 
 4. **Track Performance**
+
    - Monitor the number of buggy tests
    - Identify problematic endpoints or methods
    - Improve API stability based on insights
@@ -170,3 +184,10 @@ If you find rejected test suites that you want to include:
    - Archive old generation jobs periodically
    - Focus on recent and relevant generations
    - Keep track of successful generation patterns
+
+## Related
+
+- [Schema Coverage and Generation](/docs/running-keploy/api-testing-schema-coverage/) — generate tests for coverage gaps.
+- [API Test Generator](/docs/running-keploy/api-test-generator/) — how test generation works.
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — review resulting run reports.
+- [Adding New Test Suites](/docs/running-keploy/api-testing-add-suite/) — add suites manually.

@@ -45,7 +45,7 @@ Once you're on the test suite page:
 
 ### Immediate Changes
 
-- **Status Update**: The suite status changes from "Buggy" to "Active" 
+- **Status Update**: The suite status changes from "Buggy" to "Active"
 - **Future Runs**: The suite will run normally in subsequent test executions
 - **Reporting**: The suite will be included in standard test reports
 - **Monitoring**: Keploy will continue monitoring the suite for new issues
@@ -56,6 +56,7 @@ Once you're on the test suite page:
 **Scenario**: A 404 error was resolved by fixing the API endpoint
 
 **Before marking unbuggy**:
+
 ```bash
 # Verify the endpoint is working
 curl -X POST https://api.example.com/owners \
@@ -68,6 +69,7 @@ curl -X POST https://api.example.com/owners \
 **Scenario**: Response schema validation was fixed by updating the API
 
 **Verification steps**:
+
 1. Check that response format matches expectations
 2. Verify all required fields are present
 3. Confirm data types are correct
@@ -75,3 +77,10 @@ curl -X POST https://api.example.com/owners \
 This ensures that suites are automatically marked as unbuggy when automated fixes resolve issues.
 
 Remember: Marking a suite as unbuggy should only be done after thoroughly verifying that all issues have been resolved and the suite is functioning correctly.
+
+## Related
+
+- [Buggy Test Suites](/docs/running-keploy/api-testing-buggy-suites/) — identify failing suites.
+- [Fix with AI](/docs/running-keploy/api-testing-fix-with-ai/) — auto-repair failing suites.
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — verify fixes in run reports.
+- [Edit Test Suites](/docs/running-keploy/api-testing-edit-suites/) — manually fix suite issues.

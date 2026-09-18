@@ -2,7 +2,7 @@
 id: samples-mux
 title: Sample Product Catalog App (Golang)
 sidebar_label: Mux + Postgres
-description: The following sample app showcases how to use Mux framework and the Keploy Platform.
+description: Test a Go Gorilla/Mux product-catalog API backed by Postgres with Keploy — record real requests and replay them as tests with auto-generated mocks.
 tags:
   - go
   - quickstart
@@ -422,7 +422,7 @@ Or simply wander over to your browser and visit `http://localhost:8010/products`
 
 Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-<img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-sql-test-cases.webp" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
 
 ### Run Tests 🏁
 
@@ -439,3 +439,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample CRUD App (Golang)](/docs/quickstart/samples-fasthttp/) — another Go Postgres app.
+- [Mux MySQL Sample Application](/docs/quickstart/samples-mysql/) — Mux with MySQL.
+- [Sample URL Shortener App (Golang)](/docs/quickstart/samples-gin/) — another Go sample.

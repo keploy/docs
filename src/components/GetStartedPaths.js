@@ -4,6 +4,37 @@ import useBaseUrl from "@docusaurus/useBaseUrl";
 import {FaRocket, FaMagic, FaRetweet, FaLaptopCode} from "react-icons/fa";
 import {SiKubernetes} from "react-icons/si";
 
+// The four entry points rendered as cards below, in display order. Exported
+// so the docs home can emit them as an ItemList off the same data the links
+// are built from -- a hand-copied list in the JSON-LD would quietly rot the
+// first time one of these paths moves.
+export const GET_STARTED_PATHS = [
+  {
+    name: "Generate from OpenAPI Schema / Postman Collection / cURL",
+    description:
+      "Connect resources in Keploy Console and generate validated suites",
+    href: "/docs/running-keploy/generate-api-tests-using-ai/",
+  },
+  {
+    name: "Record with Chrome extension",
+    description: "Turn browser actions into API test flows (no mocks)",
+    href: "/docs/running-keploy/api-testing-chrome-extension/",
+  },
+  {
+    name: "Record in K8s, Replay Anywhere (Local/CI/K8s)",
+    description: "Capture from staging/prod, replay in your pipeline",
+    href: "/docs/quickstart/k8s-proxy/",
+  },
+  {
+    name: "Record Locally",
+    description: "Classic Keploy CLI experience for rapid iteration",
+    href: "/docs/server/installation/",
+  },
+];
+
+const [AI_GENERATE, CHROME_EXTENSION, K8S_PROXY, LOCAL_RECORD] =
+  GET_STARTED_PATHS;
+
 export const GetStartedPaths = () => {
   return (
     <section className="mb-12">
@@ -24,7 +55,7 @@ export const GetStartedPaths = () => {
       {/* Two Paths Grid */}
       <div className="grid gap-6 md:grid-cols-2">
         {/* AI Test Generation */}
-        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-orange-50/50 p-6 h-full shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-orange-950/20 dark:hover:shadow-orange-900/20">
+        <div className="group relative h-full overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-orange-50/50 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-orange-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-orange-950/20 dark:hover:shadow-orange-900/20">
           {/* Decorative gradient blob */}
           <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-orange-400/20 to-orange-600/10 blur-2xl transition-transform duration-500 group-hover:scale-150"></div>
 
@@ -80,10 +111,8 @@ export const GetStartedPaths = () => {
             {/* Console Options */}
             <div className="mt-auto space-y-3 pt-2">
               <Link
-                to={useBaseUrl(
-                  "/docs/running-keploy/generate-api-tests-using-ai/"
-                )}
-                className="group/option flex items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 min-h-[92px] transition-all duration-200 hover:border-orange-300 hover:bg-orange-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-orange-500/50 dark:hover:bg-orange-900/10"
+                to={useBaseUrl(AI_GENERATE.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-orange-300 hover:bg-orange-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-orange-500/50 dark:hover:bg-orange-900/10"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-700 transition-colors group-hover/option:bg-orange-100 group-hover/option:text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
@@ -105,10 +134,8 @@ export const GetStartedPaths = () => {
               </Link>
 
               <Link
-                to={useBaseUrl(
-                  "/docs/running-keploy/api-testing-chrome-extension/"
-                )}
-                className="group/option flex items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 min-h-[92px] transition-all duration-200 hover:border-orange-300 hover:bg-orange-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-orange-500/50 dark:hover:bg-orange-900/10"
+                to={useBaseUrl(CHROME_EXTENSION.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-orange-300 hover:bg-orange-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-orange-500/50 dark:hover:bg-orange-900/10"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-orange-100 text-orange-700 transition-colors group-hover/option:bg-orange-100 group-hover/option:text-orange-800 dark:bg-orange-900/30 dark:text-orange-300">
@@ -132,7 +159,7 @@ export const GetStartedPaths = () => {
         </div>
 
         {/* Record & Replay */}
-        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-purple-50/50 p-6 h-full shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-purple-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-purple-950/20 dark:hover:shadow-purple-900/20">
+        <div className="group relative h-full overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-purple-50/50 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-purple-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-purple-950/20 dark:hover:shadow-purple-900/20">
           {/* Decorative gradient blob */}
           <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-purple-400/20 to-purple-600/10 blur-2xl transition-transform duration-500 group-hover:scale-150"></div>
 
@@ -187,8 +214,8 @@ export const GetStartedPaths = () => {
             {/* Sub-Options */}
             <div className="mt-auto space-y-3 pt-2">
               <Link
-                to={useBaseUrl("/docs/quickstart/k8s-proxy/")}
-                className="group/option flex items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 min-h-[92px] transition-all duration-200 hover:border-purple-300 hover:bg-purple-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-purple-500/50 dark:hover:bg-purple-900/10"
+                to={useBaseUrl(K8S_PROXY.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-purple-300 hover:bg-purple-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-purple-500/50 dark:hover:bg-purple-900/10"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-700 transition-colors group-hover/option:bg-purple-100 group-hover/option:text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">
@@ -209,8 +236,8 @@ export const GetStartedPaths = () => {
               </Link>
 
               <Link
-                to={useBaseUrl("/docs/server/installation/")}
-                className="group/option flex items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 min-h-[92px] transition-all duration-200 hover:border-purple-300 hover:bg-purple-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-purple-500/50 dark:hover:bg-purple-900/10"
+                to={useBaseUrl(LOCAL_RECORD.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-purple-300 hover:bg-purple-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-purple-500/50 dark:hover:bg-purple-900/10"
               >
                 <div className="flex items-start gap-3">
                   <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-purple-100 text-purple-700 transition-colors group-hover/option:bg-purple-100 group-hover/option:text-purple-800 dark:bg-purple-900/30 dark:text-purple-200">

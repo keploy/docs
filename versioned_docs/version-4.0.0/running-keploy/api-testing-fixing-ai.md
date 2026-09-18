@@ -51,6 +51,7 @@ Use this feature when:
 3. Provide instructions describing what needs to be corrected
 
 Example instructions:
+
 - "Normalize dynamic fields like timestamps and request IDs"
 - "Update schema based on latest API response"
 - "Ignore volatile metadata fields"
@@ -66,13 +67,13 @@ Example instructions:
 
 The AI can intelligently update:
 
-- JSON assertions  
-- Schema validations  
-- Header validations  
-- Status code expectations  
-- Dynamic field handling  
-- Selected field configurations  
-- Request payload mismatches  
+- JSON assertions
+- Schema validations
+- Header validations
+- Status code expectations
+- Dynamic field handling
+- Selected field configurations
+- Request payload mismatches
 
 It ensures the suite reflects the current API behavior while preserving intended validation logic.
 
@@ -81,6 +82,7 @@ It ensures the suite reflects the current API behavior while preserving intended
 ## Example Scenario
 
 ### Problem
+
 Your API now returns:
 
 ```json
@@ -96,9 +98,11 @@ Previously, your test expected strict equality including `createdAt`.
 The test fails due to timestamp variance.
 
 ### Instruction to AI
+
 "Normalize dynamic fields like `createdAt` and ignore timestamp differences."
 
 ### Result
+
 AI updates the assertion to:
 
 - Use Schema validation instead of strict equality
@@ -130,3 +134,10 @@ Normalization focuses on making tests stable without reducing meaningful validat
 - **Review AI-generated changes before finalizing**
 - **Use normalization for dynamic fields, not business logic errors**
 - **Keep critical validations strict**
+
+## Related
+
+- [Buggy Test Suites](/docs/running-keploy/api-testing-buggy-suites/) — identify failing suites.
+- [Mark Test Suite as Unbuggy](/docs/running-keploy/api-testing-mark-unbuggy/) — mark suites fixed as unbuggy.
+- [Self-Healing API Tests](/docs/running-keploy/self-healing-ai-api-tests/) — self-healing test maintenance.
+- [Edit Test Suites](/docs/running-keploy/api-testing-edit-suites/) — manually adjust suites.

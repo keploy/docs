@@ -17,6 +17,21 @@ keywords:
   - Pytest
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Merge Keploy test coverage in a Python application"
+description="Install coverage.py and run Keploy so recorded API tests produce a combined coverage report."
+totalTime="PT10M"
+tools={["Python", "coverage.py", "Keploy CLI"]}
+steps={[
+{name: "Install coverage", text: "Run pip install coverage so Keploy can record Python coverage."},
+{name: "Run the tests", text: "Run keploy test -c \"<command to run your app>\" to replay tests and generate coverage data."},
+{name: "Combine the report", text: "Combine the coverage data into a single report to view total covered lines."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -89,3 +104,9 @@ and if you want the coverage in an html file, you can run:
 ```bash
 coverage html
 ```
+
+## Related
+
+- [Keploy Go SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/go/) — the Go SDK.
+- [Java Agent for Dynamic Deduplication](/docs/server/sdk-installation/java/) — the Java SDK.
+- [Keploy JavaScript SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/javascript/) — the JS SDK.

@@ -17,7 +17,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
 
-### Recording Testcases and Data Mocks <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="20" height="20"/>
+### Recording Testcases and Data Mocks <img src="https://cdn4.iconfinder.com/data/icons/logos-and-brands/512/97_Docker_logo_logos-512.png" width="20" height="20" alt="Docker logo"/>
 
 1. To record test cases and data mocks, follow these steps in the **root directory** of your application. Ensure that you have the following prerequisites in place:
 
@@ -65,3 +65,10 @@ keploy test -c "Docker_CMD_to_run_user_container --network <network_name>" --con
 Voilà! 🧑🏻‍💻 We have the tests with data mocks running! 🐰🎉
 
 You'll be able to see the test cases that ran with the results report on the console as well as locally in the `testReport` directory.
+
+## Related
+
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — full record and test flag reference.
+- [Configuration File](/docs/running-keploy/configuration-file/) — set container and network names in `keploy.yaml`.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — pass through ports for containerized dependencies.
+- [Adding a custom Mock to the Keploy Mock File](/docs/running-keploy/custom-mocks/) — mock services you cannot containerize.

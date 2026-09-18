@@ -440,3 +440,10 @@ Node.js v22.7.0
 ```
 
 Voila! 🎉 You have successfully tested the application using Keploy. Keploy also generates coverage reports for the test-suites.
+
+## Related
+
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse more JS samples.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — Express with a different datastore.
+- [NodeJS - JWT Sample Application](/docs/quickstart/samples-node-jwt/) — Node app on Postgres.
+- [NextJs Sample Application](/docs/quickstart/samples-nextjs/) — another Postgres-backed JS app.

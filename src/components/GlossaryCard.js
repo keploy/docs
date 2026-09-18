@@ -1,10 +1,16 @@
 import React from "react";
+import Link from "@docusaurus/Link";
 import ArrowUpRight from "../../static/img/ArrowUpRight.svg";
 
+// Uses Docusaurus `Link` rather than a bare `<a>` for two reasons: a glossary
+// entry pointing at a slug that doesn't exist now fails the build
+// (`onBrokenLinks: "throw"`) instead of shipping a 404 that only surfaces in a
+// crawl, and `Link` applies the site's `trailingSlash` setting, so these
+// hand-written slash-less paths stop costing a 301 on every click.
 const GlossaryCard = ({name, description, link}) => {
   return (
-    <a
-      href={link}
+    <Link
+      to={link}
       className="group flex h-full flex-col rounded-xl border border-transparent bg-[var(--ifm-card-background-color)] p-6 shadow-[0_4px_12px_var(--ifm-card-shadow-color)] transition-all duration-300 hover:border-[var(--ifm-color-primary)] hover:shadow-[0_8px_20px_var(--ifm-card-shadow-color)] focus:outline-none focus:ring-2 focus:ring-[var(--ifm-color-primary)] focus:ring-offset-2
       "
     >
@@ -20,7 +26,7 @@ const GlossaryCard = ({name, description, link}) => {
       <p className="text-sm leading-relaxed text-[var(--ifm-color-emphasis-700)]">
         {description}
       </p>
-    </a>
+    </Link>
   );
 };
 

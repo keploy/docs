@@ -19,7 +19,7 @@ keywords:
 
 Unit testing is a software testing approach that isolates individual units or components of a software program from the rest of the application. The primary purpose of unit testing is to find flaws or errors in the smallest testable bits of code (functions, methods, or classes) before they are connected with other parts of the system.
 
-![Testing Pyramid](/img/pyramid-cost.jpg)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/pyramid-cost.webp" alt="Testing Pyramid" width="667" height="510" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Benefits of Unit Testing
 
@@ -81,6 +81,14 @@ Unit testing is an important part of the software development process that can h
 Keploy enhances the unit testing process by providing automated test case generation, error debugging and analysis tools, seamless integration with unit testing frameworks, and a collaborative testing environment. With Keploy, developers can streamline the unit testing process, improve testing efficiency, and ensure the reliability and quality of their code.
 
 By incorporating Keploy into their testing workflows, developers can detect errors early in the development process, ensure comprehensive test coverage, and collaborate effectively with their teams to drive continuous improvement in testing practices. With its innovative features and seamless integration capabilities, Keploy empowers developers to write better code and deliver high-quality software products with confidence.
+
+## Related Terms
+
+- [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — automate running your unit tests.
+- [Test-Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — write unit tests before code.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — isolate the unit under test.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — verify units work together.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQs
 

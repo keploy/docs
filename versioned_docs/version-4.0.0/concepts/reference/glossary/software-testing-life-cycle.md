@@ -83,6 +83,13 @@ Software Testing Life Cycle (STLC) is integral to ensuring software quality and 
 
 Incorporating STLC best practices and leveraging advanced testing tools empower organizations to achieve higher quality standards, enhance customer satisfaction, and maintain competitive advantage in the dynamic software landscape.
 
+## Related Terms
+
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — a key phase within the STLC.
+- [Defect Management](/docs/concepts/reference/glossary/defect-management/) — track defects reported during testing.
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate STLC test execution phases.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### 1. **What are the key phases of the Software Testing Life Cycle?**

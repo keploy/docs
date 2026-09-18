@@ -19,6 +19,21 @@ keywords:
   - Go Test
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Merge Keploy test coverage in a Go application"
+description="Add graceful shutdown and run Keploy so Go test coverage from recorded API tests is captured and merged."
+totalTime="PT10M"
+tools={["Go", "Keploy CLI"]}
+steps={[
+{name: "Add graceful shutdown", text: "Add a GracefulShutdown handler that listens for SIGTERM/SIGKILL so coverage data is flushed when Keploy stops the app."},
+{name: "Run with coverage", text: "Run keploy test with Go coverage enabled to record which lines the replayed tests exercise."},
+{name: "Merge the reports", text: "Merge the Keploy coverage with your go test coverage into a single combined report."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -109,3 +124,9 @@ To get the coverage related information for merged coverage data :
 ```go
 go tool cover -func combined-coverage.txt
 ```
+
+## Related
+
+- [Java Agent for Dynamic Deduplication](/docs/server/sdk-installation/java/) — the Java SDK.
+- [Keploy JavaScript SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/javascript/) — the JS SDK.
+- [Keploy Python SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/python/) — the Python SDK.

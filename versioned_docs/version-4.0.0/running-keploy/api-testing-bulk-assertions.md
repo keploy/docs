@@ -26,6 +26,7 @@ Schema assertions allow you to validate the structure and format of API response
 ### 1. Filter Your Test Suites
 
 First, use the filtering options to narrow down the tests you want to assert:
+
 - **Filter by Endpoint**: Select specific API endpoints
 - **Filter by HTTP Method**: Choose methods like GET, POST, PUT, DELETE, etc.
 - **Filter by Status Code**: Filter by response status codes (2xx, 4xx, 5xx, etc.)
@@ -35,6 +36,7 @@ First, use the filtering options to narrow down the tests you want to assert:
 
 Select the configure schema assertions option
 From the entire response body, you can choose which fields to assert:
+
 - **Response Body Fields**: Select individual fields from the JSON response
 - **Data Types**: Ensure fields have correct types (string, number, boolean, etc.)
 - **Required Fields**: Verify that mandatory fields are present
@@ -42,6 +44,7 @@ From the entire response body, you can choose which fields to assert:
 ### 4. Apply Schema Assertions
 
 Schema assertions validate the structure of your API responses:
+
 - **Field Presence**: Ensure required fields exist in the response
 - **Data Type Validation**: Verify that fields have the correct data type
 - **Format Validation**: Check formats like email, URL, date, etc.
@@ -55,6 +58,7 @@ Schema assertions validate the structure of your API responses:
 ## Example Use Cases
 
 ### Example: Asserting User Endpoints
+
 ```
 Filter by:
 - Endpoint: /api/v1/users/*
@@ -66,7 +70,6 @@ Bulk Assert:
 - Data types: id (number), name (string), email (string)
 - Email format validation
 ```
-
 
 ## Benefits of Bulk Assertions
 
@@ -83,3 +86,10 @@ Bulk Assert:
 - **Regular updates**: Update schemas when API contracts change
 
 By leveraging bulk assertions and schema validation, you can ensure comprehensive API testing while minimizing manual effort and maintaining high test coverage across your application.
+
+## Related
+
+- [Custom Assertions](/docs/running-keploy/api-testing-custom-assertions/) — define individual assertions.
+- [Functions & Schema Assertions](/docs/running-keploy/api-testing-functions/) — schema and function assertions.
+- [Using Filtering in Test Suites](/docs/running-keploy/api-testing-filter-suites/) — filter suites before asserting.
+- [Assertion Tree](/docs/running-keploy/api-testing-assertion-tree/) — visualize assertion flow.

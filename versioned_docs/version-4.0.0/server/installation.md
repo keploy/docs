@@ -86,3 +86,9 @@ keploy test -c "CMD_TO_RUN_APP" --delay 10
 ```
 
 Explore the [Test Coverage Generation Guide](https://keploy.io/docs/server/sdk-installation/go/) for seeing test-coverage with your unit testing library and [Keploy Running Guide](https://keploy.io/docs/running-keploy/configuration-file/) for additional options and tips on customizing your Keploy setup to perfection.
+
+## Related
+
+- [Installing Keploy](/docs/server/installation/) — the full install guide with OS tabs.
+- [Keploy Go SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/go/) — set up a language SDK.
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — commands to run after installing.

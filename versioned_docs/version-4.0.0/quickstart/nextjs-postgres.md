@@ -138,3 +138,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse more JS samples.
+- [Express + PostgreSQL + Prisma Sample Application](/docs/quickstart/express-postgresql-prisma/) — another Postgres JS app.
+- [NodeJS - JWT Sample Application](/docs/quickstart/samples-node-jwt/) — Node app on Postgres.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — another Node.js sample.

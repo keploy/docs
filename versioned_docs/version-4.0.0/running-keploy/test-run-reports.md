@@ -116,3 +116,9 @@ Update the request configuration for each test case:
 
 - ✅ **Save Changes** — Apply edits to the test step and update the suite.
 - ❌ **Cancel** — Discard any unsaved modifications and revert to the last saved state.
+
+## Related
+
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — the per-run report view.
+- [Sharing Reports](/docs/running-keploy/api-testing-sharing-reports/) — share reports with your team.
+- [Share Test Suite With Your Team](/docs/running-keploy/share-tests/) — share the suites themselves.

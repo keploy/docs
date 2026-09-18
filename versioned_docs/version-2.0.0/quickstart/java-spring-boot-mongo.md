@@ -78,7 +78,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 
 If everything goes right, your screen should look a bit like this:
 
-<img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/install-keploy-logs.webp" alt="Test Case Generator" width="50%" />
 
 ## Run Application
 

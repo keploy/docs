@@ -12,3 +12,9 @@ import WhatIsKeploy from '../concepts/what-is-keploy.md'
 import WhatAreKeployFeatures from '../concepts/what-are-keploy-features.md'
 
 <WhatAreKeployFeatures/>
+
+## Related
+
+- [Why Keploy?](/docs/keploy-explained/why-keploy/) — the motivation and benefits.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — the underlying mechanism.
+- [Supported Languages for Unit Testing](/docs/keploy-explained/supported-languages/) — language coverage.

@@ -82,3 +82,10 @@ keywords:
 
 - Output test name, request payload, status code, and failure reason.
 - Use structured reports for better traceability in CI/CD tools.
+
+## Related
+
+- [What is API testing?](/docs/running-keploy/about-api-testing/) — foundational concepts behind these practices.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — automate regression tests in pipelines.
+- [Variables in API Testing](/docs/running-keploy/api-testing-variables/) — chain requests for workflow validation.
+- [Bulk Assertions and Schema Validation](/docs/running-keploy/api-testing-bulk-assertions/) — validate response structure and schema.

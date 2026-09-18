@@ -9,8 +9,10 @@ export const GSoC = () => {
       <Link to={useBaseUrl("/gsoc/contribution-guide")}>
         <img
           className="mt-5 h-[450px] w-full"
-          src="/docs/img/gsoc-banner.png"
+          src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/gsoc-banner.webp"
           alt={"GSoC 2023"}
+          width={1920}
+          height={1080}
         />
       </Link>
       <div className="mt-5 grid grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">

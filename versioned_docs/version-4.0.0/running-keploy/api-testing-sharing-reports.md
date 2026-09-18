@@ -53,6 +53,7 @@ Once added, they become a workspace member and can access shared reports based o
 When you share a report, the recipient can view:
 
 ### Execution Summary
+
 - Total test cases executed
 - Passed / Failed count
 - Execution duration
@@ -65,3 +66,9 @@ When you share a report, the recipient can view:
 - Add relevant team members directly from the dashboard
 - Maintain proper role-based access control
 
+## Related
+
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — view detailed run reports.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — manage suite settings.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — generate reports in CI/CD.
+- [Running Selective Test Suites](/docs/running-keploy/api-testing-running-selective/) — run suites to report on.

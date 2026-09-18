@@ -9,6 +9,7 @@ tags:
   - test-suite
   - test-management
 ---
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
@@ -18,18 +19,21 @@ In this guide, we will walk through the process of adding a test suite in Keploy
 ## Steps to Add a Test Suite
 
 1. **Click on the Plus Button**
+
    - Navigate to the test suite section in the Keploy interface.
    - Click on the `+` button to add a new test suite.
 
 2. **Provide Test Suite Details**
+
    - Fill in the following fields:
      - **Name**: Enter a unique name for the test suite.
      - **Details**: Provide a brief description of the test suite.
      - **Request**: Specify the request details, such as the HTTP method, URL, headers, and body.
      - **Assertions**: Define any Assertions related to the test suite.
-![Add Suite](https://keploy-devrel.s3.us-west-2.amazonaws.com/add-new-suite-1.png)
+       ![Add Suite](https://keploy-devrel.s3.us-west-2.amazonaws.com/add-new-suite-1.png)
 
 3. **Import a Curl Command (Optional)**
+
    - If you have a curl command, you can directly import it to create the test suite.
    - Paste the curl command in the provided input field.
    - Keploy will automatically parse the curl command and populate the test suite details.
@@ -40,6 +44,7 @@ In this guide, we will walk through the process of adding a test suite in Keploy
 ## Example
 
 ### Manual Entry
+
 ```json
 {
   "name": "User Authentication",
@@ -59,6 +64,7 @@ In this guide, we will walk through the process of adding a test suite in Keploy
 ```
 
 ### Importing a Curl Command
+
 ```bash
 curl -X POST https://api.example.com/login \
   -H "Content-Type: application/json" \
@@ -66,3 +72,10 @@ curl -X POST https://api.example.com/login \
 ```
 
 By following these steps, you can easily create and manage test suites in Keploy.
+
+## Related
+
+- [Edit Test Suites](/docs/running-keploy/api-testing-edit-suites/) — edit suites after creating them.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — manage suite settings and actions.
+- [Adding Labels to Test Suites](/docs/running-keploy/api-testing-adding-labels/) — organize new suites with labels.
+- [Using Filtering in Test Suites](/docs/running-keploy/api-testing-filter-suites/) — filter across your test suites.

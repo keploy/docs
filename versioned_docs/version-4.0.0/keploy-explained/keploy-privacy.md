@@ -31,3 +31,9 @@ Keploy is built with privacy as a core value. Here’s how we keep your code and
 We’re committed to making privacy non-negotiable.
 
 Have questions, concerns, or requests? [Contact our team](mailto:support@keploy.io)—we’re here to help.
+
+## Related
+
+- [Security & Compliance at Keploy](/docs/keploy-explained/keploy-security/) — the security counterpart.
+- [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
+- [Why Keploy?](/docs/keploy-explained/why-keploy/) — where privacy fits in.

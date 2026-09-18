@@ -10,6 +10,12 @@ import {
   WhatIsKeploy,
   EcosystemSupport,
 } from "../components";
+import {GET_STARTED_PATHS} from "../components/GetStartedPaths";
+import {
+  organizationRef,
+  websiteRef,
+  breadcrumbList,
+} from "../schema/siteEntities";
 //import {Intro} from "../components";
 export default function Home() {
   const context = useDocusaurusContext();
@@ -26,27 +32,8 @@ export default function Home() {
     return `${trimmedBase}${normalizedPath}`;
   };
   const docsUrl = toAbsoluteUrl(siteConfig.url, siteConfig.baseUrl);
-  const breadcrumbSchema =
-    docsUrl && siteConfig.url
-      ? {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: siteConfig.url,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Docs",
-              item: docsUrl,
-            },
-          ],
-        }
-      : null;
+  // Home -> Docs breadcrumb, from the shared builder (single source of truth).
+  const breadcrumbSchema = breadcrumbList();
   // SEO: docs landing previously rendered with title "Keploy Documentation" (20c)
   // and meta description "API Test Generator Tool" (23c). Both were too short
   // to capture the intent of a docs visitor (install, capture, replay, SDK).
@@ -57,23 +44,31 @@ export default function Home() {
     "Keploy Documentation — Install, Capture & Replay API Tests";
   const docsHomeDescription =
     "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
-  const articleSchema = docsUrl
+  // CollectionPage, not Article: this page is an index of the docs, with no
+  // single author, publication date or headline. DocItem already suppresses
+  // Article on /docs/ for exactly that reason, so emitting one here left the
+  // site's only generic Article on the page the rule was written for. The
+  // ItemList mirrors the four entry-point cards GetStartedPaths renders.
+  const collectionPageSchema = docsUrl
     ? {
         "@context": "https://schema.org",
-        "@type": "Article",
-        headline: docsHomeTitle,
+        "@type": "CollectionPage",
+        "@id": docsUrl,
+        name: docsHomeTitle,
         description: docsHomeDescription,
-        mainEntityOfPage: {
-          "@type": "WebPage",
-          "@id": docsUrl,
-        },
-        publisher: {
-          "@type": "Organization",
-          name: "Keploy",
-          logo: {
-            "@type": "ImageObject",
-            url: "https://keploy.io/docs/img/favicon.png",
-          },
+        url: docsUrl,
+        isPartOf: websiteRef,
+        publisher: organizationRef,
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Ways to get started with Keploy",
+          itemListElement: GET_STARTED_PATHS.map((path, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: path.name,
+            description: path.description,
+            url: toAbsoluteUrl(siteConfig.url, path.href),
+          })),
         },
       }
     : null;
@@ -86,9 +81,9 @@ export default function Home() {
             {JSON.stringify(breadcrumbSchema)}
           </script>
         )}
-        {articleSchema && (
+        {collectionPageSchema && (
           <script type="application/ld+json">
-            {JSON.stringify(articleSchema)}
+            {JSON.stringify(collectionPageSchema)}
           </script>
         )}
       </Head>

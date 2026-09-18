@@ -29,4 +29,10 @@ tags:
 
 ⭐ If you're excited about what's coming, show some love by [starring Keploy on GitHub](https://github.com/keploy/keploy)
 
-🤙 We're happy to hear from you in-case you want to deep-dive. [Schedule a demo](https://calendar.app.google/3mHeyaoKg3A2qkqF6) – because the best tests are yet to come! 🚀🎉
+🤙 We're happy to hear from you in-case you want to deep-dive. [Schedule a demo](https://calendar.app.google/3mHeyaoKg3A2qkqF6) — because the best tests are yet to come! 🚀🎉
+
+## Related
+
+- [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — the mechanism behind the benefits.
+- [Security & Compliance at Keploy](/docs/keploy-explained/keploy-security/) — enterprise readiness.

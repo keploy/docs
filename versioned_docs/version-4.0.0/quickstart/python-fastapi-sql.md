@@ -426,3 +426,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample User Data CRUD App (Django)](/docs/quickstart/samples-django/) — Another Python SQL CRUD app.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python Flask CRUD sample.
+- [Sample SMS Sending App](/docs/quickstart/samples-fastapi-twilio/) — FastAPI with external API integration.

@@ -16,3 +16,9 @@ import QuickStartFilter from '../../../src/components/QuickStartFilter'
 Find the right quickstart for your project 👇
 
 <QuickStartFilter />
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — Go quickstarts.
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Python quickstarts.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — JavaScript quickstarts.

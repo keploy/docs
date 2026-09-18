@@ -37,7 +37,7 @@ Keploy can automatically fix failing test cases using its built-in AI engine. Th
 
 3. **Click "Fix with AI"**
 
-   - Keploy AI analyzes the diff between the expected and actual response. It then proposes updated assertions, allowing you to review and accept the 'healed' version as 
+   - Keploy AI analyzes the diff between the expected and actual response. It then proposes updated assertions, allowing you to review and accept the 'healed' version as
      the new source of truth.
 
 4. _(Optional)_ **Add Context**
@@ -62,3 +62,9 @@ Keploy can automatically fix failing test cases using its built-in AI engine. Th
 - Combine healing with test deduplication to keep your suite clean.
 
 [//]: # "You can read more on [Test Reports](/docs/running-keploy/review-and-improve-ai-generated-tests) or [Running Tests](/docs/running-keploy/run-ai-generated-api-tests)."
+
+## Related
+
+- [Run AI-Generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — where self-healing applies.
+- [Review & Improve AI-Generated API Tests](/docs/running-keploy/review-and-improve-ai-generated-tests/) — manual refinement.
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — the generation pipeline.

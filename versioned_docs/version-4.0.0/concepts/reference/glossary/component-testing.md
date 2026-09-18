@@ -239,6 +239,14 @@ Component testing is pretty much testing on a single unit of your software. By t
 
 Using the Keploy tool makes it easier to do component testing. Keploy will create tests and mocks that derive from the ways real users use your app automatically, allowing you to spend less time writing tests and more time building features without worry. In summary, good component testing and effective tools such as Keploy can help you deliver better software, faster.
 
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — tests the smallest isolated pieces of code.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — follows component testing to check interactions.
+- [Stubs](/docs/concepts/reference/glossary/stubs/) — simulate dependencies during component tests.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — stand in for external services in isolation.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### 1. Is component testing the same as unit testing?

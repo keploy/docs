@@ -1,16 +1,34 @@
 import React from "react";
 import Layout from "@theme/Layout";
+import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
+import {DOCS_URL, organizationRef, websiteRef} from "../schema/siteEntities";
 
 function PrivacyPolicy() {
   const context = useDocusaurusContext();
   const {siteConfig = {}} = context;
+  // DigitalDocument with a real dateModified so the legal doc's freshness is
+  // machine-readable rather than emitting nothing.
+  const privacySchema = {
+    "@context": "https://schema.org",
+    "@type": "DigitalDocument",
+    name: "Keploy, Inc. Privacy Policy",
+    url: `${DOCS_URL}privacy-policy/`,
+    dateModified: "2024-04-28",
+    isPartOf: websiteRef,
+    publisher: organizationRef,
+  };
   return (
     <Layout
       title="Keploy, Inc. Privacy Policy"
       permalink="/privacy-policy"
       description="Privacy Policy information about Keploy."
     >
+      <Head>
+        <script type="application/ld+json">
+          {JSON.stringify(privacySchema)}
+        </script>
+      </Head>
       <main className="margin-vert--lg container">
         <div className="pb-5 text-center text-4xl font-bold">
           Keploy Inc. Privacy Policy

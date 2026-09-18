@@ -22,6 +22,21 @@ keywords:
   - server-setup
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Install Keploy on Linux"
+description="Install the Keploy CLI on Linux, either via the one-click script or by downloading the binary."
+totalTime="PT5M"
+tools={["Linux", "curl", "Keploy CLI"]}
+steps={[
+{name: "One-click install", text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh"},
+{name: "Or install manually", text: "Download the Keploy binary from the latest release and move it to /usr/local/bin."},
+{name: "Verify", text: "Run keploy to confirm the CLI is installed and on your PATH."},
+]}
+visible={false}
+/>
+
 Keploy can be installed in two ways:
 
 1. [One-Click Install](#one-click-install-keploy).

@@ -13,7 +13,7 @@ Hacktoberfest is a month-long celebration of open-source software run by Digital
 
 _Your open-source journey begins with a pull request._
 
-![Hacktoberfest'2024](/img/hacktoberfest.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/hacktoberfest.webp" alt="Hacktoberfest'2024" width="2400" height="1200" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Hacktoberfest Journey with Keploy
 
@@ -29,7 +29,7 @@ Anyone around the globe who desires to help drive the growth of open source and 
 
 #### Non-code contributions include:
 
-- <img src="https://www.svgrepo.com/show/157174/document.svg" width='20px'/> Documentation
-- <img src="https://www.svgrepo.com/show/294283/youtube.svg" width='20px'/> Create a Tutorial
-- <img src="https://www.svgrepo.com/show/10712/pencil.svg" width='20px'/> Blog writing
-- <img src="https://www.svgrepo.com/show/450193/language.svg" width='20px'/> Translation
+- <img src="https://www.svgrepo.com/show/157174/document.svg" width='20px' alt="Documentation icon"/> Documentation
+- <img src="https://www.svgrepo.com/show/294283/youtube.svg" width='20px' alt="Tutorial video icon"/> Create a Tutorial
+- <img src="https://www.svgrepo.com/show/10712/pencil.svg" width='20px' alt="Blog writing icon"/> Blog writing
+- <img src="https://www.svgrepo.com/show/450193/language.svg" width='20px' alt="Translation icon"/> Translation

@@ -85,3 +85,9 @@ Public mocks are accessible by all users and can be shared across multiple proje
 #### Private Mocks 🔐
 
 Private mocks are restricted to specific users or projects. Use private mocks for sensitive or project-specific data to ensure security and privacy.
+
+## Related
+
+- [Dynamic Deduplication](/docs/keploy-cloud/deduplication/) — remove duplicate recorded interactions.
+- [Static Deduplication](/docs/keploy-cloud/static-deduplication/) — dedupe without running tests.
+- [Keploy Console](/docs/keploy-cloud/keploy-console/) — manage mocks and suites in the console.

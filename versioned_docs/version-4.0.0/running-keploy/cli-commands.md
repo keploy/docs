@@ -395,7 +395,7 @@ keploy report --report-path "/home/user/my-app/keploy/reports/test-run-1.yaml"
 keploy report -t "test-set-1" --full
 ```
 
-- `--summary` - Print only a summarized view (grand totals and per–test-set table with time taken). Useful for a quick dashboard-style overview. Can be combined with `-t/--test-sets` and `--report-path`.
+- `--summary` - Print only a summarized view (grand totals and per-test-set table with time taken). Useful for a quick dashboard-style overview. Can be combined with `-t/--test-sets` and `--report-path`.
 
 ```bash
 keploy report --summary
@@ -411,7 +411,7 @@ keploy report --test-case "test-1"
 >
 > - By default, `report` shows only **failed** tests with a compact, human-readable diff (status, headers—including trailers/content-length where applicable—and body changes).
 > - Use `--full` to see the complete expected vs actual bodies (with JSON colorization).
-> - `--summary` prints just the totals and a per–test-set table, optionally restricted with `-t/--test-sets`.
+> - `--summary` prints just the totals and a per-test-set table, optionally restricted with `-t/--test-sets`.
 > - When `--report-path` is provided, Keploy reads that file directly. Legacy files that contain only a `tests` list are supported.
 
 ## [templatize](#templatize)
@@ -463,3 +463,10 @@ keploy example [flags]
 <b> Available Flags: </b>
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
+
+## Related
+
+- [Configuration File](/docs/running-keploy/configuration-file/) — set these flags once in `keploy.yaml`.
+- [Recording Filters](/docs/running-keploy/recording-filters/) — control which requests get recorded.
+- [Keploy Templatize](/docs/running-keploy/keploy-templatize/) — details on the `templatize` command.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — using the `--passThroughPorts` flag.
