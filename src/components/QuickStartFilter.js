@@ -2,20 +2,65 @@ import React, {useState} from "react";
 import quickstarts from "./QuickStartList";
 import Link from "@docusaurus/Link";
 import {FaGolang} from "react-icons/fa6";
-import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrowLeft} from "react-icons/fa";
+import {
+  FaJava,
+  FaLaptopCode,
+  FaDocker,
+  FaPython,
+  FaCheck,
+  FaArrowRight,
+  FaArrowLeft,
+  FaGem,
+} from "react-icons/fa";
 import {TbBrandCSharp} from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
+import {useLocation} from "@docusaurus/router";
+
+function isVersionAtLeast(version, minimumVersion) {
+  const versionParts = version.split(".").map(Number);
+  const minimumParts = minimumVersion.split(".").map(Number);
+
+  if (
+    versionParts.length !== 3 ||
+    minimumParts.length !== 3 ||
+    versionParts.some(Number.isNaN) ||
+    minimumParts.some(Number.isNaN)
+  ) {
+    return false;
+  }
+
+  for (let index = 0; index < 3; index++) {
+    if (versionParts[index] > minimumParts[index]) {
+      return true;
+    }
+
+    if (versionParts[index] < minimumParts[index]) {
+      return false;
+    }
+  }
+
+  return true;
+}
 
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
+  const {pathname} = useLocation();
   const isDark = colorMode === "dark";
+
+  const versionMatch = pathname.match(/\/docs\/(\d+\.\d+\.\d+)\//);
+  const supportsRubyQuickstarts =
+    !versionMatch || isVersionAtLeast(versionMatch[1], "4.0.0");
 
   const [currentStep, setCurrentStep] = useState(defaultLanguage ? 2 : 1);
   const [language, setLanguage] = useState(defaultLanguage);
   const [server, setServer] = useState(null);
 
   const filteredQuickstarts = quickstarts.filter((app) => {
+    if (app.language === "Ruby" && !supportsRubyQuickstarts) {
+      return false;
+    }
+
     return (
       (!language || app.language === language) &&
       (!server || app.server === server)
@@ -30,14 +75,39 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
   ];
 
+  if (supportsRubyQuickstarts) {
+    languages.push({name: "Ruby", icon: <FaGem size={24} />, color: "#CC342D"});
+  }
+
   const servers = [
-    {name: "Local", icon: <FaLaptopCode size={24} />, description: "Run directly on your machine"},
-    {name: "Docker", icon: <FaDocker size={24} />, description: "Run in a Docker container"},
+    {
+      name: "Local",
+      icon: <FaLaptopCode size={24} />,
+      description: "Run directly on your machine",
+    },
+    {
+      name: "Docker",
+      icon: <FaDocker size={24} />,
+      description: "Run in a Docker container",
+    },
   ];
 
   const steps = [
-    {id: 1, label: "Language", icon: languages.find(l => l.name === language)?.icon || null},
-    {id: 2, label: "Environment", icon: server === "Docker" ? <FaDocker size={16} /> : server === "Local" ? <FaLaptopCode size={16} /> : null},
+    {
+      id: 1,
+      label: "Language",
+      icon: languages.find((l) => l.name === language)?.icon || null,
+    },
+    {
+      id: 2,
+      label: "Environment",
+      icon:
+        server === "Docker" ? (
+          <FaDocker size={16} />
+        ) : server === "Local" ? (
+          <FaLaptopCode size={16} />
+        ) : null,
+    },
     {id: 3, label: "Quickstart", icon: null},
   ];
 
@@ -67,7 +137,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
   };
 
   return (
-    <div className={`quickstart-wizard ${isDark ? 'dark' : 'light'}`}>
+    <div className={`quickstart-wizard ${isDark ? "dark" : "light"}`}>
       <style>{`
         .quickstart-wizard {
           margin-top: 1.5rem;
@@ -366,20 +436,32 @@ export default function QuickstartFilter({defaultLanguage = null}) {
       <div className="wizard-stepper">
         {steps.map((step, idx) => (
           <React.Fragment key={step.id}>
-            <div className={`wizard-step ${currentStep === step.id ? 'active' : ''} ${currentStep > step.id ? 'completed' : ''}`}>
+            <div
+              className={`wizard-step ${
+                currentStep === step.id ? "active" : ""
+              } ${currentStep > step.id ? "completed" : ""}`}
+            >
               <div className="wizard-step-icon">
                 {currentStep > step.id ? <FaCheck size={12} /> : step.id}
               </div>
               <span>{step.label}</span>
               {currentStep > step.id && step.id === 1 && language && (
-                <span style={{color: '#ff914d', marginLeft: '0.25rem'}}>({language})</span>
+                <span style={{color: "#ff914d", marginLeft: "0.25rem"}}>
+                  ({language})
+                </span>
               )}
               {currentStep > step.id && step.id === 2 && server && (
-                <span style={{color: '#ff914d', marginLeft: '0.25rem'}}>({server})</span>
+                <span style={{color: "#ff914d", marginLeft: "0.25rem"}}>
+                  ({server})
+                </span>
               )}
             </div>
             {idx < steps.length - 1 && (
-              <div className={`wizard-step-connector ${currentStep > step.id ? 'completed' : ''}`} />
+              <div
+                className={`wizard-step-connector ${
+                  currentStep > step.id ? "completed" : ""
+                }`}
+              />
             )}
           </React.Fragment>
         ))}
@@ -391,18 +473,27 @@ export default function QuickstartFilter({defaultLanguage = null}) {
         {currentStep === 1 && (
           <>
             <h3 className="wizard-title">Select your language</h3>
-            <p className="wizard-subtitle">Choose the programming language for your application</p>
+            <p className="wizard-subtitle">
+              Choose the programming language for your application
+            </p>
             <div className="wizard-options">
               {languages.map((lang) => (
                 <button
                   key={lang.name}
-                  className={`wizard-option ${language === lang.name ? 'selected' : ''}`}
+                  className={`wizard-option ${
+                    language === lang.name ? "selected" : ""
+                  }`}
                   onClick={() => handleLanguageSelect(lang.name)}
                 >
                   <div className="wizard-option-radio">
-                    {language === lang.name && <FaCheck size={10} color="#fff" />}
+                    {language === lang.name && (
+                      <FaCheck size={10} color="#fff" />
+                    )}
                   </div>
-                  <div className="wizard-option-icon" style={{color: lang.color}}>
+                  <div
+                    className="wizard-option-icon"
+                    style={{color: lang.color}}
+                  >
                     {lang.icon}
                   </div>
                   <span className="wizard-option-label">{lang.name}</span>
@@ -416,30 +507,58 @@ export default function QuickstartFilter({defaultLanguage = null}) {
         {currentStep === 2 && (
           <>
             <h3 className="wizard-title">Select your environment</h3>
-            <p className="wizard-subtitle">Choose where you want to run the application server</p>
-            <div className="wizard-options" style={{gridTemplateColumns: 'repeat(auto-fill, minmax(220px, 1fr))'}}>
+            <p className="wizard-subtitle">
+              Choose where you want to run the application server
+            </p>
+            <div
+              className="wizard-options"
+              style={{
+                gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
+              }}
+            >
               {servers.map((srv) => (
                 <button
                   key={srv.name}
-                  className={`wizard-option ${server === srv.name ? 'selected' : ''}`}
+                  className={`wizard-option ${
+                    server === srv.name ? "selected" : ""
+                  }`}
                   onClick={() => handleServerSelect(srv.name)}
-                  style={{flexDirection: 'column', alignItems: 'flex-start', gap: '0.5rem'}}
+                  style={{
+                    flexDirection: "column",
+                    alignItems: "flex-start",
+                    gap: "0.5rem",
+                  }}
                 >
-                  <div style={{display: 'flex', alignItems: 'center', gap: '0.75rem', width: '100%'}}>
+                  <div
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: "0.75rem",
+                      width: "100%",
+                    }}
+                  >
                     <div className="wizard-option-radio">
-                      {server === srv.name && <FaCheck size={10} color="#fff" />}
+                      {server === srv.name && (
+                        <FaCheck size={10} color="#fff" />
+                      )}
                     </div>
-                    <div className="wizard-option-icon">
-                      {srv.icon}
-                    </div>
+                    <div className="wizard-option-icon">{srv.icon}</div>
                     <span className="wizard-option-label">{srv.name}</span>
                   </div>
-                  <p className="wizard-option-desc" style={{marginLeft: '3.5rem'}}>{srv.description}</p>
+                  <p
+                    className="wizard-option-desc"
+                    style={{marginLeft: "3.5rem"}}
+                  >
+                    {srv.description}
+                  </p>
                 </button>
               ))}
             </div>
             <div className="wizard-actions">
-              <button className="wizard-btn wizard-btn-secondary" onClick={goBack}>
+              <button
+                className="wizard-btn wizard-btn-secondary"
+                onClick={goBack}
+              >
                 <FaArrowLeft size={12} /> Back
               </button>
             </div>
@@ -451,11 +570,15 @@ export default function QuickstartFilter({defaultLanguage = null}) {
           <>
             <div className="wizard-selection-summary">
               <span className="wizard-selection-tag">
-                {languages.find(l => l.name === language)?.icon}
+                {languages.find((l) => l.name === language)?.icon}
                 {language}
               </span>
               <span className="wizard-selection-tag">
-                {server === "Docker" ? <FaDocker size={14} /> : <FaLaptopCode size={14} />}
+                {server === "Docker" ? (
+                  <FaDocker size={14} />
+                ) : (
+                  <FaLaptopCode size={14} />
+                )}
                 {server}
               </span>
               <button className="wizard-reset-btn" onClick={resetSelection}>
@@ -465,8 +588,10 @@ export default function QuickstartFilter({defaultLanguage = null}) {
             <h3 className="wizard-title">✨ Recommended Quickstarts</h3>
             <p className="wizard-subtitle">
               {filteredQuickstarts.length > 0
-                ? `Found ${filteredQuickstarts.length} quickstart${filteredQuickstarts.length > 1 ? 's' : ''} for ${language} with ${server}`
-                : 'No quickstarts available for this selection'}
+                ? `Found ${filteredQuickstarts.length} quickstart${
+                    filteredQuickstarts.length > 1 ? "s" : ""
+                  } for ${language} with ${server}`
+                : "No quickstarts available for this selection"}
             </p>
             <div className="wizard-results">
               {filteredQuickstarts.map((app, idx) => (
@@ -480,7 +605,10 @@ export default function QuickstartFilter({defaultLanguage = null}) {
               ))}
             </div>
             <div className="wizard-actions">
-              <button className="wizard-btn wizard-btn-secondary" onClick={goBack}>
+              <button
+                className="wizard-btn wizard-btn-secondary"
+                onClick={goBack}
+              >
                 <FaArrowLeft size={12} /> Back
               </button>
             </div>
