@@ -40,7 +40,7 @@ Keploy uses eBPF to instrument applications without code changes. Key components
 - **Network Proxy**
 - **API server**
 
-<img src="/docs/img/oss/keploy-arch.png?raw=true" alt="Keploy Architecture"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/oss/keploy-arch.webp" alt="Keploy Architecture" width="1920" height="1080" />
 
 ### 🪝 eBPF hooks loader
 

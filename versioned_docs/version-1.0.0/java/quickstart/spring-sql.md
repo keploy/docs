@@ -139,7 +139,7 @@ or by querying through the browser `http://localhost:6789/api/employees/1`
 Now both these API calls were captured as **editable** testcases and written to `test/e2e/keploy-tests` folder. The
 keploy directory would also have `mocks` folder.
 
-![testcases](/img/test-case-Java.png "Recorded Test cases and mocks")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-case-Java.webp" alt="testcases" width="856" height="603" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! 🪄💫
 
@@ -156,7 +156,7 @@ There are 2 ways to test the application with Keploy.
 
 _NOTE: You will be required to set the `javaagent` again in your test profile just like below._
 
-![run_configuration](/img/Run_Configuration.png "Run_Configuration")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Run_Configuration.webp" alt="run_configuration" width="1844" height="1242" style={{maxWidth:'100%',height:'auto'}} />
 
 - Now that we have our testcase captured, run the unit test file (`SampleJavaApplication_Test.java`) already present in
   the sample app repo.
@@ -310,7 +310,7 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 
 {'<'}/details{'>'}
 
-![testruns](/img/TestrunsSuccess.png "Recent testruns")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/TestrunsSuccess.webp" alt="testruns" width="857" height="497" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Let's add a Bug in the App
 
@@ -338,4 +338,4 @@ You'll notice the failed test-case in the output.
 
 To deep dive the problem go to localhost:6789/testrun
 
-![testruns](/img/IntroduceBugJava.png "Recent testruns")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/IntroduceBugJava.webp" alt="testruns" width="1680" height="1016" style={{maxWidth:'100%',height:'auto'}} />

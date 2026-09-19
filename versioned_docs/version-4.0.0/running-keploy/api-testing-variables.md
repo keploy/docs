@@ -25,7 +25,7 @@ Variables in Keploy act as placeholders for dynamic data that changes between te
 
 To reuse data, you define a mapping that tells Keploy exactly where to look in a previous response.
 
-<img src="/docs/img/var-extraction.png?raw=true" alt="Keploy Architecture"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/var-extraction.webp" alt="Keploy Architecture" width="916" height="888" />
 
 **Example Context:** In the view above, we are extracting the unique ID of a record. The mapping `steps["Create_Owner"].response.body.id` captures the value from the **Create_Owner** step. Note the **Unused** badge; Keploy provides this visual hint when a variable has been defined but hasn't been injected into any subsequent request yet.
 
@@ -33,7 +33,7 @@ To reuse data, you define a mapping that tells Keploy exactly where to look in a
 
 Injection allows you to replace static values with dynamic variables, ensuring your tests remain flexible across different environments and data states.
 
-<img src="/docs/img/var-injection.png?raw=true" alt="Injecting a dynamic variable into a Keploy API test request"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/var-injection.webp" alt="Injecting a dynamic variable into a Keploy API test request" width="920" height="878" />
 
 **Example Context:** This view shows the **Request Details** for an API call to the `/owners` endpoint. By defining the method (e.g., **POST**), you can then use placeholders like `{{owner_id}}` in the URL path or body. Keploy will automatically swap the placeholder with the actual value captured during test execution.
 
@@ -41,7 +41,7 @@ Injection allows you to replace static values with dynamic variables, ensuring y
 
 Global variables serve as the centralized source of truth for your testing environment.
 
-<img src="/docs/img/global-vars.png?raw=true" alt="Configuring global variables in Keploy API testing"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/global-vars.webp" alt="Configuring global variables in Keploy API testing" width="910" height="1328" />
 
 **Example Context:** The **Global Variables** dashboard allows you to manage workspace-wide data. This includes static entries like the **base URL** and dynamic **Global Custom Functions**. For instance, `generateCompanyId()` is a function that returns a unique string starting with `COMP_` followed by a timestamp, ensuring unique identifiers for every test run.
 

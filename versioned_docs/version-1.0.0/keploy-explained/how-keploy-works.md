@@ -18,7 +18,7 @@ export KEPLOY_MODE="record"
 
 Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a test-case.
 
-![How it works](/gif/how-keploy-works.gif)
+<video autoPlay loop muted playsInline width="562" height="356" style={{maxWidth:'100%',height:'auto'}} aria-label="How it works" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/how-keploy-works-poster.webp"><source src="/docs/gif/how-keploy-works.mp4" type="video/mp4" /></video>
 
 ### Step 2 : Replay Test-Cases
 
@@ -41,4 +41,4 @@ You can test with Keploy locally or can integrate Keploy with popular testing-fr
 
 > **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
 
-![How it works](/gif/record-replay.gif)
+<video autoPlay loop muted playsInline width="800" height="348" style={{maxWidth:'100%',height:'auto'}} aria-label="How it works" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/record-replay-poster.webp"><source src="/docs/gif/record-replay.mp4" type="video/mp4" /></video>

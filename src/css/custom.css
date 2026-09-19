@@ -1,4 +1,5 @@
-/* --- DM Sans loaded via headTags in docusaurus.config.js --- */
+/* --- DM Sans self-hosted below (see @font-face). Previously loaded via a
+   render-blocking Google Fonts stylesheet in docusaurus.config.js headTags. --- */
 
 /* Also reveal copy button when the container or button has keyboard focus */
 div[class*="codeBlockContainer"]:focus-within button[class*="copyButton"],
@@ -226,6 +227,12 @@ html[data-theme="light"] {
   font-display: swap;
 }
 
+/* DM Sans @font-face lives in docusaurus.config.js headTags as an inline
+   <style> (not webpack-processed) so the src can point at the stable static
+   URL /docs/fonts/… — which webpack's css-loader refuses to resolve from here.
+   The font files are self-hosted in static/fonts/ and the latin subset is
+   preloaded. Only the "force DM Sans" rules (top of this file) remain in CSS. */
+
 .docs-page {
   @apply my-12;
 }
@@ -245,9 +252,11 @@ h3,
 h4,
 .menu__list,
 .navbar {
-  font-family: "Aeonik", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* "Aeonik" removed: it was referenced here but never defined via @font-face,
+     so it always fell through to the system stack below. */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   scroll-margin-top: 130px !important;
 }
 

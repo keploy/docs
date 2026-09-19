@@ -106,7 +106,7 @@ keploy gen \
 
 We will get following output : -
 
-<img src="/docs/img/express-mongoose-utg.png" alt="Keploy test coverage with ai generated unit tests for express-mongoose" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/express-mongoose-utg.webp" alt="Keploy test coverage with ai generated unit tests for express-mongoose" width="100%" style={{ borderRadius: '5px' }}/>
 
 _Voila!! The Generated Testcases have provided with 58% coverage🌟_
 
@@ -147,7 +147,7 @@ keploy gen --source-file-path="app.go" \
 
 We will get following output : -
 
-<img src="/docs/img/mux-sql-utg.png" alt="Keploy test coverage with ai generated unit test for mux-sql" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-sql-utg.webp" alt="Keploy test coverage with ai generated unit test for mux-sql" width="100%" style={{ borderRadius: '5px' }}/>
 
 _Voila!! The Generated Testcases have provided with 71% coverage in just 2 iterations 🌟_
 
