@@ -552,6 +552,8 @@ fbq('track', 'PageView');`,
     //   - Meta Pixel  -> eager via the inline snippet in headTags; SPA re-fire
     //                    from the client module
     //   - Clarity + Apollo -> lazy, on first user interaction (client module)
+    //   - Chatwoot    -> lazy, on first click/key/touch (client module);
+    //                    deliberately not on scroll, see that module
     //   - Hotjar      -> removed
     // keploy's own first-party telemetry (~2 KiB) stays eager below.
     {
