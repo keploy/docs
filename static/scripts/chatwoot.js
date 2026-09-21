@@ -6,11 +6,6 @@
 (function initChatwoot() {
   var BASE_URL = "https://chatwoot.keploy.io";
 
-  // The loader guards against double injection, but guard here too so this
-  // file is safe on its own: a second run() would mean two bubbles and two
-  // websockets.
-  if (window.$chatwoot) return;
-
   // `position` is declared rather than left to default because the
   // .theme-back-to-top-button rule in src/css/custom.css is built around the
   // bubble sitting bottom-right. Making it explicit means that CSS breaks
@@ -32,6 +27,13 @@
   scriptEl.src = BASE_URL + "/packs/js/sdk.js";
   scriptEl.async = true;
   scriptEl.onload = function () {
+    // Checked here rather than at the top of the IIFE, where it would be
+    // useless: two injections in the same tick both run before either sdk.js
+    // has loaded, so $chatwoot is undefined for both. By onload the first
+    // run() has set it, so the second one stops. The loader's per-tier flag
+    // already prevents that case, and run() self-guards too, but this does
+    // not depend on either staying true.
+    if (window.$chatwoot) return;
     window.chatwootSDK?.run({
       websiteToken: "DNsHCafpdxqz3dDU1SPggAon",
       baseUrl: BASE_URL,
