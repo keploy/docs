@@ -1035,6 +1035,23 @@ textarea {
 .theme-back-to-top-button {
   background-color: #ff914d !important;
   color: white !important;
+
+  /*
+   * Stack this above the Chatwoot support bubble.
+   *
+   * Both are fixed to the bottom-right corner. The bubble is 64px square with
+   * a 20px inset and a very high z-index, so left alone it covers this button
+   * and swallows every click meant for it.
+   *
+   * The button is less transient than it looks: it appears on any upward
+   * scroll past 300px and only hides when the reader scrolls back down, so the
+   * two share the corner for most of a page visit. Clearing it vertically
+   * keeps both usable -- 20px inset + 64px bubble + 20px gap.
+   *
+   * !important matches the rest of this block and beats the theme's own
+   * `bottom`, whose CSS module is bundled after this file.
+   */
+  bottom: 104px !important;
 }
 
 .theme-back-to-top-button svg {

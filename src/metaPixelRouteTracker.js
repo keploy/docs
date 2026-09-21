@@ -6,15 +6,16 @@
 //   - Meta Pixel               -> fires eagerly via the inline snippet in
 //     headTags (init + PageView on load). Because that only fires once, this
 //     module re-fires PageView on client-side (SPA) route changes.
-//   - Microsoft Clarity + Apollo -> lazy-loaded on the FIRST user interaction
-//     (scroll / click / key / touch): engaged sessions only, so they stay off
-//     the initial load.
+//   - Microsoft Clarity + Apollo + Chatwoot -> lazy-loaded on the FIRST user
+//     interaction (scroll / click / key / touch): engaged sessions only, so
+//     they stay off the initial load.
 //   - Hotjar                   -> removed.
 
 // baseUrl is /docs/, so these resolve under the docs site root.
 const INTERACTION_SCRIPTS = [
   "/docs/scripts/clarity.js", // Microsoft Clarity
   "/docs/js/apollo-init.js", // Apollo
+  "/docs/scripts/chatwoot.js", // Chatwoot support widget
 ];
 // NB: no "mousemove" — on desktop the pointer moves within milliseconds of
 // paint, which would defeat the gate and load Clarity/Apollo almost immediately.
