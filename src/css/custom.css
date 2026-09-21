@@ -1037,20 +1037,31 @@ textarea {
   color: white !important;
 
   /*
-   * Stack this above the Chatwoot support bubble.
+   * Match the Chatwoot support bubble, and stack above it.
    *
-   * Both are fixed to the bottom-right corner. The bubble is 64px square with
-   * a 20px inset and a very high z-index, so left alone it covers this button
-   * and swallows every click meant for it.
+   * The bubble is a fixed 64px square sitting 20px in from the bottom-right
+   * corner at z-index 2147483000. Left at the theme's defaults this button is
+   * a 48px square at a 1.3rem (20.8px) inset, so it lands in the same corner
+   * but smaller and off the bubble's centreline, and the bubble covers it and
+   * swallows every click meant for it.
    *
-   * The button is less transient than it looks: it appears on any upward
-   * scroll past 300px and only hides when the reader scrolls back down, so the
-   * two share the corner for most of a page visit. Clearing it vertically
-   * keeps both usable -- 20px inset + 64px bubble + 20px gap.
+   * The button is less transient than it looks, so this is not a rare overlap:
+   * it appears on any upward scroll past 300px and only hides when the reader
+   * scrolls back down, drops below the threshold, or clicks an anchor. There
+   * is no timeout, so the two share the corner for most of a page visit.
    *
-   * !important matches the rest of this block and beats the theme's own
-   * `bottom`, whose CSS module is bundled after this file.
+   * Matching the bubble's 64px width means its 20px inset also lines the two
+   * up on a shared centreline. `bottom` is 20px inset + 64px bubble + 20px
+   * gap, the same clearance the enterprise app uses to keep toasts clear of
+   * the bubble.
+   *
+   * px rather than rem because the bubble's own geometry is fixed px and does
+   * not scale with root font size. !important matches the rest of this block
+   * and beats the theme's CSS module, which is bundled after this file.
    */
+  width: 64px !important;
+  height: 64px !important;
+  right: 20px !important;
   bottom: 104px !important;
 }
 
