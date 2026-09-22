@@ -199,7 +199,9 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 <br />
 
 :::info
-Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**.
+This page installs **Keploy OSS** (`install.sh --oss`), which intercepts traffic with eBPF — Linux only. It has no native macOS backend, so on a Mac you run it through **Lima** or **Docker**.
+
+Native macOS recording — your app running directly on your Mac, no VM and no containers — ships in the **Community** build, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on macOS](/docs/installation/macos-installation/). That build is Apple Silicon (arm64) only.
 :::
 
 <Tabs>
@@ -247,8 +249,8 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 
 ### Install Keploy OSS with Docker on macOS
 
-:::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+:::note
+Your application and Keploy's agent both run in containers here, which is what makes this work on a Mac at all: the OSS build cannot intercept an app running directly on macOS.
 :::
 
 1. Make sure Docker Desktop is running on macOS.
@@ -269,7 +271,9 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 <br />
 
 :::info
-You can run Keploy using **WSL** or **Docker** on Windows.
+This page installs **Keploy OSS** (`install.sh --oss`), which intercepts with eBPF — Linux only — so on Windows you run it through **WSL** or **Docker**.
+
+Native Windows recording (x86-64, no WSL, no Docker, no Administrator) ships in the **Community** build, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on Windows](/docs/installation/windows-installation/).
 :::
 
 <Tabs>

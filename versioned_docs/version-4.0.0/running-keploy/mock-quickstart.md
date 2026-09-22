@@ -30,9 +30,11 @@ command shows the **real output** you should see — nothing is faked.
   keploy --version
   ```
 
-- **Linux** (root, for eBPF) or **Windows amd64** (Administrator). On
-  **macOS (Apple Silicon)**, run your tests through a docker command (shown at
-  the end).
+- **Linux** (root, for eBPF), **Windows x86-64**, or **macOS (Apple Silicon)**.
+  Windows and macOS intercept in userspace in the Community build — the default
+  install — so neither needs Administrator or `sudo`. Running your tests through
+  a docker command (shown at the end) works on every platform, and is the route
+  on the OSS build (`--oss`), which is eBPF/Linux-only.
 - Python 3. (`go test` / `npm test` work identically — only the test command
   changes.)
 

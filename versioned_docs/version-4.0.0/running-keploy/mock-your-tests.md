@@ -166,9 +166,14 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 
 | Platform            | How to run                                                                |
 | ------------------- | ------------------------------------------------------------------------- |
-| **Linux**           | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).        |
-| **Windows** (amd64) | Native — same command, from an Administrator shell.                       |
-| **macOS** (arm64)   | Run your tests through a container, e.g. `-c "docker compose run tests"`. |
+| **Linux**             | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                        |
+| **Windows** (x86-64)  | Native — same command. Userspace interception, so no Administrator.                       |
+| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
+
+Native macOS and Windows interception ships in the Community build, which is
+what `https://keploy.io/install.sh` installs by default; the OSS build
+(`--oss`) intercepts with eBPF and is Linux-only, so there you use a container
+on both.
 
 ## Refresh in CI
 
