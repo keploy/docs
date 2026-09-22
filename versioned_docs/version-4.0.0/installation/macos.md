@@ -17,6 +17,8 @@ keywords:
 
 Keploy now runs **natively on macOS** (Apple Silicon) — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
 
+Native macOS interception ships in the **[Keploy Community Edition](/docs/server/install/)**, which is what the install command below gives you by default. (`install.sh --oss` selects the OSS build instead, which intercepts with eBPF and is Linux-only.)
+
 Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic. Docker and Lima remain available if you prefer to run your app in a container.
 
 :::note Keploy Community needs a free account

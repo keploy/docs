@@ -170,8 +170,8 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | **Windows** (x86-64)      | Native — same command. Userspace interception, so no Administrator.                                                                               |
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
 
-Native macOS and Windows interception ships in the Community build, which is
-what `https://keploy.io/install.sh` installs by default; the OSS build
+Native macOS and Windows interception ships in the **[Keploy Community Edition](/docs/server/install/)**,
+which is what `https://keploy.io/install.sh` installs by default; the OSS build
 (`--oss`) intercepts with eBPF and is Linux-only, so there you use a container
 on both.
 

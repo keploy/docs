@@ -17,6 +17,8 @@ keywords:
 
 # Installing Keploy on Windows
 
+Native Windows interception ships in the **[Keploy Community Edition](/docs/server/install/)**, which is what the routes below install by default. (`install.sh --oss` selects the OSS build instead, which intercepts with eBPF and is Linux-only.)
+
 Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads, nothing is installed system-wide, and **you do not need Administrator**.
 
 Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.

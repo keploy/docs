@@ -9,6 +9,12 @@ description: "Run Keploy natively on macOS by setting up a Debian Linux VM with 
 
 **_Downloading and running Keploy in Native using Debian on MacOS_**
 
+:::tip Looking for true native macOS?
+
+This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac**. On Apple Silicon you can skip the VM: the **[Keploy Community Edition](/docs/server/install/)** records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
+
+:::
+
 1.  Open the terminal Session.
 2.  Run the following command. This installs homebrew and makes it easier to manage software and packages on macOS
 

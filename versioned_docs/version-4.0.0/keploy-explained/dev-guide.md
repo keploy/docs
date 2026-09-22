@@ -201,7 +201,7 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 :::info
 This page installs **Keploy OSS** (`install.sh --oss`), which intercepts traffic with eBPF — Linux only. It has no native macOS backend, so on a Mac you run it through **Lima** or **Docker**.
 
-Native macOS recording — your app running directly on your Mac, no VM and no containers — ships in the **Community** build, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on macOS](/docs/installation/macos-installation/). That build is Apple Silicon (arm64) only.
+Native macOS recording — your app running directly on your Mac, no VM and no containers — ships in the **[Keploy Community Edition](/docs/server/install/)**, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on macOS](/docs/installation/macos-installation/). That build is Apple Silicon (arm64) only.
 :::
 
 <Tabs>
@@ -273,7 +273,7 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 :::info
 This page installs **Keploy OSS** (`install.sh --oss`), which intercepts with eBPF — Linux only — so on Windows you run it through **WSL** or **Docker**.
 
-Native Windows recording (x86-64, no WSL, no Docker, no Administrator) ships in the **Community** build, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on Windows](/docs/installation/windows-installation/).
+Native Windows recording (x86-64, no WSL, no Docker, no Administrator) ships in the **[Keploy Community Edition](/docs/server/install/)**, which is what the installer gives you when you drop `--oss`. See [Installing Keploy on Windows](/docs/installation/windows-installation/).
 :::
 
 <Tabs>
