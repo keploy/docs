@@ -181,7 +181,12 @@ jobs:
 
           # Guard against submitting a broken build. A truncated sitemap is
           # still well-formed XML, so only a URL count catches it.
-          COUNT=$(curl -sS --max-time 30 "$GOOGLE_SITEMAP_URL" | grep -c '<loc>' || true)
+          #
+          # --compressed is required: the sitemap is served gzipped, and without
+          # it curl hands grep raw gzip bytes and the count comes back 0.
+          # `grep -o | wc -l` rather than `grep -c`: Docusaurus emits the whole
+          # sitemap on one line, so grep -c would count 1 regardless of content.
+          COUNT=$(curl -sS --compressed --max-time 30 "$GOOGLE_SITEMAP_URL" | grep -o '<loc>' | wc -l | tr -d ' ')
           echo "live docs sitemap URL count: $COUNT"
           if [ "$COUNT" -lt 100 ]; then
             echo "::error::Live docs sitemap has only $COUNT URLs (expected 100+). Refusing to submit."
