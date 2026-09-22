@@ -57,7 +57,7 @@ For users who need eBPF support, a [manual setup with Docker Desktop or Colima](
 
 :::note Apple Silicon only
 
-Both routes install the native Keploy CLI — the **[Keploy Community Edition](/docs/server/install/)**, the default install — which is built for **Apple Silicon (arm64) only** — the installer stops with a message on an Intel Mac, and the Homebrew formula refuses to install there. The [manual Docker Desktop / Colima setup](#manual-setup) below is driven by that same CLI: it starts your app and Keploy's eBPF agent in containers inside the Linux VM, but the CLI itself runs on your Mac, so that route is Apple Silicon only too. On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+Both routes install the native Keploy CLI, which is built for **Apple Silicon (arm64) only** — the installer stops with a message on an Intel Mac, and the Homebrew formula refuses to install there. The [manual Docker Desktop / Colima setup](#manual-setup) below is driven by that same CLI: it starts your app and Keploy's eBPF agent in containers inside the Linux VM, but the CLI itself runs on your Mac, so that route is Apple Silicon only too. On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
 
 :::
 

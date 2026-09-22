@@ -230,7 +230,7 @@ Use "keploy [command] --help" for more information about a command.
 <TabItem value="macos" label="macOS">
 <br />
 :::info 
-Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps) with the **[Keploy Community Edition](/docs/server/install/)**, the default install. You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**. 
+Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**. 
 :::
 
 👉 **Choose your preferred method:**

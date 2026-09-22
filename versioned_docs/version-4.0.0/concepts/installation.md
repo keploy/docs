@@ -85,7 +85,7 @@ Use "keploy [command] --help" for more information about a command.
 
 #### On macOS/Windows
 
-Note : With this method your application and Keploy's agent run in Docker, but the `keploy` CLI installed below — which starts them both — runs on your machine. On macOS that CLI is the native build from the **[Keploy Community Edition](/docs/server/install/)**, which is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+Note : With this method your application and Keploy's agent run in Docker, but the `keploy` CLI installed below — which starts them both — runs on your machine. On macOS that CLI is the native build, which is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
 
 1. Open up a terminal window.
 
@@ -151,7 +151,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 
 ```
 
-> Note: On macOS, Keploy's native CLI — the **[Keploy Community Edition](/docs/server/install/)** — is Apple Silicon (arm64) only — see [Installing Keploy on macOS](/docs/installation/macos-installation/). On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima), which installs the Linux build above inside the VM.
+> Note: On macOS, Keploy's native CLI is Apple Silicon (arm64) only — see [Installing Keploy on macOS](/docs/installation/macos-installation/). On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima), which installs the Linux build above inside the VM.
 
 **_Setting up the Docker Desktop for WSL 2_**
 

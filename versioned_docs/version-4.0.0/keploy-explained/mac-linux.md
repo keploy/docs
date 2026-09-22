@@ -11,7 +11,7 @@ description: "Run Keploy natively on macOS by setting up a Debian Linux VM with 
 
 :::tip Looking for true native macOS?
 
-This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac**. On Apple Silicon you can skip the VM: the **[Keploy Community Edition](/docs/server/install/)** records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
+This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac**. On Apple Silicon you can skip the VM: Keploy records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
 
 :::
 

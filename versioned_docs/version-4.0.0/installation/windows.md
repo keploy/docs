@@ -17,8 +17,6 @@ keywords:
 
 # Installing Keploy on Windows
 
-Native Windows interception ships in the **[Keploy Community Edition](/docs/server/install/)**, which is what the routes below install by default. (`install.sh --oss` selects the OSS build instead, which intercepts with eBPF and is Linux-only.)
-
 Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads, nothing is installed system-wide, and **you do not need Administrator**.
 
 Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.
@@ -68,7 +66,7 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
    Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`.
 
-   **Use the Community build for native Windows.** Native Windows interception ships in the Community build that both routes above install. Its download is named `enterprise_windows_amd64.exe` for historical reasons — a free account is all you need. The `keploy_windows_amd64` asset on the [GitHub releases page](https://github.com/keploy/keploy/releases) is a different, OSS build that intercepts with eBPF and so refuses a native Windows run with _"not supported by this build of Keploy"_. Use that asset only if you are running Keploy inside Docker.
+   **Use the download above, not the GitHub release asset.** The Windows binary is named `enterprise_windows_amd64.exe` for historical reasons — a free account is all you need. The `keploy_windows_amd64` asset on the [GitHub releases page](https://github.com/keploy/keploy/releases) is a different build that intercepts with eBPF and so refuses a native Windows run with _"not supported by this build of Keploy"_; it is only for running Keploy inside Docker.
 
    **If Windows blocks the download.** The Windows build is not yet code-signed, so SmartScreen may show "Windows protected your PC" on first run. The `Unblock-File` line above clears the download marker; if you fetched the binary another way, right-click it, choose **Properties**, and tick **Unblock**.
 
