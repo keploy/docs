@@ -31,7 +31,13 @@ steps={[
 visible={false}
 />
 
-Keploy relies on the Linux kernel's eBPF subsystem to capture network traffic, so it does not run directly on the Windows kernel. On Windows you run Keploy inside **WSL (Windows Subsystem for Linux)**, which gives you a real Linux kernel while keeping your Windows development environment. This page covers the WSL prerequisites and installs the Keploy binary inside that Linux environment.
+Inside WSL, Keploy uses the Linux kernel's eBPF subsystem to capture network traffic. **WSL (Windows Subsystem for Linux)** gives you a real Linux kernel while keeping your Windows development environment. This page covers the WSL prerequisites and installs the Keploy binary inside that Linux environment.
+
+:::tip WSL is not the only option
+
+Keploy also records an app running directly on Windows (x86-64) — no WSL, no Docker and no Administrator. See [Installing Keploy on Windows](/docs/installation/windows-installation/). WSL is the route on Windows/ARM.
+
+:::
 
 ## Prerequisites
 

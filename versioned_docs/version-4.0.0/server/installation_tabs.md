@@ -230,7 +230,7 @@ Use "keploy [command] --help" for more information about a command.
 <TabItem value="macos" label="macOS">
 <br />
 :::info 
-Keploy runs natively on macOS (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. 
+Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**. 
 :::
 
 👉 **Choose your preferred method:**
@@ -358,6 +358,10 @@ Use "keploy [command] --help" for more information about a command.
 <TabItem value="docker-mac" label="Docker">
 
 ## Install Keploy with Docker on macOS
+
+:::note Apple Silicon only
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+:::
 
 1. **Make sure Docker is installed**: You’ll need Docker Desktop running on macOS.
 

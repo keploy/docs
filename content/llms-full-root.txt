@@ -98,7 +98,7 @@ keploy version
 ```
 
 ### macOS
-Requires Docker Desktop or Colima. Install via the same script or Homebrew.
+Runs natively on Apple Silicon (arm64) only — install via the same script or `brew install keploy/tap/keploy`; no Docker needed (userspace interception, no root). Both refuse to install on an Intel Mac: there, run Keploy inside a Lima VM (https://keploy.io/docs/installation/macos-installation/#option-2-install-keploy-with-lima). The Docker Desktop/Colima route still runs the native CLI on the host, so it is also Apple Silicon only.
 
 ### Windows
 Requires WSL2 (Windows Subsystem for Linux). Install within the WSL2 environment using the Linux installation method.
@@ -108,7 +108,7 @@ Keploy can run as a Docker container alongside your application using Docker Com
 
 ### Platform Requirements
 - Linux: Kernel version 5.15+ recommended for eBPF support
-- macOS: Docker Desktop or Colima required (eBPF runs inside the Linux VM)
+- macOS: Apple Silicon (arm64) for the native CLI; Intel Macs run Keploy in a Lima VM (Linux build inside the VM)
 - Windows: WSL2 with a compatible Linux kernel
 
 ---
