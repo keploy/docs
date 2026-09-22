@@ -46,7 +46,7 @@ description: "Run Keploy natively on macOS by setting up a Debian Linux VM with 
     cd /Users/{Username}
     ```
 
-8.  Run the following command to install Keploy
+8.  Run the following command to install Keploy. The Lima VM has the same architecture as your Mac, so this downloads `keploy_linux_arm64.tar.gz` for Apple Silicon; on an Intel Mac use `keploy_linux_amd64.tar.gz` instead.
 
     ```bash
     curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
