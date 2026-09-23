@@ -16,7 +16,7 @@ keywords:
 
 ### Pre-requisites
 
-- Linux kernel **5.15 or higher**
+- Linux kernel **5.10 or higher**
 - Tested with distributions:
   - **Fedora 40+**
   - **Ubuntu 22.04+**
