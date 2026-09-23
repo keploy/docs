@@ -90,7 +90,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --container-name "ruby-books-app" --buildDelay 50 --delay 10
+keploy test -c "docker compose up" --container-name "ruby-books-app" --cid-type docker-compose --buildDelay 50 --delay 10
 ```
 
 After tests complete, stop the services:
