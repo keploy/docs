@@ -46,7 +46,7 @@ Version 3.0.0 of the extension replaces the earlier unit test generator. To gene
 | macOS             | Apple Silicon only. The Keploy CLI's macOS build doesn't run on Intel Macs, so the extension doesn't install it there.                                                                                                                                                             |
 | Linux             | x86-64 or arm64, with Linux kernel 5.10 or later **and** glibc 2.34 or later, such as Ubuntu 22.04, Debian 12, or RHEL 9 and later. The released CLI doesn't start on older glibc (Ubuntu 20.04, Debian 11, RHEL 8, Amazon Linux 2) or on musl-based distributions such as Alpine. |
 | Windows           | x64. Windows on Arm isn't supported.                                                                                                                                                                                                                                               |
-| Disk              | A few hundred MB in your home folder for the CLI.                                                                                                                                                                                                                                  |
+| Disk              | About 200 MB in your home folder for the CLI.                                                                                                                                                                                                                                      |
 | Docker (optional) | Only if your tests run in containers.                                                                                                                                                                                                                                              |
 
 ## Install the extension
@@ -67,7 +67,7 @@ The extension runs your tests through the Keploy CLI, which it downloads and man
 
 - **New install.** The download starts on its own the first time VS Code starts with the extension. A notification shows its progress; select **Cancel** to stop it. Nothing is installed, and the panel offers **Install Keploy** for when you're ready.
 - **Update from an earlier version of the extension.** If you don't have the Keploy CLI yet, the extension asks before it downloads it.
-- **Size and location.** The CLI is a single file of a few hundred MB. It goes to `~/.keploy/bin/keploy` on macOS and Linux, and to `%APPDATA%\.keploy\bin\keploy.exe` on Windows. The extension checks the download against the SHA-256 checksum Keploy publishes and discards it if they don't match. Installing the CLI changes nothing else on your machine.
+- **Size and location.** The CLI is a single file of about 200 MB. It goes to `~/.keploy/bin/keploy` on macOS and Linux, and to `%APPDATA%\.keploy\bin\keploy.exe` on Windows. The extension checks the download against the SHA-256 checksum Keploy publishes and discards it if they don't match. Installing the CLI changes nothing else on your machine.
 - **Updates.** When the CLI in that folder is older than the minimum version the extension needs, the extension replaces it automatically. It never touches a `keploy` binary you installed somewhere else, such as `/usr/local/bin`.
 - **A fixed version.** To hold one build, set `keploy.cli.version` to an exact release number. Leave it empty to follow the current release.
 
