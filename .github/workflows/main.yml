@@ -8,6 +8,28 @@ on:
   push:
     branches: [ main ]
 
+# One deploy at a time, and every deploy ships main as it is when its run
+# starts (the checkout below uses ref: main, not the commit that triggered the
+# run). A push to main queues a run behind the one in progress; a queued run
+# that a newer push supersedes is cancelled by GitHub; and re-running an old
+# run deploys today's main, not the old commit. So however runs queue, are
+# cancelled or are re-run, no deploy ships an older main than the one before
+# it, and the last push that starts a run ends up live unless its build fails.
+#
+# cancel-in-progress is false so a deploy already syncing is never cut off
+# half-written.
+#
+# A re-run replays the workflow file of the ORIGINAL run. Runs from before this
+# file used deploy-docs.sh ran the old s3-deploy action, whose delete-removed
+# wipes every retained asset and manifest: never re-run one of those; push or
+# re-run a newer one instead.
+#
+# Why deploys must never overlap, and how each one keeps the pages it replaces
+# working: .github/scripts/deploy-docs.sh.
+concurrency:
+  group: docs-deploy
+  cancel-in-progress: false
+
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
@@ -22,7 +44,10 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-      
+        with:
+          # main as it is now, not github.sha — see the concurrency comment.
+          ref: main
+
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3
         with:
@@ -43,16 +68,11 @@ jobs:
           mv build-old/* build/docs
 
       - name: Deploy
-        uses: reggionick/s3-deploy@v3
-        with:
-          folder: build
-          bucket: ${{ secrets.S3_BUCKET }}
-          bucket-region: ${{ secrets.S3_BUCKET_REGION }}
-          dist-id: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
-          invalidation: /docs*
-          delete-removed: true
-          cache: "public, max-age=86400"
-          private: true
+        env:
+          S3_BUCKET: ${{ secrets.S3_BUCKET }}
+          AWS_DEFAULT_REGION: ${{ secrets.S3_BUCKET_REGION }}
+          CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }}
+        run: .github/scripts/deploy-docs.sh build "$S3_BUCKET" "$(git rev-parse HEAD)"
 
       - name: Submit docs URLs to IndexNow
         env:
