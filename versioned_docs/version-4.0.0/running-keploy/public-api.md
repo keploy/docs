@@ -23,7 +23,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Dedicated" />
 
 The Keploy Public API gives you programmatic access to everything you can do in the [Keploy Console](https://app.keploy.io)—create apps, generate and run test suites, track jobs, and manage API keys. It is designed for CI/CD pipelines, custom automation scripts, and AI agents.
 

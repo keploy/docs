@@ -39,7 +39,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -62,7 +62,7 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 
@@ -100,6 +100,8 @@ Now it's time to start the Backend using Keploy cli:
 
 # Instructions For Starting Using Binary
 
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/). On Windows, Java separates classpath entries with `;`, so use `-cp "target/openhospital-api-0.1.0.jar;rsc/;static/"` in the `keploy record` and `keploy test` commands below.
+
 Prerequisites For Binary:
 
 1. Node 20.11.0 LTS
@@ -111,6 +113,8 @@ Prerequisites For Binary:
 ```bash
 keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
 ```
+
+On macOS, use your JDK's own `java` rather than Apple's `/usr/bin/java`, which records nothing — here and in `keploy test` below, replace `java` with `${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-java.webp" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 

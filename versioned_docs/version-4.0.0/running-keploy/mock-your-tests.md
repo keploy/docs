@@ -170,6 +170,17 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | **Windows** (x86-64)      | Native — same command. Userspace interception, so no Administrator.                                                                               |
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
 
+Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB
+calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like —
+are captured only as raw bytes and usually don't replay. If your tests depend on
+one of those, run them in a container (as above) or on Linux/WSL. On macOS, also
+start the test runner itself rather than through a launcher such as `npm test` or
+a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one),
+not Apple's `/usr/bin/python3` — see
+[running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
+On an Intel Mac, use [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
+on Windows on ARM, use WSL.
+
 ## Refresh in CI
 
 Because re-recording overwrites the set in place and the runner's exit code is
@@ -182,6 +193,7 @@ keploy sanitize          # scrub secrets before committing
 git add keploy/ && git commit -m "chore: refresh mocks" || echo "no changes"
 ```
 
-On Keploy Cloud / Enterprise, `keploy mock` is **registry-first**: the set is
-uploaded after record and downloaded before replay automatically. Pass `--local`
-to keep everything on disk (the open-source behaviour).
+By default `keploy mock` is **registry-first**: the set is uploaded to Keploy
+after record and downloaded before replay automatically (registry use depends on
+your plan). Pass `--local` to keep everything on disk — the `--local` loop is
+also the one that runs without signing in.

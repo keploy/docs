@@ -208,7 +208,7 @@ When testing a single component, it often depends on other parts of your system 
 
 ## How does Keploy help you test your components?
 
-Keploy is an open-source testing tool that helps automate and simplify component testing by turning real user interactions into useful, repeatable tests. Here are some of the ways it assists in component testing:
+Keploy is a testing tool that helps automate and simplify component testing by turning real user interactions into useful, repeatable tests. Here are some of the ways it assists in component testing:
 
 1. **Creates tests from real traffic**
 2. **Creates mocks and stubs for dependencies**

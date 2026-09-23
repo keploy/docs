@@ -2,7 +2,7 @@
 id: introduction
 title: "What is Keploy?"
 sidebar_label: Introduction
-description: "Introduction to Keploy — an open-source, eBPF-based testing platform that auto-generates tests from real API traffic."
+description: "Introduction to Keploy — a testing platform that auto-generates tests from real API traffic, captured at the network layer with zero code changes."
 ---
 
 import WhatIsKeploy from '../concepts/what-is-keploy.md'

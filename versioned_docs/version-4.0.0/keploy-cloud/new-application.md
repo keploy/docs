@@ -52,5 +52,5 @@ If you have any questions or need assistance, our support team is here to help. 
 ## Related
 
 - [Keploy Console](/docs/keploy-cloud/keploy-console/) — where applications are managed.
-- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install before adding an app.
+- [Install Keploy](/docs/server/installation/) — install before adding an app.
 - [Auto Test Generation](/docs/keploy-cloud/auto-test-generation/) — generate tests for the new app.

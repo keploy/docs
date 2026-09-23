@@ -37,7 +37,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -62,9 +62,11 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
+
+This section runs the backend on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#instructions-for-starting-using-docker) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -153,7 +155,7 @@ keploy test -c "java -jar target/spring-petclinic-rest-3.0.2.jar" --delay 20
 
 ## Instructions For Starting Using Docker
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a petclinic app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
 

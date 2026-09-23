@@ -55,7 +55,7 @@ Automation plays a crucial role in modern reliability testing. Automated test su
 
 ## Keploy: Transforming API Reliability Testing
 
-Keploy represents a significant advancement in API reliability testing through its innovative approach to test generation and execution. This open-source testing platform automatically generates comprehensive test cases by capturing real API interactions, eliminating the traditional burden of manual test creation.
+Keploy represents a significant advancement in API reliability testing through its innovative approach to test generation and execution. This testing platform automatically generates comprehensive test cases by capturing real API interactions, eliminating the traditional burden of manual test creation.
 
 The platform's core strength lies in its ability to record actual API calls during development or staging environments, then replay these interactions to validate system behavior. This approach ensures that test scenarios reflect real-world usage patterns rather than theoretical test cases that might miss critical edge cases.
 

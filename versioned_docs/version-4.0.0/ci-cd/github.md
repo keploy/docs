@@ -23,8 +23,8 @@ totalTime="PT10M"
 tools={["GitHub Actions", "Keploy CLI"]}
 steps={[
 {name: "Check out the commit", text: "Add actions/checkout to your workflow so the job runs against the code under test."},
-{name: "Install Keploy", text: "Download the Keploy binary from the latest GitHub release and move it to /usr/local/bin on the runner."},
-{name: "Run the tests", text: "Add a step that runs keploy test -c \"<command to run your app>\" to replay the recorded suites."},
+{name: "Install Keploy", text: "Install Keploy on the runner with the keploy.io/install.sh script."},
+{name: "Run the tests", text: "Add a step that runs keploy test -c \"<command to run your app>\" to replay the recorded suites, with KEPLOY_API_KEY set from a repository secret so Keploy can sign in."},
 {name: "Run cloud replay (optional)", text: "Authenticate with a Keploy API token and trigger cloud replay from the pipeline for hosted test sets."},
 ]}
 visible={false}
@@ -32,7 +32,7 @@ visible={false}
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Keploy can be integrated with GitHub by two methods:-
 
@@ -50,11 +50,14 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
   uses: actions/checkout@v2
 - name: Keploy Tests
   id: keploy-run-test
+  env:
+    KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
   run: |
-    curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
-    sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+    curl --silent -O -L https://keploy.io/install.sh && source install.sh
   ...
 ```
+
+`keploy test` needs a Keploy account (a free one is enough). In CI, Keploy signs in with the API key in the `KEPLOY_API_KEY` environment variable, so add your key as a repository secret named `KEPLOY_API_KEY` (**Settings → Secrets and variables → Actions**) — the `env:` block above passes it to the step.
 
 ### Example with Scripts
 
@@ -70,9 +73,10 @@ While using [express-mongoose](https://github.com/keploy/samples-typescript/tree
 
 - name: Keploy Tests
   id: keploy-run-test
+  env:
+    KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
   run: |
-    curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
-    sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+    curl --silent -O -L https://keploy.io/install.sh && source install.sh
 
     # Install application dependencies
     npm install
@@ -246,7 +250,7 @@ The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no bro
 - **Locally:** `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
 - **In CI:** store the key as a secret in your CI system so it gets injected as an environment variable at runtime. Never hard-code it in your pipeline file.
 
-> Cloud replay requires the Enterprise binary. Install it with `curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh` — not the open-source `keploy.io/install.sh`.
+> Install Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
 
 ### Steps
 
@@ -254,7 +258,7 @@ The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no bro
    - GitHub Actions: go to **Settings → Secrets and variables → Actions → New repository secret**, name it `KEPLOY_API_KEY`.
    - GitLab CI: go to **Settings → CI/CD → Variables**, add it as a masked variable.
    - Jenkins: add a **Secret text** credential via **Manage Jenkins → Credentials**.
-2. **Install** the Enterprise Keploy binary on the runner.
+2. **Install** Keploy on the runner.
 3. **Run** `keploy cloud replay` with your application and cluster details.
 
 ### Example: GitHub Actions
@@ -272,9 +276,9 @@ jobs:
     env:
       KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
     steps:
-      - name: Install Keploy Enterprise
+      - name: Install Keploy
         run: |
-          curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+          curl --silent -O -L https://keploy.io/install.sh && source install.sh
 
       - name: Cloud replay
         run: |

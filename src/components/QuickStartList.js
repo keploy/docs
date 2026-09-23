@@ -138,7 +138,7 @@ const quickstarts = [
     server: "Docker",
     description:
       "A sample URL Shortener app to demonstrate Keploy integration capabilities using Mux and MySQL.",
-    link: "/docs/quickstart/samples-mysql/#using-docker-compose-",
+    link: "/docs/quickstart/samples-mysql/#using-docker-",
   },
   {
     title: "Mux + Mysql",
@@ -156,7 +156,7 @@ const quickstarts = [
     server: "Docker",
     description:
       "A sample CRUD application to demonstrate how seamlessly Keploy integrates with FastHttp and Postgres.",
-    link: "/docs/quickstart/samples-fasthttp/#using-docker-compose-",
+    link: "/docs/quickstart/samples-fasthttp/",
   },
   */
 
@@ -234,7 +234,7 @@ const quickstarts = [
     language: "Python",
     server: "Docker",
     description: "A Python Flask app connected to MongoDB running locally.",
-    link: "/docs/quickstart/samples-flask/#using-docker-compose",
+    link: "/docs/quickstart/samples-flask/#how-to-run-the-sample-application-using-docker-compose-",
   },
   {
     title: "Flask + MongoDB",

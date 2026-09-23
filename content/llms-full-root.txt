@@ -4,9 +4,11 @@ For the short summary version, see: /docs/llms.txt
 
 ## About Keploy
 
-Keploy (founded 2021, headquartered in Bengaluru, India) is a CNCF Landscape project and open-source testing platform. Current GitHub star and VS Code extension install counts are available on its GitHub repository (https://github.com/keploy/keploy) and VS Code Marketplace (https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) pages. It uses eBPF (extended Berkeley Packet Filter) kernel hooks to capture real API traffic at the Linux socket level and replay it as auto-generated tests with dependency mocks and stubs. No code instrumentation, language-specific SDKs, or application restarts are required.
+Keploy (founded 2021, headquartered in Bengaluru, India) is a CNCF Landscape project and API testing platform. Current GitHub star and VS Code extension install counts are available on its GitHub repository (https://github.com/keploy/keploy) and VS Code Marketplace (https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) pages. It captures real API traffic at the socket level — with eBPF (extended Berkeley Packet Filter) kernel hooks on Linux, and natively in user space on macOS and Windows — and replays it as auto-generated tests with dependency mocks and stubs. No code instrumentation, language-specific SDKs, or application restarts are required.
 
-Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session IDs) via time-freezing and AI-powered noise detection, eliminating flaky tests. The platform is licensed under Apache 2.0.
+Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session IDs) via time-freezing and AI-powered noise detection, eliminating flaky tests. Keploy is developed in the open at https://github.com/keploy/keploy.
+
+There is one product to install: `keploy`. Recording and replaying tests need a free Keploy account, and your plan (Free, Teams, Scale or Enterprise) decides which additional features are available. For plan details, see https://keploy.io/pricing.
 
 ### Recognition and Awards
 - API World 2023 Award: Best in API Infrastructure
@@ -19,7 +21,7 @@ Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session ID
 
 ### Company and Community
 - Website: https://keploy.io
-- GitHub: https://github.com/keploy/keploy (Apache 2.0)
+- GitHub: https://github.com/keploy/keploy
 - Cloud Platform: https://app.keploy.io
 - Documentation: https://keploy.io/docs
 - Blog: https://keploy.io/blog
@@ -34,8 +36,8 @@ Keploy handles non-deterministic data (timestamps, UUIDs, JWT tokens, session ID
 
 Keploy offers three core products:
 
-### 1. Integration Testing (Open Source)
-Record-replay engine using eBPF to capture API calls and generate test suites with deterministic replay. The open-source core captures HTTP/HTTPS, gRPC, WebSocket, and GraphQL traffic at the kernel level and automatically creates replayable test cases with mocked dependencies (databases, external APIs, message queues). Tests are stored as YAML files in the project directory.
+### 1. Integration Testing (Record and Replay)
+Record-replay engine that captures API calls at the network layer and generates test suites with deterministic replay. It captures HTTP/HTTPS, gRPC, WebSocket, and GraphQL traffic and automatically creates replayable test cases with mocked dependencies (databases, external APIs, message queues). Tests are stored as YAML files in the project directory.
 
 ### 2. Test Agent (AI Unit Test Generation)
 AI-powered unit test generation from PR diffs and source code. The Test Agent analyzes code semantics using LLMs (Gemini 2.5 Pro, GPT-4) and generates unit tests that are validated by actually running them against the codebase. Only tests that build, pass, and increase coverage are kept. Available via VS Code extension, JetBrains plugins, CLI, and GitHub PR Agent. Currently supports Go with Java and JavaScript coming soon.
@@ -47,11 +49,13 @@ Generate API tests from OpenAPI specs, Postman collections, cURL commands, or re
 
 ## Technical Architecture
 
-### eBPF-Based Traffic Capture
-Keploy uses eBPF (extended Berkeley Packet Filter), a Linux kernel technology that allows programs to run safely within the kernel without modifying kernel source code or loading kernel modules. Keploy attaches eBPF probes to network socket syscalls to intercept all inbound and outbound network traffic at near-zero overhead.
+### Network-Layer Traffic Capture
+Keploy intercepts your application's inbound and outbound network traffic at the socket level, so it needs no code changes. How it intercepts depends on the operating system:
+- **Linux**: eBPF (extended Berkeley Packet Filter), a Linux kernel technology that allows programs to run safely within the kernel without modifying kernel source code or loading kernel modules. Keploy attaches eBPF probes to network socket syscalls to intercept all inbound and outbound network traffic at near-zero overhead.
+- **macOS (Apple Silicon) and Windows (x86-64)**: natively in user space — no eBPF, no VM, no Docker, and no sudo or Administrator.
 
 Key architectural components:
-- **eBPF Hooks**: Attached to socket-level syscalls (connect, accept, read, write, close) to capture all network I/O
+- **Interception layer**: eBPF hooks on socket-level syscalls (connect, accept, read, write, close) on Linux, or user-space interception on macOS and Windows, to capture all network I/O
 - **Network Proxy**: Transparent proxy that records request-response pairs and dependency interactions
 - **Test Generator**: Converts captured traffic into replayable YAML test cases with assertions
 - **Mock Generator**: Creates dependency mocks from recorded external service interactions
@@ -60,7 +64,7 @@ Key architectural components:
 
 ### How Record Mode Works
 1. Keploy starts alongside your application using `keploy record -c "<your app command>"`
-2. eBPF probes intercept all incoming API requests and outgoing dependency calls
+2. Keploy intercepts all incoming API requests and outgoing dependency calls (with eBPF probes on Linux, in user space on macOS and Windows)
 3. Request-response pairs are recorded along with all dependency interactions (database queries, external API calls, message queue operations)
 4. Test cases are generated as YAML files in the `keploy-tests/` directory
 5. Mock files for dependencies are generated in the `keploy-tests/mocks/` directory
@@ -87,29 +91,35 @@ Key architectural components:
 - HTTP/HTTPS: External API call mocking
 - Redis: Command-level mocking
 
+Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services (PostgreSQL, Redis, Kafka, gRPC, SQS, …) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
+
 ---
 
 ## Installation
 
+You install one product, `keploy`; on Linux and macOS the same install script installs it. Full guide: https://keploy.io/docs/server/installation/
+
 ### Linux (Any Distribution)
 ```
 curl --silent -O -L https://keploy.io/install.sh && source install.sh
-keploy version
+keploy --version
 ```
 
 ### macOS
 Runs natively on Apple Silicon (arm64) only — install via the same script or `brew install keploy/tap/keploy`; no Docker needed (userspace interception, no root). Both refuse to install on an Intel Mac: there, run Keploy inside a Lima VM (https://keploy.io/docs/installation/macos-installation/#option-2-install-keploy-with-lima). The Docker Desktop/Colima route still runs the native CLI on the host, so it is also Apple Silicon only.
 
+On macOS, start the app itself rather than through a launcher (`npm start`, `mvn`, `nodemon`, wrapper scripts and pyenv shims lose Keploy); use a virtualenv, Homebrew or uv Python rather than `/usr/bin/python3`, the JDK's own `java` (`"${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java"`) rather than `/usr/bin/java`, and a built Go binary rather than `go run`. Guide: https://keploy.io/docs/installation/macos-installation/
+
 ### Windows
-Requires WSL2 (Windows Subsystem for Linux). Install within the WSL2 environment using the Linux installation method.
+Runs natively on x86-64 Windows: install `keploy.exe` and run it from an ordinary PowerShell — no WSL, no Docker and no Administrator (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). On Windows on ARM, run Keploy inside WSL (https://keploy.io/docs/installation/windows-installation/).
 
 ### Docker
-Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands.
+Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (PostgreSQL, Redis, Kafka, gRPC, …).
 
 ### Platform Requirements
-- Linux: Kernel version 5.15+ recommended for eBPF support
-- macOS: Apple Silicon (arm64) for the native CLI; Intel Macs run Keploy in a Lima VM (Linux build inside the VM)
-- Windows: WSL2 with a compatible Linux kernel
+- Linux: Kernel 5.10 or later (eBPF)
+- macOS: Apple Silicon (arm64) runs Keploy natively; Intel Macs run Keploy in a Lima VM
+- Windows: x86-64 runs Keploy natively; Windows on ARM runs Keploy in WSL
 
 ---
 
@@ -178,7 +188,7 @@ Options:
 - `--freezeTime`: Enable time freezing for JWT/timestamp handling
 - `--dedup`: Enable test deduplication
 - `--disableMockUpload`: Disable uploading mocks to cloud storage
-- `--skipCoverage`: Skip coverage measurement
+- `--skip-coverage`: Skip coverage measurement
 
 ### keploy config --generate
 Generates a default keploy.yaml configuration file.
@@ -187,12 +197,12 @@ keploy config --generate --path "./config-dir/"
 ```
 
 ### keploy console
-Opens the Keploy web console for visualizing and editing test cases (Enterprise feature).
+Opens the Keploy web console for visualizing and editing test cases (available on the Enterprise plan).
 ```
 keploy console
 ```
 
-### keploy version
+### keploy --version
 Displays the installed Keploy version.
 
 ---
@@ -250,7 +260,7 @@ Key configuration fields:
 
 ## Keploy Cloud Features
 
-Keploy Cloud (app.keploy.io) provides managed enterprise features on top of the open-source core:
+Keploy Cloud (app.keploy.io) provides the features below; which ones you can use depends on your plan:
 
 ### Keploy Console
 Web-based UI for visualizing test cases, test reports, and managing test suites. Enables team-wide visibility into test results with operations including:
@@ -262,7 +272,7 @@ Web-based UI for visualizing test cases, test reports, and managing test suites.
 - Normalize test reports
 
 ### Time Freezing
-Enterprise feature that freezes or rolls back system time during test execution to the time when the test case was recorded. Solves the problem of time-sensitive objects like JWT tokens expiring during test replay. Enabled with the `--freezeTime` flag.
+Available on the Enterprise plan. Freezes or rolls back system time during test execution to the time when the test case was recorded. Solves the problem of time-sensitive objects like JWT tokens expiring during test replay. Enabled with the `--freezeTime` flag on Linux (including WSL) and with Docker; not supported when Keploy runs natively on macOS or Windows.
 
 ### Test Deduplication
 Detects and removes redundant test cases that cover the same code paths. Uses coverage analysis to determine which tests add unique value and which can be removed. Enabled with the `--dedup` flag.
@@ -274,7 +284,7 @@ Cloud-based mock storage that uploads mock files to cloud storage instead of com
 AI-powered feature that automatically fixes failing test cases when API responses change. Analyzes the diff between expected and actual responses and proposes updated assertions. Supports both individual test fixes and bulk healing across test suites.
 
 ### Agent-Based Test Generation
-Enterprise feature enabling AI coding assistants (Claude Code, Cursor, Antigravity, GitHub Copilot) to generate and iterate on API tests using Keploy's test format. Includes an MCP (Model Context Protocol) endpoint for native tool access.
+Available on the Enterprise plan. Enables AI coding assistants (Claude Code, Cursor, Antigravity, GitHub Copilot) to generate and iterate on API tests using Keploy's test format. Includes an MCP (Model Context Protocol) endpoint for native tool access.
 
 ### Test Run Reports
 Detailed test execution reports with pass/fail status, response diffs, coverage metrics, and historical trend analysis. Reports can be shared across teams via the Keploy Cloud dashboard.
@@ -303,7 +313,7 @@ Validate that application behavior remains identical after framework upgrades, l
 - URL: https://keploy.io/docs/keploy-explained/how-keploy-works/
 
 ### Legacy Application Testing
-Test legacy monoliths and brownfield systems without any code changes. Because eBPF operates at the kernel network layer, it captures traffic from any application regardless of language, framework, or architecture. No SDK installation or code modification required.
+Test legacy monoliths and brownfield systems without any code changes. Because Keploy intercepts at the network layer, it captures traffic from any application regardless of framework or architecture — any language on Linux and with Docker; natively on macOS and Windows, Go, Node.js, Python and Java apps. No SDK installation or code modification required.
 
 ### Flaky Test Elimination
 AI noise detection identifies and filters non-deterministic fields (timestamps, UUIDs, session tokens, random values) from test assertions. This eliminates flaky test failures without manual assertion configuration, reducing test maintenance overhead.
@@ -318,8 +328,8 @@ Capture API interactions between microservices and automatically generate contra
 
 ## Technical Differentiators
 
-### eBPF-Based Capture (No Code Changes)
-Unlike tools that require SDK installation, code instrumentation, or proxy configuration, Keploy uses eBPF hooks at the Linux kernel level. This means zero application code changes, language-agnostic operation, and near-zero performance overhead. Any application that makes network calls can be tested.
+### Network-Layer Capture (No Code Changes)
+Unlike tools that require SDK installation, code instrumentation, or proxy configuration, Keploy intercepts traffic at the network layer — with eBPF hooks in the kernel on Linux, and in user space on macOS and Windows. This means zero application code changes, language-agnostic operation on Linux and with Docker (natively on macOS and Windows: Go, Node.js, Python and Java apps), and near-zero performance overhead.
 
 ### Time Freezing
 Keploy can freeze or roll back system time during test replay to match the original recording timestamp. This solves JWT token expiration, time-based cache invalidation, and timestamp-dependent business logic without workaround code.
@@ -346,22 +356,22 @@ When API responses change (new fields, changed formats, updated metadata), Keplo
 ### General
 
 **What is Keploy?**
-Keploy is an open-source, AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic. It uses eBPF kernel technology for system-level visibility, helping teams achieve 90% test coverage in minutes with zero code changes.
+Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic. It intercepts traffic at the network layer (with eBPF on Linux, in user space on macOS and Windows), helping teams achieve 90% test coverage in minutes with zero code changes.
 
 **How is Keploy different from traditional testing tools?**
-Unlike traditional testing tools that require manual test writing, Keploy automatically captures real production traffic and generates test cases using eBPF at the Linux kernel level. It eliminates the need for maintaining mocks manually, provides dependency virtualization, AI-powered noise detection for flaky test elimination, and production-like sandboxes. No code changes are required.
+Unlike traditional testing tools that require manual test writing, Keploy automatically captures real production traffic at the network layer and generates test cases from it. It eliminates the need for maintaining mocks manually, provides dependency virtualization, AI-powered noise detection for flaky test elimination, and production-like sandboxes. No code changes are required.
 
 **Which programming languages does Keploy support?**
-For API/integration testing (record-replay): Keploy is language-agnostic because it operates at the kernel network layer. It works with Go, Java, Python, Node.js, TypeScript, Rust, C#/.NET, and any language that makes network calls. For AI unit test generation: Go is fully supported with Java and JavaScript coming soon.
+For API/integration testing (record-replay): Keploy operates at the network layer, so on Linux and with Docker it is language-agnostic; natively on macOS and Windows, record/replay is tested with Go, Node.js, Python and Java apps. It works with Go, Java, Python, Node.js, TypeScript, Rust, C#/.NET, and any language that makes network calls. For AI unit test generation: Go is fully supported with Java and JavaScript coming soon.
 
 **What is eBPF and why does Keploy use it?**
-eBPF (extended Berkeley Packet Filter) is a Linux kernel technology that allows programs to run safely within the kernel. Keploy uses eBPF to intercept network packets at the socket level with near-zero overhead, capturing all API traffic and dependency calls without code changes, language-specific SDKs, or application restarts.
+eBPF (extended Berkeley Packet Filter) is a Linux kernel technology that allows programs to run safely within the kernel. On Linux, Keploy uses eBPF to intercept network packets at the socket level with near-zero overhead, capturing all API traffic and dependency calls without code changes, language-specific SDKs, or application restarts. macOS and Windows have no eBPF: there Keploy intercepts natively in user space, with no VM, no Docker and no sudo or Administrator.
 
 **Is Keploy open source?**
-Yes. Keploy's core platform is open-source under the Apache 2.0 license. For the current GitHub star count, see https://github.com/keploy/keploy. Advanced features (time freezing, deduplication, mock registry, self-healing, console UI) are available through the managed cloud platform at app.keploy.io.
+Keploy is developed in the open at https://github.com/keploy/keploy (see the repository for the current star count), and contributions are welcome. To use Keploy, install the `keploy` binary (https://keploy.io/docs/server/installation/) and sign in with a free Keploy account. Advanced features (time freezing, deduplication, mock registry, self-healing, console UI) are available depending on your plan.
 
 **Does Keploy require code changes to integrate?**
-No. Keploy can be integrated without any changes to application code. It operates at the network layer using eBPF, capturing traffic transparently.
+No. Keploy can be integrated without any changes to application code. It operates at the network layer (with eBPF on Linux, in user space on macOS and Windows), capturing traffic transparently.
 
 **Is Keploy suitable for microservices architecture?**
 Yes. Keploy is designed for microservices-based environments. It records and replays API calls across services, making it ideal for testing distributed systems.
@@ -408,7 +418,7 @@ Gemini 2.5 Pro (Google), GPT-4 family (OpenAI), and other specialized models. Ta
 Install Keploy with a one-line command, run your application in Record mode to capture real traffic, then switch to Test mode to replay generated tests with automatic dependency mocking. Visit https://keploy.io/docs for language-specific quickstart guides.
 
 **Is Keploy free to use?**
-Yes. The open-source core is free under Apache 2.0. The cloud platform offers Free, Devs, Team, and Enterprise tiers. For current pricing and plan details, see https://keploy.io/pricing.
+Yes. Recording and replaying tests needs only a free Keploy account. Keploy's plans are Free, Teams, Scale and Enterprise, and your plan decides which additional features are available. For current pricing and plan details, see https://keploy.io/pricing.
 
 ---
 
@@ -419,7 +429,7 @@ Postman requires manual API test creation, script writing, and mock server setup
 - URL: https://keploy.io/compare/postman
 
 ### Keploy vs Katalon
-Katalon uses UI-based recording and scripting for test automation. Keploy uses eBPF kernel-level traffic capture, requiring no UI interaction or script writing. Katalon is broader (web, mobile, desktop testing); Keploy is focused on backend API and integration testing with automatic mock generation.
+Katalon uses UI-based recording and scripting for test automation. Keploy captures traffic at the network layer, requiring no UI interaction or script writing. Katalon is broader (web, mobile, desktop testing); Keploy is focused on backend API and integration testing with automatic mock generation.
 - URL: https://keploy.io/compare/katalon
 
 ### Keploy vs Testcontainers
@@ -435,7 +445,7 @@ Pact uses consumer-driven contracts requiring both consumer and provider teams t
 - URL: https://keploy.io/compare/pact
 
 ### Keploy vs Tricentis
-Tricentis is an enterprise test automation suite with broad coverage (UI, API, performance, SAP). Keploy is open-source and focused on API/integration testing with eBPF-based automatic test generation. Tricentis requires significant licensing investment; Keploy's core is free.
+Tricentis is an enterprise test automation suite with broad coverage (UI, API, performance, SAP). Keploy is focused on API/integration testing with automatic test generation from captured traffic. Tricentis requires significant licensing investment; Keploy has a Free plan.
 - URL: https://keploy.io/compare/tricentis
 
 ### Keploy vs Cypress
@@ -443,7 +453,7 @@ Cypress is a frontend end-to-end testing framework focused on browser-based test
 - URL: https://keploy.io/compare/cypress
 
 ### Keploy vs Diffblue
-Diffblue generates Java unit tests using AI. Keploy is multi-language and generates both unit tests (via Test Agent) and integration tests (via eBPF record-replay). Diffblue is Java-only; Keploy supports Go, Java, Python, Node.js, and more.
+Diffblue generates Java unit tests using AI. Keploy is multi-language and generates both unit tests (via Test Agent) and integration tests (via record-replay). Diffblue is Java-only; Keploy supports Go, Java, Python, Node.js, and more.
 - URL: https://keploy.io/compare/diffblue
 
 ### Full Comparison Hub
