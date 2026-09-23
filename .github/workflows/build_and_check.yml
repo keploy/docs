@@ -10,7 +10,14 @@ on:
 jobs:
   deploy-preview:
     runs-on: ubuntu-latest
-    
+
+    services:
+      # A local S3 and CloudFront for the deploy e2e step below.
+      s3:
+        image: motoserver/moto:5.2.3
+        ports:
+          - 5000:5000
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -28,3 +35,14 @@ jobs:
 
       - name: Verify structured-data graph
         run: npm run verify-schema
+
+      # Deploys this PR's build with main.yml's deploy script into a local S3,
+      # then replays the weeks after it: no asset a live or open page still
+      # loads is deleted, every unused one eventually is, and every file gets
+      # the right cache header. Built here with npm rather than main.yml's
+      # yarn, to the same layout. Run against the real build so a change that
+      # puts an un-hashed file under assets/ fails here, not in production.
+      - name: Deploy e2e (local S3)
+        env:
+          AWS_ENDPOINT_URL: http://localhost:5000
+        run: .github/scripts/deploy-docs-test.sh build
