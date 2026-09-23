@@ -2,7 +2,7 @@
 id: installation
 title: macOS Installation
 sidebar_label: macOS
-description: "Install Keploy on macOS (Apple Silicon) with the one-click curl installer or Homebrew. Docker Desktop and Colima setups are also supported for eBPF testing."
+description: "Install Keploy natively on macOS (Apple Silicon) with the one-click curl installer or Homebrew. Docker Desktop and Colima setups are supported for containerized apps."
 tags:
   - hello-world
   - macos
@@ -53,7 +53,7 @@ There are two ways to install Keploy on macOS:
 1. **Recommended:** [One-click install](#one-click-install-keploy).
 2. [Install with Homebrew](#install-with-homebrew).
 
-For users who need eBPF support, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
+Natively on macOS, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers or depends on one of those other services, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
 
 :::note Apple Silicon only
 
@@ -85,7 +85,7 @@ keploy --version
 
 ## Manual Setup
 
-For eBPF support on macOS, you can run Keploy through either **Docker Desktop** or **Colima**.
+To record an app that runs in containers, or one whose dependencies Keploy does not understand natively on macOS, run Keploy through either **Docker Desktop** or **Colima**.
 
 ### Using Docker Desktop
 

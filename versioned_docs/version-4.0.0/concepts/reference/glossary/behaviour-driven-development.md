@@ -1,212 +1,312 @@
 ---
 id: behaviour-driven-development
-title: "Behavior Driven Development: Beginner's Guide to Collaboration"
+title: "Behavior driven development (BDD): process, examples and tools"
 sidebar_label: Behaviour Driven Development
-description: Learn how BDD bridges the gap between developers, testers, and business stakeholders with practical examples, tools, and techniques.
-seoTitle: "Behavior Driven Development: Beginner's Guide to Collaboration"
-seoDescription: Learn how BDD bridges the gap between developers, testers, and business stakeholders with practical examples, tools, and techniques.
+description: Learn what behavior driven development (BDD) is, how the BDD process works, Gherkin syntax with Java and Python examples, BDD for APIs, and the top BDD tools.
+seoTitle: "Behavior driven development (BDD): process, examples and tools"
+seoDescription: Learn what behavior driven development (BDD) is, how the BDD process works, Gherkin syntax with Java and Python examples, BDD for APIs, and the top BDD tools.
 tags:
   - explanation
   - Glossary
 keywords:
-  - API
   - BDD
-  - Behavior Driven Development
-  - Behavior Driven Development Tools
-  - BDD Testing Tools
-  - Behavior Driven Testing
-  - Test Automation
-  - Software Testing
-  - Software Testing Best Practices
+  - behavior driven development
+  - BDD testing
+  - Gherkin
+  - BDD tools
+  - BDD vs TDD
+  - BDD API testing
 ---
 
-## What is Behavior Driven Development (BDD)?
+## What is behavior driven development (BDD)?
 
-Behavior Driven Development (BDD) is an Agile methodology that emphasizes collaboration among developers, testers, and business stakeholders. It ensures that software meets users' needs by writing tests that describe the desired behavior in plain language. This approach encourages clear communication and shared understanding of software requirements, ultimately leading to better quality and more maintainable code.
+Behavior driven development (BDD), also spelled behaviour driven development, is an Agile practice where developers, testers and business stakeholders agree on how software should behave before it is built. The team describes that behavior as concrete examples written in plain language, usually in a Given-When-Then format, and then turns those examples into automated tests.
 
-![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD-Development-Process.png)
+BDD is a collaboration process first and a testing technique second. The conversations and shared examples are the point. The automated tests are the proof that the software does what everyone agreed on, and they stay in the codebase as living documentation.
 
-## BDD Fundamentals
+![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/bdd-process-light.webp)
 
-1. **Collaboration and Communication:**
+## A short history of BDD
 
-   - BDD fosters close collaboration among developers, testers, and business stakeholders.
-   - Open communication ensures that everyone has a shared understanding of the requirements and desired behavior.
+Dan North coined the term behavior driven development around 2003 as a response to problems teams had with [test driven development](/docs/concepts/reference/glossary/test-driven-development/): where to start, what to test, and what to call tests. He described the idea publicly in his 2006 article "Introducing BDD". Replacing the word "test" with "behavior" shifted the conversation from code correctness to what the software should do for its users.
 
-2. **User Stories:**
+BDD grew out of TDD and acceptance test driven development (ATDD), and borrows ideas from domain driven design, especially the use of a shared vocabulary between business and technical people. Tools such as JBehave and later [Cucumber](/docs/concepts/reference/glossary/cucumber-testing/) made the approach practical by turning plain-language scenarios into executable tests.
 
-   - BDD starts with user stories written from the perspective of the end user, typically formatted as:  
-     "As a [role], I want [feature] so that [benefit]."
+## BDD vs BDD testing
 
-3. **Scenarios and Examples:**
+The two terms are often used interchangeably, but they mean different things:
 
-   - Detailed scenarios illustrate specific behaviors of the software using the Given-When-Then format.
-   - These scenarios serve as clear acceptance criteria that define when a user story is complete.
+- **BDD** is the whole practice: discovering requirements through conversation, writing them as examples, and building software to meet them.
+- **BDD testing** is the part where those examples are automated and run against the application to confirm it behaves as described.
 
-4. **Gherkin Language:**
+A team can get much of the value of BDD from the conversations alone. A team that only writes Gherkin files without the conversations is doing BDD testing, not BDD.
 
-   - BDD employs Gherkin, a simple, human-readable syntax that uses keywords like Given, When, Then, And, and But to structure scenarios.
+## How BDD works
 
-5. **Acceptance Criteria:**
+BDD work happens in three practices that repeat for every feature:
 
-   - Scenarios double as acceptance criteria, ensuring all functional requirements are testable and clearly defined.
+1. **Discovery:** the team talks through a user story and uses concrete examples to uncover rules, edge cases and open questions.
+2. **Formulation:** the agreed examples are written as structured scenarios in Gherkin that both business and technical people can read.
+3. **Automation:** developers connect each scenario step to code so the scenario runs as an automated test.
 
-6. **Automated Testing:**
-   - Automation of BDD scenarios provides rapid feedback on software behavior and ensures continuous validation throughout the development cycle.
+### The BDD lifecycle step by step
 
-## Techniques of BDD
+1. **Write the user story.** Use the "As a [role], I want [feature] so that [benefit]" format to capture who needs what and why.
+2. **Hold a Three Amigos session.** A product owner or business analyst, a developer and a tester review the story together, each bringing a different view: business value, implementation and risk.
+3. **Map examples.** Use example mapping to list the rules of the story and at least one concrete example per rule. Questions nobody can answer become follow-ups instead of hidden assumptions.
+4. **Write scenarios in Gherkin.** Each example becomes a scenario. The scenarios double as the [acceptance testing](/docs/concepts/reference/glossary/acceptance-testing/) criteria for the story.
+5. **Automate and implement.** Developers write step definitions, watch the scenarios fail, then write just enough code to make them pass.
+6. **Run in CI and refine.** Scenarios run on every build. When behavior changes, the team updates the scenarios first, so the documentation never drifts from the system.
 
-1. **Three Amigos Meetings:**
+## Gherkin syntax explained
 
-   - A collaborative session involving a developer, tester, and business analyst to discuss and refine user stories and scenarios, ensuring alignment across teams.
+Gherkin is the plain-language format most BDD tools read. Scenarios live in files with a `.feature` extension, and each line starts with a keyword:
 
-2. **Example Mapping:**
+| Keyword                         | Purpose                                                                         |
+| ------------------------------- | ------------------------------------------------------------------------------- |
+| `Feature`                       | Names the capability being described and usually includes the user story.       |
+| `Background`                    | Steps that run before every scenario in the file, used for shared setup.        |
+| `Scenario`                      | One concrete example of behavior.                                               |
+| `Given`                         | The starting context or state.                                                  |
+| `When`                          | The action or event.                                                            |
+| `Then`                          | The expected outcome.                                                           |
+| `And` / `But`                   | Adds more steps of the same type as the previous line.                          |
+| `Scenario Outline` + `Examples` | Runs the same scenario with several rows of data.                               |
+| `@tags`                         | Labels scenarios so you can run subsets, for example `@smoke` or `@regression`. |
 
-   - A technique to break down user stories into concrete examples, helping to identify edge cases and clarify requirements.
+Here is a complete feature file with a happy path and two failure cases:
 
-3. **Writing Gherkin Scenarios:**
+```gherkin title="login.feature"
+@login
+Feature: User login
+  As a registered user
+  I want to log in to my account
+  So that I can see my dashboard
 
-   - Scenarios are written in Gherkin syntax. For example:
-     ```gherkin
-     Scenario: User logs in successfully
-       Given the user is on the login page
-       When the user enters valid credentials
-       Then the user should be redirected to the dashboard
-     ```
+  Background:
+    Given the user is on the login page
 
-4. **Automating Scenarios with BDD Tools:**
+  Scenario: Successful login with valid credentials
+    When the user logs in with "ana@example.com" and "correct-password"
+    Then the user should see the dashboard
 
-   - Tools like Cucumber, SpecFlow, Behave, JBehave, Gauge, and Reqnroll parse Gherkin syntax and link it to executable test code. For example, using Cucumber with Java:
+  Scenario Outline: Login fails with invalid credentials
+    When the user logs in with "<email>" and "<password>"
+    Then the user should see the error "<message>"
 
-     ```java
-     @Given("the user is on the login page")
-     public void userIsOnLoginPage() {
-         // Navigate to login page
-     }
+    Examples:
+      | email           | password       | message                   |
+      | ana@example.com | wrong-password | Invalid email or password |
+      |                 | any-password   | Email is required         |
+```
 
-     @When("the user enters valid credentials")
-     public void userEntersValidCredentials() {
-         // Enter credentials
-     }
+## BDD example: from scenario to automated test
 
-     @Then("the user should be redirected to the dashboard")
-     public void userIsRedirectedToDashboard() {
-         // Verify dashboard redirection
-     }
-     ```
+BDD tools match each Gherkin step to a method called a step definition. A test runner then executes the feature file. The example below uses Cucumber with Java and Selenium to automate the login feature above.
 
-5. **Continuous Integration (CI) and Continuous Delivery (CD):**
+### Step definitions in Java (Cucumber)
 
-   - BDD scenarios are integrated into CI/CD pipelines to run automated tests with every build, ensuring that new changes do not break existing functionality.
+```java title="LoginSteps.java"
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.When;
+import io.cucumber.java.en.Then;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
-6. **Living Documentation:**
+public class LoginSteps {
+    private WebDriver driver;
 
-   - BDD scenarios act as up-to-date documentation that evolves with the system, making it accessible and understandable to both technical and non-technical stakeholders.
+    @Given("the user is on the login page")
+    public void userIsOnLoginPage() {
+        driver = new ChromeDriver();
+        driver.get("https://example.com/login");
+    }
 
-7. **Refactoring:**
-   - Regular review and refactoring of scenarios and test code help maintain clarity and reduce redundancy while keeping tests focused on behavior rather than implementation details.
+    @When("the user logs in with {string} and {string}")
+    public void userLogsIn(String email, String password) {
+        driver.findElement(By.id("email")).sendKeys(email);
+        driver.findElement(By.id("password")).sendKeys(password);
+        driver.findElement(By.id("login")).click();
+    }
+
+    @Then("the user should see the dashboard")
+    public void userSeesDashboard() {
+        assertTrue(driver.getCurrentUrl().endsWith("/dashboard"));
+        driver.quit();
+    }
+
+    @Then("the user should see the error {string}")
+    public void userSeesError(String message) {
+        assertEquals(message, driver.findElement(By.id("error")).getText());
+        driver.quit();
+    }
+}
+```
+
+Notice that the Scenario Outline reuses the same step definitions for every row in the Examples table. That reuse is what keeps BDD suites maintainable as they grow.
+
+## BDD for API testing
+
+BDD is often shown with UI examples, but it works well for APIs and microservices, where behavior is defined by requests and responses rather than screens. API scenarios also run faster and break less often than browser tests.
+
+```gherkin title="checkout.feature"
+Feature: Checkout API
+
+  Scenario: Checkout succeeds for a cart with items
+    Given a cart with 2 items
+    When the client sends POST /checkout for that cart
+    Then the response status should be 201
+    And the response should contain an order id
+```
+
+### Step definitions in Python (behave)
+
+```python title="steps/checkout_steps.py"
+import requests
+from behave import given, when, then
+
+BASE_URL = "http://localhost:8080"
+
+@given("a cart with {count:d} items")
+def step_create_cart(context, count):
+    items = [{"sku": f"SKU-{i}", "qty": 1} for i in range(count)]
+    resp = requests.post(f"{BASE_URL}/carts", json={"items": items})
+    context.cart_id = resp.json()["id"]
+
+@when("the client sends POST /checkout for that cart")
+def step_checkout(context):
+    context.response = requests.post(
+        f"{BASE_URL}/checkout", json={"cart_id": context.cart_id}
+    )
+
+@then("the response status should be {status:d}")
+def step_status(context, status):
+    assert context.response.status_code == status
+
+@then("the response should contain an order id")
+def step_order_id(context):
+    assert "order_id" in context.response.json()
+```
+
+## BDD tools and frameworks
+
+| Tool                                                            | Language                        | Scenario format  | Notes                                                                  |
+| --------------------------------------------------------------- | ------------------------------- | ---------------- | ---------------------------------------------------------------------- |
+| [Cucumber](/docs/concepts/reference/glossary/cucumber-testing/) | Java, JavaScript, Ruby and more | Gherkin          | The most widely used BDD framework.                                    |
+| Behave                                                          | Python                          | Gherkin          | Standalone runner for Python projects.                                 |
+| pytest-bdd                                                      | Python                          | Gherkin          | Runs scenarios inside pytest, so you keep fixtures and plugins.        |
+| Reqnroll                                                        | .NET                            | Gherkin          | Open-source successor to SpecFlow. Works with NUnit, xUnit and MSTest. |
+| SpecFlow                                                        | .NET                            | Gherkin          | Reached end-of-life on December 31, 2024. Migrate to Reqnroll.         |
+| JBehave                                                         | Java                            | Story files      | One of the first BDD frameworks. Integrates with JUnit.                |
+| Gauge                                                           | Multiple languages              | Markdown         | Specs are written in Markdown rather than Gherkin.                     |
+| Concordion                                                      | Java                            | HTML or Markdown | Executable specifications that read like documentation.                |
+
+## BDD vs TDD vs ATDD
+
+BDD is sometimes described as an extension of TDD, but it is better understood as a combination of practices from both test driven development and acceptance test driven development, with a stronger focus on shared language.
+
+| Aspect            | TDD                      | ATDD                                       | BDD                                                           |
+| ----------------- | ------------------------ | ------------------------------------------ | ------------------------------------------------------------- |
+| **Main question** | Is the code correct?     | Does the feature meet acceptance criteria? | Does the system behave the way users and the business expect? |
+| **Written by**    | Developers               | Developers, testers, customer              | Developers, testers, business stakeholders                    |
+| **Format**        | Code in the app language | Acceptance tests, often tables             | Given-When-Then scenarios in Gherkin                          |
+| **Test level**    | Unit                     | Acceptance                                 | Acceptance, integration, system                               |
+| **Typical tools** | JUnit, pytest, NUnit     | FitNesse, Robot Framework                  | Cucumber, Behave, Reqnroll                                    |
+| **Cycle**         | Red, green, refactor     | Discuss, distill, develop, demo            | Discover, formulate, automate                                 |
+
+The approaches work together. Many teams use BDD scenarios to define features at the acceptance level and TDD to build the code underneath them.
 
 ## Benefits of BDD
 
-- **Improved Communication:**  
-  Facilitates a shared understanding among all team members, ensuring the software meets user expectations.
-- **Increased Collaboration:**  
-  Encourages cross-functional teamwork, aligning development with business goals.
-- **Enhanced Testability:**  
-  Scenarios written in plain language are easier to understand, maintain, and automate.
-- **Increased Confidence:**  
-  Provides assurance that the software behaves as expected, reducing defects and enhancing overall quality.
+- **Fewer misunderstood requirements:** concrete examples surface gaps and edge cases before any code is written.
+- **Shared language:** business and technical people describe features the same way, in the same documents.
+- **Clear definition of done:** a story is complete when its scenarios pass.
+- **Living documentation:** scenarios describe what the system actually does today, because they fail when it stops doing it.
+- **Safer changes:** automated scenarios in CI catch regressions in business-critical flows on every build.
+- **Better tests:** scenarios focus on outcomes rather than implementation, so they survive refactoring.
 
-## BDD Testing Tools
+## Limitations of BDD
 
-Popular BDD tools include:
+- **Time cost of collaboration:** discovery sessions take time from people who are often the busiest on the team.
+- **Needs real business involvement:** if only developers write scenarios, BDD becomes extra syntax on top of ordinary tests.
+- **Maintenance overhead:** large suites with duplicated or overly detailed steps become slow and fragile.
+- **Learning curve:** writing good scenarios is a skill, and early suites are often too imperative.
+- **Not full coverage:** BDD scenarios cover key behaviors, not every code path. You still need [unit](/docs/concepts/reference/glossary/unit-testing/), [integration](/docs/concepts/reference/glossary/integration-testing/) and [regression](/docs/concepts/reference/glossary/regression-testing/) tests.
 
-- **Cucumber:**  
-  An open-source tool that uses Gherkin syntax, supporting multiple programming languages such as Java, Ruby, and JavaScript.
+### When BDD may not be a good fit
 
-- **Behave:**  
-  A Python-based BDD tool that leverages Gherkin syntax to create test scenarios.
+- Solo projects or very small teams where the developer is also the domain expert.
+- Technical libraries and infrastructure code with no business-facing behavior.
+- Short-lived prototypes where requirements change daily.
+- Teams where business stakeholders cannot commit time to discovery.
 
-- **JBehave:**  
-  A Java-based tool that integrates with frameworks like JUnit and TestNG.
+## Best practices for writing BDD scenarios
 
-- **SpecFlow:**  
-  A BDD tool for .NET that uses Gherkin syntax and integrates with Microsoft Studio.
+- **Write declarative steps.** Describe what the user achieves ("When the user logs in"), not how they click through the UI ("When the user clicks the email field and types...").
+- **Test one behavior per scenario.** If a scenario needs several `When` steps, it probably covers more than one rule.
+- **Use domain language.** Name things the way the business does, so stakeholders can review scenarios without translation.
+- **Keep scenarios BRIEF:** Business language, Real data, Intention revealing, Essential and Focused.
+- **Include failure cases.** Rules are defined as much by what the system rejects as by what it accepts.
+- **Reuse steps, not scenarios.** Share step definitions across features and use `Background` only for setup every scenario truly needs.
+- **Tag and split suites.** Run fast `@smoke` scenarios on every commit and the full suite before release.
 
-- **Gauge:**  
-  An open-source tool that uses a markdown-based syntax and supports multiple languages.
+## How Keploy complements BDD
 
-- **Reqnroll:**  
-  A Cucumber-style framework for .NET that facilitates BDD testing.
+BDD scenarios capture the behavior a team intends to build. They do not capture every request, edge case and dependency interaction that real users trigger once the service is live, and writing scenarios for all of that by hand is not practical.
 
-## Points to Remember When Using BDD
+Keploy fills that gap for APIs. It records real API traffic and turns it into test cases along with mocks for databases and downstream services, so you get a regression suite based on how the system is actually used. Teams can keep BDD for defining and agreeing on new behavior, and use Keploy to protect existing behavior from regressions without writing and maintaining that coverage manually.
 
-1. **BDD is Not a Silver Bullet:**  
-   While BDD improves communication and testability, it is not a one-size-fits-all solution.
+To generate API tests from real traffic, see the [Keploy API test generator guide](/docs/running-keploy/test-generate/), or [install Keploy for integration testing](/docs/server/installation/).
 
-2. **Team Buy-In is Essential:**  
-   BDD works best when all stakeholders—from developers to business analysts—are fully engaged.
+## Related terms
 
-3. **Learning Curve:**  
-   Adopting BDD requires time and training, but the long-term benefits make the investment worthwhile.
+- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/): the developer-focused practice BDD grew out of.
+- [Cucumber Testing](/docs/concepts/reference/glossary/cucumber-testing/): the most popular tool for automating BDD scenarios.
+- [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/): BDD scenarios double as acceptance criteria.
+- [Agile Unit Testing](/docs/concepts/reference/glossary/agile-unit-testing/): unit testing practices that sit underneath BDD scenarios.
+- [Browse all testing terms](/docs/concepts/reference/glossary/): the full Keploy glossary.
 
-4. **Complementary, Not a Replacement:**  
-   BDD should be used alongside other testing methods such as unit and integration testing to ensure comprehensive software quality.
+## FAQs about behavior driven development (BDD)
 
-## TDD vs. BDD Comparison Table
+### 1. What is behavior driven development (BDD)?
 
-| Aspect               | Test Driven Development (TDD)           | Behavior Driven Development (BDD)                                   |
-| -------------------- | --------------------------------------- | ------------------------------------------------------------------- |
-| **Primary Focus**    | Unit testing and code correctness       | Collaboration and end-user behavior                                 |
-| **Tests Written By** | Developers                              | Developers, testers, and business stakeholders                      |
-| **Test Language**    | Programming language of the application | Natural language (Gherkin syntax)                                   |
-| **Testing Levels**   | Primarily unit testing                  | Acceptance, integration, and system testing                         |
-| **Tools**            | JUnit, pytest, NUnit                    | Cucumber, SpecFlow, Behave                                          |
-| **Documentation**    | Code-focused tests                      | Plain language scenarios accessible to non-technical stakeholders   |
-| **Target Audience**  | Primarily developers                    | Both technical and non-technical team members                       |
-| **Workflow Cycle**   | Write tests, implement code, refactor   | Define behavior, write scenarios, automate tests, validate behavior |
-| **Emphasis**         | Code correctness                        | Meeting user expectations and business goals                        |
-| **Collaboration**    | Within the development team             | Across all stakeholders                                             |
+BDD is an Agile practice where developers, testers and business stakeholders agree on software behavior through concrete examples written in plain language, then automate those examples as tests.
 
-![BDD vs. TDD](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD_vs._TDD__Differences_Explained.png)
+### 2. Who created behavior driven development?
 
-## Conclusion
+Dan North coined the term around 2003 and described it in his 2006 article "Introducing BDD", as a response to common difficulties teams had with test driven development.
 
-Behavior Driven Development (BDD) is a collaborative Agile methodology that improves communication among developers, testers, and business stakeholders. By focusing on user stories and scenarios written in plain language, BDD ensures that software meets real user needs and business objectives. With the support of BDD tools like Cucumber, Behave, and SpecFlow, teams can automate tests, integrate them into CI/CD pipelines, and maintain living documentation of system behavior. Although BDD requires commitment and may involve a learning curve, its benefits in improving collaboration, testability, and software quality make it a valuable addition to modern development practices.
+### 3. What is Gherkin in BDD?
 
-## Related Terms
+Gherkin is a plain-language format for writing BDD scenarios. It uses keywords such as Feature, Scenario, Given, When and Then so that both technical and non-technical people can read the scenarios, and tools like Cucumber can execute them.
 
-- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — BDD evolves from the TDD approach.
-- [Cucumber Testing](/docs/concepts/reference/glossary/cucumber-testing/) — popular tool for automating BDD scenarios.
-- [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — BDD scenarios double as acceptance criteria.
-- [Agile Unit Testing](/docs/concepts/reference/glossary/agile-unit-testing/) — BDD is an Agile collaboration methodology.
-- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+### 4. What is a feature file?
 
-## FAQs about Behavior Driven Development (BDD)
-
-### 1. What is Behavior Driven Development (BDD)?
-
-BDD is an Agile methodology that uses plain language to describe the desired behavior of software, promoting collaboration among developers, testers, and business stakeholders.
-
-### 2. What are the key principles of BDD?
-
-- **Collaboration:** Engaging all stakeholders.
-- **User Stories and Scenarios:** Defining requirements from the user’s perspective.
-- **Gherkin Language:** Using simple syntax to structure scenarios.
-- **Automated Testing:** Validating behavior continuously.
-
-### 3. What are the benefits of BDD?
-
-BDD enhances communication, increases collaboration, improves testability, and builds confidence in software quality by ensuring it meets user needs.
-
-### 4. Which tools are popular for BDD?
-
-Popular tools include Cucumber, Behave, JBehave, SpecFlow, Gauge, and Reqnroll.
+A feature file is a text file with a `.feature` extension that holds one feature and its scenarios written in Gherkin. BDD tools read feature files and match each step to a step definition in code.
 
 ### 5. How does BDD differ from TDD?
 
-While TDD focuses on writing unit tests for code correctness, BDD emphasizes defining behavior in natural language and fostering collaboration to ensure the software aligns with business goals.
+TDD is a developer practice focused on writing unit tests before code to confirm the code is correct. BDD involves business stakeholders and focuses on whether the system behaves the way users expect, using plain-language scenarios.
 
-### 6. Is BDD a replacement for other testing methods?
+### 6. What is the difference between BDD and ATDD?
 
-No, BDD complements methods like unit and integration testing to enhance overall software quality.
+Both define acceptance criteria before development. ATDD focuses on the acceptance tests themselves, while BDD puts more weight on the conversations, shared domain language and Given-When-Then scenarios that describe behavior.
+
+### 7. What are the Three Amigos in BDD?
+
+The Three Amigos are the three perspectives in a BDD discovery session: business (usually a product owner or analyst), development and testing. They review a user story together to agree on rules and examples.
+
+### 8. Which tools are popular for BDD?
+
+Popular tools include Cucumber, Behave, pytest-bdd, Reqnroll, JBehave, Gauge and Concordion. SpecFlow reached end-of-life at the end of 2024, and Reqnroll is its recommended successor for .NET.
+
+### 9. Can BDD be used for API testing?
+
+Yes. BDD scenarios can describe API behavior in terms of requests and responses, and tools like Cucumber, Behave and pytest-bdd can call the API in step definitions. API scenarios are usually faster and more stable than UI scenarios.
+
+### 10. Is BDD a replacement for other testing methods?
+
+No. BDD covers key business behaviors at the acceptance level. Teams still need unit, integration and regression testing for full coverage.

@@ -22,7 +22,7 @@ Run the following command in your terminal:
 curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-:::note Keploy Community needs a free account
+:::note Keploy needs a free account
 
 `keploy record` and `keploy test` sign you in before they run. The first time you use either, Keploy prints a URL and opens your browser at [app.keploy.io](https://app.keploy.io) to sign in; the session is then cached in `~/.keploy/tokens.yaml` and reused.
 

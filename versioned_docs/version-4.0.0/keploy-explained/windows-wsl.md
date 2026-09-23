@@ -1,8 +1,8 @@
 ---
 id: windows-wsl
-title: "Running Keploy Natively on Windows"
-sidebar_label: Keploy on Windows native
-description: "Install and run Keploy natively on Windows using WSL — prerequisites, setup steps, and running your first test."
+title: "Running Keploy on Windows in WSL"
+sidebar_label: Keploy on Windows with WSL
+description: "Install and run Keploy inside WSL on Windows — prerequisites, setup steps, and running your first test. The route for Windows on ARM."
 tags:
   - windows
   - ebpf
@@ -18,14 +18,14 @@ keywords:
 import HowTo from '@site/src/components/HowTo';
 
 <HowTo
-name="Run Keploy natively on Windows via WSL"
+name="Run Keploy on Windows via WSL"
 description="Set up WSL and install the Keploy binary inside a Linux distribution to run Keploy on Windows."
 totalTime="PT10M"
 tools={["Windows", "WSL", "Ubuntu", "Keploy CLI"]}
 steps={[
 {name: "Check prerequisites", text: "Ensure you are on Windows 10 version 2004+ (build 19041+) or Windows 11 with admin access."},
 {name: "Install WSL + Ubuntu", text: "Run wsl --install -d Ubuntu-22.04 from an elevated terminal and set up your Linux user."},
-{name: "Install the Keploy binary", text: "Inside the WSL shell download the Keploy release tarball and move the binary to /usr/local/bin."},
+{name: "Install the Keploy binary", text: "Inside the WSL shell run: curl --silent -O -L https://keploy.io/install.sh && source install.sh"},
 {name: "Verify", text: "Run keploy in the WSL shell to confirm the CLI is installed."},
 ]}
 visible={false}
@@ -63,17 +63,15 @@ This command enables the features necessary to run WSL and installs the chosen U
 
 ## Install the Keploy binary
 
-Once you are inside your WSL Ubuntu shell, install the Keploy binary:
+Once you are inside your WSL Ubuntu shell, install the Keploy binary. The installer picks the Linux build for your machine's architecture, x86-64 or ARM:
 
 ```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-Running `keploy` should print the CLI help, confirming the binary is on your `PATH`. From here on, run every Keploy command from inside the WSL shell (not native PowerShell), and keep your application code on the WSL filesystem for the best performance.
+The installer prints the CLI help when it is done, confirming the binary is on your `PATH`. From here on, run every Keploy command from inside the WSL shell (not native PowerShell), and keep your application code on the WSL filesystem for the best performance.
 
-Congratulations! You've successfully set up Keploy natively on Windows.
+Congratulations! You've successfully set up Keploy in WSL on Windows.
 
 ## What's Next?
 
@@ -85,6 +83,6 @@ Begin recording your API calls and generating test cases with Keploy.
 
 ## Related
 
-- [Running Keploy on macOS and Linux](/docs/keploy-explained/mac-linux/) — the equivalent setup for other operating systems.
+- [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — the Lima setup, for Intel Macs.
 - [CLI commands reference](/docs/running-keploy/cli-commands/) — every `keploy` command and flag.
 - [Common errors and fixes](/docs/keploy-explained/common-errors/) — troubleshooting, including WSL-specific issues.
