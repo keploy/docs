@@ -9,7 +9,6 @@ keywords:
   - macos
   - installation
   - docker
-  - ebpf
   - lima
 ---
 
@@ -17,9 +16,9 @@ keywords:
 
 Keploy now runs **natively on macOS** (Apple Silicon) — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
 
-Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic. Docker and Lima remain available if you prefer to run your app in a container.
+Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). On an Intel Mac, use [Lima](#option-2-install-keploy-with-lima).
 
-:::note Keploy Community needs a free account
+:::note Keploy needs a free account
 
 `keploy record` and `keploy test` sign you in before they run. The first time you use either, Keploy prints a URL and opens your browser at [app.keploy.io](https://app.keploy.io) to sign in; the session is then cached in `~/.keploy/tokens.yaml` and reused.
 
@@ -59,12 +58,13 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
    keploy record -c "<your app command>"
    ```
 
-   For example, a Go binary, a Node server, or a Python app:
+   For example, a Go binary, a Node server, a Python app or a Java jar:
 
    ```bash
    keploy record -c "./myapp"          # Go
    keploy record -c "node server.js"   # Node.js
-   keploy record -c "python app.py"    # Python
+   keploy record -c ".venv/bin/python app.py"   # Python, from a virtualenv
+   keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/app.jar"   # Java
    ```
 
 3. **Replay the recorded tests**:
@@ -76,6 +76,7 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
 :::note Good to know
 
 - **No password prompt.** Native macOS interception needs no privileges, so `keploy record`/`test` do not ask for `sudo`.
+- **Use your own Python and Java.** Apple's `/usr/bin/python3` and `/usr/bin/java` are protected by macOS and record nothing. Use a Homebrew or uv Python, or a virtualenv built on one — with pyenv, its real interpreter (`$(pyenv which python3)`), not the shim — and your JDK's own `java`: `"${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java" -jar target/<your-app>.jar` (any `java` on your `PATH` other than Apple's `/usr/bin/java`, such as SDKMAN's or Homebrew's, works as it is).
 - **Run the real executable, not a launcher.** macOS strips the interception from `npm start`, a `make` recipe, or a wrapper shell script (it is dropped when the OS runs a protected system binary). Run the app's actual command — `node server.js` rather than `npm start`, or build first and run the binary. Keploy warns you if it never got loaded.
 - **Go HTTPS on macOS.** Go verifies TLS through the macOS Security framework; Keploy makes its interception CA trusted for your app's process only, so recording an HTTPS Go app works without touching your system keychain. Apps that pin a certificate (an explicit root pool) are the exception.
 
@@ -84,7 +85,7 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
 ## Option 2: Install Keploy with Lima
 
 1. **Check if Lima is installed**  
-   If you already have Lima, Go to Step 6.
+   If you already have a Lima instance, make it writable (see step 3) and go to Step 5, using its name in place of `debian-12`.
 
 2. **Install Lima**
 
@@ -95,8 +96,10 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
 3. **Create a Debian instance**
 
    ```bash
-   limactl create template://debian-12
+   limactl create --mount-writable template://debian-12
    ```
+
+   Lima mounts your Mac's home folder read-only by default; `--mount-writable` lets Keploy write its test files into your project. If you already have an instance, stop it if it's running (`limactl stop <name>`), then make it writable with `limactl edit <name> --mount-writable --start`.
 
 4. **Start the instance**
 
@@ -110,11 +113,13 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
    limactl shell debian-12
    ```
 
-6. **Install Keploy inside Lima**
+6. **Install Keploy inside Lima**, from the VM's own home directory
 
    ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ```
+
+   Then `cd` into your project under `/Users/<you>/…` to record it.
 
 7. **Verify the installation**
 
@@ -183,4 +188,4 @@ keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-
 
 ## 🎉 Congratulations!
 
-You’ve successfully set up **Keploy on macOS** using either **Lima** or **Docker**.
+You’ve successfully set up **Keploy on macOS** — natively, or with **Lima** or **Docker**.
