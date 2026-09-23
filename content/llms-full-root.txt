@@ -38,7 +38,7 @@ Keploy offers three core products:
 Record-replay engine using eBPF to capture API calls and generate test suites with deterministic replay. The open-source core captures HTTP/HTTPS, gRPC, WebSocket, and GraphQL traffic at the kernel level and automatically creates replayable test cases with mocked dependencies (databases, external APIs, message queues). Tests are stored as YAML files in the project directory.
 
 ### 2. Test Agent (AI Unit Test Generation)
-AI-powered unit test generation from PR diffs and source code. The Test Agent analyzes code semantics using LLMs (Gemini 2.5 Pro, GPT-4) and generates unit tests that are validated by actually running them against the codebase. Only tests that build, pass, and increase coverage are kept. Available via VS Code extension, JetBrains plugins, CLI, and GitHub PR Agent. Currently supports Go with Java and JavaScript coming soon.
+AI-powered unit test generation from PR diffs and source code. The Test Agent analyzes code semantics using LLMs (Gemini 2.5 Pro, GPT-4) and generates unit tests that are validated by actually running them against the codebase. Only tests that build, pass, and increase coverage are kept. Available through the GitHub PR Agent. Currently supports Go with Java and JavaScript coming soon.
 
 ### 3. API Test Generation
 Generate API tests from OpenAPI specs, Postman collections, cURL commands, or real user traffic. Supports functional tests, edge case tests, performance tests, security tests, and dependency tests. AI models route tasks to the best-suited model and validate results to ensure high-quality output.
@@ -465,9 +465,8 @@ For current, publicly substantiated security, privacy, and compliance informatio
 ## Integrations
 
 ### IDE Integrations
-- VS Code Extension: inline test generation and execution (see Marketplace for current installs)
-- JetBrains Plugin: IntelliJ IDEA, PyCharm, WebStorm, GoLand support
-- URL: https://keploy.io/docs/keploy-explained/integrations-vscode/
+- VS Code Extension (Keploy: API & DB Mocks): records the API and database calls your tests make and replays them offline with `keploy mock`, from a panel in VS Code. It also sets up AI coding agents and adds a CI job that replays the recording. It does not generate unit tests. See the Marketplace for current installs.
+- URL: https://keploy.io/docs/running-keploy/utg-vscode-extension/
 
 ### PR Agent Integration
 Automated test suggestions on GitHub pull requests. Analyzes PR diffs and generates targeted tests for changed code paths.
