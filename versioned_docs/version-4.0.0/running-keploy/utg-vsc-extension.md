@@ -189,7 +189,13 @@ The extension sends usage events to Keploy: which features you use, and whether 
 
 To turn them off, set `keploy.telemetry.enabled` to `false`, or set VS Code's `telemetry.telemetryLevel` to `off`. Either one stops the extension's events.
 
-The Keploy CLI reports its own usage separately. To turn that off, set `disableTele: true` in your repository's `keploy.yml`, or set the environment variable `KEPLOY_DISABLETELE` to `true`. The CLI's sign-in events, which it sends when you sign in or when it renews your session, don't follow that setting.
+The Keploy CLI reports its own usage separately, and so does the agent that the CLI starts to record and replay your tests. When your tests run directly on your machine, setting `disableTele: true` in your repository's `keploy.yml` turns off both.
+
+Setting the environment variable `KEPLOY_DISABLETELE` to `true` in the environment you start VS Code from also turns off the CLI's reporting, but on Linux it doesn't always reach the agent. Unless the CLI itself runs as root, it starts the agent with `sudo`, which drops the variable, so the agent still reports its usage. On Linux, use `keploy.yml`.
+
+When your tests run in a Docker container, the CLI runs the agent in a container of its own. Either setting still turns off the CLI's own reporting, but neither reaches that agent, so it still reports its usage.
+
+The CLI also sends events about signing in, such as when you sign in or when it renews your session. Those events don't follow either setting.
 
 ## Troubleshoot
 
