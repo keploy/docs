@@ -15,7 +15,7 @@ Welcome to the world of Keploy development! This guide will help you set up Kepl
 
 ### 1. **Setting Up Your Platform**:
 
-_If you want to try Keploy on macOS or Windows, no worries — you’ll just need to set up a Linux VM._
+_Keploy built from source intercepts with eBPF, so to record an app with your own build on macOS or Windows, you'll work inside a Linux VM. (To just use Keploy, you don't need one: it runs natively on macOS and Windows — see [Installing Keploy](#installing-keploy) below.)_
 
 - For macOS, install [Lima](https://github.com/lima-vm/lima#installation).
 - If you're on Windows, install [WSL](https://learn.microsoft.com/en-us/windows/wsl/install).
@@ -155,8 +155,6 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
    ▓▌                           ▐█▌                   █▌
     ▓
 
-OPEN SOURCE
-
 Available Commands:
   example           Example to record and test via keploy
   config --generate generate the keploy configuration file
@@ -199,15 +197,26 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 <br />
 
 :::info
-Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps) — see [Installing Keploy on macOS](/docs/installation/macos-installation/). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**.
+Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the HTTP/HTTPS, MySQL and MongoDB calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay — see [Installing Keploy on macOS](/docs/installation/macos-installation/). For containerized apps or those other dependencies use **Docker**; on an Intel Mac use **Lima**, as the macOS CLI is Apple Silicon (arm64) only.
 :::
 
 <Tabs>
+<TabItem value="macos-native" label="Native">
+
+### Install Keploy
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+<StartKeploy platform="macos" />
+</TabItem>
+
 <TabItem value="lima" label="Lima">
 
 ### Install Keploy with Lima
 
-1. Check if Lima is installed. If yes, skip to step 6.
+1. Check if Lima is installed. If you already have a Lima instance, make it writable (see step 3) and skip to step 5, using its name in place of `debian-12`.
 2. Install Lima
 
 ```bash
@@ -217,8 +226,10 @@ brew install lima
 3. Create a Debian instance
 
 ```bash
-limactl create template://debian-12
+limactl create --mount-writable template://debian-12
 ```
+
+Lima mounts your Mac's home folder read-only by default; `--mount-writable` lets Keploy write its test files into your project. If you already have an instance, stop it if it's running (`limactl stop <name>`), then make it writable with `limactl edit <name> --mount-writable --start`.
 
 4. Start the instance
 
@@ -232,10 +243,10 @@ limactl start debian-12
 limactl shell debian-12
 ```
 
-6. Install Keploy inside Lima
+6. Install Keploy inside Lima, from the VM's own home directory
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 🎉 You have successfully set up **Keploy on macOS** using **Lima**.
@@ -248,7 +259,7 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ### Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
 :::
 
 1. Make sure Docker Desktop is running on macOS.
@@ -256,6 +267,12 @@ Your application and Keploy's agent run in containers here, but the `keploy` CLI
 
 ```bash
 curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+3. Create the Docker network your app's container and Keploy share
+
+```bash
+docker network create keploy-network
 ```
 
 🎉 You have successfully set up **Keploy on macOS** using **Docker**.
@@ -269,10 +286,33 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 <br />
 
 :::info
-Keploy runs natively on Windows (x86-64) with no WSL, no Docker and no Administrator — see [Installing Keploy on Windows](/docs/installation/windows-installation/). You can also run it using **WSL** or **Docker**, which remain the route on Windows/ARM.
+Keploy runs natively on Windows (x86-64) with no WSL, no Docker and no Administrator — see [Installing Keploy on Windows](/docs/installation/windows-installation/). You can also run it using **WSL** or **Docker**; on Windows on ARM, use **WSL**.
 :::
 
 <Tabs>
+<TabItem value="windows-native" label="Native">
+
+### Install Keploy
+
+Run this in PowerShell (not as Administrator), then open a new terminal:
+
+```powershell
+$ProgressPreference = 'SilentlyContinue'
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+$dir = "$env:USERPROFILE\.keploy\bin"
+New-Item -ItemType Directory -Force $dir | Out-Null
+Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
+  -OutFile "$dir\keploy.exe"
+Unblock-File "$dir\keploy.exe"
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($userPath -notlike "*$dir*") {
+  [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+}
+```
+
+<StartKeploy />
+</TabItem>
+
 <TabItem value="wsl" label="WSL">
 
 ### Install Keploy with WSL
@@ -301,10 +341,11 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ### Install Keploy with Docker on Windows
 
 1. Make sure Docker Desktop is running on Windows.
-2. Install Keploy
+2. Install Keploy with the PowerShell script in the **Native** tab. The `keploy` CLI runs on Windows and starts your app's container and Keploy's agent in Docker.
+3. Create the Docker network your app's container and Keploy share
 
-```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```powershell
+docker network create keploy-network
 ```
 
 🎉 You have successfully set up **Keploy on Windows** using **Docker**.
