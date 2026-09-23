@@ -79,7 +79,7 @@ The extension runs your tests through the Keploy CLI, which it downloads and man
 2. In the Keploy panel, enter the command that runs your tests, such as `npm test`, `pytest`, or `go test ./...`. The panel suggests one when it recognizes your project.
 3. Select **Start recording**.
 
-Keploy runs your command and saves every outgoing call it captures into a mock set, in `keploy/<set name>/mocks.yaml` in your workspace. While the run is in progress, the panel counts the captured calls; select **Stop** to end it early.
+Keploy runs your command and saves every outgoing call it captures into a mock set, in `keploy/<set name>/mocks.yaml` in your workspace. While the run is in progress, the panel counts the captured calls; select **Stop** to end it early. The first run also writes `keploy.yml`, the CLI's settings for this repository, at the root of your workspace.
 
 ### Replay with the dependencies switched off
 
@@ -88,7 +88,7 @@ Keploy runs your command and saves every outgoing call it captures into a mock s
 
 Keploy runs the same command and answers every call from the recording. The panel replays with `--on-miss fail`, so a call that was never recorded fails the run instead of reaching a real service. When the tests pass, the panel shows **Dependencies off. Tests still passed.**
 
-Commit the `keploy/` folder with your code so that teammates and CI replay the same recording.
+Commit the `keploy/` folder and `keploy.yml` with your code so that teammates and CI replay the same recording. Signing in changes what git picks up, as [Sign in](#sign-in-optional) explains.
 
 ### Start a run from elsewhere
 
@@ -121,7 +121,9 @@ Directly on macOS and Windows, Keploy supports tests written in Go, Node.js, Pyt
 
 You don't need an account to record and replay on your machine. Without one, the panel runs with `--local`, and your recordings stay on your disk. The Command Palette and the test-file actions ask whether to sign in or to run without an account.
 
-When you sign in, runs go through your Keploy account instead, and the CLI also keeps each mock set in Keploy's [Mock Registry](/docs/keploy-cloud/mock-registry/): it uploads the set after a successful recording, and downloads it before a replay. If an upload or download fails, the run carries on with the set on your disk. Signed-in replays are reported to your Keploy account as usage; runs without an account aren't. Signed-in runs check your account with Keploy's servers first, so they need a network connection. To record and replay with no network at all, sign out.
+When you sign in, runs go through your Keploy account instead, and the CLI also keeps each mock set in Keploy's [Mock Registry](/docs/keploy-cloud/mock-registry/): it uploads the whole set, including any credentials it holds, when a recording finishes, and downloads it before a replay. If an upload or download fails, the run carries on with the set on your disk. Signed-in replays are reported to your Keploy account as usage; runs without an account aren't. Signed-in runs check your account with Keploy's servers first, so they need a network connection. To record and replay with no network at all, sign out.
+
+When a signed-in recording uploads a set, or a signed-in replay downloads one, the CLI adds `/*/mocks.yaml` to `keploy/.gitignore`. That line matches the recording in every set, so git leaves out any recording that it doesn't already track. A recording that git already tracks stays tracked, so a signed-in recording's changes to it, credentials included, go into your next commit. Each set's `config.yaml` records which copy in the registry a signed-in replay downloads. For what this means in CI, see [Check your recordings in CI](#check-your-recordings-in-ci).
 
 - **Sign in:** select **Sign in** in the panel, or run **Keploy: Sign In**. The extension runs `keploy login`, which opens your browser.
 - **One session:** the extension uses the CLI's own session, so a `keploy login` in any terminal signs the panel in too. If `KEPLOY_API_KEY` is set, or `~/.keploy/cred.yaml` holds an API key, the CLI uses that key first.
@@ -155,13 +157,17 @@ After a replay passes, the panel offers to add a CI job that replays the recordi
 - **GitHub Actions:** **Check this on every pull request** writes `.github/workflows/keploy-offline-tests.yml`, or `keploy-offline-<set name>.yml` for a named set. The job installs the same CLI version, fails if the recording is missing, and runs `keploy mock replay --local` with `--on-miss fail`. The replay needs no database and no API keys. In a repository with no CI yet, the button reads **Add a GitHub Actions replay job**.
 - **GitLab, Woodpecker, CircleCI, and others:** **Copy the replay steps for** your CI copies the steps to your clipboard, to paste into the job that runs your tests. The extension doesn't edit those pipeline files.
 
-To keep recordings from drifting away from the real services, run **Keploy: Set Up Mock Auto-Refresh (CI)**. It writes `.github/workflows/keploy-refresh-mocks.yml`, a GitHub Actions workflow that runs every Monday at 06:00 UTC and on demand. It re-records against your real dependencies, fails if nothing was recorded, and commits the refreshed set. Before you rely on it, replace its **Bring up real dependencies** step, which is a placeholder. This workflow is for GitHub Actions only; in a repository that uses another CI, the extension doesn't write it.
+The job replays the recording committed to your repository, without an account. If `keploy/.gitignore` holds the `/*/mocks.yaml` line that signed-in runs add, git skips any recording it doesn't already track, and the job fails for lack of a recording. To commit that recording anyway, run `git add -f keploy/<set name>/mocks.yaml`. Once git tracks the file, the line no longer applies to it.
+
+To keep recordings from drifting away from the real services, run **Keploy: Set Up Mock Auto-Refresh (CI)**. It writes `.github/workflows/keploy-refresh-mocks.yml`, a GitHub Actions workflow that runs every Monday at 06:00 UTC and on demand. It re-records against your real dependencies, fails if nothing was recorded, and commits the refreshed set. If git doesn't track the set and `keploy/.gitignore` lists it, the workflow has nothing to commit. Before you rely on it, replace its **Bring up real dependencies** step, which is a placeholder. This workflow is for GitHub Actions only; in a repository that uses another CI, the extension doesn't write it.
 
 ## Keep credentials out of your repository
 
 A recording holds real traffic, so it can hold real credentials. The panel checks the start of each recording for common credential patterns, such as `Authorization` headers, cookies, bearer tokens, JWTs, and API key headers, and warns you when it finds one. The check doesn't read a whole large recording, and it doesn't recognize database passwords, so a clean result isn't a guarantee: review a recording before you commit it. The extension never rewrites recorded traffic.
 
-When the panel finds credentials and `keploy/` isn't ignored, it offers **Add keploy/ to .gitignore**. If `keploy/` is already committed, it offers **Stop tracking keploy/** instead, and if it can't tell, **Keep keploy/ out of git**. An ignored recording stays on your machine, so teammates and CI can't replay it, and the CI job fails for lack of a recording. **Stop tracking keploy/** doesn't remove credentials that were already pushed, so rotate them.
+When the panel finds credentials and `keploy/` isn't ignored, it offers **Add keploy/ to .gitignore**. If `keploy/` is already committed, it offers **Stop tracking keploy/** instead, and if it can't tell, **Keep keploy/ out of git**. Without an account, an ignored recording stays on your machine, so teammates and CI can't replay it, and the CI job fails for lack of a recording. **Stop tracking keploy/** doesn't remove credentials that were already pushed, so rotate them.
+
+When you're signed in, the CLI has already uploaded the recording, credentials included, to your account's Mock Registry, and ignoring `keploy/` doesn't change that. To keep credentials off Keploy's servers, record without an account, or record against test credentials.
 
 Once `keploy/` is ignored, the panel offers **Record again with fresh credentials**: record against test credentials to get a recording that's safe to commit.
 
