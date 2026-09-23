@@ -101,9 +101,9 @@ When a recording session ends—either because the cooldown window expires or be
 
 ### How dispatch works
 
-`/record/stop` runs the recording teardown synchronously and then enters a dispatch branch in `pkg/http/handlers.go`. The branch reads `cfg.AutoReplayMode` and routes to the matching handler, which stands up a replay environment from the captured test cases. Both modes eventually drive the OSS replayer (`go.keploy.io/server/v3/pkg/service/replay`)—what differs is **where the application under test actually runs** during replay.
+`/record/stop` runs the recording teardown synchronously and then enters a dispatch branch in `pkg/http/handlers.go`. The branch reads `cfg.AutoReplayMode` and routes to the matching handler, which stands up a replay environment from the captured test cases. Both modes eventually drive Keploy's replayer (`go.keploy.io/server/v3/pkg/service/replay`)—what differs is **where the application under test actually runs** during replay.
 
-The default replay-start delay is **10 seconds** in both modes. This gives the replayed application time to bind its port before the OSS replayer fires the first test case. Callers can override it via `auto_replay_config.delay` in the `/record/start` body.
+The default replay-start delay is **10 seconds** in both modes. This gives the replayed application time to bind its port before the replayer fires the first test case. Callers can override it via `auto_replay_config.delay` in the `/record/start` body.
 
 ---
 
@@ -131,7 +131,7 @@ keploy-replay-runner   ─poll──▶  k8s-proxy /replay-jobs/poll
       │
       │ keploy enterprise replay … --record-id=<id>
       │   downloads mocks + test cases from k8s-proxy via HTTP
-      │   runs the OSS replayer
+      │   runs the replayer
       ▼
    docker rm <both containers>
       │
@@ -206,10 +206,10 @@ This is the **recommended** production mode and is also the default. It keeps th
 1. k8s-proxy reads the source Deployment's `PodTemplateSpec` (read-only).
 2. It rehydrates every `envFrom` / `valueFrom` / volume `ConfigMap` and `Secret` referenced by the Pod template into the replay-cluster's namespace, using the mounted kubeconfig. ServiceAccount-token Secrets are intentionally skipped—they are cluster-bound.
 3. It creates a standalone Pod (`<app>-rpl-<random>`) plus a backing Service and a deny-all-egress NetworkPolicy in the replay cluster. The Pod runs the application image alongside the keploy-agent sidecar.
-4. It opens a SPDY port-forward through the replay cluster's API server to the agent port and the recorded application port. The OSS replayer drives test cases through that local forward—k8s-proxy never needs in-cluster network reachability into the replay cluster.
+4. It opens a SPDY port-forward through the replay cluster's API server to the agent port and the recorded application port. The replayer drives test cases through that local forward—k8s-proxy never needs in-cluster network reachability into the replay cluster.
 5. When replay ends, the proxy deletes the Pod, Service, and NetworkPolicy. ConfigMaps and Secrets are left in place; they're rehydrated again next run if the source spec changed.
 
-**What stays the same as `runner` mode:** the OSS replayer, the report shape, the Mongo collections (`testrunReports`, `testsetReports`, `testcaseReports`, `autoReplayMetrics`, `k8sSchemaCoverageReports`), and the Console UI.
+**What stays the same as `runner` mode:** the replayer, the report shape, the Mongo collections (`testrunReports`, `testsetReports`, `testcaseReports`, `autoReplayMetrics`, `k8sSchemaCoverageReports`), and the Console UI.
 
 **What's different:** every Pod / Service / NetworkPolicy write goes to the replay cluster. The source cluster never sees a write from Keploy.
 

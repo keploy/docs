@@ -114,9 +114,9 @@ Happy testing! 🧪🔍💻
 
 Hope this helps you out, if you still have any questions, reach out to us on [Slack](https://keploy.io/slack).
 
-## Installing the Open Source Build
+## Installing Keploy
 
-To install the open-source version of Keploy, use the `--oss` flag:
+To install the released Keploy binary alongside your local build:
 
 import Tabs from '@theme/Tabs';
 import TabItem from '@theme/TabItem';
@@ -139,7 +139,7 @@ Make sure your Linux kernel version is **5.10 or higher**.
 ### 1. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 ### 2. Once done, you should see something like this:
@@ -172,23 +172,23 @@ Flags:
 Use "keploy [command] --help" for more information about a command.
 ```
 
-🎉 You have successfully installed **Keploy OSS on Linux**.
+🎉 You have successfully installed **Keploy on Linux**.
 
 <StartKeploy />
 </TabItem>
 
 <TabItem value="docker-linux" label="Docker">
 
-### Install Keploy OSS with Docker on Linux
+### Install Keploy with Docker on Linux
 
 1. Make sure Docker is installed on Linux.
 2. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-🎉 You have successfully set up **Keploy OSS on Linux** using **Docker**.
+🎉 You have successfully set up **Keploy on Linux** using **Docker**.
 
 <StartKeployDocker />
 </TabItem>
@@ -199,13 +199,13 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 <br />
 
 :::info
-Keploy runs natively on macOS (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**.
+Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps) — see [Installing Keploy on macOS](/docs/installation/macos-installation/). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**.
 :::
 
 <Tabs>
 <TabItem value="lima" label="Lima">
 
-### Install Keploy OSS with Lima
+### Install Keploy with Lima
 
 1. Check if Lima is installed. If yes, skip to step 6.
 2. Install Lima
@@ -235,26 +235,30 @@ limactl shell debian-12
 6. Install Keploy inside Lima
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-🎉 You have successfully set up **Keploy OSS on macOS** using **Lima**.
+🎉 You have successfully set up **Keploy on macOS** using **Lima**.
 
 <StartKeploy />
 </TabItem>
 
 <TabItem value="docker-mac" label="Docker">
 
-### Install Keploy OSS with Docker on macOS
+### Install Keploy with Docker on macOS
+
+:::note Apple Silicon only
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+:::
 
 1. Make sure Docker Desktop is running on macOS.
 2. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-🎉 You have successfully set up **Keploy OSS on macOS** using **Docker**.
+🎉 You have successfully set up **Keploy on macOS** using **Docker**.
 
 <StartKeployDocker />
 </TabItem>
@@ -265,13 +269,13 @@ curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
 <br />
 
 :::info
-You can run Keploy using **WSL** or **Docker** on Windows.
+Keploy runs natively on Windows (x86-64) with no WSL, no Docker and no Administrator — see [Installing Keploy on Windows](/docs/installation/windows-installation/). You can also run it using **WSL** or **Docker**, which remain the route on Windows/ARM.
 :::
 
 <Tabs>
 <TabItem value="wsl" label="WSL">
 
-### Install Keploy OSS with WSL
+### Install Keploy with WSL
 
 1. Enable WSL
 
@@ -284,26 +288,26 @@ wsl --install -d <Distribution Name>
 2. Install Keploy inside WSL
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-🎉 You have successfully set up **Keploy OSS on Windows** using **WSL**.
+🎉 You have successfully set up **Keploy on Windows** using **WSL**.
 
 <StartKeploy />
 </TabItem>
 
 <TabItem value="docker-windows" label="Docker">
 
-### Install Keploy OSS with Docker on Windows
+### Install Keploy with Docker on Windows
 
 1. Make sure Docker Desktop is running on Windows.
 2. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-🎉 You have successfully set up **Keploy OSS on Windows** using **Docker**.
+🎉 You have successfully set up **Keploy on Windows** using **Docker**.
 
 <StartKeployDocker />
 </TabItem>

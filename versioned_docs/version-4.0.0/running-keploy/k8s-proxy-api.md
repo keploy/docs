@@ -323,7 +323,7 @@ The proxy tears down the headless Service, unloads the agent on the next rollout
 
 ## Recording configuration
 
-The `record_config` block in `POST /record/start` is a UI-friendly subset of the OSS `config.Record` struct and is persisted alongside the session so the UI can prefill it and so the exact inputs are auditable.
+The `record_config` block in `POST /record/start` is a UI-friendly subset of Keploy's `config.Record` struct and is persisted alongside the session so the UI can prefill it and so the exact inputs are auditable.
 
 | Field                 | Type                    | Description                                                                                                                                     |
 | --------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |

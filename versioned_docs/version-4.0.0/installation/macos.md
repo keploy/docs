@@ -15,7 +15,7 @@ keywords:
 
 # Installing Keploy on macOS
 
-Keploy now runs **natively on macOS** — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
+Keploy now runs **natively on macOS** (Apple Silicon) — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
 
 Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic. Docker and Lima remain available if you prefer to run your app in a container.
 
@@ -40,6 +40,12 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 - [Option 3: Install Keploy with Docker](#option-3-install-keploy-with-docker)
 
 ## Option 1: Run Keploy natively
+
+:::note Apple Silicon only
+
+The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the installer, the Homebrew formula and `keploy update` refuse to install rather than fetch a binary that cannot run there. If one of them sent you here, use [Option 2 (Lima)](#option-2-install-keploy-with-lima), which installs the Linux build inside the VM. [Option 3 (Docker)](#option-3-install-keploy-with-docker) is not an Intel route either: it starts your app and Keploy's agent in containers, but the `keploy` CLI that drives it is the same native build running on your Mac.
+
+:::
 
 1. **Install Keploy**
 
@@ -127,6 +133,12 @@ Begin recording your API calls and automatically generate test cases with Keploy
 ---
 
 ## Option 3: Install Keploy with Docker
+
+:::note Also Apple Silicon only
+
+With this option your application and Keploy's agent run in containers, but the `keploy` CLI installed in step 3 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use [Option 2 (Lima)](#option-2-install-keploy-with-lima) instead.
+
+:::
 
 1. **Make sure Docker is installed**
    You’ll need Docker Desktop running on macOS.

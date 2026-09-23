@@ -164,11 +164,11 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 
 ## Platforms
 
-| Platform            | How to run                                                                |
-| ------------------- | ------------------------------------------------------------------------- |
-| **Linux**           | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).        |
-| **Windows** (amd64) | Native — same command, from an Administrator shell.                       |
-| **macOS** (arm64)   | Run your tests through a container, e.g. `-c "docker compose run tests"`. |
+| Platform                  | How to run                                                                                                                                        |
+| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                                |
+| **Windows** (x86-64)      | Native — same command. Userspace interception, so no Administrator.                                                                               |
+| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
 
 ## Refresh in CI
 
