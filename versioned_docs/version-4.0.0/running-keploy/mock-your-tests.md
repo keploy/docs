@@ -31,6 +31,11 @@ so your test code needs **no SDK and no changes**.
 
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
+Using VS Code? The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
+runs these commands for you from a panel, and its
+[troubleshooting table](/docs/running-keploy/utg-vscode-extension/#troubleshoot)
+explains the messages the panel shows when a run fails.
+
 ## Quick start
 
 ```bash

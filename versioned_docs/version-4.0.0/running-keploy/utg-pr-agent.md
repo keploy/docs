@@ -93,5 +93,4 @@ _Elevate your development workflow. Make every pull request a quality checkpoint
 ## Related
 
 - [Keploy Unit Test Generator](/docs/running-keploy/unit-test-generator/) — the engine behind the PR agent.
-- [Keploy's VS Code Extension](/docs/running-keploy/utg-vscode-extension/) — the same generator in your IDE.
 - [Unit Test Architecture](/docs/running-keploy/unit-test-architecture/) — how generated unit tests are built.
