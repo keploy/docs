@@ -131,7 +131,7 @@ When you sign in, runs go through your Keploy account instead. Depending on your
 
 The extension can teach your coding agent to record and replay your tests, so the agent works against recorded calls instead of stubs it guesses.
 
-After your first recording that captures calls, the extension asks once whether to install the Keploy skill for the coding agents it finds. The question says where the files go, and the **Just this project** button lists the repository folders it writes to. You can also start this at any time with **Keploy: Add Mocking Rules for AI Agents**. Nothing is written before you answer, and the skill acts only in repositories that use Keploy.
+After your first recording that captures calls, the extension asks once whether to install the Keploy skill for the coding agents it finds. The question names the home folders that **All my projects** writes to. **Just this project** writes into this repository for every agent the extension found, in the folders listed in the following table, but its label names only the Cursor and GitHub Copilot folders. When the extension finds only Cursor or GitHub Copilot, the question names the repository folders instead. You can also start this at any time with **Keploy: Add Mocking Rules for AI Agents**. Nothing is written before you answer, and the skill acts only in repositories that use Keploy.
 
 | Your answer                            | Where the files go                                                                                                                                            |
 | -------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
