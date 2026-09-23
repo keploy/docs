@@ -480,6 +480,9 @@ export default function QuickstartFilter({defaultLanguage = null}) {
               {languages.map((lang) => (
                 <button
                   key={lang.name}
+                  type="button"
+                  role="radio"
+                  aria-checked={language === lang.name}
                   className={`wizard-option ${
                     language === lang.name ? "selected" : ""
                   }`}
@@ -519,6 +522,9 @@ export default function QuickstartFilter({defaultLanguage = null}) {
               {servers.map((srv) => (
                 <button
                   key={srv.name}
+                  type="button"
+                  role="radio"
+                  aria-checked={server === srv.name}
                   className={`wizard-option ${
                     server === srv.name ? "selected" : ""
                   }`}

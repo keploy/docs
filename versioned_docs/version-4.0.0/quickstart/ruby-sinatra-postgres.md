@@ -123,23 +123,31 @@ bundle install
 
 ### Set up PostgreSQL Database
 
-Create the database:
+The app connects as `postgres` / `postgres` by default (see `DB_CONFIG` in `app.rb`). Make sure that role exists on your local PostgreSQL instance:
 
 ```bash
-createdb booksdb
+# Create the role if it doesn't exist yet
+psql -U $(whoami) -c "CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres' SUPERUSER;" || true
 ```
 
-Initialize the database with the schema:
+Then create and initialize the database:
 
 ```bash
-psql -d booksdb -f init.sql
+createdb -U postgres booksdb
+psql -U postgres -d booksdb -f init.sql
 ```
 
 ### Configure Environment Variables
 
+The app reads configuration directly from environment variables (no dotenv gem). Override the defaults as needed before starting:
+
 ```bash
-cp .env.example .env
-# Edit .env if needed for your local PostgreSQL configuration
+export DB_HOST=localhost
+export DB_PORT=5432
+export DB_NAME=booksdb
+export DB_USER=postgres
+export DB_PASSWORD=postgres
+export PORT=8000
 ```
 
 ### Start the Application with Keploy
