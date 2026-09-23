@@ -1,9 +1,9 @@
 ---
 id: behaviour-driven-development
-title: "What is BDD (Behavior-Driven Development)?"
+title: "Behavior driven development (BDD): process, examples and tools"
 sidebar_label: Behaviour Driven Development
 description: Learn what behavior driven development (BDD) is, how the BDD process works, Gherkin syntax with Java and Python examples, BDD for APIs, and the top BDD tools.
-seoTitle: "What is BDD (Behavior-Driven Development)?"
+seoTitle: "Behavior driven development (BDD): process, examples and tools"
 seoDescription: Learn what behavior driven development (BDD) is, how the BDD process works, Gherkin syntax with Java and Python examples, BDD for APIs, and the top BDD tools.
 tags:
   - explanation
@@ -24,7 +24,7 @@ Behavior driven development (BDD), also spelled behaviour driven development, is
 
 BDD is a collaboration process first and a testing technique second. The conversations and shared examples are the point. The automated tests are the proof that the software does what everyone agreed on, and they stay in the codebase as living documentation.
 
-![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/BDD-Development-Process.png)
+![Behavior Driven Development (BDD)](https://keploy-devrel.s3.us-west-2.amazonaws.com/landing/bdd-process-light.webp)
 
 ## A short history of BDD
 
