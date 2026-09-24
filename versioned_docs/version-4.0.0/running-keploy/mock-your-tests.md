@@ -82,17 +82,34 @@ contract drifted), even when the tests themselves passed.
 
 By default a set is recorded and replayed suite-wide. For per-test isolation — so
 each test gets exactly its own mocks — your test runner can mark test boundaries
-through a tiny HTTP API. Keploy exports the agent's address into your test process
-as **`KEPLOY_MOCK_AGENT`**; call it at the start and end of each test:
+through a tiny HTTP API. Keploy exports two variables into your test process: the
+agent's address as **`KEPLOY_MOCK_AGENT`**, and the credential for it as
+**`KEPLOY_MOCK_AGENT_TOKEN`**. Call the API at the start and end of each test,
+sending the token as a bearer credential:
 
 ```
 POST  {KEPLOY_MOCK_AGENT}/agent/scope/begin   {"name": "<test name>", "pid": <worker pid>}
 POST  {KEPLOY_MOCK_AGENT}/agent/scope/end     {"name": "<test name>", "pid": <worker pid>}
+
+Authorization: Bearer {KEPLOY_MOCK_AGENT_TOKEN}
 ```
 
 At record time this writes a per-test `mappings.yaml`; at replay time it restricts
 the served pool to that test's mocks. No scope calls ⇒ suite-level, which is still
 correct.
+
+:::caution The token is required
+The agent's API is authenticated, so a scope call without the header is rejected
+with **401** and that test is not scoped. Send the header whenever
+`KEPLOY_MOCK_AGENT_TOKEN` is set, and omit it when it is not, so the same glue
+code keeps working against an older Keploy that does not export it — that is what
+every example below does.
+
+Watch out for the common shape `try: ... except: pass`. It hides the 401, and
+per-test scoping silently falls back to suite-level while your suite still
+passes. Keploy logs the rejection on its own output with the variable to set, so
+check there if scoping stops taking effect after an upgrade.
+:::
 
 :::tip Parallel workers
 Include your **worker's PID** as `pid` (e.g. Node `process.pid`, Python
@@ -112,20 +129,26 @@ suite-level.
 **pytest** (`conftest.py`):
 
 ```python
-import os, json, urllib.request, pytest
+import os, json, urllib.request, warnings, pytest
 
 AGENT = os.environ.get("KEPLOY_MOCK_AGENT")
+TOKEN = os.environ.get("KEPLOY_MOCK_AGENT_TOKEN")
 
 def _post(path, name):
     if not AGENT:
         return
     body = {"name": name, "pid": os.getpid()}  # pid → per-worker isolation under pytest-xdist
+    headers = {"Content-Type": "application/json"}
+    if TOKEN:                       # absent on an older Keploy; the call still works there
+        headers["Authorization"] = "Bearer " + TOKEN
     req = urllib.request.Request(AGENT + path, data=json.dumps(body).encode(),
-                                 headers={"Content-Type": "application/json"}, method="POST")
+                                 headers=headers, method="POST")
     try:
         urllib.request.urlopen(req, timeout=3).read()
-    except Exception:
-        pass
+    except Exception as e:
+        # Surfaced, not swallowed: a 401 here means the test simply is not
+        # scoped, and silence would make that look like it worked.
+        warnings.warn(f"keploy: scope call {path} failed: {e}")
 
 @pytest.fixture(autouse=True)
 def keploy_scope(request):
@@ -144,7 +167,25 @@ func scope(path, name string) {
     }
     // pid → per-worker isolation when tests run in parallel
     body, _ := json.Marshal(map[string]any{"name": name, "pid": os.Getpid()})
-    http.Post(agent+path, "application/json", bytes.NewReader(body))
+    req, err := http.NewRequest(http.MethodPost, agent+path, bytes.NewReader(body))
+    if err != nil {
+        return
+    }
+    req.Header.Set("Content-Type", "application/json")
+    // Absent on an older Keploy, which does not require it.
+    if tok := os.Getenv("KEPLOY_MOCK_AGENT_TOKEN"); tok != "" {
+        req.Header.Set("Authorization", "Bearer "+tok)
+    }
+    resp, err := http.DefaultClient.Do(req)
+    if err != nil {
+        log.Printf("keploy: scope call %s failed: %v", path, err)
+        return
+    }
+    defer resp.Body.Close()
+    if resp.StatusCode != http.StatusOK {
+        // 401 here means this test is not scoped; do not let that pass quietly.
+        log.Printf("keploy: scope call %s returned %s", path, resp.Status)
+    }
 }
 
 // In each test:  scope("/agent/scope/begin", t.Name()); defer scope("/agent/scope/end", t.Name())
@@ -156,12 +197,23 @@ Playwright's or jest's parallel **workers** isolated from each other:
 
 ```js
 // Playwright: in a fixture or beforeEach/afterEach
-const post = (path, name) =>
-  fetch(`${process.env.KEPLOY_MOCK_AGENT}${path}`, {
-    method: "POST",
-    headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({name, pid: process.pid}),
-  }).catch(() => {});
+const post = async (path, name) => {
+  const token = process.env.KEPLOY_MOCK_AGENT_TOKEN;
+  const headers = {"Content-Type": "application/json"};
+  // Absent on an older Keploy, which does not require it.
+  if (token) headers.Authorization = `Bearer ${token}`;
+  try {
+    const r = await fetch(`${process.env.KEPLOY_MOCK_AGENT}${path}`, {
+      method: "POST",
+      headers,
+      body: JSON.stringify({name, pid: process.pid}),
+    });
+    // A 401 means this test is not scoped — say so rather than swallow it.
+    if (!r.ok) console.warn(`keploy: scope call ${path} returned ${r.status}`);
+  } catch (e) {
+    console.warn(`keploy: scope call ${path} failed: ${e}`);
+  }
+};
 
 test.beforeEach(({}, testInfo) => post("/agent/scope/begin", testInfo.title));
 test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
