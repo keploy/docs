@@ -173,3 +173,180 @@ jobs:
           echo "     curl -sS -X POST \"https://api.indexnow.org/indexnow\" -H 'Content-Type: application/json' \\"
           echo "       -d '{\"host\":\"${INDEXNOW_HOST}\",\"key\":\"${INDEXNOW_KEY}\",\"keyLocation\":\"${INDEXNOW_KEY_LOC}\",\"urlList\":[\"https://${INDEXNOW_HOST}/docs/\"]}'"
           exit 1
+
+      # Tell Google the docs sitemap changed. Docusaurus regenerates
+      # build/docs/sitemap.xml on every build and the S3 sync above has
+      # published it, but CloudFront may still be serving the previous copy
+      # from the edge, so the step waits for it to catch up before submitting.
+      #
+      # continue-on-error: a Search Console hiccup must not fail a deploy that
+      # has already succeeded. Google re-reads registered sitemaps on its own,
+      # so a missed submission delays a re-crawl rather than losing anything.
+      - name: Submit docs sitemap to Google Search Console
+        continue-on-error: true
+        env:
+          GOOGLE_SERVICE_ACCOUNT_EMAIL: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_EMAIL }}
+          GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY: ${{ secrets.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY }}
+          GOOGLE_SEARCH_CONSOLE_SITE_URL: ${{ secrets.GOOGLE_SEARCH_CONSOLE_SITE_URL }}
+          GOOGLE_SITEMAP_URL: https://keploy.io/docs/sitemap.xml
+        run: |
+          set -uo pipefail
+
+          for name in GOOGLE_SERVICE_ACCOUNT_EMAIL GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY GOOGLE_SEARCH_CONSOLE_SITE_URL; do
+            if [ -z "${!name}" ]; then
+              echo "::notice::${name} is not set, skipping Google Search Console submission."
+              echo "Next step: add the three GOOGLE_* secrets in Settings > Secrets and variables > Actions (Secrets tab, not Variables)."
+              exit 0
+            fi
+          done
+
+          # The S3 sync has published the new sitemap, but CloudFront serves
+          # /docs* with s-maxage=86400 and the deploy's invalidation is
+          # asynchronous, so the edge can still be holding the previous copy.
+          # Wait for the edge to catch up before counting, otherwise the guard
+          # below validates the OLD file and Google may fetch it too.
+          #
+          # Compares against the sitemap this run just built rather than a fixed
+          # number, so it tests the actual new file.
+          LOCAL_COUNT=$(grep -o '<loc>' build/docs/sitemap.xml | wc -l | tr -d ' ')
+          echo "freshly built docs sitemap URL count: $LOCAL_COUNT"
+
+          # --compressed is required: the sitemap is served gzipped, and without
+          # it curl hands grep raw gzip bytes and the count comes back 0.
+          # `grep -o | wc -l` rather than `grep -c`: Docusaurus emits the whole
+          # sitemap on one line, so grep -c would count 1 regardless of content.
+          COUNT=0
+          for attempt in $(seq 1 12); do
+            COUNT=$(curl -sS --compressed --max-time 30 "$GOOGLE_SITEMAP_URL" | grep -o '<loc>' | wc -l | tr -d ' ')
+            if [ "$COUNT" = "$LOCAL_COUNT" ]; then
+              echo "edge is serving the new sitemap ($COUNT URLs) after ${attempt} check(s)"
+              break
+            fi
+            echo "edge still stale (live=$COUNT, built=$LOCAL_COUNT), waiting 15s"
+            sleep 15
+          done
+
+          if [ "$COUNT" != "$LOCAL_COUNT" ]; then
+            # Not fatal: Google re-reads registered sitemaps on its own, so the
+            # worst case is it picks up the new file on its next pass.
+            echo "::notice::Edge still served $COUNT URLs after 3 minutes (built $LOCAL_COUNT). Submitting anyway."
+          fi
+
+          # Guard against submitting a broken build. A truncated sitemap is
+          # still well-formed XML, so only a URL count catches it.
+          if [ "$COUNT" -lt 100 ]; then
+            echo "::error::Live docs sitemap has only $COUNT URLs (expected 100+). Refusing to submit."
+            exit 1
+          fi
+
+          node - <<'EOF'
+          const crypto = require('crypto');
+
+          // GH Actions stores multi-line secrets with literal \n — normalise them.
+          const key = process.env.GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.replace(/\\n/g, '\n');
+          const email = process.env.GOOGLE_SERVICE_ACCOUNT_EMAIL;
+          const site = process.env.GOOGLE_SEARCH_CONSOLE_SITE_URL;
+          const feed = process.env.GOOGLE_SITEMAP_URL;
+
+          const b64url = (input) =>
+            Buffer.from(input).toString('base64')
+              .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+
+          // Service-account flow: sign an assertion, trade it for an access token.
+          function assertion() {
+            const now = Math.floor(Date.now() / 1000);
+            const header = b64url(JSON.stringify({ alg: 'RS256', typ: 'JWT' }));
+            const claims = b64url(JSON.stringify({
+              iss: email,
+              scope: 'https://www.googleapis.com/auth/webmasters',
+              aud: 'https://oauth2.googleapis.com/token',
+              iat: now,
+              exp: now + 3600,
+            }));
+            const sig = crypto.createSign('RSA-SHA256')
+              .update(`${header}.${claims}`).sign(key);
+            const sigB64 = sig.toString('base64')
+              .replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+            return `${header}.${claims}.${sigB64}`;
+          }
+
+          async function token() {
+            const res = await fetch('https://oauth2.googleapis.com/token', {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+              body: new URLSearchParams({
+                grant_type: 'urn:ietf:params:oauth:grant-type:jwt-bearer',
+                assertion: assertion(),
+              }),
+            });
+            const body = await res.json();
+            if (!res.ok || !body.access_token) {
+              const detail = `token endpoint ${res.status}: ${body.error_description || body.error || 'no access_token'}`;
+              // A bad key or wrong scope fails identically on every retry.
+              if (res.status >= 400 && res.status < 500) {
+                const e = new Error(detail);
+                e.fatal = true;
+                throw e;
+              }
+              throw new Error(detail);
+            }
+            return body.access_token;
+          }
+
+          const endpoint =
+            `https://www.googleapis.com/webmasters/v3/sites/${encodeURIComponent(site)}/sitemaps/${encodeURIComponent(feed)}`;
+
+          (async () => {
+            for (let attempt = 1; attempt <= 3; attempt++) {
+              try {
+                const t = await token();
+
+                // PUT registers or refreshes the sitemap; 204 means accepted.
+                const put = await fetch(endpoint, {
+                  method: 'PUT',
+                  headers: { Authorization: `Bearer ${t}` },
+                });
+                if (!put.ok) {
+                  const detail = `submit returned ${put.status}: ${await put.text()}`;
+                  // 4xx is a permissions or configuration problem, not a blip.
+                  // Retrying a 403 three times just delays the failure by 45s.
+                  if (put.status >= 400 && put.status < 500) {
+                    console.error(`::error::${detail}`);
+                    console.error('Next step: confirm the service account is an owner on the property and that the Search Console API is enabled.');
+                    process.exit(1);
+                  }
+                  throw new Error(detail);
+                }
+                console.log('Submitted', feed);
+
+                // Read it back so a green run reports what Google recorded
+                // rather than just a 204.
+                const get = await fetch(endpoint, {
+                  headers: { Authorization: `Bearer ${t}` },
+                });
+                if (get.ok) {
+                  const d = await get.json();
+                  console.log('lastSubmitted :', d.lastSubmitted);
+                  console.log('lastDownloaded:', d.lastDownloaded);
+                  console.log('warnings      :', d.warnings, '| errors:', d.errors);
+                  for (const c of d.contents || []) {
+                    console.log(`contents      : ${c.type} submitted=${c.submitted}`);
+                  }
+                }
+                process.exit(0);
+              } catch (err) {
+                if (err.fatal) {
+                  console.error(`::error::Search Console submission failed: ${err.message}`);
+                  console.error('Next step: check GOOGLE_SERVICE_ACCOUNT_EMAIL and GOOGLE_SERVICE_ACCOUNT_PRIVATE_KEY.');
+                  process.exit(1);
+                }
+                if (attempt === 3) {
+                  console.error(`::error::Search Console submission failed: ${err.message}`);
+                  console.error('Next step: confirm the service account is an owner on the property and that the Search Console API is enabled.');
+                  process.exit(1);
+                }
+                await new Promise((r) => setTimeout(r, attempt * 15000));
+              }
+            }
+          })();
+          EOF
