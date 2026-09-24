@@ -1,35 +1,35 @@
 ---
 id: integrations-vscode
-title: IDE Integrations — VS Code
-sidebar_label: Integrations & Connected Tools
-description: Learn about IDE integrations for Keploy’s AI-powered unit testing.
+title: IDE integrations — VS Code
+sidebar_label: VS Code
+description: Keploy's VS Code extension records the API and database calls your tests make and replays them with those dependencies switched off, from inside the editor.
 tags:
   - integrations
   - vscode
-  - unit testing
+  - mocks
+keywords:
+  - keploy vs code extension
+  - vscode mocks
+  - api mocks
+  - database mocks
 ---
 
-# 🔌 IDE Integrations — VS Code
+# IDE integrations — VS Code
 
-Keploy aims to make AI-powered unit testing as seamless as possible—right inside your favorite tools.
+Keploy's VS Code extension, **Keploy: API & DB Mocks**, brings the [`keploy mock`](/docs/running-keploy/mock-your-tests/) loop into the editor. It records the real calls your tests make to APIs and databases, then replays your tests with those dependencies switched off. It installs the Keploy CLI for you, can set up your AI coding agent to record and replay, and can add a CI job that replays the recording on every pull request.
 
-## ✅ Currently Supported
+Install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), then follow the [VS Code extension guide](/docs/running-keploy/utg-vscode-extension/).
 
-**Visual Studio Code (VS Code):**  
-We offer smooth integration with VS Code, so you can generate, view, and manage AI-generated unit tests without leaving your IDE.
+The extension no longer generates unit tests. To generate unit tests, use Keploy's [PR Agent](/docs/running-keploy/utg-pr-agent/).
 
-## 💡 Want Support for Another IDE?
+## Request another editor
 
-Need Keploy in JetBrains, Neovim, or another editor?
-
-[Reach out to our team!](mailto:support@keploy.io)
-
-Your feedback shapes our roadmap!
-
-More IDE integrations are coming soon—stay tuned.
+If you need Keploy in JetBrains, Neovim, or another editor, [tell our team](mailto:support@keploy.io).
 
 ## Related
 
+- [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) — install, record, replay, and troubleshoot.
+- [Mock your tests](/docs/running-keploy/mock-your-tests/) — the `keploy mock` commands the extension runs.
 - [SCM Integrations — PR Agent](/docs/keploy-explained/integrations-pr-agent/) — the pull-request integration.
 - [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — fix common setup issues.
 - [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.

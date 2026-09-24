@@ -1034,15 +1034,54 @@ textarea {
 
 .theme-back-to-top-button {
   background-color: #ff914d !important;
-  color: white !important;
-}
-
-.theme-back-to-top-button svg {
-  fill: white !important;
 }
 
 .theme-back-to-top-button:hover {
   background-color: #e67643 !important;
+}
+
+/*
+ * Match the Chatwoot support bubble, and stack above it.
+ *
+ * The bubble is a fixed 64px square sitting 20px in from the bottom-right
+ * corner at z-index 2147483000. Left at the theme's defaults this button is a
+ * 48px square at a 1.3rem (20.8px) inset, so it lands in the same corner but
+ * smaller and off the bubble's centreline, and the bubble covers it and
+ * swallows every click meant for it.
+ *
+ * The button is less transient than it looks, so this is not a rare overlap:
+ * it appears on any upward scroll past 300px and only hides when the reader
+ * scrolls back down, drops below the threshold, or clicks an anchor. There is
+ * no timeout, so the two share the corner for most of a page visit.
+ *
+ * Gated on .chatwoot-ready, which static/scripts/chatwoot.js sets on <html>
+ * from the SDK's ready event. If Chatwoot is down, blocked or never loads,
+ * none of this applies and the button keeps the theme's own position rather
+ * than floating above an empty 84px gap.
+ *
+ * Matching the bubble's 64px width means its 20px inset also lines the two up
+ * on a shared centreline. `bottom` is 20px inset + 64px bubble + 20px gap, the
+ * same clearance the enterprise app uses to keep toasts clear of the bubble.
+ *
+ * px rather than rem because the bubble's own geometry is fixed px and does
+ * not scale with root font size.
+ */
+.chatwoot-ready .theme-back-to-top-button {
+  width: 64px;
+  height: 64px;
+  right: 20px;
+  bottom: 104px;
+}
+
+/*
+ * The theme draws the chevron as a fixed 2rem (32px) mask on ::after, so
+ * growing the button 48px -> 64px would shrink the glyph from 67% of the
+ * button to 50% and leave a small arrow in a big circle. Scale it back up to
+ * keep roughly the theme's original proportion.
+ */
+.chatwoot-ready .theme-back-to-top-button::after {
+  -webkit-mask-size: 2.5rem 2.5rem;
+  mask-size: 2.5rem 2.5rem;
 }
 
 /* ============================================
