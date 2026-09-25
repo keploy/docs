@@ -36,7 +36,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -99,7 +99,9 @@ mvn wrapper:wrapper
 
 ## Run Application
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 ### 📼 Roll the Tape - Recording Time!
 
@@ -108,6 +110,10 @@ Ready, set, record! Here's how:
 ```bash
 keploy record -c "./mvnw spring-boot:run"
 ```
+
+On macOS, Keploy is dropped by the `./mvnw` launcher — run the jar that `./mvnw clean install` built with your JDK's own `java` instead, here and in `keploy test` below: `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/PotionsAPI-0.0.1-SNAPSHOT.jar"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
+
+On Windows, Keploy starts your app through `cmd.exe`, which cannot run `./mvnw` — run the jar that `mvnw.cmd clean install` built, here and in `keploy test` below: `keploy record -c "java -jar target/PotionsAPI-0.0.1-SNAPSHOT.jar"`.
 
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 

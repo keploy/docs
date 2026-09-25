@@ -147,7 +147,7 @@ fbq('track', 'PageView');`,
         docsDir: `versioned_docs/version-${CURRENT_DOCS_VERSION}`,
         ignoreFiles: ["**/shared/**"],
         description:
-          "Technical documentation for Keploy, an open-source AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic using eBPF kernel technology. Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.",
+          "Technical documentation for Keploy, an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic, captured at the network layer (with eBPF on Linux, in user space on macOS and Windows). Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.",
         rootContent: llmsRootContent,
         fullRootContent: llmsFullRootContent,
         generateLLMsTxt: true,
@@ -175,7 +175,7 @@ fbq('track', 'PageView');`,
       {
         name: "description",
         content:
-          "Keploy - Open source tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
+          "Keploy - Tool that generates Regression Tests like unit tests with mocks and stubs from API calls.",
       },
       {
         name: "keywords",

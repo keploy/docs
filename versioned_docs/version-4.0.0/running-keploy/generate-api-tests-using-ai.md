@@ -7,7 +7,7 @@ description: Learn how to use Keploy’s API Test Generator to generate high-qua
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This guide will help you generate automated API tests using Keploy's AI-based test engine by providing structured inputs like OpenAPI specs, curl commands, Postman collections, or live endpoints.
 

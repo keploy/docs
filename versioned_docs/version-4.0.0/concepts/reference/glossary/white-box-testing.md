@@ -103,7 +103,7 @@ As code evolves, test cases must be updated, requiring ongoing coordination with
 
 Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform white box testing with Keploy:
 
-- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
+- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at the network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
 
 - **Record Test Scenarios:** Run your application and perform different operations. Keploy will record these interactions and generate test cases based on the internal workings of your application.
 

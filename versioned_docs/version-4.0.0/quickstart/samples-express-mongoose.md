@@ -29,7 +29,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -53,6 +53,8 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 ## Introduction
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with Express and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -100,6 +102,8 @@ if using wsl use this :
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'npm start'
 ```
+
+`sudo` is for Linux (and WSL) only. On macOS, Keploy is dropped by the `npm start` launcher — run the app's entry point directly instead, here and in `keploy test` below: `keploy record -c "node server.js"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -221,7 +225,7 @@ keploy test -c "npm start" --delay 10
 If using wsl use this :
 
 ```bash
-keploy -E env PATH=$PATH keploy test -c 'npm start' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'npm start' --delay 10
 ```
 
 Keploy test report:

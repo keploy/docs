@@ -14,7 +14,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Sometimes keploy test and keploy rerecord fail because there are fields which are noisy but they are used in requests so when their values change, the subsequent requests also fail.
 

@@ -2,11 +2,10 @@
 id: kubernetes
 title: Kubernetes Setup
 sidebar_label: Kubernetes
-description: "Set up Keploy Enterprise on Kubernetes — create a Kind cluster and connect it to Keploy for live traffic recording and replay."
+description: "Set up Keploy on Kubernetes — create a Kind cluster and connect it to Keploy for live traffic recording and replay."
 tags:
   - explanation
   - feature guide
-  - keploy enterprise
   - kubernetes
   - kind
   - argocd
@@ -14,7 +13,6 @@ tags:
   - gitops
   - contour
 keywords:
-  - keploy enterprise
   - kubernetes
   - kind
   - argocd
@@ -47,7 +45,7 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 
 Ensure you have the following before you begin:
 
-1. **Keploy Enterprise account** (with an access key)
+1. **Keploy account on the Enterprise plan** (with an access key)
 2. **kubectl** configured to access your Kubernetes cluster
 3. **Helm** installed
 4. **Kind** installed
@@ -657,5 +655,5 @@ curl -sk https://<YOUR_INGRESS_HOST>:30080/healthz
 ## Related
 
 - [Kubernetes Local Setup (Kind)](/docs/keploy-cloud/kubernetes-local-setup/) — spin up a local Kind cluster.
-- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install the Enterprise agent.
+- [Install Keploy](/docs/server/installation/) — install Keploy and sign in.
 - [Deploy Keploy with ArgoCD](/docs/keploy-cloud/gitops-argocd/) — GitOps deployment on the cluster.

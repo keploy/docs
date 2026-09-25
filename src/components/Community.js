@@ -129,12 +129,12 @@ export const Community = () => {
         ))}
       </div>
 
-      {/* Enterprise Demo CTA */}
+      {/* Demo CTA */}
       <div className="rounded-2xl border border-gray-200 bg-gradient-to-r from-gray-50 to-gray-100 p-6 dark:border-gray-700 dark:from-gray-800/80 dark:to-gray-900/80">
         <div className="flex flex-col items-center justify-between gap-5 md:flex-row">
           <div className="text-center md:text-left">
             <h3 className="mb-1 text-lg font-bold text-gray-900 dark:text-white">
-              Want to see a demo of Keploy Enterprise?
+              Want to see a demo of Keploy?
             </h3>
             <p className="text-sm text-gray-600 dark:text-gray-400">
               Share your use-case, workflow—and we'll help with any resources

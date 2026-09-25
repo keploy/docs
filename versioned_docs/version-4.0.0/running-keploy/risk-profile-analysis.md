@@ -20,7 +20,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 When API contracts change, tests are expected to fail. However, not all failures are equal. A minor, backward-compatible change (like adding a new optional field) is very different from a major, breaking change (like removing a field or changing a data type).
 

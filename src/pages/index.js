@@ -43,7 +43,7 @@ export default function Home() {
   const docsHomeTitle =
     "Keploy Documentation — Install, Capture & Replay API Tests";
   const docsHomeDescription =
-    "Install Keploy in 5 minutes, capture real API traffic with eBPF, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
+    "Install Keploy in 5 minutes, capture real API traffic, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
   // CollectionPage, not Article: this page is an index of the docs, with no
   // single author, publication date or headline. DocItem already suppresses
   // Article on /docs/ for exactly that reason, so emitting one here left the

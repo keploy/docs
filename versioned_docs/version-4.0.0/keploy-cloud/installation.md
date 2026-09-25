@@ -1,15 +1,13 @@
 ---
 id: cloud-installation
-title: Keploy Enterprise Installation
-sidebar_label: Enterprise
-description: "Install Keploy Enterprise — onboarding guide, feature overview, and steps to integrate enterprise API testing into your workflow."
+title: Get Started on the Enterprise Plan
+sidebar_label: Enterprise Plan
+description: "Install Keploy and sign in — onboarding guide, an overview of the Enterprise plan features, and steps to integrate API testing into your workflow."
 tags:
   - explanation
   - feature guide
-  - keploy enterprise
   - installation
 keywords:
-  - keploy enterprise
   - installation
   - API key
 ---
@@ -18,28 +16,28 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This guide provides a complete overview of **Keploy Enterprise**, including onboarding instructions, key features, and steps to get started. It is designed to help teams quickly adopt Keploy Enterprise and integrate it into their development and testing workflows.
+This guide covers installing **Keploy**, the key features available on the Enterprise plan, and steps to get started. It is designed to help teams quickly adopt Keploy and integrate it into their development and testing workflows.
 
-### Requesting a Keploy Enterprise Account
+### Requesting the Enterprise Plan
 
-To get access to Keploy Enterprise, you’ll first need an enterprise account.
+To use the features on this page, your Keploy account needs to be on the Enterprise plan.
 
-#### Note: You can request one by reaching out to us [here](https://calendar.app.google/cXVaj6hbMUjvmrnt9).
+#### Note: You can request it by reaching out to us [here](https://calendar.app.google/cXVaj6hbMUjvmrnt9).
 
 ---
 
-### Getting Started with Keploy Enterprise
+### Getting Started
 
-Once your enterprise account is set up, you can begin exploring and using the core features of Keploy Enterprise. Below are some of the key capabilities that help teams achieve reliable, scalable, and production-grade API testing.
+Once your account is on the Enterprise plan, you can begin exploring and using these features of Keploy. Below are some of the key capabilities that help teams achieve reliable, scalable, and production-grade API testing.
 
 - **Time Freezing** ❄️  
-  Keploy Enterprise allows you to freeze or roll back time during every test run to the exact moment when the test case was recorded. This ensures that time-sensitive data does not expire or change, making test executions consistent and highly reliable.
+  Keploy allows you to freeze or roll back time during every test run to the exact moment when the test case was recorded. This ensures that time-sensitive data does not expire or change, making test executions consistent and highly reliable.
 
 - **AI-Driven Test Generation** 🧠  
-  Keploy Enterprise automatically identifies edge cases in your APIs and generates test cases to uncover additional execution paths. This helps improve overall code coverage and detect issues that are often missed in manual testing.
+  Keploy automatically identifies edge cases in your APIs and generates test cases to uncover additional execution paths. This helps improve overall code coverage and detect issues that are often missed in manual testing.
 
 - **Test Deduplication** 📊  
-  Keploy Enterprise intelligently detects and removes duplicate or redundant test cases. This is especially useful when recording scenarios from live environments, allowing teams to retain only meaningful and unique test coverage.
+  Keploy intelligently detects and removes duplicate or redundant test cases. This is especially useful when recording scenarios from live environments, allowing teams to retain only meaningful and unique test coverage.
 
 - **Keploy Console** 📈  
   The Keploy Console provides a seamless experience for visualizing bugs, analyzing test results, and sharing reports across teams. It enables better collaboration and faster feedback cycles.
@@ -50,19 +48,21 @@ Once your enterprise account is set up, you can begin exploring and using the co
 - **Mock Registry** 📂  
   The Mock Registry is designed to manage large mock files by storing them in cloud storage instead of committing them to Git repositories. This helps keep repositories lightweight while ensuring efficient mock management at scale.
 
-To begin using Keploy Enterprise, you need to install the **Keploy Enterprise Agent** and authenticate using your API key.
+To begin, install **Keploy** and sign in with your Keploy account.
 
 ---
 
 ## Installation 🛠️
 
-Follow the steps below to install and validate the Keploy Enterprise Agent:
+On Linux or macOS, install Keploy with:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-When recording API calls using the Enterprise Agent, you will be prompted to provide your **API key**.
+On Windows (x86-64), run `keploy.exe` natively from PowerShell — no Administrator needed. See [Run Keploy natively on Windows](/docs/installation/windows-installation/#option-1-run-keploy-natively). For platform details, see the [Linux](/docs/installation/linux-installation/), [macOS](/docs/installation/macos-installation/) and [Windows](/docs/installation/windows-installation/) installation guides.
+
+The first time you run `keploy record` or `keploy test`, Keploy signs you in: it opens your browser at [app.keploy.io](https://app.keploy.io). Where no browser is available, run with `--manual-login` and paste your **API key** when prompted; in CI, set the `KEPLOY_API_KEY` environment variable instead.
 
 An API key typically looks like this:
 
@@ -70,7 +70,7 @@ An API key typically looks like this:
 b1dNl....
 ```
 
-Once the API key is successfully validated, the Keploy Enterprise Agent will begin recording API calls.
+Once you are signed in, Keploy begins recording API calls.
 
 ## Related
 

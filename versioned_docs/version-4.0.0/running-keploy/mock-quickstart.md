@@ -32,10 +32,15 @@ command shows the **real output** you should see — nothing is faked.
 
 - **Linux** (root, for eBPF), **Windows x86-64**, or **macOS (Apple Silicon)**.
   Windows and macOS intercept in userspace, so neither needs Administrator or
-  `sudo`. Running your tests through a docker command (shown at the end) works
-  on every platform.
-- Python 3. (`go test` / `npm test` work identically — only the test command
-  changes.)
+  `sudo`. On an Intel Mac, use
+  [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
+  on Windows on ARM, use WSL. Running your tests through a docker command
+  ([shown at the end](#running-your-tests-in-docker)) works on all three.
+- Python 3. On macOS, use a Homebrew or uv Python (or a virtualenv built on
+  one), not Apple's `/usr/bin/python3`, which macOS won't let Keploy instrument.
+  (`go test` / `npm test` work identically — only the test command changes. On
+  macOS, start the test runner itself rather than through `npm test`; see
+  [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).)
 
 ## Step 1 — the sample app
 
@@ -226,9 +231,14 @@ replay:
 echo $?    # -> 1
 ```
 
-## macOS
+## Running your tests in Docker
 
-Run your tests through a container and point Keploy at that command:
+The sample's dependency is plain HTTP, so every step above runs natively on
+Linux, Windows x86-64 and macOS (Apple Silicon). Natively on macOS and Windows,
+Keploy understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services
+— PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes
+and usually don't replay. If your tests depend on one of those, run them through
+a container and point Keploy at that command:
 
 ```bash
 keploy mock record -c "docker compose run --rm tests"
