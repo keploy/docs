@@ -2,13 +2,12 @@
 id: installation
 title: Installation Overview
 sidebar_label: Installation
-description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows. By default, this installs the Keploy Community Edition."
+description: "Install Keploy using the CLI or manually — quick setup guide with platform requirements for Linux, macOS, and Windows."
 tags:
   - linux
   - ebpf
   - installation
   - install
-  - community-edition
 keywords:
   - ebpf
   - installation
@@ -20,8 +19,7 @@ keywords:
   - Auto Testcase generation
   - installation-guide
   - server-setup
-  - keploy community edition
-  - community edition
+  - macos
 ---
 
 import PlatformRequirements from '../concepts/platform-requirements.md'
@@ -30,19 +28,15 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 
 # Installation Overview
 
-By default, this guide installs the **Keploy Community Edition**. The install command below is the same for everyone. Once you sign in, Keploy detects your plan and enables Community Edition features by default, or Pro / Enterprise features if your account has access to them.
+The install is the same whatever your plan. You need a free Keploy account to record and replay: the first `keploy record` or `keploy test` signs you in, and your plan decides which additional features are available.
 
 ## Quick Installation Using CLI
 
-Let's get started by setting up the Keploy alias with this command:
+On **Linux** and **macOS** (Apple Silicon), install Keploy with:
 
 ```bash
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
-
-:::info
-By default, this command installs the **Keploy Community Edition**. Your plan (Community, Pro, or Enterprise) is determined after you log in.
-:::
 
 You should see something like this:
 
@@ -76,6 +70,8 @@ Use "keploy [command] --help" for more information about a command.
 
 🎉 Wohoo! You are all set to use Keploy.
 
+On **Windows** (x86-64), Keploy is a single `keploy.exe`, installed from PowerShell without Administrator — see [Run Keploy natively on Windows](/docs/installation/windows-installation/#option-1-run-keploy-natively).
+
 ## Other Installation Methods
 
 <details>
@@ -83,9 +79,7 @@ Use "keploy [command] --help" for more information about a command.
 
 **_Downloading and running Keploy in Docker_**
 
-#### On macOS/Windows
-
-Note : With this method your application and Keploy's agent run in Docker, but the `keploy` CLI installed below — which starts them both — runs on your machine. On macOS that CLI is the native build, which is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+With this method your application and Keploy's agent run in Docker, but the `keploy` CLI — which starts them both — runs on your machine. Use it when your app runs in containers, or on macOS and Windows when your app depends on services beyond HTTP/HTTPS, MySQL and MongoDB: natively there, calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
 
 1. Open up a terminal window.
 
@@ -95,7 +89,7 @@ Note : With this method your application and Keploy's agent run in Docker, but t
 docker network create keploy-network
 ```
 
-2. Install Keploy
+3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
 
 ```shell
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
@@ -118,42 +112,46 @@ keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --ne
 </details>
 
 <details>
-<summary>Install Natively</summary>
+<summary>Install Manually</summary>
 
-**_Downloading and running Keploy in Native_**
+**_Downloading the Keploy binary yourself_**
 
-**Prequisites:**
+These download the same `keploy` binary the install command above installs.
 
-- Linux Kernel version 5.15 or higher
-- Run `uname -a` to verify the system architecture.
-- In case of Windows, use WSL with Ubuntu 20.04 LTS or higher.
+#### On Linux
 
-<summary>Downloading and running Keploy On WSL/Linux AMD</summary>
-
-#### On WSL/Linux AMD
-
-1. Open the terminal Session.
-2. Run the following command to download and install Keploy:
+Prerequisite: Linux kernel **5.10 or higher** (`uname -r` shows yours). This picks the build for your architecture:
 
 ```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz --overwrite -C /tmp
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
+case "$(uname -m)" in
+  x86_64) ARCH=amd64 ;;
+  aarch64 | arm64) ARCH=arm64 ;;
+  *) echo "unsupported architecture: $(uname -m)" >&2; false ;;
+esac &&
+  curl --fail --silent --show-error --location -o /tmp/keploy \
+    "https://keploy.io/ent/dl/latest/enterprise_linux_${ARCH}" &&
+  sudo install -m 0755 /tmp/keploy /usr/local/bin/keploy
 ```
 
-#### On WSL/Linux ARM
+The same steps work inside **WSL** on Windows and inside a **Lima** VM on macOS.
 
-1. Open the terminal Session
-2. Run the following command to download and install Keploy:
+#### On macOS (Apple Silicon)
 
 ```bash
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
-
+mkdir -p ~/.keploy/bin &&
+  curl --fail --silent --show-error --location -o ~/.keploy/bin/keploy \
+    "https://keploy.io/ent/dl/latest/enterprise_darwin_arm64" &&
+  chmod +x ~/.keploy/bin/keploy
+export PATH="$HOME/.keploy/bin:$PATH"   # add this line to your ~/.zshrc too
 ```
 
-> Note: On macOS, Keploy's native CLI is Apple Silicon (arm64) only — see [Installing Keploy on macOS](/docs/installation/macos-installation/). On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima), which installs the Linux build above inside the VM.
+There is no Intel macOS build: on an Intel Mac, use the Linux steps inside [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima).
 
-**_Setting up the Docker Desktop for WSL 2_**
+#### On Windows (x86-64)
+
+Follow [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On Windows on ARM, use the Linux steps inside WSL.
+
+**_If you run Keploy inside WSL with Docker: setting up Docker Desktop for WSL 2_**
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 

@@ -11,7 +11,7 @@ keywords:
   - macos
   - windows
   - ebpf
-  - limas
+  - lima
   - wsl
   - installation
 ---
@@ -27,7 +27,7 @@ This guide walks you through installing the Keploy CLI, which enables you to rec
 
 ## 1. Install Keploy CLI
 
-Keploy uses eBPF to intercept API calls at the network layer and generate test cases and mocks/stubs.  
+Keploy captures your app's API calls and turns them into test cases and mocks/stubs. It runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64).
 Choose your OS to get started 🚀
 
 <Tabs groupId="install-os">
@@ -229,19 +229,53 @@ Use "keploy [command] --help" for more information about a command.
 
 <TabItem value="macos" label="macOS">
 <br />
-:::info 
-Keploy runs natively on Apple Silicon Macs (Go, Node, Python and Java apps). You can also run it using **Lima** or **Docker**. The native CLI is Apple Silicon (arm64) only and the Docker method still runs it on your Mac, so on an Intel Mac use **Lima**. 
+
+:::info
+Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, MySQL and MongoDB** calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+
+- Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
+- On an Intel Mac, use the **Lima** tab. The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too.
+
 :::
 
 👉 **Choose your preferred method:**
 
 <Tabs groupId="macos-method">
 
+<TabItem value="macos-native" label="Native">
+<br />
+
+### 1. Install Keploy CLI
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI.
+
+### 2. Verify the installation
+
+```bash
+keploy --version
+```
+
+### 3. Good to know
+
+- **Start your app itself, not a launcher.** macOS removes Keploy from anything a launcher such as `npm start`, `mvn` or a wrapper shell script re-spawns. Build first, then record the app directly: `node server.js`, your Go binary (`go build -o app .` then `./app`, rather than `go run`) or your jar. Keploy warns you if it could not attach.
+- **Use your own Python and Java.** Apple's `/usr/bin/python3` and `/usr/bin/java` are protected by macOS and record nothing. Use a Homebrew or uv Python, or a virtualenv built on one — with pyenv, its real interpreter (`$(pyenv which python3)`), not the shim — and your JDK's own `java`: `"${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java" -jar target/<your-app>.jar` (any `java` on your `PATH` other than Apple's `/usr/bin/java`, such as SDKMAN's or Homebrew's, works as it is).
+- **HTTPS works out of the box.** Keploy trusts its certificate for your app's process only — nothing is added to your keychain. Apps that pin their own certificates are the exception.
+
+See [Installing Keploy on macOS](/docs/installation/macos-installation/) for more.
+
+</TabItem>
+
 <TabItem value="lima" label="Lima">
 
 ## Install Keploy with Lima
 
-1. **Check if Lima is installed**: If you already have Lima, go to Step 6.
+Lima runs Keploy inside a Linux VM on your Mac. It is the way to run Keploy on an **Intel Mac**; on Apple Silicon, the **Native** tab needs no VM.
+
+1. **Check if Lima is installed**: If you already have a Lima instance, make it writable (see step 3) and go to Step 5, using its name in place of `debian-12`.
 
 2. **Install Lima**
 
@@ -252,8 +286,10 @@ brew install lima
 3. **Create a Debian instance** \[or any instance of your choice]
 
 ```bash
-limactl create template://debian-12
+limactl create --mount-writable template://debian-12
 ```
+
+Lima mounts your Mac's home folder read-only by default; `--mount-writable` lets Keploy write its test files into your project. If you already have an instance, stop it if it's running (`limactl stop <name>`), then make it writable with `limactl edit <name> --mount-writable --start`.
 
 4. **Start the instance**
 
@@ -267,11 +303,13 @@ limactl start debian-12
 limactl shell debian-12
 ```
 
-6. **Install Keploy inside Lima**
+6. **Install Keploy inside Lima**, from the VM's own home directory
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
+
+Then `cd` into your project under `/Users/<you>/…` to record it.
 
 7. **Once done, you should see something like this:**
 
@@ -360,7 +398,7 @@ Use "keploy [command] --help" for more information about a command.
 ## Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
 :::
 
 1. **Make sure Docker is installed**: You’ll need Docker Desktop running on macOS.
@@ -371,7 +409,13 @@ Your application and Keploy's agent run in containers here, but the `keploy` CLI
 curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-3. **Verify the installation**
+3. **Create the Docker network** your app's container and Keploy share:
+
+```bash
+docker network create keploy-network
+```
+
+4. **Verify the installation**
 
    **Once done, you should see something like this:**
 
@@ -461,7 +505,11 @@ Use "keploy [command] --help" for more information about a command.
 <br />
 
 :::info
-You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to run Keploy natively, make sure to do it as an administrator.
+Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administrator. Natively it understands your app's **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+
+- Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
+- On Windows on ARM, use the **WSL** tab.
+
 :::
 
 👉 **Choose your preferred method:**
@@ -470,41 +518,33 @@ You can run Keploy **Natively** or using **WSL** or **Docker**. If you want to r
   <TabItem value="windows-native" label="Native">
  <br />
 
-`Note: Native Windows support is available only for AMD. For ARM-based systems, please use WSL or Docker.`
+### 1. Install Keploy
 
-### 1. Create a Directory
-
-Use this command to create a directory for Keploy:
+Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%USERPROFILE%\.keploy\bin` and adds that folder to your user `PATH`:
 
 ```powershell
-New-Item -ItemType Directory -Force -Path "$env:APPDATA\Keploy\bin"
+$ProgressPreference = 'SilentlyContinue'
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+$dir = "$env:USERPROFILE\.keploy\bin"
+New-Item -ItemType Directory -Force $dir | Out-Null
+Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
+  -OutFile "$dir\keploy.exe"
+Unblock-File "$dir\keploy.exe"
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($userPath -notlike "*$dir*") {
+  [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+}
 ```
 
-### 2. Install Keploy
+The file is named `enterprise_windows_amd64.exe` for historical reasons — it is the `keploy` CLI, and a free account is all you need.
 
-Run this command to install the Keploy exe:
+### 2. Open a new terminal
 
-```powershell
-Invoke-WebRequest -Uri "https://github.com/keploy/keploy/releases/latest/download/keploy_windows_amd64.exe" -OutFile "$env:APPDATA\Keploy\bin\keploy.exe"
-```
+Close your terminals and open a new one, so it picks up the new `PATH`. If you face issues, make sure `cmd.exe` and `powershell.exe` (their default Windows paths) are on your `PATH`: Keploy starts your app through `cmd.exe`.
 
-### 3. Set Environment Variable
+### 3. Verify Installation
 
-Add the directory containing the Keploy binary to your system user’s `PATH` environment variable to make the `keploy` command available globally.
-
-```text
-C:\Users\"Your Username"\AppData\Roaming\Keploy\bin
-```
-
-### 4. Finalize Setup
-
-1. Checks: Close all the terminals.
-2. Run as Admin: Open your terminal as **Administrator**.
-3. Troubleshooting: If you face issues, ensure `cmd.exe` and `powershell.exe` (default paths in Windows) are in your system environment variables.
-
-### 5. Verify Installation
-
-Once done, you should see something like this:
+In the new terminal, run `keploy`. You should see something like this:
 
 ```bash
 🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
@@ -703,15 +743,17 @@ Use "keploy [command] --help" for more information about a command.
 
 1. **Make sure Docker is installed** : You’ll need **Docker Desktop** running on Windows.
 
-2. **Install Keploy**
+2. **Install Keploy**: follow steps 1–2 of the **Native** tab. The `keploy` CLI runs on Windows and starts your app's container and Keploy's agent in Docker.
 
-```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+3. **Create the Docker network** your app's container and Keploy share:
+
+```powershell
+docker network create keploy-network
 ```
 
-3. **Verify the installation**
+4. **Verify the installation**
 
-**Once done, you should see something like this:**
+In a new terminal, run `keploy`. You should see something like this:
 
 ```bash
 🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
@@ -850,7 +892,7 @@ Once your API key is verified, you will see:
 
 ```bash
 API key verified successfully!
-You are on the Keploy Community plan.
+You are on the Keploy <plan> plan.
 ```
 
 </TabItem>
@@ -889,7 +931,7 @@ Once your API key is verified, you will see:
 
 ```bash
 API key verified successfully!
-You are on the Keploy Community plan.
+You are on the Keploy <plan> plan.
 ```
 
 </TabItem>
@@ -926,6 +968,13 @@ You’ve successfully set up **Keploy on Linux** using **Docker**.
 <TabItem value="macos" label="macOS">
 
 <Tabs groupId="macos-method">
+<TabItem value="macos-native" label="Native">
+
+You’ve successfully installed **Keploy on macOS**.
+
+<StartKeploy platform="macos" />
+
+</TabItem>
 <TabItem value="lima" label="Lima">
 
 You’ve successfully set up **Keploy on macOS** using **Lima**.

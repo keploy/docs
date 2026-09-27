@@ -4,7 +4,28 @@ import TabItem from "@theme/TabItem";
 import CodeBlock from "@theme/CodeBlock";
 import Link from "@docusaurus/Link";
 
-export default function StartKeploy() {
+// The command that starts each sample app. On macOS, keploy loads into the app
+// through the dynamic linker, and macOS strips that from anything a launcher
+// (npm, mvn, a shell script, a pyenv shim) re-spawns and from Apple's own
+// /usr/bin/python3 and /usr/bin/java — so there the commands start the app's
+// real executable, built first. go run works but records its toolchain too.
+const COMMANDS = {
+  default: {
+    go: "go run main.go",
+    node: "npm start",
+    java: "mvn spring-boot:run",
+    python: "python app.py",
+  },
+  macos: {
+    go: "./app",
+    node: "node server.js",
+    java: "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/<your-app>.jar",
+    python: ".venv/bin/python app.py",
+  },
+};
+
+export default function StartKeploy({platform}) {
+  const cmd = COMMANDS[platform] || COMMANDS.default;
   return (
     <div
       style={{
@@ -24,13 +45,13 @@ export default function StartKeploy() {
             <strong>Record the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy record -c "go run main.go"`}
+            {`keploy record -c "${cmd.go}"`}
           </CodeBlock>
           <p>
             <strong>Run the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy test -c "go run main.go" --delay 10`}
+            {`keploy test -c "${cmd.go}" --delay 10`}
           </CodeBlock>
         </TabItem>
 
@@ -40,13 +61,13 @@ export default function StartKeploy() {
             <strong>Record the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy record -c "npm start"`}
+            {`keploy record -c "${cmd.node}"`}
           </CodeBlock>
           <p>
             <strong>Run the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy test -c "npm start" --delay 10`}
+            {`keploy test -c "${cmd.node}" --delay 10`}
           </CodeBlock>
         </TabItem>
 
@@ -56,13 +77,13 @@ export default function StartKeploy() {
             <strong>Record the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy record -c "mvn spring-boot:run"`}
+            {`keploy record -c "${cmd.java}"`}
           </CodeBlock>
           <p>
             <strong>Run the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy test -c "mvn spring-boot:run" --delay 10`}
+            {`keploy test -c "${cmd.java}" --delay 10`}
           </CodeBlock>
         </TabItem>
 
@@ -72,16 +93,29 @@ export default function StartKeploy() {
             <strong>Record the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy record -c "python app.py"`}
+            {`keploy record -c "${cmd.python}"`}
           </CodeBlock>
           <p>
             <strong>Run the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy test -c "python app.py" --delay 10`}
+            {`keploy test -c "${cmd.python}" --delay 10`}
           </CodeBlock>
         </TabItem>
       </Tabs>
+
+      {platform === "macos" && (
+        <p>
+          On macOS, build first (<code>go build -o app .</code>,{" "}
+          <code>mvn package</code>) and start the app itself, not through a
+          launcher such as <code>npm start</code>, <code>mvn</code> or a wrapper
+          script. Use your JDK&apos;s own <code>java</code> and a virtualenv
+          built on a Homebrew, uv or pyenv Python, not Apple&apos;s{" "}
+          <code>/usr/bin/java</code> or <code>/usr/bin/python3</code>. macOS
+          removes Keploy from those processes, and Keploy warns you when that
+          happens.
+        </p>
+      )}
 
       <h3>📖 What’s Next?</h3>
 

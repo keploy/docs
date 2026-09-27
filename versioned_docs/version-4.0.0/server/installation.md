@@ -3,14 +3,13 @@ id: install
 title: Keploy Local Installation
 sidebar_label: Local
 hide_title: true
-description: "Install Keploy locally with one command — natively on Linux, macOS (Apple Silicon) and Windows. Record API calls, generate test cases, and replay them as tests."
+description: "Install Keploy locally — natively on Linux, macOS (Apple Silicon) and Windows (x86-64). Record API calls, generate test cases, and replay them as tests."
 tags:
   - hello-world
   - linux
   - ebpf
   - installation
   - install
-  - community-edition
 keywords:
   - hello-world
   - ebpf
@@ -22,18 +21,18 @@ keywords:
   - Auto Testcase generation
   - installation-guide
   - server-setup
-  - keploy community edition
-  - community edition
+  - macos
+  - windows
 ---
 
-Keploy intercepts your application's API calls and turns them into test cases and mocks. The one command below installs it on **Linux, macOS and Windows** alike — how it intercepts differs, but what you run does not:
+Keploy intercepts your application's API calls and turns them into test cases and mocks. It runs natively on **Linux, macOS and Windows** — how it intercepts differs, but what you run does not:
 
 - **Linux** — eBPF in the kernel, so `keploy record`/`keploy test` need root.
-- **macOS** (Apple Silicon) and **Windows** (x86‑64) — userspace interception. No VM, no Docker, no `sudo` and no Administrator.
+- **macOS** (Apple Silicon) and **Windows** (x86‑64) — in user space: no VM, no Docker, no `sudo` and no Administrator. Natively they understand HTTP/HTTPS, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay, so run apps that depend on them with Docker.
 
-Docker, Lima and WSL remain supported alternatives, and are the route on an Intel Mac or Windows/ARM — but on a supported machine you do not need any of them.
+On an Intel Mac, run Keploy in Lima; on Windows on ARM, in WSL. On a supported machine you need neither.
 
-By default this installs the **Keploy Community Edition**. Your plan (Community, Pro, or Enterprise) is determined after you log in.
+You need a free Keploy account to record and replay; your plan decides which additional features are available.
 
 import HowTo from '@site/src/components/HowTo';
 import InstallationGuide from '../concepts/installation.md'
@@ -49,7 +48,7 @@ visible={false}
 steps={[
 {
 name: "Download and install the Keploy binary",
-text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
+text: "On Linux or macOS, run: curl --silent -O -L https://keploy.io/install.sh && source install.sh. On Windows, download https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe as keploy.exe into a folder on your PATH.",
 },
 {
 name: "Verify the installation",

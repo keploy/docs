@@ -231,6 +231,6 @@ Happy Testing!
 ## Related
 
 - [Debugger Guide](/docs/keploy-explained/debugger-guide/) — debug Keploy with the VS Code debugger.
-- [Running Keploy Natively on Windows](/docs/keploy-explained/windows-wsl/) — Windows setup and fixes.
-- [Running Keploy Natively on MacOS by setting up a linux env](/docs/keploy-explained/mac-linux/) — macOS setup with Lima.
+- [Running Keploy on Windows in WSL](/docs/keploy-explained/windows-wsl/) — WSL setup and fixes.
+- [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — macOS setup with Lima.
 - [API Testing — Frequently Asked Questions](/docs/keploy-explained/api-testing-faq/) — common API testing questions.

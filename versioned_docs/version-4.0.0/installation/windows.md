@@ -17,11 +17,11 @@ keywords:
 
 # Installing Keploy on Windows
 
-Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads, nothing is installed system-wide, and **you do not need Administrator**.
+Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads and **you do not need Administrator**.
 
-Native Windows support covers apps in **Go, Node.js, Python and Java**. WSL and Docker remain available if you prefer them.
+Native Windows support covers apps in **Go, Node.js, Python and Java**, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). WSL is available too, and is the route on Windows on ARM.
 
-:::note Keploy Community needs a free account
+:::note Keploy needs a free account
 
 `keploy record` and `keploy test` sign you in before they run. The first time you use either, Keploy prints a URL and opens your browser at [app.keploy.io](https://app.keploy.io) to sign in; the session is then cached in `%USERPROFILE%\.keploy\tokens.yaml` and reused.
 
@@ -43,16 +43,11 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 ## Option 1: Run Keploy natively
 
-1. **Install Keploy.** The quickest route is Git Bash, which installs the Community build and puts it on your `PATH` for you:
-
-   ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
-
-   Or download it manually in PowerShell:
+1. **Install Keploy.** Run this in PowerShell — a normal one, not as Administrator:
 
    ```powershell
    $ProgressPreference = 'SilentlyContinue'
+   [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
    $dir = "$env:USERPROFILE\.keploy\bin"
    New-Item -ItemType Directory -Force $dir | Out-Null
    Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
@@ -66,9 +61,9 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
    Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`.
 
-   **Use the download above, not the GitHub release asset.** The Windows binary is named `enterprise_windows_amd64.exe` for historical reasons — a free account is all you need. The `keploy_windows_amd64` asset on the [GitHub releases page](https://github.com/keploy/keploy/releases) is a different build that intercepts with eBPF and so refuses a native Windows run with _"not supported by this build of Keploy"_; it is only for running Keploy inside Docker.
+   The file is named `enterprise_windows_amd64.exe` for historical reasons — it is the `keploy` CLI, and a free account is all you need. Use this download, not the `keploy_windows_amd64` file on the GitHub releases page: that one cannot run your app natively and stops with _"not supported by this build of Keploy"_.
 
-   **If Windows blocks the download.** The Windows build is not yet code-signed, so SmartScreen may show "Windows protected your PC" on first run. The `Unblock-File` line above clears the download marker; if you fetched the binary another way, right-click it, choose **Properties**, and tick **Unblock**.
+   **If Windows blocks the file.** The Windows build is not yet code-signed, so if you download `keploy.exe` in a browser, SmartScreen may show "Windows protected your PC" on first run. Right-click the file, choose **Properties** and tick **Unblock** (or run `Unblock-File` on it, as the script above does).
 
 2. **Open a terminal.** An ordinary PowerShell or Terminal window is enough — Keploy does not need to run elevated.
 
@@ -94,7 +89,7 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 :::note
 
-Native Windows support is **x86‑64 only**, and the application under test must be 64-bit. On Windows/ARM, use WSL or Docker.
+Native Windows support is **x86‑64 only**, and the application under test must be 64-bit. On Windows on ARM, use [WSL](#option-2-install-keploy-with-wsl).
 
 :::
 
@@ -102,7 +97,9 @@ Native Windows support is **x86‑64 only**, and the application under test must
 
 Keploy instruments the application **it starts**, so launch your app through `keploy record -c` or `keploy test -c` rather than starting it yourself and pointing Keploy at a running process.
 
-Keploy intercepts TCP — HTTP, HTTPS, gRPC, and database and cache protocols — and resolves hostnames through the application's resolver, so a dependency that no longer exists is still answered from its Mock during a replay. Traffic an application sends over UDP is not recorded.
+**HTTPS and Keploy's certificate.** To record your app's HTTPS calls, Keploy adds its certificate authority, named `My Custom CA`, to your Windows user's **Trusted Root** certificate store, and — where your JDK's truststore is writable — to that truststore too. Windows may ask you once to confirm adding it. It stays there after Keploy exits; to remove it, run `certutil -user -delstore Root "My Custom CA"`.
+
+Keploy intercepts your app's TCP connections and resolves hostnames through the application's resolver, so a dependency that no longer exists is still answered from its Mock during a replay. Natively on Windows it understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay, so for those use [Docker](#option-3-install-keploy-with-docker). Traffic an application sends over UDP is not recorded.
 
 :::
 
@@ -160,11 +157,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
    docker network create keploy-network
    ```
 
-3. **Install Keploy**
-
-   ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
-   ```
+3. **Install Keploy** with [Option 1, step 1](#option-1-run-keploy-natively). The `keploy` CLI runs on Windows and starts your app's container and Keploy's agent in Docker.
 
 4. **Verify the installation**
 
@@ -180,18 +173,16 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 ### ▶️ Record
 
-```bash
-keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---container-name "<containerName>" --buildDelay 60
+```powershell
+keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
 ```
 
 ### 🧪 Test
 
-```bash
-keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" \
---delay 10 --buildDelay 60
+```powershell
+keploy test -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
 ```
 
 ## 🎉 Congratulations!
 
-You’ve successfully set up **Keploy on Windows** using either **WSL** or **Docker**.
+You’ve successfully set up **Keploy on Windows** — natively, or with **WSL** or **Docker**.
