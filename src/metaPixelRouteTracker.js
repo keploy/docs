@@ -6,6 +6,9 @@
 //   - Meta Pixel               -> fires eagerly via the inline snippet in
 //     headTags (init + PageView on load). Because that only fires once, this
 //     module re-fires PageView on client-side (SPA) route changes.
+//   - LinkedIn Insight Tag     -> same shape: eager inline snippet in headTags
+//     (production builds only) records the first load; this module re-fires a
+//     page view on SPA route changes so retargeting audiences see every page.
 //   - Microsoft Clarity + Apollo -> lazy-loaded on the FIRST user interaction
 //     (scroll / click / key / touch): engaged sessions only, so they stay off
 //     the initial load.
@@ -87,6 +90,11 @@ export function onRouteDidUpdate({location, previousLocation}) {
     // Re-fire the Meta Pixel PageView (GA SPA tracking is handled by the preset).
     if (typeof window.fbq === "function") {
       window.fbq("track", "PageView");
+    }
+    // Re-fire the LinkedIn Insight Tag page view. `lintrk` is only defined on
+    // production builds (see docusaurus.config.js), so this is a no-op in dev.
+    if (typeof window.lintrk === "function") {
+      window.lintrk("track");
     }
   }
 }

@@ -15,6 +15,18 @@ const FontPreloadPlugin = require("webpack-font-preload-plugin");
 // docsDir, which otherwise have to be kept in sync by hand.
 const CURRENT_DOCS_VERSION = "4.0.0";
 
+// LinkedIn Insight Tag (website retargeting + conversion tracking).
+//
+// The Partner ID is a public value (it ships in the HTML of every page), so it
+// lives here like the Meta Pixel ID does. LINKEDIN_PARTNER_ID in the build
+// environment overrides it, so the ad account behind the tag can be swapped in
+// CI without a code change if that is ever needed.
+//
+// The tag is only emitted by `docusaurus build` (NODE_ENV=production), never by
+// `docusaurus start`, so local dev sessions never land in the real audience.
+const LINKEDIN_PARTNER_ID = process.env.LINKEDIN_PARTNER_ID || "10950945";
+const emitLinkedInInsightTag = process.env.NODE_ENV === "production";
+
 // Curated "About Keploy" content (positioning, awards, links) maintained by
 // the content team. Fed into docusaurus-plugin-llms via rootContent/fullRootContent
 // instead of living in static/, because static/ files get overwritten by the
@@ -103,6 +115,34 @@ fbq('track', 'PageView');`,
       innerHTML: `<img height="1" width="1" style="display:none" alt="" src="https://www.facebook.com/tr?id=2006330080011702&ev=PageView&noscript=1" />`,
     },
     // End Meta Pixel Code
+    // LinkedIn Insight Tag — LinkedIn's official snippet, unchanged apart from
+    // the Partner ID. It records the first page load itself; SPA route changes
+    // re-fire from src/metaPixelRouteTracker.js. Production builds only.
+    ...(emitLinkedInInsightTag
+      ? [
+          {
+            tagName: "script",
+            attributes: {},
+            innerHTML: `_linkedin_partner_id = "${LINKEDIN_PARTNER_ID}";
+window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
+window._linkedin_data_partner_ids.push(_linkedin_partner_id);
+(function(l) {
+if (!l){window.lintrk = function(a,b){window.lintrk.q.push([a,b])};
+window.lintrk.q=[]}
+var s = document.getElementsByTagName("script")[0];
+var b = document.createElement("script");
+b.type = "text/javascript";b.async = true;
+b.src = "https://snap.licdn.com/li.lms-analytics/insight.min.js";
+s.parentNode.insertBefore(b, s);})(window.lintrk);`,
+          },
+          {
+            tagName: "noscript",
+            attributes: {},
+            innerHTML: `<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=${LINKEDIN_PARTNER_ID}&fmt=gif" />`,
+          },
+        ]
+      : []),
+    // End LinkedIn Insight Tag
   ],
   title: "Keploy Documentation",
   // Plain "|" delimiter for React-page <title>s (about, security, …). The old
@@ -551,6 +591,8 @@ fbq('track', 'PageView');`,
     //   - GA          -> eager via the gtag preset (auto SPA tracking)
     //   - Meta Pixel  -> eager via the inline snippet in headTags; SPA re-fire
     //                    from the client module
+    //   - LinkedIn Insight Tag -> eager via the inline snippet in headTags
+    //                    (production builds only); SPA re-fire from the client module
     //   - Clarity + Apollo -> lazy, on first user interaction (client module)
     //   - Chatwoot    -> lazy, on first click/key/touch (client module);
     //                    deliberately not on scroll, see that module
