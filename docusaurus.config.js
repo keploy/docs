@@ -23,8 +23,20 @@ const CURRENT_DOCS_VERSION = "4.0.0";
 // CI without a code change if that is ever needed.
 //
 // The tag is only emitted by `docusaurus build` (NODE_ENV=production), never by
-// `docusaurus start`, so local dev sessions never land in the real audience.
+// `docusaurus start`. Note that `docusaurus serve` serves that production build,
+// so a local serve does send real page views to LinkedIn.
+//
+// LinkedIn's loader silently drops any id that is not all digits, so a stray
+// space or quote in the CI env would give a green build that tracks nothing.
+// Fail the build instead.
 const LINKEDIN_PARTNER_ID = process.env.LINKEDIN_PARTNER_ID || "10950945";
+if (!/^\d+$/.test(LINKEDIN_PARTNER_ID)) {
+  throw new Error(
+    `LINKEDIN_PARTNER_ID must be numeric, got ${JSON.stringify(
+      LINKEDIN_PARTNER_ID
+    )}`
+  );
+}
 const emitLinkedInInsightTag = process.env.NODE_ENV === "production";
 
 // Curated "About Keploy" content (positioning, awards, links) maintained by
@@ -123,7 +135,9 @@ fbq('track', 'PageView');`,
           {
             tagName: "script",
             attributes: {},
-            innerHTML: `_linkedin_partner_id = "${LINKEDIN_PARTNER_ID}";
+            innerHTML: `_linkedin_partner_id = ${JSON.stringify(
+              LINKEDIN_PARTNER_ID
+            )};
 window._linkedin_data_partner_ids = window._linkedin_data_partner_ids || [];
 window._linkedin_data_partner_ids.push(_linkedin_partner_id);
 (function(l) {
@@ -138,7 +152,9 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           {
             tagName: "noscript",
             attributes: {},
-            innerHTML: `<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=${LINKEDIN_PARTNER_ID}&fmt=gif" />`,
+            innerHTML: `<img height="1" width="1" style="display:none;" alt="" src="https://px.ads.linkedin.com/collect/?pid=${encodeURIComponent(
+              LINKEDIN_PARTNER_ID
+            )}&fmt=gif" />`,
           },
         ]
       : []),
