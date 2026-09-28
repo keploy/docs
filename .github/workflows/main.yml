@@ -59,7 +59,13 @@ jobs:
       - uses: borales/actions-yarn@v4
         with:
           cmd: build # will run `yarn build` command
-          
+
+      # Runs against the build that is about to deploy, so a bad
+      # LINKEDIN_PARTNER_ID override in this environment fails here, not live.
+      - uses: borales/actions-yarn@v4
+        with:
+          cmd: verify-linkedin-tag
+
       # create a build/docs folder and move all content from build there
       - name: Add docs subfolder
         run: |
