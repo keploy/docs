@@ -20,7 +20,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ### Pre-requisite 📝
 
-Ensure you have [installed keploy enterprise](/docs/keploy-cloud/cloud-installation/#installation-%EF%B8%8F).
+Ensure you have [installed Keploy](/docs/server/installation/).
 
 ### Run Tests Locally ⌛️
 
@@ -83,7 +83,7 @@ Similarly, if the test case result is the new expected response, we can normalis
 
 ## Related
 
-- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — prerequisite before starting the console.
+- [Install Keploy](/docs/server/installation/) — prerequisite before starting the console.
 - [Keploy Cloud Application Settings Guide](/docs/keploy-cloud/application-settings/) — add an application to the console.
 - [Mock Registry](/docs/keploy-cloud/mock-registry/) — manage mocks used during test runs.
 - [Time Freezing](/docs/keploy-cloud/time-freezing/) — stabilize time-sensitive test results.

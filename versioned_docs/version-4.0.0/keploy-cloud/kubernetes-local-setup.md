@@ -2,15 +2,13 @@
 id: kubernetes-local-setup
 title: Kubernetes Local Setup (Kind)
 sidebar_label: Kubernetes Local Setup
-description: "Set up a local Kind Kubernetes cluster with Keploy Enterprise — live record and replay API traffic for Pods via NodePort."
+description: "Set up a local Kind Kubernetes cluster with Keploy — live record and replay API traffic for Pods via NodePort."
 tags:
   - explanation
   - feature guide
-  - keploy enterprise
   - kubernetes
   - kind
 keywords:
-  - keploy enterprise
   - kubernetes
   - kind
   - local cluster
@@ -33,7 +31,7 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 
 Ensure you have the following before you begin:
 
-1. **Keploy Enterprise account** (with an access key)
+1. **Keploy account on the Enterprise plan** (with an access key)
 2. **kubectl** configured to access your Kubernetes cluster
 3. **Helm** installed
 4. **Kind** installed
@@ -243,4 +241,4 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 - [Kubernetes Setup](/docs/keploy-cloud/kubernetes/) — full cluster setup including ingress and GitOps.
 - [Deploy Keploy with ArgoCD](/docs/keploy-cloud/gitops-argocd/) — deploy the k8s-proxy declaratively with ArgoCD.
 - [Deploy Keploy with Flux CD](/docs/keploy-cloud/gitops-flux/) — deploy the k8s-proxy declaratively with Flux.
-- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install the Enterprise agent.
+- [Install Keploy](/docs/server/installation/) — install Keploy and sign in.

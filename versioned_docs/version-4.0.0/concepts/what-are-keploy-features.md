@@ -82,11 +82,11 @@ Multiple Reads after write operations can be replicated automatically too. 🔄
 Keploy generated dependency mocks can also be used as test case for the server. These tests can be used for use-cases
 like chaos testing, e2e testing, integration testing, api and regression testing. 🌟
 
-## 🌐 Code-less EBPF Instrumentation
+## 🌐 Code-less Instrumentation
 
 #### Network Layer Integration makes it Light-Weight
 
-Keploy uses EBPF like a secret sauce to make integration code-less, language agnostic, and oh-so-lightweight. 🍲
+Keploy's secret sauce is intercepting traffic at the network layer — with eBPF on Linux, and in user space on macOS and Windows — which makes integration code-less and oh-so-lightweight. 🍲 On Linux, and with Docker, it's language agnostic; natively on macOS and Windows it covers Go, Node.js, Python and Java apps.
 
 ## 🔍 Accurate Noise Detection
 

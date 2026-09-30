@@ -2,19 +2,17 @@
 id: k8s-proxy-api
 title: Kubernetes Proxy REST API
 sidebar_label: Kubernetes Proxy REST API
-description: Use the Keploy Kubernetes Proxy REST API to trigger recordings, manage recording and auto-replay configs, stream session status, run replays, and drive the enterprise recording flow programmatically from CI/CD, internal tooling, or AI agents.
+description: Use the Keploy Kubernetes Proxy REST API to trigger recordings, manage recording and auto-replay configs, stream session status, run replays, and drive the recording flow programmatically from CI/CD, internal tooling, or AI agents.
 tags:
   - kubernetes
   - k8s proxy
   - REST API
   - recording
   - automation
-  - enterprise
   - CI/CD
 keywords:
   - k8s proxy
   - kubernetes proxy
-  - keploy enterprise
   - recording API
   - live recording
   - auto replay
@@ -48,9 +46,9 @@ The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and rep
 
 ---
 
-## Why the Kubernetes Proxy instead of Keploy Enterprise directly?
+## Why the Kubernetes Proxy instead of running Keploy directly?
 
-Running the Keploy enterprise CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
+Running the `keploy` CLI inside a Pod works, but it is a per-app, per-node model: each Deployment you want to record needs its own sidecar plumbing, image rebuild, or pod restart. The Kubernetes Proxy is a single in-cluster control plane that turns _record-and-replay_ into a few API calls, and layers on top of that a set of capabilities you do not get when you run the agent on its own. The benefits below are the reason teams pick the proxy over wiring the CLI in by hand.
 
 ### 1. Auto-replay
 

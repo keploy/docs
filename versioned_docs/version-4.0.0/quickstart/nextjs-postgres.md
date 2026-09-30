@@ -25,7 +25,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM. Natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -48,9 +48,11 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 ## Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';

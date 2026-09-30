@@ -37,7 +37,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -61,6 +61,8 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 ## Introduction
 
 This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -100,6 +102,8 @@ Capture the test-cases-
 ```shell
 keploy record -c "python3 server.py"
 ```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its interpreter here and in the test step, e.g. `keploy record -c ".venv/bin/python server.py"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)). On Windows, use `python server.py` if `python3` isn't on your `PATH`.
 
 You should be able to see this in your terminal
 
