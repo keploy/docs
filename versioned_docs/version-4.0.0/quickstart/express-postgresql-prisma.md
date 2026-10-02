@@ -30,7 +30,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker Compose steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -57,9 +57,11 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ## Running App Locally on Linux/WSL
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
+
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker Compose steps](#running-app-using-docker-compose-) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 
@@ -218,7 +220,7 @@ keploy test -c "npm start"
 
 ## Running App using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample Task Management application and see how seamlessly Keploy integrates with Express, PostgreSQL and Prisma ORM. Buckle up, it's gonna be a fun ride!
 
@@ -259,7 +261,7 @@ Fire up the application and mongoDB instance with Keploy. Keep an eye on the two
 --container-name: The container name in the docker-compose.yml for traffic interception.
 
 ```bash
-keploy record -c "docker compose up" --container-name "express-postgresql-prisma-app" --build-delay 50
+keploy record -c "docker compose up" --container-name "express-postgresql-prisma-app-1" --build-delay 50
 ```
 
 **🔥 Challenge time!** Generate some test cases. How? Just make some API calls. Postman, Hoppscotch or even curl - take your pick!
@@ -409,7 +411,7 @@ curl -X 'DELETE' \
 ### Test the Application using Keploy
 
 ```bash
-keploy test -c "docker compose up" --container-name "nodeMongoApp" --build-delay 50 --delay 10
+keploy test -c "docker compose up" --container-name "express-postgresql-prisma-app-1" --build-delay 50 --delay 10
 ```
 
 > The **--delay** flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

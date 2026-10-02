@@ -28,7 +28,7 @@ keywords:
 Use Keploy's one-click installation to download and install the latest Keploy binary:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 ### Download Required JARs

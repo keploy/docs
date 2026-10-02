@@ -7,7 +7,7 @@ export const SDKs = () => {
     <section className="my-20">
       <h1 className="mb-2 text-3xl md:text-4xl">Supported OS</h1>
       <p className="mb-8">
-        Find eBPF tutorials and dependency mock references in the language of
+        Find Keploy tutorials and dependency mock references in the language of
         your choice.
       </p>
       <div className="grid grid-cols-1 gap-6  md:grid-cols-3 lg:gap-8">

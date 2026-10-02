@@ -27,7 +27,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM, since native macOS and Windows support is tested with Go, Node.js, Python and Java apps.",
 },
 {
 name: "Clone the sample app",
@@ -53,6 +53,8 @@ import InstallReminder from '@site/src/components/InstallReminder';
 This is a sample app to test Keploy integration capabilities using rust and MongoDb. Buckle up, it's gonna be a fun ride!
 
 ## Running App Locally on Linux/WSL 🐧
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 <InstallReminder />
 

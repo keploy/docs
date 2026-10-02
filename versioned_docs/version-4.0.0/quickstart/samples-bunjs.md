@@ -33,7 +33,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM, since native macOS and Windows support is tested with Go, Node.js, Python and Java apps.",
 },
 {
 name: "Clone the sample app",
@@ -57,6 +57,8 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 ## Running App Locally on Linux/WSL 🐧
 
 This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -89,7 +91,7 @@ This command will essentailly make a fresh docker-network named as `keploy-netwo
 docker network create keploy-network
 ```
 
-Using the docker-compose file we will start our Postgres instance:-
+Using the docker-compose file we will start our MongoDB instance:-
 
 ```bash
 docker-compose up -d mongo
@@ -98,7 +100,7 @@ docker-compose up -d mongo
 Ready, set, record! Here's how:
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'bun run supabun.ts'
+sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
 ```
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app.

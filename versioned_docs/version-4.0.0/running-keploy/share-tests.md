@@ -7,7 +7,7 @@ description: Learn how to share Keploy API test suites and run reports with team
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Keploy makes it easy to share any test suite so others can review results or run the tests in their own environments—without copying JSON or clunky exports.
 

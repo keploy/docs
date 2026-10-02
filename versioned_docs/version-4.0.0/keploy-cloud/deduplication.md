@@ -2,7 +2,7 @@
 id: deduplication
 title: Dynamic Deduplication
 sidebar_label: Dynamic Deduplication
-description: "Use Keploy Enterprise dynamic deduplication to identify redundant test cases and save time and resources."
+description: "Use Keploy dynamic deduplication to identify redundant test cases and save time and resources."
 tags:
   - explanation
   - feature guide
