@@ -6,13 +6,11 @@ description: "Deploy Keploy k8s-proxy with ArgoCD GitOps on Kubernetes — Helm 
 tags:
   - explanation
   - feature guide
-  - keploy enterprise
   - kubernetes
   - argocd
   - gitops
   - contour
 keywords:
-  - keploy enterprise
   - kubernetes
   - argocd
   - gitops
@@ -41,7 +39,7 @@ Ensure you have the following before you begin:
 1. **A running Kubernetes cluster** (Kind, EKS, GKE, AKS)
 2. **ArgoCD** installed on the cluster
 3. **kubectl** and **Helm** installed
-4. **Keploy Enterprise account** (with an access key)
+4. **Keploy account on the Enterprise plan** (with an access key)
 
 ---
 
@@ -328,4 +326,4 @@ Your existing application code, manifests, and ArgoCD Applications remain **comp
 - [Deploy Keploy with Flux CD](/docs/keploy-cloud/gitops-flux/) — the same deployment with Flux GitOps.
 - [Kubernetes Setup](/docs/keploy-cloud/kubernetes/) — prerequisite cluster and k8s-proxy setup.
 - [Kubernetes Local Setup (Kind)](/docs/keploy-cloud/kubernetes-local-setup/) — spin up a local Kind cluster.
-- [Keploy Enterprise Installation](/docs/keploy-cloud/cloud-installation/) — install the Enterprise agent.
+- [Install Keploy](/docs/server/installation/) — install Keploy and sign in.

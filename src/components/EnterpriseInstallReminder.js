@@ -21,14 +21,14 @@ export default function EnterpriseInstallReminder() {
   return (
     <div style={containerStyle}>
       <h3 style={{marginTop: 0, color: isDark ? "#fff" : "#222"}}>
-        Don’t have Keploy Enterprise installed yet?
+        Don’t have Keploy installed yet?
       </h3>
       <p style={{color: isDark ? "#ccc" : undefined}}>
-        Before running this sample, make sure Keploy Enterprise version is
-        installed on your system.
+        Before running this sample, make sure Keploy is installed on your system
+        and you’re signed in to your Keploy account (<code>keploy login</code>).
       </p>
       <Link
-        to="/docs/keploy-cloud/cloud-installation/"
+        to="/docs/server/installation/"
         style={{
           display: "inline-block",
           marginTop: "0.5rem",
