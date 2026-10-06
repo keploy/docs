@@ -29,7 +29,7 @@ const CURRENT_DOCS_VERSION = "4.0.0";
 // LinkedIn's loader silently drops any id that is not all digits, so a stray
 // space or quote in the CI env would give a green build that tracks nothing.
 // Fail the build instead.
-const LINKEDIN_PARTNER_ID = process.env.LINKEDIN_PARTNER_ID || "10950945";
+const LINKEDIN_PARTNER_ID = process.env.LINKEDIN_PARTNER_ID || "3176938";
 if (!/^\d+$/.test(LINKEDIN_PARTNER_ID)) {
   throw new Error(
     `LINKEDIN_PARTNER_ID must be numeric, got ${JSON.stringify(
