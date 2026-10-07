@@ -183,6 +183,7 @@
           "label": "Troubleshooting Guide",
           "id": "keploy-explained/common-errors"
         },
+        "running-keploy/capture-loss",
         {
           "type": "doc",
           "label": "FAQs",
