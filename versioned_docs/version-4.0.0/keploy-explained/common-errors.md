@@ -224,12 +224,34 @@ The same setup connects normally when you run it without Keploy.
 
 See [MySQL port detection](../running-keploy/configuration-file.md#mysql-port-detection) for how Keploy identifies the protocol during Record and recovers the port during Test.
 
+### 13. Capture loss warning: "proxyless capture could not record an app's bytes"
+
+#### Description:
+
+While recording with `keploy record --low-latency`, a Kubernetes Sidecar with `low_latency_mode`, or the Kubernetes DaemonSet agent, Keploy logs:
+
+```
+proxyless capture could not record an app's bytes: the app sent them with sendfile(2), ...
+```
+
+The recording is missing those bytes, and the test cases or mocks that carried them may be incomplete.
+
+#### Possible Cause:
+
+- The app moved the bytes without copying them through its own memory: `sendfile(2)` (for example nginx `sendfile on`, Tomcat's default sendfile, or Go's `http.ServeFile`), `splice(2)` (for example Go's `io.Copy` between two connections), or io_uring registered buffers.
+- Less often: a `MSG_TRUNC` receive, which needs no change, or a page Keploy's hook could not read, logged as an error.
+
+#### Solution:
+
+- Follow the `toRecordIt` field, if the line has one. [Capture loss warnings](../running-keploy/capture-loss.md), which the line's `docs` field links, describes each cause and what to do about it.
+
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!
 
 ## Related
 
+- [Capture loss warnings](/docs/running-keploy/capture-loss/) — bytes the eBPF capture cannot record, and how to record them.
 - [Debugger Guide](/docs/keploy-explained/debugger-guide/) — debug Keploy with the VS Code debugger.
 - [Running Keploy on Windows in WSL](/docs/keploy-explained/windows-wsl/) — WSL setup and fixes.
 - [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — macOS setup with Lima.

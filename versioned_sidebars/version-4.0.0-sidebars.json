@@ -194,6 +194,7 @@
           "label": "Troubleshooting Guide",
           "id": "keploy-explained/common-errors"
         },
+        "running-keploy/capture-loss",
         {
           "type": "doc",
           "label": "FAQs",
@@ -242,6 +243,12 @@
           "id": "keploy-explained/api-testing-faq"
         }
       ]
+    },
+    {
+      "type": "category",
+      "label": "UI Testing",
+      "collapsed": true,
+      "items": ["running-keploy/ui-capture"]
     },
     {
       "type": "category",

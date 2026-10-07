@@ -27,20 +27,13 @@ import ProductTier from '@site/src/components/ProductTier';
 - `Docker_CMD_to_run_user_container` refers to the Docker **command for launching** the application.
 - Add the required commands to your DockerFile as stated below.
 
-2. Add the following commands to your Dockerfile to download the `ca.crt` file and the `setup_ca.sh` script.
+2. Trust is handled for you — no certificate to bake in.
 
-```dockerfile
-    # Install the ca-certificates package to use the system certificates (the below command is for Debian-based systems, you may need to adjust it for other distributions)
-    RUN apt-get update && apt-get install -y ca-certificates
-    # Download the ca.crt file and the setup_ca.sh script
-    ADD  https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/ca.crt ca.crt
-    ADD https://raw.githubusercontent.com/keploy/keploy/refs/heads/main/pkg/core/proxy/tls/asset/setup_ca.sh setup_ca.sh
-    # Give execute permission to the setup_ca.sh script
-    RUN chmod +x setup_ca.sh
+   Keploy generates a fresh MITM certificate authority for each run and injects it, with the matching trust environment variables, into your application container automatically. The CA's private key stays inside the Keploy agent.
 
-    # Run the CA setup script and then run the application server
-    CMD ["/bin/bash", "-c", "source ./setup_ca.sh && <your app running command>"]
-```
+   :::warning Older guides said to bake in a `ca.crt`
+   Earlier versions of this page told you to `ADD` a `ca.crt` and `source setup_ca.sh` from a raw GitHub URL. **Remove those lines.** That recipe baked in a single static CA whose private key was public, and its `setup_ca.sh` overrode Keploy's injected trust. The URL now serves an inert placeholder so old images keep building; drop the `ADD`/`source` lines and rely on the automatic injection. To remove the old static CA from a host, run `sudo keploy ca clean --fresh`.
+   :::
 
 To capture test cases, **Execute** the following command within your application's **root directory**.
 

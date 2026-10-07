@@ -33,6 +33,9 @@ jobs:
       - name: Build Documentation
         run: npm run build
 
+      - name: Verify LinkedIn Insight Tag in build output
+        run: npm run verify-linkedin-tag
+
       - name: Verify structured-data graph
         run: npm run verify-schema
 
