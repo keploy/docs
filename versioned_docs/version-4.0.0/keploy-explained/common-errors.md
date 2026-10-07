@@ -245,6 +245,53 @@ The recording is missing those bytes, and the test cases or mocks that carried t
 
 - Follow the `toRecordIt` field, if the line has one. [Capture loss warnings](../running-keploy/capture-loss.md), which the line's `docs` field links, describes each cause and what to do about it.
 
+### 14. Podman: the command is refused, the app doesn't start, or its image isn't found
+
+#### Description:
+
+Recording or testing an application that runs in Podman stops before it starts, with one of these:
+
+```
+this keploy build cannot record or test applications that run in Podman. ...
+```
+
+```
+failed to prepare podman: keploy records and tests applications that run in Podman on Linux only
+```
+
+```
+podman is set up as podman-remote's client, ...
+```
+
+```
+podman could not say whether it runs locally ...
+```
+
+or, with compose, the app's container never starts and Podman says:
+
+```
+Error: unrecognized namespace mode service:keploy-agent passed
+```
+
+or Podman can't find the application's image although `podman images` (without `sudo`) lists it, or the app runs but nothing is recorded.
+
+#### Possible Cause:
+
+- The `keploy` binary doesn't include Podman support: one built from the open-source repository, installed with `install.sh --oss`, or downloaded from the keploy/keploy GitHub releases.
+- Keploy is older than v3.8.60 (`keploy -v`): it runs a Podman command as a host process, so the app starts but nothing is recorded, with no error.
+- Keploy is running on macOS or Windows (including with Podman machine). Keploy records Podman applications on Linux only.
+- Podman is a podman-remote client (set by `CONTAINER_HOST`, `CONTAINER_CONNECTION`, or `remote = true` in containers.conf), so the app would run in another Podman service, while Keploy's agent runs in the local rootful Podman.
+- With compose, the compose provider is podman-compose, which Keploy doesn't support. Keploy re-runs itself with `sudo -E` and your `PATH`, so `sudo -E env "PATH=$PATH" podman compose version` shows the provider it gets. Podman takes `PODMAN_COMPOSE_PROVIDER`, else the first of containers.conf's `compose_providers` it finds (by default Docker's compose plugin, then `docker-compose`, then `podman-compose` on that `PATH`).
+- With compose, the host doesn't run systemd, so Podman never runs the healthcheck of Keploy's agent service and the app's service, which waits for it, never starts.
+- The image is in your rootless Podman. Keploy runs as root and drives the rootful Podman, which has its own images.
+
+#### Solution:
+
+- Install or update Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh` (free with an account): Podman needs v3.8.60 or later.
+- Run Keploy on the Linux machine whose rootful Podman runs the app, with `CONTAINER_HOST` and `CONTAINER_CONNECTION` unset (or `CONTAINER_HOST` set to the rootful socket, `unix:///run/podman/podman.sock`, with the rootful `podman.socket` enabled) and without `remote = true` in containers.conf.
+- For compose, install Docker Compose (`docker-compose`) on that `PATH` and keep `podman-compose` out of containers.conf's `compose_providers`, or set `PODMAN_COMPOSE_PROVIDER` to docker-compose's path; and run it on a host with systemd, or use `podman run`.
+- Build or pull the image with `sudo podman`. See [Platform requirements](/docs/concepts/platform-requirements/#podman).
+
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!
