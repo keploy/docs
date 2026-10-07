@@ -69,7 +69,7 @@ url: "#running-testcases",
 
 <InstallationGuide/>
 
-## 🎬 Capturing Testcases {#capturing-testcases}
+## 🎬 Capturing Testcases 
 
 To initiate the recording of API calls, execute this command in your terminal:
 
