@@ -8,6 +8,7 @@ tags:
   - installation
 keywords:
   - linux
+  - podman
   - macos
   - windows
   - ebpf
@@ -222,6 +223,51 @@ Examples:
 
 Use "keploy [command] --help" for more information about a command.
 ```
+
+</TabItem>
+
+<TabItem value="podman-linux" label="Podman">
+
+## Install Keploy with Podman on Linux
+
+Keploy records and tests applications that run in **rootful** Podman, started with `podman run` (or `podman compose`, below). Its agent loads eBPF, which a rootless Podman can't grant, so Keploy runs as root and drives the rootful Podman. See [Platform requirements](/docs/concepts/platform-requirements/#podman) for the details.
+
+1. **Make sure Podman is installed** on the Linux machine that runs your app. A Podman set up as a podman-remote client isn't supported.
+
+2. **Install Keploy.** Podman needs v3.8.60 or later; re-run this to update an older Keploy.
+
+```bash
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
+```
+
+The installer may say Docker isn't found; with Podman, ignore it.
+
+3. **Build or pull your application's image with `sudo podman`**, since images in your rootless Podman aren't visible to Keploy, and create a network:
+
+```bash
+sudo podman build -t <applicationImage> .
+sudo podman network exists keploy-network || sudo podman network create keploy-network
+```
+
+4. **Record and test.** The first `keploy record` asks you to sign in (see [2. Log in to Keploy](#2-log-in-to-keploy) below).
+
+```bash
+keploy record -c "podman run --rm --name <containerName> --network keploy-network -p 8080:8080 <applicationImage>"
+```
+
+```bash
+keploy test -c "podman run --rm --name <containerName> --network keploy-network -p 8080:8080 <applicationImage>" --delay 10
+```
+
+**With compose:** `podman compose` (Podman 4.7 or later; Keploy is tested with Podman 5) works with Docker Compose v2 or later (`docker-compose`) as its compose provider, on a host that runs systemd, which Podman's healthchecks need. Name the application's container, as with Docker Compose:
+
+```bash
+keploy record -c "podman compose up" --container-name "<containerName>"
+```
+
+podman-compose isn't supported.
+
+If the rootful `podman.socket` is enabled (`sudo systemctl enable --now podman.socket`), Keploy uses it; otherwise it starts Podman's API service for the run and stops it when Keploy exits.
 
 </TabItem>
 </Tabs>
@@ -959,6 +1005,11 @@ You’ve successfully installed **Keploy on Linux**.
 You’ve successfully set up **Keploy on Linux** using **Docker**.
 
 <StartKeployDocker />
+
+</TabItem>
+<TabItem value="podman-linux" label="Podman">
+
+You’ve successfully set up **Keploy on Linux** using **Podman**. Record and test your app with the `keploy record -c "podman run ..."` and `keploy test -c "podman run ..."` commands above.
 
 </TabItem>
 </Tabs>

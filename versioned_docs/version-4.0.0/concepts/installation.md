@@ -112,6 +112,13 @@ keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --ne
 </details>
 
 <details>
+<summary>Install using Podman (Linux)</summary>
+
+Keploy also records and tests applications that run in rootful Podman on Linux, started with `podman run` or `podman compose`: see the **Podman** tab under Linux in [Installing Keploy](/docs/server/installation/).
+
+</details>
+
+<details>
 <summary>Install Manually</summary>
 
 **_Downloading the Keploy binary yourself_**
