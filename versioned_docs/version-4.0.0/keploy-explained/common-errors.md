@@ -240,6 +240,7 @@ The recording is missing those bytes, and the test cases or mocks that carried t
 
 - The app moved the bytes without copying them through its own memory: `sendfile(2)` (for example nginx `sendfile on`, Tomcat's default sendfile, or Go's `http.ServeFile`), `splice(2)` (for example Go's `io.Copy` between two connections), or io_uring registered buffers.
 - Less often: a `MSG_TRUNC` receive, which needs no change, or a page Keploy's hook could not read, logged as an error.
+- Keploy's hooks missed the app's TCP bytes, for example a `recvmmsg`, `sendmmsg` or io_uring call in progress when another eBPF tool started or stopped, on an x86-64 kernel older than 6.3 (see [Keep Keploy's hooks from missing TCP bytes](../running-keploy/capture-loss.md#unseen)), or a single send or receive moved more than 16 MiB (see [Split sends and receives of more than 16 MiB](../running-keploy/capture-loss.md#too-large)).
 
 #### Solution:
 
