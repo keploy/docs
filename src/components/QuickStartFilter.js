@@ -6,6 +6,8 @@ import {FaJava, FaLaptopCode, FaDocker, FaPython, FaCheck, FaArrowRight, FaArrow
 import {TbBrandCSharp} from "react-icons/tb";
 import {IoLogoJavascript} from "react-icons/io5";
 import {useColorMode} from "@docusaurus/theme-common";
+import {SiPerl} from "react-icons/si";
+
 
 export default function QuickstartFilter({defaultLanguage = null}) {
   const {colorMode} = useColorMode();
@@ -28,6 +30,7 @@ export default function QuickstartFilter({defaultLanguage = null}) {
     {name: "Java", icon: <FaJava size={24} />, color: "#007396"},
     {name: "JS/TS", icon: <IoLogoJavascript size={24} />, color: "#F7DF1E"},
     {name: "C#", icon: <TbBrandCSharp size={24} />, color: "#512BD4"},
+    {name: "Perl", icon: <SiPerl size={24} />, color: "#39457E"},
   ];
 
   const servers = [
