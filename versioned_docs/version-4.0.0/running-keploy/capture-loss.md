@@ -194,28 +194,31 @@ app's calls themselves complete normally. It happens in these cases:
   keep-alive connections are hit too. Any Keploy agent or sidecar starting
   or stopping on the same machine does this. On those kernels Keploy still
   records `send`, `recv`, `read`, `write` and similar calls when this
-  happens, but not `sendmmsg`, `recvmmsg`, io_uring, or the calls of a 32-bit
-  process. To fix it, do one of these:
+  happens, from 32-bit processes too; io_uring sends and receives wherever it
+  knows the kernel's io_uring (5.19 and later, and the current 5.10 and 5.15
+  long-term kernels); and `recvmmsg` replies over UDP. It marks (rather than
+  records) the bytes of a `sendmmsg`, a TCP `recvmmsg`, and the rarer calls it
+  cannot follow on an older kernel — io_uring on a kernel it does not know,
+  kernel AIO (`io_submit`) on 5.10. To fix it, do one of these:
   - Record on kernel 6.3 or later, where Keploy records every such call.
   - Don't start or stop eBPF tools on the machine while recording.
-  - Use plain send and receive calls instead of `sendmmsg`, `recvmmsg` or
-    io_uring, from a 64-bit build of the app.
+  - Use plain send and receive calls (or io_uring) instead of `sendmmsg`,
+    `recvmmsg` or kernel AIO.
 - **The app used a TCP zero-copy receive** (`getsockopt` with
   `TCP_ZEROCOPY_RECEIVE`). Use plain receives for the traffic Keploy records.
 - **A sockmap program moved the bytes.** Some service meshes and CNIs speed
   up connections between pods on one node with sockmap programs, which move
   bytes without the app's send and receive calls. Turn that acceleration off
   for the traffic Keploy records.
-- **Two threads sent, or received, on one connection at once.** Keploy can
-  then mark bytes it also recorded: the recording holds those bytes and a
-  lost marker for them. Send, and receive, on one connection from one thread
-  at a time.
 - **Rarely, on any kernel, Keploy missed a call on a busy CPU.** Keploy
   attaches two copies of each hook, and both missed the start of the call.
   Nothing in the app causes it.
 
-This covers plain TCP connections. On UDP and kTLS connections, the calls
-listed in the first case are not marked, and no warning is logged for them.
+This covers plain TCP connections. Keploy records DNS replies over UDP in
+every case above. On kTLS connections it records the calls of the first case,
+`recvmmsg` included, except kernel AIO calls and io_uring calls on kernels
+whose io_uring it does not know: those are not marked, and no warning is
+logged for them.
 
 If none of these applies and the warning recurs, report it with the agent's
 logs on [Slack](https://keploy.io/slack) or as a
