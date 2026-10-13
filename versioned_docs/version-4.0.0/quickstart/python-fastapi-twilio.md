@@ -35,7 +35,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -58,7 +58,7 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 ## Using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
@@ -273,11 +273,13 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -301,8 +303,10 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/fast
 ### Lights, Camera, Record! 🎥
 
 ```bash
-keploy record -c "uvicorn application.main:app --reload"
+keploy record -c "uvicorn main:app --reload"
 ```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its `uvicorn` here and in the test step, e.g. `keploy record -c ".venv/bin/uvicorn main:app --reload"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
@@ -464,7 +468,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "uvicorn application.main:app --reload" --delay 10
+keploy test -c "uvicorn main:app --reload" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

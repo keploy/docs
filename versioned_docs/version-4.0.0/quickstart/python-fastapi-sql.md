@@ -33,7 +33,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker Compose steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -56,7 +56,7 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 ## Using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with FastAPI and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
@@ -247,9 +247,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
+
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker Compose steps](#using-docker-compose-) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 

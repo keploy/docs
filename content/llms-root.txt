@@ -2,7 +2,7 @@ For comprehensive details, see: /docs/llms-full.txt
 
 
 ## About Keploy
-Keploy (founded 2021) is a CNCF Landscape project and open-source testing platform with a growing open-source community and widely used VS Code extension. It uses eBPF kernel hooks to capture real API traffic and replay it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests.
+Keploy (founded 2021) is a CNCF Landscape project and API testing platform with a growing open-source community and widely used VS Code extension. It captures real API traffic at the network layer (with eBPF on Linux, in user space on macOS and Windows) and replays it as auto-generated tests with dependency mocks and stubs — no code instrumentation required. Keploy handles non-deterministic data (timestamps, IDs) via time-freezing and AI noise detection, eliminating flaky tests. There is one product to install, `keploy`; recording and replaying need a free Keploy account, and your plan (Free, Teams, Scale or Enterprise) decides which additional features are available.
 
 ## Recognition & Awards
 - API World 2023 Award: Best in API Infrastructure
@@ -11,15 +11,17 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - Google Summer of Code Mentoring Organization
 
 ## Getting Started
-- [Installation](https://keploy.io/docs/server/installation/): Install Keploy on Linux, macOS, or Docker
+- [Installation](https://keploy.io/docs/server/installation/): Install Keploy natively on Linux, macOS (Apple Silicon) and Windows (x86-64), or with Docker
+- [macOS Installation](https://keploy.io/docs/installation/macos-installation/): Native on Apple Silicon; Intel Macs use Lima
+- [Windows Installation](https://keploy.io/docs/installation/windows-installation/): Native on x86-64 from PowerShell, no Administrator; Windows on ARM uses WSL
 - [Platform Requirements](https://keploy.io/docs/concepts/platform-requirements/): OS and kernel version requirements
 - [Quick Start](https://keploy.io/docs/quickstart/quickstart-filter/): Get up and running with your first test in minutes
 
 ## Core Concepts
-- [What is Keploy?](https://keploy.io/docs/concepts/what-is-keploy/): AI-powered testing agent with eBPF-based traffic capture
-- [How Keploy Works](https://keploy.io/docs/keploy-explained/how-keploy-works/): Architecture — eBPF hooks, network proxy, production behavior replay
+- [What is Keploy?](https://keploy.io/docs/concepts/what-is-keploy/): AI-powered testing agent with network-layer traffic capture
+- [How Keploy Works](https://keploy.io/docs/keploy-explained/how-keploy-works/): Architecture — network-layer interception (eBPF on Linux), network proxy, production behavior replay
 - [Keploy Features](https://keploy.io/docs/concepts/what-are-keploy-features/): Dependency virtualization, noise detection, CI/CD integration
-- [eBPF-Based Testing](https://keploy.io/docs/concepts/what-is-keploy-ebpf/): Kernel-level traffic capture without code instrumentation
+- [eBPF-Based Testing](https://keploy.io/docs/concepts/what-is-keploy-ebpf/): Kernel-level traffic capture on Linux without code instrumentation
 - [Why Keploy?](https://keploy.io/docs/keploy-explained/why-keploy/): Comparison with traditional testing approaches
 - [Supported Languages](https://keploy.io/docs/keploy-explained/supported-languages/): Unit-testing language support; Go supported, more languages coming soon
 
@@ -54,7 +56,7 @@ Keploy (founded 2021) is a CNCF Landscape project and open-source testing platfo
 - [Production Sandbox Testing](https://keploy.io/docs/concepts/what-is-keploy/): Production-like environments without staging infrastructure
 
 ## Keploy Cloud & Integrations
-- [Keploy Cloud](https://keploy.io/docs/keploy-cloud/cloud-installation/): Managed cloud platform for teams
+- [Enterprise plan](https://keploy.io/docs/keploy-cloud/cloud-installation/): Getting started on the Enterprise plan — install Keploy, sign in, and the plan's features
 - [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation
 - [PR Agent Integration](https://keploy.io/docs/keploy-explained/integrations-pr-agent/): Automated test suggestions on pull requests
 

@@ -71,13 +71,11 @@ Yes! Keploy is built to handle large, complex projects. Processing time may vary
 
 ### 10. Which method should I use to generate tests?
 
-- **PR Agent**: Best for automated test generation on GitHub pull requests.
-- **VS Code Extension**: Ideal for developers who prefer working in their IDE.
-- **CLI Tool**: For those who want more control or integrate into scripts.
+Use the [PR Agent](/docs/running-keploy/utg-pr-agent/), which generates unit tests on your GitHub pull requests.
 
 ### 11. Do I need an API key?
 
-Only for the CLI method. Other tools like PR Agent and VS Code Extension use their own secure auth flows.
+No. The PR Agent uses its own secure auth flow.
 
 ### 12. How does Keploy ensure the quality of generated tests?
 

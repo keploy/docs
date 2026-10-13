@@ -14,7 +14,7 @@ tags:
 
 > **Master the art of automated testing with proven strategies, expert insights, and advanced techniques for maximizing your testing ROI.**
 
-This comprehensive guide outlines battle-tested best practices for writing exceptional unit tests, leveraging automation effectively, and extracting maximum value from Keploy's Unit Test Generation ecosystem — including the PR Agent and VS Code extension.
+This comprehensive guide outlines battle-tested best practices for writing exceptional unit tests, leveraging automation effectively, and extracting maximum value from Keploy's Unit Test Generation ecosystem — including the PR Agent.
 
 ## **Foundational Unit Testing Principles**
 
@@ -209,49 +209,6 @@ Combine automated generation with manual expertise:
 - **Manual Enhancement**: Add business-specific test scenarios
 - **Domain Expert Review**: Have domain experts validate test logic
 - **Continuous Refinement**: Iteratively improve generated test quality
-
-## **VS Code Extension Power User Techniques**
-
-### **1. Real-Time Development Integration** ⚡
-
-Maximize productivity by generating tests during active development:
-
-- **Function-Level Testing**: Generate tests immediately after writing functions
-- **Refactoring Safety**: Create tests before refactoring existing code
-- **Bug Reproduction**: Generate tests to reproduce and fix reported bugs
-- **API Exploration**: Use generated tests to understand third-party APIs
-
-### **2. Advanced Configuration Management**
-
-Customize the VS Code extension for optimal team workflows:
-
-```json
-{
-  "keploy.utg.outputDirectory": "./tests",
-  "keploy.utg.testFramework": "jest",
-  "keploy.utg.mockingStrategy": "auto",
-  "keploy.utg.coverageTarget": "branches",
-  "keploy.utg.namingConvention": "descriptive"
-}
-```
-
-### **3. Incremental Test Development**
-
-Build comprehensive test suites incrementally:
-
-- **Start Small**: Begin with core utility functions
-- **Expand Gradually**: Add tests for more complex business logic
-- **Maintain Quality**: Regularly review and refactor generated tests
-- **Document Patterns**: Create team guidelines for test generation
-
-### **4. Integration with Development Workflow**
-
-Seamlessly blend test generation with existing development practices:
-
-- **Code Review Integration**: Generate tests before requesting code reviews
-- **Pair Programming**: Use generated tests as conversation starters
-- **Knowledge Sharing**: Use tests to document expected behavior
-- **Onboarding Tool**: Help new team members understand codebase behavior
 
 ## **Advanced Metrics & Monitoring**
 

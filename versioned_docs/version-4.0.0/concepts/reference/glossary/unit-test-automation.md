@@ -100,16 +100,15 @@ There are many unit testing tools available for a wide range of languages and en
 
 ### Keploy
 
-Keploy offers a one-click unit test generation tool that streamlines the testing process for developers. Instead of spending time writing test cases from scratch, you can generate them instantly, allowing you to focus on coding and delivering new features.
+Keploy's PR Agent generates unit tests for the code you change in a pull request. Instead of spending time writing test cases from scratch, you get them on the pull request itself, allowing you to focus on coding and delivering new features.
 
 **Benefits of Using Keploy:**
 
 - **Efficiency**: Quickly create unit tests to save time and effort.
 - **Enhanced Coverage**: Automatically generate tests for various scenarios, improving code reliability.
 - **Focus on Quality**: Spend more time writing high-quality code while ensuring thorough validation.
-  <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/glossary/keploy_VS.webp" alt="Keploy" width="816" height="1788" style={{maxWidth:'100%',height:'auto'}} />
 
-Get started by downloading the tool from the [VS Code Marketplace](https://marketplace.visualstudio.com/items?itemName=Keploy.keployio) and boost your development workflow today!
+Get started with the [PR Agent](/docs/running-keploy/utg-pr-agent/) and boost your development workflow today!
 
 ### pytest (Python)
 

@@ -2,7 +2,7 @@
 id: java
 title: Java Agent for Dynamic Deduplication
 sidebar_label: Java
-description: "Configure the Keploy Java agent for Enterprise dynamic deduplication with in-process JaCoCo coverage."
+description: "Configure the Keploy Java agent for dynamic deduplication with in-process JaCoCo coverage."
 tags:
   - java
   - coverage
@@ -35,7 +35,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The Keploy Java SDK is used as a Java agent for Enterprise dynamic deduplication during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy Enterprise so duplicate testcases can be identified.
+The Keploy Java SDK is used as a Java agent for dynamic deduplication (available on the Enterprise plan) during replay/test mode. It collects per-testcase Java coverage and sends it to Keploy so duplicate testcases can be identified.
 
 The Java agent does not record API traffic or mock dependencies. Record your Keploy tests separately, commit the generated test fixtures when you use them in CI, and run Java dedup during `keploy test --dedup`.
 
@@ -46,7 +46,7 @@ Because the SDK is a Java agent, it is framework-agnostic. It can be attached to
 - Java 8, 17, or 21
 - `io.keploy:keploy-sdk` `2.0.6` (or newer with Java-agent support)
 - JaCoCo runtime agent (tested with `0.8.12`)
-- Keploy Enterprise with dynamic deduplication enabled
+- Keploy, signed in to an account on the Enterprise plan, with dynamic deduplication enabled
 
 ## Copy the Keploy SDK and JaCoCo Agents
 

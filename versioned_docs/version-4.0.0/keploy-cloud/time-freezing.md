@@ -31,15 +31,21 @@ This allows developers to ensure time-sensitive objects don’t expire or change
 
 ## Usage 🛠️
 
-### Running on Linux or Windows(WSL) 🐧💻
+### Running natively on Linux (or WSL) 🐧
 
-For native Linux, Windows(WSL) environments, simply **add the `--freezeTime` flag** when running your tests, like so:
+When Keploy runs natively on Linux — including inside WSL on Windows — simply **add the `--freezeTime` flag** when running your tests, like so:
 
 ```bash
 keploy test -c "<appCmd>" --freezeTime
 ```
 
 Voila! Your tests will now run with time freezing enabled.
+
+### Running natively on macOS or Windows 🍎💻
+
+Time freezing isn't supported when Keploy runs natively on macOS or Windows (outside WSL): even with `--freezeTime`, the application runs on the real clock.
+
+To freeze time on these platforms, run your application with Docker as described in [Running on Docker](#running-on-docker-) below, or run Keploy on Linux: in [WSL](/docs/installation/windows-installation/#option-2-install-keploy-with-wsl) on Windows, or in a [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) VM on macOS.
 
 ### Running on Docker 🐳
 
@@ -96,10 +102,10 @@ RUN go build -tags=faketime <your_main_file>
 3. Only Add `faketime` tag to your build script during <u>**Test MODE**</u>
 
 4. Re-Build your Docker image.
-5. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
+5. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freeze-time
+keploy test -c "<appCmd>" --freezeTime
 ```
 
 Voila! Your tests will now run with time freezing enabled.
@@ -135,10 +141,10 @@ ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
 ```
 
 3. Re-Build your Docker image.
-4. Now **add the `--freeze-time` flag** when running your tests with Keploy, like so:
+4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
 
 ```bash
-keploy test -c "<appCmd>" --freeze-time
+keploy test -c "<appCmd>" --freezeTime
 ```
 
 Voila! Your tests will now run with time freezing enabled.

@@ -32,7 +32,7 @@
             },
             {
               "type": "doc",
-              "label": "Enterprise",
+              "label": "Enterprise Plan",
               "id": "keploy-cloud/cloud-installation"
             },
             {
@@ -51,6 +51,7 @@
         "running-keploy/mock-quickstart",
 
         "running-keploy/mock-your-tests",
+        "running-keploy/utg-vscode-extension",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
@@ -182,6 +183,7 @@
           "label": "Troubleshooting Guide",
           "id": "keploy-explained/common-errors"
         },
+        "running-keploy/capture-loss",
         {
           "type": "doc",
           "label": "FAQs",
@@ -233,6 +235,12 @@
     },
     {
       "type": "category",
+      "label": "UI Testing",
+      "collapsed": true,
+      "items": ["running-keploy/ui-capture"]
+    },
+    {
+      "type": "category",
       "label": "API Reference",
       "collapsed": false,
       "items": ["running-keploy/public-api", "running-keploy/k8s-proxy-api"]
@@ -248,7 +256,6 @@
           "label": "Integration",
           "items": [
             "running-keploy/utg-pr-agent",
-            "running-keploy/utg-vscode-extension",
             "keploy-explained/integrations-pr-agent"
           ]
         },

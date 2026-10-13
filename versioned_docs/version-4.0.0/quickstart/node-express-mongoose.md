@@ -29,7 +29,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -146,9 +146,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with Express and MongoDB. Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -163,7 +165,7 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 npm install
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
 If you are using WSL on windows then use below to start wsl in the user's home directory:
 
@@ -194,6 +196,8 @@ Ready, set, record! Here's how:
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
+
+`sudo -E env PATH=$PATH` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'node src/app.js'` here, and `keploy test` below, without it.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongoose-record-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 

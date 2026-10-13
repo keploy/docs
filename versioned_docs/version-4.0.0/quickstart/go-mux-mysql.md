@@ -32,7 +32,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -59,7 +59,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample url shortener app to test Keploy integration capabilities using Mux and MySQL.
 
@@ -88,7 +88,7 @@ Build the Docker image of our application:
 docker build -t url-short .
 ```
 
-Once we have our Docker image ready, this command will start recording API calls using eBPF:
+Once we have our Docker image ready, this command will start recording API calls:
 
 ```shell
 keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
@@ -157,11 +157,13 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+# Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySql.
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -188,11 +190,15 @@ export ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"
 go build -o main
 ```
 
+On Windows (PowerShell), set the variable with `$env:ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"`, build with `go build -o main.exe`, and use `.\main.exe` in place of `./main` below.
+
 ### Capture the Testcases
 
 ```zsh
 sudo -E PATH=$PATH keploy record -c "./main"
 ```
+
+`sudo -E PATH=$PATH` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record` here, and `keploy test` below, without it.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_record_docs.png" alt="Sample Keploy record header" width="100%" style={{ borderRadius: '5px' }} />
 

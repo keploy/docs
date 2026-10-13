@@ -2,7 +2,7 @@
 id: how-keploy-works
 title: How Keploy Works?
 sidebar_label: Architecture
-description: Keploy uses eBPF hooks in the Linux kernel to capture real user traffic in Record mode and replay it in production-like sandboxed environments in Test mode — enabling production behavior replay, dependency virtualization, and continuous validation with automatic regression detection.
+description: Keploy captures real user traffic at the network layer in Record mode (with eBPF on Linux, in user space on macOS and Windows) and replays it in production-like sandboxed environments in Test mode — enabling production behavior replay, dependency virtualization, and continuous validation with automatic regression detection.
 tags:
   - explanation
   - replay-test-case
@@ -20,7 +20,7 @@ keywords:
   - legacy application testing
 ---
 
-Keploy generates tests by using eBPF hooks in the Linux kernel to capture socket-level application traffic. In Record mode, it captures every incoming HTTP request and outgoing dependency call — database queries, API calls, message queue interactions — saving them as YAML test cases. In Test mode, it replays those requests in a sandboxed environment that closely mimics production, with all dependencies automatically virtualized and responses compared to detect regressions. This production behavior replay enables continuous validation, migration regression testing, and legacy application testing without code changes.
+Keploy generates tests by capturing application traffic at the socket level — with eBPF hooks in the kernel on Linux, and in user space on macOS and Windows. In Record mode, it captures every incoming HTTP request and outgoing dependency call — database queries, API calls, message queue interactions — saving them as YAML test cases. In Test mode, it replays those requests in a sandboxed environment that closely mimics production, with all dependencies automatically virtualized and responses compared to detect regressions. This production behavior replay enables continuous validation, migration regression testing, and legacy application testing without code changes.
 
 ## 🌟 Keploy V2 Architecture 🌟
 
@@ -34,7 +34,7 @@ Keploy generates tests by using eBPF hooks in the Linux kernel to capture socket
 
 ## 🏗 High-level architecture
 
-Keploy uses eBPF to instrument applications without code changes. Key components include:
+Keploy instruments applications without code changes. On Linux it does this with eBPF; macOS and Windows have no eBPF, so there Keploy hooks the application in user space instead, and the proxy and API server below work the same way. Key components include:
 
 - **eBPF hooks loader**
 - **Network Proxy**
@@ -44,7 +44,7 @@ Keploy uses eBPF to instrument applications without code changes. Key components
 
 ### 🪝 eBPF hooks loader
 
-The eBPF hooks loader handles the Ingress and Egress Interceptor logic.
+The eBPF hooks loader handles the Ingress and Egress Interceptor logic on Linux. On macOS and Windows, Keploy's user-space hooks fill the same role.
 
 - **Ingress Interceptor:** Captures incoming HTTP calls and stores them in YAML format. It intercepts system calls related to incoming HTTP request connections.
 - **Egress Interceptor:** Forwards TCP and certain UDP connections to the proxy for interception. Applications are unaware of this transparent process.
@@ -65,7 +65,7 @@ The API server manages commands for start/stop and resource management (e.g., te
 
 Consider an application server serving HTTP APIs for clients like web/mobile apps, postman, or curl, and depending on a database and another API.
 
-- **Record Mode:** Keploy injects eBPF hooks to capture incoming HTTP traffic and redirects outgoing TCP/UDP traffic to its proxy server. The proxy server captures packets asynchronously and saves them in YAML files.
+- **Record Mode:** Keploy hooks the application (with eBPF on Linux, in user space on macOS and Windows) to capture incoming HTTP traffic and redirect outgoing traffic to its proxy server. The proxy server captures packets asynchronously and saves them in YAML files.
 - **Test Mode:** Keploy reads the YAML files for test cases and stubs/mocks. It starts the application, sends recorded HTTP test cases, and mocks responses for outgoing calls. This ensures no side effects due to non-idempotency.
 
 Hope this helps you out, if you still have any questions, reach out to us .

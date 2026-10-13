@@ -190,6 +190,7 @@ The Keploy Proxy supports two ways to capture traffic from your application Pods
 | What happens on `Start Recording`         | The proxy injects the agent and rolls the application Deployment.                                                                                                 | The proxy creates a `RecordingSession` Custom Resource. The DaemonSet picks it up and programs its BPF target maps to capture matching Pods on each node.                                                                     |
 | Pod mutation on the application namespace | Required (`patch` on Deployments).                                                                                                                                | **Not required.** Application Pods are never modified.                                                                                                                                                                        |
 | Application restart at recording start    | Yes, on first recording.                                                                                                                                          | No.                                                                                                                                                                                                                           |
+| Node kernel                               | Linux 5.10 or later. Low-latency mode needs 6.4 or later on arm64.                                                                                                | Linux 5.10 or later on x86-64, 6.4 or later on arm64.                                                                                                                                                                         |
 | Best for                                  | Dev/staging, teams happy to grant write RBAC to Keploy on the application namespace.                                                                              | Production with read-only RBAC on the application namespace; environments where rolling the application Pod has unacceptable cost; or when you want cluster-mode auto-replay (replay runs in a separate cluster you provide). |
 
 The screenshots below show the **Sidecar** flow because that is the default. To use **DaemonSet** mode instead, set the daemonset values when you run the Helm command in step 4 below—every other step is identical.
@@ -243,6 +244,8 @@ If you want to use **DaemonSet mode** instead of the default Sidecar mode, appen
   --set daemonset.enabled=true \
   --set daemonset.crds.install=true
 ```
+
+The DaemonSet's eBPF capture needs a node kernel of 5.10 or later on x86-64, and 6.4 or later on arm64. On arm64 nodes with an older kernel, use Sidecar mode without low-latency mode.
 
 After install you should see a per-node `k8s-proxy-daemonset-*` Pod alongside the regular proxy Deployment:
 

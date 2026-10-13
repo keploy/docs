@@ -7,7 +7,7 @@ description: Discover how to execute Keploy’s AI-generated API test suites—l
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Once you’ve finished curating a suite , it’s time to hit **Run** and see how your API behaves against the latest contract.
 

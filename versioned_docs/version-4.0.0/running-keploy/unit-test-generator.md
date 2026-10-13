@@ -21,7 +21,7 @@ keywords:
 
 Keploy's Unit Test Generator (UTG) simplifies testing by generating high-quality, maintainable unit tests with minimal manual effort. Inspired by Meta’s LLM research, it uses code semantics and Large Language Models (LLMs) to produce meaningful test cases.
 
-To fit into modern development workflows, Keploy now supports multiple methods for unit test generation - ranging from automated pull request comments to a one-click VS Code extension
+To fit into modern development workflows, Keploy generates unit tests on your pull requests.
 
 Keploy's UTG aims to:
 
@@ -29,14 +29,11 @@ Keploy's UTG aims to:
 - **Improve edge case coverage:** Catch complex scenarios often missed manually.
 - **Boost test coverage:** Make comprehensive coverage achievable as your codebase grows.
 
-### Try the Unit Test Generator in two ways:
+### Try the Unit Test Generator
 
-1. **PR Agent**: Install a GitHub App on your repo to automatically generate tests when you create a pull request.
-
-2. **VS Code Extension**: Generate test files with a single click directly from your IDE.
+Install the [PR Agent](/docs/running-keploy/utg-pr-agent/), a GitHub App, on your repository to automatically generate tests when you create a pull request.
 
 ## Related
 
 - [Unit Test Architecture](/docs/running-keploy/unit-test-architecture/) — how the generator is structured.
 - [Keploy's PR Agent](/docs/running-keploy/utg-pr-agent/) — generate unit tests on pull requests.
-- [Keploy's VS Code Extension](/docs/running-keploy/utg-vscode-extension/) — generate unit tests in your editor.

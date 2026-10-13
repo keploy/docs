@@ -25,7 +25,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -46,11 +46,13 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 ]}
 />
 
-## Running Natively on Linux/WSL
+## Running Natively {#running-natively-on-linuxwsl}
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -82,7 +84,7 @@ Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
 4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env
 
-We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
+We're about to set up our sample application right on your machine, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
 
 Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 
@@ -99,6 +101,8 @@ sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
 `keploy record`: Invokes Keploy in recording mode.
 
 `-c 'ts-node src/app.ts`': Specifies the command to start your application (in this case, using ts-node to execute the TypeScript application entry point).
+
+`sudo -E env "PATH=$PATH"` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'ts-node src/app.ts'` here, and `keploy test` below, without it.
 
 ### Generating the test cases
 
@@ -227,7 +231,7 @@ Now its time for you to experiment further with different API calls and tweak th
 
 ## Running the app using Docker
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 

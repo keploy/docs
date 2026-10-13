@@ -31,7 +31,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -68,6 +68,8 @@ Ways you can run this sample application.
 
 ## Installation Setup
 
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
+
 #### Server
 
 ```bash
@@ -80,7 +82,7 @@ go mod download
 Using the docker-compose file we will start our mongodb instance:-
 
 ```bash
-# Start Postgres
+# Start MongoDB
 docker-compose up mongo
 ```
 
@@ -97,8 +99,10 @@ Once we have our applicaiton binary ready, we will start the application with ke
 ## Capture the test cases
 
 ```bash
-sudo -E keploy record "./sse-mongo"
+sudo -E keploy record -c "./sse-mongo"
 ```
+
+`sudo -E` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c "./sse-mongo"` without it (on Windows, use `.\sse-mongo.exe` in place of `./sse-mongo`, here and in `keploy test` below).
 
 ### Start the UI
 

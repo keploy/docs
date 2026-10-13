@@ -31,7 +31,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker steps, since natively there Keploy captures Redis calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -271,6 +271,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
+
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#using-docker-compose-) instead — natively there, Keploy captures Redis calls only as raw bytes, which usually don't replay.
 
 <EnterpriseInstallReminder />
 

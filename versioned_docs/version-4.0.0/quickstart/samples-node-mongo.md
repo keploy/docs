@@ -34,7 +34,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -59,12 +59,14 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅.
 
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
+
 ## Get Started! 🎬
 
-Clone the repository and move to crud-API folder
+Clone the repository and move to express-mongodb folder
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/crud-API
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongodb
 
 # Install the dependencies
 npm install
@@ -83,6 +85,8 @@ To begin recording your application's API calls, open your terminal and navigate
 ```bash
 keploy record -c "npm start"
 ```
+
+On macOS, Keploy is dropped by the `npm start` launcher — run the app's entry point directly instead, here and in `keploy test` below: `keploy record -c "node server.js"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Make API Calls using Hoppscotch, Postman or curl command. Keploy will capture those calls to generate the test-suites containing testcases and data mocks.
 
@@ -219,7 +223,7 @@ curl: |
 Want to see it in action? Run the following command to execute your Keploy tests
 
 ```bash
-keploy test -c "npm run" --delay 10
+keploy test -c "npm start" --delay 10
 ```
 
 Great job following along 🥳! Now, let's dive deeper and explore how to do Keploy integration with jest test 📌

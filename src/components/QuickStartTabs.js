@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 import {
@@ -47,8 +47,8 @@ export const QuickStartTabs = () => {
         primary: true,
       },
     },
-    oss: {
-      id: "oss",
+    record: {
+      id: "record",
       label: "Record/Replay Quickstart",
       time: "10 min",
       icon: FaVideo,
@@ -72,13 +72,12 @@ export const QuickStartTabs = () => {
         },
       ],
       cta: {
-        label: "Start OSS Quickstart",
+        label: "Start Record/Replay Quickstart",
         link: "/docs/quickstart/quickstart-filter/",
         primary: false,
       },
     },
   };
-
 
   return (
     <section className="mb-12">
@@ -145,7 +144,7 @@ export const QuickStartTabs = () => {
               {/* Steps */}
               <div className="mb-6 space-y-3">
                 {tab.steps.map((step, index) => {
-                return (
+                  return (
                     <div key={index} className="flex items-start gap-3">
                       <div className="flex h-6 w-6 flex-shrink-0 items-center justify-center">
                         <span
@@ -173,7 +172,11 @@ export const QuickStartTabs = () => {
 
               {/* CTA Button */}
               <Link
-                to={tab.cta.link.startsWith("http") ? tab.cta.link : useBaseUrl(tab.cta.link)}
+                to={
+                  tab.cta.link.startsWith("http")
+                    ? tab.cta.link
+                    : useBaseUrl(tab.cta.link)
+                }
                 onClick={(e) => e.stopPropagation()}
                 className={`inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-all duration-200 hover:no-underline ${
                   tab.id === "ai"
@@ -203,4 +206,3 @@ export const QuickStartTabs = () => {
 };
 
 export default QuickStartTabs;
-

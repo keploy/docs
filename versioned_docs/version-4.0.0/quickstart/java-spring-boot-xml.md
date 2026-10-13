@@ -35,7 +35,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
 },
 {
 name: "Clone the sample app",
@@ -58,7 +58,7 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Explore creating REST APIs with XML responses using Spring-Boot. Discover the ease of integrating XML serialization through JAXB. Let's dive right in!
 
@@ -73,6 +73,8 @@ import InstallReminder from '@site/src/components/InstallReminder';
 - Install Docker (optional)
 
 ## Get Started! 🎬
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 ### Clone and Build the Application
 
@@ -95,6 +97,8 @@ mvn spring-boot:run
 ```bash
 keploy record -c "java -jar target/XML-0.0.1-SNAPSHOT.jar"
 ```
+
+On macOS, use your JDK's own `java` rather than Apple's `/usr/bin/java`, which records nothing — here and in `keploy test` below: `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/XML-0.0.1-SNAPSHOT.jar"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Then, invoke the API using `curl` or your favorite API testing tool.
 

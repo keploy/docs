@@ -25,7 +25,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM (Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps).",
 },
 {
 name: "Clone the sample app",
@@ -65,6 +65,8 @@ git clone https://github.com/keploy/samples-rust && cd samples-rust/CRUD-rust-mo
 ```
 
 ## Running App Locally on Linux/WSL 🐧
+
+On macOS, run these steps inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 We will be using Docker compose to run Mongo on Docker container.
 

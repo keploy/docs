@@ -6,7 +6,6 @@ description: Drop schema-identical live traffic at record time so only distinct 
 tags:
   - deduplication
   - recording
-  - enterprise
   - schema
   - live recording
 keywords:
@@ -15,7 +14,6 @@ keywords:
   - schema deduplication
   - custom dedup fields
   - recording dedup
-  - keploy enterprise
   - dedup stats
   - openapi enum
   - schema enum generation
@@ -54,12 +52,12 @@ The first occurrence of a signature is recorded. Every later occurrence is silen
 
 Enable static dedup when you start a recording. Pick the flow that matches how you run Keploy.
 
-### Keploy enterprise CLI
+### Keploy CLI
 
 Add `--static-dedup` to `keploy record`:
 
 ```bash
-keploy enterprise record -c "docker compose up" --containerName orders-api --static-dedup
+keploy record -c "docker compose up" --containerName orders-api --static-dedup
 ```
 
 The agent reports it is active in the startup logs and begins filtering on the first captured request.
@@ -134,7 +132,7 @@ Field-path rules:
 You can also pass the same JSON via the CLI:
 
 ```bash
-keploy enterprise record --static-dedup \
+keploy record --static-dedup \
   --custom-dedup-fields='[{"method":"GET","path":"/products/{id}","statusCode":200,"fields":["response.product_id"]}]' \
   -c "docker compose up"
 ```

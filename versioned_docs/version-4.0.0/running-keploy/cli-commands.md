@@ -13,7 +13,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 ### Usage
 
@@ -71,6 +71,8 @@ In the above command, `config-dir` is the directory in the CWD where the Keploy 
 ```bash
 keploy record -c "docker compose up" --container-name "my-app-container"
 ```
+
+> **Podman:** on Linux, with the Keploy that `install.sh` installs (v3.8.60 or later), an application started in rootful Podman with `podman run` or `podman compose` works the same way: `keploy record -c "podman compose up" --container-name "my-app-container"`. See [Platform requirements](/docs/concepts/platform-requirements/#podman) for what `podman compose` needs.
 
 - `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
 

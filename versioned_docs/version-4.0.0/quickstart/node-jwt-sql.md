@@ -29,7 +29,7 @@ visible={false}
 steps={[
 {
 name: "Install Keploy",
-text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh.",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker Compose steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
 },
 {
 name: "Clone the sample app",
@@ -57,9 +57,11 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ## Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
+
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker Compose steps](#using-docker-compose-) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 
@@ -195,7 +197,7 @@ User Content
 ## Running the testcases
 
 ```bash
-sudo -E env PATH=$PATH keploy test -c 'npm run app.js' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'node app.js' --delay 10
 ```
 
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
@@ -222,7 +224,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. To try out the time-freezing feature, you can use Keploy Enterprise.
+But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
 
 ### Wrapping it up 🎉
 
@@ -234,7 +236,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A simple sample CRUD application to test using Keploy build with Node, JWT and Postgres. Buckle up, it's gonna be a fun ride! 🎢
 
@@ -364,7 +366,7 @@ User Content
 ## Running the testcases
 
 ```bash
-keploy test -c 'sudo docker compose up'  --container-name "jwtSqlApp" --delay 10
+keploy test -c 'docker compose up' --container-name "jwtSqlApp" --delay 10
 ```
 
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
@@ -390,7 +392,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. To try out the time-freezing feature, you can use Keploy Enterprise.
+But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
 
 ### Wrapping it up 🎉
 

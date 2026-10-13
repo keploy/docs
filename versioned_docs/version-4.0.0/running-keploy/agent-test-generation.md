@@ -2,7 +2,7 @@
 id: agent-test-generation
 title: Agent-Based API Test Generation
 sidebar_label: AI Agent Testing
-description: Generate API tests using AI coding agents like Claude Code, Cursor, and Antigravity with Keploy Enterprise
+description: Generate API tests using AI coding agents like Claude Code, Cursor, and Antigravity with Keploy
 tags:
   - AI Agent
   - Test Generation
@@ -15,7 +15,6 @@ keywords:
   - Claude Code
   - Cursor
   - Antigravity
-  - Keploy Enterprise
   - API testing
   - coverage feedback loop
 ---
@@ -26,12 +25,12 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ## Overview
 
-Keploy Enterprise supports agent-based test generation, allowing AI coding assistants (Claude Code, Cursor, Antigravity, GitHub Copilot) to generate and iterate on API tests directly in your IDE.
+Keploy supports agent-based test generation (available on the Enterprise plan), allowing AI coding assistants (Claude Code, Cursor, Antigravity, GitHub Copilot) to generate and iterate on API tests directly in your IDE.
 
 Instead of switching to a separate web UI, the agent:
 
 1. **Generates test YAML** using the Keploy test format
-2. **Runs tests** via Keploy Enterprise with structured JSON output
+2. **Runs tests** via the `keploy` CLI with structured JSON output
 3. **Reads coverage gaps** from the output and generates targeted tests
 4. **Syncs results** to the Keploy platform for team-wide visibility
 
@@ -39,7 +38,7 @@ The Keploy platform automatically builds and refines the API schema over time fr
 
 ## Prerequisites
 
-- Keploy Enterprise installed ([installation guide](/docs/keploy-cloud/cloud-installation/))
+- Keploy installed ([installation guide](/docs/server/installation/)) and a Keploy account on the Enterprise plan
 - A running API server to test against
 - An OpenAPI spec (optional; the platform generates schema coverage over time)
 

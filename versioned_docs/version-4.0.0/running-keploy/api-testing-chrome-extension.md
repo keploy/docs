@@ -7,7 +7,7 @@ description: Learn how to install, record, export, and auto-generate Keploy test
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
  <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/api-test-chrome-extension.png" alt="Keploy Record Test case" width="100%" />
 
