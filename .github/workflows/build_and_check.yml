@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # Full history, so the preview's last-update dates and sitemap
+          # <lastmod> match what production will ship.
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v5

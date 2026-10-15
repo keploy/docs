@@ -1,0 +1,5 @@
+# Commits that change doc bodies without changing what they say (a mass
+# find-and-replace, a link or formatting rewrite). Doc last-update dates and
+# the sitemap <lastmod> skip them. Front-matter-only and whitespace-only
+# changes are already skipped automatically, so they do not need listing.
+# One full commit hash per line; see src/lastUpdate/contentLastUpdate.js.
