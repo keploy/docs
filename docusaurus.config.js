@@ -8,6 +8,7 @@ const fs = require("fs");
 const remarkImageSize = require("./src/remark/remarkImageSize");
 import {visit} from "unist-util-visit";
 const FontPreloadPlugin = require("webpack-font-preload-plugin");
+const {withContentLastUpdate} = require("./src/lastUpdate/contentLastUpdate");
 
 // Single source of truth for the "current" docs version. Update this one
 // value when cutting a new docs version -- it drives both the versioning
@@ -170,6 +171,17 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
   trailingSlash: true,
+  markdown: {
+    // Date each doc by the last commit that changed its content, not the last
+    // commit that touched the file (version cuts, front-matter sweeps). Feeds
+    // the "Last updated" line, TechArticle dateModified and sitemap <lastmod>.
+    // See src/lastUpdate/contentLastUpdate.js.
+    parseFrontMatter: async (params) =>
+      withContentLastUpdate(
+        params.filePath,
+        await params.defaultParseFrontMatter(params)
+      ),
+  },
   favicon: "img/favicon.png",
   organizationName: "keploy", // Usually your GitHub org/user name.
   projectName: "docs", // Usually your repo name.
@@ -509,6 +521,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           //cacheTime: 600 * 1000, // 600 sec - cache purge period
           changefreq: "weekly",
           priority: 0.5,
+          // <lastmod> from each doc's last content change (date only, which
+          // is all the precision Google uses). Only accurate with full git
+          // history: CI checks out with fetch-depth: 0.
+          lastmod: "date",
           filename: "sitemap.xml",
           // Differentiate docs sitemap priorities by content type so
           // search engines spend crawl budget proportional to how
