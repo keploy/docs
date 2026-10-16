@@ -2,7 +2,7 @@
 id: mock-your-tests
 title: Mock Your Own Tests (pytest, go test, jest)
 sidebar_label: Mock Your Tests
-description: Use Keploy as a language-agnostic mocking framework for your existing test suite — record the real dependency calls your tests make, then replay them so the suite runs without the real dependencies.
+description: Use Keploy as a language-agnostic mocking and service virtualization tool for your existing test suite — record the real dependency calls your tests make, then replay them so the suite runs without the real dependencies.
 tags:
   - mocks
   - mocking
@@ -15,6 +15,7 @@ keywords:
   - mock replay
   - vcr
   - dependency mocking
+  - service virtualization
 ---
 
 # Mock Your Own Tests
@@ -23,6 +24,7 @@ keywords:
 suite** — pytest, `go test`, jest/playwright, or any command that makes network
 calls. It is a language-agnostic VCR / WireMock that works at the network layer,
 so your test code needs **no SDK and no changes**.
+The recorded mocks act as virtual services for your dependencies, which makes this a lightweight form of [service virtualization](https://keploy.io/blog/community/service-virtualization).
 
 - `keploy mock record -c "<your test command>"` runs your tests and captures the
   real outgoing dependency calls (HTTP, MySQL, …) into a named **mock set**.
