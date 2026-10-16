@@ -2,7 +2,7 @@
 id: what-is-keploy
 title: What is Keploy?
 sidebar_label: Introduction to Keploy
-description: Keploy is an AI-powered testing agent and sandboxing platform that captures real user traffic at the network layer to automatically generate test cases, dependency mocks, and production-like sandboxes — requiring zero code changes. It keeps testing aligned with AI-driven code velocity.
+description: Keploy is an AI-powered testing agent and sandboxing platform that captures real user traffic at the network layer to automatically generate test cases, dependency mocks (service virtualization), and production-like sandboxes — requiring zero code changes. It keeps testing aligned with AI-driven code velocity.
 tags:
   - explanation
   - introduction
@@ -12,6 +12,7 @@ keywords:
   - API test generation
   - eBPF-based testing
   - dependency virtualization
+  - service virtualization
   - production sandbox
   - legacy application testing
   - migration regression testing
@@ -30,7 +31,7 @@ keywords:
   - AI Generated Tests
 ---
 
-Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic. It records live API calls at the socket level — with eBPF in the kernel on Linux, and in user space on macOS and Windows — and replays them as deterministic tests, requiring zero code changes and scaling test coverage with AI-driven code velocity. On Linux, and with Docker, it works with any programming language or framework; natively on macOS and Windows it covers Go, Node.js, Python and Java apps — see [Installing Keploy](/docs/server/installation/) for what each platform supports. Keploy enables production behavior replay, dependency virtualization for databases and external APIs, legacy application testing without code changes, and migration regression testing against production baselines.
+Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and [production-like sandboxes](https://keploy.io/blog/community/sandbox-testing) from real user traffic. It records live API calls at the socket level — with eBPF in the kernel on Linux, and in user space on macOS and Windows — and replays them as deterministic tests, requiring zero code changes and scaling test coverage with AI-driven code velocity. On Linux, and with Docker, it works with any programming language or framework; natively on macOS and Windows it covers Go, Node.js, Python and Java apps — see [Installing Keploy](/docs/server/installation/) for what each platform supports. Keploy enables production behavior replay, dependency virtualization ([service virtualization](https://keploy.io/blog/community/service-virtualization)) for databases and external APIs, legacy application testing without code changes, and migration regression testing against production baselines.
 
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.

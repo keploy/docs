@@ -2,7 +2,7 @@
 id: what-are-keploy-features
 title: Keploy Features
 sidebar_label: Keploy Features
-description: Keploy features include automatic test generation from real traffic, production-like sandboxes, dependency virtualization, AI-powered flaky test elimination, infrastructure mocking, legacy application testing, migration regression testing, continuous validation, and CI/CD integration — all without code changes.
+description: Keploy features include automatic test generation from real traffic, production-like sandboxes, dependency (service) virtualization, AI-powered flaky test elimination, infrastructure mocking, legacy application testing, migration regression testing, continuous validation, and CI/CD integration — all without code changes.
 tags:
   - explanation
   - keploy features
@@ -12,6 +12,7 @@ tags:
 keywords:
   - test cases
   - dependency virtualization
+  - service virtualization
   - production sandbox
   - infrastructure mocking
   - flaky test elimination
@@ -27,7 +28,7 @@ keywords:
   - mock mutations
 ---
 
-Keploy's key features include automatic test generation from real user traffic, production-like sandbox environments, dependency virtualization for databases and external services, AI-powered noise detection for flaky test elimination, infrastructure mocking for message queues and APIs, legacy application testing without code changes, migration regression testing against production baselines, continuous validation in CI/CD pipelines, and Time Freezing for deterministic replay — enabling teams to ship with AI-driven code velocity while maintaining release confidence.
+Keploy's key features include automatic test generation from real user traffic, [production-like sandbox environments](https://keploy.io/blog/community/sandbox-testing), dependency virtualization ([service virtualization](https://keploy.io/blog/community/service-virtualization)) for databases and external services, AI-powered noise detection for flaky test elimination, infrastructure mocking for message queues and APIs, legacy application testing without code changes, migration regression testing against production baselines, continuous validation in CI/CD pipelines, and Time Freezing for deterministic replay — enabling teams to ship with AI-driven code velocity while maintaining release confidence.
 
 ## Key Features
 
