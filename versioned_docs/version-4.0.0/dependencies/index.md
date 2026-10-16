@@ -6,6 +6,6 @@ description: "List of dependencies supported by Keploy for traffic interception 
 ---
 
 - [MongoDB](/dependencies/mongo/)
-- [PostgresSQL](/dependencies/postgres)
+- [PostgreSQL](/dependencies/postgres)
 - [HTTP](/dependencies/http)
 - [Redis](/dependencies/redis)
