@@ -13,8 +13,9 @@
 //
 // What counts as a content change: the Markdown body differs after removing
 //   - the front matter;
-//   - SEO boilerplate added by sitewide sweeps: `## Related...` link footers
-//     and hidden `<HowTo />` JSON-LD blocks with their import;
+//   - SEO boilerplate added by sitewide sweeps: the link list under a
+//     `## Related` / `## Related Terms` heading (not what follows it), and
+//     `<HowTo />` JSON-LD blocks marked `visible={false}`, with the import;
 //   - whitespace that does not change rendering: CRLF, trailing spaces, extra
 //     blank lines. Indentation and single blank lines are kept, because in
 //     Markdown they decide list nesting, code blocks and paragraphs.
@@ -110,12 +111,15 @@ function contentOf(source) {
   return (
     source
       .replace(/\r\n?/g, "\n")
+      .replace(/[ \t]+$/gm, "")
       .replace(/^\uFEFF?---\n[\s\S]*?\n---(\n|$)/, "")
       .replace(/^import HowTo from .*$/gm, "")
-      .replace(/^<HowTo\b[\s\S]*?^\/>$/gm, "")
-      // A `## Related...` section runs to the next h1/h2 or the end.
-      .replace(/^## Related\b.*$[\s\S]*?(?=^#{1,2} |(?![\s\S]))/gm, "")
-      .replace(/[ \t]+$/gm, "")
+      // HowTo renders its steps by default; only hidden ones are boilerplate.
+      .replace(/^<HowTo\b[\s\S]*?^\/>$/gm, (block) =>
+        /visible=\{false\}/.test(block) ? "" : block
+      )
+      // Only the heading and the link list under it; anything after counts.
+      .replace(/^## Related(?: Terms)?\n(?:\n|[ \t]*[-*] .*\n?)*/gm, "")
       .replace(/\n{3,}/g, "\n\n")
       .trim()
   );
