@@ -48,7 +48,8 @@ const [topDate, topCount] = Object.entries(counts).sort(
 if (topCount / dates.length > MAX_SHARE_OF_ONE_DATE) {
   fail(
     `${topCount} of ${dates.length} URLs share <lastmod> ${topDate}; ` +
-      "a sitewide sweep may need an entry in .lastmod-ignore-revs"
+      "list a sweep in .lastmod-ignore-revs, or raise " +
+      "MAX_SHARE_OF_ONE_DATE if the change is real"
   );
 }
 
