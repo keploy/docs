@@ -115,8 +115,12 @@ function contentOf(source) {
       .replace(/^\uFEFF?---\n[\s\S]*?\n---(\n|$)/, "")
       .replace(/^import HowTo from .*$/gm, "")
       // HowTo renders its steps by default; only hidden ones are boilerplate.
+      // A span that crosses into a second block (a one-line HowTo has no bare
+      // `/>` line) is kept as content, the safe direction.
       .replace(/^<HowTo\b[\s\S]*?^\/>$/gm, (block) =>
-        /visible=\{false\}/.test(block) ? "" : block
+        /visible=\{false\}/.test(block) && block.match(/<HowTo\b/g).length === 1
+          ? ""
+          : block
       )
       // Only the heading and the link list under it; anything after counts.
       .replace(/^## Related(?: Terms)?\n(?:\n|[ \t]*[-*] .*\n?)*/gm, "")
