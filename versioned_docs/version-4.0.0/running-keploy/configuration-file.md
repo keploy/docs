@@ -251,7 +251,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
             "api.keploy.dev": "staging.internal:8080"
   ```
 
-  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target.
+  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target: when several keys match, it applies the longest one.
 
 - **`host`**: Custom host to replace the recorded host during replay. The default is `localhost`. Keploy applies `host` only when no `replaceWith` rule matched.
 
@@ -267,14 +267,15 @@ When Keploy replays a testcase, it resolves the final target in this order:
 
 1. If `test.basePath` is set for an HTTP testcase, Keploy rewrites the recorded URL to that base URL first.
 2. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule.
-3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement.
+3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement. When several keys match, it applies the longest one.
 4. If the replacement value already contains an explicit port, that port becomes final and later host or port overrides are skipped.
 5. If no `replaceWith` rule matched, `test.host` replaces the host.
 6. Keploy then uses the recorded `app_port` from the testcase when present.
-7. Finally, `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
-8. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
+7. Then `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
+8. In Docker and Docker Compose, when the host is this machine (the default `localhost`), if the port is still the testcase's `app_port` and nothing above chose it, Keploy checks where the agent container publishes that port. If the app's port is published on exactly one other host port that the host reaches, and host port `app_port` itself does not lead to it, Keploy sends the testcase to that host port instead. For example, with `18080:8080` in the compose file, a test recorded on `8080` goes to `18080`. Keploy reads the publishes from the running agent container at replay time and logs the redirect once: `app port 8080 is published on host port 18080; sending these tests there`. A port you set yourself (`test.port`, `test.grpcPort`, a protocol port, a matching `replaceWith` key that names a port, a `replaceWith` port mapping, or `test.basePath`) is never moved.
+9. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
 
-> **Note:** Do not rely on the order of multiple matching `replaceWith` rules. Keploy stores these rules in a map and stops at the first matching key it encounters. Use non-overlapping match keys whenever possible.
+> **Note:** When several `replaceWith` keys match a testcase, Keploy applies the longest one on every run. Scope does not decide this: a longer global key wins over a shorter test-set key. If two matching keys have the same length, the one that sorts first wins.
 
 - **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
 
