@@ -26,11 +26,14 @@
 // docusaurus.config.js), which Docusaurus already prefers over git. A
 // `last_update.date` written by hand in a doc always wins.
 //
+// Limitation: a page that imports a shared partial does not move its date
+// when only the partial changes (same as stock Docusaurus).
+//
 // Safety: this never throws. When it cannot answer (dev server, no git, a
 // shallow clone, a file git does not track) it returns null and Docusaurus
 // falls back to its own behaviour.
 
-const {execFile} = require("child_process");
+const {execFile, spawnSync} = require("child_process");
 const fs = require("fs");
 const path = require("path");
 
@@ -78,11 +81,15 @@ function memoize(fn) {
 
 function readIgnoreRevs() {
   try {
-    return fs
-      .readFileSync(IGNORE_REVS_FILE, "utf8")
-      .split("\n")
-      .map((line) => line.replace(/#.*/, "").trim())
-      .filter(Boolean);
+    return (
+      fs
+        .readFileSync(IGNORE_REVS_FILE, "utf8")
+        .split("\n")
+        .map((line) => line.replace(/#.*/, "").trim())
+        // Short prefixes would match most of history; require 7+ hex chars.
+        .filter((rev) => /^[0-9a-f]{7,40}$/i.test(rev))
+        .map((rev) => rev.toLowerCase())
+    );
   } catch {
     return [];
   }
@@ -148,7 +155,8 @@ async function lastContentChange(file, rev) {
       // The file was created here. If it is a copy or rename, keep walking
       // through the original, unless the content changed on the way over.
       const source = (await copySources(hash)).get(file);
-      if (!source) return ignored ? null : change;
+      // Creating a file is always a content change, even in an ignored commit.
+      if (!source) return change;
       const sourceContent = await readContent(`${hash}^`, source);
       if (!ignored && sourceContent !== after) return change;
       return lastContentChange(source, `${hash}^`);
@@ -169,12 +177,10 @@ function isEnabled() {
   ) {
     return (enabled = false);
   }
-  const shallow = require("child_process")
-    .spawnSync("git", ["rev-parse", "--is-shallow-repository"], {
-      cwd: REPO_ROOT,
-      encoding: "utf8",
-    })
-    .stdout?.trim();
+  const shallow = spawnSync("git", ["rev-parse", "--is-shallow-repository"], {
+    cwd: REPO_ROOT,
+    encoding: "utf8",
+  }).stdout?.trim();
   if (shallow !== "false") {
     // A shallow clone has no history to walk; every page would get the date
     // of the newest commit. CI must check out with fetch-depth: 0.
@@ -220,4 +226,4 @@ async function withContentLastUpdate(filePath, parsed) {
   };
 }
 
-module.exports = {withContentLastUpdate, lastUpdateFor};
+module.exports = {withContentLastUpdate};
