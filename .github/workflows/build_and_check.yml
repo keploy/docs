@@ -43,6 +43,9 @@ jobs:
       - name: Verify structured-data graph
         run: npm run verify-schema
 
+      - name: Verify sitemap lastmod dates
+        run: npm run verify-lastmod
+
       # Deploys this PR's build with main.yml's deploy script into a local S3,
       # then replays the weeks after it: no asset a live or open page still
       # loads is deleted, every unused one eventually is, and every file gets
