@@ -6,3 +6,6 @@
 
 # #896: swapped <img> for webp and gifs for <video>; no text changed.
 fd27e0f56a544fd29a59ec10a0abdee387e1cf46
+
+# #897: SEO sweep (Related footers, HowTo blocks, alt text, dashes, prettier).
+80307a582dec2bd7be9e5b5802cfe71655fb88b6

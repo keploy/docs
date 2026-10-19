@@ -11,9 +11,14 @@
 // A <lastmod> that moves when nothing a reader sees has changed is one Google
 // learns to ignore, for the whole sitemap.
 //
-// What counts as a content change: the Markdown body (everything after the
-// front matter) differs once whitespace is collapsed. Walking a file's history
-// newest-first, commits that only touch front matter or whitespace are
+// What counts as a content change: the Markdown body differs after removing
+//   - the front matter;
+//   - SEO boilerplate added by sitewide sweeps: `## Related...` link footers
+//     and hidden `<HowTo />` JSON-LD blocks with their import;
+//   - whitespace that does not change rendering: CRLF, trailing spaces, extra
+//     blank lines. Indentation and single blank lines are kept, because in
+//     Markdown they decide list nesting, code blocks and paragraphs.
+// Walking a file's history newest-first, commits that change none of that are
 // skipped, and when the file was created by a copy or rename (a version cut, a
 // move) the walk carries on through the file it came from, as long as the body
 // came across unchanged.
@@ -29,9 +34,10 @@
 // Limitation: a page that imports a shared partial does not move its date
 // when only the partial changes (same as stock Docusaurus).
 //
-// Safety: this never throws. When it cannot answer (dev server, no git, a
-// shallow clone, a file git does not track) it returns null and Docusaurus
-// falls back to its own behaviour.
+// Safety: when it cannot answer (dev server, no git, a file git does not track)
+// it returns null and Docusaurus falls back to its own behaviour. A shallow
+// clone fails the build on GitHub Actions, where production is built, and
+// only warns elsewhere (local builds, preview hosts).
 
 const {execFile, spawnSync} = require("child_process");
 const fs = require("fs");
@@ -97,14 +103,22 @@ function readIgnoreRevs() {
 const ignoreRevs = readIgnoreRevs();
 const isIgnored = (hash) => ignoreRevs.some((rev) => hash.startsWith(rev));
 
-// Body with front matter removed and whitespace collapsed, so front-matter
-// edits, re-wrapping and trailing-space fixes all compare equal.
+// The part of a doc a reader sees change. See "What counts as a content
+// change" above.
 function contentOf(source) {
   if (source === null) return null;
-  return source
-    .replace(/^﻿?---\r?\n[\s\S]*?\r?\n---(\r?\n|$)/, "")
-    .replace(/\s+/g, " ")
-    .trim();
+  return (
+    source
+      .replace(/\r\n?/g, "\n")
+      .replace(/^\uFEFF?---\n[\s\S]*?\n---(\n|$)/, "")
+      .replace(/^import HowTo from .*$/gm, "")
+      .replace(/^<HowTo\b[\s\S]*?^\/>$/gm, "")
+      // A `## Related...` section runs to the next h1/h2 or the end.
+      .replace(/^## Related\b.*$[\s\S]*?(?=^#{1,2} |(?![\s\S]))/gm, "")
+      .replace(/[ \t]+$/gm, "")
+      .replace(/\n{3,}/g, "\n\n")
+      .trim()
+  );
 }
 
 const readContent = memoize(async (rev, file) =>
@@ -182,6 +196,12 @@ function isEnabled() {
     encoding: "utf8",
   }).stdout?.trim();
   if (shallow !== "false") {
+    if (process.env.GITHUB_ACTIONS === "true") {
+      throw new Error(
+        "[contentLastUpdate] shallow clone on CI: check out with " +
+          "fetch-depth: 0, or every page ships the same last-update date."
+      );
+    }
     // A shallow clone has no history to walk; every page would get the date
     // of the newest commit. CI must check out with fetch-depth: 0.
     console.warn(
