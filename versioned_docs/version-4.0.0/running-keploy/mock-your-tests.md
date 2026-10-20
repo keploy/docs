@@ -40,6 +40,13 @@ explains the messages the panel shows when a run fails.
 
 ## Quick start
 
+:::note On Linux, Keploy runs its proven model
+On Linux, `keploy mock` judges each test on its own dependency calls, through
+your test framework's Keploy integration. This release has one for Go. On
+Linux, run a pytest or jest suite with `KEPLOY_PROVEN=0` in front of each
+command below; see [The proven model on Linux](#the-proven-model-on-linux).
+:::
+
 ```bash
 # 1. Record the dependency calls your tests make (real dependencies must be up)
 keploy mock record -c "pytest"
@@ -62,9 +69,61 @@ keploy mock record -c "npm test" --name orders
 keploy mock replay -c "npm test" --name orders
 ```
 
+## The proven model on Linux
+
+On Linux, Keploy runs its proven model by default: `keploy mock replay` judges
+every test on the dependency calls it made. A call the recording has no answer
+for, a recorded call the test no longer makes, or a call Keploy couldn't
+capture fails that test. A test the recording can't replay is listed with its
+reason in `keploy/<set>/verdicts.yaml` and skipped.
+
+For that, the test runner tells Keploy which test is running. This release
+judges Go test suites:
+
+- Start every top-level test with one line from
+  `github.com/keploy/go-sdk/v3/keploytest`. It must be the test's first
+  statement, and it does nothing when Keploy isn't running:
+
+  ```go
+  func TestPlaceOrder(t *testing.T) {
+      defer keploytest.T(t)()
+      // ...
+  }
+  ```
+
+  A top-level test that runs in parallel starts with `defer keploytest.TP(t)()`
+  and calls `keploytest.Parallel(t)` instead of `t.Parallel()`. A subtest starts
+  with `keploytest.Run` instead of `t.Run`.
+
+- Run one test binary at a time, with `-json` or `-v` so that a skipped test
+  and its reason show: `keploy mock record -c "go test -p 1 -json ./..."`, and
+  the same command for `keploy mock replay`. Keploy refuses `-shuffle` and
+  `-fuzz`.
+- Run the test command natively. Under the proven model, `keploy mock record`
+  and `keploy mock replay` refuse a `docker` or `docker compose` test command
+  in this release.
+
+Under the proven model a miss always fails its test, so `--on-miss` takes only
+`fail`, and Keploy refuses `--strict`: its verdict already fails a run on every
+call the recording didn't answer.
+
+A suite in another language, such as pytest, jest or JUnit, has no Keploy
+integration in this release. Under the proven model none of its tests reports
+to Keploy, and the replay fails saying so. On Linux, run such a suite with the
+proven model off, as the rest of this page describes:
+
+```bash
+KEPLOY_PROVEN=0 keploy mock record -c "pytest"
+KEPLOY_PROVEN=0 keploy mock replay -c "pytest"
+```
+
+On macOS and Windows the proven model is off by default in this release, and
+the rest of this page applies as it is.
+
 ## On-miss policy
 
-When an outgoing call matches no recorded mock, `--on-miss` decides what happens:
+With the proven model off (macOS, Windows, or `KEPLOY_PROVEN=0` on Linux), when
+an outgoing call matches no recorded mock, `--on-miss` decides what happens:
 
 | `--on-miss`      | Behaviour                                                                                                       |
 | ---------------- | --------------------------------------------------------------------------------------------------------------- |
@@ -80,7 +139,12 @@ keploy mock replay -c "pytest" --on-miss record
 Add `--strict` to fail the run if any _recorded_ mock was **missed** (a dependency
 contract drifted), even when the tests themselves passed.
 
-## Per-test scoping (optional)
+## Per-test scoping with the proven model off (optional)
+
+This section is for macOS, Windows, and Linux with `KEPLOY_PROVEN=0`. Under the
+proven model, your framework's Keploy integration marks each test, and Keploy
+refuses a scope call that carries `pid` with **422**, asking you to upgrade the
+integration.
 
 By default a set is recorded and replayed suite-wide. For per-test isolation — so
 each test gets exactly its own mocks — your test runner can mark test boundaries
@@ -239,6 +303,9 @@ not Apple's `/usr/bin/python3` — see
 [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
 On an Intel Mac, use [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
 on Windows on ARM, use WSL.
+
+The proven model is on by default on Linux, WSL included, and off on macOS and
+Windows; see [The proven model on Linux](#the-proven-model-on-linux).
 
 ## Refresh in CI
 
