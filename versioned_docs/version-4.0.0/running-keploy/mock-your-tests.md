@@ -310,14 +310,22 @@ Windows; see [The proven model on Linux](#the-proven-model-on-linux).
 ## Refresh in CI
 
 Because re-recording overwrites the set in place and the runner's exit code is
-propagated, refreshing mocks on a merge to `main` is a normal CI step:
+propagated, refreshing mocks on a merge to `main` is a normal CI step. A Linux
+runner runs the proven model by default, so a pytest suite, which has no Keploy
+integration in this release, is recorded there with `KEPLOY_PROVEN=0`, as on
+your machine:
 
 ```bash
 # bring up the real dependencies, then:
-keploy mock record -c "pytest" --name default
+KEPLOY_PROVEN=0 keploy mock record -c "pytest" --name default
 keploy sanitize          # scrub secrets before committing
 git add keploy/ && git commit -m "chore: refresh mocks" || echo "no changes"
 ```
+
+A replay job in CI follows the same rule: replay a recording with the switch it
+was made with. `keploy mock status` writes the job for you, with
+`KEPLOY_PROVEN=0` in front when the recording was made with the proven model
+off.
 
 By default `keploy mock` is **registry-first**: the set is uploaded to Keploy
 after record and downloaded before replay automatically (registry use depends on
