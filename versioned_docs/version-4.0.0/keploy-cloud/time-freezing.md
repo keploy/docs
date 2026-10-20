@@ -31,15 +31,28 @@ This allows developers to ensure time-sensitive objects don’t expire or change
 
 ## Usage 🛠️
 
-### Running natively on Linux (or WSL) 🐧
+Add the `--freezeTime` flag when you replay your tests. There is nothing to rebuild and no Dockerfile to change: Keploy freezes the clock of every kind of app itself.
 
-When Keploy runs natively on Linux — including inside WSL on Windows — simply **add the `--freezeTime` flag** when running your tests, like so:
+- **Go apps:** Keploy patches a copy of your app's compiled Go binary at replay so that it reads the frozen clock, and runs that copy. Your own binary and image are never modified.
+- **Other apps (Node, Java, Python, Ruby):** Keploy loads its `LD_PRELOAD` clock library into the app.
 
 ```bash
 keploy test -c "<appCmd>" --freezeTime
 ```
 
-Voila! Your tests will now run with time freezing enabled.
+Use time freezing only to replay. Always record with your normal build and without `--freezeTime`.
+
+### Running natively on Linux (or WSL) 🐧
+
+When Keploy runs natively on Linux — including inside WSL on Windows — **add the `--freezeTime` flag** when running your tests:
+
+```bash
+keploy test -c "<appCmd>" --freezeTime
+```
+
+This covers Go apps too: Keploy patches the Go binary that `<appCmd>` starts, including one started after `NAME=value`, `env` or `sudo -E`, and builds and patches the program of a `go run` command.
+
+Start the Go binary itself in `<appCmd>`. When the command starts a shell, `make` or a shell script (`sh -c ./server`, `./start.sh`, `make run`), Keploy loads its clock library into that program and doesn't look at the programs it starts, so a Go program among them runs on the real clock. The replay log warns about it: `Time freezing: keploy's clock shim loaded in sh, which the app's command runs; keploy did not look at the programs it starts.`
 
 ### Running natively on macOS or Windows 🍎💻
 
@@ -49,19 +62,41 @@ To freeze time on these platforms, run your application with Docker as described
 
 ### Running on Docker 🐳
 
-For Docker-based applications, you'll need to make a few adjustments to your Dockerfile to utilize this feature:
+For apps that run with `docker run` or `docker compose`, also **add the `--freezeTime` flag**, with no change to your Dockerfile:
 
-1. First, check your system architecture
-
-```sh
-uname -a
+```bash
+keploy test -c "docker compose up" --container-name "<containerName>" --freezeTime
 ```
-
-2. Download the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
 
 ### For Golang(Go) Applications -
 
-> Note: Time freezing works on every Go version that supports the `faketime` build tag, i.e. all currently supported Go releases. The mechanism is build-time (the `-tags=faketime` flag swaps Go's `time` package to read from a runtime agent file instead of the OS clock), so it's not tied to any specific Go version.
+Keploy patches the app's Go binary at replay, with no rebuild: it reads the binary from the image, patches a copy of it on the host, and mounts the copy over the original in the container. When the image's entrypoint is a script, Keploy finds the Go binaries in the image and patches them.
+
+- Keploy pulls the image when it isn't on the Docker daemon yet, with the Docker CLI's credentials, so a private image works too.
+- Keploy builds a compose service that has `build:` the way `docker compose up` would, when its image isn't built yet, and then patches it. It does so when `<appCmd>` runs `docker compose up` itself, not through a script or `make`. Keploy patches the image it finds before `up` starts, so don't have `up` build or pull the app's image again: no `--build`, `pull_policy: build` or `pull_policy: always`.
+- Run the app's binary in the image, not `go run`: Keploy doesn't patch the Go toolchain, so a program it builds as it runs reads the real clock. A compose service that mounts its own file over the Go binary runs that file, unpatched.
+- Use a local Docker daemon that shares its filesystem with Keploy's host. A remote daemon, or one that runs in a VM without the host's temporary directory shared (Docker Desktop without file sharing, colima, lima, podman machine), can't mount the patched copy.
+- Build the app with Go 1.20 or later, for linux/amd64 or linux/arm64.
+
+### For Node/Java/Python Applications -
+
+Keploy adds its `LD_PRELOAD` clock library to the container. You don't need to add it to your Dockerfile.
+
+### Check that time freezing applied
+
+When Keploy doesn't patch a Go binary, it logs one `time-freeze[go]` line that names the binary, says why, and says what to do:
+
+```text
+time-freeze[go]: <binary>: not patched (<reason>); runs on the real clock. <what to do>
+```
+
+When Keploy can't stage the freeze of a Docker app at all, for example on a remote daemon, the line reads `time-freeze[go]: requested but NOT applied — <reason>`. Before the first test set, the replay checks the clock, and `Time freezing could not be verified before replaying tests` repeats the binary and the reason. Fix the reason where you can, and replay again.
+
+### Fallback: a replay-only faketime build
+
+Use this only when the reason can't be fixed: a remote or VM-backed Docker daemon, a binary that checks its own bytes or is signed, or a linux/amd64 or linux/arm64 Go binary built with Go 1.20 or later that Keploy says it can't patch. It's no fix for a binary built with a Go older than 1.20 (build it with a newer Go) or for another architecture. Keploy runs an app built with its `faketime` runtime as it is and never patches it.
+
+Build a separate binary or image for replay only. Never record with it, and keep your production build without the tag.
 
 #### amd64/x86_64 🖥️
 
@@ -75,9 +110,8 @@ RUN chmod +x /lib/keploy/go_freeze_time_amd64
 # run the binary
 RUN /lib/keploy/go_freeze_time_amd64
 
-# build your binary with fake time (during test mode)
+# build your binary with fake time (for replay only)
 RUN go build -tags=faketime <your_main_file>
-
 ```
 
 OR
@@ -86,7 +120,6 @@ OR
 
 ```Dockerfile
 # Download the time freeze agent
-
 ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
 
 # set suitable permissions
@@ -95,59 +128,11 @@ RUN chmod +x /lib/keploy/go_freeze_time_arm64
 # run the binary
 RUN /lib/keploy/go_freeze_time_arm64
 
-# build your binary with fake time (during test mode)
+# build your binary with fake time (for replay only)
 RUN go build -tags=faketime <your_main_file>
 ```
 
-3. Only Add `faketime` tag to your build script during <u>**Test MODE**</u>
-
-4. Re-Build your Docker image.
-5. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
-
-```bash
-keploy test -c "<appCmd>" --freezeTime
-```
-
-Voila! Your tests will now run with time freezing enabled.
-
-### For Node/Java/Python Applications -
-
-#### amd64/x86_64 🖥️
-
-```Dockerfile
-# Download the time freeze agent
-ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
-
-#set suitable permissions
-RUN chmod +x /lib/keploy/freeze_time_amd64.so
-
-# Set LD_PRELOAD environment variable to use freeze_time_amd64.so
-ENV LD_PRELOAD=/lib/keploy/freeze_time_amd64.so
-```
-
-OR
-
-#### arm64/aarch64 📱
-
-```Dockerfile
-# Download the time freeze agent
-ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
-
-#set suitable permissions
-RUN chmod +x /lib/keploy/freeze_time_arm64.so
-
-# Set LD_PRELOAD environment variable to use freeze_time_arm64.so
-ENV LD_PRELOAD=/lib/keploy/freeze_time_arm64.so
-```
-
-3. Re-Build your Docker image.
-4. Now **add the `--freezeTime` flag** when running your tests with Keploy, like so:
-
-```bash
-keploy test -c "<appCmd>" --freezeTime
-```
-
-Voila! Your tests will now run with time freezing enabled.
+To build natively instead, download the same `go_freeze_time_<arch>` helper, run it once (it adds the `faketime` runtime to your Go toolchain), and build with `go build -tags=faketime -o <replay-binary> <your_main_package>` into a separate output path. Then replay that build with `--freezeTime`.
 
 ## Related
 
