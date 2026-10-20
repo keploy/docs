@@ -261,7 +261,7 @@ keploy test -c "node src/app.js" --proto-file "./protos/main.proto"
 keploy test -c "node src/app.js" --proto-file "./protos/main.proto" --proto-include "./protos/common,./protos/shared"
 ```
 
-> **Note for GRPC Tests:** When running GRPC test cases, it's recommended to provide proto information using either `--proto-file` or `--proto-dir` flags. If proto information is not provided, Keploy will use basic canonical matching of the protoscopic textual format of GRPC response body, which may be less accurate than proto-based comparison.
+> **Note for GRPC Tests:** When running GRPC test cases, it's recommended to provide proto information using either `--proto-file` or `--proto-dir` flags. If proto information is not provided, Keploy will use basic canonical matching of the protoscopic textual format of GRPC response body, which may be less accurate than proto-based comparison. Under the proven model, Keploy's default on Linux, that matching compares repeated fields in order, at the top level and nested; different fields may still come in any order. A Go map field goes on the wire as a repeated field in an order Go does not fix, so a test that sends one can fail at random, but never passes wrongly: judging lists it as flaky with its evidence, and the difference names `--proto-file`, which compares the message by its schema.
 
 ## [gen](#gen)
 
