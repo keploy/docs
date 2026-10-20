@@ -72,7 +72,7 @@ To update mocks in the cloud, delete the `config.yml` under the test set folder.
 
 ### If using `--removeUnuseMocks` 🧹
 
-When `--removeUnusedMocks` is used, `config.yml` will be updated with a new Mock ID, and those mocks will be treated as new mocks.
+When `--removeUnusedMocks` is used, `config.yml` will be updated with a new Mock ID, and those mocks will be treated as new mocks. The flag works with the proven model off (`KEPLOY_PROVEN=0`, or on macOS and Windows). Under the proven model, the default on Linux, `keploy test` deletes no Mock and refuses the flag (exit code 8).
 
 ### Public and Private Mocks 🔒
 

@@ -38,6 +38,10 @@ Here are some examples of how to use some common flags:
 | `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                                                            |
 | `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                  |
 
+:::note On Linux, Keploy runs its proven model
+On Linux, Keploy runs its proven model by default. `keploy record` and `keploy test` refuse, as unknown flags (exit code 8), the flags of the settings it replaces: `--disable-mapping`, `--update-test-mapping`, `--remove-unused-mocks` and `--health-poll-timeout`, and the passthrough flags `--pass-through-ports`, `--global-passthrough`, `--mocking` and `--opportunistic-tls-intercept`. Each test is served exactly the Mocks its recorded mapping lists, only `keploy record` writes `mappings.yaml`, `keploy test` deletes no Mock, and the first test waits for your application (until it listens where the test calls, or `--health-url` answers) with no time limit. To reach a dependency for real instead of mocking it, list it in `keploy.yml` under `mock.real` (see [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/)). With `KEPLOY_PROVEN=0`, and on macOS and Windows, where the proven model is off by default, these flags work as this page describes.
+:::
+
 ## [record](#record)
 
 The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
@@ -98,7 +102,7 @@ keploy record -c "node src/app.js" --metadata "name=mac,env=production,service=g
 keploy record -c "docker compose up" --container-name "my-app-container" -n "my-app-network"
 ```
 
-- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports. Only with the proven model off (`KEPLOY_PROVEN=0`, or on macOS and Windows); under it, list the dependency in `keploy.yml` under `mock.real`.
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are to be saved.
 
 ```bash
@@ -183,7 +187,7 @@ keploy test -c "node src/app.js" --mongo-password "my-password"
 keploy test -c "docker compose up" --container-name "my-app-container" -n "my-app-network" -d 9
 ```
 
-- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports.
+- `--pass-through-ports uints` - Ports of outgoing dependency calls to be ignored as mocks and passed through to the actual dependency. The default is no ports. Only with the proven model off (`KEPLOY_PROVEN=0`, or on macOS and Windows); under it, list the dependency in `keploy.yml` under `mock.real`.
 
 - `-p, --path string` - Path to the local directory where the recorded testcases and generated mocks are saved.
 
@@ -217,7 +221,7 @@ keploy test -c "node src/app.js" --delay 10 --debug
 keploy test -c "node src/app.js" --delay 10 -g=false
 ```
 
-- `--remove-unused-mocks` - To remove unused mocks from mock file. The default is false.
+- `--remove-unused-mocks` - To remove unused mocks from mock file. The default is false. Only with the proven model off (`KEPLOY_PROVEN=0`, or on macOS and Windows); under it, `keploy test` deletes no Mock.
 
 ```bash
 keploy test -c "node src/app.js" --delay 10 --remove-unused-mocks

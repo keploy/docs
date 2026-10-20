@@ -351,6 +351,8 @@ Keploy allows you to manage sensitive information like API keys or tokens secure
 
 The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
 
+`bypassRules` applies with the proven model off: with `KEPLOY_PROVEN=0`, and on macOS and Windows, where it is off by default. Under the proven model, Keploy's default on Linux, `keploy record` and `keploy test` ignore `bypassRules` and say so once; list the destinations Keploy should reach for real under `mock.real` instead (see [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/)).
+
 Example:
 
 ```yaml
