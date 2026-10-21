@@ -29,7 +29,7 @@ Here are some examples of how to use some common flags:
 
 | Command            | Flags Available                                                                                                                                                                                                                                                                                                                                                                            |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `record`           | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                        |
+| `record`           | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                                       |
 | `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
 | `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
 | `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
@@ -75,12 +75,6 @@ keploy record -c "docker compose up" --container-name "my-app-container"
 ```
 
 > **Podman:** on Linux, with the Keploy that `install.sh` installs (v3.8.60 or later), an application started in rootful Podman with `podman run` or `podman compose` works the same way: `keploy record -c "podman compose up" --container-name "my-app-container"`. See [Platform requirements](/docs/concepts/platform-requirements/#podman) for what `podman compose` needs.
-
-- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
-
-```bash
-keploy record -c "node src/app.js" -d 10
-```
 
 - `--metadata string` - Key-value pairs to be added as metadata in the config.yaml file. If a `name` key is provided, it will be used as the test set name.
 
