@@ -231,6 +231,8 @@ Every `keploy record` and `keploy test` ends with a `NEXT` block, and `KEPLOY_PR
 === KEPLOY NEXT ===
 phase:    verified_green
 summary:  All 5 test(s) passed across 1 test-set(s). Suite is green and dependency-free.
+caveats:
+  - 2 quarantined test(s) did not run (keploy/<set>/verdicts.yaml): this green covers the other tests only. `KEPLOY_PROVEN=1 keploy test --all` runs them; `KEPLOY_PROVEN=1 keploy test --judge` drops the entries of those that now pass.
 ask:      Want me to (a) cover another resource, (b) wire CI so this runs on every PR, or (c) stop here?
 do:       If wiring CI: the Keploy registry holds each test set's mocks; CI downloads them by the hash in the set's config.yaml (KEPLOY_API_KEY required in CI). Commit exactly the paths on the commit: line (relative to the directory that holds keploy/: run `git add` there, and CI's keploy test there too): ...
 commit:   keploy.yml keploy/.gitignore keploy/test-set-0/tests keploy/test-set-0/mappings.yaml keploy/test-set-0/verdicts.yaml keploy/test-set-0/config.yaml
@@ -242,22 +244,14 @@ protocol: ...
 ===================
 ```
 
-:::caution A green record's NEXT block doesn't mention the quarantined tests
-The record's `summary` is its confirming round's: it counts the tests that round ran, and leaves out the ones it skipped because the record quarantines them. The block has no `caveats` line for them either. Only the `JUDGED` line and the `QUARANTINED` lines under it name the quarantined tests, so read those before you call the suite green. The `NEXT` block of a later `keploy test`, such as your CI run, lists them under `caveats`:
-
-```text
-caveats:
-  - 2 quarantined test(s) did not run (keploy/<set>/verdicts.yaml): this green covers the other tests only. `KEPLOY_PROVEN=1 keploy test --all` runs them; `KEPLOY_PROVEN=1 keploy test --judge` drops the entries of those that now pass.
-```
-
-:::
+The `summary` counts the tests the confirming round ran, so it leaves out the ones that round skipped because the record quarantines them. The `caveats` line says how many those are: a green covers the other tests only. The `JUDGED` line and the `QUARANTINED` lines under it name each one. The `NEXT` block of a later `keploy test`, such as your CI run, has the same caveat.
 
 | Field      | What it tells you                                                                                                                                                                                                                                                                                                                                                                                             |
 | ---------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `phase`    | Where the suite is: `uninitialized` (no test set in `keploy/` yet), `recorded` (not replayed since it changed, or last replayed without the switch: such a run ignored `verdicts.yaml`, so it's no verdict on the suite), `verified_green`, `verified_red`, `verified_empty` (the last run scored nothing, so it isn't green), or `ci_wired` (green, with a `.github/workflows/keploy.yml` beside `keploy/`). |
 | `summary`  | The last run in one sentence.                                                                                                                                                                                                                                                                                                                                                                                 |
 | `failures` | Each failing test, with what differed and a remedy.                                                                                                                                                                                                                                                                                                                                                           |
-| `caveats`  | What a green doesn't cover, such as the quarantined tests a `keploy test` run didn't run. Read them before you call the suite green.                                                                                                                                                                                                                                                                          |
+| `caveats`  | What a green doesn't cover, such as the quarantined tests the run skipped, a record's confirming round included. Read them before you call the suite green.                                                                                                                                                                                                                                                   |
 | `do`       | The next step in full. After a green record it's the CI recipe: what to commit, how to install Keploy, and the `keploy test` command.                                                                                                                                                                                                                                                                         |
 | `commit`   | Exactly the paths to `git add`, relative to the directory that holds `keploy/`.                                                                                                                                                                                                                                                                                                                               |
 | `options`  | Commands for the next step. Every `keploy` command in the block carries the switch.                                                                                                                                                                                                                                                                                                                           |
