@@ -50,7 +50,7 @@ Without `KEPLOY_PROVEN=1`, `keploy record` and `keploy test` work as described i
 - **sudo rights.** Keploy loads eBPF programs, so it runs its agent with `sudo` and may ask for your password. On a CI runner, the runner's passwordless `sudo` is enough.
 - **Docker**, if your app runs with `docker run` or `docker compose`.
 - **A Keploy account.** `keploy record` puts a judged test set's mocks in the Keploy registry, and `keploy test` downloads them in CI. Sign in once with `keploy login`. In CI, Keploy signs in with an API key: in [app.keploy.io](https://app.keploy.io), open your user profile, go to **Account Settings → API Keys**, generate a token, and set it as the `KEPLOY_API_KEY` environment variable.
-- **TCP dependencies.** Keploy doesn't capture calls over Unix sockets. A test that calls a dependency over a Unix socket gets no verdict: Keploy reports it as `NOT JUDGED`, with the remedy to reach that dependency over a TCP address (for example `localhost:5432` instead of a socket path), and a CI run that reaches it fails. The sockets of system services that carry no dependency traffic, such as nscd, systemd-resolved, journald, syslog (`/dev/log`) and D-Bus, don't count. The Docker daemon's socket does: an app that drives Docker, for example with Testcontainers, has a real dependency there.
+- **TCP dependencies.** Keploy doesn't capture calls over Unix sockets. When your app calls a dependency over a Unix socket, the test it happened in and every test after it in the run get no verdict: Keploy reports them as `NOT JUDGED`, with the remedy to reach that dependency over a TCP address (for example `localhost:5432` instead of a socket path), mocked or listed in [`mock.real`](#mock-real). A call made outside every test, for example while your app starts, leaves the whole test set without a verdict. A CI run with a test that has no verdict fails. The sockets of system services that carry no dependency traffic, such as nscd, systemd-resolved, journald, syslog (`/dev/log`) and D-Bus, don't count. The Docker daemon's socket does: an app that drives Docker, for example with Testcontainers, has a real dependency there. See [Tests with no verdict](/docs/running-keploy/verdicts-yaml/#not-judged) for the other causes.
 
 ## Install Keploy and sign in
 
@@ -67,7 +67,7 @@ Then turn the flow on for your shell:
 export KEPLOY_PROVEN=1
 ```
 
-Set the switch for every Keploy command in this flow: `record`, `test`, `status` and `quarantine`. Without it, `keploy record` doesn't judge, `keploy test` ignores `verdicts.yaml` (it warns that it does, and runs every test, the quarantined ones too), and `keploy quarantine`, `keploy test --all` and `keploy test --judge` don't exist. The commands Keploy prints, such as the `keploy quarantine` line under `QUARANTINE?`, assume the switch is set in your shell. The examples on this page set it on each command, so you can copy any one of them on its own.
+Set it to `1`. `keploy record` and `keploy test` refuse a value they can't read as on or off, such as `yes`, and the other commands take it as off. Set the switch for every Keploy command in this flow: `record`, `test`, `status` and `quarantine`. Without it, `keploy record` doesn't judge, `keploy test` ignores `verdicts.yaml` (it warns that it does, and runs every test, the quarantined ones too), and `keploy quarantine`, `keploy test --all` and `keploy test --judge` don't exist. The commands Keploy prints, such as the `keploy quarantine` line under `QUARANTINE?`, assume the switch is set in your shell. The examples on this page set it on each command, so you can copy any one of them on its own.
 
 ## Record your tests
 
@@ -81,6 +81,8 @@ KEPLOY_PROVEN=1 keploy record -c "./server"
 ```
 
 Start the Go binary itself in `-c`, not a shell, `make` or a script that starts it. Keploy freezes the clock of the Go binary that `-c` starts, as described in [Freeze time](#freeze-time).
+
+**Start your app's dependencies first.** Keploy records your app's real calls to its database and the other services it calls, with their answers, so they must be up while you record, as they are when you run the app yourself. For example, start a database your compose file defines with `docker compose up -d db`, and give your app the same environment variables it always reads, such as its database address. Only replay, in auto-replay and in CI, runs without them. A compose app is different: `docker compose up` starts its dependency services with it.
 
 **Docker.** Use the `docker run` command you already use, and pass the container's name:
 
@@ -102,13 +104,13 @@ Then send traffic to your app: `curl`, your API test suite, or a script that wal
 To stop recording, press **Ctrl+C once**, then wait. Keploy says:
 
 ```text
-auto-replay: recording stopped — now replaying what was just recorded to check for noise. Press Ctrl+C again to skip and exit.
+auto-replay: recording stopped — now replaying what was just recorded to check for noise. Press Ctrl+C again to skip and exit. Under KEPLOY_PROVEN=1 a skip leaves keploy record with no verdict on what it recorded, so it does not exit 0: a recording that did not fail on its own exits 128+N for the signal (130 for Ctrl+C).
 ```
 
-Auto-replay runs both rounds and prints its verdict. Don't press Ctrl+C a second time: that skips auto-replay, so nothing is judged, no `verdicts.yaml` is written, and `keploy record` exits non-zero. To record without a verdict on purpose, pass `--disableAutoReplay`, or set `record.disableAutoReplay: true` in `keploy.yml`.
+Auto-replay runs both rounds and prints its verdict. Don't press Ctrl+C a second time: that skips auto-replay, so nothing is judged, no `verdicts.yaml` is written, and `keploy record` exits 130. To record without a verdict on purpose, pass `--disableAutoReplay`, or set `record.disableAutoReplay: true` in `keploy.yml`.
 
 :::caution Don't pass `--delay` to keploy record
-`--delay` is a `keploy test` flag. `keploy record` rejects it as an unknown flag and records nothing. Under the switch, auto-replay and `keploy test` wait for your app to be ready before they send the first test: it listens on the port the test connects to, or the health URL you gave answers (`--auto-replay-health-url` on `keploy record`, `--health-url` on `keploy test`).
+`--delay` is a `keploy test` flag. `keploy record` rejects it as an unknown flag and records nothing: its auto-replay's delay is `--auto-replay-delay`. Under the switch, auto-replay and `keploy test` wait for your app to be ready before they send the first test: it listens on the port the test connects to, or the health URL you gave answers (`--auto-replay-health-url` on `keploy record`, `--health-url` on `keploy test`). Then they wait their delay, 15 seconds for auto-replay (`--auto-replay-delay`) and 5 for `keploy test` (`--delay`), and send it.
 :::
 
 ### Choose a capture mode {#capture-mode}
@@ -130,7 +132,7 @@ KEPLOY_PROVEN=1 keploy record -c "./server" --low-latency
 
 `--low-latency` is a `keploy record` flag only. With it, Keploy runs itself with `sudo` from the start, even for a native app.
 
-A client that rejects Keploy's certificate without a word, or hangs up just after its TLS handshake, leaves Keploy unable to tell whether a call was lost. The test it happened in is `NOT JUDGED`, with the remedy to make that client trust Keploy's CA.
+A client that rejects Keploy's certificate without a word, or hangs up just after its TLS handshake, leaves Keploy unable to tell whether a call was lost. The test it happened in is `NOT JUDGED`, with the remedy to make that client trust Keploy's CA. See [Tests with no verdict](/docs/running-keploy/verdicts-yaml/#not-judged).
 
 ### Reach a dependency for real {#mock-real}
 
@@ -144,7 +146,7 @@ mock:
     - container:redis
 ```
 
-A test that uses a `mock.real` dependency runs on the real clock, and CI must start that dependency: a run in which a listed destination is never reached fails. For a compose app, name a `mock.real` service in the compose command you record and test with, such as `docker compose up api redis`, or Keploy's replay leaves it down. The `--pass-through-ports`, `--global-passthrough` and `--opportunistic-tls-intercept` flags, and the `passThroughPorts` and `bypassRules` settings, don't apply under the switch; `mock.real` replaces them.
+A test that uses a `mock.real` dependency runs on the real clock, and CI must start that dependency: a run in which a listed destination is never reached fails. For a compose app, name a `mock.real` service in the compose command you record and test with, such as `docker compose up api redis`, or Keploy's replay leaves it down. The `--pass-through-ports` and `--global-passthrough` flags, `keploy record`'s `--opportunistic-tls-intercept` and `keploy test`'s `--mocking`, and the `keploy.yml` settings that match them, such as `passThroughPorts` and `bypassRules`, don't apply under the switch; `mock.real` replaces them.
 
 ## Read what auto-replay prints {#read-the-output}
 
@@ -175,7 +177,7 @@ JUDGED  test-set-0: 5 replayable, 2 quarantined (1 flaky/request_changed, 1 flak
 
 - **Replayable** tests passed both rounds. CI runs them.
 - **Quarantined** tests are listed in `verdicts.yaml`, so CI skips them. The counts in brackets group them by [class and reason](/docs/running-keploy/verdicts-yaml/#reasons).
-- A test that Keploy couldn't judge is in neither count. The confirming round's output names it on a `NOT JUDGED` line, with the reason.
+- A test that Keploy couldn't judge is in neither count. The confirming round's output names it on a `NOT JUDGED` line, with the reason: see [Tests with no verdict](/docs/running-keploy/verdicts-yaml/#not-judged).
 
 The line ends with one of:
 
@@ -194,7 +196,7 @@ Under the `JUDGED` line, Keploy can print:
 | `PRUNED  <test-set>/<test>: its recording is no longer on disk`                       | Keploy dropped an entry whose test's recording is gone.                                                                                                                                                                                                                                          |
 | `RECORDING LOST  <test-set>/<test>: ...`                                              | The recording of this test lost data. See [Capture-loss evidence](#recording-lost).                                                                                                                                                                                                              |
 | `NOT CHARGED TO A TEST (in CI's shape): ...`                                          | A dependency call made outside every test that Keploy couldn't answer or capture, such as a background poller. CI fails on it.                                                                                                                                                                   |
-| `NOTE  <test-set>: every test of it CI reaches is quarantined, so CI runs none of it` | CI would run no test of this set, and a run in which no test ran fails. Fix the reasons and record again.                                                                                                                                                                                        |
+| `NOTE  <test-set>: every test of it CI reaches is quarantined, so CI runs none of it` | CI runs no test of this set. Judging counts the set as red: it prints `CI would be red`, and doesn't put the set's mocks in the Keploy registry. CI's `keploy test` fails when no test of the whole run runs. Fix the reasons and record again.                                                  |
 
 Other lines a test set can get:
 
@@ -205,18 +207,16 @@ Other lines a test set can get:
 
 ### Exit codes
 
-`keploy record` exits 0 when judging finished and CI would be green as the lists stand, even if it quarantined tests. When it prints `keploy record's judging: CI would be red as these lists stand`, go by that line, not by the exit code: fix what it names before you wire CI. When the recording fails on its own, for example because your app exits with an error, `keploy record` exits with that failure's code. When Keploy recorded tests but couldn't finish judging them, because auto-replay judged nothing, a test set was `NOT JUDGED` or `NOT WRITTEN`, or a second Ctrl+C stopped it, `keploy record` prints `keploy record's verdict is incomplete: <why>` and exits non-zero, so a script can't take an unjudged recording for a judged one.
+`keploy record` exits 0 when judging finished and CI would be green as the lists stand, even if it quarantined tests. When it prints `keploy record's judging: CI would be red as these lists stand`, go by that line, not by the exit code: fix what it names before you wire CI. When Keploy recorded tests but couldn't finish judging them, because auto-replay judged nothing, a test set was `NOT JUDGED` or `NOT WRITTEN`, or a second Ctrl+C stopped it, `keploy record` prints `keploy record's verdict is incomplete: <why>; it exits <code>`, so a script can't take an unjudged recording for a judged one. It exits 1, or 128 plus the signal's number when a signal stopped auto-replay or its judging: 130 for Ctrl+C. When the recording fails on its own, for example because your app exits with an error, `keploy record` exits with that failure's code, and says so on the same line. With `--disableAutoReplay`, nothing is judged, and the exit code is the recording's own.
 
 ### The NEXT block
 
-Every `keploy record` and `keploy test` ends with a `NEXT` block, and `KEPLOY_PROVEN=1 keploy status` prints it any time (add `--json` for a machine-readable copy). After a green record it looks like this:
+Every `keploy record` and `keploy test` ends with a `NEXT` block, and `KEPLOY_PROVEN=1 keploy status` prints it any time (add `--json` for a machine-readable copy). After the record above, which kept 5 tests and quarantined 2, it looks like this:
 
 ```text
 === KEPLOY NEXT ===
 phase:    verified_green
 summary:  All 5 test(s) passed across 1 test-set(s). Suite is green and dependency-free.
-caveats:
-  - 2 quarantined test(s) did not run (keploy/<set>/verdicts.yaml): this green covers the other tests only. `KEPLOY_PROVEN=1 keploy test --all` runs them; `KEPLOY_PROVEN=1 keploy test --judge` drops the entries of those that now pass.
 ask:      Want me to (a) cover another resource, (b) wire CI so this runs on every PR, or (c) stop here?
 do:       If wiring CI: the Keploy registry holds each test set's mocks; CI downloads them by the hash in the set's config.yaml (KEPLOY_API_KEY required in CI). Commit exactly the paths on the commit: line (relative to the directory that holds keploy/: run `git add` there, and CI's keploy test there too): ...
 commit:   keploy.yml keploy/.gitignore keploy/test-set-0/tests keploy/test-set-0/mappings.yaml keploy/test-set-0/verdicts.yaml keploy/test-set-0/config.yaml
@@ -228,12 +228,22 @@ protocol: ...
 ===================
 ```
 
+:::caution A green record's NEXT block doesn't mention the quarantined tests
+The record's `summary` is its confirming round's: it counts the tests that round ran, and leaves out the ones it skipped because the record quarantines them. The block has no `caveats` line for them either. Only the `JUDGED` line and the `QUARANTINED` lines under it name the quarantined tests, so read those before you call the suite green. The `NEXT` block of a later `keploy test`, such as your CI run, lists them under `caveats`:
+
+```text
+caveats:
+  - 2 quarantined test(s) did not run (keploy/<set>/verdicts.yaml): this green covers the other tests only. `KEPLOY_PROVEN=1 keploy test --all` runs them; `KEPLOY_PROVEN=1 keploy test --judge` drops the entries of those that now pass.
+```
+
+:::
+
 | Field      | What it tells you                                                                                                                                                                                                                                   |
 | ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `phase`    | Where the suite is: `recorded` (not replayed since it changed), `verified_green`, `verified_red`, `verified_empty` (the last run scored nothing, so it isn't green), or `ci_wired` (green, with a `.github/workflows/keploy.yml` beside `keploy/`). |
 | `summary`  | The last run in one sentence.                                                                                                                                                                                                                       |
 | `failures` | Each failing test, with what differed and a remedy.                                                                                                                                                                                                 |
-| `caveats`  | What a green doesn't cover, such as the quarantined tests it didn't run. Read them before you call the suite green.                                                                                                                                 |
+| `caveats`  | What a green doesn't cover, such as the quarantined tests a `keploy test` run didn't run. Read them before you call the suite green.                                                                                                                |
 | `do`       | The next step in full. After a green record it's the CI recipe: what to commit, how to install Keploy, and the `keploy test` command.                                                                                                               |
 | `commit`   | Exactly the paths to `git add`, relative to the directory that holds `keploy/`.                                                                                                                                                                     |
 | `options`  | Commands for the next step, each with the switch where the flow needs it.                                                                                                                                                                           |
@@ -327,13 +337,13 @@ SET  test-set-0: 5 ran, 5 passed, 0 failed, 2 quarantined not run
 
 - **When the app changes on purpose,** record the affected flows again. `keploy record` writes them to a new test set and judges it. Then delete the old test cases they replace, so CI doesn't run them; `KEPLOY_PROVEN=1 keploy test --judge` drops their entries (`PRUNED`).
 - **After you fix what a quarantine reason names,** record that flow again, as above, or run `KEPLOY_PROVEN=1 keploy test --judge`. It replays the test sets twice, read-only, drops the entries of tests that now pass, and prints a `keploy quarantine` command for each test that fails. It never adds a skip by itself.
-- **To quarantine a test by hand,** for example while a shared sandbox is down:
+- **To quarantine a test by hand,** for example a test that fails since a change you made on purpose, until you record it again:
 
   ```bash
-  KEPLOY_PROVEN=1 keploy quarantine test-set-0/get-orders-3 --reason "payments sandbox is down until Friday"
+  KEPLOY_PROVEN=1 keploy quarantine test-set-0/get-orders-3 --reason "fails since the orders API change in PR 812 until it is re-recorded"
   ```
 
-  The reason is one line of at most 200 bytes. The entry's class is `manual`, and it applies until the test's recording changes.
+  The reason is one line of at most 200 bytes. The entry's class is `manual`, and it applies until the test's recording changes. Quarantine only a test that fails: `KEPLOY_PROVEN=1 keploy test --judge` drops the entry of a test that passes, a manual one too.
 
 - **To run the quarantined tests too,** for example to check a fix, run `KEPLOY_PROVEN=1 keploy test --all`.
 - **When CI goes red,** run `KEPLOY_PROVEN=1 keploy status` and follow its `NEXT` block. A call the app now makes differently, or no longer makes, is what a regression looks like, so check the code change before you record again.
@@ -367,13 +377,14 @@ For a Go app there's nothing to rebuild. Keploy patches a copy of your compiled 
 
 ## Flags and settings the switch replaces {#refused-flags}
 
-Under `KEPLOY_PROVEN=1`, these flags fail the command at once, with an error that says what replaces them, so a command copied from an older guide doesn't run the old way:
+Under `KEPLOY_PROVEN=1`, Keploy refuses these flags before it starts your app, with an error that says what replaces them, so a command copied from an older guide doesn't run the old way. Keploy checks some of them after it signs in, so without a session you see the sign-in error first:
 
 | Command                        | Flag                                                                                                                                                 | Use instead                                                                                   |
 | ------------------------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | `keploy record`                | `--auto-replay-health-poll-timeout`                                                                                                                  | Nothing: auto-replay waits for your app's readiness.                                          |
 | `keploy record`                | `--auto-replay-mock-noise-detection`, `--auto-replay-schema-noise-detection`, `--auto-replay-mock-noise-strict`, `--auto-replay-schema-noise-strict` | Nothing: auto-replay's learn step learns what changes.                                        |
-| `keploy record`, `keploy test` | `--pass-through-ports`, `--global-passthrough`, `--opportunistic-tls-intercept`                                                                      | [`mock.real`](#mock-real) in `keploy.yml`.                                                    |
+| `keploy record`, `keploy test` | `--pass-through-ports`, `--global-passthrough`                                                                                                       | [`mock.real`](#mock-real) in `keploy.yml`.                                                    |
+| `keploy record`                | `--opportunistic-tls-intercept`                                                                                                                      | [`mock.real`](#mock-real) in `keploy.yml`.                                                    |
 | `keploy test`                  | `--mocking`                                                                                                                                          | [`mock.real`](#mock-real) in `keploy.yml`.                                                    |
 | `keploy test`                  | `--health-poll-timeout`                                                                                                                              | Nothing: the first test waits for your app's readiness.                                       |
 | `keploy test`                  | `--must-pass`, `--max-fail-attempts`                                                                                                                 | `keploy quarantine`, with a reason.                                                           |

@@ -42,6 +42,8 @@ Here are some examples of how to use some common flags:
 
 The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
 
+To have Keploy replay each test it records, judge which ones replay, and run only those in CI, record with `KEPLOY_PROVEN=1`: see [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/).
+
 <b> Usage: </b>
 
 ```bash
@@ -128,6 +130,8 @@ keploy record -c "node src/app.js" --rerecord "test-set-0"
 ## [test](#test)
 
 The `test` mode in Keploy allows the user to run the recoded testcases from the API calls and execute assertion. A detailed report is produced after the tests are executed and it's then saved in the yaml format in `keploy/reports` directory in the current working directory.
+
+With `KEPLOY_PROVEN=1`, `keploy test` skips the tests that `keploy/<test-set>/verdicts.yaml` quarantines: see [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/) and the [verdicts.yaml reference](/docs/running-keploy/verdicts-yaml/).
 
 <b> Usage: </b>
 
@@ -469,6 +473,7 @@ keploy example [flags]
 ## Related
 
 - [Configuration File](/docs/running-keploy/configuration-file/) — set these flags once in `keploy.yaml`.
+- [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/) — `KEPLOY_PROVEN=1`: auto-replay judges each recorded test, and CI runs only the kept ones.
 - [Recording Filters](/docs/running-keploy/recording-filters/) — control which requests get recorded.
 - [Keploy Templatize](/docs/running-keploy/keploy-templatize/) — details on the `templatize` command.
 - [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — using the `--passThroughPorts` flag.
