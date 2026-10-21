@@ -45,14 +45,14 @@ quarantined:
     rec: [sha256:7c01d2e911111111111111111111111111111111111111111111111111111111]
     since: 2026-10-20
     by: quarantine
-    keploy: 3.7.0
+    keploy: 3.8.80
   post-learn-batch-1:
     class: flaky
     reason: unstable_order
     rec: [sha256:41aa0c3e00000000000000000000000000000000000000000000000000000000]
     since: 2026-10-20
     by: record
-    keploy: 3.7.0
+    keploy: 3.8.80
     rounds: {full: failed, confirm: skipped}
     calls:
       - {protocol: HTTP, call: POST /batch, destination: localhost:8096, phase: no_match}
@@ -109,7 +109,20 @@ A class or reason this Keploy doesn't know, written by a newer one, is shown as 
 
 ## Tests with no verdict {#not-judged}
 
-A test can also end with no verdict at all, which is not a quarantine: Keploy prints `NOT JUDGED` for it, with the reason, and writes no entry for it. In CI, a test with no verdict fails the run, and the run's `VERDICT  failed` line says what to do. It happens when the test called something Keploy can't capture, or can't tell it captured, or when Keploy couldn't read its own evidence about the test:
+A test can also end with no verdict at all, which is not a quarantine. It happens when the test called something Keploy can't capture, or can't tell it captured, or when Keploy couldn't read its own evidence about the test. Keploy writes no entry for such a test, and what happens next depends on where it runs:
+
+- **When you record.** A test with no verdict leaves its whole test set without one. Keploy judges none of the set's tests: it prints a `NOT JUDGED` line for the set instead of a `JUDGED` line, writes no `verdicts.yaml` for it, and doesn't put its mocks in the Keploy registry. `keploy record` says its verdict is incomplete, and exits 1. For an app that called the Docker daemon's socket in one test, it looks like this:
+
+  ```text
+  NOT JUDGED  test-set-0: round F stopped early (status INTERNAL_ERR: not judged: 2 test(s) ran while keploy could not capture, or could not tell it captured, every call the application made (get-docker-ping-1, get-whoami-2): the application called a Unix socket keploy cannot capture (1 time(s)) while this test or one before it ran (/var/run/docker.sock), so keploy cannot prove this test's calls were all captured); nothing was written for it
+    RECORDING LOST  test-set-0/get-docker-ping-1: not judged: the application called a Unix socket keploy cannot capture (1 time(s)) while this test or one before it ran (/var/run/docker.sock), so keploy cannot prove this test's calls were all captured; its set was not judged
+    RECORDING LOST  test-set-0/get-whoami-2: not judged: the application called a Unix socket keploy cannot capture (1 time(s)) while this test or one before it ran (/var/run/docker.sock), so keploy cannot prove this test's calls were all captured; its set was not judged
+  keploy record's verdict is incomplete: 1 of the 1 test set it recorded is not judged (test-set-0); it exits 1
+  ```
+
+  The `NOT JUDGED` line names the cause and the tests that have no verdict, and a `RECORDING LOST` line under it names each of them. What to do is in the `next_step` of the log lines above them: the `WARN` Keploy logged when the call happened (`the application called a Unix socket keploy cannot capture: ...`), and the replay's `ERROR` line that starts `test-set is not judged:`. Here it's `reach that dependency over a TCP address (mocked, or listed in mock.real)`. Fix the cause, then record the set again. The `NEXT` block that follows says `verified_red`, although the set isn't judged rather than failed.
+
+- **In CI.** The tests the second column below names have no verdict. `keploy test` prints a `NOT JUDGED` line for them, and the run fails. Its `VERDICT  failed` line says what to do.
 
 | Cause                                                                                                                                          | Which tests have no verdict    | What to do                                                                                                                        |
 | ---------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------ | --------------------------------------------------------------------------------------------------------------------------------- |
@@ -122,7 +135,7 @@ A test can also end with no verdict at all, which is not a quarantine: Keploy pr
 | Called a container whose configuration the Docker daemon didn't give Keploy, so the call's container can't be told.                            | That test.                     | Make `docker inspect` of the container answer: another operation on it, such as a stop's grace period or a hung `exec`, holds it. |
 | Keploy couldn't read or check everything the test did: the calls no mock answered, the mocks it used, or its learned values against its calls. | That test.                     | It's Keploy's failure, not your app's: report it to Keploy, with the run's log.                                                   |
 
-A call to something Keploy can't capture that your app makes outside every test, for example while it starts, or after the last test, leaves the whole test set without a verdict.
+A call to something Keploy can't capture that your app makes outside every test, for example while it starts, or after the last test, leaves the whole test set without a verdict, in CI too.
 
 ## Resolve a merge conflict {#merge-conflict}
 
