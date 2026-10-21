@@ -43,6 +43,8 @@
           ]
         },
         "running-keploy/cli-commands",
+        "running-keploy/proven-flow",
+        "running-keploy/verdicts-yaml",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
         "running-keploy/configuration-file",
