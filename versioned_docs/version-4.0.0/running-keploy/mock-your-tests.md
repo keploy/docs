@@ -324,10 +324,15 @@ keploy sanitize          # scrub secrets before committing
 git add keploy/ && git commit -m "chore: refresh mocks" || echo "no changes"
 ```
 
-A replay job in CI follows the same rule: replay a recording with the switch it
-was made with. `keploy mock status` writes the job for you, with
-`KEPLOY_PROVEN=0` in front when the recording was made with the proven model
-off.
+A replay job in CI runs a suite under the model that can judge it, whatever its
+recording was made with, and `keploy mock status` writes the job for you. A Go
+suite's job runs under the proven model, also when its recording was made with
+the proven model off (by an earlier Keploy release, or with `KEPLOY_PROVEN=0`),
+so each of its tests needs the `keploytest` line from
+[The proven model on Linux](#the-proven-model-on-linux): a test without it
+fails the replay, which says how to add it. A suite with no Keploy integration
+in this release, such as pytest, jest or JUnit, gets `KEPLOY_PROVEN=0` in front
+of its job.
 
 By default `keploy mock` is **registry-first**: the set is uploaded to Keploy
 after record and downloaded before replay automatically (registry use depends on
