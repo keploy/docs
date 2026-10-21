@@ -118,7 +118,8 @@ KEPLOY_PROVEN=0 keploy mock replay -c "pytest"
 ```
 
 On macOS and Windows the proven model is off by default in this release, and
-the rest of this page applies as it is.
+the rest of this page applies as it is. Keploy under WSL, or under Lima on an
+Intel Mac, is Linux Keploy, so the proven model is on there.
 
 ## On-miss policy
 
@@ -304,8 +305,9 @@ not Apple's `/usr/bin/python3` — see
 On an Intel Mac, use [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
 on Windows on ARM, use WSL.
 
-The proven model is on by default on Linux, WSL included, and off on macOS and
-Windows; see [The proven model on Linux](#the-proven-model-on-linux).
+The proven model is on by default on Linux, and off when Keploy runs natively
+on macOS or Windows. Keploy under WSL or Lima is Linux Keploy, so it runs the
+proven model; see [The proven model on Linux](#the-proven-model-on-linux).
 
 ## Refresh in CI
 
