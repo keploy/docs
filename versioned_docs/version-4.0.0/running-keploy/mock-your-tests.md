@@ -121,6 +121,13 @@ On macOS and Windows the proven model is off by default in this release, and
 the rest of this page applies as it is. Keploy under WSL, or under Lima on an
 Intel Mac, is Linux Keploy, so the proven model is on there.
 
+The proven model is the default of the Keploy that `install.sh` installs, whose
+`keploy record` replays each recording and learns what your app changes from
+one run to the next. A `keploy` built from the open-source repository (installed
+with `install.sh --oss`, or downloaded from the keploy/keploy GitHub releases)
+has no such replay, so in this release it keeps the proven model off by default
+on every platform, Linux included; `KEPLOY_PROVEN=1` turns it on there.
+
 ## On-miss policy
 
 With the proven model off (macOS, Windows, or `KEPLOY_PROVEN=0` on Linux), when
