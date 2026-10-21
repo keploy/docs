@@ -27,16 +27,15 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Command            | Flags Available                                                                                                                                                                                                                                                                                                                                                                            |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `record`           | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                                       |
-| `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
-| `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
-| `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
-| `rerecord`         | `--test-sets`, `-t`                                                                                                                                                                                                                                                                                                                                                                        |
-| `report`           | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                                                             |
-| `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                                                            |
-| `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                                                                  |
+| Command            | Flags Available                                                                                                                                                                                                                                                                                                                                        |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `record`           | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `--debug`                                                                                                                                                                                                  |
+| `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `-t, --testsets`, `--debug`, `--removeUnusedMocks`, `--skip-coverage`, `--ignoreOrdering`, `--disable-line-coverage`, `--proto-dir`, `--proto-file`, `--proto-include` |
+| `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                           |
+| `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                  |
+| `report`           | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                         |
+| `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                        |
+| `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                              |
 
 ## [record](#record)
 
@@ -111,12 +110,6 @@ keploy record -c "node src/app.js" --proxy-port 8080
 
 ```bash
 keploy record -c "node src/app.js" --debug
-```
-
-- `rerecord` - Record certain test-sets again
-
-```bash
-keploy record -c "node src/app.js" --rerecord "test-set-0"
 ```
 
 ## [test](#test)
@@ -205,12 +198,6 @@ keploy test -c "node src/app.js" -t "test-set-1,test-set-3" --delay 10
 keploy test -c "node src/app.js" --delay 10 --debug
 ```
 
-- `-g, --generate-test-report` - To generate the test report. The default is true.
-
-```bash
-keploy test -c "node src/app.js" --delay 10 -g=false
-```
-
 - `--remove-unused-mocks` - To remove unused mocks from mock file. The default is false.
 
 ```bash
@@ -225,10 +212,10 @@ keploy test -c "node src/app.js" --delay 10 --ignore-ordering
 
 - `--skip-coverage` - skip code coverage computation while running the test cases
 
-- `--skip-preview` - skip line by line code coverage preview but display the total coverage.
+- `--disable-line-coverage` - skip the line by line code coverage preview of a JavaScript application, but display the total coverage.
 
 ```bash
-keploy test -c "node src/app.js" --delay 10 --skip-preview
+keploy test -c "node src/app.js" --delay 10 --disable-line-coverage
 ```
 
 - `--jacoco-agent-path` - Only applicable for test coverage for Java projects. You can override the jacoco agent jar by providing its path
@@ -328,32 +315,6 @@ keploy normalize -p "./tests" --test-run "test-run-10" --tests "test-set-1:test-
 ```bash
 keploy normalize --allow-high-risk
 ```
-
-## [rerecord](#rerecord)
-
-The `rerecord` command allows users to record new Keploy test cases and mocks from existing test cases for the given testset(s).
-
-**Usage:**
-
-```bash
-keploy rerecord -c "node src/app.js" -t "test-set-0"
-```
-
-**Docker Example:**
-
-To re-record test cases for an application running inside a Docker container, use the Docker run command as the value for the `-c` flag:
-
-```bash
-keploy rerecord -c "sudo docker run -p 5000:5000 --name flask-jwt-app --network keploy-network flask-jwt-app" -t "test-set-0" --delay 10
-```
-
-**`--delay` flag:**
-
-The `--delay` flag specifies the number of seconds Keploy should wait after starting your application before replaying requests to re-record.
-This is useful if your application takes some time to start (for example, when running inside a Docker container or a heavy framework).
-
-- Adjust the delay to match your app's startup time.
-- For example, use `--delay 10` to wait for 10 seconds.
 
 ## [report](#report)
 
