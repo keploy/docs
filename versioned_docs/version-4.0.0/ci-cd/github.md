@@ -34,6 +34,10 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
+:::tip Run only the tests Keploy judged
+If you record with `KEPLOY_PROVEN=1`, CI must run `keploy test` with the same switch, so that it skips the tests `verdicts.yaml` quarantines. See [Run the kept tests in CI](/docs/running-keploy/proven-flow/#ci) for that job.
+:::
+
 Keploy can be integrated with GitHub by two methods:-
 
 1. [Using Shell Scripts](#shell-scripts)

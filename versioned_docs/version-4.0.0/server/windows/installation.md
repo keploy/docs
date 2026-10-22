@@ -145,7 +145,7 @@ docker network create keploy-network
 Now, we record the testcases.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 #### Run the Test Mode

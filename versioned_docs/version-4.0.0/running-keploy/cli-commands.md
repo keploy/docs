@@ -29,7 +29,7 @@ Here are some examples of how to use some common flags:
 
 | Command            | Flags Available                                                                                                                                                                                                                                                                                                                                                                            |
 | ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `record`           | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                        |
+| `record`           | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                                                       |
 | `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview`, `--proto-dir`, `--proto-file`, `--proto-include` |
 | `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                                                               |
 | `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                                                      |
@@ -41,6 +41,8 @@ Here are some examples of how to use some common flags:
 ## [record](#record)
 
 The `record` mode in Keploy allows the user to record Keploy testcases from the API calls. The recorded testcases and generated mocks are then saved in the `keploy` directory in the current working directory.
+
+To have Keploy replay each test it records, judge which ones replay, and run only those in CI, record with `KEPLOY_PROVEN=1`: see [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/).
 
 <b> Usage: </b>
 
@@ -73,12 +75,6 @@ keploy record -c "docker compose up" --container-name "my-app-container"
 ```
 
 > **Podman:** on Linux, with the Keploy that `install.sh` installs (v3.8.60 or later), an application started in rootful Podman with `podman run` or `podman compose` works the same way: `keploy record -c "podman compose up" --container-name "my-app-container"`. See [Platform requirements](/docs/concepts/platform-requirements/#podman) for what `podman compose` needs.
-
-- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
-
-```bash
-keploy record -c "node src/app.js" -d 10
-```
 
 - `--metadata string` - Key-value pairs to be added as metadata in the config.yaml file. If a `name` key is provided, it will be used as the test set name.
 
@@ -128,6 +124,8 @@ keploy record -c "node src/app.js" --rerecord "test-set-0"
 ## [test](#test)
 
 The `test` mode in Keploy allows the user to run the recoded testcases from the API calls and execute assertion. A detailed report is produced after the tests are executed and it's then saved in the yaml format in `keploy/reports` directory in the current working directory.
+
+With `KEPLOY_PROVEN=1`, `keploy test` skips the tests that `keploy/<test-set>/verdicts.yaml` quarantines: see [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/) and the [verdicts.yaml reference](/docs/running-keploy/verdicts-yaml/).
 
 <b> Usage: </b>
 
@@ -469,6 +467,7 @@ keploy example [flags]
 ## Related
 
 - [Configuration File](/docs/running-keploy/configuration-file/) — set these flags once in `keploy.yaml`.
+- [Record, judge and replay tests in CI](/docs/running-keploy/proven-flow/) — `KEPLOY_PROVEN=1`: auto-replay judges each recorded test, and CI runs only the kept ones.
 - [Recording Filters](/docs/running-keploy/recording-filters/) — control which requests get recorded.
 - [Keploy Templatize](/docs/running-keploy/keploy-templatize/) — details on the `templatize` command.
 - [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — using the `--passThroughPorts` flag.
