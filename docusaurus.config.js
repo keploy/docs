@@ -519,6 +519,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         sitemap: {
           // Per v2.0.0-alpha.72 cacheTime is now deprecated
           //cacheTime: 600 * 1000, // 600 sec - cache purge period
+          lastmod: "date",
           changefreq: "weekly",
           priority: 0.5,
           // <lastmod> from each doc's last content change (date only, which
