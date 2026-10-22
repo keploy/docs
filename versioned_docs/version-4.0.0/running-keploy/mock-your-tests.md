@@ -339,7 +339,10 @@ so each of its tests needs the `keploytest` line from
 [The proven model on Linux](#the-proven-model-on-linux): a test without it
 fails the replay, which says how to add it. A suite with no Keploy integration
 in this release, such as pytest, jest or JUnit, gets `KEPLOY_PROVEN=0` in front
-of its job.
+of its job. `keploy mock status` decides this for each suite by its own test
+command, not by what the repository holds: in a Go service's repository a
+pytest or jest suite gets `KEPLOY_PROVEN=0` too, at the latest once a replay
+under the proven model has found that none of its tests report to Keploy.
 
 By default `keploy mock` is **registry-first**: the set is uploaded to Keploy
 after record and downloaded before replay automatically (registry use depends on
