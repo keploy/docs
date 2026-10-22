@@ -119,6 +119,8 @@ keploy record -c "node src/app.js" --proxy-port 8080
 keploy record -c "node src/app.js" --debug
 ```
 
+Debug logs don't carry your application's data unless you ask for it. See [Log your application's data](#log-your-applications-data).
+
 - `rerecord` - Record certain test-sets again
 
 ```bash
@@ -210,6 +212,8 @@ keploy test -c "node src/app.js" -t "test-set-1,test-set-3" --delay 10
 ```bash
 keploy test -c "node src/app.js" --delay 10 --debug
 ```
+
+Debug logs don't carry your application's data unless you ask for it. See [Log your application's data](#log-your-applications-data).
 
 - `-g, --generate-test-report` - To generate the test report. The default is true.
 
@@ -465,6 +469,24 @@ keploy example [flags]
 <b> Available Flags: </b>
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
+
+## Log your application's data
+
+By default, no Keploy log line carries what your application sent or received: request and response bodies, header values, URL query values, database rows and bind values, and recorded mocks. This holds at every log level, `--debug` included, on the console, in `keploy-logs.txt`, and in the `agent-debug.log` file that the Keploy agent writes in Docker mode. A log line names such a value by its length and a short fingerprint instead, for example `{"len": 42, "fp": "2cf24dba5fb0"}`, next to facts that aren't your data: the message type, the method and path, header names, IDs, and counts. The same value has the same fingerprint in every line and every run, so you can tell two values apart without seeing them.
+
+To see the data itself while you debug a mismatch, set `KEPLOY_LOG_CONTENT` to `1` or `true` when you start Keploy:
+
+```bash
+KEPLOY_LOG_CONTENT=1 keploy test -c "node src/app.js" --debug
+```
+
+Keploy reads the variable once, at start, and passes it on to the agent it starts, whether in a Docker container or through `sudo`.
+
+:::caution
+With `KEPLOY_LOG_CONTENT` set, the logs can hold tokens, passwords, and personal data from your application's traffic. Don't share those log files, and delete them when you're done.
+:::
+
+Test reports and the mismatch tables that Keploy prints for a failed test aren't log lines: they show the values they compare, so you can act on them, whether or not the variable is set.
 
 ## Related
 
