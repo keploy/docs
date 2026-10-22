@@ -145,13 +145,20 @@ A test can also end with no verdict at all, which is not a quarantine. It happen
 | Called a dependency over a Unix socket, which Keploy doesn't support.                                                                          | That test and every later one. | Reach the dependency over a TCP address, mocked or listed in [`mock.real`](/docs/running-keploy/proven-flow/#mock-real).          |
 | Ran after Keploy's report of Unix-socket calls stopped, so whether a test made one can't be told.                                              | That test and every later one. | Report it to Keploy, with the agent's log. Nothing you change in your app ends it.                                                |
 | Ran while Keploy couldn't read a process's PID namespace, so whether its calls were your app's can't be told.                                  | That test and every later one. | Report it to Keploy, with the agent's log, which names the process.                                                               |
-| Hung up on its TLS handshake with Keploy without a word, which a client that doesn't trust Keploy's CA can do.                                 | That test.                     | Make the client trust Keploy's CA, for example with `NODE_EXTRA_CA_CERTS` for Node.js, or `--cacert` for the curl command line.   |
+| Hung up on its TLS handshake with Keploy without a word, which a client that doesn't trust Keploy's CA can do, and so can one that gave up.    | That test.                     | See [A TLS handshake hung up on](#tls-hung-up).                                                                                   |
 | Sent data to a server-first protocol Keploy has no parser for, such as SMTP, FTP, POP3, IMAP or NATS, which it relays.                         | That test.                     | List the destination in [`mock.real`](/docs/running-keploy/proven-flow/#mock-real), to reach it for real.                         |
 | Connected to a destination that refused the connection at once, such as a Redis error or a MySQL error packet.                                 | That test.                     | Find why the destination refused your app's connections, such as its connection limit or protected mode.                          |
 | Called a container whose configuration the Docker daemon didn't give Keploy, so the call's container can't be told.                            | That test.                     | Make `docker inspect` of the container answer: another operation on it, such as a stop's grace period or a hung `exec`, holds it. |
 | Keploy couldn't read or check everything the test did: the calls no mock answered, the mocks it used, or its learned values against its calls. | That test.                     | It's Keploy's failure, not your app's: report it to Keploy, with the run's log.                                                   |
 
 A call to something Keploy can't capture that your app makes outside every test, for example while it starts, or after the last test, leaves the whole test set without a verdict, in CI too.
+
+### A TLS handshake hung up on {#tls-hung-up}
+
+A client that closes its TLS handshake with Keploy without a word may have rejected Keploy's certificate, or may have given up. Nothing on the wire tells the two apart, so Keploy can't tell whether a call was lost.
+
+- **A Go client.** Go's `crypto/tls` doesn't reject a certificate without a word: it sends an alert, which Keploy counts as a failed handshake, a call lost, and not as this cause: auto-replay judges that test as it judges any test whose recording lost a call (see [Capture-loss evidence](/docs/running-keploy/proven-flow/#recording-lost)). A Go client hangs up without a word when it gives up, for example when its context is cancelled or its deadline passes during the handshake. Find why it gave up, then delete the set and record it again, [as above](#not-judged).
+- **Another program your app runs,** such as `curl`. Make it trust Keploy's CA. Keploy's message names the usual ways: `NODE_EXTRA_CA_CERTS` for Node.js, and `--cacert`, `CURL_CA_BUNDLE` or `SSL_CERT_FILE` for the curl command line.
 
 ## Resolve a merge conflict {#merge-conflict}
 
