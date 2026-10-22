@@ -457,7 +457,7 @@ Under `KEPLOY_PROVEN=1`, Keploy refuses these flags before it starts your app, w
 | `keploy test`                  | `--flaky-check-retry`                                                                                                                                | `keploy test --judge`.                                                                        |
 | `keploy test`                  | `--mock-noise-detection`, `--schema-noise-detection`                                                                                                 | Nothing: `keploy record`'s auto-replay learns what changes, and a replay writes no recording. |
 
-Keploy also ignores the matching `keploy.yml` settings, such as `test.ignoredTests`, `test.selectedTests` (select test sets with `-t` instead), `test.mustPass`, `test.healthPollTimeout`, `record.passThroughPorts` and `bypassRules`, and says so in a warning when they're set.
+Keploy also ignores the matching `keploy.yml` settings, such as `test.ignoredTests`, `test.selectedTests`, `test.mustPass`, `test.healthPollTimeout`, `record.passThroughPorts` and `bypassRules`, and says so in a warning when they're set. For `test.selectedTests`, the warning suggests `-t` instead, but CI's `keploy test` takes no `-t` and replays every test set on disk, so delete a set CI isn't to run. A run with `-t` is never the suite's verdict.
 
 ## Related
 
