@@ -108,10 +108,14 @@ module.exports = {
     // Meta Pixel Code — fires eagerly (init + PageView) on load so conversion
     // tracking is accurate from the first paint. Intentionally NOT deferred.
     // SPA route changes re-fire PageView from src/metaPixelRouteTracker.js.
+    // Only loads on keploy.io / www.keploy.io, so localhost, staging and
+    // Vercel previews never send events into the production pixel. Without
+    // fbq, the route tracker no-ops too.
     {
       tagName: "script",
       attributes: {},
-      innerHTML: `!function(f,b,e,v,n,t,s)
+      innerHTML: `if (/^(www\\.)?keploy\\.io$/.test(window.location.hostname)) {
+!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -120,7 +124,8 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2006330080011702');
-fbq('track', 'PageView');`,
+fbq('track', 'PageView');
+}`,
     },
     {
       tagName: "noscript",
