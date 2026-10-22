@@ -45,18 +45,20 @@ quarantined:
     rec: [sha256:7c01d2e911111111111111111111111111111111111111111111111111111111]
     since: 2026-10-20
     by: quarantine
-    keploy: 3.8.80
+    keploy: <version>
   post-learn-batch-1:
     class: flaky
     reason: unstable_order
     rec: [sha256:41aa0c3e00000000000000000000000000000000000000000000000000000000]
     since: 2026-10-20
     by: record
-    keploy: 3.8.80
+    keploy: <version>
     rounds: {full: failed, confirm: skipped}
     calls:
       - {protocol: HTTP, call: POST /batch, destination: localhost:8096, phase: no_match}
 ```
+
+In a real file, `keploy` holds the version of the Keploy release that wrote the entry where this example says `<version>`, and each `rec` hash is your recording's own.
 
 ## When an entry skips a test {#rules}
 
@@ -84,7 +86,7 @@ Don't add entries by editing the file: an entry whose `rec` doesn't name the tes
 | `mocks`       | Up to five recorded mocks behind the reason, by `name` and `kind`.                                                                                                                                                                                                                                                                                                                                                                                                                                           |
 | `diff`        | The paths of the response fields that differed, such as `body.total`. A key that may be a value, such as an email address that a map is keyed by, is written `{}`.                                                                                                                                                                                                                                                                                                                                           |
 
-The evidence holds no request or response bodies, query values or headers. A URL keeps only the path segments that read as names, and writes every other one as `{}`: numbers, IDs, UUIDs, hashes, email addresses and tokens with a digit in them. So `/users/alice@example.com/orders/12345` is `/users/{}/orders/{}`. A segment Keploy knows holds a value, such as the place of a variable it learned, is `{}` too. A query keeps its parameters' names, by the same rule, and writes every value as `{}`: `?expand=items&page=2` is `?expand={}&page={}`. Any other segment made only of letters, such as a slug or a lowercase user name, can't be told from a name, so it's kept: `/users/alice/orders/12345` is `/users/alice/orders/{}`. Review the file before you commit it if your URLs carry such values.
+The evidence holds no request or response bodies, query values or headers. A URL keeps only the path segments that read as names, and writes every other one as `{}`: numbers, IDs, UUIDs, hashes, email addresses, and any segment with a digit in it other than an API version such as `v1`, so `oauth2` and `acct_42` are `{}` too. So `/users/alice@example.com/orders/12345` is `/users/{}/orders/{}`. A segment Keploy knows holds a value, such as the place of a variable it learned, is `{}` too. A query keeps its parameters' names, by the same rule, and writes every value as `{}`: `?expand=items&page=2` is `?expand={}&page={}`. Any other segment of letters can't be told from a name, so it's kept. That includes letters joined by `-`, `_`, `.`, `~` or `:`, such as a slug like `hello-world`, and a lowercase user name: `/users/alice/orders/12345` is `/users/alice/orders/{}`. The few segments of letters that are `{}` hold a part that reads as a hash (eight or more of the letters `a` to `f` alone, such as `deadbeef`), a part in both cases that doesn't read as camelCase words (a random token such as `NffrFeUfNVaHib`), or are very long. Review the file before you commit it if your URLs carry such values.
 
 Keploy writes each entry's fields on fixed lines, one entry per test, sorted by test name, so changes to tests that are far apart in the file merge in Git without a conflict. Two branches that change the same test's entry, or add entries next to each other, can conflict: see [Resolve a merge conflict](#merge-conflict).
 

@@ -24,8 +24,6 @@ With `KEPLOY_PROVEN=1`, `keploy record` does more than save tests. When you stop
 
 :::note What this release covers
 The flow is for Go applications on Linux: amd64 with kernel 5.10 or later, and arm64 with kernel 6.6 or later. Calls over Unix sockets aren't supported. See [Requirements](#requirements).
-
-Run `keploy update` before you start, so that you have the latest Keploy Enterprise release.
 :::
 
 ## When to use it
@@ -45,7 +43,7 @@ Without `KEPLOY_PROVEN=1`, `keploy record` and `keploy test` work as described i
 3. **Replay as CI will (the confirming round).** Keploy runs `keploy test` the way your CI will run it, skipping the tests it's about to quarantine.
 4. **Judge.** A test that passed both rounds is kept. A test that didn't is written to `keploy/<test-set>/verdicts.yaml` with a class and a reason. Keploy prints a `JUDGED` line for each test set, then a `NEXT` block that gives CI's command, `KEPLOY_PROVEN=1 keploy test`.
 5. **Run CI's command once.** You run that command on your machine. It skips the quarantined tests and replays the rest, exactly as CI will. Its result is the suite's verdict, and when it's green, its `NEXT` block says what to commit and how to wire CI.
-6. **Run in CI.** You commit exactly the paths on the `commit:` line of that green `NEXT` block, never a `mocks.yaml` or a `secret.yaml`: not `git add keploy/`, which can also take a test set that Keploy didn't judge. See [Commit the test sets](#commit). Keploy puts the mocks of each test set that CI would replay green in the Keploy registry, and `KEPLOY_PROVEN=1 keploy test` in CI downloads them, skips the quarantined tests, and replays the rest.
+6. **Run in CI.** You commit exactly the paths on the `commit:` line of that green `NEXT` block. That line never names a `mocks.yaml` or a `secret.yaml`, but it does name every test set on disk, judged or not, so delete a set you don't want in CI before you run CI's command. Don't run `git add keploy/` instead: it takes every file under `keploy/` that `keploy/.gitignore` doesn't keep out, which can include a set's `secret.yaml`. See [Commit the test sets](#commit). Keploy puts the mocks of each test set that CI would replay green in the Keploy registry, and `KEPLOY_PROVEN=1 keploy test` in CI downloads them, skips the quarantined tests, and replays the rest.
 
 ## Requirements {#requirements}
 
@@ -63,7 +61,7 @@ curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
 keploy login
 ```
 
-`https://keploy.io/install.sh` hands over to the same installer, so either one installs the same Keploy.
+`https://keploy.io/install.sh` hands over to the same installer, so either one installs the same Keploy. If Keploy is already installed on your machine, run `keploy update` instead, so that you have the latest Keploy Enterprise release.
 
 Then turn the flow on for your shell:
 
@@ -293,7 +291,7 @@ The `summary` counts the tests the run ran. The `caveats` line says how many qua
 
 The commands the block prints leave out `--container-name`. When `keploy record` creates `keploy.yml`, it saves your `-c` command and `--container-name` there, and `keploy test` reads them from the committed file. If your `keploy.yml` existed before you recorded, pass the same `-c` and `--container-name` to `keploy test` yourself.
 
-When `do:` says the Keploy registry doesn't hold a test set's mocks, a CI checkout would have no mocks for that set and its tests would fail. For a set that judging kept green, upload them with the `keploy mock upload -t <test-set>` command it prints, then run [CI's command](#gate) once more: the upload writes the set's `config.yaml`, which CI reads. The block says this of any set on disk whose mocks the registry doesn't hold, including the ones `keploy record` didn't upload on purpose: a set it printed `NOT JUDGED` for, or one judging counted red (`CI would be red`, or a `NOTE` that CI runs none of it). Don't upload or commit those: delete the set's directory, `keploy/<test-set>`, and record again. For a `NOT WRITTEN` set, settle its `verdicts.yaml` first, as its line says.
+When `do:` says the Keploy registry doesn't hold a test set's mocks, a CI checkout would have no mocks for that set and its tests would fail. For a set that judging kept green, upload them with the `keploy mock upload -t <test-set>` command it prints, then run `KEPLOY_PROVEN=1 keploy status` again, as `do:` says. The upload writes the set's `config.yaml`, which CI reads, after the run, so `keploy status` reports the suite as `recorded` and gives [CI's command](#gate) to run once more: commit what that run's green block names. The block says this of any set on disk whose mocks the registry doesn't hold, including the ones `keploy record` didn't upload on purpose: a set it printed `NOT JUDGED` for, or one judging counted red (`CI would be red`, or a `NOTE` that CI runs none of it). Don't upload or commit those: delete the set's directory, `keploy/<test-set>`, and record again. For a `NOT WRITTEN` set, settle its `verdicts.yaml` first, as its line says.
 
 ## Commit the test sets {#commit}
 
@@ -302,6 +300,8 @@ Once [CI's command](#gate) is green, `git add` exactly the paths on the `commit:
 ```bash
 git add keploy.yml keploy/.gitignore keploy/test-set-0/tests keploy/test-set-0/mappings.yaml keploy/test-set-0/verdicts.yaml keploy/test-set-0/config.yaml
 ```
+
+The `commit:` line names the files of every test set on disk, not only the sets Keploy judged, because CI's `keploy test` replays every set the checkout holds. A green run replayed each of them, but a set that Keploy didn't judge, such as one left on disk by a `NOT JUDGED` record or recorded with `--disableAutoReplay`, has no `verdicts.yaml` to skip what doesn't replay. Delete such a set, `keploy/<test-set>`, and run CI's command once more before you commit: see [Tests with no verdict](/docs/running-keploy/verdicts-yaml/#not-judged).
 
 | Path                                                   | What it is                                                                                                                                               | Commit it?                                                                                                                                                                  |
 | ------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -411,7 +411,7 @@ Sometimes Keploy can't capture all of what your app's connections carry while it
 - A test that lost data and that no round could judge is quarantined as `keploy/capture_incomplete`, never kept.
 
 :::caution A loss can cost you tests, and land on another test
-When a capture loss, or memory pressure, overlaps a request, Keploy's agent can leave that request out of the recording altogether, so that it never saves a test whose mocks are incomplete. That request then has no test case, so nothing judges it, and its loss is charged to another test of the set. That test may replay and be kept: its `RECORDING LOST` line then names a test that didn't lose what it needs, and says it's kept. The agent counts the requests it left out as `tcs_suppressed_total` on its `agent: recording complete` line, which it logs at `WARN` level when they're a quarter or more of the session's requests. So when a `RECORDING LOST` line appears, compare the test cases on disk with the requests you sent, and record the missing ones again. A loss of bytes that were never in your app's memory happens in low-latency mode only, so record those flows in proxy mode.
+When a capture loss, or memory pressure, overlaps a request, Keploy's agent can leave that request out of the recording altogether, so that it never saves a test whose mocks are incomplete. That request then has no test case, so nothing judges it, and its loss is charged to another test of the set. That test may replay and be kept: its `RECORDING LOST` line then names a test that didn't lose what it needs, and says it's kept. The agent counts the requests it left out as `tcs_suppressed_total` on its `agent: recording complete` line. It logs that line at `INFO` level, and at `WARN` only when they're a quarter or more of the session's requests, so a few left-out requests raise no warning. So when a `RECORDING LOST` line appears, read that count, compare the test cases on disk with the requests you sent, and record the missing ones again. A loss of bytes that were never in your app's memory happens in low-latency mode only, so record those flows in proxy mode.
 :::
 
 Under the `JUDGED` line, Keploy prints a `RECORDING LOST` line for each test whose recording lost data, with what was lost and what Keploy decided:
