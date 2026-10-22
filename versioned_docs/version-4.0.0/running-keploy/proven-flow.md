@@ -246,7 +246,7 @@ protocol: ...
 ===================
 ```
 
-When the confirming round failed tests that judging then quarantined, the `summary` starts `keploy record's confirming round failed what it then quarantined`, and when a set failed on its own, it says so, with why. When judging's verdict failed, for example for a `NOT JUDGED` set or a CI that would be red, the block is `verified_red`, and when CI would run no test, `verified_empty`: fix what they name, then record again.
+When the confirming round failed tests that judging then quarantined, the `summary` starts `keploy record's confirming round failed what it then quarantined`, and when a set failed on its own, it says so, with why. When judging's verdict failed, for example for a `NOT JUDGED` set or a CI that would be red, the block is `verified_red`, and when CI would run no test at all, `verified_empty`: fix what they name, then record again. When judging quarantined every test it judged but another test set of the project has a test CI runs, `keploy record` keeps its own exit code and its block is `recorded`: its `summary` says that none of the tests it judged is verified, and it gives CI's command, which runs the other sets' tests.
 
 #### Run CI's command once {#gate}
 
