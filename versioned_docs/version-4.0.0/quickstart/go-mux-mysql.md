@@ -57,7 +57,7 @@ import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker 🐳
+# Using Docker {#using-docker-}
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
@@ -157,7 +157,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
+# Running App Locally {#running-app-locally-on-linuxwsl-}
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" />
 

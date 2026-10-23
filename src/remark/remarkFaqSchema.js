@@ -98,31 +98,14 @@ function remarkFaqSchema() {
         })),
       };
 
-      // The script child is a JS string-literal expression `{"...json..."}`, so
-      // the JSX evaluates back to the exact JSON string at render time (matches
-      // the DocItem JSON-LD pattern). MDX needs an estree AST on expression
-      // nodes, so build a minimal Program(Literal) rather than only a raw value.
-      const jsonString = JSON.stringify(schema);
+      // React entity-escapes text children of <script> during SSR, which
+      // shipped the JSON as {&quot;@context&quot;...} and broke parsing. Set
+      // the JSON via dangerouslySetInnerHTML={{__html: "<json>"}} instead so
+      // it is emitted verbatim. "<" is escaped so answer text can never close
+      // the script tag early. MDX needs an estree AST on expression nodes.
+      const jsonString = JSON.stringify(schema).replace(/</g, "\\u003c");
       const raw = JSON.stringify(jsonString);
-      const jsonExpression = {
-        type: "mdxFlowExpression",
-        value: jsonString,
-        data: {
-          estree: {
-            type: "Program",
-            sourceType: "module",
-            body: [
-              {
-                type: "ExpressionStatement",
-                expression: {type: "Literal", value: jsonString, raw},
-              },
-            ],
-          },
-        },
-      };
-      // Emit as a plain <script> in the page body. react-dom/server treats
-      // <script> as a raw-text element, so the JSON renders unescaped (clean
-      // quotes) — matching how the site's <HowTo> component emits JSON-LD.
+      const htmlObject = `{__html: ${raw}}`;
       tree.children.push({
         type: "mdxJsxFlowElement",
         name: "script",
@@ -132,8 +115,41 @@ function remarkFaqSchema() {
             name: "type",
             value: "application/ld+json",
           },
+          {
+            type: "mdxJsxAttribute",
+            name: "dangerouslySetInnerHTML",
+            value: {
+              type: "mdxJsxAttributeValueExpression",
+              value: htmlObject,
+              data: {
+                estree: {
+                  type: "Program",
+                  sourceType: "module",
+                  body: [
+                    {
+                      type: "ExpressionStatement",
+                      expression: {
+                        type: "ObjectExpression",
+                        properties: [
+                          {
+                            type: "Property",
+                            kind: "init",
+                            method: false,
+                            shorthand: false,
+                            computed: false,
+                            key: {type: "Identifier", name: "__html"},
+                            value: {type: "Literal", value: jsonString, raw},
+                          },
+                        ],
+                      },
+                    },
+                  ],
+                },
+              },
+            },
+          },
         ],
-        children: [jsonExpression],
+        children: [],
       });
     } catch (_e) {
       // Never break the build over a schema nicety.

@@ -55,7 +55,7 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Using Docker Compose {#using-docker-compose-}
 
 A sample url shortener app to test Keploy integration capabilities using Gin and MongoDB
 
@@ -241,7 +241,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
+# Running App Locally {#running-app-locally-on-linuxwsl-}
 
 A sample url shortener app to test Keploy integration capabilities using Gin and MongoDB
 

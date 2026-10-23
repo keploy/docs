@@ -56,7 +56,7 @@ import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallRem
 import SectionDivider from '@site/src/components/SectionDivider';
 import ProductTier from '@site/src/components/ProductTier';
 
-# Using Docker Compose 🐳
+# Using Docker Compose {#using-docker-compose-}
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
@@ -266,7 +266,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+# Running App Locally on Linux/WSL {#running-app-locally-on-linuxwsl-}
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
