@@ -72,7 +72,7 @@ Key architectural components:
 ### How Test Mode Works
 1. Keploy replays recorded test cases using `keploy test -c "<your app command>"`
 2. Recorded API requests are sent to the application
-3. Dependency responses are served from recorded mocks (no real external calls)
+3. Dependency responses are served from recorded mocks (no real external calls; the open-source Keploy relays Redis calls to the real server)
 4. Application responses are compared against recorded expected responses
 5. Noise detection filters out non-deterministic differences
 6. Test results are reported with pass/fail status and detailed diffs
@@ -89,7 +89,7 @@ Key architectural components:
 - MongoDB: Full CRUD operation mocking
 - PostgreSQL: Query-level mocking and replay
 - HTTP/HTTPS: External API call mocking
-- Redis: Command-level mocking
+- Redis (and servers that speak Redis's protocol, such as Valkey, KeyDB and Dragonfly): Command-level mocking in Keploy Enterprise only (https://keploy.io/docs/keploy-cloud/cloud-installation/), which is the `keploy` that https://keploy.io/install.sh installs by default (https://keploy.io/docs/server/installation/); a free account is enough to record and replay with it, and free-tier runs are subject to a usage allowance. The open-source Keploy passes Redis calls through to the real Redis server in record and test, records no Redis mocks, and logs that the Redis calls are skipped.
 
 Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services (PostgreSQL, Redis, Kafka, gRPC, SQS, …) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
 

@@ -58,9 +58,17 @@ import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker Compose 🐳
 
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
+
+:::note Recording and mocking Redis needs Keploy Enterprise
+
+Keploy records this app's Redis calls as Mocks, and replays them in `keploy test`, only in [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which is the `keploy` that the [install script](/docs/server/installation/) installs by default. A free account is enough to record and replay with it; free-tier runs are subject to a usage allowance.
+
+The open-source `keploy` is the `keploy` that you build from the open-source repository, install with `curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss`, download from the keploy/keploy GitHub releases, or run from the `ghcr.io/keploy/keploy` image. It passes the Redis calls through to the real Redis server in `keploy record` and in `keploy test`, records no Redis Mocks, and logs a warning that the Redis calls are skipped. With it, Redis must be running while `keploy test` runs, and the app reads and writes the live Redis: the OTP verification test fails, because replaying the OTP request stores a new random OTP in Redis, and the recorded OTP no longer matches it. See [Redis Support](/docs/dependencies/redis/).
+
+:::
 
 <EnterpriseInstallReminder />
 
@@ -190,56 +198,44 @@ curl: |
   --header 'Postman-Token: 2db91281-a5bf-49e0-be0d-c6293c833910' \
 ```
 
-This is how `mocks.yml` generated would look like:-
+Keploy Enterprise records no Mock for the app's `PING`. This excerpt of the `mocks.yaml` it writes for these calls leaves out the timestamps and the Mocks for the `HELLO` and `CLIENT SETINFO` commands with which the Redis client opens its connection:
 
 ```yaml
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*1\r\n$4\r\nping\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "+PONG\r\n"
-  ---
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*5\r\n$3\r\nset\r\n$19\r\nsomething@gmail.com\r\n$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n$2\r\nex\r\n$5\r\n14400\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "+OK\r\n"
-  ---
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*2\r\n$3\r\nget\r\n$19\r\nsomething@gmail.com\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n"
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-3
+spec:
+  metadata:
+    connID: "0"
+  RequestBin:
+    - origin: client
+      message:
+        - type: string
+          data: "*5\r\n$3\r\nset\r\n$19\r\nsomething@gmail.com\r\n$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n$2\r\nex\r\n$5\r\n14400\r\n"
+  ResponseBin:
+    - origin: server
+      message:
+        - type: string
+          data: "+OK\r\n"
+connectionId: "0"
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-4
+spec:
+  metadata:
+    connID: "0"
+  RequestBin:
+    - origin: client
+      message:
+        - type: string
+          data: "*2\r\n$3\r\nget\r\n$19\r\nsomething@gmail.com\r\n"
+  ResponseBin:
+    - origin: server
+      message:
+        - type: string
+          data: "$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n"
+connectionId: "0"
 ```
 
 Want to see if everything works as expected?
@@ -268,11 +264,19 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 # Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
 This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#using-docker-compose-) instead — natively there, Keploy captures Redis calls only as raw bytes, which usually don't replay.
+
+:::note Recording and mocking Redis needs Keploy Enterprise
+
+Keploy records this app's Redis calls as Mocks, and replays them in `keploy test`, only in [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which is the `keploy` that the [install script](/docs/server/installation/) installs by default. A free account is enough to record and replay with it; free-tier runs are subject to a usage allowance.
+
+The open-source `keploy` is the `keploy` that you build from the open-source repository, install with `curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss`, download from the keploy/keploy GitHub releases, or run from the `ghcr.io/keploy/keploy` image. It passes the Redis calls through to the real Redis server in `keploy record` and in `keploy test`, records no Redis Mocks, and logs a warning that the Redis calls are skipped. With it, Redis must be running while `keploy test` runs, and the app reads and writes the live Redis: the OTP verification test fails, because replaying the OTP request stores a new random OTP in Redis, and the recorded OTP no longer matches it. See [Redis Support](/docs/dependencies/redis/).
+
+:::
 
 <EnterpriseInstallReminder />
 
@@ -403,56 +407,44 @@ curl: |
   --header 'Postman-Token: 2db91281-a5bf-49e0-be0d-c6293c833910' \
 ```
 
-This is how `mocks.yml` generated would look like:-
+Keploy Enterprise records no Mock for the app's `PING`. This excerpt of the `mocks.yaml` it writes for these calls leaves out the timestamps and the Mocks for the `HELLO` and `CLIENT SETINFO` commands with which the Redis client opens its connection:
 
 ```yaml
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*1\r\n$4\r\nping\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "+PONG\r\n"
-  ---
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*5\r\n$3\r\nset\r\n$19\r\nsomething@gmail.com\r\n$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n$2\r\nex\r\n$5\r\n14400\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "+OK\r\n"
-  ---
-  version: api.keploy.io/v1beta2
-  kind: Generic
-  name: mocks
-  spec:
-      metadata: {}
-      genericrequests:
-          - origin: client
-          message:
-              - type: string
-              data: "*2\r\n$3\r\nget\r\n$19\r\nsomething@gmail.com\r\n"
-      genericresponses:
-          - origin: server
-          message:
-              - type: string
-              data: "$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n"
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-3
+spec:
+  metadata:
+    connID: "0"
+  RequestBin:
+    - origin: client
+      message:
+        - type: string
+          data: "*5\r\n$3\r\nset\r\n$19\r\nsomething@gmail.com\r\n$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n$2\r\nex\r\n$5\r\n14400\r\n"
+  ResponseBin:
+    - origin: server
+      message:
+        - type: string
+          data: "+OK\r\n"
+connectionId: "0"
+---
+version: api.keploy.io/v1beta1
+kind: Redis
+name: mock-4
+spec:
+  metadata:
+    connID: "0"
+  RequestBin:
+    - origin: client
+      message:
+        - type: string
+          data: "*2\r\n$3\r\nget\r\n$19\r\nsomething@gmail.com\r\n"
+  ResponseBin:
+    - origin: server
+      message:
+        - type: string
+          data: "$38\r\n{\"otp\":5486,\"username\":\"shivamsourav\"}\r\n"
+connectionId: "0"
 ```
 
 Want to see if everything works as expected?
