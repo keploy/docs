@@ -18,6 +18,12 @@ import ProductTier from '@site/src/components/ProductTier';
 
 This guide covers installing **Keploy**, the key features available on the Enterprise plan, and steps to get started. It is designed to help teams quickly adopt Keploy and integrate it into their development and testing workflows.
 
+:::note Redis works with a free account
+
+The `keploy` that the [install script](/docs/server/installation/) installs by default (without `--oss`) is Keploy Enterprise. It records and mocks Redis on Linux and in Docker or WSL, and a free account is enough for that: recording and mocking Redis does not need the Enterprise plan that the rest of this page describes. See [Redis Support](/docs/dependencies/redis/).
+
+:::
+
 ### Requesting the Enterprise Plan
 
 To use the features on this page, your Keploy account needs to be on the Enterprise plan.
