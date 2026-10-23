@@ -9,7 +9,7 @@ tags:
   - debugger guide
 ---
 
-# Debugger Guide 👨‍🔧
+# Debugger Guide
 
 In this blog, we will learn how to debug keploy using Visual Studio Code integrated debugger.
 

@@ -8,11 +8,6 @@ tags:
   - Glossary
 keywords:
   - API
-head:
-  - tag: link
-    attrs:
-      rel: canonical
-      href: https://keploy.io/blog/community/regression-testing-an-introductory-guide
 ---
 
 ## What is regression testing?

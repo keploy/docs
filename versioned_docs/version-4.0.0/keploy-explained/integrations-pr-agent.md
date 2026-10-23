@@ -9,7 +9,7 @@ tags:
   - PR agent
 ---
 
-# 🔗 SCM Integrations — PR Agent
+# SCM Integrations — PR Agent
 
 Keploy’s PR Agent helps automate code reviews, testing, and feedback—right where you work.
 

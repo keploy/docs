@@ -19,7 +19,7 @@ const DOCS_URL = `${SITE_URL}/docs/`;
 
 const ORGANIZATION_ID = `${SITE_URL}/#organization`;
 const WEBSITE_ID = `${DOCS_URL}#website`;
-const SOFTWARE_APPLICATION_ID = `${SITE_URL}/#keploy`;
+const SOFTWARE_APPLICATION_ID = `${SITE_URL}/#software`;
 const GLOSSARY_URL = `${DOCS_URL}concepts/reference/glossary/`;
 const TERMSET_ID = `${GLOSSARY_URL}#termset`;
 
@@ -78,6 +78,7 @@ const organizationNode = {
     "https://www.g2.com/products/keploy/reviews",
     "https://www.capterra.in/software/1070466/Keploy",
     "https://aws.amazon.com/marketplace/reviews/reviews-list/prodview-xgwmdk4ivjjv4",
+    "https://www.wikidata.org/wiki/Q137395272",
   ],
 };
 
@@ -100,7 +101,7 @@ const softwareApplicationNode = {
   name: "Keploy",
   description:
     "Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic, captured at the network layer. It helps developers achieve 90% test coverage in minutes with zero code changes. It runs natively on Linux (using eBPF), on macOS with Apple Silicon and on x86-64 Windows (in user space, with no VM or Docker).",
-  applicationCategory: "DeveloperTool",
+  applicationCategory: "DeveloperApplication",
   applicationSubCategory: "Test Automation",
   operatingSystem: "Linux, macOS, Windows",
   softwareHelp: DOCS_URL,
