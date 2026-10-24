@@ -140,7 +140,7 @@ The two are related but conceptually distinct: [`--k8s-proxy-url`](#--k8s-proxy-
 | API key (PAT)                 | `--api-key`        | `KEPLOY_API_KEY`             | —                          |
 | Turn the mode on _(optional)_ | `--k8s-proxy-auth` | `KEPLOY_K8S_PROXY_AUTH=true` | `cloud.k8sProxyAuth: true` |
 
-Only two inputs are required — a proxy URL to reach and a PAT to authenticate. **Setting the proxy URL enables the mode automatically**, so `--k8s-proxy-auth` is optional; pass it (or `KEPLOY_K8S_PROXY_AUTH=true`) only to be explicit. Generate the PAT from **Settings → API Keys** in the dashboard.
+Only two inputs are required — a proxy URL to reach and a PAT to authenticate. **Setting the proxy URL enables the mode automatically**, so `--k8s-proxy-auth` is optional; pass it (or `KEPLOY_K8S_PROXY_AUTH=true`) only to be explicit. Generate the PAT in the Keploy Console: open **Account › API Keys** and click **Generate new token**.
 
 ```bash
 export KEPLOY_API_KEY=kep_xxxxxxxx
