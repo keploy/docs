@@ -170,7 +170,7 @@ The proxy validates a key with the API server and caches the answer in memory fo
 
 ### Deprecated: the shared-token exchange
 
-Earlier releases had callers exchange a PAT for the cluster's **shared token** (`POST /get-shared-token`, or the **Get Shared Token** button in the Console) and send that token on every call. That flow is deprecated.
+Earlier releases had callers exchange a PAT for the cluster's **shared token** (`POST /get-shared-token`, or the **Get Agent Token** button in the Console) and send that token on every call. That flow is deprecated.
 
 The shared token is the credential the proxy's own in-cluster components authenticate with: the node agents and the external replay runner. It names no user and every one of those components holds it, so the proxy accepts it only on the routes those components call, in every RBAC mode. On every other route, including `/record/start`, `/record/stop`, `/test/start`, and `/deployments`, it gets `403 Forbidden`:
 
