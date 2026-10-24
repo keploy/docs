@@ -38,7 +38,7 @@ The agent always stops at a **verified branch** and reports back. Merging to `ma
 ## Before you start
 
 - Keploy on the Enterprise plan, with smart test sets enabled on the app (`EnableSmartTestSet=true`), and the app already [recording in your cluster](/docs/quickstart/k8s-proxy).
-- A **Keploy PAT** — Dashboard → Settings → API Keys. Copy the `kep_...` value (shown only once).
+- A **Keploy PAT** — in the Keploy Console, open **Account › API Keys** and click **Generate new token**. Copy the `kep_...` value (shown only once).
 - A **Skills-aware editor**: Cursor (cursor-agent CLI / Cursor IDE), Claude Code, Windsurf, Antigravity, or any agent that loads `.../skills/<name>/SKILL.md` on demand. Older `.cursorrules` / `.windsurfrules` always-on rules files work too but bill the full skill on every editor interaction — Skills are the modern, on-demand path and what this page recommends.
 - **Run the agent from inside the app's git repository.** The skill inspects your `git` commit message and `git diff` to decide whether a failing case is an **intentional contract change** (update the test data) or a **regression** (fix the code). Outside a repo it can't tell them apart and will conservatively treat the change as a regression and refuse to edit the test.
 
@@ -75,7 +75,7 @@ All MCP-aware editors accept the exact same JSON config; only the config file pa
 Two things to swap for your environment:
 
 - **`url`** — `https://api.keploy.io/client/v1/mcp` is the hosted Keploy endpoint. For **self-hosted** deployments use your api-server's URL (commonly `http://localhost:8083/client/v1/mcp` for a local dev install).
-- **`kep_...`** — paste your PAT from Dashboard → Settings → API Keys (shown only once on creation; regenerate if you've lost it).
+- **`kep_...`** — paste your PAT from the Keploy Console, **Account › API Keys** (shown only once on creation; generate a new one if you've lost it).
 
 Fully quit and reopen your editor after editing the config — MCP clients only re-read config on startup.
 
