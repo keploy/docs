@@ -159,12 +159,13 @@ AUTH="Authorization: Bearer $PAT"
 
 ### Authentication failure modes
 
-| Status | When                                                                                                                                                                  |
-| ------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `401`  | Missing or empty `Authorization` header, or the key is invalid, revoked, or expired.                                                                                  |
-| `403`  | The key belongs to a different organization than the proxy's cluster, it lacks the route's permission under `enforce`, or it is the cluster shared token (see below). |
-| `502`  | The proxy could not reach the API server to validate the key (transient, retry).                                                                                      |
-| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                                                                   |
+| Status | When                                                                                                                                                                                                                                                                                                                                                                            |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `401`  | Missing or empty `Authorization` header, or the key is invalid, revoked, or expired.                                                                                                                                                                                                                                                                                            |
+| `403`  | The key belongs to a different organization than the proxy's cluster, it lacks the route's permission under `enforce`, or it is the cluster shared token (see below).                                                                                                                                                                                                           |
+| `502`  | The proxy could not reach the API server to validate the key (transient, retry).                                                                                                                                                                                                                                                                                                |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                                                                                                                                                                                                                                                                             |
+| `503`  | With more than one proxy replica: another replica owns the recording or replay, and this one could not verify it as one of the release's pods, so it did not forward the request. The body's `code` is `OWNER_REPLICA_UNVERIFIED` and a `Retry-After` header says when to retry. If it persists, check that the proxy's service account can get and list pods in its namespace. |
 
 The proxy validates a key with the API server and caches the answer in memory for five minutes, so a busy pipeline does not pay a validation round trip on every call. Revoking a key, or disabling its service account, takes effect on the API server at once and on the proxy when that cached answer expires. While the proxy cannot reach the API server, it keeps serving a key it has already validated for up to 30 minutes, so a short API server outage does not stop a running pipeline. The proxy never writes the key to disk or to its logs.
 
@@ -479,19 +480,21 @@ These routes are all mounted under `/k8s-proxy` and are served directly by the p
 
 ### Assertion-test generator (ATG)
 
-| Method | Path                            | Description                                                                        |
-| ------ | ------------------------------- | ---------------------------------------------------------------------------------- |
-| `POST` | `/agent/run/{jobID}`            | Process an ATG job. Accepts optional `?timeout=<seconds>` (default `30`).          |
-| `POST` | `/agent/execute-request`        | Execute an HTTP request through the ATG runtime (used during assertion authoring). |
-| `POST` | `/agent/service-url`            | Resolve a Service URL inside the cluster (used to target the app from the UI).     |
-| `POST` | `/agent/recordATGSandbox`       | Bind to an already-running ATG sandbox recording session.                          |
-| `POST` | `/agent/stopATGSandboxRecord`   | Stop an ATG sandbox recording session.                                             |
-| `POST` | `/agent/replayATGSandbox`       | Start an ATG sandbox replay session.                                               |
-| `POST` | `/agent/stopATGSandboxReplay`   | Stop an ATG sandbox replay session.                                                |
-| `GET`  | `/agent/ATGSandboxRecordStatus` | Fetch ATG sandbox recording status.                                                |
-| `GET`  | `/agent/ATGSandboxRecordLogs`   | Fetch ATG sandbox recording logs.                                                  |
-| `GET`  | `/agent/ATGSandboxReplayLogs`   | Fetch ATG sandbox replay logs.                                                     |
-| `GET`  | `/agent/autoReplayLogs`         | Fetch auto-replay logs.                                                            |
+| Method | Path                            | Description                                                                                             |
+| ------ | ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `POST` | `/agent/run/{jobID}`            | Process an ATG job. Accepts optional `?timeout=<seconds>` (default `30`).                               |
+| `POST` | `/agent/execute-request`        | Send an HTTP request to an app Service this proxy manages (used during assertion authoring; see below). |
+| `POST` | `/agent/service-url`            | Resolve a Service URL inside the cluster (used to target the app from the UI).                          |
+| `POST` | `/agent/recordATGSandbox`       | Bind to an already-running ATG sandbox recording session.                                               |
+| `POST` | `/agent/stopATGSandboxRecord`   | Stop an ATG sandbox recording session.                                                                  |
+| `POST` | `/agent/replayATGSandbox`       | Start an ATG sandbox replay session.                                                                    |
+| `POST` | `/agent/stopATGSandboxReplay`   | Stop an ATG sandbox replay session.                                                                     |
+| `GET`  | `/agent/ATGSandboxRecordStatus` | Fetch ATG sandbox recording status.                                                                     |
+| `GET`  | `/agent/ATGSandboxRecordLogs`   | Fetch ATG sandbox recording logs.                                                                       |
+| `GET`  | `/agent/ATGSandboxReplayLogs`   | Fetch ATG sandbox replay logs.                                                                          |
+| `GET`  | `/agent/autoReplayLogs`         | Fetch auto-replay logs.                                                                                 |
+
+`POST /agent/execute-request` needs `testgen:run`, and the shared token is refused there. It sends the request only to an app the proxy manages: a Service by its full in-cluster name, `<service>.<namespace>.svc.cluster.local`, in a namespace the proxy may record (not the proxy's own), that selects pods, on one of its TCP ports. The proxy verifies the target's TLS certificate, does not follow redirects (a `3xx` comes back as the answer), and does not route the request through an egress proxy. Any other target, such as an IP address, an out-of-cluster host, a short Service name, or a URL that carries credentials, gets `403 Forbidden` with an `error` that says why. When the proxy cannot look the Service up in the cluster, it answers `503`; retry.
 
 ### Proxy self-management
 
