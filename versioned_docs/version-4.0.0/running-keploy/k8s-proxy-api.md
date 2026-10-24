@@ -141,7 +141,7 @@ PROXY="https://your-proxy-ingress"
 AUTH="Authorization: Bearer $KEPLOY_API_KEY"
 ```
 
-Neither runner role includes starting or stopping a recording or an in-cluster replay (`record:start`, `record:stop`, `replay:start`, `replay:stop`). With `KEPLOY_RBAC_MODE=enforce`, call those routes with the key of someone who holds those permissions on the cluster, such as a cluster admin.
+Starting or stopping a recording or an in-cluster replay through the proxy API (`/record/start`, `/record/stop`, `/test/start`, `/test/stop`) is a person's action, not a CI job's: `keploy cloud replay` and `keploy test-suite --cloud` never call those routes. Call them with your own [personal access token](#personal-access-tokens). With `KEPLOY_RBAC_MODE=enforce`, its owner needs `record:start` and `record:stop`, or `replay:start` and `replay:stop`, on the cluster.
 
 ### Personal access tokens
 
@@ -182,7 +182,9 @@ The shared token is the credential the proxy's own in-cluster components authent
 }
 ```
 
-To migrate a script, send the service-account key or PAT itself as the Bearer token, and remove the exchange step along with any `tokenId` caching built around it. A key does not rotate when the proxy restarts, so a CI job no longer needs to re-exchange after a `helm upgrade` or a proxy self-update.
+This is a hard cut. There is no grace period and no release that only logs the shared token's use: once the proxy is upgraded to a release with this restriction, a script that still sends the shared token gets the `403` above on those routes, whatever the RBAC mode. Migrate first. The proxy already accepts service-account keys and PATs on every route, so your scripts can switch before the upgrade.
+
+To migrate a script, send the service-account key or PAT itself as the Bearer token, and remove the exchange step along with any `tokenId` caching built around it. A CI job uses a service-account key bound to `ITG_RUNNER` for `keploy cloud replay`, or to `ATG_RUNNER` for `keploy test-suite --cloud` (see [Service accounts for CI](#service-accounts-for-ci)); a person starting or stopping a recording or replay uses their own PAT. A key does not rotate when the proxy restarts, so a CI job no longer needs to re-exchange after a `helm upgrade` or a proxy self-update.
 
 ---
 
