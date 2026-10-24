@@ -104,10 +104,10 @@ Authorization: Bearer <KEPLOY_API_KEY>
 
 The key is one of two kinds. Both are `kep_`-prefixed strings, and the proxy validates both with the Keploy API server:
 
-| Key                             | Use it for                                           | Where to create it                              |
-| ------------------------------- | ---------------------------------------------------- | ----------------------------------------------- |
-| **Service-account key**         | CI/CD pipelines, operators, and other automation     | Keploy Console, **Settings › Service Accounts** |
-| **Personal access token (PAT)** | A person scripting against the proxy from a terminal | Keploy Console, **Settings → API Keys**         |
+| Key                             | Use it for                                           | Where to create it                             |
+| ------------------------------- | ---------------------------------------------------- | ---------------------------------------------- |
+| **Service-account key**         | CI/CD pipelines, operators, and other automation     | Keploy Console, **Account › Service Accounts** |
+| **Personal access token (PAT)** | A person scripting against the proxy from a terminal | Keploy Console, **Account › API Keys**         |
 
 Only `GET /healthz`, the admission webhook `POST /mutate`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects a missing or malformed header with `401 Unauthorized`.
 
@@ -129,7 +129,7 @@ Each route requires one permission, such as `record:start` or `testcase:read`. T
 
 A service account is a non-human identity in your organization. It holds nothing until an organization admin grants it a role, and it can never manage roles, teams, access, or other service accounts, so a leaked key cannot widen its own access.
 
-1. **Create the account.** In the Keploy Console, open **Settings › Service Accounts** (organization admins only) and create one account per pipeline or tool.
+1. **Create the account.** In the Keploy Console, open **Account › Service Accounts** (organization admins only) and create one account per pipeline or tool.
 2. **Grant it access** on the cluster, or on the apps the pipeline works with. A service account takes one or both of two roles:
    - `ITG_RUNNER` runs `keploy cloud replay`. It reads the recorded test cases, mocks, schema, mappings, and auto-replay results, reads replay status, and uploads replay reports.
    - `ATG_RUNNER` runs `keploy test-suite --cloud`.
@@ -145,7 +145,7 @@ Neither runner role includes starting or stopping a recording or an in-cluster r
 
 ### Personal access tokens
 
-In the Keploy Console, open **Settings → API Keys** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
+In the Keploy Console, open **Account › API Keys** and click **Generate new token**. PATs are 47-character strings prefixed with `kep_`.
 
 - A PAT acts as the person who created it, with that person's permissions on the cluster, up to the scopes chosen when the token was created.
 - Treat the PAT like a password. Store it in a secret store, not in the repo.
