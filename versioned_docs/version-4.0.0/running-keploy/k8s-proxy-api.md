@@ -177,10 +177,13 @@ The shared token is the credential the proxy's own in-cluster components authent
 ```json
 {
   "success": false,
-  "message": "the cluster shared token may not call this route; call it with a service-account key or a personal access token",
+  "code": "MACHINE_CREDENTIAL_REFUSED",
+  "message": "the cluster shared token may not call this route: it is a user route, and the shared token may call only the routes the in-cluster agents and replay runners use; call it with a service-account key or a personal access token",
   "required_permission": "record:start"
 }
 ```
+
+A script can tell this refusal from a key that lacks a permission by its `code`, `MACHINE_CREDENTIAL_REFUSED`; `required_permission` names the route's permission. `POST /kms/decrypt` is the one key-material route the shared token may still call, and only from the proxy itself, over its loopback listener, where the in-cluster replay decrypts. Over the network it gets the same `403` and code, with a message that says so.
 
 This is a hard cut. There is no grace period and no release that only logs the shared token's use: once the proxy is upgraded to a release with this restriction, a script that still sends the shared token gets the `403` above on those routes, whatever the RBAC mode. Migrate first. The proxy already accepts service-account keys and PATs on every route, so your scripts can switch before the upgrade.
 
