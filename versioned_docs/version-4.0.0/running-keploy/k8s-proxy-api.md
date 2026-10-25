@@ -17,7 +17,7 @@ keywords:
   - live recording
   - auto replay
   - programmatic recording
-  - shared token
+  - service account
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
@@ -96,18 +96,20 @@ Combined with capture-time static deduplication (benefit 2), this keeps the curr
 
 ## Authentication
 
-Authenticating to the proxy is a **two-step exchange**:
-
-1. Create a **Personal Access Token (PAT)** in the Keploy Console.
-2. `POST /get-shared-token` with that PAT to receive the cluster's **shared token**.
-
-Every other protected route on the proxy is then gated on the shared token sent as a Bearer header:
+Every protected route takes a Keploy API key, sent as a Bearer header:
 
 ```text
-Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>
+Authorization: Bearer <KEPLOY_API_KEY>
 ```
 
-Only `GET /healthz`, the admission webhook `POST /mutate`, the bootstrap `POST /get-shared-token`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects missing or malformed headers with `401 Unauthorized`.
+The key is one of two kinds. Both are `kep_`-prefixed strings, and the proxy validates both with the Keploy API server:
+
+| Key                             | Use it for                                           | Where to create it                             |
+| ------------------------------- | ---------------------------------------------------- | ---------------------------------------------- |
+| **Service-account key**         | CI/CD pipelines, operators, and other automation     | Keploy Console, **Account › Service Accounts** |
+| **Personal access token (PAT)** | A person scripting against the proxy from a terminal | Keploy Console, **Account › API Keys**         |
+
+Only `GET /healthz`, the admission webhook `POST /mutate`, and the introspection `GET /shared-token/info` are unauthenticated. Every other route rejects a missing or malformed header with `401 Unauthorized`.
 
 ```bash
 # Verify the proxy is up (no auth required)
@@ -115,116 +117,78 @@ curl -sf https://$PROXY/healthz
 # {"status":"ok"}
 ```
 
-### Why a two-step exchange?
+### What a key can call
 
-The PAT identifies a specific user; the shared token authorizes calls against a specific cluster. Splitting the two lets callers (CI scripts, AI agents, internal tooling) store one user-rotatable PAT and exchange it at run time without `kubectl` access to the proxy namespace or an interactive user login. The shared token is still a cluster-wide secret and can also be surfaced through existing heartbeat-backed Console/API flows, so handle it as sensitive wherever it appears.
+Each route requires one permission, such as `record:start` or `testcase:read`. The proxy asks the API server which permissions the key's owner holds on this cluster, and, when a request names an app, on that app.
 
-### 1. Issue a PAT
+- With `KEPLOY_RBAC_MODE=enforce` (`proxy.rbacMode: enforce` in the Helm chart), a key without the route's permission gets `403 Forbidden`.
+- In the default audit mode, the proxy logs the missing permission and allows the call. A key that holds nothing on this cluster is checked strictly in every mode, so it can call only what its app-level grants allow.
+- A key that belongs to a different organization than the proxy's cluster is refused with `403 Forbidden`.
 
-In the Keploy Console, open **Settings → API Keys** and click **Create token**. PATs are 47-character strings prefixed with `kep_`.
+### Service accounts for CI
 
-- The PAT must belong to the same tenant (`cid`) as the cluster the proxy is registered to and include `write` or `admin` scope. The proxy will reject cross-tenant PATs or PATs with insufficient scope with `403 Forbidden`.
-- Treat the PAT like a password—it is the long-lived credential. Store it in your CI provider's secret store, not in the repo.
-- A user can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
+A service account is a non-human identity in your organization. It holds nothing until an organization admin grants it a role, and it can never manage roles, teams, access, or other service accounts, so a leaked key cannot widen its own access.
 
-### 2. Exchange the PAT for the shared token
+1. **Create the account.** In the Keploy Console, open **Account › Service Accounts** (organization admins only) and create one account per pipeline or tool.
+2. **Grant it access** on the cluster, or on the apps the pipeline works with. A service account takes one or both of two roles:
+   - `ITG_RUNNER` runs `keploy cloud replay`. It reads the recorded test cases, mocks, schema, mappings, and auto-replay results, reads replay status, and uploads replay reports.
+   - `ATG_RUNNER` runs `keploy test-suite --cloud`.
+3. **Create a key.** Every key expires: 90 days by default, 365 days at most. An account can hold up to 10 live keys, so you can rotate one without downtime and revoke a single consumer's key without touching the others.
+4. **Store the key** in your CI provider's secret store as `KEPLOY_API_KEY`, and send it as the Bearer token:
 
-There are two ways to do the exchange. Pick whichever fits your workflow—they both hit the same `POST /get-shared-token` endpoint.
+```bash
+PROXY="https://your-proxy-ingress"
+AUTH="Authorization: Bearer $KEPLOY_API_KEY"
+```
 
-#### Option A: From the Keploy Console
+Starting or stopping a recording or an in-cluster replay through the proxy API (`/record/start`, `/record/stop`, `/test/start`, `/test/stop`) is a person's action, not a CI job's: `keploy cloud replay` and `keploy test-suite --cloud` never call those routes. Call them with your own [personal access token](#personal-access-tokens). With `KEPLOY_RBAC_MODE=enforce`, its owner needs `record:start` and `record:stop`, or `replay:start` and `replay:stop`, on the cluster.
 
-Open the cluster's detail page in the Console. Each cluster card on the top row shows the live ingress URL; the **Get Shared Token** button sits inside that card.
+### Personal access tokens
 
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-button.webp" alt="Get Shared Token button on the Ingress URL card" width="2000" height="327" style={{maxWidth:'100%',height:'auto'}} />
+In the Keploy Console, open **Account › API Keys** and click **Generate new token**. PATs are 47-character strings prefixed with `kep_`.
 
-Clicking it opens a dialog pre-filled with the cluster's ingress URL. Paste your PAT and submit.
-
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-dialog.webp" alt="Exchange PAT for shared token dialog" width="1348" height="718" style={{maxWidth:'100%',height:'auto'}} />
-
-On success, the dialog displays the `sharedToken`, `ingressUrl`, and `deploymentType` returned by the proxy. Use the **Copy sharedToken** button to grab the token for your CI script or terminal.
-
-<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/k8s-proxy-shared-token-success.webp" alt="Successful exchange showing sharedToken, ingressUrl, deploymentType" width="1384" height="1030" style={{maxWidth:'100%',height:'auto'}} />
-
-The PAT is held in browser memory for the lifetime of the dialog only—it's never persisted to local storage and never sent to the Keploy API server from the Console (the proxy itself does that validation server-side).
-
-#### Option B: From a shell
+- A PAT acts as the person who created it, with that person's permissions on the cluster, up to the scopes chosen when the token was created.
+- Treat the PAT like a password. Store it in a secret store, not in the repo.
+- A person can have multiple PATs. Revoke or rotate them from the same Console screen; revoked PATs stop working immediately.
 
 ```bash
 PROXY="https://your-proxy-ingress"
 PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-
-RESP=$(curl -sS -X POST "$PROXY/get-shared-token" \
-  -H "Authorization: Bearer $PAT")
-
-K8S_PROXY_SHARED_TOKEN=$(echo "$RESP" | jq -r '.sharedToken')
-INGRESS_URL=$(echo "$RESP" | jq -r '.ingressUrl')
-
-AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
+AUTH="Authorization: Bearer $PAT"
 ```
 
-A successful exchange returns:
+### Authentication failure modes
+
+| Status | When                                                                                                                                                                                                                                                                                                                                                                            |
+| ------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `401`  | Missing or empty `Authorization` header, or the key is invalid, revoked, or expired.                                                                                                                                                                                                                                                                                            |
+| `403`  | The key belongs to a different organization than the proxy's cluster, it lacks the route's permission under `enforce`, or it is the cluster shared token (see below).                                                                                                                                                                                                           |
+| `502`  | The proxy could not reach the API server to validate the key (transient, retry).                                                                                                                                                                                                                                                                                                |
+| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                                                                                                                                                                                                                                                                             |
+| `503`  | With more than one proxy replica: another replica owns the recording or replay, and this one could not verify it as one of the release's pods, so it did not forward the request. The body's `code` is `OWNER_REPLICA_UNVERIFIED` and a `Retry-After` header says when to retry. If it persists, check that the proxy's service account can get and list pods in its namespace. |
+
+The proxy validates a key with the API server and caches the answer in memory for five minutes, so a busy pipeline does not pay a validation round trip on every call. Revoking a key, or disabling its service account, takes effect on the API server at once and on the proxy when that cached answer expires. While the proxy cannot reach the API server, it keeps serving a key it has already validated for up to 30 minutes, so a short API server outage does not stop a running pipeline. The proxy never writes the key to disk or to its logs.
+
+### Deprecated: the shared-token exchange
+
+Earlier releases had callers exchange a PAT for the cluster's **shared token** (`POST /get-shared-token`, or the **Get Agent Token** button in the Console) and send that token on every call. That flow is deprecated.
+
+The shared token is the credential the proxy's own in-cluster components authenticate with: the node agents and the external replay runner. It names no user and every one of those components holds it, so the proxy accepts it only on the routes those components call, in every RBAC mode. On every other route, including `/record/start`, `/record/stop`, `/test/start`, and `/deployments`, it gets `403 Forbidden`:
 
 ```json
 {
-  "ingressUrl": "https://your-proxy-ingress",
-  "sharedToken": "3e14be232bce3e3cf6f6d58f284b6eb88db3280c54d93a7951e5000c6bbe3e9a",
-  "deploymentType": "saas",
-  "tokenId": "408aaecaba458939",
-  "issuedAt": 1777883713
+  "success": false,
+  "code": "MACHINE_CREDENTIAL_REFUSED",
+  "message": "the cluster shared token may not call this route: it is a user route, and the shared token may call only the routes the in-cluster agents and replay runners use; call it with a service-account key or a personal access token",
+  "required_permission": "record:start"
 }
 ```
 
-- `sharedToken`—use this on every subsequent call as `Authorization: Bearer <sharedToken>`.
-- `ingressUrl`—echoes back the address the proxy was installed with, so a script can derive every other URL from one bootstrap call.
-- `deploymentType`—either `"saas"` for the hosted control plane or `"self-hosted"` for self-hosted installs.
-- `tokenId`—a short non-secret identifier that changes whenever the proxy regenerates `sharedToken`. Cache it alongside the token; use `GET /shared-token/info` to check whether your cached value is still current.
-- `issuedAt`—unix timestamp when the proxy minted this `sharedToken`.
+A script can tell this refusal from a key that lacks a permission by its `code`, `MACHINE_CREDENTIAL_REFUSED`; `required_permission` names the route's permission. `POST /kms/decrypt` is the one key-material route the shared token may still call, and only from the proxy itself, over its loopback listener, where the in-cluster replay decrypts. Over the network it gets the same `403` and code, with a message that says so.
 
-### Shared token lifetime and rotation
+This is a hard cut. There is no grace period and no release that only logs the shared token's use: once the proxy is upgraded to a release with this restriction, a script that still sends the shared token gets the `403` above on those routes, whatever the RBAC mode. Migrate first. The proxy already accepts service-account keys and PATs on every route, so your scripts can switch before the upgrade.
 
-The shared token is generated **fresh in process memory at every Pod startup** with `crypto/rand` (32 bytes, hex-encoded). It is _not_ stored in a Kubernetes Secret, _not_ persisted to disk, and _not_ stable across restarts. Concretely, the token rotates whenever:
-
-- the proxy Pod restarts (CrashLoop, eviction, node drain, OOM),
-- `helm upgrade` rolls the proxy Deployment,
-- you call `POST /proxy/update` and the new image becomes ready.
-
-Treat the shared token as **scoped to one running process**, not "the lifetime of the install." A CI script that exchanges the PAT once and caches the result for hours will start getting `401 Invalid token` the moment the proxy is rolled.
-
-#### Detecting a rotated token
-
-`GET /shared-token/info` returns only the current `tokenId` and `issuedAt`—never the token itself, so it is safe to call without the shared token.
-
-```bash
-curl -sS "$PROXY/shared-token/info"
-# {"tokenId":"408aaecaba458939","issuedAt":1777883713}
-```
-
-Recommended pattern in CI: cache `(tokenId, sharedToken)` together when you exchange, and before every long-running operation (or as a quick guard at the start of every step) hit `/shared-token/info` to compare. If `tokenId` differs from your cached value, re-exchange the PAT.
-
-```bash
-CACHED_TOKEN_ID="$(jq -r '.tokenId' < ~/.cache/keploy-proxy.json)"
-CURRENT_TOKEN_ID="$(curl -sS "$PROXY/shared-token/info" | jq -r '.tokenId')"
-if [ "$CACHED_TOKEN_ID" != "$CURRENT_TOKEN_ID" ]; then
-  # proxy was restarted, re-exchange the PAT
-  RESP=$(curl -sS -X POST "$PROXY/get-shared-token" -H "Authorization: Bearer $PAT")
-  echo "$RESP" > ~/.cache/keploy-proxy.json
-fi
-```
-
-If you instead see a sudden `401 Invalid token` on a previously working `sharedToken`, that's the same signal: the proxy was rolled. Re-exchange the PAT and retry once.
-
-### Exchange failure modes
-
-| Status | When                                                                                                                        |
-| ------ | --------------------------------------------------------------------------------------------------------------------------- |
-| `401`  | Missing/empty `Authorization` header, or the PAT is invalid, revoked, or expired.                                           |
-| `403`  | The PAT is valid but belongs to a different tenant than this proxy's cluster, or it does not include `write`/`admin` scope. |
-| `502`  | The proxy could not reach the API server to validate the PAT (transient—retry).                                             |
-| `503`  | The proxy is still booting and has not authenticated to the API server yet (retry).                                         |
-
-Under the hood, `POST /get-shared-token` calls `POST /cluster/pat/validate` on the API server (using the proxy's own cluster JWT) to verify the PAT, then returns the cached shared token only on success. The PAT is never echoed back, never stored on the proxy, and never logged in cleartext.
-
-> The shared token is cluster-wide, not per-user. The PAT-exchange path authenticates who is allowed to bootstrap it, but the returned shared token should still be treated as a sensitive cluster credential.
+To migrate a script, send the service-account key or PAT itself as the Bearer token, and remove the exchange step along with any `tokenId` caching built around it. A CI job uses a service-account key bound to `ITG_RUNNER` for `keploy cloud replay`, or to `ATG_RUNNER` for `keploy test-suite --cloud` (see [Service accounts for CI](#service-accounts-for-ci)); a person starting or stopping a recording or replay uses their own PAT. A key does not rotate when the proxy restarts, so a CI job no longer needs to re-exchange after a `helm upgrade` or a proxy self-update.
 
 ---
 
@@ -236,16 +200,14 @@ The golden path: authenticate, pick a Deployment, start a recording, stream its 
 
 ```bash
 PROXY="https://k8s-proxy.example.com"    # ingressUrl from Helm install
-PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+PAT="kep_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"   # your PAT (see Authentication above)
 NS="default"
 DEPLOY="orders-api"
 
-# One-time PAT → shared-token exchange (see Authentication above)
-K8S_PROXY_SHARED_TOKEN=$(curl -sS -X POST "$PROXY/get-shared-token" \
-  -H "Authorization: Bearer $PAT" | jq -r '.sharedToken')
-
-AUTH="Authorization: Bearer $K8S_PROXY_SHARED_TOKEN"
+AUTH="Authorization: Bearer $PAT"
 ```
+
+The PAT goes straight into the Bearer header; there is no exchange step. Starting and stopping a recording needs `record:start` and `record:stop` on the cluster (see [What a key can call](#what-a-key-can-call)).
 
 ### 2. Discover target Deployments
 
@@ -363,7 +325,7 @@ Attach an `auto_replay_config` to `POST /record/start` to automatically replay f
 
 ## Endpoint reference
 
-All paths are relative to the proxy base URL. Unless noted, every route requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
+All paths are relative to the proxy base URL. Unless noted, every route requires `Authorization: Bearer <KEPLOY_API_KEY>`, a service-account key or a PAT (see [Authentication](#authentication)).
 
 ### Health and admission
 
@@ -372,14 +334,14 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 | `GET`  | `/healthz` | No   | Liveness probe. Returns `{"status":"ok"}`.                          |
 | `POST` | `/mutate`  | No   | Kubernetes MutatingAdmissionWebhook endpoint. Do not call directly. |
 
-### Bootstrap
+### Shared-token exchange (deprecated)
 
-| Method | Path                 | Auth                          | Description                                                                                                                                                                          |
-| ------ | -------------------- | ----------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>` | Exchange a Personal Access Token for the proxy's shared token. See [Exchange the PAT for the shared token](#2-exchange-the-pat-for-the-shared-token) for details.                    |
-| `GET`  | `/shared-token/info` | None                          | Return only the current `tokenId` and `issuedAt`; never the token itself. Use this to detect when the proxy has rotated the shared token (Pod restart, `helm upgrade`, self-update). |
+| Method | Path                 | Auth                          | Description                                                                                                                                                                                          |
+| ------ | -------------------- | ----------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST` | `/get-shared-token`  | `Authorization: Bearer <PAT>` | Deprecated. Returns the cluster shared token, which the proxy accepts only on its in-cluster components' routes. See [Deprecated: the shared-token exchange](#deprecated-the-shared-token-exchange). |
+| `GET`  | `/shared-token/info` | None                          | Return only the current `tokenId` and `issuedAt` of the cluster shared token; never the token itself.                                                                                                |
 
-`POST /get-shared-token` gates on a PAT instead of the shared token because the caller does not yet have one. `GET /shared-token/info` is unauthenticated because the response leaks no credential material. Every other route below requires `Authorization: Bearer <K8S_PROXY_SHARED_TOKEN>`.
+`GET /shared-token/info` is unauthenticated because the response leaks no credential material. Every other route below requires `Authorization: Bearer <KEPLOY_API_KEY>`.
 
 ### Deployments
 
@@ -449,7 +411,7 @@ Omit `selectedTests` to replay every set.
 
 ### API-server-compatible data routes
 
-These routes are all mounted under `/k8s-proxy` and are served directly by the proxy. Direct proxy calls use the proxy shared token; calls routed through the API server use normal Console/API-server authentication and role checks.
+These routes are all mounted under `/k8s-proxy` and are served directly by the proxy. Direct proxy calls use a service-account key or a PAT; calls routed through the API server use normal Console/API-server authentication and role checks.
 
 #### Health
 
@@ -518,19 +480,21 @@ These routes are all mounted under `/k8s-proxy` and are served directly by the p
 
 ### Assertion-test generator (ATG)
 
-| Method | Path                            | Description                                                                        |
-| ------ | ------------------------------- | ---------------------------------------------------------------------------------- |
-| `POST` | `/agent/run/{jobID}`            | Process an ATG job. Accepts optional `?timeout=<seconds>` (default `30`).          |
-| `POST` | `/agent/execute-request`        | Execute an HTTP request through the ATG runtime (used during assertion authoring). |
-| `POST` | `/agent/service-url`            | Resolve a Service URL inside the cluster (used to target the app from the UI).     |
-| `POST` | `/agent/recordATGSandbox`       | Bind to an already-running ATG sandbox recording session.                          |
-| `POST` | `/agent/stopATGSandboxRecord`   | Stop an ATG sandbox recording session.                                             |
-| `POST` | `/agent/replayATGSandbox`       | Start an ATG sandbox replay session.                                               |
-| `POST` | `/agent/stopATGSandboxReplay`   | Stop an ATG sandbox replay session.                                                |
-| `GET`  | `/agent/ATGSandboxRecordStatus` | Fetch ATG sandbox recording status.                                                |
-| `GET`  | `/agent/ATGSandboxRecordLogs`   | Fetch ATG sandbox recording logs.                                                  |
-| `GET`  | `/agent/ATGSandboxReplayLogs`   | Fetch ATG sandbox replay logs.                                                     |
-| `GET`  | `/agent/autoReplayLogs`         | Fetch auto-replay logs.                                                            |
+| Method | Path                            | Description                                                                                             |
+| ------ | ------------------------------- | ------------------------------------------------------------------------------------------------------- |
+| `POST` | `/agent/run/{jobID}`            | Process an ATG job. Accepts optional `?timeout=<seconds>` (default `30`).                               |
+| `POST` | `/agent/execute-request`        | Send an HTTP request to an app Service this proxy manages (used during assertion authoring; see below). |
+| `POST` | `/agent/service-url`            | Resolve a Service URL inside the cluster (used to target the app from the UI).                          |
+| `POST` | `/agent/recordATGSandbox`       | Bind to an already-running ATG sandbox recording session.                                               |
+| `POST` | `/agent/stopATGSandboxRecord`   | Stop an ATG sandbox recording session.                                                                  |
+| `POST` | `/agent/replayATGSandbox`       | Start an ATG sandbox replay session.                                                                    |
+| `POST` | `/agent/stopATGSandboxReplay`   | Stop an ATG sandbox replay session.                                                                     |
+| `GET`  | `/agent/ATGSandboxRecordStatus` | Fetch ATG sandbox recording status.                                                                     |
+| `GET`  | `/agent/ATGSandboxRecordLogs`   | Fetch ATG sandbox recording logs.                                                                       |
+| `GET`  | `/agent/ATGSandboxReplayLogs`   | Fetch ATG sandbox replay logs.                                                                          |
+| `GET`  | `/agent/autoReplayLogs`         | Fetch auto-replay logs.                                                                                 |
+
+`POST /agent/execute-request` needs `testgen:run`, and the shared token is refused there. It sends the request only to an app the proxy manages: a Service by its full in-cluster name, `<service>.<namespace>.svc.cluster.local`, in a namespace the proxy may record (not the proxy's own), that selects pods, on one of its TCP ports. The proxy verifies the target's TLS certificate, does not follow redirects (a `3xx` comes back as the answer), and does not route the request through an egress proxy. Any other target, such as an IP address, an out-of-cluster host, a short Service name, or a URL that carries credentials, gets `403 Forbidden` with an `error` that says why. When the proxy cannot look the Service up in the cluster, it answers `503`; retry.
 
 ### Proxy self-management
 
