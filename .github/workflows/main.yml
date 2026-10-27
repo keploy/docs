@@ -47,6 +47,9 @@ jobs:
         with:
           # main as it is now, not github.sha — see the concurrency comment.
           ref: main
+          # Full history: doc last-update dates and sitemap <lastmod> come
+          # from each file's git log (src/lastUpdate/contentLastUpdate.js).
+          fetch-depth: 0
 
       - name: Set Node.js 22.x
         uses: actions/setup-node@v3

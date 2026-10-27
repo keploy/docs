@@ -9,6 +9,7 @@
     "build": "docusaurus build",
     "verify-schema": "node scripts/verify-schema-graph.js build",
     "verify-linkedin-tag": "node scripts/verify-linkedin-tag.js build",
+    "verify-lastmod": "node scripts/verify-lastmod.js build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",
