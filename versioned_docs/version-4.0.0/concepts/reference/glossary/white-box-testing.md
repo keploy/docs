@@ -1,8 +1,8 @@
 ---
 id: white-box-testing
-title: "What is White Box Testing? Techniques & Best Practices"
+title: "White Box Testing"
 sidebar_label: White Box Testing
-description: "Explore white box testing techniques like statement, branch, and path coverage. Learn best practices and tools to test internal code logic effectively."
+description: "White box testing checks how software works inside by testing its code, logic and paths with full access to the source code."
 
 tags:
   - explanation
@@ -18,11 +18,18 @@ keywords:
   - black box testing
   - what is black box testing
   - keploy
+head:
+  - tag: link
+    attrs:
+      rel: canonical
+      href: https://keploy.io/blog/community/black-box-testing-and-white-box-testing-a-complete-guide
 ---
 
 ## What is White Box Testing?
 
 White box testing, also known as clear box or glass box testing, is a software testing technique that examines the internal structures of a program. It involves looking at the code, internal logic, and data flow to ensure the software behaves as expected. By understanding how the system works inside, testers can create and run more effective test scenarios.
+
+For a full guide, including how white box testing compares with black box testing, see [white box testing](https://keploy.io/blog/community/black-box-testing-and-white-box-testing-a-complete-guide). For statement, branch and path coverage explained in depth, see our guide to [white box testing techniques](https://keploy.io/blog/community/white-box-testing).
 
 ## Why is White Box Testing Important?
 
