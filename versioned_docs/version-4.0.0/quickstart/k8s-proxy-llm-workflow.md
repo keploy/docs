@@ -500,7 +500,7 @@ Everything else—what failed and why, which mock to update, what test-set name 
 - **Uploading fresh recordings without checking existing branch coverage first.** `listRecordings({app_id, branch_id})` + targeted `getMock` first; reuse if covered.
 - **Inventing a PAT, branch name, or secret value.**
 - **Running `keploy --help`, `keploy <cmd> --help`, or any `--version` info dump.** This skill names every command + flag you need (`keploy cloud replay`, `keploy mock patch`, `keploy record`, `keploy upload test-set`). The CLI's help text is ~14k tokens and gets re-added to context on every subsequent turn — pure waste.
-- **Reading `keploy/cloud-debug.log`, `keploy-logs.txt`, or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.
+- **Reading `keploy/cloud-debug.log`, the run's log (the temp file keploy names on its `logs:` line at start, which it removes when the run ends), or any file under the local `keploy/` cache directory.** That dir is throwaway state wiped on every replay; the cloud-debug.log alone is ~25k tokens. Use `getTestReportFull` for structured failure data — never inspect the raw debug log.
 ````
 
 Save the file and fully restart your editor so the skill is available in your next session.
