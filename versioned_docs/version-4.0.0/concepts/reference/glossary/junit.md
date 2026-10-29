@@ -116,6 +116,14 @@ Finding the right balance of test coverage requires experience and judgment. Foc
 
 Tests that are difficult to maintain eventually become liabilities rather than assets. Regular refactoring of test code, just like production code, ensures tests remain valuable throughout the application lifecycle.
 
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — JUnit is the standard Java unit-testing framework.
+- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — JUnit enables fast red-green-refactor cycles.
+- [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — pair JUnit with JaCoCo to measure coverage.
+- [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — JUnit runs automatically in CI pipelines.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### Q: What's the difference between JUnit 4 and JUnit 5?

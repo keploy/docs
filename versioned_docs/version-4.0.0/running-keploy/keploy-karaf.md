@@ -16,7 +16,7 @@ keywords:
 
 ### Pre-requisites
 
-- Linux kernel **5.15 or higher**
+- Linux kernel **5.10 or higher**
 - Tested with distributions:
   - **Fedora 40+**
   - **Ubuntu 22.04+**
@@ -28,21 +28,21 @@ keywords:
 Use Keploy's one-click installation to download and install the latest Keploy binary:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 ### Download Required JARs
 
 Use `wget` to download the necessary JAR files:
 
-- [io.keploy.agent-2.0.1.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar)
-- [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
+- [io.keploy.agent-2.0.2.jar](https://keployenterprise.blob.core.windows.net/agent-jars/io.keploy.agent-2.0.2.jar)
+- [org.jacoco.agent-0.8.12-runtime.jar](https://keployenterprise.blob.core.windows.net/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
+wget https://keployenterprise.blob.core.windows.net/agent-jars/io.keploy.agent-2.0.2.jar
+wget https://keployenterprise.blob.core.windows.net/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
 ## Step 2: Configure Apache Karaf
@@ -54,7 +54,7 @@ wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.
 3. Add the paths of the downloaded agents under the `JAVA_OPTS` section. For example:
 
    ```bash
-   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.1.jar"
+   export JAVA_OPTS="-javaagent:/path/to/io.keploy.agent-2.0.2.jar"
    export JAVA_OPTS="$JAVA_OPTS -javaagent:/path/to/org.jacoco.agent-0.8.12-runtime.jar=address=*,port=36320,destfile=jacoco-it.exec,output=tcpserver"
    ```
 
@@ -115,3 +115,10 @@ Replace the placeholder values with actual paths and keys as needed.
 This assumes your Karaf application is running locally on port 8181.
 
 After running the tests, a `coverage.xml` file will be generated in the root directory of your project. This file contains the test coverage report, which can be used for further analysis or integrated with CI/CD pipelines.
+
+## Related
+
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — record and test command reference.
+- [Configuration File](/docs/running-keploy/configuration-file/) — persist settings in `keploy.yaml`.
+- [TLS Docker Support](/docs/running-keploy/docker-tls/) — run Keploy against containerized apps.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — pass through dependency ports.

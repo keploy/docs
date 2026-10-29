@@ -19,7 +19,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Free, Team, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Keploy makes it super simple to run API tests during your CI/CD pipeline on GitHub. Here’s a step-by-step guide to help you set it up in just a few minutes!
 
@@ -46,7 +46,7 @@ Add the following steps to your `.github/workflows/ci.yml` file:
 ```yaml
 - name: Install Keploy CLI
   run: |
-    curl --silent -L https://keploy.io/ent/install.sh | bash
+    curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
 ### Run Keploy API Tests
@@ -96,3 +96,10 @@ Failed suites:      0
 ## That's it!
 
 With just a few lines of YAML, you’ve added **AI-powered API test automation** into your GitHub CI pipeline. Now every PR or deployment will be automatically tested with Keploy’s smart test engine.
+
+## Related
+
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — review CI test run reports.
+- [Test Suite Settings & Actions](/docs/running-keploy/api-testing-suite-settings/) — configure run-in-CI settings.
+- [Running Selective Test Suites](/docs/running-keploy/api-testing-running-selective/) — run selected suites in CI.
+- [Sharing Reports](/docs/running-keploy/api-testing-sharing-reports/) — share CI results with team.

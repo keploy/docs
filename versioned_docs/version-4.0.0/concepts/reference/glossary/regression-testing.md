@@ -1,18 +1,23 @@
 ---
 id: regression-testing
-title: Using Keploy for Regression Testing
+title: "Regression Testing: What It Is & How to Automate It"
 sidebar_label: Regression Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: "Learn what regression testing is, the different types (full, partial, risk-based), and how to automate it with tools like Keploy for faster releases."
 tags:
   - explanation
   - Glossary
 keywords:
   - API
+head:
+  - tag: link
+    attrs:
+      rel: canonical
+      href: https://keploy.io/blog/community/regression-testing-an-introductory-guide
 ---
 
 ## What is regression testing?
 
-Regression testing is a type of software testing that ensures that changes made to a software application do not negatively impact existing functionality. It is typically performed after a new feature is added, a bug is fixed, or a configuration change is made.
+[Regression testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) is a type of software testing that ensures that changes made to a software application do not negatively impact existing functionality. It is typically performed after a new feature is added, a bug is fixed, or a configuration change is made.
 
 Regression testing can be performed manually or using automated tools. Manual regression testing involves re-running a subset of test cases that have been previously executed to ensure that they still pass. Automated regression testing uses software to execute test cases automatically, which can save time and resources.
 
@@ -45,6 +50,8 @@ Overall, by leveraging Keploy's testing capabilities and integrating it into you
 
 ## Key differences between manual regression testing and automated regression testing:
 
+Understanding the difference between manual and [automated regression testing](https://keploy.io/blog/community/automated-regression-testing) helps teams choose the right approach for their context. The table below breaks down the key factors across speed, cost, scalability, and maintenance.
+
 | Feature                  | Manual Regression Testing                                 | Automated Regression Testing                                                     |
 | ------------------------ | --------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | **Execution Method**     | Test cases are executed manually by testers.              | Test cases are executed automatically by software tools.                         |
@@ -66,6 +73,13 @@ Manual regression testing offers flexibility and can be suitable for smaller pro
 On the other hand, automated regression testing provides consistent, repeatable, and efficient test execution. It is ideal for larger projects, continuous integration pipelines, and scenarios requiring frequent testing. While it requires initial setup and ongoing maintenance of test scripts, automated testing ultimately reduces costs and resource requirements over time.
 
 Ultimately, the decision should consider the specific needs of the project, balancing the benefits of human judgment in manual testing with the efficiency and scalability offered by automation. Many teams opt for a hybrid approach, combining both methods to maximize test coverage and effectiveness throughout the software development lifecycle.
+
+## Related Terms
+
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate regression suites for faster releases.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — unit tests catch regressions early.
+- [Visual Regression Testing](/docs/concepts/reference/glossary/visual-regression-testing/) — detect unintended UI changes.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## Frequently Asked Questions
 

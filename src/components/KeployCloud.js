@@ -10,7 +10,7 @@ export const KeployCloud = () => {
         <span className="opacity-70">Need help?</span>
 
         <a
-          href="https://join.slack.com/t/keploy/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg"
+          href="https://keploy.io/slack"
           target="_blank"
           rel="noopener noreferrer"
           className="font-semibold text-orange-500 hover:text-orange-400"

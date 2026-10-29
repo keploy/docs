@@ -2,6 +2,7 @@
 id: mongo
 title: MongoDB Support
 sidebar_label: MongoDB Support
+description: "How Keploy intercepts and mocks MongoDB wire protocol traffic — parsing wiremessages for automated test recording and replay."
 ---
 
 ## Introduction

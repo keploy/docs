@@ -2,8 +2,20 @@ import React from "react";
 import Layout from "@theme/Layout";
 import Head from "@docusaurus/Head";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import {Community, KeployCloud, Resources, QuickStart, GetStartedPaths, TestingCapabilities, QuickStartTabs, WhatIsKeploy, EcosystemSupport} from "../components";
-import {Products} from "../components/Product";
+import {
+  Community,
+  GetStartedPaths,
+  TestingCapabilities,
+  QuickStartTabs,
+  WhatIsKeploy,
+  EcosystemSupport,
+} from "../components";
+import {GET_STARTED_PATHS} from "../components/GetStartedPaths";
+import {
+  organizationRef,
+  websiteRef,
+  breadcrumbList,
+} from "../schema/siteEntities";
 //import {Intro} from "../components";
 export default function Home() {
   const context = useDocusaurusContext();
@@ -20,48 +32,47 @@ export default function Home() {
     return `${trimmedBase}${normalizedPath}`;
   };
   const docsUrl = toAbsoluteUrl(siteConfig.url, siteConfig.baseUrl);
-  const breadcrumbSchema =
-    docsUrl && siteConfig.url
-      ? {
-          "@context": "https://schema.org",
-          "@type": "BreadcrumbList",
-          itemListElement: [
-            {
-              "@type": "ListItem",
-              position: 1,
-              name: "Home",
-              item: siteConfig.url,
-            },
-            {
-              "@type": "ListItem",
-              position: 2,
-              name: "Docs",
-              item: docsUrl,
-            },
-          ],
-        }
-      : null;
-  const articleSchema =
-    docsUrl && siteConfig.title
-      ? {
-          "@context": "https://schema.org",
-          "@type": "Article",
-          headline: siteConfig.title,
-          description: siteConfig.tagline,
-          mainEntityOfPage: {
-            "@type": "WebPage",
-            "@id": docsUrl,
-          },
-          publisher: {
-            "@type": "Organization",
-            name: "Keploy",
-            logo: {
-              "@type": "ImageObject",
-              url: "https://keploy.io/docs/img/favicon.png",
-            },
-          },
-        }
-      : null;
+  // Home -> Docs breadcrumb, from the shared builder (single source of truth).
+  const breadcrumbSchema = breadcrumbList();
+  // SEO: docs landing previously rendered with title "Keploy Documentation" (20c)
+  // and meta description "API Test Generator Tool" (23c). Both were too short
+  // to capture the intent of a docs visitor (install, capture, replay, SDK).
+  // The Article JSON-LD below derives its `headline`/`description` from these
+  // same constants so the schema, the rendered <title>, the meta description
+  // and the sr-only H1 all agree — single source of truth.
+  const docsHomeTitle =
+    "Keploy Documentation — Install, Capture & Replay API Tests";
+  const docsHomeDescription =
+    "Install Keploy in 5 minutes, capture real API traffic, and replay it as deterministic tests in CI. Quickstarts, SDK references, and integration guides.";
+  // CollectionPage, not Article: this page is an index of the docs, with no
+  // single author, publication date or headline. DocItem already suppresses
+  // Article on /docs/ for exactly that reason, so emitting one here left the
+  // site's only generic Article on the page the rule was written for. The
+  // ItemList mirrors the four entry-point cards GetStartedPaths renders.
+  const collectionPageSchema = docsUrl
+    ? {
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": docsUrl,
+        name: docsHomeTitle,
+        description: docsHomeDescription,
+        url: docsUrl,
+        isPartOf: websiteRef,
+        publisher: organizationRef,
+        mainEntity: {
+          "@type": "ItemList",
+          name: "Ways to get started with Keploy",
+          itemListElement: GET_STARTED_PATHS.map((path, i) => ({
+            "@type": "ListItem",
+            position: i + 1,
+            name: path.name,
+            description: path.description,
+            url: toAbsoluteUrl(siteConfig.url, path.href),
+          })),
+        },
+      }
+    : null;
+
   return (
     <div className="main">
       <Head>
@@ -70,18 +81,19 @@ export default function Home() {
             {JSON.stringify(breadcrumbSchema)}
           </script>
         )}
-        {articleSchema && (
+        {collectionPageSchema && (
           <script type="application/ld+json">
-            {JSON.stringify(articleSchema)}
+            {JSON.stringify(collectionPageSchema)}
           </script>
         )}
       </Head>
       <Layout
         className="mx-auto my-2 w-full max-w-screen-lg px-8 shadow-none"
-        title={`${siteConfig.title}`}
-        description={`${siteConfig.tagline}`}
+        title={docsHomeTitle}
+        description={docsHomeDescription}
       >
         <main className="mx-auto max-w-screen-lg p-6 md:p-10">
+          <h1 className="sr-only">{docsHomeTitle}</h1>
 
           <GetStartedPaths />
           <TestingCapabilities />

@@ -14,7 +14,7 @@ tags:
   - postgres
   - sms
   - twilio
-keyword:
+keywords:
   - FastAPI Framework
   - Twilio
   - SMS
@@ -23,9 +23,42 @@ keyword:
   - Auto case generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample SMS Sending App — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
@@ -240,11 +273,13 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -268,8 +303,10 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/fast
 ### Lights, Camera, Record! 🎥
 
 ```bash
-keploy record -c "uvicorn application.main:app --reload"
+keploy record -c "uvicorn main:app --reload"
 ```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its `uvicorn` here and in the test step, e.g. `keploy record -c ".venv/bin/uvicorn main:app --reload"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app.
 
@@ -431,7 +468,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-keploy test -c "uvicorn application.main:app --reload" --delay 10
+keploy test -c "uvicorn main:app --reload" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -441,3 +478,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the Twilio response 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Another FastAPI sample app.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python Flask CRUD sample.
+- [Sample User Data CRUD App (Django)](/docs/quickstart/samples-django/) — Python Django CRUD sample.

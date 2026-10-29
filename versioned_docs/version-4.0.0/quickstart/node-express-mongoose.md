@@ -1,21 +1,54 @@
 ---
 id: samples-nodejs
-title: NodeJS Sample Application
+title: Node.js Express Mongoose Sample
 sidebar_label: NodeJS - Express + Mongoose
-description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
+description: Record and replay API tests for a Node.js Express + Mongoose app with Keploy — capture real API traffic and replay it as testcases.
 tags:
   - javascript
   - quickstart
   - samples
   - examples
   - tutorial
-keyword:
+keywords:
   - NodeJS Framework
   - MongoDB
   - NodeJS
   - API Test generator
   - Auto Testcase generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Node.js Express Mongoose Sample — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -113,9 +146,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## Running App Locally on Linux/WSL 🐧
+## Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with Express and MongoDB. Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -130,7 +165,7 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 npm install
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
 If you are using WSL on windows then use below to start wsl in the user's home directory:
 
@@ -161,6 +196,8 @@ Ready, set, record! Here's how:
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'node src/app.js'
 ```
+
+`sudo -E env PATH=$PATH` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'node src/app.js'` here, and `keploy test` below, without it.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-mongoose-record-new.png" alt="Sample Keploy Test Result Node MongoDB" width="100%" style={{ borderRadius: '5px' }} />
 
@@ -220,3 +257,10 @@ output should look like
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse more JS samples.
+- [Node.js MongoDB Sample](/docs/quickstart/crud-nodejs/) — another Node MongoDB app.
+- [sample course selling api (express)](/docs/quickstart/express-mongoose-application/) — Express with Mongoose.
+- [NodeJS - JWT Sample Application](/docs/quickstart/samples-node-jwt/) — another Node.js sample.

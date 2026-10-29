@@ -11,7 +11,7 @@ tags:
   - tutorial
   - bun-js-framework
   - mongodb
-keyword:
+keywords:
   - BunJS Framework
   - MongoDB
   - BunJS
@@ -21,9 +21,44 @@ keyword:
   - typescript
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="BunJS Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM, since native macOS and Windows support is tested with Go, Node.js, Python and Java apps.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Running App Locally on Linux/WSL 🐧
 
 This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -56,7 +91,7 @@ This command will essentailly make a fresh docker-network named as `keploy-netwo
 docker network create keploy-network
 ```
 
-Using the docker-compose file we will start our Postgres instance:-
+Using the docker-compose file we will start our MongoDB instance:-
 
 ```bash
 docker-compose up -d mongo
@@ -65,7 +100,7 @@ docker-compose up -d mongo
 Ready, set, record! Here's how:
 
 ```bash
-sudo -E env PATH=$PATH Keploy record -c 'bun run supabun.ts'
+sudo -E env PATH=$PATH keploy record -c 'bun run supabun.ts'
 ```
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app.
@@ -369,3 +404,9 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Typescript Sample Application](/docs/quickstart/samples-typescript/) — TypeScript on Node.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — Node/Express counterpart.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS/TS quickstarts.

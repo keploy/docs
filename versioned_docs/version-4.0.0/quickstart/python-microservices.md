@@ -14,7 +14,7 @@ tags:
   - microservices
   - mysql
   - flask-framework
-keyword:
+keywords:
   - Flask Framework
   - mysql
   - python microservices
@@ -22,6 +22,39 @@ keyword:
   - API Test generator
   - Auto case generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="E-commerce Microservices — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). This sample runs under Docker Compose.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import ProductTier from '@site/src/components/ProductTier';
@@ -1367,7 +1400,7 @@ Use the following link to install the [Chrome Extension](https://chromewebstore.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_0.png" alt="Sample Keploy Record Microservices" />
 
-Once done, Go to [Keploy Enterprise UI](https://app.keploy.io) to try out Keploy API Testing. Once you sign in, you’ll see a dashboard like this:
+Once done, Go to the [Keploy console](https://app.keploy.io) to try out Keploy API Testing. Once you sign in, you’ll see a dashboard like this:
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_api_testing_1.png" alt="Sample Keploy Record Microservices" />
 
@@ -2373,18 +2406,18 @@ code={`
 # Create an order
 
 curl --request POST \
- --url http://localhost:8080/api/v1/orders \
- --header 'Connection: keep-alive' \
- --header 'Idempotency-Key: f0f86385-1d98-438c-b5a0-2b70385a4f8e' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Postman-Token: 24ef30da-b00d-46d6-ba1b-93578987e51a' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
- --header 'Accept: */\_' \
- --header 'Cache-Control: no-cache' \
- --header 'Host: localhost:8080' \
- --header 'Content-Type: application/json' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --data '{
+--url http://localhost:8080/api/v1/orders \
+--header 'Connection: keep-alive' \
+--header 'Idempotency-Key: f0f86385-1d98-438c-b5a0-2b70385a4f8e' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Postman-Token: 24ef30da-b00d-46d6-ba1b-93578987e51a' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
+--header 'Accept: */\_' \
+--header 'Cache-Control: no-cache' \
+--header 'Host: localhost:8080' \
+--header 'Content-Type: application/json' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--data '{
 "userId": "6b6c9d87-92b0-4007-87ce-6356699648a8",
 "items": [
 {
@@ -2398,70 +2431,70 @@ curl --request POST \
 # Get last order
 
 curl --request GET \
- --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Connection: keep-alive' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Accept: */\_' \
- --header 'Cache-Control: no-cache' \
- --header 'Postman-Token: 6109e22b-dfb5-4394-b74e-5d0e8ce5466e' \
- --header 'Host: localhost:8080'
+--url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Connection: keep-alive' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Accept: */\_' \
+--header 'Cache-Control: no-cache' \
+--header 'Postman-Token: 6109e22b-dfb5-4394-b74e-5d0e8ce5466e' \
+--header 'Host: localhost:8080'
 
 # Get last order (alternate call)
 
 curl --request GET \
- --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Accept: */\_' \
- --header 'Cache-Control: no-cache' \
- --header 'Postman-Token: 0f9a2f3e-6248-404a-adbf-74fcb9c68ff7' \
- --header 'Host: localhost:8080' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Connection: keep-alive' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ'
+--url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Accept: */\_' \
+--header 'Cache-Control: no-cache' \
+--header 'Postman-Token: 0f9a2f3e-6248-404a-adbf-74fcb9c68ff7' \
+--header 'Host: localhost:8080' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Connection: keep-alive' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ'
 
 # Get order details
 
 curl --request GET \
- --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/details \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Accept: */\_' \
- --header 'Cache-Control: no-cache' \
- --header 'Postman-Token: 3b8a7f27-4ada-4486-b27c-845d6a874763' \
- --header 'Host: localhost:8080' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Connection: keep-alive'
+--url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/details \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Accept: */\_' \
+--header 'Cache-Control: no-cache' \
+--header 'Postman-Token: 3b8a7f27-4ada-4486-b27c-845d6a874763' \
+--header 'Host: localhost:8080' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Connection: keep-alive'
 
 # Cancel an order
 
 curl --request POST \
- --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/cancel \
- --header 'Accept: */\_' \
- --header 'Postman-Token: 9743c0e3-7b2b-4909-818d-6fe73311bc24' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
- --header 'Host: localhost:8080' \
- --header 'Connection: keep-alive' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Cache-Control: no-cache'
+--url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/cancel \
+--header 'Accept: */\_' \
+--header 'Postman-Token: 9743c0e3-7b2b-4909-818d-6fe73311bc24' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+--header 'Host: localhost:8080' \
+--header 'Connection: keep-alive' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Cache-Control: no-cache'
 
 # Create another order with new idempotency key
 
 curl --request POST \
- --url http://localhost:8080/api/v1/orders \
- --header 'Host: localhost:8080' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Accept: _/_' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Content-Type: application/json' \
- --header 'Postman-Token: d494c3c8-8c24-437f-8ed7-f0d1527bf989' \
- --header 'Idempotency-Key: 2fb62e17-8ace-4528-ab51-0e7cf025237a' \
- --header 'Connection: keep-alive' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
- --header 'Cache-Control: no-cache' \
- --data '{
+--url http://localhost:8080/api/v1/orders \
+--header 'Host: localhost:8080' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Accept: _/_' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Content-Type: application/json' \
+--header 'Postman-Token: d494c3c8-8c24-437f-8ed7-f0d1527bf989' \
+--header 'Idempotency-Key: 2fb62e17-8ace-4528-ab51-0e7cf025237a' \
+--header 'Connection: keep-alive' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+--header 'Cache-Control: no-cache' \
+--data '{
 "userId": "6b6c9d87-92b0-4007-87ce-6356699648a8",
 "items": [
 {
@@ -2475,28 +2508,28 @@ curl --request POST \
 # Pay for an order
 
 curl --request POST \
- --url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/pay \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
- --header 'Accept: */\_' \
- --header 'Postman-Token: 1925ffdf-3aa4-41a3-8b5a-9a7a56c96932' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Connection: keep-alive' \
- --header 'Host: localhost:8080' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Cache-Control: no-cache'
+--url http://localhost:8080/api/v1/orders/%7B%7Blast*order_id%7D%7D/pay \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY_2cQ' \
+--header 'Accept: */\_' \
+--header 'Postman-Token: 1925ffdf-3aa4-41a3-8b5a-9a7a56c96932' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Connection: keep-alive' \
+--header 'Host: localhost:8080' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Cache-Control: no-cache'
 
 # Get all orders for a user
 
 curl --request GET \
- --url 'http://localhost:8080/api/v1/orders?userId=6b6c9d87-92b0-4007-87ce-6356699648a8' \
- --header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
- --header 'User-Agent: PostmanRuntime/7.49.1' \
- --header 'Accept: */\_' \
- --header 'Cache-Control: no-cache' \
- --header 'Postman-Token: 4a3c9621-52ef-48f8-8a9e-01acff2353b0' \
- --header 'Host: localhost:8080' \
- --header 'Accept-Encoding: gzip, deflate, br' \
- --header 'Connection: keep-alive'
+--url 'http://localhost:8080/api/v1/orders?userId=6b6c9d87-92b0-4007-87ce-6356699648a8' \
+--header 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJmMzEwNzA0NC1iYjA1LTExZjAtYTZlMi1hZWVmN2RjNDBlNjYiLCJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzYyNTAwNzMzLCJleHAiOjE3NjUwOTI3MzN9.pZejD-sAGDMXW9cgGYnS9ReqG-TXFFFnyQZeMMY*2cQ' \
+--header 'User-Agent: PostmanRuntime/7.49.1' \
+--header 'Accept: */\_' \
+--header 'Cache-Control: no-cache' \
+--header 'Postman-Token: 4a3c9621-52ef-48f8-8a9e-01acff2353b0' \
+--header 'Host: localhost:8080' \
+--header 'Accept-Encoding: gzip, deflate, br' \
+--header 'Connection: keep-alive'
 `
 }
 />
@@ -2794,3 +2827,10 @@ _Also Paste the OpenAPI schema into the Schema Document section. Once completed,
 ## Conclusion 🎉
 
 Well done! You’ve seen how Keploy helps test your microservices without writing any code. You've generated test cases, run tests, and checked coverage—all with just a few steps.
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Python FastAPI CRUD sample.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python Flask CRUD sample.
+- [Sample User Data CRUD App (Django)](/docs/quickstart/samples-django/) — Python Django CRUD sample.

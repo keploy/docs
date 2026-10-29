@@ -15,7 +15,7 @@ tags:
   - pytest
   - sms
   - twilio
-keyword:
+keywords:
   - FastAPI Framework
   - Twilio
   - SMS

@@ -17,7 +17,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 If you can't run a dependency service and want to mock it, keploy supports adding manually written mocks.
 
@@ -124,3 +124,10 @@ spec:
     timestamp: 2024-02-19T13:14:28.145240844Z
 ---
 ```
+
+## Related
+
+- [Configuration File](/docs/running-keploy/configuration-file/) — configure mock paths and bypass rules.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — skip mocking for specific ports.
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — record commands that generate mock files.
+- [Keploy Templatize](/docs/running-keploy/keploy-templatize/) — templatize dynamic values in mocks.

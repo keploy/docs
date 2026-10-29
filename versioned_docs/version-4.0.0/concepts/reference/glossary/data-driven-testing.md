@@ -81,6 +81,14 @@ Begin with a simple pilot project to demonstrate value. Choose a critical user w
 
 Focus on high-value scenarios where multiple data combinations are essential. Login functionality, payment processing, and form validations are excellent starting points.
 
+## Related Terms
+
+- [Test Data Generation](/docs/concepts/reference/glossary/test-data-generation/) — supplies the data sets these tests consume.
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — data-driven tests are typically automated.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — reruns many data sets to catch regressions.
+- [Cucumber Testing](/docs/concepts/reference/glossary/cucumber-testing/) — supports data-driven scenarios via examples tables.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### Q: How much effort does it take to implement data-driven testing?

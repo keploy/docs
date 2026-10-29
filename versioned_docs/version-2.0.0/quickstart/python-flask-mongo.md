@@ -13,7 +13,7 @@ tags:
   - mongodb
   - flask-framework
   - pytest
-keyword:
+keywords:
   - Flask Framework
   - MongoDB
   - NoSQL

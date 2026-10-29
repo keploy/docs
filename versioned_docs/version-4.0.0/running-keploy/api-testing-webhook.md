@@ -402,3 +402,10 @@ if *review.Request.StepPassed { // Only check steps that initially passed
 - **Respond Quickly:** Keploy will wait for your webhook's response. A slow webhook will slow down your entire test run. Aim for response times under 500ms.
 - **Log Everything:** Your webhook server should log every incoming request and the response it sends. This is invaluable for debugging.
 - **Handle Errors Gracefully:** If your server is down or returns a non-200 status code, Keploy will treat it as a transport failure and **fail the test step**. Ensure your server is robust.
+
+## Related
+
+- [Custom Assertions](/docs/running-keploy/api-testing-custom-assertions/) — add validation logic within Keploy itself.
+- [Functions & Schema Assertions](/docs/running-keploy/api-testing-functions/) — programmatic checks on responses.
+- [Public REST API](/docs/running-keploy/public-api/) — trigger runs programmatically from external systems.
+- [Test Run Reports](/docs/running-keploy/api-testing-run-report/) — see webhook pass/fail reasons in results.

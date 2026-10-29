@@ -1,9 +1,69 @@
 import React, {useState, useMemo} from "react";
 import Layout from "@theme/Layout";
+import Head from "@docusaurus/Head";
 import BackToTopButton from "@theme/BackToTopButton";
 
 import {glossaryEntries} from "../../../../static/data/glossaryEntries";
 import GlossaryCard from "../../../components/GlossaryCard";
+import {
+  SITE_URL as SITE,
+  DOCS_URL,
+  GLOSSARY_URL,
+  TERMSET_ID,
+  organizationRef,
+  websiteRef,
+  withTrailingSlash,
+  breadcrumbList,
+} from "../../../schema/siteEntities";
+
+// SEO/GEO: turn each glossary entry into a DefinedTerm inside a single
+// DefinedTermSet so AI engines can cite individual definitions and engines
+// can surface them as featured-snippet definitions. Mirrors the pattern in
+// landing/app/(default)/what-is-api-testing/layout.tsx.
+//
+// Site config sets `trailingSlash: true`, so every emitted URL must carry a
+// trailing slash to match the canonical href. Otherwise Google treats the
+// no-slash variant as a duplicate URL of the canonical one.
+const allGlossaryItems = Object.values(glossaryEntries).flat();
+
+const glossaryStructuredData = [
+  {
+    "@context": "https://schema.org",
+    "@type": "DefinedTermSet",
+    "@id": TERMSET_ID,
+    name: "Keploy Software Testing Glossary",
+    description:
+      "Definitions for software testing, test automation, and quality engineering terminology, maintained by the Keploy documentation team.",
+    url: GLOSSARY_URL,
+    isPartOf: websiteRef,
+    publisher: organizationRef,
+    // Defensive: an entry without a valid `link` (e.g. a typoed key like
+    // `ink:`) would emit `https://keploy.ioundefined` into the JSON-LD.
+    // Drop those entries here so structured data never carries a malformed
+    // URL even if `glossaryEntries` has gaps.
+    hasDefinedTerm: allGlossaryItems
+      .filter(
+        (entry) => typeof entry.link === "string" && entry.link.length > 0
+      )
+      .map((entry) => {
+        const url = `${SITE}${withTrailingSlash(entry.link)}`;
+        return {
+          "@type": "DefinedTerm",
+          // Same `@id` the term's own page emits, so the hub listing and the
+          // term page resolve to one entity instead of two near-duplicates.
+          "@id": `${url}#term`,
+          name: entry.name,
+          description: entry.description,
+          url,
+          inDefinedTermSet: TERMSET_ID,
+        };
+      }),
+  },
+  breadcrumbList([
+    {name: "Concepts", item: `${DOCS_URL}concepts/`},
+    {name: "Glossary", item: GLOSSARY_URL},
+  ]),
+];
 
 function Glossary() {
   const [selectedletter, setselectedletter] = useState([]);
@@ -37,10 +97,17 @@ function Glossary() {
 
   return (
     <Layout
-      title="Glossary"
+      title="Software Testing Glossary — Keploy Documentation"
       permalink="/reference/glossary"
-      description="A glossary of terms related to software testing and development."
+      description="Definitions for software testing, test automation, and QA terminology. Acceptance, agile unit, BDD, beta, black-box testing and more."
     >
+      <Head>
+        {glossaryStructuredData.map((schema, i) => (
+          <script key={i} type="application/ld+json">
+            {JSON.stringify(schema)}
+          </script>
+        ))}
+      </Head>
       <main className="container mx-auto my-12 px-4 sm:px-6 lg:px-8">
         <div className="mb-12 text-center">
           <h1 className="text-4xl font-extrabold tracking-tight sm:text-5xl">

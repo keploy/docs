@@ -1,19 +1,20 @@
 ---
 id: integration-testing-faq
-title: Frequently Asked Questions
+title: Integration Testing FAQ
 sidebar_label: FAQs
+description: "Frequently asked questions about Keploy integration testing — how it works, mocking support, CI/CD integration, and microservices."
 tags:
   - explanation
   - faq
 ---
 
-# Got Questions? We’ve Got Answers! 🚀
+# Integration Testing FAQ
 
-Let's get to the heart of Keploy with some fun Q&A!
+Frequently asked questions about Keploy’s integration testing platform.
 
 ### 1. What is Keploy?
 
-Keploy is an open-source testing platform designed to automatically generate test cases from existing API traffic. It allows users to record, replay, and compare API interactions, making it easier to write and maintain test suites.
+Keploy is a testing platform designed to automatically generate test cases from existing API traffic. It allows users to record, replay, and compare API interactions, making it easier to write and maintain test suites.
 
 ### 2. How does Keploy work?
 
@@ -56,10 +57,16 @@ Yes, Keploy can mock database responses during test replay. This helps isolate t
 
 ### 11. Is Keploy free to use?
 
-Yes, Keploy is open-source and free to use under the Apache 2.0 license. You can also contribute to its development on GitHub.
+Yes. Keploy is free to use with a free Keploy account; free-tier runs are subject to a usage allowance, and paid plans add more features — see [pricing](https://keploy.io/pricing). The project is developed in the open on [GitHub](https://github.com/keploy/keploy), where you can also contribute.
 
 ### 12. Can I customize Keploy's behavior for specific APIs?
 
 Yes, Keploy provides configuration options to customize recording, replay, and comparison logic for specific APIs, giving users control over how their APIs are tested.
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [API Testing — Frequently Asked Questions](/docs/keploy-explained/api-testing-faq/) — API testing FAQ.
+- [Unit Testing FAQ](/docs/keploy-explained/unit-testing-faq/) — unit testing FAQ.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — how integration tests are captured.

@@ -9,7 +9,7 @@ tags:
   - unit testing
 ---
 
-# 🔌 Integrations with IDEs
+# Integrations with IDEs
 
 Keploy aims to make AI-powered unit testing as seamless as possible—right inside your favorite tools.
 

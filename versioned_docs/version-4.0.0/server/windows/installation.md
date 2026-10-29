@@ -2,10 +2,10 @@
 id: installation
 title: Windows Installation
 sidebar_label: Windows
+description: "Install Keploy on Windows — natively on x86-64 with no Administrator, or inside WSL or Docker."
 tags:
   - hello-world
   - windows
-  - ebpf
   - installation
   - install
   - installation-guide
@@ -13,37 +13,82 @@ tags:
 keywords:
   - hello-world
   - windows
-  - ebpf
+  - wsl
   - installation
   - guide
   - api
   - docker
 ---
 
-Keploy can be installed in two ways:
+import HowTo from '@site/src/components/HowTo';
 
-1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Install](#manual-install)
+<HowTo
+name="Install Keploy on Windows"
+description="Install Keploy natively on Windows (x86-64) from PowerShell, or run it inside WSL or Docker."
+totalTime="PT5M"
+tools={["Windows", "PowerShell", "Keploy CLI"]}
+steps={[
+{name: "Download Keploy", text: "In PowerShell (no Administrator), download https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe as keploy.exe into %USERPROFILE%\\.keploy\\bin and add that folder to your user PATH."},
+{name: "Record", text: "Open a new terminal and run: keploy record -c \"<your app command>\""},
+{name: "Or use WSL or Docker", text: "On Windows on ARM, run Keploy inside WSL. For an app that runs in containers, use Docker Desktop."},
+]}
+visible={false}
+/>
 
-## One click install Keploy.
+Keploy runs **natively on Windows (x86-64)** — no WSL, no Docker and no Administrator. You can also run it inside WSL or with Docker:
 
-```shell
- curl --silent -O https://keploy.io/install.sh && source install.sh
-```
-
-## Manual Install
-
-There are two ways to use Keploy eBPF in windows, you can use either use:
-
-1. [Natively in Windows](#windows-native) using WSL.
-2. By [Using Docker](#using-docker).
+1. [Natively on Windows](#windows-native) (recommended).
+2. [Inside WSL](#inside-wsl) — also the route on Windows on ARM.
+3. By [Using Docker](#using-docker) — for apps that run in containers, or that depend on services other than HTTP/HTTPS, MySQL and MongoDB: natively on Windows, calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
 
 ## Windows Native
 
 ### Download the Keploy Binary
 
-On Windows, WSL is required to run Keploy Binary. You must be running Windows 10 version 2004 and higher (Build 19041
-and higher) or Windows 11 to use the commands below.
+Run this in **PowerShell** — a normal one, not as Administrator:
+
+```powershell
+$ProgressPreference = 'SilentlyContinue'
+[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+$dir = "$env:USERPROFILE\.keploy\bin"
+New-Item -ItemType Directory -Force $dir | Out-Null
+Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
+  -OutFile "$dir\keploy.exe"
+Unblock-File "$dir\keploy.exe"
+$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+if ($userPath -notlike "*$dir*") {
+  [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+}
+```
+
+Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`.
+
+#### Run the Record Mode
+
+Run this command on your terminal to start the recording of API calls:-
+
+```powershell
+keploy record -c "path\to\the\application\binary"
+```
+
+Make API Calls using Postman or cURL command.
+
+Keploy will capture the API calls you have made to generate the test-suites which will contain the testcases and data
+mocks into `YAML` format.
+
+#### Run the Test Mode
+
+Run this command on your terminal to run the testcases and generate the test coverage report:-
+
+```powershell
+keploy test -c "path\to\the\application\binary" --delay 10
+```
+
+Voilà! 🧑🏻‍💻 We have the server running! See [Installing Keploy on Windows](/docs/installation/windows-installation/) for more.
+
+## Inside WSL
+
+You must be running Windows 10 version 2004 and higher (Build 19041 and higher) or Windows 11 to use the commands below. Enable WSL from an elevated terminal:
 
 ```shell
 wsl --install -d <Distribution Name>
@@ -57,42 +102,21 @@ distribution can be changed).
 If you're running an older build, or just prefer not to use the install command and would like step-by-step directions,
 see WSL manual installation steps for older versions.
 
-Once installed download and Install "Keploy Binary" :
+Then, inside the WSL shell, install Keploy:
 
 ```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
+curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-#### Run the Record Mode
-
-Run this command on your terminal to start the recording of API calls:-
-
-```shell
-sudo -E keploy record -c "path/to/the/application/binary"
-```
-
-Make API Calls using Postman or cURL command.
-
-Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
-mocks into `YAML` format.
-
-#### Run the Test Mode
-
-Run this command on your terminal to run the testcases and generate the test coverage report:-
-
-```shell
-sudo -E keploy test -c "path/to/the/application/binary" --delay 10
-```
-
-Voilà! 🧑🏻‍💻 We have the server running!
+Inside WSL, `keploy record` and `keploy test` work as they do on Linux.
 
 ---
 
 ## Using Docker
 
-### Setting up the Docker Desktop for WSL 2
+With Docker Desktop running, install Keploy as in [Windows Native](#windows-native) above. The `keploy` CLI runs in PowerShell and starts your app's container and Keploy's agent in Docker. Then [create the network](#create-a-network) and record.
+
+### If you run Keploy inside WSL: setting up Docker Desktop for WSL 2
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 
@@ -121,7 +145,7 @@ docker network create keploy-network
 Now, we record the testcases.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 #### Run the Test Mode

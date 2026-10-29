@@ -11,7 +11,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 ## Introduction
 
@@ -48,33 +48,44 @@ networkName: ""
 buildDelay: 30
 test:
   selectedTests: {}
+  ignoredTests: {}
   globalNoise:
     global: {}
     test-sets: {}
+  replaceWith:
+    global: {}
+    test-sets: {}
   delay: 5
+  host: "localhost"
+  port: 0
+  grpcPort: 0
   apiTimeout: 5
-  coverage: false
   skipCoverage: false
   coverageReportPath: ""
   ignoreOrdering: true
   mongoPassword: "default@123"
   language: ""
   removeUnusedMocks: false
+  basePath: ""
+  mocking: true
+  disableMockUpload: true
 record:
   recordTimer: 0s
   filters: []
 configPath: ""
 bypassRules: []
+mysqlPorts: []
+disableMysqlAutoDetect: false
 cmdType: "native"
 enableTesting: false
-keployContainer: "keploy-v2"
+keployContainer: "keploy-v3"
 keployNetwork: "keploy-network"
 # Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
 ```
 
 ## Using the Config File
 
-The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/).Using keploy-config can help to reduce the record and test command to just:
+The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/).Using keploy-config can help to reduce the record and test command to just:
 
 ### Record Command:
 
@@ -88,7 +99,7 @@ keploy record
 keploy test
 ```
 
-Visit the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) to know more about the flags/parameters and their usage.
+Visit the [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/) to know more about the flags/parameters and their usage.
 
 ## Configuration Sections
 
@@ -155,6 +166,42 @@ The `record` section in the Keploy-config file allows you to define parameters f
         port: 0
   ```
 
+- **`mysqlPorts`**: Ports to pin to MySQL. You rarely need this — Keploy detects MySQL automatically on any port. A list replaces the built-in `3306` and `4000`, and an HTTP service on a listed port gets no answer. See [MySQL port detection](#mysql-port-detection).
+
+- **`disableMysqlAutoDetect`**: Turns off automatic MySQL port detection. Default is `false`.
+
+### MySQL port detection
+
+Keploy identifies MySQL on any port, so you do not have to tell it where your database listens. This matters when MySQL, or a MySQL wire-compatible service, runs somewhere other than the usual `3306` — a second instance on `3307`, ProxySQL on `6033`, MaxScale on `4006`, StarRocks on `9030`, or a Cloud SQL Auth Proxy on whatever port you gave it.
+
+Detection works differently in each mode, because each mode has different information available:
+
+- **During Record**, whichever side of the connection speaks first decides. MySQL greets a new connection with a handshake packet before the client sends anything, so when the server speaks first, Keploy identifies the protocol from that greeting and routes the connection to its MySQL parser. When the client speaks first, as an HTTP, gRPC, or PostgreSQL client does, the connection isn't MySQL, and Keploy routes it by the client's bytes.
+
+- **During Test**, no database is running — Keploy serves the Mocks it recorded. It recovers the port from those Mocks, which store the address each connection was recorded against. On `3306` and `4000` the recording decides too: if Keploy recorded an HTTP or gRPC service on that port and no MySQL there, it replays the port as that protocol.
+
+Together this means a port you recorded on is replayed correctly with no configuration. Keploy treats `3306` and `4000` as a hint, not a rule, so an HTTP service on either port, such as a development server on `4000`, records and replays as HTTP.
+
+#### When to set these fields
+
+Both fields are optional and most projects leave them alone.
+
+Set `mysqlPorts` to pin a port to MySQL and skip detection for it. Keploy then waits for a MySQL greeting on every connection to a listed port, so an HTTP service on a port you list gets no answer. List only ports that serve MySQL.
+
+A list replaces the built-in `3306` and `4000`. While detection is on, Keploy still identifies MySQL on those ports the same way it does on any other port.
+
+```yaml
+mysqlPorts: [3307, 6033]
+```
+
+Set `disableMysqlAutoDetect` to `true` to turn detection off entirely and match `mysqlPorts` strictly:
+
+```yaml
+disableMysqlAutoDetect: true
+```
+
+With detection disabled, a MySQL server on a port outside `mysqlPorts` cannot complete its handshake, and your application fails to connect. Only disable detection if you also list every MySQL port your application uses. With detection disabled and `mysqlPorts` empty, Keploy pins `3306` and `4000` to MySQL, so an HTTP service on either port gets no answer.
+
 ### Test Section
 
 The `test` section in the Keploy-config file allows you to define parameters for testing API calls.
@@ -190,11 +237,52 @@ The `test` section in the Keploy-config file allows you to define parameters for
   test-sets: {}
   ```
 
+- **`replaceWith`**: URL or gRPC `:authority` replacements applied during replay. Keploy supports global rules and test-set-specific overrides.
+  Example:
+
+  ```yaml
+  test:
+    replaceWith:
+      global:
+        url:
+          "api.keploy.dev": "localhost"
+          "payments.keploy.dev": "localhost:9001"
+      test-sets:
+        "test-set-1":
+          url:
+            "api.keploy.dev": "staging.internal:8080"
+  ```
+
+  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target.
+
+- **`host`**: Custom host to replace the recorded host during replay. The default is `localhost`. Keploy applies `host` only when no `replaceWith` rule matched.
+
+- **`port`**: Custom HTTP port to replace the replay target port for HTTP test cases.
+
+- **`grpcPort`**: Custom gRPC port to replace the replay target port for gRPC test cases.
+
+- **`basePath`**: Custom base URL or origin for replaying HTTP test cases against an already running application. When this is set, Keploy rewrites the recorded request URL before replay and does not start or instrument the application command.
+
+#### Replay Target Resolution Order
+
+When Keploy replays a testcase, it resolves the final target in this order:
+
+1. If `test.basePath` is set for an HTTP testcase, Keploy rewrites the recorded URL to that base URL first.
+2. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule.
+3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement.
+4. If the replacement value already contains an explicit port, that port becomes final and later host or port overrides are skipped.
+5. If no `replaceWith` rule matched, `test.host` replaces the host.
+6. Keploy then uses the recorded `app_port` from the testcase when present.
+7. Finally, `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
+8. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
+
+> **Note:** Do not rely on the order of multiple matching `replaceWith` rules. Keploy stores these rules in a map and stops at the first matching key it encounters. Use non-overlapping match keys whenever possible.
+
 - **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
 
 - **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
 
-- **` bypassRules`**: A bypass for mocking API calls.
+- **`bypassRules`**: A bypass for mocking API calls.
 
   ```yaml
   bypassRules:
@@ -204,7 +292,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
       port: 0
   ```
 
-- **`withCoverage`**: Whether to generate coverage reports during testing. Default is `false`.
+- **`skipCoverage`**: Whether to skip coverage report generation during testing. Default is `false`.
 
 - **`coverageReportPath`**: Path to store the coverage report.
   Example:
@@ -294,7 +382,7 @@ In the provided example:
 
 ## Advanced Noise Filtering:
 
-Earlier the only way to add the [noisy fields](http://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
+Earlier the only way to add the [noisy fields](https://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
 
 ### Global Noise
 
@@ -399,6 +487,13 @@ The `globalNoise` and `test-sets` are optional fields in the config file. If not
 
 Congratulations! You've now explored the features and configuration options provided by `Keploy-config`.
 
-Now armed with Keploy-config, you are ready to embark on a more organized and productive journey of recording and testing APIs with Keploy. Feel free to explore additional features, customize configurations, and refer to the [CLI Command Docs](http://keploy.io/docs/running-keploy/cli-commands/) for more details on available flags and parameters.
+Now armed with Keploy-config, you are ready to embark on a more organized and productive journey of recording and testing APIs with Keploy. Feel free to explore additional features, customize configurations, and refer to the [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/) for more details on available flags and parameters.
 
 Happy testing and may your APIs always return the expected results! 🚀
+
+## Related
+
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — flags that map to config fields.
+- [Recording Filters](/docs/running-keploy/recording-filters/) — filter traffic during recording.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — bypass rules and pass-through ports.
+- [Adding a custom Mock to the Keploy Mock File](/docs/running-keploy/custom-mocks/) — work with recorded mocks.

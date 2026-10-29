@@ -13,7 +13,7 @@ tags:
   - python-framework
   - mongodb
   - flask-framework
-keyword:
+keywords:
   - Flask Framework
   - MongoDB
   - NoSQL
@@ -21,6 +21,39 @@ keyword:
   - API Test generator
   - Auto case generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Task Creation CRUD App — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -98,9 +131,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 <SectionDivider />
 
-## How to Run the App Locally on Linux/WSL 🐧
+## How to Run the App Locally 💻 {#how-to-run-the-app-locally-on-linuxwsl-}
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 ## Clone a simple Student Management API 🧪
 
@@ -108,7 +143,7 @@ Happy coding! ✨👩‍💻👨‍💻✨
 git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
 
 ## Install all dependencies
 
@@ -131,6 +166,8 @@ To initiate the recording of API calls, execute this command in your terminal:
 ```bash
 keploy record -c "python3 app.py"
 ```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its interpreter here and in the test step, e.g. `keploy record -c ".venv/bin/python app.py"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)). On Windows, use `python app.py` if `python3` isn't on your `PATH`.
 
 Now, your app will start running, and you have to make some API calls to generate the test cases!!
 
@@ -200,3 +237,10 @@ python3 -m coverage html
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Python FastAPI CRUD sample.
+- [Sample User Data CRUD App (Django)](/docs/quickstart/samples-django/) — Python Django CRUD sample.
+- [Sample Movie API with Sanic and MongoDB](/docs/quickstart/sanic-mongo/) — Another Python MongoDB app.

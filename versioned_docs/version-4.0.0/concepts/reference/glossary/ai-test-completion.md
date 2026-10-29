@@ -59,6 +59,14 @@ By using Keploy’s AI-based testing :
 
 AI Test Completion represents a significant advancement in software testing, leveraging AI and ML to automate and improve the testing process. By automating test case generation, predicting potential scenarios, and enhancing test coverage, AI Test Completion enables teams to achieve higher efficiency, accuracy, and scalability in their testing efforts. However, challenges such as data quality, setup complexity, and integration issues must be addressed to fully leverage the benefits of AI-driven testing. Integrating AI Test Completion into testing workflows can empower teams to deliver robust software solutions that meet user expectations and business requirements effectively.
 
+## Related Terms
+
+- [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — AI accelerates automated unit test creation.
+- [Test Data Generation](/docs/concepts/reference/glossary/test-data-generation/) — AI produces inputs and edge cases.
+- [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — AI-generated tests aim to raise coverage.
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — AI extends broader test automation efforts.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQ
 
 ### How does AI test completion work?

@@ -116,6 +116,13 @@ Observability testing continues to evolve as systems become more complex and mon
 
 **Security Observability**: Security monitoring becomes increasingly important as systems face evolving threats. Observability testing must validate that security monitoring capabilities provide comprehensive threat detection and response capabilities.
 
+## Related Terms
+
+- [Reliability Testing](/docs/concepts/reference/glossary/reliability-testing/) — observability underpins reliability assessment.
+- [Microservice Testing](/docs/concepts/reference/glossary/microservice-testing/) — traces span distributed microservices.
+- [Performance Testing](/docs/concepts/reference/glossary/performance-testing/) — metrics reveal performance under load.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## Frequently Asked Questions
 
 ### Q: What's the difference between traditional monitoring and observability testing?

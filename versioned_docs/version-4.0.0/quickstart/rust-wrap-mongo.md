@@ -6,12 +6,45 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - Rust
   - MongoDB
-keyword:
+keywords:
   - Rust
   - MongoDB
   - API Test generator
   - Auto Testcase generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Rust Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM (Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps).",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 ## Introduction
 
@@ -32,6 +65,8 @@ git clone https://github.com/keploy/samples-rust && cd samples-rust/CRUD-rust-mo
 ```
 
 ## Running App Locally on Linux/WSL 🐧
+
+On macOS, run these steps inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 We will be using Docker compose to run Mongo on Docker container.
 
@@ -88,7 +123,7 @@ curl --location 'http://localhost:8000/api/notes/6618fa20875aedcfe96e08ed'
 
 This is how keploy terminal would look like:
 
-![Testcase](../../../static/img/rust-crud-record.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-crud-record.webp" alt="Testcase" width="2994" height="484" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Run the testcases
 
@@ -101,3 +136,9 @@ sudo -E env PATH=$PATH keploy test -c 'cargo run'
 _Voila!! Our testcases has passed 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [GraphQL Application with MongoDB](/docs/quickstart/samples-rust/) — another Rust + MongoDB sample.
+- [CRUD REST API with MongoDB](/docs/quickstart/sample-rust-crud-mongo/) — Rust CRUD walkthrough.
+- [Sample Rust Apps](/docs/quickstart/rust-filter/) — browse all Rust quickstarts.

@@ -68,7 +68,7 @@ export const EcosystemSupport = () => {
             </div>
 
             <Link
-              to="https://forms.gle/example-sponsorship"
+              to="https://forms.gle/3jgWe8MLxS5DuZfK6"
               className="inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-amber-500/25 transition-all duration-200 hover:from-amber-600 hover:to-orange-600 hover:text-white hover:shadow-amber-500/40 hover:no-underline"
             >
               Apply for sponsorship

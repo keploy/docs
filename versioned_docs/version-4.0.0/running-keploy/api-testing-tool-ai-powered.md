@@ -26,7 +26,7 @@ keywords:
 | ----------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | Edge-case, bugs, coverage flows gets missed     | Higher test coverage across CRUD and failure scenarios                                        |
 | APIs change frequently, leading to broken tests | Self-healing keeps tests even when APIs evolves                                               |
-| 30–50% of time spent writing tests              | 50–80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
+| 30-50% of time spent writing tests              | 50-80% reduction in test creation <br/> Covers more edge cases within limited resources, time |
 
 ## 💥 Why Keploy? Not Other AI Testing Tools
 
@@ -109,3 +109,10 @@ Keploy is built with security-first principles and is compliant with major indus
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/compliance-images.png" alt="Keploy Record Test case" width="100%" />
 
 Your data and test traffic are handled securely, with the option to run Keploy entirely within your network using our self-hosted agent or BYOLLM infrastructure. To Learn more on our [security page](https://trust.keploy.io).
+
+## Related
+
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — generate API tests with AI.
+- [API Test Architecture](/docs/running-keploy/api-test-architecture/) — architecture behind generation.
+- [Agent-Based API Test Generation](/docs/running-keploy/agent-test-generation/) — agent-based test generation.
+- [Adding New Test Suites](/docs/running-keploy/api-testing-add-suite/) — add suites to your tests.

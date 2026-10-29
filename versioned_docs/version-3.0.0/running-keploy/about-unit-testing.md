@@ -9,7 +9,7 @@ tags:
   - testing
 ---
 
-# 🧩 What is Unit Testing?
+# What is Unit Testing?
 
 Unit testing is a software testing method where you test individual pieces of your code (usually functions or methods) to make sure they work as expected—all on their own.  
 Think of it as checking each LEGO brick before building the whole castle.

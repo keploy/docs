@@ -6,7 +6,7 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - Typescript
   - Nhost
-keyword:
+keywords:
   - Typescript
   - Nhost
   - API Test generator

@@ -2,6 +2,7 @@
 id: why-keploy
 title: Why Keploy?
 sidebar_label: Why Keploy?
+description: "Compare Keploy with traditional test-scripting and record-replay tools — see how Keploy automates test generation with zero code changes."
 tags:
   - explanation
   - why keploy
@@ -16,7 +17,7 @@ tags:
 | **Test Scripting**                         | Manual test script creation.                            | Record user traffic as tests scripts.                                 | Automatic user traffic recording as test scripts.                       |
 | **Mocking Dependencies**                   | Manual mock/stub writing.                               | Setup test environments for dependencies.                             | Automatic mocking of dependencies CRUD operations.                      |
 | **Test Coverage**                          | Coverage reliant on script quality.                     | Coverage based on recorded traffic.                                   | Line coverage derived from code quality.                                |
-| **Code-Less Integration**                  | Requires scripting for integration.                     | Relies on traffic replication pipelines and mock scripts.             | Uses EBPF for no-code, language-agnostic integration.                   |
+| **Code-Less Integration**                  | Requires scripting for integration.                     | Relies on traffic replication pipelines and mock scripts.             | No-code integration by capturing traffic at the network layer.          |
 | **Noise Detection**                        | Manual noise and data noise identification.             | Limited capability to filter noisy parameters.                        | Accurate noise detection, flagging random/noisy fields.                 |
 | **Ease of Use**                            | Moderate learning curve for scripting.                  | Difficulty in recording interactions and test environment management. | User-friendly with quick adoption.                                      |
 | **CI/CD Integration**                      | Integration via unit test libraries in CI/CD pipelines. | Limited CI/CD integration, specific environments required.            | Easy integration using unit test libraries in CI/CD.                    |
@@ -28,4 +29,10 @@ tags:
 
 ⭐ If you're excited about what's coming, show some love by [starring Keploy on GitHub](https://github.com/keploy/keploy)
 
-🤙 We're happy to hear from you in-case you want to deep-dive. [Schedule a demo](https://calendar.app.google/3mHeyaoKg3A2qkqF6) – because the best tests are yet to come! 🚀🎉
+🤙 We're happy to hear from you in-case you want to deep-dive. [Schedule a demo](https://calendar.app.google/3mHeyaoKg3A2qkqF6) — because the best tests are yet to come! 🚀🎉
+
+## Related
+
+- [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
+- [How Keploy Works?](/docs/keploy-explained/how-keploy-works/) — the mechanism behind the benefits.
+- [Security & Compliance at Keploy](/docs/keploy-explained/keploy-security/) — enterprise readiness.

@@ -2,14 +2,14 @@
 id: express-mongoose-application
 title: sample course selling api (express)
 sidebar_label: NodeJS - Express + Mongoose
-description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
+description: Test a Node.js Express course-selling API with Keploy — record real requests and replay them as testcases with auto-generated mocks.
 tags:
   - javascript
   - quickstart
   - samples
   - examples
   - tutorial
-keyword:
+keywords:
   - NodeJS Framework
   - MongoDB
   - NodeJS
@@ -17,9 +17,44 @@ keyword:
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Course-Selling API (Express) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Introduction
 
 A simple sample CRUD application and see how seamlessly Keploy integrates with Express and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -67,6 +102,8 @@ if using wsl use this :
 ```bash
 sudo -E env PATH=$PATH keploy record -c 'npm start'
 ```
+
+`sudo` is for Linux (and WSL) only. On macOS, Keploy is dropped by the `npm start` launcher — run the app's entry point directly instead, here and in `keploy test` below: `keploy record -c "node server.js"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -188,7 +225,7 @@ keploy test -c "npm start" --delay 10
 If using wsl use this :
 
 ```bash
-keploy -E env PATH=$PATH keploy test -c 'npm start' --delay 10
+sudo -E env PATH=$PATH keploy test -c 'npm start' --delay 10
 ```
 
 Keploy test report:
@@ -277,3 +314,9 @@ npm run coverage
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+## Related
+
+- [Node.js MongoDB Sample](/docs/quickstart/crud-nodejs/) — Node + MongoDB CRUD.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — closely related Express app.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS quickstarts.

@@ -11,13 +11,46 @@ tags:
   - tutorial
   - redis
   - gin-framework
-keyword:
+keywords:
   - Gin Framework
   - Redis
   - Golang
   - API Test generator
   - Auto Testcase generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample User Authentication App (Golang) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker steps, since natively there Keploy captures Redis calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
@@ -239,6 +272,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#using-docker-compose-) instead — natively there, Keploy captures Redis calls only as raw bytes, which usually don't replay.
+
 <EnterpriseInstallReminder />
 
 ### Clone a sample user authentication app 🧪
@@ -439,3 +474,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — another Go sample.
+- [Sample URL Shortener App (Golang)](/docs/quickstart/samples-gin/) — another Gin-based Go app.
+- [Sample Library App (Flask + Redis)](/docs/quickstart/flask-redis/) — another Redis-backed app.

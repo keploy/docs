@@ -170,6 +170,14 @@ Implementing TDD comes with challenges that teams should be aware of:
 
 Test Driven Development (TDD) is a powerful methodology that fosters robust, maintainable, and reliable code. By writing tests before code, developers are forced to clarify requirements, catch bugs early, and design modular components that are easier to maintain and scale. While TDD has its challenges, its benefits in enhancing code quality, enabling safe refactoring, and integrating seamlessly with CI/CD pipelines (especially when paired with tools like Keploy) make it a valuable approach in modern software development.
 
+## Related Terms
+
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — TDD is driven by writing unit tests first.
+- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — a collaboration-focused alternative to TDD.
+- [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — measure how much code your tests exercise.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — isolate units while writing tests first.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQ
 
 ### What is Test Driven Development (TDD)?

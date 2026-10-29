@@ -2,7 +2,7 @@
 id: what-are-keploy-features
 title: Keploy Features
 sidebar_label: Keploy Features
-description: Keploy platform automatically mocks application dependencies and safely replay writes. It does accurate noise detection and statistical de-duplication.
+description: Keploy features include automatic test generation from real traffic, production-like sandboxes, dependency (service) virtualization, AI-powered flaky test elimination, infrastructure mocking, legacy application testing, migration regression testing, continuous validation, and CI/CD integration — all without code changes.
 tags:
   - explanation
   - keploy features
@@ -11,12 +11,24 @@ tags:
   - mock mutations
 keywords:
   - test cases
-  - data dumps
+  - dependency virtualization
+  - service virtualization
+  - production sandbox
+  - infrastructure mocking
+  - flaky test elimination
+  - legacy application testing
+  - migration regression testing
+  - continuous validation
+  - production behavior replay
+  - AI-driven testing
+  - release confidence
   - keploy features
   - features
   - record replay test
   - mock mutations
 ---
+
+Keploy's key features include automatic test generation from real user traffic, [production-like sandbox environments](https://keploy.io/blog/community/sandbox-testing), dependency virtualization ([service virtualization](https://keploy.io/blog/community/service-virtualization)) for databases and external services, AI-powered noise detection for flaky test elimination, infrastructure mocking for message queues and APIs, legacy application testing without code changes, migration regression testing against production baselines, continuous validation in CI/CD pipelines, and Time Freezing for deterministic replay — enabling teams to ship with AI-driven code velocity while maintaining release confidence.
 
 ## Key Features
 
@@ -31,7 +43,7 @@ Keploy has [native integrations](/concepts/general-glossary.md#4-interoperabilit
 like `go-test`, `jUnit`, `jest`, `pyTest`. Keploy gives combined test-coverage and can also be integrated in existing CI
 pipelines easily within `go-test`, `jUnit`, `jest`, `pyTest` workflows.
 
-<img src="/docs/gif/replay-tc.gif?raw=true" alt="Keploy Integration with Testing Libraries"  width="80%"/>
+<video autoPlay loop muted playsInline width="800" height="450" style={{width:'80%',height:'auto'}} aria-label="Keploy Integration with Testing Libraries" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/replay-tc-poster.webp"><source src="/docs/gif/replay-tc.mp4" type="video/mp4" /></video>
 
 Run tests with mocks anywhere you like—**locally on the CLI**, in your **CI pipeline**, or even across a **Kubernetes
 cluster**. It's testing wherever you want it! 🌍
@@ -49,7 +61,7 @@ favorite API management tools like Postman or even Curl to generate test cases.
 Keploy automatically [mocks](/concepts/general-glossary.md#1-api-data-mocking) network/external dependencies for **all
 CRUD operations** with correct responses.
 
-<img src="/docs/gif/record-replay.gif?raw=true" width="80%" alt="API Tools"/>
+<video autoPlay loop muted playsInline width="800" height="348" style={{width:'80%',height:'auto'}} aria-label="API Tools" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/record-replay-poster.webp"><source src="/docs/gif/record-replay.mp4" type="video/mp4" /></video>
 
 Once recorded, you have the flexibility to replay and simulate the same flow with mutations/write calls locally or
 within your CI environment without needing to connect to external services/dependencies.
@@ -57,7 +69,7 @@ within your CI environment without needing to connect to external services/depen
 No more data dumps, stubs, or mocks for dependencies like DBs, internal services, or third-party services like twilio,
 shopify, or stripe are required anymore. 💡
 
-<img src="/docs/img/mock-dependencies.png?raw=true" width="50%" alt="Mock Application Dependencies" style={{backgroundColor: '#EDEDED'}}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mock-dependencies.webp" width="50%" alt="Mock Application Dependencies" style={{backgroundColor: '#EDEDED'}}/>
 
 [Idempotency](/concepts/general-glossary.md#2-idempotency) guarantees are also **not required** in the application.
 Multiple Reads after write operations can be replicated automatically too. 🔄
@@ -71,11 +83,11 @@ Multiple Reads after write operations can be replicated automatically too. 🔄
 Keploy generated dependency mocks can also be used as test case for the server. These tests can be used for use-cases
 like chaos testing, e2e testing, integration testing, api and regression testing. 🌟
 
-## 🌐 Code-less EBPF Instrumentation
+## 🌐 Code-less Instrumentation
 
 #### Network Layer Integration makes it Light-Weight
 
-Keploy uses EBPF like a secret sauce to make integration code-less, language agnostic, and oh-so-lightweight. 🍲
+Keploy's secret sauce is intercepting traffic at the network layer — with eBPF on Linux, and in user space on macOS and Windows — which makes integration code-less and oh-so-lightweight. 🍲 On Linux, and with Docker, it's language agnostic; natively on macOS and Windows it covers Go, Node.js, Python and Java apps.
 
 ## 🔍 Accurate Noise Detection
 
@@ -86,7 +98,7 @@ timestamps, random values) to ensure high quality tests.
 
 As the application serves the API, Keploy re-run that API request with the captured dependency mocks.
 
-[//]: # '<img src="/img/noise-filtration.png?raw=true" alt="Keploy noise filtration"/>'
+[//]: # '<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/noise-filtration.webp" alt="Keploy noise filtration" width="2162" height="686" />'
 
 Keploy identifies differences in API responses, marking them as random/noisy fields. 🧐✅
 

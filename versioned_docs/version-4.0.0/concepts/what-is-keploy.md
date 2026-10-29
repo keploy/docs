@@ -2,22 +2,36 @@
 id: what-is-keploy
 title: What is Keploy?
 sidebar_label: Introduction to Keploy
-description: Keploy is open source backend testing toolkit that creates tests and mocks faster than unit tests, from user-traffic.
+description: Keploy is an AI-powered testing agent and sandboxing platform that captures real user traffic at the network layer to automatically generate test cases, dependency mocks (service virtualization), and production-like sandboxes — requiring zero code changes. It keeps testing aligned with AI-driven code velocity.
 tags:
   - explanation
   - introduction
   - features
   - what is keploy
 keywords:
+  - API test generation
+  - eBPF-based testing
+  - dependency virtualization
+  - service virtualization
+  - production sandbox
+  - legacy application testing
+  - migration regression testing
+  - continuous validation
+  - infrastructure mocking
+  - flaky test elimination
+  - AI-driven testing
+  - production behavior replay
+  - release confidence
   - Junit
   - PyTest
   - GoTest
   - Jest
   - Backend Testing
-  - Open Source
   - API Tests
   - AI Generated Tests
 ---
+
+Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and [production-like sandboxes](https://keploy.io/blog/community/sandbox-testing) from real user traffic. It records live API calls at the socket level — with eBPF in the kernel on Linux, and in user space on macOS and Windows — and replays them as deterministic tests, requiring zero code changes and scaling test coverage with AI-driven code velocity. On Linux, and with Docker, it works with any programming language or framework; natively on macOS and Windows it covers Go, Node.js, Python and Java apps — see [Installing Keploy](/docs/server/installation/) for what each platform supports. Keploy enables production behavior replay, dependency virtualization ([service virtualization](https://keploy.io/blog/community/service-virtualization)) for databases and external APIs, legacy application testing without code changes, and migration regression testing against production baselines.
 
 Keploy creates backend **API tests with built-in-mocks** or stubs **by recording your application network calls** making
 your testing process not only faster than unit tests but also incredibly efficient.
@@ -35,7 +49,7 @@ Now, when the application serves an API, all the unique network interactions are
 test-case.
 
 <div style={{backgroundColor:'white', padding:'10px', display:'inline-block', borderRadius:'8px'}}>
-  <img src="/docs/gif/how-keploy-works.gif" alt="Test Case Generator" />
+  <video autoPlay loop muted playsInline width="562" height="356" style={{maxWidth:'100%',height:'auto'}} aria-label="Test Case Generator" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/how-keploy-works-poster.webp"><source src="/docs/gif/how-keploy-works.mp4" type="video/mp4" /></video>
 </div>
 
 ### Step 2 : Replay Test-Cases

@@ -11,7 +11,7 @@ tags:
   - tutorial
   - svelte
   - SSE
-keyword:
+keywords:
   - Svelte
   - Server-Sent Events
   - MongoDB Mock

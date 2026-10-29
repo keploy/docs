@@ -1,12 +1,19 @@
 ---
 id: mac-linux
-title: "Running Keploy Natively on MacOS by setting up a linux env"
-sidebar_label: Keploy on MacOS native
+title: "Running Keploy on macOS in a Linux VM (Lima)"
+sidebar_label: Keploy on macOS with Lima
+description: "Run Keploy on macOS inside a Debian Linux VM with Lima — the route for Intel Macs. Step-by-step installation guide."
 ---
 
-# Running Keploy Natively on MacOS by setting up a linux env
+# Running Keploy on macOS in a Linux VM (Lima)
 
-**_Downloading and running Keploy in Native using Debian on MacOS_**
+**_Downloading and running Keploy in a Debian VM on macOS_**
+
+:::tip Looking for true native macOS?
+
+This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac**. On Apple Silicon you can skip the VM: Keploy records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
+
+:::
 
 1.  Open the terminal Session.
 2.  Run the following command. This installs homebrew and makes it easier to manage software and packages on macOS
@@ -24,8 +31,10 @@ sidebar_label: Keploy on MacOS native
 4.  Create a Debian instance.
 
     ```bash
-    limactl create template://debian-12
+    limactl create --mount-writable template://debian-12
     ```
+
+    Lima mounts your Mac's home folder read-only by default; `--mount-writable` lets Keploy write its test files into your project. If you already have an instance, stop it if it's running (`limactl stop <name>`), make it writable with `limactl edit <name> --mount-writable --start`, and continue at step 6, using its name in place of `debian-12`.
 
 5.  Start the instance
 
@@ -39,20 +48,19 @@ sidebar_label: Keploy on MacOS native
     limactl shell debian-12
     ```
 
-7.  Now you are in the linux shell of the debian instance. Replace `{Username}` with your actual macOS username in the following command. This will take you directly to your macOS home directory. (You might need to allow access to Terminal.app in a popup)
+7.  Now you are in the linux shell of the debian instance. Install Keploy from the VM's own home directory. The installer picks the Linux build for the VM's architecture, which matches your Mac's.
+
+    ```bash
+    cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    ```
+
+8.  Go to your project on the Mac side to record it. Replace `{Username}` with your actual macOS username. (You might need to allow access to Terminal.app in a popup)
 
     ```bash
     cd /Users/{Username}
     ```
 
-8.  Run the following command to install Keploy
-
-    ```bash
-    curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz --overwrite -C /tmp
-    sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
-    ```
-
-Congratulations! You've successfully set up Keploy natively on MacOS.
+Congratulations! You've successfully set up Keploy on macOS in a Lima VM.
 
 ## What's Next?
 
@@ -61,3 +69,9 @@ Congratulations! You've successfully set up Keploy natively on MacOS.
 Begin recording your API calls and generating test cases with Keploy.
 
 #### [Back to Installation Guide](/docs/server/installation/)
+
+## Related
+
+- [Running Keploy on Windows in WSL](/docs/keploy-explained/windows-wsl/) — the WSL setup.
+- [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — fix common install issues.
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — commands to run after install.

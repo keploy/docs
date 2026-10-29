@@ -57,3 +57,10 @@ Automating manual testing with Keploy can provide several benefits. Such as:
 - Improved Quality: By catching issues early and ensuring that changes do not break existing functionality, automation testing can help improve the overall quality of the software.
 
 Overall, by automating testing processes with Keploy, you can improve testing efficiency, increase test coverage, and accelerate the delivery of high-quality software products while reducing manual effort and costs.
+
+## Related Terms
+
+- [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate repetitive manual test execution.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — re-run manual test cases after code changes.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — a foundational automated alternative to manual checks.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

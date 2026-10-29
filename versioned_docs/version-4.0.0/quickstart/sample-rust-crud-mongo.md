@@ -7,7 +7,7 @@ tags:
   - Rust
   - MongoDB
   - REST API
-keyword:
+keywords:
   - Rust
   - MongoDB
   - API Test generator
@@ -16,11 +16,46 @@ keyword:
   - REST
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="CRUD REST API with MongoDB — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM, since native macOS and Windows support is tested with Go, Node.js, Python and Java apps.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 This is a sample CRUD REST API application to showcase Keploy integration capabilities using Rust and MongoDB. Let's get started! 🚀
 
 import InstallReminder from '@site/src/components/InstallReminder';
 
 ## Running App Locally on Linux/WSL 🐧
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — Keploy's native macOS and Windows support is tested with Go, Node.js, Python and Java apps.
 
 <InstallReminder />
 
@@ -60,19 +95,19 @@ keploy record -c 'cargo r -r'
 ```
 
 The output will be as follows:
-![RecordRun](/img/rust-mongo-rest-test-run.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-rest-test-run.webp" alt="RecordRun" width="1783" height="1174" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Generate testcase
 
 Open Postman or any other tool, or utilize the Postman VSCode extension. Click on the import icon (shown below):
 
-![TestRun](/img/rust-mongo-postman-collection-import-button.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-postman-collection-import-button.webp" alt="TestRun" width="943" height="697" style={{maxWidth:'100%',height:'auto'}} />
 
 Import the file named: `Note App.postman_collection.json`
 
 After that, Postman will display a similar window:
 
-![TestRun](/img/rust-mongo-rest-postman-collection.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-rest-postman-collection.webp" alt="TestRun" width="2548" height="1222" style={{maxWidth:'100%',height:'auto'}} />
 
 Hit the Create Note Request with the available data and you will get the following output in your terminal:
 
@@ -81,7 +116,7 @@ Hit the Create Note Request with the available data and you will get the followi
 🟠 Keploy has captured test cases for the user's application.   {"path": "/root/samples-rust/CRUD-rust-mongo/keploy/test-set-3/tests", "testcase name": "test-1"}
 ```
 
-![TestRun](/img/rust-mongo-rest-postman-create-success.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-rest-postman-create-success.webp" alt="TestRun" width="1300" height="1009" style={{maxWidth:'100%',height:'auto'}} />
 
 Afterward, create a GET all request, and you will get the following output in your terminal:
 
@@ -89,7 +124,7 @@ Afterward, create a GET all request, and you will get the following output in yo
 🐰 Keploy: 2024-08-27T21:13:41+05:30    INFO    🟠 Keploy has captured test cases for the user's application.   {"path": "/root/samples-rust/CRUD-rust-mongo/keploy/test-set-3/tests", "testcase name": "test-3"}
 ```
 
-![Test-case](/img/rust-mongo-rest-postman-get-all-success.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-rest-postman-get-all-success.webp" alt="Test-case" width="1363" height="1039" style={{maxWidth:'100%',height:'auto'}} />
 
 We peformed two requests, one to create a note and one to get all notes. These requests are captured as testcases by Keploy.
 
@@ -103,5 +138,11 @@ keploy test -c 'cargo r -r'
 
 We get the following output in the terminal -
 
-![TestRun](/img/rust-mongo-rest-test-run-2.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/rust-mongo-rest-test-run-2.webp" alt="TestRun" width="1690" height="1095" style={{maxWidth:'100%',height:'auto'}} />
 _Voila!! Our testcases has passed 🌟_
+
+## Related
+
+- [GraphQL Application with MongoDB](/docs/quickstart/samples-rust/) — another Rust + MongoDB sample.
+- [Rust Sample Application](/docs/quickstart/samples-rust-wrap/) — Rust wrap-mode sample.
+- [Sample Rust Apps](/docs/quickstart/rust-filter/) — browse all Rust quickstarts.

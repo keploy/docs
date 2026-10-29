@@ -12,7 +12,7 @@ tags:
   - postgres
   - examples
   - tutorial
-keyword:
+keywords:
   - Jacoco
   - Maven
   - Springboot Framework
@@ -24,11 +24,44 @@ keyword:
   - Junit
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Java Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 # Example Employee-Manager App
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
 and **PostgreSQL**.
@@ -54,6 +87,8 @@ mvn clean install -Dmaven.test.skip=true
 ```
 
 ## Instructions For Starting Using Binary
+
+This section runs the backend on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#instructions-for-starting-using-docker) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 ### Setup the backend
 
@@ -91,7 +126,7 @@ Note: You may have to use sudo if you are not part of the docker group.
 keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
 ```
 
-![Testcases](/img/keploy-record-employee-app.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-employee-app.webp" alt="Testcases" width="2474" height="1490" style={{maxWidth:'100%',height:'auto'}} />
 
 Now let's run a few tests to capture some more scenarios:
 
@@ -204,7 +239,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.timestamp` to noise in `keploy.yml`.
 
-<img src="/docs/img/java-employee-timestamp.png" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/java-employee-timestamp.webp" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
@@ -216,7 +251,7 @@ Next we move on to the instructions to start the application using docker.
 
 ## Instructions For Starting Using Docker
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 A sample Employee-Manager app to test Keploy integration capabilities using SpringBoot and PostgreSQL.
 
@@ -240,7 +275,7 @@ mvn clean install -Dmaven.test.skip=true
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
 
-<img src="/docs/img/keploy-record-docker-employee.png" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-docker-employee.webp" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Now let's run a few tests to capture some more scenarios:
 
@@ -294,10 +329,10 @@ keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --d
 ```
 
 Your CLI should look something like this
-<img src="/docs/img/keploy-test-record-employee.png" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-test-record-employee.webp" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
 
 This is a summary of the test cases recorded
-<img src="/docs/img/keploy-testcase-employee.png" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
@@ -305,3 +340,9 @@ Here `delay` is the time it takes for your application to get started, after whi
 ### 🎉 Wrapping it up
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Rest API with Spring-Boot and MongoDB](/docs/quickstart/java-spring-boot-mongo/) — Spring Boot + Mongo.
+- [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot + XML.
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse all Java quickstarts.

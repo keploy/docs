@@ -2,6 +2,7 @@
 id: debugger-guide
 title: Debugger Guide
 sidebar_label: Debugger Guide
+description: "Learn how to debug Keploy using the VS Code integrated debugger with launch.json configurations for record and test modes."
 tags:
   - explanation
   - dev guide
@@ -88,7 +89,7 @@ echo %PATH%
 Let's take a closer look at some important key-value pairs in our JSON file:
 
 - The `"name"` parameter can be anything, but for convenience, consider using the keploy command name (e.g., `Record` and `Test`).
-- The `args` parameter represents the entire keploy command to run your application. For example, in [Gin + Mongo](https://keploy.io/docs/quickstart/samples-gin/), on Linux, it's `record -c "go run main.go handler.go"`, and for MacOS, it's `record -c "docker compose up" --containerName "ginMongoApp"`.
+- The `args` parameter represents the entire keploy command to run your application. For example, in [Gin + Mongo](https://keploy.io/docs/quickstart/samples-gin/), on Linux, it's `record -c "go run main.go handler.go"`. Keploy run from the [keploy/keploy](https://github.com/keploy/keploy) source intercepts with eBPF, which is Linux-only, so when you debug it on macOS or Windows, run the app in Docker instead: `record -c "docker compose up" --container-name "ginMongoApp"`. This applies only to debugging Keploy from source — Keploy installed from keploy.io records apps natively on macOS and Windows (see [Installing Keploy](/docs/server/installation/)).
 
 You can either add more objects in the "configurations" array or modify the "args" property within a single object to add more commands.
 
@@ -99,3 +100,10 @@ You can either add more objects in the "configurations" array or modify the "arg
 Click the **Start Debugging** button to witness the magic of debugging unfold seamlessly.
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Testing Guide](/docs/keploy-explained/testing-guide/) — how Keploy's test bench works.
+- [Contribution Guide](/docs/keploy-explained/contribution-guide/) — set up Keploy locally for development.
+- [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — resolve common errors while debugging.
+- [IDE Integrations — VS Code](/docs/keploy-explained/integrations-vscode/) — Keploy inside VS Code.

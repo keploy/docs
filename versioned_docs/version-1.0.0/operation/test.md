@@ -25,6 +25,6 @@ export KEPLOY_MODE="test"
 Run application and find test report summary on the Keploy Server Logs and detailed test report
 in directory where Keploy Server is running.
 
-![Test report summary](/gif/replay-tc.gif)
+<video autoPlay loop muted playsInline width="800" height="450" style={{maxWidth:'100%',height:'auto'}} aria-label="Test report summary" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/replay-tc-poster.webp"><source src="/docs/gif/replay-tc.mp4" type="video/mp4" /></video>
 
 </details>

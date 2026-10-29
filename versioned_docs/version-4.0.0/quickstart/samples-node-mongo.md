@@ -1,8 +1,9 @@
 ---
 id: crud-nodejs
-title: NodeJS Sample Application
+title: Node.js MongoDB Sample
 sidebar_label: NodeJS - Express + Mongoose
-description: The following sample app showcases how to use NodeJS framework and the Keploy Platform.
+hide_title: true
+description: Record and replay API tests for a Node.js + MongoDB CRUD app with Keploy — capture real traffic and generate testcases with mocks.
 tags:
   - javascript
   - nodejs
@@ -12,7 +13,7 @@ tags:
   - samples
   - examples
   - tutorial
-keyword:
+keywords:
   - NodeJS Framework
   - ExpressJs
   - MongoDB
@@ -21,16 +22,51 @@ keyword:
   - Auto Testcase generation
 ---
 
-## Intoduction 📌
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Node.js MongoDB Sample — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+## Introduction 📌
 
 A sample **_CRUD_** application to see how Keploy integrates effortlessly with **_Express.js_** and **_MongoDB_**. Get ready to see the power of Keploy 🔅🔅.
 
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
+
 ## Get Started! 🎬
 
-Clone the repository and move to crud-API folder
+Clone the repository and move to express-mongodb folder
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typescript/crud-API
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/express-mongodb
 
 # Install the dependencies
 npm install
@@ -49,6 +85,8 @@ To begin recording your application's API calls, open your terminal and navigate
 ```bash
 keploy record -c "npm start"
 ```
+
+On macOS, Keploy is dropped by the `npm start` launcher — run the app's entry point directly instead, here and in `keploy test` below: `keploy record -c "node server.js"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Make API Calls using Hoppscotch, Postman or curl command. Keploy will capture those calls to generate the test-suites containing testcases and data mocks.
 
@@ -185,7 +223,7 @@ curl: |
 Want to see it in action? Run the following command to execute your Keploy tests
 
 ```bash
-keploy test -c "npm run" --delay 10
+keploy test -c "npm start" --delay 10
 ```
 
 Great job following along 🥳! Now, let's dive deeper and explore how to do Keploy integration with jest test 📌
@@ -261,3 +299,9 @@ npm run coverage
 Congratulations! You've conquered Keploy and unleashed its power for effortless testing in your NodeJS application. With Jest by your side, you can ensure rock-solid code coverage. Time to go forth and build amazing things! 🧑🏻‍💻
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — Express + Mongoose variant.
+- [sample course selling api (express)](/docs/quickstart/express-mongoose-application/) — another Express + Mongo app.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS quickstarts.

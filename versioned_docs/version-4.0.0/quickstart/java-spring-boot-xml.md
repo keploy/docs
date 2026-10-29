@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - restful-api
-keyword:
+keywords:
   - XML
   - Maven
   - Springboot Framework
@@ -23,9 +23,42 @@ keyword:
   - JAXB
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample REST API with Spring-Boot and XML — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Explore creating REST APIs with XML responses using Spring-Boot. Discover the ease of integrating XML serialization through JAXB. Let's dive right in!
 
@@ -40,6 +73,8 @@ import InstallReminder from '@site/src/components/InstallReminder';
 - Install Docker (optional)
 
 ## Get Started! 🎬
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 ### Clone and Build the Application
 
@@ -62,6 +97,8 @@ mvn spring-boot:run
 ```bash
 keploy record -c "java -jar target/XML-0.0.1-SNAPSHOT.jar"
 ```
+
+On macOS, use your JDK's own `java` rather than Apple's `/usr/bin/java`, which records nothing — here and in `keploy test` below: `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/XML-0.0.1-SNAPSHOT.jar"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Then, invoke the API using `curl` or your favorite API testing tool.
 
@@ -119,7 +156,7 @@ If you encounter failing tests due to variable or irrelevant data, like timestam
 
 **Example:**
 
-<img src="/docs/img/java-spring-boot-header.png" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/java-spring-boot-header.webp" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
 
 ```yaml
 globalNoise:
@@ -132,8 +169,15 @@ globalNoise:
 
 After updating `keploy.yml` with the above configuration, rerun your tests, and the issue should be resolved.
 
-<img src="/docs/img/keploy-testcase-employee.png" alt="Sample Keploy Testcases" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Testcases" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Wrapping Up 🎉
 
 Fantastic! You've successfully navigated creating and testing XML APIs with Spring Boot and Keploy. Keep exploring, experimenting, and innovating! If you have any queries, we're here to help!
+
+## Related
+
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse more Java samples.
+- [Sample Rest API with Spring-Boot and MongoDB](/docs/quickstart/java-spring-boot-mongo/) — Spring Boot with MongoDB.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Spring Boot with Postgres.
+- [Java Sample Application](/docs/quickstart/samples-java/) — another Java sample.

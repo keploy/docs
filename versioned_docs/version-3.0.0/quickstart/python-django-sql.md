@@ -11,7 +11,7 @@ tags:
   - tutorial
   - python-framework
   - postgres
-keyword:
+keywords:
   - Django Framework
   - Postgres
   - SQL

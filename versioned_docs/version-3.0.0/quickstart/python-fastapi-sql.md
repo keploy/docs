@@ -12,7 +12,7 @@ tags:
   - python-framework
   - fast-api-framework
   - postgres
-keyword:
+keywords:
   - FastAPI Framework
   - Postgres
   - SQL

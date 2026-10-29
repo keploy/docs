@@ -14,7 +14,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Sometimes keploy test and keploy rerecord fail because there are fields which are noisy but they are used in requests so when their values change, the subsequent requests also fail.
 
@@ -39,3 +39,9 @@ sudo -E env 'PATH=$PATH' keploy templatize -t="test-set-1"
 > **Note**
 >
 > Even though you can use templatize multiple times, even on testsets that have already been templatized, but it is not reversible. So make sure you create a copy of your keploy folder before trying it out.
+
+## Related
+
+- [Adding a custom Mock](/docs/running-keploy/custom-mocks/) — pair templates with custom mocks.
+- [Configuration File](/docs/running-keploy/configuration-file/) — set defaults for record and test.
+- [Recording Filters](/docs/running-keploy/recording-filters/) — narrow what gets recorded.

@@ -20,7 +20,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 When API contracts change, tests are expected to fail. However, not all failures are equal. A minor, backward-compatible change (like adding a new optional field) is very different from a major, breaking change (like removing a field or changing a data type).
 
@@ -87,3 +87,9 @@ tests:
       category:
         - SCHEMA_ADDED
 ```
+
+## Related
+
+- [Review & Improve AI-Generated API Tests](/docs/running-keploy/review-and-improve-ai-generated-tests/) — act on risk findings.
+- [Run AI-Generated API Tests](/docs/running-keploy/run-ai-generated-api-tests/) — run suites the analysis scores.
+- [Generate API Tests using AI](/docs/running-keploy/generate-api-tests-using-ai/) — the generation step upstream.

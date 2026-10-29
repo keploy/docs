@@ -2,6 +2,7 @@
 id: installation
 title: Linux Installation
 sidebar_label: Linux
+description: "Install the Keploy server on Linux — one-click install script and manual installation steps for Ubuntu and other distros."
 tags:
   - hello-world
   - linux
@@ -21,10 +22,24 @@ keywords:
   - server-setup
 ---
 
-Keploy can be installed in two ways:
+import HowTo from '@site/src/components/HowTo';
 
-1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Install](#manual-install)
+<HowTo
+name="Install Keploy on Linux"
+description="Install the Keploy CLI on Linux with the one-click script, then run it natively or with Docker."
+totalTime="PT5M"
+tools={["Linux", "curl", "Keploy CLI"]}
+steps={[
+{name: "One-click install", text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh"},
+{name: "Verify", text: "Run keploy to confirm the CLI is installed and on your PATH."},
+]}
+visible={false}
+/>
+
+Install Keploy with the [one-click install](#one-click-install-keploy), then use it in one of two ways:
+
+1. [Natively in Linux](#linux-native).
+2. Through [Using Docker](#using-docker).
 
 ## One click install Keploy.
 
@@ -32,33 +47,9 @@ Keploy can be installed in two ways:
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-## Manual Install
-
-There are two ways to use Keploy eBPF in linux, you can use either use:
-
-1. [Natively in Linux](#linux-native).
-2. Through [Using Docker](#using-docker).
+The installer works on both x86-64 and ARM Linux.
 
 ## Linux Native
-
-### Download the Keploy Binary
-
-```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_amd64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-<details>
- <summary> <strong> ARM Architecture </strong> </summary>
-
-```shell
-curl --silent --location "https://github.com/keploy/keploy/releases/latest/download/keploy_linux_arm64.tar.gz" | tar xz -C /tmp
-
-sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
-```
-
-</details>
 
 #### Run the Record Mode
 
@@ -102,7 +93,7 @@ docker network create keploy-network
 Now, we will record the testcases.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 #### Run the Testcases

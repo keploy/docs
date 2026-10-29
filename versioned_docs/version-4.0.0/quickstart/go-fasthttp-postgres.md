@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - fasthttp
-keyword:
+keywords:
   - FastHttp Framework
   - Postgres Mock
   - Golang
@@ -19,13 +19,46 @@ keyword:
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample CRUD App (Golang) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM. Natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 import InstallReminder from '@site/src/components/InstallReminder';
 import ProductTier from '@site/src/components/ProductTier';
 import SectionDivider from '@site/src/components/SectionDivider';
 
 # FastHTTP & Postgres Sample CRUD App
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
 
@@ -115,6 +148,8 @@ Happy coding! ✨👩‍💻👨‍💻✨
 ## Running App Locally on Linux/WSL 🐧
 
 This guide walks you through generating tests and DB mocks for a sample CRUD app built with FastHttp and Postgres using Keploy.
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 
@@ -212,3 +247,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — another Go Postgres app.
+- [Mux MySQL Sample Application](/docs/quickstart/samples-mysql/) — Go with a SQL datastore.
+- [Sample URL Shortener App (Golang)](/docs/quickstart/samples-gin/) — another Go sample.

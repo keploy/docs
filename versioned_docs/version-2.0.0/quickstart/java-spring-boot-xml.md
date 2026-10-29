@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - restful-api
-keyword:
+keywords:
   - XML
   - Maven
   - Springboot Framework

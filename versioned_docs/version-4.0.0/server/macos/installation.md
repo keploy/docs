@@ -1,7 +1,8 @@
 ---
 id: installation
-title: MacOS Installation
-sidebar_label: MacOS
+title: macOS Installation
+sidebar_label: macOS
+description: "Install Keploy natively on macOS (Apple Silicon) with the one-click curl installer or Homebrew. Docker Desktop and Colima setups are supported for containerized apps."
 tags:
   - hello-world
   - macos
@@ -19,28 +20,79 @@ keywords:
   - guide
   - api
   - docker
+  - homebrew
+  - brew install keploy
 ---
 
-As of now there are two ways to use Keploy eBPF in MacOS, i.e. [using Colima](#using-colima)
-and [using Docker Desktop](#using-docker-desktop).
+import HowTo from '@site/src/components/HowTo';
 
-There are two ways to install Keploy eBPF in MacOS, you can use either use:
+<HowTo
+name="Install Keploy on macOS"
+description="Install the Keploy CLI on macOS using the one-click curl installer or Homebrew."
+totalTime="PT5M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["bash", "curl", "Homebrew (optional)"]}
+supplies={["An Apple Silicon Mac"]}
+visible={false}
+steps={[
+{
+name: "One-click install (recommended)",
+text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
+url: "#one-click-install-keploy",
+},
+{
+name: "Install with Homebrew",
+text: "Run: brew install keploy/tap/keploy",
+url: "#install-with-homebrew",
+},
+]}
+/>
 
-1. [One-Click Install](#one-click-install-keploy).
-2. [Manual Setup](#using-docker-desktop).
+There are two ways to install Keploy on macOS:
 
-## One click install Keploy.
+1. **Recommended:** [One-click install](#one-click-install-keploy).
+2. [Install with Homebrew](#install-with-homebrew).
+
+Natively on macOS, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers or depends on one of those other services, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
+
+:::note Apple Silicon only
+
+Both routes install the native Keploy CLI, which is built for **Apple Silicon (arm64) only** — the installer stops with a message on an Intel Mac, and the Homebrew formula refuses to install there. The [manual Docker Desktop / Colima setup](#manual-setup) below is driven by that same CLI: it starts your app and Keploy's eBPF agent in containers inside the Linux VM, but the CLI itself runs on your Mac, so that route is Apple Silicon only too. On an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+
+:::
+
+## One-click install Keploy
+
+Run the following command in your terminal:
 
 ```shell
  curl --silent -O -L https://keploy.io/install.sh && source install.sh
 ```
 
-## Using Docker Desktop
+## Install with Homebrew
 
-Note: To run Keploy on MacOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must
+If you prefer [Homebrew](https://brew.sh/), install Keploy from the official Keploy tap:
+
+```shell
+brew install keploy/tap/keploy
+```
+
+Verify the install:
+
+```shell
+keploy --version
+```
+
+## Manual Setup
+
+To record an app that runs in containers, or one whose dependencies Keploy does not understand natively on macOS, run Keploy through either **Docker Desktop** or **Colima**.
+
+### Using Docker Desktop
+
+Note: To run Keploy on macOS through [Docker](https://docs.docker.com/desktop/release-notes/#4252) the version must
 be `4.25.2` or above.
 
-### Creating Docker Volume & Network
+#### Creating Docker Volume & Network
 
 We need to create debug volume to run Keploy using Docker-Desktop:
 
@@ -58,9 +110,9 @@ below.
 docker network create keploy-network
 ```
 
-## Using Colima
+### Using Colima
 
-### Install Colima
+#### Install Colima
 
 You need to have the latest version of `brew` installed on your system and then run this command from a terminal:
 
@@ -74,7 +126,7 @@ Start Colima with defaults
 colima start
 ```
 
-### Creating Alias
+#### Creating Alias
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.
@@ -86,7 +138,7 @@ below.
 docker network create keploy-network
 ```
 
-### Recording Testcases and Data Mocks
+#### Recording Testcases and Data Mocks
 
 Here are few points to consider before recording!
 
@@ -101,7 +153,7 @@ Here are few points to consider before recording!
 Utilize keploy to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 Make API Calls using Postman, or cURL commands.
@@ -109,7 +161,7 @@ Make API Calls using Postman, or cURL commands.
 Keploy will capture the API calls you've conducted, generating test suites comprising **testcases (KTests) and data
 mocks (KMocks)** in `YAML` format.
 
-### Running Testcases
+#### Running Testcases
 
 Now, execute the testcases. Follow these steps in the **root directory** of your application.
 

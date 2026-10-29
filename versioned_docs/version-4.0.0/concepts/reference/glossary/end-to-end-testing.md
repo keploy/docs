@@ -2,7 +2,7 @@
 id: end-to-end-testing
 title: Creating end to end tests with Keploy
 sidebar_label: End To End Testing
-description: This glossary has an explanation of all the terminologies that beginners find difficult to understand at first glance.
+description: What is end-to-end testing, and how to create E2E tests with Keploy by recording and replaying real API traffic across your services.
 tags:
   - explanation
   - Glossary
@@ -45,7 +45,7 @@ Despite the challenges, E2E testing is an important part of the software develop
 
 Keploy generate E2E API tests with built-in-mocks or stubs by recording your application network calls making your testing process not only faster than unit tests but also incredibly efficient.
 
-<img src="https://keploy.io/docs/gif/record-tc.gif"/>
+<img src="https://keploy.io/docs/gif/record-tc.gif" alt="Keploy recording end-to-end API test cases from live application traffic"/>
 
 ### How Keploy works?
 
@@ -64,6 +64,14 @@ Since you don't require to setup any test environment, Keploy can be used in any
 ## Conclusion
 
 End-to-end (E2E) testing is a important component of the software development process, as it ensures that applications function correctly and meet user expectations across all integrated components. While E2E testing presents challenges, such as time consumption and automation complexity, tools like Keploy offer powerful solutions to streamline the process. By capturing and replaying real-world API interactions, Keploy enhances the efficiency and effectiveness of end-to-end testing, contributing to the delivery of high-quality software.
+
+## Related Terms
+
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — checks module interactions before E2E.
+- [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — validates the finished product for users.
+- [Mocks](/docs/concepts/reference/glossary/mocks/) — Keploy uses mocks to replay E2E dependencies.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — reruns E2E flows to catch regressions.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQs
 

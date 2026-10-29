@@ -12,7 +12,7 @@ tags:
   - tutorial
   - python-framework
   - redis
-keyword:
+keywords:
   - FastAPI Framework
   - Flask
   - Redis
@@ -20,6 +20,39 @@ keyword:
   - API Test generator
   - Auto case generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Library App (Flask + Redis) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). This sample runs under Docker Compose.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import ProductTier from '@site/src/components/ProductTier';
 
@@ -139,3 +172,10 @@ You can also check the test summary from your cli
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — browse more Python samples.
+- [Sample User Authentication App (Golang)](/docs/quickstart/samples-redis/) — another Redis-backed app.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — another Flask sample.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Python CRUD API.

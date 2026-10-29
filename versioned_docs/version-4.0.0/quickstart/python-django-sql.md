@@ -11,7 +11,7 @@ tags:
   - tutorial
   - python-framework
   - postgres
-keyword:
+keywords:
   - Django Framework
   - Postgres
   - SQL
@@ -20,9 +20,42 @@ keyword:
   - Auto case generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample User Data CRUD App (Django) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker Compose steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Using Docker Compose 🐳
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
@@ -253,11 +286,13 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ## Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of User CRUD Apps and see how seamlessly Keploy integrated with Django and PostgreSQL. Buckle up, it's gonna be a fun ride! 🎢
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (PostgreSQL) chill on Docker. Ready? Let's get the party started!🎉
+
+This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker Compose steps](#using-docker-compose-) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 
@@ -466,3 +501,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Another Python SQL CRUD app.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python Flask CRUD sample.
+- [Sample SMS Sending App](/docs/quickstart/samples-fastapi-twilio/) — Python FastAPI external API sample.

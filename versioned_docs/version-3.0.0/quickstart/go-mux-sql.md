@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - mux-framework
-keyword:
+keywords:
   - Mux Framework
   - Postgres
   - SQL
@@ -24,7 +24,7 @@ import InstallReminder from '@site/src/components/InstallReminder';
 import ProductTier from '@site/src/components/ProductTier';
 import SectionDivider from '@site/src/components/SectionDivider';
 
-# Using Docker Compose 🐳
+# Using Docker Compose
 
 <ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
 
@@ -389,7 +389,7 @@ Or simply wander over to your browser and visit `http://localhost:8010/products`
 
 Did you spot the new test and mock scrolls in your project library? Awesome! 👏
 
-<img src="/docs/img/mux-sql-test-cases.png" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-sql-test-cases.webp" alt="Sample Keploy Test case and Mock for Mux SQL" width="100%" style={{ borderRadius: '5px' }}/>
 
 ### Run Tests 🏁
 

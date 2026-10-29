@@ -36,7 +36,7 @@ A request only becomes a testcase if it passes our deduplication algorithm. If i
 
 ### 7. Can I use keploy to generate tests from production environments automatically?
 
-Not yet. We are working on making our deduplication algorithm scalable enough to be used safely in production. If you are interested in this use-case, please connect with us on slack. We'd love to work with you to build the deduplication system and load test it with your systems.
+Not yet. We are working on making our deduplication algorithm scalable enough to be used safely in production. If you are interested in this use-case, please connect with us on [Slack](https://keploy.io/slack). We'd love to work with you to build the deduplication system and load test it with your systems.
 
 ### 8. What if my application behaviour changes?
 

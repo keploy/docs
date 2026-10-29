@@ -11,13 +11,46 @@ tags:
   - tutorial
   - mongodb
   - gin-framework
-keyword:
+keywords:
   - Gin Framework
   - MongoDB Mock
   - Golang
   - API Test generator
   - Auto Testcase generation
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample URL Shortener App (Golang) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 import InstallReminder from '@site/src/components/InstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
@@ -50,7 +83,7 @@ keploy record -c "docker compose up" --container-name "ginMongoApp"
 
 Getting logs like this? Perfect! 👌
 
-   <img src="/docs/img/code-snippets/keploy-record-docker.png" alt="Keploy Record Test case" width="100%" />
+   <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/keploy-record-docker.webp" alt="Keploy Record Test case" width="100%" />
 
 🔥 Challenge time! Generate some test cases. How? Just **make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 
@@ -168,7 +201,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-mock.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/gin-mongo-test-mock.webp" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Want to see if everything works as expected?
 
@@ -184,7 +217,7 @@ keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
 
 Your results should be looking all _snazzy_, like this:
 
-<img src="/docs/img/code-snippets/url-shortner-test-result.png" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/url-shortner-test-result.webp" alt="Sample Keploy Test Result Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Did you spot that the ts (timestamp) is showing some differences? Yep, time has a way of doing that! 🕰️
 
@@ -192,7 +225,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/noise-addition.webp" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
@@ -208,9 +241,11 @@ Happy coding! ✨👩‍💻👨‍💻✨
 
 ---
 
-# Running App Locally on Linux/WSL 🐧
+# Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
 
-A Sample url shortener app to test Keploy integration capabilities using Echo and PostgreSQL
+A sample url shortener app to test Keploy integration capabilities using Gin and MongoDB
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 <InstallReminder />
 
@@ -221,7 +256,7 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/gin-mongo
 go mod download
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started! 🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started! 🎉
 
 If you are using WSL on Windows then use below to start wsl in the user's home directory:
 
@@ -231,7 +266,7 @@ wsl ~
 
 First things first, update the MongoDB URL to `localhost:27017` on **line 21** of our trusty `main.go` file.
 
-<img src="/docs/img/code-snippets/gin-mongo-linux-cmd.png" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/gin-mongo-linux-cmd.webp" alt="Linux change Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 ### 🍃 Kickstart MongoDB
 
@@ -248,6 +283,8 @@ Ready, set, record! Here's how:
 ```bash
 keploy record -c "go run main.go handler.go"
 ```
+
+On macOS, prefer a built binary over `go run` — run `go build`, then use the binary here and in `keploy test` below: `keploy record -c "./test-app-url-shortener"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
 
 Keep an eye out for the `-c `flag! It's the command charm to run the app. Whether you're using `go run main.go handler.go` or the binary path like `./test-app-url-shortener`, it's your call.
 If you're seeing logs that resemble the ones below, you're on the right track:
@@ -368,7 +405,7 @@ Or just type `http://localhost:8080/Lhr4BWAi` in your browser. Your choice!
 
 Spotted the new test and mock files in your project? High five! 🙌
 
-<img src="/docs/img/code-snippets/gin-mongo-test-mock.png" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/gin-mongo-test-mock.webp" alt="Sample Keploy Test case and Mock for Gin MongoDB" width="100%" style={{ borderRadius: '5px' }}/>
 
 Want to see if everything works as expected?
 
@@ -377,7 +414,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --container-name "ginMongoApp" --delay 10
+keploy test -c "go run main.go handler.go" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -390,7 +427,7 @@ Worry not, just add the ever-changing fields (like our **ts** here) to the **noi
 
 > Pro tip: Add `body.ts` to noise in `test-x.yaml`.
 
-<img src="/docs/img/code-snippets/noise-addition.png" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/noise-addition.webp" alt="Adding Noise to Test case Gin MongoDB" width="70%" style={{ borderRadius: '5px' }}/>
 
 Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
 
@@ -401,3 +438,9 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Sample User Authentication App (Golang)](/docs/quickstart/samples-redis/) — Go + Redis sample.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Go + SQL sample.
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse all Go quickstarts.

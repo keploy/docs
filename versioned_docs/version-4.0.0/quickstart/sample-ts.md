@@ -6,18 +6,53 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - Typescript
   - Nhost
-keyword:
+keywords:
   - Typescript
   - Nhost
   - API Test generator
   - Auto Testcase generation
 ---
 
-## Running Natively on Linux/WSL
+import HowTo from '@site/src/components/HowTo';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<HowTo
+name="Typescript Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+## Running Natively {#running-natively-on-linuxwsl}
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -49,7 +84,7 @@ Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
 4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env
 
-We're about to set up our sample application right on Linux, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
+We're about to set up our sample application right on your machine, with a twist—our GraphQL backend will be powered by Hasura through Nhost. And to add a bit of flair, we’ll handle the database management with Nhost’s cloud-based service.
 
 Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 
@@ -66,6 +101,8 @@ sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
 `keploy record`: Invokes Keploy in recording mode.
 
 `-c 'ts-node src/app.ts`': Specifies the command to start your application (in this case, using ts-node to execute the TypeScript application entry point).
+
+`sudo -E env "PATH=$PATH"` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'ts-node src/app.ts'` here, and `keploy test` below, without it.
 
 ### Generating the test cases
 
@@ -194,7 +231,7 @@ Now its time for you to experiment further with different API calls and tweak th
 
 ## Running the app using Docker
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using Typescript and Nhost Let's get started without delaying any further! 🎢
 
@@ -303,3 +340,9 @@ This is what your response should look like!
 🎉 **Congratulations on Reaching This Milestone!** 🎉
 
 You've successfully tested the tool and created your mocks and test cases—fantastic work! Now that you've laid a solid foundation, it's time to elevate your achievements even further.
+
+## Related
+
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — a related Node/JS sample.
+- [BunJS Sample Application](/docs/quickstart/samples-bunjs/) — TypeScript-friendly Bun runtime.
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse all JS/TS quickstarts.

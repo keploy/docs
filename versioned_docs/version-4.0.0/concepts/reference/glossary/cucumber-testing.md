@@ -104,6 +104,14 @@ While Cucumber is widely used for BDD and Gherkin-based testing, several alterna
 
 Cucumber testing revolutionizes software testing by enabling teams to collaborate effectively through executable specifications written in Gherkin. By bridging communication gaps between stakeholders and automating tests with reusable step definitions, Cucumber enhances the reliability, maintainability, and scalability of software applications. Incorporating Cucumber into BDD practices empowers teams to deliver high-quality software that meets business requirements and user expectations seamlessly.
 
+## Related Terms
+
+- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — the methodology Cucumber implements.
+- [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — Cucumber writes human-readable acceptance tests.
+- [Data Driven Testing](/docs/concepts/reference/glossary/data-driven-testing/) — Cucumber supports it via examples tables.
+- [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — a related test-first development practice.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQ about Cucumber Testing
 
 ### 1. **What is Cucumber testing used for?**

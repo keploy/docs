@@ -2,6 +2,7 @@
 id: common-errors
 title: Keploy Troubleshooting Guide
 sidebar_label: Troubleshooting Guide
+description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, and their solutions."
 tags:
   - explanation
   - faq
@@ -193,6 +194,133 @@ Keploy does not support the protocol or API structure you are using (e.g., gRPC,
 - Confirm the supported protocols (currently HTTP/REST and GraphQL).
 - Consider alternative tools or frameworks for unsupported protocols.
 
-If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.slack.com/join/shared_invite/zt-357qqm9b5-PbZRVu3Yt2rJIa6ofrwWNg)
+### 12. MySQL connection hangs during the handshake
+
+#### Description:
+
+Your application cannot reach MySQL while Keploy is running. The client reports a lost connection during the handshake, and the application often never finishes starting because its connection pool is stuck:
+
+```
+ERROR 2013 (HY000): Lost connection to server at 'handshake: reading initial communication packet'
+```
+
+The same setup connects normally when you run it without Keploy.
+
+#### Possible Cause:
+
+- `disableMysqlAutoDetect` is set to `true`, and the port your database listens on is not listed in `mysqlPorts`.
+- You are running a Keploy version that predates automatic MySQL port detection, which recognised only `3306` and `4000` unless you configured `mysqlPorts`.
+
+#### Solution:
+
+- Remove `disableMysqlAutoDetect` from your config file, or set it to `false`. Keploy then identifies MySQL on any port on its own.
+- If you need detection off, list every MySQL port your application uses:
+
+  ```yaml
+  mysqlPorts: [3307, 6033]
+  ```
+
+- On an older Keploy version, upgrade, or add the port to `mysqlPorts`.
+
+See [MySQL port detection](../running-keploy/configuration-file.md#mysql-port-detection) for how Keploy identifies the protocol during Record and recovers the port during Test.
+
+### 13. Capture loss warning: "proxyless capture could not record an app's bytes"
+
+#### Description:
+
+While recording with `keploy record --low-latency`, a Kubernetes Sidecar with `low_latency_mode`, or the Kubernetes DaemonSet agent, Keploy logs:
+
+```
+proxyless capture could not record an app's bytes: the app sent them with sendfile(2), ...
+```
+
+The recording is missing those bytes, and the test cases or mocks that carried them may be incomplete.
+
+#### Possible Cause:
+
+- The app moved the bytes without copying them through its own memory: `sendfile(2)` (for example nginx `sendfile on`, Tomcat's default sendfile, or Go's `http.ServeFile`), `splice(2)` (for example Go's `io.Copy` between two connections), or io_uring registered buffers.
+- Less often: a `MSG_TRUNC` receive, which needs no change, or a page Keploy's hook could not read, logged as an error.
+- Keploy's hooks missed the app's TCP bytes, for example a `recvmmsg`, `sendmmsg` or io_uring call in progress when another eBPF tool started or stopped, on an x86-64 kernel older than 6.3 (see [Keep Keploy's hooks from missing TCP bytes](../running-keploy/capture-loss.md#unseen)), or a single send or receive moved more than 16 MiB (see [Split sends and receives of more than 16 MiB](../running-keploy/capture-loss.md#too-large)).
+
+#### Solution:
+
+- Follow the `toRecordIt` field, if the line has one. [Capture loss warnings](../running-keploy/capture-loss.md), which the line's `docs` field links, describes each cause and what to do about it.
+
+### 14. Podman: the command is refused, the app doesn't start, or its image isn't found
+
+#### Description:
+
+Recording or testing an application that runs in Podman stops before it starts, with one of these:
+
+```
+this keploy build cannot record or test applications that run in Podman. ...
+```
+
+```
+failed to prepare podman: keploy records and tests applications that run in Podman on Linux only
+```
+
+```
+podman is set up as podman-remote's client, ...
+```
+
+```
+podman could not say whether it runs locally ...
+```
+
+or, with compose, the app's container never starts and Podman says:
+
+```
+Error: unrecognized namespace mode service:keploy-agent passed
+```
+
+or Podman can't find the application's image although `podman images` (without `sudo`) lists it, or the app runs but nothing is recorded.
+
+#### Possible Cause:
+
+- The `keploy` binary doesn't include Podman support: one built from the open-source repository, installed with `install.sh --oss`, or downloaded from the keploy/keploy GitHub releases.
+- Keploy is older than v3.8.60 (`keploy -v`): it runs a Podman command as a host process, so the app starts but nothing is recorded, with no error.
+- Keploy is running on macOS or Windows (including with Podman machine). Keploy records Podman applications on Linux only.
+- Podman is a podman-remote client (set by `CONTAINER_HOST`, `CONTAINER_CONNECTION`, or `remote = true` in containers.conf), so the app would run in another Podman service, while Keploy's agent runs in the local rootful Podman.
+- With compose, the compose provider is podman-compose, which Keploy doesn't support. Keploy re-runs itself with `sudo -E` and your `PATH`, so `sudo -E env "PATH=$PATH" podman compose version` shows the provider it gets. Podman takes `PODMAN_COMPOSE_PROVIDER`, else the first of containers.conf's `compose_providers` it finds (by default Docker's compose plugin, then `docker-compose`, then `podman-compose` on that `PATH`).
+- With compose, the host doesn't run systemd, so Podman never runs the healthcheck of Keploy's agent service and the app's service, which waits for it, never starts.
+- The image is in your rootless Podman. Keploy runs as root and drives the rootful Podman, which has its own images.
+
+#### Solution:
+
+- Install or update Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh` (free with an account): Podman needs v3.8.60 or later.
+- Run Keploy on the Linux machine whose rootful Podman runs the app, with `CONTAINER_HOST` and `CONTAINER_CONNECTION` unset (or `CONTAINER_HOST` set to the rootful socket, `unix:///run/podman/podman.sock`, with the rootful `podman.socket` enabled) and without `remote = true` in containers.conf.
+- For compose, install Docker Compose (`docker-compose`) on that `PATH` and keep `podman-compose` out of containers.conf's `compose_providers`, or set `PODMAN_COMPOSE_PROVIDER` to docker-compose's path; and run it on a host with systemd, or use `podman run`.
+- Build or pull the image with `sudo podman`. See [Platform requirements](/docs/concepts/platform-requirements/#podman).
+
+### 15. An HTTP service on port 3306 or 4000 gets no answer while recording
+
+#### Description:
+
+Your application calls an HTTP service on port `4000` (a common development port) or `3306`. Under `keploy record` the call never gets a response, and the client waits until its own timeout. The same service on another port works, and so does the call without Keploy.
+
+#### Possible Cause:
+
+- The port is listed in `mysqlPorts`. Keploy pins a listed port to MySQL and waits for a MySQL greeting that an HTTP service never sends.
+- `disableMysqlAutoDetect` is set to `true` and `mysqlPorts` is empty, which pins `3306` and `4000` to MySQL.
+- You are running an older Keploy version that took every connection to `3306` or `4000` for MySQL.
+
+#### Solution:
+
+- Remove the port from `mysqlPorts`. List only ports that serve MySQL.
+- Remove `disableMysqlAutoDetect` from your config file, or set it to `false`.
+- On an older Keploy version, upgrade.
+
+See [MySQL port detection](../running-keploy/configuration-file.md#mysql-port-detection) for how Keploy tells MySQL from other protocols on these ports.
+
+If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!
+
+## Related
+
+- [Capture loss warnings](/docs/running-keploy/capture-loss/) — bytes the eBPF capture cannot record, and how to record them.
+- [Debugger Guide](/docs/keploy-explained/debugger-guide/) — debug Keploy with the VS Code debugger.
+- [Running Keploy on Windows in WSL](/docs/keploy-explained/windows-wsl/) — WSL setup and fixes.
+- [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — macOS setup with Lima.
+- [API Testing — Frequently Asked Questions](/docs/keploy-explained/api-testing-faq/) — common API testing questions.

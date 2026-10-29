@@ -14,9 +14,25 @@ tags:
   - plugin
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Run Keploy API tests in GitLab CI"
+description="Add a GitLab CI job that installs Keploy and replays recorded API test suites in the pipeline."
+totalTime="PT10M"
+tools={["GitLab CI", "Keploy CLI"]}
+steps={[
+{name: "Define a test job", text: "Add a keploy-test-job in the test stage using an ubuntu:22.04 image."},
+{name: "Install dependencies", text: "In before_script install curl, python3, git and kernel headers, then clone your application repo."},
+{name: "Install Keploy", text: "Download the Keploy binary and place it on the PATH inside the job."},
+{name: "Run the tests", text: "Run keploy test -c \"<command to run your app>\" to replay the recorded suites, with KEPLOY_API_KEY set as a masked CI/CD variable so Keploy can sign in."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Keploy can integrated with GitLab CI to streamline your testing process and ensure continuous testing as part of your CI/CD pipeline.
 
@@ -64,11 +80,13 @@ script:
 
 In your `.gitlab-ci.yml file`, in last step we have `keploy test` command to run your keploy generated test suite, this sets up Keploy to replay the interactions it has generated and perform CI Testing.
 
+`keploy test` needs a Keploy account (a free one is enough). In CI, Keploy signs in with the API key in the `KEPLOY_API_KEY` environment variable, so add your key as a masked variable under **Settings → CI/CD → Variables** — GitLab injects it into every job.
+
 ### 📝 Note
 
 Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`
 
-Don’t worry — these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
+Don’t worry — these are just there because **on Linux, Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
 
 So we install `kmod`, `linux-headers-generic`, and `bpfcc-tools` to make that tracing possible.
 
@@ -146,3 +164,54 @@ Integrating Keploy with GitLab CI automates the testing process, ensuring that t
 If you’re thinking, “This pipeline looks cool, but I need the _whole thing_ to integrate with your application!” — well, you're in luck! Check it out [here](https://github.com/keploy/samples-python) and get ready to copy-paste your way to success! ✨🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+
+- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- In CI: add the key as a masked CI/CD variable so the system injects it as an environment variable at runtime. Never hard-code it in your pipeline file.
+
+In GitLab CI, go to **Settings → CI/CD → Variables**, add `KEPLOY_API_KEY` as a masked variable, and it is automatically available in all pipeline jobs as `$KEPLOY_API_KEY`.
+
+### Steps
+
+1. Add `KEPLOY_API_KEY` as a masked CI/CD variable (**Settings → CI/CD → Variables**).
+2. Install Keploy on the runner.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+> Install Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
+
+### Example: GitLab CI
+
+```yaml
+keploy-cloud-replay:
+  stage: test
+  image: ubuntu:22.04
+  # KEPLOY_API_KEY is injected automatically from the masked CI/CD variable
+  script:
+    - apt-get update -qq && apt-get install -y -qq curl sudo
+    - curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    - |
+      keploy cloud replay \
+        --app "<NAMESPACE>.<DEPLOYMENT>" \
+        --cluster "<CLUSTER>" \
+        --namespace "<NAMESPACE>" \
+        --delay <DELAY>
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+
+> Because `KEPLOY_API_KEY` is defined as a masked variable in GitLab, it is already present in the job's environment — no `export` step is needed.
+
+## Related
+
+- [Integrating with GitHub CI](/docs/ci-cd/github/) — the GitHub equivalent.
+- [Integrating with Jenkins](/docs/ci-cd/jenkins/) — the Jenkins equivalent.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — API-suite CI setup.

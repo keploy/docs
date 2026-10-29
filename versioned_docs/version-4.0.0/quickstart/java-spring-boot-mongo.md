@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - mongodb
-keyword:
+keywords:
   - MongoDB
   - Maven
   - Springboot Framework
@@ -23,6 +23,39 @@ keyword:
   - Auto Testcase generation
   - Junit
 ---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Rest API with Spring-Boot and MongoDB — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
 
 ## Introduction
 
@@ -66,7 +99,9 @@ mvn wrapper:wrapper
 
 ## Run Application
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (mongoDB) chill on Docker. Ready? Let's get the party started!🎉
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 ### 📼 Roll the Tape - Recording Time!
 
@@ -75,6 +110,10 @@ Ready, set, record! Here's how:
 ```bash
 keploy record -c "./mvnw spring-boot:run"
 ```
+
+On macOS, Keploy is dropped by the `./mvnw` launcher — run the jar that `./mvnw clean install` built with your JDK's own `java` instead, here and in `keploy test` below: `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/PotionsAPI-0.0.1-SNAPSHOT.jar"` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
+
+On Windows, Keploy starts your app through `cmd.exe`, which cannot run `./mvnw` — run the jar that `mvnw.cmd clean install` built, here and in `keploy test` below: `keploy record -c "java -jar target/PotionsAPI-0.0.1-SNAPSHOT.jar"`.
 
 Alright, magician! With the app alive and kicking, let's weave some test cases. The spell? Making some API calls! Postman, Hoppscotch, or the classic curl - pick your wand.
 
@@ -147,3 +186,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ## Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse more Java samples.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Spring Boot with Postgres.
+- [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot serving XML.
+- [Keploy with OpenHospital](/docs/quickstart/openhospital/) — larger Spring Boot app.

@@ -64,3 +64,10 @@ APIs act as the _bridge_ between different software systems — enabling communi
 - Testing across multiple environments (dev, staging, prod)
 - Ensuring version compatibility and backward support
 - Automating complex workflows involving chained API calls
+
+## Related
+
+- [API Test Architecture](/docs/running-keploy/api-test-architecture/) — how Keploy generates API tests.
+- [API Test Generator](/docs/running-keploy/api-test-generator/) — generate API test suites with AI.
+- [What is Unit Testing?](/docs/running-keploy/about-unit-testing/) — compare with unit testing basics.
+- [Best Practices for API testing](/docs/running-keploy/best-practices-api-testing/) — recommended API testing practices.

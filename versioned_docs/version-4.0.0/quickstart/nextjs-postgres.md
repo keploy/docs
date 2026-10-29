@@ -6,18 +6,53 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - NextJs
   - Postgres
-keyword:
+keywords:
   - NextJS
   - Postgres
   - API Test generator
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="NextJs Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM. Natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Running App Locally on Linux/WSL 🐧
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -30,7 +65,7 @@ import ProductTier from '@site/src/components/ProductTier';
 Now that we have bun installed, we will se tup our application.
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/nextjs-postgres
 
 ## Download node modules
 npm install
@@ -105,3 +140,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample JavaScript Apps](/docs/quickstart/javascript-filter/) — browse more JS samples.
+- [Express + PostgreSQL + Prisma Sample Application](/docs/quickstart/express-postgresql-prisma/) — another Postgres JS app.
+- [NodeJS - JWT Sample Application](/docs/quickstart/samples-node-jwt/) — Node app on Postgres.
+- [Node.js Express Mongoose Sample](/docs/quickstart/samples-nodejs/) — another Node.js sample.

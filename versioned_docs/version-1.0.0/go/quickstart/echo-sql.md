@@ -82,7 +82,7 @@ or by querying through the browser `http://localhost:6789/Lhr4BWAi`
 Now both these API calls were captured as a testcase and should be visible in the keploy-tests folderj.
 If you're using Keploy cloud, open [this](https://app.keploy.io/).
 
-![testcases](/img/Echo-Sql-test-cases.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Echo-Sql-test-cases.webp" alt="testcases" width="1280" height="462" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! 🪄💫
 
@@ -139,7 +139,7 @@ ok   echo-psql-url-shortener 6.750s coverage: 51.1% of statements in ./...
 
 Go to the Keploy Terminal to get deeper insights on what testcases ran and what failed.
 
-![Echo-Sql-Test-Run](/img/Echo-Sql-test-run.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Echo-Sql-test-run.webp" alt="Echo-Sql-Test-Run" width="1280" height="903" style={{maxWidth:'100%',height:'auto'}} />
 
 ### 2. Testing using `KEPLOY_MODE` Env Variable
 
@@ -201,5 +201,5 @@ FAIL
 
 This is how the bug will look like in the Keploy Terminal:
 
-![Echo-Sql-test-diff](/img/Echo-Sql-test-diff.png)
-![Echo-Sql-test-diff2](/img/Echo-Sql-test-diff2.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Echo-Sql-test-diff.webp" alt="Echo-Sql-test-diff" width="755" height="259" style={{maxWidth:'100%',height:'auto'}} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Echo-Sql-test-diff2.webp" alt="Echo-Sql-test-diff2" width="1032" height="412" style={{maxWidth:'100%',height:'auto'}} />

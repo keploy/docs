@@ -1,8 +1,8 @@
 ---
 id: white-box-testing
-title: How to Perform White Box Testing
+title: "What is White Box Testing? Techniques & Best Practices"
 sidebar_label: White Box Testing
-description: Explore how to perform white box testing with key techniques and tools. Learn to test internal code logic and improve software quality with structured approaches.
+description: "Explore white box testing techniques like statement, branch, and path coverage. Learn best practices and tools to test internal code logic effectively."
 
 tags:
   - explanation
@@ -103,7 +103,7 @@ As code evolves, test cases must be updated, requiring ongoing coordination with
 
 Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you automate the testing process. Here’s how you can perform white box testing with Keploy:
 
-- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at a kernel and network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
+- **Instrument Your Code:** Use Keploy’s instrumentation to capture interactions and internal processes. Keploy works at the network level, capturing data flows, API calls, and other internal interactions without modifying your application code.
 
 - **Record Test Scenarios:** Run your application and perform different operations. Keploy will record these interactions and generate test cases based on the internal workings of your application.
 
@@ -118,6 +118,14 @@ Firstly, install [Keploy](https://keploy.io/), a testing tool that helps you aut
 ## Conclusion
 
 White box testing is invaluable for uncovering hidden errors and optimizing performance. While it requires technical expertise, its thorough approach ensures robust, secure, and high-performing software. Combining white box testing with black box testing offers comprehensive coverage, enhancing the overall quality of your applications.
+
+## Related Terms
+
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — the opposite approach with no internal knowledge.
+- [Grey Box Testing](/docs/concepts/reference/glossary/gray-box-testing/) — a hybrid of white and black box testing.
+- [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — measure which code paths tests exercise.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — a common white box technique.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQs
 

@@ -9,8 +9,10 @@ export const GitTogether = () => {
       <a href="https://keploy.io/gittogether">
         <img
           className="mt-8 "
-          src="/docs/img/GitTogether.jpg"
+          src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/GitTogether.webp"
           alt={"GitTogether Image"}
+          width={1280}
+          height={559}
         />
       </a>
       <div className="mt-8 grid grid-cols-1 gap-5 md:grid-cols-2">

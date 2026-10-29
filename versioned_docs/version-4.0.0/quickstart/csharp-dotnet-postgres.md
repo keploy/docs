@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgrs
   - dotnet-framework
-keyword:
+keywords:
   - DotNet Framework
   - Postgres
   - CSharp
@@ -19,15 +19,50 @@ keyword:
   - Auto Testcase generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample CRUD App (CSharp) — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI on Linux/WSL using the install script from https://keploy.io/install.sh; on macOS, install it in a Lima VM. Natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Running App Locally on Linux/WSL 🐧
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 import InstallReminder from '@site/src/components/InstallReminder';
 
 🪄 Dive into the world of User Authentication apps and see how seamlessly Keploy integrates with .Net and Postgres. Buckle up, it's gonna be a fun ride! 🎢
+
+This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) — natively on macOS and Windows, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
 
 <InstallReminder />
 
@@ -44,7 +79,7 @@ git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
 docker-compose up
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
 
 ### 📼 Roll the Tape - Recording Time!
 
@@ -172,3 +207,10 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
+
+## Related
+
+- [Sample CRUD App (Golang)](/docs/quickstart/samples-fasthttp/) — another Postgres-backed CRUD app.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Go app using Postgres.
+- [Express + PostgreSQL + Prisma Sample Application](/docs/quickstart/express-postgresql-prisma/) — Postgres with an ORM.
+- [NextJs Sample Application](/docs/quickstart/samples-nextjs/) — NextJS app on Postgres.

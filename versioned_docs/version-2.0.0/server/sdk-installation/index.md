@@ -3,7 +3,7 @@ id: index
 title: SDK Installation Guide for Server
 tags:
   - coverage
-keyword:
+keywords:
   - coverage
   - unit tests
   - code coverage

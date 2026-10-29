@@ -11,7 +11,7 @@ tags:
   - tutorial
   - postgres
   - fasthttp
-keyword:
+keywords:
   - FastHttp Framework
   - Postgres Mock
   - Golang

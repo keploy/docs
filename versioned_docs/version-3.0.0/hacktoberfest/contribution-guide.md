@@ -12,7 +12,7 @@ Hacktoberfest is a month-long celebration of open-source software run by Digital
 
 _Your open-source journey begins with a pull request._
 
-![Hacktoberfest'2024](/img/hacktoberfest.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/hacktoberfest.webp" alt="Hacktoberfest'2024" width="2400" height="1200" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Hacktoberfest Journey with Keploy
 

@@ -15,7 +15,7 @@ tags:
   - postgres
   - sms
   - Mongo
-keyword:
+keywords:
   - FastAPI Framework
   - MongoDB
   - Sanic

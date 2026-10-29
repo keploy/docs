@@ -14,15 +14,31 @@ tags:
   - plugin
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Run Keploy API tests in a Jenkins pipeline"
+description="Configure a Jenkins pipeline to install Keploy and replay recorded API test suites on the agent."
+totalTime="PT10M"
+tools={["Jenkins", "Keploy CLI"]}
+steps={[
+{name: "Grant passwordless sudo", text: "Give the jenkins user NOPASSWD sudo so Keploy can attach its eBPF probes."},
+{name: "Install Keploy", text: "Add an Install Keploy stage that downloads the binary onto the Jenkins agent."},
+{name: "Run the tests", text: "Add a stage that runs keploy test -c \"<command to run your app>\" to replay the recorded suites, with KEPLOY_API_KEY bound from a Jenkins credential so Keploy can sign in."},
+]}
+visible={false}
+/>
+
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source, Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 Keploy can integrated with Jenkins to ensure continuous testing as part of your CI/CD pipeline.
 
 ## Prerequisites
 
 - Jenkins installed and running
+- A Keploy account (a free one is enough) and its API key, saved as a **Secret text** credential with ID `keploy-api-key` (**Manage Jenkins → Credentials**). In CI, Keploy signs in with the key in `KEPLOY_API_KEY`.
 - Sudo access with `"NOPASSWORD"` via `jenkins ALL=(ALL) NOPASSWD: ALL`.
 
 Open terminal and run`sudo visudo` command to open the sudoers file and add the below line at the end of the file.
@@ -93,10 +109,12 @@ pipeline {
         }
         stage('Run Keploy Tests') {
             steps {
-                sh '''
-                cd gin-mongo
-                sudo -E keploy test -c "go run main.go handler.go" --disableANSI
-                '''
+                withCredentials([string(credentialsId: 'keploy-api-key', variable: 'KEPLOY_API_KEY')]) {
+                    sh '''
+                    cd gin-mongo
+                    sudo -E keploy test -c "go run main.go handler.go" --disableANSI
+                    '''
+                }
             }
         }
     }
@@ -108,7 +126,7 @@ pipeline {
 
 Did you notice some weird stuff in the pipeline? Like `kmod`, `linux-headers`, `/sys/kernel/debug`
 
-Don’t worry — these are just there because **Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
+Don’t worry — these are just there because **on Linux, Keploy uses eBPF** (a cool Linux feature) to trace your app’s behavior.
 
 So we install `kmod`, `linux-headers-generic`, and `bpfcc-tools` to make that tracing possible.
 
@@ -171,3 +189,66 @@ Testrun passed for testcase with id: "test-2"
 _And... voila! You have successfully integrated keploy in Jenkins CI/CD pipeline 🌟_
 
 Hope this helps you out, if you still have any questions, reach out to us .
+
+---
+
+## Running cloud replay in CI
+
+Keploy cloud replay re-runs test sets that were recorded from a Kubernetes deployment. It works with both **Keploy Cloud** and a **self-hosted Keploy** setup — the command is the same either way.
+
+### How authentication works
+
+The CLI reads the `KEPLOY_API_KEY` environment variable automatically. You do not need to pass it as a flag or log in through a browser.
+
+- Locally: `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
+- In CI: add the key to Jenkins' credentials store so the system injects it as an environment variable at runtime. Never hard-code it in your Jenkins pipeline file.
+
+In Jenkins, go to **Manage Jenkins → Credentials**, add a **Secret text** credential with ID `keploy-api-key`, and use `withCredentials` in your pipeline to bind it to `KEPLOY_API_KEY`.
+
+### Steps
+
+1. Add `KEPLOY_API_KEY` as a **Secret text** credential in Jenkins (**Manage Jenkins → Credentials**).
+2. Install Keploy on the agent.
+3. Run `keploy cloud replay` with your application and cluster details.
+
+> Install Keploy with the same script as above: `curl --silent -O -L https://keploy.io/install.sh && bash install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
+
+### Example: Jenkins Declarative Pipeline
+
+```groovy
+pipeline {
+    agent any
+    stages {
+        stage('Install Keploy') {
+            steps {
+                sh '''
+                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                '''
+            }
+        }
+        stage('Cloud replay') {
+            steps {
+                withCredentials([string(credentialsId: 'keploy-api-key', variable: 'KEPLOY_API_KEY')]) {
+                    sh '''
+                    keploy cloud replay \
+                      --app "<NAMESPACE>.<DEPLOYMENT>" \
+                      --cluster "<CLUSTER>" \
+                      --namespace "<NAMESPACE>" \
+                      --delay <DELAY>
+                    '''
+                }
+            }
+        }
+    }
+}
+```
+
+Replace `<NAMESPACE>`, `<DEPLOYMENT>`, `<CLUSTER>`, and `<DELAY>` with your own values. Set `<DELAY>` to cover your application's startup time (in seconds).
+
+> `withCredentials` binds the Jenkins secret to `KEPLOY_API_KEY` only for the duration of that stage — the CLI picks it up automatically.
+
+## Related
+
+- [Integrating with GitHub CI](/docs/ci-cd/github/) — the GitHub equivalent.
+- [Integrating with GitLab CI](/docs/ci-cd/gitlab/) — the GitLab equivalent.
+- [API Test Setup for GitHub CI/CD](/docs/running-keploy/api-testing-cicd/) — API-suite CI setup.

@@ -2,14 +2,24 @@
 id: what-is-keploy-ebpf
 title: What is Keploy eBPF
 sidebar_label: Keploy eBPF
-description: Keploy eBPF is a language-agnostic library that captures and replays API calls and subsequent network interactions.
+description: eBPF (Extended Berkeley Packet Filter) is a Linux kernel technology that Keploy uses on Linux to capture socket-level network I/O via kernel hooks with near-zero overhead — enabling production behavior replay, dependency virtualization, legacy application testing, and infrastructure mocking without code changes.
 tags:
   - explanation
   - ebpf
 keywords:
-  - ebpf
+  - eBPF-based testing
+  - eBPF
   - Testing API
+  - production behavior replay
+  - dependency virtualization
+  - legacy application testing
+  - infrastructure mocking
+  - kernel-level traffic capture
 ---
+
+eBPF (Extended Berkeley Packet Filter) is a Linux kernel technology that Keploy uses on Linux to intercept network packets at the socket level with near-zero overhead. By injecting eBPF hooks, Keploy captures all incoming API requests and outgoing dependency calls — database queries, external API calls, and message queue interactions — without modifying application code or requiring language-specific SDK installation. This kernel-level capture enables production behavior replay, dependency virtualization, legacy application testing for systems never designed for testability, and infrastructure mocking that replaces heavy staging environments with production-like sandboxes.
+
+macOS and Windows have no eBPF, so there Keploy runs natively and intercepts in user space instead (its Docker route still uses eBPF, inside Docker's Linux VM) — see [Installing Keploy](/docs/server/installation/).
 
 A Keploy eBPF is a language-agnostic library that offers APIs to do the following:
 

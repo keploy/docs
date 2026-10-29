@@ -11,7 +11,7 @@ tags:
   - tutorial
   - bun-js-framework
   - mongodb
-keyword:
+keywords:
   - BunJS Framework
   - MongoDB
   - BunJS

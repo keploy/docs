@@ -15,7 +15,7 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Open Source" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 ## Rename Test-Cases
 
@@ -55,3 +55,9 @@ curl --request POST \
 ## Rename Test-Sets
 
 To rename your test set, you can manually override the default name from `test-set-0` to a `kTest-0` in the `keploy` folder.
+
+## Related
+
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — commands that operate on test cases.
+- [Configuration File](/docs/running-keploy/configuration-file/) — configure test-set behaviour.
+- [Adding a custom Mock](/docs/running-keploy/custom-mocks/) — manage the files alongside test cases.

@@ -15,7 +15,7 @@ Keploy makes it easy to share any test suite so others can review results or run
 
 In the **Test Suites** list, hover over a suite row and click the **Share** icon (🔗).
 
-![Keploy](../../../static/img/share.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/share.webp" alt="Keploy" width="2852" height="1600" style={{maxWidth:'100%',height:'auto'}} />
 
 The **Share Test Suites** modal appears with two tabs:
 

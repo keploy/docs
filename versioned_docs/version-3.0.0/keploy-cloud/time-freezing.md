@@ -50,17 +50,17 @@ For Docker-based applications, you'll need to make a few adjustments to your Doc
 uname -a
 ```
 
-2. Download the the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
+2. Download the appropriate time freeze agent for your architecture & set the `LD_PRELOAD` Environment Variable in your Dockerfile
 
 ### For Golang(Go) Applications -
 
-> Note: Time freezing is only supported till go **1.22.x** version.
+> Note: Time freezing works on every Go version that supports the `faketime` build tag, i.e. all currently supported Go releases. The mechanism is build-time (the `-tags=faketime` flag swaps Go's `time` package to read from a runtime agent file instead of the OS clock), so it's not tied to any specific Go version.
 
 #### amd64/x86_64 🖥️
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/go_freeze_time_amd64 /lib/keploy/go_freeze_time_amd64
 
 # set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_amd64
@@ -80,7 +80,7 @@ OR
 ```Dockerfile
 # Download the time freeze agent
 
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/go_freeze_time_arm64 /lib/keploy/go_freeze_time_arm64
 
 # set suitable permissions
 RUN chmod +x /lib/keploy/go_freeze_time_arm64
@@ -109,7 +109,7 @@ Voila! Your tests will now run with time freezing enabled.
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_amd64.so /lib/keploy/freeze_time_amd64.so
 
 #set suitable permissions
 RUN chmod +x /lib/keploy/freeze_time_amd64.so
@@ -124,7 +124,7 @@ OR
 
 ```Dockerfile
 # Download the time freeze agent
-ADD https://keploy-enterprise.s3.us-west-2.amazonaws.com/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
+ADD https://keployenterprise.blob.core.windows.net/releases/latest/assets/freeze_time_arm64.so /lib/keploy/freeze_time_arm64.so
 
 #set suitable permissions
 RUN chmod +x /lib/keploy/freeze_time_arm64.so

@@ -16,7 +16,7 @@ tags:
   - postgres
   - sms
   - Mongo
-keyword:
+keywords:
   - FastAPI Framework
   - MongoDB
   - Sanic
@@ -25,9 +25,44 @@ keyword:
   - Auto case generation
 ---
 
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Movie API with Sanic and MongoDB — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
 ## Introduction
 
 This application is a simple movie management API built using Python's Sanic framework and MongoDB for data storage. It allows you to perform basic CRUD (Create, Read, Update, Delete) operations on Movie records.
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
 
 import Link from '@docusaurus/Link'
 import InstallReminder from '@site/src/components/InstallReminder';
@@ -67,6 +102,8 @@ Capture the test-cases-
 ```shell
 keploy record -c "python3 server.py"
 ```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its interpreter here and in the test step, e.g. `keploy record -c ".venv/bin/python server.py"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)). On Windows, use `python server.py` if `python3` isn't on your `PATH`.
 
 You should be able to see this in your terminal
 
@@ -163,3 +200,9 @@ This is how your terminal would look like :
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-test-sanic-python.png" alt="Sample Keploy Test Sanic Mongo" width="100%" style={{ borderRadius: '5px' }} />
 
 You can experiment with different API calls, modify the database response in mocks.yml, or adjust the request or response in test-x.yml. Then, run the tests again to see the change in response
+
+## Related
+
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — another Python async API.
+- [Sample Task Creation CRUD App](/docs/quickstart/samples-flask/) — Python + Mongo CRUD.
+- [Sample Python Apps](/docs/quickstart/python-filter/) — browse all Python quickstarts.

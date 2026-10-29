@@ -150,6 +150,14 @@ The future of QA automation looks promising with advancements in **AI and machin
 
 QA automation is essential for modern software development. It enables **faster releases, higher quality, and better collaboration between teams.** By understanding the key components, types of testing, and best practices, organizations can effectively implement QA automation and reap its many benefits. As the field continues to evolve, staying updated with the latest tools and trends will be crucial for maintaining a competitive edge in software quality assurance.
 
+## Related Terms
+
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — a prime candidate for automation.
+- [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — automate tests at the unit level.
+- [Manual Testing](/docs/concepts/reference/glossary/manual-testing/) — the approach QA automation replaces or complements.
+- [Performance Testing](/docs/concepts/reference/glossary/performance-testing/) — automate load and speed checks.
+- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
 ## FAQs
 
 ### What is QA Automation?
