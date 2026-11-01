@@ -25,7 +25,7 @@ tools={["Windows", "WSL", "Ubuntu", "Keploy CLI"]}
 steps={[
 {name: "Check prerequisites", text: "Ensure you are on Windows 10 version 2004+ (build 19041+) or Windows 11 with admin access."},
 {name: "Install WSL + Ubuntu", text: "Run wsl --install -d Ubuntu-22.04 from an elevated terminal and set up your Linux user."},
-{name: "Install the Keploy binary", text: "Inside the WSL shell run: curl --silent -O -L https://keploy.io/install.sh && source install.sh"},
+{name: "Install the Keploy binary", text: "Inside the WSL shell run: source /dev/stdin <<<\"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')\""},
 {name: "Verify", text: "Run keploy in the WSL shell to confirm the CLI is installed."},
 ]}
 visible={false}
@@ -66,7 +66,7 @@ This command enables the features necessary to run WSL and installs the chosen U
 Once you are inside your WSL Ubuntu shell, install the Keploy binary. The installer picks the Linux build for your machine's architecture, x86-64 or ARM:
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 The installer prints the CLI help when it is done, confirming the binary is on your `PATH`. From here on, run every Keploy command from inside the WSL shell (not native PowerShell), and keep your application code on the WSL filesystem for the best performance.

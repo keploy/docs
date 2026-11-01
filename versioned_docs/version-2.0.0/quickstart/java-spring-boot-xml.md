@@ -98,7 +98,7 @@ Harness Keploy's test generation capabilities easily:
 ### Install Keploy
 
 ```bash
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 or
@@ -106,7 +106,7 @@ or
 ### Install the cloud version -
 
 ```bash
-  curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### Record Test Cases
