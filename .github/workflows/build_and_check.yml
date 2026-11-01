@@ -21,6 +21,10 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+        with:
+          # Full history, so the preview's last-update dates and sitemap
+          # <lastmod> match what production will ship.
+          fetch-depth: 0
 
       - name: Set up Node.js
         uses: actions/setup-node@v5
@@ -38,6 +42,9 @@ jobs:
 
       - name: Verify structured-data graph
         run: npm run verify-schema
+
+      - name: Verify sitemap lastmod dates
+        run: npm run verify-lastmod
 
       # Deploys this PR's build with main.yml's deploy script into a local S3,
       # then replays the weeks after it: no asset a live or open page still

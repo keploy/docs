@@ -25,7 +25,7 @@ export default function StartKeploy() {
             <strong>Record the test cases</strong>
           </p>
           <CodeBlock language="bash">
-            {`keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10`}
+            {`keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"`}
           </CodeBlock>
 
           <p>

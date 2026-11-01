@@ -166,7 +166,7 @@ The `record` section in the Keploy-config file allows you to define parameters f
         port: 0
   ```
 
-- **`mysqlPorts`**: Extra ports to treat as MySQL. You rarely need this — Keploy detects MySQL automatically on any port. See [MySQL port detection](#mysql-port-detection).
+- **`mysqlPorts`**: Ports to pin to MySQL. You rarely need this — Keploy detects MySQL automatically on any port. A list replaces the built-in `3306` and `4000`, and an HTTP service on a listed port gets no answer. See [MySQL port detection](#mysql-port-detection).
 
 - **`disableMysqlAutoDetect`**: Turns off automatic MySQL port detection. Default is `false`.
 
@@ -176,17 +176,19 @@ Keploy identifies MySQL on any port, so you do not have to tell it where your da
 
 Detection works differently in each mode, because each mode has different information available:
 
-- **During Record**, Keploy reads the first bytes the database server sends. MySQL greets a new connection with a handshake packet, so Keploy identifies the protocol from that greeting and routes the connection to its MySQL parser.
+- **During Record**, whichever side of the connection speaks first decides. MySQL greets a new connection with a handshake packet before the client sends anything, so when the server speaks first, Keploy identifies the protocol from that greeting and routes the connection to its MySQL parser. When the client speaks first, as an HTTP, gRPC, or PostgreSQL client does, the connection isn't MySQL, and Keploy routes it by the client's bytes.
 
-- **During Test**, no database is running — Keploy serves the Mocks it recorded. It recovers the port from those Mocks, which store the address each connection was recorded against.
+- **During Test**, no database is running — Keploy serves the Mocks it recorded. It recovers the port from those Mocks, which store the address each connection was recorded against. On `3306` and `4000` the recording decides too: if Keploy recorded an HTTP or gRPC service on that port and no MySQL there, it replays the port as that protocol.
 
-Together this means a port you recorded on is replayed correctly with no configuration.
+Together this means a port you recorded on is replayed correctly with no configuration. Keploy treats `3306` and `4000` as a hint, not a rule, so an HTTP service on either port, such as a development server on `4000`, records and replays as HTTP.
 
 #### When to set these fields
 
 Both fields are optional and most projects leave them alone.
 
-Set `mysqlPorts` to skip detection for a port you already know about. Keploy always treats `3306` and `4000` as MySQL; listing a port here adds it to that set. The only practical benefit is avoiding a short probe on the first connection to that port.
+Set `mysqlPorts` to pin a port to MySQL and skip detection for it. Keploy then waits for a MySQL greeting on every connection to a listed port, so an HTTP service on a port you list gets no answer. List only ports that serve MySQL.
+
+A list replaces the built-in `3306` and `4000`. While detection is on, Keploy still identifies MySQL on those ports the same way it does on any other port.
 
 ```yaml
 mysqlPorts: [3307, 6033]
@@ -198,7 +200,7 @@ Set `disableMysqlAutoDetect` to `true` to turn detection off entirely and match 
 disableMysqlAutoDetect: true
 ```
 
-With detection disabled, a MySQL server on a port outside `mysqlPorts` cannot complete its handshake, and your application fails to connect. Only disable detection if you also list every MySQL port your application uses.
+With detection disabled, a MySQL server on a port outside `mysqlPorts` cannot complete its handshake, and your application fails to connect. Only disable detection if you also list every MySQL port your application uses. With detection disabled and `mysqlPorts` empty, Keploy pins `3306` and `4000` to MySQL, so an HTTP service on either port gets no answer.
 
 ### Test Section
 

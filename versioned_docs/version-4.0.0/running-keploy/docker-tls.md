@@ -83,6 +83,60 @@ Voilà! 🧑🏻‍💻 We have the tests with data mocks running! 🐰🎉
 
 You'll be able to see the test cases that ran with the results report on the console as well as locally in the `testReport` directory.
 
+## A client that pins its own CA
+
+A client that trusts only a CA file it names itself rejects the certificate
+Keploy answers its HTTPS calls with, because Keploy's per-run CA isn't in that
+file. Examples are Python `requests` with `verify="/certs/ca.pem"` and a Go
+client with its own `RootCAs`. Its call fails, and Keploy doesn't record it.
+`keploy record` says so when the recording ends, and names the test cases
+recorded while those calls failed:
+
+```text
+WARN  2 TLS handshake(s) with keploy's proxy failed while this recording ran (a client that does not trust keploy's CA rejects keploy's certificate); those calls are not recorded  {"testCases": ["get-pinned-1", "get-pinned-2"], ...}
+```
+
+To record those calls, point the client at a file that holds Keploy's CA as
+well as its own while Keploy runs your application:
+
+- **Docker and Docker Compose:** Keploy mounts its per-run CA in your
+  application container at `/tmp/keploy-tls/keploy-ca.crt`. Combine it with your
+  own CA when the container starts, and point the client at the combined file:
+
+  ```yaml
+  services:
+    app:
+      environment:
+        PINNED_CA: /tmp/ca-with-keploy.pem
+      command:
+        [
+          "/bin/sh",
+          "-c",
+          "cat /certs/ca.pem /tmp/keploy-tls/keploy-ca.crt > /tmp/ca-with-keploy.pem 2>/dev/null || cp /certs/ca.pem /tmp/ca-with-keploy.pem; exec python -u /app.py",
+        ]
+  ```
+
+  ```python
+  requests.get(url, verify=os.environ.get("PINNED_CA", "/certs/ca.pem"))
+  ```
+
+  Outside Keploy the file doesn't exist, so the container falls back to your
+  own CA.
+
+- **Native:** while Keploy runs your application, it sets `SSL_CERT_FILE` in the
+  application's environment to a file that holds Keploy's per-run CA. Combine
+  that file with your own CA in the command Keploy starts, such as a start
+  script you run with `keploy record -c "./start.sh"`:
+
+  ```shell
+  #!/bin/sh
+  cat /certs/ca.pem "${SSL_CERT_FILE:-/dev/null}" > /tmp/ca-with-keploy.pem
+  PINNED_CA=/tmp/ca-with-keploy.pem exec python -u app.py
+  ```
+
+  Outside Keploy, with `SSL_CERT_FILE` unset, the combined file holds only
+  your own CA.
+
 ## Removing Keploy's CA from a host
 
 For containerized runs there is nothing to clean up — the per-run CA lives in the

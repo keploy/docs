@@ -101,7 +101,7 @@ Here are few points to consider before recording!
 Utilize keploy to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 Make API Calls using Postman , or cURL commands.
