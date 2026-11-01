@@ -36,7 +36,7 @@ Gray box testing is needed for several reasons:
 
 ## Types of Gray Box Testing Techniques
 
-Gray box testing encompasses various techniques that leverage both functional testing methods and insights into the internal workings of the application. Here are some common types of gray box testing techniques:
+Gray box testing encompasses various techniques that leverage both [functional testing](https://keploy.io/blog/community/functional-testing-an-in-depth-overview) methods and insights into the internal workings of the application. Here are some common types of gray box testing techniques:
 
 ### 1. Matrix Testing
 
