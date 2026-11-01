@@ -58,7 +58,7 @@ pipeline {
         stage('Install Keploy') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
                 '''
             }
         }
@@ -93,7 +93,7 @@ pipeline {
         stage('Install Keploy') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
                 '''
             }
         }
@@ -211,7 +211,7 @@ In Jenkins, go to **Manage Jenkins → Credentials**, add a **Secret text** cred
 2. Install Keploy on the agent.
 3. Run `keploy cloud replay` with your application and cluster details.
 
-> Install Keploy with the same script as above: `curl --silent -O -L https://keploy.io/install.sh && bash install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
+> Install Keploy with the same script as above: `(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
 
 ### Example: Jenkins Declarative Pipeline
 
@@ -222,7 +222,7 @@ pipeline {
         stage('Install Keploy') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
                 '''
             }
         }

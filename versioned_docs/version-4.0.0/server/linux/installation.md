@@ -30,7 +30,7 @@ description="Install the Keploy CLI on Linux with the one-click script, then run
 totalTime="PT5M"
 tools={["Linux", "curl", "Keploy CLI"]}
 steps={[
-{name: "One-click install", text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh"},
+{name: "One-click install", text: "Run: source /dev/stdin <<<\"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')\""},
 {name: "Verify", text: "Run keploy to confirm the CLI is installed and on your PATH."},
 ]}
 visible={false}
@@ -44,7 +44,7 @@ Install Keploy with the [one-click install](#one-click-install-keploy), then use
 ## One click install Keploy.
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 The installer works on both x86-64 and ARM Linux.

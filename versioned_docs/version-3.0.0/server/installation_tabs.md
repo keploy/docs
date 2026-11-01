@@ -46,7 +46,7 @@ Make sure your Linux kernel version is **5.10 or higher**.
 ### 1. Install Keploy
 
     ```bash
-    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
     ```
 
     ### 2. Once done, You should see something like this:
@@ -95,7 +95,7 @@ You’ve successfully installed **Keploy on Linux**.
 2. **Install Keploy**
 
 ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Once done, You should see something like this:**
@@ -180,7 +180,7 @@ limactl shell debian-12
 6. **Install Keploy inside Lima**
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 7. **Once done, You should see something like this:**
@@ -230,7 +230,7 @@ You’ve successfully set up **Keploy on macOS** using **Lima**.
 2. **Install Keploy**
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Verify the installation**
@@ -386,7 +386,7 @@ wsl --install -d <Distribution Name>
    Inside your WSL terminal, run:
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Verify Installation**
@@ -436,7 +436,7 @@ You’ve successfully set up **Keploy on Windows** using **WSL**.
 2. **Install Keploy**
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Verify the installation**
