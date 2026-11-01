@@ -54,28 +54,57 @@ We will be using Docker Compose to run the application as well as PostgreSQL in 
 git clone https://github.com/keploy/samples-ruby.git && cd samples-ruby/sinatra-postgres-quickstart
 ```
 
-![Ruby Docker setup](/img/ruby_postgres_docker_setup.png)
-*Screenshot: Docker and PostgreSQL setup for the Ruby quickstart.*
-
 ### Lights, Camera, Record! 🎥
 
-Capture the test cases using our automated traffic script. This script handles starting the application via Keploy, waiting for it to become healthy, and generating 20 realistic API calls (including search, dependent resources, and expected errors).
+Start Keploy in record mode. This will spin up your app via Docker Compose and begin capturing API calls as test cases:
 
 ```bash
-./run-keploy.sh
+keploy record -c "docker compose up --build" --container-name "ruby-books-app" --cmd-type docker-compose
 ```
 
-What this script does:
-1. Starts Keploy record mode with `docker compose up --build`
-2. Automatically finds an available port
-3. Waits for the `/health` endpoint to be ready
-4. Sends 20 diverse API calls to simulate real-world usage
-5. Gracefully stops recording once finished
+In a new terminal, verify the app is ready:
+
+```bash
+curl http://localhost:18080/health
+```
+
+Now make some API calls to generate test cases:
+
+```bash
+# Search books
+curl "http://localhost:18080/books?q=the&min_year=1900&sort_by=title&order=asc"
+
+# Create a book
+curl -X POST http://localhost:18080/books \
+  -H "Content-Type: application/json" \
+  -d '{"title": "Dune", "author": "Frank Herbert", "isbn": "9780441013593", "published_year": 1965}'
+
+# Add a review
+curl -X POST http://localhost:18080/books/1/reviews \
+  -H "Content-Type: application/json" \
+  -d '{"reviewer": "qa-team@example.com", "rating": 5, "comment": "Excellent world building."}'
+
+# Analytics
+curl "http://localhost:18080/analytics/books/top-rated?limit=3&min_reviews=1"
+```
+
+When done, press `Ctrl+C` to stop the recording.
+
+> **Optional: run the full automated 20-call scenario**
+>
+> The repo includes `run-keploy.sh` which automates all of the above. **Be aware of what it does to your machine before running it:**
+> - Calls `sudo -v` (may prompt for your password)
+> - Requires `ss` from the `iproute2` package
+> - Runs `docker compose down -v` + `docker volume rm` **on start and on exit**, which wipes the PostgreSQL data volume
+>
+> ```bash
+> ./run-keploy.sh
+> ```
+
+Once recording is complete, Keploy writes test cases under `keploy/test-set-N/tests/` and mocks under `keploy/test-set-N/mocks.yaml`. Explore the `keploy/` directory to see your captured test suite.
 
 ![Recorded testcase example](/img/ruby_testcase.png)
-*Screenshot: Example recorded testcase captured during the quickstart.*
-
-And once the script completes, give yourself a pat on the back! With that simple spell, you've conjured up a comprehensive suite of test cases with mocks! Explore the **keploy** directory and you'll discover your handiwork in the `tests` directory and `mocks.yml`.
+*Screenshot: The `keploy/test-set-0/` tree after a completed recording session.*
 
 ### Stop the Running Services
 
@@ -90,7 +119,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker compose up" --container-name "ruby-books-app" --cid-type docker-compose --buildDelay 50 --delay 10
+keploy test -c "docker compose up" --container-name "ruby-books-app" --cmd-type docker-compose --buildDelay 50 --delay 10
 ```
 
 After tests complete, stop the services:
@@ -101,7 +130,8 @@ docker compose down
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yaml`, or fiddle with the request or response in `test-N.yaml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+
 
 <SectionDivider />
 
@@ -123,18 +153,12 @@ bundle install
 
 ### Set up PostgreSQL Database
 
-The app connects as `postgres` / `postgres` by default (see `DB_CONFIG` in `app.rb`). Make sure that role exists on your local PostgreSQL instance:
+On Ubuntu/WSL, PostgreSQL uses `peer` auth by default. Run the following to set a password for the `postgres` role and create the database over TCP:
 
 ```bash
-# Create the role if it doesn't exist yet
-psql -U $(whoami) -c "CREATE ROLE postgres WITH LOGIN PASSWORD 'postgres' SUPERUSER;" || true
-```
-
-Then create and initialize the database:
-
-```bash
-createdb -U postgres booksdb
-psql -U postgres -d booksdb -f init.sql
+sudo -u postgres psql -c "ALTER USER postgres WITH PASSWORD 'postgres';"
+createdb -h localhost -U postgres booksdb
+psql -h localhost -U postgres -d booksdb -f init.sql
 ```
 
 ### Configure Environment Variables
@@ -171,18 +195,12 @@ curl http://localhost:8000/health
 Expected Response:
 
 ```json
-{"status": "healthy", "service": "Ruby Books API"}
+{"status":"healthy","service":"Ruby Books API","database":"connected"}
 ```
-
-### Lights, Camera, Record! 🎥
-
-Keep the same recording session running and start making API calls to exercise the application.
-
-🔥**Make some API calls**. Since this is a complex application, you can test various endpoints such as searching, filtering, and adding reviews!
 
 ### Generate Testcases
 
-To generate test cases, open a new terminal and make some API calls. Here is a sample scenario you can run:
+In the same terminal (keep `keploy record` running), make API calls to generate test cases:
 
 #### 1. Search and Filter Books
 
@@ -224,16 +242,25 @@ curl "http://localhost:8000/analytics/books/top-rated?limit=3&min_reviews=1"
 
 #### 5. Trigger an Expected Error (Negative Test)
 
+This exercises the `published_year` type validation — the value must be an integer:
+
 ```bash
 curl -X POST http://localhost:8000/books \
   -H "Content-Type: application/json" \
   -d '{
     "title": "Invalid Data",
+    "author": "Test Author",
     "published_year": "Not a year"
   }'
 ```
 
-And once you are done, you can stop the Keploy recording (Ctrl+C in the first terminal) and give yourself a pat on the back! With that simple spell, you've conjured up test cases with mocks! Explore the **keploy** directory and you'll discover your handiwork in the `tests` directory and `mocks.yml`.
+Expected response:
+
+```json
+{"error":"Published year must be an integer"}
+```
+
+And once you are done, you can stop the Keploy recording (Ctrl+C in the first terminal) and give yourself a pat on the back! With that simple spell, you've conjured up test cases with mocks! Explore the **keploy** directory and you'll find your test cases under `test-set-N/tests/` and mocks under `test-set-N/mocks.yaml`.
 
 Want to see if everything works as expected?
 
@@ -249,6 +276,6 @@ After tests complete, press `Ctrl+C` to stop the app.
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yaml`, or fiddle with the request or response in `test-N.yaml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
 Happy coding! ✨👩‍💻👨‍💻✨
