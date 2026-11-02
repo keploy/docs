@@ -98,7 +98,7 @@ Authorization: Bearer {KEPLOY_MOCK_AGENT_TOKEN}
 
 At record time this writes a per-test `mappings.yaml`; at replay time it restricts
 the served pool to that test's mocks. No scope calls ⇒ suite-level, which is still
-correct.
+correct. Run the tests one at a time (see below).
 
 :::caution The token is required
 The agent's API is authenticated, so a scope call without the header is rejected
@@ -113,19 +113,32 @@ passes. Keploy logs the rejection on its own output with the variable to set, so
 check there if scoping stops taking effect after an upgrade.
 :::
 
-:::tip Parallel workers
-Include your **worker's PID** as `pid` (e.g. Node `process.pid`, Python
-`os.getpid()`) and Keploy scopes the served pool **per worker**, so parallel
-runners — Playwright/jest workers, `pytest-xdist`, `go test` -parallel — each get
-only their own test's mocks with no cross-worker interference. Keploy attributes
-an outgoing call to a worker by its process (walking the process tree), so calls
-from a child process the worker spawns are covered too.
+:::caution Run tests one at a time
+Per-test scoping keeps tests apart only when they run one after another:
+`go test -p 1 -parallel 1`, Playwright `--workers=1`, jest `--runInBand`, pytest
+without `-n`. Sending the test process's PID as `pid` (Node `process.pid`, Python
+`os.getpid()`) does not keep tests that run at the same time apart. At record, a
+call made by any other process (a child the test starts, an app server the tests
+share) goes to whichever test was open when it was made; at replay, a process the
+test did not start, such as a shared app server, is served the whole recording.
 
-`pid` is optional: omit it and scoping falls back to a single shared pool that
-assumes tests run **sequentially** (the pre-parallel behavior). Parallel scoping
-assumes the runner and the Keploy agent share a PID namespace — the normal case
-for `keploy mock <cmd>`; containerized workers in a separate namespace should run
-suite-level.
+`pid` is optional: omit it and the test's scope applies to every process of the
+run. A `pid` only means something when the runner and the Keploy agent share a
+PID namespace — the normal case for `keploy mock <cmd>`; omit it for a runner in
+a container with a PID namespace of its own.
+
+These calls are for runs without `KEPLOY_PROVEN=1`. Under it Keploy refuses them
+(`422 upgrade_integration`): there a test marks its boundaries through Keploy's
+scope protocol v1, which two integrations speak: go-sdk's
+[`keploytest`](https://pkg.go.dev/github.com/keploy/go-sdk/v3/keploytest) for
+`go test` (`go test -p 1`), and
+[`@keploy/playwright`](https://www.npmjs.com/package/@keploy/playwright) for
+Playwright (`--workers=1 --retries=0`). Keploy runs one test process at a time
+there and refuses a second. There is no integration for other frameworks: their
+test process makes the calls by hand. It claims the run
+(`POST {KEPLOY_MOCK_AGENT}/agent/instance`) before its first test, then sends
+each test's begin with `"canSkip": true`, skips the test when the begin answers
+`"action": "skip"`, and sends its end, never with `pid`, `at`, `dir` or `suite`.
 :::
 
 **pytest** (`conftest.py`):
@@ -139,7 +152,7 @@ TOKEN = os.environ.get("KEPLOY_MOCK_AGENT_TOKEN")
 def _post(path, name):
     if not AGENT:
         return
-    body = {"name": name, "pid": os.getpid()}  # pid → per-worker isolation under pytest-xdist
+    body = {"name": name, "pid": os.getpid()}  # run pytest without -n: see above
     headers = {"Content-Type": "application/json"}
     if TOKEN:                       # absent on an older Keploy; the call still works there
         headers["Authorization"] = "Bearer " + TOKEN
@@ -167,7 +180,7 @@ func scope(path, name string) {
     if agent == "" {
         return
     }
-    // pid → per-worker isolation when tests run in parallel
+    // Run go test -p 1 -parallel 1: see above.
     body, _ := json.Marshal(map[string]any{"name": name, "pid": os.Getpid()})
     req, err := http.NewRequest(http.MethodPost, agent+path, bytes.NewReader(body))
     if err != nil {
@@ -194,8 +207,8 @@ func scope(path, name string) {
 ```
 
 **jest / playwright** (a `beforeEach`/`afterEach` or reporter hook) makes the same
-two calls with the test's name and `process.pid` — the `pid` is what keeps
-Playwright's or jest's parallel **workers** isolated from each other:
+two calls with the test's name and `process.pid`. Run jest with `--runInBand` and
+Playwright with `--workers=1`:
 
 ```js
 // Playwright: in a fixture or beforeEach/afterEach
