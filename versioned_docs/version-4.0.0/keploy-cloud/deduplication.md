@@ -234,7 +234,7 @@ ENTRYPOINT ["java", \
   "-jar", "/app/app.jar"]
 ```
 
-Keploy injects a shared `keploy-sockets-vol:/tmp` mount into both the application container and the Keploy agent container at replay time so the dedup sockets are visible on both sides. Keep `/tmp` writable in the container; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
+Keploy mounts a `/tmp` volume into both the application container and the Keploy agent container at replay time so the dedup sockets are visible on both sides. With `docker run`, each run gets its own volume, `keploy-sockets-vol-<run id>`, removed after the run, so two runs on one host do not share it; with Docker Compose it is the project's `keploy-sockets-vol`. Do not mount `keploy-sockets-vol` in your `docker run` command yourself: Keploy renames such a mount to the run's own volume and logs a warning. Keep `/tmp` writable in the container; do not add a conflicting `/tmp` bind mount or `tmpfs`. Restricted containers (non-root user, read-only root filesystem, dropped capabilities) work as long as `/tmp` stays writable.
 
 #### 4. Run Deduplication
 
