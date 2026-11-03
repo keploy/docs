@@ -48,7 +48,7 @@ visible={false}
 steps={[
 {
 name: "Download and install the Keploy binary",
-text: "On Linux or macOS, run: curl --silent -O -L https://keploy.io/install.sh && source install.sh. On Windows, download https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe as keploy.exe into a folder on your PATH.",
+text: "On Linux or macOS, run: source /dev/stdin <<<\"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')\". On Windows, download https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe as keploy.exe into a folder on your PATH.",
 },
 {
 name: "Verify the installation",

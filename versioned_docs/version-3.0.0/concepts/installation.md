@@ -31,7 +31,7 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 Let's get started by setting up the Keploy alias with this command:
 
 ```bash
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 You should see something like this:
@@ -88,7 +88,7 @@ docker network create keploy-network
 2. Install Keploy
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 #### Examples:
