@@ -32,7 +32,7 @@ There are two ways to install Keploy eBPF in MacOS, you can use either use:
 ## One click install Keploy.
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Using Docker Desktop

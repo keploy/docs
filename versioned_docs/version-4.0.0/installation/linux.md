@@ -19,7 +19,7 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 Run the following command in your terminal:
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 :::note Keploy needs a free account

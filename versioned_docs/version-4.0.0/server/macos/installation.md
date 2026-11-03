@@ -37,7 +37,7 @@ visible={false}
 steps={[
 {
 name: "One-click install (recommended)",
-text: "Run: curl --silent -O -L https://keploy.io/install.sh && source install.sh",
+text: "Run: source /dev/stdin <<<\"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')\"",
 url: "#one-click-install-keploy",
 },
 {
@@ -66,7 +66,7 @@ Both routes install the native Keploy CLI, which is built for **Apple Silicon (a
 Run the following command in your terminal:
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Install with Homebrew

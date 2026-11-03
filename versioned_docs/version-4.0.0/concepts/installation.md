@@ -35,7 +35,7 @@ The install is the same whatever your plan. You need a free Keploy account to re
 On **Linux** and **macOS** (Apple Silicon), install Keploy with:
 
 ```bash
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 You should see something like this:
@@ -92,7 +92,7 @@ docker network create keploy-network
 3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 #### Examples:

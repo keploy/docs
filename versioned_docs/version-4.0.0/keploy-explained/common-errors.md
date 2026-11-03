@@ -288,7 +288,7 @@ or Podman can't find the application's image although `podman images` (without `
 
 #### Solution:
 
-- Install or update Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh` (free with an account): Podman needs v3.8.60 or later.
+- Install or update Keploy with `source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"` (free with an account): Podman needs v3.8.60 or later.
 - Run Keploy on the Linux machine whose rootful Podman runs the app, with `CONTAINER_HOST` and `CONTAINER_CONNECTION` unset (or `CONTAINER_HOST` set to the rootful socket, `unix:///run/podman/podman.sock`, with the rootful `podman.socket` enabled) and without `remote = true` in containers.conf.
 - For compose, install Docker Compose (`docker-compose`) on that `PATH` and keep `podman-compose` out of containers.conf's `compose_providers`, or set `PODMAN_COMPOSE_PROVIDER` to docker-compose's path; and run it on a host with systemd, or use `podman run`.
 - Build or pull the image with `sudo podman`. See [Platform requirements](/docs/concepts/platform-requirements/#podman).

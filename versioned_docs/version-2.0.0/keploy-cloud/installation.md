@@ -50,7 +50,7 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 Install and Validate the Keploy Cloud Agent by following the steps below:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 Enter your **API Key** when prompted, ask your org Admin to re-regenerate the API key in case you lose it.

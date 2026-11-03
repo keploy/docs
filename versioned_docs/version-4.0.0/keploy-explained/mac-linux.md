@@ -51,7 +51,7 @@ This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac*
 7.  Now you are in the linux shell of the debian instance. Install Keploy from the VM's own home directory. The installer picks the Linux build for the VM's architecture, which matches your Mac's.
 
     ```bash
-    cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
     ```
 
 8.  Go to your project on the Mac side to record it. Replace `{Username}` with your actual macOS username. (You might need to allow access to Terminal.app in a popup)

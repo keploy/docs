@@ -136,7 +136,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Keploy
-        run: curl -sSL https://keploy.io/install.sh | bash
+        run: (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
 
       - name: Replay against the PR branch
         env:
@@ -186,7 +186,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Install Keploy
-        run: curl -sSL https://keploy.io/install.sh | bash
+        run: (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
 
       - name: Merge the Keploy branch
         env:

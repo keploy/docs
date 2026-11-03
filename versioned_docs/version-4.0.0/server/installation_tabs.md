@@ -47,7 +47,7 @@ Make sure your Linux kernel version is **5.10 or higher**.
 ### 1. Install Keploy CLI
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### 2. Once done, you should see something like this:
@@ -141,7 +141,7 @@ Use "keploy [command] --help" for more information about a command.
 2. **Install Keploy**
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Once done, you should see something like this:**
@@ -237,7 +237,7 @@ Keploy records and tests applications that run in **rootful** Podman, started wi
 2. **Install Keploy.** Podman needs v3.8.60 or later; re-run this to update an older Keploy.
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 The installer may say Docker isn't found; with Podman, ignore it.
@@ -294,7 +294,7 @@ Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `su
 ### 1. Install Keploy CLI
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI.
@@ -352,7 +352,7 @@ limactl shell debian-12
 6. **Install Keploy inside Lima**, from the VM's own home directory
 
 ```bash
-cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
+cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 Then `cd` into your project under `/Users/<you>/…` to record it.
@@ -452,7 +452,7 @@ Your application and Keploy's agent run in containers here, but the `keploy` CLI
 2. **Install Keploy**
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Create the Docker network** your app's container and Keploy share:
@@ -698,7 +698,7 @@ wsl --install -d <Distribution Name>
    Inside your WSL terminal, run:
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. **Verify Installation**

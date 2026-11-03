@@ -49,7 +49,7 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
 1. **Install Keploy**
 
    ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
    ```
 
 2. **Record your app** — pass the command that starts it, exactly as you run it yourself:
@@ -116,7 +116,7 @@ The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the in
 6. **Install Keploy inside Lima**, from the VM's own home directory
 
    ```bash
-   cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
    ```
 
    Then `cd` into your project under `/Users/<you>/…` to record it.
@@ -157,7 +157,7 @@ With this option your application and Keploy's agent run in containers, but the 
 3. **Install Keploy**
 
    ```bash
-   curl --silent -O -L https://keploy.io/install.sh && source install.sh
+   source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
    ```
 
 4. **Verify the installation**

@@ -46,7 +46,7 @@ Add the following steps to your `.github/workflows/ci.yml` file:
 ```yaml
 - name: Install Keploy CLI
   run: |
-    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### Run Keploy API Tests

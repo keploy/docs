@@ -18,7 +18,6 @@
 # Misc
 .DS_Store
 .idea
-.env.local
 .env.development.local
 .env.test.local
 .env.production.local
@@ -183,7 +182,6 @@ Temporary Items
 .apdisk
 
 ### VisualStudioCode ###
-.vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -204,3 +202,4 @@ Temporary Items
 # Support for Project snippet scope
 
 # End of https://www.toptal.com/developers/gitignore/api/macos,linux,jetbrains,visualstudiocode
+config.bat

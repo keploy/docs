@@ -105,7 +105,7 @@ see WSL manual installation steps for older versions.
 Then, inside the WSL shell, install Keploy:
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 Inside WSL, `keploy record` and `keploy test` work as they do on Linux.

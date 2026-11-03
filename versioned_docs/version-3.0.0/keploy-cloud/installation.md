@@ -58,7 +58,7 @@ To begin using Keploy Enterprise, you need to install the **Keploy Enterprise Ag
 Follow the steps below to install and validate the Keploy Enterprise Agent:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 When recording API calls using the Enterprise Agent, you will be prompted to provide your **API key**.
