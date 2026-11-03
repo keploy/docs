@@ -237,7 +237,7 @@
       "type": "category",
       "label": "UI Testing",
       "collapsed": true,
-      "items": ["running-keploy/ui-capture"]
+      "items": ["running-keploy/ui-capture", "ui-capture/errors"]
     },
     {
       "type": "category",

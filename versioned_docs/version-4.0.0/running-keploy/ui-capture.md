@@ -367,6 +367,8 @@ What is kept as recorded: the page's paths otherwise, and the `data-testid` valu
 
 ## Troubleshooting
 
+An SDK error or warning names a `KUI_E_` code, and [UI Capture SDK errors and warnings](../ui-capture/errors.md) explains each one: what happened, why, and how to fix it.
+
 **The browser console shows `403` with "this API key is not a UI ingest key".**
 The SDK was given a personal access token or another kind of key. Create an ingest key for the app, in the dashboard or with `POST /client/v1/apps/<appId>/ui/ingest-keys`, and use it as `apiKey`.
 
