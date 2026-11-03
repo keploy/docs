@@ -19,18 +19,18 @@ keywords:
 
 The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError` and every dropped-event warning it logs with a `KUI_E_` code. An error's `remedy.docs`, and a warning's entry in the SDK's exported `SDK_WARNINGS`, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
 
-| Code                                                                  | Kind    | Raised when                                                                  |
-| --------------------------------------------------------------------- | ------- | ---------------------------------------------------------------------------- |
-| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)             | Error   | The ingest server answers `401` or `403`.                                    |
-| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found) | Error   | The ingest server answers `404` or `405`.                                    |
-| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                   | Error   | The ingest server answers `409`.                                             |
-| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                     | Error   | The ingest server answers any other `4xx` except `429`.                      |
-| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)               | Error   | `sessionIdGenerator` does not produce an id the server would accept.         |
-| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)   | Error   | The SDK cannot load rrweb in the browser.                                    |
-| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)         | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route. |
-| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)           | Warning | An event cannot be serialised to JSON.                                       |
-| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                     | Warning | An event alone is over the ingest server's body cap.                         |
-| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing) | Warning | Scrubbing credentials out of an event takes it over that cap.                |
+| Code                                                                  | Kind    | Raised when                                                                                     |
+| --------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
+| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)             | Error   | The ingest server answers `401` or `403`.                                                       |
+| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found) | Error   | The ingest server answers `404` or `405`.                                                       |
+| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                   | Error   | The ingest server answers `409`.                                                                |
+| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                     | Error   | The ingest server, or for a `413` a proxy in front of it, answers any other `4xx` except `429`. |
+| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)               | Error   | `sessionIdGenerator` does not produce an id the server would accept.                            |
+| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)   | Error   | The SDK cannot load rrweb in the browser.                                                       |
+| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)         | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route.                    |
+| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)           | Warning | An event cannot be serialised to JSON.                                                          |
+| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                     | Warning | An event alone is over the ingest server's body cap.                                            |
+| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing) | Warning | Scrubbing credentials out of an event takes it over that cap.                                   |
 
 :::note SDK versions
 This page describes the SDK releases whose codes link here, all of them after 3.0.1. `@keploy/capture-sdk` 3.0.1 does not link here and differs in places, among them: its `CaptureError.remedy` is `{command, manual}`, with no `docs` and the full remedy in `manual`; it has no `continuous` option and no `privacy.secretRoutes` or `privacy.keepRoutes`; and it does not raise `KUI_E_DOM_RECORDER_UNAVAILABLE`, `KUI_E_PRIVACY_ROUTE_INVALID` or `KUI_E_EVENT_OVERSIZED_SCRUBBING`.
@@ -132,21 +132,24 @@ With `continuous: true` and session ids the SDK minted, a `409` whose body gives
 
 ## `KUI_E_INGEST_REJECTED` {#kui-e-ingest-rejected}
 
-**Error.** The ingest server answered a `4xx` it will keep refusing: the body is malformed (`400`), its encoding is unsupported (`415`), or it is over a size limit (`413`). Capture has stopped.
+**Error.** The ingest server, or for a `413` a proxy in front of it, answered a `4xx` it will keep refusing: the body is malformed (`400`), its encoding is unsupported (`415`), or it is over a size limit (`413`). Capture has stopped.
 
-**What happened:** The ingest server refused a batch, and sending it again would be refused again.
+**What happened:** A batch was refused, and sending it again would be refused again.
 
-**Cause:** Read `serverMessage`, the server's own sentence. A `413` is one of two things the server does not tell apart by status:
+**Cause:** Read `serverMessage`: the ingest server's own sentence, or the text of a body that is not the ingest server's. A `413` from the ingest server is one of two things it does not tell apart by status:
 
 - `ui session has reached its size limit`: this session is complete.
 - A sentence containing `request body exceeds` (`request body exceeds N bytes` for the size on the wire, `decoded request body exceeds N bytes` after gzip): the server's body cap is lower than the 10 MiB the SDK forms every batch under. The SDK and the server are at mismatched versions.
 
-A `400` or `415` is the same mismatch. The SDK builds every byte it sends: it checks the session id (the one value you supply) against the server's rule before sending, clamps `batchSize` to the 5000-event cap it knows, and cuts every batch at the 10 MiB decoded cap. So a `4xx` of this kind means the server's rules are newer than this SDK's. On a `400`, `evidence.issues` names the field the server refused.
+A `413` whose `serverMessage` holds neither sentence did not come from the ingest server. A proxy or load balancer in front of it, such as the same-origin proxy described under [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found), refused the body under its own size limit. nginx's page says `413 Request Entity Too Large`, and nginx's default `client_max_body_size` is 1 MiB.
+
+A `400` or `415` is the same mismatch as `request body exceeds`. The SDK builds every byte it sends: it checks the session id (the one value you supply) against the server's rule before sending, clamps `batchSize` to the 5000-event cap it knows, and cuts every batch at the 10 MiB decoded cap. So a `4xx` of this kind means the server's rules are newer than this SDK's. On a `400`, `evidence.issues` names the field the server refused.
 
 **Fix:**
 
 - For `ui session has reached its size limit`, call `KeployCapture.stop()` and then `KeployCapture.init()` to start a new session. With `continuous: true` and session ids the SDK minted, a `413` whose body gives the reason `session_full` needs none of this: the SDK ends that session without calling `onError`, and the next one starts at the visitor's next interaction.
-- For anything else, upgrade `@keploy/capture-sdk` to the version the server documents.
+- For a `413` that holds neither sentence, raise the proxy's body limit on the ingest route to at least 10 MiB, the most the SDK sends in one request (for nginx, `client_max_body_size 10m;`). Upgrading the SDK changes nothing.
+- For a mismatch (`request body exceeds`, a `400` or a `415`), upgrade `@keploy/capture-sdk` to the version the server documents.
 
 **Evidence:** `status`, `serverMessage`, `endpoint`, `sessionId`, and `issues` when the server sent them.
 
