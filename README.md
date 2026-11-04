@@ -78,6 +78,8 @@ The command starts a local development server and opens a browser window.
 
 > 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
 
+> **Note:** The repository ships a `yarn.lock`, so Docusaurus tries to run `yarn --version` to suggest upgrade commands. If `npm run serve` or `npm run clear` fails with a `yarn --version` error, install [Yarn](https://yarnpkg.com/) (`npm install -g yarn`) or run the command with `NO_UPDATE_NOTIFIER=1` set.
+
 ## Running Vale Locally for Documentation Linting
 
 To help maintain consistency in our documentation, we use Vale, a syntax-aware linter that checks for spelling, grammar, and style issues.
