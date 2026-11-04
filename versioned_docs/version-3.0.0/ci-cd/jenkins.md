@@ -42,7 +42,7 @@ pipeline {
         stage('Install Keploy') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
                 '''
             }
         }
@@ -77,7 +77,7 @@ pipeline {
         stage('Install Keploy') {
             steps {
                 sh '''
-                curl --silent -O -L https://keploy.io/install.sh && bash install.sh
+                (curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; exit 1') | bash
                 '''
             }
         }

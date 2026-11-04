@@ -57,7 +57,7 @@ To begin, install **Keploy** and sign in with your Keploy account.
 On Linux or macOS, install Keploy with:
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 On Windows (x86-64), run `keploy.exe` natively from PowerShell — no Administrator needed. See [Run Keploy natively on Windows](/docs/installation/windows-installation/#option-1-run-keploy-natively). For platform details, see the [Linux](/docs/installation/linux-installation/), [macOS](/docs/installation/macos-installation/) and [Windows](/docs/installation/windows-installation/) installation guides.

@@ -139,7 +139,7 @@ Make sure your Linux kernel version is **5.10 or higher**.
 ### 1. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### 2. Once done, you should see something like this:
@@ -183,7 +183,7 @@ Use "keploy [command] --help" for more information about a command.
 2. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 🎉 You have successfully set up **Keploy on Linux** using **Docker**.
@@ -206,7 +206,7 @@ Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`.
 ### Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 <StartKeploy platform="macos" />
@@ -246,7 +246,7 @@ limactl shell debian-12
 6. Install Keploy inside Lima, from the VM's own home directory
 
 ```bash
-cd ~ && curl --silent -O -L https://keploy.io/install.sh && source install.sh
+cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 🎉 You have successfully set up **Keploy on macOS** using **Lima**.
@@ -266,7 +266,7 @@ Your application and Keploy's agent run in containers here, but the `keploy` CLI
 2. Install Keploy
 
 ```bash
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 3. Create the Docker network your app's container and Keploy share
@@ -328,7 +328,7 @@ wsl --install -d <Distribution Name>
 2. Install Keploy inside WSL
 
 ```shell
-curl --silent -O -L https://keploy.io/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 🎉 You have successfully set up **Keploy on Windows** using **WSL**.

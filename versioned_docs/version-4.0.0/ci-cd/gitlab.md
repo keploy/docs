@@ -67,7 +67,7 @@ Now that we have Keploy installed, and all ready, we need switch to path where `
 script:
   ## Steps to install Keploy and run application
   # Install Keploy
-  - curl --silent -O -L https://keploy.io/install.sh && source install.sh
+  - source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 
   # Mount required filesystems
   - mount -t debugfs nodev /sys/kernel/debug || true
@@ -186,7 +186,7 @@ In GitLab CI, go to **Settings → CI/CD → Variables**, add `KEPLOY_API_KEY` a
 2. Install Keploy on the runner.
 3. Run `keploy cloud replay` with your application and cluster details.
 
-> Install Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
+> Install Keploy with `source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
 
 ### Example: GitLab CI
 
@@ -197,7 +197,7 @@ keploy-cloud-replay:
   # KEPLOY_API_KEY is injected automatically from the masked CI/CD variable
   script:
     - apt-get update -qq && apt-get install -y -qq curl sudo
-    - curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    - source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
     - |
       keploy cloud replay \
         --app "<NAMESPACE>.<DEPLOYMENT>" \

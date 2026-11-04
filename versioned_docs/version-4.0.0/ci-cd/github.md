@@ -53,7 +53,7 @@ GitHub scripts are the easiest way to integrate Keploy with GitHub. We will be u
   env:
     KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
   run: |
-    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
   ...
 ```
 
@@ -76,7 +76,7 @@ While using [express-mongoose](https://github.com/keploy/samples-typescript/tree
   env:
     KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
   run: |
-    curl --silent -O -L https://keploy.io/install.sh && source install.sh
+    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 
     # Install application dependencies
     npm install
@@ -250,7 +250,7 @@ The CLI reads the `KEPLOY_API_KEY` environment variable automatically — no bro
 - **Locally:** `export KEPLOY_API_KEY="<your-api-key>"` before running the command.
 - **In CI:** store the key as a secret in your CI system so it gets injected as an environment variable at runtime. Never hard-code it in your pipeline file.
 
-> Install Keploy with `curl --silent -O -L https://keploy.io/install.sh && source install.sh`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
+> Install Keploy with `source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"`. With `KEPLOY_API_KEY` set, Keploy signs in with your key.
 
 ### Steps
 
@@ -278,7 +278,7 @@ jobs:
     steps:
       - name: Install Keploy
         run: |
-          curl --silent -O -L https://keploy.io/install.sh && source install.sh
+          source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 
       - name: Cloud replay
         run: |

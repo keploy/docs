@@ -1,23 +1,15 @@
 ---
 id: black-box-testing
-title: "What is Black Box Testing? Types, Techniques & Examples"
+title: "Black Box Testing"
 sidebar_label: Black Box Testing
-description: "Learn what black box testing is, explore key techniques like boundary value analysis and equivalence partitioning, and see real-world examples."
+description: "Black box testing checks what software does from the outside, using inputs and expected outputs, without looking at the code."
 tags:
   - explanation
   - Glossary
 keywords:
-  - API
-  - white box testing tools
-  - white box testing techniques
-  - white box testing
-  - what is white box testing
-  - black box testing tools
-  - black box testing techniques
   - black box testing
   - what is black box testing
   - keploy
-  - regression testing
 head:
   - tag: link
     attrs:
@@ -28,6 +20,8 @@ head:
 Black-box testing is a software testing method where the tester evaluates the functionality of an application without having access to its internal code structure, algorithms, or implementation details. Instead, the tester interacts with the software through its user interface or exposed APIs, treating it as a "black box" whose internal workings are not visible or known.
 
 The focus lies solely on examining the software's external behavior, inputs, outputs, and responses to different user actions or system interactions.
+
+For a full guide, including how black box testing compares with white box testing, see [black box testing](https://keploy.io/blog/community/black-box-testing-and-white-box-testing-a-complete-guide). For each technique applied step by step, see our [black box testing examples](https://keploy.io/blog/community/black-box-testing-techniques).
 
 ![Types of Testing](/img/glossary/types-of-testing.webp)
 
@@ -56,7 +50,7 @@ This testing approach is essential for several reasons:
 5. **Detection of Defects**: Identifies functional errors, security vulnerabilities, and performance bottlenecks.
 6. **Accessibility**: Suitable for testers with diverse backgrounds and skill sets, adaptable to various software applications.
 
-## Whate are types of Black-Box Testing Techniques ?
+## What are the types of black box testing techniques?
 
 ![How Black Box testing Works?](https://keploy-devrel.s3.us-west-2.amazonaws.com/thumbnail_Black-box.jpg)
 

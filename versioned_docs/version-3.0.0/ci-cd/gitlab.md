@@ -51,7 +51,7 @@ Now that we have Keploy installed, and all ready, we need switch to path where `
 script:
   ## Steps to install Keploy and run application
   # Install Keploy
-  - curl --silent -O -L https://keploy.io/install.sh && source install.sh
+  - source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 
   # Mount required filesystems
   - mount -t debugfs nodev /sys/kernel/debug || true
