@@ -79,7 +79,7 @@ Integration tests verify that different modules or services work together as exp
 
 ### 3. Functional Testing
 
-Functional testing ensures that the software operates according to the specified requirements. Automation of functional tests is critical for validating user interactions, APIs, and system operations.
+[Functional testing](https://keploy.io/blog/community/functional-testing-an-in-depth-overview) ensures that the software operates according to the specified requirements. Automation of functional tests is critical for validating user interactions, APIs, and system operations.
 
 ### 4. Regression Testing
 

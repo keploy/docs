@@ -1,8 +1,8 @@
 ---
 id: functional-testing
-title: Know more about Functional Testing and its key benefits
+title: "Functional Testing: Definition, Types and Techniques"
 sidebar_label: Functional Testing
-description: Learn about Functional Testing, its definition, best practices &benefits. Assure software quality with effective testing solutions for smooth performance.
+description: Learn what functional testing is, its types, test design techniques, steps, benefits and best practices, with examples for UI, APIs and business logic.
 tags:
   - explanation
   - Glossary
@@ -14,6 +14,8 @@ keywords:
   - Challenges & Benefits
   - Keploy
   - How to perform functional testing
+  - functional testing definition
+  - functional testing techniques
 ---
 
 ## What is functional Testing?
@@ -28,7 +30,7 @@ Functional testing is typically performed by providing the software with input d
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/glossary/ft.webp" alt="types of testing" width="962" height="952" style={{maxWidth:'100%',height:'auto'}} />
 
-[Functional Testing](https://keploy.io/blog/community/functional-testing-unveiling-types-and-real-world-applications)
+[Complete guide to functional testing](https://keploy.io/blog/community/functional-testing-an-in-depth-overview)
 
 </div>
 There are many different types of functional testing, including:
@@ -70,7 +72,7 @@ System testing covers the entire workflow to ensure that the software behaves as
 
 ### 4. Smoke Testing
 
-Smoke testing, also known as "sanity testing," is a quick and basic check to determine if the core functionalities of the software are working. It’s typically performed after a new build to ensure that no critical issues exist before proceeding to more in-depth testing. If the smoke test passes, the software is considered stable enough for further testing.
+Smoke testing, also called "build verification testing," is a quick and basic check to determine if the core functionalities of the software are working. It’s typically performed after a new build to ensure that no critical issues exist before proceeding to more in-depth testing. If the smoke test passes, the software is considered stable enough for further testing. Smoke testing is different from sanity testing, which is a narrow check that one specific fix or change works.
 
 **Example:** For a mobile app, a smoke test might include:
 
@@ -129,6 +131,18 @@ Functional testing extends to database verification to confirm:
 - Correct data is stored, retrieved, updated, and deleted.
 - The integrity and consistency of data is maintained across different functions.
 - Transactions and error handling work as expected.
+
+## Functional test design techniques
+
+Because functional testing is black-box, testers use design techniques to pick the inputs most likely to reveal defects, instead of testing every possible value.
+
+- **Equivalence partitioning:** split inputs into groups the system should treat the same way, then test one value from each group. For an age field that accepts 18 to 60, test one value below 18, one between 18 and 60, and one above 60.
+- **Boundary value analysis:** test the edges of each range, where bugs cluster. For the same field, test 17, 18, 60 and 61. See our guide to [boundary value analysis](https://keploy.io/blog/community/boundary-value-analysis-software-testing).
+- **Decision table testing:** list combinations of conditions and the expected result for each, for example "free shipping if the order is over 50 and the user is a member".
+- **State transition testing:** check how the system moves between states, such as an order going from placed to paid to shipped, and that invalid transitions are blocked.
+- **Use case testing:** test complete user flows based on how real users interact with the system.
+- **[Error guessing](/docs/concepts/reference/glossary/error-guessing/):** use experience to target inputs that often break software, such as empty strings, special characters or very large numbers.
+- **[Negative testing](/docs/concepts/reference/glossary/negative-testing/):** send invalid input on purpose to confirm the system rejects it safely with a clear error.
 
 ## What are the steps to perform Functional Testing?
 
@@ -213,11 +227,11 @@ Despite the challenges, functional testing is an important part of the software 
 
 ## Related Terms
 
-- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/) — functional testing is largely black-box.
-- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — a functional testing type for module interactions.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — re-verifies functionality after changes.
-- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — the most granular functional test level.
-- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+- [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/): functional testing is largely black-box.
+- [Integration Testing](/docs/concepts/reference/glossary/integration-testing/): a functional testing type for module interactions.
+- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/): re-verifies functionality after changes.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/): the most granular functional test level.
+- [Browse all testing terms](/docs/concepts/reference/glossary/): the full Keploy glossary.
 
 ## Frequently Asked Questions
 
@@ -255,3 +269,11 @@ Test cases should be prioritized based on:
 
 - **Functional Testing** focuses on verifying that the application works according to the specified functional requirements.
 - **Non-Functional Testing** focuses on performance, usability, reliability, and other non-functional aspects of the software.
+
+### 6. What are the main functional testing techniques?
+
+The most common techniques are equivalence partitioning, boundary value analysis, decision table testing, state transition testing, use case testing, error guessing and negative testing.
+
+### 7. Is functional testing black-box or white-box?
+
+Functional testing is mostly black-box testing. Testers check inputs and outputs against the requirements without needing to know the internal code.
