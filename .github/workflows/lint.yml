@@ -18,10 +18,16 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: '20.0.0'
+          node-version: 22.x
 
+      # Installed and checked as in build_and_check.yml; see the comments there.
       - name: Install Dependencies
-        run: npm install
+        run: yarn install --frozen-lockfile
+
+      - name: Check yarn.lock matches package.json
+        run: |
+          yarn install --non-interactive
+          git diff --exit-code -- yarn.lock || { echo "::error::yarn.lock is out of date: run yarn install and commit yarn.lock"; exit 1; }
 
       - name: Check commits messages
         uses: wagoid/commitlint-github-action@v5

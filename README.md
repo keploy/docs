@@ -65,18 +65,18 @@ The Keploy documentation site uses Docusaurus 2 which is a static website genera
 You can make changes locally without previewing them in the browser.
 However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
 
-Initialize Docusaurus 2 in the repo by running [`npm`](https://docs.npmjs.com/cli/v7/commands/npm-install) once in the root directory of the repo.
+Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) once in the root directory of the repo. Use yarn, not npm: `yarn.lock` and the `resolutions` field of `package.json` pin the dependency versions, and npm keeps to neither.
 
 Now you can build and view the site locally:
 
 ```bash
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 The command starts a local development server and opens a browser window.
 
-> 💡 **Tip:** After running `npm install`, use `npm start` to preview changes live at `http://localhost:3000/`.
+> 💡 **Tip:** After running `yarn install`, use `yarn start` to preview changes live at `http://localhost:3000/`.
 
 ## Running Vale Locally for Documentation Linting
 
@@ -153,11 +153,11 @@ cd docs
 3. Install all the dependencies
 
 ```sh
-npm install
+yarn install
 
 ## Start the development server.
 
-npm start
+yarn start
 ```
 
 4. To reformat:
@@ -169,7 +169,7 @@ npx prettier --write '**/*.{js,md}'
 5. Check the build status:
 
 ```sh
-npm run build
+yarn build
 ```
 
 > Note: if the Build is failing, fix the changes before making PR.

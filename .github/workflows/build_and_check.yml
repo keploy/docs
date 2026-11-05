@@ -26,34 +26,53 @@ jobs:
           # <lastmod> match what production will ship.
           fetch-depth: 0
 
+      # Set up as main.yml's deploy builds: node 22.x, yarn and yarn.lock, so
+      # this job builds and checks the dependency tree that ships. npm would
+      # keep to neither yarn.lock's versions nor package.json's `resolutions`.
+      # yarn, unlike npm, fails on a package whose `engines` the node does not
+      # meet, so on another node this job could reject a tree the deploy
+      # installs.
       - name: Set up Node.js
         uses: actions/setup-node@v5
         with:
-          node-version: 20.0.0
+          node-version: 22.x
 
+      # Stricter than the deploy, which runs a plain `yarn install`: the
+      # install never rewrites yarn.lock, and the next step fails the job if
+      # yarn.lock is out of date.
       - name: Install Dependencies
-        run: npm install
+        run: yarn install --frozen-lockfile
+
+      # --frozen-lockfile fails on a dependency range yarn.lock has no entry
+      # for, but not on a changed or removed `resolutions` entry: yarn then
+      # installs other versions and leaves the lock stale. So install again,
+      # letting yarn write the lock as a plain `yarn install` would, and fail
+      # if that changed yarn.lock: the job then fails whenever yarn.lock does
+      # not record what yarn installs for this package.json.
+      - name: Check yarn.lock matches package.json
+        run: |
+          yarn install --non-interactive
+          git diff --exit-code -- yarn.lock || { echo "::error::yarn.lock is out of date: run yarn install and commit yarn.lock"; exit 1; }
 
       - name: Build Documentation
-        run: npm run build
+        run: yarn build
 
       - name: Verify LinkedIn Insight Tag in build output
-        run: npm run verify-linkedin-tag
+        run: yarn verify-linkedin-tag
 
       - name: Verify structured-data graph
-        run: npm run verify-schema
+        run: yarn verify-schema
 
       - name: Verify sitemap lastmod dates
-        run: npm run verify-lastmod
+        run: yarn verify-lastmod
 
       - name: Verify every docs link the UI Capture SDK ships
-        run: npm run verify-ui-capture-sdk-links
+        run: yarn verify-ui-capture-sdk-links
 
       # Deploys this PR's build with main.yml's deploy script into a local S3,
       # then replays the weeks after it: no asset a live or open page still
       # loads is deleted, every unused one eventually is, and every file gets
-      # the right cache header. Built here with npm rather than main.yml's
-      # yarn, to the same layout. Run against the real build so a change that
+      # the right cache header. Run against the real build so a change that
       # puts an un-hashed file under assets/ fails here, not in production.
       - name: Deploy e2e (local S3)
         env:

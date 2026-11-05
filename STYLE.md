@@ -112,8 +112,8 @@ Use clear, simple, and **inclusive language**:
 - Wrap inline code using backticks: \`like this\`
 - Use triple backticks for multi-line code blocks:
   \`\`\`bash  
-   npm install  
-   npm run serve  
+   yarn install  
+   yarn serve  
    \`\`\`
 - Add comments in code examples where needed for clarity.
 

@@ -10,10 +10,9 @@
 // image pipeline.
 //
 // Why hand-rolled instead of `image-size` / `rehype-img-size`:
-//   the repo carries BOTH yarn.lock and package-lock.json (Vercel uses yarn,
-//   GitHub CI uses npm), so adding a dep means keeping two lockfiles in sync.
-//   The header formats we actually need (PNG/GIF/JPEG) are trivially parseable,
-//   so we read the first bytes ourselves and add no runtime dependency.
+//   the header formats we actually need (PNG/GIF/JPEG) are trivially
+//   parseable, so we read the first bytes ourselves and add no runtime
+//   dependency.
 //
 // Safety: this plugin NEVER throws. Anything it can't confidently measure
 // (remote/relative/data URIs, webp/svg, missing files, malformed headers)
@@ -162,8 +161,8 @@ function resolveStaticPath(src) {
 
 // Full pipeline: src string -> {width, height} or null. Never throws.
 // Note: sizeCache is module-level, so it persists for the whole process. Under
-// `npm run build` that's a fresh process each time, so it's always accurate.
-// Under the dev server (`npm start`) the process is long-lived, so if an author
+// `yarn build` that's a fresh process each time, so it's always accurate.
+// Under the dev server (`yarn start`) the process is long-lived, so if an author
 // replaces an asset with one of different dimensions the stale entry sticks —
 // restart the dev server to pick up resized assets.
 const sizeCache = new Map();
