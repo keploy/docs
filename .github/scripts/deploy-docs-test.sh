@@ -4,7 +4,7 @@
 #
 #   AWS_ENDPOINT_URL=http://localhost:5000 .github/scripts/deploy-docs-test.sh [build_dir]
 #
-#   build_dir  `npm run build`'s output. The test deploys that real site. With
+#   build_dir  `yarn build`'s output. The test deploys that real site. With
 #              no argument it synthesises a small Docusaurus-shaped one.
 #
 # The endpoint is a moto server (motoserver/moto), which serves S3 and

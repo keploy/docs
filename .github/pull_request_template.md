@@ -15,7 +15,7 @@ Please delete options that are not relevant.
 
 ## How Has This Been Tested?
 
-Please run npm run build and npm run serve to check if the changes are working as expected. Please include screenshots of the output of both the commands. Add screenshots/gif of the changes if possible.
+Please run yarn build and yarn serve to check if the changes are working as expected. Please include screenshots of the output of both the commands. Add screenshots/gif of the changes if possible.
 
 
 ## Checklist:

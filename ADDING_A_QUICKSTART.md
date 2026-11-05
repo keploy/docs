@@ -3,7 +3,6 @@
 This guide explains how to add a **new Quickstart** to our docs.  
 If you’re contributing for the first time — don’t worry, this is meant to be simple and step-by-step 🙂
 
-
 ## Before You Start
 
 - We maintain **versioned documentation**
@@ -11,7 +10,6 @@ If you’re contributing for the first time — don’t worry, this is meant to 
 - Current latest version: **v4.0.0**
 
 👉 Please make sure you are contributing to the **latest version only**.
-
 
 ## Steps to Add a New Quickstart
 
@@ -57,6 +55,7 @@ src/components/QuickStartFilter.js
 ```
 
 Please include:
+
 - Language name
 - Language icon
 - Any required metadata for filtering
@@ -76,6 +75,7 @@ src/components/QuickStartList.js
 ```
 
 Make sure to include:
+
 - **Docker setup**
 - **Non-Docker setup**
 
@@ -93,9 +93,10 @@ Make sure the docs build passes:
 
 ```
 
-npm run build
+yarn build
 
 ```
+
 Your PR should not introduce any build errors.
 
 ---
@@ -111,6 +112,7 @@ Your PR should not introduce any build errors.
 ### 3. Refer to Existing Code
 
 If you’re confused at any point:
+
 - Check how other quickstarts are implemented
 - Follow existing patterns — consistency is important
 
@@ -130,7 +132,7 @@ If your quickstart includes **Keploy commands** (like `record` or `replay`):
 ## Need Help?
 
 If you have **any doubts or questions**, feel free to reach out to us on **Slack**.  
-We’re happy to help and review early drafts 
+We’re happy to help and review early drafts
 
 ---
 
