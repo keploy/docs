@@ -106,6 +106,25 @@ In the above command, `tests` is the directory in the CWD where the recorded tes
 keploy record -c "node src/app.js" --proxy-port 8080
 ```
 
+- `--capture-packets` - Capture the raw network packets on Keploy's proxy ports and write them into each test set's directory as `traffic.pcap`, with the TLS session keys in `sslkeys.log` next to it, so that Wireshark or tshark can decrypt the TLS traffic.
+
+```bash
+keploy record -c "node src/app.js" --capture-packets
+tshark -r keploy/test-set-0/traffic.pcap -o tls.keylog_file:keploy/test-set-0/sslkeys.log
+```
+
+:::note Ubuntu 26.04
+Ubuntu 26.04 confines `tshark` with an AppArmor profile (`/etc/apparmor.d/tshark`). Apart from its own data files, `tshark` may read only files that the user running it owns under `/tmp`, `/var/tmp` or `~/tmp`. Given the files in `keploy/test-set-0/`, it stops with "You don't have permission to read the file". It also skips a key log file that it may not read without saying so, and then shows the TLS traffic still encrypted. Copy both files first, as the user who runs `tshark`:
+
+```bash
+d=$(mktemp -d)
+cp keploy/test-set-0/traffic.pcap keploy/test-set-0/sslkeys.log "$d"/
+tshark -r "$d/traffic.pcap" -o "tls.keylog_file:$d/sslkeys.log"
+```
+
+If you run `sudo tshark`, make the copies with `sudo cp`, so that root owns them.
+:::
+
 - `--debug` - To start recording testcases with debug mode enabled.
 
 ```bash
