@@ -120,7 +120,7 @@ export function UICapture() {
 ```
 
 :::caution Use a bundler
-The SDK loads its DOM recorder ([rrweb](https://github.com/rrweb-io/rrweb)) with a package import that your bundler resolves. Loaded on a page without a bundler or an import map, the SDK starts without an error but cannot record the page: it sends the page's network calls and no clicks, typing or navigation, so sessions arrive and never become flows.
+The SDK loads its DOM recorder ([rrweb](https://github.com/rrweb-io/rrweb)) with a package import that your bundler resolves. Loaded on a page without a bundler or an import map, `@keploy/capture-sdk` 3.0.1 starts without an error but cannot record the page: it sends the page's network calls and no clicks, typing or navigation, so sessions arrive and never become flows. From the release that links the [UI Capture errors page](../ui-capture/errors.md), the SDK instead ends the capture before sending anything and reports [`KUI_E_DOM_RECORDER_UNAVAILABLE`](../ui-capture/errors.md#kui-e-dom-recorder-unavailable).
 :::
 
 ### SDK options
@@ -379,4 +379,4 @@ Check the browser's network tab for requests to `/ui/v1/ingest`. If there are no
 An ingest key records into the app it was created for. Create a key for this app and use it as `apiKey`.
 
 **Sessions arrive but no flows appear.**
-A visit becomes flows 30 minutes after its last activity. `capture-status` shows `RECORDING` until then, and `NO_FLOWS` if the visit had no clicks, typing or navigation. If your visits did have those, check that your app is built with a bundler: without one the SDK records only network calls (see [Install the SDK](#install-the-sdk)).
+A visit becomes flows 30 minutes after its last activity. `capture-status` shows `RECORDING` until then, and `NO_FLOWS` if the visit had no clicks, typing or navigation. If your visits did have those, check that your app is built with a bundler: without one, SDK 3.0.1 records only network calls, and from the release that links the errors page the SDK reports `KUI_E_DOM_RECORDER_UNAVAILABLE` instead (see [Install the SDK](#install-the-sdk)).

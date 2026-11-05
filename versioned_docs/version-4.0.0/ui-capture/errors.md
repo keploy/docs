@@ -75,7 +75,7 @@ The server's status decides the code:
 | `429`, a `5xx`, or a network failure  | None: the SDK retries with backoff and never calls `onError`.         |
 | `2xx`                                 | None: the batch was accepted.                                         |
 
-**A warning drops one event, and the capture continues.** The SDK does not call `onError`. It writes one `console.error` line for the first such event of each code in a capture, and drops later ones in that capture silently. A new `init()` starts a new count. The line names the code and ends with the evidence as JSON:
+**A warning drops one event, and the capture continues.** The SDK does not call `onError`. It writes one `console.error` line for the first such event of each code in a capture, and drops later ones in that capture silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The line names the code and ends with the evidence as JSON:
 
 ```text
 [keploy] KUI_E_EVENT_OVERSIZED: dropped an event: 11059200 bytes in a body, over the ingest server's 10485760-byte cap, so no batch could carry it. The capture continues; any further such events in this capture are dropped silently. evidence={"eventId":"7","eventType":"dom","bytes":11059200,"cap":10485760}
