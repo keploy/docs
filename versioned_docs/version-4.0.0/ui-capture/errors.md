@@ -48,7 +48,7 @@ A `CaptureError` carries:
 - `status`: the HTTP status the server answered, or `null` when the SDK refused before sending anything.
 - `serverMessage`: the `error` field of the server's JSON body, or the body's text, or `null`.
 - `issues`: the server's `[{path, message}]` list, which the ingest server sends only with a `400` to say which field it refused, or `null`.
-- `remedy`: `{command, manual, docs}`. `manual` is one sentence saying what to do, and `docs` links to the code's section on this page. `command` is always `null`: no `keploy` CLI command performs these fixes.
+- `remedy`: `{command, manual, docs}`. `docs` links to the code's section on this page, where the remedy is, and `manual` holds the same link. `command` is always `null`: no `keploy` CLI command performs these fixes.
 - `evidence`: the fields listed under **Evidence** in the code's section below.
 
 ```ts
@@ -141,7 +141,7 @@ With `continuous: true` and session ids the SDK minted, a `409` whose body gives
 - `ui session has reached its size limit`: this session is complete.
 - A sentence containing `request body exceeds` (`request body exceeds N bytes` for the size on the wire, `decoded request body exceeds N bytes` after gzip): the server's body cap is lower than the 10 MiB the SDK forms every batch under. The SDK and the server are at mismatched versions.
 
-A `413` whose `serverMessage` holds neither sentence did not come from the ingest server. A proxy or load balancer in front of it, such as the same-origin proxy described under [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found), refused the body under its own size limit. nginx's page says `413 Request Entity Too Large`, and nginx's default `client_max_body_size` is 1 MiB.
+A `413` whose `serverMessage` holds neither sentence did not come from the ingest server. A proxy in front of it refused the body under its own limit. nginx's page says `413 Request Entity Too Large`, and nginx's default `client_max_body_size` is 1 MiB.
 
 A `400` or `415` is the same mismatch as `request body exceeds`. The SDK builds every byte it sends: it checks the session id (the one value you supply) against the server's rule before sending, clamps `batchSize` to the 5000-event cap it knows, and cuts every batch at the 10 MiB decoded cap. So a `4xx` of this kind means the server's rules are newer than this SDK's. On a `400`, `evidence.issues` names the field the server refused.
 
