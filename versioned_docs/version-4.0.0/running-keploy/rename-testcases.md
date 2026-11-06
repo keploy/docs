@@ -35,7 +35,7 @@ go build
 2. Run keploy in record mode and provide the path to the binary.
 
 ```bash
-sudo -E keploy record -c "./test-app-url-shortener"
+sudo -E env PATH="$PATH" keploy record -c "./test-app-url-shortener"
 ```
 
 3. Make an api call and add a header field with key set to `Keploy-Test-Name` and value set to the name you want for your testcase, let's say 'renametest'.

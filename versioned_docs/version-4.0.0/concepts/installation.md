@@ -38,6 +38,8 @@ On **Linux** and **macOS** (Apple Silicon), install Keploy with:
  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
+The script installs Keploy in `~/.keploy/bin`, where it can [update itself](/docs/running-keploy/cli-commands/#update), and adds that folder to your `PATH`. On Linux, an install run as root or in a CI pipeline goes to `/usr/local/bin` instead.
+
 You should see something like this:
 
 ```bash

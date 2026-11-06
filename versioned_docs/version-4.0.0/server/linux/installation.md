@@ -56,7 +56,7 @@ The installer works on both x86-64 and ARM Linux.
 Run this command on your terminal to start the recording of API calls:-
 
 ```shell
-sudo -E keploy record -c "CMD_TO_RUN_APP"
+sudo -E env PATH="$PATH" keploy record -c "CMD_TO_RUN_APP"
 ```
 
 Make API Calls using Postman or cURL command.
@@ -69,7 +69,7 @@ mocks into `YAML` format.
 Run this command on your terminal to run the testcases and generate the test coverage report:-
 
 ```shell
-sudo -E keploy test -c "CMD_TO_RUN_APP" --delay 10
+sudo -E env PATH="$PATH" keploy test -c "CMD_TO_RUN_APP" --delay 10
 ```
 
 Voilà! 🧑🏻‍💻 We have the server running!

@@ -462,7 +462,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```shell
-sudo -E keploy test -c "./gin-redis" --delay 10
+sudo -E env PATH="$PATH" keploy test -c "./gin-redis" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.

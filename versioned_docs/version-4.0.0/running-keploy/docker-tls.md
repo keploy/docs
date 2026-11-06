@@ -148,7 +148,7 @@ If you ran an **older** keploy (which installed a static CA and never removed it
 or a run was killed before it could clean up, remove the leftover CA with:
 
 ```shell
-sudo keploy ca clean --fresh
+sudo -E env PATH="$PATH" keploy ca clean --fresh
 ```
 
 This removes Keploy's CA from the system trust store, the JDK keystore and any
