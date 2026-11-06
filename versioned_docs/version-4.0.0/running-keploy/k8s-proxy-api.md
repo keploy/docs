@@ -40,7 +40,7 @@ Use this API when you want to script the same Kubernetes live-recording flow the
 The Kubernetes Proxy supports two recording modes. Both expose the same REST API documented here—pick whichever fits your environment.
 
 - **Sidecar mode (default).** When recording starts, the proxy's `MutatingAdmissionWebhook` injects a `keploy-agent` sidecar container into the target Pod and rolls it. The agent intercepts traffic from the application container alongside it. This is the mode the rest of this document describes.
-- **DaemonSet mode.** A `keploy-daemonset` Pod runs on each node and captures traffic from existing application Pods via eBPF—no sidecar injection, no application-Pod restart. Recording is scoped by a `RecordingSession` Custom Resource that the proxy creates from `/record/start`; the DaemonSet agents pick it up and program their BPF target maps. This is the right mode when application Pods cannot be mutated (read-only RBAC on the application namespace), or when the rollout cost of injecting a sidecar is unacceptable. Cluster-mode auto-replay (a separate replay cluster reached via mounted kubeconfig) is supported in this mode.
+- **DaemonSet mode.** A `keploy-daemonset` Pod runs on each node and captures traffic from application Pods via eBPF, with no sidecar injection. Recording is scoped by a session ConfigMap that the proxy writes from `/record/start`; the DaemonSet agents watch it and program their BPF target maps. Once the agents are armed, the proxy evicts the matched Pods so that their replacements start under capture. If it cannot recreate them, recording continues on the running Pods and `GET /record/pod-status` says so in its `warning` field. This is the right mode when the Pod template must not change, or when running an agent in every application Pod costs too much. Cluster-mode auto-replay (a separate replay cluster reached via mounted kubeconfig) is supported in this mode.
 
 The same `/record/start`, `/record/stop`, `/test/start`, `/deployments`, and report endpoints work identically across both modes—the difference is purely in how the agent is delivered to the workload.
 
@@ -65,6 +65,20 @@ Each test case is exercised once against a freshly rolled Pod and classified int
 While the proxy is at it, mocks the test case did not actually need are pruned. So even if the original Pod made 200 dependency calls per request, the final test case only carries the mocks it depended on, and your test sets stay tiny.
 
 The cadence is configured via `autoReplayInterval` (see [Auto-replay configuration](#auto-replay-configuration) below). When auto-replay runs as part of a re-record job, the proxy first asks the API server which suites passed last time. Replay still runs against the recorded test sets, but suite linking is gated so only suites that passed upstream and pass the fresh replay are linked forward.
+
+#### A test case reported as an unrecorded read
+
+The replay Pod starts with empty in-process caches. If your app answered a read from such a cache while it was recorded, for example a configuration lookup it keeps for the life of the process, the recorded app never made that read and no mock holds it. At replay the cold Pod makes the read, nothing in the test set can answer it, and the test case fails.
+
+Auto-replay reports such a test case as an unrecorded read when every dependency call Keploy could not answer for it is a read, an HTTP `GET` or `HEAD` or a MongoDB `find`, that no mock anywhere in the test set records. When Keploy cannot tell, for example because a capture was lost or a recorded call to the same route went unserved, the test case keeps its usual reason. A reported test case keeps the status failed and still counts as failed. Its failure details carry the reason `UNRECORDED_READ` and lead with this line, then each read, such as `unrecorded read: GET /v1/settings`:
+
+```text
+reported as an unrecorded read: no recording of this read anywhere in the test set; the recorded app likely answered it from an in-process cache warm before recording
+```
+
+To replay such a test case, record again from a fresh Pod start, so that the recording captures the reads the app makes to fill its caches. `POST /record/start` restarts the recorded Pods in both modes: Sidecar mode rolls them to inject the sidecar, and DaemonSet mode evicts them once the agents are armed, so that their replacements start under capture. You do not need to roll the Deployment yourself. A recording that started fresh and still lacks the read is reported the same way, and recording again may not change it.
+
+In DaemonSet mode the recording continues on the running Pods if the proxy cannot recreate them, and those Pods keep their warm caches. The `warning` field of `GET /record/pod-status` reports this. Fix what it names, such as a `PodDisruptionBudget` that blocks the eviction, and then record again.
 
 ### 2. Deduplication
 
