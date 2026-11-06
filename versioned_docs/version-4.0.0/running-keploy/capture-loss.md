@@ -82,6 +82,7 @@ Find the words your warning uses, and go to that section:
 | "their page was not resident to the capture hook"               | [Report a page-not-resident error](#read-fault)                             |
 | "the capture's hooks missed them"                               | [Keep Keploy's hooks from missing TCP bytes](#unseen)                       |
 | "more than 16 MiB"                                              | [Split sends and receives of more than 16 MiB](#too-large)                  |
+| "the capture took them off the wire"                            | [Keep the wire copy's reader up](#wire-copy)                                |
 | "Failed to attach do_splice_direct and do_splice", at startup   | [Check for unmarked losses at startup](#unmarked)                           |
 | "Failed to attach sock_splice_read", at startup                 | [Check for unmarked losses at startup](#unmarked)                           |
 
@@ -173,6 +174,10 @@ app chose. The error names no app; its fields are `shard`, `connID`,
 `direction` (`0` for request, `1` for response), `lostBytes`, `destPort`,
 `ktls` and `docs`.
 
+With the [wire copy](#wire-copy) on, as it is by default, Keploy fills such a
+gap from the bytes the copy took off the wire, so you see this error only for
+bytes the copy did not have. See that section for what it does not cover.
+
 If it recurs, report it with the agent's logs on
 [Slack](https://keploy.io/slack) or as a
 [GitHub issue](https://github.com/keploy/keploy/issues).
@@ -230,6 +235,48 @@ send more than 16 MiB is marked too, even when it sent less: `lostBytes` is
 then what it sent. A blocking write of a large buffer is a single call,
 however long it waits. For the traffic Keploy records, write and read such
 payloads in parts of at most 16 MiB each.
+
+### Keep the wire copy's reader up {#wire-copy}
+
+While Keploy records, it also copies the recorded app's TCP bytes as they
+cross the network stack, into kernel memory that cannot fault. Keploy's hooks
+then read the app's memory only for bytes the copy has not taken yet, and a
+page that is not resident to a hook no longer loses what the copy holds. The
+copy keeps at most 64 MiB that Keploy's reader has not reached yet. When the
+reader falls further behind than that, as on a starved host, or the recording
+ends before it reaches them, those bytes are lost, and the warning says "the
+capture took them off the wire". Give the agent more CPU, or record less
+traffic at once. When the copy's kernel buffer fills, the copy hands the
+connection back to Keploy's hooks, which read it as they would with no copy:
+nothing is lost then.
+
+The copy covers TCP connections of the recorded app, in both directions. It
+does not cover:
+
+- connections that were open before the recording started: Keploy's hooks
+  read those as they would with no copy;
+- in Docker and Docker Compose, the app's first bytes when the app starts
+  sending before the copy is attached to its container: Keploy counts these,
+  and its hooks read them;
+- most bytes on a lossy link: a retransmitted segment moves the copy past
+  them, so the hooks read them from the app's memory. When the copy took the
+  same bytes twice and both copies agree, a page-not-resident gap there is
+  still filled;
+- UDP, Unix sockets, and the [cases above](#find-the-cause-and-fix-it),
+  where no bytes reach a TCP socket through the app's calls.
+
+The copy is on by default. To turn it off, set `KEPLOY_WIRE_COPY=0` where the
+agent reads it:
+
+- Natively, run Keploy with it: `sudo -E env KEPLOY_WIRE_COPY=0 PATH=$PATH keploy record -c "..."`.
+  A Keploy that is not root starts the agent with `sudo`, which drops the
+  variable.
+- With Docker or Docker Compose, set it in the environment you run Keploy
+  in, and Keploy hands it to the agent's container.
+- In Kubernetes, set it in the environment of the Keploy agent's container.
+
+With the copy off, a page that is not resident to a hook loses those bytes
+again, and Keploy reports the [page-not-resident error](#read-fault).
 
 ## Check for unmarked losses at startup {#unmarked}
 
