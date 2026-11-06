@@ -380,6 +380,40 @@ In the provided example:
 - The second bypass rule applies to the port 8081.
 - The third bypass rule applies to the host "dc.services.visual
 
+### Session calls section
+
+When a recording marks the Test-Case that made each HTTP call, Keploy serves each Test-Case only the HTTP calls that it recorded. A Test-Case can make a call that only another Test-Case, or the app before the first Test-Case, recorded, such as an auth token that the app fetches once and caches. That call has no recorded response in the Test-Case, and the replay log reports the miss and names the rule to add.
+
+The top-level `sessionCalls` section declares HTTP and HTTP/2 calls that Keploy serves to every Test-Case, without recording again:
+
+```yaml
+sessionCalls:
+  - host: "auth.example.com"
+    method: "POST"
+    pathPrefix: "/oauth/token"
+  - host: "config.example.com:8443"
+    pathPrefix: "/v1/"
+```
+
+- **`host`** (required): The host that the request names, in its `Host` header or, for HTTP/2, its `:authority`, compared case-insensitively. Without a port, it matches the host on any port. With a port, it matches only that port. A rule without a `host` matches nothing.
+- **`method`**: The HTTP method of the call, compared case-insensitively. Leave it out to match every method.
+- **`pathPrefix`**: The start of the path, without the query, matched on whole path segments: `/oauth` matches `/oauth` and `/oauth/token`, not `/oauthx`. A prefix that ends with `/` matches every path under it. Leave it out to match every path.
+
+Without `KEPLOY_PROVEN=1`, Keploy serves a call that a rule matches to every Test-Case, from any Test-Case's recording of it.
+
+With `KEPLOY_PROVEN=1`, a rule serves every Test-Case only a recording that the app made outside every Test-Case, such as in `TestMain` or at startup, and only of a call that the rule names exactly: its `method`, and its whole path as `pathPrefix`. A recording that a Test-Case made of the call stays that Test-Case's. Exact rules keep Keploy from serving a recording to a call that no rule declared. In the example above, the first rule serves the startup recording of `POST /oauth/token` on `auth.example.com` to every Test-Case. The second rule names no method and only a path prefix, so it serves no startup recording, and a Test-Case that makes one of its calls gets only its own recording of the call.
+
+When a call misses under `KEPLOY_PROVEN=1`, the replay log says why. For a call that no rule names exactly, including one that a rule covers only by a path prefix or with no method, it names the exact rule to add, for example:
+
+```yaml
+sessionCalls:
+  - host: "config.example.com:8443"
+    method: "GET"
+    pathPrefix: "/v1/settings"
+```
+
+For a call that a rule names exactly, it says that only a recording made outside every Test-Case is served, so record again to have the Test-Case record the call itself.
+
 ## Advanced Noise Filtering:
 
 Earlier the only way to add the [noisy fields](https://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
