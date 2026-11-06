@@ -268,12 +268,25 @@ does not cover:
 The copy is on by default. To turn it off, set `KEPLOY_WIRE_COPY=0` where the
 agent reads it:
 
-- Natively, run Keploy with it: `sudo -E env KEPLOY_WIRE_COPY=0 PATH=$PATH keploy record -c "..."`.
-  A Keploy that is not root starts the agent with `sudo`, which drops the
-  variable.
+- Natively, set it for the `keploy` command: `KEPLOY_WIRE_COPY=0 keploy record -c "..."`,
+  or, when you run Keploy with `sudo`, `sudo -E env KEPLOY_WIRE_COPY=0 PATH=$PATH keploy record -c "..."`.
+  Keploy passes the setting to the agent it starts, also when it starts the
+  agent with `sudo`.
 - With Docker or Docker Compose, set it in the environment you run Keploy
   in, and Keploy hands it to the agent's container.
-- In Kubernetes, set it in the environment of the Keploy agent's container.
+- In Kubernetes, the DaemonSet agent takes it from the k8s-proxy chart's
+  `daemonset.extraEnv` value:
+
+  ```bash
+  helm upgrade k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --version <LATEST_VERSION> \
+    --reuse-values \
+    --set 'daemonset.extraEnv[0].name=KEPLOY_WIRE_COPY' \
+    --set-string 'daemonset.extraEnv[0].value=0'
+  ```
+
+  If `daemonset.extraEnv` already lists variables, add this one to the list
+  instead, at the next index. The low-latency sidecar agent has no setting
+  for it: its copy stays on.
 
 With the copy off, a page that is not resident to a hook loses those bytes
 again, and Keploy reports the [page-not-resident error](#read-fault).
