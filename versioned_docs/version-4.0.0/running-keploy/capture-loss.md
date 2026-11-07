@@ -258,6 +258,10 @@ does not cover:
 - in Docker and Docker Compose, the app's first bytes when the app starts
   sending before the copy is attached to its container: Keploy counts these,
   and its hooks read them;
+- bytes of a connection that crossed before Keploy knew the process as the
+  app's, such as a connection pool opened just before Keploy registered the
+  process: the copy takes the connection from its next packet after that, and
+  Keploy's hooks read what the app reads of the earlier bytes;
 - most bytes on a lossy link: a retransmitted segment moves the copy past
   them, so the hooks read them from the app's memory. When the copy took the
   same bytes twice and both copies agree, a page-not-resident gap there is
