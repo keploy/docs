@@ -247,8 +247,11 @@ reader falls further behind than that, as on a starved host, or the recording
 ends before it reaches them, those bytes are lost, and the warning says "the
 capture took them off the wire". Give the agent more CPU, or record less
 traffic at once. When the copy's kernel buffer fills, the copy hands the
-connection back to Keploy's hooks, which read it as they would with no copy:
-nothing is lost then.
+connection back to Keploy's hooks, which read it as they would with no copy.
+On Linux 5.10 to 5.16 those hooks read at most 512 KiB of each buffer a call
+moves and at most 8 buffers of a call, and on 5.17 and later at most 16 MiB of
+a call: the rest of a larger call is lost then, and Keploy reports it, as it
+would with no copy.
 
 The copy covers TCP connections of the recorded app, in both directions. It
 does not cover:
@@ -262,6 +265,10 @@ does not cover:
   app's, such as a connection pool opened just before Keploy registered the
   process: the copy takes the connection from its next packet after that, and
   Keploy's hooks read what the app reads of the earlier bytes;
+- a send that a hook could not read and that stays queued for 24 seconds of
+  the agent's running time, behind a peer that is not reading: Keploy stops
+  waiting for it and reports the gap on that connection, which records nothing
+  more. Test cases of other pods do not wait for it;
 - most bytes on a lossy link: a retransmitted segment moves the copy past
   them, so the hooks read them from the app's memory. When the copy took the
   same bytes twice and both copies agree, a page-not-resident gap there is
