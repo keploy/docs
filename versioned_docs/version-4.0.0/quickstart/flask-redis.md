@@ -56,9 +56,17 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import ProductTier from '@site/src/components/ProductTier';
 
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
+
+:::note Recording and mocking Redis needs Keploy Enterprise
+
+Keploy records this app's Redis calls as Mocks, and replays them in `keploy test`, only in [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which is the `keploy` that the [install script](/docs/server/installation/) installs by default. A free account is enough to record and replay with it; free-tier runs are subject to a usage allowance.
+
+The open-source `keploy` is the `keploy` that you build from the open-source repository, install with `curl --silent -O -L https://keploy.io/install.sh && source install.sh --oss`, download from the keploy/keploy GitHub releases, or run from the `ghcr.io/keploy/keploy` image. It passes the Redis calls through to the real Redis server in `keploy record` and in `keploy test`, records no Redis Mocks, and logs a warning that the Redis calls are skipped. With it, Redis must be running while `keploy test` runs, and the app reads and writes the live Redis: a test whose response depends on Redis data, such as the IDs this app takes from a Redis counter, can fail. See [Redis Support](/docs/dependencies/redis/).
+
+:::
 
 import Link from '@docusaurus/Link'
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
