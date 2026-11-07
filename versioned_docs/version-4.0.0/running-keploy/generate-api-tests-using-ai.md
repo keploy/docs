@@ -35,6 +35,8 @@ If your API is not publicly accessible, Keploy will show a warning when attempti
 
 > ✅ Once installed and running, return to the Keploy Console and hit **Generate API Tests**. The agent will proxy your local API to allow secure test generation.
 
+The Console looks for the agent on its default port, 23900, and on 43900, the default of older agents. To run it on another port, start it with `./keploy-agent --port <port>` and enter that port under **Configure Agent Port** in the Console.
+
 ## BEST Practices for BEST Test Output
 
 | Input Type               | Tips                                                              |
