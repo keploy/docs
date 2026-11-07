@@ -382,7 +382,7 @@ In the provided example:
 
 ### Session calls section
 
-When a recording marks the Test-Case that made each HTTP call, Keploy serves each Test-Case only the HTTP calls that it recorded. A Test-Case can make a call that only another Test-Case, or the app before the first Test-Case, recorded, such as an auth token that the app fetches once and caches. That call has no recorded response in the Test-Case, and the replay log reports the miss and names the rule to add.
+When a recording marks the Test-Case that made each HTTP call, Keploy serves each Test-Case only the HTTP calls that it recorded. A Test-Case can make a call that only another Test-Case recorded, such as an auth token that the app fetches once and caches. That call has no recorded response in the Test-Case, and the replay log reports the miss and names the rule to add. With `KEPLOY_PROVEN=1`, the same holds for a call that only the app recorded, before the first Test-Case. Without it, Keploy serves such a recording to every Test-Case.
 
 The top-level `sessionCalls` section declares HTTP and HTTP/2 calls that Keploy serves to every Test-Case, without recording again:
 
