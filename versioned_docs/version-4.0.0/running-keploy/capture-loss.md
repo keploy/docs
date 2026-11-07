@@ -280,13 +280,15 @@ agent reads it:
   ```bash
   helm upgrade k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --version <LATEST_VERSION> \
     --reuse-values \
-    --set 'daemonset.extraEnv[0].name=KEPLOY_WIRE_COPY' \
-    --set-string 'daemonset.extraEnv[0].value=0'
+    --set-json 'daemonset.extraEnv=[{"name":"KEPLOY_WIRE_COPY","value":"0"}]'
   ```
 
-  If `daemonset.extraEnv` already lists variables, add this one to the list
-  instead, at the next index. The low-latency sidecar agent has no setting
-  for it: its copy stays on.
+  Helm replaces a list whole: the list you pass becomes the release's
+  `daemonset.extraEnv`, and `--set` at an index replaces it too. If the
+  release already sets `daemonset.extraEnv` (`helm get values k8s-proxy`
+  shows it), pass those entries in the same list, or set the whole list in a
+  values file. The low-latency sidecar agent has no setting for it: its copy
+  stays on.
 
 With the copy off, a page that is not resident to a hook loses those bytes
 again, and Keploy reports the [page-not-resident error](#read-fault).
