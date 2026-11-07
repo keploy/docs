@@ -99,7 +99,7 @@ Once we have our applicaiton binary ready, we will start the application with ke
 ## Capture the test cases
 
 ```bash
-sudo -E keploy record -c "./sse-mongo"
+sudo -E env PATH="$PATH" keploy record -c "./sse-mongo"
 ```
 
 `sudo -E` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c "./sse-mongo"` without it (on Windows, use `.\sse-mongo.exe` in place of `./sse-mongo`, here and in `keploy test` below).

@@ -440,6 +440,59 @@ keploy example [flags]
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
 
+## [update](#update)
+
+The `update` command installs the latest Keploy release over the binary you are running.
+
+<b> Usage: </b>
+
+```bash
+keploy update
+```
+
+### Automatic updates
+
+Keploy keeps itself on the latest release. Before a command starts, Keploy checks for a newer release, at most once an hour, or 10 minutes after a check that failed. The check takes at most 3 seconds. A check that fails, on a machine that is offline or when the release server doesn't answer within those 3 seconds, is made again by the first command 10 minutes or more later. When there is a newer release, Keploy downloads it, verifies its SHA-256 checksum, replaces the binary, and runs your command on the new version. Your command runs once, on the new version. Commands that start during the install wait for it, and they run on the new version too.
+
+When the update can't happen, Keploy prints a warning on stderr and runs your command on the version you have. This covers a machine that is offline, a release server that can't be reached, a binary you can't write to, a download that fails its checksum, and a binary that another Keploy run is using. A failed install is tried again after an hour. An install that stops making progress can hold your command for up to 10 minutes before Keploy gives up on it. Pressing Ctrl+C during an update stops your command too: it doesn't start.
+
+The install script puts Keploy where your user can replace it: `~/.keploy/bin`, which it adds to your `PATH` in your shell's startup file. A terminal that was already open needs `export PATH="$HOME/.keploy/bin:$PATH"`. For a shell other than bash or zsh, the script prints the line to add yourself instead: for fish, `set -U fish_user_paths $HOME/.keploy/bin $fish_user_paths`, run once; for csh and tcsh, `setenv PATH "$HOME/.keploy/bin:$PATH"` in `~/.cshrc`, or in `~/.tcshrc` when you have one and your shell is tcsh, as `csh` on macOS is. On macOS, every install goes to `~/.keploy/bin`. On Linux, three installs keep `/usr/local/bin`: one run as root, one in a CI pipeline, and a 2.x version pinned with `-v`. With `-noRoot`, those three go to `~/.keploy/bin` too. The script knows a CI pipeline by its environment: GitHub Actions, GitLab CI, CircleCI, Travis CI, Buildkite, Drone, AppVeyor, Jenkins, TeamCity, Bitbucket Pipelines, AWS CodeBuild, Azure Pipelines, Bamboo, GoCD, or any system that sets `CI=true`. In any other script that installs in one shell and runs Keploy in another, pass `-isCI`.
+
+An install from before this change is in `/usr/local/bin`, which only root can write to. A run that isn't root can't update there, so it prints the warning on each command and stays on its version. The warning says how to move to a folder you own:
+
+```bash
+curl -fsSL https://keploy.io/install.sh | bash
+```
+
+The script then prints the command that removes the old binary. To stay in `/usr/local/bin`, run `sudo keploy update` for each release.
+
+A binary in `~/.keploy/bin` isn't on the path `sudo` searches, so `sudo keploy` doesn't find it. Keploy asks for `sudo` itself when a command needs it. To run it as root yourself, use `sudo -E env PATH="$PATH" keploy`.
+
+Keploy never replaces a binary that a run is using. Every run of a command holds a lock beside the binary until it ends, so all the Keploy processes of a run are one version. While a run is under way, other commands on that machine warn and run the version installed, and `keploy update` refuses and says that a run is using the binary. A long `keploy record` holds updates off until it ends. The next command after the last run ends installs the update.
+
+CI pipelines and service-account keys update the same way as any other run.
+
+To keep a pipeline on the version it installed, or to run where the release server can't be reached, set `KEPLOY_DISABLE_AUTO_UPDATE`:
+
+```bash
+export KEPLOY_DISABLE_AUTO_UPDATE=1
+keploy test -c "<command to run your app>"
+```
+
+With `KEPLOY_DISABLE_AUTO_UPDATE` set to `1`, `true`, `yes`, or `on`, Keploy doesn't check for a release and doesn't install one. `keploy update` still installs the latest release when you run it.
+
+Plain `sudo` drops the variable, so run `sudo -E env PATH="$PATH" keploy` to keep it.
+
+A version you install with the install script's `-v` flag is also replaced by the latest release at the first command, unless you set the variable.
+
+Keploy doesn't replace its own binary in these cases:
+
+- **Keploy Docker image:** pull a newer image.
+- **Homebrew, Nix, or Snap:** Keploy prints a warning and runs on the version you have. Update through the package manager.
+- **VS Code extension:** the extension installs and tracks its own binary. Keploy only prints a notice that a newer release is available.
+- **Self-hosted runs:** these runs reach only your k8s-proxy, so Keploy doesn't check for a release. A run is self-hosted when `--k8s-proxy-auth`, `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_AUTH`, `KEPLOY_K8S_PROXY_URL`, or `cloud.k8sProxyAuth` or `cloud.k8sProxyUrl` in `keploy.yml` turns the mode on.
+- **Builds from an organization's release channel:** a build published under `keploy.io/ent/dl/org/<organization>/` has a version with a suffix, such as `3.8.112-4f2a9c1d`. Keploy never replaces it with a public release, and `keploy update` leaves it alone too. Install new builds from the same channel.
+
 ## Related
 
 - [Configuration File](/docs/running-keploy/configuration-file/) — set these flags once in `keploy.yaml`.
