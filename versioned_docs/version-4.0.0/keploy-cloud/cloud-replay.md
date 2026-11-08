@@ -188,12 +188,12 @@ export KEPLOY_K8S_PROXY_CA_PATH=/path/to/proxy-ca.pem
 export KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY=true
 ```
 
-The CLI reads these settings in this order, and the first one set decides:
+The CLI reads these settings in this order and stops at the first one that decides:
 
-1. `KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY`: `true` skips verification, and `false` keeps it on even when `KEPLOY_TLS_SKIP_VERIFY` is set.
-2. `KEPLOY_K8S_PROXY_CA_PATH`: verify against that CA bundle.
-3. `KEPLOY_TLS_SKIP_VERIFY=true`: skip verification. It still works, but it isn't scoped to the proxy.
-4. Nothing set: verify against the system's trusted roots. On Linux, `SSL_CERT_FILE` can point those at the proxy's CA.
+1. `KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY`: `true` (or `1`, `yes`, `on`) skips verification. `false` (or `0`, `no`, `off`) keeps it on, against the `KEPLOY_K8S_PROXY_CA_PATH` bundle if one is set, even when `KEPLOY_TLS_SKIP_VERIFY` is set. Any other value is ignored, and the CLI moves to the next setting.
+2. `KEPLOY_K8S_PROXY_CA_PATH`: any value keeps verification on, against that CA bundle. If the file can't be read or holds no PEM certificate, the CLI logs a warning and verifies against the system's trusted roots. It never falls back to skipping.
+3. `KEPLOY_TLS_SKIP_VERIFY=true` (or `1`, `yes`, `on`): skip verification. Any other value counts as not set. It still works, but it isn't scoped to the proxy.
+4. Otherwise: verify against the system's trusted roots. On Linux, `SSL_CERT_FILE` can point those at the proxy's CA.
 
 ### `--cluster` in this mode
 
