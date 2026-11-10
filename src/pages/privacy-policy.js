@@ -30,22 +30,14 @@ function PrivacyPolicy() {
         </script>
       </Head>
       <main className="margin-vert--lg container">
-        <div className="pb-5 text-center text-4xl font-bold">
-          Keploy Inc. Privacy Policy
-        </div>
+        <h1 className="pb-5 text-center">Keploy Inc. Privacy Policy</h1>
         <p className="text-2l md:text-3l mb-2 font-bold tracking-wide">
           Last updated: April 28th, 2024
         </p>
         <p className="text-l mb-8">
-          Keploy Inc. operates{" "}
-          <a href="https://keploy.io" style={{color: "#FF914D"}}>
-            https://keploy.io
-          </a>{" "}
-          and{" "}
-          <a href="https://keploy.io/docs" style={{color: "#FF914D"}}>
-            https://docs.keploy.io
-          </a>{" "}
-          (the &quot;Sites&quot;). Please read this Privacy Policy carefully to
+          Keploy Inc. operates <a href="https://keploy.io">https://keploy.io</a>{" "}
+          and <a href="https://keploy.io/docs">https://docs.keploy.io</a> (the
+          &quot;Sites&quot;). Please read this Privacy Policy carefully to
           understand our policies and practices in relation to the collection,
           processing, and storage of your personal information. By accessing or
           using our Services (defined below), you understand that we will
@@ -147,9 +139,7 @@ function PrivacyPolicy() {
           another business (“Business Data”), from accidental loss and from
           unauthorized access, use, alteration, and disclosure. For more
           information on our security practices please refer to:{" "}
-          <a href="https://keploy.io/docs/security" style={{color: "#FF914D"}}>
-            keploy.io/docs/security.
-          </a>
+          <a href="https://keploy.io/docs/security">keploy.io/docs/security.</a>
           {""}
         </p>
         <p className="text-l mb-8">
@@ -192,11 +182,7 @@ function PrivacyPolicy() {
         </h2>
         <p className="text-l mb-8">
           If you have any questions about this Privacy Policy, please contact
-          us-{" "}
-          <a href="mailto:hello@keploy.io" style={{color: "#FF914D"}}>
-            hello@keploy.io
-          </a>
-          .
+          us- <a href="mailto:hello@keploy.io">hello@keploy.io</a>.
         </p>
       </main>
     </Layout>

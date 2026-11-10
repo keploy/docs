@@ -12,37 +12,61 @@ import React from "react";
 
 const freeChip = {
   label: "Free",
-  color: "#059669",
+  color: "#047857",
+  dark: "#6ee7b7",
   bg: "rgba(16, 185, 129, 0.1)",
 };
 
 const chipStyles = {
   // Plan chips
   free: freeChip,
-  teams: {label: "Teams", color: "#0891b2", bg: "rgba(6, 182, 212, 0.1)"},
-  scale: {label: "Scale", color: "#4f46e5", bg: "rgba(99, 102, 241, 0.1)"},
+  teams: {
+    label: "Teams",
+    color: "#0e7490",
+    dark: "#67e8f9",
+    bg: "rgba(6, 182, 212, 0.1)",
+  },
+  scale: {
+    label: "Scale",
+    color: "#4338ca",
+    dark: "#a5b4fc",
+    bg: "rgba(99, 102, 241, 0.1)",
+  },
   enterprise: {
     label: "Enterprise",
-    color: "#7c3aed",
+    color: "#6d28d9",
+    dark: "#c4b5fd",
     bg: "rgba(139, 92, 246, 0.1)",
   },
   // Legacy tier names still render as the Free plan chip
   "open source": freeChip,
   oss: freeChip,
-  cloud: {label: "Cloud", color: "#2563eb", bg: "rgba(59, 130, 246, 0.1)"},
+  cloud: {
+    label: "Cloud",
+    color: "#1d4ed8",
+    dark: "#93c5fd",
+    bg: "rgba(59, 130, 246, 0.1)",
+  },
 
   // Offering chips - simplified labels
   "self-hosted": {
     label: "Self-Hosted",
-    color: "#6b7280",
+    color: "#4b5563",
+    dark: "#d4d4d8",
     bg: "rgba(107, 114, 128, 0.08)",
   },
   dedicated: {
     label: "Dedicated",
-    color: "#6b7280",
+    color: "#4b5563",
+    dark: "#d4d4d8",
     bg: "rgba(107, 114, 128, 0.08)",
   },
-  local: {label: "Local", color: "#6b7280", bg: "rgba(107, 114, 128, 0.08)"},
+  local: {
+    label: "Local",
+    color: "#4b5563",
+    dark: "#d4d4d8",
+    bg: "rgba(107, 114, 128, 0.08)",
+  },
 };
 
 const ProductTier = ({tiers, offerings}) => {
@@ -69,14 +93,19 @@ const ProductTier = ({tiers, offerings}) => {
         const key = chip.toLowerCase().trim();
         const style = chipStyles[key] || {
           label: chip.trim(),
-          color: "#6b7280",
+          color: "#4b5563",
+          dark: "#d4d4d8",
           bg: "rgba(107, 114, 128, 0.08)",
         };
         return (
           <span
             key={index}
             className="product-tier-chip"
-            style={{color: style.color, background: style.bg}}
+            style={{
+              "--chip-fg": style.color,
+              "--chip-fg-dark": style.dark,
+              "--chip-bg": style.bg,
+            }}
           >
             {style.label}
           </span>
@@ -98,9 +127,14 @@ const ProductTier = ({tiers, offerings}) => {
           border-radius: 4px;
           white-space: nowrap;
           letter-spacing: 0.01em;
+          color: var(--chip-fg);
+          background: var(--chip-bg);
         }
+        /* Dark mode: a light tint of each chip's colour on a soft white
+           background, so every chip stays above 4.5:1. */
         html[data-theme="dark"] .product-tier-chip {
-          background: rgba(255, 255, 255, 0.15) !important;
+          color: var(--chip-fg-dark);
+          background: rgba(255, 255, 255, 0.08) !important;
         }
       `}</style>
     </div>

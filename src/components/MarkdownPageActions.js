@@ -49,31 +49,34 @@ export default function MarkdownPageActions({mdUrl}) {
     copyState === "copying"
       ? "Copying…"
       : copyState === "copied"
-        ? "Copied"
-        : copyState === "error"
-          ? "Copy failed"
-          : "Copy as Markdown";
+      ? "Copied"
+      : copyState === "error"
+      ? "Copy failed"
+      : "Copy as Markdown";
 
   const CopyIcon =
     copyState === "copied" ? Check : copyState === "error" ? AlertCircle : Copy;
 
+  // The hover colour applies only while idle, so "Copied" and the error
+  // state keep their colour while the pointer (or a tap) is still on it.
+  const hoverClasses = "hover:text-[#c2410c] dark:hover:text-[#fdba74]";
   const copyColorClasses =
     copyState === "copied"
-      ? "text-green-600 dark:text-green-500"
+      ? "text-green-700 dark:text-green-500"
       : copyState === "error"
-        ? "text-red-600 dark:text-red-500"
-        : "text-gray-500 dark:text-gray-400";
+      ? "text-red-600 dark:text-red-500"
+      : `text-gray-500 dark:text-gray-400 ${hoverClasses}`;
 
   const linkBase =
     "inline-flex items-center gap-1 text-[12px] leading-[1.2] py-[0.2rem] px-2 m-0 " +
-    "no-underline transition-colors duration-150 hover:text-[#ff914d] " +
+    "no-underline transition-colors duration-150 " +
     "[&>svg]:shrink-0 [&>svg]:opacity-75";
 
   return (
-    <div className="flex items-center mt-1.5 mb-3 pb-3 border-b border-black/[0.08] dark:border-white/10">
+    <div className="kd-page-actions mb-3 mt-1.5 flex items-center border-b border-black/[0.08] pb-3 dark:border-white/10">
       <button
         type="button"
-        className={`${linkBase} pl-0 w-[150px] justify-start whitespace-nowrap bg-transparent border-0 cursor-pointer disabled:cursor-default disabled:opacity-70 ${copyColorClasses}`}
+        className={`${linkBase} w-[150px] cursor-pointer justify-start whitespace-nowrap border-0 bg-transparent disabled:cursor-default disabled:opacity-70 ${copyColorClasses}`}
         onClick={handleCopy}
         disabled={copyState === "copying"}
       >
@@ -81,7 +84,7 @@ export default function MarkdownPageActions({mdUrl}) {
         {copyLabel}
       </button>
       <a
-        className={`${linkBase} border-l border-black/[0.12] dark:border-white/[0.14] text-gray-500 dark:text-gray-400`}
+        className={`${linkBase} border-l border-black/[0.12] text-gray-500 dark:border-white/[0.14] dark:text-gray-400 ${hoverClasses}`}
         href={mdUrl}
         target="_blank"
         rel="noopener noreferrer"

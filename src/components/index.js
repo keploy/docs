@@ -13,5 +13,4 @@ export {WhatIsKeploy} from "./WhatIsKeploy";
 export {EcosystemSupport} from "./EcosystemSupport";
 export {default as DocHeaderChips} from "./DocHeaderChips";
 export {default as SidebarBadge} from "./SidebarBadge";
-export {default as SidebarCategoryIcon, getCategoryIcon, categoryIcons} from "./SidebarCategoryIcon";
 export {default as TierCallout} from "./TierCallout";
