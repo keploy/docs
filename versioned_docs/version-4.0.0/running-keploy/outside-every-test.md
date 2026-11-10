@@ -39,11 +39,13 @@ ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 in set e2e: made be
 
 - `made between tests, <d> after <test> ended and <d> before <test> began`: the call was made while no test was open.
 - `made in test <test>, and keploy decided it missed only after that test ended`: the call is named under the test that made it. When it was a test of an earlier set, `<set>` is that test's set.
-- `made while no test was open, at a time keploy could not place between two tests`: the run still fails.
+- `made while no test was open, at a time keploy could not place between two tests`: the run still fails. This is also the form for a call that an earlier set made while none of its tests was open, which Keploy decided only after that set ended. Then `<set>` is the set that made it.
+
+When Keploy cannot name the earlier set that made a call, the line says `in an earlier test set` in place of `in set <set>`, and `set` is empty in the JSON.
 
 The JSON after `json=` holds the same facts. Keploy writes `kind`, `set`, `between`, `madeIn`, `placed`, `closest`, `facts` and `next`. Only `call` holds text that your app wrote, such as its path. `differs` names the fields in which the call differs from its closest recording, never their values.
 
-Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call`, `destination`, `made_in`, `after`, `before`, `at`, `closest`, `differs`, `facts` and `next_step`. A call of an earlier set's test also has `read-in-test-set`, the set that was running when Keploy decided it.
+Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call`, `destination`, `made_in`, `after`, `before`, `at`, `closest`, `differs`, `facts` and `next_step`. A call of an earlier set, made in one of its tests or while none was open, also has `read-in-test-set`, the set that was running when Keploy decided it.
 
 ## Fix it
 
