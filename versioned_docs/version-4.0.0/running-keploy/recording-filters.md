@@ -2,7 +2,7 @@
 id: recording-filters
 title: Recording Filters
 sidebar_label: Recording Filters
-displayed_sidebar: sidebarExplanation
+displayed_sidebar: integration
 description: Configure filters to control which requests Keploy records
 tags:
   - recording filters

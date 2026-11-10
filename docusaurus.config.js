@@ -318,22 +318,41 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         srcDark: "img/keploy-logo-dark.svg",
       },
       items: [
+        // One tab per product; each opens that product's own sidebar
+        // (versioned_sidebars/version-4.0.0-sidebars.json).
         {
-          label: "Products",
+          type: "docSidebar",
+          sidebarId: "integration",
+          label: "Integration Testing",
           position: "left",
-          items: [
-            {
-              label: "Integration Testing",
-              to: "server/install",
-            },
-            {
-              label: "API Testing (AI)",
-              to: "/running-keploy/api-test-generator",
-            },
-          ],
         },
         {
-          label: "Blog",
+          type: "docSidebar",
+          sidebarId: "apiTesting",
+          label: "API Testing",
+          position: "left",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "uiTesting",
+          label: "UI Testing",
+          position: "left",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "unitTesting",
+          label: "Unit Testing",
+          position: "left",
+        },
+        {
+          type: "docSidebar",
+          sidebarId: "apiReference",
+          label: "API Reference",
+          position: "left",
+        },
+        {
+          label: "Resources",
+          position: "right",
           items: [
             {
               label: "Tech Blogs",
@@ -347,13 +366,11 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
               label: "Glossary",
               href: "/concepts/reference/glossary/",
             },
+            {
+              label: "Contribution Guide",
+              to: "/keploy-explained/contribution-guide",
+            },
           ],
-          position: "left",
-        },
-        {
-          to: "/keploy-explained/contribution-guide",
-          label: "Contribution Guide",
-          position: "left",
         },
         {
           type: "docsVersionDropdown",
@@ -524,7 +541,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         // },
         // Will be passed to @docusaurus/theme-classic.
         theme: {
-          customCss: require.resolve("./src/css/custom.css"),
+          customCss: [
+            require.resolve("./src/css/custom.css"),
+            require.resolve("./src/css/docs-theme.css"),
+          ],
         },
         // GA fires eagerly via the standard gtag preset (loads on page load +
         // auto-tracks SPA route changes) so analytics are accurate from the
