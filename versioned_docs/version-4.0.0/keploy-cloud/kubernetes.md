@@ -28,6 +28,10 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
+:::note An earlier install guide
+For installing k8s-proxy today, see [Connect a cluster](/integration-testing/connect-a-cluster/) and the [Helm values](/integration-testing/helm-values/) reference. This page uses the chart's older top-level keys (`accessKey`, `clusterName`), which still work.
+:::
+
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 This guide walks you through creating a local **Kind** Kubernetes cluster and connecting it to **Keploy** using a **NodePort** (example: `30080`) so you can **live record and replay traffic** for Pods.

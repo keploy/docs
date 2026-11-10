@@ -21,6 +21,10 @@ keywords:
   - keploy.keployio
 ---
 
+:::note Preview
+Running your own tests with Keploy mocks is being redesigned as [Your e2e tests with Keploy mocks](/integration-testing/e2e-tests-with-mocks/) (coming soon). This page describes the current preview.
+:::
+
 The **Keploy VS Code extension** (listed as **Keploy: API & DB Mocks**, ID `keploy.keployio`) records the real calls your tests make to their dependencies, such as HTTP and gRPC APIs, databases, caches, and queues, and saves them next to your code. It then replays your tests with those dependencies switched off, answering every call from the recording.
 
 The extension runs the Keploy CLI's [`keploy mock`](/docs/running-keploy/mock-your-tests/) commands for you from a panel in VS Code. Keploy works at the network layer, so you don't need an SDK or any change to your test code. Which languages and protocols it supports depends on where your tests run; see [Choose where your tests run](#choose-where-your-tests-run).

@@ -17,6 +17,10 @@ keywords:
 
 import ProductTier from '@site/src/components/ProductTier';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
 If you can't run a dependency service and want to mock it, keploy supports adding manually written mocks.

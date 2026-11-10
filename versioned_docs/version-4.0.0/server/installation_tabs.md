@@ -24,6 +24,10 @@ import StartKeployDocker from '@site/src/components/StartKeployDocker';
 
 # Installing Keploy
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 This guide walks you through installing the Keploy CLI, which enables you to record API calls and replay them as sandboxes for testing.
 
 ## 1. Install Keploy CLI

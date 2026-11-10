@@ -24,6 +24,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="Merge Keploy test coverage in a JavaScript application"
 description="Install nyc and wire coverage scripts so Keploy and Jest coverage merge into one report."

@@ -25,6 +25,10 @@ keywords:
   - windows
 ---
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 Keploy intercepts your application's API calls and turns them into test cases and mocks. It runs natively on **Linux, macOS and Windows** — how it intercepts differs, but what you run does not:
 
 - **Linux** — eBPF in the kernel, so `keploy record`/`keploy test` need root.

@@ -15,6 +15,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note An earlier workflow
+This page describes an earlier Kubernetes workflow. For the current one, see the [Quickstart](/integration-testing/quickstart/), [Run on every pull request](/integration-testing/run-in-ci/), [Review test changes](/integration-testing/review-test-changes/) and [Use with coding agents](/integration-testing/coding-agents/). An intended change is accepted by deleting the outdated test through review, never by editing it.
+:::
+
 <HowTo
 name="Kubernetes Live Record & Replay with Keploy Proxy — record and replay tests with Keploy"
 description="Deploy a sample app to a local Kind cluster, connect it to the Keploy Dashboard, install the Keploy Proxy via Helm, then record live Kubernetes traffic and generate tests with AI."

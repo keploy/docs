@@ -26,6 +26,10 @@ keywords:
 
 # Developer + LLM Workflow with Keploy Proxy
 
+:::note An earlier workflow
+This page describes an earlier Kubernetes workflow. For the current one, see the [Quickstart](/integration-testing/quickstart/), [Run on every pull request](/integration-testing/run-in-ci/), [Review test changes](/integration-testing/review-test-changes/) and [Use with coding agents](/integration-testing/coding-agents/). An intended change is accepted by deleting the outdated test through review, never by editing it.
+:::
+
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />

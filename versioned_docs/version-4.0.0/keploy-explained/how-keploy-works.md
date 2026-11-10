@@ -20,6 +20,10 @@ keywords:
   - legacy application testing
 ---
 
+:::note
+This page is superseded by [Integration testing with Keploy](/integration-testing/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 Keploy generates tests by capturing application traffic at the socket level — with eBPF hooks in the kernel on Linux, and in user space on macOS and Windows. In Record mode, it captures every incoming HTTP request and outgoing dependency call — database queries, API calls, message queue interactions — saving them as YAML test cases. In Test mode, it replays those requests in a sandboxed environment that closely mimics production, with all dependencies automatically virtualized and responses compared to detect regressions. This production behavior replay enables continuous validation, migration regression testing, and legacy application testing without code changes.
 
 ## 🌟 Keploy V2 Architecture 🌟

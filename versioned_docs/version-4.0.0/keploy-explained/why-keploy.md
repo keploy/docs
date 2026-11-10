@@ -12,6 +12,10 @@ tags:
   - record replay test
 ---
 
+:::note
+This page is superseded by [Integration testing with Keploy](/integration-testing/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 | **Feature**                                | **Automated Test-Scripting Tools**                      | **Record-Replay Traffic Tools**                                       | **Keploy**                                                              |
 | ------------------------------------------ | ------------------------------------------------------- | --------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | **Test Scripting**                         | Manual test script creation.                            | Record user traffic as tests scripts.                                 | Automatic user traffic recording as test scripts.                       |

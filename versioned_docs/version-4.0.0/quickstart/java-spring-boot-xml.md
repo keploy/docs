@@ -25,6 +25,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="Sample REST API with Spring-Boot and XML — record and replay tests with Keploy"
 description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."

@@ -17,6 +17,10 @@ keywords:
 
 # Get Started: Mock Your Tests in 2 Minutes
 
+:::note Preview
+Running your own tests with Keploy mocks is being redesigned as [Your e2e tests with Keploy mocks](/integration-testing/e2e-tests-with-mocks/) (coming soon). This page describes the current preview.
+:::
+
 This is a hands-on walkthrough of [`keploy mock`](./mock-your-tests.md) with a
 small sample app. You'll test an app that calls an external API, record the
 API's responses, then run the same tests with the API **switched off**. Every

@@ -16,6 +16,10 @@ tags:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="Run Keploy API tests in a Jenkins pipeline"
 description="Configure a Jenkins pipeline to install Keploy and replay recorded API test suites on the agent."

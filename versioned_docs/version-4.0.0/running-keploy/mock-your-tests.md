@@ -20,6 +20,10 @@ keywords:
 
 # Mock Your Own Tests
 
+:::note Preview
+Running your own tests with Keploy mocks is being redesigned as [Your e2e tests with Keploy mocks](/integration-testing/e2e-tests-with-mocks/) (coming soon). This page describes the current preview.
+:::
+
 `keploy mock` lets you use Keploy as a **mocking framework for your existing test
 suite** — pytest, `go test`, jest/playwright, or any command that makes network
 calls. It is a language-agnostic VCR / WireMock that works at the network layer,
