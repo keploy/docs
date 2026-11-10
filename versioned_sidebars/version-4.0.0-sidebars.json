@@ -51,6 +51,7 @@
         "running-keploy/mock-quickstart",
 
         "running-keploy/mock-your-tests",
+        "running-keploy/kept-but-set-aside",
         "running-keploy/utg-vscode-extension",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
