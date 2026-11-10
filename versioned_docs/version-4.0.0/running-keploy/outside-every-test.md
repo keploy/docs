@@ -39,7 +39,10 @@ ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 in set e2e: made be
 
 - `made between tests, <d> after <test> ended and <d> before <test> began`: the call was made while no test was open.
 - `made in test <test>, and keploy decided it missed only after that test ended`: the call is named under the test that made it. When it was a test of an earlier set, `<set>` is that test's set.
-- `made while no test was open, at a time keploy could not place between two tests`: the run still fails. This is also the form for a call that an earlier set made while none of its tests was open, which Keploy decided only after that set ended. Then `<set>` is the set that made it.
+- `made before the first test, <d> before <test> began` or `made after the last test, <d> after <test> ended`: a call that an earlier set made while none of its tests was open, which Keploy decided only after that set ended. `<set>` is the set that made it, and `<test>` is one of that set's tests. The call can also be made between two of that set's tests, in the first form above.
+- `made while no test was open, at a time keploy could not place between two tests`: the run still fails. Keploy says this when the call has no time, when Keploy has no test times to place it by, or when those times do not put the call outside every test.
+
+In the JSON, `between` has the same fields for every placed form: `after` and `afterEndedMs` for the test that ended before the call, `next` and `nextBeginsMs` for the test that began after it. `after` is `""` for a call made before the first test, and `next` is `""` for a call made after the last.
 
 When Keploy cannot name the earlier set that made a call, the line says `in an earlier test set` in place of `in set <set>`, and `set` is empty in the JSON.
 
