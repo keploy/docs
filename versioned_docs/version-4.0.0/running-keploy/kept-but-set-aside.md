@@ -31,7 +31,7 @@ ERROR kept_set_aside  <test> in set <set>: <list> keeps it, and this run set it 
 For example:
 
 ```text
-ERROR kept_set_aside  p::TestB in set e2e: keploy.lock keeps it, and this run set it aside, so it verified nothing of it and does not pass: it needs p::TestA, which this run does not run; next: record it with the test it needs: keploy mock record -- -run '^(TestA|TestB)$', or quarantine it: keploy mock quarantine TestB --reason 'keploy set it aside: it needs TestA, which CI does not run before it' --local --name e2e  json={"kind":"kept_set_aside","set":"e2e","list":"keploy.lock","test":"p::TestB","needs":{"why":"needs_a_test_this_run_does_not_run","test":"p::TestA","value":"run-body.id","size":24},"next":[...]}
+ERROR kept_set_aside  p::TestB in set e2e: keploy.lock keeps it, and this run set it aside, so it verified nothing of it and does not pass: it needs p::TestA, which this run does not run; next: record it with the test it needs: keploy mock record -- -run '^(TestA|TestB)$', or quarantine it: keploy mock quarantine TestB --reason 'keploy set it aside: it needs TestA, which CI does not run' --name e2e  json={"kind":"kept_set_aside","set":"e2e","list":"keploy.lock","test":"p::TestB","needs":{"why":"needs_a_test_this_run_does_not_run","test":"p::TestA","value":"run-body.id","size":24},"next":[...]}
 ```
 
 The JSON after `json=` holds the same facts:
