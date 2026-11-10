@@ -1,0 +1,643 @@
+/*
+ * Keploy docs theme: the developer-docs layer on top of custom.css.
+ *
+ * Loaded after custom.css (docusaurus.config.js `customCss`), so rules here
+ * win at equal specificity. Brand: Keploy orange on white. Orange marks what
+ * you can act on or where you are (links, the active page, buttons, badges);
+ * everything else is neutral, so it stays quiet around the content.
+ */
+
+:root {
+  --kd-orange: #ff914d;
+  --kd-orange-strong: #ea580c;
+  --kd-orange-deep: #c2410c;
+  --kd-orange-tint: #fff4ec;
+  --kd-orange-tint-2: #ffe8d6;
+  --kd-bg: #ffffff;
+  --kd-surface: #fafafa;
+  --kd-surface-2: #f4f4f5;
+  --kd-border: #e9e9ec;
+  --kd-border-strong: #d9d9de;
+  --kd-text: #18181b;
+  --kd-text-2: #3f3f46;
+  --kd-text-3: #71717a;
+  --kd-link: #c2410c;
+  --kd-radius: 10px;
+  --kd-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  --kd-content-width: 780px;
+  --doc-sidebar-width: 280px !important;
+  --ifm-navbar-height: 64px;
+  --ifm-toc-border-color: var(--kd-border);
+  --ifm-color-emphasis-300: var(--kd-border);
+  --ifm-background-color: var(--kd-bg);
+}
+
+html[data-theme="dark"] {
+  --kd-orange-strong: #fb923c;
+  --kd-orange-deep: #fdba74;
+  --kd-orange-tint: rgba(255, 145, 77, 0.1);
+  --kd-orange-tint-2: rgba(255, 145, 77, 0.18);
+  --kd-bg: #0c0c0e;
+  --kd-surface: #141417;
+  --kd-surface-2: #1b1b1f;
+  --kd-border: #26262b;
+  --kd-border-strong: #33333a;
+  --kd-text: #f4f4f5;
+  --kd-text-2: #d4d4d8;
+  --kd-text-3: #a1a1aa;
+  --kd-link: #fdba74;
+  --ifm-background-color: var(--kd-bg);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-wrapper,
+html[data-theme="dark"] .docs-wrapper {
+  background: var(--kd-bg) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navbar: logo, one tab per product, search and utilities             */
+/* ------------------------------------------------------------------ */
+
+.navbar {
+  height: var(--ifm-navbar-height);
+  background: color-mix(in srgb, var(--kd-bg) 92%, transparent) !important;
+  backdrop-filter: saturate(180%) blur(8px);
+  border-bottom: 1px solid var(--kd-border) !important;
+  box-shadow: none !important;
+}
+
+.navbar__brand {
+  margin-right: 1.25rem;
+}
+
+/* Desktop only: below 997px Docusaurus moves these into the menu drawer. */
+@media (min-width: 997px) {
+  .theme-layout-navbar-left .navbar__item.navbar__link {
+    position: relative;
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: var(--kd-text-2) !important;
+    padding: 0 0.7rem !important;
+    height: var(--ifm-navbar-height);
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    background: none !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link:hover {
+    color: var(--kd-text) !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link--active {
+    color: var(--kd-text) !important;
+    font-weight: 600 !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link--active::after {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    bottom: -1px;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--kd-orange);
+  }
+}
+
+.navbar__items--right .navbar__link {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--kd-text-2) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Sidebar: small-caps group headings, flat page links                 */
+/* ------------------------------------------------------------------ */
+
+.theme-doc-sidebar-container {
+  background: var(--kd-bg) !important;
+  border-right: 1px solid var(--kd-border) !important;
+  width: var(--doc-sidebar-width) !important;
+  min-width: var(--doc-sidebar-width) !important;
+  flex-shrink: 0;
+}
+
+.theme-doc-sidebar-container > div {
+  position: sticky !important;
+  top: var(--keploy-header-offset, var(--ifm-navbar-height));
+  height: calc(100vh - var(--keploy-header-offset, var(--ifm-navbar-height)));
+  overflow-y: auto;
+  background: var(--kd-bg) !important;
+}
+
+/* Docusaurus pads the sidebar by the navbar's height for its own sticky
+   layout; the container above is already placed below the navbar. */
+.theme-doc-sidebar-container div[class^="sidebar_"] {
+  padding-top: 0 !important;
+}
+
+.theme-doc-sidebar-container nav.menu {
+  padding: 0 !important;
+}
+
+.theme-doc-sidebar-menu {
+  padding: 1.25rem 0.875rem 2.5rem !important;
+}
+
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 14px !important;
+  line-height: 1.4;
+  font-weight: 450;
+  color: var(--kd-text-2) !important;
+  padding: 0.4rem 0.65rem !important;
+  border-radius: 7px;
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.theme-doc-sidebar-menu .menu__link:hover {
+  background: var(--kd-surface-2) !important;
+  color: var(--kd-text) !important;
+}
+
+.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist) {
+  background: var(--kd-orange-tint) !important;
+  color: var(--kd-orange-deep) !important;
+  font-weight: 600 !important;
+}
+
+/* A group heading (`className: "sidebar-group"` in the sidebars file):
+   a label, not a link, with its pages listed flat beneath it. */
+.theme-doc-sidebar-menu .sidebar-group {
+  margin-top: 1.35rem;
+}
+
+.theme-doc-sidebar-menu > .menu__list > .sidebar-group:first-child {
+  margin-top: 0.25rem;
+}
+
+.theme-doc-sidebar-menu .sidebar-group > .menu__list-item-collapsible,
+.theme-doc-sidebar-menu .sidebar-group > .menu__list-item-collapsible:hover {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 0.3rem !important;
+}
+
+.theme-doc-sidebar-menu
+  .sidebar-group
+  > .menu__list-item-collapsible
+  > .menu__link,
+.theme-doc-sidebar-menu .sidebar-group > .menu__link {
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kd-text-3) !important;
+  background: none !important;
+  padding: 0.15rem 0.65rem !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+.theme-doc-sidebar-menu .sidebar-group > .menu__list {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* A collapsible subsection inside a group */
+.theme-doc-sidebar-menu .sidebar-group .menu__list .menu__list {
+  margin: 0.1rem 0 0.25rem 0.9rem !important;
+  padding-left: 0.5rem !important;
+  border-left: 1px solid var(--kd-border) !important;
+}
+
+.theme-doc-sidebar-menu .menu__caret::before,
+.theme-doc-sidebar-menu .menu__link--sublist-caret::after {
+  background-size: 1.1rem 1.1rem;
+  opacity: 0.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+
+.theme-doc-markdown {
+  max-width: var(--kd-content-width);
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--kd-text-2);
+}
+
+.theme-doc-markdown h1 {
+  font-size: 2.15rem !important;
+  line-height: 1.18 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.022em;
+  color: var(--kd-text) !important;
+  margin-bottom: 0.9rem !important;
+}
+
+.theme-doc-markdown h2 {
+  font-size: 1.45rem !important;
+  line-height: 1.3 !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.015em;
+  color: var(--kd-text) !important;
+  margin-top: 2.6rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.theme-doc-markdown h3 {
+  font-size: 1.12rem !important;
+  line-height: 1.4 !important;
+  font-weight: 650 !important;
+  color: var(--kd-text) !important;
+  margin-top: 1.9rem !important;
+  margin-bottom: 0.55rem !important;
+}
+
+.theme-doc-markdown p,
+.theme-doc-markdown li {
+  font-size: 16px;
+  color: var(--kd-text-2);
+}
+
+.theme-doc-markdown a:not(.kd-card):not(.button):not(.hash-link) {
+  color: var(--kd-link);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--kd-link) 35%, transparent);
+  text-underline-offset: 3px;
+}
+
+.theme-doc-markdown a:not(.kd-card):not(.button):not(.hash-link):hover {
+  text-decoration-color: var(--kd-link);
+}
+
+.theme-doc-markdown strong {
+  color: var(--kd-text);
+  font-weight: 650;
+}
+
+/* Inline code */
+.theme-doc-markdown :not(pre) > code {
+  font-family: var(--kd-mono) !important;
+  font-size: 0.86em;
+  background: var(--kd-orange-tint) !important;
+  color: var(--kd-orange-deep) !important;
+  border: 1px solid var(--kd-orange-tint-2);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+  font-weight: 500 !important;
+}
+
+.theme-doc-markdown a code {
+  color: inherit !important;
+}
+
+/* Code blocks */
+.theme-doc-markdown div[class*="codeBlockContainer"] {
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  box-shadow: none !important;
+  background: var(--kd-surface) !important;
+  margin: 1.1rem 0 1.4rem !important;
+  overflow: hidden;
+}
+
+.theme-doc-markdown pre code,
+.theme-doc-markdown pre code[class*="codeBlockLines"] {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  color: inherit;
+}
+
+.theme-doc-markdown div[class*="codeBlockContainer"] pre,
+.theme-doc-markdown div[class*="codeBlockContainer"] .prism-code {
+  background: var(--kd-surface) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0.95rem 1.1rem !important;
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+}
+
+.theme-doc-markdown div[class*="codeBlockTitle"] {
+  font-family: var(--kd-mono) !important;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--kd-text-3);
+  background: var(--kd-surface-2) !important;
+  border-bottom: 1px solid var(--kd-border) !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* Tables */
+.theme-doc-markdown table {
+  display: table;
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  overflow: hidden;
+  font-size: 14px;
+  margin: 1.1rem 0 1.5rem;
+}
+
+.theme-doc-markdown table thead tr {
+  background: var(--kd-surface);
+}
+
+.theme-doc-markdown table th {
+  font-weight: 600;
+  color: var(--kd-text);
+  text-align: left;
+}
+
+.theme-doc-markdown table th,
+.theme-doc-markdown table td {
+  border: 0;
+  border-bottom: 1px solid var(--kd-border);
+  padding: 0.6rem 0.85rem;
+  vertical-align: top;
+}
+
+.theme-doc-markdown table tr:last-child td {
+  border-bottom: 0;
+}
+
+.theme-doc-markdown table tbody tr {
+  background: var(--kd-bg);
+}
+
+/* Admonitions */
+.theme-doc-markdown .theme-admonition {
+  border: 1px solid var(--kd-border);
+  border-left: 3px solid var(--kd-orange);
+  border-radius: var(--kd-radius);
+  background: var(--kd-orange-tint);
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.theme-doc-markdown .theme-admonition [class*="admonitionHeading"] {
+  text-transform: none;
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.theme-doc-markdown .theme-admonition-caution,
+.theme-doc-markdown .theme-admonition-warning,
+.theme-doc-markdown .theme-admonition-danger {
+  border-left-color: #dc2626;
+  background: color-mix(in srgb, #dc2626 6%, var(--kd-bg));
+}
+
+.theme-doc-markdown .theme-admonition-note,
+.theme-doc-markdown .theme-admonition-info {
+  border-left-color: var(--kd-text-3);
+  background: var(--kd-surface);
+}
+
+/* Tabs */
+.theme-doc-markdown .tabs {
+  border-bottom: 1px solid var(--kd-border);
+}
+
+.theme-doc-markdown .tabs__item {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--kd-text-2);
+  border-radius: 0;
+  padding: 0.55rem 0.9rem;
+  border-bottom: 2px solid transparent;
+}
+
+.theme-doc-markdown .tabs__item--active {
+  color: var(--kd-text);
+  border-bottom-color: var(--kd-orange);
+  font-weight: 600;
+}
+
+/* Table of contents */
+.table-of-contents {
+  font-size: 13px !important;
+  border-left: 1px solid var(--kd-border) !important;
+}
+
+.table-of-contents__link {
+  color: var(--kd-text-3) !important;
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--kd-orange-deep) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Components (src/components/docs)                                    */
+/* ------------------------------------------------------------------ */
+
+.kd-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: var(--kd-orange-deep);
+  background: var(--kd-orange-tint);
+  border: 1px solid var(--kd-orange-tint-2);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.kd-badge--soon {
+  color: var(--kd-text-2);
+  background: var(--kd-surface-2);
+  border-color: var(--kd-border);
+}
+
+.kd-card-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.kd-card-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.kd-card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 720px) {
+  .kd-card-grid--2,
+  .kd-card-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kd-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 2.4rem 1rem 1.1rem;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-bg);
+  color: var(--kd-text-2) !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+a.kd-card:hover {
+  border-color: var(--kd-orange);
+  box-shadow: 0 6px 20px -12px rgba(234, 88, 12, 0.45);
+  transform: translateY(-1px);
+}
+
+.kd-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kd-card__title {
+  font-size: 15.5px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.kd-card__body,
+.kd-card__body p {
+  font-size: 14px !important;
+  line-height: 1.55;
+  color: var(--kd-text-3) !important;
+  margin: 0;
+}
+
+.kd-card__arrow {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: var(--kd-text-3);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+a.kd-card:hover .kd-card__arrow {
+  color: var(--kd-orange-strong);
+  transform: translateX(2px);
+}
+
+/* <Steps>: every h3 inside is a numbered step on a rail */
+.kd-steps {
+  counter-reset: kd-step;
+  margin: 1.5rem 0 2rem;
+  padding-left: 2.6rem;
+  border-left: 1px solid var(--kd-border);
+  margin-left: 0.85rem;
+}
+
+.kd-steps > h3 {
+  counter-increment: kd-step;
+  position: relative;
+  margin-top: 2rem !important;
+}
+
+.kd-steps > h3:first-child {
+  margin-top: 0 !important;
+}
+
+.kd-steps > h3::before {
+  content: counter(kd-step);
+  position: absolute;
+  left: -3.45rem;
+  top: -0.05rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kd-orange-deep);
+  background: var(--kd-bg);
+  border: 1px solid var(--kd-orange-tint-2);
+  box-shadow: 0 0 0 4px var(--kd-bg);
+}
+
+/* <Lifecycle>: a left-to-right flow that wraps */
+.kd-lifecycle {
+  list-style: none;
+  margin: 1.4rem 0 2rem !important;
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.6rem;
+  counter-reset: none;
+}
+
+.kd-lifecycle__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 !important;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-surface);
+}
+
+.kd-lifecycle__num {
+  font-family: var(--kd-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--kd-orange-deep);
+}
+
+.kd-lifecycle__title {
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.kd-lifecycle__text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--kd-text-3);
+}
+
+/* Small screens: a wide table scrolls inside its own box instead of
+   widening the page. */
+@media (max-width: 996px) {
+  .theme-doc-markdown table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .theme-doc-markdown table code {
+    white-space: nowrap;
+  }
+}
