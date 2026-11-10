@@ -649,7 +649,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
     ],
   ],
 
-  clientModules: [require.resolve("./src/metaPixelRouteTracker.js")],
+  clientModules: [
+    require.resolve("./src/metaPixelRouteTracker.js"),
+    require.resolve("./src/appLinkClickTracker.js"),
+  ],
   scripts: [
     // Analytics loading (see src/metaPixelRouteTracker.js for the full strategy):
     //   - GA          -> eager via the gtag preset (auto SPA tracking)
