@@ -355,6 +355,19 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           label: "Contribution Guide",
           position: "left",
         },
+        // Right items render with flex-row-reverse (see .navbar__items--right
+        // in custom.css), so the first right item shows rightmost.
+        // GA4 enhanced measurement does NOT record clicks on this link as
+        // outbound on keploy.io: it treats app.keploy.io as the same site.
+        // Hidden at 997 to 1199px (see custom.css) so the navbar does not
+        // wrap. `ref` is an internal source tag, not UTM, so it does not
+        // reset the visitor's campaign attribution.
+        {
+          href: "https://app.keploy.io/signin?ref=docs_navbar",
+          label: "Sign in",
+          position: "right",
+          className: "header-signin-link",
+        },
         {
           type: "docsVersionDropdown",
           position: "right",
