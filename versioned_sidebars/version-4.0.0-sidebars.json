@@ -53,6 +53,7 @@
         "running-keploy/mock-your-tests",
         "running-keploy/utg-vscode-extension",
         "running-keploy/keploy-templatize",
+        "running-keploy/outside-every-test",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
