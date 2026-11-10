@@ -16,6 +16,10 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+:::note An earlier sign-up guide
+Integration testing no longer needs the Enterprise plan: it's on every plan, including Free. See [Plans and sign-up](/integration-testing/plans/) and the [Quickstart](/integration-testing/quickstart/).
+:::
+
 This guide covers installing **Keploy**, the key features available on the Enterprise plan, and steps to get started. It is designed to help teams quickly adopt Keploy and integrate it into their development and testing workflows.
 
 ### Requesting the Enterprise Plan

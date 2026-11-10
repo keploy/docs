@@ -23,7 +23,17 @@ Auto-replay is the replay Keploy runs inside your cluster, against the same buil
 3. **Classifies each test.** A test passes, is noisy (and now has its noise marked), or keeps failing. A test that keeps failing is marked as failed and left out of pull-request runs, because it can't tell you anything reliable.
 4. **Prunes mocks** that no test used.
 
-The result is shown on the recording in the Console, and in `keploy k8s status --app <namespace>.<deployment>`.
+## See the results
+
+- **While it runs.** The live recording's **View running auto-replay** opens the active auto-replay: how many tests have replayed, passed, failed or turned out noisy, and the replay pod's progress.
+- **Afterwards.** The deployment's **Auto-Replay History** lists every recording with its captured tests and how many passed and failed. Expand a recording to see its runs; a run with failed tests offers its [debug bundle](/integration-testing/troubleshooting/#debug-bundles).
+- **From the terminal.** `keploy k8s status --app <namespace>.<deployment>`.
+
+<Screenshot src="/img/integration-testing/console/auto-replay-history.webp" alt="Auto-Replay History for a deployment: each recording with its release tag, captured tests, and passed and failed counts" />
+
+You can change the auto-replay's timing when you start a recording, in its **Auto replay** step: the initial delay, the interval, and mock noise detection.
+
+<Screenshot src="/img/integration-testing/console/record-auto-replay.webp" alt="The Auto replay step of Start Recording: initial delay, auto replay interval, mock noise detection and advanced settings" width="560" />
 
 ## Where it runs
 
@@ -37,4 +47,4 @@ For replaying in a separate cluster, and how the DaemonSet records, see [DaemonS
 ## Related
 
 - [Concepts: noise](/integration-testing/concepts/#noise)
-- [Time freezing](/keploy-cloud/time-freezing/), for responses that depend on the clock
+- [Concepts: time freezing](/integration-testing/concepts/#time-freezing), for responses that depend on the clock

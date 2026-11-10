@@ -128,7 +128,6 @@ For a Keploy Cloud cluster, leave `KEPLOY_K8S_PROXY_URL` unset. If it's set, the
 | `--no-auto-branch`    | Replay on main only; never create or use a pull request branch.                                                          |
 | `--no-branch-catchup` | On a push to main, don't merge landed pull requests' branches.                                                           |
 | `--base-branch`       | The branch pull requests merge into (default `main`).                                                                    |
-| `--freezeTime`        | Replay with the clock set to the recording time.                                                                         |
 | `--test-sets`         | Replay only these Test sets.                                                                                             |
 
 Every flag is listed in the [`keploy cloud` reference](/integration-testing/cli-keploy-cloud/#keploy-cloud-replay).

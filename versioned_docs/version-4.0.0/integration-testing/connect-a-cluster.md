@@ -10,7 +10,23 @@ keywords:
   - kubernetes
 ---
 
-Keploy reaches your services through **k8s-proxy**, a Helm chart you install once per cluster. It captures traffic, runs auto-replay, and serves your tests to CI. Install it with `keploy k8s connect` (see the [Quickstart](/integration-testing/quickstart/)) or with Helm directly, as this page shows.
+Keploy reaches your services through **k8s-proxy**, a Helm chart you install once per cluster. It captures traffic, runs auto-replay, and serves your tests to CI. Install it with `keploy k8s connect` (see the [Quickstart](/integration-testing/quickstart/)), or with the Helm command the Console gives you, as this page shows.
+
+## Get the install command from the Console
+
+In the Keploy Console, open **Clusters** and click **Connect New Cluster**. The dialog shows the Helm command for the new cluster. **Advanced settings** covers the choices on this page:
+
+- **Cluster Name**, as it appears in Keploy.
+- **How should Keploy reach this cluster?**: an outbound tunnel (the default), or an **Ingress URL**.
+- **Deployment Type**: SaaS (Keploy Cloud) or Self-hosted.
+- **Enable DaemonSet mode**: capture with a node agent instead of a sidecar.
+- **Metadata Backend** for self-hosted installs: MongoDB (the default) or MySQL, with its DSN.
+
+Click **Connect to Cluster**: the Console registers the cluster and copies the command, access key included. Run it with `kubectl` pointed at the cluster. The Console opens the cluster's page, which shows **Setup pending** until the proxy's first heartbeat arrives and then **Active**. The page checks for a couple of minutes; after that, reload it.
+
+<Screenshot src="/img/integration-testing/console/connect-cluster.webp" alt="The Connect New Cluster dialog: the agent prompt, the Helm install command with the access key hidden, Advanced settings, and the Connect to Cluster button" width="600" />
+
+The sections below explain the same choices as Helm values.
 
 ## Choose where the data lives
 
@@ -87,7 +103,9 @@ kubectl get pods -n keploy
 keploy k8s status
 ```
 
-`keploy k8s status` shows whether the proxy's heartbeat reaches Keploy, and the next step to take.
+`keploy k8s status` shows whether the proxy's heartbeat reaches Keploy, and the next step to take. In the Console, the cluster's page shows its status, last heartbeat and proxy version, and lists the deployments you can record.
+
+<Screenshot src="/img/integration-testing/console/cluster-deployments.webp" alt="A connected cluster's page in the Keploy Console: status, last heartbeat, ingress URL, and its deployments with Record and Replay buttons" />
 
 ## Change a setting later
 
@@ -96,6 +114,8 @@ keploy k8s values
 ```
 
 This prints the settings you can change on the installed proxy, each with the exact command that changes it and the one that undoes it. To issue a new access key and restart the proxy with it, run `keploy k8s connect --rotate-key`.
+
+In the Console, org admins see **Helm Command** on the cluster's page. It shows the command to upgrade or reconnect the installed proxy, and can regenerate the access key. A new key stops the old one working until you run the command again with it.
 
 ## Related
 

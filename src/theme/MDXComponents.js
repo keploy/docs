@@ -7,6 +7,8 @@ import {
   Card,
   ComingSoon,
   Lifecycle,
+  Screenshot,
+  Architecture,
 } from "@site/src/components/docs";
 
 // Components every doc page can use without an import.
@@ -19,4 +21,6 @@ export default {
   Card,
   ComingSoon,
   Lifecycle,
+  Screenshot,
+  Architecture,
 };

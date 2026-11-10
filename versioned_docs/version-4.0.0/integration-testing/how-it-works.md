@@ -17,7 +17,7 @@ Keploy runs as a loop. It captures traffic from an environment, keeps it as test
 {title: "Capture", text: "k8s-proxy records live traffic from a deployment"},
 {title: "Keep as tests", text: "requests become tests; dependency calls become mocks"},
 {title: "Auto-replay", text: "Keploy re-runs them in the cluster to drop noise"},
-{title: "Check the PR", text: "cloud replay runs the tests against the PR build"},
+{title: "Check the PR", text: "Keploy replays the tests against the PR build"},
 {title: "Review", text: "regressions get fixed; intended changes get approved"},
 {title: "Merge", text: "the PR merges, and its test changes merge with it"},
 ]} />
@@ -49,7 +49,7 @@ While a recording runs, and once more when it stops, Keploy **auto-replays** the
 
 ## 4. Check every pull request
 
-In CI, `keploy cloud replay` downloads the app's tests and mocks and runs them against the pull request's image. The dependencies are served from mocks, so the job needs only the service itself.
+In CI, one replay step (the `keploy cloud replay` command) downloads the app's tests and mocks and runs them against the pull request's image. The dependencies are served from mocks, so the job needs only the service itself.
 
 - If every test passes, the check passes.
 - If tests fail, Keploy creates a **Keploy branch** for the pull request. It's a private copy of the test data, where this pull request's changes can be made without touching main.

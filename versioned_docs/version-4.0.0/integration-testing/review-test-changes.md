@@ -69,7 +69,9 @@ keploy cloud review request --app shop.orders --branch <branch> --reviewer asha@
 </Steps>
 
 :::note Accepting never edits a test
-Keploy doesn't rewrite a recorded test to make it pass. An intended change deletes the outdated test, reviewed. The next recording, after the pull request merges, captures the new behaviour. Deleted a test by mistake? [Restore it](/integration-testing/keep-tests-current/#restore-a-deleted-test).
+Keploy doesn't rewrite a recorded test to make it pass. An intended change deletes the outdated test, reviewed. The next recording, after the pull request merges, captures the new behaviour.
+
+You can edit a recorded test, but we recommend deleting it instead: an edited test records something your service never actually did, while a fresh recording is real traffic. Deleted a test by mistake? [Restore it](/integration-testing/keep-tests-current/#restore-a-deleted-test).
 :::
 
 ## For the reviewer
@@ -88,11 +90,19 @@ An author can't approve their own branch or be named as its reviewer; only an or
 
 ## In the Console
 
-The same review works in the Keploy Console:
+The same review works in the Keploy Console. **Branch reviews** lists, under **To review**, the branches waiting on you, each with its pull request, its developer and where your review stands. **Branches** lists every Keploy branch of the app.
 
-- **Reviews** lists the branches waiting on you.
-- A branch's **diff** shows each changed test with its request and response, side by side with main's.
-- You can approve, request changes or restore a test from there.
+<Screenshot src="/img/integration-testing/console/branch-reviews.webp" alt="The Branch reviews page: branches waiting on your review, each linked to its pull request, with the developer and a Review pending status" />
+
+Open a branch to review it:
+
+- **Conversation** shows its commits and review requests, what it's waiting on (a reviewer, a rebase onto main, uncommitted changes), the pull request it belongs to, and the reviewers.
+- **View changes**, at the top, shows what the branch changes against main. **Commits** lists its commits, each with how many tests it changes.
+- **Approve** approves the branch's current head. A reviewer can also request changes or leave a comment, and an author can re-request review or **Rebase on main**.
+
+<Screenshot src="/img/integration-testing/console/branch-review.webp" alt="A Keploy branch in the Console: review requested, linked to pull request #34, waiting on the reviewer, no conflicts with main, all changes committed, and the Approve button" />
+
+Normally you don't merge from this page: the branch merges into main's tests when its pull request merges and your pipeline's Keploy step runs on main. The panel on the right, **How merging works here**, says the same. The page's merge action is for when CI won't do it.
 
 ## When the pull request merges
 

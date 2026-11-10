@@ -18,7 +18,7 @@
       "className": "sidebar-group",
       "items": [
         "integration-testing/quickstart",
-        "keploy-cloud/cloud-installation"
+        "integration-testing/plans"
       ]
     },
     {
@@ -39,10 +39,8 @@
           "label": "Fine-tune tests",
           "collapsed": true,
           "items": [
-            "keploy-cloud/time-freezing",
             "running-keploy/recording-filters",
             "keploy-cloud/static-deduplication",
-            "keploy-cloud/deduplication",
             "running-keploy/risk-profile-analysis"
           ]
         },

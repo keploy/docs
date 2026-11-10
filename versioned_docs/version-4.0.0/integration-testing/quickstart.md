@@ -27,7 +27,7 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 keploy --version
 ```
 
-On Windows, see [Installation](/keploy-cloud/cloud-installation/).
+On Windows, see [Run Keploy natively on Windows](/installation/windows-installation/).
 
 ### Sign in
 
@@ -60,18 +60,16 @@ The CLI asks which kube context to use, installs k8s-proxy with Helm, and waits 
 </TabItem>
 <TabItem value="console" label="Console + Helm">
 
-1. Open the Keploy Console and connect a new cluster: give it a name, and the URL the proxy will be reachable at.
-2. Copy the Helm command the Console prints and run it. It looks like this:
+1. In the Keploy Console, open **Clusters** and click **Connect New Cluster**.
 
-```bash
-helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart \
-  --version <version> --namespace keploy --create-namespace \
-  --set keploy.accessKey=<access-key> \
-  --set keploy.clusterName=<cluster-name> \
-  --set keploy.ingressUrl=<proxy-url>
-```
+<Screenshot src="/img/integration-testing/console/clusters.webp" alt="The Clusters page in the Keploy Console, with one connected cluster and the Connect New Cluster button" />
 
-3. Wait until the cluster shows as connected in the Console.
+2. The dialog shows the Helm command for the new cluster. By default the cluster reaches Keploy over an outbound tunnel, so it needs no inbound route. Open **Advanced settings** to name the cluster, choose SaaS or self-hosted, turn on DaemonSet mode, or use an ingress URL instead of the tunnel.
+3. Click **Connect to Cluster**. The Console registers the cluster and copies the command, access key included. Run it with `kubectl` pointed at the cluster.
+
+<Screenshot src="/img/integration-testing/console/connect-cluster.webp" alt="The Connect New Cluster dialog: the agent prompt, the Helm install command with the access key hidden, Advanced settings, and the Connect to Cluster button" width="600" />
+
+4. The Console opens the cluster's page, which shows **Setup pending** until the proxy's first heartbeat arrives and then **Active**. The page checks for a couple of minutes; after that, reload it.
 
 </TabItem>
 </Tabs>
@@ -92,6 +90,9 @@ This lists the deployments Keploy can record, as `<namespace>.<deployment>`. The
 
 ### Record its traffic
 
+<Tabs groupId="connect">
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 keploy k8s record start --app shop.orders --confirm
 ```
@@ -104,13 +105,30 @@ Let real traffic flow for a while. On a staging cluster that may already be happ
 keploy k8s record status --app shop.orders
 ```
 
+</TabItem>
+<TabItem value="console" label="Console">
+
+1. Open the cluster and, on the **Deployments** tab, click **Record** next to the deployment.
+
+<Screenshot src="/img/integration-testing/console/cluster-deployments.webp" alt="A cluster's page in the Keploy Console, listing its deployments with Record and Replay buttons on each" />
+
+2. Work through the three steps: **Pods** (how many replicas to record, and an optional auto-stop), **Record config** (filters and deduplication) and **Auto replay** (when the auto-replays run). The defaults suit a first recording.
+3. Click **Start Recording**. The pods restart once so the agent can attach, and the Console opens the live recording, with its captured tests counting up.
+
+Let real traffic flow for a while. On a staging cluster that may already be happening; on a local cluster, send a few requests yourself.
+
+</TabItem>
+</Tabs>
+
 ### Stop and let Keploy check the tests
 
 ```bash
 keploy k8s record stop --app shop.orders
 ```
 
-When the recording stops, Keploy **auto-replays** the captured tests in the cluster. It marks fields that change on every call as noise, and sets aside tests that don't replay cleanly. The result shows up in the Console and in `keploy k8s status --app shop.orders`.
+In the Console, click **Stop recording** on the live recording instead. When the recording stops, Keploy **auto-replays** the captured tests in the cluster. It marks fields that change on every call as noise, and sets aside tests that don't replay cleanly. The result shows up in the Console, under the deployment's **Auto-Replay History**, and in `keploy k8s status --app shop.orders`.
+
+<Screenshot src="/img/integration-testing/console/auto-replay-history.webp" alt="Auto-Replay History for a deployment, listing each recording with its captured tests and how many passed and failed" />
 
 ### Replay the tests against a build
 
@@ -122,6 +140,10 @@ keploy cloud replay --app shop.orders --cluster <cluster-name>
 ```
 
 Pass `--image <image:tag>` to test a build other than the one the deployment runs, such as the image your pull request builds.
+
+From the Console, click **Replay** next to the deployment instead: pick the test sets, then the build and settings, and Keploy runs the replay in your cluster.
+
+<Screenshot src="/img/integration-testing/console/replay-select.webp" alt="The Run Replay dialog, listing the deployment's replayable test sets by release, each with its test count" width="680" />
 
 </Steps>
 

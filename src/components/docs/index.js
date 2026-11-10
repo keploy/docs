@@ -1,6 +1,8 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import clsx from "clsx";
+import useBaseUrl from "@docusaurus/useBaseUrl";
+import screenshotSizes from "./screenshotSizes.json";
 
 /*
  * Building blocks for doc pages. They are registered globally in
@@ -75,3 +77,30 @@ export function Lifecycle({steps}) {
     </ol>
   );
 }
+
+/*
+ *   <Screenshot src="/img/..." alt="..." caption="..." />
+ *   A bordered Console screenshot with an optional caption.
+ */
+export function Screenshot({src, alt, caption, width}) {
+  const url = useBaseUrl(src);
+  // The image's own pixel size, so the browser reserves its space before a
+  // lazy image loads (no layout shift; anchor jumps land where they should).
+  // Regenerate screenshotSizes.json when you add or replace a screenshot.
+  const [w, h] = screenshotSizes[src] || [];
+  return (
+    <figure className={clsx("kd-shot", width && "kd-shot--narrow")}>
+      <img
+        src={url}
+        alt={alt}
+        width={w}
+        height={h}
+        loading="lazy"
+        style={width ? {maxWidth: `${width}px`} : undefined}
+      />
+      {caption ? <figcaption>{caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+export {Architecture} from "./Architecture";

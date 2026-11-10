@@ -19,6 +19,10 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+:::note Automatic in Kubernetes replays
+This page covers the open-source CLI's local `keploy test --freezeTime`. Recordings and replays started in the Console, and `keploy cloud replay` in CI, freeze time by default, with no change to your app or image; [Concepts: time freezing](/integration-testing/concepts/#time-freezing) lists the exceptions.
+:::
+
 ## Why Time Freezing? ❄️
 
 While making tests, **time-sensitive objects like JWT tokens are a challenge** as they expire, leading to test failures. This increases the maintenance effort of test suites and also impacts reliability.
