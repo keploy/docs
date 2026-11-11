@@ -331,6 +331,94 @@ not parse, or a `trailing` rule without `boundBy`.
   answered, how many repeats went past the recorded count, and how many required
   series were made, not made, or not due because their test did not run.
 
+## Times and ids your app makes (Enterprise)
+
+When `keploy mock record` runs your tests a second time to learn what changes
+from run to run, two kinds of field differ in every run: a time your app reads
+from its clock, and an id it makes anew for a call. Keploy checks a changed time
+by its type and format with no rule. Declare an id your app mints with a
+`minted` rule in `keploy.yml`.
+
+**Times are checked by their type and format.** A time that changed between the
+two runs passes at replay with any value of the type and format it was recorded
+in: the same BSON or Postgres type, an epoch number in the same unit (seconds,
+milliseconds, microseconds or nanoseconds), or a text with the same field order,
+separators and zone form, written with a fraction if the recorded one was. Keploy
+does not check the time's range or which clock read it: your tests' own
+assertions check the test, and keploy's check is a bonus over them. A value of
+another type or format fails the test, and the line names both.
+
+A field is a time when its decoder types it as one (a BSON datetime or
+timestamp, a Postgres timestamp or date column), when keploy learned it as a read
+of your app's clock, or when a `clock` rule declares it. A text that only looks
+like a date, or a number that only looks like an epoch, is not a time: keploy
+checks it like any other value.
+
+To check times strictly instead (the range, the cut, the zone and which clock
+read the value), set `strict`, the only value `mock.times` takes. Any other value
+is refused with `RULES REFUSED` before anything runs.
+
+```yaml
+mock:
+  times: strict
+```
+
+**Declare a read of the clock.** A `clock` rule says your app reads a field from
+its clock for the call. Keploy then learns the field as a read of the clock even
+where the same moment also stands in an earlier answer, but only where the
+replay's own clock check holds it in both runs. With the time default on, clock
+rules are optional.
+
+```yaml
+mock:
+  rules:
+    - id: audit-audited-at
+      kind: clock
+      why: The audit insert sets auditedAt to time.Now().Unix().
+      match: {mongo: {db: shop, command: insert, collection: audits}}
+      field: body.docs.msgs.0.auditedAt.$numberLong
+      clock: {min: -1s, max: 0s, res: 1s}
+```
+
+**Declare an id your app mints.** A `minted` rule says your app makes the field's
+whole value anew for the call, such as the UUID it gives a new document:
+
+```yaml
+mock:
+  rules:
+    - id: order-id
+      kind: minted
+      why: CreateOrder gives each new order a fresh uuid.NewString().
+      match: {mongo: {db: shop, command: insert, collection: orders}}
+      field: body.docs.msgs.0._id
+```
+
+At replay keploy binds the new id, and every later call that uses it must send
+the same value. The id fails its test with `minted value reused` when it is the
+recorded value, or one the run already bound at a minted field, and with
+`minted value of another shape` when it lacks the prefix the recorded ids share
+or its length lies outside theirs. Keploy does not check which characters follow
+the prefix, so a fresh id never fails for a character the recordings did not
+show. A part of the id your app copied from an earlier call, such as the tenant
+in `<tenant>-<random>`, is still checked against this run's value.
+
+| Key     | What it says                                                                                                                                                                 |
+| ------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `field` | `clock` and `minted`: one place in the recorded request that names a whole value, such as `body.docs.msgs.0._id`. Not a word of a value (`#n`) or a decoding step.           |
+| `clock` | `clock` only: `{min, max, res}`, each a duration with its unit. The value lies from `min` to `max` of the call, read at the cut `res`; the range is at most two cuts and 1s. |
+
+Clock and minted rules cover MongoDB calls. A rule on an `http` target is refused
+with `RULES REFUSED`.
+
+**What these rules leave behind.** Each recording a `clock` or `minted` rule
+covers carries the rule as `sources:` in `mappings.yaml`. `keploy.lock` pins
+them, and a pull writes them back, so CI's replay checks the field as the judge
+did. One `RULE DECLARED` line per rule says how many recordings it matched and
+how many it declared. A recording it matched but could not declare is named in a
+`RULE DID NOT HOLD` line, for example when the request holds no value at the
+field. Two rules that declare one field of one recording are a `RULES CONFLICT`,
+and neither applies.
+
 ## Platforms
 
 | Platform                  | How to run                                                                                                                                        |
