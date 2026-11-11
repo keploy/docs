@@ -23,7 +23,10 @@ One CI step checks every pull request against the app's recorded tests: `keploy 
 | The branch has changes still waiting for approval        | The step waits, up to `--approval-timeout` (30 minutes by default), and the pull request shows as pending. It passes as soon as a reviewer approves, and fails at the timeout. |
 | A push to main                                           | Keploy merges the approved Keploy branches of the pull requests that push landed (catch-up), then replays main.                                                                |
 
-## GitHub Actions
+## Add the step to your pipeline
+
+<Tabs groupId="ci" queryString>
+<TabItem value="github" label="GitHub Actions" default>
 
 ```yaml title=".github/workflows/keploy.yml"
 name: keploy
@@ -71,7 +74,8 @@ jobs:
 3. Keep `fetch-depth: 0`. The push to main reads the history to find the pull requests it lands. Keploy deepens a shallow clone itself, but full history avoids the extra fetch and the warning when it can't reach far enough.
 4. Leave `cancel-in-progress: false`, so a waiting approval isn't cancelled by the next push.
 
-## GitLab CI
+</TabItem>
+<TabItem value="gitlab" label="GitLab CI">
 
 ```yaml title=".gitlab-ci.yml"
 keploy:
@@ -90,7 +94,8 @@ keploy:
 
 Set `KEPLOY_API_KEY` as a masked CI/CD variable (**Settings → CI/CD → Variables**). The runner's shell must be bash for the install line.
 
-## Jenkins
+</TabItem>
+<TabItem value="jenkins" label="Jenkins">
 
 ```groovy title="Jenkinsfile"
 pipeline {
@@ -111,6 +116,9 @@ pipeline {
 ```
 
 Store the key as a **Secret text** credential, and run the job on an agent with Docker. If the pipeline can't detect the pull request on its own, pass it in with the `--ci-*` overrides (`--ci-pr-number`, `--ci-repository`, `--ci-commit-sha`, `--ci-pr-source-branch`, `--ci-pr-target-branch`).
+
+</TabItem>
+</Tabs>
 
 ## Self-hosted clusters
 

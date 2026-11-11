@@ -43,7 +43,7 @@ keploy k8s login --finish
 
 ### Connect your cluster
 
-<Tabs groupId="connect">
+<Tabs groupId="interface" queryString>
 <TabItem value="cli" label="CLI" default>
 
 ```bash
@@ -90,7 +90,7 @@ This lists the deployments Keploy can record, as `<namespace>.<deployment>`. The
 
 ### Record its traffic
 
-<Tabs groupId="connect">
+<Tabs groupId="interface" queryString>
 <TabItem value="cli" label="CLI" default>
 
 ```bash
@@ -122,15 +122,29 @@ Let real traffic flow for a while. On a staging cluster that may already be happ
 
 ### Stop and let Keploy check the tests
 
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 keploy k8s record stop --app shop.orders
 ```
 
-In the Console, click **Stop recording** on the live recording instead. When the recording stops, Keploy **auto-replays** the captured tests in the cluster. It marks fields that change on every call as noise, and sets aside tests that don't replay cleanly. The result shows up in the Console, under the deployment's **Auto-Replay History**, and in `keploy k8s status --app shop.orders`.
+</TabItem>
+<TabItem value="console" label="Console">
+
+Click **Stop recording** on the live recording.
+
+</TabItem>
+</Tabs>
+
+When the recording stops, Keploy **auto-replays** the captured tests in the cluster. It marks fields that change on every call as noise, and sets aside tests that don't replay cleanly. The result shows up in the Console, under the deployment's **Auto-Replay History**, and in `keploy k8s status --app shop.orders`.
 
 <Screenshot src="/img/integration-testing/console/auto-replay-history.webp" alt="Auto-Replay History for a deployment, listing each recording with its captured tests and how many passed and failed" />
 
 ### Replay the tests against a build
+
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
 
 Create an API key in the Console (**Settings → API Keys**), then replay the app's tests on your machine. Keploy downloads the tests and mocks, starts the app from its image, and serves every dependency call from the mocks:
 
@@ -141,9 +155,15 @@ keploy cloud replay --app shop.orders --cluster <cluster-name>
 
 Pass `--image <image:tag>` to test a build other than the one the deployment runs, such as the image your pull request builds.
 
-From the Console, click **Replay** next to the deployment instead: pick the test sets, then the build and settings, and Keploy runs the replay in your cluster.
+</TabItem>
+<TabItem value="console" label="Console">
+
+Click **Replay** next to the deployment. Pick the test sets, then the build and settings, and Keploy runs the replay in your cluster.
 
 <Screenshot src="/img/integration-testing/console/replay-select.webp" alt="The Run Replay dialog, listing the deployment's replayable test sets by release, each with its test count" width="680" />
+
+</TabItem>
+</Tabs>
 
 </Steps>
 

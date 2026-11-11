@@ -34,6 +34,9 @@ Restoring brings back the version main had when the branch started. Merging the 
 
 If main's tests changed after the pull request's branch was created, for example because another pull request merged, rebase the branch:
 
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 keploy cloud branch-rebase --app shop.orders --branch feat/greet
 ```
@@ -45,17 +48,36 @@ keploy cloud branch-rebase --app shop.orders --branch feat/greet \
   --resolve test_case:tc-9=branch --resolve mock:m-3=main
 ```
 
-You can also resolve conflicts on the branch's diff page in the Console. By default, `keploy cloud replay` exits non-zero when the branch is behind main; pass `--allow-stale-branch` to only report it.
+</TabItem>
+<TabItem value="console" label="Console">
+
+Open the branch and click **Rebase on main**. If the same test or mock changed on both sides, the conflicts check offers **Resolve**, which opens the changes. For each conflict, pick **Use branch's version**, **Keep main's version** or **Revert to original**.
+
+</TabItem>
+</Tabs>
+
+By default, `keploy cloud replay` exits non-zero when the branch is behind main; pass `--allow-stale-branch` to only report it.
 
 ## Merge by hand
 
-Branches normally merge when their pull request does: the next CI run on main merges them. To merge one yourself, for example when your CI has no push-to-main run, use:
+Branches normally merge when their pull request does: the next CI run on main merges them. To merge one yourself, for example when your CI has no push-to-main run, use the CLI or the Console.
+
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
 
 ```bash
 keploy cloud branch-merge --app shop.orders --branch feat/greet
 ```
 
 It checks that the pull request has merged first (`--force` skips that check) and needs the branch's approval. Org admins can merge without one using `--bypass-review`.
+
+</TabItem>
+<TabItem value="console" label="Console">
+
+Open the branch and click **Merge now** (**Merge branch to main** when the branch has no pull request). It needs the branch's approval; an org admin who can't approve it can tick **Merge without the required approval**, then click **Merge to main, bypassing review**.
+
+</TabItem>
+</Tabs>
 
 ## Find a branch
 

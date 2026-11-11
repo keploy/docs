@@ -13,6 +13,9 @@ A recording captures the requests one deployment receives, and the dependency ca
 
 ## Start a recording
 
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 keploy k8s apps                                        # deployments Keploy can record
 keploy k8s record start --app shop.orders --confirm    # recreates the pods once
@@ -20,9 +23,9 @@ keploy k8s record start --app shop.orders --confirm    # recreates the pods once
 
 - **Pods restart once.** Starting a recording recreates the deployment's pods so the agent can attach. `--confirm` agrees to that; without it, the command only explains what would happen.
 - **Several containers.** If the pod has more than one app container, name the one to record with `--container <name>` (repeatable). In DaemonSet mode Keploy won't guess.
-- **From the Console.** See below. The Console and the CLI drive the same recording, with one difference: a recording started from the CLI auto-replays without [freezing time](/integration-testing/concepts/#time-freezing), while one started from the Console freezes time by default.
 
-### From the Console
+</TabItem>
+<TabItem value="console" label="Console">
 
 Open **Clusters**, then your cluster. On the **Deployments** tab, click **Record** next to the deployment. The recording is set up in three steps:
 
@@ -37,21 +40,50 @@ Open **Clusters**, then your cluster. On the **Deployments** tab, click **Record
 
 Click **Start Recording**. The pods restart once, and the Console opens the live recording.
 
+</TabItem>
+</Tabs>
+
+The Console and the CLI drive the same recording, with one difference: a recording started from the CLI auto-replays without [freezing time](/integration-testing/concepts/#time-freezing), while one started from the Console freezes time by default.
+
 ## Watch it
+
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
 
 ```bash
 keploy k8s record status --app shop.orders
 ```
 
-This shows how many tests and mocks the running recording has captured so far. The Console's live recording page shows the same counts as they arrive. While the recording runs, Keploy auto-replays the new tests every few minutes (see [Auto-replay](/integration-testing/auto-replay/)).
+This shows how many tests and mocks the running recording has captured so far.
+
+</TabItem>
+<TabItem value="console" label="Console">
+
+The live recording page shows how many tests and mocks have been captured, as they arrive.
+
+</TabItem>
+</Tabs>
+
+While the recording runs, Keploy auto-replays the new tests every few minutes (see [Auto-replay](/integration-testing/auto-replay/)).
 
 ## Stop it
+
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
 
 ```bash
 keploy k8s record stop --app shop.orders
 ```
 
-In the Console, click **Stop recording** on the live recording. Stopping triggers one last auto-replay over everything captured. The tests that replay cleanly become the app's regression suite on main. The app's **Recordings** page lists them by release, with how many were accepted, how many are bugs and how many couldn't be replayed.
+</TabItem>
+<TabItem value="console" label="Console">
+
+Click **Stop recording** on the live recording.
+
+</TabItem>
+</Tabs>
+
+Stopping triggers one last auto-replay over everything captured. The tests that replay cleanly become the app's regression suite on main. The app's **Recordings** page lists them by release, with how many were accepted, how many are bugs and how many couldn't be replayed.
 
 <Screenshot src="/img/integration-testing/console/recordings.webp" alt="An app's Recordings page: test sets grouped by release image, and for the selected release the totals of accepted, bug and unreplayable tests" />
 

@@ -25,11 +25,25 @@ Auto-replay is the replay Keploy runs inside your cluster, against the same buil
 
 ## See the results
 
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
+```bash
+keploy k8s status --app shop.orders
+```
+
+This shows where the service is in the loop, including the latest auto-replay's result, and prints the next command to run.
+
+</TabItem>
+<TabItem value="console" label="Console">
+
 - **While it runs.** The live recording's **View running auto-replay** opens the active auto-replay: how many tests have replayed, passed, failed or turned out noisy, and the replay pod's progress.
 - **Afterwards.** The deployment's **Auto-Replay History** lists every recording with its captured tests and how many passed and failed. Expand a recording to see its runs; a run with failed tests offers its [debug bundle](/integration-testing/troubleshooting/#debug-bundles).
-- **From the terminal.** `keploy k8s status --app <namespace>.<deployment>`.
 
 <Screenshot src="/img/integration-testing/console/auto-replay-history.webp" alt="Auto-Replay History for a deployment: each recording with its release tag, captured tests, and passed and failed counts" />
+
+</TabItem>
+</Tabs>
 
 You can change the auto-replay's timing when you start a recording, in its **Auto replay** step: the initial delay, the interval, and mock noise detection.
 

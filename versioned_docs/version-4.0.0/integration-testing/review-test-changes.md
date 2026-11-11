@@ -76,6 +76,9 @@ You can edit a recorded test, but we recommend deleting it instead: an edited te
 
 ## For the reviewer
 
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
 ```bash
 keploy cloud review list                                        # branches waiting on you
 keploy cloud review diff --app shop.orders --branch <branch>    # what the branch changes
@@ -86,11 +89,10 @@ keploy cloud review approve --app shop.orders --branch <branch> --head <seq>
 - `review approve --head <seq>` approves the head you actually saw. If the author adds a commit after that, your approval doesn't carry over, and the branch asks for review again.
 - To push back instead, run `keploy cloud review request-changes --app shop.orders --branch <branch> -m "Restore the 404 test; that wording must not change"`.
 
-An author can't approve their own branch or be named as its reviewer; only an org admin may approve their own, and that's recorded as a self-approval. An org admin can also merge without an approval (`keploy cloud branch-merge --bypass-review`), which is recorded on the branch's timeline and the pending reviewers are told.
+</TabItem>
+<TabItem value="console" label="Console">
 
-## In the Console
-
-The same review works in the Keploy Console. **Branch reviews** lists, under **To review**, the branches waiting on you, each with its pull request, its developer and where your review stands. **Branches** lists every Keploy branch of the app.
+**Branch reviews** lists, under **To review**, the branches waiting on you, each with its pull request, its developer and where your review stands. **Branches** lists every Keploy branch of the app.
 
 <Screenshot src="/img/integration-testing/console/branch-reviews.webp" alt="The Branch reviews page: branches waiting on your review, each linked to its pull request, with the developer and a Review pending status" />
 
@@ -103,6 +105,11 @@ Open a branch to review it:
 <Screenshot src="/img/integration-testing/console/branch-review.webp" alt="A Keploy branch in the Console: review requested, linked to pull request #34, waiting on the reviewer, no conflicts with main, all changes committed, and the Approve button" />
 
 Normally you don't merge from this page: the branch merges into main's tests when its pull request merges and your pipeline's Keploy step runs on main. The panel on the right, **How merging works here**, says the same. The page's merge action is for when CI won't do it.
+
+</TabItem>
+</Tabs>
+
+An author can't approve their own branch or be named as its reviewer; only an org admin may approve their own, and that's recorded as a self-approval. An org admin can also merge without an approval (`keploy cloud branch-merge --bypass-review`), which is recorded on the branch's timeline and the pending reviewers are told.
 
 ## When the pull request merges
 

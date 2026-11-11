@@ -10,9 +10,30 @@ keywords:
   - kubernetes
 ---
 
-Keploy reaches your services through **k8s-proxy**, a Helm chart you install once per cluster. It captures traffic, runs auto-replay, and serves your tests to CI. Install it with `keploy k8s connect` (see the [Quickstart](/integration-testing/quickstart/)), or with the Helm command the Console gives you, as this page shows.
+Keploy reaches your services through **k8s-proxy**, a Helm chart you install once per cluster. It captures traffic, runs auto-replay, and serves your tests to CI. Install it from the terminal with `keploy k8s connect`, or with the Helm command the Console gives you.
 
-## Get the install command from the Console
+## Install k8s-proxy
+
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
+
+```bash
+keploy k8s login            # prints a page and a code to approve
+keploy k8s login --finish   # after you approve
+keploy k8s connect
+```
+
+The CLI asks which kube context to use, installs k8s-proxy with Helm, and waits for its first heartbeat (up to 5 minutes). Useful flags:
+
+- `--name <cluster>` names the cluster in Keploy. By default the name comes from the kube context.
+- `--mode sidecar` captures through an agent next to each app instead of the default node agent.
+- `--namespace <ns>` installs into one namespace you manage, with no cluster-wide rights.
+- `--allow-production` is required when the context's name looks like production.
+
+Every flag is in the [`keploy k8s` reference](/integration-testing/cli-keploy-k8s/#keploy-k8s-connect). `keploy k8s connect` installs a Keploy Cloud (SaaS) proxy that reaches Keploy over the outbound tunnel. For a self-hosted install or an ingress URL, use the Helm command from the Console (the **Console + Helm** tab) with the values below.
+
+</TabItem>
+<TabItem value="console" label="Console + Helm">
 
 In the Keploy Console, open **Clusters** and click **Connect New Cluster**. The dialog shows the Helm command for the new cluster. **Advanced settings** covers the choices on this page:
 
@@ -26,7 +47,10 @@ Click **Connect to Cluster**: the Console registers the cluster and copies the c
 
 <Screenshot src="/img/integration-testing/console/connect-cluster.webp" alt="The Connect New Cluster dialog: the agent prompt, the Helm install command with the access key hidden, Advanced settings, and the Connect to Cluster button" width="600" />
 
-The sections below explain the same choices as Helm values.
+</TabItem>
+</Tabs>
+
+The sections below explain these choices as Helm values.
 
 ## Choose where the data lives
 

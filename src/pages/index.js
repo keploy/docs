@@ -219,11 +219,10 @@ export default function Home() {
                 Regression tests from your <span>real traffic</span>
               </p>
               <p className={styles.heroLead}>
-                Keploy records the traffic your service already handles in
-                Kubernetes, with every database and API call it makes, and keeps
-                it as tests with mocks. Every pull request is replayed against
-                them. Regressions get fixed; intended changes get reviewed and
-                merge with the pull request.
+                Record real API traffic, along with every database, queue and
+                downstream API call, from your Kubernetes environments. Replay
+                it deterministically, with dependencies mocked, on your machine
+                while you develop and in CI on every pull request.
               </p>
               <div className={styles.heroActions}>
                 <Link

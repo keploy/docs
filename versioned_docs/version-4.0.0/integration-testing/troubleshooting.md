@@ -46,14 +46,23 @@ keploy cloud status                                # a pull request's run, branc
 
 ### Reproduce a failure on your machine
 
-On a failed test, click **Download Failure Snapshot**, then **Copy debug command**. The command downloads the failing tests, the mocks they matched and the mocks around them:
+<Tabs groupId="interface" queryString>
+<TabItem value="cli" label="CLI" default>
 
 ```bash
 keploy debug failures --app shop.orders --cluster <cluster-name> \
   --test-sets "<test-set-id>:<test-name>" --out ./keploy-failures
 ```
 
-Pass a bare test set ID to download every failing test in it.
+This downloads the failing tests, the mocks they matched and the mocks around them. Pass a bare test set ID to download every failing test in it.
+
+</TabItem>
+<TabItem value="console" label="Console">
+
+On a failed test, click **Download Failure Snapshot**, then **Copy debug command**. That copies the `keploy debug failures` command for the test, ready to run. It downloads the failing tests, the mocks they matched and the mocks around them.
+
+</TabItem>
+</Tabs>
 
 ## Debug bundles
 
