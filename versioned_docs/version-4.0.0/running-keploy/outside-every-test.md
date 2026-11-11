@@ -32,7 +32,7 @@ ERROR outside_every_test  <call> in set <set>: <when>; <facts>; it fails the run
 For example:
 
 ```text
-ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 in set e2e: made between tests, 150ms after test-1 ended and 150ms before test-2 began; the closest recording is mock-7, which it differs from in body.ids[0]; it fails the run, and no test; next: if the app changed this call on purpose, record the set again: keploy record -c 'go run .'  json={"kind":"outside_every_test","set":"e2e","call":{"protocol":"HTTP","call":"DELETE /sessions","destination":"auth:8080"},"between":{"after":"test-1","afterEndedMs":150,"next":"test-2","nextBeginsMs":150},"placed":true,"closest":"mock-7","differs":["body.ids[0]"],"facts":"the closest recording is mock-7, which it differs from in body.ids[0]","next":{"action":"record_if_changed","command":"keploy record -c 'go run .'"}}
+ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 in set e2e: made between tests, 150ms after test-1 ended and 150ms before test-2 began; the closest recording is mock-7, which it differs from in body.ids[0]; it fails the run, and no test; next: if the app changed this call on purpose, record the set again: rm -rf -- /home/me/app/keploy/e2e && keploy record -c 'go run .' --metadata name=e2e  json={"kind":"outside_every_test","set":"e2e","call":{"protocol":"HTTP","call":"DELETE /sessions","destination":"auth:8080"},"between":{"after":"test-1","afterEndedMs":150,"next":"test-2","nextBeginsMs":150},"placed":true,"closest":"mock-7","differs":["body.ids[0]"],"facts":"the closest recording is mock-7, which it differs from in body.ids[0]","next":{"action":"record_if_changed","command":"rm -rf -- /home/me/app/keploy/e2e && keploy record -c 'go run .' --metadata name=e2e"}}
 ```
 
 `<when>` is one of these:
@@ -59,6 +59,10 @@ The line names one next step, which Keploy chooses from the facts:
 3. **No recording of this call in the set** (`"action":"record_again"`). The call is new since you recorded the set. Run the command to record the set again.
 4. **An earlier set made the call, and Keploy cannot name that set** (`"action":"record_earlier_set"`, with no `command`). Recording the set that the run read again does not fix it, because that set never made the call. Record the set that made it again, with the command that recorded that set. The line names that set as far as Keploy knows it: by its test that made the call (`madeIn`), or by how many sets before this one it ran (`earlierBy`).
 
-The command records the set where the run read it: `keploy mock replay`'s line carries the flags of the replay, and the `keploy record` line of `keploy test --judge` and `keploy record` carries the `-c`, `--path` and `--config-path` that the run was given.
+The command records the failing set again in its place, so that the next run reads the new recording:
+
+- On `keploy test` and `keploy record`, `keploy record` always writes a new test set, and gives a name that is taken a `-N` suffix. So the command first removes the set's folder (`rm -rf -- <keploy folder>/<set>`), then runs `keploy record` with `--metadata name=<set>`, which gives the new recording the set's name. It carries the app's command (`-c`), and `--path` and `--config-path` when the keploy folder or `keploy.yml` is not in the folder that you run the command from. Every word that is not plain is in single quotes for a POSIX shell, so `$` and backticks in the app's command stay as they are. The set's tests and mocks are removed, so send the app's traffic again while it records.
+- On `keploy mock replay`, the command is `keploy mock record` with `--name <set>` and the flags of the replay, which records the mock set again under its name.
+- When `keploy record` cannot take the set's name (a name that it reads as a number, `true` or `null`, or one with a comma), the step has no command. Record the set again with the command that recorded it, and give the new set the old set's name.
 
 Several such calls fail the run once, and the run names each call on its own line.
