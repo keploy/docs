@@ -53,6 +53,15 @@
   color: var(--kd-orange-strong);
 }
 
+.heroHook {
+  margin: 0 0 0.5rem;
+  max-width: 560px;
+  font-size: 20px;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--kd-text);
+}
+
 .heroLead {
   margin: 0 0 1.75rem;
   max-width: 560px;

@@ -218,12 +218,16 @@ export default function Home() {
               <p className={styles.heroTitle} aria-hidden="true">
                 Regression tests from your <span>real traffic</span>
               </p>
+              <p className={styles.heroHook}>
+                Catch regressions before they ship.
+              </p>
               <p className={styles.heroLead}>
-                Record real API interactions (and dependencies) from your
-                Kubernetes environments, and replay them deterministically with
-                mocks, locally or in CI. Mocks make production traffic
-                replayable anywhere, with no environment to set up and zero
-                downstream latency.
+                Get a regression suite in a fraction of the time, without
+                writing a single e2e test. Record real API interactions (and
+                dependencies) from your Kubernetes environments and replay them
+                deterministically with mocks on your machine or in CI. Mocks
+                make production traffic replayable anywhere with no environment
+                to set up and zero downstream latency.
               </p>
               <div className={styles.heroActions}>
                 <Link
