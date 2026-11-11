@@ -44,9 +44,9 @@ ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 in set e2e: made be
 
 In the JSON, `between` has the same fields for every placed form: `after` and `afterEndedMs` for the test that ended before the call, `next` and `nextBeginsMs` for the test that began after it. `after` is `""` for a call made before the first test, and `next` is `""` for a call made after the last.
 
-When Keploy cannot name the earlier set that made a call, the line says `in an earlier test set` in place of `in set <set>`, and `set` is empty in the JSON.
+When Keploy cannot name the earlier set that made a call, the line says `in an earlier test set` in place of `in set <set>`, and `set` is empty in the JSON. When Keploy's agent counted how many sets before this one that set ran, the JSON has that count as `earlierBy` (`1` is the set run just before).
 
-The JSON after `json=` holds the same facts. Keploy writes `kind`, `set`, `between`, `madeIn`, `placed`, `closest`, `facts` and `next`. Only `call` holds text that your app wrote, such as its path. `differs` names the fields in which the call differs from its closest recording, never their values.
+The JSON after `json=` holds the same facts. Keploy writes `kind`, `set`, `between`, `madeIn`, `placed`, `earlierBy`, `closest`, `facts` and `next`. Only `call` holds text that your app wrote, such as its path. `differs` names the fields in which the call differs from its closest recording, never their values.
 
 Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call`, `destination`, `made_in`, `after`, `before`, `at`, `closest`, `differs`, `facts` and `next_step`. A call of an earlier set, made in one of its tests or while none was open, also has `read-in-test-set`, the set that was running when Keploy decided it. For such a call made while none of that set's tests was open, `test-set` is the set that made it, and `after` and `before` name the tests of that set it was made between: `after` is `""` for a call made before the set's first test, `before` is `""` for one made after its last, and both are `""` when Keploy cannot place the call.
 
@@ -57,6 +57,7 @@ The line names one next step, which Keploy chooses from the facts:
 1. **The call is a read that a test's recording holds** (`"action":"move_to_worker"`). The app made the call again outside that test, for example from a timer. Move the recording to `worker:` in the set's mapping, so that Keploy answers the call wherever the app makes it. `keploy mock judge` writes this edit for you.
 2. **A recording came close** (`"action":"record_if_changed"`). The call differs from that recording in the fields that the line names. If you changed the call on purpose, run the command to record the set again. If you did not, fix the app.
 3. **No recording of this call in the set** (`"action":"record_again"`). The call is new since you recorded the set. Run the command to record the set again.
+4. **An earlier set made the call, and Keploy cannot name that set** (`"action":"record_earlier_set"`, with no `command`). Recording the set that the run read again does not fix it, because that set never made the call. Record the set that made it again, with the command that recorded that set. The line names that set as far as Keploy knows it: by its test that made the call (`madeIn`), or by how many sets before this one it ran (`earlierBy`).
 
 The command records the set where the run read it: `keploy mock replay`'s line carries the flags of the replay, and the `keploy record` line of `keploy test --judge` and `keploy record` carries the `-c`, `--path` and `--config-path` that the run was given.
 
