@@ -219,8 +219,11 @@ export default function Home() {
                 Regression tests from your <span>real traffic</span>
               </p>
               <p className={styles.heroLead}>
-                Record real API interactions (and dependencies) and replay them
-                deterministically, locally or in CI.
+                Record real API interactions (and dependencies) from your
+                Kubernetes environments, and replay them deterministically with
+                mocks, locally or in CI. Mocks make production traffic
+                replayable anywhere, with no environment to set up and zero
+                downstream latency.
               </p>
               <div className={styles.heroActions}>
                 <Link
