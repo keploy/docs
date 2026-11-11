@@ -239,6 +239,81 @@ test.beforeEach(({}, testInfo) => post("/agent/scope/begin", testInfo.title));
 test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 ```
 
+## Declare the calls your app makes after a test (Enterprise)
+
+Some calls belong to a test but come after its last request: a clean-up your app
+runs in a goroutine once a delete has answered, or a sweep that repeats that
+clean-up every minute. Keploy records such a call in the next test's window, or
+between two tests. Left there, it is required of whichever test it landed in, so
+that test fails whenever the clean-up comes earlier or later.
+
+Declare these calls under `mock.rules` in `keploy.yml`. `keploy mock record`
+then places each recording a rule covers with the test it belongs to, and
+`keploy mock replay` serves and checks it there. Rules work on sets recorded with
+per-test scoping, and cover MongoDB calls.
+
+```yaml
+mock:
+  rules:
+    - id: order-items-cleanup
+      kind: trailing
+      why: Deleting an order deletes its items by order_id in a goroutine, and a sweep repeats it every minute.
+      match:
+        {mongo: {db: shop, command: delete, collection: [items, itemNotes]}}
+      boundBy: [body.docs.msgs.0.q.order_id]
+    - id: empty-carts-delete
+      kind: background
+      why: A timer deletes the carts left with no items.
+      match: {mongo: {db: shop, command: delete, collection: carts}}
+      where: [{field: body.docs.msgs.0.q.items, equals: []}]
+```
+
+| Key       | What it says                                                                                                                        |
+| --------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `id`      | The rule's name: 3 to 64 lowercase letters, digits and dashes, starting with a letter or digit. Each rule needs its own.            |
+| `kind`    | `trailing`: work the app does for a test after the test asked for it. `background`: a request the app repeats on its own timer.     |
+| `why`     | Why the app makes the call, in your words. Required; it is not part of the rule's digest, so rewording it changes nothing.          |
+| `match`   | `mongo: {db, command, collection}`, each a literal name (no patterns). `collection` is one name or a list.                          |
+| `where`   | Optional, up to 8 exact conditions on the recorded request: `{field: <place>, equals: <value>}`.                                    |
+| `boundBy` | `trailing` only, and required there: the places in the recorded request that hold the trailed test's value, such as the deleted id. |
+
+**What a `trailing` rule does.** A recording the rule covers goes with the test
+that first sent the value at a `boundBy` place, and the replay serves it wherever
+its call lands. When the app repeats the call more times than were recorded, the
+last recording answers each repeat, so a slower or faster sweep does not miss.
+Each repeat must still match the recorded request, and a call that carries the
+test's value at a `boundBy` place but another value elsewhere fails that test.
+
+A trailing write is required once per run of the test it trails: if the app never
+makes it, that test fails with `RULE NOT MADE`. Before it decides, the replay
+waits while the app is still making progress on what it owes, with no fixed
+timeout. A read, or a write whose every recording changed nothing (`n`,
+`nModified` or `deletedCount` 0), is served but not required.
+
+**What a `background` rule does.** One request with one answer that the app
+makes in several windows is served in any window. A background write is required
+once in a run that reaches the test it was first recorded in.
+
+**Rules are read whole or not at all.** If keploy cannot read every rule, it
+prints `RULES REFUSED` with the first problem and runs no `keploy mock` command
+until you fix it: an unknown key, a missing `id`, `kind`, `why` or `match`, two
+rules with one `id`, a pattern in a name, an unknown command, a place that does
+not parse, or a `trailing` rule without `boundBy`.
+
+**What the rules leave behind.**
+
+- Each recording a rule placed names it in `mappings.yaml` (`rule: <id>@<8 hex>`)
+  with the reason it was placed. A recording two rules cover stays where it was
+  (`RULES CONFLICT`), and one a rule matched but could not place says why
+  (`RULE DID NOT HOLD`).
+- `keploy.lock` pins the rules each set was recorded with, with a note such as
+  `5 rules (trailing 4, background 1); 412 calls placed, for 31 tests`. A replay
+  whose `keploy.yml` rules differ prints `RULES CHANGED` and does not run: record
+  the set again with the new rules, or put back the old ones.
+- At the end of a replay, one `RULE USED` line per rule says what its series
+  answered, how many repeats went past the recorded count, and how many required
+  series were made, not made, or not due because their test did not run.
+
 ## Platforms
 
 | Platform                  | How to run                                                                                                                                        |
