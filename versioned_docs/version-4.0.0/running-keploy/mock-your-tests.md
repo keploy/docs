@@ -290,10 +290,22 @@ waits while the app is still making progress on what it owes, with no fixed
 timeout. A read, or a write whose every recording changed nothing (`n`,
 `nModified` or `deletedCount` 0), is served but not required.
 
-On macOS, keploy tells that the app still runs from the process group your test
-command started. A process that leaves that group, such as a daemon started with
-`setsid`, is not waited on: a trailing write that only it still owes fails its
-test with `RULE NOT MADE`.
+On macOS and Windows, keploy waits only on what it can see still running. On
+macOS it tells that the app still runs from the process group your test command
+started; a process that leaves that group, such as a daemon started with
+`setsid`, is not waited on. On Windows it does not wait on the app once your test
+command exits. Either way, a trailing write still owed then fails its test with
+`RULE NOT MADE`, never a silent pass.
+
+**What keploy refuses, and why.** keploy places or binds a call only when it can
+tell which test sent the value, and otherwise leaves the call where it was
+recorded:
+
+- A test with no recorded requests (no cases) cannot show which values it sent
+  the app, so a rule's call recorded in its window stays that test's own.
+- If the test sent the value first at two fields of its requests, keploy cannot
+  tell which one the clean-up's value came from, so the call is not bound to that
+  test's value and stays where it was recorded.
 
 **What a `background` rule does.** One request with one answer that the app
 makes in several windows is served in any window. A background write is required
