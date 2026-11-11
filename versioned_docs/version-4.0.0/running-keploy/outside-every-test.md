@@ -48,7 +48,7 @@ When Keploy cannot name the earlier set that made a call, the line says `in an e
 
 The JSON after `json=` holds the same facts. Keploy writes `kind`, `set`, `between`, `madeIn`, `placed`, `closest`, `facts` and `next`. Only `call` holds text that your app wrote, such as its path. `differs` names the fields in which the call differs from its closest recording, never their values.
 
-Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call`, `destination`, `made_in`, `after`, `before`, `at`, `closest`, `differs`, `facts` and `next_step`. A call of an earlier set, made in one of its tests or while none was open, also has `read-in-test-set`, the set that was running when Keploy decided it.
+Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call`, `destination`, `made_in`, `after`, `before`, `at`, `closest`, `differs`, `facts` and `next_step`. A call of an earlier set, made in one of its tests or while none was open, also has `read-in-test-set`, the set that was running when Keploy decided it. For such a call made while none of that set's tests was open, `test-set` is the set that made it, and `after` and `before` name the tests of that set it was made between: `after` is `""` for a call made before the set's first test, `before` is `""` for one made after its last, and both are `""` when Keploy cannot place the call.
 
 ## Fix it
 
