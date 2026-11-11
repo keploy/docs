@@ -58,4 +58,6 @@ The line names one next step, which Keploy chooses from the facts:
 2. **A recording came close** (`"action":"record_if_changed"`). The call differs from that recording in the fields that the line names. If you changed the call on purpose, run the command to record the set again. If you did not, fix the app.
 3. **No recording of this call in the set** (`"action":"record_again"`). The call is new since you recorded the set. Run the command to record the set again.
 
+The command records the set where the run read it: `keploy mock replay`'s line carries the flags of the replay, and the `keploy record` line of `keploy test --judge` and `keploy record` carries the `-c`, `--path` and `--config-path` that the run was given.
+
 Several such calls fail the run once, and the run names each call on its own line.
