@@ -366,8 +366,11 @@ mock:
 **Declare a read of the clock.** A `clock` rule says your app reads a field from
 its clock for the call. Keploy then learns the field as a read of the clock even
 where the same moment also stands in an earlier answer, but only where the
-replay's own clock check holds it in both runs. With the time default on, clock
-rules are optional.
+replay's own clock check holds it in both runs. With the time default on, a
+time keploy learns as a read of the clock needs no rule. Declare one for a time
+your app copies from an earlier answer, such as a record's creation time written
+again in an audit row: keploy learns that as a copy, and the time default does
+not cover a copy.
 
 ```yaml
 mock:
