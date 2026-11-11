@@ -290,6 +290,11 @@ waits while the app is still making progress on what it owes, with no fixed
 timeout. A read, or a write whose every recording changed nothing (`n`,
 `nModified` or `deletedCount` 0), is served but not required.
 
+On macOS, keploy tells that the app still runs from the process group your test
+command started. A process that leaves that group, such as a daemon started with
+`setsid`, is not waited on: a trailing write that only it still owes fails its
+test with `RULE NOT MADE`.
+
 **What a `background` rule does.** One request with one answer that the app
 makes in several windows is served in any window. A background write is required
 once in a run that reaches the test it was first recorded in.
