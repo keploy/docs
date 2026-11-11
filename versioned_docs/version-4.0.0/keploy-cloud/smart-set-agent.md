@@ -20,13 +20,9 @@ keywords:
   - failing replay fix
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
 :::note An earlier workflow
 This page describes an earlier Kubernetes workflow. For the current one, see the [Quickstart](/integration-testing/quickstart/), [Run on every pull request](/integration-testing/run-in-ci/), [Review test changes](/integration-testing/review-test-changes/) and [Use with coding agents](/integration-testing/coding-agents/). An intended change is accepted by deleting the outdated test through review, never by editing it.
 :::
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 ## Overview
 
@@ -41,7 +37,7 @@ The agent always stops at a **verified branch** and reports back. Merging to `ma
 
 ## Before you start
 
-- Keploy on the Enterprise plan, with smart test sets enabled on the app (`EnableSmartTestSet=true`), and the app already [recording in your cluster](/docs/quickstart/k8s-proxy).
+- Keploy, with smart test sets enabled on the app (`EnableSmartTestSet=true`), and the app already [recording in your cluster](/docs/quickstart/k8s-proxy).
 - A **Keploy PAT** — Dashboard → Settings → API Keys. Copy the `kep_...` value (shown only once).
 - A **Skills-aware editor**: Cursor (cursor-agent CLI / Cursor IDE), Claude Code, Windsurf, Antigravity, or any agent that loads `.../skills/<name>/SKILL.md` on demand. Older `.cursorrules` / `.windsurfrules` always-on rules files work too but bill the full skill on every editor interaction — Skills are the modern, on-demand path and what this page recommends.
 - **Run the agent from inside the app's git repository.** The skill inspects your `git` commit message and `git diff` to decide whether a failing case is an **intentional contract change** (update the test data) or a **regression** (fix the code). Outside a repo it can't tell them apart and will conservatively treat the change as a regression and refuse to edit the test.

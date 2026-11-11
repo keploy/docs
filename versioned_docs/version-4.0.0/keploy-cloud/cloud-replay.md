@@ -22,10 +22,6 @@ keywords:
 
 # Cloud Replay Command Reference
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 ## Overview
 
 `keploy cloud replay` runs an application's cloud-stored test cases against a running deployment and reports pass/fail per test set. It is the command CI pipelines use to gate pull requests and the command developers use to validate a [Keploy branch](/docs/quickstart/k8s-proxy-developer-workflow/) before opening one.

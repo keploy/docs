@@ -20,10 +20,6 @@ keywords:
   - shared token
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 The **Keploy Kubernetes Proxy** runs as an in-cluster service that drives recording, replay, and observability for Deployments in one or more namespaces. Its REST API has two groups of routes:
 
 - **Operational routes** such as `/record/start`, `/record/status`, `/test/start`, `/deployments`, and `/proxy/update`. These are the routes used to control live in-cluster recording and replay.

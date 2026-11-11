@@ -19,10 +19,6 @@ keywords:
   - docker daemon replay
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 The Keploy Kubernetes Proxy supports two recording modes—**Sidecar** and **DaemonSet**—and two independent **auto-replay environments** that the same proxy can dispatch to. This page explains the moving parts of DaemonSet recording and then walks through both replay environments end to end.
 
 If you only want the install steps, see [the K8s Proxy quickstart](/docs/quickstart/k8s-proxy/) or [the customer cluster-mode setup guide](/docs/running-keploy/k8s-proxy-api/). This document is the "behind the scenes" reference.

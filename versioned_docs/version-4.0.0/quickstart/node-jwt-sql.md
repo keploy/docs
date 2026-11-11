@@ -228,7 +228,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
+But wait — one test is still failing due to the time-freezing. See [Time freezing](/docs/keploy-cloud/time-freezing/).
 
 ### Wrapping it up 🎉
 
@@ -396,7 +396,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
+But wait — one test is still failing due to the time-freezing. See [Time freezing](/docs/keploy-cloud/time-freezing/).
 
 ### Wrapping it up 🎉
 

@@ -58,10 +58,6 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 ]}
 />
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
 
 import Link from '@docusaurus/Link'

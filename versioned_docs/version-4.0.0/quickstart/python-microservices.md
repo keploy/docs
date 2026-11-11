@@ -61,9 +61,6 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 />
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 import CollapsibleCode from '@site/src/components/CollapsibleCode';
 

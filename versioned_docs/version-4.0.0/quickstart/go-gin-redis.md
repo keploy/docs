@@ -58,11 +58,8 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
-import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker Compose 🐳
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
@@ -271,8 +268,6 @@ Happy coding! ✨👩‍💻👨‍💻✨
 ---
 
 # Running App Locally on Linux/WSL 🐧
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 

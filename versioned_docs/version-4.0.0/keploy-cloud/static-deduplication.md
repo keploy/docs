@@ -19,10 +19,6 @@ keywords:
   - schema enum generation
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 ## Why Static Deduplication?
 
 In high-traffic environments, the same request shape repeats thousands of times a minute. Recording every copy inflates your test suite, bloats storage, and buries interesting edge cases under noise.

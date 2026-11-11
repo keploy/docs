@@ -19,10 +19,6 @@ keywords:
   - ingress
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 This guide walks you through deploying **Keploy's `k8s-proxy`** using **Flux CD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
 
 Flux watches your Git repository and automatically applies changes to the cluster. Adding Keploy requires a **HelmRelease** for the `k8s-proxy` and an **HTTPProxy** for Contour routing.
@@ -40,7 +36,7 @@ Ensure you have the following before you begin:
 2. **Flux CLI** installed ([installation guide](https://fluxcd.io/flux/installation/))
 3. **kubectl** and **Helm** installed
 4. **A Git repository** (GitHub, GitLab, Bitbucket) for Flux to watch
-5. **Keploy account on the Enterprise plan** (with an access key)
+5. **A Keploy account** on any plan, including Free (with an access key)
 6. **Contour** deployed ([see step 2 in the ArgoCD guide](/docs/keploy-cloud/gitops-argocd#2-deploy-contour-ingress-controller))
 
 ---

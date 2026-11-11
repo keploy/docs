@@ -23,10 +23,7 @@ keywords:
 This page describes an earlier Kubernetes workflow. For the current one, see the [Quickstart](/integration-testing/quickstart/), [Run on every pull request](/integration-testing/run-in-ci/), [Review test changes](/integration-testing/review-test-changes/) and [Use with coding agents](/integration-testing/coding-agents/). An intended change is accepted by deleting the outdated test through review, never by editing it.
 :::
 
-import ProductTier from '@site/src/components/ProductTier';
 import useBaseUrl from '@docusaurus/useBaseUrl';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 Once recording works in your cluster, the next question is how your team edits test data without stepping on each other and how those edits land in `main` only after review. Keploy mirrors the git workflow: every change to a test case or a mock lives on a **Keploy branch**, a teammate reviews the diff in the dashboard, and CI replays the branch on every pull request before folding it into main on merge.
 

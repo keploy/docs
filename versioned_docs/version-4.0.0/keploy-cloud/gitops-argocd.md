@@ -19,10 +19,6 @@ keywords:
   - ingress
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 This guide walks you through deploying **Keploy's `k8s-proxy`** using **ArgoCD** (GitOps) on a Kubernetes cluster, with **Contour** as the ingress controller.
 
 If you already use ArgoCD to manage your applications, adding Keploy requires **just two files**—an ArgoCD Application YAML and a Contour HTTPProxy YAML. No changes to your existing app code or manifests.
@@ -39,7 +35,7 @@ Ensure you have the following before you begin:
 1. **A running Kubernetes cluster** (Kind, EKS, GKE, AKS)
 2. **ArgoCD** installed on the cluster
 3. **kubectl** and **Helm** installed
-4. **Keploy account on the Enterprise plan** (with an access key)
+4. **A Keploy account** on any plan, including Free (with an access key)
 
 ---
 

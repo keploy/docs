@@ -12,10 +12,6 @@ keywords:
   - request filtering
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 Keploy lets you configure **filters when starting a recording on any deployment**. Filters give you precise control over which requests get captured. You can limit recording to specific paths, methods, hosts, or headers, or explicitly exclude traffic you do not need.
 
 Filters are **optional**. If none are configured, Keploy records **all traffic** on the selected pods.
