@@ -339,18 +339,19 @@ from its clock, and an id it makes anew for a call. Keploy checks a changed time
 by its type and format with no rule. Declare an id your app mints with a
 `minted` rule in `keploy.yml`.
 
-**Times are checked by their type and format.** A time that changed between the
-two runs passes at replay with any value of the type and format it was recorded
-in: the same BSON or Postgres type, an epoch number in the same unit (seconds,
-milliseconds, microseconds or nanoseconds), or a text with the same field order,
-separators and zone form, written with a fraction if the recorded one was. Keploy
-does not check the time's range or which clock read it: your tests' own
-assertions check the test, and keploy's check is a bonus over them. A value of
-another type or format fails the test, and the line names both.
+**Times are checked by their type and format.** On a MongoDB call, a time that
+changed between the two runs passes at replay with any value of the type and
+format it was recorded in: the same BSON type, an epoch number in the same unit
+(seconds, milliseconds, microseconds or nanoseconds), or a text with the same
+field order, separators and zone form, written with a fraction if the recorded
+one was. Keploy does not check the time's range or which clock read it: your
+tests' own assertions check the test, and keploy's check is a bonus over them. A
+value of another type or format fails the test, and the line names both. On
+other calls, keploy still checks a changed time's range and which clock read it.
 
 A field is a time when its decoder types it as one (a BSON datetime or
-timestamp, a Postgres timestamp or date column), when keploy learned it as a read
-of your app's clock, or when a `clock` rule declares it. A text that only looks
+timestamp), when keploy learned it as a read of your app's clock, or when a
+`clock` rule declares it. A text that only looks
 like a date, or a number that only looks like an epoch, is not a time: keploy
 checks it like any other value.
 
