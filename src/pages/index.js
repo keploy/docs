@@ -219,10 +219,8 @@ export default function Home() {
                 Regression tests from your <span>real traffic</span>
               </p>
               <p className={styles.heroLead}>
-                Record real API traffic, along with every database, queue and
-                downstream API call, from your Kubernetes environments. Replay
-                it deterministically, with dependencies mocked, on your machine
-                while you develop and in CI on every pull request.
+                Record real API interactions (and dependencies) and replay them
+                deterministically, locally or in CI.
               </p>
               <div className={styles.heroActions}>
                 <Link
