@@ -1,15 +1,20 @@
 ---
 id: integration-testing
-title: "Integration Testing: Types, Tools & Best Practices"
+title: "Integration Testing: Definition and Key Concepts"
 sidebar_label: Integration Testing
-description: "Learn what integration testing is, explore top-down vs bottom-up approaches, and discover tools and best practices for testing module interactions."
+description: "Integration testing definition, types, stubs and drivers, common challenges, and how Keploy generates integration tests and mocks from real traffic."
 tags:
   - explanation
 keywords:
-  - API
+  - integration testing
+  - integration testing definition
+  - stubs and drivers
+  - integration testing with Keploy
 ---
 
 ### What is Integration Testing ?
+
+**Integration testing** is a level of software testing that checks whether separate components of an application, such as internal modules, APIs, databases, message queues and third-party services, work correctly together. For a full walkthrough with a test plan template, real examples and tools, read our complete [integration testing guide](https://keploy.io/blog/community/integration-testing-a-comprehensive-guide).
 
 Integration testing is a software testing process that combines individual software modules into larger subsystems or components to evaluate their interactions. It is conducted after unit testing and before system testing. The primary objective of integration testing is to detect defects that occur when different modules are integrated and interact.
 
@@ -123,11 +128,11 @@ In conclusion, Keploy empowers development teams to overcome the challenges of i
 
 ## Related Terms
 
-- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — precedes integration testing in the pyramid.
-- [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/) — follows integration testing across the full system.
-- [Component Testing](/docs/concepts/reference/glossary/component-testing/) — tests parts before they are integrated.
-- [Stubs](/docs/concepts/reference/glossary/stubs/) — simulate not-yet-ready modules during integration.
-- [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+- [Unit Testing](/docs/concepts/reference/glossary/unit-testing/): precedes integration testing in the pyramid.
+- [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/): follows integration testing across the full system.
+- [Component Testing](/docs/concepts/reference/glossary/component-testing/): tests parts before they are integrated.
+- [Stubs](/docs/concepts/reference/glossary/stubs/): simulate not-yet-ready modules during integration.
+- [Browse all testing terms](/docs/concepts/reference/glossary/): the full Keploy glossary.
 
 ### FAQs
 
