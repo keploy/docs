@@ -21,18 +21,23 @@ const path = require("path");
 const SITE = "https://keploy.io/docs/";
 
 const ERROR_CODES = [
-  // Errors: the capture ends and onError is called.
+  // Errors (SDK_ERRORS): the capture ends, or never starts, and onError is
+  // called.
+  "KUI_E_CAPTURE_DECLINED",
   "KUI_E_DOM_RECORDER_UNAVAILABLE",
   "KUI_E_INGEST_ENDPOINT_NOT_FOUND",
   "KUI_E_INGEST_KEY_REJECTED",
   "KUI_E_INGEST_REJECTED",
+  "KUI_E_PRIVACY_CONFLICT",
   "KUI_E_PRIVACY_ROUTE_INVALID",
   "KUI_E_SESSION_CONFLICT",
   "KUI_E_SESSION_ID_INVALID",
-  // Warnings: one event is dropped and the capture continues.
+  // Warnings (SDK_WARNINGS): a console line, and the capture continues.
   "KUI_E_EVENT_OVERSIZED",
   "KUI_E_EVENT_OVERSIZED_SCRUBBING",
   "KUI_E_EVENT_UNSERIALISABLE",
+  "KUI_E_NAVIGATION_UNWRAPPED",
+  "KUI_E_REQUEST_TERM_FAILED",
 ];
 
 const README_LINKS = [

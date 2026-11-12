@@ -17,34 +17,40 @@ keywords:
   - ingest key
 ---
 
-The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError` and every dropped-event warning it logs with a `KUI_E_` code. An error's `remedy.docs`, and a warning's entry in the SDK's exported `SDK_WARNINGS`, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
+The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError`, and every console warning in its exported `SDK_WARNINGS`, with a `KUI_E_` code. An error's `remedy.docs`, and a warning's entry in the SDK's exported `SDK_WARNINGS`, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
 
-| Code                                                                  | Kind    | Raised when                                                                                     |
-| --------------------------------------------------------------------- | ------- | ----------------------------------------------------------------------------------------------- |
-| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)             | Error   | The ingest server answers `401` or `403`.                                                       |
-| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found) | Error   | The ingest server answers `404` or `405`.                                                       |
-| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                   | Error   | The ingest server answers `409`.                                                                |
-| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                     | Error   | The ingest server, or for a `413` a proxy in front of it, answers any other `4xx` except `429`. |
-| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)               | Error   | `sessionIdGenerator` does not produce an id the server would accept.                            |
-| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)   | Error   | The SDK cannot load rrweb in the browser.                                                       |
-| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)         | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route.                    |
-| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)           | Warning | An event cannot be serialised to JSON.                                                          |
-| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                     | Warning | An event alone is over the ingest server's body cap.                                            |
-| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing) | Warning | Scrubbing credentials out of an event takes it over that cap.                                   |
+| Code                                                                  | Kind    | Raised when                                                                                              |
+| --------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)             | Error   | The ingest server answers `401` or `403`.                                                                |
+| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found) | Error   | The ingest server answers `404` or `405`.                                                                |
+| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                   | Error   | The ingest server answers `409`.                                                                         |
+| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                     | Error   | The ingest server, or for a `413` a proxy in front of it, answers any other `4xx` except `429`.          |
+| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)               | Error   | `sessionIdGenerator` does not produce an id the server would accept.                                     |
+| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)   | Error   | The SDK cannot load rrweb in the browser.                                                                |
+| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)         | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route.                             |
+| [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined)                   | Error   | The browser sends Do Not Track or Global Privacy Control, and `honorPrivacySignals` is on (the default). |
+| [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict)                   | Error   | `privacyMode: "strict"` is set together with `privacy.maskNetworkBodies: false`.                         |
+| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)           | Warning | An event cannot be serialised to JSON.                                                                   |
+| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                     | Warning | An event alone is over the ingest server's body cap.                                                     |
+| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing) | Warning | Scrubbing credentials out of an event takes it over that cap.                                            |
+| [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped)           | Warning | The page made a History or Navigation API method the SDK wraps impossible to replace.                    |
+| [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed)             | Warning | The SDK could not compute a request's GraphQL term, or could not load the code that computes it.         |
 
 :::note SDK versions
-This page describes the SDK releases whose codes link here, all of them after 3.0.1. `@keploy/capture-sdk` 3.0.1 does not link here and differs in places, among them: its `CaptureError.remedy` is `{command, manual}`, with no `docs` and the full remedy in `manual`; it has no `continuous` option and no `privacy.secretRoutes` or `privacy.keepRoutes`; and it does not raise `KUI_E_DOM_RECORDER_UNAVAILABLE`, `KUI_E_PRIVACY_ROUTE_INVALID` or `KUI_E_EVENT_OVERSIZED_SCRUBBING`.
+This page describes the SDK releases whose codes link here, all of them after 3.0.1. `@keploy/capture-sdk` 3.0.1 does not link here and differs in places, among them: its `CaptureError.remedy` is `{command, manual}`, with no `docs` and the full remedy in `manual`; it has no `continuous` option and no `privacy.secretRoutes` or `privacy.keepRoutes`; it has no `honorPrivacySignals` and records regardless of Do Not Track or Global Privacy Control; its `privacyMode: "strict"` does not mask request or response bodies; and it does not raise `KUI_E_DOM_RECORDER_UNAVAILABLE`, `KUI_E_PRIVACY_ROUTE_INVALID`, `KUI_E_CAPTURE_DECLINED`, `KUI_E_PRIVACY_CONFLICT`, `KUI_E_EVENT_OVERSIZED_SCRUBBING`, `KUI_E_NAVIGATION_UNWRAPPED` or `KUI_E_REQUEST_TERM_FAILED`.
 :::
 
 ## Handle SDK errors and warnings
 
-**An error ends the capture.** The SDK logs it with `console.error`, stops recording, releases its singleton, and then calls your `onError` once with a `CaptureError`. When the ingest server refused a batch, the logged line carries the server's own explanation, and the SDK also unpatches `fetch` and `XMLHttpRequest` and drops every event it had not yet sent. A page started offline whose rrweb import then fails loses what it held the same way: see [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable). Because the singleton is released before `onError` runs, your handler can call `KeployCapture.init()` again to start a fresh capture. An error the SDK raises before sending anything does not reject `init()`: `init()` resolves, and the error reaches you only through `onError`.
+**An error ends the capture.** The SDK logs it with `console.error`, stops recording, releases its singleton, and then calls your `onError` once with a `CaptureError`. When the ingest server refused a batch, the logged line carries the server's own explanation, and the SDK also unpatches `fetch` and `XMLHttpRequest` and drops every event it had not yet sent. A page started offline whose rrweb import then fails loses what it held the same way: see [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable). Because the singleton is released before `onError` runs, your handler can call `KeployCapture.init()` again, and that starts a fresh capture once the cause is fixed. With the same options it does not: [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid) and [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict) are raised again; [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) is raised again on the same page until you fix the cause and reload; and while the browser sends a privacy signal and `honorPrivacySignals` is on, every `init()` is declined with [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined). Never call `init()` again from `onError` on these five codes with the same options: each such call raises the same error and calls your handler again, which calls `init()` again, and so on. An error the SDK raises before sending anything does not reject `init()`: `init()` resolves, and the error reaches you only through `onError`.
+
+[`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined) is not a failure, so it is logged differently: with `console.info`, and only for the first declined `init()` on a page. `onError` still hears every declined `init()`.
 
 One exception: with `continuous: true` and session ids the SDK minted, a refusal that says the server completed or filled the session ends only that session, without `onError`. See [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict) and [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected).
 
 A `CaptureError` carries:
 
-- `code`: one of the seven error codes on this page. Branch on `code`, never on the message.
+- `code`: one of the nine error codes on this page. Branch on `code`, never on the message.
 - `status`: the HTTP status the server answered, or `null` when the SDK refused before sending anything.
 - `serverMessage`: the `error` field of the server's JSON body, or the body's text, or `null`.
 - `issues`: the server's `[{path, message}]` list, which the ingest server sends only with a `400` to say which field it refused, or `null`.
@@ -58,6 +64,9 @@ await KeployCapture.init({
   endpoint,
   apiKey,
   onError: (err) => {
+    // The visitor's browser declined capture: not a failure, so keep it out
+    // of your error tracker.
+    if (err.code === "KUI_E_CAPTURE_DECLINED") return;
     if (err.code === "KUI_E_INGEST_KEY_REJECTED") rotateKeyAndReload();
     else report(err.code, err.serverMessage, err.evidence, err.remedy.docs);
   },
@@ -75,7 +84,7 @@ The server's status decides the code:
 | `429`, a `5xx`, or a network failure  | None: the SDK retries with backoff and never calls `onError`.         |
 | `2xx`                                 | None: the batch was accepted.                                         |
 
-**A warning drops one event, and the capture continues.** The SDK does not call `onError`. It writes one `console.error` line for the first such event of each code in a capture, and drops later ones in that capture silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The line names the code and ends with the evidence as JSON:
+**A warning does not end the capture.** The SDK does not call `onError`. Three warnings each mean one event was dropped; [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped) and [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed) drop nothing. The SDK writes one `console.error` line for the first occurrence of each code in a capture, and says nothing about later ones in that capture: a later dropped event is dropped silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The line names the code and ends with the evidence as JSON:
 
 ```text
 [keploy] KUI_E_EVENT_OVERSIZED: dropped an event: 11059200 bytes in a body, over the ingest server's 10485760-byte cap, so no batch could carry it. The capture continues; any further such events in this capture are dropped silently. evidence={"eventId":"7","eventType":"dom","bytes":11059200,"cap":10485760}
@@ -215,6 +224,52 @@ Under server-side rendering there is no page, so a failed import records nothing
 
 **Evidence:** `option`, `received`, `rule`.
 
+## `KUI_E_CAPTURE_DECLINED` {#kui-e-capture-declined}
+
+**Error.** Raised by the SDK before it records or sends anything. Capture did not start. This is not a failure, so the SDK logs it with `console.info`, not `console.error`.
+
+**What happened:** The visitor's browser sent a privacy signal, Do Not Track or Global Privacy Control, and `honorPrivacySignals` is on, as it is by default. The SDK honoured the signal: it recorded nothing, patched nothing and sent nothing, and the capture never started.
+
+**Cause:** The visitor's browser settings, not your code. `evidence.signal` names the signal:
+
+- `globalPrivacyControl`: `navigator.globalPrivacyControl` is `true`. When the browser sends both signals, this is the one named.
+- `doNotTrack`: `navigator.doNotTrack` is `"1"` or `"yes"`, `window.doNotTrack` is `"1"`, or `navigator.msDoNotTrack` is `"1"`.
+
+Some browsers send Global Privacy Control by default, Brave and DuckDuckGo among them, so expect this code from a share of your real visitors. The SDK checks the signal on every `init()` made while no capture is running, before `sampleRate` applies, so a visitor that `sampleRate` would have left out is declined, and reported, all the same. `onError` is called once for every declined `init()`. The `console.info` line is written only for the first one on a page:
+
+```text
+[keploy] capture did not start: the browser sent Global Privacy Control, and honorPrivacySignals is on (KUI_E_CAPTURE_DECLINED). Nothing was recorded or sent.
+```
+
+`@keploy/capture-sdk` 3.0.1 records regardless of these signals, so once you upgrade from it, visitors who send either signal are no longer recorded.
+
+The decline also comes before every other check except [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict): in a browser that sends either signal, with `honorPrivacySignals` on, the SDK never checks `sessionIdGenerator` or your privacy routes, and never loads rrweb, so [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid) and [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) cannot appear there.
+
+**Fix:** Nothing needs fixing: the person using the page said no. In `onError`, return early on this code and keep it out of your error tracker. Calling `init()` again does not help: while the browser sends the signal and `honorPrivacySignals` is on, every `init()` is declined. To test your integration, use a browser with both signals off, or set `honorPrivacySignals: false` in development only. Set `honorPrivacySignals: false` only where your site has its own lawful basis to record regardless of these signals, and says so in its privacy policy. The SDK then records as it would with no signal.
+
+**Evidence:** `signal`.
+
+## `KUI_E_PRIVACY_CONFLICT` {#kui-e-privacy-conflict}
+
+**Error.** Raised by the SDK before it records or sends anything. Capture did not start.
+
+**What happened:** `privacyMode: "strict"` records no request or response body, and `privacy.maskNetworkBodies` is `false`, which asks for them. The SDK does not pick one of the two for you, so it recorded nothing, patched nothing and sent nothing, and the capture never started. It logs:
+
+```text
+[keploy] capture did not start: privacyMode "strict" records no request or response body, and privacy.maskNetworkBodies is false, which asks for them (KUI_E_PRIVACY_CONFLICT). Remove privacy.maskNetworkBodies, or use privacyMode "balanced".
+```
+
+**Cause:** `KeployCapture.init()` received `privacyMode: "strict"` and a `privacy` object whose `maskNetworkBodies` is `false`. A `privacy` object built from the SDK's exported `defaultPrivacyConfig()` counts: its `maskNetworkBodies` is `false`. Under `privacyMode: "balanced"` or `"off"`, `maskNetworkBodies: false` is no conflict. The conflict is in your configuration, so every visitor's capture is refused: the SDK checks for it before it checks the browser's privacy signals and before `sampleRate` applies.
+
+**Fix:** Choose one of the two:
+
+- To record no bodies, keep `privacyMode: "strict"` and remove `privacy.maskNetworkBodies`, or set it to `true`. Strict masks every body without it.
+- To record bodies, use `privacyMode: "balanced"`, which records them after the SDK's own redaction. Balanced also records what strict replaces: the page's visible text, and query and header values. It still redacts the values it reads as credentials, and PII patterns in header values and in the page's own URL, but not PII in visible text or in a request's query values.
+
+The SDK checks the options before it records anything, so the fix takes effect on the next `init()`.
+
+**Evidence:** `privacyMode` (always `"strict"`), `option` (always `"privacy.maskNetworkBodies"`).
+
 ## `KUI_E_EVENT_UNSERIALISABLE` {#kui-e-event-unserialisable}
 
 **Warning.** One `console.error` line, for the first such event in a capture. The capture continues.
@@ -258,3 +313,55 @@ The SDK then holds the page's later DOM changes and interactions until a full sn
 **Fix:** Apart from a crafted URL, a `dom` event this large is an rrweb full snapshot of a very large page: leave the heaviest subtrees out of the snapshot with `privacy.blockSelectors`.
 
 **Evidence:** `eventType`, `atLeast`, `cap`. The event has no id, because it never reached the SDK's queue.
+
+## `KUI_E_NAVIGATION_UNWRAPPED` {#kui-e-navigation-unwrapped}
+
+**Warning.** One `console.error` line per capture. Nothing is dropped, and the capture continues.
+
+**What happened:** To record route changes, and which history traversals the page's own script asked for, the SDK puts wrappers in place of `history.pushState`, `replaceState`, `back`, `forward` and `go`, and, where the browser has the Navigation API, of `navigation.back`, `forward` and `traverseTo`. It wraps all of them or none. The page had made the method that `evidence.method` names impossible to replace and put back, so the SDK wrapped none of them:
+
+```text
+[keploy] KUI_E_NAVIGATION_UNWRAPPED: the page made a History or Navigation API method impossible to replace and put back, so the SDK wrapped none of them. The capture continues: route changes are still recorded, with less detail, and none says that the page's script asked for it. evidence={"method":"history.back"}
+```
+
+Route changes are still recorded, from the page's navigation events, with less detail:
+
+- No traversal carries `initiator: "script"`. Where the browser has the Navigation API, only `userInitiated` is left to tell an in-app Back button that calls `history.back()` from the browser's Back, and WebKit reports `userInitiated: true` for a `history.back()` called from a click handler. Where it does not, nothing tells them apart.
+- Where the browser has the Navigation API, a `pushState` or `replaceState` to a fragment is recorded as a `hash` change.
+- Where it does not, a `pushState` or `replaceState` is found only at the next recorded event, and is recorded as a `push`, or as a `traverse` when that event comes during a `popstate` or `hashchange` dispatch. Two of them before that event are recorded as one, and a credential the page put into its URL and removed again before that event is not collected, so it is not scrubbed.
+
+**Cause:** Code on the page that ran before `init()` locked a method the SDK wraps. Either it defined the method as an own property that is neither writable nor configurable, or it made `history` or `navigation` itself take no new property (`Object.freeze`, `Object.seal` or `Object.preventExtensions` on it), so the SDK cannot put an own property in place of a method the object inherits.
+
+**Fix:** Find the page code that locks that method, or `history` or `navigation`, and remove it, so that they are replaceable whenever `init()` runs. Then reload the page.
+
+**Evidence:** `method`: the method the SDK could not replace, as `history.<name>` or `navigation.<name>`. When several are locked, it is the first in this order: `history.pushState`, `replaceState`, `back`, `forward`, `go`, then `navigation.back`, `forward`, `traverseTo`.
+
+## `KUI_E_REQUEST_TERM_FAILED` {#kui-e-request-term-failed}
+
+**Warning.** One `console.error` line, for the first such request in a capture. Nothing is dropped, the page's request is not affected, and the capture continues.
+
+**What happened:** With every request, the SDK records a term computed from the raw request body: for a GraphQL request sent in the body, its operation name and an id of its document (`pq` for a persisted query), which replay uses to tell apart GraphQL operations sent to the same URL. For one request it could not compute the term, and it recorded the request anyway:
+
+```text
+[keploy] KUI_E_REQUEST_TERM_FAILED: recorded a request without its term, or body:*: computing it failed; the request itself was not affected. The capture continues; any further such requests in this capture are recorded that way, silently. evidence={"method":"POST","reason":"RangeError: Maximum call stack size exceeded"}
+```
+
+- If computing the term threw, the request is recorded without a term, as an SDK older than the term records it.
+- If the code that computes it did not load, the request is recorded with the term `body:*`, which means unknown. That code is a separate chunk, which the SDK loads the first time a body could be a GraphQL request. The SDK does not retry the load for the life of the page, so every later such request on that page is recorded `body:*` too.
+
+At replay, a call recorded `body:*` matches a live request of the same method and URL whatever its term, and a recorded call whose key equals the live one is always chosen first. A call recorded without a term, and with a request body, is matched the same way when any other call in the recording carries a term. Any term counts, the empty term included, which this SDK records for a request with no body or with a text body that is not a GraphQL request, so this is the usual case. Only when no call carries a term does the recording replay as one from an SDK without the term does.
+
+**Cause:** `evidence.reason` is the name and message of what threw, or of the failed load. `evidence.method` is the request's method.
+
+- The chunk did not load: a Content-Security-Policy blocked it, the page was offline when the SDK first asked for it, or your deployment does not serve the chunk your bundler emitted beside the SDK. The SDK imports it by the bare specifier `@keploy/capture-sdk/request-term`, which your bundler resolves through the package's `exports` map, as it resolves `rrweb`.
+- Computing the term threw. Usually either the SDK's own GraphQL lexer or parser threw, which is a defect in the SDK in this browser, or the page's `crypto` did, which comes from the page's environment: a page whose `crypto` getter or `crypto.subtle.digest` throws or rejects, for example because the page replaced it.
+
+A page with no `SubtleCrypto` at all, such as one served over plain HTTP, cannot hash a GraphQL document, so it records such a request `body:*` without this warning. A persisted query needs no hash and is recorded with its term there too.
+
+**Fix:**
+
+- For a chunk that did not load, let the page load it: allow it in your Content-Security-Policy, and deploy it with the rest of your build. With no bundler, map `@keploy/capture-sdk/request-term` to the package's `dist/request-term.mjs` in your import map, as you map `rrweb`. Then reload the page: the SDK does not retry the load on a page where it failed.
+- For a throw of the SDK's lexer or parser, report it to Keploy with `evidence.reason`, the SDK version and the browser.
+- For a throw of the page's `crypto`, find the page code that replaces `crypto` or `crypto.subtle.digest`.
+
+**Evidence:** `method`, `reason`.
