@@ -343,11 +343,16 @@ by its type and format with no rule. Declare an id your app mints with a
 changed between the two runs passes at replay with any value of the type and
 format it was recorded in: the same BSON type, an epoch number in the same unit
 (seconds, milliseconds, microseconds or nanoseconds), or a text with the same
-field order, separators and zone form, written with a fraction if the recorded
-one was. Keploy does not check the time's range or which clock read it: your
-tests' own assertions check the test, and keploy's check is a bonus over them. A
-value of another type or format fails the test, and the line names both. On
-other calls, keploy still checks a changed time's range and which clock read it.
+field order, separators and zone form, with or without a fraction of a second.
+A time your app wrote in two formats in the two runs (a zone offset in one and
+`Z` in the other, or an epoch in seconds in one and in milliseconds in the
+other) passes in either. Keploy does not check the time's range or which clock
+read it: your tests' own assertions check the test, and keploy's check is a
+bonus over them. A value of another type or format fails the test, and the line
+names both. On an HTTP call, a time your app copied from an earlier read of its
+clock passes by its format where it no longer equals that read; HTTP's other
+times, and times on other calls, are still checked by their range and which
+clock read them.
 
 A field is a time when its decoder types it as one (a BSON datetime or
 timestamp), when keploy learned it as a read of your app's clock, or when a
