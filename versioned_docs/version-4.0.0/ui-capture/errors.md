@@ -17,7 +17,7 @@ keywords:
   - ingest key
 ---
 
-The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError`, and every console warning in its exported `SDK_WARNINGS`, with a `KUI_E_` code. An error's `remedy.docs`, and a warning's entry in the SDK's exported `SDK_WARNINGS`, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
+The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError`, and every console warning in its exported `SDK_WARNINGS`, with a `KUI_E_` code. An error's `remedy.docs`, and a warning's `SDK_WARNINGS` entry, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
 
 | Code                                                                  | Kind    | Raised when                                                                                              |
 | --------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
@@ -328,7 +328,7 @@ Route changes are still recorded, from the page's navigation events, with less d
 
 - No traversal carries `initiator: "script"`. Where the browser has the Navigation API, only `userInitiated` is left to tell an in-app Back button that calls `history.back()` from the browser's Back, and WebKit reports `userInitiated: true` for a `history.back()` called from a click handler. Where it does not, nothing tells them apart.
 - Where the browser has the Navigation API, a `pushState` or `replaceState` to a fragment is recorded as a `hash` change.
-- Where it does not, a `pushState` or `replaceState` is found only at the next recorded event, and is recorded as a `push`, or as a `traverse` when that event comes during a `popstate` or `hashchange` dispatch. Two of them before that event are recorded as one, and a credential the page put into its URL and removed again before that event is not collected, so it is not scrubbed.
+- Where it does not, a `pushState` or `replaceState` is found only at the next recorded event, and is recorded as a `push`, or as a `traverse` when that event comes during a `popstate` or `hashchange` dispatch. Two of them before that event are recorded as one, and a credential the page put into its URL and removed again before that event is not collected, so the SDK does not scrub it as that value: a link on the page that still carries it keeps it unless its name or shape marks it as a credential, such as a `token` query parameter or a JWT.
 
 **Cause:** Code on the page that ran before `init()` locked a method the SDK wraps. Either it defined the method as an own property that is neither writable nor configurable, or it made `history` or `navigation` itself take no new property (`Object.freeze`, `Object.seal` or `Object.preventExtensions` on it), so the SDK cannot put an own property in place of a method the object inherits.
 
@@ -349,14 +349,14 @@ Route changes are still recorded, from the page's navigation events, with less d
 - If computing the term threw, the request is recorded without a term, as an SDK older than the term records it.
 - If the code that computes it did not load, the request is recorded with the term `body:*`, which means unknown. That code is a separate chunk, which the SDK loads the first time a body could be a GraphQL request. The SDK does not retry the load for the life of the page, so every later such request on that page is recorded `body:*` too.
 
-At replay, a call recorded `body:*` matches a live request of the same method and URL whatever its term, and a recorded call whose key equals the live one is always chosen first. A call recorded without a term, and with a request body, is matched the same way when any other call in the recording carries a term. Any term counts, the empty term included, which this SDK records for a request with no body or with a text body that is not a GraphQL request, so this is the usual case. Only when no call carries a term does the recording replay as one from an SDK without the term does.
+Replay then cannot tell this request's GraphQL operation from that of another request sent with the same method and URL, unless that other request was recorded with its own term; requests recorded this way are answered in the order they were recorded.
 
 **Cause:** `evidence.reason` is the name and message of what threw, or of the failed load. `evidence.method` is the request's method.
 
 - The chunk did not load: a Content-Security-Policy blocked it, the page was offline when the SDK first asked for it, or your deployment does not serve the chunk your bundler emitted beside the SDK. The SDK imports it by the bare specifier `@keploy/capture-sdk/request-term`, which your bundler resolves through the package's `exports` map, as it resolves `rrweb`.
 - Computing the term threw. Usually either the SDK's own GraphQL lexer or parser threw, which is a defect in the SDK in this browser, or the page's `crypto` did, which comes from the page's environment: a page whose `crypto` getter or `crypto.subtle.digest` throws or rejects, for example because the page replaced it.
 
-A page with no `SubtleCrypto` at all, such as one served over plain HTTP, cannot hash a GraphQL document, so it records such a request `body:*` without this warning. A persisted query needs no hash and is recorded with its term there too.
+A page with no `SubtleCrypto` at all, such as one served over plain HTTP from a host other than `localhost` or a loopback address (`127.0.0.1`, `[::1]`), cannot hash a GraphQL document, so it records such a request `body:*` without this warning. A persisted query needs no hash and is recorded with its term there too.
 
 **Fix:**
 
