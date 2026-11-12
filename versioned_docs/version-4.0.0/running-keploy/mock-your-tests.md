@@ -398,10 +398,13 @@ mock:
 ```
 
 At replay keploy binds the new id, and every later call that uses it must send
-the same value. A recording no test owns, such as a background worker's insert,
-mints its own id at each call: keploy checks that id the same way, and a field
-of the same request that recorded the same id must carry the call's new one, but
-no later call is held to it. The id fails its test with `minted value reused` when it is the
+the same value, as must any other field of the same request that recorded the
+id, whole or inside a longer text. A recording no test owns, such as a
+background worker's insert, mints its own id at each call: keploy checks that id
+the same way, and a field of the same request that recorded the whole id must
+carry the call's new one, but no later call is held to it. On such a recording,
+a field that holds an id of several words inside a longer text, such as
+`apps/<uuid>`, is not learned. The id fails its test with `minted value reused` when it is the
 recorded value, or one the run already bound at a minted field, and with
 `minted value of another shape` when it lacks the prefix the recorded ids share
 or its length lies outside theirs. Keploy does not check which characters follow
