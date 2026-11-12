@@ -540,51 +540,71 @@ html[data-theme="dark"] .navbar {
   color: #ffffff;
 }
 
-/* 1. Create gap between Magnifying Glass and the orange input box */
+/* 1. Create gap between Magnifying Glass and the input box */
 .DocSearch-MagnifierLabel {
-  margin-left: 0.2px !important; /* Adjust this value for a larger/smaller gap */
-  margin-right: 8px !important;  /* Space between icon and the text you type */
-  color: var(--ifm-color-primary) !important; /* Optional: makes icon match Keploy blue */
+  margin-left: 0.2px !important;
+  margin-right: 8px !important;  /* Space between icon and the input */
+  color: var(--ifm-color-primary) !important;
 }
 
-/* Make form stretch fully */
+/* Form is a flex row: [icon] [input] [Clear + Cancel] */
 .DocSearch-Form {
   display: flex;
   align-items: center;
   width: 100%;
-  border: 2px solid orange !important;
-  border-radius: 6px;
-  padding: 0;
+  border: none !important;       /* no outer frame; the input carries the orange border */
+  box-shadow: none !important;
+  padding: 0 12px;
 }
 
-/* Let wrapper take full width */
+/*
+ * NOTE: The rules below override Algolia DocSearch's default styling
+ * (form/wrapper borders and shadows, input sizing) so that the input's
+ * orange border is the only visible frame. They target DocSearch's internal
+ * class names and use !important to beat its defaults, so they may break
+ * silently if DocSearch changes its markup. Re-check them whenever
+ * @docsearch/* or the Docusaurus theme is upgraded.
+ */
+
 .DocSearch-InputWrapper {
   flex: 1;
+  min-width: 0;
   display: flex;
   align-items: center;
   box-shadow: none !important;
   border: none !important;
-  padding-left: 12px;
 }
 
-/* Clean input */
+/* The input fills the space left after the buttons; no fixed padding needed */
 .DocSearch-Input {
-  flex: 1;
-  border: none !important;
+  flex: 1 1 0 !important;
+  width: auto !important;
+  min-width: 0 !important;
+  padding: 0 10px !important;
+  border: 2px solid orange !important;   /* the single orange border */
   outline: none !important;
-  min-width: 0;
+  box-shadow: none !important;
   background: transparent;
-
-  /* 👇 prevents text from going under clear button */
-  padding-right: 110px; 
+  text-overflow: ellipsis;
 }
 
-/* Keep clear text spacing */
+/* Clear + Cancel keep their natural width, sitting outside the input */
+.DocSearch-Actions {
+  position: static !important;
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto !important;
+  width: auto !important;
+  min-width: max-content !important;
+  margin: 0 !important;
+}
+
 .DocSearch-Clear {
+  flex: 0 0 auto !important;
+  width: auto !important;
   margin-left: 8px;
   white-space: nowrap;
 }
-
 
 
 /* Footer */
