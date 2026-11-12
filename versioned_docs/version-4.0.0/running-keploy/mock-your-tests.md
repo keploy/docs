@@ -404,9 +404,11 @@ mock:
 
 At replay keploy binds the new id, and every later call that uses it must send
 the same value, as must any other field of the same request that recorded the
-id, whole or as words of a longer text. A short piece of the id that stands in
-another field by chance, such as one letter or a UUID's four-digit group, does
-not tie that field to the id. A recording no test owns, such as a
+whole id, alone or inside a longer text, or a part of it long enough not to be
+there by chance (32 bits or more, such as a UUID's last group, or two groups of
+a key like `QX7K-M2RD-T9VB-W4HZ`). A short piece of the id that stands in
+another field by chance, such as one letter, a UUID's four-digit group or one
+group of such a key, does not tie that field to the id. A recording no test owns, such as a
 background worker's insert, mints its own id at each call: keploy checks that id
 the same way, and a field of the same request that recorded the whole id must
 carry the call's new one, but no later call is held to it. On such a recording,
