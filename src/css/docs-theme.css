@@ -1,0 +1,1449 @@
+/*
+ * Keploy docs theme: the developer-docs layer on top of custom.css.
+ *
+ * Loaded after custom.css (docusaurus.config.js `customCss`), so rules here
+ * win at equal specificity. Brand: Keploy orange on white. Orange marks what
+ * you can act on or where you are (links, the active page, buttons, badges);
+ * everything else is neutral, so it stays quiet around the content.
+ */
+
+:root {
+  --kd-orange: #ff914d;
+  --kd-orange-strong: #ea580c;
+  --kd-orange-deep: #c2410c;
+  --kd-orange-tint: #fff4ec;
+  --kd-orange-tint-2: #ffe8d6;
+  --kd-bg: #ffffff;
+  --kd-surface: #fafafa;
+  --kd-surface-2: #f4f4f5;
+  --kd-border: #e9e9ec;
+  --kd-border-strong: #d9d9de;
+  --kd-text: #18181b;
+  --kd-text-2: #3f3f46;
+  --kd-text-3: #71717a;
+  --kd-link: #c2410c;
+  /* Code blocks stay white in light mode: the vsLight token colours sit
+     just above 4.5:1 on white and drop below it on any grey. */
+  --kd-code-bg: #ffffff;
+  --kd-radius: 10px;
+  --kd-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", monospace;
+  --kd-content-width: 780px;
+  --doc-sidebar-width: 280px !important;
+  --ifm-navbar-height: 64px;
+  --ifm-toc-border-color: var(--kd-border);
+  --ifm-color-emphasis-300: var(--kd-border);
+  --ifm-background-color: var(--kd-bg);
+}
+
+html[data-theme="dark"] {
+  --kd-orange-strong: #fb923c;
+  --kd-orange-deep: #fdba74;
+  --kd-orange-tint: rgba(255, 145, 77, 0.1);
+  --kd-orange-tint-2: rgba(255, 145, 77, 0.18);
+  --kd-bg: #0c0c0e;
+  --kd-surface: #141417;
+  --kd-surface-2: #1b1b1f;
+  --kd-border: #26262b;
+  --kd-border-strong: #33333a;
+  --kd-text: #f4f4f5;
+  --kd-text-2: #d4d4d8;
+  --kd-text-3: #a1a1aa;
+  --kd-link: #fdba74;
+  --kd-code-bg: var(--kd-surface);
+  --ifm-background-color: var(--kd-bg);
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .main-wrapper {
+  background: var(--kd-bg) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Navbar: logo, one tab per product, search and utilities             */
+/* ------------------------------------------------------------------ */
+
+.navbar {
+  height: var(--ifm-navbar-height);
+  /* No vertical padding: the tabs below are as tall as the navbar, and
+     Infima's 9px padding pushed them (and their underline) 9px past it. */
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+  /* Solid, not translucent with backdrop-filter: a backdrop-filter makes
+     the navbar the containing block of the fixed phone drawer, which then
+     opened 63px tall with its links under the page. */
+  background: var(--kd-bg) !important;
+  border-bottom: 1px solid var(--kd-border) !important;
+  box-shadow: none !important;
+}
+
+.navbar__brand {
+  margin-right: 1.25rem;
+}
+
+/* The navbar and site footer use DM Sans on every page. custom.css only
+   forces it inside the docs wrapper, so on the home and standalone pages
+   they fell back to a wider system font (and the navbar tabs no longer
+   fitted the widths tuned below). */
+.navbar,
+.navbar *:not(kbd):not(code),
+.theme-layout-footer,
+.theme-layout-footer * {
+  font-family: "DM Sans", sans-serif !important;
+}
+
+/* Desktop only: below 997px Docusaurus moves these into the menu drawer. */
+@media (min-width: 997px) {
+  .theme-layout-navbar-left .navbar__item.navbar__link {
+    position: relative;
+    font-size: 14.5px !important;
+    font-weight: 500 !important;
+    color: var(--kd-text-2) !important;
+    padding: 0 0.7rem !important;
+    height: var(--ifm-navbar-height);
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    background: none !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link:hover {
+    color: var(--kd-text) !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link--active {
+    color: var(--kd-text) !important;
+    font-weight: 600 !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link--active::after {
+    content: "";
+    position: absolute;
+    left: 0.7rem;
+    right: 0.7rem;
+    /* On the navbar's bottom border, not past it. */
+    bottom: 0;
+    height: 2px;
+    border-radius: 2px;
+    background: var(--kd-orange);
+  }
+}
+
+.navbar__items--right .navbar__link {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: var(--kd-text-2) !important;
+}
+
+/* Right cluster: an even 0.5rem gap between controls, every control 36px tall.
+   Infima pads each navbar item 13.5px on both sides; that padding (not the
+   margins) is what made the gaps uneven. */
+.navbar__items--right {
+  gap: 0.5rem;
+}
+
+.navbar__items--right > .navbar__item,
+.navbar__items--right > div {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.navbar__items--right .header-github-link,
+.navbar__items--right .header-slack-link {
+  width: 36px;
+  height: 36px;
+  padding: 0 !important;
+  align-items: center;
+  justify-content: center;
+  border-radius: 8px;
+}
+
+/* Desktop only: below 997px Infima hides these items (they live in the
+   drawer), and a display here would bring them back over the search icon. */
+@media (min-width: 997px) {
+  .navbar__items--right .header-github-link,
+  .navbar__items--right .header-slack-link {
+    display: inline-flex;
+  }
+}
+
+.navbar__items--right .header-github-link::before,
+.navbar__items--right .header-slack-link::before {
+  width: 20px !important;
+  height: 20px !important;
+  background-size: 20px 20px !important;
+}
+
+/* Version and Resources dropdowns: neutral chips, not purple pills. */
+.navbar__items--right .dropdown > .navbar__link {
+  display: inline-flex;
+  align-items: center;
+  box-sizing: border-box;
+  height: 36px;
+  padding: 0 0.7rem !important;
+  border-radius: 8px !important;
+  border: 1px solid var(--kd-border);
+  background: var(--kd-bg) !important;
+  color: var(--kd-text-2) !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+}
+
+.navbar__items--right .dropdown > .navbar__link:hover {
+  border-color: var(--kd-border-strong);
+  color: var(--kd-text) !important;
+}
+
+.navbar__items--right .dropdown > .navbar__link::after {
+  margin-left: 0.35rem;
+  top: 0;
+}
+
+/* Search box: neutral text, orange focus. */
+.navbar .DocSearch-Button {
+  box-sizing: border-box;
+  height: 36px;
+  margin: 0;
+  border-radius: 8px;
+  border: 1px solid var(--kd-border);
+  background: var(--kd-surface) !important;
+  box-shadow: none !important;
+  color: var(--kd-text-3) !important;
+}
+
+.navbar .DocSearch-Button:hover {
+  border-color: var(--kd-orange);
+}
+
+.navbar .DocSearch-Button-Placeholder {
+  font-size: 14px;
+  color: var(--kd-text-3) !important;
+}
+
+/* Between the drawer breakpoint (997px) and a wide screen the logo, five
+   product tabs and every utility only fit with tighter tabs. */
+@media (min-width: 997px) and (max-width: 1439px) {
+  /* custom.css applies Tailwind `lg:px-10` later in the bundle. */
+  .navbar .navbar__inner {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  .navbar__brand {
+    margin-right: 0.5rem;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link {
+    font-size: 13.5px !important;
+    padding: 0 0.5rem !important;
+  }
+
+  .theme-layout-navbar-left .navbar__item.navbar__link--active::after {
+    left: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* Below 1200px the tighter tabs leave room for the search icon, the theme
+   toggle and both dropdowns, but not the full search box or the GitHub and
+   Slack icons (both are in every page's footer). */
+@media (min-width: 997px) and (max-width: 1199px) {
+  .navbar__items--right .header-github-link,
+  .navbar__items--right .header-slack-link {
+    display: none !important;
+  }
+
+  .navbar .DocSearch-Button-Placeholder,
+  .navbar .DocSearch-Button-Keys {
+    display: none !important;
+  }
+
+  .navbar .DocSearch-Button {
+    width: 36px;
+    padding: 0;
+    justify-content: center;
+  }
+}
+
+/* ------------------------------------------------------------------ */
+/* Sidebar: small-caps group headings, flat page links                 */
+/* ------------------------------------------------------------------ */
+
+.theme-doc-sidebar-container {
+  background: var(--kd-bg) !important;
+  border-right: 1px solid var(--kd-border) !important;
+  width: var(--doc-sidebar-width) !important;
+  min-width: var(--doc-sidebar-width) !important;
+  flex-shrink: 0;
+}
+
+.theme-doc-sidebar-container > div {
+  position: sticky !important;
+  top: var(--keploy-header-offset, var(--ifm-navbar-height));
+  height: calc(100vh - var(--keploy-header-offset, var(--ifm-navbar-height)));
+  overflow-y: auto;
+  background: var(--kd-bg) !important;
+}
+
+/* Docusaurus pads the sidebar by the navbar's height for its own sticky
+   layout; the container above is already placed below the navbar. */
+.theme-doc-sidebar-container div[class^="sidebar_"] {
+  padding-top: 0 !important;
+}
+
+.theme-doc-sidebar-container nav.menu {
+  padding: 0 !important;
+}
+
+.theme-doc-sidebar-menu {
+  padding: 1.25rem 0.875rem 2.5rem !important;
+}
+
+.theme-doc-sidebar-menu .menu__link {
+  font-size: 14px !important;
+  line-height: 1.4;
+  font-weight: 450;
+  color: var(--kd-text-2) !important;
+  padding: 0.4rem 0.65rem !important;
+  border-radius: 7px;
+  background: transparent;
+  transition: background 0.12s ease, color 0.12s ease;
+}
+
+.theme-doc-sidebar-menu .menu__link:hover {
+  background: var(--kd-surface-2) !important;
+  color: var(--kd-text) !important;
+}
+
+.theme-doc-sidebar-menu .menu__link--active:not(.menu__link--sublist) {
+  background: var(--kd-orange-tint) !important;
+  color: var(--kd-orange-deep) !important;
+  font-weight: 600 !important;
+}
+
+/* A group heading (`className: "sidebar-group"` in the sidebars file):
+   a label, not a link, with its pages listed flat beneath it. */
+.theme-doc-sidebar-menu .sidebar-group {
+  margin-top: 1.35rem;
+}
+
+/* (.theme-doc-sidebar-menu is the top-level ul.menu__list itself) */
+.theme-doc-sidebar-menu > .sidebar-group:first-child {
+  margin-top: 0.25rem;
+}
+
+.theme-doc-sidebar-menu .sidebar-group > .menu__list-item-collapsible,
+.theme-doc-sidebar-menu .sidebar-group > .menu__list-item-collapsible:hover {
+  background: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin: 0 0 0.3rem !important;
+}
+
+.theme-doc-sidebar-menu
+  .sidebar-group
+  > .menu__list-item-collapsible
+  > .menu__link {
+  font-size: 11.5px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--kd-text-3) !important;
+  background: none !important;
+  padding: 0.15rem 0.65rem !important;
+  pointer-events: none;
+  cursor: default;
+}
+
+.theme-doc-sidebar-menu .sidebar-group > .menu__list {
+  margin: 0 !important;
+  padding: 0 !important;
+  border: 0 !important;
+}
+
+/* A collapsible subsection inside a group */
+.theme-doc-sidebar-menu .sidebar-group .menu__list .menu__list {
+  margin: 0.1rem 0 0.25rem 0.9rem !important;
+  padding-left: 0.5rem !important;
+  border-left: 1px solid var(--kd-border) !important;
+}
+
+.theme-doc-sidebar-menu .menu__caret::before,
+.theme-doc-sidebar-menu .menu__link--sublist-caret::after {
+  background-size: 1.1rem 1.1rem;
+  opacity: 0.55;
+}
+
+/* ------------------------------------------------------------------ */
+/* Content                                                             */
+/* ------------------------------------------------------------------ */
+
+/* One content column. Breadcrumbs, the page, "Need help", the
+   previous/next links and the footer all share the same left edge and
+   width, whether or not the page has a TOC. DocItem's markdown wrapper
+   carries Tailwind `prose mx-auto px-*` classes that centred it inside a
+   wider column (so it moved between pages); neutralised here. */
+main [class*="docItemContainer"] {
+  max-width: var(--kd-content-width) !important;
+  margin: 0 !important;
+}
+
+.theme-doc-markdown.markdown {
+  margin: 1.75rem 0 0 !important;
+  padding: 0 !important;
+}
+
+.col[class*="docItemCol"],
+main .row > .col:first-child {
+  padding-left: 2.5rem !important;
+  padding-right: 2.5rem !important;
+}
+
+/* Wide screens: keep the TOC next to the content column instead of letting
+   it drift to the far edge of the window. */
+/* (custom.css sets every .row to max-width 100% !important) */
+.docs-doc-page main[class*="docMainContainer"] > .container > .row {
+  max-width: 1220px !important;
+  /* Spare width on wide screens is shared both sides of the content and
+     TOC, not left all on the right. */
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* The "no longer maintained" banner on old versions sits beside the
+   content container, so it gets the same width and left edge. */
+main .row > .col:first-child > .theme-doc-version-banner {
+  max-width: var(--kd-content-width);
+  margin-left: 0;
+  margin-right: 0;
+}
+
+@media (max-width: 996px) {
+  main .row > .col:first-child > .theme-doc-version-banner {
+    max-width: 100%;
+  }
+}
+
+main[class*="docMainContainerEnhanced"]
+  .row
+  > .col:only-child
+  > .theme-doc-version-banner {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Pages outside every sidebar and without a TOC: centre the column itself. */
+main[class*="docMainContainerEnhanced"]
+  .row
+  > .col:only-child
+  [class*="docItemContainer"] {
+  margin: 0 auto !important;
+}
+
+/* Pages outside every sidebar: centre the column and its TOC as one block. */
+main[class*="docMainContainerEnhanced"] > .container {
+  max-width: 1200px !important;
+  margin: 0 auto !important;
+}
+
+@media (max-width: 996px) {
+  .col[class*="docItemCol"],
+  main .row > .col:first-child {
+    padding-left: 1.25rem !important;
+    padding-right: 1.25rem !important;
+  }
+
+  main [class*="docItemContainer"] {
+    max-width: 100% !important;
+  }
+
+  .theme-doc-markdown.markdown {
+    margin-top: 1.25rem !important;
+  }
+}
+
+/* Breadcrumbs: one separator (Infima's chevron image and custom.css's "›"
+   were drawn on top of each other). */
+.theme-doc-breadcrumbs {
+  margin-top: 1.25rem;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item:not(:last-child)::after {
+  content: "/" !important;
+  background: none !important;
+  filter: none !important;
+  width: auto !important;
+  margin: 0 0.15rem !important;
+  opacity: 1;
+  color: var(--kd-border-strong) !important;
+  font-size: 13px !important;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__link {
+  font-size: 13px !important;
+  padding: 0.2rem 0.35rem !important;
+  background: none !important;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item:first-child .breadcrumbs__link {
+  padding-left: 0 !important;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__link:hover,
+html[data-theme="dark"] .theme-doc-breadcrumbs .breadcrumbs__link:hover {
+  color: var(--kd-link) !important;
+}
+
+.theme-doc-breadcrumbs .breadcrumbs__item--active .breadcrumbs__link,
+html[data-theme="dark"]
+  .theme-doc-breadcrumbs
+  .breadcrumbs__item--active
+  .breadcrumbs__link {
+  color: var(--kd-text) !important;
+}
+
+.theme-doc-markdown {
+  max-width: var(--kd-content-width);
+  font-size: 16px;
+  line-height: 1.72;
+  color: var(--kd-text-2);
+}
+
+.theme-doc-markdown h1 {
+  font-size: 2.15rem !important;
+  line-height: 1.18 !important;
+  font-weight: 700 !important;
+  letter-spacing: -0.022em;
+  color: var(--kd-text) !important;
+  margin-bottom: 0.9rem !important;
+}
+
+.theme-doc-markdown h2 {
+  font-size: 1.45rem !important;
+  line-height: 1.3 !important;
+  font-weight: 650 !important;
+  letter-spacing: -0.015em;
+  color: var(--kd-text) !important;
+  margin-top: 2.6rem !important;
+  margin-bottom: 0.8rem !important;
+}
+
+.theme-doc-markdown h3 {
+  font-size: 1.12rem !important;
+  line-height: 1.4 !important;
+  font-weight: 650 !important;
+  color: var(--kd-text) !important;
+  margin-top: 1.9rem !important;
+  margin-bottom: 0.55rem !important;
+}
+
+.theme-doc-markdown p,
+.theme-doc-markdown li {
+  font-size: 16px;
+  color: var(--kd-text-2);
+}
+
+.theme-doc-markdown
+  a:not(.kd-card):not(.button):not(.hash-link):not(.kd-page-actions a) {
+  color: var(--kd-link);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--kd-link) 35%, transparent);
+  text-underline-offset: 3px;
+}
+
+.theme-doc-markdown
+  a:not(.kd-card):not(.button):not(.hash-link):not(.kd-page-actions a):hover {
+  text-decoration-color: var(--kd-link);
+}
+
+.theme-doc-markdown strong {
+  color: var(--kd-text);
+  font-weight: 650;
+}
+
+/* Inline code */
+.theme-doc-markdown :not(pre) > code {
+  font-family: var(--kd-mono) !important;
+  font-size: 0.86em;
+  background: var(--kd-orange-tint) !important;
+  color: var(--kd-orange-deep) !important;
+  border: 1px solid var(--kd-orange-tint-2);
+  border-radius: 5px;
+  padding: 0.1em 0.35em;
+  font-weight: 500 !important;
+}
+
+.theme-doc-markdown a code {
+  color: inherit !important;
+}
+
+/* Code blocks */
+.theme-doc-markdown div[class*="codeBlockContainer"] {
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  box-shadow: none !important;
+  background: var(--kd-code-bg) !important;
+  margin: 1.1rem 0 1.4rem !important;
+  overflow: hidden;
+}
+
+.theme-doc-markdown pre code,
+.theme-doc-markdown pre code[class*="codeBlockLines"] {
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+  font-size: inherit !important;
+  color: inherit;
+}
+
+.theme-doc-markdown div[class*="codeBlockContainer"] pre,
+.theme-doc-markdown div[class*="codeBlockContainer"] .prism-code {
+  background: var(--kd-code-bg) !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0.95rem 1.1rem !important;
+  font-size: 13.5px !important;
+  line-height: 1.65 !important;
+}
+
+.theme-doc-markdown div[class*="codeBlockTitle"] {
+  font-family: var(--kd-mono) !important;
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--kd-text-3);
+  background: var(--kd-surface-2) !important;
+  border-bottom: 1px solid var(--kd-border) !important;
+  padding: 0.5rem 1rem !important;
+}
+
+/* Tables */
+/* A table scrolls inside its own box at every width, so a wide one never
+   runs past the column (under the TOC) or widens the page. */
+.theme-doc-markdown table {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  width: max-content;
+  border-collapse: separate;
+  border-spacing: 0;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  font-size: 14px;
+  margin: 1.1rem 0 1.5rem;
+}
+
+.theme-doc-markdown table thead tr {
+  background: var(--kd-surface);
+}
+
+.theme-doc-markdown table th {
+  font-weight: 600;
+  color: var(--kd-text);
+  text-align: left;
+}
+
+.theme-doc-markdown table th,
+.theme-doc-markdown table td {
+  border: 0;
+  border-bottom: 1px solid var(--kd-border);
+  padding: 0.6rem 0.85rem;
+  vertical-align: top;
+}
+
+.theme-doc-markdown table tr:last-child td {
+  border-bottom: 0;
+}
+
+.theme-doc-markdown table tbody tr {
+  background: var(--kd-bg);
+}
+
+/* Admonitions */
+.theme-doc-markdown .theme-admonition {
+  border: 1px solid var(--kd-border);
+  border-left: 3px solid var(--kd-orange);
+  border-radius: var(--kd-radius);
+  background: var(--kd-orange-tint);
+  box-shadow: none;
+  font-size: 15px;
+}
+
+.theme-doc-markdown .theme-admonition [class*="admonitionHeading"] {
+  text-transform: none;
+  font-size: 15px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.theme-doc-markdown .theme-admonition-caution,
+.theme-doc-markdown .theme-admonition-warning,
+.theme-doc-markdown .theme-admonition-danger {
+  border-left-color: #dc2626;
+  background: color-mix(in srgb, #dc2626 6%, var(--kd-bg));
+}
+
+.theme-doc-markdown .theme-admonition-note,
+.theme-doc-markdown .theme-admonition-info {
+  border-left-color: var(--kd-text-3);
+  background: var(--kd-surface);
+}
+
+/* Tabs */
+.theme-doc-markdown .tabs {
+  border-bottom: 1px solid var(--kd-border);
+}
+
+/* custom.css fades inactive tabs to opacity 0.5, which put 14px text below
+   4.5:1; inactive tabs use a quieter colour at full opacity instead. */
+.theme-doc-markdown .tabs__item {
+  opacity: 1 !important;
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--kd-text-3);
+  border-radius: 0;
+  padding: 0.55rem 0.9rem;
+  border-bottom: 2px solid transparent;
+}
+
+.theme-doc-markdown .tabs__item--active {
+  color: var(--kd-text);
+  border-bottom-color: var(--kd-orange);
+  font-weight: 600;
+}
+
+/* Table of contents */
+.table-of-contents {
+  font-size: 13px !important;
+  border-left: 1px solid var(--kd-border) !important;
+}
+
+.table-of-contents__link {
+  color: var(--kd-text-3) !important;
+}
+
+.table-of-contents__link:hover,
+.table-of-contents__link--active {
+  color: var(--kd-orange-deep) !important;
+}
+
+/* ------------------------------------------------------------------ */
+/* Components (src/components/docs)                                    */
+/* ------------------------------------------------------------------ */
+
+.kd-badge {
+  display: inline-flex;
+  align-items: center;
+  height: 22px;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  font-size: 11.5px;
+  font-weight: 650;
+  letter-spacing: 0.01em;
+  color: var(--kd-orange-deep);
+  background: var(--kd-orange-tint);
+  border: 1px solid var(--kd-orange-tint-2);
+  white-space: nowrap;
+  vertical-align: middle;
+}
+
+.kd-badge--soon {
+  color: var(--kd-text-2);
+  background: var(--kd-surface-2);
+  border-color: var(--kd-border);
+}
+
+.kd-card-grid {
+  display: grid;
+  gap: 0.9rem;
+  margin: 1.2rem 0 1.6rem;
+}
+
+.kd-card-grid--2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.kd-card-grid--3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+@media (max-width: 720px) {
+  .kd-card-grid--2,
+  .kd-card-grid--3 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.kd-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  padding: 1rem 2.4rem 1rem 1.1rem;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-bg);
+  color: var(--kd-text-2) !important;
+  text-decoration: none !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease,
+    transform 0.15s ease;
+}
+
+a.kd-card:hover {
+  border-color: var(--kd-orange);
+  box-shadow: 0 6px 20px -12px rgba(234, 88, 12, 0.45);
+  transform: translateY(-1px);
+}
+
+.kd-card__head {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.kd-card__title {
+  font-size: 15.5px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.kd-card__body,
+.kd-card__body p {
+  font-size: 14px !important;
+  line-height: 1.55;
+  color: var(--kd-text-3) !important;
+  margin: 0;
+}
+
+.kd-card__arrow {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+  color: var(--kd-text-3);
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+a.kd-card:hover .kd-card__arrow {
+  color: var(--kd-orange-strong);
+  transform: translateX(2px);
+}
+
+/* <Steps>: every h3 inside is a numbered step on a rail */
+.kd-steps {
+  counter-reset: kd-step;
+  margin: 1.5rem 0 2rem;
+  padding-left: 2.6rem;
+  border-left: 1px solid var(--kd-border);
+  margin-left: 0.85rem;
+}
+
+.kd-steps > h3 {
+  counter-increment: kd-step;
+  position: relative;
+  margin-top: 2rem !important;
+}
+
+.kd-steps > h3:first-child {
+  margin-top: 0 !important;
+}
+
+.kd-steps > h3::before {
+  content: counter(kd-step);
+  position: absolute;
+  left: -3.45rem;
+  top: -0.05rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--kd-orange-deep);
+  background: var(--kd-bg);
+  border: 1px solid var(--kd-orange-tint-2);
+  box-shadow: 0 0 0 4px var(--kd-bg);
+}
+
+/* <Lifecycle>: a left-to-right flow that wraps */
+.kd-lifecycle {
+  list-style: none;
+  margin: 1.4rem 0 2rem !important;
+  padding: 0 !important;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.6rem;
+  counter-reset: none;
+}
+
+.kd-lifecycle__step {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  margin: 0 !important;
+  padding: 0.85rem 0.9rem;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-surface);
+}
+
+.kd-lifecycle__num {
+  font-family: var(--kd-mono);
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--kd-orange-deep);
+}
+
+.kd-lifecycle__title {
+  font-size: 14.5px;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+.kd-lifecycle__text {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--kd-text-3);
+}
+
+/* Small screens: keep code in table cells on one line; the table scrolls. */
+@media (max-width: 996px) {
+  .theme-doc-markdown table code {
+    white-space: nowrap;
+  }
+}
+
+/* Home: community section, in the same shape as the other home sections */
+.kd-community__head {
+  margin-bottom: 1.4rem;
+}
+
+.kd-community__head h2 {
+  margin: 0 0 0.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--kd-text);
+}
+
+.kd-community__head p {
+  margin: 0;
+  max-width: 640px;
+  color: var(--kd-text-3);
+  font-size: 16px;
+}
+
+.kd-community__card {
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-bg);
+  color: var(--kd-text-2);
+}
+
+.kd-community__card:hover {
+  border-color: var(--kd-orange);
+}
+
+.kd-community__card h3 {
+  color: var(--kd-text) !important;
+}
+
+.kd-community__icon {
+  background: var(--kd-orange-tint);
+  color: var(--kd-orange-deep);
+}
+
+.kd-community__glyph {
+  width: 18px;
+  height: 18px;
+}
+
+.kd-community__demo {
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-surface);
+}
+
+.kd-community__demo h3 {
+  color: var(--kd-text) !important;
+}
+
+/* #c2410c keeps white text above 4.5:1 in both themes. */
+.kd-community__cta,
+html[data-theme="dark"] .kd-community__cta {
+  background: #c2410c;
+  color: #fff !important;
+}
+
+.kd-community__cta:hover,
+html[data-theme="dark"] .kd-community__cta:hover {
+  background: #9a3412;
+  color: #fff !important;
+}
+
+/* Site footer (home, blog-style pages): on a phone the icon margins
+   (custom.css `m-8`) wrapped five icons onto two rows, and the links
+   dropped to left-aligned blocks under a centred copyright line. */
+@media (max-width: 996px) {
+  .theme-layout-footer .footer__svg {
+    margin: 1rem 0.9rem !important;
+  }
+
+  .theme-layout-footer .footer__copyright,
+  .theme-layout-footer .footer__copyright > div {
+    text-align: center;
+  }
+
+  .theme-layout-footer .footer__copyright > div:last-child {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.25rem 1rem;
+  }
+}
+
+/* The narrowest phones (320px): five footer icons on one row. */
+@media (max-width: 360px) {
+  .theme-layout-footer .footer__svg {
+    margin: 1rem 0.55rem !important;
+  }
+}
+
+/* "Copy as Markdown" row: its first button starts on the title's edge. */
+.kd-page-actions > :first-child {
+  padding-left: 0 !important;
+}
+
+/* Search shortcut keys: neutral, not DocSearch's default indigo. */
+.navbar .DocSearch-Button-Key {
+  color: var(--kd-text-3) !important;
+  background: var(--kd-bg) !important;
+  border: 1px solid var(--kd-border) !important;
+  box-shadow: none !important;
+}
+
+/* Community cards: no stray paragraph margin under the text. */
+.kd-community__card p,
+.kd-community__demo p,
+.kd-community__card h3 {
+  margin-bottom: 0 !important;
+}
+
+/* Plain standing pages (About, Privacy policy): Tailwind's preflight strips
+   heading sizes and link colours, so give them the docs' type scale. */
+main.margin-vert--lg.container {
+  max-width: 860px;
+  color: var(--kd-text-2);
+}
+
+main.margin-vert--lg.container h1 {
+  font-size: 2.15rem;
+  line-height: 1.2;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--kd-text);
+  margin: 1.5rem 0 1.25rem;
+}
+
+main.margin-vert--lg.container h2 {
+  font-size: 1.4rem;
+  font-weight: 650;
+  color: var(--kd-text);
+  margin: 2rem 0 0.7rem;
+}
+
+main.margin-vert--lg.container a {
+  color: var(--kd-link);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+main.margin-vert--lg.container pre {
+  font-size: 14px;
+  white-space: pre-wrap;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  background: var(--kd-surface) !important;
+}
+
+/* Security page hero: the default hero type is far too big on a phone. */
+@media (max-width: 996px) {
+  .hero .hero__title {
+    font-size: 2rem !important;
+    line-height: 1.2 !important;
+  }
+
+  .hero .hero__subtitle {
+    font-size: 1.05rem !important;
+    line-height: 1.55 !important;
+  }
+}
+
+/* Dark mode: custom.css paints <main> #18181b over the #0c0c0e page, which
+   showed as a lighter box behind the home and standing pages. */
+html[data-theme="dark"] main,
+html[data-theme="dark"] [class*="docMainContainer"],
+html[data-theme="dark"] [class*="docItemContainer"],
+html[data-theme="dark"] nav[class*="theme-doc-breadcrumb"] {
+  background: var(--kd-bg) !important;
+}
+
+/* Security page: the hero hard-codes `text-black` over a transparent
+   background, which is unreadable in dark mode. */
+html[data-theme="dark"] .hero .hero__title,
+html[data-theme="dark"] .hero .hero__subtitle {
+  color: var(--kd-text) !important;
+}
+
+/* Security page: space between the heading column and its text
+   (custom.css zeroes every `col--*` padding with !important). */
+.hero--secondary [class*="col--"][class*="securityPageHeaders"] {
+  padding-right: 2rem !important;
+}
+
+/* Security page body links (the disclosure mailto) read as links. */
+.hero--secondary a {
+  color: var(--kd-link) !important;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* Dark mode: the site footer (#000) and the Security page's second band
+   (#242526) showed as separate bands against the #0c0c0e page. */
+html[data-theme="dark"] .theme-layout-footer.footer,
+html[data-theme="dark"] .hero--secondary {
+  background: var(--kd-bg) !important;
+}
+
+/* Security page lists: Tailwind's reset removed the bullets. */
+.hero--secondary ul {
+  list-style: disc;
+  padding-left: 1.25rem;
+  margin-bottom: 1rem;
+}
+
+/* Security page section headings */
+.hero--secondary h2 {
+  font-size: 1.4rem;
+  font-weight: 650;
+  color: var(--kd-text);
+}
+
+/* Dark mode: the phone drawer and navbar dropdowns use the page surfaces,
+   not Infima's #242526. */
+html[data-theme="dark"] .navbar-sidebar,
+html[data-theme="dark"] .navbar-sidebar__items {
+  background: var(--kd-bg) !important;
+}
+
+html[data-theme="dark"] .navbar .dropdown__menu {
+  background: var(--kd-surface) !important;
+  border: 1px solid var(--kd-border);
+}
+
+/* "Need help?" row under every doc page: readable greys and link orange
+   (it used Tailwind gray-400 at 70% and orange-500, 2.6:1 on white). */
+/* custom.css styles `#support span` by ID, so these need the ID too. */
+#support .kd-help > span {
+  color: var(--kd-text-3);
+}
+
+#support .kd-help > .kd-help__sep {
+  color: var(--kd-border-strong);
+}
+
+.kd-help__link {
+  color: var(--kd-link) !important;
+}
+
+/* Hover darkens (#9a3412) in light mode and lightens in dark mode, so it
+   stays above 4.5:1 in both. */
+.kd-help__link:hover {
+  color: #9a3412 !important;
+}
+
+html[data-theme="dark"] .kd-help__link:hover {
+  color: var(--kd-orange-strong) !important;
+}
+
+/* Previous / next links: the "Previous"/"Next" label reads at 4.5:1+. */
+.pagination-nav__sublabel {
+  color: var(--kd-text-3) !important;
+}
+
+/* custom.css tints the card on hover (#f5f6f7); darken the label with it. */
+.pagination-nav__link:hover .pagination-nav__sublabel {
+  color: var(--kd-text-2) !important;
+}
+
+/* Version menu: the current version used #ff914d (2.2:1 on white). */
+.navbar .dropdown__link--active {
+  color: var(--kd-link) !important;
+  background: var(--kd-orange-tint) !important;
+}
+
+/* Sidebar: the section that holds the current page. custom.css colours its
+   label --ifm-color-primary (#ff914d, 2.2:1 on white); same selector here,
+   loaded later, so the link orange wins. */
+html[data-theme="light"]
+  div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active)
+  .menu__link--sublist.menu__link--active {
+  color: var(--kd-link) !important;
+}
+
+/* Sidebar variables custom.css still reads (scrollbars, dark link colours,
+   mobile sidebar background). They used to sit with the sidebar block this
+   PR removed from custom.css; now they map onto the theme tokens.
+   --sidebar-category-color paints every top-level category label in dark
+   mode: on the current docs those are the quiet group headings, on
+   1.0.0/2.0.0 real clickable categories that read like the links around
+   them. */
+:root {
+  --sidebar-bg: var(--kd-bg);
+  --sidebar-border: var(--kd-border-strong);
+  --sidebar-text: var(--kd-text-2);
+  --sidebar-text-muted: var(--kd-text-3);
+  --sidebar-category-color: var(--kd-text-2);
+}
+
+html[data-theme="dark"] {
+  --sidebar-text: var(--kd-text);
+  --sidebar-text-muted: var(--kd-text-2);
+  --sidebar-category-color: var(--kd-text-2);
+}
+
+html[data-theme="dark"] .theme-doc-sidebar-menu > .sidebar-group {
+  --sidebar-category-color: var(--kd-text-3);
+}
+
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  > nav
+  > ul
+  > li:not(.sidebar-group)
+  > .menu__list-item-collapsible
+  > a.menu__link:hover {
+  color: var(--kd-text) !important;
+}
+
+/* Dark mode: mark the section that holds the current page, as light does. */
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active)
+  .menu__link--sublist.menu__link--active {
+  color: var(--kd-link) !important;
+}
+
+/* Phone drawer, main menu: mark the current product tab in both themes
+   (Infima's #ff914d on #f2f2f2 was 2:1, and dark mode had no mark). */
+.navbar-sidebar .menu__link--active:not(.menu__link--sublist) {
+  color: var(--kd-link) !important;
+  background: var(--kd-orange-tint) !important;
+  font-weight: 600;
+}
+
+/* Heading anchor "#": quiet until hovered, and readable when shown. */
+.theme-doc-markdown .hash-link {
+  color: var(--kd-text-3) !important;
+}
+
+.theme-doc-markdown .hash-link:hover {
+  color: var(--kd-link) !important;
+}
+
+/* "Copy" and "View as Markdown" share one weight. */
+.kd-page-actions a,
+.kd-page-actions button {
+  font-weight: 400 !important;
+}
+
+/* Code tokens below 4.5:1 in the stock Prism themes: vsLight's booleans
+   (#e36209, 3.5:1 on white) and Dracula's comments (#6272a4, 3.9:1 on the
+   dark code background). Prism sets token colours inline, hence !important. */
+html[data-theme="light"] .prism-code .token.boolean,
+html[data-theme="light"] .prism-code .token.important {
+  color: #c2410c !important;
+}
+
+html[data-theme="dark"] .prism-code .token.comment {
+  color: #9aa3cc !important;
+}
+
+/* Inactive content tabs on hover: Infima adds a 5% grey behind them, so
+   the text darkens with it to stay above 4.5:1. */
+.theme-doc-markdown .tabs__item:hover {
+  color: var(--kd-text-2);
+}
+
+/* Group headings aren't links: no hover highlight. custom.css tints every
+   collapsible row on hover at higher specificity, hence the prefix. */
+div[class^="sidebar_"]
+  .theme-doc-sidebar-menu
+  .sidebar-group
+  > .menu__list-item-collapsible:hover {
+  background: none !important;
+}
+
+/* Footer "Let's Talk" link and the old-version banner's link: Infima turns
+   them #ff914d on hover (2.1-2.2:1). */
+.theme-layout-footer .footer__link-item:hover,
+.theme-doc-version-banner a,
+.theme-doc-version-banner a:hover {
+  color: var(--kd-link) !important;
+}
+
+/* <Screenshot>: a Console screenshot in a quiet frame */
+.kd-shot {
+  margin: 1.2rem 0 1.6rem;
+}
+
+.kd-shot img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--kd-border);
+  border-radius: var(--kd-radius);
+  box-shadow: 0 8px 24px -18px rgba(24, 24, 27, 0.35);
+}
+
+.kd-shot figcaption {
+  margin-top: 0.5rem;
+  font-size: 13.5px;
+  color: var(--kd-text-3);
+  text-align: center;
+}
+
+/* <Architecture>: an SVG drawing, and a stacked list on narrow screens */
+.kd-arch {
+  margin: 1.4rem 0 1.6rem;
+}
+
+.kd-arch__wide {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.kd-arch__stack {
+  display: none;
+}
+
+.kd-arch rect {
+  stroke-width: 1.25;
+}
+
+.kd-arch__zone rect {
+  fill: var(--kd-surface);
+  stroke: var(--kd-border-strong);
+}
+
+.kd-arch__inner rect,
+.kd-arch__pod rect {
+  fill: var(--kd-bg);
+  stroke: var(--kd-border-strong);
+  stroke-dasharray: 4 4;
+}
+
+.kd-arch__cloud rect {
+  fill: var(--kd-orange-tint);
+  stroke: var(--kd-orange-tint-2);
+}
+
+.kd-arch__node rect {
+  fill: var(--kd-bg);
+  stroke: var(--kd-border-strong);
+}
+
+.kd-arch__keploy rect {
+  fill: var(--kd-bg);
+  stroke: var(--kd-orange-strong);
+  stroke-width: 1.6;
+}
+
+.kd-arch__label {
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  fill: var(--kd-text-3);
+}
+
+.kd-arch__title {
+  font-size: 17px;
+  font-weight: 650;
+  fill: var(--kd-text);
+}
+
+.kd-arch__sub {
+  font-size: 15px;
+  fill: var(--kd-text-3);
+}
+
+.kd-arch__flow path,
+.kd-arch__plain {
+  fill: none;
+  stroke: var(--kd-orange-strong);
+  stroke-width: 1.8;
+}
+
+.kd-arch__dashed {
+  stroke-dasharray: 5 5;
+}
+
+.kd-arch__head {
+  fill: var(--kd-orange-strong);
+}
+
+.kd-arch__flow circle {
+  fill: var(--kd-orange-deep);
+  stroke: var(--kd-bg);
+  stroke-width: 3;
+}
+
+html[data-theme="dark"] .kd-arch__flow circle {
+  fill: #c2410c;
+}
+
+.kd-arch__flow text {
+  font-size: 15px;
+  font-weight: 700;
+  fill: #fff;
+}
+
+/* Narrow screens: the drawing's text would be too small, so the same parts
+   read as a stacked list. */
+@media (max-width: 720px) {
+  .kd-arch__wide {
+    display: none;
+  }
+
+  .kd-arch__stack {
+    display: grid;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .kd-arch__card {
+    display: grid;
+    gap: 0.3rem;
+    margin: 0 !important;
+    padding: 0.85rem 1rem;
+    border: 1px solid var(--kd-border);
+    border-left: 3px solid var(--kd-orange);
+    border-radius: var(--kd-radius);
+    background: var(--kd-surface);
+    font-size: 14.5px;
+  }
+}
+
+.kd-shot--narrow img {
+  margin: 0 auto;
+}

@@ -7,6 +7,10 @@ description: "Introduction to Keploy — a testing platform that auto-generates 
 
 import WhatIsKeploy from '../concepts/what-is-keploy.md'
 
+:::note
+This page is superseded by [Integration testing with Keploy](/integration-testing/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <WhatIsKeploy/>
 
 import WhatAreKeployFeatures from '../concepts/what-are-keploy-features.md'

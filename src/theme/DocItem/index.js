@@ -231,10 +231,30 @@ export default function DocItem(props) {
   // and as <page>.md (a sibling of the built page directory) otherwise.
   const isIndexSource = /\/(index|README)\.mdx?$/i.test(metadata?.source || "");
   const trimmedPermalink = permalink.replace(/\/+$/, "");
+  // A page with a simple front-matter slug (no inner "/", e.g. a section
+  // overview at slug "/integration-testing/") gets its twin where the plugin
+  // writes it: the source file's folder, with the slug as the file name
+  // (integration-testing/overview.md -> integration-testing/integration-testing.md).
+  const simpleSlug = (
+    typeof frontMatter?.slug === "string" ? frontMatter.slug : ""
+  )
+    .trim()
+    .replace(/^\/+|\/+$/g, "");
+  const sourceRel = (metadata?.source || "")
+    .replace(/^@site\/(versioned_docs\/version-[^/]+|docs)\//, "")
+    .replace(/\.mdx?$/i, "");
+  const slugTwin =
+    simpleSlug && !simpleSlug.includes("/") && sourceRel
+      ? `${siteConfig?.baseUrl ?? "/"}${sourceRel.replace(
+          /[^/]+$/,
+          simpleSlug
+        )}.md`
+      : null;
   const markdownUrl = showMarkdownActions
-    ? isIndexSource
-      ? `${trimmedPermalink}/index.md`
-      : `${trimmedPermalink}.md`
+    ? slugTwin ||
+      (isIndexSource
+        ? `${trimmedPermalink}/index.md`
+        : `${trimmedPermalink}.md`)
     : null;
 
   // A section's index.md (e.g. /docs/concepts/) is an index of child docs, not

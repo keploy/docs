@@ -26,9 +26,9 @@ keywords:
 
 # Developer + LLM Workflow with Keploy Proxy
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+:::note An earlier workflow
+This page describes an earlier Kubernetes workflow. For the current one, see the [Quickstart](/integration-testing/quickstart/), [Run on every pull request](/integration-testing/run-in-ci/), [Review test changes](/integration-testing/review-test-changes/) and [Use with coding agents](/integration-testing/coding-agents/). An intended change is accepted by deleting the outdated test through review, never by editing it.
+:::
 
 The [Developer Workflow](/docs/quickstart/k8s-proxy-developer-workflow) page walks through the manual flow end-to-end — creating a branch, editing mocks and test cases, replaying changes, opening a PR, merging. Every step has an MCP tool behind it. This page goes one step further: install the playbook below as an **agent skill** (Cursor, Claude Code, or any Skills-aware editor) and you only ever say **one of two things** to the agent. It handles the rest.
 

@@ -23,6 +23,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="Sample Library App (Flask + Redis) — record and replay tests with Keploy"
 description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
@@ -53,10 +57,6 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 },
 ]}
 />
-
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and Redis. Buckle up, it's gonna be a fun ride! 🎢
 

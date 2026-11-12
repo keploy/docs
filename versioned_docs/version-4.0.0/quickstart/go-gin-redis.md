@@ -21,6 +21,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="Sample User Authentication App (Golang) — record and replay tests with Keploy"
 description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
@@ -54,11 +58,8 @@ text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded t
 
 import EnterpriseInstallReminder from '@site/src/components/EnterpriseInstallReminder';
 import SectionDivider from '@site/src/components/SectionDivider';
-import ProductTier from '@site/src/components/ProductTier';
 
 # Using Docker Compose 🐳
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 
@@ -267,8 +268,6 @@ Happy coding! ✨👩‍💻👨‍💻✨
 ---
 
 # Running App Locally on Linux/WSL 🐧
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
 A sample user authentication app to test Keploy integration capabilities using Gin and Redis.
 

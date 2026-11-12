@@ -19,17 +19,13 @@ keywords:
   - schema enum generation
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
-
 ## Why Static Deduplication?
 
 In high-traffic environments, the same request shape repeats thousands of times a minute. Recording every copy inflates your test suite, bloats storage, and buries interesting edge cases under noise.
 
 **Static Deduplication** filters this at the source. While a recording is active, the Keploy agent computes a lightweight **schema signature** for each captured request/response pair and drops any copy whose signature has already been seen in this session. Only distinct request shapes ever become test cases.
 
-Unlike [coverage-based deduplication](/docs/keploy-cloud/deduplication/)—which runs _after_ a replay and removes tests that do not add code coverage—static dedup operates _during_ recording and is schema-based, so:
+Static dedup operates _during_ recording and is schema-based, so:
 
 - It works on any stack. No code-coverage instrumentation, no Go toolchain in the runtime image, no rebuild of your app.
 - It is cheap. A hash per request; no disk-bound YAML post-processing.
@@ -52,9 +48,13 @@ The first occurrence of a signature is recorded. Every later occurrence is silen
 
 Enable static dedup when you start a recording. Pick the flow that matches how you run Keploy.
 
-### Keploy CLI
+### Keploy Console
 
-Add `--static-dedup` to `keploy record`:
+In the Console and with `keploy k8s record start`, static deduplication is on by default. When you start a recording in the Console (**Clusters** → your cluster → **Deployments** → **Record**), the **Record config** step shows it switched on; switch it off there to keep every request. It applies from the first captured request.
+
+### Open-source CLI
+
+The local `keploy record` doesn't deduplicate unless you ask. Add `--static-dedup`:
 
 ```bash
 keploy record -c "docker compose up" --containerName orders-api --static-dedup
@@ -175,6 +175,5 @@ Pair with [recording filters](/docs/running-keploy/recording-filters/) when you 
 
 ## Related guides
 
-- [Remove Duplicate Tests (coverage-based dedup)](/docs/keploy-cloud/deduplication/)—post-replay dedup with `keploy dedup`.
 - [Recording filters](/docs/running-keploy/recording-filters/)—exclude traffic before it reaches dedup.
 - [Configuration file](/docs/running-keploy/configuration-file/)—all `keploy.yml` options in one place.

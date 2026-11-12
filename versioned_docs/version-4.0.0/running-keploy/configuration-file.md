@@ -13,6 +13,10 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" />
 
+:::note Where this file is read
+`keploy.yml` configures the open-source CLI's local `keploy record` and `keploy test`, and `keploy cloud replay` also reads it from `--config-path` (default: the current directory) when you replay in CI. To build regression tests from real Kubernetes traffic, start with the [Quickstart](/integration-testing/quickstart/).
+:::
+
 ## Introduction
 
 Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴

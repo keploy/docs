@@ -26,9 +26,9 @@ keywords:
   - replay
 ---
 
-import ProductTier from '@site/src/components/ProductTier';
-
-<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+:::note An earlier install guide
+For installing k8s-proxy today, see [Connect a cluster](/integration-testing/connect-a-cluster/) and the [Helm values](/integration-testing/helm-values/) reference. This page uses the chart's older top-level keys (`accessKey`, `clusterName`), which still work.
+:::
 
 This guide walks you through creating a local **Kind** Kubernetes cluster and connecting it to **Keploy** using a **NodePort** (example: `30080`) so you can **live record and replay traffic** for Pods.
 
@@ -45,7 +45,7 @@ This guide walks you through creating a local **Kind** Kubernetes cluster and co
 
 Ensure you have the following before you begin:
 
-1. **Keploy account on the Enterprise plan** (with an access key)
+1. **A Keploy account** on any plan, including Free (with an access key)
 2. **kubectl** configured to access your Kubernetes cluster
 3. **Helm** installed
 4. **Kind** installed

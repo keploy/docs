@@ -19,6 +19,10 @@ keywords:
 
 import HowTo from '@site/src/components/HowTo';
 
+:::note Open-source local CLI
+This guide covers the open-source CLI's local flow, `keploy record` and `keploy test`. To build regression tests from real Kubernetes traffic and check every pull request against them, start with the [Quickstart](/integration-testing/quickstart/) and [How Keploy works](/integration-testing/how-it-works/).
+:::
+
 <HowTo
 name="NodeJS - JWT Sample Application — record and replay tests with Keploy"
 description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
@@ -224,7 +228,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
+But wait — one test is still failing due to the time-freezing. See [Time freezing](/docs/keploy-cloud/time-freezing/).
 
 ### Wrapping it up 🎉
 
@@ -392,7 +396,7 @@ Now, let's run the keploy in test mode again:-
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-2.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But wait — one test is still failing due to the time-freezing. [Time freezing](/docs/keploy-cloud/time-freezing/) is available on the Enterprise plan.
+But wait — one test is still failing due to the time-freezing. See [Time freezing](/docs/keploy-cloud/time-freezing/).
 
 ### Wrapping it up 🎉
 

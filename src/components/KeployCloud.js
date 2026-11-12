@@ -6,25 +6,27 @@ export const KeployCloud = () => {
       id="support"
       className="my-10 w-full border-y border-white/10 py-4"
     >
-      <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 text-sm text-gray-400">
-        <span className="opacity-70">Need help?</span>
+      <div className="kd-help mx-auto flex max-w-5xl flex-wrap items-center justify-center gap-3 text-sm">
+        <span>Need help?</span>
 
         <a
           href="https://keploy.io/slack"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold text-orange-500 hover:text-orange-400"
+          className="kd-help__link font-semibold"
         >
           Join Slack
         </a>
 
-        <span className="opacity-30">|</span>
+        <span className="kd-help__sep" aria-hidden="true">
+          |
+        </span>
 
         <a
           href="https://calendar.app.google/cXVaj6hbMUjvmrnt9"
           target="_blank"
           rel="noopener noreferrer"
-          className="font-semibold text-orange-500 hover:text-orange-400"
+          className="kd-help__link font-semibold"
         >
           Book a Demo
         </a>

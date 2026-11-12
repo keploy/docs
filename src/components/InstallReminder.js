@@ -33,7 +33,7 @@ export default function InstallReminder() {
           display: "inline-block",
           marginTop: "0.5rem",
           padding: "0.6rem 1rem",
-          background: "#e67e22",
+          background: "#c2410c", // white text at 5.2:1
           color: "#fff",
           borderRadius: "6px",
           fontWeight: "bold",
