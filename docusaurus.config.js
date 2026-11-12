@@ -355,6 +355,14 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           label: "Contribution Guide",
           position: "left",
         },
+        // Right items render reversed (flex-row-reverse), so this shows rightmost.
+        // Hidden at 997 to 1199px (see custom.css). `ref` is an internal tag, not UTM.
+        {
+          href: "https://app.keploy.io/signin?ref=docs_navbar",
+          label: "Sign in",
+          position: "right",
+          className: "header-signin-link",
+        },
         {
           type: "docsVersionDropdown",
           position: "right",
@@ -636,7 +644,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
     ],
   ],
 
-  clientModules: [require.resolve("./src/metaPixelRouteTracker.js")],
+  clientModules: [
+    require.resolve("./src/metaPixelRouteTracker.js"),
+    require.resolve("./src/appLinkClickTracker.js"),
+  ],
   scripts: [
     // Analytics loading (see src/metaPixelRouteTracker.js for the full strategy):
     //   - GA          -> eager via the gtag preset (auto SPA tracking)
