@@ -1,13 +1,15 @@
 ---
 id: regression-testing
-title: "Regression Testing: What It Is & How to Automate It"
+title: "Regression Testing"
 sidebar_label: Regression Testing
-description: "Learn what regression testing is, the different types (full, partial, risk-based), and how to automate it with tools like Keploy for faster releases."
+description: "How to automate regression testing with Keploy: capture and replay tests and mocks from real traffic, run them in CI on every change, and track code coverage."
 tags:
   - explanation
   - Glossary
 keywords:
-  - API
+  - automated regression testing
+  - regression testing with keploy
+  - keploy
 head:
   - tag: link
     attrs:
@@ -20,6 +22,8 @@ head:
 [Regression testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) is a type of software testing that ensures that changes made to a software application do not negatively impact existing functionality. It is typically performed after a new feature is added, a bug is fixed, or a configuration change is made.
 
 Regression testing can be performed manually or using automated tools. Manual regression testing involves re-running a subset of test cases that have been previously executed to ensure that they still pass. Automated regression testing uses software to execute test cases automatically, which can save time and resources.
+
+For a full guide, including types, techniques and examples, see our [complete regression testing guide](https://keploy.io/blog/community/regression-testing-an-introductory-guide). To generate regression tests from real API traffic, see Keploy's [regression testing tool](https://keploy.io/regression-testing).
 
 ## Different Types of regression testing:
 
