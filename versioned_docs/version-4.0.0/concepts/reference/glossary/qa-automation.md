@@ -152,7 +152,7 @@ QA automation is essential for modern software development. It enables **faster 
 
 ## Related Terms
 
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — a prime candidate for automation.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — a prime candidate for automation.
 - [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — automate tests at the unit level.
 - [Manual Testing](/docs/concepts/reference/glossary/manual-testing/) — the approach QA automation replaces or complements.
 - [Performance Testing](/docs/concepts/reference/glossary/performance-testing/) — automate load and speed checks.
