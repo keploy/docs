@@ -237,7 +237,11 @@
       "type": "category",
       "label": "UI Testing",
       "collapsed": true,
-      "items": ["running-keploy/ui-capture", "ui-capture/errors"]
+      "items": [
+        "running-keploy/ui-capture",
+        "ui-capture/errors",
+        "ui-capture/refusals"
+      ]
     },
     {
       "type": "category",
