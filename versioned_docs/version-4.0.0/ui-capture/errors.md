@@ -19,30 +19,32 @@ keywords:
 
 The Keploy capture SDK (`@keploy/capture-sdk`) names every error it passes to `onError`, and every console warning in its exported `SDK_WARNINGS`, with a `KUI_E_` code. An error's `remedy.docs`, and a warning's `SDK_WARNINGS` entry, link to the code's section on this page. Each section says what happened, why, and how to fix it. To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
 
-| Code                                                                  | Kind    | Raised when                                                                                              |
-| --------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
-| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)             | Error   | The ingest server answers `401` or `403`.                                                                |
-| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found) | Error   | The ingest server answers `404` or `405`.                                                                |
-| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                   | Error   | The ingest server answers `409`.                                                                         |
-| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                     | Error   | The ingest server, or for a `413` a proxy in front of it, answers any other `4xx` except `429`.          |
-| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)               | Error   | `sessionIdGenerator` does not produce an id the server would accept.                                     |
-| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)   | Error   | The SDK cannot load rrweb in the browser.                                                                |
-| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)         | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route.                             |
-| [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined)                   | Error   | The browser sends Do Not Track or Global Privacy Control, and `honorPrivacySignals` is on (the default). |
-| [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict)                   | Error   | `privacyMode: "strict"` is set together with `privacy.maskNetworkBodies: false`.                         |
-| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)           | Warning | An event cannot be serialised to JSON.                                                                   |
-| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                     | Warning | An event alone is over the ingest server's body cap.                                                     |
-| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing) | Warning | Scrubbing credentials out of an event takes it over that cap.                                            |
-| [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped)           | Warning | The page made a History or Navigation API method the SDK wraps impossible to replace.                    |
-| [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed)             | Warning | The SDK could not compute a request's GraphQL term, or could not load the code that computes it.         |
+| Code                                                                          | Kind    | Raised when                                                                                              |
+| ----------------------------------------------------------------------------- | ------- | -------------------------------------------------------------------------------------------------------- |
+| [`KUI_E_INGEST_KEY_REJECTED`](#kui-e-ingest-key-rejected)                     | Error   | The ingest server answers `401` or `403`.                                                                |
+| [`KUI_E_INGEST_ENDPOINT_NOT_FOUND`](#kui-e-ingest-endpoint-not-found)         | Error   | The ingest server answers `404` or `405`.                                                                |
+| [`KUI_E_SESSION_CONFLICT`](#kui-e-session-conflict)                           | Error   | The ingest server answers `409`.                                                                         |
+| [`KUI_E_INGEST_REJECTED`](#kui-e-ingest-rejected)                             | Error   | The ingest server, or for a `413` a proxy in front of it, answers any other `4xx` except `429`.          |
+| [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid)                       | Error   | `sessionIdGenerator` does not produce an id the server would accept.                                     |
+| [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable)           | Error   | The SDK cannot load rrweb in the browser.                                                                |
+| [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) | Error   | Under `privacyMode: "strict"`, the SDK cannot load its attribute allow-list in the browser.              |
+| [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid)                 | Error   | A `privacy.secretRoutes` or `privacy.keepRoutes` entry is not a valid route.                             |
+| [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined)                           | Error   | The browser sends Do Not Track or Global Privacy Control, and `honorPrivacySignals` is on (the default). |
+| [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict)                           | Error   | `privacyMode: "strict"` is set together with `privacy.maskNetworkBodies: false`.                         |
+| [`KUI_E_EVENT_UNSERIALISABLE`](#kui-e-event-unserialisable)                   | Warning | An event cannot be serialised to JSON.                                                                   |
+| [`KUI_E_EVENT_OVERSIZED`](#kui-e-event-oversized)                             | Warning | An event alone is over the ingest server's body cap.                                                     |
+| [`KUI_E_EVENT_OVERSIZED_SCRUBBING`](#kui-e-event-oversized-scrubbing)         | Warning | Scrubbing credentials out of an event takes it over that cap.                                            |
+| [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped)                   | Warning | The page made a History or Navigation API method the SDK wraps impossible to replace.                    |
+| [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed)                     | Warning | The SDK could not compute a request's GraphQL term, or could not load the code that computes it.         |
+| [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable)             | Warning | The page cannot run the SDK's body worker, or load the code that redacts bodies.                         |
 
 :::note SDK versions
-This page describes the SDK releases whose codes link here, all of them after 3.0.1. `@keploy/capture-sdk` 3.0.1 does not link here and differs in places, among them: its `CaptureError.remedy` is `{command, manual}`, with no `docs` and the full remedy in `manual`; it has no `continuous` option and no `privacy.secretRoutes` or `privacy.keepRoutes`; it has no `honorPrivacySignals` and records regardless of Do Not Track or Global Privacy Control; its `privacyMode: "strict"` does not mask request or response bodies; and it does not raise `KUI_E_DOM_RECORDER_UNAVAILABLE`, `KUI_E_PRIVACY_ROUTE_INVALID`, `KUI_E_CAPTURE_DECLINED`, `KUI_E_PRIVACY_CONFLICT`, `KUI_E_EVENT_OVERSIZED_SCRUBBING`, `KUI_E_NAVIGATION_UNWRAPPED` or `KUI_E_REQUEST_TERM_FAILED`.
+This page describes the SDK releases whose codes link here, all of them after 3.0.1. `@keploy/capture-sdk` 3.0.1 does not link here and differs in places, among them: its `CaptureError.remedy` is `{command, manual}`, with no `docs` and the full remedy in `manual`; it has no `continuous` option and no `privacy.secretRoutes` or `privacy.keepRoutes`; it has no `honorPrivacySignals` and records regardless of Do Not Track or Global Privacy Control; its `privacyMode: "strict"` does not mask request or response bodies; and it does not raise `KUI_E_DOM_RECORDER_UNAVAILABLE`, `KUI_E_PRIVACY_ROUTE_INVALID`, `KUI_E_CAPTURE_DECLINED`, `KUI_E_PRIVACY_CONFLICT`, `KUI_E_EVENT_OVERSIZED_SCRUBBING`, `KUI_E_NAVIGATION_UNWRAPPED`, `KUI_E_REQUEST_TERM_FAILED`, `KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE` or `KUI_E_BODY_WORKER_UNAVAILABLE`. `KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE` and `KUI_E_BODY_WORKER_UNAVAILABLE` are new in 3.1.0-rc.2: 3.1.0-rc.1 does not raise them either, and it writes its warnings with `console.error`, not `console.warn`.
 :::
 
 ## Handle SDK errors and warnings
 
-**An error ends the capture.** The SDK logs it with `console.error`, stops recording, releases its singleton, and then calls your `onError` once with a `CaptureError`. When the ingest server refused a batch, the logged line carries the server's own explanation, and the SDK also unpatches `fetch` and `XMLHttpRequest` and drops every event it had not yet sent. A page started offline whose rrweb import then fails loses what it held the same way: see [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable). Because the singleton is released before `onError` runs, your handler can call `KeployCapture.init()` again, and that starts a fresh capture once the cause is fixed. With the same options it does not: [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid) and [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict) are raised again; [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) is raised again on the same page until you fix the cause and reload; and while the browser sends a privacy signal and `honorPrivacySignals` is on, every `init()` is declined with [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined). Never call `init()` again from `onError` on these five codes with the same options: each such call raises the same error and calls your handler again, which calls `init()` again, and so on. An error the SDK raises before sending anything does not reject `init()`: `init()` resolves, and the error reaches you only through `onError`.
+**An error ends the capture.** The SDK logs it with `console.error`, stops recording, releases its singleton, and then calls your `onError` once with a `CaptureError`. When the ingest server refused a batch, the logged line carries the server's own explanation, and the SDK also unpatches `fetch` and `XMLHttpRequest` and drops every event it had not yet sent. A page started offline loses what it held the same way when rrweb, or under strict its attribute allow-list, then fails to load: see [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) and [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable). Because the singleton is released before `onError` runs, your handler can call `KeployCapture.init()` again, and that starts a fresh capture once the cause is fixed. With the same options it does not: [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid) and [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict) are raised again; [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) and [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) are raised again on the same page until you fix the cause and reload; and while the browser sends a privacy signal and `honorPrivacySignals` is on, every `init()` is declined with [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined). Never call `init()` again from `onError` on these six codes with the same options: each such call raises the same error and calls your handler again, which calls `init()` again, and so on. An error the SDK raises before sending anything does not reject `init()`: `init()` resolves, and the error reaches you only through `onError`.
 
 [`KUI_E_CAPTURE_DECLINED`](#kui-e-capture-declined) is not a failure, so it is logged differently: with `console.info`, and only for the first declined `init()` on a page. `onError` still hears every declined `init()`.
 
@@ -50,7 +52,7 @@ One exception: with `continuous: true` and session ids the SDK minted, a refusal
 
 A `CaptureError` carries:
 
-- `code`: one of the nine error codes on this page. Branch on `code`, never on the message.
+- `code`: one of the ten error codes on this page. Branch on `code`, never on the message.
 - `status`: the HTTP status the server answered, or `null` when the SDK refused before sending anything.
 - `serverMessage`: the `error` field of the server's JSON body, or the body's text, or `null`.
 - `issues`: the server's `[{path, message}]` list, which the ingest server sends only with a `400` to say which field it refused, or `null`.
@@ -84,7 +86,7 @@ The server's status decides the code:
 | `429`, a `5xx`, or a network failure  | None: the SDK retries with backoff and never calls `onError`.         |
 | `2xx`                                 | None: the batch was accepted.                                         |
 
-**A warning does not end the capture.** The SDK does not call `onError`. Three warnings each mean one event was dropped; [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped) and [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed) drop nothing. The SDK writes one `console.error` line for the first occurrence of each code in a capture, and says nothing about later ones in that capture: a later dropped event is dropped silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The line names the code and ends with the evidence as JSON:
+**A warning does not end the capture.** The SDK does not call `onError`. Three warnings each mean one event was dropped; [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped), [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed) and [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable) drop no event. The SDK writes one `console.warn` line for the first occurrence of each code in a capture, and says nothing about later ones in that capture: a later dropped event is dropped silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The exception is [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable), which the SDK writes once per page. The SDK never uses `console.error` for a warning, so a page whose tests or error tracker fail on console errors does not fail on one. SDK versions before 3.1.0-rc.2 wrote these lines with `console.error`. The line names the code and ends with the evidence as JSON:
 
 ```text
 [keploy] KUI_E_EVENT_OVERSIZED: dropped an event: 11059200 bytes in a body, over the ingest server's 10485760-byte cap, so no batch could carry it. The capture continues; any further such events in this capture are dropped silently. evidence={"eventId":"7","eventType":"dom","bytes":11059200,"cap":10485760}
@@ -207,6 +209,32 @@ Under server-side rendering there is no page, so a failed import records nothing
 
 **Evidence:** `reason`.
 
+## `KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE` {#kui-e-strict-attributes-unavailable}
+
+**Error.** Raised in the browser under `privacyMode: "strict"`, before the SDK sends anything: at `init()`, or, for a page started offline, once the network is back and the load still fails. Capture has ended.
+
+**What happened:** Strict records no page text: it blanks every attribute value that can hold text, such as `title`, `aria-label` or `alt`, and keeps those that hold the page's structure, such as `id`, `class`, `role` or `data-testid`. The list of attributes it keeps is a chunk of its own, `dist/strict-attributes.mjs` (`dist/strict-attributes.js` in the CommonJS build), which only strict loads, in parallel with rrweb. The SDK could not load it, so it ended the capture without recording the page. It does not record without the list: it could not tell which values to keep, and blanking every attribute value would leave a recording that selectors and replay cannot use.
+
+**Cause:** `evidence.reason` is the error the browser gave for the SDK's `import("@keploy/capture-sdk/strict-attributes")` and, on a page with no bundler, for `dist/strict-attributes.mjs` beside `dist/index.mjs`. `privacyMode: "balanced"` and `"off"` never load the chunk, so they never raise this code.
+
+- Your deployment does not serve the chunk your bundler emitted for `@keploy/capture-sdk/strict-attributes`.
+- With no bundler, the page does not serve `dist/strict-attributes.mjs` beside `dist/index.mjs`, and its import map does not map `@keploy/capture-sdk/strict-attributes`.
+- A Content-Security-Policy or a network failure blocked the chunk; `reason` says which.
+- The chunk is another version's: the SDK refuses a chunk built as any version but its own. A page that loads the SDK from unpkg's package root with `?module` gets the `module` field's build, `dist/index.bundler.mjs` (webpack 4's), and unpkg rewrites the SDK's import of its own chunks to the `@latest` version's files, which are another version's whenever the page does not load the latest. That build refuses them and has no file beside it to fall back to, so the strict capture is refused.
+
+**Fix:**
+
+- With a bundler (Vite, webpack, Next.js, esbuild, Parcel), deploy every chunk your build emits, not only the entry.
+- With no bundler, serve the package's `dist/` as it is, so `strict-attributes.mjs` sits beside `index.mjs`, or map `@keploy/capture-sdk/strict-attributes` to the package's `dist/strict-attributes.mjs` in your import map, as you map `rrweb`.
+- From a CDN, import `dist/index.mjs` by its path, for example `https://unpkg.com/@keploy/capture-sdk@<version>/dist/index.mjs` or `https://cdn.jsdelivr.net/npm/@keploy/capture-sdk@<version>/dist/index.mjs`. It refuses a chunk of another version and loads its own from beside it. On unpkg, the package root without `?module` also works, because unpkg redirects it to `dist/index.mjs`. jsDelivr's package root does not: jsDelivr serves the file there without a redirect, so the browser looks for the SDK's chunks in the wrong directory.
+- When a Content-Security-Policy blocked the chunk, allow the chunk's origin in `script-src`. When a network failure did, make the chunk reachable.
+
+Then reload the page. A browser keeps a failed module import for the life of the page, so the fix takes effect on the next page load, not on another `init()`.
+
+A page started offline does not ask for the chunk until it is back online, and sends nothing until it has loaded. If the load then fails, the SDK drops what the page did meanwhile, unsent. A page that a service worker controls asks at once, and a worker that does not hold the chunk fails the load, so precache it, as for rrweb: see [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable).
+
+**Evidence:** `reason`.
+
 ## `KUI_E_PRIVACY_ROUTE_INVALID` {#kui-e-privacy-route-invalid}
 
 **Error.** Raised by the SDK before it sends anything. Capture did not start.
@@ -243,7 +271,7 @@ Some browsers send Global Privacy Control by default, Brave and DuckDuckGo among
 
 `@keploy/capture-sdk` 3.0.1 records regardless of these signals, so once you upgrade from it, visitors who send either signal are no longer recorded.
 
-The decline also comes before every other check except [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict): in a browser that sends either signal, with `honorPrivacySignals` on, the SDK never checks `sessionIdGenerator` or your privacy routes, and never loads rrweb, so [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid) and [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) cannot appear there.
+The decline also comes before every other check except [`KUI_E_PRIVACY_CONFLICT`](#kui-e-privacy-conflict): in a browser that sends either signal, with `honorPrivacySignals` on, the SDK never checks `sessionIdGenerator` or your privacy routes, and never loads rrweb or strict's attribute allow-list, so [`KUI_E_SESSION_ID_INVALID`](#kui-e-session-id-invalid), [`KUI_E_PRIVACY_ROUTE_INVALID`](#kui-e-privacy-route-invalid), [`KUI_E_DOM_RECORDER_UNAVAILABLE`](#kui-e-dom-recorder-unavailable) and [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) cannot appear there.
 
 **Fix:** Nothing needs fixing: the person using the page said no. In `onError`, return early on this code and keep it out of your error tracker. Calling `init()` again does not help: while the browser sends the signal and `honorPrivacySignals` is on, every `init()` is declined. To test your integration, use a browser with both signals off, or set `honorPrivacySignals: false` in development only. Set `honorPrivacySignals: false` only where your site has its own lawful basis to record regardless of these signals, and says so in its privacy policy. The SDK then records as it would with no signal.
 
@@ -272,7 +300,7 @@ The SDK checks the options before it records anything, so the fix takes effect o
 
 ## `KUI_E_EVENT_UNSERIALISABLE` {#kui-e-event-unserialisable}
 
-**Warning.** One `console.error` line, for the first such event in a capture. The capture continues.
+**Warning.** One `console.warn` line, for the first such event in a capture. The capture continues.
 
 **What happened:** The SDK dropped one captured event because it could not be serialised to JSON: it had a cycle, a `BigInt`, or a getter that throws. The capture continues without it.
 
@@ -284,7 +312,7 @@ The SDK checks the options before it records anything, so the fix takes effect o
 
 ## `KUI_E_EVENT_OVERSIZED` {#kui-e-event-oversized}
 
-**Warning.** One `console.error` line, for the first such event in a capture. The capture continues.
+**Warning.** One `console.warn` line, for the first such event in a capture. The capture continues.
 
 **What happened:** The SDK dropped one captured event because, alone in a request body, it is over the ingest server's decoded cap (`evidence.cap` bytes), so no batch could carry it. The capture continues without it.
 
@@ -302,7 +330,7 @@ The SDK checks the options before it records anything, so the fix takes effect o
 
 ## `KUI_E_EVENT_OVERSIZED_SCRUBBING` {#kui-e-event-oversized-scrubbing}
 
-**Warning.** One `console.error` line, for the first such event in a capture. The capture continues.
+**Warning.** One `console.warn` line, for the first such event in a capture. The capture continues.
 
 **What happened:** The SDK dropped one captured event while scrubbing the page URL's credentials out of it. The scrubbed event was certain to pass the ingest server's decoded cap (`evidence.cap` bytes), so no batch could carry it, and the SDK stopped there. The capture continues without it.
 
@@ -316,7 +344,7 @@ The SDK then holds the page's later DOM changes and interactions until a full sn
 
 ## `KUI_E_NAVIGATION_UNWRAPPED` {#kui-e-navigation-unwrapped}
 
-**Warning.** One `console.error` line per capture. Nothing is dropped, and the capture continues.
+**Warning.** One `console.warn` line per capture. Nothing is dropped, and the capture continues.
 
 **What happened:** To record route changes, and which history traversals the page's own script asked for, the SDK puts wrappers in place of `history.pushState`, `replaceState`, `back`, `forward` and `go`, and, where the browser has the Navigation API, of `navigation.back`, `forward` and `traverseTo`. It wraps all of them or none. The page had made the method that `evidence.method` names impossible to replace and put back, so the SDK wrapped none of them:
 
@@ -338,7 +366,7 @@ Route changes are still recorded, from the page's navigation events, with less d
 
 ## `KUI_E_REQUEST_TERM_FAILED` {#kui-e-request-term-failed}
 
-**Warning.** One `console.error` line, for the first such request in a capture. Nothing is dropped, the page's request is not affected, and the capture continues.
+**Warning.** One `console.warn` line, for the first such request in a capture. Nothing is dropped, the page's request is not affected, and the capture continues.
 
 **What happened:** With every request, the SDK records a term computed from the raw request body: for a GraphQL request sent in the body, its operation name and an id of its document (`pq` for a persisted query), which replay uses to tell apart GraphQL operations sent to the same URL. For one request it could not compute the term, and it recorded the request anyway:
 
@@ -365,3 +393,45 @@ A page with no `SubtleCrypto` at all, such as one served over plain HTTP from a 
 - For a throw of the page's `crypto`, find the page code that replaces `crypto` or `crypto.subtle.digest`.
 
 **Evidence:** `method`, `reason`.
+
+## `KUI_E_BODY_WORKER_UNAVAILABLE` {#kui-e-body-worker-unavailable}
+
+**Warning.** One `console.warn` line per page, at the first failure. The page's requests are not affected, and the capture continues.
+
+**What happened:** The SDK redacts request and response bodies in a Web Worker, `dist/body-worker.js`, so that redaction does not run on your page's main thread. It also loads the same redaction code for the main thread, `dist/body-redact.mjs`, for the moments that cannot wait for the worker, such as the page being left. It loads both once per page, soon after a capture that records bodies starts. On this page one of the two could not be loaded or run:
+
+```text
+[keploy] KUI_E_BODY_WORKER_UNAVAILABLE: could not run the body worker or load the body chunk (evidence.part): without the worker, a body over 64 KiB is recorded cut; without the chunk, a body the main thread must redact is recorded with nothing kept; replay reports a test over a cut body unproven. Allow worker-src 'self' in the page's CSP, use a bundler that emits the worker (or copy dist/body-worker.js beside the bundle), serve it from the page's origin, or serve the SDK's dist/ as it is. Said once per page. evidence={"part":"worker","reason":"the worker's script did not load or run (refused by the page's CSP, a 404, or a script that does not parse)"}
+```
+
+The SDK redacts bodies on the main thread instead:
+
+- Without the worker, a body of 64 KiB or less is redacted and recorded as before. A body over 64 KiB is recorded **cut**: under a first line `[Body cut: K of N characters kept, unverified]`, where N is the body's length, only its first K characters are redacted and kept.
+- Without the main thread's code, a body the main thread must redact is recorded as that line alone, with nothing kept: `[Body cut: 0 of N characters kept, unverified]`. When the worker is missing too, that is every body; otherwise, only a body still in the worker when the page is left or the capture stops.
+
+A cut response body is not the response your server sent, so replay never serves it as one. Replay answers the request as a failed request, and reports a test that reaches it as `unproven`. A cut request body does not change replay.
+
+A capture that masks every body, under `privacyMode: "strict"` or with `privacy.maskNetworkBodies: true`, loads neither part and never raises this warning.
+
+**Cause:** `evidence.part` says which part failed, and `evidence.reason` what the browser said. The SDK writes the line once per page, for the first part that failed, so when both fail it names only one: after you fix it and reload, the line names the other.
+
+- `worker`: the worker did not start, or its script failed to load or run. The common causes:
+  - The page's Content-Security-Policy does not allow a worker from your origin: no `worker-src 'self'`, and no `child-src` or `script-src` it falls back to that allows it.
+  - Your bundler does not emit the worker. webpack 4 cannot, and esbuild does not unless you copy the file.
+  - The worker is served from another origin. A browser runs a worker only from the page's own origin, so it cannot run one from a build whose assets come from a CDN (webpack's `publicPath`, Next.js's `assetPrefix`), or from the SDK's own files loaded from a CDN without a bundler.
+- `code`: the main thread's code did not load. With no bundler, the page serves `dist/index.mjs` without `dist/body-redact.mjs` beside it; or a Content-Security-Policy, a 404 or a network failure blocked it.
+
+A page that loads the SDK from unpkg's package root with `?module` gets the `module` field's build, `dist/index.bundler.mjs`, and unpkg rewrites the SDK's import of its own chunks to the `@latest` version's files, which are another version's whenever the page does not load the latest. The SDK refuses a chunk of another version, and that build has no file beside it to fall back to, so it records every body with nothing kept. Import `dist/index.mjs` instead, as [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) describes. From a CDN the worker still cannot run, because a browser runs a worker only from the page's own origin: to clear this warning, serve `dist/` from your own origin.
+
+While the browser is offline, the SDK does not ask for either part, unless a service worker controls the page. It waits until the browser is back online, so starting offline does not by itself raise this warning.
+
+**Fix:**
+
+- Allow the worker in your Content-Security-Policy: `worker-src 'self'`.
+- Use a bundler that emits it from `new Worker(new URL("./body-worker.js", import.meta.url))`: webpack 5, Vite, Parcel 2, or Next.js with webpack or Turbopack. Under webpack 4, upgrade. Under esbuild, copy `node_modules/@keploy/capture-sdk/dist/body-worker.js` beside your bundle.
+- Serve the worker from the page's own origin.
+- With no bundler, serve the package's `dist/` as it is, from the page's own origin, and import `dist/index.mjs` from it. The SDK loads `dist/body-redact.mjs`, and `dist/body-worker-unbundled.mjs`, which starts `dist/body-worker.js`, from beside `dist/index.mjs`. An import map that maps `@keploy/capture-sdk/body-redact` and `@keploy/capture-sdk/body-worker-start` is used first.
+
+Then reload the page. The SDK does not retry a load that failed while the page was online.
+
+**Evidence:** `part`, `reason`.
