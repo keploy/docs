@@ -77,8 +77,10 @@ When an outgoing call matches no recorded mock, `--on-miss` decides what happens
 keploy mock replay -c "pytest" --on-miss record
 ```
 
-Add `--strict` to fail the run if any _recorded_ mock was **missed** (a dependency
-contract drifted), even when the tests themselves passed.
+Add `--strict` to fail the run if a call **missed** its recorded mock (a dependency
+contract drifted), even when the tests themselves passed. A DNS lookup with no
+recorded mock (Keploy answers it itself), or a connection whose client sent
+nothing, does not fail it by itself.
 
 ## Per-test scoping (optional)
 
