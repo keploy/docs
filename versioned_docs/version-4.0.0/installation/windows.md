@@ -43,12 +43,18 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 ## Option 1: Run Keploy natively
 
-1. **Install Keploy.** Run this in PowerShell — a normal one, not as Administrator:
+:::note The VS Code extension
+
+The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) doesn't set Keploy up on Windows yet: its Windows support comes in the next release. The steps below install the CLI into `%LOCALAPPDATA%\.keployin`, the folder the extension uses on Windows.
+
+:::
+
+1. **Install Keploy.** Run this in PowerShell — a normal one, not as Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin` and adds that folder to your user `Path`:
 
    ```powershell
    $ProgressPreference = 'SilentlyContinue'
    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-   $dir = "$env:USERPROFILE\.keploy\bin"
+   $dir = "$env:LOCALAPPDATA\.keploy\bin"
    New-Item -ItemType Directory -Force $dir | Out-Null
    Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
      -OutFile "$dir\keploy.exe"
@@ -59,11 +65,23 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
    }
    ```
 
-   Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`.
+   Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`. Restart VS Code as well if you use it: its terminals keep the `Path` VS Code started with. To update Keploy later, run the same steps again.
 
    The file is named `enterprise_windows_amd64.exe` for historical reasons — it is the `keploy` CLI, and a free account is all you need. Use this download, not the `keploy_windows_amd64` file on the GitHub releases page: that one cannot run your app natively and stops with _"not supported by this build of Keploy"_.
 
-   **If Windows blocks the file.** The Windows build is not yet code-signed, so if you download `keploy.exe` in a browser, SmartScreen may show "Windows protected your PC" on first run. Right-click the file, choose **Properties** and tick **Unblock** (or run `Unblock-File` on it, as the script above does).
+   **If Windows blocks the file.** `keploy.exe` is code-signed by Keploy Inc. If you download it in a browser instead and SmartScreen shows "Windows protected your PC" on first run, right-click the file, choose **Properties**, check that the **Digital Signatures** tab lists **Keploy Inc**, and tick **Unblock** on the **General** tab (or run `Unblock-File` on it, as the script above does).
+
+   **If you installed Keploy before.** Earlier versions of these steps put `keploy.exe` in `%USERPROFILE%\.keploy\bin`. Remove that copy and its `Path` entry, so that every terminal runs the CLI in `%LOCALAPPDATA%\.keploy\bin`:
+
+   ```powershell
+   $old = "$env:USERPROFILE\.keploy\bin"
+   Remove-Item "$old\keploy.exe" -ErrorAction SilentlyContinue
+   $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+   $kept = ($userPath -split ';' | Where-Object { $_ -and $_.TrimEnd('\') -ne $old }) -join ';'
+   [Environment]::SetEnvironmentVariable("Path", $kept, "User")
+   ```
+
+   This removes only the old `keploy.exe`. Leave the rest of `%USERPROFILE%\.keploy` in place: it holds your sign-in. In a new terminal, `(Get-Command keploy).Source` should then print a path ending in `AppData\Local\.keploy\bin\keploy.exe`.
 
 2. **Open a terminal.** An ordinary PowerShell or Terminal window is enough — Keploy does not need to run elevated.
 
