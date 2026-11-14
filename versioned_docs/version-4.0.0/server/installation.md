@@ -135,6 +135,8 @@ Stop recording with **Ctrl+C**, or pass `--record-timer 2m` to stop after two mi
 
 Right after it stops, `keploy record` replays what it just recorded, to check that each test replays and to learn which fields change from one run to the next, such as timestamps and generated IDs, so they don't fail later replays. To skip that replay, pass `--disableAutoReplay`.
 
+On macOS, in this release, that replay is slow for an app that calls other services: for a Go app, about 90 seconds for each test whose request made such a call, while `keploy test` replays the same set in seconds. It ends on its own, and the recording is already saved. To skip it, record with `--disableAutoReplay`, then replay the set with `keploy test`.
+
 It ends with a **NEXT** block: where your tests stand and the command to run next. `keploy status` prints that block again at any time.
 
 ## 4. Replay the tests {#running-testcases}
