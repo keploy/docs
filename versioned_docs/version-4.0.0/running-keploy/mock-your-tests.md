@@ -23,7 +23,10 @@ keywords:
 `keploy mock` lets you use Keploy as a **mocking framework for your existing test
 suite** — pytest, `go test`, jest/playwright, or any command that makes network
 calls. It is a language-agnostic VCR / WireMock that works at the network layer,
-so your test code needs **no SDK and no changes**.
+so your test code needs **no SDK and no changes**. That holds for the commands
+below. To have Keploy prove each test on its own with `KEPLOY_PROVEN=1`, your
+test framework also tells Keploy where each test starts and ends, through a small
+integration: see [Prove each test offline](#proven).
 The recorded mocks act as virtual services for your dependencies, which makes this a lightweight form of [service virtualization](https://keploy.io/blog/community/service-virtualization).
 
 - `keploy mock record -c "<your test command>"` runs your tests and captures the
@@ -34,9 +37,10 @@ The recorded mocks act as virtual services for your dependencies, which makes th
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
 Using VS Code? The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
-runs these commands for you from a panel, and its
+installs the CLI, signs you in and hands the setup to your coding agent, which
+runs these commands. Its
 [troubleshooting table](/docs/running-keploy/utg-vscode-extension/#troubleshoot)
-explains the messages the panel shows when a run fails.
+explains the messages it shows.
 
 ## Quick start
 
@@ -79,6 +83,128 @@ keploy mock replay -c "pytest" --on-miss record
 
 Add `--strict` to fail the run if any _recorded_ mock was **missed** (a dependency
 contract drifted), even when the tests themselves passed.
+
+## Prove each test offline (`KEPLOY_PROVEN=1`) {#proven}
+
+With `KEPLOY_PROVEN=1` in its environment, `keploy mock record` does more than
+save the calls. After it records your suite against the real dependencies, it
+replays every test with the dependencies off, twice: once to learn which values
+change from run to run, and once the way CI will run it. A test that replays is
+kept. A test that doesn't is skipped from then on, with Keploy's reason and what
+to do about it. `keploy mock replay` with the same switch runs the kept tests,
+each against its own recording, so a green replay means every test it ran passed
+with no real dependency behind it.
+
+### Requirements {#proven-requirements}
+
+- **Linux, or macOS on Apple silicon.** On Linux, Keploy's agent runs as root, so
+  Keploy starts it with `sudo` unless you run Keploy as root. Where nobody can
+  type a password, such as a CI runner, that `sudo` must work without one, as it
+  does on GitHub-hosted runners. macOS needs no `sudo`. On Windows,
+  `KEPLOY_PROVEN=1` doesn't run yet: run the commands above without it.
+- **A test command Keploy runs directly.** In this release, Keploy refuses a
+  Docker command or `--from-container` under the switch, and says so.
+- **The integration for your test framework.** Each test tells Keploy where it
+  starts and ends, so Keploy can judge it, skip it, or fail it on its own:
+  - **Go:** add [`github.com/keploy/go-sdk/v3`](https://pkg.go.dev/github.com/keploy/go-sdk/v3/keploytest)
+    and make `defer keploytest.T(t)()` the first statement of every top-level
+    test (`keploytest.TP` for a test that calls `Parallel`). Run the suite with
+    `go test -p 1 -json ./...`. Without Keploy, the line does nothing.
+  - **Playwright:** add [`@keploy/playwright`](https://www.npmjs.com/package/@keploy/playwright)
+    and run with `--workers=1 --retries=0`.
+  - **Any other framework:** the test process makes the calls itself, as
+    [Per-test scoping](#per-test-scoping-optional) describes.
+- **`mock.command` in `keploy.yml`.** It's the command CI runs your tests with.
+  Under the switch, `keploy mock record` and `keploy mock replay` run it when you
+  don't pass `-c`:
+
+  ```yaml
+  mock:
+    command: go test -p 1 -json ./...
+  ```
+
+- **A Keploy account,** unless you keep the recordings in the repository (below).
+  Sign in with `keploy login`. `keploy app create` creates the Keploy app for the
+  repository and saves its id as `mock.appId` in `keploy.yml`.
+
+### Record and judge {#proven-record}
+
+```bash
+export KEPLOY_PROVEN=1
+keploy mock record --lock keploy.lock
+```
+
+The first record with `--lock keploy.lock` creates `keploy.lock` beside
+`keploy.yml`. The recordings go to Keploy, and `keploy.lock` pins them by their
+SHA-256 hash, so every commit replays exactly the recordings it pins. Later
+records and replays find `keploy.lock` by themselves.
+
+When the record ends, it says what it decided: `QUARANTINED` with the reason for
+each test it set aside, a `FIX` line for each kind of failure, `RUNS AGAIN` for a
+test that replays now, and `DROPPED` for a skip that no longer applies. A test it
+sets aside gets a `skip:` line under its entry in `keploy.lock`, which holds only
+for that recording: record the test again and it runs again.
+
+To keep the recordings in the repository instead, with no account, set
+`mock.local: true` in `keploy.yml` (or pass `--local`). The record then writes
+`keploy/<set>/`, and a test it sets aside is listed in
+`keploy/<set>/verdicts.yaml`.
+
+Then run:
+
+```bash
+keploy mock status
+```
+
+It reads the repository and prints a `NEXT` block: where things stand, the
+command to run next, and what to do around it. Follow it until the replay is
+green.
+
+### Commit and run in CI {#proven-ci}
+
+Commit `keploy.yml` and `keploy.lock`. With `mock.local: true`, commit
+`keploy/` instead, keeping `keploy/.gitignore` as Keploy wrote it.
+
+In CI, install Keploy, give it an API key from
+[app.keploy.io](https://app.keploy.io) (**Settings → API Keys**) as
+`KEPLOY_API_KEY`, and run the same replay. A GitHub Actions job:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.cache/keploy/mocks
+    key: keploy-mocks-${{ hashFiles('keploy.lock') }}
+    restore-keys: keploy-mocks-
+- run: curl -fsSL https://keploy.io/install.sh -o install.sh && bash install.sh -isCI
+- run: keploy mock replay
+  env:
+    KEPLOY_PROVEN: "1"
+    KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+```
+
+The replay downloads only the recordings of the tests it runs. Each one is named
+by its hash and kept in `~/.cache/keploy/mocks` (set `KEPLOY_MOCK_CACHE_DIR` to
+move it), so caching that folder, keyed on `keploy.lock`, saves the downloads on
+the next run. Cache that folder itself, never a parent such as `~/.cache`.
+
+Using GitLab CI? It's available on request: [contact the Keploy team](https://keploy.io/slack)
+and we'll set it up with you. On any other CI, run the same command:
+`KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock`.
+
+### Skipped tests {#proven-skips}
+
+| Command                                          | What it does                                                                                                            |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `keploy mock explain <test>`                     | Says why a test is skipped or run: its evidence, its recorded calls, and what its last replay and judging rounds did.   |
+| `keploy mock quarantine <test> --reason "<why>"` | Skips a test in CI, with your reason, until it's recorded again. `--undo` runs it again.                                |
+| `keploy mock check`                              | Reads the recordings offline after a hand edit and names each mistake with its file, line and fix. Exits 1 on an error. |
+| `keploy mock judge`                              | Judges the recordings again, for example after a Keploy upgrade, and drops the skips of tests that now replay.          |
+| `keploy mock replay --all`                       | Also runs the skipped tests.                                                                                            |
+| `keploy mock replay -- -run TestPlaceOrder`      | Runs part of the suite: what follows `--` goes to the test command.                                                     |
+
+Each of these runs only with `KEPLOY_PROVEN=1` set. Name a Go test as `go test
+-run` takes it (`TestPlaceOrder`), or as `<package dir>::<TestName>` when two
+packages share the name. Commit `keploy.lock` with any change these make.
 
 ## Per-test scoping (optional)
 
@@ -241,11 +367,11 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 
 ## Platforms
 
-| Platform                  | How to run                                                                                                                                        |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                                |
-| **Windows** (x86-64)      | Native — same command. Userspace interception, so no Administrator.                                                                               |
-| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
+| Platform                  | How to run                                                                                                                          |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                  |
+| **Windows** (x86-64)      | Native — same command, without `KEPLOY_PROVEN=1`. Userspace interception, so no Administrator.                                      |
+| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
 Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB
 calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like —
@@ -255,8 +381,7 @@ start the test runner itself rather than through a launcher such as `npm test` o
 a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one),
 not Apple's `/usr/bin/python3` — see
 [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
-On an Intel Mac, use [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
-on Windows on ARM, use WSL.
+Keploy doesn't support Intel Macs. On Windows on ARM, use WSL.
 
 ## Refresh in CI
 
