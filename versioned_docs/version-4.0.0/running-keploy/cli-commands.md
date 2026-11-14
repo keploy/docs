@@ -440,6 +440,90 @@ keploy example [flags]
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
 
+## [mock](#mock)
+
+`keploy mock` records the calls your own test suite makes to its dependencies, and replays them so the suite runs with the dependencies off. See [Mock your tests](/docs/running-keploy/mock-your-tests/) for the whole flow.
+
+<b> Usage: </b>
+
+```bash
+keploy mock record -c "<your test command>"
+keploy mock replay -c "<your test command>"
+keploy mock status
+```
+
+| Command                | What it does                                                                                                                       |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `keploy mock record`   | Runs your test command and records the outgoing calls it makes into a mock set.                                                    |
+| `keploy mock replay`   | Runs your test command with those calls answered from the mock set. `--on-miss` decides what an unrecorded call gets.              |
+| `keploy mock status`   | Reads the repository and prints a `NEXT` block: what the recordings prove and the command to run next. `--json` prints it as JSON. |
+| `keploy mock upload`   | Uploads a mock set to the Keploy registry.                                                                                         |
+| `keploy mock download` | Downloads a mock set from the Keploy registry.                                                                                     |
+
+With `KEPLOY_PROVEN=1` set, `keploy mock record` also judges every test it records, and `keploy mock replay` runs only the tests it kept. These commands run only with the switch:
+
+| Command                                          | What it does                                                                                       |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `keploy mock explain <test>`                     | Says why a test is skipped or run, with its evidence and its recorded calls.                       |
+| `keploy mock quarantine <test> --reason "<why>"` | Skips a test in CI, with your reason, until it's recorded again. `--undo` runs it again.           |
+| `keploy mock check`                              | Reads the recordings offline and names each mistake a hand edit made, with its file, line and fix. |
+| `keploy mock judge`                              | Judges the recordings again, for example after a Keploy upgrade.                                   |
+
+See [Prove each test offline](/docs/running-keploy/mock-your-tests/#proven).
+
+## [login](#login)
+
+`keploy login` signs you in to your Keploy account. It opens a sign-in page in your browser and waits for you to approve it.
+
+<b> Usage: </b>
+
+```bash
+keploy login
+```
+
+<b> Available flags: </b>
+
+- `--no-wait` - Print the sign-in link and code and exit instead of waiting. Then run `keploy login --finish` to collect the session once you've approved it. Use this on a machine with no browser, or from a coding agent, whose shell shows a command's output only when it exits.
+- `--finish` - Collect the session for a sign-in that `keploy login --no-wait` started. It waits up to 70 seconds for your approval, and you can run it again until the code expires.
+- `--api-key string` - Use this Keploy API key for the command instead of `KEPLOY_API_KEY`. In CI, set `KEPLOY_API_KEY` from a secret instead of signing in.
+
+`keploy logout` signs you out.
+
+## [status](#status)
+
+`keploy status` reads the `keploy/` folder of the service you run it in and prints a `NEXT` block for the record and test loop: where things stand and the command to run next. `keploy mock status` does the same for `keploy mock`. Add `--json` to print the block as JSON.
+
+```bash
+keploy status
+```
+
+## [app](#app)
+
+`keploy app create` creates the Keploy app the repository records into, or reuses the app with the same name, and saves its id as `mock.appId` in `keploy.yml`. Commit `keploy.yml` with it.
+
+```bash
+keploy app create --name orders-api
+```
+
+Without `--name`, the app is named after the git repository's folder, or the current folder outside a repository.
+
+## [skill](#skill)
+
+`keploy skill install` installs Keploy's skills into the coding agents it finds on your machine: Claude Code, Cursor, Codex, Antigravity and GitHub Copilot.
+
+<b> Usage: </b>
+
+```bash
+keploy skill install
+```
+
+<b> Available flags: </b>
+
+- `--agent strings` - Install for these agents only, for example `--agent claude-code,cursor`.
+- `--all` - Install for every supported agent, whether or not Keploy finds it.
+- `--project` - Install into the current repository instead of your home folder.
+- `--dry-run` - List every file the install would write, and write nothing.
+
 ## [update](#update)
 
 The `update` command installs the latest Keploy release over the binary you are running.
