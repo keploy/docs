@@ -16,6 +16,12 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 
 ## 1. Install Keploy
 
+:::tip Using VS Code?
+
+The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) downloads this same CLI into `~/.keploy/bin` by itself, so you can skip this step. Run as your own user, not as root, the command below installs into that same folder, so the extension, your terminals and your coding agent run one `keploy`. Run as root, it installs into `/usr/local/bin` instead, and the extension keeps its own copy in your home folder.
+
+:::
+
 Run the following command in your terminal:
 
 ```bash

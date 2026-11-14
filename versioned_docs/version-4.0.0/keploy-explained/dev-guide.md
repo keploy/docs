@@ -299,7 +299,7 @@ Run this in PowerShell (not as Administrator), then open a new terminal:
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-$dir = "$env:USERPROFILE\.keploy\bin"
+$dir = "$env:LOCALAPPDATA\.keploy\bin"
 New-Item -ItemType Directory -Force $dir | Out-Null
 Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
   -OutFile "$dir\keploy.exe"

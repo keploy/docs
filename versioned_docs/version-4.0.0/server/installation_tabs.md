@@ -566,12 +566,12 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
 
 ### 1. Install Keploy
 
-Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%USERPROFILE%\.keploy\bin` and adds that folder to your user `PATH`:
+Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) uses too, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-$dir = "$env:USERPROFILE\.keploy\bin"
+$dir = "$env:LOCALAPPDATA\.keploy\bin"
 New-Item -ItemType Directory -Force $dir | Out-Null
 Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
   -OutFile "$dir\keploy.exe"
