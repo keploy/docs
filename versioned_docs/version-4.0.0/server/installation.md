@@ -122,7 +122,7 @@ keploy record -c ".venv/bin/python app.py"    # Python, from a virtualenv
 keploy record -c "java -jar target/app.jar"   # Java
 ```
 
-On macOS, pass the app's real command, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs. For Java, that means the JDK's own `java`, as in `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/app.jar"`. The [macOS guide](/docs/installation/macos-installation/#option-1-run-keploy-natively) has the details.
+On macOS, pass the app's real command, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs. For Java, that means the JDK's own `java`, as in `keploy record -c "${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java -jar target/app.jar"`. For Go, build the app and pass its binary: `go build -o app . && keploy record -c "./app"`, then `keploy test -c "./app"`. In this release, a `go run` command records on macOS, but the replay that `keploy record` starts right after it stops with _"the application exited before it accepted a connection"_. The [macOS guide](/docs/installation/macos-installation/#option-1-run-keploy-natively) has the details.
 
 Keploy starts your app. Once it's up, send it the requests you want as tests, with `curl`, Postman, your frontend or a script. Keploy saves:
 
