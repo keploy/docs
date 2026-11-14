@@ -2,7 +2,7 @@
 id: common-errors
 title: Keploy Troubleshooting Guide
 sidebar_label: Troubleshooting Guide
-description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, and their solutions."
+description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, sudo on Linux, HTTPS certificates and telemetry — and their solutions."
 tags:
   - explanation
   - faq
@@ -312,6 +312,99 @@ Your application calls an HTTP service on port `4000` (a common development port
 - On an older Keploy version, upgrade.
 
 See [MySQL port detection](../running-keploy/configuration-file.md#mysql-port-detection) for how Keploy tells MySQL from other protocols on these ports.
+
+### 16. Linux: Keploy asks for your password, or a CI job stops at `sudo` {#linux-sudo}
+
+#### Description:
+
+On Linux, `keploy record`, `keploy test`, `keploy mock record` or `keploy mock replay` asks for your `sudo` password. Where nobody can type it, such as a CI runner or a script with no terminal, the command stops because `sudo` can't ask.
+
+#### Possible Cause:
+
+- On Linux, Keploy's agent, the process that records and replays the calls, uses eBPF, which needs root. Keploy runs as your user and starts its agent with `sudo`, unless Keploy itself runs as root.
+- macOS needs no `sudo`: on a Mac with Apple silicon, Keploy works in user space.
+
+#### Solution:
+
+- Run `keploy` as your own user, and type your password when `sudo` asks.
+- Where nobody can type a password, let that user run `sudo` without one. GitHub-hosted runners already do.
+- Don't start Keploy itself with `sudo keploy`: the files it writes in your home folder are then owned by root, and a later run as your user can't update them. If a run warns `failed to persist refreshed tokens to ~/.keploy/tokens.yaml`, give the folder back to your user:
+
+  ```bash
+  sudo chown -R $USER ~/.keploy
+  ```
+
+### 17. Linux: `certutil is not installed` warning {#certutil-warning}
+
+#### Description:
+
+A run on Linux warns once:
+
+```
+keploy could not add its CA to the NSS database Chromium-based browsers read: certutil is not installed. Install it (Debian/Ubuntu: apt-get install libnss3-tools; Fedora/RHEL: dnf install nss-tools); until then a browser rejects keploy's certificate and its HTTPS calls are neither recorded nor mocked
+```
+
+The run goes on.
+
+#### Possible Cause:
+
+Keploy records and replays HTTPS calls with a certificate authority (CA) of its own (see [entry 18](#https-ca)). Most clients trust it through the system trust store and the variables Keploy sets for your app. Chromium-based browsers (Chrome, Chromium, the Chromium that Playwright and Puppeteer drive, and Electron apps) read only their own NSS database, `$HOME/.pki/nssdb`. Keploy adds its CA there with NSS's `certutil`, and `certutil` isn't installed.
+
+#### Solution:
+
+- If your tests don't drive a Chromium-based browser or another client that reads `$HOME/.pki/nssdb`, you can ignore the warning: every other client trusts Keploy's CA without it.
+- If they do, install `certutil` and run again:
+
+  ```bash
+  # Debian or Ubuntu
+  sudo apt-get install libnss3-tools
+  # Fedora or RHEL
+  sudo dnf install nss-tools
+  ```
+
+### 18. HTTPS: do I need to trust Keploy's certificate? {#https-ca}
+
+#### Description:
+
+Keploy reads and answers your app's HTTPS calls by acting as the server, with certificates from a certificate authority (CA) of its own. You don't install or trust that CA yourself, and on macOS Keploy needs no `sudo` or keychain change for it.
+
+#### Possible Cause:
+
+Not an error. For each run, Keploy makes your app trust its CA:
+
+- **Linux:** Keploy adds this run's CA to the system trust store, and to the NSS database Chromium-based browsers read when `certutil` is installed (see [entry 17](#certutil-warning)), and removes it when the run ends. Its agent runs as root, so it can.
+- **macOS (Apple silicon):** Keploy adds its CA inside each process it starts, in memory, so Go programs, which ask macOS to check certificates, trust it too. Your keychain isn't changed.
+- **On both,** the app gets environment variables that point it at Keploy's CA: `NODE_EXTRA_CA_CERTS` at the CA, and `SSL_CERT_FILE`, `REQUESTS_CA_BUNDLE` and `CARGO_HTTP_CAINFO` at a bundle of your system's roots plus Keploy's CA. Java gets a truststore of both through `JAVA_TOOL_OPTIONS`.
+
+#### Solution:
+
+- Nothing to do. Each JVM your app starts prints `Picked up JAVA_TOOL_OPTIONS: ...` during a run: the JVM prints that line whenever `JAVA_TOOL_OPTIONS` is set, and it's expected.
+- Older Keploy versions put one fixed CA into the system trust store and left it there. To remove it from a machine that ran one, run `sudo keploy ca clean` (on Debian or Ubuntu, `sudo keploy ca clean --fresh` also rebuilds the system bundle).
+
+### 19. Telemetry: what Keploy sends, and how to turn it off {#telemetry}
+
+#### Description:
+
+The Keploy CLI sends usage telemetry to Keploy, to `telemetry.keploy.io`:
+
+- events about runs, such as how many tests and mocks a recording made, by kind of mock, and how a test run ended, with an installation ID, your OS and the Keploy version;
+- sign-in events, when you sign in or the CLI renews your session, which carry your Keploy account's email address and IDs;
+- crash reports, which carry the run's log and the machine's host name.
+
+#### Possible Cause:
+
+Telemetry is on unless you turn it off.
+
+#### Solution:
+
+Turn it off in one of these ways:
+
+- `disableTele: true` in your project's `keploy.yml`: no Keploy command run in the project sends telemetry;
+- `--disable-tele` on one command, for example `keploy mock record --disable-tele`.
+
+Either one covers everything above, including the agent Keploy starts. Until the CLI has read your choice, it sends nothing.
+
+The Keploy VS Code extension sends its own events. Turn them off with its `keploy.telemetry.enabled` setting or VS Code's `telemetry.telemetryLevel`; then every CLI the extension starts gets `KEPLOY_DISABLETELE=true`. See [the extension's Telemetry section](/docs/running-keploy/utg-vscode-extension/#telemetry).
 
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
