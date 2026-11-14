@@ -67,16 +67,16 @@ The extension runs the Keploy CLI, which it downloads and keeps up to date for y
 
 ## Sign in
 
-Select **Sign in** in the checklist, or run **Keploy: Sign in**. Keploy's sign-in page opens in your browser with a code; approve it there. There is nothing to copy back, and the extension never sees or stores a token.
+Select **Signed in to Keploy** in the checklist, or run **Keploy: Sign in**. Keploy's sign-in page opens in your browser with a code; approve it there. There is nothing to copy back, and the extension never sees or stores a token.
 
 The CLI stores the session, so every `keploy` run reads it: the extension's, your terminal's and your agent's. A `keploy login` in a terminal signs the extension in too.
 
 ## Set up with your agent
 
-Select **Set up with my agent** in the checklist, or run **Keploy: Set up Keploy with my coding agent**. The extension installs Keploy's skill for this project through the CLI (`keploy skill install mock --agent <agent> --project`), then opens your agent with the setup task:
+Select **Project set up by your agent** in the checklist, or run **Keploy: Set up Keploy with my coding agent**. The extension installs Keploy's skill for this project through the CLI (`keploy skill install mock --agent <agent> --project`), then opens your agent with the setup task:
 
 1. set `mock.command` in `keploy.yml` to the command CI runs your tests with;
-2. add the test-side hook the skill names for your framework (Go, Java, Python or Jest);
+2. add the test-side integration the skill names for your framework: go-sdk's `keploytest` for Go tests, `@keploy/playwright` for Playwright; in any other framework the test process makes the same calls by hand, as the skill shows;
 3. record with `keploy mock record --lock keploy.lock`, to Keploy Cloud: the recording is pinned in `keploy.lock`, the file CI and your teammates replay;
 4. replay with `keploy mock replay --lock keploy.lock` until it's green, fixing each red the way its options say.
 
@@ -98,23 +98,23 @@ Your agent records and replays from its terminal. You can also run either one yo
 - **Status bar.** A count of the tests Keploy kept.
 - **Refresh.** **Keploy: Refresh status** reads the CLI's status again.
 
-When the replay is green, select **Stage** in the checklist, or run **Keploy: Stage keploy.yml, keploy.lock and the test edits**. `keploy.yml`, `keploy.lock` and the files that changed after your agent started go into Source Control for you to review and commit. Keploy's skill for the project is offered unpicked: pick it to share the setup with your team. Nothing is committed for you, and `.gitignore` is never changed.
+When the replay is green, select **keploy.yml, keploy.lock and the test edits staged** in the checklist, or run **Keploy: Stage keploy.yml, keploy.lock and the test edits**. `keploy.yml`, `keploy.lock` and the files that changed after your agent started go into Source Control for you to review and commit. Keploy's skill for the project is offered unpicked: pick it to share the setup with your team. Nothing is committed for you, and `.gitignore` is never changed.
 
 ## Run it in CI
 
-Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes. [Mock your tests](/docs/running-keploy/mock-your-tests/) shows the workflow.
+Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
-The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key your Keploy admin makes at [Settings > Service accounts](https://app.keploy.io/settings/service-accounts), stored with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
+The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key your Keploy admin makes at [Account > Service Accounts](https://app.keploy.io/settings/service-accounts), stored with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
 
 The extension writes the workflow only for a project at the repository's root, and only once `keploy.lock` exists; otherwise it says what to do instead. GitLab CI, and any other CI, is available on request: contact the Keploy team at support@keploy.io and we'll set it up with you.
 
 ## Invite teammates
 
-Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in and replays `keploy.lock`, as [Mock your tests](/docs/running-keploy/mock-your-tests/) describes.
+Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in with `keploy login` and runs `KEPLOY_PROVEN=1 keploy mock replay`: the replay reads the committed `keploy.yml` and `keploy.lock` and downloads the recordings the lock pins.
 
 ## Record your running app (T1)
 
-No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `npm start` or `go run .`, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>"`, which starts your app again and replays those requests against it as tests.
+No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `go run .` or `node server.js`, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>"`, which starts your app again and replays those requests against it as tests. On macOS, give the command that runs your app itself, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs.
 
 On Linux, Keploy needs root to capture your app's traffic, so the CLI asks for your password (`sudo`) in that terminal; on a Mac it needs no admin rights. These runs don't set `KEPLOY_PROVEN`. [Record and replay your app](/docs/server/install/) shows the same steps in a terminal.
 
@@ -164,7 +164,7 @@ A `keploy` command that you or your agent run in a terminal isn't one the extens
 | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | The CLI download fails or never finishes.                                         | The download couldn't reach Keploy's servers, or ran out of retries.                | Run **Keploy: Install or update the CLI** again. Downloads start at `keploy.io` and are served from the CDN it redirects to, so a proxy or firewall must allow both. |
 | **keploy.cli.version pins** _version_**, below** _version_ …                      | The pinned version is older than the oldest CLI the extension works with.           | Pin the version the message names or a later one, or clear the setting to follow the current release.                                                                |
-| **Keploy: the sign-in could not start.**                                          | The CLI couldn't start the sign-in. The rest of the message gives the CLI's reason. | Check your connection to `app.keploy.io` and `api.keploy.io`, then select **Sign in** again.                                                                         |
+| **Keploy: the sign-in could not start.**                                          | The CLI couldn't start the sign-in. The rest of the message gives the CLI's reason. | Check your connection to `app.keploy.io` and `api.keploy.io`, then run **Keploy: Sign in** again.                                                                    |
 | **Keploy: could not install the skill for** _agent_                               | `keploy skill install` failed. The rest of the message gives the CLI's reason.      | Fix what it names, then run **Keploy: Hand the setup to my agent** again.                                                                                            |
 | A record or replay stops with _"runs the test command natively in this release"_. | `mock.command` is a `docker` or `docker compose` command.                           | Set `mock.command` to the command that runs your tests on the host.                                                                                                  |
 

@@ -280,7 +280,7 @@ If the rootful `podman.socket` is enabled (`sudo systemctl enable --now podman.s
 Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, MySQL and MongoDB** calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
 
 - Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
-- On an Intel Mac, use the **Lima** tab. The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too.
+- The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too. Keploy doesn't support Intel Macs.
 
 :::
 
@@ -319,7 +319,7 @@ See [Installing Keploy on macOS](/docs/installation/macos-installation/) for mor
 
 ## Install Keploy with Lima
 
-Lima runs Keploy inside a Linux VM on your Mac. It is the way to run Keploy on an **Intel Mac**; on Apple Silicon, the **Native** tab needs no VM.
+Lima runs Keploy inside a Linux VM on a Mac with Apple Silicon. Keploy doesn't support Intel Macs. The **Native** tab needs no VM.
 
 1. **Check if Lima is installed**: If you already have a Lima instance, make it writable (see step 3) and go to Step 5, using its name in place of `debian-12`.
 
@@ -444,7 +444,7 @@ Use "keploy [command] --help" for more information about a command.
 ## Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 :::
 
 1. **Make sure Docker is installed**: You’ll need Docker Desktop running on macOS.
