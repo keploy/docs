@@ -94,6 +94,10 @@ To pick the agent yourself, run **Keploy: Hand the setup to another agent**. **K
 
 Your agent records and replays from its terminal. You can also run either one yourself with **Keploy: Record** and **Keploy: Replay**, which run `keploy mock record` and `keploy mock replay` in a VS Code task. Signed in, the CLI works through your Keploy account: each recording is uploaded to Keploy Cloud and downloaded from there before a replay.
 
+Keploy records on a work branch, so the default branch's recordings change only through reviewed merges. When you select **Keploy: Record** on `main` or `master`, or with no branch checked out, the extension offers to create `keploy/<your folder's name>` (or, when that exists, the first free copy from `-2` to `-9`, named in the offer), check it out and record there. Nothing runs if you don't take the offer. Before a record, the extension also saves your Keploy app's ID in `keploy.yml` (with `keploy app create --json`) when the file has none, so the checklist finds the recording in Keploy Cloud.
+
+For a recording held in Keploy Cloud, the checklist's **Tests recorded** step ticks once Keploy Cloud holds tests for the project, and reads **Recorded: _n_ tests in Keploy Cloud**. **Replay green** then ticks from the newest replay's own report, including a replay your agent ran in its terminal, until you record again.
+
 - **Testing view.** "Keploy (mocked)" in VS Code's Testing view lists each recording set, and every test the CLI names as red, not judged, stale or set aside, with the CLI's reason. Record and Replay run from it.
 - **Status bar.** A count of the tests Keploy kept.
 - **Refresh.** **Keploy: Refresh status** reads the CLI's status again.
@@ -114,7 +118,7 @@ Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates
 
 ## Record your running app (T1)
 
-No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `go run .` or `node server.js`, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>"`, which starts your app again and replays those requests against it as tests. On macOS, give the command that runs your app itself, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs.
+No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `go run .` or `node server.js`, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>" -t <sets>`, naming every `keploy/test-set-<n>` folder, which starts your app again and replays those requests against it as tests. The terminal stays open with keploy's exit code until you press Enter. On macOS, give the command that runs your app itself, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs.
 
 On Linux, Keploy needs root to capture your app's traffic, so the CLI asks for your password (`sudo`) in that terminal; on a Mac it needs no admin rights. These runs don't set `KEPLOY_PROVEN`. [Record and replay your app](/docs/server/install/) shows the same steps in a terminal.
 
@@ -178,13 +182,13 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 | **Keploy: Sign in**                                          | Signs the CLI in to your Keploy account in your browser.                                         |
 | **Keploy: Hand the setup to my agent**                       | Installs Keploy's skill for this project and opens your agent with the setup task.               |
 | **Keploy: Hand the setup to another agent**                  | The same, with an agent you pick.                                                                |
-| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record` or `keploy mock replay` for the project.                                |
+| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record` (on a work branch) or `keploy mock replay` for the project.             |
 | **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                    |
 | **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
 | **Keploy: Wire CI (GitHub Actions)**                         | Writes `.github/workflows/keploy.yml`, which replays `keploy.lock` in GitHub Actions.            |
 | **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                            |
 | **Keploy: Record my running app (T1)**                       | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
-| **Keploy: Replay my app's recording as tests (T1)**          | Runs `keploy test -c "<command>"` in a terminal.                                                 |
+| **Keploy: Replay my app's recording as tests (T1)**          | Runs `keploy test -c "<command>"` on the project's T1 test sets in a terminal.                   |
 | **Keploy: Install or update the CLI**                        | Installs the CLI, or updates it when it needs updating.                                          |
 | **Keploy: Show log**                                         | Opens the extension's log.                                                                       |
 
