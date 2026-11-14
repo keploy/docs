@@ -409,6 +409,36 @@ Any one of them covers everything above, including the agent Keploy starts, whic
 
 The Keploy VS Code extension sends its own events. Turn them off with its `keploy.telemetry.enabled` setting or VS Code's `telemetry.telemetryLevel`; then every CLI the extension starts gets `KEPLOY_DISABLETELE=true`. See [the extension's Telemetry section](/docs/running-keploy/utg-vscode-extension/#telemetry).
 
+### 20. macOS: the replay after `keploy record` stops for a `go run` app {#macos-go-run}
+
+#### Description:
+
+On a Mac, `keploy record -c "go run main.go"` records your tests and mocks, but the replay it starts right after you stop recording fails before any test runs:
+
+```
+fork/exec /tmp/keploy-shim-<uid>/keploy-native-<pid>/go-exec: no such file or directory
+...
+the application exited before it accepted a connection: no test of the test-set was sent
+```
+
+It ends with a NEXT block whose phase is `verified_red`. The recording itself is complete.
+
+#### Possible Cause:
+
+In this release, on macOS, the replay that `keploy record` runs after recording can't start an app that `go run` builds. `keploy test -c "go run main.go"` runs it.
+
+#### Solution:
+
+- Build the app and pass its binary, for the record and for every replay:
+
+  ```bash
+  go build -o app .
+  keploy record -c "./app"
+  keploy test -c "./app"
+  ```
+
+- For a test set you've already recorded with `go run`, run `keploy test -c "go run main.go"`, or `keploy test -c "./app"` after the build.
+
 If you’re still encountering issues after trying these solutions, feel free to reach out to the Keploy team on [Slack](https://keploy.io/slack).
 
 Happy Testing!
