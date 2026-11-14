@@ -2,7 +2,7 @@
 id: common-errors
 title: Keploy Troubleshooting Guide
 sidebar_label: Troubleshooting Guide
-description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, sudo on Linux, HTTPS certificates and telemetry — and their solutions."
+description: "Troubleshoot common Keploy errors — dependency not found, failed API recording, test replay issues, sudo on Linux, HTTPS certificates, telemetry and go run apps on macOS — and their solutions."
 tags:
   - explanation
   - faq
@@ -436,6 +436,8 @@ In this release, on macOS, the replay that `keploy record` runs after recording 
   keploy record -c "./app"
   keploy test -c "./app"
   ```
+
+  Add `app` to `.gitignore`, or build it outside the repository, so the binary stays out of your commits.
 
 - For a test set you've already recorded with `go run`, run `keploy test -c "go run main.go"`, or `keploy test -c "./app"` after the build.
 
