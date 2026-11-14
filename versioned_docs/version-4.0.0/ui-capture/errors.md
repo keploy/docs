@@ -94,7 +94,7 @@ The server's status decides the code:
 | `429`, a `5xx`, or a network failure  | None: the SDK retries with backoff and never calls `onError`.         |
 | `2xx`                                 | None: the batch was accepted.                                         |
 
-**A warning does not end the capture.** The SDK does not call `onError`. Three warnings each mean one event was dropped; [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped), [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed) and [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable) drop no event. The SDK writes one `console.warn` line for the first occurrence of each code in a capture, and says nothing about later ones in that capture: a later dropped event is dropped silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The exception is [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable), which the SDK writes once per page. The SDK never uses `console.error` for a warning, so a page whose tests or error tracker fail on console errors does not fail on one. SDK versions before 3.1.0-rc.2 wrote these lines with `console.error`. The line names the code and ends with the evidence as JSON:
+**A warning does not end the capture.** The SDK does not call `onError`. Three warnings each mean one event was dropped; [`KUI_E_NAVIGATION_UNWRAPPED`](#kui-e-navigation-unwrapped), [`KUI_E_REQUEST_TERM_FAILED`](#kui-e-request-term-failed) and [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable) drop no event. The SDK writes one `console.warn` line for the first occurrence of each code in a capture, and says nothing about later ones in that capture: a later dropped event is dropped silently. A new `init()`, or with `continuous: true` each new session, starts a new count. The exception is [`KUI_E_BODY_WORKER_UNAVAILABLE`](#kui-e-body-worker-unavailable), which the SDK writes once per page for each part. The SDK never uses `console.error` for a warning, so a page whose tests or error tracker fail on console errors does not fail on one. SDK versions before 3.1.0-rc.2 wrote these lines with `console.error`. The line names the code and ends with the evidence as JSON:
 
 ```text
 [keploy] KUI_E_EVENT_OVERSIZED: dropped an event: 11059200 bytes in a body, over the ingest server's 10485760-byte cap, so no batch could carry it. The capture continues; any further such events in this capture are dropped silently. evidence={"eventId":"7","eventType":"dom","bytes":11059200,"cap":10485760}
@@ -434,14 +434,14 @@ A page with no `SubtleCrypto` at all, such as one served over plain HTTP from a 
 
 ## `KUI_E_BODY_WORKER_UNAVAILABLE` {#kui-e-body-worker-unavailable}
 
-**Warning.** One `console.warn` line per page, at the first failure. The page's requests are not affected, and the capture continues.
+**Warning.** One `console.warn` line per page for each part, at its first failure. The page's requests are not affected, and the capture continues.
 
 **Exit code:** `12` (nothing-matched), as UI Capture's error list gives it. The SDK runs in the page, so it never exits a process itself.
 
-**What happened:** The SDK redacts request and response bodies in a Web Worker, `dist/body-worker.js`, so that redaction does not run on your page's main thread. It also loads the same redaction code for the main thread, `dist/body-redact.mjs`, for the moments that cannot wait for the worker, such as the page being left. It loads both once per page, soon after a capture that records bodies starts. On this page one of the two could not be loaded or run:
+**What happened:** The SDK redacts request and response bodies in a Web Worker, `dist/body-worker.js`, so that redaction does not run on your page's main thread. It also loads the same redaction code for the main thread, `dist/body-redact.mjs`, for the moments that cannot wait for the worker, such as the page being left. It loads both once per page, soon after a capture that records bodies starts. On this page one of the two, or both, could not be loaded or run:
 
 ```text
-[keploy] KUI_E_BODY_WORKER_UNAVAILABLE: could not run the body worker or load the body chunk (evidence.part): without the worker, a body over 64 KiB is recorded cut; without the chunk, a body the main thread must redact is recorded with nothing kept; replay reports a test over a cut body unproven. Allow worker-src 'self' in the page's CSP, use a bundler that emits the worker (or copy dist/body-worker.js beside the bundle), serve it from the page's origin, or serve the SDK's dist/ as it is. Said once per page. evidence={"part":"worker","reason":"the worker's script did not load or run (refused by the page's CSP, a 404, or a script that does not parse)"}
+[keploy] KUI_E_BODY_WORKER_UNAVAILABLE: could not run the body worker or load the body chunk (evidence.part): without the worker, a body over 64 KiB is recorded cut; without the chunk, a body the main thread must redact is recorded with nothing kept; replay reports a test over a cut body unproven. Allow worker-src 'self' in the page's CSP, use a bundler that emits the worker (or copy dist/body-worker.js beside the bundle), serve it from the page's origin, or serve the SDK's dist/ as it is. Said once per page for each part. evidence={"part":"worker","reason":"the worker's script did not load or run (refused by the page's CSP, a 404, or a script that does not parse)"}
 ```
 
 The SDK redacts bodies on the main thread instead:
@@ -453,7 +453,7 @@ A cut response body is not the response your server sent, so replay never serves
 
 A capture that masks every body, under `privacyMode: "strict"` or with `privacy.maskNetworkBodies: true`, loads neither part and never raises this warning.
 
-**Cause:** `evidence.part` says which part failed, and `evidence.reason` what the browser said. The SDK writes the line once per page, for the first part that failed, so when both fail it names only one: after you fix it and reload, the line names the other.
+**Cause:** `evidence.part` says which part failed, and `evidence.reason` what the browser said. The SDK writes the line once per page for each part, at its first failure, so when both fail you see two lines, one for each part.
 
 - `worker`: the worker did not start, or its script failed to load or run. The common causes:
   - The page's Content-Security-Policy does not allow a worker from your origin: no `worker-src 'self'`, and no `child-src` or `script-src` it falls back to that allows it.
