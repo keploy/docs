@@ -92,9 +92,9 @@ To pick the agent yourself, run **Keploy: Hand the setup to another agent**. **K
 
 ## Record, replay and review
 
-Your agent records and replays from its terminal. You can also run either one yourself with **Keploy: Record** and **Keploy: Replay**, which run `keploy mock record` and `keploy mock replay` in a VS Code task. Signed in, the CLI works through your Keploy account: each recording is uploaded to Keploy Cloud and downloaded from there before a replay.
+Your agent records and replays from its terminal. You can also run either one yourself with **Keploy: Record** and **Keploy: Replay**, which run `keploy mock record --lock keploy.lock` and `keploy mock replay` in a VS Code task, so a project's first record creates `keploy.lock`. Signed in, the CLI works through your Keploy account: each recording is uploaded to Keploy Cloud and downloaded from there before a replay.
 
-Keploy records on a work branch, so the default branch's recordings change only through reviewed merges. When you select **Keploy: Record** on `main` or `master`, or with no branch checked out, the extension offers to create `keploy/<your folder's name>` (or, when that exists, the first free copy from `-2` to `-9`, named in the offer), check it out and record there. Nothing runs if you don't take the offer. Before a record, the extension also saves your Keploy app's ID in `keploy.yml` (with `keploy app create --json`) when the file has none, so the checklist finds the recording in Keploy Cloud.
+Keploy records on a work branch: the default branch's `keploy.lock` changes only through merges. When you select **Keploy: Record** on `main` or `master`, or with no branch checked out, the extension offers to create `keploy/<your folder's name>` (or, when that exists, the first free copy from `-2` to `-9`, named in the offer), check it out and record there. Nothing runs if you don't take the offer. Before a record, the extension also saves your Keploy app's ID in `keploy.yml` (with `keploy app create --json`) when the file has none, so the checklist finds the recording in Keploy Cloud.
 
 For a recording held in Keploy Cloud, the checklist's **Tests recorded** step ticks once Keploy Cloud holds tests for the project, and reads **Recorded: _n_ tests in Keploy Cloud**. **Replay green** then ticks from the newest replay's own report, including a replay your agent ran in its terminal, until you record again.
 
@@ -182,7 +182,7 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 | **Keploy: Sign in**                                          | Signs the CLI in to your Keploy account in your browser.                                         |
 | **Keploy: Hand the setup to my agent**                       | Installs Keploy's skill for this project and opens your agent with the setup task.               |
 | **Keploy: Hand the setup to another agent**                  | The same, with an agent you pick.                                                                |
-| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record` (on a work branch) or `keploy mock replay` for the project.             |
+| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record --lock keploy.lock` (on a work branch) or `keploy mock replay`.          |
 | **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                    |
 | **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
 | **Keploy: Wire CI (GitHub Actions)**                         | Writes `.github/workflows/keploy.yml`, which replays `keploy.lock` in GitHub Actions.            |
