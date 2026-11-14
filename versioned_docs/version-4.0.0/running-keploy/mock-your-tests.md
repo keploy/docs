@@ -142,8 +142,11 @@ there and refuses a second. There is no integration for other frameworks: their
 test process makes the calls by hand. It claims the run
 (`POST {KEPLOY_MOCK_AGENT}/agent/instance` with `{"key": "<package folder>"}`,
 the folder relative to the project) before its first test, then sends
-each test's begin with `"canSkip": true`, skips the test when the begin answers
-`"action": "skip"`, and sends its end, never with `pid`, `at`, `dir` or `suite`.
+each test's begin with `"canSkip": true` and its end, never with `pid`, `at`,
+`dir` or `suite`. When a begin answers `"action": "skip"`, the test process
+skips that test and either sends no end for it or sends one with
+`"outcome": "skipped"`. An end of a skipped test that says another outcome, or
+none, means the test ran: Keploy refuses it (`409 not_open`).
 :::
 
 **pytest** (`conftest.py`):
