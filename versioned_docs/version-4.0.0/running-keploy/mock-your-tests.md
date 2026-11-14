@@ -149,7 +149,7 @@ for that recording: record the test again and it runs again.
 
 To keep the recordings in the repository instead, with no account, set
 `mock.local: true` in `keploy.yml` (or pass `--local`). The record then writes
-`keploy/<set>/`, and a test it sets aside is listed in
+`keploy/<set>/` and no `keploy.lock`, and a test it sets aside is listed in
 `keploy/<set>/verdicts.yaml`.
 
 Then run:
@@ -167,31 +167,85 @@ green.
 Commit `keploy.yml` and `keploy.lock`. With `mock.local: true`, commit
 `keploy/` instead, keeping `keploy/.gitignore` as Keploy wrote it.
 
-In CI, install Keploy, give it an API key from
-[app.keploy.io](https://app.keploy.io) (**Settings → API Keys**) as
-`KEPLOY_API_KEY`, and run the same replay. A GitHub Actions job:
+In CI, the job installs Keploy and runs the same replay, with no database or
+service running: every call is answered from the recordings. On GitHub Actions,
+add `.github/workflows/keploy.yml`:
 
 ```yaml
-- uses: actions/cache@v4
-  with:
-    path: ~/.cache/keploy/mocks
-    key: keploy-mocks-${{ hashFiles('keploy.lock') }}
-    restore-keys: keploy-mocks-
-- run: curl -fsSL https://keploy.io/install.sh -o install.sh && bash install.sh -isCI
-- run: keploy mock replay
-  env:
-    KEPLOY_PROVEN: "1"
-    KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+name: Keploy replay
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # Your test runner's toolchain and packages, nothing else. For Go:
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/keploy/mocks
+          key: keploy-mocks-${{ hashFiles('keploy.lock') }}
+          restore-keys: keploy-mocks-
+      - run: curl -fsSL https://keploy.io/install.sh -o install.sh && bash install.sh -isCI
+      - run: keploy mock replay --lock keploy.lock
+        env:
+          KEPLOY_PROVEN: "1"
+          KEPLOY_INVOKER: ci
+          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
 ```
+
+`KEPLOY_INVOKER: ci` makes a missing key fail the job at once instead of waiting
+for a sign-in. On Linux, Keploy starts its agent with `sudo`, which
+GitHub-hosted runners allow without a password.
+
+**The CI key.** The replay signs in with a key of a service account, which an
+admin of your Keploy organization makes: in [app.keploy.io](https://app.keploy.io),
+open **Account → Service Accounts**, create a service account, give it access to
+the app, and create a key. Save it as the repository secret `KEPLOY_API_KEY`,
+under the repository's **Settings → Secrets and variables → Actions**, or with
+the GitHub CLI, which asks for the value so it stays out of your shell history:
+
+```bash
+gh secret set KEPLOY_API_KEY
+```
+
+GitHub gives no repository secrets to a pull request from a fork, so its replay
+can't sign in.
 
 The replay downloads only the recordings of the tests it runs. Each one is named
 by its hash and kept in `~/.cache/keploy/mocks` (set `KEPLOY_MOCK_CACHE_DIR` to
 move it), so caching that folder, keyed on `keploy.lock`, saves the downloads on
 the next run. Cache that folder itself, never a parent such as `~/.cache`.
 
+With `mock.local: true`, the recordings come with the checkout: drop the cache
+step and `KEPLOY_API_KEY`, and run `keploy mock replay --local` instead.
+
 Using GitLab CI? It's available on request: [contact the Keploy team](https://keploy.io/slack)
 and we'll set it up with you. On any other CI, run the same command:
 `KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock`.
+
+### Share with your team {#proven-team}
+
+An admin of your Keploy organization adds each teammate in
+[app.keploy.io](https://app.keploy.io) under **Account → Users → Add User**, with
+the email they sign in with. A teammate then needs only Keploy, the test
+toolchain and a sign-in:
+
+```bash
+keploy login
+git clone <your repository> && cd <your repository>
+KEPLOY_PROVEN=1 keploy mock replay
+```
+
+The replay reads the committed `keploy.yml` and `keploy.lock`, downloads the
+recordings the lock pins, and runs the suite with every dependency off. With
+`mock.local: true`, the recordings come with the clone and the replay needs no
+sign-in.
 
 ### Skipped tests {#proven-skips}
 
