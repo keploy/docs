@@ -169,70 +169,136 @@ Commit `keploy.yml` and `keploy.lock`. With `mock.local: true`, commit
 
 In CI, the job installs Keploy and runs the same replay, with no database or
 service running: every call is answered from the recordings. On GitHub Actions,
-add `.github/workflows/keploy.yml`:
+the VS Code extension's **Keploy: Wire CI (GitHub Actions)** command writes
+`.github/workflows/keploy.yml` for a project at the repository's root that has
+a `keploy.lock`, and never over a file that is already there. Without the
+extension, add the same file. For a Go module, it is:
 
 ```yaml
-name: Keploy replay
+# Written by the Keploy VS Code extension. On every pull request and every
+# push to main, it replays the tests on the recordings keploy.lock pins, with
+# every dependency switched off (keploy.yml's mock.command runs them), and on
+# a pull request it comments what the pull request's keploy.lock changes.
+# It needs one repository secret, KEPLOY_API_KEY: a read-only CI key from
+# https://app.keploy.io/settings/service-accounts
+name: keploy
 on:
   pull_request:
   push:
     branches: [main]
+permissions:
+  contents: read
+  pull-requests: write
 jobs:
   replay:
     runs-on: ubuntu-latest
+    env:
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+      KEPLOY_INVOKER: ci
+      KEPLOY_PROVEN: "1"
     steps:
       - uses: actions/checkout@v4
-      # Your test runner's toolchain and packages, nothing else. For Go:
+        with:
+          # keploy mock diff compares keploy.lock with its merge base.
+          fetch-depth: 0
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/keploy/mocks
-          key: keploy-mocks-${{ hashFiles('keploy.lock') }}
-          restore-keys: keploy-mocks-
-      - run: curl -fsSL https://keploy.io/install.sh -o install.sh && bash install.sh -isCI
-      - run: keploy mock replay --lock keploy.lock
+      - name: Install Keploy
+        run: |
+          keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; [ "$keploy_rc" -eq 0 ]
+      - name: Check the Keploy key
+        run: |
+          if [ -z "$KEPLOY_API_KEY" ]; then
+            echo "::error::Add a repository secret named KEPLOY_API_KEY, a read-only CI key from https://app.keploy.io/settings/service-accounts. A pull request from a fork gets no secrets."
+            exit 1
+          fi
+      - name: Replay on the recordings keploy.lock pins
+        # --lock fails the job when keploy.lock is missing, and --on-miss fail
+        # fails a call the recordings do not hold instead of letting it out.
+        run: |
+          keploy mock replay --lock keploy.lock --on-miss fail
+      - name: Comment what keploy.lock changes
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        continue-on-error: true
         env:
-          KEPLOY_PROVEN: "1"
-          KEPLOY_INVOKER: ci
-          KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          body="$RUNNER_TEMP/keploy-mock-diff.md"
+          { echo '<!-- keploy mock diff -->'; keploy mock diff --markdown --base "origin/$GITHUB_BASE_REF"; } > "$body"
+          id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --jq '.[] | select(.body | startswith("<!-- keploy mock diff -->")) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@"$body" > /dev/null
+          else
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file "$body"
+          fi
 ```
 
-`KEPLOY_INVOKER: ci` makes a missing key fail the job at once instead of waiting
-for a sign-in. On Linux, Keploy starts its agent with `sudo`, which
-GitHub-hosted runners allow without a password.
+For a test command run with `npm`, `npx`, `node`, `yarn` or `pnpm`, the
+toolchain step is `actions/setup-node@v4` with `node-version: lts/*`, followed by
+`npm ci` when the project has a `package-lock.json`. For any other test runner,
+the file has no toolchain step: add the one your tests need.
 
-**The CI key.** The replay signs in with a key of a service account, which an
-admin of your Keploy organization makes: in [app.keploy.io](https://app.keploy.io),
-open **Account → Service Accounts**, create a service account, give it access to
-the app, and create a key. Save it as the repository secret `KEPLOY_API_KEY`,
-under the repository's **Settings → Secrets and variables → Actions**, or with
-the GitHub CLI, which asks for the value so it stays out of your shell history:
+- `KEPLOY_INVOKER: ci` makes a missing key fail the job at once instead of
+  waiting for a sign-in, and the key check before the replay says what to add.
+- `--lock` fails the job when `keploy.lock` is missing, and `--on-miss fail`
+  fails a call the recordings don't hold instead of letting it reach the
+  network.
+- On a pull request, the last step comments the table `keploy mock diff
+--markdown` prints: the tests the pull request re-records, read from its
+  `keploy.lock` against the base branch's. A later push updates that comment. That step needs the
+  full history (`fetch-depth: 0`) and `pull-requests: write`, and a failure in
+  it never fails the job.
+- On Linux, Keploy starts its agent with `sudo`, which GitHub-hosted runners
+  allow without a password.
+
+**The CI key.** The replay signs in with a read-only key of a service account,
+which an admin of your Keploy organization makes: in
+[app.keploy.io](https://app.keploy.io/settings/service-accounts), open
+**Account → Service Accounts**, create a service account, give it access to the
+app, and create a key. Save it as the repository secret `KEPLOY_API_KEY`, under
+the repository's **Settings → Secrets and variables → Actions**, or with the
+GitHub CLI, which asks for the value so it stays out of your shell history:
 
 ```bash
 gh secret set KEPLOY_API_KEY
 ```
 
-GitHub gives no repository secrets to a pull request from a fork, so its replay
-can't sign in.
+Then commit `.github/workflows/keploy.yml` with `keploy.yml` and `keploy.lock`,
+and push. GitHub gives no repository secrets to a pull request from a fork, so
+its replay can't sign in.
 
 The replay downloads only the recordings of the tests it runs. Each one is named
 by its hash and kept in `~/.cache/keploy/mocks` (set `KEPLOY_MOCK_CACHE_DIR` to
-move it), so caching that folder, keyed on `keploy.lock`, saves the downloads on
-the next run. Cache that folder itself, never a parent such as `~/.cache`.
+move it). To save the downloads on the next run, cache that folder, keyed on
+`keploy.lock`, with a step before the replay:
 
-With `mock.local: true`, the recordings come with the checkout: drop the cache
-step and `KEPLOY_API_KEY`, and run `keploy mock replay --local` instead.
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.cache/keploy/mocks
+    key: keploy-mocks-${{ hashFiles('keploy.lock') }}
+    restore-keys: keploy-mocks-
+```
 
-Using GitLab CI? It's available on request: [contact the Keploy team](https://keploy.io/slack)
-and we'll set it up with you. On any other CI, run the same command:
-`KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock`.
+Cache that folder itself, never a parent such as `~/.cache`.
+
+With `mock.local: true`, the recordings come with the checkout and there is no
+`keploy.lock`: drop `KEPLOY_API_KEY`, the key check and the comment step, and
+run `keploy mock replay --local` instead.
+
+Using GitLab CI? It's available on request: contact the Keploy team at
+[support@keploy.io](mailto:support@keploy.io) and we'll set it up with you. The
+same goes for any other CI. The step it runs is
+`KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock --on-miss fail`, in the
+project's folder, with the CI key in `KEPLOY_API_KEY`.
 
 ### Share with your team {#proven-team}
 
 An admin of your Keploy organization adds each teammate in
-[app.keploy.io](https://app.keploy.io) under **Account → Users → Add User**, with
+[app.keploy.io](https://app.keploy.io/settings/users/add-user) under
+**Account → Users → Add User**, with
 the email they sign in with. A teammate then needs only Keploy, the test
 toolchain and a sign-in:
 
