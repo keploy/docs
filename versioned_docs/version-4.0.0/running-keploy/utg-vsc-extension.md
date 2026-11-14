@@ -27,7 +27,7 @@ The extension doesn't write your tests or your integration. It installs the Kepl
 
 :::note Version 3.1.0 hands the setup to your agent
 
-Version 3.1.0 replaces the 3.0.0 panel. Recording, replaying and adding Keploy to CI are now steps your coding agent takes with the CLI, guided by Keploy's skill, and the 3.0.0 test-file actions, CI workflow writers and agent rules are gone. To generate unit tests, use Keploy's [PR Agent](/docs/running-keploy/utg-pr-agent/), which writes them on your GitHub pull requests.
+Version 3.1.0 replaces the 3.0.0 panel. Setting Keploy up, recording and replaying are now steps your coding agent takes with the CLI, guided by Keploy's skill. **Wire CI** writes a GitHub Actions workflow that replays your recordings, and the 3.0.0 test-file actions and agent rules are gone. To generate unit tests, use Keploy's [PR Agent](/docs/running-keploy/utg-pr-agent/), which writes them on your GitHub pull requests.
 
 :::
 
@@ -51,7 +51,7 @@ Version 3.1.0 replaces the 3.0.0 panel. Recording, replaying and adding Keploy t
    code --install-extension keploy.keployio
    ```
 
-2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step: CLI installed, signed in, project set up by your agent, tests recorded, replay green, and the files staged. Select a step that isn't done to run the command that moves it on.
+2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step: CLI installed, signed in, project set up by your agent (or, offered beside it, your running app recorded with T1), tests recorded, replay green, the files staged, CI wired and teammates invited. Select a step that isn't done to run the command that moves it on.
 
 For a guided tour, run **Welcome: Open Walkthrough** from the Command Palette and choose **Get started with Keploy**.
 
@@ -77,10 +77,10 @@ Select **Set up with my agent** in the checklist, or run **Keploy: Set up Keploy
 
 1. set `mock.command` in `keploy.yml` to the command CI runs your tests with;
 2. add the test-side hook the skill names for your framework (Go, Java, Python or Jest);
-3. record with `keploy mock record`;
-4. replay with `keploy mock replay` until it's green, fixing each red the way its options say.
+3. record with `keploy mock record --lock keploy.lock`, to Keploy Cloud: the recording is pinned in `keploy.lock`, the file CI and your teammates replay;
+4. replay with `keploy mock replay --lock keploy.lock` until it's green, fixing each red the way its options say.
 
-The agent starts with `keploy mock status --json`, and every `keploy mock` command prints its next step, so the agent never has to guess. It asks you before any step that needs your sign-in or changes more than `keploy.yml`, `keploy.lock` and your test files.
+The agent runs every `keploy` command with `KEPLOY_PROVEN=1` and starts with `keploy mock status --json`, and every `keploy mock` command prints its next step, so the agent never has to guess. It asks you before any step that needs your sign-in or changes more than `keploy.yml`, `keploy.lock` and your test files.
 
 | Agent          | When the extension uses it                                                                                                | Where the skill goes   |
 | -------------- | ------------------------------------------------------------------------------------------------------------------------- | ---------------------- |
@@ -99,6 +99,24 @@ Your agent records and replays from its terminal. You can also run either one yo
 - **Refresh.** **Keploy: Refresh status** reads the CLI's status again.
 
 When the replay is green, select **Stage** in the checklist, or run **Keploy: Stage keploy.yml, keploy.lock and the test edits**. `keploy.yml`, `keploy.lock` and the files that changed after your agent started go into Source Control for you to review and commit. Keploy's skill for the project is offered unpicked: pick it to share the setup with your team. Nothing is committed for you, and `.gitignore` is never changed.
+
+## Run it in CI
+
+Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes. [Mock your tests](/docs/running-keploy/mock-your-tests/) shows the workflow.
+
+The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key your Keploy admin makes at [Settings > Service accounts](https://app.keploy.io/settings/service-accounts), stored with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
+
+The extension writes the workflow only for a project at the repository's root, and only once `keploy.lock` exists; otherwise it says what to do instead. GitLab CI, and any other CI, is available on request: contact the Keploy team at support@keploy.io and we'll set it up with you.
+
+## Invite teammates
+
+Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in and replays `keploy.lock`, as [Mock your tests](/docs/running-keploy/mock-your-tests/) describes.
+
+## Record your running app (T1)
+
+No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `npm start` or `go run .`, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>"`, which starts your app again and replays those requests against it as tests.
+
+On Linux, Keploy needs root to capture your app's traffic, so the CLI asks for your password (`sudo`) in that terminal; on a Mac it needs no admin rights. These runs don't set `KEPLOY_PROVEN`. [Record and replay your app](/docs/server/install/) shows the same steps in a terminal.
 
 ## Where your tests can run
 
@@ -123,7 +141,7 @@ On replay, none of your dependencies are contacted: the calls Keploy recorded ar
 
 | Setting                    | Default | What it does                                                                                                                                     |
 | -------------------------- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `keploy.cli.version`       | empty   | Pins the CLI to an exact version, such as `3.8.126`. Empty follows the current release, never below the oldest version the extension works with. |
+| `keploy.cli.version`       | empty   | Pins the CLI to an exact version, such as `3.8.129`. Empty follows the current release, never below the oldest version the extension works with. |
 | `keploy.telemetry.enabled` | `true`  | Sends the extension's product-analytics events. See [Telemetry](#telemetry). A workspace's settings can turn this off, never on.                 |
 
 In a workspace you haven't trusted, the Keploy view opens and explains itself, but recording, replaying and sign-in stay off until you trust the folder: Keploy runs your project's own test command, which is code execution.
@@ -134,9 +152,9 @@ The extension sends product-analytics events: which setup steps you reach, and w
 
 Every event goes to `telemetry.keploy.io`, keyed by that machine ID. While you're signed in, the same event also goes to Keploy's API, `api.keploy.io`, with your session, so it's tied to your Keploy account.
 
-To turn it off, set `keploy.telemetry.enabled` to `false`, or set VS Code's `telemetry.telemetryLevel` to `off`. Either one stops the extension's own events, to both places, and every Keploy CLI the extension starts gets `KEPLOY_DISABLETELE=true`, which quiets the CLI process, including its sign-in events and crash reports. On Linux, a CLI that isn't running as root starts its agent, the process that records and replays, with `sudo`, which drops the variable, so the agent sends its own usage pings. `disableTele: true` in your project's `keploy.yml` stops them.
+To turn it off, set `keploy.telemetry.enabled` to `false`, or set VS Code's `telemetry.telemetryLevel` to `off`. Either one stops the extension's own events, to both places, and every Keploy CLI the extension starts gets `KEPLOY_DISABLETELE=true`. That turns off the CLI's telemetry, its sign-in events and crash reports included, and the agent's, the process the CLI starts to record and replay: the CLI hands the agent its setting, through `sudo` too.
 
-A `keploy` command that you or your agent run in a terminal isn't one the extension starts, so neither setting reaches it: `KEPLOY_DISABLETELE=true` in that shell quiets the CLI process, and `disableTele: true` in `keploy.yml` quiets its agent too.
+A `keploy` command that you or your agent run in a terminal isn't one the extension starts, so neither setting reaches it. Set `KEPLOY_DISABLETELE=true` in that shell, or `disableTele: true` in your project's `keploy.yml`: either one quiets the CLI and its agent.
 
 ## Troubleshoot
 
@@ -163,6 +181,10 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 | **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record` or `keploy mock replay` for the project.                                |
 | **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                    |
 | **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
+| **Keploy: Wire CI (GitHub Actions)**                         | Writes `.github/workflows/keploy.yml`, which replays `keploy.lock` in GitHub Actions.            |
+| **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                            |
+| **Keploy: Record my running app (T1)**                       | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
+| **Keploy: Replay my app's recording as tests (T1)**          | Runs `keploy test -c "<command>"` in a terminal.                                                 |
 | **Keploy: Install or update the CLI**                        | Installs the CLI, or updates it when it needs updating.                                          |
 | **Keploy: Show log**                                         | Opens the extension's log.                                                                       |
 

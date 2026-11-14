@@ -16,7 +16,7 @@ keywords:
 
 Keploy now runs **natively on macOS** (Apple Silicon) — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
 
-Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). On an Intel Mac, use [Lima](#option-2-install-keploy-with-lima).
+Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). Keploy doesn't support Intel Macs.
 
 :::note Keploy needs a free account
 
@@ -147,7 +147,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 :::note Also Apple Silicon only
 
-With this option your application and Keploy's agent run in containers, but the `keploy` CLI installed in step 3 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use [Option 2 (Lima)](#option-2-install-keploy-with-lima) instead.
+With this option your application and Keploy's agent run in containers, but the `keploy` CLI installed in step 3 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 
 :::
 

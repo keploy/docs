@@ -2,7 +2,7 @@
 id: mac-linux
 title: "Running Keploy on macOS in a Linux VM (Lima)"
 sidebar_label: Keploy on macOS with Lima
-description: "Run Keploy on macOS inside a Debian Linux VM with Lima — the route for Intel Macs. Step-by-step installation guide."
+description: "Run Keploy on an Apple-silicon Mac inside a Debian Linux VM with Lima. Step-by-step installation guide."
 ---
 
 # Running Keploy on macOS in a Linux VM (Lima)
@@ -11,7 +11,7 @@ description: "Run Keploy on macOS inside a Debian Linux VM with Lima — the rou
 
 :::tip Looking for true native macOS?
 
-This page runs Keploy inside a Debian VM, which is the route for an **Intel Mac**. On Apple Silicon you can skip the VM: Keploy records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
+This page runs Keploy inside a Debian VM on a Mac with Apple Silicon. Keploy doesn't support Intel Macs. You can skip the VM: Keploy records an app running directly on your Mac, with no Lima and no Docker — see [Installing Keploy on macOS](/docs/installation/macos-installation/).
 
 :::
 

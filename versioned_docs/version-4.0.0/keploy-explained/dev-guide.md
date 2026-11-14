@@ -259,7 +259,7 @@ cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 
 ### Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 :::
 
 1. Make sure Docker Desktop is running on macOS.

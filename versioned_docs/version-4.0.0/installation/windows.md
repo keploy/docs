@@ -45,7 +45,7 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 :::note The VS Code extension
 
-The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) doesn't set Keploy up on Windows yet: its Windows support comes in the next release. The steps below install the CLI into `%LOCALAPPDATA%\.keployin`, the folder the extension uses on Windows.
+The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) doesn't set Keploy up on Windows yet: its Windows support comes in the next release. The steps below install the CLI into `%LOCALAPPDATA%\.keploy\bin`. If you used version 3.0 of the extension, 3.1 removes the CLI copy 3.0 put in `%APPDATA%\.keploy\bin`; a `keploy.exe` you put there yourself stays.
 
 :::
 

@@ -91,7 +91,7 @@ With this method your application and Keploy's agent run in Docker, but the `kep
 docker network create keploy-network
 ```
 
-3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only: Keploy doesn't support Intel Macs.
 
 ```shell
  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
@@ -154,7 +154,7 @@ mkdir -p ~/.keploy/bin &&
 export PATH="$HOME/.keploy/bin:$PATH"   # add this line to your ~/.zshrc too
 ```
 
-There is no Intel macOS build: on an Intel Mac, use the Linux steps inside [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima).
+There is no Intel macOS build: Keploy doesn't support Intel Macs.
 
 #### On Windows (x86-64)
 
