@@ -148,11 +148,17 @@ Keploy starts your app, waits `--delay` seconds for it to come up (5 by default)
 - `--health-url http://localhost:8080/health` waits until that URL answers with a 2xx instead of a fixed delay, for an app whose start-up time varies.
 - `-t test-set-0` replays one test set.
 
-Keploy prints each test's result and a summary, writes the full report to `keploy/reports/test-run-<n>/test-set-<n>-report.yaml`, and ends with the NEXT block.
+Keploy prints each test's result and a summary, writes the full report to `keploy/reports/test-run-<n>/test-set-<n>-report.yaml`, uploads it to your Keploy dashboard and prints its link, and ends with the NEXT block.
 
 ## 5. Commit and run in CI {#ci}
 
-Commit the `keploy/` folder with your code, so your teammates and your CI replay the same tests. To replay them on every pull request, see [GitHub Actions](/docs/ci-cd/github/#github-actions).
+Commit `keploy.yml` and the `keploy/` folder with your code, so your teammates and your CI replay the same tests.
+
+The `.gitignore` that Keploy writes in `keploy/` keeps the reports and each test set's `mocks.yaml` out of git. Instead, when a replay passes a test set, Keploy uploads its mocks to your Keploy account and pins them by hash in the set's `config.yaml`. A `keploy test` on another machine downloads the pinned mocks, so it must be signed in to your Keploy organization; in CI, with `KEPLOY_API_KEY`.
+
+A test set that no replay has passed yet, such as one recorded with `--disableAutoReplay`, has no pin, and its mocks are only on your machine. Replay it with `keploy test` before you commit it.
+
+To replay the tests on every pull request, see [GitHub Actions](/docs/ci-cd/github/#github-actions).
 
 ## Related
 
