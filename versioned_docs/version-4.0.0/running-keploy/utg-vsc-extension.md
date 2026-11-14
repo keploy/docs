@@ -134,10 +134,7 @@ The extension sends product-analytics events: which setup steps you reach, and w
 
 Every event goes to `telemetry.keploy.io`, keyed by that machine ID. While you're signed in, the same event also goes to Keploy's API, `api.keploy.io`, with your session, so it's tied to your Keploy account.
 
-To turn it off, set `keploy.telemetry.enabled` to `false`, or set VS Code's `telemetry.telemetryLevel` to `off`. Either one stops the extension's own events, to both places, and every Keploy CLI the extension starts gets `KEPLOY_DISABLETELE=true`, which quiets the CLI process. In this release that doesn't reach every part of the CLI:
-
-- **On Linux**, a CLI that isn't running as root starts its agent, the process that records and replays, with `sudo`, which drops the variable, so the agent sends its own usage pings. `disableTele: true` in your project's `keploy.yml` stops them.
-- The CLI's **sign-in events**, sent when you sign in or when it renews your session during a run, follow neither setting.
+To turn it off, set `keploy.telemetry.enabled` to `false`, or set VS Code's `telemetry.telemetryLevel` to `off`. Either one stops the extension's own events, to both places, and every Keploy CLI the extension starts gets `KEPLOY_DISABLETELE=true`, which quiets the CLI process, including its sign-in events and crash reports. On Linux, a CLI that isn't running as root starts its agent, the process that records and replays, with `sudo`, which drops the variable, so the agent sends its own usage pings. `disableTele: true` in your project's `keploy.yml` stops them.
 
 A `keploy` command that you or your agent run in a terminal isn't one the extension starts, so neither setting reaches it: `KEPLOY_DISABLETELE=true` in that shell quiets the CLI process, and `disableTele: true` in `keploy.yml` quiets its agent too.
 
