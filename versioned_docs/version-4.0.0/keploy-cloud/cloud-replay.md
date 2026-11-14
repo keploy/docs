@@ -178,15 +178,22 @@ To be explicit you can still pass `--k8s-proxy-auth` (or `KEPLOY_K8S_PROXY_AUTH=
 
 ### TLS to a self-signed proxy
 
-Self-hosted proxies commonly serve a self-signed certificate. If the auth preflight fails with `certificate signed by unknown authority`, either trust the CA or skip verification:
+Self-hosted proxies commonly serve a self-signed certificate. Every call `keploy cloud replay` makes to the proxy verifies its certificate: the auth preflight, the in-cluster replay start, the test-case, mock and mapping downloads, the test report upload and, when the run authenticates through the proxy, the usage reports. A self-hosted run on a normal login sends its downloads and its report to the proxy too, so these settings apply to it as well. If any of them fails with `certificate signed by unknown authority`, trust the proxy's CA or skip verification:
 
 ```bash
-# Option A — skip verification (matches the self-hosted data plane)
-export KEPLOY_TLS_SKIP_VERIFY=true
+# Option A — keep verification on by trusting the proxy's CA
+export KEPLOY_K8S_PROXY_CA_PATH=/path/to/proxy-ca.pem
 
-# Option B — keep verification on by trusting the proxy's CA
-export SSL_CERT_FILE=/path/to/proxy-ca.pem
+# Option B — skip verification for the proxy
+export KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY=true
 ```
+
+The CLI reads these settings in this order and stops at the first one that decides:
+
+1. `KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY`: `true` (or `1`, `yes`, `on`) skips verification. `false` (or `0`, `no`, `off`) keeps it on, against the `KEPLOY_K8S_PROXY_CA_PATH` bundle if one is set, even when `KEPLOY_TLS_SKIP_VERIFY` is set. Any other value is ignored, and the CLI moves to the next setting.
+2. `KEPLOY_K8S_PROXY_CA_PATH`: any value keeps verification on, against that CA bundle. If the file can't be read or holds no PEM certificate, the CLI logs a warning and verifies against the system's trusted roots. It never falls back to skipping.
+3. `KEPLOY_TLS_SKIP_VERIFY=true` (or `1`, `yes`, `on`): skip verification. Any other value counts as not set. It still works, but it isn't scoped to the proxy.
+4. Otherwise: verify against the system's trusted roots. On Linux, `SSL_CERT_FILE` can point those at the proxy's CA.
 
 ### `--cluster` in this mode
 
@@ -274,6 +281,8 @@ keploy cloud replay --app prod.orders --branch-name "$(git rev-parse --abbrev-re
 | `--disableReportUpload`  | `false`                | Disable uploading the test report to the server. Defaults off so runs appear in the dashboard; OAuth sessions default it on unless the flag is set explicitly.                        |
 | `--disable-debug-bundle` | `false`                | Disable the automatic debug-bundle assembly and upload at the end of the run. By default every run captures a debug-level log and uploads a support bundle to the api-server on exit. |
 
+If the test report upload still fails after its retries, `keploy cloud replay` exits with a non-zero code, on SaaS and self-hosted alike, even when every test passed: a run whose report is lost would otherwise read as a pass that nobody can see on the dashboard. The error starts with `the test report of this run was not uploaded to Keploy` and names the cause. Check the network path to Keploy (or to the k8s-proxy on a self-hosted run), your API key, and, for a proxy with a self-signed certificate, [its TLS settings](#tls-to-a-self-signed-proxy), then rerun the command. A run with `--disableReportUpload` sends no report, so its exit code is its tests' verdict alone.
+
 ---
 
 ## CI metadata overrides
@@ -322,17 +331,18 @@ These take precedence over values auto-detected from the CI provider's environme
 
 Local (non-`--trigger`) self-hosted replay boots the app **and** the Keploy eBPF agent locally via docker-compose, so it has a few environment prerequisites the SaaS path doesn't. The failures below are the common ones, with fixes:
 
-| Symptom                                                          | Cause                                                                                                            | Fix                                                                                           |
-| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
-| `k8s-proxy-auth: … certificate signed by unknown authority`      | Proxy serves a self-signed cert                                                                                  | `export KEPLOY_TLS_SKIP_VERIFY=true` (or `SSL_CERT_FILE=<ca.pem>`)                            |
-| `failed to get test sets: unexpected status code: 400`           | Empty `clusterName` sent to the proxy                                                                            | Pass `--cluster <name>` (the app's registered cluster)                                        |
-| `app <ns>.<dep> not found for the cluster <name>`                | `--cluster` doesn't match the app's recorded cluster                                                             | Use the exact `KEPLOY_CLUSTER_NAME` the app was recorded under                                |
-| `blob not found` / `…/mocks.bin not found`                       | The mock blob isn't in the proxy's object store (e.g. the store was reset after recording)                       | Re-record the test set; keep the metadata DB and object store lifecycles in sync              |
-| `sysctl: executable file not found in $PATH`                     | The privileged (sudo) re-exec stripped `/usr/sbin`/`/sbin` from `PATH`                                           | Handled by the CLI automatically; on older versions `export PATH="$PATH:/usr/sbin:/sbin"`     |
-| `pull access denied for <app-image>`                             | The app image lives only in the cluster, not the local docker daemon                                             | Load it locally, pass `--image <local-tag>`, or use `--trigger` (in-cluster)                  |
-| `manifest for keploy/enterprise:v<ver> not found`                | The eBPF agent image tag derived from the CLI version isn't published (a dev build resolves to `v<version>-dev`) | Use a release binary, or make that tag resolvable to the local docker daemon                  |
-| `connection reset by peer` → `ACTUAL STATUS 0` on the first test | The app wasn't listening yet when the first request fired                                                        | Raise `--delay` (e.g. `--delay 20`) for slow-starting apps (JVM, etc.)                        |
-| `no matching mock found for POST /v1/logs` (or similar)          | The app exports OpenTelemetry/telemetry to a collector that wasn't mocked                                        | Disable telemetry export for the replay, add the endpoint to `test.globalNoise`, or re-record |
+| Symptom                                                          | Cause                                                                                                            | Fix                                                                                                                                                                                 |
+| ---------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `… certificate signed by unknown authority`                      | Proxy serves a self-signed cert (seen on the auth preflight, a download or the report upload)                    | `export KEPLOY_K8S_PROXY_CA_PATH=<ca.pem>`, or `export KEPLOY_K8S_PROXY_INSECURE_SKIP_VERIFY=true` to skip verification ([TLS to a self-signed proxy](#tls-to-a-self-signed-proxy)) |
+| `the test report of this run was not uploaded to Keploy`         | The report upload failed after its retries; the run exits non-zero even when every test passed                   | Fix the cause the error names (network, API key, or the proxy's certificate), then rerun                                                                                            |
+| `failed to get test sets: unexpected status code: 400`           | Empty `clusterName` sent to the proxy                                                                            | Pass `--cluster <name>` (the app's registered cluster)                                                                                                                              |
+| `app <ns>.<dep> not found for the cluster <name>`                | `--cluster` doesn't match the app's recorded cluster                                                             | Use the exact `KEPLOY_CLUSTER_NAME` the app was recorded under                                                                                                                      |
+| `blob not found` / `…/mocks.bin not found`                       | The mock blob isn't in the proxy's object store (e.g. the store was reset after recording)                       | Re-record the test set; keep the metadata DB and object store lifecycles in sync                                                                                                    |
+| `sysctl: executable file not found in $PATH`                     | The privileged (sudo) re-exec stripped `/usr/sbin`/`/sbin` from `PATH`                                           | Handled by the CLI automatically; on older versions `export PATH="$PATH:/usr/sbin:/sbin"`                                                                                           |
+| `pull access denied for <app-image>`                             | The app image lives only in the cluster, not the local docker daemon                                             | Load it locally, pass `--image <local-tag>`, or use `--trigger` (in-cluster)                                                                                                        |
+| `manifest for keploy/enterprise:v<ver> not found`                | The eBPF agent image tag derived from the CLI version isn't published (a dev build resolves to `v<version>-dev`) | Use a release binary, or make that tag resolvable to the local docker daemon                                                                                                        |
+| `connection reset by peer` → `ACTUAL STATUS 0` on the first test | The app wasn't listening yet when the first request fired                                                        | Raise `--delay` (e.g. `--delay 20`) for slow-starting apps (JVM, etc.)                                                                                                              |
+| `no matching mock found for POST /v1/logs` (or similar)          | The app exports OpenTelemetry/telemetry to a collector that wasn't mocked                                        | Disable telemetry export for the replay, add the endpoint to `test.globalNoise`, or re-record                                                                                       |
 
 :::tip
 For a cluster-deployed app, in-cluster replay (`--trigger --namespace <ns>`) sidesteps the local docker/image/eBPF prerequisites entirely — it replays where the app and its dependencies already run. It needs a key with `replay:start` (admin-tier or the `ci` scope).
