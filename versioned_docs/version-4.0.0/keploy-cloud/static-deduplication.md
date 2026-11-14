@@ -82,7 +82,7 @@ When driving recordings through the Kubernetes Proxy REST API, set `static_dedup
 
 ```bash
 curl -s -X POST "$PROXY/record/start" \
-  -H "Authorization: Bearer $K8S_PROXY_SHARED_TOKEN" \
+  -H "Authorization: Bearer $KEPLOY_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
     "namespace": "default",
