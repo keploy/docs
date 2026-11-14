@@ -402,9 +402,10 @@ Telemetry is on unless you turn it off.
 Turn it off in one of these ways:
 
 - `disableTele: true` in your project's `keploy.yml`: no Keploy command run in the project sends telemetry;
+- `KEPLOY_DISABLETELE=true` in the environment, for example `export KEPLOY_DISABLETELE=true` in your shell profile: every Keploy command run from that shell;
 - `--disable-tele` on one command, for example `keploy mock record --disable-tele`.
 
-Either one covers everything above, including the agent Keploy starts. Until the CLI has read your choice, it sends nothing.
+Any one of them covers everything above, including the agent Keploy starts, which gets your choice from the CLI even when it runs through `sudo`. Until the CLI has read your choice, it sends nothing.
 
 The Keploy VS Code extension sends its own events. Turn them off with its `keploy.telemetry.enabled` setting or VS Code's `telemetry.telemetryLevel`; then every CLI the extension starts gets `KEPLOY_DISABLETELE=true`. See [the extension's Telemetry section](/docs/running-keploy/utg-vscode-extension/#telemetry).
 
