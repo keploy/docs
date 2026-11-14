@@ -385,11 +385,13 @@ Not an error. For each run, Keploy makes your app trust its CA:
 
 #### Description:
 
-The Keploy CLI sends usage telemetry to Keploy, to `telemetry.keploy.io`:
+The Keploy CLI sends telemetry to Keploy:
 
 - events about runs, such as how many tests and mocks a recording made, by kind of mock, and how a test run ended, with an installation ID, your OS and the Keploy version;
 - sign-in events, when you sign in or the CLI renews your session, which carry your Keploy account's email address and IDs;
 - crash reports, which carry the run's log and the machine's host name.
+
+Events go to `telemetry.keploy.io`, and crash reports to Sentry.
 
 #### Possible Cause:
 
