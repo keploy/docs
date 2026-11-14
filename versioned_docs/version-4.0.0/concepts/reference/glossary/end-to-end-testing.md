@@ -70,7 +70,7 @@ End-to-end (E2E) testing is a important component of the software development pr
 - [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — checks module interactions before E2E.
 - [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — validates the finished product for users.
 - [Mocks](/docs/concepts/reference/glossary/mocks/) — Keploy uses mocks to replay E2E dependencies.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — reruns E2E flows to catch regressions.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — reruns E2E flows to catch regressions.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQs

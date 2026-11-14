@@ -229,7 +229,7 @@ Despite the challenges, functional testing is an important part of the software 
 
 - [Black Box Testing](/docs/concepts/reference/glossary/black-box-testing/): functional testing is largely black-box.
 - [Integration Testing](/docs/concepts/reference/glossary/integration-testing/): a functional testing type for module interactions.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/): re-verifies functionality after changes.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide): re-verifies functionality after changes.
 - [Unit Testing](/docs/concepts/reference/glossary/unit-testing/): the most granular functional test level.
 - [Browse all testing terms](/docs/concepts/reference/glossary/): the full Keploy glossary.
 

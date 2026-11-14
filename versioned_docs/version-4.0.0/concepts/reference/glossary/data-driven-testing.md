@@ -85,7 +85,7 @@ Focus on high-value scenarios where multiple data combinations are essential. Lo
 
 - [Test Data Generation](/docs/concepts/reference/glossary/test-data-generation/) — supplies the data sets these tests consume.
 - [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — data-driven tests are typically automated.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — reruns many data sets to catch regressions.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — reruns many data sets to catch regressions.
 - [Cucumber Testing](/docs/concepts/reference/glossary/cucumber-testing/) — supports data-driven scenarios via examples tables.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 

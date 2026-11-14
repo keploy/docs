@@ -61,6 +61,6 @@ Overall, by automating testing processes with Keploy, you can improve testing ef
 ## Related Terms
 
 - [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate repetitive manual test execution.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — re-run manual test cases after code changes.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — re-run manual test cases after code changes.
 - [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — a foundational automated alternative to manual checks.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
