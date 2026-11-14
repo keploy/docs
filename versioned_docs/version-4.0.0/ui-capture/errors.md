@@ -438,7 +438,7 @@ A page with no `SubtleCrypto` at all, such as one served over plain HTTP from a 
 
 **Exit code:** `12` (nothing-matched), as UI Capture's error list gives it. The SDK runs in the page, so it never exits a process itself.
 
-**What happened:** The SDK redacts request and response bodies in a Web Worker, `dist/body-worker.js`, so that redaction does not run on your page's main thread. It also loads the same redaction code for the main thread, `dist/body-redact.mjs`, for the moments that cannot wait for the worker, such as the page being left. It loads both once per page, soon after a capture that records bodies starts. On this page one of the two, or both, could not be loaded or run:
+**What happened:** The SDK redacts request and response bodies in a Web Worker, `dist/body-worker.js`, so that redaction does not run on your page's main thread. It also loads the same redaction code for the main thread, `dist/body-redact.mjs`, for the moments that cannot wait for the worker, such as the page being left. It loads each once per page, for a capture that records bodies: it asks for the main thread's code at `init()`, beside the DOM recorder, and starts the worker in the page's next idle period. On this page one of the two, or both, could not be loaded or run:
 
 ```text
 [keploy] KUI_E_BODY_WORKER_UNAVAILABLE: could not run the body worker or load the body chunk (evidence.part): without the worker, a body over 64 KiB is recorded cut; without the chunk, a body the main thread must redact is recorded with nothing kept; replay reports a test over a cut body unproven. Allow worker-src 'self' in the page's CSP, use a bundler that emits the worker (or copy dist/body-worker.js beside the bundle), serve it from the page's origin, or serve the SDK's dist/ as it is. Said once per page for each part. evidence={"part":"worker","reason":"the worker's script did not load or run (refused by the page's CSP, a 404, or a script that does not parse)"}
@@ -447,9 +447,25 @@ A page with no `SubtleCrypto` at all, such as one served over plain HTTP from a 
 The SDK redacts bodies on the main thread instead:
 
 - Without the worker, a body of 64 KiB or less is redacted and recorded as before. A body over 64 KiB is recorded **cut**: under a first line `[Body cut: K of N characters kept, unverified]`, where N is the body's length, only its first K characters are redacted and kept.
-- Without the main thread's code, a body the main thread must redact is recorded as that line alone, with nothing kept: `[Body cut: 0 of N characters kept, unverified]`. When the worker is missing too, that is every body; otherwise, only a body still in the worker when the page is left or the capture stops.
+- Without the main thread's code, the SDK has nothing to redact a body with there. A body the main thread must redact is recorded as **not captured**: never in the clear, but as these two lines, the first a cut line with nothing kept and the second saying why. When the worker is missing too, that is every body; otherwise, only a body still in the worker when the page is left or the capture stops.
 
-A cut response body is not the response your server sent, so replay never serves it as one. Replay answers the request as a failed request, and reports a test that reaches it as `unproven`. A cut request body does not change replay.
+  ```text
+  [Body cut: 0 of N characters kept, unverified]
+  [Body not captured: the redaction code could not load]
+  ```
+
+A body can also be recorded as not captured with no warning, when the main thread's code is on its way but has not arrived:
+
+```text
+[Body cut: 0 of N characters kept, unverified]
+[Body not captured: the page left or the capture stopped before redaction was ready]
+```
+
+The SDK asks for the main thread's code at `init()`, beside the DOM recorder, and starts recording your page's network once the DOM recorder has loaded, without waiting for that code. When the page is left, or one second after `stop()`, the SDK records at once, on the main thread, every body still waiting to be redacted, and that moment cannot wait for the code either. A body it finds before the code has arrived is recorded this way. This happens only while the code is still being fetched, or, on a page that was offline when `init()` asked for it, until the browser is back online. This is not an error and needs no fix.
+
+Earlier SDK versions recorded both cases as the first line alone, which reads like a body cut for its size.
+
+A cut or not-captured response body is not the response your server sent, so replay never serves it as one. Replay answers the request as a failed request, and reports a test that reaches it as `unproven`. A cut or not-captured request body does not change replay.
 
 A capture that masks every body, under `privacyMode: "strict"` or with `privacy.maskNetworkBodies: true`, loads neither part and never raises this warning.
 
@@ -459,9 +475,9 @@ A capture that masks every body, under `privacyMode: "strict"` or with `privacy.
   - The page's Content-Security-Policy does not allow a worker from your origin: no `worker-src 'self'`, and no `child-src` or `script-src` it falls back to that allows it.
   - Your bundler does not emit the worker. webpack 4 cannot, and esbuild does not unless you copy the file.
   - The worker is served from another origin. A browser runs a worker only from the page's own origin, so it cannot run one from a build whose assets come from a CDN (webpack's `publicPath`, Next.js's `assetPrefix`), or from the SDK's own files loaded from a CDN without a bundler.
-- `code`: the main thread's code did not load. With no bundler, the page serves `dist/index.mjs` without `dist/body-redact.mjs` beside it; or a Content-Security-Policy, a 404 or a network failure blocked it.
+- `code`: the main thread's code did not load. With no bundler, the page serves `dist/index.mjs` without `dist/body-redact.mjs` beside it; or a Content-Security-Policy, a 404 or a network failure blocked it; or the file served at its path is another SDK version's, such as one left by an earlier deploy, or not the SDK's code at all.
 
-A page that loads the SDK from unpkg's package root with `?module` gets the `module` field's build, `dist/index.bundler.mjs`, and unpkg rewrites the SDK's import of its own chunks to the `@latest` version's files, which are another version's whenever the page does not load the latest. The SDK refuses a chunk of another version, and that build has no file beside it to fall back to, so it records every body with nothing kept. Import `dist/index.mjs` instead, as [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) describes. From a CDN the worker still cannot run, because a browser runs a worker only from the page's own origin: to clear this warning, serve `dist/` from your own origin.
+A page that loads the SDK from unpkg's package root with `?module` gets the `module` field's build, `dist/index.bundler.mjs`, and unpkg rewrites the SDK's import of its own chunks to the `@latest` version's files, which are another version's whenever the page does not load the latest. The SDK refuses a chunk of another version, and that build has no file beside it to fall back to, so it records every body as not captured, under `[Body not captured: the redaction code could not load]`. Import `dist/index.mjs` instead, as [`KUI_E_STRICT_ATTRIBUTES_UNAVAILABLE`](#kui-e-strict-attributes-unavailable) describes. From a CDN the worker still cannot run, because a browser runs a worker only from the page's own origin: to clear this warning, serve `dist/` from your own origin.
 
 While the browser is offline, the SDK does not ask for either part, unless a service worker controls the page. It waits until the browser is back online, so starting offline does not by itself raise this warning.
 
@@ -470,6 +486,7 @@ While the browser is offline, the SDK does not ask for either part, unless a ser
 - Allow the worker in your Content-Security-Policy: `worker-src 'self'`.
 - Use a bundler that emits it from `new Worker(new URL("./body-worker.js", import.meta.url))`: webpack 5, Vite, Parcel 2, or Next.js with webpack or Turbopack. Under webpack 4, upgrade. Under esbuild, copy `node_modules/@keploy/capture-sdk/dist/body-worker.js` beside your bundle.
 - Serve the worker from the page's own origin.
+- Let the page load the main thread's code: allow it in your Content-Security-Policy as you allow the rest of your build's scripts, and deploy it with the rest of your build.
 - With no bundler, serve the package's `dist/` as it is, from the page's own origin, and import `dist/index.mjs` from it. The SDK loads `dist/body-redact.mjs`, and `dist/body-worker-unbundled.mjs`, which starts `dist/body-worker.js`, from beside `dist/index.mjs`. An import map that maps `@keploy/capture-sdk/body-redact` and `@keploy/capture-sdk/body-worker-start` is used first.
 
 Then reload the page. The SDK does not retry a load that failed while the page was online.
