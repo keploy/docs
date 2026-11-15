@@ -23,7 +23,10 @@ keywords:
 `keploy mock` lets you use Keploy as a **mocking framework for your existing test
 suite** — pytest, `go test`, jest/playwright, or any command that makes network
 calls. It is a language-agnostic VCR / WireMock that works at the network layer,
-so your test code needs **no SDK and no changes**.
+so your test code needs **no SDK and no changes**. That holds for the commands
+below. To have Keploy prove each test on its own with `KEPLOY_PROVEN=1`, your
+test framework also tells Keploy where each test starts and ends, through a small
+integration: see [Prove each test offline](#proven).
 The recorded mocks act as virtual services for your dependencies, which makes this a lightweight form of [service virtualization](https://keploy.io/blog/community/service-virtualization).
 
 - `keploy mock record -c "<your test command>"` runs your tests and captures the
@@ -34,9 +37,10 @@ The recorded mocks act as virtual services for your dependencies, which makes th
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
 Using VS Code? The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
-runs these commands for you from a panel, and its
+installs the CLI, signs you in and hands the setup to your coding agent, which
+runs these commands. Its
 [troubleshooting table](/docs/running-keploy/utg-vscode-extension/#troubleshoot)
-explains the messages the panel shows when a run fails.
+explains the messages it shows.
 
 ## Quick start
 
@@ -77,8 +81,271 @@ When an outgoing call matches no recorded mock, `--on-miss` decides what happens
 keploy mock replay -c "pytest" --on-miss record
 ```
 
-Add `--strict` to fail the run if any _recorded_ mock was **missed** (a dependency
-contract drifted), even when the tests themselves passed.
+Add `--strict` to fail the run if a call **missed** its recorded mock (a dependency
+contract drifted), even when the tests themselves passed. A DNS lookup with no
+recorded mock (Keploy answers it itself), or a connection whose client sent
+nothing, does not fail it by itself.
+
+## Prove each test offline (`KEPLOY_PROVEN=1`) {#proven}
+
+With `KEPLOY_PROVEN=1` in its environment, `keploy mock record` does more than
+save the calls. After it records your suite against the real dependencies, it
+replays every test with the dependencies off, twice: once to learn which values
+change from run to run, and once the way CI will run it. A test that replays is
+kept. A test that doesn't is skipped from then on, with Keploy's reason and what
+to do about it. `keploy mock replay` with the same switch runs the kept tests,
+each against its own recording, so a green replay means every test it ran passed
+with no real dependency behind it.
+
+### Requirements {#proven-requirements}
+
+- **Linux, or macOS on Apple silicon.** On Linux, Keploy's agent runs as root, so
+  Keploy starts it with `sudo` unless you run Keploy as root. Where nobody can
+  type a password, such as a CI runner, that `sudo` must work without one, as it
+  does on GitHub-hosted runners. macOS needs no `sudo`. On Windows,
+  `KEPLOY_PROVEN=1` doesn't run yet: run the commands above without it.
+- **A test command Keploy runs directly.** In this release, Keploy refuses a
+  Docker command or `--from-container` under the switch, and says so.
+- **The integration for your test framework.** Each test tells Keploy where it
+  starts and ends, so Keploy can judge it, skip it, or fail it on its own:
+  - **Go:** add [`github.com/keploy/go-sdk/v3`](https://pkg.go.dev/github.com/keploy/go-sdk/v3/keploytest)
+    and make `defer keploytest.T(t)()` the first statement of every top-level
+    test (`keploytest.TP` for a test that calls `Parallel`). Run the suite with
+    `go test -p 1 -json ./...`. Without Keploy, the line does nothing.
+  - **Playwright:** add [`@keploy/playwright`](https://www.npmjs.com/package/@keploy/playwright)
+    and run with `--workers=1 --retries=0`.
+  - **Any other framework:** the test process makes the calls itself, as
+    [Per-test scoping](#per-test-scoping-optional) describes.
+- **`mock.command` in `keploy.yml`.** It's the command CI runs your tests with.
+  Under the switch, `keploy mock record` and `keploy mock replay` run it when you
+  don't pass `-c`:
+
+  ```yaml
+  mock:
+    command: go test -p 1 -json ./...
+  ```
+
+- **A Keploy account,** unless you keep the recordings in the repository (below).
+  Sign in with `keploy login`. `keploy app create` creates the Keploy app for the
+  repository and saves its id as `mock.appId` in `keploy.yml`.
+
+### Record and judge {#proven-record}
+
+```bash
+export KEPLOY_PROVEN=1
+keploy mock record --lock keploy.lock
+```
+
+The first record with `--lock keploy.lock` creates `keploy.lock` beside
+`keploy.yml`. The recordings go to Keploy, and `keploy.lock` pins them by their
+SHA-256 hash, so every commit replays exactly the recordings it pins. Later
+records and replays find `keploy.lock` by themselves.
+
+When the record ends, it says what it decided: `QUARANTINED` with the reason for
+each test it set aside, a `FIX` line for each kind of failure, `RUNS AGAIN` for a
+test that replays now, and `DROPPED` for a skip that no longer applies. A test it
+sets aside gets a `skip:` line under its entry in `keploy.lock`, which holds only
+for that recording: record the test again and it runs again.
+
+To keep the recordings in the repository instead, with no account, set
+`mock.local: true` in `keploy.yml` (or pass `--local`). The record then writes
+`keploy/<set>/` and no `keploy.lock`, and a test it sets aside is listed in
+`keploy/<set>/verdicts.yaml`.
+
+Then run:
+
+```bash
+keploy mock status
+```
+
+It reads the repository and prints a `NEXT` block: where things stand, the
+command to run next, and what to do around it. Follow it until the replay is
+green.
+
+### Commit and run in CI {#proven-ci}
+
+Commit `keploy.yml` and `keploy.lock`. With `mock.local: true`, commit
+`keploy/` instead, keeping `keploy/.gitignore` as Keploy wrote it.
+
+In CI, the job installs Keploy and runs the same replay, with no database or
+service running: every call is answered from the recordings. On GitHub Actions,
+the VS Code extension's **Keploy: Wire CI (GitHub Actions)** command writes
+`.github/workflows/keploy.yml` for a Go or Node project at the repository's
+root that has a `keploy.lock`, and never over a file that is already there.
+Without the extension, add the same file. For a Go module, it is:
+
+```yaml
+# Written by the Keploy VS Code extension. On every pull request and every
+# push to main, it replays the tests on the recordings keploy.lock pins, with
+# every dependency switched off (keploy.yml's mock.command runs them), and on
+# a pull request it comments what the pull request's keploy.lock changes.
+# It needs one repository secret, KEPLOY_API_KEY: a read-only CI key from
+# https://app.keploy.io/settings/service-accounts
+name: keploy
+on:
+  pull_request:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  pull-requests: write
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    env:
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+      KEPLOY_INVOKER: ci
+      KEPLOY_PROVEN: "1"
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          # keploy mock diff compares keploy.lock with its merge base.
+          fetch-depth: 0
+      - uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+      - name: Install the project's dependencies (the replay downloads nothing)
+        run: |
+          go mod download
+      - name: Install Keploy
+        run: |
+          keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; [ "$keploy_rc" -eq 0 ]
+      - name: Check the Keploy key
+        run: |
+          if [ -z "$KEPLOY_API_KEY" ]; then
+            echo "::error::Add a repository secret named KEPLOY_API_KEY, a read-only CI key from https://app.keploy.io/settings/service-accounts. A pull request from a fork gets no secrets."
+            exit 1
+          fi
+      - name: Replay on the recordings keploy.lock pins
+        # --lock fails the job when keploy.lock is missing, and --on-miss fail
+        # fails a call the recordings do not hold instead of letting it out.
+        run: |
+          keploy mock replay --lock keploy.lock --on-miss fail
+      - name: Comment what keploy.lock changes
+        if: ${{ always() && github.event_name == 'pull_request' }}
+        continue-on-error: true
+        env:
+          GH_TOKEN: ${{ github.token }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          body="$RUNNER_TEMP/keploy-mock-diff.md"
+          { echo '<!-- keploy mock diff -->'; keploy mock diff --markdown --base "origin/$GITHUB_BASE_REF"; } > "$body"
+          id=$(gh api --paginate "repos/$GITHUB_REPOSITORY/issues/$PR/comments" --jq '.[] | select(.body | startswith("<!-- keploy mock diff -->")) | .id' | head -n 1)
+          if [ -n "$id" ]; then
+            gh api -X PATCH "repos/$GITHUB_REPOSITORY/issues/comments/$id" -F body=@"$body" > /dev/null
+          else
+            gh pr comment "$PR" --repo "$GITHUB_REPOSITORY" --body-file "$body"
+          fi
+```
+
+The replay lets no download out, so the toolchain and the project's
+dependencies are set up before it, in the folder the test command runs in (the
+repository's root, or the folder its first `cd` goes to). The extension reads
+the toolchain from the program the test command runs, or, for a command such as
+`make test`, from that folder's files:
+
+- **Go** (`go`, or a `go.mod`): `actions/setup-go@v5` with the `go.mod`'s
+  version, then `go mod download`, as above.
+- **Node** (`npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright`, or a
+  `package.json` with its lockfile): `actions/setup-node@v4` with
+  `node-version: lts/*`, then an install from the lockfile: `npm ci`, or pnpm's
+  or Yarn's frozen install through corepack (`npm install` with no lockfile).
+
+For any other project, such as a Python or Java one, a test command that runs
+several toolchains, or one whose toolchain it can't tell, the extension writes
+no workflow and says that CI setup is available on request: contact the Keploy
+team at [support@keploy.io](mailto:support@keploy.io) and we'll set it up with
+you.
+
+- `KEPLOY_INVOKER: ci` makes a missing key fail the job at once instead of
+  waiting for a sign-in, and the key check before the replay says what to add.
+- `--lock` fails the job when `keploy.lock` is missing, and `--on-miss fail`
+  fails a call the recordings don't hold instead of letting it reach the
+  network.
+- On a pull request, the last step comments the table `keploy mock diff
+--markdown` prints: the tests the pull request re-records, read from its
+  `keploy.lock` against the base branch's. A later push updates that comment. That step needs the
+  full history (`fetch-depth: 0`) and `pull-requests: write`, and a failure in
+  it never fails the job.
+- On Linux, Keploy starts its agent with `sudo`, which GitHub-hosted runners
+  allow without a password.
+
+**The CI key.** The replay signs in with a read-only key of a service account,
+which an admin of your Keploy organization makes: in
+[app.keploy.io](https://app.keploy.io/settings/service-accounts), open
+**Account → Service Accounts**, create a service account with **New service
+account**, give it the **MOCK_READER** role on the app under **Access** →
+**Grant access**, then create a key under **Keys**. Save it as the repository
+secret `KEPLOY_API_KEY`, under the repository's **Settings → Secrets and
+variables → Actions**, or with the GitHub CLI, which asks for the value so it
+stays out of your shell history:
+
+```bash
+gh secret set KEPLOY_API_KEY
+```
+
+Then commit `.github/workflows/keploy.yml` with `keploy.yml` and `keploy.lock`,
+and push. GitHub gives no repository secrets to a pull request from a fork, so
+its replay can't sign in.
+
+The replay downloads only the recordings of the tests it runs. Each one is named
+by its hash and kept in `~/.cache/keploy/mocks` (set `KEPLOY_MOCK_CACHE_DIR` to
+move it). To save the downloads on the next run, cache that folder, keyed on
+`keploy.lock`, with a step before the replay:
+
+```yaml
+- uses: actions/cache@v4
+  with:
+    path: ~/.cache/keploy/mocks
+    key: keploy-mocks-${{ hashFiles('keploy.lock') }}
+    restore-keys: keploy-mocks-
+```
+
+Cache that folder itself, never a parent such as `~/.cache`.
+
+With `mock.local: true`, the recordings come with the checkout and there is no
+`keploy.lock`: drop `KEPLOY_API_KEY`, the key check and the comment step, and
+run `keploy mock replay --local` instead.
+
+Using GitLab CI? It's available on request: contact the Keploy team at
+[support@keploy.io](mailto:support@keploy.io) and we'll set it up with you. The
+same goes for any other CI. The step it runs is
+`KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock --on-miss fail`, in the
+project's folder, with the CI key in `KEPLOY_API_KEY`.
+
+### Share with your team {#proven-team}
+
+An admin of your Keploy organization adds each teammate in
+[app.keploy.io](https://app.keploy.io/settings/users/add-user) under
+**Account → Users → Add User**, with
+the email they sign in with. A teammate then needs only Keploy, the test
+toolchain and a sign-in:
+
+```bash
+keploy login
+git clone <your repository> && cd <your repository>
+KEPLOY_PROVEN=1 keploy mock replay
+```
+
+The replay reads the committed `keploy.yml` and `keploy.lock`, downloads the
+recordings the lock pins, and runs the suite with every dependency off. With
+`mock.local: true`, the recordings come with the clone and the replay needs no
+sign-in.
+
+### Skipped tests {#proven-skips}
+
+| Command                                          | What it does                                                                                                            |
+| ------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------- |
+| `keploy mock explain <test>`                     | Says why a test is skipped or run: its evidence, its recorded calls, and what its last replay and judging rounds did.   |
+| `keploy mock quarantine <test> --reason "<why>"` | Skips a test in CI, with your reason, until it's recorded again. `--undo` runs it again.                                |
+| `keploy mock check`                              | Reads the recordings offline after a hand edit and names each mistake with its file, line and fix. Exits 1 on an error. |
+| `keploy mock judge`                              | Judges the recordings again, for example after a Keploy upgrade, and drops the skips of tests that now replay.          |
+| `keploy mock replay --all`                       | Also runs the skipped tests.                                                                                            |
+| `keploy mock replay -- -run TestPlaceOrder`      | Runs part of the suite: what follows `--` goes to the test command.                                                     |
+
+Each of these runs only with `KEPLOY_PROVEN=1` set. Name a Go test as `go test
+-run` takes it (`TestPlaceOrder`), or as `<package dir>::<TestName>` when two
+packages share the name. Commit `keploy.lock` with any change these make.
 
 ## Per-test scoping (optional)
 
@@ -241,11 +508,11 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 
 ## Platforms
 
-| Platform                  | How to run                                                                                                                                        |
-| ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                                |
-| **Windows** (x86-64)      | Native — same command. Userspace interception, so no Administrator.                                                                               |
-| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Running your tests in a container, e.g. `-c "docker compose run tests"`, also works. |
+| Platform                  | How to run                                                                                                                          |
+| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                  |
+| **Windows** (x86-64)      | Native — same command, without `KEPLOY_PROVEN=1`. Userspace interception, so no Administrator.                                      |
+| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
 Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB
 calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like —
@@ -255,8 +522,7 @@ start the test runner itself rather than through a launcher such as `npm test` o
 a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one),
 not Apple's `/usr/bin/python3` — see
 [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
-On an Intel Mac, use [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
-on Windows on ARM, use WSL.
+Keploy doesn't support Intel Macs. On Windows on ARM, use WSL.
 
 ## Refresh in CI
 
