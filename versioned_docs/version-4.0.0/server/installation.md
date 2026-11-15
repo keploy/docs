@@ -2,7 +2,7 @@
 id: install
 title: Record and Replay Your App
 sidebar_label: Local
-description: "Record your app's API calls as tests and mocks, then replay them with every dependency mocked — natively on Linux and on macOS with Apple silicon."
+description: "Record your app's API calls as tests and mocks, then replay them with every dependency mocked — natively on Linux, on macOS with Apple silicon, and on Windows (x86-64)."
 tags:
   - hello-world
   - linux
