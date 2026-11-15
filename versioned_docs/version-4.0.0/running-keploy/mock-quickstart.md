@@ -32,9 +32,7 @@ command shows the **real output** you should see — nothing is faked.
 
 - **Linux** (root, for eBPF), **Windows x86-64**, or **macOS (Apple Silicon)**.
   Windows and macOS intercept in userspace, so neither needs Administrator or
-  `sudo`. On an Intel Mac, use
-  [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima);
-  on Windows on ARM, use WSL. Running your tests through a docker command
+  `sudo`. Keploy doesn't support Intel Macs. On Windows on ARM, use WSL. Running your tests through a docker command
   ([shown at the end](#running-your-tests-in-docker)) works on all three.
 - Python 3. On macOS, use a Homebrew or uv Python (or a virtualenv built on
   one), not Apple's `/usr/bin/python3`, which macOS won't let Keploy instrument.

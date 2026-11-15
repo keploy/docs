@@ -197,7 +197,7 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 <br />
 
 :::info
-Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the HTTP/HTTPS, MySQL and MongoDB calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay — see [Installing Keploy on macOS](/docs/installation/macos-installation/). For containerized apps or those other dependencies use **Docker**; on an Intel Mac use **Lima**, as the macOS CLI is Apple Silicon (arm64) only.
+Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the HTTP/HTTPS, MySQL and MongoDB calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay — see [Installing Keploy on macOS](/docs/installation/macos-installation/). For containerized apps or those other dependencies use **Docker**. The macOS CLI is Apple Silicon (arm64) only: Keploy doesn't support Intel Macs.
 :::
 
 <Tabs>
@@ -259,7 +259,7 @@ cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 
 ### Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 :::
 
 1. Make sure Docker Desktop is running on macOS.
@@ -299,7 +299,7 @@ Run this in PowerShell (not as Administrator), then open a new terminal:
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-$dir = "$env:USERPROFILE\.keploy\bin"
+$dir = "$env:LOCALAPPDATA\.keploy\bin"
 New-Item -ItemType Directory -Force $dir | Out-Null
 Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
   -OutFile "$dir\keploy.exe"
