@@ -566,7 +566,7 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
 
 ### 1. Install Keploy
 
-Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) uses too, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
+Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the next release of the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) will use, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'

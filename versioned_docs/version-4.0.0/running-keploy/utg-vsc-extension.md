@@ -67,7 +67,7 @@ The extension runs the Keploy CLI, which it downloads and keeps up to date for y
 
 ## Sign in
 
-Select **Signed in to Keploy** in the checklist, or run **Keploy: Sign in**. Keploy's sign-in page opens in your browser with a code; approve it there. There is nothing to copy back, and the extension never sees or stores a token.
+Select **Signed in to Keploy** in the checklist, or run **Keploy: Sign in**. Keploy's sign-in page opens in your browser with a code; approve it there. There is nothing to copy back. The extension never stores a token: the CLI writes the session, and the extension reads it to show whether you're signed in and, while telemetry is on, to send its events to Keploy's API with your session.
 
 The CLI stores the session, so every `keploy` run reads it: the extension's, your terminal's and your agent's. A `keploy login` in a terminal signs the extension in too.
 
