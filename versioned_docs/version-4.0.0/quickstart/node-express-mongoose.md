@@ -74,6 +74,12 @@ npm install
 
 We will be using Docker compose to run the application as well as MongoDb on Docker container.
 
+The sample's `docker-compose.yml` uses an external Docker network, so create it first:
+
+```bash
+docker network create keploy-network
+```
+
 ### Lights, Camera, Record! 🎥
 
 Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags:
@@ -117,7 +123,7 @@ Follow the breadcrumbs... or Make more API Calls
 
 ```bash
 curl --request GET \
---url http://localhost:8080/students
+--url http://localhost:8000/students
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8000/students`.
@@ -173,7 +179,7 @@ If you are using WSL on windows then use below to start wsl in the user's home d
 wsl ~
 ```
 
-First things first, update the MongoDB URL on line 4, in **`db/connection.js`**, from `mongodb://mongoDb:27017/keploy` to `mongodb://127.0.0.1:27017/keploy`.
+First things first, update the MongoDB URL on line 4, in **`src/db/connection.js`**, from `mongodb://mongoDb:27017/Students` to `mongodb://127.0.0.1:27017/Students`.
 
 #### 🍃 Kickstart MongoDB
 
@@ -233,7 +239,8 @@ Now, the real fun begins. Let's weave more spells!
 🚀 Follow the URL road...!
 
 ```bash
-curl --request GET \  --url http://localhost:8000/students
+curl --request GET \
+--url http://localhost:8000/students
 ```
 
 Or simply wander over to your browser and visit `http://localhost:8000/students`.
