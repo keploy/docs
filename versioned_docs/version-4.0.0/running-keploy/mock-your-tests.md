@@ -170,9 +170,9 @@ Commit `keploy.yml` and `keploy.lock`. With `mock.local: true`, commit
 In CI, the job installs Keploy and runs the same replay, with no database or
 service running: every call is answered from the recordings. On GitHub Actions,
 the VS Code extension's **Keploy: Wire CI (GitHub Actions)** command writes
-`.github/workflows/keploy.yml` for a project at the repository's root that has
-a `keploy.lock`, and never over a file that is already there. Without the
-extension, add the same file. For a Go module, it is:
+`.github/workflows/keploy.yml` for a Go or Node project at the repository's
+root that has a `keploy.lock`, and never over a file that is already there.
+Without the extension, add the same file. For a Go module, it is:
 
 ```yaml
 # Written by the Keploy VS Code extension. On every pull request and every
@@ -204,6 +204,9 @@ jobs:
       - uses: actions/setup-go@v5
         with:
           go-version-file: go.mod
+      - name: Install the project's dependencies (the replay downloads nothing)
+        run: |
+          go mod download
       - name: Install Keploy
         run: |
           keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; [ "$keploy_rc" -eq 0 ]
@@ -235,10 +238,24 @@ jobs:
           fi
 ```
 
-For a test command run with `npm`, `npx`, `node`, `yarn` or `pnpm`, the
-toolchain step is `actions/setup-node@v4` with `node-version: lts/*`, followed by
-`npm ci` when the project has a `package-lock.json`. For any other test runner,
-the file has no toolchain step: add the one your tests need.
+The replay lets no download out, so the toolchain and the project's
+dependencies are set up before it, in the folder the test command runs in (the
+repository's root, or the folder its first `cd` goes to). The extension reads
+the toolchain from the program the test command runs, or, for a command such as
+`make test`, from that folder's files:
+
+- **Go** (`go`, or a `go.mod`): `actions/setup-go@v5` with the `go.mod`'s
+  version, then `go mod download`, as above.
+- **Node** (`npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright`, or a
+  `package.json` with its lockfile): `actions/setup-node@v4` with
+  `node-version: lts/*`, then an install from the lockfile: `npm ci`, or pnpm's
+  or Yarn's frozen install through corepack (`npm install` with no lockfile).
+
+For any other project, such as a Python or Java one, a test command that runs
+several toolchains, or one whose toolchain it can't tell, the extension writes
+no workflow and says that CI setup is available on request: contact the Keploy
+team at [support@keploy.io](mailto:support@keploy.io) and we'll set it up with
+you.
 
 - `KEPLOY_INVOKER: ci` makes a missing key fail the job at once instead of
   waiting for a sign-in, and the key check before the replay says what to add.
@@ -256,10 +273,12 @@ the file has no toolchain step: add the one your tests need.
 **The CI key.** The replay signs in with a read-only key of a service account,
 which an admin of your Keploy organization makes: in
 [app.keploy.io](https://app.keploy.io/settings/service-accounts), open
-**Account → Service Accounts**, create a service account, give it access to the
-app, and create a key. Save it as the repository secret `KEPLOY_API_KEY`, under
-the repository's **Settings → Secrets and variables → Actions**, or with the
-GitHub CLI, which asks for the value so it stays out of your shell history:
+**Account → Service Accounts**, create a service account with **New service
+account**, give it the **MOCK_READER** role on the app under **Access** →
+**Grant access**, then create a key under **Keys**. Save it as the repository
+secret `KEPLOY_API_KEY`, under the repository's **Settings → Secrets and
+variables → Actions**, or with the GitHub CLI, which asks for the value so it
+stays out of your shell history:
 
 ```bash
 gh secret set KEPLOY_API_KEY
