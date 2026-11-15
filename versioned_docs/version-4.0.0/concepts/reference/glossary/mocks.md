@@ -46,3 +46,5 @@ Since these data mocks are generated based on the real-time capturing of API cal
 - [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — mocks isolate the unit under test.
 - [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — mock external systems between components.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
+
+Related: [What is a mock server?](https://keploy.io/blog/community/mock-server)
