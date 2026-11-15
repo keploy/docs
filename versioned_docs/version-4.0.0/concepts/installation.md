@@ -81,7 +81,7 @@ On **Windows** (x86-64), Keploy is a single `keploy.exe`, installed from PowerSh
 
 **_Downloading and running Keploy in Docker_**
 
-With this method your application and Keploy's agent run in Docker, but the `keploy` CLI — which starts them both — runs on your machine. Use it when your app runs in containers, or on macOS and Windows when your app depends on services beyond HTTP/HTTPS, MySQL and MongoDB: natively there, calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+With this method your application and Keploy's agent run in Docker, but the `keploy` CLI — which starts them both — runs on your machine. Use it when your app runs in containers, or on macOS and Windows when your app depends on services beyond HTTP/HTTPS, MySQL and MongoDB (and gRPC, on macOS): natively there, calls to other services — PostgreSQL, Redis, Kafka, gRPC on Windows and the like — are captured only as raw bytes and usually don't replay.
 
 1. Open up a terminal window.
 
