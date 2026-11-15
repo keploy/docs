@@ -114,7 +114,7 @@ On macOS, start the app itself rather than through a launcher (`npm start`, `mvn
 Runs natively on x86-64 Windows: install `keploy.exe` and run it from an ordinary PowerShell — no WSL, no Docker and no Administrator (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). On Windows on ARM, run Keploy inside WSL (https://keploy.io/docs/installation/windows-installation/).
 
 ### Docker
-Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (PostgreSQL, Redis, Kafka, gRPC, …).
+Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (PostgreSQL, Redis, Kafka, gRPC on Windows, …).
 
 ### Platform Requirements
 - Linux: Kernel 5.10 or later (eBPF)

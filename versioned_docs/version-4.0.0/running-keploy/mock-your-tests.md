@@ -515,9 +515,10 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
 Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB
-calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like —
-are captured only as raw bytes and usually don't replay. If your tests depend on
-one of those, run them in a container (as above) or on Linux/WSL. On macOS, also
+calls, and on macOS gRPC calls too; calls to other services — PostgreSQL, Redis,
+Kafka, gRPC on Windows and the like — are captured only as raw bytes and usually
+don't replay. If your tests depend on one of those, run them in a container (as
+above) or on Linux/WSL. On macOS, also
 start the test runner itself rather than through a launcher such as `npm test` or
 a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one),
 not Apple's `/usr/bin/python3` — see

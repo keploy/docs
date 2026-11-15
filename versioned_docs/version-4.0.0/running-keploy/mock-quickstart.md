@@ -235,8 +235,9 @@ The sample's dependency is plain HTTP, so every step above runs natively on
 Linux, Windows x86-64 and macOS (Apple Silicon). Natively on macOS and Windows,
 Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC calls
 too; calls to other services — PostgreSQL, Redis, Kafka, gRPC on Windows and the
-like — are captured only as raw bytes and usually don't replay. If your tests depend on one of those, run them through
-a container and point Keploy at that command:
+like — are captured only as raw bytes and usually don't replay. If your tests
+depend on one of those, run them through a container and point Keploy at that
+command:
 
 ```bash
 keploy mock record -c "docker compose run --rm tests"
