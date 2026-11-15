@@ -197,7 +197,7 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 <br />
 
 :::info
-Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the HTTP/HTTPS, MySQL and MongoDB calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay — see [Installing Keploy on macOS](/docs/installation/macos-installation/). For containerized apps or those other dependencies use **Docker**. The macOS CLI is Apple Silicon (arm64) only: Keploy doesn't support Intel Macs.
+Keploy runs natively on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the HTTP/HTTPS, gRPC, MySQL and MongoDB calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka and the like — are captured only as raw bytes and usually don't replay — see [Installing Keploy on macOS](/docs/installation/macos-installation/). For containerized apps or those other dependencies use **Docker**. The macOS CLI is Apple Silicon (arm64) only: Keploy doesn't support Intel Macs.
 :::
 
 <Tabs>
