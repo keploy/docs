@@ -116,6 +116,9 @@ with no real dependency behind it.
     and run with `--workers=1 --retries=0`.
   - **Any other framework:** the test process makes the calls itself, as
     [Per-test scoping](#per-test-scoping-optional) describes.
+  - **Without the switch,** `keploy mock record` and `keploy mock replay` need
+    no integration. A suite that uses `keploytest` or `@keploy/playwright` then
+    fails its tests with a line that says to set `KEPLOY_PROVEN=1`.
 - **`mock.command` in `keploy.yml`.** It's the command CI runs your tests with.
   Under the switch, `keploy mock record` and `keploy mock replay` run it when you
   don't pass `-c`:
