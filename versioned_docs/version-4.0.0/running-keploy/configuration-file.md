@@ -103,6 +103,28 @@ Visit the [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/
 
 ## Configuration Sections
 
+### App name
+
+Keploy files every recording and test run under an app. Name it with `appName` in `keploy.yml` or with `--app-name`:
+
+```yaml
+appName: orders-api
+```
+
+When neither names the app, Keploy chooses the name in this order:
+
+1. Inside a git repository, the repository's name: the last part of its `origin` remote's URL without `.git` (`git@github.com:acme/shop.git` is `shop`), or, with no `origin` remote, the name of the repository's top folder.
+   - Run from the repository's top folder, that is the app's name: `shop`.
+   - Run from a folder inside the repository, the name is the repository's name, a `-`, and the folder's path inside the repository with each `/` as a `-`. A run from `shop/services/orders` names the app `shop-services-orders`, so each service of a monorepo is its own app.
+   - A linked worktree (`git worktree add`) is named after the repository it belongs to, and a folder's path is counted from the worktree's top folder.
+2. Outside any git repository, the name of the folder Keploy runs from.
+
+Keploy looks for the repository from the folder it runs in up to your home folder and stops there. A repository in your home folder itself, such as dotfiles kept in `~/.git`, never names your projects. Under `sudo`, the home folder of the user who ran `sudo` stops the search too.
+
+The first `keploy record` writes the name it chose into the `keploy.yml` it creates, and later runs use that name. Existing apps keep their names: a name in `keploy.yml` or `--app-name` is never replaced. Only an app recorded with no name configured is named this way. `keploy app create`, `keploy mock record` and `keploy mock replay`, given no app name, use the same default.
+
+Keploy logs the name it chose and what it came from, for example the git remote and the folder's path inside the repository.
+
 ### Record Section
 
 The `record` section in the Keploy-config file allows you to define parameters for recording API calls.
