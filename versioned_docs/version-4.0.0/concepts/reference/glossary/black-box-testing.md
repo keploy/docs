@@ -148,7 +148,7 @@ Black-box testing is a valuable tool for ensuring the quality of software. It ca
 - [White Box Testing](/docs/concepts/reference/glossary/white-box-testing/) — the opposite, code-aware testing approach.
 - [Grey Box Testing](/docs/concepts/reference/glossary/gray-box-testing/) — combines black-box and white-box techniques.
 - [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — verifies behavior without internal knowledge.
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — often done via black-box test cases.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — often done via black-box test cases.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 
 ## FAQ

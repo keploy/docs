@@ -153,7 +153,7 @@ Visual regression testing continues to evolve as applications become more comple
 
 ## Related Terms
 
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — visual regression is a specialized form of it.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — visual regression is a specialized form of it.
 - [Functional Testing](/docs/concepts/reference/glossary/functional-testing/) — complements visual checks with behavior validation.
 - [Component Testing](/docs/concepts/reference/glossary/component-testing/) — test isolated UI components visually.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
