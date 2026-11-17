@@ -144,7 +144,7 @@ The CLI checks the key at that proxy and, only if the proxy accepts it, saves th
 
 Every later command on that machine finds both there, so `keploy cloud replay` and the other commands run with neither variable set. A saved login turns k8s-proxy-auth mode on for every command: pass `--k8s-proxy-auth=false` to leave it off for one run, or run `keploy logout` to remove the saved key and URL.
 
-`keploy login --show` prints the API key (its last 4 characters only) and the proxy URL a command uses, and where each one comes from: a flag, an environment variable, `keploy.yml`, or the saved login. It makes no network call.
+`keploy login --show` prints the API key (its last 4 characters only) and the proxy URL a command uses, and where each one comes from: a flag, an environment variable, `keploy.yml`, or the saved login. It also says whether k8s-proxy-auth mode is on, and what turned it on or off. It makes no network call.
 
 If you already export both variables, a command you run in a terminal offers once to keep them: `Save the API key and k8s-proxy URL to ~/.keploy for next time? [Y/n]`. Your answer is remembered for that key and URL, so you are not asked again; a different key or URL asks again. A run without a terminal (CI, a script, an editor extension that runs the CLI) never asks and never saves.
 

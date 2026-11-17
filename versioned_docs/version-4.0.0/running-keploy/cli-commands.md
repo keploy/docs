@@ -487,7 +487,7 @@ keploy login
 - `--finish` - Collect the session for a sign-in that `keploy login --no-wait` started. It waits up to 70 seconds for your approval, and you can run it again until the code expires.
 - `--api-key string` - Use this Keploy API key for the command instead of `KEPLOY_API_KEY`. In CI, set `KEPLOY_API_KEY` from a secret instead of signing in.
 - `--k8s-proxy-url string` - For a self-hosted cluster: check the API key (from `--api-key` or `KEPLOY_API_KEY`, or asked for in a terminal) at this k8s-proxy, then save the key and the URL in `~/.keploy/cred.yaml`, readable by you only. Later commands then need neither `KEPLOY_API_KEY` nor `KEPLOY_K8S_PROXY_URL`. A key the proxy refuses saves nothing. See [Log in once on your own machine](/docs/keploy-cloud/cloud-replay/#log-in-once-on-your-own-machine).
-- `--show` - Print the API key (its last 4 characters only) and the k8s-proxy URL commands here use, and where each one comes from (a flag, an environment variable, `keploy.yml`, or the saved login), without signing in.
+- `--show` - Print the API key (its last 4 characters only) and the k8s-proxy URL commands here use, where each one comes from (a flag, an environment variable, `keploy.yml`, or the saved login), and whether k8s-proxy-auth mode is on and why, without signing in.
 
 `keploy logout` signs you out, and removes a saved self-hosted login (the API key and the k8s-proxy URL in `~/.keploy/cred.yaml`).
 
