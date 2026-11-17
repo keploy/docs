@@ -528,6 +528,15 @@ html[data-theme="dark"] .navbar {
   @apply pr-0;
 }
 
+/* Between the mobile breakpoint (996px) and 1200px the desktop navbar has no
+   room for "Sign in": the left items wrap onto two lines. Hide it there; it
+   still shows in the mobile menu and on wider desktops. */
+@media (min-width: 997px) and (max-width: 1199px) {
+  .navbar__items--right > .header-signin-link {
+    display: none;
+  }
+}
+
 .navbar__brand {
   @apply mb-0;
 }
