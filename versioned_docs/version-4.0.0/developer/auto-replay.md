@@ -55,6 +55,12 @@ Settings are fixed for the life of the recording. To change them, stop the recor
 - **While recording:** on the **Active recording** page, click **View running auto-replay**. The **Replays** strip lists each round as _N passed · N failed · N noisy_. Click a round to see its test cases.
 - **After the recording:** open the **⋮** menu on the deployment row and choose **Auto-Replay History**.
 
+  ![Deployment row menu with Auto-Replay History](/img/developer/autoreplay-row-menu.webp)
+
+  The page lists each recording session with its auto-replay results as passed / failed / noisy. Expand a session for more detail.
+
+  ![Auto-Replay History page listing recording sessions and their results](/img/developer/autoreplay-history.webp)
+
 A round shows red if any test failed, amber if any test was noisy, and green otherwise. A **noisy** test differed only in fields Keploy saved as noise on the test case, so it is not counted as failed.
 
 Auto-replay results are not listed on the **Reports** page. To get a **Test Report** you can act on, such as deleting a failing test case, run a [manual replay](/docs/developer/manual-replay/).

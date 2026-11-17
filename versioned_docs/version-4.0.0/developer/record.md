@@ -25,11 +25,28 @@ Keploy records live traffic on your deployment's pods. Each incoming request bec
 
 1. In the sidebar, open **Clusters** and click your cluster.
 2. On the **Deployments** tab, click **Record** on the deployment you want to capture.
+
+   ![Record button on a deployment row](/img/developer/record-deployments.webp)
+
 3. **Pods**: choose the **Number of pods to record** and, if you want, **Auto-stop after**. Click **Next**.
+
+   ![Pods step of the Start Recording dialog](/img/developer/record-step-pods.webp)
+
 4. **Record config**: add filters and pick a deduplication mode. Click **Next**.
+
+   ![Record config step with filters and deduplication](/img/developer/record-step-config.webp)
+
 5. **Auto replay**: set how often Keploy replays what you captured (see [Auto-replay](/docs/developer/auto-replay/)). Click **Start Recording**.
 
+   ![Auto replay step of the Start Recording dialog](/img/developer/record-step-auto-replay.webp)
+
 You land on the **Active recording** page, which shows a live count of captured test cases.
+
+You can also open the same dialog from the **Recordings** page with the **Record** button.
+
+:::caution Pods restart
+Starting a recording restarts the selected pods so they come back up with capture attached. Start it when a restart is acceptable.
+:::
 
 ## Send traffic
 
@@ -41,12 +58,6 @@ curl http://localhost:8080/<endpoint>
 ```
 
 Cover the endpoints and edge cases you want tests for. With static deduplication on (the default), each distinct request shape becomes one test case.
-
-You can also open the same dialog from the **Recordings** page with the **Record** button.
-
-:::caution Pods restart
-Starting a recording restarts the selected pods so they come back up with capture attached. Start it when a restart is acceptable.
-:::
 
 ## Recording options
 
@@ -79,8 +90,10 @@ If anything new was captured since the last auto-replay round, Keploy runs one f
 ## View what you recorded
 
 1. Open **Recordings**, with your app selected in the header's app selector.
-2. Under **Test sets**, open a test set and click a test case.
-3. Check the **Request** and **Response**, and the **Mocks** tab for the outgoing calls your app made.
+2. In the left panel, expand a release and a test set, then click a test case.
+3. The **Map** view shows the request, your app, and each outgoing call Keploy mocked. Switch to **Raw** for the full request and response. Below, the **Mocks** tab lists the outgoing calls and **Noise** lists the fields Keploy ignores.
+
+![A recorded test case with its map, mocks and noise](/img/developer/recordings-test-case.webp)
 
 If a test case has fields that change on every call, such as a timestamp, add them on the **Noise** tab. See [Noise configuration](/docs/developer/noise/).
 

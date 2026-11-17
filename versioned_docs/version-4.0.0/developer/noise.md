@@ -33,6 +33,8 @@ import ProductTier from '@site/src/components/ProductTier';
 | **Replay** dialog → **Advanced options**                                         | That manual replay only.              |
 | Record dialog → **Auto replay** step → **Advanced settings** → **Noise options** | Auto-replay rounds of that recording. |
 
+![Noise tab on a recorded test case with Add noise](/img/developer/noise-test-case.webp)
+
 Editing a test case's noise is a change to test data, so it happens on a branch. If you're on main, Keploy asks you to create a branch first, and the change reaches main when you merge it. See [Fix failing tests](/docs/developer/fix-failing-tests/#commit-review-and-merge).
 
 In the replay and auto-replay dialogs, enter fields like this:

@@ -27,7 +27,7 @@ This section takes you from connecting your cluster to keeping your tests health
 
 1. **[Set up](/docs/developer/setup/)**: connect your cluster by installing the Keploy proxy, and install the CLI. You do this once.
 2. **[Record](/docs/developer/record/)** live traffic on a deployment.
-3. **[Check coverage](/docs/developer/coverage/)** to see which endpoints your tests reach and what to record next.
+3. **[Check coverage](/docs/developer/coverage/)** to see how much of your API your tests reach and what to record next.
 4. **[Auto-replay](/docs/developer/auto-replay/)** runs while you record, so you see failures early.
 5. **[Manual replay](/docs/developer/manual-replay/)** runs your tests on demand and produces a **Test Report**.
 6. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: fix the code if your app regressed. Otherwise delete the test case or add noise on a branch, then commit, review and merge it.

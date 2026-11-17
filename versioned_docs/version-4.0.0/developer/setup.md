@@ -41,12 +41,19 @@ See [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architect
 
 ## Connect your cluster
 
-1. In the sidebar, open **Clusters** and click **Connect New Cluster**.
-2. Fill in the dialog:
-   - **Cluster Name**: any name you'll recognise, for example `staging-us-east`.
-   - **How should Keploy reach this cluster?**: choose **Keploy tunnel** if you can't open an inbound route into the cluster. Choose **Ingress URL** to expose the proxy at a URL, then enter it. Self-hosted clusters always need an ingress URL.
+1. In the sidebar, open **Clusters** and click **Connect New Cluster**. The dialog already shows a ready **Installation Command**, with a generated cluster name and default settings.
+
+   ![Connect New Cluster dialog with the installation command](/img/developer/setup-connect-cluster.webp)
+
+2. To change any of those, open **Advanced settings**:
+
+   - **Cluster Name**: any name you'll recognise, for example `staging-us-east`. It updates the command above.
+   - **How should Keploy reach this cluster?**: **Keploy tunnel** needs no inbound access. Choose **Ingress URL** to expose the proxy at a URL, then enter it. Self-hosted clusters always need an ingress URL.
    - **Deployment Type**: **SaaS** stores your test data in Keploy Cloud. **Self-hosted** keeps it in your cluster, and you also pick a **Metadata Backend** (MongoDB or MySQL).
    - **Enable DaemonSet mode**: tick it for DaemonSet mode.
+
+   ![Advanced settings in the Connect New Cluster dialog](/img/developer/setup-connect-advanced.webp)
+
 3. Click **Connect to Cluster**. Keploy copies the install command to your clipboard and opens the cluster's page.
 4. **DaemonSet mode only:** run the namespace command shown in the dialog first:
 
@@ -64,6 +71,8 @@ See [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architect
      --set keploy.clusterName=<cluster-name> \
      ...
    ```
+
+Prefer to let an AI coding assistant do it? Copy the prompt under **Ask your agent to connect your cluster**. It installs Keploy and runs `keploy k8s setup` with the CLI's defaults. Use the Helm command when you need to choose the deployment type, capture mode or backend.
 
 ## Check the install
 

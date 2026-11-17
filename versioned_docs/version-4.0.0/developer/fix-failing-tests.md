@@ -24,7 +24,7 @@ When a replay fails, first find out why. If your app regressed, fix the code. If
 
 ## Find out why a test failed
 
-1. Open **Reports** → **Live recording runs** and click the run.
+1. Open **Reports** → **Live recording runs** → **Recordings** and click the run.
 2. Open a failed test and click **View response diff** to compare **Expected** with **Actual** status, headers and body.
 3. Check the mock badge on the test. A note such as _N calls matched no mock_ means your app made an outgoing call that the recording doesn't cover.
 
@@ -56,6 +56,10 @@ On the **Recordings** page, open the test case, then the **Noise** tab, and clic
 
 You usually don't create a branch yourself: **Create a branch to continue** appears whenever you change test data on main. To create one up front, open the branch picker in the header (it shows **main**), click **Create new branch**, enter a **Branch name** and click **Create Branch**.
 
+![Branch picker with Create new branch](/img/developer/branch-picker.webp)
+
+![Create Branch dialog](/img/developer/branch-create-dialog.webp)
+
 - A name can't be empty, contain spaces, or be 100 characters or longer. `main` and `master` are reserved.
 - Names are unique per app. A name used by another branch, including a merged or closed one, is refused.
 - Using your git branch name makes the two easy to match.
@@ -73,6 +77,8 @@ keploy cloud replay --app "<namespace>.<deployment>" --branch-name "<branch>"
 3. Click **Request reviewers** and choose who should approve.
 4. The reviewer opens the same page and clicks **Approve**. A reviewer can't approve their own branch, except an Admin, who sees **Approve your own branch**.
 5. When the checks show **Approved** and **No conflicts with main**, click **Merge branch to main**.
+
+![Branch page with review and merge checks](/img/developer/branch-merge-box.webp)
 
 You see _Merged &lt;branch&gt; to main_. Replays of main use the change from then on.
 

@@ -26,7 +26,12 @@ A manual replay runs your recorded test cases whenever you choose, with every ou
 1. Open **Clusters**, click your cluster, and stay on the **Deployments** tab.
 2. Click **Replay** on the deployment.
 3. **Select tests**: tick test sets, or open a set and tick single test cases. If you tick nothing, every recorded test set runs. Click **Next**.
+
+   ![Select tests step of the Run Replay dialog](/img/developer/replay-step-select.webp)
+
 4. **Configure**: keep the defaults or change them (see below). Click **Start Replay**.
+
+   ![Configure step of the Run Replay dialog](/img/developer/replay-step-configure.webp)
 
 The row now shows the replay's progress. Click it for live counts. You can also click **View details** to open the replay page, or **Stop Replay**.
 
@@ -65,8 +70,13 @@ See the [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/) for e
 
 ## Open the Test Report
 
-1. In the sidebar, open **Reports**, then **Live recording runs**.
-2. Click the run. The **Test Report** page shows **Total**, **Passed**, **Failed**, **Ignored**, **Duration** and **Run by**.
+1. In the sidebar, open **Reports**. On **Live recording runs**, the **Recordings** tab lists your manual replays.
+
+   ![Test Reports list with a manual run](/img/developer/reports-list.webp)
+
+2. Click the run. The **Test Report** page shows **Total**, **Passed**, **Failed**, **Ignored**, **Duration** and **Run by**. Click a test to see its request, response and noise.
+
+   ![Test Report page with a test's request and response](/img/developer/report-page.webp)
 
 If anything failed, go to [Fix failing tests](/docs/developer/fix-failing-tests/).
 

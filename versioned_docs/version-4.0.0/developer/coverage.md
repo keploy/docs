@@ -2,7 +2,7 @@
 id: coverage
 title: Check coverage
 sidebar_label: Check coverage
-description: See which endpoints of your API your recorded tests reach with schema coverage, and per-test-set code coverage for Java apps, so you know what to record next.
+description: See how much of your API your recorded tests reach with schema coverage, and per-test-set code coverage for Java apps, so you know what to record next.
 tags:
   - K8s
   - developer
@@ -20,17 +20,22 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-Coverage shows which parts of your API your recorded tests reach, so you know what to record next.
+Coverage shows how much of your API your recorded tests reach, so you know what to record next.
 
 ## Check schema coverage
 
-Keploy builds an OpenAPI schema of your API from the test cases you record, and keeps one per release of your app. Schema coverage compares that schema with your test cases.
+Keploy builds an OpenAPI schema of your API from the test cases you record, and keeps one per release of your app. Schema coverage shows how much of that schema your test cases reach.
 
-1. Open **Recordings**, with your app selected. The toolbar shows **Schema Coverage** as a percentage: the share of the schema's endpoints that your replayable test cases hit.
+1. Open **Recordings**, with your app selected. The **Schema Coverage** badge shows the share of the schema's fields, across all releases, that your test cases cover.
+
+   ![Schema Coverage badge on the Recordings page](/img/developer/coverage-badge.webp)
+
 2. Click it to open the **Test Coverage** page. You can also open it from the sidebar.
-3. The page shows the schema with each part marked **Covered**, **Partial** or **Uncovered**. To see another release, change the **tag** selector.
+3. The page shows the coverage percentage, covered and total lines, and how many endpoints your tests hit. Each part of the schema is marked **Covered**, **Partial** or **Uncovered**. The **tag** selector starts at **all releases (union)**. Pick one release to see only its schema. Use the **OpenAPI**, **GraphQL** and **gRPC** tabs for each kind of API.
 
-To raise coverage, [record](/docs/developer/record/) traffic that reaches the **Uncovered** endpoints.
+   ![Test Coverage page showing the OpenAPI schema with coverage per field](/img/developer/coverage-schema-page.webp)
+
+To raise coverage, [record](/docs/developer/record/) traffic that reaches the **Uncovered** parts.
 
 ## Check code coverage (Java)
 
