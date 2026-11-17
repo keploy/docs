@@ -29,7 +29,18 @@ Keploy records live traffic on your deployment's pods. Each incoming request bec
 4. **Record config**: add filters and pick a deduplication mode. Click **Next**.
 5. **Auto replay**: set how often Keploy replays what you captured (see [Auto-replay](/docs/developer/auto-replay/)). Click **Start Recording**.
 
-You land on the **Active recording** page, which shows a live count of captured test cases. Now send traffic to your app.
+You land on the **Active recording** page, which shows a live count of captured test cases.
+
+## Send traffic
+
+Keploy records only the requests your app actually receives. Use your app as you normally would: run your test suite or a load script, click through the frontend, or call the API directly. For example:
+
+```bash
+kubectl port-forward -n <namespace> svc/<service> 8080:<service-port>
+curl http://localhost:8080/<endpoint>
+```
+
+Cover the endpoints and edge cases you want tests for. With static deduplication on (the default), each distinct request shape becomes one test case.
 
 You can also open the same dialog from the **Recordings** page with the **Record** button.
 
@@ -65,7 +76,13 @@ Use either of these:
 
 If anything new was captured since the last auto-replay round, Keploy runs one final round after the stop. When you stop from the **Active recording** page, you are taken to that replay if one is starting, or to the **Recordings** page otherwise.
 
-Your test sets are listed on the **Recordings** page under **Test sets**.
+## View what you recorded
+
+1. Open **Recordings**, with your app selected in the header's app selector.
+2. Under **Test sets**, open a test set and click a test case.
+3. Check the **Request** and **Response**, and the **Mocks** tab for the outgoing calls your app made.
+
+If a test case has fields that change on every call, such as a timestamp, add them on the **Noise** tab. See [Noise configuration](/docs/developer/noise/).
 
 ## Fix a recording that won't start
 

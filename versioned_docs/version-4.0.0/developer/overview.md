@@ -2,7 +2,7 @@
 id: overview
 title: Developer guide
 sidebar_label: Overview
-description: The day-to-day Keploy loop on Kubernetes, from recording live traffic and replaying it, to cleaning up a failing test case on a branch and merging it into main.
+description: The day-to-day Keploy loop on Kubernetes, from recording live traffic and replaying it, to fixing failing tests on a branch and merging them into main.
 tags:
   - K8s
   - developer
@@ -25,18 +25,33 @@ This section covers the everyday loop once the [Keploy proxy is installed in you
 
 ## The loop
 
-1. **[Record](/docs/developer/record/).** Capture live traffic on a deployment. Each request becomes a test case, and the calls your app makes to databases and other services are saved as mocks.
-2. **[Auto-replay](/docs/developer/auto-replay/).** While recording runs, Keploy replays new test sets on a fixed interval, so you see failures without lifting a finger.
-3. **[Manual replay](/docs/developer/manual-replay/).** Replay on demand from the dashboard or the CLI, and read the result on the **Test Report** page.
-4. **[Noise configuration](/docs/developer/noise/).** Tell Keploy which response fields and mock request fields are allowed to change between runs.
-5. **[Delete a failing test case](/docs/developer/delete-test-cases/).** If a replay fails because the test case is wrong or obsolete rather than because of a real app regression, delete it from the report. The delete goes to a branch, never straight to main.
-6. **[Create a branch](/docs/developer/create-branch/).** Every change to test data lives on a Keploy branch, the same way code changes live on a git branch.
-7. **[Merge a branch](/docs/developer/merge-branch/).** Commit, get a review, and merge. Only then does main change.
+1. **[Record](/docs/developer/record/)** live traffic on a deployment.
+2. **[Auto-replay](/docs/developer/auto-replay/)** runs while you record, so you see failures early.
+3. **[Manual replay](/docs/developer/manual-replay/)** runs your tests on demand and produces a **Test Report**.
+4. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: fix the code if your app regressed. Otherwise delete the test case or add noise on a branch, then commit, review and merge it.
+5. **[Noise configuration](/docs/developer/noise/)** lists every place you can tell Keploy which fields may change between runs.
 
-## Before you start
+## Key terms
 
-- The Keploy proxy is installed and your cluster shows as connected on the **Clusters** page. See [K8s Record Replay](/docs/quickstart/k8s-proxy/).
-- You have permission to record on the cluster. Deleting test cases and merging branches need branch permissions on the app. An Org Admin has all of them.
+| Term           | Meaning                                                                                                                       |
+| -------------- | ----------------------------------------------------------------------------------------------------------------------------- |
+| Test case      | One recorded request to your app and the response it returned.                                                                |
+| Mock           | One recorded outgoing call your app made, such as a database query or an HTTP call. During replay, Keploy answers from it.    |
+| Test set       | A group of test cases, with their mocks, from a recording. A recording produces one or more test sets.                        |
+| Smart test set | The app's long-lived, deduplicated set of recorded flows, used for regression testing.                                        |
+| Noise          | A field Keploy ignores when comparing, because its value changes on every run (timestamps, IDs, tokens).                      |
+| Test Report    | The result of a manual replay: which test cases passed and failed, with a diff for each failure.                              |
+| Branch         | A place for test-data changes, such as deletes and noise, that reach main only after they are committed, reviewed and merged. |
+
+## Permissions you need
+
+| Task                                       | Permission                                                    | Built-in roles that have it     |
+| ------------------------------------------ | ------------------------------------------------------------- | ------------------------------- |
+| Record                                     | `record:start` on the cluster, or `testcase:write` on the app | Admin, App Admin, Cluster Admin |
+| Replay                                     | `replay:start` on the cluster or the app                      | Admin, App Admin, Cluster Admin |
+| Change test data on a branch, and merge it | `branch:write` and `branch:merge` on the app                  | Admin, App Admin                |
+
+If a button is disabled or you get a permission error, ask your admin for the role you need.
 
 ## Related
 

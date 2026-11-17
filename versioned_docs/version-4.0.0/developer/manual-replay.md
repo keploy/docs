@@ -63,20 +63,12 @@ keploy cloud replay --app "<namespace>.<deployment>" --cluster "<cluster>"
 
 See the [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/) for every flag.
 
-## Read the Test Report
+## Open the Test Report
 
 1. In the sidebar, open **Reports**, then **Live recording runs**.
 2. Click the run. The **Test Report** page shows **Total**, **Passed**, **Failed**, **Ignored**, **Duration** and **Run by**.
-3. Open a failed test and click **View response diff** to compare **Expected** with **Actual** status, headers and body.
-4. Check the mock badge on the test. A note such as _N calls matched no mock_ means your app made a call that the recording doesn't cover.
 
-Then decide what the failure is:
-
-- **Your app regressed.** The diff shows a real behaviour change. Fix the code and replay again.
-- **A field changes on every run**, such as a timestamp or an ID. Add it as noise. See [Noise configuration](/docs/developer/noise/).
-- **The test case is wrong or obsolete**, for example an endpoint you removed on purpose. [Delete the test case](/docs/developer/delete-test-cases/).
-
-When a run has failures, **Copy prompt and triage this run** copies a prompt you can paste into your AI coding assistant. The prompt runs `keploy cloud triage` to diagnose the failures.
+If anything failed, go to [Fix failing tests](/docs/developer/fix-failing-tests/).
 
 ## Related
 

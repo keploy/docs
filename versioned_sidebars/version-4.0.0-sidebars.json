@@ -45,17 +45,18 @@
         {
           "type": "category",
           "label": "Developer",
+          "link": {
+            "type": "doc",
+            "id": "developer/overview"
+          },
           "collapsible": true,
           "collapsed": true,
           "items": [
-            "developer/overview",
             "developer/record",
             "developer/auto-replay",
             "developer/manual-replay",
-            "developer/noise",
-            "developer/delete-test-cases",
-            "developer/create-branch",
-            "developer/merge-branch"
+            "developer/fix-failing-tests",
+            "developer/noise"
           ]
         },
         "running-keploy/cli-commands",
