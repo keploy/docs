@@ -234,7 +234,7 @@ The approaches work together. Many teams use BDD scenarios to define features at
 - **Needs real business involvement:** if only developers write scenarios, BDD becomes extra syntax on top of ordinary tests.
 - **Maintenance overhead:** large suites with duplicated or overly detailed steps become slow and fragile.
 - **Learning curve:** writing good scenarios is a skill, and early suites are often too imperative.
-- **Not full coverage:** BDD scenarios cover key behaviors, not every code path. You still need [unit](/docs/concepts/reference/glossary/unit-testing/), [integration](/docs/concepts/reference/glossary/integration-testing/) and [regression](/docs/concepts/reference/glossary/regression-testing/) tests.
+- **Not full coverage:** BDD scenarios cover key behaviors, not every code path. You still need [unit](/docs/concepts/reference/glossary/unit-testing/), [integration](/docs/concepts/reference/glossary/integration-testing/) and [regression](https://keploy.io/blog/community/regression-testing-an-introductory-guide) tests.
 
 ### When BDD may not be a good fit
 

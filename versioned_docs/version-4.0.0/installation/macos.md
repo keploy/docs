@@ -16,7 +16,7 @@ keywords:
 
 Keploy now runs **natively on macOS** (Apple Silicon) — you can record and replay an app that runs directly on your Mac, with no Lima VM and no Docker. Native macOS support intercepts traffic in userspace (there is no eBPF on macOS), so it needs no root and installs nothing system-wide.
 
-Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). On an Intel Mac, use [Lima](#option-2-install-keploy-with-lima).
+Native macOS support covers **Go, Node.js, Python and Java** apps, including their HTTPS traffic, and understands their **HTTP/HTTPS, gRPC, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). Keploy doesn't support Intel Macs.
 
 :::note Keploy needs a free account
 
@@ -40,13 +40,19 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 ## Option 1: Run Keploy natively
 
-:::note Apple Silicon only
+:::note Apple silicon only
 
-The native macOS build is **Apple Silicon (arm64) only**. On an Intel Mac the installer, the Homebrew formula and `keploy update` refuse to install rather than fetch a binary that cannot run there. If one of them sent you here, use [Option 2 (Lima)](#option-2-install-keploy-with-lima), which installs the Linux build inside the VM. [Option 3 (Docker)](#option-3-install-keploy-with-docker) is not an Intel route either: it starts your app and Keploy's agent in containers, but the `keploy` CLI that drives it is the same native build running on your Mac.
+Keploy runs on Macs with **Apple silicon** (arm64). **Keploy doesn't support Intel Macs.** On an Intel Mac the installer, the Homebrew formula and `keploy update` stop rather than fetch a binary that can't run there.
 
 :::
 
 1. **Install Keploy**
+
+   :::tip Using VS Code?
+
+   The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) downloads this same CLI into this same folder, `~/.keploy/bin`, by itself, so you can skip this step. Installed either way, the extension, your terminals and your coding agent run one `keploy`.
+
+   :::
 
    ```bash
    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
@@ -141,7 +147,7 @@ Begin recording your API calls and automatically generate test cases with Keploy
 
 :::note Also Apple Silicon only
 
-With this option your application and Keploy's agent run in containers, but the `keploy` CLI installed in step 3 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. On an Intel Mac use [Option 2 (Lima)](#option-2-install-keploy-with-lima) instead.
+With this option your application and Keploy's agent run in containers, but the `keploy` CLI installed in step 3 — which starts them both — is the native macOS build, which is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 
 :::
 

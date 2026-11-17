@@ -81,7 +81,7 @@ On **Windows** (x86-64), Keploy is a single `keploy.exe`, installed from PowerSh
 
 **_Downloading and running Keploy in Docker_**
 
-With this method your application and Keploy's agent run in Docker, but the `keploy` CLI — which starts them both — runs on your machine. Use it when your app runs in containers, or on macOS and Windows when your app depends on services beyond HTTP/HTTPS, MySQL and MongoDB: natively there, calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+With this method your application and Keploy's agent run in Docker, but the `keploy` CLI — which starts them both — runs on your machine. Use it when your app runs in containers, or on macOS and Windows when your app depends on services beyond HTTP/HTTPS, MySQL and MongoDB (and gRPC, on macOS): natively there, calls to other services — PostgreSQL, Redis, Kafka, gRPC on Windows and the like — are captured only as raw bytes and usually don't replay.
 
 1. Open up a terminal window.
 
@@ -91,7 +91,7 @@ With this method your application and Keploy's agent run in Docker, but the `kep
 docker network create keploy-network
 ```
 
-3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only — on an Intel Mac, run Keploy with [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima) instead.
+3. Install Keploy: on Linux and macOS with the command below, on Windows with [the PowerShell steps](/docs/installation/windows-installation/#option-1-run-keploy-natively). On macOS the CLI is Apple Silicon (arm64) only: Keploy doesn't support Intel Macs.
 
 ```shell
  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
@@ -154,7 +154,7 @@ mkdir -p ~/.keploy/bin &&
 export PATH="$HOME/.keploy/bin:$PATH"   # add this line to your ~/.zshrc too
 ```
 
-There is no Intel macOS build: on an Intel Mac, use the Linux steps inside [Lima](/docs/installation/macos-installation/#option-2-install-keploy-with-lima).
+There is no Intel macOS build: Keploy doesn't support Intel Macs.
 
 #### On Windows (x86-64)
 

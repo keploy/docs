@@ -85,7 +85,7 @@ Incorporating STLC best practices and leveraging advanced testing tools empower 
 
 ## Related Terms
 
-- [Regression Testing](/docs/concepts/reference/glossary/regression-testing/) — a key phase within the STLC.
+- [Regression Testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide) — a key phase within the STLC.
 - [Defect Management](/docs/concepts/reference/glossary/defect-management/) — track defects reported during testing.
 - [QA Automation](/docs/concepts/reference/glossary/qa-automation/) — automate STLC test execution phases.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

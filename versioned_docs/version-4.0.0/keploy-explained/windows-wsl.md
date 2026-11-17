@@ -83,6 +83,6 @@ Begin recording your API calls and generating test cases with Keploy.
 
 ## Related
 
-- [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — the Lima setup, for Intel Macs.
+- [Running Keploy on macOS in a Linux VM (Lima)](/docs/keploy-explained/mac-linux/) — the Lima setup on an Apple-silicon Mac.
 - [CLI commands reference](/docs/running-keploy/cli-commands/) — every `keploy` command and flag.
 - [Common errors and fixes](/docs/keploy-explained/common-errors/) — troubleshooting, including WSL-specific issues.
