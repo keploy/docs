@@ -26,6 +26,8 @@ While a recording runs, Keploy replays what you captured on a fixed interval. Yo
 2. On the **Auto replay** step, set **Auto replay interval (minutes)**. The default is 5.
 3. Change any other settings you need (see below), then click **Start Recording**.
 
+![Auto replay step of the Start Recording dialog](/img/developer/record-step-auto-replay.webp)
+
 Settings are fixed for the life of the recording. To change them, stop the recording and start a new one. The dialog fills in your previous values. To see what a running recording uses, click **View configuration**.
 
 ## How rounds run

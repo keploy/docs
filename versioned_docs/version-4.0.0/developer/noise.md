@@ -56,6 +56,8 @@ For noise in a local `keploy.yml`, see [Advanced noise filtering](/docs/running-
 
 **Mock noise detection** is an auto-replay setting on the **Auto replay** step of the record dialog. It is off by default.
 
+![Mock noise detection toggle on the Auto replay step](/img/developer/record-step-auto-replay.webp)
+
 When it's on, each auto-replay round compares the request body of your app's outgoing calls with the recorded mock they match. Fields whose values differ are saved as noise on that mock, so later replays accept them. Keploy still checks each field's type.
 
 In the API and older configs, this setting is also called `schemaNoiseDetection`. It is the same setting as `mockNoiseDetection`.
@@ -63,6 +65,8 @@ In the API and older configs, this setting is also called `schemaNoiseDetection`
 ## Strict mock noise
 
 **Strict mock noise** is a manual-replay setting in the **Replay** dialog. It is off by default and has no effect on auto-replay. In the API and older configs it is also called `schemaNoiseStrict`, the same setting as `mockNoiseStrict`.
+
+![Strict mock noise toggle in the Run Replay dialog](/img/developer/replay-step-configure.webp)
 
 - **Off:** an outgoing call matches a mock by the shape of its JSON request body. Values are compared only on mocks that already have learned noise.
 - **On:** every changed request-body value must already be known noise, or the mock is rejected. If no mock is left, the call goes unserved and the test fails.

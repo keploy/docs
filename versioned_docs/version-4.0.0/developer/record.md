@@ -40,7 +40,9 @@ Keploy records live traffic on your deployment's pods. Each incoming request bec
 
    ![Auto replay step of the Start Recording dialog](/img/developer/record-step-auto-replay.webp)
 
-You land on the **Active recording** page, which shows a live count of captured test cases.
+You land on the **Active recording** page. It shows a live count of captured test cases and mocks, each request as it is recorded, and the status of the recorded pods.
+
+![Active recording page with captured test cases and pod status](/img/developer/record-active.webp)
 
 You can also open the same dialog from the **Recordings** page with the **Record** button.
 

@@ -72,11 +72,11 @@ See the [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/) for e
 
 1. In the sidebar, open **Reports**. On **Live recording runs**, the **Recordings** tab lists your manual replays.
 
-   ![Test Reports list with a manual run](/img/developer/reports-list.webp)
+   ![Test Reports list with manual runs](/img/developer/reports-list-failed.webp)
 
 2. Click the run. The **Test Report** page shows **Total**, **Passed**, **Failed**, **Ignored**, **Duration** and **Run by**. Click a test to see its request, response and noise.
 
-   ![Test Report page with a test's request and response](/img/developer/report-page.webp)
+   ![Test Report page with a test's request and response](/img/developer/report-failed.webp)
 
 If anything failed, go to [Fix failing tests](/docs/developer/fix-failing-tests/).
 

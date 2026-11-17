@@ -23,6 +23,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 This section takes you from connecting your cluster to keeping your tests healthy day to day. Each page is short and links out to the detailed reference where one exists.
 
+![Recordings page for an app recorded with Keploy](/img/developer/recordings-overview.webp)
+
 ## The loop
 
 1. **[Set up](/docs/developer/setup/)**: connect your cluster by installing the Keploy proxy, and install the CLI. You do this once.
