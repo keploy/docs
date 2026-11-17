@@ -121,7 +121,13 @@ When neither names the app, Keploy chooses the name in this order:
 
 Keploy looks for the repository from the folder it runs in up to your home folder and stops there. A repository in your home folder itself, such as dotfiles kept in `~/.git`, never names your projects. Under `sudo`, the home folder of the user who ran `sudo` stops the search too.
 
-The first `keploy record` writes the name it chose into the `keploy.yml` it creates, and later runs use that name. Existing apps keep their names: a name in `keploy.yml` or `--app-name` is never replaced. Only an app recorded with no name configured is named this way. `keploy app create`, `keploy mock record` and `keploy mock replay`, given no app name, use the same default.
+The first `keploy record` writes the name it chose into the `keploy.yml` it creates, and later runs use that name, so a later change to how Keploy chooses names never renames the project.
+
+Existing apps keep their names:
+
+- A name in `keploy.yml` or `--app-name` is never replaced.
+- A `keploy.yml` with no `appName`, or an empty one, belongs to a project recorded before Keploy chose names this way. Keploy keeps the name its runs have had, the name of the folder it runs from, and writes `appName: <that name>` into the file once: it adds that one line and leaves the rest of the file as it was. It writes only when it runs from the folder that holds the `keploy.yml`; a `keploy.yml` read from another folder with `--config-path` is left as it is, and each run is named after its own folder. If the file cannot be written, Keploy warns and uses that name.
+- `keploy mock record`, `keploy mock replay` and `keploy app create`, given no app name, use the name above for a new app. Before, they named the app after the repository alone, so from a folder inside a repository a project may already have an app named `shop` where the new name is `shop-services-orders`. When no app has the new name, they use the app named after the repository and say so. Pass `--app` (`--name` for `keploy app create`) to use another app.
 
 Keploy logs the name it chose and what it came from, for example the git remote and the folder's path inside the repository.
 
