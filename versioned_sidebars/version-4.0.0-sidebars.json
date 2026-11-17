@@ -42,6 +42,22 @@
             }
           ]
         },
+        {
+          "type": "category",
+          "label": "Developer",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "developer/overview",
+            "developer/record",
+            "developer/auto-replay",
+            "developer/manual-replay",
+            "developer/noise",
+            "developer/delete-test-cases",
+            "developer/create-branch",
+            "developer/merge-branch"
+          ]
+        },
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
