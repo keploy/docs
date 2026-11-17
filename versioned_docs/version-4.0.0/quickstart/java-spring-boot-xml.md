@@ -80,7 +80,7 @@ This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see 
 
 ```bash
 git clone https://github.com/keploy/samples-java.git
-cd spring-boot-xml/naive-spring-boot
+cd samples-java/spring-boot-xml/naive-spring-boot
 mvn clean install
 ```
 
@@ -91,6 +91,8 @@ Start the Spring Boot application with:
 ```bash
 mvn spring-boot:run
 ```
+
+Once you have confirmed the application starts, stop it (`Ctrl+C`) so that port `8080` is free for Keploy to record on.
 
 ### Record Test Cases
 
@@ -111,7 +113,7 @@ Then, invoke the API using `curl` or your favorite API testing tool.
 Make a request using `curl`:
 
 ```bash
-curl -X GET -H \"Accept: application/xml\" http://localhost:8080/api/user
+curl -X GET -H "Accept: application/xml" http://localhost:8080/api/user
 ```
 
 - **Endpoint**: `GET /api/users`
@@ -148,7 +150,11 @@ Execute recorded tests:
 keploy test -c "java -jar target/XML-0.0.1-SNAPSHOT.jar" --delay 10
 ```
 
-Review generated test reports in `Keploy/reports`.
+Review generated test reports in `keploy/reports`.
+
+:::note
+You may see a warning such as `Could not read the mock file ... mocks.yaml: no such file`. This is expected here: the app has no external dependencies, so no mocks are recorded.
+:::
 
 ## Handling Failing Tests ⚠️
 

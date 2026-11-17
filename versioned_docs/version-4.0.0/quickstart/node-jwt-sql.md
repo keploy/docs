@@ -67,7 +67,7 @@ This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the 
 
 ### Setup application
 
-Clone the repository and move to express-mongo folder
+Clone the repository and move to node-jwt folder
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-jwt
@@ -178,7 +178,7 @@ curl --location 'http://localhost:8080/api/test/all'
 We will get:
 
 ```
-Public Content
+Public Content.
 ```
 
 5. Access user Content
@@ -187,6 +187,8 @@ Public Content
 curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
+
+Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3.
 
 We will get
 
@@ -201,11 +203,10 @@ sudo -E env PATH=$PATH keploy test -c 'node app.js' --delay 10
 ```
 
 Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
-Our testcases will fail as the token would expire and new Token will generated again when we are using testmode. To make sure that testcases do not fail, we have use [timeFreezing](https://keploy.io/docs/keploy-cloud/time-freezing/).
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-jwt-test-1.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
+But for this application, the Token expiration is 35 seconds. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
 
 ```
   globalNoise:
@@ -244,7 +245,7 @@ A simple sample CRUD application to test using Keploy build with Node, JWT and P
 
 ### Setup application
 
-Clone the repository and move to express-mongo folder
+Clone the repository and move to node-jwt folder
 
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/node-jwt
@@ -258,6 +259,12 @@ We will be using Docker compose to run the application as well as Postgres on Do
 Since we have setup our sample-app using docker, we need to update the postgres host on line 2, in `config/db.config.js`, from `localhost` to `postgres`.
 
 ## Capture the testcases
+
+The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once before recording:
+
+```bash
+docker network create keploy-network
+```
 
 We will run the keploy in record mode with docker-compose to start our application:-
 
@@ -347,7 +354,7 @@ curl --location 'http://localhost:8080/api/test/all'
 We will get:
 
 ```
-Public Content
+Public Content.
 ```
 
 5. Access user Content
@@ -356,6 +363,8 @@ Public Content
 curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
+
+Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3.
 
 We will get
 
@@ -373,7 +382,7 @@ Our testcases will fail as the token would expire and new Token will generated a
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy-docker-jwt-output-1.png" alt="Sample Keploy Test Result Node JWT" width="100%" style={{ borderRadius: '5px' }} />
 
-But for this application, the Token expiration is 10 mins so let's go ahead and test the application within 10 mins. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
+But for this application, the Token expiration is 35 seconds. Let's add the `Etag` and `accessToken` as the noise in the `keploy.yml` on line 21 under `globalNoise`. The file would look like:-
 
 ```
   globalNoise:

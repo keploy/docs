@@ -83,7 +83,7 @@ mvn clean install -DskipTests=true
 docker compose up
 ```
 
-Note: If you face any issues while setting up the database, please try running docker compose up again. The issue should not occur the second time.
+Note: `docker compose up` keeps running in the foreground, so run it in its own terminal (or add `-d`) and continue the next steps in another one. If the first run fails while the database is being initialised (for example with `ERROR 1064` from MariaDB), run `docker compose up` again. The issue should not occur the second time.
 
 ## Setup the Backend
 
@@ -136,6 +136,8 @@ If you followed all the steps correctly, you should see a UI similar to the one 
 Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'
 
 ## Running the testcases using Keploy
+
+Stop the recording with `Ctrl+C` first. The database and the UI do not need to be running for `keploy test`, as Keploy replays the recorded mocks.
 
 ```bash
 keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher" --delay 40

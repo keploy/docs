@@ -72,11 +72,17 @@ import ProductTier from '@site/src/components/ProductTier';
 git clone https://github.com/keploy/samples-python.git && cd samples-python/django-postgres/django_postgres
 ```
 
-We will be using Docker compose to run the application as well as Postgres on Docker container.
+We will be using Docker compose to run Postgres and Docker to run the application.
 
 ### Lights, Camera, Record! 🎥
 
 #### Start Postgres Instance
+
+Create the `keploy-network` Docker network that the containers use:
+
+```bash
+docker network create keploy-network
+```
 
 Start the Postgres instance using the `docker-compose` file-
 
@@ -140,8 +146,10 @@ curl --location 'http://127.0.0.1:8000/user/'
 
 **3. Make a PUT request**
 
+Replace `<USER_ID>` here and in the next two requests with the `id` returned by the `GET /user/` call above.
+
 ```bash
-curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
+curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>/' \
 --header 'Content-Type: application/json' \
 --data-raw '    {
       "name": "Jane Smith",
@@ -154,13 +162,13 @@ curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
 **4. Make a GET request**
 
 ```bash
-curl --location 'http://127.0.0.1:8000/user/<USER_ID>'
+curl --location 'http://127.0.0.1:8000/user/<USER_ID>/'
 ```
 
 **5. Make a DELETE request**
 
 ```bash
- curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>'
+ curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>/'
 ```
 
 Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
@@ -360,8 +368,10 @@ curl --location 'http://127.0.0.1:8000/user/'
 
 **3. Make a PUT request**
 
+Replace `<USER_ID>` here and in the next two requests with the `id` returned by the `GET /user/` call above.
+
 ```bash
-curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
+curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>/' \
 --header 'Content-Type: application/json' \
 --data-raw '    {
       "name": "Jane Smith",
@@ -374,13 +384,13 @@ curl --location --request PUT 'http://127.0.0.1:8000/user/<USER_ID>' \
 **4. Make a GET request**
 
 ```bash
-curl --location 'http://127.0.0.1:8000/user/<USER_ID>'
+curl --location 'http://127.0.0.1:8000/user/<USER_ID>/'
 ```
 
 **5. Make a DELETE request**
 
 ```bash
- curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>'
+ curl --location --request DELETE 'http://127.0.0.1:8000/user/<USER_ID>/'
 ```
 
 Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.

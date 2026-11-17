@@ -73,6 +73,15 @@ git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
 
 ```
 
+### Prerequisites
+
+- Install the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+- Install the EF Core tool, using version 8 to match the project (the latest `dotnet-ef` does not work with the .NET 8 SDK):
+
+```bash
+dotnet tool install --global dotnet-ef --version "8.*"
+```
+
 ### start the database instance
 
 ```bash

@@ -206,7 +206,7 @@ Server is listening at PORT 3000
     API Docs: http://localhost:3000/api/docs
 ```
 
-The above command will start recording the API calls made to the application and will generate a test case in the `testcases/` directory.
+The above command will start recording the API calls made to the application and will generate a test case in the `keploy/` directory.
 
 > 💡 You can use Postman or any other API testing tool to test the API calls. Additionally, the application will run a swagger UI on `http://localhost:3000/api/docs` to visualize the API calls.
 
@@ -256,7 +256,7 @@ cp .env.example .env
 We will be using Docker compose to run the application as well as PostreSql on Docker container.
 
 Lights, Camera, Record! 🎥
-Fire up the application and mongoDB instance with Keploy. Keep an eye on the two key flags: -c: Command to run the app (e.g., docker compose up).
+Fire up the application and PostgreSQL instance with Keploy. Keep an eye on the two key flags: -c: Command to run the app (e.g., docker compose up).
 
 --container-name: The container name in the docker-compose.yml for traffic interception.
 
@@ -378,7 +378,7 @@ Using `curl`
 
 ```bash
 curl -X 'PUT' \
-  'http://localhost:3000/api/v1/task/update/2' \
+  'http://localhost:3000/api/v1/task/update/1' \
   -H 'accept: application/json' \
   -H 'Content-Type: application/json' \
   -d '{
@@ -424,18 +424,16 @@ Node.js v22.7.0
 
  <=========================================>
   COMPLETE TESTRUN SUMMARY.
-        Total tests: 7
-        Total test passed: 7
+        Total tests: 6
+        Total test passed: 6
         Total test failed: 0
         Total time taken: "5.66 s"
 
         Test Suite Name         Total Test      Passed          Failed          Time Taken
 
-        "test-set-0"            7               7               0               "5.66 s"
+        "test-set-0"            6               6               0               "5.66 s"
 <=========================================>
 
-🐰 Keploy: 2024-08-28T10:14:14+05:30    INFO    calculating coverage for the test run and inserting it into the report
-🐰 Keploy: 2024-08-28T10:14:14+05:30    INFO    [Total Coverage Percentage:  86.16%]
 🐰 Keploy: 2024-08-28T10:14:14+05:30    INFO    stopping Keploy {"reason": "replay completed successfully"}
 🐰 Keploy: 2024-08-28T10:14:14+05:30    INFO    proxy stopped...
 🐰 Keploy: 2024-08-28T10:14:17+05:30    INFO    eBPF resources released successfully...

@@ -271,6 +271,12 @@ mvn clean install -Dmaven.test.skip=true
 
 ### Capture the testcases 🎬
 
+The `docker-compose.yaml` of this sample attaches both services to an external `keploy-network`, so create it once before recording:
+
+```bash
+docker network create keploy-network
+```
+
 ```bash
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
@@ -320,6 +326,8 @@ or by querying through the browser `http://localhost:8080/api/employees/1`
 Now both these API calls were captured as **editable** testcases and written to `keploy/test` folder. The keploy
 directory would also have `mock.yml` file.
 
+Once both calls are recorded, stop the recording with `Ctrl+C` in the terminal running `keploy record`.
+
 Now, let's see the magic! 🪄💫
 
 ### Running the testcases using Keploy
@@ -333,6 +341,8 @@ Your CLI should look something like this
 
 This is a summary of the test cases recorded
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+
+Unlike the binary steps above, no extra noise configuration is needed for this Docker run; the `body.timestamp` noise step applies only to the binary instructions.
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
 `buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.

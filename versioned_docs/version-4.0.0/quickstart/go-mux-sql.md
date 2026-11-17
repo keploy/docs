@@ -72,7 +72,17 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-sql
 go mod download
 ```
 
+#### First things first, update the postgres host in main.go to postgres from localhost.
+
+The application runs in a container, where `localhost` does not reach the Postgres container. In `main.go`, change the host `"localhost"` to `"postgres"`.
+
 ### Lights, Camera, Record! 🎥
+
+The `docker-compose.yml` attaches both services to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
 
 Fire up the application and Postgres instance with Keploy. Keep an eye on the two key flags:
 `-c`: Command to run the app (e.g., `docker compose up`).

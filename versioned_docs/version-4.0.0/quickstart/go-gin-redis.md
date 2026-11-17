@@ -83,6 +83,8 @@ Start the Redis instance using the `docker-compose` file-
 docker compose up redis
 ```
 
+Since the application runs in a container, `localhost` would point to the container itself. In `helpers/redis/redisConnect.go`, change `Addr: "localhost:6379"` to `Addr: "myredis:6379"`.
+
 Now, we will create the docker image of our application:-
 
 ```bash
@@ -92,7 +94,7 @@ docker build -t gin-app:1.0 .
 ### Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 3001:3001 --network <networkName> --name ginRedisApp gin-app:1.0"
+keploy record -c "docker run -p 3001:3001 --network gin-redis_default --name ginRedisApp gin-app:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -249,7 +251,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 ```bash
-keploy test -c "docker run -p 3001:3001 --rm --network <networkName> --name ginRedisApp gin-app:1.0" --delay 10
+keploy test -c "docker run -p 3001:3001 --rm --network gin-redis_default --name ginRedisApp gin-app:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
