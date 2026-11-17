@@ -52,6 +52,7 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "developer/setup",
             "developer/record",
             "developer/auto-replay",
             "developer/manual-replay",

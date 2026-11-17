@@ -21,15 +21,16 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This section covers the everyday loop once the [Keploy proxy is installed in your cluster](/docs/quickstart/k8s-proxy/). Each page is short and links out to the detailed reference where one exists.
+This section takes you from connecting your cluster to keeping your tests healthy day to day. Each page is short and links out to the detailed reference where one exists.
 
 ## The loop
 
-1. **[Record](/docs/developer/record/)** live traffic on a deployment.
-2. **[Auto-replay](/docs/developer/auto-replay/)** runs while you record, so you see failures early.
-3. **[Manual replay](/docs/developer/manual-replay/)** runs your tests on demand and produces a **Test Report**.
-4. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: fix the code if your app regressed. Otherwise delete the test case or add noise on a branch, then commit, review and merge it.
-5. **[Noise configuration](/docs/developer/noise/)** lists every place you can tell Keploy which fields may change between runs.
+1. **[Set up](/docs/developer/setup/)**: connect your cluster by installing the Keploy proxy, and install the CLI. You do this once.
+2. **[Record](/docs/developer/record/)** live traffic on a deployment.
+3. **[Auto-replay](/docs/developer/auto-replay/)** runs while you record, so you see failures early.
+4. **[Manual replay](/docs/developer/manual-replay/)** runs your tests on demand and produces a **Test Report**.
+5. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: fix the code if your app regressed. Otherwise delete the test case or add noise on a branch, then commit, review and merge it.
+6. **[Noise configuration](/docs/developer/noise/)** lists every place you can tell Keploy which fields may change between runs.
 
 ## Key terms
 

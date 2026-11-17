@@ -62,7 +62,7 @@ Starting a recording restarts the selected pods so they come back up with captur
 | Advanced settings        | Record config | Collapsed | Agent memory and CPU, Low Latency Mode (sidecar clusters only), and which containers to capture.                                                                                                                                                          |
 
 :::note Capture mode is set at install time
-Whether a cluster records with a sidecar or with the DaemonSet is decided when the Keploy proxy is installed, not in this dialog. See [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architecture/).
+Whether a cluster records with a sidecar or with the DaemonSet is decided when you connect the cluster, not in this dialog. See [Choose a capture mode](/docs/developer/setup/#choose-a-capture-mode).
 :::
 
 If you save custom dedup fields on the **Schema** page, static deduplication stays on for that deployment even when you switch the toggle off.
@@ -96,5 +96,5 @@ If a test case has fields that change on every call, such as a timestamp, add th
 
 ## Related
 
-- [K8s Record Replay](/docs/quickstart/k8s-proxy/): install the proxy and record your first app.
+- [Set up](/docs/developer/setup/): connect your cluster and install the CLI.
 - [Kubernetes Proxy REST API](/docs/running-keploy/k8s-proxy-api/): start and stop recordings from a script.
