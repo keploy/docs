@@ -486,8 +486,10 @@ keploy login
 - `--no-wait` - Print the sign-in link and code and exit instead of waiting. Then run `keploy login --finish` to collect the session once you've approved it. Use this on a machine with no browser, or from a coding agent, whose shell shows a command's output only when it exits.
 - `--finish` - Collect the session for a sign-in that `keploy login --no-wait` started. It waits up to 70 seconds for your approval, and you can run it again until the code expires.
 - `--api-key string` - Use this Keploy API key for the command instead of `KEPLOY_API_KEY`. In CI, set `KEPLOY_API_KEY` from a secret instead of signing in.
+- `--k8s-proxy-url string` - For a self-hosted cluster: check the API key (from `--api-key` or `KEPLOY_API_KEY`, or asked for in a terminal) at this k8s-proxy, then save the key and the URL in `~/.keploy/cred.yaml`, readable by you only. Later commands then need neither `KEPLOY_API_KEY` nor `KEPLOY_K8S_PROXY_URL`. A key the proxy refuses saves nothing. See [Log in once on your own machine](/docs/keploy-cloud/cloud-replay/#log-in-once-on-your-own-machine).
+- `--show` - Print the API key (its last 4 characters only) and the k8s-proxy URL commands here use, and where each one comes from (a flag, an environment variable, `keploy.yml`, or the saved login), without signing in.
 
-`keploy logout` signs you out.
+`keploy logout` signs you out, and removes a saved self-hosted login (the API key and the k8s-proxy URL in `~/.keploy/cred.yaml`).
 
 ## [status](#status)
 
@@ -574,7 +576,7 @@ Keploy doesn't replace its own binary in these cases:
 - **Keploy Docker image:** pull a newer image.
 - **Homebrew, Nix, or Snap:** Keploy prints a warning and runs on the version you have. Update through the package manager.
 - **VS Code extension:** the extension installs and tracks its own binary. Keploy only prints a notice that a newer release is available.
-- **Self-hosted runs:** these runs reach only your k8s-proxy, so Keploy doesn't check for a release. A run is self-hosted when `--k8s-proxy-auth`, `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_AUTH`, `KEPLOY_K8S_PROXY_URL`, or `cloud.k8sProxyAuth` or `cloud.k8sProxyUrl` in `keploy.yml` turns the mode on.
+- **Self-hosted runs:** these runs reach only your k8s-proxy, so Keploy doesn't check for a release. A run is self-hosted when `--k8s-proxy-auth`, `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_AUTH`, `KEPLOY_K8S_PROXY_URL`, `cloud.k8sProxyAuth` or `cloud.k8sProxyUrl` in `keploy.yml`, or a login saved by `keploy login --k8s-proxy-url` turns the mode on.
 - **Builds from an organization's release channel:** a build published under `keploy.io/ent/dl/org/<organization>/` has a version with a suffix, such as `3.8.112-4f2a9c1d`. Keploy never replaces it with a public release, and `keploy update` leaves it alone too. Install new builds from the same channel.
 
 ## Related
