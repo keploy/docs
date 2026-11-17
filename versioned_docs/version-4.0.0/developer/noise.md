@@ -60,7 +60,7 @@ In the API and older configs, this setting is also called `schemaNoiseDetection`
 
 ## Strict mock noise
 
-**Strict mock noise** is a manual-replay setting in the **Replay** dialog. It is off by default and has no effect on auto-replay.
+**Strict mock noise** is a manual-replay setting in the **Replay** dialog. It is off by default and has no effect on auto-replay. In the API and older configs it is also called `schemaNoiseStrict`, the same setting as `mockNoiseStrict`.
 
 - **Off:** an outgoing call matches a mock by the shape of its JSON request body. Values are compared only on mocks that already have learned noise.
 - **On:** every changed request-body value must already be known noise, or the mock is rejected. If no mock is left, the call goes unserved and the test fails.
