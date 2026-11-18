@@ -360,7 +360,8 @@ The `record_config` block in `POST /record/start` is a UI-friendly subset of Kep
 | `low_latency_mode`      | `bool`                  | Sidecar mode: capture with eBPF, with no proxy in the application's path. Omit it to let the proxy choose: on where the cluster can run it, else the classic capture with the reason. `true` or `false` is kept as sent. See [Recording defaults](#recording-defaults). |
 | `debug`                 | `bool`                  | Start the injected agent with debug logs.                                                                                                                                                                                                                               |
 | `memory_limit`          | `string`                | Memory request in MiB, expressed as a positive integer string. The container limit is set to twice this value.                                                                                                                                                          |
-| `secret_protection`     | `object`                | Enable record-time secret detection/obfuscation with optional custom headers, body keys, URL params, and allow lists.                                                                                                                                                   |
+| `encryption_protection` | `object`                | Encrypt the secrets the recording detects with a key from the KMS (`enabled`), with optional custom headers, body keys, URL params and value patterns. See [Recording defaults](#recording-defaults).                                                                   |
+| `secret_protection`     | `object`                | Enable record-time secret detection/obfuscation with optional custom headers, body keys, URL params, and allow lists. See [Recording defaults](#recording-defaults).                                                                                                    |
 | `enable_smart_test_set` | `bool`                  | Fold this recording into the deployment's smart test set. Off when omitted. See [Recording defaults](#recording-defaults).                                                                                                                                              |
 
 Each `Filter` accepts:
@@ -376,12 +377,13 @@ Each `Filter` accepts:
 
 ### Recording defaults
 
-The proxy sets these defaults for a recording that leaves the field out, whether it was started from the Console or through this API. A value the request sends is kept as sent. The Console fills its form from the record config saved for the deployment, so a choice saved there is kept too; a saved config that has no `low_latency_mode` takes the default. The proxy marks the record config it saves with `defaults_version`, the version of these defaults it was saved under; in a config saved before them, a value the older Console sent by default is not a choice (see **Smart test set** below).
+The proxy sets these defaults for a recording that leaves the field out, whether it was started from the Console or through this API. A value the request sends is kept as sent. The Console fills its form from the record config saved for the deployment, so a choice saved there is kept too; a saved config that has no `low_latency_mode`, or no protection, takes the default. The proxy marks the record config it saves with `defaults_version`, the version of these defaults it was saved under; in a config saved before them, a value the older Console sent by default is not a choice (see **Smart test set** below).
 
-| Field                   | Default when omitted                             |
-| ----------------------- | ------------------------------------------------ |
-| `low_latency_mode`      | On (Sidecar mode), where the cluster can run it. |
-| `enable_smart_test_set` | Off: the recording is saved as plain test sets.  |
+| Field                                                          | Default when omitted                                                |
+| -------------------------------------------------------------- | ------------------------------------------------------------------- |
+| `low_latency_mode`                                             | On (Sidecar mode), where the cluster can run it.                    |
+| `enable_smart_test_set`                                        | Off: the recording is saved as plain test sets.                     |
+| `encryption_protection` and `secret_protection` (both omitted) | Secrets encrypted, where the proxy has a KMS; obfuscated otherwise. |
 
 **Low latency.** With `low_latency_mode` left out, the proxy records with low-latency capture when all of these hold, and the classic way otherwise:
 
@@ -411,6 +413,24 @@ An explicit `low_latency_mode: true` is kept where the cluster cannot run it: th
 **Smart test set.** With `enable_smart_test_set` left out, the recording is saved as plain test sets. A value the request sends is kept as sent. A deployment's saved record config turns it on only when it was saved under these defaults (it carries `defaults_version`): the Console used to preselect the smart test set and save it with every recording, so in an older saved config the value is not a choice, and the recording runs with it off. The older `auto_replay_config.enableSmartTestSet` is no longer read. Turn it on per deployment in the Console, or send `enable_smart_test_set: true`.
 
 The CLI sends the deployment's saved record config with `from_saved: true`, and the proxy reads that config, like the one an ATG sandbox reads, as a saved one. A CLI older than this release sends it unmarked, so the proxy reads it as the CLI's own choice and saves it back marked: one recording from an older CLI makes the old saved values (the old form's Smart Test Set on) the deployment's choice, and the Console, a new CLI and an ATG sandbox keep them from then on. Upgrade the CLI before the first CLI recording after this release, or turn Smart Test Set off again in the record form.
+
+**Secret protection.** With neither `encryption_protection` nor `secret_protection` in the request, the proxy encrypts the secrets the recording detects, with a key from a KMS: the platform's KMS on Keploy cloud, and on a self-hosted cluster the proxy's own KMS, which the Helm chart sets up unless it is installed with `--set encryption=false`. A default never fails a recording, and never leaves its secrets in clear text:
+
+- A self-hosted cluster without a KMS obfuscates the secrets instead, and says why in `encryption_reason`. Install the chart with encryption on to encrypt them.
+- A KMS that cannot give the key obfuscates the recording instead of failing it, and `encryption_reason` names the KMS's error. Start the recording again to retry.
+
+Sending either field is a choice, and it is kept: `secret_protection`, even `{"enabled": false}`, and `encryption_protection`, on or off. An explicit `encryption_protection: {"enabled": true}` that the KMS cannot give a key for fails the start with `502`.
+
+The `/record/start` answer, `/record/status` and `/record/active` say how the secrets are protected, in `encryption_status`:
+
+| `encryption_status`    | Meaning                                                                                                                             |
+| ---------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| `encrypted`            | Encrypted with the KMS's key.                                                                                                       |
+| `obfuscation`          | Obfuscated: asked for, or the default on a self-hosted cluster without a KMS, with `encryption_reason` saying so.                   |
+| `degraded_obfuscation` | Encryption was the default, but the KMS could not give the key, so the secrets are obfuscated; `encryption_reason` names the error. |
+| `off`                  | No secret protection, asked for.                                                                                                    |
+
+The Console saves an encryption off as `encryption_protection: {"enabled": false}`, so it stays a choice. A record config the Console saved before encryption became the default, with that form's own default (encryption off, obfuscation on, no custom rules), is read as no choice, since the form saved it for every recording that made none: the next recording is encrypted. Turn encryption off in the form to keep obfuscation.
 
 ### Auto-replay configuration
 
