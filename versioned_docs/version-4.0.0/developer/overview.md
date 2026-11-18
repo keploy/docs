@@ -21,6 +21,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 Keploy turns real traffic to your Kubernetes deployments into tests. It records each request your app receives as a test case, and each call your app makes to a database or another service as a mock. It then replays those test cases against your app, with the mocks standing in for its dependencies, to catch regressions.
 
 This guide covers the developer workflow, from connecting a cluster to keeping your tests up to date.

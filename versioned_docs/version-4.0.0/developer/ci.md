@@ -20,6 +20,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 Run `keploy cloud replay` in your CI pipeline to replay your recorded tests against every pull request. When a pull request changes your app's behavior on purpose, some tests fail as expected. Keploy then creates a Keploy branch for the pull request, where you delete those tests and get the deletion reviewed. When the pull request merges, Keploy merges the branch into main, so main's tests match the new behavior.
 
 ## Add Keploy to your pipeline

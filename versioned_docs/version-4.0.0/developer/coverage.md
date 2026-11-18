@@ -20,6 +20,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 Keploy measures how much of your API your recorded test cases cover, so you can see what is still untested and record it.
 
 ## Check schema coverage

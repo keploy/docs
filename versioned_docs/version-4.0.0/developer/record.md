@@ -19,6 +19,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 Keploy records live traffic on your deployment's pods. Each request your app receives becomes a test case, and each outgoing call your app makes, such as a database query or an HTTP call to another service, is saved as a mock.
 
 ## Start a recording

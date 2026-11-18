@@ -20,6 +20,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 When a replay fails, find out why before you change anything. If your app regressed, fix the code. If the test data is wrong or out of date, change it on a Keploy branch.
 
 Changes to test data, such as deleting or editing a test case, never go straight to main. As with a pull request, you make them on a branch, commit them, get them reviewed and merge them.

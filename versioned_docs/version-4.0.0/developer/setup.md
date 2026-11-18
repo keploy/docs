@@ -19,6 +19,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 To use Keploy on Kubernetes, install the Keploy proxy in your cluster and connect the cluster to Keploy. To replay tests on your machine or in CI, also install the Keploy CLI.
 
 If your cluster already shows **Connected** on the **Clusters** page, go to [Install the CLI](#install-the-cli).

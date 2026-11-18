@@ -18,6 +18,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 While a recording runs, Keploy replays newly captured test sets at a fixed interval, so failures show up without a separate run. Auto-replay is part of every recording. You configure it on the **Auto replay** step of the **Start Recording** dialog.
 
 ## Configure auto-replay

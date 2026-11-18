@@ -20,6 +20,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 A manual replay runs your recorded test cases whenever you choose, and Keploy answers every outgoing call from the recorded mocks. Each run produces a **Test Report**.
 
 ## Choose how to replay

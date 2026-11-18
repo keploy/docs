@@ -20,6 +20,8 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
+<div className="developer-doc" hidden />
+
 You can change the test cases and mocks that Keploy recorded from the **Recordings** page. For example, update an expected response after an intended change, fix a mock, or mark a field that changes on every run as noise.
 
 ## Before you start
