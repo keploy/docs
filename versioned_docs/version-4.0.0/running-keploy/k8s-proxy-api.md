@@ -285,12 +285,25 @@ RECORD_ID=$(curl -s -X POST "$PROXY/record/start" \
         { "path": "/health", "urlMethods": ["GET"] }
       ]
     }
-  }' | jq -r '.id')
+  }' | jq -r '.record_id')
 
 echo "Recording started: $RECORD_ID"
 ```
 
 On success the proxy registers the session before it touches the workload, ensures the mutating webhook configuration is present, copies the CA secret into the target namespace, creates the headless Service, and triggers a targeted restart of the selected pods so the agent is injected as they come back.
+
+This request leaves `low_latency_mode` and `enable_smart_test_set` out, so it gets their defaults: low-latency capture where the cluster can run it, and no smart test set (see [Recording defaults](#recording-defaults)). In Sidecar mode the answer says how the recording captures:
+
+```json
+{
+  "record": "started",
+  "record_id": "default-orders-api",
+  "namespace": "default",
+  "deployment": "orders-api",
+  "mode": "sidecar",
+  "low_latency_status": "on"
+}
+```
 
 ### 4. Stream session status
 
@@ -337,17 +350,18 @@ The proxy tears down the headless Service, unloads the agent on the next rollout
 
 The `record_config` block in `POST /record/start` is a UI-friendly subset of Keploy's `config.Record` struct and is persisted alongside the session so the UI can prefill it and so the exact inputs are auditable.
 
-| Field                 | Type                    | Description                                                                                                                                     |
-| --------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------- |
-| `filters`             | `Filter[]`              | Traffic patterns to filter during recording. Matches use AND semantics across fields.                                                           |
-| `client_key`          | `string`                | Optional client identifier propagated to downstream mock capture (useful for multi-tenant apps).                                                |
-| `enable_sampling`     | `uint`                  | If set to a positive value, sample 1-in-N matching requests. Omit or set `0` to use the proxy default.                                          |
-| `static_dedup`        | `bool`                  | Drop schema-identical traffic in the agent before it becomes a test case. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/). |
-| `custom_dedup_fields` | `EndpointDedupFields[]` | Add value-aware fingerprints for matching endpoints. Providing this also enables static dedup for the injected sidecar.                         |
-| `low_latency_mode`    | `bool`                  | Start the agent in low-latency mode.                                                                                                            |
-| `debug`               | `bool`                  | Start the injected agent with debug logs.                                                                                                       |
-| `memory_limit`        | `string`                | Memory request in MiB, expressed as a positive integer string. The container limit is set to twice this value.                                  |
-| `secret_protection`   | `object`                | Enable record-time secret detection/obfuscation with optional custom headers, body keys, URL params, and allow lists.                           |
+| Field                   | Type                    | Description                                                                                                                                                                                                                                                             |
+| ----------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `filters`               | `Filter[]`              | Traffic patterns to filter during recording. Matches use AND semantics across fields.                                                                                                                                                                                   |
+| `client_key`            | `string`                | Private key of the application's TLS client certificate, for upstream mTLS. Only the classic capture's proxy uses it.                                                                                                                                                   |
+| `enable_sampling`       | `uint`                  | If set to a positive value, sample 1-in-N matching requests. Omit or set `0` to use the proxy default.                                                                                                                                                                  |
+| `static_dedup`          | `bool`                  | Drop schema-identical traffic in the agent before it becomes a test case. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/).                                                                                                                         |
+| `custom_dedup_fields`   | `EndpointDedupFields[]` | Add value-aware fingerprints for matching endpoints. Providing this also enables static dedup for the injected sidecar.                                                                                                                                                 |
+| `low_latency_mode`      | `bool`                  | Sidecar mode: capture with eBPF, with no proxy in the application's path. Omit it to let the proxy choose: on where the cluster can run it, else the classic capture with the reason. `true` or `false` is kept as sent. See [Recording defaults](#recording-defaults). |
+| `debug`                 | `bool`                  | Start the injected agent with debug logs.                                                                                                                                                                                                                               |
+| `memory_limit`          | `string`                | Memory request in MiB, expressed as a positive integer string. The container limit is set to twice this value.                                                                                                                                                          |
+| `secret_protection`     | `object`                | Enable record-time secret detection/obfuscation with optional custom headers, body keys, URL params, and allow lists.                                                                                                                                                   |
+| `enable_smart_test_set` | `bool`                  | Fold this recording into the deployment's smart test set. Off when omitted. See [Recording defaults](#recording-defaults).                                                                                                                                              |
 
 Each `Filter` accepts:
 
@@ -359,6 +373,37 @@ Each `Filter` accepts:
 | `urlMethods`   | `string[]`          | HTTP methods (e.g. `["GET","POST"]`).   |
 | `headers`      | `map[string]string` | Header key/value pairs to match.        |
 | `filterPolicy` | `string`            | `exclude` (default) or `include`.       |
+
+### Recording defaults
+
+The proxy sets these defaults for a recording that leaves the field out, whether it was started from the Console or through this API. A value the request sends is kept as sent. The Console fills its form from the record config saved for the deployment, so a choice saved there is kept too; a saved config that has no `low_latency_mode` takes the default.
+
+| Field                   | Default when omitted                             |
+| ----------------------- | ------------------------------------------------ |
+| `low_latency_mode`      | On (Sidecar mode), where the cluster can run it. |
+| `enable_smart_test_set` | Off: the recording is saved as plain test sets.  |
+
+**Low latency.** With `low_latency_mode` left out, the proxy records with low-latency capture when all of these hold, and the classic way otherwise:
+
+- The request does not ask for the classic regular sidecar (`disable_native_sidecar`), and sets none of the options only the classic capture's proxy uses (`client_key`, `opportunistic_tls_intercept`, `capture_packets`).
+- `memory_limit` is at least `288` (MiB). Below that, the agent's capture ring buffer leaves it too little memory to record.
+- The API server runs Kubernetes 1.29 or later, which low latency needs to run the agent as a native sidecar, and the nodes the Pods can land on run Linux 6.4 or later on arm64 (5.10 on x86-64).
+- The namespace admits the Pod with low-latency capture injected. The proxy checks that with a server-side dry run of the Pod, so an OpenShift SecurityContextConstraint or a Pod Security level that refuses the agent's privileges leaves the recording on the classic capture. The dry run needs `create` on Pods in that namespace, which the Helm chart grants; without it, the default records the classic way.
+
+A default never fails a recording. The `/record/start` answer and `/record/status` say how the recording captures, in `low_latency_status`:
+
+| `low_latency_status` | Meaning                                                                                                      |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ |
+| `on`                 | Low-latency capture, asked for or chosen by default.                                                         |
+| `off`                | The classic capture, asked for with `low_latency_mode: false`.                                               |
+| `classic_fallback`   | No choice was made and low latency could not run; the classic capture, with `low_latency_reason` saying why. |
+| `daemonset`          | DaemonSet mode, whose capture is eBPF already; `low_latency_mode` does not apply there.                      |
+
+With low latency on and no container named (`container` or `containers` in the request), the capture covers every application container of the Pod: all but Keploy's agent and a service-mesh proxy (`istio-proxy`, `istio-init`, `linkerd-proxy`). Name containers to narrow it.
+
+An explicit `low_latency_mode: true` is kept where the cluster cannot run it: the recording runs as asked, and the answer's `low_latency_warning` names the reason. Leave the field out to let the proxy choose. A `low_latency_mode: true` request whose `memory_limit` is under the floor is refused.
+
+**Smart test set.** With `enable_smart_test_set` left out, the recording is saved as plain test sets. A deployment whose saved `auto_replay_config` still sets the older `enableSmartTestSet: true` keeps it on.
 
 ### Auto-replay configuration
 

@@ -245,7 +245,7 @@ If you want to use **DaemonSet mode** instead of the default Sidecar mode, appen
   --set daemonset.crds.install=true
 ```
 
-The DaemonSet's eBPF capture needs a node kernel of 5.10 or later on x86-64, and 6.4 or later on arm64. On arm64 nodes with an older kernel, use Sidecar mode without low-latency mode.
+The DaemonSet's eBPF capture needs a node kernel of 5.10 or later on x86-64, and 6.4 or later on arm64. On arm64 nodes with an older kernel, use Sidecar mode: a recording there runs the classic way unless it turns low-latency mode on.
 
 After install you should see a per-node `k8s-proxy-daemonset-*` Pod alongside the regular proxy Deployment:
 
@@ -298,6 +298,13 @@ Once the Keploy Proxy is installed, you can view the list of running pods in the
 You can start recording live traffic from any of your pods by clicking Start Recording. For this quickstart, the `apigateway` pod is used.
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/k8s-proxy/keploy_start_recording.png" alt="Sample Keploy K8s proxy" width="100%" style={{ borderRadius: '5px' }}/>
+
+The **Record config** step opens with these defaults, which you can change before you start:
+
+- **Low Latency Mode: on.** The agent captures with eBPF, with no proxy in your application's path. In a Pod with more than one container, it records every application container (all but Keploy's agent and a service-mesh proxy such as `istio-proxy` or `linkerd-proxy`); pick containers under **Target Containers** to narrow it. The toggle shows off, with the reason, when you set an option only the classic capture supports (a client key, opportunistic TLS intercept or packet capture). If the cluster cannot run low latency (Kubernetes older than 1.29, arm64 nodes on Linux older than 6.4, too little sidecar memory, or a namespace whose admission refuses the agent's privileges, such as an OpenShift SecurityContextConstraint), the recording runs the classic way and the Console says why when it starts.
+- **Smart test set: off.** The recording is saved as plain test sets.
+
+A choice you make is saved and fills the form for the deployment's next recording. The [Kubernetes Proxy API](/docs/running-keploy/k8s-proxy-api/#recording-defaults) gives the same defaults to recordings started through the API.
 
 ### 8. Keploy is ready to Capture Live Traffic
 

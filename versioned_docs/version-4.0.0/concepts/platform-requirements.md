@@ -35,7 +35,7 @@ Linux:
 
 Keploy runs natively on macOS (Apple Silicon / arm64) and Windows (x86‑64) — neither has eBPF, so it intercepts traffic in userspace on both, and neither needs `sudo` or Administrator. Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC calls too; calls to other services — PostgreSQL, Redis, Kafka, gRPC on Windows and the like — are captured only as raw bytes and usually don't replay, so for an app that runs in containers or depends on them, use Docker. Docker, Lima (macOS) and WSL (Windows) remain supported alternatives, and WSL is the route on Windows on ARM. Keploy doesn't support Intel Macs: every macOS route, Docker and Lima included, runs the native CLI on the Mac, which is Apple Silicon only.
 
-Low-latency recording (`keploy record --low-latency`, or a Kubernetes Sidecar with `low_latency_mode`) and the Kubernetes DaemonSet agent capture with eBPF hooks that arm64 kernels support only from 6.4 (x86-64 kernels from 5.10). On an older arm64 kernel, record without low latency, and use Sidecar mode without `low_latency_mode` in Kubernetes.
+Low-latency recording (`keploy record --low-latency`, or a Kubernetes Sidecar with `low_latency_mode`) and the Kubernetes DaemonSet agent capture with eBPF hooks that arm64 kernels support only from 6.4 (x86-64 kernels from 5.10). On an older arm64 kernel, record without low latency, and use Sidecar mode in Kubernetes: a recording that leaves `low_latency_mode` unset checks its nodes' kernels and records the classic way there.
 
 ## Podman
 
