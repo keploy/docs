@@ -34,8 +34,9 @@ This guide covers the developer workflow, from connecting a cluster to keeping y
 3. **[Check coverage](/docs/developer/coverage/)**: See which parts of your API your tests cover, and what to record next.
 4. **[Auto-replay](/docs/developer/auto-replay/)**: Replay newly captured test cases automatically while a recording runs.
 5. **[Manual replay](/docs/developer/manual-replay/)**: Replay test cases on demand and review the results in a Test Report.
-6. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: Fix the code when your app regressed, or update the test data on a branch and merge it into main.
-7. **[Noise configuration](/docs/developer/noise/)**: Tell Keploy which fields are expected to change between runs.
+6. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: Fix the code when your app regressed, or delete obsolete test cases on a branch and merge it into main.
+7. **[Edit test cases and mocks](/docs/developer/edit-test-data/)**: Change recorded test cases and mocks, and mark fields that change on every run as noise.
+8. **[Replay in CI](/docs/developer/ci/)**: Replay every pull request, and let Keploy manage a branch for the tests a pull request changes on purpose.
 
 ## Key terms
 
@@ -47,7 +48,7 @@ This guide covers the developer workflow, from connecting a cluster to keeping y
 | Smart test set | The app's long-lived, deduplicated set of recorded flows, used for regression testing.                                        |
 | Noise          | A field Keploy ignores when comparing, because its value changes on every run, such as a timestamp, an ID or a token.         |
 | Test Report    | The result of a manual replay: which test cases passed and failed, with a diff for each failure.                              |
-| Branch         | A place for test-data changes, such as deletes and noise, that reach main only after they are committed, reviewed and merged. |
+| Branch         | A place for test-data changes, such as deletes and edits, that reach main only after they are committed, reviewed and merged. |
 
 ## Permissions you need
 
@@ -61,6 +62,5 @@ If a button is disabled or you see a permission error, ask your admin for the ro
 
 ## Related
 
-- [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/): wire branches into your CI pipeline.
 - [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/): every `keploy cloud replay` flag.
 - [Kubernetes Proxy REST API](/docs/running-keploy/k8s-proxy-api/): drive recording and replay from scripts.

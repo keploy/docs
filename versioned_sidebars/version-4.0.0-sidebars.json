@@ -58,7 +58,8 @@
             "developer/auto-replay",
             "developer/manual-replay",
             "developer/fix-failing-tests",
-            "developer/noise"
+            "developer/edit-test-data",
+            "developer/ci"
           ]
         },
         "running-keploy/cli-commands",

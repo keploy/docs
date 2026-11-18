@@ -45,7 +45,7 @@ For how DaemonSet mode works, see [DaemonSet & Auto-Replay](/docs/running-keploy
 
 1. In the sidebar, open **Clusters** and click **Connect New Cluster**. The dialog shows a ready-to-use **Installation Command** with a generated cluster name and default settings.
 
-   ![Connect New Cluster dialog with the installation command](/img/developer/setup-connect-cluster.webp)
+![Connect New Cluster dialog with the installation command](/img/developer/setup-connect-cluster.webp)
 
 2. To change the defaults, open **Advanced settings**:
 
@@ -54,7 +54,7 @@ For how DaemonSet mode works, see [DaemonSet & Auto-Replay](/docs/running-keploy
    - **Deployment Type**: **SaaS** stores your test data in Keploy Cloud. **Self-hosted** keeps it in your cluster, and you also choose a **Metadata Backend** (MongoDB or MySQL).
    - **Enable DaemonSet mode**: select it to use DaemonSet mode.
 
-   ![Advanced settings in the Connect New Cluster dialog](/img/developer/setup-connect-advanced.webp)
+![Advanced settings in the Connect New Cluster dialog](/img/developer/setup-connect-advanced.webp)
 
 3. Click **Connect to Cluster**. Keploy registers the cluster, copies the installation command to your clipboard and opens the cluster's page.
 4. For DaemonSet mode only, allow privileged pods in the `keploy` namespace before you install:
@@ -109,7 +109,7 @@ The CLI replays tests on your machine, replays Keploy branches, and runs Keploy 
    keploy --version
    ```
 
-Replaying on your machine also requires Docker. For the replay command, see [Replay from the CLI](/docs/developer/manual-replay/#replay-from-the-cli). For Windows and other sign-in options, see [Install Keploy](/docs/server/install/#install) and [Sign in](/docs/server/install/#sign-in).
+Replaying on your machine also requires Docker. For the replay command, see [Replay on your machine](/docs/developer/manual-replay/#replay-on-your-machine). For Windows and other sign-in options, see [Install Keploy](/docs/server/install/#install) and [Sign in](/docs/server/install/#sign-in).
 
 ## Troubleshoot the connection
 

@@ -28,7 +28,7 @@ From the test cases you record, Keploy builds an OpenAPI schema of your API, wit
 
 1. Open **Recordings**, with your app selected. The **Schema Coverage** badge shows the percentage of schema fields, across all releases, that your test cases cover.
 
-   ![Recordings page with the Schema Coverage badge above the release tree](/img/developer/recordings-overview.webp)
+![Recordings page with the Schema Coverage badge above the release tree](/img/developer/recordings-overview.webp)
 
 2. Click the badge to open the **Test Coverage** page. It is also in the sidebar.
 3. Review the coverage:
@@ -38,7 +38,7 @@ From the test cases you record, Keploy builds an OpenAPI schema of your API, wit
    - The **tag** selector shows **all releases (union)** by default. Choose a release to see only its schema.
    - The **OpenAPI**, **GraphQL** and **gRPC** tabs switch between API types.
 
-   ![Test Coverage page showing the OpenAPI schema with coverage per field](/img/developer/coverage-schema-page.webp)
+![Test Coverage page showing the OpenAPI schema with coverage per field](/img/developer/coverage-schema-page.webp)
 
 To increase coverage, [record](/docs/developer/record/) traffic that reaches the **Uncovered** parts of the schema.
 

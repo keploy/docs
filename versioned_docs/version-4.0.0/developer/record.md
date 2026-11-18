@@ -30,19 +30,19 @@ Starting a recording restarts the pods you record, so that they come back up wit
 1. In the sidebar, open **Clusters** and click your cluster.
 2. On the **Deployments** tab, click **Record** on the deployment you want to capture.
 
-   ![Record button on a deployment row](/img/developer/record-deployments.webp)
+![Record button on a deployment row](/img/developer/record-deployments.webp)
 
 3. **Pods**: choose the **Number of pods to record** and, optionally, **Auto-stop after**. Click **Next**.
 
-   ![Pods step of the Start Recording dialog](/img/developer/record-step-pods.webp)
+![Pods step of the Start Recording dialog](/img/developer/record-step-pods.webp)
 
 4. **Record config**: add filters and choose how to deduplicate. Click **Next**.
 
-   ![Record config step with filters and deduplication](/img/developer/record-step-config.webp)
+![Record config step with filters and deduplication](/img/developer/record-step-config.webp)
 
 5. **Auto replay**: set how often Keploy replays what it captures. For details, see [Auto-replay](/docs/developer/auto-replay/). Click **Start Recording**.
 
-   ![Auto replay step of the Start Recording dialog](/img/developer/record-step-auto-replay.webp)
+![Auto replay step of the Start Recording dialog](/img/developer/record-step-auto-replay.webp)
 
 You can also open this dialog from the **Recordings** page with the **Record** button.
 
@@ -52,14 +52,27 @@ When the recording starts, the **Active recording** page opens. It shows the num
 
 ## Send traffic
 
-Keploy records only the requests your app actually receives. Use your app as you normally would: run your test suite or a load script, use the frontend, or call the API directly. For example:
+Keploy records the requests that reach the recorded pods. Use your app as you normally would: run your test suite or a load script, use the frontend, or call the API at its usual URL. Cover the endpoints and edge cases you want tests for. With static deduplication on, which is the default, each distinct request shape becomes one test case.
+
+If the app isn't reachable from your machine, for example because it has no external URL, open a tunnel to it.
+
+**With `kubectl port-forward`**, forward a local port to a recorded pod. The **Active recording** page lists the recorded pods under **Record pod status**.
 
 ```bash
-kubectl port-forward -n <namespace> svc/<service> 8080:<service-port>
+kubectl port-forward -n <namespace> pod/<recorded-pod> 8080:<container-port>
 curl http://localhost:8080/<endpoint>
 ```
 
-Cover the endpoints and edge cases you want tests for. With static deduplication on, which is the default, each distinct request shape becomes one test case.
+**With an SSH tunnel**, when only a jump host (bastion) can reach the app, forward a local port through the jump host. `<app-address>` is an address the jump host can reach, such as the app's internal load balancer, ingress or NodePort.
+
+```bash
+ssh -N -L 8080:<app-address>:<port> <user>@<jump-host>
+curl http://localhost:8080/<endpoint>
+```
+
+:::note Make sure requests reach a recorded pod
+A Service spreads requests across all of a deployment's pods. When you record fewer pods than the deployment runs, only the requests that reach a recorded pod are captured. `kubectl port-forward svc/<service>` connects to a single pod, which may not be a recorded one, so forward to `pod/<recorded-pod>` instead.
+:::
 
 ## Recording options
 
@@ -73,7 +86,7 @@ The dialog remembers the values you used last time for each deployment. The defa
 | Add filter               | Record config | None      | Includes or excludes requests by path, host, port, method or header. See [Recording filters](/docs/running-keploy/recording-filters/).                                                                                                                                                                        |
 | Static deduplication     | Record config | On        | Skips a request when one with the same method, path, header names, status and body structure was already captured. If you saved custom dedup fields on the **Schema** page, it stays on. See [Static Deduplication](/docs/keploy-cloud/static-deduplication/).                                                |
 | Dynamic deduplication    | Record config | Off       | Java apps only. During auto-replay, keeps one test case per unique code path and flags the rest as duplicates. Can't be combined with static deduplication. Also enables [code coverage](/docs/developer/coverage/#check-code-coverage-java). See [Dynamic Deduplication](/docs/keploy-cloud/deduplication/). |
-| Smart test set           | Record config | On        | Adds the recorded flows, deduplicated, to the app's smart test set, which is used for regression testing.                                                                                                                                                                                                     |
+| Smart test set           | Record config | On        | Adds the recorded flows, deduplicated, to the app's smart test set, which is used for regression testing. Shown only when **Enable Smart Tests** is turned on for your organization in **Settings**.                                                                                                          |
 | Advanced settings        | Record config | Collapsed | Agent memory and CPU, Low Latency Mode (sidecar clusters only), and the containers to capture.                                                                                                                                                                                                                |
 
 :::note Capture mode is set per cluster
@@ -97,7 +110,7 @@ If anything was captured since the last auto-replay round, Keploy runs a final r
 
 ![A recorded test case with its map, mocks and noise](/img/developer/recordings-test-case.webp)
 
-If a test case has fields that change on every call, such as a timestamp, add them on the **Noise** tab. See [Noise configuration](/docs/developer/noise/).
+If a test case has fields that change on every call, such as a timestamp, mark them as noise. To change a test case or its mocks, see [Edit test cases and mocks](/docs/developer/edit-test-data/).
 
 ## Troubleshoot recording
 
