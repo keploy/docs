@@ -140,7 +140,7 @@ On a machine you work from, save the login once instead of exporting `KEPLOY_API
 keploy login --k8s-proxy-url https://<k8s-proxy ingress host> --api-key kep_xxxxxxxx
 ```
 
-The CLI checks the key at that proxy and, only if the proxy accepts it, saves the key and the URL in `~/.keploy/cred.yaml` (`%USERPROFILE%\.keploy\cred.yaml` on Windows). Only you can read the file: it is mode `0600` on Linux and macOS, and has an owner-only ACL on Windows. A login the proxy refuses saves nothing. Without `--api-key` or `KEPLOY_API_KEY`, `keploy login` asks for the key when you run it in a terminal.
+The CLI checks the key at that proxy and, only if the proxy accepts it, saves the key and the URL in `~/.keploy/cred.yaml` (on Windows, `.keploy\cred.yaml` in your home folder: `%HOMEDRIVE%%HOMEPATH%`, or `%USERPROFILE%` when those are not set). Only you can read the file: it is mode `0600` on Linux and macOS, and has an owner-only ACL on Windows. A login the proxy refuses saves nothing. Without `--api-key`, `KEPLOY_API_KEY` or a saved key, `keploy login` asks for the key when you run it in a terminal, and does not show it as you type.
 
 Every later command on that machine finds both there, so `keploy cloud replay` and the other commands run with neither variable set. A saved login turns k8s-proxy-auth mode on for every command: pass `--k8s-proxy-auth=false` to leave it off for one run, or run `keploy logout` to remove the saved key and URL.
 
