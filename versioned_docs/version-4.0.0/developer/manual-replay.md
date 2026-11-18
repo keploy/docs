@@ -103,6 +103,8 @@ keploy cloud replay --app "<namespace>.<deployment>" --cluster "<cluster>"
 - To replay only some test sets, add `--test-sets`.
 - To replay a Keploy branch, add `--branch-name <branch>`.
 
+A recording made with encryption on keeps your app's config values sealed, and only a recent Keploy CLI can open them to start your app. An older CLI is refused before the replay starts, with a message that names the test sets, the minimum CLI release and the command that upgrades it, `keploy update`. Run it and replay again. Test sets recorded without encryption aren't affected.
+
 When the run ends, the CLI prints a link to its **Test Report**.
 
 ## Replay in the cluster from the CLI
