@@ -42,6 +42,26 @@
             }
           ]
         },
+        {
+          "type": "category",
+          "label": "Developer",
+          "link": {
+            "type": "doc",
+            "id": "developer/overview"
+          },
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            "developer/setup",
+            "developer/record",
+            "developer/coverage",
+            "developer/auto-replay",
+            "developer/manual-replay",
+            "developer/fix-failing-tests",
+            "developer/edit-test-data",
+            "developer/ci"
+          ]
+        },
         "running-keploy/cli-commands",
         "running-keploy/rename-testcases",
         "running-keploy/docker-tls",
