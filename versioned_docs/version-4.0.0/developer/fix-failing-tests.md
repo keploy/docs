@@ -2,7 +2,7 @@
 id: fix-failing-tests
 title: Fix failing tests
 sidebar_label: Fix failing tests
-description: Find out why a replayed test failed, delete an obsolete test case on a Keploy branch, then commit, review and merge the branch into main.
+description: Find out why a replayed test failed, delete or edit an obsolete test case on a Keploy branch, then commit, review and merge the branch into main.
 tags:
   - K8s
   - developer
@@ -48,9 +48,26 @@ Then decide what kind of failure it is:
 | --------------------------------------------------------------- | ------------------ | --------------------------------------------------------------------------------- |
 | The response changed in a way your users would notice           | Your app regressed | Fix the code and replay again. Keep the test case.                                |
 | Only a timestamp, ID or token differs                           | Noise              | [Mark the field as noise](/docs/developer/edit-test-data/#mark-a-field-as-noise). |
-| The endpoint or its behavior changed on purpose, or was removed | Obsolete test case | [Delete the test case](#delete-a-test-case).                                      |
+| The endpoint or its behavior changed on purpose, or was removed | Obsolete test case | [Delete or edit the test case](#delete-or-edit-a-test-case).                      |
 
 To have an AI coding assistant diagnose the failures, click **Copy prompt and triage this run** and paste the prompt into the assistant. It runs `keploy cloud triage`.
+
+## Delete or edit a test case
+
+When a test fails because the behavior changed on purpose, delete the test case or edit it to expect the new response. Deleting is recommended.
+
+**Delete the test case (recommended).** See [Delete a test case](#delete-a-test-case).
+
+- Pro: it's the quickest way. Select all the failed tests on the Test Report and delete them at once. From a terminal, `keploy cloud accept` deletes and commits them.
+- Pro: in a pull-request pipeline, Keploy keeps your deletion even if main changes the same test case before your pull request merges. See [Replay in CI](/docs/developer/ci/#when-main-changes-before-your-pull-request-merges).
+- Pro: it's easy to undo before the merge, with **Restore test case** on the branch page or `keploy cloud restore-test`.
+- Con: the request has no test until you record it again. After the change is deployed, record the app again to capture the new behavior.
+
+**Edit the test case.** See [Edit test cases and mocks](/docs/developer/edit-test-data/).
+
+- Pro: the test stays, so the request is still tested, with the new expected response.
+- Con: you edit each test case by hand on the **Recordings** page. The Test Report offers only delete.
+- Con: in a pull-request pipeline, an edit can conflict with main. If another pull request edits the same test case and merges first, the run fails until you choose a version, and if main deletes the test case, your edit is dropped. See [Replay in CI](/docs/developer/ci/#when-main-changes-before-your-pull-request-merges).
 
 ## Delete a test case
 

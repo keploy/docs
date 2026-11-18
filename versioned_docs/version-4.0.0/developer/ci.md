@@ -61,7 +61,12 @@ Keploy recognizes pull requests and pushes on GitHub Actions, GitLab CI, CircleC
 
 1. **Keploy replays main.** The run replays main's recorded tests against the pull request's code. If they pass, the run passes.
 2. **If tests fail, Keploy creates a branch.** The run creates a Keploy branch for the pull request, named after its git branch. If that name is taken, Keploy adds the pull request number, for example `feature-x-pr42`. The run then fails and prints the failed tests, the branch's name and link, and what to do next.
-3. **You decide what each failure is.** If a failure is a regression, fix the code and push. If it's an intended change, open the run's **Test Report** and delete the failed tests there. The deletes go straight to the pull request's branch. Then, on the branch's page, commit the deletes and request a review. See [Delete a test case](/docs/developer/fix-failing-tests/#delete-a-test-case). You can edit the tests instead of deleting them; see [Delete or edit a failing test](#delete-or-edit-a-failing-test).
+3. **You decide what each failure is.** If a failure is a regression, fix the code and push. If it's an intended change, delete the failed tests, which is recommended, or edit them. See [Delete or edit a test case](/docs/developer/fix-failing-tests/#delete-or-edit-a-test-case).
+
+   - **To delete:** open the run's **Test Report** and delete the failed tests there. The deletes go straight to the pull request's branch.
+   - **To edit:** on **Recordings**, select the pull request's branch in the branch picker and edit the tests there.
+
+   Then, on the branch's page, commit the changes and request a review.
 
 ![A failed test selected for delete in the Test Report](/img/developer/report-delete-selected.webp)
 
@@ -71,44 +76,6 @@ Keploy recognizes pull requests and pushes on GitHub Actions, GitLab CI, CircleC
 ![Branch page with review, conflict and commit checks](/img/developer/branch-demo-conversation.webp)
 
 To work through failures from a terminal instead of the dashboard, run the `keploy cloud triage` command that the failed run prints. It explains the failures one group at a time. Then `keploy cloud accept` deletes the tests you marked as intended on the pull request's branch, commits the deletion and, with `--reviewer`, requests a review.
-
-## Delete or edit a failing test
-
-A test that fails because of an intended change can be deleted or edited on the pull request's branch. Deleting is the recommended way.
-
-### Delete the test (recommended)
-
-Delete the failed tests from the run's **Test Report**, as in the steps above, or with `keploy cloud accept`.
-
-Pros:
-
-- It's the quickest way: the Test Report sends the deletes straight to the pull request's branch, and `keploy cloud accept` deletes and commits in one command.
-- You don't have to settle conflicts. If main changes the same test case before or after your pull request merges, Keploy keeps your deletion. This needs a user's API key in the pipeline; see [When main changes before your pull request merges](#when-main-changes-before-your-pull-request-merges).
-- It's easy to undo. `keploy cloud restore-test` brings back a test that the branch deleted by mistake, as a new commit.
-
-Cons:
-
-- The request has no test until you record it again. After the change is deployed, record the app again to capture the new behavior.
-
-### Edit the test
-
-Edit the test case to expect the new response, or mark the field that changed as noise:
-
-1. Open **Recordings** and, in the header's branch picker, select the pull request's branch.
-2. Edit the failed test cases. See [Edit test cases and mocks](/docs/developer/edit-test-data/).
-3. On the branch's page, commit the edits and request a review.
-
-The next run replays the branch with your edits. To check them before you push, replay the branch on your machine with `keploy cloud replay --branch-name "<branch>"`.
-
-Pros:
-
-- The test stays, so the request is still tested, with the new expected response.
-
-Cons:
-
-- Edits are made one test case at a time on the **Recordings** page. The Test Report offers only delete.
-- An edit can conflict with main. If another pull request edits the same test case and merges first, your next run fails until you choose a version. If main deletes the test case, your edit is dropped. See [When main changes before your pull request merges](#when-main-changes-before-your-pull-request-merges).
-- If main changes the test case after the branch's last update with main and your pull request then merges, main's version is kept and your edit is dropped. See [After the pull request merges](#after-the-pull-request-merges).
 
 ## When main changes before your pull request merges
 

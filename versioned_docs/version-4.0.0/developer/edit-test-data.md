@@ -30,6 +30,7 @@ Every change to test data is made on a Keploy branch. It reaches main only after
 
 - **On a branch:** select the branch in the header's branch picker before you make changes.
 - **On main:** when you make a change, the **Create a branch to continue** dialog opens. Enter a branch name and continue; Keploy makes the change on the new branch.
+- **For a pull request:** to change a test that failed in a pull-request pipeline, select the pull request's Keploy branch, which is named after its git branch. See [Replay in CI](/docs/developer/ci/).
 
 You need write access to the app's test data. For editing, the cluster's k8s-proxy should be v3.7.94 or newer; the edit dialogs warn when it is older, because an older k8s-proxy can drop recorded fields that the dialog doesn't show.
 
@@ -95,6 +96,8 @@ To delete the test cases that failed in a replay, it is often quicker to do it f
    ```
 
 2. Commit the changes, request a review, and merge the branch. See [Commit, review and merge](/docs/developer/fix-failing-tests/#commit-review-and-merge).
+
+A pull request's Keploy branch isn't merged by hand: commit the changes and get them approved, and the pipeline merges the branch after the pull request merges. See [Replay in CI](/docs/developer/ci/#after-the-pull-request-merges).
 
 ## Related
 
