@@ -19,50 +19,52 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-You need two things: the Keploy proxy running in your cluster, and the Keploy CLI on your machine if you want to replay locally or from CI. If your cluster already shows as **Connected** on the **Clusters** page, skip to [Install the CLI](#install-the-cli).
+To use Keploy on Kubernetes, install the Keploy proxy in your cluster and connect the cluster to Keploy. To replay tests on your machine or in CI, also install the Keploy CLI.
+
+If your cluster already shows **Connected** on the **Clusters** page, go to [Install the CLI](#install-the-cli).
 
 ## Before you start
 
 - `kubectl` and `helm` access to the cluster, with rights to create a namespace and install a Helm chart.
-- Permission to connect clusters in Keploy (`cluster:mint`). Ask your admin if **Connect New Cluster** is disabled.
+- Permission to connect clusters in Keploy (`cluster:mint`). If **Connect New Cluster** is disabled, ask your admin.
 - Linux nodes with kernel 5.10 or later.
 
 ## Choose a capture mode
 
-You pick this when you connect the cluster, not when you record.
+The capture mode is set when you connect the cluster, and it applies to every recording on that cluster.
 
 |                                    | Sidecar (default)                                           | DaemonSet                                                           |
 | ---------------------------------- | ----------------------------------------------------------- | ------------------------------------------------------------------- |
 | How it captures                    | Keploy injects an agent container into the pods it records. | A Keploy agent on each node captures traffic with eBPF. No sidecar. |
-| Pods restart when recording starts | Yes                                                         | Yes, once, so they come back up under capture                       |
+| Pods restart when recording starts | Yes                                                         | Yes, once, so that they come back up with capture attached          |
 | Namespace requirement              | None                                                        | The `keploy` namespace must allow privileged pods                   |
 
-See [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architecture/) for how DaemonSet mode works.
+For how DaemonSet mode works, see [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architecture/).
 
 ## Connect your cluster
 
-1. In the sidebar, open **Clusters** and click **Connect New Cluster**. The dialog already shows a ready **Installation Command**, with a generated cluster name and default settings.
+1. In the sidebar, open **Clusters** and click **Connect New Cluster**. The dialog shows a ready-to-use **Installation Command** with a generated cluster name and default settings.
 
    ![Connect New Cluster dialog with the installation command](/img/developer/setup-connect-cluster.webp)
 
-2. To change any of those, open **Advanced settings**:
+2. To change the defaults, open **Advanced settings**:
 
-   - **Cluster Name**: any name you'll recognise, for example `staging-us-east`. It updates the command above.
-   - **How should Keploy reach this cluster?**: **Keploy tunnel** needs no inbound access. Choose **Ingress URL** to expose the proxy at a URL, then enter it. Self-hosted clusters always need an ingress URL.
-   - **Deployment Type**: **SaaS** stores your test data in Keploy Cloud. **Self-hosted** keeps it in your cluster, and you also pick a **Metadata Backend** (MongoDB or MySQL).
-   - **Enable DaemonSet mode**: tick it for DaemonSet mode.
+   - **Cluster Name**: a name you'll recognize, for example `staging-us-east`. The installation command updates to match.
+   - **How should Keploy reach this cluster?**: **Keploy tunnel** needs no inbound access. **Ingress URL** exposes the proxy at a URL that you enter. Self-hosted clusters always use an ingress URL.
+   - **Deployment Type**: **SaaS** stores your test data in Keploy Cloud. **Self-hosted** keeps it in your cluster, and you also choose a **Metadata Backend** (MongoDB or MySQL).
+   - **Enable DaemonSet mode**: select it to use DaemonSet mode.
 
    ![Advanced settings in the Connect New Cluster dialog](/img/developer/setup-connect-advanced.webp)
 
-3. Click **Connect to Cluster**. Keploy copies the install command to your clipboard and opens the cluster's page.
-4. **DaemonSet mode only:** run the namespace command shown in the dialog first:
+3. Click **Connect to Cluster**. Keploy registers the cluster, copies the installation command to your clipboard and opens the cluster's page.
+4. For DaemonSet mode only, allow privileged pods in the `keploy` namespace before you install:
 
    ```bash
    kubectl create namespace keploy --dry-run=client -o yaml | kubectl apply -f -
    kubectl label namespace keploy pod-security.kubernetes.io/enforce=privileged --overwrite
    ```
 
-5. Run the copied command. It looks like this and contains your cluster's access key:
+5. Run the installation command. It contains your cluster's access key and looks like this:
 
    ```bash
    helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --version <version> \
@@ -72,23 +74,25 @@ See [DaemonSet & Auto-Replay](/docs/running-keploy/k8s-proxy-daemonset-architect
      ...
    ```
 
-Prefer to let an AI coding assistant do it? Copy the prompt under **Ask your agent to connect your cluster**. It installs Keploy and runs `keploy k8s setup` with the CLI's defaults. Use the Helm command when you need to choose the deployment type, capture mode or backend.
+:::tip Connect with an AI coding assistant
+Instead of running the Helm command yourself, copy the prompt under **Ask your agent to connect your cluster** into your AI coding assistant. It installs Keploy and runs `keploy k8s setup` with the CLI's default settings. Use the Helm command when you need to choose the deployment type, capture mode or metadata backend.
+:::
 
-## Check the install
+## Verify the installation
 
 ```bash
 kubectl get pods -n keploy
 ```
 
-All pods should reach `Running`. In DaemonSet mode, you also see one `k8s-proxy-daemonset-*` pod per node.
+Wait until every pod is `Running`. In DaemonSet mode, there is also one `k8s-proxy-daemonset-*` pod per node.
 
-Back on the **Clusters** page, your cluster shows **Connected**. Open it, and the **Deployments** tab lists your workloads. You're ready to [record](/docs/developer/record/).
+On the **Clusters** page, the cluster now shows **Connected**. Open it to see your workloads on the **Deployments** tab. You can now [record traffic](/docs/developer/record/).
 
 ## Install the CLI
 
-You need the CLI to replay on your machine, to replay a Keploy branch, and to run Keploy in CI.
+The CLI replays tests on your machine, replays Keploy branches, and runs Keploy in CI.
 
-1. Install it:
+1. Install the CLI:
 
    ```bash
    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
@@ -99,24 +103,24 @@ You need the CLI to replay on your machine, to replay a Keploy branch, and to ru
    - **On your machine:** run `keploy login` and approve the code in your browser.
    - **In CI:** create a key under **Settings** → **API Keys** and set it as `KEPLOY_API_KEY`.
 
-3. Check that it works:
+3. Verify the installation:
 
    ```bash
    keploy --version
    ```
 
-A local replay also needs Docker. See [Manual replay](/docs/developer/manual-replay/#replay-from-the-cli) for the replay command. On Windows, or for more sign-in options, see [Install Keploy](/docs/server/install/#install) and [Sign in](/docs/server/install/#sign-in).
+Replaying on your machine also requires Docker. For the replay command, see [Replay from the CLI](/docs/developer/manual-replay/#replay-from-the-cli). For Windows and other sign-in options, see [Install Keploy](/docs/server/install/#install) and [Sign in](/docs/server/install/#sign-in).
 
-## Fix common problems
+## Troubleshoot the connection
 
-| Problem                                     | What to do                                                                                                              |
-| ------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------- |
-| The cluster stays **Disconnected**          | Check `kubectl get pods -n keploy` and the logs of the `k8s-proxy` pod. With an ingress URL, check that it's reachable. |
-| DaemonSet pods are rejected by Pod Security | Run the namespace label command above, then reinstall.                                                                  |
-| **Connect New Cluster** is disabled         | You need the `cluster:mint` permission. Ask your admin.                                                                 |
+| Problem                                     | What to do                                                                                                                  |
+| ------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| The cluster stays **Disconnected**          | Run `kubectl get pods -n keploy` and check the logs of the `k8s-proxy` pod. With an ingress URL, check that it's reachable. |
+| DaemonSet pods are rejected by Pod Security | Run the namespace label command from step 4, then reinstall.                                                                |
+| **Connect New Cluster** is disabled         | You need the `cluster:mint` permission. Ask your admin.                                                                     |
 
 ## Related
 
-- [Kubernetes Setup](/docs/keploy-cloud/kubernetes/): a full walkthrough on a local kind cluster, SSH port forwarding and ingress with TLS.
+- [Kubernetes Setup](/docs/keploy-cloud/kubernetes/): a full walkthrough on a local kind cluster, with SSH port forwarding and ingress with TLS.
 - [K8s Record Replay](/docs/quickstart/k8s-proxy/): set up a sample app and record it end to end.
 - [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/): self-hosted targeting with `--k8s-proxy-url`, and every other flag.

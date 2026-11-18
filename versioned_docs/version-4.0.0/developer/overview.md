@@ -2,7 +2,7 @@
 id: overview
 title: Developer guide
 sidebar_label: Overview
-description: The day-to-day Keploy loop on Kubernetes, from recording live traffic and replaying it, to fixing failing tests on a branch and merging them into main.
+description: The Keploy developer workflow on Kubernetes, from connecting a cluster and recording live traffic to replaying it, fixing failing tests on a branch and merging the fix into main.
 tags:
   - K8s
   - developer
@@ -21,19 +21,21 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-This section takes you from connecting your cluster to keeping your tests healthy day to day. Each page is short and links out to the detailed reference where one exists.
+Keploy turns real traffic to your Kubernetes deployments into tests. It records each request your app receives as a test case, and each call your app makes to a database or another service as a mock. It then replays those test cases against your app, with the mocks standing in for its dependencies, to catch regressions.
+
+This guide covers the developer workflow, from connecting a cluster to keeping your tests up to date.
 
 ![Recordings page for an app recorded with Keploy](/img/developer/recordings-overview.webp)
 
-## The loop
+## Workflow
 
-1. **[Set up](/docs/developer/setup/)**: connect your cluster by installing the Keploy proxy, and install the CLI. You do this once.
-2. **[Record](/docs/developer/record/)** live traffic on a deployment.
-3. **[Check coverage](/docs/developer/coverage/)** to see how much of your API your tests reach and what to record next.
-4. **[Auto-replay](/docs/developer/auto-replay/)** runs while you record, so you see failures early.
-5. **[Manual replay](/docs/developer/manual-replay/)** runs your tests on demand and produces a **Test Report**.
-6. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: fix the code if your app regressed. Otherwise delete the test case or add noise on a branch, then commit, review and merge it.
-7. **[Noise configuration](/docs/developer/noise/)** lists every place you can tell Keploy which fields may change between runs.
+1. **[Set up](/docs/developer/setup/)**: Connect your cluster to Keploy and install the CLI. You do this once.
+2. **[Record](/docs/developer/record/)**: Capture live traffic on a deployment.
+3. **[Check coverage](/docs/developer/coverage/)**: See which parts of your API your tests cover, and what to record next.
+4. **[Auto-replay](/docs/developer/auto-replay/)**: Replay newly captured test cases automatically while a recording runs.
+5. **[Manual replay](/docs/developer/manual-replay/)**: Replay test cases on demand and review the results in a Test Report.
+6. **[Fix failing tests](/docs/developer/fix-failing-tests/)**: Fix the code when your app regressed, or update the test data on a branch and merge it into main.
+7. **[Noise configuration](/docs/developer/noise/)**: Tell Keploy which fields are expected to change between runs.
 
 ## Key terms
 
@@ -43,7 +45,7 @@ This section takes you from connecting your cluster to keeping your tests health
 | Mock           | One recorded outgoing call your app made, such as a database query or an HTTP call. During replay, Keploy answers from it.    |
 | Test set       | A group of test cases, with their mocks, from a recording. A recording produces one or more test sets.                        |
 | Smart test set | The app's long-lived, deduplicated set of recorded flows, used for regression testing.                                        |
-| Noise          | A field Keploy ignores when comparing, because its value changes on every run (timestamps, IDs, tokens).                      |
+| Noise          | A field Keploy ignores when comparing, because its value changes on every run, such as a timestamp, an ID or a token.         |
 | Test Report    | The result of a manual replay: which test cases passed and failed, with a diff for each failure.                              |
 | Branch         | A place for test-data changes, such as deletes and noise, that reach main only after they are committed, reviewed and merged. |
 
@@ -55,7 +57,7 @@ This section takes you from connecting your cluster to keeping your tests health
 | Replay                                     | `replay:start` on the cluster or the app                      | Admin, App Admin, Cluster Admin |
 | Change test data on a branch, and merge it | `branch:write` and `branch:merge` on the app                  | Admin, App Admin                |
 
-If a button is disabled or you get a permission error, ask your admin for the role you need.
+If a button is disabled or you see a permission error, ask your admin for the role you need.
 
 ## Related
 

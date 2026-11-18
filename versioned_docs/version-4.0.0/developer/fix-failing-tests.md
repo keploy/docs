@@ -2,7 +2,7 @@
 id: fix-failing-tests
 title: Fix failing tests
 sidebar_label: Fix failing tests
-description: Find out why a replayed test failed, delete obsolete test cases or add noise on a Keploy branch, then commit, review and merge the branch into main.
+description: Find out why a replayed test failed, delete an obsolete test case or add noise on a Keploy branch, then commit, review and merge the branch into main.
 tags:
   - K8s
   - developer
@@ -20,7 +20,9 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
 
-When a replay fails, first find out why. If your app regressed, fix the code. If the test data is wrong, change it on a **Keploy branch**: every change to test data, such as deleting a test case or adding noise, is made on a branch and reaches main only after it is committed, reviewed and merged, the same way a pull request works.
+When a replay fails, find out why before you change anything. If your app regressed, fix the code. If the test data is wrong or out of date, change it on a Keploy branch.
+
+Changes to test data, such as deleting a test case or adding noise, never go straight to main. As with a pull request, you make them on a branch, commit them, get them reviewed and merge them.
 
 ## Find out why a test failed
 
@@ -32,60 +34,64 @@ When a replay fails, first find out why. If your app regressed, fix the code. If
 
    ![Test Report with a failed test](/img/developer/report-failed.webp)
 
-3. Click the diff icon next to **Response** (**View response diff**) to compare **Expected** with **Actual** status, headers and body. Here the new build returns a different `service` value, and its `Content-Length` changed with it.
+3. Click the diff icon next to **Response** (**View response diff**) to compare the **Expected** and **Actual** status, headers and body. In this example, a new build returns a different `service` value, so its `Content-Length` changed too.
 
    ![Response Diff comparing expected and actual responses](/img/developer/report-diff.webp)
 
 4. Check the mock badge on the test. A note such as _N calls matched no mock_ means your app made an outgoing call that the recording doesn't cover.
 
-| What you see                                                 | Cause              | Fix                                                       |
-| ------------------------------------------------------------ | ------------------ | --------------------------------------------------------- |
-| The response really changed in a way your users would notice | Your app regressed | Fix the code and replay again. Leave the test case alone. |
-| Only a timestamp, ID or token differs                        | Noise              | [Add the field as noise](#add-noise-to-a-test-case).      |
-| The endpoint or behaviour changed on purpose, or was removed | Obsolete test case | [Delete the test case](#delete-a-test-case).              |
+Then decide what kind of failure it is:
 
-**Copy prompt and triage this run** copies a prompt for your AI coding assistant, which runs `keploy cloud triage` to diagnose the failures for you.
+| What you see                                                    | Cause              | What to do                                           |
+| --------------------------------------------------------------- | ------------------ | ---------------------------------------------------- |
+| The response changed in a way your users would notice           | Your app regressed | Fix the code and replay again. Keep the test case.   |
+| Only a timestamp, ID or token differs                           | Noise              | [Add the field as noise](#add-noise-to-a-test-case). |
+| The endpoint or its behavior changed on purpose, or was removed | Obsolete test case | [Delete the test case](#delete-a-test-case).         |
+
+To have an AI coding assistant diagnose the failures, click **Copy prompt and triage this run** and paste the prompt into the assistant. It runs `keploy cloud triage`.
 
 ## Delete a test case
 
-1. On the **Test Report**, tick the checkbox on each failed test case to remove. Only failed test cases have one.
+1. On the **Test Report**, select the checkbox of each failed test case you want to remove. Only failed test cases have a checkbox.
 2. In the bar that appears, click **Delete**.
 
    ![A failed test selected for delete, with the Delete bar](/img/developer/report-delete-selected.webp)
 
-3. Confirm with **Delete recording**. The dialog says the delete happens on a branch.
+3. Click **Delete recording** to confirm. The dialog explains that the delete happens on a branch.
 
    ![Delete recording confirmation](/img/developer/report-delete-confirm.webp)
 
-4. If you're on main, **Create a branch to continue** opens. Enter a branch name and click **Create Branch & Continue**.
+4. If you're on main, the **Create a branch to continue** dialog opens. Enter a branch name and click **Create Branch & Continue**.
 
    ![Create a branch to continue dialog](/img/developer/branch-gate-dialog.webp)
 
-Keploy makes the delete on the branch and switches you to it: _Deleted test case "…" on branch "…". Merge the branch to apply it to main._ Now [commit, review and merge](#commit-review-and-merge) the branch.
+Keploy deletes the test case on the branch and switches the dashboard to that branch. A message confirms it: _Deleted test case "…" on branch "…". Merge the branch to apply it to main._
 
-![Toast confirming the delete on the new branch](/img/developer/report-after-delete.webp)
+![Message confirming the delete on the new branch](/img/developer/report-after-delete.webp)
 
-- **A whole test set:** when every test case in a set failed in this run, the set's row shows **Delete test set**. Once merged, the set's test cases, mappings and mocks are removed from main.
+To apply the delete to main, [commit, review and merge](#commit-review-and-merge) the branch.
+
+- **Delete a whole test set:** when every test case in a set failed in the run, the set's row shows **Delete test set**. After the merge, the set's test cases, mappings and mocks are removed from main.
 - **Mocks:** deleting a single test case removes only the test case. Its mocks stay.
-- **Where the delete goes:** if you're already on a branch, it goes there. If the report came from a pull request that has a Keploy branch, it goes to that branch.
+- **Which branch:** if you're already on a branch, the delete goes there. If the report came from a pull request that has a Keploy branch, the delete goes to that branch.
 
 ## Add noise to a test case
 
-On the **Recordings** page, open the test case, then the **Noise** tab, and click **Add noise**. Like a delete, this goes to a branch. See [Noise configuration](/docs/developer/noise/) for the other places noise can be set.
+On the **Recordings** page, open the test case, select the **Noise** tab, and click **Add noise**. Like a delete, this change is made on a branch. For the other places you can set noise, see [Noise configuration](/docs/developer/noise/).
 
-## Use a branch
+## Work on a branch
 
-You usually don't create a branch yourself: **Create a branch to continue** appears whenever you change test data on main. To create one up front, open the branch picker in the header (it shows **main**), click **Create new branch**, enter a **Branch name** and click **Create Branch**.
+You rarely need to create a branch yourself: **Create a branch to continue** opens whenever you change test data on main. To create a branch in advance, open the branch picker in the header, which shows **main**, and click **Create new branch**. Enter a **Branch name** and click **Create Branch**.
 
 ![Branch picker with Create new branch](/img/developer/branch-picker.webp)
 
 ![Create Branch dialog](/img/developer/branch-create-dialog.webp)
 
-- A name can't be empty, contain spaces, or be 100 characters or longer. `main` and `master` are reserved.
-- Names are unique per app. A name used by another branch, including a merged or closed one, is refused.
-- Using your git branch name makes the two easy to match.
+- A branch name can't be empty, contain spaces, or be 100 characters or longer. `main` and `master` are reserved.
+- Branch names are unique per app. A name that another branch uses, including a merged or closed branch, is refused.
+- Naming the branch after your git branch makes the two easy to match.
 
-The dashboard's **Replay** always runs main. To replay your branch before merging, use the CLI:
+A replay from the dashboard always runs against main. To replay your branch before you merge it, use the CLI:
 
 ```bash
 keploy cloud replay --app "<namespace>.<deployment>" --branch-name "<branch>"
@@ -93,48 +99,54 @@ keploy cloud replay --app "<namespace>.<deployment>" --branch-name "<branch>"
 
 ## Commit, review and merge
 
-1. With the branch selected in the header, click **View changes**. The **Changes** tab lists every added, edited and deleted item.
-2. Click **Commit**, enter a **Commit message**, and confirm. Uncommitted changes can't be merged.
+1. With the branch selected in the header, click **View changes**. The branch page shows your uncommitted changes in a banner at the top. The **Changes** tab lists the committed changes compared with main.
+2. Click **Commit**, enter a **Commit message**, and confirm. Only committed changes can be merged.
 
    ![Commit dialog with a commit message](/img/developer/branch-commit-dialog.webp)
 
 3. Click **Request reviewers** and choose who should approve.
-4. The reviewer opens the same page and clicks **Approve**. A reviewer can't approve their own branch, except an Admin, who sees **Approve your own branch**.
+4. The reviewer opens the same page and clicks **Approve**. Reviewers can't approve their own branch, except an Admin, who sees **Approve your own branch**.
 5. When the checks show **Approved** and **No conflicts with main**, click **Merge branch to main**.
 
 ![Branch page with review, conflict and commit checks before merging](/img/developer/branch-demo-conversation.webp)
 
-You see _Merged &lt;branch&gt; to main_. Replays of main use the change from then on.
+A message confirms the merge: _Merged &lt;branch&gt; to main_. From then on, replays of main include the change.
 
-- **Committing after an approval** dismisses it, so the branch needs approving again.
-- **Conflicts:** if main changed the same item, click **Rebase on main**, or **Resolve** to choose how to resolve each conflicting item on the **Changes** tab.
-- **Skipping review:** an Admin can tick **Merge without the required approval.** and click **Merge to main, bypassing review**.
+- **New commits after approval:** a new commit dismisses existing approvals, so the branch needs approval again.
+- **Conflicts:** if main changed the same item, click **Rebase on main**, or click **Resolve** to choose how to resolve each conflicting item on the **Changes** tab.
+- **Skip review:** an Admin can select **Merge without the required approval.** and click **Merge to main, bypassing review**.
 
 ## Undo a change
 
-On the branch page (**View changes**):
+On the branch page, which you open with **View changes**:
 
 - **Before you commit:** click the discard icon on your uncommitted changes. This can't be undone.
 - **After you commit:** click **Restore test case** (or **Restore test set**) on the item, or revert the commit.
-- **Any time before merging:** click **Close Branch**. Main is unchanged.
+- **Any time before the merge:** click **Close Branch**. Main stays unchanged.
 
 After the merge, the change is part of main.
 
 ## Merge from CI
 
-Run these after your pull request merges:
+After your pull request merges, run:
 
 ```bash
 keploy cloud branch-commit --app "<namespace>.<deployment>" --branch "<branch>"
 keploy cloud branch-merge  --app "<namespace>.<deployment>" --branch "<branch>"
 ```
 
-In CI, `--branch` can be left out, because Keploy detects it from the CI environment. For a full GitHub Actions setup with the approval gate, see [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/#wiring-up-your-ci-pipeline).
+In CI, you can leave out `--branch`; Keploy detects it from the CI environment. For a complete GitHub Actions setup with the approval gate, see [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/#wiring-up-your-ci-pipeline).
 
-## Fix common problems
+## Troubleshoot deletes and merges
 
-| Message                                                  | What to do                                                                  |
-| -------------------------------------------------------- | --------------------------------------------------------------------------- |
-| Cannot delete: this recording is used by a sandbox test. | A sandbox test still uses this recording. Stop using it there, then retry.  |
-| Failed to delete test case(s) …                          | Check that you have permission to change test data on the app, then retry.  |
-| The merge button stays disabled                          | Read the checks above it: commit, get approval, or resolve conflicts first. |
+| Message or problem                                       | What to do                                                                         |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------- |
+| Cannot delete: this recording is used by a sandbox test. | A sandbox test still uses this recording. Stop using it there, then retry.         |
+| Failed to delete test case(s) …                          | Check that you have permission to change test data on the app, then retry.         |
+| **Merge branch to main** stays disabled                  | Read the checks above it: commit your changes, get approval, or resolve conflicts. |
+
+## Related
+
+- [Run a manual replay](/docs/developer/manual-replay/): replay test cases and open the Test Report.
+- [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/): gate pull requests on branch replays and merge branches from CI.
+- [Cloud Replay Command Reference](/docs/keploy-cloud/cloud-replay/#branch-overlay-selection): the branch flags of `keploy cloud replay`.
