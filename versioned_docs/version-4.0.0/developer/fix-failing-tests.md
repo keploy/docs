@@ -128,11 +128,23 @@ keploy cloud replay --app "<namespace>.<deployment>" --branch-name "<branch>"
 A message confirms the merge: _Merged &lt;branch&gt; to main_. From then on, replays of main include the change.
 
 - **New commits after approval:** a new commit dismisses existing approvals, so the branch needs approval again.
-- **Conflicts:** if main changed an item that the branch also changed, the item shows as a conflict. Click **Resolve**, choose **Keep main's version** or **Use branch's version** for each conflicting item on the **Changes** tab, and merge. The merge applies your choices. If main deleted the item's test set, the only choice is **Discard my change**.
-
-  ![A conflict on the Changes tab, with main's and the branch's versions side by side](/img/developer/branch-conflict-changes.webp)
-
+- **Conflicts:** if main changed an item that the branch also changed, the branch can't merge until you choose a version. See [Resolve conflicts with main](#resolve-conflicts-with-main).
 - **Skip review:** an Admin can select **Merge without the required approval.** and click **Merge to main, bypassing review**.
+
+### Resolve conflicts with main
+
+When main changed an item that the branch also changed, the branch page shows **Conflicts with main**, and **Merge branch to main** stays disabled.
+
+![Merge checks showing Conflicts with main, with Resolve and Rebase on main](/img/developer/branch-conflict-mergebox.webp)
+
+1. Click **Resolve**. The **Changes** tab opens and shows each conflicting item, with main's version beside the branch's.
+2. For each item, choose **Keep main's version** or **Use branch's version**. If main deleted the item's test set, the only choice is **Discard my change**.
+
+![A conflict on the Changes tab, with main's and the branch's versions side by side](/img/developer/branch-conflict-changes.webp)
+
+3. Merge the branch. The merge applies your choices.
+
+If a pull-request pipeline fails on the conflict, follow [Resolve a conflict](/docs/developer/ci/#resolve-a-conflict) in Replay in CI instead. Choices made here apply only when the branch merges, so they don't fix the run.
 
 ## Undo a change
 
