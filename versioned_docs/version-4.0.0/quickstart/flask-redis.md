@@ -80,7 +80,7 @@ We will be using Docker compose to run the application as well as Redis on Docke
 ### Lights, Camera, Record! 🎥
 
 :::note macOS
-Port `5000` is used by the AirPlay Receiver on macOS, so the app fails to start with `address already in use`. Turn it off under **System Settings → General → AirDrop & Handoff → AirPlay Receiver** before recording.
+Port `5000` is used by the AirPlay Receiver on macOS, so the app fails to start with `address already in use`. Turn it off under **System Settings → General → AirDrop & Continuity → AirPlay Receiver** before recording.
 :::
 
 The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once:
