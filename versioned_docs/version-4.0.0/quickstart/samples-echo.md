@@ -72,7 +72,7 @@ git clone https://github.com/keploy/samples-go.git && cd samples-go/echo-sql
 go mod download
 ```
 
-#### First things first, check the postgres host on line 47 in main.go. It is already set to `postgresDb`, the Postgres service name in `docker-compose.yml`, so no change is needed for Docker.
+#### First things first, check the postgres host on line 47 in main.go. It is already set to `postgresDb`, the container name (and network alias) of Postgres in `docker-compose.yml`, so no change is needed for Docker.
 
 We will be using Docker compose to run the application as well as Postgres
 
@@ -176,7 +176,7 @@ Using the docker-compose file we will start our Postgres instance:-
 docker-compose up postgres
 ```
 
-> **Since we are using docker to run the application, we need to update the `postgresDb` host on line 47 in `main.go`, update the host to `localhost`.**
+> **Since we are running the application natively, update the `postgresDb` host on line 47 in `main.go` to `localhost`.**
 
 Now, we will create the binary of our application:-
 
@@ -221,6 +221,8 @@ curl http://localhost:8082/Lhr4BWAi
 ```
 
 or by querying through the browser `http://localhost:8082/Lhr4BWAi`
+
+`Lhr4BWAi` is just an example short code; use the one returned in the `url` field of your own response.
 
 Now, let's see the magic! 🪄💫
 

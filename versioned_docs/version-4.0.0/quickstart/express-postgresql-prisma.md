@@ -253,7 +253,7 @@ npm install
 cp .env.example .env
 ```
 
-We will be using Docker compose to run the application as well as PostreSql on Docker container.
+We will be using Docker compose to run the application as well as PostgreSQL on Docker container.
 
 Lights, Camera, Record! 🎥
 Fire up the application and PostgreSQL instance with Keploy. Keep an eye on the two key flags: -c: Command to run the app (e.g., docker compose up).
@@ -439,7 +439,7 @@ Node.js v22.7.0
 🐰 Keploy: 2024-08-28T10:14:17+05:30    INFO    eBPF resources released successfully...
 ```
 
-Voila! 🎉 You have successfully tested the application using Keploy. Keploy also generates coverage reports for the test-suites.
+Voila! 🎉 You have successfully tested the application using Keploy.
 
 ## Related
 

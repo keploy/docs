@@ -69,7 +69,7 @@ This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/ins
 ### Clone a sample user authentication app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
+git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp/crud-app
 
 ```
 
@@ -80,6 +80,7 @@ git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
 
 ```bash
 dotnet tool install --global dotnet-ef --version "8.*"
+export PATH="$PATH:$HOME/.dotnet/tools"
 ```
 
 ### start the database instance
@@ -92,10 +93,9 @@ We'll be running our sample application right on Linux, but just to make things 
 
 ### 📼 Roll the Tape - Recording Time!
 
-We need to run the migration command before starting our application:
+The project already ships an `InitialMigration`, so we only need to apply it before starting our application:
 
 ```bash
-dotnet ef migrations add InitialMigration
 dotnet ef database update
 ```
 

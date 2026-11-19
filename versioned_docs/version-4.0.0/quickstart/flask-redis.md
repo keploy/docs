@@ -79,15 +79,21 @@ We will be using Docker compose to run the application as well as Redis on Docke
 
 ### Lights, Camera, Record! 🎥
 
+:::note macOS
+Port `5000` is used by the AirPlay Receiver on macOS, so the app fails to start with `address already in use`. Turn it off under **System Settings → General → AirDrop & Handoff → AirPlay Receiver** before recording.
+:::
+
+The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
+
 Capture the test-cases-
 
 ```shell
 keploy record -c "docker compose up" --container-name "flask-web" --build-delay 50
 ```
-
-:::note macOS
-Port `5000` is used by the AirPlay Receiver on macOS, so the app fails to start with `address already in use`. Turn it off under **System Settings → General → AirDrop & Handoff → AirPlay Receiver** before recording.
-:::
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
 

@@ -87,7 +87,8 @@ wsl ~
 ### Let's start the Postgres Instance
 
 ```zsh
-docker-compose up -d
+docker network create keploy-network
+docker compose up -d postgres
 ```
 
 ## Capture the testcases
@@ -193,7 +194,7 @@ Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in ste
 We will get
 
 ```
-User Content
+User Content.
 ```
 
 ## Running the testcases
@@ -369,7 +370,7 @@ Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in ste
 We will get
 
 ```
-User Content
+User Content.
 ```
 
 ## Running the testcases

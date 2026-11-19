@@ -71,11 +71,6 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ## Get Started! 🎬
 
-## Setup the Twilio Account 💬
-
-You can get your Twilio credentials by signing in to Twilio Console.
-Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
-
 ## Clone the Sample App 🧪
 
 ```bash
@@ -84,9 +79,18 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/fast
 
 We will be using Docker to run the application.
 
+## Setup the Twilio Account 💬
+
+You can get your Twilio credentials by signing in to Twilio Console.
+Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
+
 ### Lights, Camera, Record! 🎥
 
-Create the docker image of the app:
+Create the `keploy-network` Docker network and the docker image of the app:
+
+```bash
+docker network create keploy-network
+```
 
 ```bash
 docker build -t fastapi-twilio:1.0 .

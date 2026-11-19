@@ -83,7 +83,7 @@ mvn clean install -DskipTests=true
 docker compose up
 ```
 
-Note: `docker compose up` keeps running in the foreground, so run it in its own terminal (or add `-d`) and continue the next steps in another one. If the first run fails while the database is being initialised (for example with `ERROR 1064` from MariaDB), run `docker compose up` again. The issue should not occur the second time.
+Note: `docker compose up` keeps running in the foreground, so run it in its own terminal (or add `-d`) and continue the next steps in another one. If the first run fails while the database is being initialised (for example with `ERROR 1064` from MySQL), run `docker compose up` again. The issue should not occur the second time.
 
 ## Setup the Backend
 

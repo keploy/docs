@@ -86,7 +86,7 @@ docker network create keploy-network
 docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
 ```
 
-MySQL can take a while to start on its first run. Wait until `docker logs mysql` shows `ready for connections` before moving on.
+MySQL can take a while to start on its first run. Wait until `docker logs mysql` shows `ready for connections` with `port: 3306` (the earlier `port: 0` line is MySQL's temporary init server) before moving on.
 
 ### Capture the Testcases
 

@@ -90,6 +90,12 @@ Start the Postgres instance using the `docker-compose` file-
 docker compose up -d postgres
 ```
 
+The compose file does not join `keploy-network` or name the container `mypostgres` (the host `settings.py` uses below), so attach it with that alias:
+
+```bash
+docker network connect --alias mypostgres keploy-network $(docker compose ps -q postgres)
+```
+
 Change the database configuration in `django_postgres/settings.py` file to:
 
 ```python
@@ -109,6 +115,12 @@ Build the app image:
 
 ```bash
 docker build -t django-app:1.0 .
+```
+
+The Dockerfile only runs `runserver` and `sql/init.sql` creates no tables, so apply the migrations once:
+
+```bash
+docker run --rm --network keploy-network django-app:1.0 python manage.py migrate
 ```
 
 Capture the test-cases-

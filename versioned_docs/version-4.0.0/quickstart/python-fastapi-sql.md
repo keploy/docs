@@ -79,6 +79,12 @@ The app runs in a container, so it must reach Postgres by its compose service na
 
 ### Lights, Camera, Record! 🎥
 
+The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
+
 Capture the test-cases-
 
 ```shell

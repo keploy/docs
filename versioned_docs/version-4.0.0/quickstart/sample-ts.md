@@ -100,7 +100,7 @@ sudo -E env "PATH=$PATH" keploy record -c 'npx ts-node src/app.ts'
 
 `keploy record`: Invokes Keploy in recording mode.
 
-`-c 'npx ts-node src/app.ts`': Specifies the command to start your application (in this case, using `npx ts-node` to run the `ts-node` installed in the project's dev dependencies).
+`-c 'npx ts-node src/app.ts'`: Specifies the command to start your application (in this case, using `npx ts-node` to run the `ts-node` installed in the project's dev dependencies).
 
 `sudo -E env "PATH=$PATH"` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'npx ts-node src/app.ts'` here, and `keploy test` below, without it.
 
@@ -267,6 +267,12 @@ Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 We will be using Docker compose to run the application as well as GraphQL on Docker container.
 
 ### Capture the testcases
+
+The `docker-compose.yml` attaches the app to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
 
 We will run the keploy in record mode with docker-compose to start our application:-
 

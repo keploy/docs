@@ -153,7 +153,7 @@ keploy test -c "java -jar target/XML-0.0.1-SNAPSHOT.jar" --delay 10
 Review generated test reports in `keploy/reports`.
 
 :::note
-You may see a warning such as `Could not read the mock file ... mocks.yaml: no such file`. This is expected here: the app has no external dependencies, so no mocks are recorded.
+No `mocks.yaml` is created for this sample: the app makes no outbound calls (no database or external API), so there is nothing to mock. That is expected.
 :::
 
 ## Handling Failing Tests ⚠️
