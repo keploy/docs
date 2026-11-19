@@ -149,6 +149,8 @@ The first record with `--lock keploy.lock` creates `keploy.lock` beside
 `keploy.yml`. The recordings go to Keploy, and `keploy.lock` pins them by their
 SHA-256 hash, so every commit replays exactly the recordings it pins. Later
 records and replays find `keploy.lock` by themselves.
+[keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) says what the lock
+holds and how to publish a recording that a record kept.
 
 When the record ends, it says what it decided: `QUARANTINED` with the reason for
 each test it set aside, a `FIX` line for each kind of failure, `RUNS AGAIN` for a

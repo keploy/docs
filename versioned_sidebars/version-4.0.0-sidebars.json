@@ -275,6 +275,7 @@
           "collapsed": false,
           "items": [
             "universal-mocker/mock-your-tests",
+            "universal-mocker/guides/keploy-yml-and-lock",
             "running-keploy/utg-vscode-extension"
           ]
         }
