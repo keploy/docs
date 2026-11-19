@@ -260,7 +260,8 @@
       "items": [
         "running-keploy/ui-capture",
         "ui-capture/errors",
-        "ui-capture/refusals"
+        "ui-capture/refusals",
+        "ui-capture/capture-sdk-3-1-0-release-notes"
       ]
     },
     {
