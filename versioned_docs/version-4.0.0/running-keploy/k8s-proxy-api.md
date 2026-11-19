@@ -410,7 +410,7 @@ An explicit `low_latency_mode: true` is kept where the cluster cannot run it: th
 
 **Smart test set.** With `enable_smart_test_set` left out, the recording is saved as plain test sets. A value the request sends is kept as sent. A deployment's saved record config turns it on only when it was saved under these defaults (it carries `defaults_version`): the Console used to preselect the smart test set and save it with every recording, so in an older saved config the value is not a choice, and the recording runs with it off. The older `auto_replay_config.enableSmartTestSet` is no longer read. Turn it on per deployment in the Console, or send `enable_smart_test_set: true`.
 
-The CLI sends the deployment's saved record config with `from_saved: true`, and the proxy reads that config, like the one an ATG sandbox reads, as a saved one. A CLI older than this release sends it unmarked, so its recordings keep the saved value; upgrade the CLI.
+The CLI sends the deployment's saved record config with `from_saved: true`, and the proxy reads that config, like the one an ATG sandbox reads, as a saved one. A CLI older than this release sends it unmarked, so the proxy reads it as the CLI's own choice and saves it back marked: one recording from an older CLI makes the old saved values (the old form's Smart Test Set on) the deployment's choice, and the Console, a new CLI and an ATG sandbox keep them from then on. Upgrade the CLI before the first CLI recording after this release, or turn Smart Test Set off again in the record form.
 
 ### Auto-replay configuration
 
