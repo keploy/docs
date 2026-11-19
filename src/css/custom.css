@@ -3281,3 +3281,11 @@ html[data-theme="dark"] .docs-inline-footer__slack {
     font-size: 0.95rem;
   }
 }
+
+/* Developer section: screenshots sit closer to the text around them. The pages
+   carry a hidden <div className="developer-doc" /> marker, so other docs keep
+   the default image spacing. */
+.theme-doc-markdown:has(.developer-doc) p > img {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
