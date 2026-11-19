@@ -330,6 +330,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
             },
+            {
+              label: "UI Testing",
+              to: "/running-keploy/ui-capture",
+            },
           ],
         },
         {
