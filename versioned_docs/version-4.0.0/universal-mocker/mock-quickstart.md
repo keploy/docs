@@ -426,6 +426,8 @@ folder when you no longer need it.
 
 - [Go quickstart](./quickstarts/go.md): a sample with PostgreSQL and an HTTP
   API, and a check of each test on its own.
+- [Node.js quickstart](./quickstarts/jest.md): the same loop with Jest and
+  `fetch`.
 - [Run the replay in CI, and share recordings with your team](./mock-your-tests.md#proven-ci).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
