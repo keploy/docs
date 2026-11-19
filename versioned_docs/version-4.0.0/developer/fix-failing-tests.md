@@ -54,9 +54,9 @@ To have an AI coding assistant diagnose the failures, click **Copy prompt and tr
 
 ## Delete or edit a test case
 
-When a test fails because the behavior changed on purpose, delete the test case or edit it to expect the new response. Deleting is recommended.
+When a test fails because the behavior changed on purpose, delete the test case or edit it to expect the new response. Deleting is simpler and faster.
 
-|                                                | Delete (recommended)                                                                                                                                                      | Edit                                                                                                                                                                                     |
+|                                                | Delete (simpler)                                                                                                                                                          | Edit                                                                                                                                                                                     |
 | ---------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **How**                                        | Select the failed tests on the Test Report and [delete them](#delete-a-test-case) together. From a terminal, `keploy cloud accept` deletes them and commits the deletion. | [Edit each test case](/docs/developer/edit-test-data/#edit-a-test-case) by hand on **Recordings**. You can't edit from the Test Report.                                                  |
 | **Coverage**                                   | The request has no test until you record the app again after the change is deployed.                                                                                      | The request stays tested, now against the new response.                                                                                                                                  |
@@ -64,7 +64,7 @@ When a test fails because the behavior changed on purpose, delete the test case 
 | **Another pull request changes the same test** | Keploy keeps your deletion.                                                                                                                                               | If the other pull request edited it too, the run fails until you [choose a version](/docs/developer/ci/#resolve-a-conflict). If the other pull request deleted it, your edit is dropped. |
 | **Undo before the merge**                      | Click **Restore test case** on the branch page, or run `keploy cloud restore-test`.                                                                                       | Discard the change before you commit it. After you commit it, revert the commit, which also undoes the commits after it.                                                                 |
 
-### Delete the test case (recommended)
+### Delete the test case (simpler)
 
 See [Delete a test case](#delete-a-test-case).
 
