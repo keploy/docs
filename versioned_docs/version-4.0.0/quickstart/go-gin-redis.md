@@ -250,6 +250,10 @@ Want to see if everything works as expected?
 
 Time to put things to the test 🧪
 
+:::note
+The OTP changes on every request, so mark it as noise before replaying. Add `body.otp` under `assertions.noise` in the recorded OTP test (the `GET` test in `keploy/test-set-0/tests/`).
+:::
+
 ```bash
 keploy test -c "docker run -p 3001:3001 --rm --network gin-redis_default --name ginRedisApp gin-app:1.0" --delay 10
 ```
@@ -462,6 +466,10 @@ Want to see if everything works as expected?
 ### Run Tests
 
 Time to put things to the test 🧪
+
+:::note
+The OTP changes on every request, so mark it as noise before replaying. Add `body.otp` under `assertions.noise` in the recorded OTP test (the `GET` test in `keploy/test-set-0/tests/`).
+:::
 
 ```shell
 sudo -E env PATH="$PATH" keploy test -c "./gin-redis" --delay 10
