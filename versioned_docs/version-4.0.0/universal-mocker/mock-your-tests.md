@@ -102,8 +102,7 @@ with no real dependency behind it.
 - **Linux, or macOS on Apple silicon.** On Linux, Keploy's agent runs as root, so
   Keploy starts it with `sudo` unless you run Keploy as root. Where nobody can
   type a password, such as a CI runner, that `sudo` must work without one, as it
-  does on GitHub-hosted runners. macOS needs no `sudo`. On Windows,
-  `KEPLOY_PROVEN=1` doesn't run yet: run the commands above without it.
+  does on GitHub-hosted runners. macOS needs no `sudo`. Native Windows support is coming.
 - **A test command Keploy runs directly.** In this release, Keploy refuses a
   Docker command or `--from-container` under the switch, and says so.
 - **The integration for your test framework.** Each test tells Keploy where it
@@ -514,19 +513,21 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | Platform                  | How to run                                                                                                                          |
 | ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                  |
-| **Windows** (x86-64)      | Native — same command, without `KEPLOY_PROVEN=1`. Userspace interception, so no Administrator.                                      |
+| **Windows**               | Coming soon.                                                                                                                        |
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
-Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB
-calls, and on macOS gRPC calls too; calls to other services — PostgreSQL, Redis,
-Kafka, gRPC on Windows and the like — are captured only as raw bytes and usually
+Natively on macOS, Keploy 3.9.3 understands HTTP/HTTPS (HTTP/2 included), gRPC,
+PostgreSQL, MySQL, MongoDB, Amazon DynamoDB and Aerospike calls; calls to other
+services — Redis, Kafka and the like — are captured only as raw bytes and usually
 don't replay. If your tests depend on one of those, run them in a container (as
-above) or on Linux/WSL. On macOS, also
+above) or on Linux. The
+[dependency table](./overview.md#check-what-it-supports) lists each one. On
+macOS, also
 start the test runner itself rather than through a launcher such as `npm test` or
 a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one),
 not Apple's `/usr/bin/python3` — see
 [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
-Keploy doesn't support Intel Macs. On Windows on ARM, use WSL.
+Keploy doesn't support Intel Macs.
 
 ## Refresh in CI
 

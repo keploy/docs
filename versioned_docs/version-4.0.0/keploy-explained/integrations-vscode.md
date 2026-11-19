@@ -16,7 +16,7 @@ keywords:
 
 # IDE integrations — VS Code
 
-Keploy's VS Code extension, **Keploy: API & DB Mocks**, sets up the [`keploy mock`](/docs/running-keploy/mock-your-tests/) loop through the coding agent you already use. Keploy records the real calls your tests make to APIs and databases, then replays your tests with those dependencies switched off. The extension installs the Keploy CLI for you, signs you in, installs Keploy's skill for your project, and hands the setup to Claude Code, GitHub Copilot or Cursor's agent. It then shows what the CLI reports about each test, and stages the setup's files for you to commit.
+Keploy's VS Code extension, **Keploy: API & DB Mocks**, sets up the [`keploy mock`](/docs/universal-mocker/mock-your-tests/) loop through the coding agent you already use. Keploy records the real calls your tests make to APIs and databases, then replays your tests with those dependencies switched off. The extension installs the Keploy CLI for you, signs you in, installs Keploy's skill for your project, and hands the setup to Claude Code, GitHub Copilot or Cursor's agent. It then shows what the CLI reports about each test, and stages the setup's files for you to commit.
 
 Install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), then follow the [VS Code extension guide](/docs/running-keploy/utg-vscode-extension/).
 
@@ -29,7 +29,7 @@ If you need Keploy in JetBrains, Neovim, or another editor, [tell our team](mail
 ## Related
 
 - [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) — install, sign in, set up with your agent, and troubleshoot.
-- [Mock your tests](/docs/running-keploy/mock-your-tests/) — the `keploy mock` commands your agent runs.
+- [Mock your tests](/docs/universal-mocker/mock-your-tests/) — the `keploy mock` commands your agent runs.
 - [SCM Integrations — PR Agent](/docs/keploy-explained/integrations-pr-agent/) — the pull-request integration.
 - [Keploy Troubleshooting Guide](/docs/keploy-explained/common-errors/) — fix common setup issues.
 - [What is Keploy?](/docs/keploy-explained/introduction/) — project overview.
