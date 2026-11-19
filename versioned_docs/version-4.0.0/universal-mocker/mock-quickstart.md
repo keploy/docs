@@ -430,6 +430,8 @@ folder when you no longer need it.
   `fetch`.
 - [Java quickstart](./quickstarts/java.md): the same loop with JUnit 5 and
   Maven.
+- [Docker Compose quickstart](./quickstarts/docker-compose.md): the same loop
+  with PostgreSQL and Redis started by Docker Compose.
 - [Run the replay in CI, and share recordings with your team](./mock-your-tests.md#proven-ci).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
