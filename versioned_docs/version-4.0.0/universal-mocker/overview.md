@@ -134,6 +134,8 @@ coding agent. Then you record, replay and review from the editor.
   calls, with no Keploy account.
 - [Java quickstart](./quickstarts/java.md): run JUnit tests with `mvn test`
   without the API they call, with no Keploy account.
+- [Playwright quickstart](./quickstarts/playwright.md): run a Playwright
+  end-to-end suite without the API your web app calls, with no Keploy account.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to

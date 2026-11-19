@@ -461,6 +461,8 @@ Step 5 stopped the users API, so nothing is left running. Delete the
 
 - [Python quickstart](../mock-quickstart.md): the same loop with `pytest`,
   and `--on-miss record` to add a new call.
+- [Playwright quickstart](./playwright.md): the same loop with an
+  end-to-end suite that drives your web app in a browser.
 - [Java quickstart](./java.md): the same loop with JUnit 5 and Maven.
 - [Go quickstart](./go.md): a sample with PostgreSQL and an HTTP API, and a
   check of each test on its own.
