@@ -262,7 +262,10 @@
           "label": "Quickstarts",
           "collapsible": true,
           "collapsed": false,
-          "items": ["universal-mocker/mock-quickstart"]
+          "items": [
+            "universal-mocker/quickstarts/go",
+            "universal-mocker/mock-quickstart"
+          ]
         },
         {
           "type": "category",

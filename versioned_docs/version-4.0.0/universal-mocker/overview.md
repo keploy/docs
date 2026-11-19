@@ -117,8 +117,10 @@ coding agent. Then you record, replay and review from the editor.
 
 ## Next steps
 
+- [Go quickstart](./quickstarts/go.md): run `go test` without PostgreSQL or an
+  HTTP API, then check each test on its own.
 - [Mock your tests in 2 minutes](./mock-quickstart.md): a copy-paste walkthrough
-  with a sample app.
+  with a Python sample app.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
 - [Mock Registry](./mock-registry.md): keep mocks in Keploy Cloud instead of
