@@ -376,7 +376,7 @@ Each `Filter` accepts:
 
 ### Recording defaults
 
-The proxy sets these defaults for a recording that leaves the field out, whether it was started from the Console or through this API. A value the request sends is kept as sent. The Console fills its form from the record config saved for the deployment, so a choice saved there is kept too; a saved config that has no `low_latency_mode` takes the default.
+The proxy sets these defaults for a recording that leaves the field out, whether it was started from the Console or through this API. A value the request sends is kept as sent. The Console fills its form from the record config saved for the deployment, so a choice saved there is kept too; a saved config that has no `low_latency_mode` takes the default. The proxy marks the record config it saves with `defaults_version`, the version of these defaults it was saved under; in a config saved before them, a value the older Console sent by default is not a choice (see **Smart test set** below).
 
 | Field                   | Default when omitted                             |
 | ----------------------- | ------------------------------------------------ |
@@ -404,11 +404,13 @@ With low latency on and no container named (`container` or `containers` in the r
 
 **The agent's Pod read.** Only where the agent reads its Pod, the proxy creates a Role named `keploy-agent-podread` (`get`, `list` and `watch` on Pods) and a RoleBinding `keploy-agent-podread-<account>` of it to the Pod's ServiceAccount, in the application's namespace. Both carry `app.kubernetes.io/managed-by: keploy`, one `pod-read.keploy.io/<deployment>` label per recording that uses them, and the ServiceAccount they bind. When the last of those recordings ends, or a `/record/start` that made them fails before its recording starts, the proxy removes them. In Sidecar mode the proxy also removes, when it starts, those left by recordings that ended while no proxy ran; DaemonSet mode makes no such grant, so it skips that sweep. The Helm chart grants the proxy `create` and `list` on Roles and RoleBindings, `get`, `update` and `delete` on RoleBindings, and `get`, `update` and `delete` on the Role named `keploy-agent-podread` only. With an older chart that grants only `create`, the grant is made but not removed, and the proxy says so when it starts.
 
-**ATG sandboxes.** An ATG sandbox records in a Pod the proxy builds itself, outside the injection webhook, with the classic capture. Its `low_latency_status` is `classic_fallback`, with `low_latency_reason` saying why, unless its saved record config sets `low_latency_mode: false` (`off`) or it runs in DaemonSet mode (`daemonset`). Its smart test set follows the same rule as any recording's: off unless its saved record config turns it on.
+**ATG sandboxes.** An ATG sandbox records in a Pod the proxy builds itself, outside the injection webhook, with the classic capture. Its `low_latency_status` is `classic_fallback`, with `low_latency_reason` saying why, unless its saved record config sets `low_latency_mode: false` (`off`) or it runs in DaemonSet mode (`daemonset`). Its smart test set follows the same rule as any recording's: off unless its saved record config, saved under these defaults, turns it on.
 
 An explicit `low_latency_mode: true` is kept where the cluster cannot run it: the recording runs as asked, and the answer's `low_latency_warning` names the reason. Leave the field out to let the proxy choose. A `low_latency_mode: true` request whose `memory_limit` is under the floor is refused.
 
-**Smart test set.** With `enable_smart_test_set` left out, the recording is saved as plain test sets. A deployment whose saved `auto_replay_config` still sets the older `enableSmartTestSet: true` keeps it on.
+**Smart test set.** With `enable_smart_test_set` left out, the recording is saved as plain test sets. A value the request sends is kept as sent. A deployment's saved record config turns it on only when it was saved under these defaults (it carries `defaults_version`): the Console used to preselect the smart test set and save it with every recording, so in an older saved config the value is not a choice, and the recording runs with it off. The older `auto_replay_config.enableSmartTestSet` is no longer read. Turn it on per deployment in the Console, or send `enable_smart_test_set: true`.
+
+The CLI sends the deployment's saved record config with `from_saved: true`, and the proxy reads that config, like the one an ATG sandbox reads, as a saved one. A CLI older than this release sends it unmarked, so its recordings keep the saved value; upgrade the CLI.
 
 ### Auto-replay configuration
 
