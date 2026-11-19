@@ -419,7 +419,7 @@ The CLI sends the deployment's saved record config with `from_saved: true`, and 
 - A self-hosted cluster without a KMS obfuscates the secrets instead, and says why in `encryption_reason`. Install the chart with encryption on to encrypt them.
 - A KMS that cannot give the key obfuscates the recording instead of failing it, and `encryption_reason` names the KMS's error. Start the recording again to retry.
 
-Sending either field is a choice, and it is kept: `secret_protection`, even `{"enabled": false}`, and `encryption_protection`, on or off. An explicit `encryption_protection: {"enabled": true}` that the KMS cannot give a key for fails the start with `502`.
+A protection the request chooses is kept: `encryption_protection`, on or off, and a `secret_protection` that is off (`{"enabled": false}`) or carries custom headers, body keys, URL params or allow lists. A `secret_protection: {"enabled": true}` with no rules and no `encryption_protection` is read as no choice and gets the default: it is what an older proxy saved for every recording that made none, and the CLI sends the saved record config as it is. To choose obfuscation, send `encryption_protection: {"enabled": false}` with it. An explicit `encryption_protection: {"enabled": true}` that the KMS cannot give a key for fails the start with `502`.
 
 The `/record/start` answer, `/record/status` and `/record/active` say how the secrets are protected, in `encryption_status`:
 
@@ -430,7 +430,7 @@ The `/record/start` answer, `/record/status` and `/record/active` say how the se
 | `degraded_obfuscation` | Encryption was the default, but the KMS could not give the key, so the secrets are obfuscated; `encryption_reason` names the error. |
 | `off`                  | No secret protection, asked for.                                                                                                    |
 
-The Console saves an encryption off as `encryption_protection: {"enabled": false}`, so it stays a choice. A record config the Console saved before encryption became the default, with that form's own default (encryption off, obfuscation on, no custom rules), is read as no choice, since the form saved it for every recording that made none: the next recording is encrypted. Turn encryption off in the form to keep obfuscation.
+The Console saves an encryption off as `encryption_protection: {"enabled": false}`, so it stays a choice. Two saved record configs from before encryption became the default are read as no choice, since each was saved for every recording that made none: the record form's own default (encryption off saved as `{}`, obfuscation on, no custom rules), and an older proxy's (obfuscation on alone, with no `encryption_protection`). So an app whose protection was never set by hand records encrypted next time, whoever starts the recording: the Console, the CLI (`keploy k8s record start`), this API, MCP or an ATG sandbox. Turn encryption off in the form to keep obfuscation. A recording the proxy restarts itself keeps the protection it started with.
 
 ### Auto-replay configuration
 
