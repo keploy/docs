@@ -15,7 +15,7 @@
 //   refused verb's entry links its section there:
 //   https://keploy.io/docs/ui-capture/refusals#<verb>.
 // - The SDK's README links pages. When a page a published version links to
-//   moves, a client redirect in docusaurus.config.js keeps the old URL
+//   moves, a client redirect in src/redirects.js keeps the old URL
 //   working; it must lead to a page that exists here, anchor included.
 //
 // When the SDK or the tools gain a code, a refused verb or a README link,
