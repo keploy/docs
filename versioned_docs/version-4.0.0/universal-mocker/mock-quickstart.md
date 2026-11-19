@@ -2,7 +2,7 @@
 id: mock-quickstart
 title: "Get Started: Mock Your Tests in 2 Minutes"
 sidebar_label: Mock Quickstart
-description: A copy-paste walkthrough with a sample app — record the dependency calls its tests make, then replay them offline. Shows the real terminal output at each step.
+description: A walkthrough with a sample app — record the dependency calls its tests make, then replay them offline. Its terminal output is from an earlier Keploy release; the page is being updated for Keploy 3.9.3.
 tags:
   - mocks
   - quickstart
@@ -19,8 +19,9 @@ keywords:
 
 This is a hands-on walkthrough of [`keploy mock`](./mock-your-tests.md) with a
 small sample app. You'll test an app that calls an external API, record the
-API's responses, then run the same tests with the API **switched off**. Every
-command shows the **real output** you should see — nothing is faked.
+API's responses, then run the same tests with the API **switched off**. The
+terminal output on this page is from an earlier Keploy release. Keploy 3.9.3
+prints some lines differently, and this page is being updated for it.
 
 ## Prerequisites
 

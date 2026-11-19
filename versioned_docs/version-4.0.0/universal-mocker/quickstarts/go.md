@@ -551,7 +551,9 @@ git status --short
 `keploy/default/` holds the recording (`mocks.yaml`), which recorded calls
 belong to each test (`mappings.yaml`), each test's result from the judging
 rounds (`verdicts.yaml`), the record command (`last-record.yaml`) and a
-`README.md`. Commit them all.
+`README.md`. Commit them all. The other files in `keploy/default/`, such as
+`last-replay.yaml`, are run files from this machine's last record and replay:
+`keploy/.gitignore` keeps them out of git.
 
 Keploy also writes `.keploy-run/`, with the logs of each run. Its own
 `.gitignore` keeps it out of git.
