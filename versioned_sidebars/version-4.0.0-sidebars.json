@@ -266,7 +266,8 @@
           "items": [
             "universal-mocker/quickstarts/go",
             "universal-mocker/mock-quickstart",
-            "universal-mocker/quickstarts/jest"
+            "universal-mocker/quickstarts/jest",
+            "universal-mocker/quickstarts/java"
           ]
         },
         {

@@ -428,6 +428,8 @@ folder when you no longer need it.
   API, and a check of each test on its own.
 - [Node.js quickstart](./quickstarts/jest.md): the same loop with Jest and
   `fetch`.
+- [Java quickstart](./quickstarts/java.md): the same loop with JUnit 5 and
+  Maven.
 - [Run the replay in CI, and share recordings with your team](./mock-your-tests.md#proven-ci).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.

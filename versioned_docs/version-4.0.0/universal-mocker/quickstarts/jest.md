@@ -461,6 +461,7 @@ Step 5 stopped the users API, so nothing is left running. Delete the
 
 - [Python quickstart](../mock-quickstart.md): the same loop with `pytest`,
   and `--on-miss record` to add a new call.
+- [Java quickstart](./java.md): the same loop with JUnit 5 and Maven.
 - [Go quickstart](./go.md): a sample with PostgreSQL and an HTTP API, and a
   check of each test on its own.
 - [Run the replay in CI, and share recordings with your team](../mock-your-tests.md#proven-ci).
