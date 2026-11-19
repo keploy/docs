@@ -45,7 +45,7 @@ There are two ways to create one.
 
 **Option A—From the dashboard.** Open your app → **Branches** → **Create branch** and enter a name (use your git branch name).
 
-<img src={useBaseUrl('/img/k8s-proxy-create-branch.png')} alt="Create a Keploy branch from the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
+<img src={useBaseUrl('/img/k8s-proxy-create-branch.webp')} alt="Create a Keploy branch from the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
 
 **Option B—From the MCP server / REST API.** When you're driving Keploy from an IDE agent (Claude Code, Cursor, Windsurf), the agent calls the `create_branch` MCP tool. The same operation is also exposed as a plain REST endpoint for scripts and other automation.
 
@@ -79,7 +79,7 @@ There are three ways to add or edit test data on the branch. Pick whichever matc
 
 **From the dashboard UI:** open the **Recordings** page, switch to your branch in the branch selector, and use the **+** menu to add a mock or edit an existing test case inline. Edits flow through the same branch overlay.
 
-<img src={useBaseUrl('/img/k8s-proxy-dashboard-edit.png')} alt="Edit mocks and test cases from the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
+<img src={useBaseUrl('/img/k8s-proxy-dashboard-edit.webp')} alt="Edit mocks and test cases from the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
 
 **From the CLI (for whole test sets):** if you just recorded a new flow with `keploy record` on your laptop, upload the resulting `keploy/test-set-N/` directory as a single bundle:
 
@@ -165,7 +165,7 @@ A reviewer (typically the same person reviewing the code PR) opens the URL the C
 
 After confirming the changes look right, the reviewer clicks **Approve**. The branch's status flips to `approved`, the gate stops blocking, and the next CI run on that PR turns green without any other change.
 
-<img src={useBaseUrl('/img/k8s-proxy-branch-diff-approval.png')} alt="Branch diff and approval flow in the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
+<img src={useBaseUrl('/img/k8s-proxy-branch-diff-approval.webp')} alt="Branch diff and approval flow in the dashboard" width="100%" style={{ borderRadius: '5px' }}/>
 
 ### 3. Merge the branch on PR merge
 
