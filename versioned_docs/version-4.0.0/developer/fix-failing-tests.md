@@ -129,6 +129,9 @@ A message confirms the merge: _Merged &lt;branch&gt; to main_. From then on, rep
 
 - **New commits after approval:** a new commit dismisses existing approvals, so the branch needs approval again.
 - **Conflicts:** if main changed an item that the branch also changed, the item shows as a conflict. Click **Resolve**, choose **Keep main's version** or **Use branch's version** for each conflicting item on the **Changes** tab, and merge. The merge applies your choices. If main deleted the item's test set, the only choice is **Discard my change**.
+
+  ![A conflict on the Changes tab, with main's and the branch's versions side by side](/img/developer/branch-conflict-changes.webp)
+
 - **Skip review:** an Admin can select **Merge without the required approval.** and click **Merge to main, bypassing review**.
 
 ## Undo a change

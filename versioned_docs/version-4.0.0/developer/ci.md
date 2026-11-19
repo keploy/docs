@@ -118,7 +118,10 @@ When both sides edited a test case, choose which version the branch keeps, on th
 **On the branch's page:**
 
 1. On **Recordings**, select the pull request's branch in the branch picker and edit the test case into the version the branch should keep. To keep both changes, add the other pull request's change to yours. The conflict on the branch's page shows main's version beside the branch's.
-2. Click **View changes**. Your uncommitted edit shows as a conflict. Choose **Keep my changes**: Keploy puts your edit on top of main's latest version. **Discard my changes** takes main's version instead, and throws your edit away.
+2. Click **View changes**, then **Review it** on the banner about your uncommitted change. Your edit shows as a conflict. Choose **Keep my changes** to put your edit on top of main's latest version, or **Discard my changes** to throw your edit away and take main's version. The choice applies at once and can't be undone.
+
+![An uncommitted edit that conflicts with main, with Keep my changes and Discard my changes](/img/developer/branch-conflict-uncommitted.webp)
+
 3. Click **Commit**.
 
 Don't settle it with the choices on the **Changes** tab, **Keep main's version** and **Use branch's version**. Those apply only when the branch merges into main. The run's update of the branch doesn't read them, so the run keeps failing.
