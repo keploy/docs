@@ -138,4 +138,4 @@ To build natively instead, download the same `go_freeze_time_<arch>` helper, run
 
 - [Dynamic Deduplication](/docs/keploy-cloud/deduplication/) — related test-stability feature.
 - [Static Deduplication](/docs/keploy-cloud/static-deduplication/) — dedupe recorded tests.
-- [Mock Registry](/docs/keploy-cloud/mock-registry/) — manage the mocks time-freezing relies on.
+- [Mock Registry](/docs/universal-mocker/mock-registry/) — manage the mocks time-freezing relies on.

@@ -68,14 +68,9 @@
         "running-keploy/configuration-file",
         "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
-        "running-keploy/mock-quickstart",
-
-        "running-keploy/mock-your-tests",
-        "running-keploy/utg-vscode-extension",
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
-        "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication",
@@ -250,6 +245,35 @@
           "type": "doc",
           "label": "FAQs",
           "id": "keploy-explained/api-testing-faq"
+        }
+      ]
+    },
+    {
+      "type": "category",
+      "label": "Universal Mocker",
+      "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "universal-mocker/overview"
+      },
+      "items": [
+        {
+          "type": "category",
+          "label": "Quickstarts",
+          "collapsible": true,
+          "collapsed": false,
+          "items": ["universal-mocker/mock-quickstart"]
+        },
+        {
+          "type": "category",
+          "label": "Guides",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "universal-mocker/mock-your-tests",
+            "running-keploy/utg-vscode-extension",
+            "universal-mocker/mock-registry"
+          ]
         }
       ]
     },

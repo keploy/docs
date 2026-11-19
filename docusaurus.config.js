@@ -225,6 +225,19 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
             from: "/ui-capture/install-sdk/",
             to: "/running-keploy/ui-capture/#install-the-sdk",
           },
+          // Pages that moved into the Universal Mocker section.
+          {
+            from: "/running-keploy/mock-quickstart/",
+            to: "/universal-mocker/mock-quickstart/",
+          },
+          {
+            from: "/running-keploy/mock-your-tests/",
+            to: "/universal-mocker/mock-your-tests/",
+          },
+          {
+            from: "/keploy-cloud/mock-registry/",
+            to: "/universal-mocker/mock-registry/",
+          },
         ],
       },
     ],
@@ -329,6 +342,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
             {
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
+            },
+            {
+              label: "Universal Mocker (Service Virtualization)",
+              to: "/universal-mocker/overview",
             },
             {
               label: "UI Testing",
