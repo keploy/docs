@@ -61,7 +61,7 @@ Keploy recognizes pull requests and pushes on GitHub Actions, GitLab CI, CircleC
 
 1. **Keploy replays main.** The run replays main's recorded tests against the pull request's code. If they pass, the run passes.
 2. **If tests fail, Keploy creates a branch.** The run creates a Keploy branch for the pull request, named after its git branch. If that name is taken, Keploy adds the pull request number, for example `feature-x-pr42`. The run then fails and prints the failed tests, the branch's name and link, and what to do next.
-3. **You decide what each failure is.** If a failure is a regression, fix the code and push. If it's an intended change, delete or edit the failed tests. Deleting is recommended. See [Delete or edit a test case](/docs/developer/fix-failing-tests/#delete-or-edit-a-test-case).
+3. **You decide what each failure is.** If a failure is a regression, fix the code and push. If it's an intended change, delete or edit the failed tests. Deleting is simpler and faster. See [Delete or edit a test case](/docs/developer/fix-failing-tests/#delete-or-edit-a-test-case).
 
    - **To delete:** open the run's **Test Report** and delete the failed tests there. The deletions go straight to the pull request's branch.
    - **To edit:** on **Recordings**, select the pull request's branch in the branch picker and edit the tests there.
