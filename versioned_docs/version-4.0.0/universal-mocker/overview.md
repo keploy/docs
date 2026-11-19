@@ -128,8 +128,8 @@ coding agent. Then you record, replay and review from the editor.
 
 - [Go quickstart](./quickstarts/go.md): run `go test` without PostgreSQL or an
   HTTP API, then check each test on its own.
-- [Mock your tests in 2 minutes](./mock-quickstart.md): a walkthrough with a
-  Python sample app.
+- [Python quickstart](./mock-quickstart.md): run `pytest` without the API it
+  calls, with no Keploy account.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
