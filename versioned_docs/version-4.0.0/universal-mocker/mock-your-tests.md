@@ -34,6 +34,12 @@ The recorded mocks act as virtual services for your dependencies, which makes th
 - `keploy mock replay -c "<your test command>"` runs your tests again with those
   calls served from the mock set, so the real dependencies can be **offline**.
 
+:::note Redis must be running with the open-source Keploy
+
+The open-source `keploy` (for example, installed with `--oss`) neither records nor mocks Redis: it passes your tests' Redis calls through to the real Redis server in `keploy mock record` and in `keploy mock replay`, so any Redis server your tests use must be running and reachable during the replay too. [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which the [install script](/docs/server/installation/) installs by default, records and mocks Redis. A free account is enough to record and replay with it; free-tier runs are subject to a usage allowance. See [Redis Support](/docs/dependencies/redis/).
+
+:::
+
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
 Using VS Code? The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
@@ -48,7 +54,8 @@ explains the messages it shows.
 # 1. Record the dependency calls your tests make (real dependencies must be up)
 keploy mock record -c "pytest"
 
-# 2. Replay — the dependencies can now be down; your tests run against the mocks
+# 2. Replay — your tests run against the mocks, so the dependencies can now be
+#    down (with the open-source keploy, Redis must stay up)
 keploy mock replay -c "pytest"
 ```
 
@@ -411,8 +418,11 @@ there and refuses a second. There is no integration for other frameworks: their
 test process makes the calls by hand. It claims the run
 (`POST {KEPLOY_MOCK_AGENT}/agent/instance` with `{"key": "<package folder>"}`,
 the folder relative to the project) before its first test, then sends
-each test's begin with `"canSkip": true`, skips the test when the begin answers
-`"action": "skip"`, and sends its end, never with `pid`, `at`, `dir` or `suite`.
+each test's begin with `"canSkip": true` and its end, never with `pid`, `at`,
+`dir` or `suite`. When a begin answers `"action": "skip"`, the test process
+skips that test and either sends no end for it or sends one with
+`"outcome": "skipped"`. An end of a skipped test that says another outcome, or
+none, means the test ran: Keploy refuses it (`409 not_open`).
 :::
 
 **pytest** (`conftest.py`):
