@@ -69,6 +69,9 @@ jobs:
       - name: Verify every docs link the UI Capture SDK ships
         run: yarn verify-ui-capture-sdk-links
 
+      - name: Verify every moved docs URL still leads to its page
+        run: yarn verify-moved-urls
+
       # Deploys this PR's build with main.yml's deploy script into a local S3,
       # then replays the weeks after it: no asset a live or open page still
       # loads is deleted, every unused one eventually is, and every file gets

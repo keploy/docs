@@ -170,6 +170,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
   url: "https://keploy.io",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
+  // A link to a heading that does not exist fails the build too, as a
+  // broken link does: a page that moves or renames a heading must fix every
+  // link to it.
+  onBrokenAnchors: "throw",
   trailingSlash: true,
   markdown: {
     // Date each doc by the last commit that changed its content, not the last
@@ -233,10 +237,6 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           {
             from: "/running-keploy/mock-your-tests/",
             to: "/universal-mocker/mock-your-tests/",
-          },
-          {
-            from: "/keploy-cloud/mock-registry/",
-            to: "/universal-mocker/mock-registry/",
           },
         ],
       },

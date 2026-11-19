@@ -32,8 +32,8 @@ log lines are trimmed and timestamps are removed.
 
 You need:
 
-- Linux, or macOS on Apple silicon. On Linux, Keploy's agent runs as root, so
-  Keploy may ask for your `sudo` password.
+- Linux. Keploy's agent runs as root, so Keploy may ask for your `sudo`
+  password.
 - [Go](https://go.dev/dl/) 1.21 or newer.
 - [Docker](https://docs.docker.com/get-docker/), to run PostgreSQL.
 - Keploy. To install it, run:
@@ -46,10 +46,11 @@ You need:
 
 ## Step 1: Create the sample package
 
-1. Create a folder and a Go module:
+1. Create a folder, a git repository and a Go module:
 
    ```bash
    mkdir orders && cd orders
+   git init
    go mod init example.com/orders
    ```
 
@@ -210,6 +211,13 @@ You need:
    docker run -d --name orders-db -e POSTGRES_PASSWORD=postgres -p 5432:5432 postgres:16
    ```
 
+   Then wait until it accepts connections. The first start takes a few
+   seconds:
+
+   ```bash
+   until docker exec orders-db pg_isready -q -h 127.0.0.1 -U postgres; do sleep 1; done
+   ```
+
 2. In a second terminal, in the `orders` folder, start the rates API:
 
    ```bash
@@ -251,12 +259,15 @@ ok  	example.com/orders	0.035s
 account for this quickstart. Without `--local`, Keploy asks you to sign in
 first.
 
-Keploy wrote two things:
+Keploy wrote four files:
 
 - `keploy.yml`, the project's Keploy settings. It holds the app name and the
   test command.
 - `keploy/default/mocks.yaml`, the recording: 10 mocks, 8 for PostgreSQL (the
   connections and each statement) and 2 HTTP calls, each with its answer.
+- `keploy/default/last-record.yaml`, the command Keploy recorded this set with.
+  `keploy mock status` replays the recording with it.
+- `keploy/.gitignore`, which keeps Keploy's temporary files out of git.
 
 Here is one HTTP call from `mocks.yaml`, trimmed:
 
@@ -437,7 +448,9 @@ reports a result per test.
    ```
 
    `-p 1` runs one test binary at a time, which per-test checks need in this
-   release. `-json` shows each test's result, and the reason for a skip.
+   release. `-json` shows each test's result, and the reason for a skip. It
+   also makes `go test` print a JSON line for each test event, so the
+   outputs below leave those lines out and show Keploy's own.
    `local: true` keeps the recording in the repository, as `--local` did.
 
 4. Start the dependencies again, as in Step 2. Then delete the old recording,
@@ -526,19 +539,19 @@ git status --short
 ```
 
 ```
-?? cmd/rates/main.go
+?? cmd/
 ?? go.mod
 ?? go.sum
 ?? keploy.yml
-?? keploy/.gitignore
-?? keploy/default/README.md
-?? keploy/default/last-record.yaml
-?? keploy/default/mappings.yaml
-?? keploy/default/mocks.yaml
-?? keploy/default/verdicts.yaml
+?? keploy/
 ?? orders.go
 ?? orders_test.go
 ```
+
+`keploy/default/` holds the recording (`mocks.yaml`), which recorded calls
+belong to each test (`mappings.yaml`), each test's result from the judging
+rounds (`verdicts.yaml`), the record command (`last-record.yaml`) and a
+`README.md`. Commit them all.
 
 Keploy also writes `.keploy-run/`, with the logs of each run. Its own
 `.gitignore` keeps it out of git.
@@ -548,9 +561,8 @@ PostgreSQL and no rates API, and CI can too.
 
 ## Clean up
 
-```bash
-docker rm -f orders-db
-```
+Step 6 stopped PostgreSQL and the rates API, so nothing is left running.
+Delete the `orders` folder when you no longer need it.
 
 ## Next steps
 

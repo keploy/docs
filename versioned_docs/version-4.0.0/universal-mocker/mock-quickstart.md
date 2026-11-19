@@ -30,10 +30,10 @@ command shows the **real output** you should see — nothing is faked.
   keploy --version
   ```
 
-- **Linux** (root, for eBPF), **Windows x86-64**, or **macOS (Apple Silicon)**.
-  Windows and macOS intercept in userspace, so neither needs Administrator or
-  `sudo`. Keploy doesn't support Intel Macs. On Windows on ARM, use WSL. Running your tests through a docker command
-  ([shown at the end](#running-your-tests-in-docker)) works on all three.
+- **Linux** (root, for eBPF) or **macOS (Apple Silicon)**. macOS intercepts
+  in userspace, so it doesn't need `sudo`. Keploy doesn't support Intel Macs.
+  Native Windows support is coming. Running your tests through a docker command
+  ([shown at the end](#running-your-tests-in-docker)) works on both.
 - Python 3. On macOS, use a Homebrew or uv Python (or a virtualenv built on
   one), not Apple's `/usr/bin/python3`, which macOS won't let Keploy instrument.
   (`go test` / `npm test` work identically — only the test command changes. On
@@ -113,8 +113,12 @@ Your tests pass against the live API — that's the state you want to capture.
 In another terminal, run your test command under `keploy mock record`:
 
 ```bash
-keploy mock record -c "python3 -m pytest -q"
+keploy mock record --local -c "python3 -m pytest -q"
 ```
+
+`--local` keeps the recording in your repository, so you don't need a Keploy
+account for this walkthrough. Without `--local`, Keploy asks you to sign in
+first (`keploy login`).
 
 ```
 🐰 Keploy: INFO  Recording mocks for your test command  {"mock-set": "billing", "command": "python3 -m pytest -q"}
@@ -155,7 +159,7 @@ Commit `keploy/` to your repo like a VCR cassette. Re-recording the same set
 under `keploy mock replay`:
 
 ```bash
-keploy mock replay -c "python3 -m pytest -q"
+keploy mock replay --local -c "python3 -m pytest -q"
 ```
 
 ```
@@ -190,7 +194,7 @@ served from mocks; the new `/plans/pro` call goes to the real API **and is
 appended** to the set:
 
 ```bash
-keploy mock replay -c "python3 -m pytest -q" --on-miss record
+keploy mock replay --local -c "python3 -m pytest -q" --on-miss record
 ```
 
 ```
@@ -232,16 +236,16 @@ echo $?    # -> 1
 ## Running your tests in Docker
 
 The sample's dependency is plain HTTP, so every step above runs natively on
-Linux, Windows x86-64 and macOS (Apple Silicon). Natively on macOS and Windows,
-Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC calls
-too; calls to other services — PostgreSQL, Redis, Kafka, gRPC on Windows and the
-like — are captured only as raw bytes and usually don't replay. If your tests
+Linux and macOS (Apple Silicon). Natively on macOS, Keploy understands
+HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Amazon DynamoDB and Aerospike
+calls; calls to other services — Redis, Kafka and the like — are captured only
+as raw bytes and usually don't replay. If your tests
 depend on one of those, run them through a container and point Keploy at that
 command:
 
 ```bash
-keploy mock record -c "docker compose run --rm tests"
-keploy mock replay -c "docker compose run --rm tests"
+keploy mock record --local -c "docker compose run --rm tests"
+keploy mock replay --local -c "docker compose run --rm tests"
 ```
 
 ## Next

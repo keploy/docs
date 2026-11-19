@@ -1,7 +1,6 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {FaLayerGroup} from "react-icons/fa";
 
 function UTG() {
   return (
@@ -233,30 +232,6 @@ function UTG() {
             </div>
           </Link>
         </li>
-        <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link
-            className="text-foreground-light flex-grow text-sm"
-            to={useBaseUrl("universal-mocker/overview")}
-          >
-            <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
-              <div className="flex items-center space-x-4">
-                <FaLayerGroup
-                  aria-hidden="true"
-                  className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
-                />
-                <h2 className="mb-4 text-xl font-semibold">Universal Mocker</h2>
-              </div>
-              <ul>
-                <li>
-                  <p className="font">
-                    Service virtualization for the tests you already have:
-                    replays their database and API calls offline.
-                  </p>
-                </li>
-              </ul>
-            </div>
-          </Link>
-        </li>
       </ul>
     </div>
   );
@@ -269,7 +244,7 @@ export const Products = () => {
         Products 🛠️
       </h2>
       <p className="text-l max-w-3xxl">
-        Keploy provides four key products that help you streamline your testing
+        Keploy provides three key products that help you streamline your testing
         workflow:
       </p>
 

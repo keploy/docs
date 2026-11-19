@@ -71,6 +71,7 @@
         "running-keploy/keploy-templatize",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
+        "keploy-cloud/mock-registry",
         "keploy-cloud/keploy-console",
         "keploy-cloud/auto-test-generation",
         "keploy-cloud/deduplication",
@@ -274,8 +275,7 @@
           "collapsed": false,
           "items": [
             "universal-mocker/mock-your-tests",
-            "running-keploy/utg-vscode-extension",
-            "universal-mocker/mock-registry"
+            "running-keploy/utg-vscode-extension"
           ]
         }
       ]

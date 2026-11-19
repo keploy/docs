@@ -1,10 +1,16 @@
 import React from "react";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
-import {FaRocket, FaMagic, FaRetweet, FaLaptopCode} from "react-icons/fa";
+import {
+  FaRocket,
+  FaMagic,
+  FaRetweet,
+  FaLaptopCode,
+  FaLayerGroup,
+} from "react-icons/fa";
 import {SiKubernetes} from "react-icons/si";
 
-// The four entry points rendered as cards below, in display order. Exported
+// The five entry points rendered as cards below, in display order. Exported
 // so the docs home can emit them as an ItemList off the same data the links
 // are built from -- a hand-copied list in the JSON-LD would quietly rot the
 // first time one of these paths moves.
@@ -30,10 +36,21 @@ export const GET_STARTED_PATHS = [
     description: "Classic Keploy CLI experience for rapid iteration",
     href: "/docs/server/installation/",
   },
+  {
+    name: "Mock the dependencies of the tests you already have",
+    description:
+      "Universal Mocker: record your tests' database, queue and API calls once, then replay them offline",
+    href: "/docs/universal-mocker/overview/",
+  },
 ];
 
-const [AI_GENERATE, CHROME_EXTENSION, K8S_PROXY, LOCAL_RECORD] =
-  GET_STARTED_PATHS;
+const [
+  AI_GENERATE,
+  CHROME_EXTENSION,
+  K8S_PROXY,
+  LOCAL_RECORD,
+  UNIVERSAL_MOCKER,
+] = GET_STARTED_PATHS;
 
 export const GetStartedPaths = () => {
   return (
@@ -47,7 +64,7 @@ export const GetStartedPaths = () => {
           How do you want to get started?
         </h2>
         <p className="mx-auto max-w-2xl text-gray-600 dark:text-gray-400">
-          Pick a workflow to begin. You can switch anytime—both paths lead to
+          Pick a workflow to begin. You can switch anytime—every path leads to
           reliable, replayable tests.
         </p>
       </div>
@@ -253,6 +270,64 @@ export const GetStartedPaths = () => {
                   </div>
                 </div>
                 <span className="mt-1 text-gray-400 transition-colors group-hover/option:text-purple-500 dark:text-gray-500">
+                  →
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        {/* Universal Mocker: spans both columns, below the two cards above */}
+        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-emerald-50/50 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-emerald-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-emerald-950/20 dark:hover:shadow-emerald-900/20 md:col-span-2">
+          {/* Decorative gradient blob */}
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-emerald-400/20 to-emerald-600/10 blur-2xl transition-transform duration-500 group-hover:scale-150"></div>
+
+          <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
+            <div className="md:flex-1">
+              {/* Icon Badge */}
+              <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-emerald-500 to-emerald-700 p-3 text-white shadow-lg shadow-emerald-500/25">
+                <FaLayerGroup className="h-6 w-6" />
+              </div>
+
+              {/* Path Label */}
+              <div className="mb-2 flex items-center gap-2">
+                <span className="rounded-md bg-emerald-100 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-200">
+                  Universal Mocker
+                </span>
+                <span className="text-xs text-gray-500 dark:text-gray-400">
+                  Service virtualization
+                </span>
+              </div>
+
+              {/* Content */}
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                Run Your Own Tests Without Their Dependencies
+              </h3>
+              <p className="mb-0 text-sm text-gray-600 dark:text-gray-400">
+                Wrap go test, pytest, Jest, JUnit or Playwright with keploy
+                mock. No mock code to write, and no test to change.
+              </p>
+            </div>
+
+            <div className="md:flex-1">
+              <Link
+                to={useBaseUrl(UNIVERSAL_MOCKER.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-emerald-300 hover:bg-emerald-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-emerald-500/50 dark:hover:bg-emerald-900/10"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-emerald-100 text-emerald-700 transition-colors group-hover/option:bg-emerald-100 group-hover/option:text-emerald-800 dark:bg-emerald-900/30 dark:text-emerald-200">
+                    <FaLayerGroup className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="mb-0.5 text-sm font-semibold text-gray-900 dark:text-white">
+                      Mock the dependencies of the tests you already have
+                    </h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Record your tests&apos; database, queue and API calls
+                      once, then replay them offline
+                    </p>
+                  </div>
+                </div>
+                <span className="mt-1 text-gray-400 transition-colors group-hover/option:text-emerald-500 dark:text-gray-500">
                   →
                 </span>
               </Link>

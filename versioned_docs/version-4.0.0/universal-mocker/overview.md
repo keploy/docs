@@ -47,10 +47,18 @@ decides which tests pass.
    it keeps the recording. A test that doesn't replay is set aside, with the
    reason and the next step. See
    [Prove each test offline](./mock-your-tests.md#proven).
-4. **Share.** In that mode, the recordings go to Keploy Cloud, under a Keploy
-   branch named after your git branch. Your repository holds only `keploy.yml`
-   and `keploy.lock`, which pins each test to its recordings. CI replays what
-   `keploy.lock` pins.
+4. **Share.** In that mode, when you are signed in, the recordings go to Keploy
+   Cloud, under a Keploy branch named after your git branch. Two things must be
+   true:
+
+   - `keploy.yml` names a Keploy app (`mock.appId`). Run `keploy app create`
+     first, or record once with `--app <name>`.
+   - You record on a git branch other than main. Keploy never publishes to
+     main: switch to a branch first (`git switch -c <name>`), or pass
+     `--branch <name>`.
+
+   Your repository holds only `keploy.yml` and `keploy.lock`, which pins each
+   test to its recordings. CI replays what `keploy.lock` pins.
 
 ## Choose the right Keploy product
 
@@ -85,7 +93,7 @@ and ends:
 | Linux                 | Yes               | Yes                                 | Keploy's agent runs as root; Keploy starts it with sudo. |
 | macOS (Apple silicon) | Yes               | Yes                                 | No sudo or admin rights needed.                          |
 | Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
-| Windows (x86-64)      | Yes               | Coming soon                         | The VS Code flow on Windows is coming soon too.          |
+| Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
 
 **Dependencies** in Keploy 3.9.3. "Docker" means: run the tests through a
 Docker command so Keploy reads the calls on Linux.
@@ -119,11 +127,9 @@ coding agent. Then you record, replay and review from the editor.
 
 - [Go quickstart](./quickstarts/go.md): run `go test` without PostgreSQL or an
   HTTP API, then check each test on its own.
-- [Mock your tests in 2 minutes](./mock-quickstart.md): a copy-paste walkthrough
-  with a Python sample app.
+- [Mock your tests in 2 minutes](./mock-quickstart.md): a walkthrough with a
+  Python sample app.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
-- [Mock Registry](./mock-registry.md): keep mocks in Keploy Cloud instead of
-  your repository.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
   list.
