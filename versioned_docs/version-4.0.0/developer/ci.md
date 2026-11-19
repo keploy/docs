@@ -113,7 +113,17 @@ If the branches changed `get-orders-1` in other ways, pull request 1's run goes 
 
 ### Resolve a conflict
 
-When both sides edited a test case, choose which version the branch keeps:
+When both sides edited a test case, choose which version the branch keeps, on the branch's page or from a terminal. Either way, the branch changes, so it needs approval again.
+
+**On the branch's page:**
+
+1. On **Recordings**, select the pull request's branch in the branch picker and edit the test case into the version the branch should keep. To keep both changes, add the other pull request's change to yours. The conflict on the branch's page shows main's version beside the branch's.
+2. Click **View changes**. Your uncommitted edit shows as a conflict. Choose **Keep my changes**: Keploy puts your edit on top of main's latest version. **Discard my changes** takes main's version instead, and throws your edit away.
+3. Click **Commit**.
+
+Don't settle it with the choices on the **Changes** tab, **Keep main's version** and **Use branch's version**. Those apply only when the branch merges into main. The run's update of the branch doesn't read them, so the run keeps failing.
+
+**From a terminal:**
 
 1. List the conflicts:
 
@@ -132,14 +142,17 @@ When both sides edited a test case, choose which version the branch keeps:
    Keeping the branch's version replaces main's version of the test case, including the other pull request's change to it. To keep both changes, take main's version, then edit the test case again on the branch.
 
 3. Commit the result on the branch's page, or with `keploy cloud branch-commit --app "<namespace>.<deployment>" --branch "<branch>"`.
-4. Request a review. Once the branch is approved, re-run the pipeline.
+
+Then request a review. Once the branch is approved, re-run the pipeline.
 
 ## After the pull request merges
 
 The next pipeline run that targets main, such as the push that merges the pull request, finds the merged pull request in the git history and merges its Keploy branch into main. From then on, main's tests include the branch's deletes and edits.
 
 - If main changed one of the branch's test cases after the branch's last update, for example because another pull request that changes the same test merged in between, the merge follows the same rules as an update, with one difference. When both sides edited the test case, no one is there to choose, so main's version is kept, and the run logs that the branch's edit was dropped. A deletion on the branch is still kept.
-- If the branch can't merge, for example because it isn't approved, has uncommitted changes or conflicts with main, the run doesn't fail. It logs why and what to do, and the next run on main tries again. With a CI account's or a service account's key, Keploy doesn't settle conflicts, so a branch that conflicts with main waits for a person.
+- To decide a conflict yourself, choose a version for it on the branch's **Changes** tab before the merge. The merge uses the choices made there first, and settles only the remaining conflicts by these rules.
+- If the branch can't merge, for example because it isn't approved, has uncommitted changes or conflicts with main, the run doesn't fail. It logs why and what to do, and the next run on main tries again.
+- With a CI account's or a service account's key, Keploy doesn't settle conflicts, so a branch that conflicts with main waits for a person. Choose a version for each conflict on the branch's **Changes** tab. The choices don't change the branch, so its approval stands, and the next run on main merges the branch with them.
 - Branches older than 30 days are no longer checked. Merge such a branch by hand, from a checkout of the repository:
 
   ```bash

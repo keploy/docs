@@ -54,20 +54,20 @@ To have an AI coding assistant diagnose the failures, click **Copy prompt and tr
 
 ## Delete or edit a test case
 
-When a test fails because the behavior changed on purpose, delete the test case or edit it to expect the new response. Deleting is recommended.
+When a test fails because the behavior changed on purpose, either delete the test case or edit it to expect the new response. Deleting is recommended: it takes less work, and Keploy keeps your deletion when another pull request changes the same test.
 
-**Delete the test case (recommended).** See [Delete a test case](#delete-a-test-case).
+|                                                                     | Delete (recommended)                                                                                                                                          | Edit                                                                                                                                                                                     |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **How**                                                             | [Delete the failed tests](#delete-a-test-case) on the Test Report, all at once. From a terminal, `keploy cloud accept` deletes them and commits the deletion. | [Edit each test case](/docs/developer/edit-test-data/#edit-a-test-case) by hand on **Recordings**. The Test Report can't edit.                                                           |
+| **Coverage**                                                        | The request has no test until you record the app again after the change is deployed.                                                                          | The request stays tested, against the new response.                                                                                                                                      |
+| **Mocks**                                                           | Nothing to change.                                                                                                                                            | If the change also changed the calls your app makes, such as a new database query, [edit or add the mocks](/docs/developer/edit-test-data/#change-mocks) too, or the test keeps failing. |
+| **Main changes the same test case before your pull request merges** | Keploy keeps your deletion.                                                                                                                                   | If another pull request edited it too, the run fails until you [choose a version](/docs/developer/ci/#resolve-a-conflict). If main deleted it, your edit is dropped.                     |
+| **Undo before the merge**                                           | Click **Restore test case** on the branch page, or run `keploy cloud restore-test`.                                                                           | Discard the change before you commit it. After you commit it, revert the commit, which also undoes the commits after it.                                                                 |
 
-- Pro: it's the quickest way. Select all the failed tests on the Test Report and delete them at once. From a terminal, `keploy cloud accept` deletes and commits them.
-- Pro: in a pull-request pipeline, Keploy keeps your deletion even if main changes the same test case before your pull request merges. See [Replay in CI](/docs/developer/ci/#when-main-changes-before-your-pull-request-merges).
-- Pro: it's easy to undo before the merge, with **Restore test case** on the branch page or `keploy cloud restore-test`.
-- Con: the request has no test until you record it again. After the change is deployed, record the app again to capture the new behavior.
+- **Delete** when you'll record the app again after the change is deployed, which is the usual case. The new recording captures the new behavior, mocks included.
+- **Edit** when the request must stay tested until then and the change is small, such as a renamed field or a new status code.
 
-**Edit the test case.** See [Edit test cases and mocks](/docs/developer/edit-test-data/).
-
-- Pro: the test stays, so the request is still tested, with the new expected response.
-- Con: you edit each test case by hand on the **Recordings** page. The Test Report offers only delete.
-- Con: in a pull-request pipeline, an edit can conflict with main. If another pull request edits the same test case and merges first, the run fails until you choose a version, and if main deletes the test case, your edit is dropped. See [Replay in CI](/docs/developer/ci/#when-main-changes-before-your-pull-request-merges).
+The pull-request row assumes the pipeline runs with a user's API key. See [Replay in CI](/docs/developer/ci/#when-main-changes-before-your-pull-request-merges).
 
 ## Delete a test case
 
@@ -128,7 +128,7 @@ keploy cloud replay --app "<namespace>.<deployment>" --branch-name "<branch>"
 A message confirms the merge: _Merged &lt;branch&gt; to main_. From then on, replays of main include the change.
 
 - **New commits after approval:** a new commit dismisses existing approvals, so the branch needs approval again.
-- **Conflicts:** if main changed the same item, click **Rebase on main**, or click **Resolve** to choose how to resolve each conflicting item on the **Changes** tab.
+- **Conflicts:** if main changed an item that the branch also changed, the item shows as a conflict. Click **Resolve**, choose **Keep main's version** or **Use branch's version** for each conflicting item on the **Changes** tab, and merge. The merge applies your choices. If main deleted the item's test set, the only choice is **Discard my change**.
 - **Skip review:** an Admin can select **Merge without the required approval.** and click **Merge to main, bypassing review**.
 
 ## Undo a change
@@ -136,7 +136,7 @@ A message confirms the merge: _Merged &lt;branch&gt; to main_. From then on, rep
 On the branch page, which you open with **View changes**:
 
 - **Before you commit:** click the discard icon on your uncommitted changes. This can't be undone.
-- **After you commit:** click **Restore test case** (or **Restore test set**) on the item, or revert the commit.
+- **After you commit:** for a deleted test case or test set, click **Restore test case** (or **Restore test set**) on the item. To undo any other change, revert its commit. Reverting a commit also undoes the commits after it.
 - **Any time before the merge:** click **Close Branch**. Main stays unchanged.
 
 After the merge, the change is part of main.
