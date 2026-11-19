@@ -156,7 +156,7 @@ spec:
     proto_minor: 1
     url: http://127.0.0.1:8000/students/
     header:
-      Accept: '*/*'
+      Accept: "*/*"
       Host: 127.0.0.1:8000
       User-Agent: curl/8.7.1
     body: ""
@@ -194,70 +194,70 @@ version: api.keploy.io/v1beta1
 kind: PostgresV3
 name: mock-28
 spec:
-    metadata:
-        bindEncoding: wire
-        class: APP
-        connID: "2"
-        destAddr: 172.21.0.2:5432
-        lifetime: perTest
-        type: mocks
-    postgresV3:
-        type: query
-        query:
-            class: APP
-            lifetime: perTest
-            sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
-            sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
-            invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
-            precedingTxState: in_tx
-            bindValues:
-                - !!binary MTAw
-                - !!binary MA==
-            bindFormats:
-                - 0
-                - 0
-            response:
-                rowDescription:
-                    - name: students_ID
-                      tableOid: 16386
-                      colAttrNum: 1
-                      typeOid: 23
-                      typeSize: 4
-                      typeMod: -1
-                    - name: students_Name
-                      tableOid: 16386
-                      colAttrNum: 2
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Email
-                      tableOid: 16386
-                      colAttrNum: 3
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Hashed Password
-                      tableOid: 16386
-                      colAttrNum: 4
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Subject Stream
-                      tableOid: 16386
-                      colAttrNum: 5
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                rows:
-                    - - 1
-                      - Eva White
-                      - evawhite@example.com
-                      - sfwbxijuf222
-                      - Mathematics
-                commandComplete: SELECT 1
-            sideEffects: {}
-    reqTimestampMock: 2026-11-16T12:37:17.042651505Z
-    resTimestampMock: 2026-11-16T12:37:17.043078546Z
+  metadata:
+    bindEncoding: wire
+    class: APP
+    connID: "2"
+    destAddr: 172.21.0.2:5432
+    lifetime: perTest
+    type: mocks
+  postgresV3:
+    type: query
+    query:
+      class: APP
+      lifetime: perTest
+      sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
+      sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
+      invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
+      precedingTxState: in_tx
+      bindValues:
+        - !!binary MTAw
+        - !!binary MA==
+      bindFormats:
+        - 0
+        - 0
+      response:
+        rowDescription:
+          - name: students_ID
+            tableOid: 16386
+            colAttrNum: 1
+            typeOid: 23
+            typeSize: 4
+            typeMod: -1
+          - name: students_Name
+            tableOid: 16386
+            colAttrNum: 2
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Email
+            tableOid: 16386
+            colAttrNum: 3
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Hashed Password
+            tableOid: 16386
+            colAttrNum: 4
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Subject Stream
+            tableOid: 16386
+            colAttrNum: 5
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+        rows:
+          - - 1
+            - Eva White
+            - evawhite@example.com
+            - sfwbxijuf222
+            - Mathematics
+        commandComplete: SELECT 1
+      sideEffects: {}
+  reqTimestampMock: 2026-11-16T12:37:17.042651505Z
+  resTimestampMock: 2026-11-16T12:37:17.043078546Z
 connectionId: "2"
 ```
 
@@ -297,6 +297,15 @@ This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the 
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
+```
+
+### Start the Postgres instance 🐘
+
+The app connects to `localhost:5432/studentdb`, so start the database first. The compose file attaches it to an external `keploy-network`, so create that once:
+
+```bash
+docker network create keploy-network
+docker compose up -d postgres
 ```
 
 ### Lights, Camera, Record! 🎥
@@ -372,7 +381,7 @@ spec:
     proto_minor: 1
     url: http://127.0.0.1:8000/students/
     header:
-      Accept: '*/*'
+      Accept: "*/*"
       Host: 127.0.0.1:8000
       User-Agent: curl/8.7.1
     body: ""
@@ -410,70 +419,70 @@ version: api.keploy.io/v1beta1
 kind: PostgresV3
 name: mock-28
 spec:
-    metadata:
-        bindEncoding: wire
-        class: APP
-        connID: "2"
-        destAddr: 172.21.0.2:5432
-        lifetime: perTest
-        type: mocks
-    postgresV3:
-        type: query
-        query:
-            class: APP
-            lifetime: perTest
-            sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
-            sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
-            invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
-            precedingTxState: in_tx
-            bindValues:
-                - !!binary MTAw
-                - !!binary MA==
-            bindFormats:
-                - 0
-                - 0
-            response:
-                rowDescription:
-                    - name: students_ID
-                      tableOid: 16386
-                      colAttrNum: 1
-                      typeOid: 23
-                      typeSize: 4
-                      typeMod: -1
-                    - name: students_Name
-                      tableOid: 16386
-                      colAttrNum: 2
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Email
-                      tableOid: 16386
-                      colAttrNum: 3
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Hashed Password
-                      tableOid: 16386
-                      colAttrNum: 4
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                    - name: students_Subject Stream
-                      tableOid: 16386
-                      colAttrNum: 5
-                      typeOid: 1043
-                      typeSize: -1
-                      typeMod: -1
-                rows:
-                    - - 1
-                      - Eva White
-                      - evawhite@example.com
-                      - sfwbxijuf222
-                      - Mathematics
-                commandComplete: SELECT 1
-            sideEffects: {}
-    reqTimestampMock: 2026-11-16T12:37:17.042651505Z
-    resTimestampMock: 2026-11-16T12:37:17.043078546Z
+  metadata:
+    bindEncoding: wire
+    class: APP
+    connID: "2"
+    destAddr: 172.21.0.2:5432
+    lifetime: perTest
+    type: mocks
+  postgresV3:
+    type: query
+    query:
+      class: APP
+      lifetime: perTest
+      sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
+      sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
+      invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
+      precedingTxState: in_tx
+      bindValues:
+        - !!binary MTAw
+        - !!binary MA==
+      bindFormats:
+        - 0
+        - 0
+      response:
+        rowDescription:
+          - name: students_ID
+            tableOid: 16386
+            colAttrNum: 1
+            typeOid: 23
+            typeSize: 4
+            typeMod: -1
+          - name: students_Name
+            tableOid: 16386
+            colAttrNum: 2
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Email
+            tableOid: 16386
+            colAttrNum: 3
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Hashed Password
+            tableOid: 16386
+            colAttrNum: 4
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Subject Stream
+            tableOid: 16386
+            colAttrNum: 5
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+        rows:
+          - - 1
+            - Eva White
+            - evawhite@example.com
+            - sfwbxijuf222
+            - Mathematics
+        commandComplete: SELECT 1
+      sideEffects: {}
+  reqTimestampMock: 2026-11-16T12:37:17.042651505Z
+  resTimestampMock: 2026-11-16T12:37:17.043078546Z
 connectionId: "2"
 ```
 

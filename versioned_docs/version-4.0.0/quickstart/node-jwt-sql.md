@@ -189,7 +189,7 @@ curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
 
-Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3.
+Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3. The token expires 35 seconds after sign-in, so send this request within that window (or sign in again first), otherwise the app answers `401` with `Unauthorized!`.
 
 We will get
 
@@ -365,7 +365,7 @@ curl --location 'http://localhost:8080/api/test/user' \
 --header 'x-access-token: <TOKEN>'
 ```
 
-Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3.
+Replace `<TOKEN>` with the `accessToken` returned by the sign-in response in step 3. The token expires 35 seconds after sign-in, so send this request within that window (or sign in again first), otherwise the app answers `401` with `Unauthorized!`.
 
 We will get
 
