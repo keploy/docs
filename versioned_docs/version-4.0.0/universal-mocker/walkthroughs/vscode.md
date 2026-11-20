@@ -24,13 +24,15 @@ off. You also see a red test, stage the files to commit, and add the CI
 workflow.
 
 Each step names what you select and what the extension shows. The steps are
-from version 3.1.1 of the extension. For every setting and command, see the
+from version 3.1.1 of the extension, with Keploy 3.9.4, the CLI it
+downloads. For every setting and command, see the
 [VS Code extension page](/docs/running-keploy/utg-vscode-extension/).
 
-:::note Screenshots are on their way
+:::note Two screenshots are on their way
 
-The boxes marked **Screenshot coming** stand where each screenshot goes. Until
-they're added, each box says what the screen shows.
+The screenshots are from a real run of the extension on Linux. Two boxes
+marked **Screenshot coming** stand where two more go: the browser's sign-in
+page and your agent's chat. Each box says what the screen shows.
 
 :::
 
@@ -89,10 +91,23 @@ download again.
 1. In the checklist, select **Signed in to Keploy**. Or run **Keploy: Sign
    in** from the Command Palette.
 
-   Your browser opens Keploy's sign-in page. In VS Code, a **Keploy sign-in**
-   notification shows the page's address and a code.
+2. VS Code asks **Do you want Code to open the external website?** for
+   `https://app.keploy.io/activate`. Select **Open**.
 
-2. In your browser, sign in, type the code the notification shows, and
+   Your browser opens Keploy's sign-in page. In VS Code, a **Keploy sign-in**
+   notification shows the page's address and a code:
+
+   ```text
+   Keploy sign-in: Open https://app.keploy.io/activate, enter the code XXXX-XXXX, and approve it. Tell me when it says you are signed in.
+   ```
+
+   The CLI writes this text for coding agents too, which is why it ends with
+   "Tell me". In VS Code you don't need to do anything else: the notification
+   waits for your approval.
+
+   <img src="/docs/img/universal-mocker/vscode/03-signin-notification.png" alt="VS Code asking whether to open https://app.keploy.io/activate, and the Keploy sign-in notification with its code blurred and its Cancel button" width="100%" />
+
+3. In your browser, sign in, type the code the notification shows, and
    approve the sign-in. The page never fills the code in for you: typing it
    ties the approval to the sign-in VS Code started. Approve only a sign-in
    you started yourself.
@@ -100,10 +115,12 @@ download again.
    VS Code says **Keploy: you are signed in.** The checklist ticks **Signed in
    to Keploy**.
 
+   If you don't approve in time, VS Code says **Keploy: the sign-in was not
+   approved in your browser in time.** Select **Try again** for a new code.
+
 :::note Screenshot coming
 
-Two images: the **Keploy sign-in** notification with its code, and the
-browser's page with that code typed in. The account's email is blurred.
+The browser's page with the code typed in. The account's email is blurred.
 
 :::
 
@@ -118,17 +135,26 @@ it, in VS Code's runs, in your terminal and in your agent's terminal.
    project's own test command, so it needs a trusted workspace.
 
 2. The extension installs Keploy's skill for this project, then opens your
-   agent with the setup task. Claude Code is used when you have it,
-   otherwise GitHub Copilot. In Cursor, the task goes to your clipboard:
-   paste it into Cursor's agent chat.
+   agent's chat with the setup task typed in. Claude Code is used when you
+   have it, otherwise GitHub Copilot:
 
-   The task starts like this:
+   | Agent          | Where the skill goes                                  | Where the task goes                          |
+   | -------------- | ----------------------------------------------------- | -------------------------------------------- |
+   | Claude Code    | `.claude/skills`                                      | a new Claude Code conversation               |
+   | GitHub Copilot | `.github/instructions/keploy-mocking.instructions.md` | the chat, in agent mode                      |
+   | Cursor's agent | `.cursor/rules`                                       | your clipboard: paste it into the agent chat |
+
+   The task starts like this, with Claude Code:
 
    ```text
    Set up Keploy dependency mocking for this project's tests, following the keploy mock skill (.claude/skills).
    ```
 
-3. Let your agent work. It follows each step the CLI prints, starting with
+   If the agent's chat doesn't open, VS Code says **Keploy: _agent_ did not
+   open. The setup task is on your clipboard.** Paste it into the agent's
+   chat.
+
+3. Send the task. Then let your agent work. It follows each step the CLI prints, starting with
    `KEPLOY_PROVEN=1 keploy mock status --json`:
 
    - it sets `mock.command` in `keploy.yml` to your test command;
@@ -167,17 +193,25 @@ you add a test. Your dependencies must be running.
    Select **Create keploy/_name_ and record** to create the branch, switch to
    it and record there. Nothing runs if you close the message.
 
+   <img src="/docs/img/universal-mocker/vscode/06-record-branch.png" alt="On main, the message Keploy records on a work branch, not on main, with its Create keploy/docs-vscode-orders and record button" width="100%" />
+
 3. The record runs `keploy mock record --lock keploy.lock` in a VS Code
-   terminal, with `KEPLOY_PROVEN=1`. When it ends, the terminal shows its last
-   line, and the checklist ticks its record step.
+   terminal, with `KEPLOY_PROVEN=1`. When it ends, the checklist says
+   **Recorded: _n_ tests in Keploy Cloud**, and the terminal ends like this:
 
-<img src="/docs/img/universal-mocker/vscode/06-record-branch.png" alt="On main, the message Keploy records on a work branch, not on main, with its Create keploy/docs-vscode-orders and record button" width="100%" />
+   ```text
+   keploy: recorded from uncommitted changes in 2 file(s); the recording matches the code only once you commit them with keploy.lock
+   keploy: commit keploy.lock with your change
+   keploy: keploy.lock is not listed in Keploy Cloud: the pin of app <app id> is off, so its replays read Keploy branches, which a listed one could change; `KEPLOY_PROVEN=1 keploy mock pin on` turns it on, then `KEPLOY_PROVEN=1 keploy mock register` lists the lock
+   keploy: committed keploy/docs-vscode-orders and its skip lines (pinned in keploy.lock): 2 replayable, 0 quarantined
+   ```
 
-:::note Screenshot coming
+   The first two lines ask you to commit `keploy.lock` with your changes,
+   which Step 8 does. The third line shows while the app's recording pin is
+   off: [Turn on the app's recording pin](../guides/keploy-yml-and-lock.md#turn-on-the-apps-recording-pin)
+   explains it.
 
-The record's terminal at its last line.
-
-:::
+   <img src="/docs/img/universal-mocker/vscode/07-record-done.png" alt="The checklist saying Recorded: 2 tests in Keploy Cloud, and the record's terminal ending with its keploy lines; the app id is blurred" width="100%" />
 
 The record uploads the recording to Keploy Cloud and pins it in
 `keploy.lock`. The [keploy.yml and keploy.lock guide](../guides/keploy-yml-and-lock.md)
@@ -193,35 +227,60 @@ explains the lock.
    It reads `keploy.lock` and answers every call your tests make from the
    recording.
 
-3. When the replay exits 0 and no test failed, the checklist ticks **Replay
-   green**. Only a replay you start in VS Code ticks it: a replay in your
-   agent's terminal doesn't.
+3. When the replay exits 0 and no test failed, its terminal ends with
+   `VERDICT  passed`, and the checklist ticks **Replay green**. Only a replay
+   you start in VS Code ticks it, from **Keploy: Replay** or the **Testing**
+   view: a replay in your agent's terminal doesn't.
 
-Open VS Code's **Testing** view to see the result. **Keploy (mocked)** lists
-each recording set, and **Keploy Cloud: _n_ tests** for a recording held in
-Keploy Cloud. You can record and replay from there too.
+   <img src="/docs/img/universal-mocker/vscode/08-replay-green.png" alt="The checklist with Replay green ticked, and the replay's terminal ending with VERDICT passed; the report link is blurred" width="100%" />
 
-:::note Screenshot coming
+You can also replay from VS Code's **Testing** view. A project whose
+recordings are in Keploy Cloud shows one row there, **Keploy Cloud: _n_
+tests**, which replays as **Keploy: Replay** does. Run **Test: Run All Tests**
+from the Command Palette, or select the row's run button, and the row turns
+green or red. The view shows only the runs you start in it, not a **Keploy:
+Replay** from the Command Palette. Recordings kept on your machine with
+`--local` show one row per recording set instead, with its tests under it.
 
-The **Testing** view with **Keploy (mocked)** green, the checklist with
-**Replay green** ticked, and the replay's terminal ending with `VERDICT
-passed`.
-
-:::
+<img src="/docs/img/universal-mocker/vscode/09-testing-green.png" alt="The Testing view with the row Keploy Cloud: 2 tests passed, 1/1 in 9.6 seconds" width="100%" />
 
 ## Step 7: See a red test
 
 1. Change one test so it fails, for example by changing the value it expects.
+   In the Go sample, change both `50`s in `TestTotalInUSD` to `51`.
 2. Run **Keploy: Replay** again.
 
-The replay fails, and VS Code shows it in three places:
+The replay fails, and VS Code shows it in these places:
 
-- **Testing view:** the run is red, and each red test is listed with the CLI's
-  reason after **red:**.
-- **Test Results view:** the failed item's message ends with the `FAILED` and
-  `VERDICT` lines the replay printed. `FAILED` names the test that failed.
-- **The replay's terminal:** your test's own failure message says what
-  differed, such as the value it got and the value it wanted.
+- **The replay's terminal** ends with the result. `FAILED` names the test
+  that failed, and `VERDICT` gives the exit code of your test command:
+
+  ```text
+  keploy: docs-vscode-orders: 2 test(s) ran: 1 passed, 1 failed (0 held by keploy), 0 skipped by the test; 0 quarantined (skipped by keploy)
+  FAILED  .::TestTotalInUSD: the test failed
+  MOCKED  .::TestTotalInUSD: [::1]:5432 (mocked: if this is your app, start it from the runner, then re-record)
+  MOCKED  .::TestTotalInUSD: [::1]:8090 (mocked: if this is your app, start it from the runner, then re-record)
+  MOCKED  .::TestTotalInEUR: [::1]:5432 (mocked: if this is your app, start it from the runner, then re-record)
+  VERDICT  failed: the test command exited 1
+  ```
+
+  Your test's own failure message is above these lines, in your test
+  command's output.
+
+  <img src="/docs/img/universal-mocker/vscode/10-red-terminal.png" alt="The end of the red replay's terminal: FAILED .::TestTotalInUSD: the test failed, three MOCKED lines, and VERDICT failed: the test command exited 1" width="100%" />
+
+- **The Testing view**, for a replay you run from it: the **Keploy Cloud**
+  row turns red.
+- **The Test Results view**, for the same run: select the red row to see its
+  message. It ends with the `FAILED` and `VERDICT` lines:
+
+  ```text
+  keploy mock replay exited 1, and its report says a test failed: see its terminal.
+  FAILED  .::TestTotalInUSD: the test failed
+  VERDICT  failed: the test command exited 1
+  ```
+
+  <img src="/docs/img/universal-mocker/vscode/11-red-results.png" alt="The Testing view with the Keploy Cloud row red, and the Test Results view with the row's message and its FAILED and VERDICT lines" width="100%" />
 
 The extension shows no diff view of its own. The difference is in your test's
 failure message, as when you run the tests without Keploy.
@@ -230,13 +289,6 @@ A test can also fail because it makes a call the recording doesn't have. Then
 the terminal names that call and says what to do, as
 [Step 5 of the Go quickstart](../quickstarts/go.md#step-5-add-a-test-and-see-a-call-with-no-recording)
 shows.
-
-:::note Screenshot coming
-
-The **Testing** view with the red test and its reason, and the **Test
-Results** view with the `FAILED` and `VERDICT` lines.
-
-:::
 
 Change the test back, and replay again to see it green.
 
@@ -254,12 +306,9 @@ Source Control opens with the files staged. When its message box is empty,
 the extension puts `test: record dependency mocks with Keploy` in it. Review
 the changes, then commit. The extension never commits for you, and never changes `.gitignore`.
 
-:::note Screenshot coming
+<img src="/docs/img/universal-mocker/vscode/12-stage-pick.png" alt="The Stage for commit list with keploy.lock and keploy.yml picked, and the project's Keploy instructions file listed unpicked" width="100%" />
 
-The **Stage for commit** list with its picked files, then Source Control with
-the staged files and the commit message.
-
-:::
+<img src="/docs/img/universal-mocker/vscode/13-stage-scm.png" alt="Source Control with keploy.lock and keploy.yml staged and the message test: record dependency mocks with Keploy" width="100%" />
 
 ## Step 9: Replay in CI
 
@@ -287,12 +336,7 @@ For a Go or Node project in a GitHub repository:
 
 4. Commit the workflow with `keploy.yml` and `keploy.lock`, and push.
 
-:::note Screenshot coming
-
-The new `.github/workflows/keploy.yml` open in the editor, with the
-notification and its two buttons.
-
-:::
+<img src="/docs/img/universal-mocker/vscode/14-wire-ci.png" alt="The new .github/workflows/keploy.yml open in the editor, and the notification with its Open the CI key page and Copy the secret command buttons" width="100%" />
 
 For any other project or CI, the extension writes no workflow and says so. The
 [Other CI systems](../guides/ci.md#other-ci-systems) section shows the replay step to add
