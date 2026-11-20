@@ -59,7 +59,7 @@ Each flow is the sequence of steps a user took on one page, with the network cal
 | Journeys, and the share of sessions that took each | Beta                   | Dashboard **Journeys** tab; REST and MCP (`uiJourneys`, `uiJourneyImpact`) |
 | Replaying journeys as Playwright tests, with mocks | Beta, not runnable yet | The runner is not in a release build yet.                                  |
 
-The SDK only records: generating and running tests is Keploy's side, not the SDK's. A flow's page in the dashboard has a **Generate Test** button. Today it creates a test run that waits for a runner, and in the dashboard's own words: "No runner ships in this release, so the run stays pending until one does."
+[Features and availability](../ui-capture/features.md) lists every feature, where you use it and its status. The SDK only records: generating and running tests is Keploy's side, not the SDK's. A flow's page in the dashboard has a **Generate Test** button. Today it creates a test run that waits for a runner, and in the dashboard's own words: "No runner ships in this release, so the run stays pending until one does."
 
 ## Set up UI capture
 
@@ -112,27 +112,7 @@ Use the `endpoint` the setup card or the API gives you. It is `https://api.keplo
 
 ### SDK options {#sdk-options}
 
-`endpoint` and `apiKey` are the only required options. The others, with the value the SDK uses when you leave them out:
-
-| Option                | Default      | What it does                                                                                                                                                                                                                 |
-| --------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `privacyMode`         | `"balanced"` | `"balanced"` masks every typed value. `"strict"`, for public sites, also masks all visible text, records no request or response body and replaces every query value in a URL. `"off"` masks only password and hidden fields. |
-| `sampleRate`          | `1`          | Fraction of captures recorded, rolled when `init` starts one: `0.1` records one in ten.                                                                                                                                      |
-| `networkCapture`      | `true`       | Records `fetch` and `XMLHttpRequest` calls. `false` records the page only.                                                                                                                                                   |
-| `maxSessionDuration`  | `600000`     | Milliseconds after which a session ends on its own (10 minutes). A later `init` starts a new one.                                                                                                                            |
-| `continuous`          | `false`      | Keeps capturing for the life of the page, one session at a time: a session that ends is followed by a new one at the visitor's next click, tap or key press.                                                                 |
-| `batchSize`           | `50`         | Events per request, at most 5,000.                                                                                                                                                                                           |
-| `batchInterval`       | `5000`       | Milliseconds between sends.                                                                                                                                                                                                  |
-| `maxQueueSize`        | `5000`       | Events held in memory while waiting to send; past this, the oldest are dropped.                                                                                                                                              |
-| `maxBodySize`         | `524288`     | How much of a request or response body is recorded (512 KB).                                                                                                                                                                 |
-| `maskSelectors`       | none         | CSS selectors whose text is masked.                                                                                                                                                                                          |
-| `unmaskSelectors`     | none         | CSS selectors whose text is kept in the clear, overriding `maskSelectors` and `"strict"`. It cannot unmask an input value.                                                                                                   |
-| `privacy`             | none         | Finer controls: `blockSelectors`, `maskNetworkBodies`, `sensitiveHeaders`, `piiPatterns`, `secretRoutes`, `keepRoutes`, and the two selector lists above.                                                                    |
-| `sessionIdGenerator`  | none         | Your own session id instead of the SDK's UUID, to correlate with your own systems.                                                                                                                                           |
-| `honorPrivacySignals` | `true`       | Records nothing for a browser that sends Do Not Track or Global Privacy Control, and reports [`KUI_E_CAPTURE_DECLINED`](../ui-capture/errors.md#kui-e-capture-declined).                                                     |
-| `onError`             | none         | Called once when a terminal condition ends the capture. See [UI Capture errors and warnings](../ui-capture/errors.md).                                                                                                       |
-
-The [package's README on npm](https://www.npmjs.com/package/@keploy/capture-sdk) describes each option in full.
+`endpoint` and `apiKey` are the only required options. Every other option has a default: `privacyMode: "balanced"`, `sampleRate: 1`, sessions of at most 10 minutes, and Do Not Track and Global Privacy Control honoured. [SDK options and API](../ui-capture/sdk-reference.md#captureconfig) lists each option with its type and default, the `KeployCapture` methods, and the errors `onError` receives.
 
 ## Privacy at a glance {#what-the-sdk-records-and-what-it-masks}
 
@@ -161,31 +141,29 @@ The dashboard shows a flow's recorded URLs and calls to people on your team who 
 
 ## Troubleshooting {#troubleshooting}
 
-An SDK error or warning names a `KUI_E_` code, and [UI Capture errors and warnings](../ui-capture/errors.md) explains each one: what happened, why, and how to fix it.
-
-**The browser console shows `403` with "this API key is not a UI ingest key".**
-The SDK was given a personal access token or another kind of key. Create an ingest key for the app, in the dashboard or with `POST /client/v1/apps/<appId>/ui/ingest-keys`, and use it as `apiKey`.
-
-**`capture-status` stays at `NO_SESSIONS`.**
-Check the browser's network tab for requests to `/ui/v1/ingest`. If there are none, check that `init` runs in the browser, and that the browser does not send Do Not Track or Global Privacy Control ([`KUI_E_CAPTURE_DECLINED`](../ui-capture/errors.md#kui-e-capture-declined) in the console). A `401` or `403` means the key is not an ingest key, or has been revoked.
-
-**Sessions arrive in a different app.**
-An ingest key records into the app it was created for. Create a key for this app and use it as `apiKey`.
-
-**Sessions arrive but no flows appear.**
-A visit becomes flows 30 minutes after its last activity, or at once when it is completed with `POST /ui/v1/sessions/<session id>/complete`. `capture-status` shows `RECORDING` until then. A page opened and left untouched still makes a one-step flow, such as `Navigate on /about`.
+[Troubleshooting](../ui-capture/troubleshooting.md) lists what goes wrong most often, each with its cause and fix: nothing arriving, sessions in another app, visits that have not become flows, cut bodies, build errors, and what agents and the dashboard run into. An SDK error or warning names a `KUI_E_` code, and [UI Capture errors and warnings](../ui-capture/errors.md) explains each one: what happened, why, and how to fix it.
 
 ## Where did a section go? {#where-did-a-section-go}
 
-Parts of this page moved to pages of their own:
+This page used to be the whole UI capture guide. Each of the old guide's sections, and where it is now:
 
-| Section                       | Now in                                                                            |
-| ----------------------------- | --------------------------------------------------------------------------------- |
-| Create an ingest key          | [REST API: Create an ingest key](../ui-capture/rest-api.md#create-an-ingest-key)  |
-| Check that capture is working | [REST API: Capture status](../ui-capture/rest-api.md#capture-status)              |
-| Read the flows                | [REST API: List flows](../ui-capture/rest-api.md#list-flows)                      |
-| Manage ingest keys            | [REST API: List ingest keys](../ui-capture/rest-api.md#list-ingest-keys)          |
-| What an agent sees            | [Operate UI capture from an AI agent](../ui-capture/agents.md#what-an-agent-sees) |
+| Section of the old guide                 | Now in                                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| How UI Capture works                     | [How UI capture works](#how-ui-capture-works), on this page                                          |
+| Before you begin                         | [Dashboard quickstart: Before you begin](../ui-capture/quickstart-dashboard.md#before-you-begin)     |
+| Set up UI Capture in the dashboard       | [Dashboard quickstart](../ui-capture/quickstart-dashboard.md)                                        |
+| Install the SDK                          | [Install the SDK](../ui-capture/install-sdk.md)                                                      |
+| SDK options                              | [SDK options and API: CaptureConfig](../ui-capture/sdk-reference.md#captureconfig)                   |
+| What the SDK records, and what it masks  | [Privacy and masking](../ui-capture/privacy.md)                                                      |
+| Set up UI Capture with the REST API      | [REST API](../ui-capture/rest-api.md)                                                                |
+| Create an ingest key                     | [REST API: Create an ingest key](../ui-capture/rest-api.md#create-an-ingest-key)                     |
+| Check that capture is working            | [REST API: Capture status](../ui-capture/rest-api.md#capture-status)                                 |
+| Read the flows                           | [REST API: List flows](../ui-capture/rest-api.md#list-flows)                                         |
+| Manage ingest keys                       | [REST API: List ingest keys](../ui-capture/rest-api.md#list-ingest-keys)                             |
+| Set up UI Capture from an AI agent (MCP) | [AI agent quickstart](../ui-capture/quickstart-agent.md) and [MCP tools](../ui-capture/mcp-tools.md) |
+| What an agent sees                       | [Operate UI capture from an AI agent](../ui-capture/agents.md#what-an-agent-sees)                    |
+| Limitations                              | [Limitations](#limitations), on this page, and [Limits and sizes](../ui-capture/limits.md)           |
+| Troubleshooting                          | [Troubleshooting](../ui-capture/troubleshooting.md)                                                  |
 
 ## Related
 
@@ -194,3 +172,4 @@ Parts of this page moved to pages of their own:
 - [UI Capture errors and warnings](../ui-capture/errors.md)
 - [@keploy/capture-sdk 3.1.0 release notes](../ui-capture/capture-sdk-3-1-0-release-notes.md)
 - [AI agent quickstart](../ui-capture/quickstart-agent.md)
+- [Troubleshooting](../ui-capture/troubleshooting.md)

@@ -116,7 +116,7 @@ The dashboard shows more to people on your team who can view the app: a flow's r
 
 - **Generate or run tests.** No tool or REST route creates, claims or completes a UI test run. A run today comes only from a flow page's **Generate Test** in the dashboard, and it stays pending: the runner that replays journeys as Playwright tests, `keploy ui run`, is not in a release build yet.
 - **Pin a journey** into the plan, or accept a change.
-- **Run tests in CI.** No service-account role runs UI tests. A CI job can check capture status and read the plan with a `UI_READER` key, on a paid plan.
+- **Run tests in CI.** No service-account role runs UI tests. A CI job can check capture status and read the plan with a `UI_READER` key, on a paid plan: see [Check capture in CI](./ci.md).
 
 ## Related
 
