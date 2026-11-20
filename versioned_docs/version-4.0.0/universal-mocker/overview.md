@@ -145,5 +145,7 @@ coding agent. Then you record, replay and review from the editor.
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
+- [Troubleshooting](./troubleshooting.md): what a failing record or replay
+  prints, and how to fix it.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
   list.

@@ -598,6 +598,12 @@ mock:
 | `branch`         | `--branch`           | The Keploy branch to read and publish. Ignored while `keploy.lock` pins the recordings.  |
 | `command`        | `-c`                 | The command that runs your tests. Read when you don't pass `-c`, with `KEPLOY_PROVEN=1`. |
 
+Outside `mock:`, `keploy.yml` has a top-level `command` key too. When a folder
+has no `keploy.yml`, the first `keploy mock record` or `keploy mock replay`
+there creates one from the flags you pass, and a replay saves its `-c` as that
+`command`. After that, `keploy mock replay` with no `-c` runs it, with or
+without `KEPLOY_PROVEN`.
+
 The [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) guide says
 which of these files to commit and how `keploy.lock` pins your recordings.
 
@@ -817,3 +823,5 @@ command to run next in `run` and `options`. `keploy mock status`, without
 - [Overview](./overview.md): what the Universal Mocker records and replays.
 - [Go quickstart](./quickstarts/go.md): a first record and replay, end to end.
 - [Mock your tests](./mock-your-tests.md): the full guide to record and replay.
+- [Troubleshooting](./troubleshooting.md): what a failing record or replay
+  prints, and how to fix it.
