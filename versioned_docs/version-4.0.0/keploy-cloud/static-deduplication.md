@@ -76,6 +76,14 @@ agent:
 
 `record.static-dedup` enables the feature for `keploy record`; `agent.static-dedup` is forwarded to the agent process so it applies the filter in real time.
 
+### How many captures of a schema are kept
+
+By default the agent keeps up to **3** captures of each schema signature, each one a request that none of the kept captures matches (volatile headers such as request IDs and timestamps aside), so a schema keeps coverage when one of its test cases is later rejected. An identical request never takes a place. Set the number from 1 to 10 with `--dedup-keep`, or with `dedup.keep` in `keploy.yml`; `--dedup-keep 1` keeps only the first capture of each schema:
+
+```bash
+keploy record -c "docker compose up" --containerName orders-api --static-dedup --dedup-keep 1
+```
+
 ### Kubernetes Proxy
 
 When driving recordings through the Kubernetes Proxy REST API, set `static_dedup: true` in the `record_config` block of `POST /record/start`:

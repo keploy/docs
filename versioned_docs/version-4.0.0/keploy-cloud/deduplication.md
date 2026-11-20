@@ -262,6 +262,36 @@ This reads `dedupData.yaml` and writes `duplicates.yaml`, listing the testcases 
 keploy dedup --rm
 ```
 
+## How many test cases each group keeps
+
+`keploy dedup` groups the test cases that ran the same lines and returned the same status code. By default it keeps up to **3** test cases of each group, so the group still has coverage when one of its kept test cases is later rejected (flaky, noisy, or no longer replayable). The kept ones are the members whose requests differ most: the route and path segments, the query and body fields, the headers, and the shape of the response. The same recording always keeps the same test cases.
+
+Only test cases that passed on replay are grouped. A test case that failed, was noisy, or has no result is always kept, and it never counts toward the 3.
+
+Set the number from 1 to 10 with `--keep`, or with `dedup.keep` in `keploy.yml`:
+
+```bash
+keploy dedup --keep 1
+```
+
+```yaml
+dedup:
+  keep: 3
+```
+
+`--keep` takes precedence over `keploy.yml`, which takes precedence over the default of 3. `--keep 1` keeps one test case per group. `keploy dedup` runs offline, so the dashboard's dedup setting does not change it: that setting applies to recordings in Kubernetes. There, the Kubernetes Proxy chart's `dedupCoverage.keep` sets the number, and a recording's own `dedupKeep` in its `auto_replay_config` overrides it.
+
+## Removing and restoring duplicates
+
+`keploy dedup --rm` moves the duplicate test cases out of their test sets into a `dedupDropped/` folder in the project, beside `dedupData.yaml`, instead of deleting them. Keploy never reads that folder as a test set, and it writes a `.gitignore` into it, so the moved test cases are never committed. They stay restorable for 30 days: each `keploy dedup --rm` deletes the moved test cases older than that.
+
+```bash
+keploy dedup --restore   # move them back into their test sets
+keploy dedup --purge     # delete them for good
+```
+
+After `--restore`, the next `keploy test --dedup` and `keploy dedup` pick each group's kept test cases again from every member that passes, so a kept test case that now fails is replaced by another member of its group.
+
 ## Related
 
 - [Static Deduplication](/docs/keploy-cloud/static-deduplication/) — drop duplicate shapes at record time.
