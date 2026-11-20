@@ -154,13 +154,15 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
 - [Keploy Cloud walkthrough](./walkthroughs/dashboard.md): find a branch's
   recordings, review a pull request's changes, and merge them into main.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
-  CI, and sharing with your team.
+  and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
 - [Branches and pull requests](./guides/branches-and-prs.md): how recordings
   follow git branches, pull requests and merges.
 - [Partial re-record](./guides/partial-re-record.md): record a new test, or
   re-record a changed one, without running the whole suite again.
+- [Run the replay in CI](./guides/ci.md): the GitHub Actions workflow, its
+  read-only CI key, and what any other CI job needs.
 - [Network isolation](./guides/network-isolation.md): what a replay keeps
   from the real network, and how to let a call out on purpose.
 - [Times, dates and ids that change](./guides/changing-values.md): what a

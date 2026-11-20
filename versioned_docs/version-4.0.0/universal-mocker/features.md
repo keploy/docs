@@ -103,13 +103,14 @@ UDP that isn't DNS, ICMP and raw sockets aren't intercepted. See
 
 ## Find out what to run next
 
-| Feature                                                                    | What it does                                                                                                                    |
-| -------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| [`keploy mock status`](./troubleshooting.md#start-with-keploy-mock-status) | Prints where the project is and the command to run next.                                                                        |
-| [Status as JSON](./reference.md#keploy-mock-status)                        | `keploy mock status --json` prints the same block and the full mock state as one JSON object, for an editor or a coding agent.  |
-| [Replay results](./reference.md#replay-results)                            | Each replay writes what it proved to `keploy/<set>/last-replay.yaml`.                                                           |
-| [Your test command's exit code](./reference.md#exit-codes)                 | `keploy mock record` and `keploy mock replay` exit with your test command's own exit code, so a failing test fails your CI job. |
-| [Fixes for each error](./troubleshooting.md)                               | What a failing record or replay prints, what causes it, and how to fix it.                                                      |
+| Feature                                                                    | What it does                                                                                                                                                                           |
+| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`keploy mock status`](./troubleshooting.md#start-with-keploy-mock-status) | Prints where the project is and the command to run next.                                                                                                                               |
+| [Status as JSON](./reference.md#keploy-mock-status)                        | `keploy mock status --json` prints the same block and the full mock state as one JSON object, for an editor or a coding agent.                                                         |
+| [Replay results](./reference.md#replay-results)                            | Each replay writes what it proved to `keploy/<set>/last-replay.yaml`.                                                                                                                  |
+| [Replay in CI](./guides/ci.md)                                             | A GitHub Actions workflow replays every pull request and push to main with no dependency running, signed in with a read-only CI key, and comments the tests a pull request re-records. |
+| [Your test command's exit code](./reference.md#exit-codes)                 | `keploy mock record` and `keploy mock replay` exit with your test command's own exit code, so a failing test fails your CI job.                                                        |
+| [Fixes for each error](./troubleshooting.md)                               | What a failing record or replay prints, what causes it, and how to fix it.                                                                                                             |
 
 ## Run it where you work
 

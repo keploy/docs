@@ -292,6 +292,7 @@
             "universal-mocker/guides/keploy-yml-and-lock",
             "universal-mocker/guides/branches-and-prs",
             "universal-mocker/guides/partial-re-record",
+            "universal-mocker/guides/ci",
             "universal-mocker/guides/network-isolation",
             "universal-mocker/guides/changing-values",
             "universal-mocker/guides/background-workers",

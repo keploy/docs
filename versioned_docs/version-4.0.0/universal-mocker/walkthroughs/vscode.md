@@ -304,7 +304,7 @@ notification and its two buttons.
 :::
 
 For any other project or CI, the extension writes no workflow and says so. The
-[CI section](../mock-your-tests.md#proven-ci) shows the replay step to add
+[Other CI systems](../guides/ci.md#other-ci-systems) section shows the replay step to add
 yourself.
 
 ## Step 10: Invite your team

@@ -435,7 +435,8 @@ folder when you no longer need it.
   Maven.
 - [Docker Compose quickstart](./quickstarts/docker-compose.md): the same loop
   with PostgreSQL and Redis started by Docker Compose.
-- [Run the replay in CI, and share recordings with your team](./mock-your-tests.md#proven-ci).
+- [Run the replay in CI](./guides/ci.md), and
+  [share recordings with your team](./mock-your-tests.md#proven-team).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to commit

@@ -141,7 +141,7 @@ KEPLOY_PROVEN=1 keploy mock diff --markdown
 ```
 
 The GitHub Actions workflow in
-[Mock your tests](../mock-your-tests.md#proven-ci) posts this table on every
+[Run the replay in CI](./ci.md) posts this table on every
 pull request and updates it on each push.
 
 To review the recordings themselves, open the branch in Keploy Cloud: see
@@ -380,5 +380,5 @@ Never edit a digest by hand: a replay refuses one it can't verify.
   see what a branch re-records.
 - [Keploy Cloud walkthrough](../walkthroughs/dashboard.md): a branch's
   recordings, and its review.
-- [Mock your tests](../mock-your-tests.md#proven-ci): the GitHub Actions
-  workflow that replays every pull request and comments its diff.
+- [Run the replay in CI](./ci.md): the GitHub Actions workflow that replays
+  every pull request and comments its diff.

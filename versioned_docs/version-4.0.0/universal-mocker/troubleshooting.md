@@ -238,7 +238,7 @@ Keploy Cloud, and in CI nobody can sign in:
 
 - If the recordings are in Keploy Cloud, add a CI key from the Keploy dashboard
   to the job as the `KEPLOY_API_KEY` secret.
-  [Commit and run in CI](./mock-your-tests.md#proven-ci) shows a whole job.
+  [Run the replay in CI](./guides/ci.md) shows a whole job.
 - If the recordings are in the repository, pass `--local`, as you did on your
   machine. It needs no sign-in.
 
