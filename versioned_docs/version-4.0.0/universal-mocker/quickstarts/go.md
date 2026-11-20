@@ -558,8 +558,12 @@ rounds (`verdicts.yaml`), the record command (`last-record.yaml`) and a
 Keploy also writes `.keploy-run/`, with the logs of each run. Its own
 `.gitignore` keeps it out of git.
 
-Now anyone can run `KEPLOY_PROVEN=1 keploy mock replay` on a clone, with no
-PostgreSQL and no rates API, and CI can too.
+Now anyone can clone the project, download its modules with `go mod download`,
+and run `KEPLOY_PROVEN=1 keploy mock replay` with no PostgreSQL and no rates
+API. CI can too. The download comes first because the replay gives `go test` no
+network: on a machine whose module cache doesn't have the modules yet, such as
+a fresh CI runner, `go test` can't fetch them from `proxy.golang.org`, and
+Keploy reports DNS misses for it.
 
 ## Clean up
 

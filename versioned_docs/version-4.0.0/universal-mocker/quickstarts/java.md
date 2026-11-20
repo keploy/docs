@@ -415,7 +415,7 @@ recording.
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
    🐰 Keploy: WARN  no recorded mock matched an outgoing call  {"protocol": "HTTP", "call": "GET /{}/{}", …}
-     Mock mismatch: [HTTP] GET /plans/pro [path tag #1247d817c579]  →  127.0.0.1:8085
+     Mock mismatch: [HTTP] GET /plans/pro [path tag #…]  →  127.0.0.1:8085
      Hint: Only values drifted (path). If the change is expected, re-record the mock set with 'keploy mock record', or, with the dependency reachable, capture the new calls with 'keploy mock replay --on-miss record'. …
    🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 1}
    🐰 Keploy: INFO  this replay did not prove the tests run with the dependencies off  {"mock-set": "default", "reason": "the test command failed"}
@@ -545,8 +545,22 @@ Commit what `git add` staged:
 git commit -m "Add billing tests and their Keploy recording"
 ```
 
-Now anyone can run `keploy mock replay --local -c "mvn test"` on a clone, with
-no users API, and CI can too.
+Now anyone can replay the tests on a clone with no users API, and CI can too.
+The replay gives `mvn test` no network, so Maven must already have every plugin
+and library the build uses. On a machine whose Maven repository
+(`~/.m2/repository`) doesn't have them yet, such as a fresh CI runner, fetch
+them first with a run that starts Surefire but matches no test:
+
+```bash
+mvn -B test -Dtest='*#none' -Dsurefire.failIfNoSpecifiedTests=false
+keploy mock replay --local -c "mvn test"
+```
+
+Without that first command, the replay ends in `BUILD FAILURE` and Keploy
+reports DNS misses for `repo.maven.apache.org`. Its hint says to re-record, but
+a record would capture Maven's downloads: fetch them before the replay instead.
+`mvn dependency:go-offline` isn't enough on its own, because Surefire fetches
+the rest only when it starts to run tests.
 
 ## Clean up
 

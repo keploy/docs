@@ -284,7 +284,7 @@ recording.
    1 failed, 2 passed in 0.08s
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
-     Mock mismatch: [HTTP] GET /plans/pro [path tag #a89d800fc72c]  →  127.0.0.1:8085
+     Mock mismatch: [HTTP] GET /plans/pro [path tag #…]  →  127.0.0.1:8085
      Hint: Only values drifted (path). If the change is expected, re-record the mock set with 'keploy mock record', or, with the dependency reachable, capture the new calls with 'keploy mock replay --on-miss record'. …
    🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 1}
    ```
@@ -414,8 +414,11 @@ Commit what `git add` staged:
 git commit -m "Add billing tests and their Keploy recording"
 ```
 
-Now anyone can run `keploy mock replay --local -c "python3 -m pytest -q"` on a
-clone, with no users API, and CI can too.
+Now anyone can clone the project, create its virtual environment and install
+pytest (`python3 -m venv .venv`, `source .venv/bin/activate` and
+`pip install pytest`), and run
+`keploy mock replay --local -c "python3 -m pytest -q"` with no users API. CI
+can too.
 
 ## Clean up
 

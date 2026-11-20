@@ -372,7 +372,7 @@ makes calls, over HTTP, so the tests pass either way.
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
    🐰 Keploy: WARN  no recorded mock matched an outgoing call  {"protocol": "HTTP", "call": "GET /{}/{}", …}
-     Mock mismatch: [HTTP] GET /plans/pro [path tag #074058e1ad83]  →  127.0.0.1:8085
+     Mock mismatch: [HTTP] GET /plans/pro [path tag #…]  →  127.0.0.1:8085
      Hint: Only values drifted (path). If the change is expected, re-record the mock set with 'keploy mock record', or, with the dependency reachable, capture the new calls with 'keploy mock replay --on-miss record'. …
    🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 1}
    🐰 Keploy: INFO  this replay did not prove the tests run with the dependencies off  {"mock-set": "default", "reason": "the test command failed"}
@@ -521,8 +521,10 @@ Commit what `git add` staged:
 git commit -m "Add billing tests and their Keploy recording"
 ```
 
-Now anyone can run `keploy mock replay --local -c "npx playwright test"` on a
-clone, with no users API, and CI can too.
+Now anyone can clone the project, install its dependencies and Chromium with
+`npm ci` and `npx playwright install --with-deps chromium`, and run
+`keploy mock replay --local -c "npx playwright test"` with no users API. CI can
+too.
 
 ## Clean up
 

@@ -228,7 +228,11 @@ VERDICT  passed
 - `--lock` does not go with `--branch`: Keploy refuses the pair, because they
   name two sources of recordings.
 - `--branch` alone reads the Keploy branch it names, even when there is a
-  `keploy.lock`, and says that it does.
+  `keploy.lock`, and says that it does. In Keploy 3.9.3, a replay of a branch
+  that `keploy mock register` listed leaves out the branch's start-up
+  recording, so a test whose code connects to a database fails with
+  `FAILED_BY_KEPLOY` on a connection-startup miss. Replay from the lock
+  instead: run `KEPLOY_PROVEN=1 keploy mock replay` without `--branch`.
 - While a lock pins the recordings, Keploy ignores `keploy.yml`'s `mock.branch`
   and says so.
 - `--local`, or `mock.local: true`, keeps the recordings in the repository
@@ -258,6 +262,16 @@ What each case prints:
 
   ```text
   WARN  reading the Keploy branch --branch names, not keploy.lock  {"branch": "add-lock", "lock": "/work/orders/keploy.lock"}
+  ```
+
+  In 3.9.3 that replay of the branch `keploy mock register` listed then goes
+  red, because the start-up recording is missing:
+
+  ```text
+  INFO  pulled set "orders" from branch "add-lock": 2 tests, 0 cases; packs 2 fetched  {"mock-set": "orders"}
+  INFO  mock replay summary  {"loaded": 6, "consumed": 0, "missed": 2}
+  FAILED_BY_KEPLOY  .::TestTotalInEUR (failed): keploy/unmocked_call
+    MISS  PostgreSQL connection startup to [::1]:5432  x1  match stopped at no_mocks
   ```
 
 - `mock.branch` set while a lock pins the recordings:

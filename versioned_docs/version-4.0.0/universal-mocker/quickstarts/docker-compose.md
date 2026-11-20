@@ -326,8 +326,11 @@ Commit what `git add` staged:
 git commit -m "Add shop tests and their Keploy recording"
 ```
 
-Now anyone can run `keploy mock replay --local -c "python3 -m pytest -q"` on a
-clone, with the compose stack down, and CI can too.
+Now anyone can clone the project, create its virtual environment and install
+its packages (`python3 -m venv .venv`, `source .venv/bin/activate` and
+`pip install pytest "psycopg[binary]" redis`), and run
+`keploy mock replay --local -c "python3 -m pytest -q"` with the compose stack
+down. CI can too.
 
 ## Clean up
 

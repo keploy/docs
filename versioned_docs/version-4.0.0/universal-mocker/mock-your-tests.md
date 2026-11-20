@@ -36,7 +36,7 @@ The recorded mocks act as virtual services for your dependencies, which makes th
 
 :::note Redis must be running with the open-source Keploy
 
-The open-source `keploy` (for example, installed with `--oss`) neither records nor mocks Redis: it passes your tests' Redis calls through to the real Redis server in `keploy mock record` and in `keploy mock replay`, so any Redis server your tests use must be running and reachable during the replay too. [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which the [install script](/docs/server/installation/) installs by default, records and mocks Redis. A free account is enough to record and replay with it; free-tier runs are subject to a usage allowance. See [Redis Support](/docs/dependencies/redis/).
+The open-source `keploy` (for example, installed with `--oss`) neither records nor mocks Redis: it passes your tests' Redis calls through to the real Redis server in `keploy mock record` and in `keploy mock replay`, so any Redis server your tests use must be running and reachable during the replay too. [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which the [install script](/docs/server/installation/) installs by default, records and mocks Redis. With `--local`, which keeps the recording on your machine, it needs no account: the [Docker Compose quickstart](/docs/universal-mocker/quickstarts/docker-compose/) records and replays Redis that way. To keep recordings in Keploy Cloud, a free account is enough; free-tier runs are subject to a usage allowance. See [Redis Support](/docs/dependencies/redis/).
 
 :::
 
