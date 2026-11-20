@@ -294,14 +294,20 @@
           "label": "Quickstarts",
           "collapsible": true,
           "collapsed": false,
-          "items": ["ui-capture/quickstart-dashboard"]
+          "items": [
+            "ui-capture/quickstart-dashboard",
+            "ui-capture/quickstart-agent"
+          ]
         },
         {
           "type": "category",
           "label": "Walkthroughs",
           "collapsible": true,
           "collapsed": false,
-          "items": ["ui-capture/walkthrough-dashboard"]
+          "items": [
+            "ui-capture/walkthrough-dashboard",
+            "ui-capture/walkthrough-agent"
+          ]
         },
         {
           "type": "category",
@@ -312,7 +318,8 @@
             "ui-capture/privacy",
             "ui-capture/sessions-and-sampling",
             "ui-capture/network-and-bodies",
-            "ui-capture/ingest-keys"
+            "ui-capture/ingest-keys",
+            "ui-capture/agents"
           ]
         },
         {
@@ -331,6 +338,9 @@
               "id": "ui-capture/refusals",
               "label": "Refused verbs"
             },
+            "ui-capture/rest-api",
+            "ui-capture/mcp-tools",
+            "ui-capture/cli",
             {
               "type": "doc",
               "id": "ui-capture/limits",

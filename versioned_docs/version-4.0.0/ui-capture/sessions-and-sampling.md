@@ -123,7 +123,7 @@ On Keploy's side, a session moves through these states:
 
 Extraction runs every minute, and a session's flows are usually ready within a few minutes of its end. A session that cannot be extracted is tried again with growing waits, eight attempts in all over about two hours, and is then marked `FAILED`. A page that was only loaded still gives a flow, of one step: its navigation.
 
-The app's capture status counts its sessions by these states and says what to do next: see [Check that capture is working](../running-keploy/ui-capture.md#check-that-capture-is-working).
+The app's capture status counts its sessions by these states and says what to do next: see [Capture status](./rest-api.md#capture-status).
 
 ## Related
 
