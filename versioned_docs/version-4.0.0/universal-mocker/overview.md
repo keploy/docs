@@ -148,6 +148,8 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
 - [Docker Compose quickstart](./quickstarts/docker-compose.md): record the
   PostgreSQL and Redis calls of a `pytest` suite, then run it with the compose
   stack down.
+- [VS Code quickstart](./quickstarts/vscode.md): record and replay a Go test
+  suite from the VS Code extension.
 - [VS Code walkthrough](./walkthroughs/vscode.md): install the extension, let
   your coding agent set the project up, then replay, see a red test, and add
   the CI workflow.

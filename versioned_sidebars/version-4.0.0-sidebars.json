@@ -269,7 +269,8 @@
             "universal-mocker/quickstarts/jest",
             "universal-mocker/quickstarts/java",
             "universal-mocker/quickstarts/playwright",
-            "universal-mocker/quickstarts/docker-compose"
+            "universal-mocker/quickstarts/docker-compose",
+            "universal-mocker/quickstarts/vscode"
           ]
         },
         {

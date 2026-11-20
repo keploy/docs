@@ -63,6 +63,7 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [Java quickstart](https://keploy.io/docs/universal-mocker/quickstarts/java/): Run JUnit tests with mvn test without the API they call
 - [Playwright quickstart](https://keploy.io/docs/universal-mocker/quickstarts/playwright/): Run a Playwright suite without the API your web app calls
 - [Docker Compose quickstart](https://keploy.io/docs/universal-mocker/quickstarts/docker-compose/): Run tests without the PostgreSQL and Redis services of a compose file
+- [VS Code quickstart](https://keploy.io/docs/universal-mocker/quickstarts/vscode/): Record and replay a Go test suite's PostgreSQL and HTTP calls from the Keploy VS Code extension
 - [VS Code walkthrough](https://keploy.io/docs/universal-mocker/walkthroughs/vscode/): Install the extension, let it download the CLI, sign in, hand the setup to your coding agent, record, replay, read a red test and wire CI
 - [Keploy Cloud dashboard walkthrough](https://keploy.io/docs/universal-mocker/walkthroughs/dashboard/): A Keploy branch's recordings, the review of a pull request's changes, and its merge into main
 - [Mock your tests](https://keploy.io/docs/universal-mocker/mock-your-tests/): The full guide to keploy mock record and replay: the on-miss policy, per-test checks with KEPLOY_PROVEN=1, per-test scoping for any framework, and platforms
