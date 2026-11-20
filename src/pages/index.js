@@ -48,7 +48,7 @@ export default function Home() {
   // single author, publication date or headline. DocItem already suppresses
   // Article on /docs/ for exactly that reason, so emitting one here left the
   // site's only generic Article on the page the rule was written for. The
-  // ItemList mirrors the five entry points GetStartedPaths renders.
+  // ItemList mirrors the six entry points GetStartedPaths renders.
   const collectionPageSchema = docsUrl
     ? {
         "@context": "https://schema.org",

@@ -284,11 +284,65 @@
       "type": "category",
       "label": "UI Testing",
       "collapsed": true,
+      "link": {
+        "type": "doc",
+        "id": "running-keploy/ui-capture"
+      },
       "items": [
-        "running-keploy/ui-capture",
-        "ui-capture/errors",
-        "ui-capture/refusals",
-        "ui-capture/capture-sdk-3-1-0-release-notes"
+        {
+          "type": "category",
+          "label": "Quickstarts",
+          "collapsible": true,
+          "collapsed": false,
+          "items": ["ui-capture/quickstart-dashboard"]
+        },
+        {
+          "type": "category",
+          "label": "Walkthroughs",
+          "collapsible": true,
+          "collapsed": false,
+          "items": ["ui-capture/walkthrough-dashboard"]
+        },
+        {
+          "type": "category",
+          "label": "Guides",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "ui-capture/privacy",
+            "ui-capture/sessions-and-sampling",
+            "ui-capture/network-and-bodies",
+            "ui-capture/ingest-keys"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Reference",
+          "collapsible": true,
+          "collapsed": true,
+          "items": [
+            {
+              "type": "doc",
+              "id": "ui-capture/errors",
+              "label": "Errors and warnings"
+            },
+            {
+              "type": "doc",
+              "id": "ui-capture/refusals",
+              "label": "Refused verbs"
+            },
+            {
+              "type": "doc",
+              "id": "ui-capture/limits",
+              "label": "Limits and sizes"
+            },
+            {
+              "type": "doc",
+              "id": "ui-capture/capture-sdk-3-1-0-release-notes",
+              "label": "SDK 3.1.0 release notes"
+            }
+          ]
+        }
       ]
     },
     {
