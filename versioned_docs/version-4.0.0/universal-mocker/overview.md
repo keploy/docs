@@ -119,6 +119,8 @@ Docker command so Keploy reads the calls on Linux.
 
 A call to any other TCP service is saved as raw bytes. It replays only when
 your tests send exactly the same bytes again.
+[Notes for each dependency](./guides/dependencies.md) says what to know about
+some of them.
 
 ## Use it from VS Code
 
