@@ -55,6 +55,13 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [Flaky Test Elimination](https://keploy.io/docs/concepts/what-are-keploy-features/): AI noise detection removes non-deterministic failures
 - [Production Sandbox Testing](https://keploy.io/docs/concepts/what-is-keploy/): Production-like environments without staging infrastructure
 
+## UI Testing (Beta)
+- [UI Testing overview](https://keploy.io/docs/running-keploy/ui-capture/): Record real user sessions in a web app with the capture SDK (@keploy/capture-sdk) and read each visit as UI flows and journeys in the dashboard, over the REST API, or from an AI agent through MCP
+- [Dashboard quickstart](https://keploy.io/docs/ui-capture/quickstart-dashboard/): Create an ingest key, add it to a sample React shop, and see your first flows
+- [From first visit to journeys](https://keploy.io/docs/ui-capture/walkthrough-dashboard/): Record five visits, read their flows and journeys, read the same data from a script, and clean up
+- [UI Capture errors and warnings](https://keploy.io/docs/ui-capture/errors/): Every KUI_E_ code the capture SDK reports, with its cause and fix
+- [Capture SDK 3.1.0 release notes](https://keploy.io/docs/ui-capture/capture-sdk-3-1-0-release-notes/): What changed in @keploy/capture-sdk 3.1.0
+
 ## Keploy Cloud & Integrations
 - [Enterprise plan](https://keploy.io/docs/keploy-cloud/cloud-installation/): Getting started on the Enterprise plan — install Keploy, sign in, and the plan's features
 - [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation

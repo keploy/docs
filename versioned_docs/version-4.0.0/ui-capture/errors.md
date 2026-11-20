@@ -123,7 +123,7 @@ A program that reads the console can match the code and parse the JSON after the
 
 **Fix:** Mint a UI ingest key for this app and pass it as `apiKey` to `KeployCapture.init()`. You can mint one:
 
-- In the Keploy dashboard, as described in [Set up UI Capture in the dashboard](../running-keploy/ui-capture.md#set-up-ui-capture-in-the-dashboard).
+- In the Keploy dashboard, as described in [Create an ingest key](./quickstart-dashboard.md#create-an-ingest-key) in the dashboard quickstart.
 - With `POST <api-server>/client/v1/apps/<appId>/ui/ingest-keys` and a scoped Public API key with `write` scope in `Authorization: Bearer`, as described in [Create an ingest key](../running-keploy/ui-capture.md#create-an-ingest-key). The Keploy MCP server's `uiCaptureSetup` tool makes the same call.
 
 Both need `testgen:run` on the app. A new key takes effect on the next page load.
@@ -509,7 +509,7 @@ Then reload the page. The SDK does not retry a load that failed while the page w
 
 ## Handle errors from the Keploy UI tools
 
-The `keploy ui` commands, the replay engine that `keploy ui run` drives, and the UI Capture tools an AI agent calls name every failure with a `KUI_E_` code too. A tool error carries:
+The `keploy ui` commands, the replay engine that `keploy ui run` drives, and the UI Capture tools an AI agent calls name every failure with a `KUI_E_` code too. Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. A tool error carries:
 
 - `code`: the code. Branch on `code` and on the exit code, never on the message.
 - `severity`: `fatal`, `error` or `warning`.

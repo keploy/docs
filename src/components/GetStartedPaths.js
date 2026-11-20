@@ -7,10 +7,11 @@ import {
   FaRetweet,
   FaLaptopCode,
   FaLayerGroup,
+  FaMousePointer,
 } from "react-icons/fa";
 import {SiKubernetes} from "react-icons/si";
 
-// The five entry points rendered as cards below, in display order. Exported
+// The six entry points rendered as cards below, in display order. Exported
 // so the docs home can emit them as an ItemList off the same data the links
 // are built from -- a hand-copied list in the JSON-LD would quietly rot the
 // first time one of these paths moves.
@@ -42,6 +43,12 @@ export const GET_STARTED_PATHS = [
       "Universal Mocker: record your tests' database, queue and API calls once, then replay them offline",
     href: "/docs/universal-mocker/overview/",
   },
+  {
+    name: "Record real user flows in your web app",
+    description:
+      "UI Testing (Beta): add the capture SDK, then read each visit as UI flows in the Keploy dashboard",
+    href: "/docs/ui-capture/quickstart-dashboard/",
+  },
 ];
 
 const [
@@ -50,6 +57,7 @@ const [
   K8S_PROXY,
   LOCAL_RECORD,
   UNIVERSAL_MOCKER,
+  UI_CAPTURE,
 ] = GET_STARTED_PATHS;
 
 export const GetStartedPaths = () => {
@@ -328,6 +336,65 @@ export const GetStartedPaths = () => {
                   </div>
                 </div>
                 <span className="mt-1 text-gray-400 transition-colors group-hover/option:text-emerald-500 dark:text-gray-500">
+                  →
+                </span>
+              </Link>
+            </div>
+          </div>
+        </div>
+        {/* UI Testing: spans both columns, below Universal Mocker */}
+        <div className="group relative overflow-hidden rounded-2xl border border-gray-200 bg-gradient-to-br from-white to-sky-50/50 p-6 shadow-sm transition-all duration-300 hover:shadow-lg hover:shadow-sky-100/50 dark:border-gray-700 dark:from-gray-800 dark:to-sky-950/20 dark:hover:shadow-sky-900/20 md:col-span-2">
+          {/* Decorative gradient blob */}
+          <div className="absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-sky-400/20 to-sky-600/10 blur-2xl transition-transform duration-500 group-hover:scale-150"></div>
+
+          <div className="relative flex flex-col gap-6 md:flex-row md:items-center">
+            <div className="md:flex-1">
+              {/* Icon Badge */}
+              <div className="mb-4 inline-flex items-center justify-center rounded-xl bg-gradient-to-br from-sky-500 to-sky-700 p-3 text-white shadow-lg shadow-sky-500/25">
+                <FaMousePointer className="h-6 w-6" />
+              </div>
+
+              {/* Path Label */}
+              <div className="mb-2 flex items-center gap-2">
+                <span className="rounded-md bg-sky-100 px-2 py-0.5 text-xs font-semibold uppercase tracking-wider text-sky-800 dark:bg-sky-900/40 dark:text-sky-200">
+                  UI Testing
+                </span>
+                <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-semibold text-orange-700 dark:bg-orange-900/30 dark:text-orange-300">
+                  Beta
+                </span>
+              </div>
+
+              {/* Content */}
+              <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                Capture Real User Flows From Your Web App
+              </h3>
+              <p className="mb-0 text-sm text-gray-600 dark:text-gray-400">
+                A browser SDK records each visit and masks personal data before
+                it leaves the browser. Read every visit as flows and journeys in
+                the dashboard, over the API, or from an AI agent.
+              </p>
+            </div>
+
+            <div className="md:flex-1">
+              <Link
+                to={useBaseUrl(UI_CAPTURE.href)}
+                className="group/option flex min-h-[92px] items-start justify-between gap-3 rounded-xl border border-gray-200 bg-white/50 p-3 transition-all duration-200 hover:border-sky-300 hover:bg-sky-50/50 hover:no-underline dark:border-gray-600 dark:bg-gray-800/50 dark:hover:border-sky-500/50 dark:hover:bg-sky-900/10"
+              >
+                <div className="flex items-start gap-3">
+                  <div className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-lg bg-sky-100 text-sky-700 transition-colors group-hover/option:bg-sky-100 group-hover/option:text-sky-800 dark:bg-sky-900/30 dark:text-sky-200">
+                    <FaMousePointer className="h-5 w-5" />
+                  </div>
+                  <div>
+                    <h4 className="mb-0.5 text-sm font-semibold text-gray-900 dark:text-white">
+                      Record real user flows in your web app
+                    </h4>
+                    <p className="text-xs text-gray-500 dark:text-gray-400">
+                      Add the capture SDK, then read each visit as UI flows in
+                      the Keploy dashboard
+                    </p>
+                  </div>
+                </div>
+                <span className="mt-1 text-gray-400 transition-colors group-hover/option:text-sky-500 dark:text-gray-500">
                   →
                 </span>
               </Link>
