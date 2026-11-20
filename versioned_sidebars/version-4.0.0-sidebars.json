@@ -323,15 +323,20 @@
             "ui-capture/bundlers",
             "ui-capture/csp-and-workers",
             "ui-capture/ingest-keys",
+            "ui-capture/ci",
+            "ui-capture/journeys",
             "ui-capture/agents"
           ]
         },
+        "ui-capture/features",
+        "ui-capture/troubleshooting",
         {
           "type": "category",
           "label": "Reference",
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "ui-capture/sdk-reference",
             {
               "type": "doc",
               "id": "ui-capture/errors",

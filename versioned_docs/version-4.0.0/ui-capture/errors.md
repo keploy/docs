@@ -23,7 +23,7 @@ keywords:
 Keploy UI Capture names every error and warning it reports with a `KUI_E_` code, and links each code to its section on this page. Each section says what happened, the exit code, why it happened, and how to fix it, naming only commands that exist. It is written to be acted on by a person or by an AI agent.
 
 - **The capture SDK** (`@keploy/capture-sdk`) passes its errors to `onError` and writes its warnings to the console; its exported `SDK_WARNINGS` lists the warnings. An error's `remedy.docs`, and a warning's `SDK_WARNINGS` entry, link here. See [Handle SDK errors and warnings](#handle-sdk-errors-and-warnings) and the table below.
-- **The Keploy UI tools**, the `keploy ui` commands, the replay engine and the tools an AI agent calls, return their errors with a `remedy` whose `docs` links here, and exit with the code's exit code. See [Handle errors from the Keploy UI tools](#handle-errors-from-the-keploy-ui-tools), which lists their codes.
+- **The Keploy UI tools**, the `keploy ui` commands and the replay engine, return their errors with a `remedy` whose `docs` links here, and exit with the code's exit code. See [Handle errors from the Keploy UI tools](#handle-errors-from-the-keploy-ui-tools), which lists their codes.
 
 To set up UI Capture, see [Capture real user flows from your web app](../running-keploy/ui-capture.md).
 
@@ -509,7 +509,7 @@ Then reload the page. The SDK does not retry a load that failed while the page w
 
 ## Handle errors from the Keploy UI tools
 
-The `keploy ui` commands, the replay engine that `keploy ui run` drives, and the UI Capture tools an AI agent calls name every failure with a `KUI_E_` code too. Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. A tool error carries:
+The `keploy ui` commands and the replay engine that `keploy ui run` drives name every failure with a `KUI_E_` code too. The UI capture tools of the Keploy MCP server are not among them: they answer with the REST API's error codes, such as `INSUFFICIENT_SCOPE`, which [Errors an agent should handle](./agents.md#errors-an-agent-should-handle) lists. Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. A tool error carries:
 
 - `code`: the code. Branch on `code` and on the exit code, never on the message.
 - `severity`: `fatal`, `error` or `warning`.
