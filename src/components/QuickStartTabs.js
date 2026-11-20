@@ -11,6 +11,10 @@ import {
   FaDownload,
   FaCircle,
   FaTerminal,
+  FaMousePointer,
+  FaKey,
+  FaCode,
+  FaStream,
 } from "react-icons/fa";
 
 export const QuickStartTabs = () => {
@@ -77,6 +81,36 @@ export const QuickStartTabs = () => {
         primary: false,
       },
     },
+    ui: {
+      id: "ui",
+      label: "UI Capture Quickstart",
+      time: "10 min",
+      icon: FaMousePointer,
+      color: "gray",
+      headline: "Quickstart: UI Capture (Beta)",
+      steps: [
+        {
+          icon: FaKey,
+          title: "Create an ingest key",
+          description: "In the dashboard's UI Testing setup card",
+        },
+        {
+          icon: FaCode,
+          title: "Add the SDK to your app",
+          description: "Or run the sample React shop",
+        },
+        {
+          icon: FaStream,
+          title: "See your flows",
+          description: "Each visit's steps and network calls",
+        },
+      ],
+      cta: {
+        label: "Start UI Capture Quickstart",
+        link: "/docs/ui-capture/quickstart-dashboard/",
+        primary: false,
+      },
+    },
   };
 
   return (
@@ -95,8 +129,8 @@ export const QuickStartTabs = () => {
         </p>
       </div>
 
-      {/* Two Quickstart Tiles */}
-      <div className="grid gap-6 md:grid-cols-2">
+      {/* Quickstart Tiles */}
+      <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
         {Object.values(tabs).map((tab) => {
           const isActive = activeTab === tab.id;
           const Icon = tab.icon;
