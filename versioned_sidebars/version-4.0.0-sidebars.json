@@ -281,6 +281,7 @@
             "universal-mocker/mock-your-tests",
             "universal-mocker/guides/keploy-yml-and-lock",
             "universal-mocker/guides/network-isolation",
+            "universal-mocker/guides/changing-values",
             "running-keploy/utg-vscode-extension"
           ]
         },

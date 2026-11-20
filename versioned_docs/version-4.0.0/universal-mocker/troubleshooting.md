@@ -301,4 +301,6 @@ means, and how to tell Keploy's codes from your test command's.
 - [Go quickstart](./quickstarts/go.md): a first record and replay, end to end.
 - [Network isolation](./guides/network-isolation.md): what a replay sends
   to the real network, and the flags that let a call out.
+- [Times, dates and ids that change](./guides/changing-values.md): a test
+  that sends a new time or id on every run, or checks a token's expiry.
 - [Reference](./reference.md): every `keploy mock` command and flag.

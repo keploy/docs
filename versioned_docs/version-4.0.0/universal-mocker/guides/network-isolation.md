@@ -306,6 +306,8 @@ them at an address on your machine while they run.
   flag on this page, in full.
 - [Replay results](../reference.md#replay-results): the fields of
   `last-replay.yaml` and the status report.
+- [Times, dates and ids that change](./changing-values.md): what a replay
+  does with a value that is new on every run.
 - [keploy.yml and keploy.lock](./keploy-yml-and-lock.md): with
   `KEPLOY_PROVEN=1`, `mock.real` names destinations every run reaches for
   real.

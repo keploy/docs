@@ -147,6 +147,8 @@ coding agent. Then you record, replay and review from the editor.
   commit, and how the lock pins your recordings.
 - [Network isolation](./guides/network-isolation.md): what a replay keeps
   from the real network, and how to let a call out on purpose.
+- [Times, dates and ids that change](./guides/changing-values.md): what a
+  replay does when a test sends a value that is new on every run.
 - [Troubleshooting](./troubleshooting.md): what a failing record or replay
   prints, and how to fix it.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
