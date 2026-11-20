@@ -280,6 +280,7 @@
           "items": [
             "universal-mocker/mock-your-tests",
             "universal-mocker/guides/keploy-yml-and-lock",
+            "universal-mocker/guides/network-isolation",
             "running-keploy/utg-vscode-extension"
           ]
         },

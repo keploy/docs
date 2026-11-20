@@ -299,4 +299,6 @@ means, and how to tell Keploy's codes from your test command's.
 
 - [Overview](./overview.md): what the Universal Mocker records and replays.
 - [Go quickstart](./quickstarts/go.md): a first record and replay, end to end.
+- [Network isolation](./guides/network-isolation.md): what a replay sends
+  to the real network, and the flags that let a call out.
 - [Reference](./reference.md): every `keploy mock` command and flag.
