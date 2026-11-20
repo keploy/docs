@@ -296,7 +296,8 @@
           "collapsed": false,
           "items": [
             "ui-capture/quickstart-dashboard",
-            "ui-capture/quickstart-agent"
+            "ui-capture/quickstart-agent",
+            "ui-capture/install-sdk"
           ]
         },
         {
@@ -318,6 +319,9 @@
             "ui-capture/privacy",
             "ui-capture/sessions-and-sampling",
             "ui-capture/network-and-bodies",
+            "ui-capture/spa-navigation",
+            "ui-capture/bundlers",
+            "ui-capture/csp-and-workers",
             "ui-capture/ingest-keys",
             "ui-capture/agents"
           ]

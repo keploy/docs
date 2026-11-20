@@ -58,6 +58,7 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 ## UI Testing (Beta)
 - [UI Testing overview](https://keploy.io/docs/running-keploy/ui-capture/): Record real user sessions in a web app with the capture SDK (@keploy/capture-sdk) and read each visit as UI flows and journeys in the dashboard, over the REST API, or from an AI agent through MCP
 - [Dashboard quickstart](https://keploy.io/docs/ui-capture/quickstart-dashboard/): Create an ingest key, add it to a sample React shop, and see your first flows
+- [Install the SDK](https://keploy.io/docs/ui-capture/install-sdk/): Add @keploy/capture-sdk to a React and Vite app, a Next.js App Router app or plain HTML pages, and check that recordings arrive
 - [From first visit to journeys](https://keploy.io/docs/ui-capture/walkthrough-dashboard/): Record five visits, read their flows and journeys, read the same data from a script, and clean up
 - [AI agent quickstart](https://keploy.io/docs/ui-capture/quickstart-agent/): Connect Claude Code, Cursor, Codex or another MCP client to Keploy and have it set up UI capture in your frontend
 - [An agent onboards a web app](https://keploy.io/docs/ui-capture/walkthrough-agent/): Every MCP tool call an agent makes to set up UI capture and read flows and journeys, with the answers

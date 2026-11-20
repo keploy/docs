@@ -226,7 +226,7 @@ This is not an error to fix. Keep `KUI_E_CAPTURE_DECLINED` out of your error tra
 ## Next steps
 
 - [From first visit to journeys](./walkthrough-dashboard.md): record five visits along three paths, read their flows and journeys, read the same data from a script, and clean up.
-- [Install the SDK in your own app](../running-keploy/ui-capture.md#install-the-sdk): the same `init` call, in your app's entry point.
+- [Install the SDK in your own app](./install-sdk.md): the same `init` call, in a React and Vite app, a Next.js app or plain HTML pages.
 - [UI Capture errors and warnings](./errors.md): what each `KUI_E_` code the SDK reports means and how to fix it.
 
 ## Related
