@@ -4,6 +4,7 @@ import {themes as prismThemes} from "prism-react-renderer";
 const path = require("path");
 const remarkFaqSchema = require("./src/remark/remarkFaqSchema");
 const {siteGraph} = require("./src/schema/siteEntities");
+const redirects = require("./src/redirects");
 const fs = require("fs");
 const remarkImageSize = require("./src/remark/remarkImageSize");
 import {visit} from "unist-util-visit";
@@ -213,31 +214,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
       };
     },
     "docusaurus-tailwindcss-loader",
-    // Old URLs that published packages still link to. The site is served from
-    // S3, which does not read static/_redirects, so each of these is a page the
-    // build writes that sends the browser on to the doc that replaced it. The
-    // build fails if a `to` page does not exist.
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-          // The README of @keploy/capture-sdk 3.0.1, on npm. Its other link,
-          // /ui-capture/install-sdk/, is a page of its own.
-          // scripts/verify-ui-capture-sdk-links.js keeps every link the SDK
-          // ships resolvable.
-          {from: "/ui-capture/overview/", to: "/running-keploy/ui-capture/"},
-          // Pages that moved into the Universal Mocker section.
-          {
-            from: "/running-keploy/mock-quickstart/",
-            to: "/universal-mocker/mock-quickstart/",
-          },
-          {
-            from: "/running-keploy/mock-your-tests/",
-            to: "/universal-mocker/mock-your-tests/",
-          },
-        ],
-      },
-    ],
+    // Old URLs and the pages that replaced them: see src/redirects.js, where
+    // a moved page's old URL is added. scripts/verify-moved-urls.js checks
+    // each one in the built site.
+    ["@docusaurus/plugin-client-redirects", {redirects}],
     [
       "docusaurus-plugin-llms",
       {

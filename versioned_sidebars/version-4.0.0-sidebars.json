@@ -265,7 +265,11 @@
           "collapsed": false,
           "items": [
             "universal-mocker/quickstarts/go",
-            "universal-mocker/mock-quickstart"
+            "universal-mocker/mock-quickstart",
+            "universal-mocker/quickstarts/jest",
+            "universal-mocker/quickstarts/java",
+            "universal-mocker/quickstarts/playwright",
+            "universal-mocker/quickstarts/docker-compose"
           ]
         },
         {
@@ -275,6 +279,7 @@
           "collapsed": false,
           "items": [
             "universal-mocker/mock-your-tests",
+            "universal-mocker/guides/keploy-yml-and-lock",
             "running-keploy/utg-vscode-extension"
           ]
         }

@@ -34,6 +34,12 @@ The recorded mocks act as virtual services for your dependencies, which makes th
 - `keploy mock replay -c "<your test command>"` runs your tests again with those
   calls served from the mock set, so the real dependencies can be **offline**.
 
+:::note Redis must be running with the open-source Keploy
+
+The open-source `keploy` (for example, installed with `--oss`) neither records nor mocks Redis: it passes your tests' Redis calls through to the real Redis server in `keploy mock record` and in `keploy mock replay`, so any Redis server your tests use must be running and reachable during the replay too. [Keploy Enterprise](/docs/keploy-cloud/cloud-installation/), which the [install script](/docs/server/installation/) installs by default, records and mocks Redis. With `--local`, which keeps the recording on your machine, it needs no account: the [Docker Compose quickstart](/docs/universal-mocker/quickstarts/docker-compose/) records and replays Redis that way. To keep recordings in Keploy Cloud, a free account is enough; free-tier runs are subject to a usage allowance. See [Redis Support](/docs/dependencies/redis/).
+
+:::
+
 Keploy propagates your test runner's **exit code**, so it drops straight into CI.
 
 Using VS Code? The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
@@ -48,7 +54,8 @@ explains the messages it shows.
 # 1. Record the dependency calls your tests make (real dependencies must be up)
 keploy mock record -c "pytest"
 
-# 2. Replay — the dependencies can now be down; your tests run against the mocks
+# 2. Replay — your tests run against the mocks, so the dependencies can now be
+#    down (with the open-source keploy, Redis must stay up)
 keploy mock replay -c "pytest"
 ```
 
@@ -142,6 +149,8 @@ The first record with `--lock keploy.lock` creates `keploy.lock` beside
 `keploy.yml`. The recordings go to Keploy, and `keploy.lock` pins them by their
 SHA-256 hash, so every commit replays exactly the recordings it pins. Later
 records and replays find `keploy.lock` by themselves.
+[keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) says what the lock
+holds and how to publish a recording that a record kept.
 
 When the record ends, it says what it decided: `QUARANTINED` with the reason for
 each test it set aside, a `FIX` line for each kind of failure, `RUNS AGAIN` for a
@@ -411,8 +420,11 @@ there and refuses a second. There is no integration for other frameworks: their
 test process makes the calls by hand. It claims the run
 (`POST {KEPLOY_MOCK_AGENT}/agent/instance` with `{"key": "<package folder>"}`,
 the folder relative to the project) before its first test, then sends
-each test's begin with `"canSkip": true`, skips the test when the begin answers
-`"action": "skip"`, and sends its end, never with `pid`, `at`, `dir` or `suite`.
+each test's begin with `"canSkip": true` and its end, never with `pid`, `at`,
+`dir` or `suite`. When a begin answers `"action": "skip"`, the test process
+skips that test and either sends no end for it or sends one with
+`"outcome": "skipped"`. An end of a skipped test that says another outcome, or
+none, means the test ran: Keploy refuses it (`409 not_open`).
 :::
 
 **pytest** (`conftest.py`):
@@ -516,11 +528,13 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | **Windows**               | Coming soon.                                                                                                                        |
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
-Natively on macOS, Keploy 3.9.3 understands HTTP/HTTPS (HTTP/2 included), gRPC,
-PostgreSQL, MySQL, MongoDB, Amazon DynamoDB and Aerospike calls; calls to other
-services — Redis, Kafka and the like — are captured only as raw bytes and usually
-don't replay. If your tests depend on one of those, run them in a container (as
-above) or on Linux. The
+Natively on macOS, Keploy 3.9.4 understands HTTP/HTTPS (HTTP/2 included), gRPC,
+PostgreSQL, MySQL, MongoDB, Amazon DynamoDB, Aerospike, Couchbase, Memcached,
+Apache HBase and Apache ZooKeeper calls. Calls to Redis, Kafka, Apache Pulsar
+and other services are captured only as raw bytes and usually don't replay.
+Amazon SQS calls are recorded as plain HTTPS calls, without the SQS matching
+Keploy has on Linux, so they still need Linux or Docker. If your tests depend
+on one of those, run them in a container (as above) or on Linux. The
 [dependency table](./overview.md#check-what-it-supports) lists each one. On
 macOS, also
 start the test runner itself rather than through a launcher such as `npm test` or

@@ -59,6 +59,7 @@ decides which tests pass.
 
    Your repository holds only `keploy.yml` and `keploy.lock`, which pins each
    test to its recordings. CI replays what `keploy.lock` pins.
+   [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) explains both.
 
 ## Choose the right Keploy product
 
@@ -95,24 +96,26 @@ and ends:
 | Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
 | Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
 
-**Dependencies** in Keploy 3.9.3. "Docker" means: run the tests through a
+**Dependencies** in Keploy 3.9.4. "Docker" means: run the tests through a
 Docker command so Keploy reads the calls on Linux.
 
-| Dependency                         | Linux | macOS  |
-| ---------------------------------- | ----- | ------ |
-| HTTP and HTTPS, HTTP/2             | Yes   | Yes    |
-| gRPC                               | Yes   | Yes    |
-| PostgreSQL                         | Yes   | Yes    |
-| MySQL                              | Yes   | Yes    |
-| MongoDB                            | Yes   | Yes    |
-| Amazon DynamoDB                    | Yes   | Yes    |
-| Aerospike                          | Yes   | Yes    |
-| Redis                              | Yes   | Docker |
-| Kafka                              | Yes   | Docker |
-| Memcached                          | Yes   | Docker |
-| Apache Pulsar                      | Yes   | Docker |
-| Amazon SQS                         | Yes   | Docker |
-| Couchbase, HBase, Apache ZooKeeper | Yes   | Docker |
+| Dependency             | Linux | macOS  |
+| ---------------------- | ----- | ------ |
+| HTTP and HTTPS, HTTP/2 | Yes   | Yes    |
+| gRPC                   | Yes   | Yes    |
+| PostgreSQL             | Yes   | Yes    |
+| MySQL                  | Yes   | Yes    |
+| MongoDB                | Yes   | Yes    |
+| Amazon DynamoDB        | Yes   | Yes    |
+| Aerospike              | Yes   | Yes    |
+| Couchbase              | Yes   | Yes    |
+| Memcached              | Yes   | Yes    |
+| Apache HBase           | Yes   | Yes    |
+| Apache ZooKeeper       | Yes   | Yes    |
+| Redis                  | Yes   | Docker |
+| Kafka                  | Yes   | Docker |
+| Apache Pulsar          | Yes   | Docker |
+| Amazon SQS             | Yes   | Docker |
 
 A call to any other TCP service is saved as raw bytes. It replays only when
 your tests send exactly the same bytes again.
@@ -127,9 +130,20 @@ coding agent. Then you record, replay and review from the editor.
 
 - [Go quickstart](./quickstarts/go.md): run `go test` without PostgreSQL or an
   HTTP API, then check each test on its own.
-- [Mock your tests in 2 minutes](./mock-quickstart.md): a walkthrough with a
-  Python sample app.
+- [Python quickstart](./mock-quickstart.md): run `pytest` without the API it
+  calls, with no Keploy account.
+- [Node.js quickstart](./quickstarts/jest.md): run Jest without the API it
+  calls, with no Keploy account.
+- [Java quickstart](./quickstarts/java.md): run JUnit tests with `mvn test`
+  without the API they call, with no Keploy account.
+- [Playwright quickstart](./quickstarts/playwright.md): run a Playwright
+  end-to-end suite without the API your web app calls, with no Keploy account.
+- [Docker Compose quickstart](./quickstarts/docker-compose.md): record the
+  PostgreSQL and Redis calls of a `pytest` suite, then run it with the compose
+  stack down.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
+- [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
+  commit, and how the lock pins your recordings.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
   list.
