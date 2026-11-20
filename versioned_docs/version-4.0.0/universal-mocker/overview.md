@@ -151,6 +151,8 @@ coding agent. Then you record, replay and review from the editor.
   from the real network, and how to let a call out on purpose.
 - [Times, dates and ids that change](./guides/changing-values.md): what a
   replay does when a test sends a value that is new on every run.
+- [Features](./features.md): every capability, with a link to the page that
+  shows it.
 - [Troubleshooting](./troubleshooting.md): what a failing record or replay
   prints, and how to fix it.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
