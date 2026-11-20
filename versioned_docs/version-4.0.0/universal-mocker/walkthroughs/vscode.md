@@ -355,6 +355,9 @@ pins.
 
 - [The VS Code extension](/docs/running-keploy/utg-vscode-extension/): every
   command, setting and platform note, and troubleshooting.
+- [VS Code quickstart](../quickstarts/vscode.md): record and replay a sample
+  from the extension without a coding agent, with the real output of each
+  step.
 - [Go quickstart](../quickstarts/go.md): the same record and replay in a
   terminal, with the real output of each step.
 - [Partial re-record](../guides/partial-re-record.md): re-record one changed

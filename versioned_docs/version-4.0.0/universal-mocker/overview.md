@@ -179,5 +179,7 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
   shows it.
 - [Troubleshooting](./troubleshooting.md): what a failing record or replay
   prints, and how to fix it.
+- [Reference](./reference.md): every `keploy mock` command and flag, the
+  `keploy.yml` keys, environment variables and exit codes.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
   list.
