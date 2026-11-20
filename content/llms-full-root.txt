@@ -91,7 +91,7 @@ Key architectural components:
 - HTTP/HTTPS: External API call mocking
 - Redis: Command-level mocking
 
-Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC calls too; calls to other services (PostgreSQL, Redis, Kafka, SQS, …, and gRPC on Windows) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
+Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC, PostgreSQL, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper calls too; calls to other services (Redis, Kafka, Apache Pulsar, …, and PostgreSQL and gRPC on Windows) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
 
 ---
 
@@ -114,7 +114,7 @@ On macOS, start the app itself rather than through a launcher (`npm start`, `mvn
 Runs natively on x86-64 Windows: install `keploy.exe` and run it from an ordinary PowerShell — no WSL, no Docker and no Administrator (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). On Windows on ARM, run Keploy inside WSL (https://keploy.io/docs/installation/windows-installation/).
 
 ### Docker
-Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (PostgreSQL, Redis, Kafka, gRPC on Windows, …).
+Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (Redis, Kafka, Apache Pulsar, …, and PostgreSQL and gRPC on Windows).
 
 ### Platform Requirements
 - Linux: Kernel 5.10 or later (eBPF)

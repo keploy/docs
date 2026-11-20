@@ -65,7 +65,7 @@ Keploy records the API calls your app serves as test cases, and the calls your a
 It runs natively, with no VM and no Docker:
 
 - **Linux** (kernel 5.10 or later): Keploy intercepts calls with eBPF, which needs root. Run `keploy` as your own user; it asks for `sudo` itself when a command needs it.
-- **macOS with Apple silicon**: in user space, with no `sudo`. Natively it understands the HTTP/HTTPS, gRPC, MySQL and MongoDB calls of Go, Node.js, Python and Java apps. Calls to other services, such as PostgreSQL, Redis or Kafka, are captured only as raw bytes and usually don't replay, so run an app that depends on them [with Docker](/docs/installation/macos-installation/#option-3-install-keploy-with-docker).
+- **macOS with Apple silicon**: in user space, with no `sudo`. Natively it understands the HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper calls of Go, Node.js, Python and Java apps. Calls to other services, such as Redis, Kafka or Apache Pulsar, are captured only as raw bytes and usually don't replay, so run an app that depends on them [with Docker](/docs/installation/macos-installation/#option-3-install-keploy-with-docker).
 - **Windows** (x86-64): the same commands, with `keploy.exe` installed as [the Windows guide](/docs/installation/windows-installation/#option-1-run-keploy-natively) shows.
 
 **Keploy doesn't support Intel Macs.** On Windows on ARM, run Keploy in WSL.
