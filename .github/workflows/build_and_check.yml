@@ -72,7 +72,10 @@ jobs:
       # A page moved or deleted with no redirect is not in src/redirects.js,
       # so build the branch this PR goes into, set up the same way: the next
       # step checks that every page in its sitemap still has its URL here.
+      # A closed pull request has no change left to protect, so that run
+      # skips the base build and checks src/redirects.js only.
       - name: Build the base branch
+        if: github.event.action != 'closed'
         env:
           BASE_SHA: ${{ github.event.pull_request.base.sha }}
         run: |
@@ -82,7 +85,14 @@ jobs:
           yarn build
 
       - name: Verify every moved docs URL still leads to its page
-        run: node scripts/verify-moved-urls.js build "$RUNNER_TEMP/base/build"
+        env:
+          EVENT_ACTION: ${{ github.event.action }}
+        run: |
+          if [ "$EVENT_ACTION" = closed ]; then
+            node scripts/verify-moved-urls.js build
+          else
+            node scripts/verify-moved-urls.js build "$RUNNER_TEMP/base/build"
+          fi
 
       # Deploys this PR's build with main.yml's deploy script into a local S3,
       # then replays the weeks after it: no asset a live or open page still
