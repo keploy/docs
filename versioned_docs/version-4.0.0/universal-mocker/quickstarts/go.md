@@ -574,7 +574,8 @@ Delete the `orders` folder when you no longer need it.
 
 ## Next steps
 
-- [Run the replay in CI, and share recordings with your team](../mock-your-tests.md#proven-ci).
+- [Run the replay in CI](../guides/ci.md), and
+  [share recordings with your team](../mock-your-tests.md#proven-team).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
 - [Use the VS Code extension](/docs/running-keploy/utg-vscode-extension/) to

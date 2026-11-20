@@ -269,7 +269,18 @@
             "universal-mocker/quickstarts/jest",
             "universal-mocker/quickstarts/java",
             "universal-mocker/quickstarts/playwright",
-            "universal-mocker/quickstarts/docker-compose"
+            "universal-mocker/quickstarts/docker-compose",
+            "universal-mocker/quickstarts/vscode"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Walkthroughs",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "universal-mocker/walkthroughs/vscode",
+            "universal-mocker/walkthroughs/dashboard"
           ]
         },
         {
@@ -280,9 +291,20 @@
           "items": [
             "universal-mocker/mock-your-tests",
             "universal-mocker/guides/keploy-yml-and-lock",
+            "universal-mocker/guides/branches-and-prs",
+            "universal-mocker/guides/partial-re-record",
+            "universal-mocker/guides/ci",
+            "universal-mocker/guides/network-isolation",
+            "universal-mocker/guides/changing-values",
+            "universal-mocker/guides/background-workers",
+            "universal-mocker/guides/dependencies",
+            "universal-mocker/guides/coding-agents",
             "running-keploy/utg-vscode-extension"
           ]
-        }
+        },
+        "universal-mocker/features",
+        "universal-mocker/troubleshooting",
+        "universal-mocker/reference"
       ]
     },
     {

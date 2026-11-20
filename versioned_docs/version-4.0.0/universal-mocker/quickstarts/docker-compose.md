@@ -345,4 +345,5 @@ need it.
   check of each test on its own.
 - [keploy.yml and keploy.lock](../guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
-- [Run the replay in CI, and share recordings with your team](../mock-your-tests.md#proven-ci).
+- [Run the replay in CI](../guides/ci.md), and
+  [share recordings with your team](../mock-your-tests.md#proven-team).

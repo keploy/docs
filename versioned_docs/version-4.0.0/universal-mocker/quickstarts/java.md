@@ -452,7 +452,9 @@ recording.
    ```
 
    A new record replaces the recording, so it always matches the tests you
-   have now.
+   have now. To add only the new call instead, keep the users API up and
+   replay with `keploy mock replay --local --on-miss record -c "mvn test"`,
+   as the [Python quickstart](../mock-quickstart.md) does.
 
 6. Stop the users API with <kbd>Ctrl</kbd>+<kbd>C</kbd>, and replay:
 
@@ -574,7 +576,8 @@ Step 5 stopped the users API, so nothing is left running. Delete the
   and `--on-miss record` to add a new call.
 - [Go quickstart](./go.md): a sample with PostgreSQL and an HTTP API, and a
   check of each test on its own.
-- [Run the replay in CI, and share recordings with your team](../mock-your-tests.md#proven-ci).
+- [Run the replay in CI](../guides/ci.md), and
+  [share recordings with your team](../mock-your-tests.md#proven-team).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
 - [keploy.yml and keploy.lock](../guides/keploy-yml-and-lock.md): what to

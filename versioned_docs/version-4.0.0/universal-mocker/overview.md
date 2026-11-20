@@ -40,8 +40,15 @@ decides which tests pass.
    outgoing call and its answer.
 2. **Replay.** Run `keploy mock replay -c "<your test command>"`. The
    dependencies can be off. Keploy answers each call with its recorded answer.
-   By default, a call that matches no recording fails the run
-   (`--on-miss fail`), so a missing mock never passes silently.
+   A call Keploy can't match to any recording gets an error instead of a real
+   answer (`--on-miss fail`, the default), and the replay names it. By
+   default, the run fails when a test fails on that error, and `--strict`
+   fails it on any such call. In a replay of the whole run, Keploy 3.9.4 can
+   answer a call with a new id from a similar recorded call: see
+   [Times, dates and ids that change](./guides/changing-values.md#a-replay-of-the-whole-run).
+   A DNS lookup the recording doesn't have doesn't fail a replay, and other UDP
+   (not DNS) isn't intercepted: see
+   [Network isolation in replay](./guides/network-isolation.md).
 3. **Check every test on its own (optional).** With `KEPLOY_PROVEN=1`,
    `keploy mock record` also replays each test with the dependencies off before
    it keeps the recording. A test that doesn't replay is set aside, with the
@@ -119,12 +126,19 @@ Docker command so Keploy reads the calls on Linux.
 
 A call to any other TCP service is saved as raw bytes. It replays only when
 your tests send exactly the same bytes again.
+[Notes for each dependency](./guides/dependencies.md) says what to know about
+some of them.
 
 ## Use it from VS Code
 
 The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
 installs the Keploy CLI, signs you in, and hands the project setup to your
-coding agent. Then you record, replay and review from the editor.
+coding agent. Then you record, replay and review from the editor. The
+[VS Code walkthrough](./walkthroughs/vscode.md) shows each step.
+
+Not on VS Code? Install Keploy's mocking skill for your coding agent with
+`keploy skill install mock`, and ask the agent to set it up:
+[Coding agents](./guides/coding-agents.md) shows how.
 
 ## Next steps
 
@@ -141,9 +155,38 @@ coding agent. Then you record, replay and review from the editor.
 - [Docker Compose quickstart](./quickstarts/docker-compose.md): record the
   PostgreSQL and Redis calls of a `pytest` suite, then run it with the compose
   stack down.
+- [VS Code quickstart](./quickstarts/vscode.md): record and replay a Go test
+  suite from the VS Code extension.
+- [VS Code walkthrough](./walkthroughs/vscode.md): install the extension, let
+  your coding agent set the project up, then replay, see a red test, and add
+  the CI workflow.
+- [Keploy Cloud walkthrough](./walkthroughs/dashboard.md): find a branch's
+  recordings, review a pull request's changes, and merge them into main.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
-  CI, and sharing with your team.
+  and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
+- [Branches and pull requests](./guides/branches-and-prs.md): how recordings
+  follow git branches, pull requests and merges.
+- [Partial re-record](./guides/partial-re-record.md): record a new test, or
+  re-record a changed one, without running the whole suite again.
+- [Run the replay in CI](./guides/ci.md): the GitHub Actions workflow, its
+  read-only CI key, and what any other CI job needs.
+- [Network isolation](./guides/network-isolation.md): what a replay keeps
+  from the real network, and how to let a call out on purpose.
+- [Times, dates and ids that change](./guides/changing-values.md): what a
+  replay does when a test sends a value that is new on every run.
+- [Start-up calls and background work](./guides/background-workers.md): which
+  test a replay answers the calls your app makes at start-up, for a cached
+  token or from a poller.
+- [Coding agents](./guides/coding-agents.md): install Keploy's mocking skill
+  for Claude Code, Cursor, Codex, GitHub Copilot or Antigravity, and let your
+  agent record and replay.
+- [Features](./features.md): every capability, with a link to the page that
+  shows it.
+- [Troubleshooting](./troubleshooting.md): what a failing record or replay
+  prints, and how to fix it.
+- [Reference](./reference.md): every `keploy mock` command and flag, the
+  `keploy.yml` keys, environment variables and exit codes.
 - [CLI commands](/docs/running-keploy/cli-commands/): the full `keploy` command
   list.

@@ -16,7 +16,7 @@ keywords:
 
 # IDE integrations — VS Code
 
-Keploy's VS Code extension, **Keploy: API & DB Mocks**, sets up the [`keploy mock`](/docs/universal-mocker/mock-your-tests/) loop through the coding agent you already use. Keploy records the real calls your tests make to APIs and databases, then replays your tests with those dependencies switched off. The extension installs the Keploy CLI for you, signs you in, installs Keploy's skill for your project, and hands the setup to Claude Code, GitHub Copilot or Cursor's agent. It then shows what the CLI reports about each test, and stages the setup's files for you to commit.
+Keploy's VS Code extension, **Keploy: API Testing, Mocks & Service Virtualization**, sets up the [`keploy mock`](/docs/universal-mocker/mock-your-tests/) loop through the coding agent you already use. Keploy records the real calls your tests make to APIs and databases, then replays your tests with those dependencies switched off. The extension installs the Keploy CLI for you, signs you in, installs Keploy's skill for your project, and hands the setup to Claude Code, GitHub Copilot or Cursor's agent. It then shows what the CLI reports about each test, and stages the setup's files for you to commit.
 
 Install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), then follow the [VS Code extension guide](/docs/running-keploy/utg-vscode-extension/).
 
