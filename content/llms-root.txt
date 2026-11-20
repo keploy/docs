@@ -59,6 +59,12 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [UI Testing overview](https://keploy.io/docs/running-keploy/ui-capture/): Record real user sessions in a web app with the capture SDK (@keploy/capture-sdk) and read each visit as UI flows and journeys in the dashboard, over the REST API, or from an AI agent through MCP
 - [Dashboard quickstart](https://keploy.io/docs/ui-capture/quickstart-dashboard/): Create an ingest key, add it to a sample React shop, and see your first flows
 - [From first visit to journeys](https://keploy.io/docs/ui-capture/walkthrough-dashboard/): Record five visits, read their flows and journeys, read the same data from a script, and clean up
+- [AI agent quickstart](https://keploy.io/docs/ui-capture/quickstart-agent/): Connect Claude Code, Cursor, Codex or another MCP client to Keploy and have it set up UI capture in your frontend
+- [An agent onboards a web app](https://keploy.io/docs/ui-capture/walkthrough-agent/): Every MCP tool call an agent makes to set up UI capture and read flows and journeys, with the answers
+- [Operate UI capture from an AI agent](https://keploy.io/docs/ui-capture/agents/): Credentials, the lifecycle as MCP tools and REST routes, waits, errors, and what an agent sees
+- [UI Testing REST API](https://keploy.io/docs/ui-capture/rest-api/): Each /client/v1 UI capture operation: ingest keys, capture status, flows, flow graph, journeys, impact, test runs
+- [UI Testing MCP tools](https://keploy.io/docs/ui-capture/mcp-tools/): The Keploy MCP server's UI capture tools, their inputs and scopes, and how to call them
+- [UI Testing CLI](https://keploy.io/docs/ui-capture/cli/): keploy login and keploy mcp-install for agents; keploy ui is not in a release build yet
 - [UI Capture errors and warnings](https://keploy.io/docs/ui-capture/errors/): Every KUI_E_ code the capture SDK reports, with its cause and fix
 - [Capture SDK 3.1.0 release notes](https://keploy.io/docs/ui-capture/capture-sdk-3-1-0-release-notes/): What changed in @keploy/capture-sdk 3.1.0
 

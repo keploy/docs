@@ -124,7 +124,7 @@ A program that reads the console can match the code and parse the JSON after the
 **Fix:** Mint a UI ingest key for this app and pass it as `apiKey` to `KeployCapture.init()`. You can mint one:
 
 - In the Keploy dashboard, as described in [Create an ingest key](./quickstart-dashboard.md#create-an-ingest-key) in the dashboard quickstart.
-- With `POST <api-server>/client/v1/apps/<appId>/ui/ingest-keys` and a scoped Public API key with `write` scope in `Authorization: Bearer`, as described in [Create an ingest key](../running-keploy/ui-capture.md#create-an-ingest-key). The Keploy MCP server's `uiCaptureSetup` tool makes the same call.
+- With `POST <api-server>/client/v1/apps/<appId>/ui/ingest-keys` and a scoped Public API key with `write` scope in `Authorization: Bearer`, as described in [Create an ingest key](./rest-api.md#create-an-ingest-key). The Keploy MCP server's `uiCaptureSetup` tool makes the same call.
 
 Both need `testgen:run` on the app. A new key takes effect on the next page load.
 
@@ -525,7 +525,7 @@ How to act on one, as a person or as an AI agent:
 3. **Read the exit code before you read a run as a test result.** Only `0` and `1` are results of a run. Every other code means nothing, or nothing trustworthy, was measured.
 4. **A code marked reserved is not raised by any current build.** It documents a check that is designed but not wired yet. Do not wait for it or branch on it.
 
-A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, `keploy ui --help`, and `keploy ui run`, which needs `--app` and `--base-url` and also takes `--suite`, `--plan`, `--repo` and `--out`. Any other command a remedy names, such as `npx playwright test`, is not the binary's.
+A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, which the released binary has, and `keploy ui --help` and `keploy ui run`, which are not in a release build yet. Any other command a remedy names, such as `npx playwright test`, is not the binary's.
 
 ### Exit codes
 
