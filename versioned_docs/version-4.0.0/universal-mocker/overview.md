@@ -157,6 +157,8 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
+- [Branches and pull requests](./guides/branches-and-prs.md): how recordings
+  follow git branches, pull requests and merges.
 - [Partial re-record](./guides/partial-re-record.md): record a new test, or
   re-record a changed one, without running the whole suite again.
 - [Network isolation](./guides/network-isolation.md): what a replay keeps
