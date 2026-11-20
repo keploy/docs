@@ -2,7 +2,7 @@
 id: reference
 title: Universal Mocker reference
 sidebar_label: Reference
-description: Every keploy mock command and flag of Keploy 3.9.4, as the CLI's own help prints it, and the keploy.yml keys that set the same values.
+description: Every keploy mock command and flag of Keploy 3.9.4, as the CLI's own help prints it, the keploy.yml keys and environment variables that set the same values, the exit codes, and the replay results keploy mock status reports.
 tags:
   - mocks
   - reference
@@ -12,6 +12,8 @@ keywords:
   - keploy mock replay
   - keploy mock flags
   - keploy.yml mock keys
+  - keploy mock exit codes
+  - keploy mock environment variables
   - service virtualization
 ---
 
@@ -27,6 +29,10 @@ keploy mock --help
 Some commands and flags appear only when `KEPLOY_PROVEN=1` is set, as the
 [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) guide runs them.
 They are listed in their own section, or marked `KEPLOY_PROVEN=1` only.
+
+After the commands come the [keploy.yml keys](#keployyml-keys), the
+[environment variables](#environment-variables), the
+[exit codes](#exit-codes) and the [replay results](#replay-results).
 
 ## Commands
 
@@ -594,6 +600,217 @@ mock:
 
 The [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md) guide says
 which of these files to commit and how `keploy.lock` pins your recordings.
+
+## Environment variables
+
+`keploy mock` reads these variables. A flag you pass wins over its variable.
+
+| Variable                       | What it sets                                                                                                                                                                     |
+| ------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `KEPLOY_API_KEY`               | A Keploy API key. The cloud commands sign in with it, with no `keploy login`. Use it in CI. `--api-key` wins over it.                                                            |
+| `KEPLOY_K8S_PROXY_URL`         | The URL of a self-hosted k8s-proxy to sign in and work through. `--k8s-proxy-url` wins over it.                                                                                  |
+| `KEPLOY_REPORT_ANSWER_TIMEOUT` | How long a run's report upload waits for the server's answer, such as `20m`. `--report-answer-timeout` wins over it. Default: `10m`.                                             |
+| `KEPLOY_DISABLE_AUTO_UPDATE`   | `1`, `true`, `yes` or `on` keeps the CLI on the version it has. Without it, a command first installs the newest Keploy release when there is one. Set it in a pinned pipeline.   |
+| `KEPLOY_PROVEN`                | `1` checks each test on its own: each test gets only the calls it recorded, and a replay reports a result per test. It also turns on the commands and flags marked for it above. |
+| `KEPLOY_LIST_MAIN`             | With `KEPLOY_PROVEN=1`: the default of `keploy mock replay --list-main`, `auto`, `on` or `off`.                                                                                  |
+| `KEPLOY_RUN_RESULT`            | A file path. When the command ends, Keploy writes its exit code there as JSON, and the reason when it has one. See [Exit codes](#exit-codes).                                    |
+| `MOCK_LOCAL`                   | `true` works as `--local`: no sign-in, and the recordings stay in the repository.                                                                                                |
+| `MOCK_NAME`                    | The mock set, as `--name` sets it.                                                                                                                                               |
+| `MOCK_EMITMOCKEVENTS`          | `true` works as `--emit-mock-events`: a replay logs one line per mock as it first serves it.                                                                                     |
+
+`MOCK_LOCAL`, `MOCK_NAME` and `MOCK_EMITMOCKEVENTS` are the keploy.yml keys
+`local`, `name` and `emitMockEvents`, in capitals after `MOCK_`. For
+example, this records into the set `nightly`, in the repository, with no
+sign-in:
+
+```bash
+MOCK_LOCAL=true MOCK_NAME=nightly keploy mock record -c "go test -count=1 ./..."
+```
+
+[Step 6 of the Go quickstart](./quickstarts/go.md#step-6-check-each-test-on-its-own)
+turns on `KEPLOY_PROVEN=1` and shows a result per test.
+
+## Exit codes
+
+`keploy mock record` and `keploy mock replay` exit with your test command's
+own exit code. So a failing test fails your CI job, as it would without
+Keploy. The other codes are Keploy's own.
+
+| Code                         | Meaning                                                                                                                                                                          |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`                          | The test command passed.                                                                                                                                                         |
+| The test command's exit code | The test command failed, and Keploy passes its code on unchanged: `1` for a failing `go test`, `7` for a command that ends with `exit 7`.                                        |
+| `1`                          | Keploy itself failed. The error message says why.                                                                                                                                |
+| `3`                          | Keploy could not get the kernel privileges it needs.                                                                                                                             |
+| `4`                          | The mode you asked for can't work on this operating system or CPU.                                                                                                               |
+| `5`                          | Not signed in, and running the command again won't change that. Run `keploy login`, set `KEPLOY_API_KEY`, or keep the recordings in the repository with `--local`.               |
+| `6`                          | The machine or container lacks something Keploy needs to start, such as a mounted tracefs.                                                                                       |
+| `8`                          | The command line is wrong: an unknown command or flag, or the wrong number of arguments. The command did not run.                                                                |
+| `128+N`                      | A signal stopped `keploy mock replay` before it finished: `130` for Ctrl+C (SIGINT), `143` for SIGTERM, `129` for SIGHUP. A stopped replay never exits `0`, so CI can't pass it. |
+
+Here is each code as Keploy 3.9.4 printed it, with `CI=true` and no
+sign-in, trimmed to the lines that matter:
+
+```text
+$ keploy mock bogus
+Error: unknown command "bogus" for "keploy mock"
+Run 'keploy mock --help' for usage.
+exit code: 8
+
+$ keploy mock record -c "go test -count=1 ./..."
+Error: not signed in: CI is set and stdin is not a terminal, so nobody here can approve a sign-in; set KEPLOY_API_KEY to an API key from the Keploy dashboard, or sign in with `keploy login --no-wait` and `keploy login --finish`
+exit code: 5
+
+$ keploy mock replay --local -c "sh -c 'go test -count=1 ./... && exit 7'"
+🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 7}
+exit code: 7
+```
+
+A test command can exit `1`, `5` or `8` on its own too. To tell its code from
+Keploy's, set `KEPLOY_RUN_RESULT` to a file path and read the file after the
+run:
+
+```bash
+KEPLOY_RUN_RESULT=/tmp/keploy-result.json keploy mock replay --local -c "go test -count=1 ./..."
+cat /tmp/keploy-result.json
+```
+
+| Run                                | What Keploy 3.9.4 wrote                                                                                      |
+| ---------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| The tests passed                   | `{"exit_code":0}`                                                                                            |
+| The test command exited `1` or `7` | `{"exit_code":1}`, `{"exit_code":7}`                                                                         |
+| Not signed in                      | `{"exit_code":5,"reason":"auth_required","message":"not signed in: CI is set and stdin is not a terminal…"}` |
+| Ctrl+C during a replay             | `{"exit_code":130,"reason":"interrupted","message":"the run was interrupted before it finished"}`            |
+
+When the test command's code is passed on, the file has no `reason`. Some
+Keploy failures leave none either, and the log says what failed. A `reason`
+is `auth_required` (not signed in), `keploy_error` (Keploy failed) or
+`interrupted`. With `KEPLOY_PROVEN=1`, a replay's `reason` also says why its
+verdict failed, such as `tests_failed` or `min_coverage`, and the file has a
+`status`: `passed`, `failed` or `not_judged`.
+
+## Replay results
+
+Each replay writes what it proved to `keploy/<set>/last-replay.yaml`, which
+`keploy/.gitignore` keeps out of git. `keploy mock status --json` prints each
+set with its verdict and that last replay. This is the set `default` after a
+replay whose test failed, from Keploy 3.9.4, trimmed:
+
+```bash
+keploy mock status --json
+```
+
+```json
+{
+  "flow": "mock",
+  "phase": "verified_red",
+  "summary": "The last replay of default failed: the tests failed on the last replay (exit 1).",
+  "mock": {
+    "config": "keploy.yml",
+    "command": "go test -count=1 ./...",
+    "sets": [
+      {
+        "name": "default",
+        "calls": 1,
+        "mocksFile": "mocks.yaml",
+        "storage": "repo",
+        "perTest": false,
+        "verdict": "failed",
+        "why": "the tests failed on the last replay (exit 1)",
+        "lastReplay": {
+          "set": "default",
+          "at": "2026-11-20T03:56:14Z",
+          "command": "go test -count=1 ./...",
+          "onMiss": "fail",
+          "strict": false,
+          "exitCode": 1,
+          "runnerExitCode": 1,
+          "failedBy": "runner",
+          "loaded": 1,
+          "consumed": 1,
+          "missed": 0,
+          "isolated": false,
+          "isolationNote": "the test command failed",
+          "mocksDigest": "dbf13cec4aacab7b9884b8328d415d74b1436418482ca74c4960a2aabd261ee2",
+          "coverageNote": "the test command wrote no coverage report",
+          "keployVersion": "3.9.4"
+        },
+        "lastRecord": {
+          "set": "default",
+          "command": "go test -count=1 ./..."
+        }
+      }
+    ],
+    "cloud": {"state": "no_app", "tests": 0, "sets": 0}
+  }
+}
+```
+
+The top of the output is the next step to take: `phase`, `summary`, and the
+command to run next in `run` and `options`. `keploy mock status`, without
+`--json`, prints the same next step as text.
+
+### Each set
+
+| Field        | What it says                                                                                                |
+| ------------ | ----------------------------------------------------------------------------------------------------------- |
+| `name`       | The mock set.                                                                                               |
+| `calls`      | The recorded calls in the set. `-1` when they can't be counted cheaply.                                     |
+| `mocksFile`  | The recording's file name: `mocks.yaml`, `mocks.json` or `mocks.gob`.                                       |
+| `storage`    | Where the recording lives: `repo` (in the repository), `cloud`, `registry` or `local_only`.                 |
+| `perTest`    | `true` when the test runner reported where each test starts and ends, so each test gets only its own calls. |
+| `verdict`    | What the last replay proved. The values are in the next table.                                              |
+| `why`        | The verdict in words.                                                                                       |
+| `lastReplay` | The last replay's results, from `last-replay.yaml`.                                                         |
+| `lastRecord` | The command the last `keploy mock record` of the set ran.                                                   |
+
+| `verdict`      | Meaning                                                                                                   |
+| -------------- | --------------------------------------------------------------------------------------------------------- |
+| `not_replayed` | Never replayed on this machine.                                                                           |
+| `isolated`     | It passed with every dependency answered from the recording, and no call was missed.                      |
+| `failed`       | The last replay exited non-zero.                                                                          |
+| `leaky`        | It passed, but a call could reach a real dependency (`--on-miss passthrough` or `record`), or was missed. |
+| `unverified`   | It passed with `--on-miss fail`, but Keploy could not read which calls were missed.                       |
+| `stale`        | The recording has changed since it was replayed.                                                          |
+| `below_floor`  | It was isolated, but the run covered less code than `--min-coverage`.                                     |
+| `no_coverage`  | It was isolated, and the repository sets a coverage floor, but the run wrote no coverage report.          |
+| `not_judged`   | With `KEPLOY_PROVEN=1`: some tests were left without a verdict, and none failed.                          |
+| `quarantined`  | Its tests passed, but the set's `verdicts.yaml` sets most of them aside.                                  |
+| `unknown`      | Keploy could not read the last replay's results. Replay again.                                            |
+
+### The last replay
+
+| Field                          | What it says                                                                                                                  |
+| ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------- |
+| `set`, `at`, `command`         | The set, when the replay ran, and the test command.                                                                           |
+| `onMiss`, `strict`             | The `--on-miss` and `--strict` the replay used. Only `onMiss: fail` keeps a call that was never recorded from a real service. |
+| `exitCode`                     | What Keploy exited with.                                                                                                      |
+| `runnerExitCode`               | What the test command exited with. `-1` when it never exited on its own.                                                      |
+| `failedBy`                     | What failed the run, when something did. The values are below.                                                                |
+| `error`                        | Why Keploy could not run the replay or finish it, when that happened.                                                         |
+| `loaded`, `consumed`, `missed` | The mocks loaded, the mocks served, and the calls no mock answered. `-1` means the count was never reported.                  |
+| `isolated`, `isolationNote`    | `true` when the run showed the tests pass with no real dependency. The note says why not.                                     |
+| `mocksDigest`                  | The SHA-256 of the mocks file the replay used, so you can tell whether the set was re-recorded since.                         |
+| `coverage`, `coverageNote`     | The coverage your test command reported, or why there is none.                                                                |
+| `minCoverage`                  | The `--min-coverage` the run was held to, when one was set.                                                                   |
+| `bypass`                       | The destinations set to skip Keploy, which the replay sent to the real service.                                               |
+| `keployVersion`                | The Keploy release that ran the replay.                                                                                       |
+
+`failedBy` is one of:
+
+- `runner`: the test command failed.
+- `setup`: Keploy could not start the run, so the tests never ran.
+- `strict`: `--strict` was on and a call missed its recorded mock.
+- `min-coverage`: the run covered less code than `--min-coverage`, or wrote no
+  coverage report.
+- `keploy`: Keploy did not finish the run.
+- `nothing-verified`: the run served none of the recorded calls, so it checked
+  nothing.
+- `capture_incomplete`: Keploy could not follow a process the test command
+  ran, so that process's calls went to the real service.
+- With `KEPLOY_PROVEN=1`, also `begin_refused` (Keploy refused a test when it
+  began) and `rule_not_made` (a call a rule says the run must make was never
+  made).
 
 ## See also
 
