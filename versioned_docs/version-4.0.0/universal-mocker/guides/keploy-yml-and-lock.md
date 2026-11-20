@@ -128,13 +128,13 @@ This is the `keploy.lock` of a Go project with two tests, `TestTotalInUSD` and
 version: 1
 
 .::@startup:
-  digest: sha256:e752388f5d6db6dfd47dfef50ab2f081ed3ac1553b12a7220072b3ed4e2d2db4  # 2026-11-19T20:43Z linux keploy 3.9.3 at cb3ce335b618
+  digest: sha256:10d66037d20bd706d718560edc3a3fd884f462bcfc6f5be81be037186434eb36  # 2026-11-20T03:07Z linux keploy 3.9.4 at 5c5e4335d81a
 
 .::.::TestTotalInEUR:
-  digest: sha256:56c21b52cea23060184c85d8bf8b671b18a62e7e2684bad3e693a16006f3ef64  # 2026-11-19T20:43Z linux keploy 3.9.3 at cb3ce335b618
+  digest: sha256:314c6639e8682100b87dee680397237c9ed4098b0b19dc59964c7757b5b66ad4  # 2026-11-20T03:07Z linux keploy 3.9.4 at 5c5e4335d81a
 
 .::.::TestTotalInUSD:
-  digest: sha256:6dac76b061f1c90ae2fdefa94f4233ac8689b82d09dd2720b7e0421b37567907  # 2026-11-19T20:43Z linux keploy 3.9.3 at cb3ce335b618
+  digest: sha256:38f35de415d243c9c4d1f6d2687e63f8c62a2a9d6577cfdf9b0f886ca6a3fbed  # 2026-11-20T03:07Z linux keploy 3.9.4 at 5c5e4335d81a
 ```
 
 Each entry names a test, and the `@startup` entry the set's start-up. The
@@ -295,7 +295,7 @@ For example, a record whose `keploy.yml` had lost its `mock.appId` judged its
 tests but could not publish them:
 
 ```text
-keploy: keploy/orders is judged, but its recording was not published (no Keploy app: run "keploy app create" or pass --app <name>); it is kept in /work/orders/.keploy-run/staging/20261119T210338Z-2660932281, and keploy.lock is unchanged. Publish it with: KEPLOY_PROVEN=1 keploy mock publish --from /work/orders/.keploy-run/staging/20261119T210338Z-2660932281
+keploy: keploy/orders is judged, but its recording was not published (no Keploy app: run "keploy app create" or pass --app <name>); it is kept in /work/orders/.keploy-run/staging/20261120T030817Z-2396317157, and keploy.lock is unchanged. Publish it with: KEPLOY_PROVEN=1 keploy mock publish --from /work/orders/.keploy-run/staging/20261120T030817Z-2396317157
 keploy: judged keploy/orders, not published: 2 replayable, 0 quarantined
 ```
 
@@ -303,7 +303,7 @@ With `mock.appId` back in `keploy.yml`, the printed line publishes the recording
 and pins it:
 
 ```bash
-KEPLOY_PROVEN=1 keploy mock publish --from /work/orders/.keploy-run/staging/20261119T210338Z-2660932281
+KEPLOY_PROVEN=1 keploy mock publish --from /work/orders/.keploy-run/staging/20261120T030817Z-2396317157
 ```
 
 ```text
