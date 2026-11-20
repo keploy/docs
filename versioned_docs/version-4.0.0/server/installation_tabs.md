@@ -277,7 +277,7 @@ If the rootful `podman.socket` is enabled (`sudo systemctl enable --now podman.s
 <br />
 
 :::info
-Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, gRPC, MySQL and MongoDB** calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka and the like — are captured only as raw bytes and usually don't replay.
+Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper** calls of Go, Node.js, Python and Java apps; calls to other services — Redis, Kafka, Apache Pulsar and the like — are captured only as raw bytes and usually don't replay.
 
 - Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
 - The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too. Keploy doesn't support Intel Macs.
