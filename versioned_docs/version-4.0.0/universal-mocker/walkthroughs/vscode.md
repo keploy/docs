@@ -60,12 +60,7 @@ You need:
 The **Set up** checklist opens. It lists each step of this walkthrough, and a
 step that isn't done runs the command that does it when you select it.
 
-:::note Screenshot coming
-
-The **Set up** checklist, just after the install: **Downloading the Keploy
-CLI** turns at the top, and the steps below it are not done yet.
-
-:::
+<img src="/docs/img/universal-mocker/vscode/01-checklist-download.png" alt="The Keploy Set Up checklist just after the install: Downloading the Keploy CLI turns at the top, and the steps below it are not done yet" width="100%" />
 
 The extension also adds a guided tour to VS Code. To open it, run **Welcome:
 Open Walkthrough** from the Command Palette and choose **Get started with
@@ -77,19 +72,14 @@ The download starts by itself when the extension is installed. You don't have
 to do anything.
 
 - A notification, **Keploy: downloading the CLI (_version_)**, shows how much
-  has arrived, such as _120.4 MB of 301.2 MB_. To stop it, select **Cancel**.
+  has arrived, such as _125.6 MB of 125.6 MB_ when it ends. To stop it, select **Cancel**.
 - The status bar shows **Keploy: CLI** and the percentage.
 - The CLI goes into `~/.keploy/bin`, and the extension checks it against
   Keploy's published checksum before it installs it. No step needs `sudo`.
 
 When the download ends, the checklist ticks **Keploy CLI installed**.
 
-:::note Screenshot coming
-
-The download notification with its progress and its **Cancel** button, and the
-**Downloading the Keploy CLI** row in the checklist.
-
-:::
+<img src="/docs/img/universal-mocker/vscode/02-download-notification.png" alt="The notification Keploy: downloading the CLI (3.9.4): 125.6 MB of 125.6 MB with its Cancel button, the Downloading the Keploy CLI row in the checklist, and Keploy: CLI 100% in the status bar" width="100%" />
 
 If you cancelled, run **Keploy: Install or update the CLI** to start the
 download again.
@@ -181,10 +171,11 @@ you add a test. Your dependencies must be running.
    terminal, with `KEPLOY_PROVEN=1`. When it ends, the terminal shows its last
    line, and the checklist ticks its record step.
 
+<img src="/docs/img/universal-mocker/vscode/06-record-branch.png" alt="On main, the message Keploy records on a work branch, not on main, with its Create keploy/docs-vscode-orders and record button" width="100%" />
+
 :::note Screenshot coming
 
-The work-branch message with its **Create keploy/_name_ and record** button,
-then the record's terminal at its last line.
+The record's terminal at its last line.
 
 :::
 

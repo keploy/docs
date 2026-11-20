@@ -189,6 +189,12 @@ branch (conflicts remaining)** until you resolve them.
 After the merge, the branch's status is **Merged**, and its recordings show on
 main in **Recordings**.
 
+If the app's recording pin is on, main follows the `keploy.lock` of your git
+main branch instead: merge the pull request in git, and a green replay of main
+lists its lock as Keploy main. The
+[branches and pull requests guide](../guides/branches-and-prs.md#3-merge-the-pull-request)
+shows both steps and their output.
+
 :::note Screenshot coming
 
 The branch after its pull request merged: the **Merged** badge on the review
