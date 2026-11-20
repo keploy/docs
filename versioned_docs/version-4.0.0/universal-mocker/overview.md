@@ -145,6 +145,8 @@ coding agent. Then you record, replay and review from the editor.
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to
   commit, and how the lock pins your recordings.
+- [Partial re-record](./guides/partial-re-record.md): record a new test, or
+  re-record a changed one, without running the whole suite again.
 - [Network isolation](./guides/network-isolation.md): what a replay keeps
   from the real network, and how to let a call out on purpose.
 - [Times, dates and ids that change](./guides/changing-values.md): what a

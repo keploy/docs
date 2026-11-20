@@ -361,6 +361,8 @@ Error: --lock names the keploy.lock of a staged recording: pass it with --from <
 
 ## Related
 
+- [Partial re-record](./partial-re-record.md): record a new test, or
+  re-record a changed one, and keep every other test's recording.
 - [Mock your tests](../mock-your-tests.md): the whole record and replay loop,
   with CI.
 - [Go quickstart](../quickstarts/go.md): record and replay a Go suite end to
