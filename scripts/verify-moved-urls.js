@@ -12,7 +12,12 @@
 // - a real page (not another redirect) at the new URL, and
 // - when the new URL names a #fragment, an element with that id on the page.
 //
-// Usage: node scripts/verify-moved-urls.js <build dir>
+// A page moved or deleted with no redirect listed is not in that list. So,
+// given a base build (the branch the change goes into, built the same way),
+// every page in the base build's sitemap must still lead to a page here: the
+// page itself, or a redirect to a real page.
+//
+// Usage: node scripts/verify-moved-urls.js <build dir> [<base build dir>]
 const fs = require("fs");
 const path = require("path");
 
@@ -24,8 +29,11 @@ const BASE_URL = "/docs/";
 const REDIRECT_RE = /<meta http-equiv="refresh" content="0; url=([^"]+)">/;
 
 const buildDir = process.argv[2];
+const baseDir = process.argv[3];
 if (!buildDir) {
-  console.error("usage: node scripts/verify-moved-urls.js <build dir>");
+  console.error(
+    "usage: node scripts/verify-moved-urls.js <build dir> [<base build dir>]"
+  );
   process.exit(2);
 }
 
@@ -41,9 +49,14 @@ function readPage(url) {
   }
 }
 
+// The text as a RegExp that matches only itself (a "." in #v1.2 is a dot).
+const escapeRe = (text) => text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
 // An element with that id, its quotes kept or dropped by the minifier.
-const hasId = (html, id) =>
-  new RegExp(`\\sid=(?:"${id}"|${id}[\\s>])`).test(html);
+const hasId = (html, id) => {
+  const re = escapeRe(id);
+  return new RegExp(`\\sid=(?:"${re}"|${re}[\\s>])`).test(html);
+};
 
 // A redirect target as the browser lands on it. plugin-client-redirects drops
 // the slash before a #fragment (/x#y for /x/#y), and keploy.io answers a path
@@ -118,9 +131,58 @@ for (const {from, to} of moves) {
   }
 }
 
+// Every page of the base build, by its URL under BASE_URL.
+let basePages = [];
+if (baseDir) {
+  const sitemap = path.join(baseDir, "sitemap.xml");
+  const xml = fs.readFileSync(sitemap, "utf8");
+  basePages = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map(
+    (m) => new URL(m[1]).pathname
+  );
+  if (basePages.length === 0) {
+    failures.push(
+      `${sitemap} lists no pages: the check would pass on nothing.`
+    );
+  }
+}
+for (const loc of basePages) {
+  if (!loc.startsWith(BASE_URL)) {
+    failures.push(`${loc}: the base sitemap lists a page outside ${BASE_URL}.`);
+    continue;
+  }
+  const url = "/" + loc.slice(BASE_URL.length);
+  const page = readPage(url);
+  if (page === null) {
+    failures.push(
+      `${url}: the base build has this page and this build has nothing ` +
+        `there. Moved or deleted? Add a redirect from it to the page that ` +
+        `replaces it in src/redirects.js.`
+    );
+    continue;
+  }
+  const m = page.match(REDIRECT_RE);
+  if (!m) continue;
+  const to = m[1].split("#")[0];
+  const target = to.startsWith(BASE_URL)
+    ? readPage("/" + to.slice(BASE_URL.length))
+    : null;
+  if (target === null || REDIRECT_RE.test(target)) {
+    failures.push(
+      `${url}: the base build has this page, and here it redirects to ` +
+        `${m[1]}, which is not a page. Point its redirect in ` +
+        `src/redirects.js at the page that replaces it.`
+    );
+  }
+}
+
 if (failures.length > 0) {
   console.error(`${failures.length} moved URL(s) no longer lead to a page:`);
   for (const f of failures) console.error(`- ${f}`);
   process.exit(1);
 }
 console.log(`All ${moves.length} moved URLs redirect to their pages.`);
+if (baseDir) {
+  console.log(
+    `All ${basePages.length} pages of the base build still lead to a page.`
+  );
+}
