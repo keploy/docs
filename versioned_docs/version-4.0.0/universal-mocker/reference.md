@@ -645,17 +645,18 @@ turns on `KEPLOY_PROVEN=1` and shows a result per test.
 own exit code. So a failing test fails your CI job, as it would without
 Keploy. The other codes are Keploy's own.
 
-| Code                         | Meaning                                                                                                                                                                          |
-| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `0`                          | The test command passed.                                                                                                                                                         |
-| The test command's exit code | The test command failed, and Keploy passes its code on unchanged: `1` for a failing `go test`, `7` for a command that ends with `exit 7`.                                        |
-| `1`                          | Keploy itself failed. The error message says why.                                                                                                                                |
-| `3`                          | Keploy could not get the kernel privileges it needs.                                                                                                                             |
-| `4`                          | The mode you asked for can't work on this operating system or CPU.                                                                                                               |
-| `5`                          | Not signed in, and running the command again won't change that. Run `keploy login`, set `KEPLOY_API_KEY`, or keep the recordings in the repository with `--local`.               |
-| `6`                          | The machine or container lacks something Keploy needs to start, such as a mounted tracefs.                                                                                       |
-| `8`                          | The command line is wrong: an unknown command or flag, or the wrong number of arguments. The command did not run.                                                                |
-| `128+N`                      | A signal stopped `keploy mock replay` before it finished: `130` for Ctrl+C (SIGINT), `143` for SIGTERM, `129` for SIGHUP. A stopped replay never exits `0`, so CI can't pass it. |
+| Code                         | Meaning                                                                                                                                                                                                                          |
+| ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `0`                          | The test command passed.                                                                                                                                                                                                         |
+| The test command's exit code | The test command failed, and Keploy passes its code on unchanged: `1` for a failing `go test`, `7` for a command that ends with `exit 7`.                                                                                        |
+| `1`                          | Keploy itself failed, or the replay failed one of its own checks: with `--strict`, a call missed its recording; or, with the default `--on-miss fail`, the replay served none of the recorded calls. The error message says why. |
+| `2`                          | Keploy crashed. The result file below usually has `reason: keploy_error` and a message that starts with `keploy crashed:`.                                                                                                       |
+| `3`                          | Keploy could not get the kernel privileges it needs.                                                                                                                                                                             |
+| `4`                          | The mode you asked for can't work on this operating system or CPU.                                                                                                                                                               |
+| `5`                          | Not signed in, and running the command again won't change that. Run `keploy login`, set `KEPLOY_API_KEY`, or keep the recordings in the repository with `--local`.                                                               |
+| `6`                          | The machine or container lacks something Keploy needs to start, such as a mounted tracefs.                                                                                                                                       |
+| `8`                          | The command line is wrong: an unknown command or flag, or the wrong number of arguments. The command did not run.                                                                                                                |
+| `128+N`                      | A signal stopped `keploy mock replay` before it finished: `130` for Ctrl+C (SIGINT), `143` for SIGTERM, `129` for SIGHUP. A stopped replay never exits `0`, so CI can't pass it.                                                 |
 
 Here is each code as Keploy 3.9.4 printed it, with `CI=true` and no
 sign-in, trimmed to the lines that matter:
@@ -675,7 +676,7 @@ $ keploy mock replay --local -c "sh -c 'go test -count=1 ./... && exit 7'"
 exit code: 7
 ```
 
-A test command can exit `1`, `5` or `8` on its own too. To tell its code from
+A test command can exit `1`, `2`, `5` or `8` on its own too. To tell its code from
 Keploy's, set `KEPLOY_RUN_RESULT` to a file path and read the file after the
 run:
 

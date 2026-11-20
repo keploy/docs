@@ -76,10 +76,12 @@ replay can't sign in.
 
 With the [VS Code extension](../walkthroughs/vscode.md#step-9-replay-in-ci),
 run **Keploy: Wire CI (GitHub Actions)**. It writes
-`.github/workflows/keploy.yml` for a Go or Node project at the repository's
-root that has a `keploy.lock`, and never over a file that is already there.
+`.github/workflows/keploy.yml` for a Go or Node project that has a
+`keploy.lock`, and never over a file that is already there. For a project in a
+folder below the repository's root, the workflow's steps run in that folder.
 
-Without the extension, add the same file. For a Go module, it is:
+Without the extension, add the file yourself. For a Go module at the
+repository's root, it is:
 
 ```yaml
 # Written by the Keploy VS Code extension. On every pull request and every
@@ -335,8 +337,15 @@ a test command that downloads packages.
 ## Re-record in CI
 
 Keep CI for replays, and record on your machine. A CI key can't record: Keploy
-Cloud refuses the recordings it uploads, so Keploy stops a record signed in
-with one, and says so.
+Cloud refuses the recordings that a key without write access uploads.
+
+With `KEPLOY_PROVEN=1`, as this guide sets it, Keploy 3.9.4 stops a record
+before it starts when the key's role is `CI`. It doesn't stop a record signed
+in with a service-account key, like the one [step 1](#step-1-make-a-ci-key)
+makes, or a record without `KEPLOY_PROVEN=1`. Such a record runs your tests
+against the real dependencies, and then Keploy Cloud refuses its recordings
+at the upload: see
+[A CI key can't record](../troubleshooting.md#a-ci-key-cant-record).
 
 A job that must re-record, such as a scheduled refresh, needs the dependencies
 up and an API key that a person made. Run it on a branch, not on main, and open

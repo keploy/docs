@@ -77,11 +77,11 @@ keploy mock replay -c "npm test" --name orders
 
 When an outgoing call matches no recorded mock, `--on-miss` decides what happens:
 
-| `--on-miss`      | Behaviour                                                                                                       |
-| ---------------- | --------------------------------------------------------------------------------------------------------------- |
-| `fail` (default) | The call gets an error (deterministic); the run fails.                                                          |
-| `passthrough`    | The call goes to the **real** dependency; nothing is persisted.                                                 |
-| `record`         | The call goes to the real dependency **and is appended** to the set (VCR "new episodes") — incremental refresh. |
+| `--on-miss`      | Behaviour                                                                                                                       |
+| ---------------- | ------------------------------------------------------------------------------------------------------------------------------- |
+| `fail` (default) | The call gets an error, and the replay names it. By default, the run fails when a test fails on that error, or with `--strict`. |
+| `passthrough`    | The call goes to the **real** dependency; nothing is persisted.                                                                 |
+| `record`         | The call goes to the real dependency **and is appended** to the set (VCR "new episodes") — incremental refresh.                 |
 
 ```bash
 # A new test hit a new endpoint? Capture just that call and keep it:

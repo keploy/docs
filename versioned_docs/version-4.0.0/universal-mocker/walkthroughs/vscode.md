@@ -94,6 +94,8 @@ download again.
 2. VS Code asks **Do you want Code to open the external website?** for
    `https://app.keploy.io/activate`. Select **Open**.
 
+   <img src="/docs/img/universal-mocker/vscode/03-signin-open.png" alt="VS Code asking whether to open https://app.keploy.io/activate, with Configure Trusted Domains, Copy, Cancel and Open buttons" width="452" />
+
    Your browser opens Keploy's sign-in page. In VS Code, a **Keploy sign-in**
    notification shows the page's address and a code:
 
@@ -105,7 +107,7 @@ download again.
    "Tell me". In VS Code you don't need to do anything else: the notification
    waits for your approval.
 
-   <img src="/docs/img/universal-mocker/vscode/03-signin-notification.png" alt="VS Code asking whether to open https://app.keploy.io/activate, and the Keploy sign-in notification with its code blurred and its Cancel button" width="100%" />
+   <img src="/docs/img/universal-mocker/vscode/03-signin-notification.png" alt="The Keploy sign-in notification with its code blurred and its Cancel button" width="455" />
 
 3. In your browser, sign in, type the code the notification shows, and
    approve the sign-in. The page never fills the code in for you: typing it

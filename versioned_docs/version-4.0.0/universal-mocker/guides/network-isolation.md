@@ -33,14 +33,14 @@ this page shows them as `#…`.
 
 ## What a replay does with each call
 
-| The call                                                                                           | What the replay does                                                                                                                                                                         |
-| -------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| A connection the recording has: an HTTP or gRPC service, a database, a queue                       | Keploy answers it from the recording. The real service is never asked.                                                                                                                       |
-| A connection the recording doesn't have                                                            | It never reaches the real service. An HTTP call gets `502 Bad Gateway`, and the replay fails and names the call. See [A call the recording doesn't have](#a-call-the-recording-doesnt-have). |
-| A connection to a port on your machine that nothing listens on, and that the recording never calls | It fails with `connection refused`, as it would without Keploy.                                                                                                                              |
-| A DNS lookup the recording has                                                                     | Keploy answers it from the recording.                                                                                                                                                        |
-| A DNS lookup the recording doesn't have                                                            | Keploy answers it itself. In a replay on your machine, the name's address is `127.0.0.1`, so a call that follows goes to Keploy, not to the real host. See [DNS lookups](#dns-lookups).      |
-| UDP that isn't DNS, ICMP (`ping`), and raw sockets                                                 | Keploy doesn't intercept them: they reach their real destination. See [What a replay doesn't intercept](#what-a-replay-doesnt-intercept).                                                    |
+| The call                                                                                           | What the replay does                                                                                                                                                                                                                                               |
+| -------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| A connection the recording has: an HTTP or gRPC service, a database, a queue                       | Keploy answers it from the recording. The real service is never asked.                                                                                                                                                                                             |
+| A connection the recording doesn't have                                                            | It never reaches the real service. An HTTP call gets `502 Bad Gateway`, and the replay names the call. By default, the run fails when a test fails on that answer, or with `--strict`. See [A call the recording doesn't have](#a-call-the-recording-doesnt-have). |
+| A connection to a port on your machine that nothing listens on, and that the recording never calls | It fails with `connection refused`, as it would without Keploy.                                                                                                                                                                                                    |
+| A DNS lookup the recording has                                                                     | Keploy answers it from the recording.                                                                                                                                                                                                                              |
+| A DNS lookup the recording doesn't have                                                            | Keploy answers it itself. In a replay on your machine, the name's address is `127.0.0.1`, so a call that follows goes to Keploy, not to the real host. See [DNS lookups](#dns-lookups).                                                                            |
+| UDP that isn't DNS, ICMP (`ping`), and raw sockets                                                 | Keploy doesn't intercept them: they reach their real destination. See [What a replay doesn't intercept](#what-a-replay-doesnt-intercept).                                                                                                                          |
 
 These flags let a call out on purpose:
 
@@ -81,6 +81,59 @@ The ledger service was up, but the call never reached it: Keploy answered it
 with `502 Bad Gateway`. To fix it, record again with the service running, or
 add the call with `--on-miss record`. [Troubleshooting](../troubleshooting.md#a-call-has-no-recording)
 shows both.
+
+### A test that doesn't fail on the answer
+
+The run fails above because `TestBalance` fails on the `502`. A test that
+doesn't check the answer passes, and by default, so does the run. Say the new
+test only logs what the ledger service answers:
+
+```go
+func TestBalanceTolerant(t *testing.T) {
+	resp, err := http.Get("http://localhost:8091/balance?account=42")
+	if err != nil {
+		t.Logf("ledger call error: %v", err)
+		return
+	}
+	resp.Body.Close()
+	t.Logf("ledger answer: %s", resp.Status)
+}
+```
+
+```bash
+keploy mock replay --local -c "go test -count=1 -v ./..."
+```
+
+```
+=== RUN   TestBalanceTolerant
+    tolerant_test.go:17: ledger answer: 502 Bad Gateway
+--- PASS: TestBalanceTolerant (0.00s)
+PASS
+ok  	example.com/netiso	0.194s
+🐰 Keploy: INFO  mock replay summary  {"loaded": 1, "consumed": 1, "missed": 1}
+…
+  Mock mismatch: [HTTP] GET /balance [path tag #…]  →  localhost:8091 [host tag #…]
+…
+🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
+🐰 Keploy: INFO  this replay did not prove the tests run with the dependencies off  {"mock-set": "default", "reason": "1 call(s) matched nothing in the recording"}
+```
+
+The call still never reached the ledger service, and the replay names it. But
+this replay exits `0`: only its last line says it didn't prove the tests run
+with the dependencies off. To fail such a run, add `--strict`:
+
+```bash
+keploy mock replay --local --strict -c "go test -count=1 -v ./..."
+```
+
+```
+🐰 Keploy: INFO  mock replay summary  {"loaded": 1, "consumed": 1, "missed": 1}
+…
+🐰 Keploy: ERROR  replay failed under --strict: recorded dependency calls were missed  {"missed": 1, "next_step": "a dependency contract drifted; re-record the set (keploy mock record) or add the new calls with --on-miss record"}
+🐰 Keploy: INFO  this replay did not prove the tests run with the dependencies off  {"mock-set": "default", "reason": "1 call(s) matched nothing in the recording"}
+```
+
+It exits `1`.
 
 ## Let a call out on purpose
 

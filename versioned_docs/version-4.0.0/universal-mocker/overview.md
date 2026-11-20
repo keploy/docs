@@ -40,8 +40,15 @@ decides which tests pass.
    outgoing call and its answer.
 2. **Replay.** Run `keploy mock replay -c "<your test command>"`. The
    dependencies can be off. Keploy answers each call with its recorded answer.
-   By default, a call that matches no recording fails the run
-   (`--on-miss fail`), so a missing mock never passes silently.
+   A call Keploy can't match to any recording gets an error instead of a real
+   answer (`--on-miss fail`, the default), and the replay names it. By
+   default, the run fails when a test fails on that error, and `--strict`
+   fails it on any such call. In a replay of the whole run, Keploy 3.9.4 can
+   answer a call with a new id from a similar recorded call: see
+   [Times, dates and ids that change](./guides/changing-values.md#a-replay-of-the-whole-run).
+   A DNS lookup the recording doesn't have doesn't fail a replay, and other UDP
+   (not DNS) isn't intercepted: see
+   [Network isolation in replay](./guides/network-isolation.md).
 3. **Check every test on its own (optional).** With `KEPLOY_PROVEN=1`,
    `keploy mock record` also replays each test with the dependencies off before
    it keeps the recording. A test that doesn't replay is set aside, with the

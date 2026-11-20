@@ -274,12 +274,33 @@ the runner needs passwordless `sudo`. GitHub-hosted runners have it.
 
 ### A CI key can't record
 
-A CI key can replay, but Keploy Cloud refuses the recordings it uploads, so
-Keploy stops a record that is signed in with one:
+A CI key can replay, but Keploy Cloud refuses the recordings that a key
+without write access uploads.
+
+By default, Keploy doesn't stop a record signed in with such a key. The
+record runs your tests against the real dependencies and keeps the recording
+in the local folder, but doesn't publish it. It logs this error and exits
+`1`:
+
+```text
+🐰 Keploy: ERROR  the recording was not published; it remains in the local folder  {"mock-set": "default", "error": "…"}
+```
+
+The `error` field says why. When Keploy Cloud refuses the upload, it ends
+with Keploy Cloud's reason: for a key whose role is `CI`, that is
+`CI keys can replay but not publish; record with a user key`.
+
+With `KEPLOY_PROVEN=1`, Keploy 3.9.4 stops a record before it starts when the
+key's role is `CI`, and says:
 
 ```text
 keploy mock record was not started: this run is signed in with a CI key, and Keploy Cloud refuses the recordings a CI key uploads (CI keys can replay but not publish), so the record would be thrown away after it ran; record with a user's key instead: set KEPLOY_API_KEY to an API key a user made (not a CI key), or unset it and run `keploy login`; CI keeps its key for `keploy mock replay`
 ```
+
+It doesn't stop a record signed in with a service-account key, like the one
+the [CI guide](./guides/ci.md#step-1-make-a-ci-key) makes. That record runs
+your tests against the real dependencies, and then Keploy Cloud refuses its
+recordings at the upload.
 
 Record on your machine, signed in as yourself, and keep CI for replays.
 
