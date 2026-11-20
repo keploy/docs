@@ -28,7 +28,7 @@ pass.
 You don't write any mock code, and the tests don't change. You don't need a
 Keploy account either: the recording stays in your repository.
 
-Every output on this page comes from a real run of Keploy 3.9.3 on Linux.
+Every output on this page comes from a real run of Keploy 3.9.4 on Linux.
 Some of Keploy's and Maven's log lines are left out, long lines are trimmed
 (`…`), and timestamps are removed.
 
@@ -231,7 +231,7 @@ You need:
    [INFO]  T E S T S
    [INFO] -------------------------------------------------------
    [INFO] Running com.example.BillingTest
-   [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.807 s -- in com.example.BillingTest
+   [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.347 s -- in com.example.BillingTest
    [INFO]
    [INFO] Results:
    [INFO]
@@ -265,7 +265,7 @@ Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/tmp/keploy-java-trustst
 [INFO] -------------------------------------------------------
 Picked up JAVA_TOOL_OPTIONS: -Djavax.net.ssl.trustStore=/tmp/keploy-java-truststore-1000.jks -Djavax.net.ssl.trustStorePassword=changeit
 [INFO] Running com.example.BillingTest
-[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.657 s -- in com.example.BillingTest
+[INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.332 s -- in com.example.BillingTest
 …
 [INFO] BUILD SUCCESS
 …
@@ -336,11 +336,11 @@ the call as your app made it.
 
    ```
    [INFO] Running com.example.BillingTest
-   [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.506 s <<< FAILURE! -- in com.example.BillingTest
-   [ERROR] com.example.BillingTest.proUserBill -- Time elapsed: 0.452 s <<< ERROR!
+   [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 0.277 s <<< FAILURE! -- in com.example.BillingTest
+   [ERROR] com.example.BillingTest.proUserBill -- Time elapsed: 0.258 s <<< ERROR!
    java.net.ConnectException
    …
-   [ERROR] com.example.BillingTest.freeUserBill -- Time elapsed: 0.012 s <<< ERROR!
+   [ERROR] com.example.BillingTest.freeUserBill -- Time elapsed: 0.005 s <<< ERROR!
    java.net.ConnectException
    …
    [ERROR] Tests run: 2, Failures: 0, Errors: 2, Skipped: 0
@@ -360,7 +360,7 @@ the call as your app made it.
    🐰 Keploy: INFO  Starting Application :  {"program": "mvn", "args": 1}
    …
    [INFO] Running com.example.BillingTest
-   [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.466 s -- in com.example.BillingTest
+   [INFO] Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.317 s -- in com.example.BillingTest
    …
    [INFO] BUILD SUCCESS
    …
@@ -404,8 +404,8 @@ recording.
    🐰 Keploy: INFO  Starting Application :  {"program": "mvn", "args": 1}
    …
    [INFO] Running com.example.BillingTest
-   [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.718 s <<< FAILURE! -- in com.example.BillingTest
-   [ERROR] com.example.BillingTest.proPlanPrice -- Time elapsed: 0.600 s <<< ERROR!
+   [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 0.339 s <<< FAILURE! -- in com.example.BillingTest
+   [ERROR] com.example.BillingTest.proPlanPrice -- Time elapsed: 0.298 s <<< ERROR!
    java.io.IOException: HTTP 502 for /plans/pro
    …
    [ERROR] Tests run: 3, Failures: 0, Errors: 1, Skipped: 0
@@ -443,7 +443,7 @@ recording.
    🐰 Keploy: INFO  Starting Application :  {"program": "mvn", "args": 1}
    …
    [INFO] Running com.example.BillingTest
-   [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.753 s -- in com.example.BillingTest
+   [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.391 s -- in com.example.BillingTest
    …
    [INFO] BUILD SUCCESS
    …
@@ -465,7 +465,7 @@ recording.
    🐰 Keploy: INFO  Starting Application :  {"program": "mvn", "args": 1}
    …
    [INFO] Running com.example.BillingTest
-   [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.524 s -- in com.example.BillingTest
+   [INFO] Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.272 s -- in com.example.BillingTest
    …
    [INFO] BUILD SUCCESS
    …
@@ -492,8 +492,8 @@ recording.
    🐰 Keploy: INFO  Starting Application :  {"program": "mvn", "args": 1}
    …
    [INFO] Running com.example.BillingTest
-   [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.768 s <<< FAILURE! -- in com.example.BillingTest
-   [ERROR] com.example.BillingTest.proUserBill -- Time elapsed: 0.020 s <<< FAILURE!
+   [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.320 s <<< FAILURE! -- in com.example.BillingTest
+   [ERROR] com.example.BillingTest.proUserBill -- Time elapsed: 0.012 s <<< FAILURE!
    org.opentest4j.AssertionFailedError: expected: <Ada Lovelace (pro): $25/month> but was: <Ada Lovelace (pro): $20/month>
    …
    [ERROR] Tests run: 3, Failures: 1, Errors: 0, Skipped: 0

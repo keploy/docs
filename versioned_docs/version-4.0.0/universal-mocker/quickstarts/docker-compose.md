@@ -30,7 +30,7 @@ still pass. Your CI job doesn't need to start the services any more.
 You don't write any mock code, and the tests don't change. You don't need a
 Keploy account either: the recording stays in your repository.
 
-Every output on this page comes from a real run of Keploy 3.9.3 on Linux. Some
+Every output on this page comes from a real run of Keploy 3.9.4 on Linux. Some
 of Keploy's log lines are left out, long lines are trimmed (`…`), and timestamps
 are removed.
 
@@ -178,9 +178,9 @@ You need:
    ```
 
    ```
-   NAME           IMAGE         COMMAND                  SERVICE   CREATED         STATUS                   PORTS
-   shop-cache-1   redis:7       "docker-entrypoint.s…"   cache     4 seconds ago   Up 3 seconds (healthy)   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
-   shop-db-1      postgres:16   "docker-entrypoint.s…"   db        4 seconds ago   Up 2 seconds (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
+   NAME           IMAGE         COMMAND                  SERVICE   CREATED         STATUS                  PORTS
+   shop-cache-1   redis:7       "docker-entrypoint.s…"   cache     2 seconds ago   Up 1 second (healthy)   0.0.0.0:6379->6379/tcp, [::]:6379->6379/tcp
+   shop-db-1      postgres:16   "docker-entrypoint.s…"   db        2 seconds ago   Up 1 second (healthy)   0.0.0.0:5432->5432/tcp, [::]:5432->5432/tcp
    ```
 
 3. Run the tests:
@@ -191,7 +191,7 @@ You need:
 
    ```
    ..                                                                       [100%]
-   2 passed in 0.26s
+   2 passed in 0.12s
    ```
 
 ## Step 3: Record the calls
@@ -206,7 +206,7 @@ keploy mock record --local -c "python3 -m pytest -q"
 🐰 Keploy: INFO  Recording mocks for your test command  {"mock-set": "default", "program": "python3", "args": 3}
 🐰 Keploy: INFO  Starting Application :  {"program": "python3", "args": 3}
 ..                                                                       [100%]
-2 passed in 0.25s
+2 passed in 0.13s
 🐰 Keploy: INFO  recorded mocks  {"mocks": 23, "mock-set": "default"}
 🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
 ```
@@ -273,7 +273,7 @@ the rows it returned.
    =========================== short test summary info ============================
    FAILED test_shop.py::test_product - psycopg.OperationalError: connection fail...
    FAILED test_shop.py::test_cart_total - redis.exceptions.ConnectionError: Erro...
-   2 failed in 3.57s
+   2 failed in 2.66s
    ```
 
 3. Run them under `keploy mock replay`:
@@ -286,7 +286,7 @@ the rows it returned.
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "python3", "args": 3, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "python3", "args": 3}
    ..                                                                       [100%]
-   2 passed in 0.22s
+   2 passed in 0.10s
    🐰 Keploy: INFO  mock replay summary  {"loaded": 23, "consumed": 11, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 11}

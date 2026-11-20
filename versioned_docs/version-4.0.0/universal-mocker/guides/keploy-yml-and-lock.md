@@ -228,7 +228,7 @@ VERDICT  passed
 - `--lock` does not go with `--branch`: Keploy refuses the pair, because they
   name two sources of recordings.
 - `--branch` alone reads the Keploy branch it names, even when there is a
-  `keploy.lock`, and says that it does. In Keploy 3.9.3, a replay of a branch
+  `keploy.lock`, and says that it does. In Keploy 3.9.4, a replay of a branch
   that `keploy mock register` listed leaves out the branch's start-up
   recording, so a test whose code connects to a database fails with
   `FAILED_BY_KEPLOY` on a connection-startup miss. Replay from the lock
@@ -264,7 +264,7 @@ What each case prints:
   WARN  reading the Keploy branch --branch names, not keploy.lock  {"branch": "add-lock", "lock": "/work/orders/keploy.lock"}
   ```
 
-  In 3.9.3 that replay of the branch `keploy mock register` listed then goes
+  In 3.9.4 that replay of the branch `keploy mock register` listed then goes
   red, because the start-up recording is missing:
 
   ```text

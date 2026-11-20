@@ -27,7 +27,7 @@ with the API switched off, and the tests still pass.
 You don't write any mock code, and the tests don't change. You don't need a
 Keploy account either: the recording stays in your repository.
 
-Every output on this page comes from a real run of Keploy 3.9.3 on Linux.
+Every output on this page comes from a real run of Keploy 3.9.4 on Linux.
 Some of Keploy's log lines are left out, long lines are trimmed (`…`), and
 timestamps are removed.
 
@@ -238,7 +238,7 @@ spec:
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "python3", "args": 3, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "python3", "args": 3}
    ..                                                                       [100%]
-   2 passed in 0.02s
+   2 passed in 0.01s
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 2}
@@ -281,7 +281,7 @@ recording.
    …
    =========================== short test summary info ============================
    FAILED test_billing.py::test_pro_plan_price - urllib.error.HTTPError: HTTP Er...
-   1 failed, 2 passed in 0.08s
+   1 failed, 2 passed in 0.06s
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
      Mock mismatch: [HTTP] GET /plans/pro [path tag #…]  →  127.0.0.1:8085
@@ -311,9 +311,9 @@ recording.
    ```
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "python3", "args": 3, "on-miss": "record"}
    🐰 Keploy: INFO  Starting Application :  {"program": "python3", "args": 3}
-   ..🐰 Keploy(agent): INFO  on-miss: served an unrecorded call from the real dependency  {"Type": "http", "metadata": {"host":"127.0.0.1:8085","method":"GET","path":"/{}/{}", …}, "policy": "record"}
+   ..🐰 Keploy(agent): INFO  on-miss: served an unrecorded call from the real dependency  {"Type": "http", "metadata": {"host":"127.0.0.1:8085","method":"GET","path":"/{}/{}",…}, "policy": "record"}
    .                                                                      [100%]
-   3 passed in 0.04s
+   3 passed in 0.02s
    🐰 Keploy: INFO  appended new dependency calls to the mock set (--on-miss record)  {"new": 1, "mock-set": "default", "next_step": "review the added mocks and commit them; the next replay serves them without the real dependency"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
@@ -330,7 +330,7 @@ recording.
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "python3", "args": 3, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "python3", "args": 3}
    ...                                                                      [100%]
-   3 passed in 0.04s
+   3 passed in 0.01s
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 3}
@@ -371,7 +371,7 @@ asks for it, and record again.
    >       assert billing.monthly_bill(1) == "Ada Lovelace (pro): $25/month"
    E       AssertionError: assert 'Ada Lovelace...o): $20/month' == 'Ada Lovelace...o): $25/month'
    …
-   1 failed, 2 passed in 0.05s
+   1 failed, 2 passed in 0.03s
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}
    🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 1}

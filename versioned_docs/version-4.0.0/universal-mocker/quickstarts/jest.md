@@ -26,7 +26,7 @@ same Jest tests with the API switched off, and the tests still pass.
 You don't write any mock code, and the tests don't change. You don't need a
 Keploy account either: the recording stays in your repository.
 
-Every output on this page comes from a real run of Keploy 3.9.3 on Linux.
+Every output on this page comes from a real run of Keploy 3.9.4 on Linux.
 Some of Keploy's log lines are left out, long lines are trimmed (`…`), and
 timestamps are removed.
 
@@ -138,12 +138,12 @@ You need:
 
    ```
    PASS ./billing.test.js
-     ✓ pro user bill (19 ms)
-     ✓ free user bill (6 ms)
+     ✓ pro user bill (15 ms)
+     ✓ free user bill (3 ms)
    Test Suites: 1 passed, 1 total
    Tests:       2 passed, 2 total
    Snapshots:   0 total
-   Time:        0.33 s
+   Time:        0.257 s
    Ran all test suites.
    ```
 
@@ -159,12 +159,12 @@ keploy mock record --local -c "npx jest"
 🐰 Keploy: INFO  Recording mocks for your test command  {"mock-set": "default", "program": "npx", "args": 1}
 🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 1}
 PASS ./billing.test.js
-  ✓ pro user bill (26 ms)
-  ✓ free user bill (11 ms)
+  ✓ pro user bill (19 ms)
+  ✓ free user bill (6 ms)
 Test Suites: 1 passed, 1 total
 Tests:       2 passed, 2 total
 Snapshots:   0 total
-Time:        0.204 s, estimated 1 s
+Time:        0.211 s, estimated 1 s
 Ran all test suites.
 🐰 Keploy: INFO  recorded mocks  {"mocks": 2, "mock-set": "default"}
 🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
@@ -217,8 +217,8 @@ spec:
 
    ```
    FAIL ./billing.test.js
-     ✕ pro user bill (11 ms)
-     ✕ free user bill (2 ms)
+     ✕ pro user bill (10 ms)
+     ✕ free user bill (1 ms)
      ● pro user bill
        TypeError: fetch failed
    …
@@ -228,7 +228,7 @@ spec:
    Test Suites: 1 failed, 1 total
    Tests:       2 failed, 2 total
    Snapshots:   0 total
-   Time:        0.249 s, estimated 1 s
+   Time:        0.204 s, estimated 1 s
    Ran all test suites.
    ```
 
@@ -242,12 +242,12 @@ spec:
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "npx", "args": 1, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 1}
    PASS ./billing.test.js
-     ✓ pro user bill (21 ms)
-     ✓ free user bill (10 ms)
+     ✓ pro user bill (13 ms)
+     ✓ free user bill (4 ms)
    Test Suites: 1 passed, 1 total
    Tests:       2 passed, 2 total
    Snapshots:   0 total
-   Time:        0.192 s, estimated 1 s
+   Time:        0.175 s, estimated 1 s
    Ran all test suites.
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
@@ -289,8 +289,8 @@ recording.
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "npx", "args": 1, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 1}
    FAIL ./billing.test.js
-     ✓ pro user bill (19 ms)
-     ✓ free user bill (9 ms)
+     ✓ pro user bill (18 ms)
+     ✓ free user bill (4 ms)
      ✕ pro plan price (3 ms)
      ● pro plan price
        HTTP 502 Bad Gateway
@@ -298,7 +298,7 @@ recording.
    Test Suites: 1 failed, 1 total
    Tests:       1 failed, 2 passed, 3 total
    Snapshots:   0 total
-   Time:        0.301 s, estimated 1 s
+   Time:        0.342 s, estimated 1 s
    Ran all test suites.
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
@@ -330,13 +330,13 @@ recording.
    🐰 Keploy: INFO  Recording mocks for your test command  {"mock-set": "default", "program": "npx", "args": 1}
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 1}
    PASS ./billing.test.js
-     ✓ pro user bill (23 ms)
-     ✓ free user bill (31 ms)
+     ✓ pro user bill (22 ms)
+     ✓ free user bill (6 ms)
      ✓ pro plan price (5 ms)
    Test Suites: 1 passed, 1 total
    Tests:       3 passed, 3 total
    Snapshots:   0 total
-   Time:        0.249 s, estimated 1 s
+   Time:        0.206 s, estimated 1 s
    Ran all test suites.
    🐰 Keploy: INFO  recorded mocks  {"mocks": 3, "mock-set": "default"}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
@@ -355,13 +355,13 @@ recording.
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "npx", "args": 1, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 1}
    PASS ./billing.test.js
-     ✓ pro user bill (37 ms)
-     ✓ free user bill (16 ms)
-     ✓ pro plan price (4 ms)
+     ✓ pro user bill (23 ms)
+     ✓ free user bill (13 ms)
+     ✓ pro plan price (5 ms)
    Test Suites: 1 passed, 1 total
    Tests:       3 passed, 3 total
    Snapshots:   0 total
-   Time:        0.269 s, estimated 1 s
+   Time:        0.266 s, estimated 1 s
    Ran all test suites.
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
@@ -372,7 +372,7 @@ recording.
 
 :::caution Record again to add calls from a Node.js app
 The [Python quickstart](../mock-quickstart.md) adds a new call with
-`keploy mock replay --on-miss record` instead. In Keploy 3.9.3, don't do that
+`keploy mock replay --on-miss record` instead. In Keploy 3.9.4, don't do that
 in a Node.js app that calls with `fetch`: the call it adds has no
 `Content-Length`, so later replays never end its answer, and the test times
 out. Record again, as this step does.
@@ -391,9 +391,9 @@ out. Record again, as this step does.
 
    ```
    FAIL ./billing.test.js
-     ✕ pro user bill (24 ms)
-     ✓ free user bill (20 ms)
-     ✓ pro plan price (4 ms)
+     ✕ pro user bill (27 ms)
+     ✓ free user bill (5 ms)
+     ✓ pro plan price (3 ms)
      ● pro user bill
        expect(received).toBe(expected) // Object.is equality
        Expected: "Ada Lovelace (pro): $25/month"
@@ -402,7 +402,7 @@ out. Record again, as this step does.
    Test Suites: 1 failed, 1 total
    Tests:       1 failed, 2 passed, 3 total
    Snapshots:   0 total
-   Time:        0.334 s, estimated 1 s
+   Time:        0.316 s, estimated 1 s
    Ran all test suites.
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}

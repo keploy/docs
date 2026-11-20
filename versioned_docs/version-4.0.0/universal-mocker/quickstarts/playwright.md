@@ -28,7 +28,7 @@ same Playwright tests with the API switched off, and the tests still pass.
 You don't write any mock code, and the tests don't change. You don't need a
 Keploy account either: the recording stays in your repository.
 
-Every output on this page comes from a real run of Keploy 3.9.3 and Playwright
+Every output on this page comes from a real run of Keploy 3.9.4 and Playwright
 1.65.1 on Linux. Some of Keploy's log lines are left out, long lines are trimmed
 (`…`), and timestamps are removed.
 
@@ -187,9 +187,9 @@ You need:
 
    ```
    Running 2 tests using 1 worker
-     ✓  1 tests/billing.spec.js:3:1 › pro user bill (98ms)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (64ms)
-     2 passed (801ms)
+     ✓  1 tests/billing.spec.js:3:1 › pro user bill (114ms)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (79ms)
+     2 passed (870ms)
    ```
 
 ## Step 3: Record the calls
@@ -206,9 +206,9 @@ keploy mock record --local -c "npx playwright test"
 🐰 Keploy(agent): INFO  self-call passed through to the run's own listener; the real handler answers it, not a mock  {"destination": "127.0.0.1:3000", …}
 🐰 Keploy: INFO  🟠 Keploy has captured test cases for the user's application.  {"path": "…/billing-web/keploy/default/tests", "testcase name": "get-health-1"}
 Running 2 tests using 1 worker
-  ✓  1 tests/billing.spec.js:3:1 › pro user bill (148ms)
-  ✓  2 tests/billing.spec.js:10:1 › free user bill (80ms)
-  2 passed (798ms)
+  ✓  1 tests/billing.spec.js:3:1 › pro user bill (91ms)
+  ✓  2 tests/billing.spec.js:10:1 › free user bill (57ms)
+  2 passed (610ms)
 🐰 Keploy: INFO  recorded mocks  {"mocks": 2, "mock-set": "default"}
 🐰 Keploy: INFO  recorded test cases  {"cases": 1, "mock-set": "default"}
 🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
@@ -233,7 +233,7 @@ Keploy wrote five files:
   `keploy mock status` replays the recording with it.
 - `keploy/.gitignore`, which keeps Keploy's temporary files out of git.
 - `keploy/default/tests/get-health-1.yaml`, Playwright's request to `/health`,
-  which checks that your app is up. Keploy 3.9.3 saves it as a test case.
+  which checks that your app is up. Keploy 3.9.4 saves it as a test case.
   `keploy mock replay` doesn't use it, so the `.gitignore` from Step 1 keeps it
   out of git.
 
@@ -302,9 +302,9 @@ spec:
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 2}
    🐰 Keploy(agent): INFO  self-call passed through to the run's own listener; the real handler answers it, not a mock  {"destination": "127.0.0.1:3000", …}
    Running 2 tests using 1 worker
-     ✓  1 tests/billing.spec.js:3:1 › pro user bill (182ms)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (114ms)
-     2 passed (940ms)
+     ✓  1 tests/billing.spec.js:3:1 › pro user bill (123ms)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (74ms)
+     2 passed (737ms)
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 2}
@@ -356,8 +356,8 @@ makes calls, over HTTP, so the tests pass either way.
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 2}
    🐰 Keploy(agent): INFO  self-call passed through to the run's own listener; the real handler answers it, not a mock  {"destination": "127.0.0.1:3000", …}
    Running 3 tests using 1 worker
-     ✓  1 tests/billing.spec.js:3:1 › pro user bill (176ms)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (100ms)
+     ✓  1 tests/billing.spec.js:3:1 › pro user bill (140ms)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (80ms)
      ✘  3 tests/billing.spec.js:17:1 › pro plan price (5.1s)
      1) tests/billing.spec.js:17:1 › pro plan price ───…
        Error: expect(locator).toHaveText(expected) failed
@@ -368,7 +368,7 @@ makes calls, over HTTP, so the tests pass either way.
    …
      1 failed
        tests/billing.spec.js:17:1 › pro plan price ───…
-     2 passed (6.1s)
+     2 passed (5.9s)
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 2, "consumed": 2, "missed": 1}
    🐰 Keploy: WARN  no recorded mock matched an outgoing call  {"protocol": "HTTP", "call": "GET /{}/{}", …}
@@ -401,10 +401,10 @@ makes calls, over HTTP, so the tests pass either way.
    🐰 Keploy(agent): INFO  self-call passed through to the run's own listener; the real handler answers it, not a mock  {"destination": "127.0.0.1:3000", …}
    🐰 Keploy: INFO  🟠 Keploy has captured test cases for the user's application.  {"path": "…/billing-web/keploy/default/tests", "testcase name": "get-health-2"}
    Running 3 tests using 1 worker
-     ✓  1 tests/billing.spec.js:3:1 › pro user bill (150ms)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (91ms)
-     ✓  3 tests/billing.spec.js:17:1 › pro plan price (86ms)
-     3 passed (914ms)
+     ✓  1 tests/billing.spec.js:3:1 › pro user bill (174ms)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (93ms)
+     ✓  3 tests/billing.spec.js:17:1 › pro plan price (85ms)
+     3 passed (950ms)
    🐰 Keploy: INFO  recorded mocks  {"mocks": 3, "mock-set": "default"}
    🐰 Keploy: INFO  recorded test cases  {"cases": 1, "mock-set": "default"}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
@@ -425,10 +425,10 @@ makes calls, over HTTP, so the tests pass either way.
    🐰 Keploy: INFO  Starting Application :  {"program": "npx", "args": 2}
    🐰 Keploy(agent): INFO  self-call passed through to the run's own listener; the real handler answers it, not a mock  {"destination": "127.0.0.1:3000", …}
    Running 3 tests using 1 worker
-     ✓  1 tests/billing.spec.js:3:1 › pro user bill (170ms)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (107ms)
-     ✓  3 tests/billing.spec.js:17:1 › pro plan price (91ms)
-     3 passed (1.0s)
+     ✓  1 tests/billing.spec.js:3:1 › pro user bill (147ms)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (87ms)
+     ✓  3 tests/billing.spec.js:17:1 › pro plan price (76ms)
+     3 passed (938ms)
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 3}
@@ -439,7 +439,7 @@ makes calls, over HTTP, so the tests pass either way.
 
 :::caution Record again to add calls from a Node.js app
 The [Python quickstart](../mock-quickstart.md) adds a new call with
-`keploy mock replay --on-miss record` instead. In Keploy 3.9.3, don't do that
+`keploy mock replay --on-miss record` instead. In Keploy 3.9.4, don't do that
 in a Node.js app that calls with `fetch`, as this app does: the call it adds has
 no `Content-Length`, so later replays never end its answer, and the test times
 out. Record again, as this step does.
@@ -459,9 +459,9 @@ out. Record again, as this step does.
 
    ```
    Running 3 tests using 1 worker
-     ✘  1 tests/billing.spec.js:3:1 › pro user bill (5.2s)
-     ✓  2 tests/billing.spec.js:10:1 › free user bill (147ms)
-     ✓  3 tests/billing.spec.js:17:1 › pro plan price (116ms)
+     ✘  1 tests/billing.spec.js:3:1 › pro user bill (5.1s)
+     ✓  2 tests/billing.spec.js:10:1 › free user bill (105ms)
+     ✓  3 tests/billing.spec.js:17:1 › pro plan price (84ms)
      1) tests/billing.spec.js:3:1 › pro user bill ───…
        Error: expect(locator).toHaveText(expected) failed
        Locator:  locator('#result')
@@ -471,7 +471,7 @@ out. Record again, as this step does.
    …
      1 failed
        tests/billing.spec.js:3:1 › pro user bill ───…
-     2 passed (6.6s)
+     2 passed (6.5s)
    🐰 Keploy: ERROR  error while running the app  {"error": "exit status 1"}
    🐰 Keploy: INFO  mock replay summary  {"loaded": 3, "consumed": 3, "missed": 0}
    🐰 Keploy: INFO  test command exited non-zero; mirroring its exit code  {"phase": "replay", "exitCode": 1}
