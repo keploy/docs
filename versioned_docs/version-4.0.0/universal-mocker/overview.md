@@ -124,7 +124,8 @@ your tests send exactly the same bytes again.
 
 The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
 installs the Keploy CLI, signs you in, and hands the project setup to your
-coding agent. Then you record, replay and review from the editor.
+coding agent. Then you record, replay and review from the editor. The
+[VS Code walkthrough](./walkthroughs/vscode.md) shows each step.
 
 ## Next steps
 
@@ -141,6 +142,9 @@ coding agent. Then you record, replay and review from the editor.
 - [Docker Compose quickstart](./quickstarts/docker-compose.md): record the
   PostgreSQL and Redis calls of a `pytest` suite, then run it with the compose
   stack down.
+- [VS Code walkthrough](./walkthroughs/vscode.md): install the extension, let
+  your coding agent set the project up, then replay, see a red test, and add
+  the CI workflow.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to

@@ -21,7 +21,7 @@ keywords:
   - keploy.keployio
 ---
 
-The **Keploy VS Code extension** (listed as **Keploy: API & DB Mocks**, ID `keploy.keployio`) sets Keploy up for your tests through the coding agent you already use. Keploy records the real calls each of your tests makes to its dependencies, such as HTTP and gRPC APIs, databases, caches and queues, and replays them from the recording, so the same suite runs green with none of those dependencies contacted, on your laptop and in CI.
+The **Keploy VS Code extension** (listed as **Keploy: API Testing, Mocks & Service Virtualization**, ID `keploy.keployio`) sets Keploy up for your tests through the coding agent you already use. Keploy records the real calls each of your tests makes to its dependencies, such as HTTP and gRPC APIs, databases, caches and queues, and replays them from the recording, so the same suite runs green with none of those dependencies contacted, on your laptop and in CI.
 
 The extension doesn't write your tests or your integration. It installs the Keploy CLI, signs you in, installs Keploy's skill for your project, and hands the setup to your agent. Your agent then runs the CLI's [`keploy mock`](/docs/universal-mocker/mock-your-tests/) commands, and the extension shows what the CLI reports about each test.
 
@@ -45,7 +45,7 @@ Version 3.1.0 replaces the 3.0.0 panel. Setting Keploy up, recording and replayi
 
 ## Install the extension
 
-1. In VS Code, open the **Extensions** view, search for **Keploy**, and select **Install** on **Keploy: API & DB Mocks**. You can also install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), or from a terminal:
+1. In VS Code, open the **Extensions** view, search for **Keploy**, and select **Install** on **Keploy: API Testing, Mocks & Service Virtualization**. You can also install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), or from a terminal:
 
    ```bash
    code --install-extension keploy.keployio
@@ -110,14 +110,14 @@ When the replay is green, select **keploy.yml, keploy.lock and the test edits st
 
 Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
-The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the repository's root, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
+The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the project's folder, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
 
 - **Go:** `actions/setup-go` with your `go.mod`'s Go version, then `go mod download`.
 - **Node:** `actions/setup-node`, then an install from your lockfile: `npm ci`, or pnpm's or Yarn's frozen install through corepack (`npm install` when there's no lockfile).
 
 The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key. Your Keploy admin makes it at [Account > Service Accounts](https://app.keploy.io/settings/service-accounts): a service account with the **MOCK_READER** role on your app, and a key for it. Store it with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
 
-For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell, Wire CI writes no workflow: CI setup for it is available on request. The same goes for GitLab CI and any other CI. Contact the Keploy team at support@keploy.io and we'll set it up with you. The extension also writes the workflow only for a project at the repository's root, once `keploy.lock` exists and Keploy has read your test command; otherwise it says what to do instead.
+For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell, Wire CI writes no workflow: CI setup for it is available on request. The same goes for GitLab CI and any other CI. Contact the Keploy team at support@keploy.io and we'll set it up with you. The extension writes the workflow once `keploy.lock` exists and Keploy has read your test command; otherwise it says what to do instead. For a project in a folder below the repository's root, such as `tests/e2e`, the workflow's steps run in that folder, and a Go project's `go.mod` can be there or in a folder above it.
 
 ## Invite teammates
 

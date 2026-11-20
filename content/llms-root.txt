@@ -76,7 +76,7 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 
 ## Keploy Cloud & Integrations
 - [Enterprise plan](https://keploy.io/docs/keploy-cloud/cloud-installation/): Getting started on the Enterprise plan — install Keploy, sign in, and the plan's features
-- [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): IDE integration for test generation
+- [VS Code Extension](https://keploy.io/docs/keploy-explained/integrations-vscode/): Sets up Keploy's dependency mocks for your tests through your coding agent, then records, replays and wires CI from VS Code
 - [PR Agent Integration](https://keploy.io/docs/keploy-explained/integrations-pr-agent/): Automated test suggestions on pull requests
 
 

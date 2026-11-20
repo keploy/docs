@@ -475,7 +475,7 @@ For current, publicly substantiated security, privacy, and compliance informatio
 ## Integrations
 
 ### IDE Integrations
-- VS Code Extension (Keploy: API & DB Mocks): records the API and database calls your tests make and replays them offline with `keploy mock`, from a panel in VS Code. It also sets up AI coding agents and adds a CI job that replays the recording. It does not generate unit tests. See the Marketplace for current installs.
+- VS Code Extension (Keploy: API Testing, Mocks & Service Virtualization): installs the Keploy CLI, signs you in, and hands the `keploy mock` setup of your tests to your coding agent (Claude Code, GitHub Copilot or Cursor), which records the API and database calls your tests make so they replay offline. It also writes a GitHub Actions workflow that replays the recording on every pull request. It does not generate unit tests. See the Marketplace for current installs.
 - URL: https://keploy.io/docs/running-keploy/utg-vscode-extension/
 
 ### PR Agent Integration

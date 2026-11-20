@@ -274,6 +274,13 @@
         },
         {
           "type": "category",
+          "label": "Walkthroughs",
+          "collapsible": true,
+          "collapsed": false,
+          "items": ["universal-mocker/walkthroughs/vscode"]
+        },
+        {
+          "type": "category",
           "label": "Guides",
           "collapsible": true,
           "collapsed": false,
