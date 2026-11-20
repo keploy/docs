@@ -108,8 +108,7 @@ await KeployCapture.init({
 Use the `endpoint` the setup card or the API gives you. It is `https://api.keploy.io/ui/v1/ingest` on Keploy Cloud, and your own API server's URL followed by `/ui/v1/ingest` when you self-host. A self-hosted API server builds it from its `API_SERVER_URL`; if that isn't set to the server's public URL, the API returns an empty `endpoint` and says so in `next`, rather than guessing.
 
 - **Early, and once.** The SDK starts recording the page's requests once it has loaded rrweb, which your bundler normally puts in a chunk of its own. A request the page makes before then is not recorded, so start `init` before your app's own code runs. Call it once per page load, not per route: a second `init` returns the same capture.
-- **Three sample setups.** The [UI capture sample shops](https://github.com/keploy/samples-typescript) show the call in a React and Vite app (`ui-capture-react-shop`: `src/keploy.ts`, imported first in `src/main.tsx`), a Next.js App Router app (`ui-capture-next-shop`: `instrumentation-client.ts`) and plain HTML pages with no bundler (`ui-capture-html-shop`).
-- **Without a bundler**, serve the package's `dist/` directory as it is, import `dist/index.mjs` from it, and map `rrweb` with an import map before the SDK loads. If rrweb cannot be loaded, the capture ends before anything is sent and reports [`KUI_E_DOM_RECORDER_UNAVAILABLE`](../ui-capture/errors.md#kui-e-dom-recorder-unavailable).
+- **Per framework.** [Install the SDK](../ui-capture/install-sdk.md) shows the call in a React and Vite app, a Next.js App Router app and plain HTML pages with no bundler, from the [UI capture sample shops](https://github.com/keploy/samples-typescript). [Bundlers and frameworks](../ui-capture/bundlers.md) says what webpack, Parcel, esbuild and a page with no bundler need, and [Content-Security-Policy and workers](../ui-capture/csp-and-workers.md) what a CSP must allow.
 
 ### SDK options {#sdk-options}
 

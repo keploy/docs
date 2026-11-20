@@ -221,14 +221,11 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
       "@docusaurus/plugin-client-redirects",
       {
         redirects: [
-          // The README of @keploy/capture-sdk 3.0.1, on npm.
+          // The README of @keploy/capture-sdk 3.0.1, on npm. Its other link,
+          // /ui-capture/install-sdk/, is a page of its own.
           // scripts/verify-ui-capture-sdk-links.js keeps every link the SDK
           // ships resolvable.
           {from: "/ui-capture/overview/", to: "/running-keploy/ui-capture/"},
-          {
-            from: "/ui-capture/install-sdk/",
-            to: "/running-keploy/ui-capture/#install-the-sdk",
-          },
           // Pages that moved into the Universal Mocker section.
           {
             from: "/running-keploy/mock-quickstart/",

@@ -360,7 +360,7 @@ curl -X DELETE https://api.keploy.io/client/v1/apps/<appId> \
 
 ## What's next {#whats-next}
 
-- [Install the SDK in your own app](../running-keploy/ui-capture.md#install-the-sdk), as early in its startup as you can.
+- [Install the SDK in your own app](./install-sdk.md), as early in its startup as you can.
 - [Set up UI capture from an AI agent](./quickstart-agent.md) through the Keploy MCP server.
 - [UI Capture errors and warnings](./errors.md): what each `KUI_E_` code means and how to fix it.
 
