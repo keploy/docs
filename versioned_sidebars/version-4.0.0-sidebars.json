@@ -293,6 +293,7 @@
             "universal-mocker/guides/partial-re-record",
             "universal-mocker/guides/network-isolation",
             "universal-mocker/guides/changing-values",
+            "universal-mocker/guides/coding-agents",
             "running-keploy/utg-vscode-extension"
           ]
         },

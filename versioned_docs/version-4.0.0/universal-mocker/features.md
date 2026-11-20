@@ -109,9 +109,10 @@ UDP that isn't DNS, ICMP and raw sockets aren't intercepted. See
 
 ## Run it where you work
 
-| Feature                                                            | What it does                                                                                                                                                  |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [Linux, macOS and Docker](./overview.md#check-what-it-supports)    | Record and replay on Linux, on macOS on Apple silicon with no sudo, and through a `docker run` or `docker compose` command. Native Windows support is coming. |
-| [Databases, queues and APIs](./overview.md#check-what-it-supports) | HTTP, gRPC, PostgreSQL, MySQL, MongoDB, Redis, Kafka and more. The overview lists each one for Linux and macOS.                                               |
-| [VS Code](/docs/running-keploy/utg-vscode-extension/)              | The Keploy VS Code extension installs the Keploy CLI, signs you in, and hands the project setup to your coding agent.                                         |
-| [Every command and flag](./reference.md)                           | Each `keploy mock` command and flag, the `keploy.yml` keys, the environment variables and the exit codes.                                                     |
+| Feature                                                            | What it does                                                                                                                                                      |
+| ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [Linux, macOS and Docker](./overview.md#check-what-it-supports)    | Record and replay on Linux, on macOS on Apple silicon with no sudo, and through a `docker run` or `docker compose` command. Native Windows support is coming.     |
+| [Databases, queues and APIs](./overview.md#check-what-it-supports) | HTTP, gRPC, PostgreSQL, MySQL, MongoDB, Redis, Kafka and more. The overview lists each one for Linux and macOS.                                                   |
+| [VS Code](/docs/running-keploy/utg-vscode-extension/)              | The Keploy VS Code extension installs the Keploy CLI, signs you in, and hands the project setup to your coding agent.                                             |
+| [Coding agents](./guides/coding-agents.md)                         | `keploy skill install mock` gives Claude Code, Cursor, Codex, GitHub Copilot or Antigravity the steps to record and replay your tests, following each NEXT block. |
+| [Every command and flag](./reference.md)                           | Each `keploy mock` command and flag, the `keploy.yml` keys, the environment variables and the exit codes.                                                         |

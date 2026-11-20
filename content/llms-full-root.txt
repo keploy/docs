@@ -34,7 +34,7 @@ There is one product to install: `keploy`. Recording and replaying tests need a 
 
 ## Products
 
-Keploy offers three core products:
+Keploy offers four core products:
 
 ### 1. Integration Testing (Record and Replay)
 Record-replay engine that captures API calls at the network layer and generates test suites with deterministic replay. It captures HTTP/HTTPS, gRPC, WebSocket, and GraphQL traffic and automatically creates replayable test cases with mocked dependencies (databases, external APIs, message queues). Tests are stored as YAML files in the project directory.
@@ -44,6 +44,10 @@ AI-powered unit test generation from PR diffs and source code. The Test Agent an
 
 ### 3. API Test Generation
 Generate API tests from OpenAPI specs, Postman collections, cURL commands, or real user traffic. Supports functional tests, edge case tests, performance tests, security tests, and dependency tests. AI models route tasks to the best-suited model and validate results to ensure high-quality output.
+
+### 4. Universal Mocker (Service Virtualization)
+Service virtualization for the tests a team already has. `keploy mock record -c "<test command>"` runs the team's own test command (go test, pytest, Jest, mvn test, Playwright, or a script) once against the real databases, queues and HTTP or gRPC services and saves each outgoing call with its answer. `keploy mock replay -c "<test command>"` then runs the same command with those dependencies switched off and answers each call from the recording; by default a call that matches no recording fails the run. No mock code is written and no test changes, and the test framework still decides which tests pass. With `KEPLOY_PROVEN=1` each test is also replayed on its own before its recording is kept, and, when signed in with an app named in keploy.yml, the recordings go to Keploy Cloud under a Keploy branch named after the git branch (never main); the repository holds only keploy.yml and keploy.lock, which pins each test to its recordings, and CI replays what keploy.lock pins. Runs on Linux, macOS (Apple silicon, no admin rights) and Docker; the Keploy VS Code extension installs the CLI and sets a project up through the user's coding agent.
+- URL: https://keploy.io/docs/universal-mocker/overview/
 
 ---
 

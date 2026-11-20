@@ -127,6 +127,10 @@ installs the Keploy CLI, signs you in, and hands the project setup to your
 coding agent. Then you record, replay and review from the editor. The
 [VS Code walkthrough](./walkthroughs/vscode.md) shows each step.
 
+Not on VS Code? Install Keploy's mocking skill for your coding agent with
+`keploy skill install mock`, and ask the agent to set it up:
+[Coding agents](./guides/coding-agents.md) shows how.
+
 ## Next steps
 
 - [Go quickstart](./quickstarts/go.md): run `go test` without PostgreSQL or an
@@ -157,6 +161,9 @@ coding agent. Then you record, replay and review from the editor. The
   from the real network, and how to let a call out on purpose.
 - [Times, dates and ids that change](./guides/changing-values.md): what a
   replay does when a test sends a value that is new on every run.
+- [Coding agents](./guides/coding-agents.md): install Keploy's mocking skill
+  for Claude Code, Cursor, Codex, GitHub Copilot or Antigravity, and let your
+  agent record and replay.
 - [Features](./features.md): every capability, with a link to the page that
   shows it.
 - [Troubleshooting](./troubleshooting.md): what a failing record or replay
