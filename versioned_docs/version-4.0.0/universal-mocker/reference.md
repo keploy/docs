@@ -598,7 +598,10 @@ mock:
 | `branch`         | `--branch`           | The Keploy branch to read and publish. Ignored while `keploy.lock` pins the recordings.  |
 | `command`        | `-c`                 | The command that runs your tests. Read when you don't pass `-c`, with `KEPLOY_PROVEN=1`. |
 
-Outside `mock:`, `keploy.yml` has a top-level `command` key too. When a folder
+Outside `mock:`, `keploy.yml` has a top-level `sessionCalls` list: the HTTP
+calls a replay serves to every test, as
+[Serve a call to every test](./guides/background-workers.md#serve-a-call-to-every-test)
+shows. It has a top-level `command` key too. When a folder
 has no `keploy.yml`, the first `keploy mock record` or `keploy mock replay`
 there creates one from the flags you pass, and a replay saves its `-c` as that
 `command`. After that, `keploy mock replay` with no `-c` runs it, with or

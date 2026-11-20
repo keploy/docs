@@ -163,6 +163,9 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
   from the real network, and how to let a call out on purpose.
 - [Times, dates and ids that change](./guides/changing-values.md): what a
   replay does when a test sends a value that is new on every run.
+- [Start-up calls and background work](./guides/background-workers.md): which
+  test a replay answers the calls your app makes at start-up, for a cached
+  token or from a poller.
 - [Coding agents](./guides/coding-agents.md): install Keploy's mocking skill
   for Claude Code, Cursor, Codex, GitHub Copilot or Antigravity, and let your
   agent record and replay.
