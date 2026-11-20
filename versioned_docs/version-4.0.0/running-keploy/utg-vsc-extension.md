@@ -23,7 +23,7 @@ keywords:
 
 The **Keploy VS Code extension** (listed as **Keploy: API & DB Mocks**, ID `keploy.keployio`) sets Keploy up for your tests through the coding agent you already use. Keploy records the real calls each of your tests makes to its dependencies, such as HTTP and gRPC APIs, databases, caches and queues, and replays them from the recording, so the same suite runs green with none of those dependencies contacted, on your laptop and in CI.
 
-The extension doesn't write your tests or your integration. It installs the Keploy CLI, signs you in, installs Keploy's skill for your project, and hands the setup to your agent. Your agent then runs the CLI's [`keploy mock`](/docs/running-keploy/mock-your-tests/) commands, and the extension shows what the CLI reports about each test.
+The extension doesn't write your tests or your integration. It installs the Keploy CLI, signs you in, installs Keploy's skill for your project, and hands the setup to your agent. Your agent then runs the CLI's [`keploy mock`](/docs/universal-mocker/mock-your-tests/) commands, and the extension shows what the CLI reports about each test.
 
 :::note Version 3.1.0 hands the setup to your agent
 
@@ -206,6 +206,6 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 
 ## Related
 
-- [Mock your tests](/docs/running-keploy/mock-your-tests/) — the `keploy mock` commands your agent runs.
+- [Mock your tests](/docs/universal-mocker/mock-your-tests/) — the `keploy mock` commands your agent runs.
 - [Keploy on macOS](/docs/installation/macos-installation/) and [Linux](/docs/installation/linux-installation/) — installing the CLI yourself, and what each platform supports.
 - [Keploy's PR Agent](/docs/running-keploy/utg-pr-agent/) — Keploy's unit test generator, on your pull requests.

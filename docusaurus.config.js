@@ -170,6 +170,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
   url: "https://keploy.io",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
+  // A link to a heading that does not exist fails the build too, as a
+  // broken link does: a page that moves or renames a heading must fix every
+  // link to it.
+  onBrokenAnchors: "throw",
   trailingSlash: true,
   markdown: {
     // Date each doc by the last commit that changed its content, not the last
@@ -224,6 +228,15 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           {
             from: "/ui-capture/install-sdk/",
             to: "/running-keploy/ui-capture/#install-the-sdk",
+          },
+          // Pages that moved into the Universal Mocker section.
+          {
+            from: "/running-keploy/mock-quickstart/",
+            to: "/universal-mocker/mock-quickstart/",
+          },
+          {
+            from: "/running-keploy/mock-your-tests/",
+            to: "/universal-mocker/mock-your-tests/",
           },
         ],
       },
@@ -329,6 +342,14 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
             {
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
+            },
+            {
+              label: "Universal Mocker (Service Virtualization)",
+              to: "/universal-mocker/overview",
+            },
+            {
+              label: "UI Testing",
+              to: "/running-keploy/ui-capture",
             },
           ],
         },

@@ -72,7 +72,7 @@ It runs natively, with no VM and no Docker:
 
 :::tip Want to mock your test suite instead?
 
-To record the calls your existing tests make, with no app to start and no requests to send, see [Mock your tests](/docs/running-keploy/mock-quickstart/).
+To record the calls your existing tests make, with no app to start and no requests to send, see [Mock your tests](/docs/universal-mocker/mock-quickstart/).
 
 :::
 
@@ -164,7 +164,7 @@ To replay the tests on every pull request, see [GitHub Actions](/docs/ci-cd/gith
 
 ## Related
 
-- [Mock your tests](/docs/running-keploy/mock-your-tests/): record and replay the calls your test suite makes.
+- [Mock your tests](/docs/universal-mocker/mock-your-tests/): record and replay the calls your test suite makes.
 - [Installing Keploy on Linux](/docs/installation/linux-installation/).
 - [Installing Keploy on macOS](/docs/installation/macos-installation/): Apple silicon, natively or with Docker.
 - [Installing Keploy on Windows](/docs/installation/windows-installation/): native on x86-64, or WSL/Docker.

@@ -442,7 +442,7 @@ keploy example [flags]
 
 ## [mock](#mock)
 
-`keploy mock` records the calls your own test suite makes to its dependencies, and replays them so the suite runs with the dependencies off. See [Mock your tests](/docs/running-keploy/mock-your-tests/) for the whole flow.
+`keploy mock` records the calls your own test suite makes to its dependencies, and replays them so the suite runs with the dependencies off. See [Mock your tests](/docs/universal-mocker/mock-your-tests/) for the whole flow.
 
 <b> Usage: </b>
 
@@ -469,7 +469,7 @@ With `KEPLOY_PROVEN=1` set, `keploy mock record` also judges every test it recor
 | `keploy mock check`                              | Reads the recordings offline and names each mistake a hand edit made, with its file, line and fix. |
 | `keploy mock judge`                              | Judges the recordings again, for example after a Keploy upgrade.                                   |
 
-See [Prove each test offline](/docs/running-keploy/mock-your-tests/#proven).
+See [Prove each test offline](/docs/universal-mocker/mock-your-tests/#proven).
 
 ## [login](#login)
 
