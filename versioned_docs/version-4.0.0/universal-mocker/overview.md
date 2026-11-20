@@ -145,6 +145,8 @@ coding agent. Then you record, replay and review from the editor. The
 - [VS Code walkthrough](./walkthroughs/vscode.md): install the extension, let
   your coding agent set the project up, then replay, see a red test, and add
   the CI workflow.
+- [Keploy Cloud walkthrough](./walkthroughs/dashboard.md): find a branch's
+  recordings, review a pull request's changes, and merge them into main.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
   CI, and sharing with your team.
 - [keploy.yml and keploy.lock](./guides/keploy-yml-and-lock.md): what to

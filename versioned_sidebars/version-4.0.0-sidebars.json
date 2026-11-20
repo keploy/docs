@@ -277,7 +277,10 @@
           "label": "Walkthroughs",
           "collapsible": true,
           "collapsed": false,
-          "items": ["universal-mocker/walkthroughs/vscode"]
+          "items": [
+            "universal-mocker/walkthroughs/vscode",
+            "universal-mocker/walkthroughs/dashboard"
+          ]
         },
         {
           "type": "category",
