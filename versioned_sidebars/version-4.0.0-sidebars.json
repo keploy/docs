@@ -282,7 +282,8 @@
             "universal-mocker/guides/keploy-yml-and-lock",
             "running-keploy/utg-vscode-extension"
           ]
-        }
+        },
+        "universal-mocker/reference"
       ]
     },
     {
