@@ -305,6 +305,18 @@
         },
         {
           "type": "category",
+          "label": "Guides",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "ui-capture/privacy",
+            "ui-capture/sessions-and-sampling",
+            "ui-capture/network-and-bodies",
+            "ui-capture/ingest-keys"
+          ]
+        },
+        {
+          "type": "category",
           "label": "Reference",
           "collapsible": true,
           "collapsed": true,
@@ -318,6 +330,11 @@
               "type": "doc",
               "id": "ui-capture/refusals",
               "label": "Refused verbs"
+            },
+            {
+              "type": "doc",
+              "id": "ui-capture/limits",
+              "label": "Limits and sizes"
             },
             {
               "type": "doc",

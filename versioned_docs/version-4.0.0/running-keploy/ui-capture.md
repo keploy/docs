@@ -36,7 +36,7 @@ UI Testing is in beta. Recording visits and reading them as flows and journeys w
 
 ## How UI capture works {#how-ui-capture-works}
 
-1. **An ingest key** connects the SDK to one Keploy app. It can only post recordings into that app, so it is safe to ship in your page's JavaScript.
+1. **An ingest key** connects the SDK to one Keploy app. It can only post recordings into that app, so it is safe to ship in your page's JavaScript. See [Ingest keys and environments](../ui-capture/ingest-keys.md).
 2. **The capture SDK** runs in your users' browsers. It records the page with [rrweb](https://github.com/rrweb-io/rrweb) and every `fetch` and `XMLHttpRequest` call the page makes, masks personal data in the browser, and posts the recording to Keploy's `/ui/v1/ingest` in batches.
 3. **Keploy ends a visit** after 30 minutes without activity, or at once when the visit is completed with `POST /ui/v1/sessions/<session id>/complete`. It then extracts the visit's flows, usually within a few minutes.
 4. **Each page of a visit is its own flow**, a route change in a single-page app included, and Keploy chains a visit's flows into its journey. Every journey figure counts sessions: one page load of your app, its in-app navigation included.
@@ -230,6 +230,8 @@ Masking happens in the browser, before anything is sent, so Keploy's server neve
 
 The dashboard shows a flow's recorded URLs and calls to people on your team who can view the app. The [REST API and MCP](#what-an-agent-sees) return less.
 
+[Privacy and masking](../ui-capture/privacy.md) covers every rule, and what each mode still records.
+
 ## Limitations {#limitations}
 
 - **A visit ends after 30 minutes without activity.** A visitor who comes back to the same tab after that is not recorded again until the page reloads, unless you set `continuous: true`, which starts a new session at the visitor's next click, tap or key press.
@@ -238,6 +240,8 @@ The dashboard shows a flow's recorded URLs and calls to people on your team who 
 - **A site whose links load pages records each page load as its own session**, so its journeys never span a page load. A single-page app's route changes stay in one session.
 - **Sampling is per page load, not per user.** The SDK carries no user identity, so journey figures are shares of sessions, not of people.
 - **Replaying journeys as Playwright tests is in beta and not runnable yet.** See [What works today](#what-works-today).
+
+[Sessions and sampling](../ui-capture/sessions-and-sampling.md) explains when a session starts and ends, and [Limits and sizes](../ui-capture/limits.md) lists every limit.
 
 ## Troubleshooting {#troubleshooting}
 
