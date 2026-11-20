@@ -528,10 +528,11 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 | **Windows**               | Coming soon.                                                                                                                        |
 | **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
 
-Natively on macOS, Keploy 3.9.3 understands HTTP/HTTPS (HTTP/2 included), gRPC,
-PostgreSQL, MySQL, MongoDB, Amazon DynamoDB and Aerospike calls; calls to other
-services — Redis, Kafka and the like — are captured only as raw bytes and usually
-don't replay. If your tests depend on one of those, run them in a container (as
+Natively on macOS, Keploy 3.9.4 understands HTTP/HTTPS (HTTP/2 included), gRPC,
+PostgreSQL, MySQL, MongoDB, Amazon DynamoDB, Aerospike, Couchbase, Memcached,
+Apache HBase and Apache ZooKeeper calls; calls to Redis, Kafka, Apache Pulsar,
+Amazon SQS and other services are captured only as raw bytes and usually don't
+replay. If your tests depend on one of those, run them in a container (as
 above) or on Linux. The
 [dependency table](./overview.md#check-what-it-supports) lists each one. On
 macOS, also

@@ -96,24 +96,26 @@ and ends:
 | Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
 | Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
 
-**Dependencies** in Keploy 3.9.3. "Docker" means: run the tests through a
+**Dependencies** in Keploy 3.9.4. "Docker" means: run the tests through a
 Docker command so Keploy reads the calls on Linux.
 
-| Dependency                         | Linux | macOS  |
-| ---------------------------------- | ----- | ------ |
-| HTTP and HTTPS, HTTP/2             | Yes   | Yes    |
-| gRPC                               | Yes   | Yes    |
-| PostgreSQL                         | Yes   | Yes    |
-| MySQL                              | Yes   | Yes    |
-| MongoDB                            | Yes   | Yes    |
-| Amazon DynamoDB                    | Yes   | Yes    |
-| Aerospike                          | Yes   | Yes    |
-| Redis                              | Yes   | Docker |
-| Kafka                              | Yes   | Docker |
-| Memcached                          | Yes   | Docker |
-| Apache Pulsar                      | Yes   | Docker |
-| Amazon SQS                         | Yes   | Docker |
-| Couchbase, HBase, Apache ZooKeeper | Yes   | Docker |
+| Dependency             | Linux | macOS  |
+| ---------------------- | ----- | ------ |
+| HTTP and HTTPS, HTTP/2 | Yes   | Yes    |
+| gRPC                   | Yes   | Yes    |
+| PostgreSQL             | Yes   | Yes    |
+| MySQL                  | Yes   | Yes    |
+| MongoDB                | Yes   | Yes    |
+| Amazon DynamoDB        | Yes   | Yes    |
+| Aerospike              | Yes   | Yes    |
+| Couchbase              | Yes   | Yes    |
+| Memcached              | Yes   | Yes    |
+| Apache HBase           | Yes   | Yes    |
+| Apache ZooKeeper       | Yes   | Yes    |
+| Redis                  | Yes   | Docker |
+| Kafka                  | Yes   | Docker |
+| Apache Pulsar          | Yes   | Docker |
+| Amazon SQS             | Yes   | Docker |
 
 A call to any other TCP service is saved as raw bytes. It replays only when
 your tests send exactly the same bytes again.
