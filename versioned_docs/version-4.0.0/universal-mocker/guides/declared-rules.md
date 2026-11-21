@@ -87,8 +87,10 @@ test's value at a `boundBy` place but another value elsewhere fails that test.
 A trailing write is required once per run of the test it trails: if the app never
 makes it, that test fails with `RULE NOT MADE`. Before it decides, the replay
 waits while the app is still making progress on what it owes, with no fixed
-timeout. A read, or a write whose every recording changed nothing (`n`,
-`nModified` or `deletedCount` 0), is served but not required.
+timeout. A read, or a write whose every recording changed nothing (its reply
+counts `n` 0, and `nModified` 0 where it has one; for a `findAndModify`, its
+`lastErrorObject` counts them and its `value` is null), is served but not
+required.
 
 On macOS and Windows, keploy waits only on what it can see still running. On
 macOS it tells that the app still runs from the process group your test command
@@ -109,7 +111,9 @@ recorded:
 
 **What a `background` rule does.** One request with one answer that the app
 makes in several windows is served in any window. A background write is required
-once in a run that reaches the test it was first recorded in.
+once in a run that reaches the test it was first recorded in. A request the set
+recorded only once is served once in the run and not required: a second call of
+it misses.
 
 With `once: true`, the rule covers a call your app makes once per process, such
 as fetching a token at its first use. The replay serves its recording once in
@@ -129,10 +133,15 @@ while its `why` still says that, so write your own.
 
 **Rules are read whole or not at all.** If keploy cannot read every rule, it
 prints `RULES REFUSED` with the first problem and runs no `keploy mock` command
-until you fix it: an unknown key, a missing `id`, `kind`, `why` or `match`, two
-rules with one `id`, a pattern in a name, an unknown command, a place that does
-not parse, a `trailing` rule without `boundBy`, a key of another kind of rule, an
-`http` target on a kind that does not take one, or more than 200 rules.
+until you fix it. Problems that refuse the set include an unknown key, a missing
+`id`, `kind`, `why` or `match`, two rules with one `id`, a pattern in a name, an
+unknown command, a place that does not parse, a `trailing` rule without
+`boundBy`, a key of another kind of rule, an `http` target on a kind that does
+not take one, `chain` or `due` without `once: true`, a document as a `where`
+value (name each of its fields in a condition of its own), a `why` over 1000
+bytes or still the suggested `TODO` text, a kind (`client-value`, `answer`) or
+key (`vary`, `answers`, `from`, `tests`) this keploy does not build, and more
+than 200 rules.
 
 **What the rules leave behind.**
 
