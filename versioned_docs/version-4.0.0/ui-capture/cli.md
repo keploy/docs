@@ -61,9 +61,9 @@ With `--json`, every way of signing in (browser, `--no-wait` and `--finish`, an 
 
 - `ok`: `true` when you are signed in.
 - When `ok` is `true`: `method` (`session` for a browser sign-in, new or saved before; `api_key`; or `k8s_proxy` for an API key a self-hosted k8s-proxy accepted), and whom it signed you in as: `user_id`, `company_id` and `email`. A self-hosted k8s-proxy names the account by `company_id` and `email` only.
-- When `ok` is `false`: `error_code`, such as `key_refused`, `proxy_unreachable` or `not_saved`, and `next_step`, what to do about it.
+- When `ok` is `false`: `error_code`, such as `key_refused`, `server_unreachable`, `proxy_unreachable` or `not_saved`, and `next_step`, what to do about it.
 
-While a `--no-wait` sign-in waits for approval, the document has no `login` object.
+While a sign-in waits for approval (after `--no-wait`, or a `--finish` that is still waiting), the document has no `login` object.
 
 ## Connect your agent {#keploy-mcp-install}
 
