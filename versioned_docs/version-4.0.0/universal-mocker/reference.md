@@ -532,7 +532,7 @@ Flags:
 - `--debug`: debug flag for testing.
 - `--disable-ansi`: Disable ANSI colors in the output.
 - `--finish`: Collect the session for the sign-in started by 'keploy login --no-wait': waits up to 70 seconds for the approval, and can be run again until the code expires.
-- `--json`: With --no-wait or --finish: print the answer as one JSON document (a NEXT block) on stdout, for AI agents and tools; logs go to stderr.
+- `--json`: Print the outcome as one JSON document (a NEXT block) on stdout, for AI agents and tools: its login object says ok, the method and whom it signed in as, or an error code and the next step; everything else goes to stderr.
 - `--k8s-proxy-auth`: Authenticate through the k8s-proxy instead of the api-server (for CI with no direct api-server/internet access). Defaults on when --k8s-proxy-url, KEPLOY_K8S_PROXY_URL or the login 'keploy login --k8s-proxy-url' saved gives a k8s-proxy URL (keploy.yml cloud.k8sProxyUrl alone does not); pass --k8s-proxy-auth=false to opt out. Requires a k8s-proxy URL and an API key (KEPLOY_API_KEY, --api-key or the saved login).
 - `--k8s-proxy-url string`: Self-hosted k8s-proxy ingress URL to authenticate against; setting it enables k8s-proxy-auth mode by default (e.g. `https://keploy-proxy.my-cluster.internal`). Falls back to KEPLOY_K8S_PROXY_URL. 'keploy login --k8s-proxy-url &lt;url&gt;' saves the URL and the API key in ~/.keploy, so later commands need neither variable.
 - `--manual-login`: Use manual login prompt instead of opening browser.

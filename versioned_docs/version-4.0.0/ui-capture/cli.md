@@ -50,12 +50,20 @@ keploy login --finish --json
 | `--no-wait`      | Print the sign-in link and code and exit instead of waiting.                                                                          |
 | `--finish`       | Collect the session for the sign-in started by `--no-wait`.                                                                           |
 | `--new`          | With `--no-wait`: discard the sign-in waiting here and start a new one. Without it, `--no-wait` shows the waiting code or link again. |
-| `--json`         | With `--no-wait` or `--finish`: print the answer as one JSON document on stdout, for AI agents and tools. Logs go to stderr.          |
+| `--json`         | Print the outcome as one JSON document on stdout, for AI agents and tools, however you sign in. Logs go to stderr.                    |
 | `--api-key`      | A Keploy API key for this invocation, in place of the `KEPLOY_API_KEY` environment variable.                                          |
 | `--show`         | Print the API key a login uses here (its last 4 characters only) and where it comes from, then exit without signing in.               |
 | `--manual-login` | Ask for an API key to paste instead of opening the browser.                                                                           |
 
 When an API key is set, in `KEPLOY_API_KEY` or with `--api-key`, and the server accepts it, `keploy login --no-wait` answers that you are signed in and starts no sign-in.
+
+With `--json`, every way of signing in (browser, `--no-wait` and `--finish`, an API key, `--manual-login`, `--k8s-proxy-url`, or a session saved before) prints one JSON document on stdout and nothing else; logs go to stderr. Its `summary` says how the sign-in ended, for a person, and its `login` object says the same for a tool:
+
+- `ok`: `true` when you are signed in.
+- When `ok` is `true`: `method` (`session` for a browser sign-in, new or saved before; `api_key`; or `k8s_proxy` for an API key a self-hosted k8s-proxy accepted), and whom it signed you in as: `user_id`, `company_id` and `email`. A self-hosted k8s-proxy names the account by `company_id` and `email` only.
+- When `ok` is `false`: `error_code`, such as `key_refused`, `proxy_unreachable` or `not_saved`, and `next_step`, what to do about it.
+
+While a `--no-wait` sign-in waits for approval, the document has no `login` object.
 
 ## Connect your agent {#keploy-mcp-install}
 
