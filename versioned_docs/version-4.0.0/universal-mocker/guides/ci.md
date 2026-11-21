@@ -42,12 +42,32 @@ are cut.
   [Turn on the app's recording pin](./keploy-yml-and-lock.md#turn-on-the-apps-recording-pin).
 - A Linux runner where the job can use `sudo` with no password, or runs as
   root. Keploy starts its agent with `sudo`. GitHub-hosted runners allow it.
-- A CI key, which an admin of your Keploy organization makes (step 1).
+- A CI key (step 1).
 
 ## Step 1: Make a CI key
 
-The replay signs in with a read-only key of a service account. An admin of your
-Keploy organization makes it:
+The replay signs in with the key of a service account that holds only the
+**MOCK_READER** role: it reads the app's recordings and uploads the replay
+report, and does nothing else. In the project's folder, run:
+
+```bash
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+```
+
+It shows a link and a code, and opens the browser. The page names the key, the
+app and the role, and asks you to sign in to Keploy again before you approve.
+Keploy then makes the key and sets it as the repository secret
+`KEPLOY_API_KEY` through the GitHub CLI (`gh`), which must be signed in with
+the right to set it. The key is never printed. It is for the app that
+`keploy.yml`'s `mock.appId` names; `--app <app id>` names another. The Keploy
+server refuses a role you may not grant.
+
+A coding agent runs the command with `--no-wait --json`, gives you the link and
+the code it prints, then runs
+`keploy service-account key create --finish --json`.
+
+With a Keploy that has no `service-account` command, an admin of your Keploy
+organization makes the key in the dashboard, and you save it in step 2:
 
 1. In [app.keploy.io](https://app.keploy.io/settings/service-accounts), open
    **Account → Service Accounts**.
@@ -61,7 +81,8 @@ A CI key can replay, but it can't record: see
 
 ## Step 2: Save the key as a repository secret
 
-Save the key as the repository secret `KEPLOY_API_KEY`, under the repository's
+`--to-gh-secret` in step 1 already did this. For a key made in the dashboard,
+save it as the repository secret `KEPLOY_API_KEY`, under the repository's
 **Settings → Secrets and variables → Actions**. Or use the GitHub CLI, which
 asks for the value, so it stays out of your shell history:
 
@@ -79,6 +100,8 @@ run **Keploy: Wire CI (GitHub Actions)**. It writes
 `.github/workflows/keploy.yml` for a Go or Node project that has a
 `keploy.lock`, and never over a file that is already there. For a project in a
 folder below the repository's root, the workflow's steps run in that folder.
+For any other project, such as Python or Java, the extension shows the steps
+of [Other CI systems](#other-ci-systems) instead.
 
 Without the extension, add the file yourself. For a Go module at the
 repository's root, it is:
@@ -379,29 +402,149 @@ run `keploy mock replay --local` instead.
 
 ## Other CI systems
 
-GitLab CI and other CI systems are available on request: contact the Keploy
-team at [support@keploy.io](mailto:support@keploy.io) and we'll set it up with
-you. Any job needs the same steps as the workflow above:
+For GitLab CI, Jenkins and any other CI, and for a project the VS Code
+extension writes no workflow for, such as Python or Java, Keploy prints the
+recipe for your project. In the project's folder, run:
 
-1. A Linux runner where the job runs as root, or as a user with passwordless
-   `sudo`.
-2. The project's toolchain, and its dependencies downloaded, such as
-   `go mod download` or `npm ci`. The replay lets no download out.
-3. Keploy, from `https://keploy.io/ent/install.sh`. In a pipeline, it installs
-   in `/usr/local/bin`, which takes root or passwordless `sudo`. Without them,
-   the install fails:
+```bash
+keploy mock ci
+```
+
+It names the CI the repository runs (from its CI config, or else its `origin`
+remote), the project's folder and its test command (`keploy.yml`'s
+`mock.command`), and prints that CI's example: GitHub Actions, GitLab CI,
+Jenkins, or shell lines for any other CI. `--ci gitlab` (or `github`,
+`jenkins`, `other`) prints another CI's example instead, and `--json` prints
+the same for an editor or a coding agent. It writes nothing. In the VS Code
+extension, **Wire CI** offers the same recipe: **Show me the steps** opens it
+with a copy button, and **Hand CI setup to** your coding agent gives it to the
+agent.
+
+Every job takes the same steps:
+
+1. **Check out** the repository, with `keploy.yml` and `keploy.lock`
+   committed.
+2. **Set up the project's toolchain and install every dependency the tests
+   need, before the replay.** The replay lets nothing out: a package the test
+   run fetches during it (a Go module, an npm package, a pip wheel, a Maven
+   plugin) is a call the recordings do not hold, and fails the job. Use the
+   project's own install, for example:
+   - Go: `go mod download`
+   - Node: `npm ci` (`pnpm install --frozen-lockfile`, `yarn install --immutable`); with Playwright, `npx playwright install --with-deps`
+   - Python: `pip install -r requirements.txt` (`pip install -e ".[test]"`, `poetry install`, `uv sync --frozen`)
+   - Java with Maven: `mvn -B -ntp test -Dtest=NoSuchTest -Dsurefire.failIfNoSpecifiedTests=false`: it compiles the tests and fetches the test runner's provider (which `mvn dependency:go-offline` leaves out), and runs no test
+3. **Install Keploy.** `keploy mock ci` pins the install line to the release
+   you run, and the job sets `KEPLOY_DISABLE_AUTO_UPDATE=1`: without it Keploy
+   brings itself to the latest release when a command starts. The job runs on
+   Linux as root or with passwordless `sudo`: Keploy starts its eBPF agent with
+   `sudo` unless the job runs as root. A job that runs in a container needs a
+   privileged one. Without root or passwordless `sudo`, the install fails:
 
    ```text
    sudo: a password is required
    Error: could not install the keploy binary
    ```
 
-4. The CI key in `KEPLOY_API_KEY`, from the CI system's secrets.
-5. The replay, in the project's folder:
+4. **Add the key**, as a CI secret named `KEPLOY_API_KEY`: a key with only
+   MOCK_READER. In the project's folder, run:
 
    ```bash
-   KEPLOY_INVOKER=ci KEPLOY_PROVEN=1 keploy mock replay --lock keploy.lock --on-miss fail
+   keploy service-account key create --role MOCK_READER --to-file ~/keploy-ci.key
    ```
+
+   Put the file's contents in the CI's secrets as `KEPLOY_API_KEY`, then
+   delete the file. Keploy asks you to sign in again in the browser, as in
+   [step 1](#step-1-make-a-ci-key). Give the key to the job as the
+   `KEPLOY_API_KEY` environment variable. Never print it or commit it. A pull
+   request from a fork gets no secrets on most CIs, so its job fails at the
+   key.
+
+5. **Replay**, in the project's folder:
+
+   ```bash
+   KEPLOY_PROVEN=1 KEPLOY_INVOKER=ci keploy mock replay --lock keploy.lock --on-miss fail
+   ```
+
+   It runs `keploy.yml`'s `mock.command` with the recorded answers. `--lock`
+   fails the job when `keploy.lock` is missing, and `--on-miss fail` fails a
+   call the recordings don't hold instead of letting it out.
+   `KEPLOY_INVOKER=ci` makes a missing key fail at once instead of waiting for
+   a browser sign-in. Never drop `--on-miss fail` or add `--local` to this
+   step.
+
+The examples below are what `keploy mock ci --ci <ci>` prints for a project at
+the repository's root. Put the project's toolchain setup and dependency
+install where the comment says. For a project in a folder below the root,
+the example also runs the replay in that folder.
+
+### GitLab CI
+
+`.gitlab-ci.yml`; the key is a CI/CD variable (Settings > CI/CD > Variables),
+masked and not protected: a protected variable reaches only protected
+branches, so a merge request's pipeline would run without it. A self-managed
+runner runs the job privileged only with `privileged = true` in its
+config.toml.
+
+```yaml
+keploy-replay:
+  image: ubuntu:24.04 # or the image your tests already run in
+  rules:
+    - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  variables:
+    KEPLOY_INVOKER: ci
+    KEPLOY_PROVEN: "1"
+    KEPLOY_DISABLE_AUTO_UPDATE: "1"
+  script:
+    - apt-get update && apt-get install -y --no-install-recommends curl ca-certificates
+    # Step 2: set up the project's toolchain and install its dependencies here.
+    - |
+      keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; case "$(uname -s)" in Darwin) PATH="$HOME/.keploy/bin:$PATH"; export PATH ;; esac; [ "$keploy_rc" -eq 0 ]
+    - keploy mock replay --lock keploy.lock --on-miss fail
+```
+
+### Jenkins
+
+`Jenkinsfile`; the key is a Secret text credential, here with the id
+`keploy-api-key`. The agent is a Linux machine where the job is root or has
+passwordless sudo.
+
+```groovy
+pipeline {
+  agent any
+  environment {
+    KEPLOY_API_KEY = credentials('keploy-api-key')
+    KEPLOY_INVOKER = 'ci'
+    KEPLOY_PROVEN = '1'
+    KEPLOY_DISABLE_AUTO_UPDATE = '1'
+  }
+  stages {
+    stage('Keploy replay') {
+      steps {
+        // Step 2: set up the project's toolchain and install its dependencies here.
+        sh '''
+          keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; case "$(uname -s)" in Darwin) PATH="$HOME/.keploy/bin:$PATH"; export PATH ;; esac; [ "$keploy_rc" -eq 0 ]
+        '''
+        dir('.') {
+          sh 'keploy mock replay --lock keploy.lock --on-miss fail'
+        }
+      }
+    }
+  }
+}
+```
+
+### Any other CI: the steps as shell lines
+
+Run them on every pull request and every push to the main branch, with
+`KEPLOY_API_KEY` from the CI's secrets in the environment:
+
+```sh
+export KEPLOY_INVOKER=ci KEPLOY_PROVEN=1 KEPLOY_DISABLE_AUTO_UPDATE=1
+# Step 2: set up the project's toolchain and install its dependencies here.
+keploy_rc=0; keploy_sh="$(mktemp)" && curl -fsSL https://keploy.io/ent/install.sh -o "$keploy_sh" && bash "$keploy_sh" || keploy_rc=$?; rm -f "$keploy_sh"; case "$(uname -s)" in Darwin) PATH="$HOME/.keploy/bin:$PATH"; export PATH ;; esac; [ "$keploy_rc" -eq 0 ]
+keploy mock replay --lock keploy.lock --on-miss fail
+```
 
 On GitLab CI and Woodpecker, a replay of a push to the default branch lists
 main's `keploy.lock` as Keploy main, as on GitHub Actions. On any other CI

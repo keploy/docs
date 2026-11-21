@@ -323,11 +323,20 @@ For a Go or Node project in a GitHub repository:
    the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail`
    with `KEPLOY_PROVEN=1`.
 
-2. The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI
-   key. Ask your Keploy admin for one. The notification's **Open the CI key
-   page** button opens the page where the admin makes it.
-3. Store the key as the repository's secret. Run this in a terminal, and paste
-   the key when it asks:
+2. The workflow needs one repository secret, `KEPLOY_API_KEY`: a key with only
+   MOCK_READER. Make it in the project's folder:
+
+   ```bash
+   keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+   ```
+
+   Keploy asks you to sign in again in the browser, then stores the key as the
+   repository's secret: [Make a CI key](../guides/ci.md#step-1-make-a-ci-key).
+
+3. With a Keploy that has no `service-account` command, ask your Keploy admin
+   for the key. The notification's **Open the CI key page** button opens the
+   page where the admin makes it. Store the key as the repository's secret.
+   Run this in a terminal, and paste the key when it asks:
 
    ```bash
    gh secret set KEPLOY_API_KEY
@@ -340,9 +349,11 @@ For a Go or Node project in a GitHub repository:
 
 <img src="/docs/img/universal-mocker/vscode/14-wire-ci.png" alt="The new .github/workflows/keploy.yml open in the editor, and the notification with its Open the CI key page and Copy the secret command buttons" width="100%" />
 
-For any other project or CI, the extension writes no workflow and says so. The
-[Other CI systems](../guides/ci.md#other-ci-systems) section shows the replay step to add
-yourself.
+For any other project or CI, such as Python, Java or GitLab CI, the extension
+writes no workflow. Its notification offers **Hand CI setup to** your coding
+agent, which gives the agent Keploy's CI recipe for the project, and **Show me
+the steps**, which opens the same recipe with a **Copy the steps** button. The
+[Other CI systems](../guides/ci.md#other-ci-systems) section shows the recipe.
 
 ## Step 10: Invite your team
 
