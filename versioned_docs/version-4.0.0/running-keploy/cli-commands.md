@@ -490,7 +490,7 @@ keploy login [flags]
 - `--attempt string` - With `--finish`: collect only the pending sign-in matching this attempt ID (used by `--no-wait --fresh` so a replacement from another terminal cannot collect the wrong sign-in).
 - `--new` - With `--no-wait`: discard the sign-in waiting in `~/.keploy/login-pending.json` and start a new code. Does not force a new browser sign-in (use `--fresh` for that).
 - `--fresh` - Sign in again in the browser even when already signed in, for actions that require a recent sign-in (such as creating API keys or service accounts, or changing members and roles; valid for 15 minutes). Works alone or with `--no-wait`. Refused while an API key is configured (`KEPLOY_API_KEY` or `~/.keploy/cred.yaml`), because every Keploy command presents an API key before a browser session and an API key can never satisfy a recent-sign-in check; unset `KEPLOY_API_KEY` or run `keploy logout` first.
-- `--json` - With `--no-wait` or `--finish`: print one JSON `NEXT` block (`auth_pending`, `auth_signed_in`, or `auth_failed`) on stdout for AI agents and tools, with logs on stderr.
+- `--json` - Print the outcome as one JSON document (`NEXT` block: `auth_pending`, `auth_signed_in`, or `auth_failed`) on stdout, for a tool or an AI agent: whether you are signed in, how and as whom, or an error code and the next step. Logs go to stderr. See [Sign in from a terminal or an agent](../ui-capture/cli.md#keploy-login).
 - `--show` - Print the API key (its last 4 characters only) and the `k8s-proxy` URL commands use here, where each comes from (a flag, an environment variable, `keploy.yml`, or the saved login in `~/.keploy`), and whether `k8s-proxy-auth` mode is on and why, without signing in or making network calls.
 - `--manual-login` - Prompt interactively for a Keploy API key in the terminal instead of opening a browser.
 - `--api-key string` - Authenticate with this Keploy API key (overrides `KEPLOY_API_KEY`). With `keploy login`, the verified key is saved to `~/.keploy/cred.yaml` for subsequent commands. In CI, set `KEPLOY_API_KEY` from a secret instead of signing in interactively.
@@ -514,8 +514,8 @@ For a fresh sign-in in a split workflow, start with `keploy login --no-wait --fr
 - `--no-wait` cannot be combined with `--finish`, `--manual-login`, or `--show`.
 - `--finish` cannot be combined with `--no-wait`, `--manual-login`, `--new`, `--show`, or `--fresh`.
 - `--fresh` cannot be combined with `--finish`, `--manual-login`, `--api-key`, or `--show`.
-- `--show` cannot be combined with `--no-wait`, `--finish`, `--manual-login`, or `--fresh`.
-- `--json` works only with `--no-wait` or `--finish`; `--new` works only with `--no-wait`; `--attempt` works only with `--finish`.
+- `--show` cannot be combined with `--no-wait`, `--finish`, `--manual-login`, `--fresh`, or `--json`.
+- `--new` works only with `--no-wait`; `--attempt` works only with `--finish`.
 - `--no-wait`, `--finish`, and `--fresh` sign in against the `api-server`, not through `k8s-proxy`. If `k8s-proxy-auth` mode is active, pass `--k8s-proxy-auth=false`, unset `KEPLOY_K8S_PROXY_URL` / `KEPLOY_K8S_PROXY_AUTH`, or run `keploy logout` to remove a saved self-hosted login.
 
 `keploy logout` signs you out and removes a saved self-hosted login (the API key and `k8s-proxy` URL in `~/.keploy/cred.yaml`).
