@@ -598,6 +598,11 @@ mock:
 | `branch`         | `--branch`           | The Keploy branch to read and publish. Ignored while `keploy.lock` pins the recordings.  |
 | `command`        | `-c`                 | The command that runs your tests. Read when you don't pass `-c`, with `KEPLOY_PROVEN=1`. |
 
+Two more keys under `mock:` have no flag, and act with `KEPLOY_PROVEN=1`:
+`rules`, the calls and values your app makes on its own, and `times`, how a
+replay checks a time.
+[Rules in keploy.yml](./guides/declared-rules.md) says what each takes.
+
 Outside `mock:`, `keploy.yml` has a top-level `sessionCalls` list: the HTTP
 calls a replay serves to every test, as
 [Serve a call to every test](./guides/background-workers.md#serve-a-call-to-every-test)
