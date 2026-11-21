@@ -320,6 +320,9 @@ recorded one.
 
 ## See also
 
+- [Times and ids your app makes](./declared-rules.md#times-and-ids-your-app-makes):
+  how a time in a MongoDB call is checked, and the `clock` and `minted` rules
+  of `keploy.yml`.
 - [Network isolation in replay](./network-isolation.md): what a replay keeps
   from the real network.
 - [A call has no recording](../troubleshooting.md#a-call-has-no-recording):

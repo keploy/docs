@@ -128,6 +128,8 @@ Keploy 3.9.4 handles two kinds of poll for you, with `KEPLOY_PROVEN=1`:
   database and queue.
 - [Times, dates and ids that change](./changing-values.md): values in a call
   that are new on every run.
+- [Rules in keploy.yml](./declared-rules.md): name the calls your app makes
+  after a test or on its own timer, with `KEPLOY_PROVEN=1`.
 - [keploy.yml and keploy.lock](./keploy-yml-and-lock.md): the start-up entry
   of the lock.
 - [Troubleshooting](../troubleshooting.md): what a failing record or replay
