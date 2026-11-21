@@ -69,8 +69,18 @@ This section runs on Linux or WSL. On macOS, run it inside a [Lima VM](/docs/ins
 ### Clone a sample user authentication app 🧪
 
 ```bash
-git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
+git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp/crud-app
 
+```
+
+### Prerequisites
+
+- Install the [.NET 8 SDK](https://dotnet.microsoft.com/download/dotnet/8.0).
+- Install the EF Core tool, using version 8 to match the project (the latest `dotnet-ef` does not work with the .NET 8 SDK):
+
+```bash
+dotnet tool install --global dotnet-ef --version "8.*"
+export PATH="$PATH:$HOME/.dotnet/tools"
 ```
 
 ### start the database instance
@@ -83,10 +93,9 @@ We'll be running our sample application right on Linux, but just to make things 
 
 ### 📼 Roll the Tape - Recording Time!
 
-We need to run the migration command before starting our application:
+The project already ships an `InitialMigration`, so we only need to apply it before starting our application:
 
 ```bash
-dotnet ef migrations add InitialMigration
 dotnet ef database update
 ```
 

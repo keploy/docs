@@ -73,7 +73,17 @@ import ProductTier from '@site/src/components/ProductTier';
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
 ```
 
+### Point the app at the Postgres container 🔌
+
+The app runs in a container, so it must reach Postgres by its compose service name instead of `localhost`. In both `application/main.py` and `application/database.py`, change `@localhost:5432` to `@postgres:5432` in `SQLALCHEMY_DATABASE_URL`.
+
 ### Lights, Camera, Record! 🎥
+
+The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
 
 Capture the test-cases-
 
@@ -132,12 +142,12 @@ curl --location 'http://127.0.0.1:8000/students/1'
 curl --location --request DELETE 'http://127.0.0.1:8000/students/1'
 ```
 
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
+Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `keploy/test-set-0/tests/` (one file per call, e.g. `post-students-1.yaml`) and `keploy/test-set-0/mocks.yaml`.
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Http
-name: test-1
+name: get-students-1
 spec:
   metadata: {}
   req:
@@ -148,79 +158,107 @@ spec:
     header:
       Accept: "*/*"
       Host: 127.0.0.1:8000
-      User-Agent: curl/7.81.0
+      User-Agent: curl/8.7.1
     body: ""
-    body_type: ""
-    timestamp: 2023-11-06T10:42:43.046337785+05:30
+    timestamp: 2026-11-16T12:37:17.039514963Z
   resp:
-    status_code: 404
+    status_code: 200
     header:
-      Content-Length: "29"
+      Content-Length: "109"
       Content-Type: application/json
-      Date: Mon, 06 Nov 2023 05:12:42 GMT
+      Date: Mon, 16 Nov 2026 12:37:16 GMT
       Server: uvicorn
-    body: '{"detail":"Data not found!!"}'
-    body_type: ""
-    status_message: ""
+    body: '[{"name":"Eva White","email":"evawhite@example.com","password":"sfwbxijuf222","stream":"Mathematics","id":1}]'
+    status_message: OK
     proto_major: 0
     proto_minor: 0
-    timestamp: 2023-11-06T10:42:45.959907593+05:30
+    timestamp: 2026-11-16T12:37:17.044762963Z
   objects: []
   assertions:
     noise:
-      - header.Date
-  created: 1699247565
+      header.Date: []
+  created: 1794832637
+  app_port: 8000
 curl: |
   curl --request GET \
-  --url http://127.0.0.1:8000/students/ \
-  --header 'User-Agent: curl/7.81.0' \
-  --header 'Accept: */*' \
-  --header 'Host: 127.0.0.1:8000' \
+    --url http://127.0.0.1:8000/students/ \
+    --header 'Accept: */*' \
+    --header 'Host: 127.0.0.1:8000' \
+    --header 'User-Agent: curl/8.7.1' \
 ```
 
-This is how `mocks.yml` generated would look like:-
+This is how the generated `mocks.yaml` would look like:-
 
 ```yaml
-  version: api.keploy.io/v1beta2
-  kind: Postgres
-  name: mocks
-  spec:
-      metadata: {}
-      postgresrequests:
-          - header: [Q]
-          identifier: ClientRequest
-          length: 8
-          query:
-              string: SELECT students."ID" AS "students_ID", students."Name" AS "students_Name", students."Email" AS "students_Email", students."Hashed Password" AS "students_Hashed Password", students."Subject Stream" AS "students_Subject Stream" FROM students LIMIT 100 OFFSET 0
-          msg_type: 81
-          auth_type: 0
-      postgresresponses:
-          - header: [T, C, Z]
-          identifier: ServerResponse
-          length: 8
-          authentication_md5_password:
-              salt:
-                  - 0
-                  - 0
-                  - 0
-                  - 0
-          command_complete:
-              - command_tag:
-                  - 83
-                  - 69
-                  - 76
-                  - 69
-                  - 67
-                  - 84
-                  - 32
-                  - 48
-          ready_for_query:
-              txstatus: 84
-          row_description: {fields: [{name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 73, 68], table_oid: 24577, table_attribute_number: 1, data_type_oid: 23, data_type_size: 4, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 78, 97, 109, 101], table_oid: 24577, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 69, 109, 97, 105, 108], table_oid: 24577, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 72, 97, 115, 104, 101, 100, 32, 80, 97, 115, 115, 119, 111, 114, 100], table_oid: 24577, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 83, 117, 98, 106, 101, 99, 116, 32, 83, 116, 114, 101, 97, 109], table_oid: 24577, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}]}
-          msg_type: 90
-          auth_type: 0
-      reqtimestampmock: 2023-11-06T10:42:43.063446464+05:30
-      restimestampmock: 2023-11-06T10:42:43.063544657+05:30
+version: api.keploy.io/v1beta1
+kind: PostgresV3
+name: mock-28
+spec:
+  metadata:
+    bindEncoding: wire
+    class: APP
+    connID: "2"
+    destAddr: 172.21.0.2:5432
+    lifetime: perTest
+    type: mocks
+  postgresV3:
+    type: query
+    query:
+      class: APP
+      lifetime: perTest
+      sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
+      sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
+      invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
+      precedingTxState: in_tx
+      bindValues:
+        - !!binary MTAw
+        - !!binary MA==
+      bindFormats:
+        - 0
+        - 0
+      response:
+        rowDescription:
+          - name: students_ID
+            tableOid: 16386
+            colAttrNum: 1
+            typeOid: 23
+            typeSize: 4
+            typeMod: -1
+          - name: students_Name
+            tableOid: 16386
+            colAttrNum: 2
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Email
+            tableOid: 16386
+            colAttrNum: 3
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Hashed Password
+            tableOid: 16386
+            colAttrNum: 4
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Subject Stream
+            tableOid: 16386
+            colAttrNum: 5
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+        rows:
+          - - 1
+            - Eva White
+            - evawhite@example.com
+            - sfwbxijuf222
+            - Mathematics
+        commandComplete: SELECT 1
+      sideEffects: {}
+  reqTimestampMock: 2026-11-16T12:37:17.042651505Z
+  resTimestampMock: 2026-11-16T12:37:17.043078546Z
+connectionId: "2"
 ```
 
 Want to see if everything works as expected?
@@ -235,7 +273,7 @@ keploy test -c "docker compose up" --container-name "fastapi-app" --build-delay 
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yaml`, or fiddle with the request or response in the files under `tests/`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
 ### Wrapping it up 🎉
 
@@ -259,6 +297,15 @@ This section runs on Linux or WSL. On macOS, or on Windows without WSL, use the 
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-postgres
+```
+
+### Start the Postgres instance 🐘
+
+The app connects to `localhost:5432/studentdb`, so start the database first. The compose file attaches it to an external `keploy-network`, so create that once:
+
+```bash
+docker network create keploy-network
+docker compose up -d postgres
 ```
 
 ### Lights, Camera, Record! 🎥
@@ -320,12 +367,12 @@ curl --location 'http://127.0.0.1:8000/students/1'
 curl --location --request DELETE 'http://127.0.0.1:8000/students/1'
 ```
 
-Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
+Give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `keploy/test-set-0/tests/` (one file per call, e.g. `post-students-1.yaml`) and `keploy/test-set-0/mocks.yaml`.
 
 ```yaml
-version: api.keploy.io/v1beta2
+version: api.keploy.io/v1beta1
 kind: Http
-name: test-1
+name: get-students-1
 spec:
   metadata: {}
   req:
@@ -336,79 +383,107 @@ spec:
     header:
       Accept: "*/*"
       Host: 127.0.0.1:8000
-      User-Agent: curl/7.81.0
+      User-Agent: curl/8.7.1
     body: ""
-    body_type: ""
-    timestamp: 2023-11-06T10:42:43.046337785+05:30
+    timestamp: 2026-11-16T12:37:17.039514963Z
   resp:
-    status_code: 404
+    status_code: 200
     header:
-      Content-Length: "29"
+      Content-Length: "109"
       Content-Type: application/json
-      Date: Mon, 06 Nov 2023 05:12:42 GMT
+      Date: Mon, 16 Nov 2026 12:37:16 GMT
       Server: uvicorn
-    body: '{"detail":"Data not found!!"}'
-    body_type: ""
-    status_message: ""
+    body: '[{"name":"Eva White","email":"evawhite@example.com","password":"sfwbxijuf222","stream":"Mathematics","id":1}]'
+    status_message: OK
     proto_major: 0
     proto_minor: 0
-    timestamp: 2023-11-06T10:42:45.959907593+05:30
+    timestamp: 2026-11-16T12:37:17.044762963Z
   objects: []
   assertions:
     noise:
-      - header.Date
-  created: 1699247565
+      header.Date: []
+  created: 1794832637
+  app_port: 8000
 curl: |
   curl --request GET \
-  --url http://127.0.0.1:8000/students/ \
-  --header 'User-Agent: curl/7.81.0' \
-  --header 'Accept: */*' \
-  --header 'Host: 127.0.0.1:8000' \
+    --url http://127.0.0.1:8000/students/ \
+    --header 'Accept: */*' \
+    --header 'Host: 127.0.0.1:8000' \
+    --header 'User-Agent: curl/8.7.1' \
 ```
 
-This is how `mocks.yml` generated would look like:-
+This is how the generated `mocks.yaml` would look like:-
 
 ```yaml
-  version: api.keploy.io/v1beta2
-  kind: Postgres
-  name: mocks
-  spec:
-      metadata: {}
-      postgresrequests:
-          - header: [Q]
-          identifier: ClientRequest
-          length: 8
-          query:
-              string: SELECT students."ID" AS "students_ID", students."Name" AS "students_Name", students."Email" AS "students_Email", students."Hashed Password" AS "students_Hashed Password", students."Subject Stream" AS "students_Subject Stream" FROM students LIMIT 100 OFFSET 0
-          msg_type: 81
-          auth_type: 0
-      postgresresponses:
-          - header: [T, C, Z]
-          identifier: ServerResponse
-          length: 8
-          authentication_md5_password:
-              salt:
-                  - 0
-                  - 0
-                  - 0
-                  - 0
-          command_complete:
-              - command_tag:
-                  - 83
-                  - 69
-                  - 76
-                  - 69
-                  - 67
-                  - 84
-                  - 32
-                  - 48
-          ready_for_query:
-              txstatus: 84
-          row_description: {fields: [{name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 73, 68], table_oid: 24577, table_attribute_number: 1, data_type_oid: 23, data_type_size: 4, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 78, 97, 109, 101], table_oid: 24577, table_attribute_number: 2, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 69, 109, 97, 105, 108], table_oid: 24577, table_attribute_number: 3, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 72, 97, 115, 104, 101, 100, 32, 80, 97, 115, 115, 119, 111, 114, 100], table_oid: 24577, table_attribute_number: 4, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}, {name: [115, 116, 117, 100, 101, 110, 116, 115, 95, 83, 117, 98, 106, 101, 99, 116, 32, 83, 116, 114, 101, 97, 109], table_oid: 24577, table_attribute_number: 5, data_type_oid: 1043, data_type_size: -1, type_modifier: -1, format: 0}]}
-          msg_type: 90
-          auth_type: 0
-      reqtimestampmock: 2023-11-06T10:42:43.063446464+05:30
-      restimestampmock: 2023-11-06T10:42:43.063544657+05:30
+version: api.keploy.io/v1beta1
+kind: PostgresV3
+name: mock-28
+spec:
+  metadata:
+    bindEncoding: wire
+    class: APP
+    connID: "2"
+    destAddr: 172.21.0.2:5432
+    lifetime: perTest
+    type: mocks
+  postgresV3:
+    type: query
+    query:
+      class: APP
+      lifetime: perTest
+      sqlAstHash: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30
+      sqlNormalized: "SELECT students.\"ID\" AS \"students_ID\", students.\"Name\" AS \"students_Name\", students.\"Email\" AS \"students_Email\", students.\"Hashed Password\" AS \"students_Hashed Password\", students.\"Subject Stream\" AS \"students_Subject Stream\" \nFROM students \n LIMIT $2 OFFSET $1"
+      invocationId: sha256:c7ada4e1d75ca3577e3832dabf1d290a894d7a9b47164ad99cc809a9f0384b30:2:2026-11-16T12:37:17.042651505Z:24
+      precedingTxState: in_tx
+      bindValues:
+        - !!binary MTAw
+        - !!binary MA==
+      bindFormats:
+        - 0
+        - 0
+      response:
+        rowDescription:
+          - name: students_ID
+            tableOid: 16386
+            colAttrNum: 1
+            typeOid: 23
+            typeSize: 4
+            typeMod: -1
+          - name: students_Name
+            tableOid: 16386
+            colAttrNum: 2
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Email
+            tableOid: 16386
+            colAttrNum: 3
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Hashed Password
+            tableOid: 16386
+            colAttrNum: 4
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+          - name: students_Subject Stream
+            tableOid: 16386
+            colAttrNum: 5
+            typeOid: 1043
+            typeSize: -1
+            typeMod: -1
+        rows:
+          - - 1
+            - Eva White
+            - evawhite@example.com
+            - sfwbxijuf222
+            - Mathematics
+        commandComplete: SELECT 1
+      sideEffects: {}
+  reqTimestampMock: 2026-11-16T12:37:17.042651505Z
+  resTimestampMock: 2026-11-16T12:37:17.043078546Z
+connectionId: "2"
 ```
 
 Want to see if everything works as expected?
@@ -423,7 +498,7 @@ keploy test -c "uvicorn application.main:app --reload" --delay 10
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
-Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yaml`, or fiddle with the request or response in the files under `tests/`. Run the tests again and see the magic unfold!✨👩‍💻👨‍💻✨
 
 ### Wrapping it up 🎉
 

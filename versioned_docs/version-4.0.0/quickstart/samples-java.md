@@ -271,6 +271,12 @@ mvn clean install -Dmaven.test.skip=true
 
 ### Capture the testcases 🎬
 
+The `docker-compose.yaml` of this sample attaches both services to an external `keploy-network`, so create it once before recording:
+
+```bash
+docker network create keploy-network
+```
+
 ```bash
 keploy record -c "docker compose up" --container-name javaApp --build-delay 100
 ```
@@ -319,6 +325,8 @@ or by querying through the browser `http://localhost:8080/api/employees/1`
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/test` folder. The keploy
 directory would also have `mock.yml` file.
+
+Once both calls are recorded, stop the recording with `Ctrl+C` in the terminal running `keploy record`.
 
 Now, let's see the magic! 🪄💫
 
