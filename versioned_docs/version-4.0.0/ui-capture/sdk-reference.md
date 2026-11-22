@@ -2,7 +2,7 @@
 id: sdk-reference
 title: "@keploy/capture-sdk reference: options and API"
 sidebar_label: SDK options and API
-description: Every export of the Keploy capture SDK 3.1.0, the KeployCapture methods, each init option and privacy option, the error classes and what a batch carries.
+description: Every export of the Keploy capture SDK 3.2.0, the KeployCapture methods, each init option and privacy option, the error classes and what a batch carries.
 tags:
   - UI testing
   - UI capture
@@ -22,7 +22,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The public API of `@keploy/capture-sdk` 3.1.0: the files the package ships, the methods of `KeployCapture`, every option `init` takes, the errors `onError` receives, and what each batch carries. The guides explain each one in context: [Install the SDK](./install-sdk.md), [Sessions and sampling](./sessions-and-sampling.md), [Privacy and masking](./privacy.md) and [Network calls and bodies](./network-and-bodies.md).
+The public API of `@keploy/capture-sdk` 3.2.0: the files the package ships, the methods of `KeployCapture`, every option `init` takes, the errors `onError` receives, and what each batch carries. The guides explain each one in context: [Install the SDK](./install-sdk.md), [Sessions and sampling](./sessions-and-sampling.md), [Privacy and masking](./privacy.md) and [Network calls and bodies](./network-and-bodies.md).
 
 ## Entry points {#entry-points}
 
@@ -197,14 +197,14 @@ Each request the SDK posts to `endpoint` has the ingest key in its `X-API-Key` h
 | `batchId`         | The batch's own id, minted once and sent unchanged with the same events on every retry, so a batch sent twice is stored once.                                                            |
 | `events`          | The batch's events, each a `SessionEvent`: `id`, `sessionId`, `timestamp` (Unix milliseconds), `type` (`"dom"`, `"network"` or `"custom"`), `data`, and `seq`, its place in the session. |
 | `metadata`        | The page's `url`, `userAgent`, `viewport`, `referrer`, `language`, `devicePixelRatio` and the `timestamp` the session started.                                                           |
-| `sdk`             | `{name, version}`: `version` is the SDK's, such as `3.1.0`.                                                                                                                              |
+| `sdk`             | `{name, version}`: `version` is the SDK's, such as `3.2.0`.                                                                                                                              |
 | `captureIdentity` | The [capture identity](#getcaptureidentity), or `null` when the capture cannot be joined.                                                                                                |
 
 A `"dom"` event's `data` is an rrweb event. A `"network"` event's `data` is a `NetworkEvent`: `method`, `url`, `requestHeaders`, `requestBody`, `responseHeaders`, `responseBody`, `statusCode`, `duration` (milliseconds), `type` (`"fetch"` or `"xhr"`) and `requestTerm` (see [GraphQL](./network-and-bodies.md#graphql)), every value masked as [Privacy and masking](./privacy.md) describes. [What leaves the browser](./privacy.md#what-leaves-the-browser) says what else the SDK sends, and to whom.
 
 ## Version differences {#version-differences}
 
-This page describes 3.1.0. 3.0.1 has no `continuous`, `honorPrivacySignals`, `privacy.secretRoutes` or `privacy.keepRoutes`, its `remedy` has no `docs`, and it raises fewer codes: the note at the top of [UI Capture errors and warnings](./errors.md) lists them. The [3.1.0 release notes](./capture-sdk-3-1-0-release-notes.md) list everything 3.1.0 changes, and the TypeScript changes that can stop a 3.0.1 handler from compiling are in [its section 7](./capture-sdk-3-1-0-release-notes.md#7-typescript-handlers-written-for-301-may-not-compile).
+This page describes 3.2.0. Its public API is unchanged from 3.1.0; the [3.2.0 release notes](./capture-sdk-3-2-0-release-notes.md) cover synchronous early network capture before rrweb loads, deferred body-worker preparation and clean teardown if `init()` throws. 3.0.1 has no `continuous`, `honorPrivacySignals`, `privacy.secretRoutes` or `privacy.keepRoutes`, its `remedy` has no `docs`, and it raises fewer codes: the note at the top of [UI Capture errors and warnings](./errors.md) lists them. The [3.1.0 release notes](./capture-sdk-3-1-0-release-notes.md) list everything 3.1.0 changed from 3.0.1, and the TypeScript changes that can stop a 3.0.1 handler from compiling are in [its section 7](./capture-sdk-3-1-0-release-notes.md#7-typescript-handlers-written-for-301-may-not-compile).
 
 ## Related
 

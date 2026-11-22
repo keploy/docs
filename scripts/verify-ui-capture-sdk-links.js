@@ -97,6 +97,8 @@ const README_LINKS = [
   // The README of the releases after 3.0.1.
   "https://keploy.io/docs/",
   "https://keploy.io/docs/running-keploy/ui-capture/",
+  "https://keploy.io/docs/ui-capture/capture-sdk-3-1-0-release-notes/",
+  "https://keploy.io/docs/ui-capture/capture-sdk-3-2-0-release-notes/",
   // The README of 3.0.1, on npm: the overview, since moved (a redirect),
   // and the install page.
   "https://keploy.io/docs/ui-capture/overview/",

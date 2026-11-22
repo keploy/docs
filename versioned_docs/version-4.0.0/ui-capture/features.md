@@ -20,7 +20,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-What Keploy UI Testing does today, where you use each feature, and the page that explains it. The surfaces are the capture SDK (`@keploy/capture-sdk` 3.1.0, in your web app), the Keploy dashboard (**UI Testing → UI Flows**), the [REST API](./rest-api.md), the Keploy [MCP server](./mcp-tools.md), and the [`keploy` CLI](./cli.md).
+What Keploy UI Testing does today, where you use each feature, and the page that explains it. The surfaces are the capture SDK (`@keploy/capture-sdk` 3.2.0, in your web app), the Keploy dashboard (**UI Testing → UI Flows**), the [REST API](./rest-api.md), the Keploy [MCP server](./mcp-tools.md), and the [`keploy` CLI](./cli.md).
 
 The status of each feature is one of these:
 
@@ -94,4 +94,5 @@ The status of each feature is one of these:
 - [UI Testing overview](../running-keploy/ui-capture.md)
 - [Limits and sizes](./limits.md)
 - [Troubleshooting](./troubleshooting.md)
+- [@keploy/capture-sdk 3.2.0 release notes](./capture-sdk-3-2-0-release-notes.md)
 - [@keploy/capture-sdk 3.1.0 release notes](./capture-sdk-3-1-0-release-notes.md)
