@@ -113,8 +113,10 @@ repository's root, it is:
 # push to main, it replays the tests on the recordings keploy.lock pins, with
 # every dependency switched off (keploy.yml's mock.command runs them), and on
 # a pull request it comments what the pull request's keploy.lock changes.
-# It needs one repository secret, KEPLOY_API_KEY: a read-only CI key from
-# https://app.keploy.io/settings/service-accounts
+# It needs one repository secret, KEPLOY_API_KEY: a key with only MOCK_READER,
+# which keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+# makes and stores (or an admin, in Settings > Service accounts:
+# https://app.keploy.io/settings/service-accounts).
 name: keploy
 on:
   pull_request:
@@ -147,7 +149,7 @@ jobs:
       - name: Check the Keploy key
         run: |
           if [ -z "$KEPLOY_API_KEY" ]; then
-            echo "::error::Add a repository secret named KEPLOY_API_KEY, a read-only CI key from https://app.keploy.io/settings/service-accounts. A pull request from a fork gets no secrets."
+            echo "::error::Add a repository secret named KEPLOY_API_KEY, a key with only MOCK_READER: run keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY in the project's folder, or make it in Settings > Service accounts (https://app.keploy.io/settings/service-accounts). A pull request from a fork gets no secrets."
             exit 1
           fi
       - name: Replay on the recordings keploy.lock pins
@@ -186,10 +188,12 @@ the toolchain from the program the test command runs, or, for a command such as
   or Yarn's frozen install through corepack (`npm install` with no lockfile).
 
 For any other project, such as a Python or Java one, a test command that runs
-several toolchains, or one whose toolchain it can't tell, the extension writes
-no workflow and says that CI setup is available on request: contact the Keploy
-team at [support@keploy.io](mailto:support@keploy.io) and we'll set it up with
-you. [Other CI systems](#other-ci-systems) lists what any job needs.
+several toolchains, or one whose toolchain it can't tell, and for every CI
+other than GitHub Actions, the extension writes no workflow and instead offers
+the recipe `keploy mock ci` prints for the project (the steps in
+[Other CI systems](#other-ci-systems)): you can hand CI setup to your coding
+agent or view and copy the steps directly. If you get stuck, write to
+[support@keploy.io](mailto:support@keploy.io).
 
 What each part does:
 
