@@ -349,16 +349,14 @@ For a Go or Node project in a GitHub repository:
 
 4. Commit the workflow with `keploy.yml` and `keploy.lock`, and push.
 
-<img src="/docs/img/universal-mocker/vscode/14-wire-ci.png" alt="The new .github/workflows/keploy.yml open in the editor, and the notification with its Open the CI key page and Copy the secret command buttons" width="100%" />
-
 For any other project or CI, such as Python, Java or GitLab CI, the extension
 writes no workflow. Its notification offers **Hand CI setup to** your coding
 agent, which gives the agent Keploy's CI recipe for the project, and **Show me
 the steps**, which opens the same recipe with a **Copy the steps** button. The
 [Other CI systems](../guides/ci.md#other-ci-systems) section shows the recipe.
 The checklist's **CI replays keploy.lock** row is done once a config of the CI
-your repository runs has the recipe's `keploy mock replay ... --on-miss fail`
-step.
+your repository runs, at the repository's root or in the project's folder, has
+the recipe's `keploy mock replay ... --on-miss fail` step.
 
 ## Step 10: Invite your team
 
