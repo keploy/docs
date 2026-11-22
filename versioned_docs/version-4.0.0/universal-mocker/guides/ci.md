@@ -486,10 +486,10 @@ pins its version there (`bash "$keploy_sh" -v vX.Y.Z`): use the line your
 Keploy prints. Put the project's toolchain setup and dependency
 install where the comment says. For a project in a folder below the root,
 the example also runs the replay in that folder. Keep that folder in the step
-(`working-directory`, or a `cd` into it) in a repository with more than one
-`keploy.yml`: `keploy mock status` counts a step at the root toward a project
-below it only when the step names the project, by its folder or by
-`--name <its recording>`.
+(`working-directory`, `cd`, or `--lock <folder>/keploy.lock`): `keploy mock status`
+counts a step at the root toward a project below it only when the step names
+that project (by its folder, or by a unique `--name <its recording>`). A step
+that names no project counts only for a `keploy.yml` at the repository's root.
 
 ### GitLab CI
 

@@ -356,10 +356,12 @@ the steps**, which opens the same recipe with a **Copy the steps** button. The
 [Other CI systems](../guides/ci.md#other-ci-systems) section shows the recipe.
 The checklist's **CI replays keploy.lock** row is done once a config of the CI
 your repository runs, at the repository's root or in the project's folder, has
-the recipe's `keploy mock replay ... --on-miss fail` step. In a repository with
-more than one `keploy.yml`, a step at the root counts only when it names the
-project: it runs in the project's folder (`working-directory`, or a `cd` into
-it), or gives `--name <its recording>`.
+the recipe's `keploy mock replay ... --on-miss fail` step. For a project in a
+folder below the root, a step at the root counts only when it names that
+project: it runs in the project's folder (`working-directory`, `cd`, or
+`--lock <folder>/keploy.lock`), or gives a unique `--name <its recording>`. A
+step that names no project counts only for a `keploy.yml` at the repository's
+root.
 
 ## Step 10: Invite your team
 
