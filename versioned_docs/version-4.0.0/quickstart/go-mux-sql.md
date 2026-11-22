@@ -277,9 +277,7 @@ First things first, update the postgres host on **line 18** in `main.go` to `loc
 
 #### 🍃 Kickstart PostgresDB
 
-Let's breathe life into your Postgres container. A simple spell should do the trick:
-
-The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once.
+Let's breathe life into your Postgres container. The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once and then start Postgres:
 
 ```bash
 docker network create keploy-network

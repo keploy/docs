@@ -251,7 +251,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 :::note
-The OTP changes on every request, so mark it as noise before replaying. Add `body.otp` under `assertions.noise` in the recorded OTP test (the `GET` test in `keploy/test-set-0/tests/`).
+If you skipped Keploy's automatic noise check by pressing `Ctrl+C` a second time when stopping the recording, the OTP will show up as a diff, since it changes on every request. Mark it as noise by adding `body.otp: []` under `assertions.noise` in the recorded `GET` test in `keploy/test-set-0/tests/`.
 :::
 
 ```bash
@@ -468,7 +468,7 @@ Want to see if everything works as expected?
 Time to put things to the test 🧪
 
 :::note
-The OTP changes on every request, so mark it as noise before replaying. Add `body.otp` under `assertions.noise` in the recorded OTP test (the `GET` test in `keploy/test-set-0/tests/`).
+If you skipped Keploy's automatic noise check by pressing `Ctrl+C` a second time when stopping the recording, the OTP will show up as a diff, since it changes on every request. Mark it as noise by adding `body.otp: []` under `assertions.noise` in the recorded `GET` test in `keploy/test-set-0/tests/`.
 :::
 
 ```shell

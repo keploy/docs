@@ -188,7 +188,9 @@ Now, let's run the keploy in test mode: -
 keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
 ```
 
-This will run the testcases and generate the report in `keploy/reports` folder. You will see the following output:-
+This will run the testcases and generate the report in `keploy/reports` folder, and all of them should pass. Stopping `keploy record` runs an automatic replay that marks the ever-changing `timestamp` field as noise, so you don't need to ignore it yourself.
+
+If you skipped that automatic noise check by pressing `Ctrl+C` a second time when stopping the recording, the `timestamp` shows up as a diff, like this:-
 
 ````shell
 🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    starting test for of    {"test case": "[test-1]", "test set": "[test-set-0]"}
@@ -235,7 +237,7 @@ Testrun passed for testcase with id: "test-2"
 
 Did you spot that the `timestamp` is showing some differences? Yep, time has a way of doing that! 🕰️
 
-Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
+In that case, add the ever-changing field (like our **timestamp** here) to the **noise parameter** to **dodge those assertions**.
 
 > Pro tip: Add `body.timestamp` to noise in `keploy.yml`.
 
@@ -343,7 +345,7 @@ This is a summary of the test cases recorded
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
 
 Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
-`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
+`--build-delay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
 
 ### 🎉 Wrapping it up
 

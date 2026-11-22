@@ -308,6 +308,15 @@ docker network create keploy-network
 docker compose up -d postgres
 ```
 
+### Install the dependencies 📦
+
+This section runs the app on the host, so `localhost` is the right database host. If you changed `@localhost:5432` to `@postgres:5432` in `application/main.py` and `application/database.py` for the Docker Compose steps, change it back. Then install the dependencies, which include `uvicorn`. Use Python 3.11, because newer versions such as 3.13 can't build some of the pinned packages:
+
+```bash
+python3.11 -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+```
+
 ### Lights, Camera, Record! 🎥
 
 Capture the test-cases-
