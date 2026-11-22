@@ -136,7 +136,7 @@ The [plain HTML sample shop](https://github.com/keploy/samples-typescript/tree/m
 
 A browser runs a worker only from the page's own origin. So when your build's assets are served from a CDN, through webpack's `publicPath` or Next.js's `assetPrefix`, the SDK's chunks load from there, but its worker cannot run, and bodies over 64 KiB are recorded cut.
 
-Loading the SDK itself from a CDN with no bundler works the same way: the chunks load from the CDN, which must send CORS headers, as CDNs do, and the worker cannot. Import `dist/index.mjs` by its path, for example `https://cdn.jsdelivr.net/npm/@keploy/capture-sdk@3.1.0/dist/index.mjs`:
+Loading the SDK itself from a CDN with no bundler works the same way: the chunks load from the CDN, which must send CORS headers, as CDNs do, and the worker cannot. Import `dist/index.mjs` by its path, for example `https://cdn.jsdelivr.net/npm/@keploy/capture-sdk@3.2.0/dist/index.mjs`:
 
 - unpkg's package root redirects to `dist/index.mjs`, so it works too.
 - jsDelivr's package root answers with the file at the root's own URL, where no chunk is beside it, so name the path.
@@ -155,7 +155,7 @@ The SDK's main bundle, `dist/index.mjs`, is about 40.9 kB gzipped, rrweb not inc
 | `dist/strict-attributes.mjs` | about 1.3 kB | Under `privacyMode: "strict"` only, which loads neither body file                        |
 | `dist/request-term.mjs`      | about 1.2 kB | The first time a request body could be a GraphQL request                                 |
 
-The figures were measured on the SDK repository's build, as the package's README and the [3.1.0 release notes](./capture-sdk-3-1-0-release-notes.md#size) give them; the published files differ by a few bytes. The package also ships source maps beside each file, for your tools; they are never inlined.
+The [3.2.0 release notes](./capture-sdk-3-2-0-release-notes.md#size) give exact byte counts measured on the published tarball, while the package README measures the repository build at its placeholder version; the two differ by a few bytes and round to the same figures above. The package also ships source maps beside each file, for your tools; they are never inlined.
 
 ## Related
 

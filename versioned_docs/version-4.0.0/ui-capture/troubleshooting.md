@@ -122,13 +122,13 @@ Each entry below is a symptom, its cause and what to do. When the SDK reports a 
 
 **Cause:** `@keploy/capture-sdk` 3.0.1 records no route change made by script, so every step of the visit belongs to its first page. 3.1.0 records each route change, and each route is its own flow.
 
-**Fix:** Upgrade to 3.1.0. `recentSessions` in capture status shows each session's `sdkVersion`. See [Single-page apps and navigation](./spa-navigation.md#before-310).
+**Fix:** Upgrade to 3.1.0 or later. `recentSessions` in capture status shows each session's `sdkVersion`. See [Single-page apps and navigation](./spa-navigation.md#before-310).
 
 ### The first page's first requests are missing {#first-requests-missing}
 
-**Cause:** The SDK records the page's requests only once it has loaded rrweb, which your bundler puts in a chunk of its own. Until then `fetch` and `XMLHttpRequest` are still the browser's own, so a request made in that window goes out as without the SDK, and is not recorded.
+**Cause:** Either your app made those requests before `KeployCapture.init()` ran, or you are on `@keploy/capture-sdk` 3.1.0 or earlier, which waited for rrweb's chunk to finish loading before patching `fetch` and `XMLHttpRequest` and dropped requests made in that window.
 
-**Fix:** Call `init` as early as you can, from a module your app imports before its own code. That narrows the window; nothing closes it. See [Start capture before your first call](./network-and-bodies.md#start-capture-before-your-first-call).
+**Fix:** Upgrade to `@keploy/capture-sdk` 3.2.0 or later, which patches `fetch` and `XMLHttpRequest` synchronously inside `init()` and holds early requests until rrweb loads, and call `init()` as early as you can from a module your app imports before its own code. See [Start capture before your first call](./network-and-bodies.md#start-capture-before-your-first-call).
 
 ## Bodies {#bodies}
 

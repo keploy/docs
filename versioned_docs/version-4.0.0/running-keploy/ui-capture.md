@@ -54,7 +54,7 @@ Each flow is the sequence of steps a user took on one page, with the network cal
 
 | What                                               | Status                 | Where                                                                      |
 | -------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------- |
-| Recording visits, masking in the browser           | Beta                   | `@keploy/capture-sdk` 3.1.0                                                |
+| Recording visits, masking in the browser           | Beta                   | `@keploy/capture-sdk` 3.2.0                                                |
 | Flows: each page's steps and network calls         | Beta                   | Dashboard **Flows** tab; REST and MCP (`listUIFlows`, `getUIFlow`)         |
 | Journeys, and the share of sessions that took each | Beta                   | Dashboard **Journeys** tab; REST and MCP (`uiJourneys`, `uiJourneyImpact`) |
 | Replaying journeys as Playwright tests, with mocks | Beta, not runnable yet | The runner is not in a release build yet.                                  |
@@ -107,7 +107,7 @@ await KeployCapture.init({
 
 Use the `endpoint` the setup card or the API gives you. It is `https://api.keploy.io/ui/v1/ingest` on Keploy Cloud, and your own API server's URL followed by `/ui/v1/ingest` when you self-host. A self-hosted API server builds it from its `API_SERVER_URL`; if that isn't set to the server's public URL, the API returns an empty `endpoint` and says so in `next`, rather than guessing.
 
-- **Early, and once.** The SDK starts recording the page's requests once it has loaded rrweb, which your bundler normally puts in a chunk of its own. A request the page makes before then is not recorded, so start `init` before your app's own code runs. Call it once per page load, not per route: a second `init` returns the same capture.
+- **Early, and once.** `init` patches `fetch` and `XMLHttpRequest` synchronously before rrweb finishes loading and holds those events until rrweb loads, so requests your app fires right after `init` are recorded (in SDK 3.1.0 and earlier, requests made while rrweb loaded were missed). Requests made before `init` is called are still not recorded, so start `init` before your app's own code runs. Call it once per page load, not per route: a second `init` returns the same capture.
 - **Per framework.** [Install the SDK](../ui-capture/install-sdk.md) shows the call in a React and Vite app, a Next.js App Router app and plain HTML pages with no bundler, from the [UI capture sample shops](https://github.com/keploy/samples-typescript). [Bundlers and frameworks](../ui-capture/bundlers.md) says what webpack, Parcel, esbuild and a page with no bundler need, and [Content-Security-Policy and workers](../ui-capture/csp-and-workers.md) what a CSP must allow.
 
 ### SDK options {#sdk-options}
@@ -132,7 +132,7 @@ The dashboard shows a flow's recorded URLs and calls to people on your team who 
 
 - **A visit ends after 30 minutes without activity.** A visitor who comes back to the same tab after that is not recorded again until the page reloads, unless you set `continuous: true`, which starts a new session at the visitor's next click, tap or key press.
 - **A session lasts at most `maxSessionDuration`**, 10 minutes by default. Set `continuous: true` to keep capturing for the life of the page.
-- **Requests made before `init` has loaded rrweb are not recorded.** See [Install the SDK](#install-the-sdk).
+- **Requests made before `init` is called are not recorded** (in SDK 3.1.0 and earlier, requests made while rrweb was still loading were missed too). See [Install the SDK](#install-the-sdk).
 - **A site whose links load pages records each page load as its own session**, so its journeys never span a page load. A single-page app's route changes stay in one session.
 - **Sampling is per page load, not per user.** The SDK carries no user identity, so journey figures are shares of sessions, not of people.
 - **Replaying journeys as Playwright tests is in beta and not runnable yet.** See [What works today](#what-works-today).
@@ -170,6 +170,7 @@ This page used to be the whole UI capture guide. Each of the old guide's section
 - [Dashboard quickstart](../ui-capture/quickstart-dashboard.md)
 - [From first visit to journeys](../ui-capture/walkthrough-dashboard.md)
 - [UI Capture errors and warnings](../ui-capture/errors.md)
+- [@keploy/capture-sdk 3.2.0 release notes](../ui-capture/capture-sdk-3-2-0-release-notes.md)
 - [@keploy/capture-sdk 3.1.0 release notes](../ui-capture/capture-sdk-3-1-0-release-notes.md)
 - [AI agent quickstart](../ui-capture/quickstart-agent.md)
 - [Troubleshooting](../ui-capture/troubleshooting.md)

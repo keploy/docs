@@ -98,6 +98,7 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [UI capture troubleshooting](https://keploy.io/docs/ui-capture/troubleshooting/): Symptoms, causes and fixes: nothing arriving, wrong app, flows not ready, cut bodies, build errors, agents, dashboard
 - [Capture SDK reference](https://keploy.io/docs/ui-capture/sdk-reference/): @keploy/capture-sdk entry points, KeployCapture methods, every init and privacy option, error classes, batch format
 - [UI Capture errors and warnings](https://keploy.io/docs/ui-capture/errors/): Every KUI_E_ code the capture SDK reports, with its cause and fix
+- [Capture SDK 3.2.0 release notes](https://keploy.io/docs/ui-capture/capture-sdk-3-2-0-release-notes/): What changed in @keploy/capture-sdk 3.2.0
 - [Capture SDK 3.1.0 release notes](https://keploy.io/docs/ui-capture/capture-sdk-3-1-0-release-notes/): What changed in @keploy/capture-sdk 3.1.0
 
 ## Keploy Cloud & Integrations

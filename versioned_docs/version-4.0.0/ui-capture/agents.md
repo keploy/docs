@@ -69,7 +69,7 @@ In the REST routes, `…` stands for `/client/v1/apps/{appId}`.
 
 `uiCaptureSetup` mints a new key on every call, because a key's secret is shown only once. An agent stores it at once, and lists and revokes old keys with `listUIIngestKeys` and `revokeUIIngestKey`.
 
-The snippet `uiCaptureSetup` returns sets only `endpoint` and `apiKey`, so the SDK runs with its default `privacyMode: "balanced"`, which masks every typed value. For a public site, the agent adds `privacyMode: "strict"`, which also masks all visible text. It puts the `init` call in a module the app imports before any data fetching: requests the page makes before `init` has loaded rrweb are not recorded.
+The snippet `uiCaptureSetup` returns sets only `endpoint` and `apiKey`, so the SDK runs with its default `privacyMode: "balanced"`, which masks every typed value. For a public site, the agent adds `privacyMode: "strict"`, which also masks all visible text. It puts the `init` call in a module the app imports before any data fetching: requests the page makes before `init` is called are not recorded (and in SDK 3.1.0 and earlier, requests made while rrweb loaded were missed too).
 
 ## Waiting and polling {#waiting-and-polling}
 

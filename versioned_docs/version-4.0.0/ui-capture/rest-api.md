@@ -103,7 +103,7 @@ curl -X POST "https://api.keploy.io/client/v1/apps/<appId>/ui/ingest-keys" \
 
 - `apiKey` is in this answer only, which carries `Cache-Control: no-store`: store it now. It is safe to ship in your page's JavaScript, because it can only post recordings into this one app.
 - Every call mints a new key, since a stored key's secret cannot be returned again. List and revoke the ones you no longer use.
-- `sdk.init` sets only `endpoint` and `apiKey`. Put it in your app's browser entry point, once, in a module imported before any data fetching: requests made before `init` has loaded rrweb are not recorded.
+- `sdk.init` sets only `endpoint` and `apiKey`. Put it in your app's browser entry point, once, in a module imported before any data fetching: requests made before `init` is called are not recorded (in SDK 3.1.0 and earlier, requests made while rrweb loaded were missed too).
 - `endpoint` is empty when a self-hosted server does not know its public URL (`API_SERVER_URL` is not an absolute URL), and `next` then says to use the base URL you called this API on, followed by `/ui/v1/ingest`.
 - A `409` with `UI_INGEST_KEY_ACCOUNT_CLAIMED` means the mint lost a race with a teardown of the app's service account, and the key was taken back. Call it again.
 

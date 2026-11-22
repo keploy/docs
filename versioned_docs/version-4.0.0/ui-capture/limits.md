@@ -21,7 +21,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-Every limit of Keploy UI capture, and what happens past it: first those the capture SDK applies in the browser, for SDK 3.1.0, then those Keploy's server applies. Where a limit is an SDK option you can set, the table names the option and gives its default.
+Every limit of Keploy UI capture, and what happens past it: first those the capture SDK applies in the browser, for SDK 3.2.0, then those Keploy's server applies. Where a limit is an SDK option you can set, the table names the option and gives its default.
 
 ## In the browser {#in-the-browser}
 

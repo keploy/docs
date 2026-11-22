@@ -21,7 +21,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The capture SDK records each visit to your web app as a **session**: what the visitor did and the network calls the page made. Keploy turns each finished session into flows. This page says what a session is, every way one ends, how `sampleRate` picks the sessions that are recorded, and what happens to a session on Keploy's side. It describes SDK 3.1.0.
+The capture SDK records each visit to your web app as a **session**: what the visitor did and the network calls the page made. Keploy turns each finished session into flows. This page says what a session is, every way one ends, how `sampleRate` picks the sessions that are recorded, and what happens to a session on Keploy's side. It describes SDK 3.2.0.
 
 ## What a session is {#what-a-session-is}
 
