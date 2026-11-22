@@ -1,0 +1,70 @@
+---
+id: outside-every-test
+title: A call outside every test
+sidebar_label: Outside every test
+description: A dependency call that no mock answered, made while no test was running, fails the run but no test. Read the outside_every_test line and its JSON, and run the step it names.
+tags:
+  - mocks
+  - ci
+  - troubleshooting
+keywords:
+  - outside_every_test
+  - KEPLOY_PROVEN
+  - keploy mock replay
+  - keploy test
+  - coding agent
+---
+
+Your app makes dependency calls that no Test-Case sends. A timer, a clean-up job or a cache refresh can run after one test ends and before the next one starts. A call can also start inside a test, and Keploy decides that no mock answers it only after the test has ended. Either way, no test made the call alone, so Keploy does not fail a test for it.
+
+When no mock answers such a call, the run fails. A green run would hide a dependency call that the recording does not cover. Every test that passed still passes, and Keploy still learns from it. `keploy mock replay`, `keploy test --judge` and `keploy record` print one `ERROR outside_every_test` line for each call. `keploy test` with `KEPLOY_PROVEN=1` prints the same line in Keploy Enterprise; open-source Keploy logs the same facts as fields of one ERROR log entry for each call.
+
+A call that repeats a recorded background call, such as the app's own timer, fails nothing. Keploy answers it from the recording, or lists it without failing the run.
+
+## The line
+
+The line always has this form, so a script or a coding agent can read it:
+
+```text
+ERROR outside_every_test  <call> in set <set>: <when>; <facts>; it fails the run, and no test; next: <step>  json=<object>
+```
+
+For example:
+
+```text
+ERROR outside_every_test  HTTP DELETE /sessions to auth:8080 (body: body.ids[0] differs) in set e2e: made between tests, 150ms after test-1 ended and 150ms before test-2 began; the closest recording is mock-7, which it differs from in body.ids[0]; it fails the run, and no test; next: if the app changed this call on purpose, record the set again: mkdir -p -- /home/me/app/keploy-replaced && mkdir -- /home/me/app/keploy-replaced/e2e-test-run-3 && mv -- /home/me/app/keploy/e2e /home/me/app/keploy-replaced/e2e-test-run-3/e2e && keploy record -c 'go run .' --metadata name=e2e (it first moves the set's recordings out of the keploy folder, into /home/me/app/keploy-replaced/e2e-test-run-3; delete that folder once the set recorded again passes)  json={"kind":"outside_every_test","set":"e2e","call":{"protocol":"HTTP","call":"DELETE /sessions","destination":"auth:8080"},"between":{"after":"test-1","afterEndedMs":150,"next":"test-2","nextBeginsMs":150},"placed":true,"closest":"mock-7","differs":["body.ids[0]"],"facts":"the closest recording is mock-7, which it differs from in body.ids[0]","next":{"action":"record_if_changed","command":"mkdir -p -- /home/me/app/keploy-replaced \u0026\u0026 mkdir -- /home/me/app/keploy-replaced/e2e-test-run-3 \u0026\u0026 mv -- /home/me/app/keploy/e2e /home/me/app/keploy-replaced/e2e-test-run-3/e2e \u0026\u0026 keploy record -c 'go run .' --metadata name=e2e","replaced":"/home/me/app/keploy-replaced/e2e-test-run-3"}}
+```
+
+`<when>` is one of these:
+
+- `made between tests, <d> after <test> ended and <d> before <test> began`: the call was made while no test was open.
+- `made in test <test>, and keploy decided it missed only after that test ended`: the call is named under the test that made it. When it was a test of an earlier set, `<set>` is that test's set.
+- `made before the first test, <d> before <test> began` or `made after the last test, <d> after <test> ended`: a call that an earlier set made while none of its tests was open, which Keploy decided only after that set ended. `<set>` is the set that made it, and `<test>` is one of that set's tests. The call can also be made between two of that set's tests, in the first form above.
+- `made while no test was open, at a time keploy could not place between two tests`: the run still fails. Keploy says this when the call has no time, when Keploy has no test times to place it by, or when those times do not put the call outside every test.
+
+In the JSON, `between` has the same fields for every placed form: `after` and `afterEndedMs` for the test that ended before the call, `next` and `nextBeginsMs` for the test that began after it. `after` is `""` for a call made before the first test, and `next` is `""` for a call made after the last.
+
+When Keploy cannot name the earlier set that made a call, the line says `in an earlier test set` in place of `in set <set>`, and `set` is empty in the JSON. When Keploy's agent counted how many sets before this one that set ran, the JSON has that count as `earlierBy` (`1` is the set run just before).
+
+The JSON after `json=` holds the same facts. Keploy writes `kind`, `set`, `between`, `madeIn`, `placed`, `earlierBy`, `closest`, `recorded`, `facts` and `next`. Only `call` holds text that your app wrote, such as its path. `differs` names the fields in which the call differs from its closest recording, never their values. `recorded` says what the set holds for a call of this shape: `shape` when the set has recordings of the call's shape and the call matches none of them (for example, the matcher refused each by the request body, or only another test's window recorded it), and `none` when it has none. Keploy reads the whole set for this, every test's recordings and the session's, for HTTP and HTTPS calls and MongoDB `OP_MSG` commands. For other protocols, when the set holds a recording whose shape Keploy cannot read (for example, an encrypted value), and, under `keploy mock`, for a call that an earlier set made, Keploy cannot tell, and `recorded` is left out.
+
+Under `KEPLOY_PROVEN=1`, `keploy test` logs these fields: `kind`, `test-set`, `protocol`, `call` (by its shape, with `path_tag` when present), `destination` (by its host shape, with `host_tag` when present), `made_in`, `after`, `before`, `at`, `closest`, `differs`, `recorded`, `facts` and `next_step`. A call of an earlier set, made in one of its tests or while none was open, also has `read-in-test-set`, the set that was running when Keploy decided it. For such a call made while none of that set's tests was open, `test-set` is the set that made it, and `after` and `before` name the tests of that set it was made between: `after` is `""` for a call made before the set's first test, `before` is `""` for one made after its last, and both are `""` when Keploy cannot place the call.
+
+## Fix it
+
+The line names one next step, which Keploy chooses from the facts:
+
+1. **The call's shape was recorded in another test's window on a path with declared rules** (`"action":"declare_background_rule"`). On `keploy mock replay` and `keploy mock judge`, when an unanswered outside call matches a recorded background call except for its timing window, Keploy prints the exact `mock.rules:` YAML (`kind: background`) in the line and in `next.rule`, together with the exact command to run (`next.command`). Paste the rule under `mock.rules:` in `keploy.yml`, replace `why` with why the app makes the call, and run the printed command so Keploy places the background series in `worker:` and answers repeats between tests.
+2. **The call is a read that a test's recording holds** (`"action":"move_to_worker"`). The app made the call again outside that test, for example from a timer. Move the recording to `worker:` in the set's mapping, so that Keploy answers the call wherever the app makes it. `keploy mock judge` writes this edit for you.
+3. **A recording came close, or the set has recordings of this call's shape** (`"action":"record_if_changed"`). When a recording came close, the call differs from it in the fields that the line names. When none came close, the facts say `the set has recordings of this call's shape, and it matches none of them` (`"recorded":"shape"`), or, when Keploy cannot tell, `no recording came close to this call, and keploy cannot tell whether the set has one of its shape`. If you changed the call on purpose, run the command to record the set again. If you did not, fix the app.
+4. **No recording of this call in the set** (`"action":"record_again"`, `"recorded":"none"`). The set has no recording of a call of this shape, so the call is new since you recorded the set. Run the command to record the set again.
+5. **An earlier set made the call, and Keploy cannot name that set** (`"action":"record_earlier_set"`, with no `command`). Recording the set that the run read again does not fix it, because that set never made the call. Record the set that made it again, with the command that recorded that set. The line names that set as far as Keploy knows it: by its test that made the call (`madeIn`), or by how many sets before this one it ran (`earlierBy`).
+
+The command records the failing set again in its place, so that the next run reads the new recording:
+
+- On `keploy test` and `keploy record`, `keploy record` always writes a new test set, and gives a name that is taken a `-N` suffix. So the command first moves the set's folder out of the keploy folder, into `keploy-replaced/<set>-<run>/<set>` beside it (`<run>` is the run whose report holds the call, such as `test-run-3`), then runs `keploy record` with `--metadata name=<set>`, which gives the new recording the set's name. Nothing is removed: the JSON tail's `next.replaced` is the folder the old recordings went to. If recording fails, move them back from there; once the set recorded again passes, delete that folder. If a folder of that name is already there (you ran the command before), `mkdir` stops the command before it moves anything, so no earlier copy is overwritten. The command carries the app's command (`-c`), and `--path` and `--config-path` when the keploy folder or `keploy.yml` is not in the folder that you run the command from. Every word that is not plain is in single quotes for a POSIX shell, so `$` and backticks in the app's command stay as they are. The new set starts empty, so send the app's traffic again while it records.
+- On `keploy mock replay`, the command is the replay's own command with `replay` swapped for `record` (for example, `KEPLOY_PROVEN=1 keploy mock record --local -c '<command>'`, carrying `--name <set>` only when the replay passed it and otherwise reading the set name from `keploy.yml`), which records the mock set again in its place.
+- In a replay that runs in a Kubernetes cluster (auto-replay, or a replay that the cluster runs), the set lives in the cluster, not in a folder on your machine. The step has no command: mark the call under **"Worker mocks: Mark"** for the app (`<namespace>/<deployment>`), then run **"Retry auto-replay"**. Do not record a new set first, because a newer recording supersedes the original and blocks retry of it.
+- When `keploy record` cannot take the set's name (a name that it reads as a number, `true` or `null`, or one with a comma), the step has no command. Record the set again with the command that recorded it, and give the new set the old set's name.
+
+Several such calls fail the run once, and the run names each call on its own line.

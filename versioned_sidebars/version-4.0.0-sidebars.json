@@ -69,6 +69,7 @@
         "running-keploy/recording-filters",
         "running-keploy/custom-mocks",
         "running-keploy/keploy-templatize",
+        "running-keploy/outside-every-test",
         "running-keploy/risk-profile-analysis",
         "keploy-cloud/time-freezing",
         "keploy-cloud/mock-registry",
