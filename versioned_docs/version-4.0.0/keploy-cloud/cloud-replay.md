@@ -132,6 +132,24 @@ cloud:
 
 The two are related but conceptually distinct: [`--k8s-proxy-url`](#--k8s-proxy-url) chooses _which ingress the data plane targets_, while auth mode changes _how the CLI authenticates and which control-plane calls it makes_. In practice you just set the URL and auth mode comes on with it — you rarely pass `--k8s-proxy-auth` yourself.
 
+### Log in once on your own machine
+
+On a machine you work from, save the login once instead of exporting `KEPLOY_API_KEY` and `KEPLOY_K8S_PROXY_URL` in every shell:
+
+```bash
+keploy login --k8s-proxy-url https://<k8s-proxy ingress host> --api-key kep_xxxxxxxx
+```
+
+The CLI checks the key at that proxy and, only if the proxy accepts it, saves the key and the URL in `~/.keploy/cred.yaml` (on Windows, `.keploy\cred.yaml` in your home folder: `%HOMEDRIVE%%HOMEPATH%`, or `%USERPROFILE%` when those are not set). Only you can read the file: it is mode `0600` on Linux and macOS, and has an owner-only ACL on Windows. A login the proxy refuses saves nothing. Without `--api-key`, `KEPLOY_API_KEY` or a saved key, `keploy login` asks for the key when you run it in a terminal, and does not show it as you type.
+
+Every later command on that machine finds both there, so `keploy cloud replay` and the other commands run with neither variable set. A saved login turns k8s-proxy-auth mode on for every command: pass `--k8s-proxy-auth=false` to leave it off for one run, or run `keploy logout` to remove the saved key and URL.
+
+`keploy login --show` prints the API key (its last 4 characters only) and the proxy URL a command uses, and where each one comes from: a flag, an environment variable, `keploy.yml`, or the saved login. It also says whether k8s-proxy-auth mode is on, and what turned it on or off. It makes no network call.
+
+If you already export both variables, a command you run in a terminal runs as before and, once it has finished successfully, offers once to keep them: `Save the API key and k8s-proxy URL to ~/.keploy for next time? [Y/n]`. Your answer is remembered for that key and URL, so you are not asked again; a different key or URL asks again. The question waits 10 seconds at most: with no answer nothing is saved, and the next command asks again. The answer never changes the command's exit code. A run in CI never asks and never saves, even when the runner gives it a terminal (any CI variable, such as `CI`, `GITHUB_ACTIONS`, `GITLAB_CI` or `JENKINS_URL`, is enough), and neither does a run without a terminal (a script, an editor extension that runs the CLI) or one you sent to the background (`&`). If you move a run to the background while the question waits (Ctrl-Z, then `bg`), it stops waiting at once and saves nothing, so the question never holds a run in the background. Only what you type after the question answers it: an Enter pressed while the command was still running does not.
+
+Keep the environment variables in CI: a runner has no saved login, and the variables come from its secrets.
+
 ### Enabling it
 
 | Input                         | Flag               | Environment variable         | keploy.yml                 |
@@ -139,6 +157,8 @@ The two are related but conceptually distinct: [`--k8s-proxy-url`](#--k8s-proxy-
 | k8s-proxy ingress URL         | `--k8s-proxy-url`  | `KEPLOY_K8S_PROXY_URL`       | `cloud.k8sProxyUrl`        |
 | API key (PAT)                 | `--api-key`        | `KEPLOY_API_KEY`             | —                          |
 | Turn the mode on _(optional)_ | `--k8s-proxy-auth` | `KEPLOY_K8S_PROXY_AUTH=true` | `cloud.k8sProxyAuth: true` |
+
+A [saved login](#log-in-once-on-your-own-machine) gives both the URL and the API key. When more than one source gives a value, the flag wins, then the environment variable, then `keploy.yml`, then the saved login.
 
 Only two inputs are required — a proxy URL to reach and a PAT to authenticate. **Setting the proxy URL enables the mode automatically**, so `--k8s-proxy-auth` is optional; pass it (or `KEPLOY_K8S_PROXY_AUTH=true`) only to be explicit. Generate the PAT from **Settings → API Keys** in the dashboard.
 

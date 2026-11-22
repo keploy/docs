@@ -21,7 +21,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The capture SDK records each visit to your web app as a **session**: what the visitor did and the network calls the page made. Keploy turns each finished session into flows. This page says what a session is, every way one ends, how `sampleRate` picks the sessions that are recorded, and what happens to a session on Keploy's side. It describes SDK 3.1.0.
+The capture SDK records each visit to your web app as a **session**: what the visitor did and the network calls the page made. Keploy turns each finished session into flows. This page says what a session is, every way one ends, how `sampleRate` picks the sessions that are recorded, and what happens to a session on Keploy's side. It describes SDK 3.2.0.
 
 ## What a session is {#what-a-session-is}
 
@@ -123,7 +123,7 @@ On Keploy's side, a session moves through these states:
 
 Extraction runs every minute, and a session's flows are usually ready within a few minutes of its end. A session that cannot be extracted is tried again with growing waits, eight attempts in all over about two hours, and is then marked `FAILED`. A page that was only loaded still gives a flow, of one step: its navigation.
 
-The app's capture status counts its sessions by these states and says what to do next: see [Check that capture is working](../running-keploy/ui-capture.md#check-that-capture-is-working).
+The app's capture status counts its sessions by these states and says what to do next: see [Capture status](./rest-api.md#capture-status).
 
 ## Related
 

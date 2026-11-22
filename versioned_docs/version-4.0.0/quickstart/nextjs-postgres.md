@@ -70,11 +70,11 @@ git clone https://github.com/keploy/samples-typescript && cd samples-typescript/
 ## Download node modules
 npm install
 
-# start the database instance
-docker-compose up
+# start PostgreSQL in the background
+docker-compose up -d
 ```
 
-We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Redis) chill on Docker. Ready? Let's get the party started!🎉
+We'll be running our sample application right on Linux, with PostgreSQL running in Docker. Ready? Let's get the party started!🎉
 
 ### Capture testcase
 

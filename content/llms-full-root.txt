@@ -34,7 +34,7 @@ There is one product to install: `keploy`. Recording and replaying tests need a 
 
 ## Products
 
-Keploy offers three core products:
+Keploy offers four core products:
 
 ### 1. Integration Testing (Record and Replay)
 Record-replay engine that captures API calls at the network layer and generates test suites with deterministic replay. It captures HTTP/HTTPS, gRPC, WebSocket, and GraphQL traffic and automatically creates replayable test cases with mocked dependencies (databases, external APIs, message queues). Tests are stored as YAML files in the project directory.
@@ -44,6 +44,10 @@ AI-powered unit test generation from PR diffs and source code. The Test Agent an
 
 ### 3. API Test Generation
 Generate API tests from OpenAPI specs, Postman collections, cURL commands, or real user traffic. Supports functional tests, edge case tests, performance tests, security tests, and dependency tests. AI models route tasks to the best-suited model and validate results to ensure high-quality output.
+
+### 4. Universal Mocker (Service Virtualization)
+Service virtualization for the tests a team already has. `keploy mock record -c "<test command>"` runs the team's own test command (go test, pytest, Jest, mvn test, Playwright, or a script) once against the real databases, queues and HTTP or gRPC services and saves each outgoing call with its answer. `keploy mock replay -c "<test command>"` then runs the same command with those dependencies switched off and answers each call from the recording; by default a call that matches no recording gets an error instead of a real answer, and the replay names it. No mock code is written and no test changes, and the test framework still decides which tests pass. With `KEPLOY_PROVEN=1` each test is also replayed on its own before its recording is kept, and, when signed in with an app named in keploy.yml, the recordings go to Keploy Cloud under a Keploy branch named after the git branch (never main); the repository holds only keploy.yml and keploy.lock, which pins each test to its recordings, and CI replays what keploy.lock pins. Runs on Linux, macOS (Apple silicon, no admin rights) and Docker; the Keploy VS Code extension installs the CLI and sets a project up through the user's coding agent.
+- URL: https://keploy.io/docs/universal-mocker/overview/
 
 ---
 
@@ -91,7 +95,7 @@ Key architectural components:
 - HTTP/HTTPS: External API call mocking
 - Redis: Command-level mocking
 
-Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC calls too; calls to other services (PostgreSQL, Redis, Kafka, SQS, …, and gRPC on Windows) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
+Natively on macOS and Windows, Keploy understands HTTP/HTTPS, MySQL and MongoDB calls, and on macOS gRPC, PostgreSQL, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper calls too; calls to other services (Redis, Kafka, Apache Pulsar, …, and PostgreSQL and gRPC on Windows) are captured only as raw bytes and usually don't replay. For those, run Keploy with Docker (or on Linux or WSL).
 
 ---
 
@@ -114,7 +118,7 @@ On macOS, start the app itself rather than through a launcher (`npm start`, `mvn
 Runs natively on x86-64 Windows: install `keploy.exe` and run it from an ordinary PowerShell — no WSL, no Docker and no Administrator (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). On Windows on ARM, run Keploy inside WSL (https://keploy.io/docs/installation/windows-installation/).
 
 ### Docker
-Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (PostgreSQL, Redis, Kafka, gRPC on Windows, …).
+Keploy can run as a Docker container alongside your application using Docker Compose or standalone Docker commands. The Docker route works on Linux, Apple Silicon macOS and x86-64 Windows, and is the one to use on macOS or Windows when your app depends on services Keploy doesn't understand natively there (Redis, Kafka, Apache Pulsar, …, and PostgreSQL and gRPC on Windows).
 
 ### Platform Requirements
 - Linux: Kernel 5.10 or later (eBPF)
@@ -475,7 +479,7 @@ For current, publicly substantiated security, privacy, and compliance informatio
 ## Integrations
 
 ### IDE Integrations
-- VS Code Extension (Keploy: API & DB Mocks): records the API and database calls your tests make and replays them offline with `keploy mock`, from a panel in VS Code. It also sets up AI coding agents and adds a CI job that replays the recording. It does not generate unit tests. See the Marketplace for current installs.
+- VS Code Extension (Keploy: API Testing, Mocks & Service Virtualization): installs the Keploy CLI, signs you in, and hands the `keploy mock` setup of your tests to your coding agent (Claude Code, GitHub Copilot or Cursor), which records the API and database calls your tests make so they replay offline. It also writes a GitHub Actions workflow that replays the recording on every pull request. It does not generate unit tests. See the Marketplace for current installs.
 - URL: https://keploy.io/docs/running-keploy/utg-vscode-extension/
 
 ### PR Agent Integration

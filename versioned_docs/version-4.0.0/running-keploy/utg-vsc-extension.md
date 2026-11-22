@@ -21,7 +21,7 @@ keywords:
   - keploy.keployio
 ---
 
-The **Keploy VS Code extension** (listed as **Keploy: API & DB Mocks**, ID `keploy.keployio`) sets Keploy up for your tests through the coding agent you already use. Keploy records the real calls each of your tests makes to its dependencies, such as HTTP and gRPC APIs, databases, caches and queues, and replays them from the recording, so the same suite runs green with none of those dependencies contacted, on your laptop and in CI.
+The **Keploy VS Code extension** (listed as **Keploy: API Testing, Mocks & Service Virtualization**, ID `keploy.keployio`) sets Keploy up for your tests through the coding agent you already use. Keploy records the real calls each of your tests makes to its dependencies, such as HTTP and gRPC APIs, databases, caches and queues, and replays them from the recording, so the same suite runs green with none of those dependencies contacted, on your laptop and in CI.
 
 The extension doesn't write your tests or your integration. It installs the Keploy CLI, signs you in, installs Keploy's skill for your project, and hands the setup to your agent. Your agent then runs the CLI's [`keploy mock`](/docs/universal-mocker/mock-your-tests/) commands, and the extension shows what the CLI reports about each test.
 
@@ -45,13 +45,13 @@ Version 3.1.0 replaces the 3.0.0 panel. Setting Keploy up, recording and replayi
 
 ## Install the extension
 
-1. In VS Code, open the **Extensions** view, search for **Keploy**, and select **Install** on **Keploy: API & DB Mocks**. You can also install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), or from a terminal:
+1. In VS Code, open the **Extensions** view, search for **Keploy**, and select **Install** on **Keploy: API Testing, Mocks & Service Virtualization**. You can also install it from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=keploy.keployio), or from a terminal:
 
    ```bash
    code --install-extension keploy.keployio
    ```
 
-2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step: CLI installed, signed in, project set up by your agent (or, offered beside it, your running app recorded with T1), tests recorded, replay green, the files staged, CI wired and teammates invited. Select a step that isn't done to run the command that moves it on.
+2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step: CLI installed, signed in, project set up by your agent (or, offered beside it, your running app recorded for [Integration Testing](/docs/server/install/)), tests recorded, replay green, the files staged, CI wired and teammates invited. Select a step that isn't done to run the command that moves it on.
 
 For a guided tour, run **Welcome: Open Walkthrough** from the Command Palette and choose **Get started with Keploy**.
 
@@ -110,24 +110,24 @@ When the replay is green, select **keploy.yml, keploy.lock and the test edits st
 
 Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
-The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the repository's root, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
+The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the project's folder, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
 
 - **Go:** `actions/setup-go` with your `go.mod`'s Go version, then `go mod download`.
 - **Node:** `actions/setup-node`, then an install from your lockfile: `npm ci`, or pnpm's or Yarn's frozen install through corepack (`npm install` when there's no lockfile).
 
 The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key. Your Keploy admin makes it at [Account > Service Accounts](https://app.keploy.io/settings/service-accounts): a service account with the **MOCK_READER** role on your app, and a key for it. Store it with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
 
-For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell, Wire CI writes no workflow: CI setup for it is available on request. The same goes for GitLab CI and any other CI. Contact the Keploy team at support@keploy.io and we'll set it up with you. The extension also writes the workflow only for a project at the repository's root, once `keploy.lock` exists and Keploy has read your test command; otherwise it says what to do instead.
+For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell, Wire CI writes no workflow: CI setup for it is available on request. The same goes for GitLab CI and any other CI. Contact the Keploy team at support@keploy.io and we'll set it up with you. The extension writes the workflow once `keploy.lock` exists and Keploy has read your test command; otherwise it says what to do instead. For a project in a folder below the repository's root, such as `tests/e2e`, the workflow's steps run in that folder, and a Go project's `go.mod` can be there or in a folder above it.
 
 ## Invite teammates
 
 Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in with `keploy login` and runs `KEPLOY_PROVEN=1 keploy mock replay`: the replay reads the committed `keploy.yml` and `keploy.lock` and downloads the recordings the lock pins.
 
-## Record your running app (T1)
+## Record your running app (Integration Testing)
 
-No tests to record? Keploy can record the API calls your app serves instead. Select **No tests to record? Record your running app (T1)** in the checklist, or run **Keploy: Record my running app (T1)**. It asks for the command that starts your app, such as `go run .` or `npm start` on Linux, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests (T1)** runs `keploy test -c "<command>" -t <sets>`, naming every `keploy/test-set-<n>` folder, which starts your app again and replays those requests against it as tests. The terminal stays open with keploy's exit code until you press Enter.
+No tests to record? Keploy's Integration Testing can record the API calls your app serves instead. Select **No tests to record? Record your running app** in the checklist, or run **Keploy: Record my running app**. It asks for the command that starts your app, such as `go run .` or `npm start` on Linux, and runs `keploy record -c "<command>"` in a terminal of its own. Send your app the requests you want as tests, then press Ctrl+C: the recording goes to `keploy/test-set-<n>`. **Keploy: Replay my app's recording as tests** runs `keploy test -c "<command>" -t <sets>`, naming every `keploy/test-set-<n>` folder, which starts your app again and replays those requests against it as tests. The terminal stays open with keploy's exit code until you press Enter.
 
-On macOS, give the command that runs your app itself, such as its built binary or `node server.js`, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs. For a Go app, build it and give its binary, such as `./app` after `go build -o app .` (add `app` to `.gitignore`, or build it outside the repository, so the binary stays out of your commits). On macOS, the extension's record also skips the replay that `keploy record` runs when it stops (it passes `--disableAutoReplay`): in this release, that replay takes about 90 seconds for each test whose request called another service. The recording is saved, and **Keploy: Replay my app's recording as tests (T1)** runs it as tests.
+On macOS, give the command that runs your app itself, such as its built binary or `node server.js`, not a launcher such as `npm start` or a wrapper script: macOS drops Keploy's interception when a protected system binary runs. For a Go app, build it and give its binary, such as `./app` after `go build -o app .` (add `app` to `.gitignore`, or build it outside the repository, so the binary stays out of your commits). On macOS, the extension's record also skips the replay that `keploy record` runs when it stops (it passes `--disableAutoReplay`): in this release, that replay takes about 90 seconds for each test whose request called another service. The recording is saved, and **Keploy: Replay my app's recording as tests** runs it as tests.
 
 On Linux, Keploy needs root to capture your app's traffic, so the CLI asks for your password (`sudo`) in that terminal; on a Mac it needs no admin rights. These runs don't set `KEPLOY_PROVEN`. [Record and replay your app](/docs/server/install/) shows the same steps in a terminal.
 
@@ -199,8 +199,8 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 | **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
 | **Keploy: Wire CI (GitHub Actions)**                         | For a Go or Node project, writes `.github/workflows/keploy.yml`, which replays `keploy.lock`.    |
 | **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                            |
-| **Keploy: Record my running app (T1)**                       | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
-| **Keploy: Replay my app's recording as tests (T1)**          | Runs `keploy test -c "<command>"` on the project's T1 test sets in a terminal.                   |
+| **Keploy: Record my running app**                            | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
+| **Keploy: Replay my app's recording as tests**               | Runs `keploy test -c "<command>"` on the project's `keploy/test-set-<n>` sets in a terminal.     |
 | **Keploy: Install or update the CLI**                        | Installs the CLI, or updates it when it needs updating.                                          |
 | **Keploy: Show log**                                         | Opens the extension's log.                                                                       |
 

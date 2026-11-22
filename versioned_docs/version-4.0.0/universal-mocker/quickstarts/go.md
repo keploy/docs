@@ -25,8 +25,8 @@ off, and the tests still pass.
 
 You don't write any mock code, and the tests don't change.
 
-Every output on this page comes from a real run of Keploy 3.9.3 on Linux. Long
-log lines are trimmed and timestamps are removed.
+Every output on this page comes from a real run of Keploy 3.9.4 on Linux. Some
+log lines are left out (`…`), long ones are trimmed, and timestamps are removed.
 
 ## Before you begin
 
@@ -231,7 +231,7 @@ You need:
    ```
 
    ```
-   ok  	example.com/orders	0.031s
+   ok  	example.com/orders	0.057s
    ?   	example.com/orders/cmd/rates	[no test files]
    ```
 
@@ -249,7 +249,7 @@ keploy mock record --local -c "go test -count=1 ./..."
 ```
 🐰 Keploy: INFO  Recording mocks for your test command  {"mock-set": "default", "program": "go", "args": 3}
 🐰 Keploy: INFO  Starting Application :  {"program": "go", "args": 3}
-ok  	example.com/orders	0.035s
+ok  	example.com/orders	0.023s
 ?   	example.com/orders/cmd/rates	[no test files]
 🐰 Keploy: INFO  recorded mocks  {"mocks": 10, "mock-set": "default"}
 🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
@@ -309,7 +309,7 @@ spec:
    ```
        orders_test.go:22: dial tcp [::1]:5432: connect: connection refused
    FAIL
-   FAIL	example.com/orders	0.005s
+   FAIL	example.com/orders	0.003s
    ```
 
 4. Run them under `keploy mock replay`:
@@ -321,7 +321,7 @@ spec:
    ```
    🐰 Keploy: INFO  Replaying mocks for your test command  {"mock-set": "default", "program": "go", "args": 3, "on-miss": "fail"}
    🐰 Keploy: INFO  Starting Application :  {"program": "go", "args": 3}
-   ok  	example.com/orders	0.163s
+   ok  	example.com/orders	0.146s
    ?   	example.com/orders/cmd/rates	[no test files]
    🐰 Keploy: INFO  mock replay summary  {"loaded": 10, "consumed": 8, "missed": 0}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "replay"}
@@ -355,10 +355,10 @@ call from the recording.
    ```
 
    ```
-   --- FAIL: TestTotalInGBP (0.02s)
+   --- FAIL: TestTotalInGBP (0.00s)
        orders_test.go:27: pq: keploy-pg-v3: no recorded invocation matched (hash=…e6592f0c76da currentTest= binds=6); …
    FAIL
-   FAIL	example.com/orders	0.228s
+   FAIL	example.com/orders	0.156s
    🐰 Keploy: INFO  mock replay summary  {"loaded": 10, "consumed": 8, "missed": 1}
      Mock mismatch: [PostgreSQL] INSERT INTO orders VALUES ($1, $2, $3), ($4, $5, $6)
    		ON CONFLICT (id) DO NOTHING  →  [::1]:5432
@@ -379,7 +379,7 @@ call from the recording.
    ```
 
    ```
-   ok  	example.com/orders	0.088s
+   ok  	example.com/orders	0.039s
    🐰 Keploy: INFO  recorded mocks  {"mocks": 15, "mock-set": "default"}
    🐰 Keploy: INFO  test command finished successfully  {"phase": "record"}
    ```
@@ -394,7 +394,7 @@ call from the recording.
    ```
 
    ```
-   ok  	example.com/orders	0.221s
+   ok  	example.com/orders	0.145s
    🐰 Keploy: INFO  mock replay summary  {"loaded": 15, "consumed": 12, "missed": 0}
    🐰 Keploy: INFO  this replay ran with every dependency answered from the recording  {"mock-set": "default", "served": 12}
    ```
@@ -486,8 +486,10 @@ reports a result per test.
    === KEPLOY NEXT ===
    phase:    recorded
    summary:  1 recording(s); not yet proven to run with the dependencies off: default (never replayed on this machine).
+   …
    ask:      Prove it offline? I'll replay the tests with every dependency switched off; any call the recording does not have fails the run.
    run:      KEPLOY_PROVEN=1 keploy mock replay --local -c 'go test -p 1 -count=1 -json ./...' --on-miss fail
+   …
    ```
 
    `keploy mock status` always prints a `NEXT` block like this one: where things
@@ -558,8 +560,12 @@ rounds (`verdicts.yaml`), the record command (`last-record.yaml`) and a
 Keploy also writes `.keploy-run/`, with the logs of each run. Its own
 `.gitignore` keeps it out of git.
 
-Now anyone can run `KEPLOY_PROVEN=1 keploy mock replay` on a clone, with no
-PostgreSQL and no rates API, and CI can too.
+Now anyone can clone the project, download its modules with `go mod download`,
+and run `KEPLOY_PROVEN=1 keploy mock replay` with no PostgreSQL and no rates
+API. CI can too. The download comes first because the replay gives `go test` no
+network: on a machine whose module cache doesn't have the modules yet, such as
+a fresh CI runner, `go test` can't fetch them from `proxy.golang.org`, and
+Keploy reports DNS misses for it.
 
 ## Clean up
 
@@ -568,7 +574,8 @@ Delete the `orders` folder when you no longer need it.
 
 ## Next steps
 
-- [Run the replay in CI, and share recordings with your team](../mock-your-tests.md#proven-ci).
+- [Run the replay in CI](../guides/ci.md), and
+  [share recordings with your team](../mock-your-tests.md#proven-team).
   With a Keploy account, recordings live in Keploy Cloud, and the repository
   keeps only `keploy.yml` and `keploy.lock`.
 - [Use the VS Code extension](/docs/running-keploy/utg-vscode-extension/) to

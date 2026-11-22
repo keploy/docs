@@ -212,7 +212,7 @@ Each request also carries the ingest key in its `X-API-Key` header and a random 
 ## What the dashboard, REST and MCP show {#what-the-dashboard-rest-and-mcp-show}
 
 - **The dashboard** shows a flow to everyone who can view its app. A flow's page lists its steps, with a typed value as it was recorded (a masked one as asterisks), and its network calls with their method, recorded URL, status and time. The page shows no headers or bodies, but Keploy stores each call's headers and bodies, as the SDK recorded them, with its flow, because a replay serves them, and anyone who can view the app can read them through the dashboard's own API.
-- **The REST API and MCP** return less, because their answers go into an AI agent's context: no typed values, no headers or bodies, no query strings, fragments or credentials in URLs, and a path segment that reads as a secret or a person's data replaced with `REDACTED`. [What an agent sees](../running-keploy/ui-capture.md#what-an-agent-sees) lists the rules.
+- **The REST API and MCP** return less, because their answers go into an AI agent's context: no typed values, no headers or bodies, no query strings, fragments or credentials in URLs, and a path segment that reads as a secret or a person's data replaced with `REDACTED`. [What an agent sees](./agents.md#what-an-agent-sees) lists the rules.
 
 ## Recognition, not a guarantee {#recognition-not-a-guarantee}
 

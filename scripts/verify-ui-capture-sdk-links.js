@@ -15,7 +15,7 @@
 //   refused verb's entry links its section there:
 //   https://keploy.io/docs/ui-capture/refusals#<verb>.
 // - The SDK's README links pages. When a page a published version links to
-//   moves, a client redirect in docusaurus.config.js keeps the old URL
+//   moves, a client redirect in src/redirects.js keeps the old URL
 //   working; it must lead to a page that exists here, anchor included.
 //
 // When the SDK or the tools gain a code, a refused verb or a README link,
@@ -97,7 +97,10 @@ const README_LINKS = [
   // The README of the releases after 3.0.1.
   "https://keploy.io/docs/",
   "https://keploy.io/docs/running-keploy/ui-capture/",
-  // The README of 3.0.1, on npm: pages that have since moved.
+  "https://keploy.io/docs/ui-capture/capture-sdk-3-1-0-release-notes/",
+  "https://keploy.io/docs/ui-capture/capture-sdk-3-2-0-release-notes/",
+  // The README of 3.0.1, on npm: the overview, since moved (a redirect),
+  // and the install page.
   "https://keploy.io/docs/ui-capture/overview/",
   "https://keploy.io/docs/ui-capture/install-sdk/",
 ];

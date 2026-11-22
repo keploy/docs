@@ -53,7 +53,7 @@ There are two ways to install Keploy on macOS:
 1. **Recommended:** [One-click install](#one-click-install-keploy).
 2. [Install with Homebrew](#install-with-homebrew).
 
-Natively on macOS, Keploy understands HTTP/HTTPS, gRPC, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers or depends on one of those other services, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
+Natively on macOS, Keploy understands HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper calls; calls to other services — Redis, Kafka, Apache Pulsar and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers or depends on one of those other services, a [manual setup with Docker Desktop or Colima](#manual-setup) is also available.
 
 :::note Apple Silicon only
 

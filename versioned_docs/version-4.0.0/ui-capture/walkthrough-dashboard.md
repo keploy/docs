@@ -299,7 +299,7 @@ curl https://api.keploy.io/client/v1/apps/<appId>/ui/flows/<flowId> \
 }
 ```
 
-This is the flow from step 5, shortened to two of its five steps and two of its four calls. A flow's step and call `timestamp`s are in milliseconds. The API returns less than the dashboard: a step says that a value was typed (`hasValue`) and never what, and URLs come without their query, so the search's call has no `?q=kettle`. [What an agent sees](../running-keploy/ui-capture.md#what-an-agent-sees) lists what is left out.
+This is the flow from step 5, shortened to two of its five steps and two of its four calls. A flow's step and call `timestamp`s are in milliseconds. The API returns less than the dashboard: a step says that a value was typed (`hasValue`) and never what, and URLs come without their query, so the search's call has no `?q=kettle`. [What an agent sees](./agents.md#what-an-agent-sees) lists what is left out.
 
 **Journeys.** The same plan as the **Journeys** tab:
 
@@ -341,7 +341,7 @@ curl https://api.keploy.io/client/v1/apps/<appId>/ui/journeys \
 
 This response is shortened too. It also carries `ranked`, the most taken journeys, with `/` → `/products` first; `nodes` and `edges`, the graph's pages and moves; and `freshness`, which says when the plan was computed. `flowIds` are the recording a test of the journey replays, each a flow you can read with `GET …/ui/flows/<flowId>`.
 
-The Keploy MCP server has the same calls as tools: `uiCaptureStatus`, `listUIFlows`, `getUIFlow` and `uiJourneys`. See [From an AI agent (MCP)](../running-keploy/ui-capture.md#set-up-ui-capture-from-an-ai-agent-mcp).
+The Keploy MCP server has the same calls as tools: `uiCaptureStatus`, `listUIFlows`, `getUIFlow` and `uiJourneys`. See [MCP tools](./mcp-tools.md).
 
 ## 8. Clean up {#clean-up}
 
@@ -360,8 +360,8 @@ curl -X DELETE https://api.keploy.io/client/v1/apps/<appId> \
 
 ## What's next {#whats-next}
 
-- [Install the SDK in your own app](../running-keploy/ui-capture.md#install-the-sdk), as early in its startup as you can.
-- [Set up UI capture from an AI agent](../running-keploy/ui-capture.md#set-up-ui-capture-from-an-ai-agent-mcp) through the Keploy MCP server.
+- [Install the SDK in your own app](./install-sdk.md), as early in its startup as you can.
+- [Set up UI capture from an AI agent](./quickstart-agent.md) through the Keploy MCP server.
 - [UI Capture errors and warnings](./errors.md): what each `KUI_E_` code means and how to fix it.
 
 ## Related

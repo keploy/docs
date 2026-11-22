@@ -265,7 +265,22 @@
           "collapsed": false,
           "items": [
             "universal-mocker/quickstarts/go",
-            "universal-mocker/mock-quickstart"
+            "universal-mocker/mock-quickstart",
+            "universal-mocker/quickstarts/jest",
+            "universal-mocker/quickstarts/java",
+            "universal-mocker/quickstarts/playwright",
+            "universal-mocker/quickstarts/docker-compose",
+            "universal-mocker/quickstarts/vscode"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Walkthroughs",
+          "collapsible": true,
+          "collapsed": false,
+          "items": [
+            "universal-mocker/walkthroughs/vscode",
+            "universal-mocker/walkthroughs/dashboard"
           ]
         },
         {
@@ -275,9 +290,22 @@
           "collapsed": false,
           "items": [
             "universal-mocker/mock-your-tests",
+            "universal-mocker/guides/keploy-yml-and-lock",
+            "universal-mocker/guides/branches-and-prs",
+            "universal-mocker/guides/partial-re-record",
+            "universal-mocker/guides/ci",
+            "universal-mocker/guides/network-isolation",
+            "universal-mocker/guides/changing-values",
+            "universal-mocker/guides/background-workers",
+            "universal-mocker/guides/declared-rules",
+            "universal-mocker/guides/dependencies",
+            "universal-mocker/guides/coding-agents",
             "running-keploy/utg-vscode-extension"
           ]
-        }
+        },
+        "universal-mocker/features",
+        "universal-mocker/troubleshooting",
+        "universal-mocker/reference"
       ]
     },
     {
@@ -294,14 +322,21 @@
           "label": "Quickstarts",
           "collapsible": true,
           "collapsed": false,
-          "items": ["ui-capture/quickstart-dashboard"]
+          "items": [
+            "ui-capture/quickstart-dashboard",
+            "ui-capture/quickstart-agent",
+            "ui-capture/install-sdk"
+          ]
         },
         {
           "type": "category",
           "label": "Walkthroughs",
           "collapsible": true,
           "collapsed": false,
-          "items": ["ui-capture/walkthrough-dashboard"]
+          "items": [
+            "ui-capture/walkthrough-dashboard",
+            "ui-capture/walkthrough-agent"
+          ]
         },
         {
           "type": "category",
@@ -312,15 +347,24 @@
             "ui-capture/privacy",
             "ui-capture/sessions-and-sampling",
             "ui-capture/network-and-bodies",
-            "ui-capture/ingest-keys"
+            "ui-capture/spa-navigation",
+            "ui-capture/bundlers",
+            "ui-capture/csp-and-workers",
+            "ui-capture/ingest-keys",
+            "ui-capture/ci",
+            "ui-capture/journeys",
+            "ui-capture/agents"
           ]
         },
+        "ui-capture/features",
+        "ui-capture/troubleshooting",
         {
           "type": "category",
           "label": "Reference",
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "ui-capture/sdk-reference",
             {
               "type": "doc",
               "id": "ui-capture/errors",
@@ -331,10 +375,18 @@
               "id": "ui-capture/refusals",
               "label": "Refused verbs"
             },
+            "ui-capture/rest-api",
+            "ui-capture/mcp-tools",
+            "ui-capture/cli",
             {
               "type": "doc",
               "id": "ui-capture/limits",
               "label": "Limits and sizes"
+            },
+            {
+              "type": "doc",
+              "id": "ui-capture/capture-sdk-3-2-0-release-notes",
+              "label": "SDK 3.2.0 release notes"
             },
             {
               "type": "doc",
