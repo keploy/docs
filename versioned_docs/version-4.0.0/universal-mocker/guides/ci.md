@@ -98,7 +98,7 @@ replay can't sign in.
 ## Step 3: Add the workflow
 
 With the [VS Code extension](../walkthroughs/vscode.md#step-9-replay-in-ci),
-run **Keploy: Wire CI (GitHub Actions)**. It writes
+run **Keploy: Wire CI**. It writes
 `.github/workflows/keploy.yml` for a Go or Node project that has a
 `keploy.lock`, and never over a file that is already there. For a project in a
 folder below the repository's root, the workflow's steps run in that folder.
@@ -476,7 +476,10 @@ Every job takes the same steps:
    step.
 
 The examples below are what `keploy mock ci --ci <ci>` prints for a project at
-the repository's root. Put the project's toolchain setup and dependency
+the repository's root, made with a development build of Keploy, so their
+install line installs the latest release. A release's own `keploy mock ci`
+pins its version there (`bash "$keploy_sh" -v vX.Y.Z`): use the line your
+Keploy prints. Put the project's toolchain setup and dependency
 install where the comment says. For a project in a folder below the root,
 the example also runs the replay in that folder.
 

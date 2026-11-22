@@ -108,7 +108,7 @@ When the replay is green, select **keploy.yml, keploy.lock and the test edits st
 
 ## Run it in CI
 
-Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
+Select **CI replays keploy.lock** in the checklist, or run **Keploy: Wire CI**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
 The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the project's folder, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
 
@@ -197,7 +197,7 @@ On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --ve
 | **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record --lock keploy.lock` (on a work branch) or `keploy mock replay`.          |
 | **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                    |
 | **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
-| **Keploy: Wire CI (GitHub Actions)**                         | For a Go or Node project, writes `.github/workflows/keploy.yml`, which replays `keploy.lock`.    |
+| **Keploy: Wire CI**                                          | For a Go or Node project, writes `.github/workflows/keploy.yml`, which replays `keploy.lock`.    |
 | **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                            |
 | **Keploy: Record my running app**                            | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
 | **Keploy: Replay my app's recording as tests**               | Runs `keploy test -c "<command>"` on the project's `keploy/test-set-<n>` sets in a terminal.     |

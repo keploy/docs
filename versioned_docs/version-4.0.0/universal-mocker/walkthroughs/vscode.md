@@ -316,7 +316,7 @@ the changes, then commit. The extension never commits for you, and never changes
 
 For a Go or Node project in a GitHub repository:
 
-1. In the checklist, select **CI replays keploy.lock (GitHub Actions)**.
+1. In the checklist, select **CI replays keploy.lock**.
 
    The extension writes `.github/workflows/keploy.yml`. It never writes over a
    file that is already there. On every pull request and every push to main,
@@ -333,7 +333,8 @@ For a Go or Node project in a GitHub repository:
    Keploy asks you to sign in again in the browser, then stores the key as the
    repository's secret: [Make a CI key](../guides/ci.md#step-1-make-a-ci-key).
    Only an admin of the app's company can approve the key, so if you are not
-   one, ask an admin to run the command.
+   one, ask an admin to run the command. The notification's **Copy the key
+   command** button copies this command.
 
 3. With a Keploy that has no `service-account` command, ask your Keploy admin
    for the key. The notification's **Open the CI key page** button opens the
@@ -344,7 +345,6 @@ For a Go or Node project in a GitHub repository:
    gh secret set KEPLOY_API_KEY
    ```
 
-   The notification's **Copy the secret command** button copies this command.
    Selecting either button closes the notification.
 
 4. Commit the workflow with `keploy.yml` and `keploy.lock`, and push.
@@ -356,6 +356,9 @@ writes no workflow. Its notification offers **Hand CI setup to** your coding
 agent, which gives the agent Keploy's CI recipe for the project, and **Show me
 the steps**, which opens the same recipe with a **Copy the steps** button. The
 [Other CI systems](../guides/ci.md#other-ci-systems) section shows the recipe.
+The checklist's **CI replays keploy.lock** row is done once a config of the CI
+your repository runs has the recipe's `keploy mock replay ... --on-miss fail`
+step.
 
 ## Step 10: Invite your team
 
