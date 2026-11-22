@@ -56,6 +56,8 @@ keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_K
 
 It shows a link and a code, and opens the browser. The page names the key, the
 app and the role, and asks you to sign in to Keploy again before you approve.
+Only an admin of the app's company can approve it: anyone else's approval ends
+the request, so ask an admin to run the command, or to approve a new one.
 Keploy then makes the key and sets it as the repository secret
 `KEPLOY_API_KEY` through the GitHub CLI (`gh`), which must be signed in with
 the right to set it. The key is never printed. It is for the app that
@@ -454,7 +456,8 @@ Every job takes the same steps:
 
    Put the file's contents in the CI's secrets as `KEPLOY_API_KEY`, then
    delete the file. Keploy asks you to sign in again in the browser, as in
-   [step 1](#step-1-make-a-ci-key). Give the key to the job as the
+   [step 1](#step-1-make-a-ci-key), and only an admin of the app's company can
+   approve the key. Give the key to the job as the
    `KEPLOY_API_KEY` environment variable. Never print it or commit it. A pull
    request from a fork gets no secrets on most CIs, so its job fails at the
    key.

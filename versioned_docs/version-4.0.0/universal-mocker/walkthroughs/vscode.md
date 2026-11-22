@@ -332,6 +332,8 @@ For a Go or Node project in a GitHub repository:
 
    Keploy asks you to sign in again in the browser, then stores the key as the
    repository's secret: [Make a CI key](../guides/ci.md#step-1-make-a-ci-key).
+   Only an admin of the app's company can approve the key, so if you are not
+   one, ask an admin to run the command.
 
 3. With a Keploy that has no `service-account` command, ask your Keploy admin
    for the key. The notification's **Open the CI key page** button opens the
