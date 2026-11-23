@@ -39,7 +39,7 @@ Keploy runs **natively on Windows (x86-64)** — no WSL, no Docker and no Admini
 
 1. [Natively on Windows](#windows-native) (recommended).
 2. [Inside WSL](#inside-wsl) — also the route on Windows on ARM.
-3. By [Using Docker](#using-docker) — for apps that run in containers, or that depend on services other than HTTP/HTTPS, MySQL and MongoDB: natively on Windows, calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+3. By [Using Docker](#using-docker) — for apps that run in containers, or that depend on services other than HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper (Keploy 3.9.18 and later): natively on Windows, calls to other services — Redis, Kafka, Apache Pulsar and the like — are captured only as raw bytes and usually don't replay.
 
 ## Windows Native
 
