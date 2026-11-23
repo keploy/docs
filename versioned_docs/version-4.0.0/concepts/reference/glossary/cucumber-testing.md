@@ -106,7 +106,7 @@ Cucumber testing revolutionizes software testing by enabling teams to collaborat
 
 ## Related Terms
 
-- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — the methodology Cucumber implements.
+- [What is BDD](/docs/concepts/reference/glossary/behaviour-driven-development/) — the methodology Cucumber implements.
 - [Acceptance Testing](/docs/concepts/reference/glossary/acceptance-testing/) — Cucumber writes human-readable acceptance tests.
 - [Data Driven Testing](/docs/concepts/reference/glossary/data-driven-testing/) — Cucumber supports it via examples tables.
 - [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — a related test-first development practice.
