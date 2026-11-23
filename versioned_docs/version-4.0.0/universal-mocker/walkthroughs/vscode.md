@@ -23,9 +23,9 @@ installing it to a green replay of your tests with their dependencies switched
 off. You also see a red test, stage the files to commit, and add the CI
 workflow.
 
-Each step names what you select and what the extension shows. The steps are
-from version 3.1.1 of the extension, with Keploy 3.9.4, the CLI it
-downloads. For every setting and command, see the
+Each step names what you select and what the extension shows. The screenshots
+are from version 3.1.1 of the extension, with Keploy 3.9.4; the steps cover
+extension 3.1.5. For every setting and command, see the
 [VS Code extension page](/docs/running-keploy/utg-vscode-extension/).
 
 :::note Two screenshots are on their way
@@ -44,7 +44,8 @@ You need:
   silicon. The [requirements](/docs/running-keploy/utg-vscode-extension/#requirements)
   list the Linux versions that work. Windows support in the extension is
   coming.
-- Claude Code or GitHub Copilot in VS Code, or Cursor's agent in Cursor.
+- Claude Code (its VS Code extension or the `claude` CLI) or GitHub Copilot in
+  VS Code, or Cursor's agent in Cursor.
 - A project in a Git repository, with tests that call a database or an API.
   To follow along with a sample, create the package from
   [Step 1 of the Go quickstart](../quickstarts/go.md#step-1-create-the-sample-package),
@@ -136,15 +137,35 @@ it, in VS Code's runs, in your terminal and in your agent's terminal.
    If VS Code asks whether you trust the folder, trust it: Keploy runs your
    project's own test command, so it needs a trusted workspace.
 
-2. The extension installs Keploy's skill for this project, then opens your
-   agent's chat with the setup task typed in. Claude Code is used when you
-   have it, otherwise GitHub Copilot:
+2. The extension installs Keploy's skill for this project, then hands the setup
+   task to your coding agent:
 
-   | Agent          | Where the skill goes                                  | Where the task goes                          |
-   | -------------- | ----------------------------------------------------- | -------------------------------------------- |
-   | Claude Code    | `.claude/skills`                                      | a new Claude Code conversation               |
-   | GitHub Copilot | `.github/instructions/keploy-mocking.instructions.md` | the chat, in agent mode                      |
-   | Cursor's agent | `.cursor/rules`                                       | your clipboard: paste it into the agent chat |
+   - **Claude Code** works through either its VS Code extension (**Claude Code
+     (chat)**) or its CLI, the `claude` command (**Claude Code (terminal)**).
+     When `claude` is installed (on your `PATH`, or where Claude Code's
+     installer puts it), **Set up with my agent** opens an integrated terminal
+     in your project (in bash, zsh, fish, or PowerShell) and runs `claude` with
+     the setup task as its first message. If `claude`'s path cannot be safely
+     passed to your shell, no terminal opens: Keploy names that path and puts
+     the task on your clipboard.
+   - When **both** the Claude Code VS Code extension and the `claude` CLI are
+     installed, Keploy asks once: **Claude Code (chat)** or **Claude Code
+     (terminal)**, and remembers your choice for the workspace.
+   - A Claude Code user is never silently handed off to GitHub Copilot or
+     another agent. With no Claude Code installed, Keploy asks once per
+     workspace which agent gets the setup (before opening GitHub Copilot, and
+     in Cursor before putting the task on your clipboard for Cursor's agent)
+     and offers Claude Code there too, with the task on your clipboard. If a
+     workspace previously picked Claude Code and neither its extension nor the
+     `claude` CLI is found anymore, Keploy puts the task on your clipboard and
+     tells you instead of switching agents.
+
+   | Agent                  | Where the skill goes                                  | Where the task goes                                                                              |
+   | ---------------------- | ----------------------------------------------------- | ------------------------------------------------------------------------------------------------ |
+   | Claude Code (chat)     | `.claude/skills`                                      | a new Claude Code conversation                                                                   |
+   | Claude Code (terminal) | `.claude/skills`                                      | an integrated terminal in your project running `claude` with the setup task as its first message |
+   | GitHub Copilot         | `.github/instructions/keploy-mocking.instructions.md` | the chat, in agent mode                                                                          |
+   | Cursor's agent         | `.cursor/rules`                                       | your clipboard: paste it into the agent chat                                                     |
 
    The task starts like this, with Claude Code:
 
@@ -152,12 +173,12 @@ it, in VS Code's runs, in your terminal and in your agent's terminal.
    Set up Keploy dependency mocking for this project's tests, following the keploy mock skill (.claude/skills).
    ```
 
-   If the agent's chat doesn't open, VS Code says **Keploy: _agent_ did not
-   open. The setup task is on your clipboard.** Paste it into the agent's
-   chat.
+   If the agent doesn't open, VS Code says **Keploy: _agent_ did not open. The
+   setup task is on your clipboard.** Paste it into your agent.
 
-3. Send the task. Then let your agent work. It follows each step the CLI prints, starting with
-   `KEPLOY_PROVEN=1 keploy mock status --json`:
+3. Send the task (with **Claude Code (terminal)**, `claude` starts with the
+   task right away). Then let your agent work. It follows each step the CLI
+   prints, starting with `KEPLOY_PROVEN=1 keploy mock status --json`:
 
    - it sets `mock.command` in `keploy.yml` to your test command;
    - it adds the test-side hook the skill names for your framework, such as
@@ -178,7 +199,8 @@ The agent's chat with the setup task, and the checklist beside it with
 
 :::
 
-To choose the agent yourself, run **Keploy: Hand the setup to another agent**.
+To change the workspace's remembered agent choice at any time, run **Keploy:
+Hand the setup to another agent**.
 
 ## Step 5: Record from VS Code
 
@@ -217,7 +239,9 @@ you add a test. Your dependencies must be running.
 
 The record uploads the recording to Keploy Cloud and pins it in
 `keploy.lock`. The [keploy.yml and keploy.lock guide](../guides/keploy-yml-and-lock.md)
-explains the lock.
+explains the lock. In an untrusted workspace — including one with several
+project folders — **Keploy: Record** and **Keploy: Replay** refuse for
+workspace trust before asking which folder to use.
 
 ## Step 6: Replay with the dependencies off
 
@@ -241,8 +265,13 @@ recordings are in Keploy Cloud shows one row there, **Keploy Cloud: _n_
 tests**, which replays as **Keploy: Replay** does. Run **Test: Run All Tests**
 from the Command Palette, or select the row's run button, and the row turns
 green or red. The view shows only the runs you start in it, not a **Keploy:
-Replay** from the Command Palette. Recordings kept on your machine with
-`--local` show one row per recording set instead, with its tests under it.
+Replay** from the Command Palette. Recordings kept on your machine with `--local` show one row per recording set
+instead, with its tests under it. You can start another **Keploy: Record** or
+**Keploy: Replay** as soon as the previous run ends in its terminal, even while
+Keploy is still reading the project's status. If a later replay of the same set
+starts before an earlier run finishes reading its status, the earlier run
+reports that its result was replaced rather than showing the later run's
+verdict.
 
 <img src="/docs/img/universal-mocker/vscode/09-testing-green.png" alt="The Testing view with the row Keploy Cloud: 2 tests passed, 1/1 in 9.6 seconds" width="100%" />
 
@@ -334,7 +363,10 @@ For a Go or Node project in a GitHub repository:
    repository's secret: [Make a CI key](../guides/ci.md#step-1-make-a-ci-key).
    Only an admin of the app's company can approve the key, so if you are not
    one, ask an admin to run the command. The notification's **Copy the key
-   command** button copies this command.
+   command** button copies this command (requires Keploy CLI 3.9.13 or later;
+   with an older or unreadable CLI, the notification omits **Copy the key
+   command** and offers **Clear pin and update** or **Update CLI** beside
+   **Open the CI key page**).
 
 3. With a Keploy that has no `service-account` command, ask your Keploy admin
    for the key. The notification's **Open the CI key page** button opens the
@@ -353,7 +385,12 @@ For any other project or CI, such as Python, Java or GitLab CI, the extension
 writes no workflow. Its notification offers **Hand CI setup to** your coding
 agent, which gives the agent Keploy's CI recipe for the project, and **Show me
 the steps**, which opens the same recipe with a **Copy the steps** button. The
-[Other CI systems](../guides/ci.md#other-ci-systems) section shows the recipe.
+CI recipe action requires Keploy CLI 3.9.13 or later: with an older or
+unreadable CLI, Wire CI does not open the recipe and instead offers **Clear pin
+and update** (when `keploy.cli.version` pins an older version) or **Update
+CLI**, while every other extension command keeps working on older pinned CLIs.
+The [Other CI systems](../guides/ci.md#other-ci-systems) section shows the
+recipe.
 The checklist's **CI replays keploy.lock** row is done once a config of the CI
 your repository runs, at the repository's root or in the project's folder, has
 the recipe's `keploy mock replay ... --on-miss fail` step. For a project in a

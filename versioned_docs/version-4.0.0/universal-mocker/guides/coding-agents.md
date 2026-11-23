@@ -38,8 +38,14 @@ Antigravity.
 :::tip Using VS Code?
 
 The [Keploy VS Code extension](../walkthroughs/vscode.md#step-4-hand-the-setup-to-your-coding-agent)
-installs the skill and hands the setup to your agent for you. Read on to do the
-same from a terminal, or to see what the agent does.
+installs the skill and hands the setup to your agent for you: Claude Code
+(either its VS Code extension's chat or the `claude` CLI in an integrated
+terminal), GitHub Copilot, or Cursor's agent. When both the Claude Code
+extension and the `claude` CLI are installed, it asks once whether to use
+**Claude Code (chat)** or **Claude Code (terminal)** and remembers the choice
+for the workspace; with no Claude Code installed, it asks once per workspace
+and never silently hands a Claude Code user off to GitHub Copilot. Read on to
+do the same from a terminal, or to see what the agent does.
 
 :::
 
