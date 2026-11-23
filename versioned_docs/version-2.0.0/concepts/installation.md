@@ -31,7 +31,7 @@ import PlatformRequirements from '../concepts/platform-requirements.md'
 Let's get started by setting up the Keploy alias with this command:
 
 ```bash
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 You should see something like this:
@@ -71,11 +71,11 @@ Use "keploy [command] --help" for more information about a command.
 <details>
 <summary>Install using Docker</summary>
 
-### Downloading and running Keploy in Docker
+**Downloading and running Keploy in Docker**
 
-#### On macOS
+#### On macOS/Windows
 
-Note : Keploy is not supported natively on MacOS, so you can follow the below method to run with docker
+Note : Keploy is not supported natively on MacOS and Windows, so you can follow the below method to run with docker
 
 1. Open up a terminal window.
 
@@ -85,10 +85,24 @@ Note : Keploy is not supported natively on MacOS, so you can follow the below me
 docker network create keploy-network
 ```
 
-3. Run the following command to start the Keploy container:
+2. Install Keploy
+
+```shell
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
+```
+
+#### Examples:
+
+**Record:**
 
 ```bash
-alias keploy="docker run --name keploy-v2 -p 16789:16789 --network keploy-network --privileged --pid=host -v $(pwd):$(pwd) -w $(pwd) -v /sys/fs/cgroup:/sys/fs/cgroup -v /sys/kernel/debug:/sys/kernel/debug -v /sys/fs/bpf:/sys/fs/bpf -v /var/run/docker.sock:/var/run/docker.sock --rm ghcr.io/keploy/keploy"
+keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
+```
+
+**Test:**
+
+```bash
+keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
 ```
 
 </details>
@@ -129,7 +143,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin/keploy
 
 > Note: Keploy is not supported on MacOS natively.
 
-### Setting up the Docker Desktop for WSL 2
+**Setting up the Docker Desktop for WSL 2**
 
 1. Install Docker Desktop for Windows from [here](https://docs.docker.com/desktop/windows/install/).
 
@@ -139,37 +153,5 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 
 > This setup is essential for Keploy to function correctly in a WSL 2 environment, as it needs to interact with the Docker daemon to manage containers and networks effectively.
 > For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
-
-</details>
-
-<details>
-<summary>With Arkade</summary>
-
-### With Arkade
-
-1. Installing Arkade
-
-```bash
-# Note: you can also run without `sudo` and move the binary yourself
-curl -sLS https://get.arkade.dev | sudo sh
-
-arkade --help
-ark --help  # a handy alias
-
-# Windows users with Git Bash
-curl -sLS https://get.arkade.dev | sh
-```
-
-2. Install Keploy
-
-```bash
-arkade get keploy
-```
-
-Or you can also download specific version of Keploy using the following command:
-
-```bash
-arkade get keploy@2.2.0-alpha23
-```
 
 </details>

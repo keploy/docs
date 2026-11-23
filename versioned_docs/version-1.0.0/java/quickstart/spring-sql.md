@@ -11,11 +11,11 @@ tags:
 
 # Example Employee-Manager App
 
-A sample Employee-Manager app to test Keploy integration capabilities using [SpringBoot](https://spring.io) and [PostgreSQL](https://www.postgresql.org/).
+A sample Employee-Manager app to test Keploy integration capabilities using SpringBoot and [PostgreSQL](https://www.postgresql.org/).
 
 ### Pre-requisites
 
-- [Java 8+](https://docs.spring.io/spring-boot/docs/current/reference/html/getting-started.html#getting-started.installing)
+- Java 8+
 
 ## Installation
 
@@ -101,7 +101,7 @@ mvn clean install -D maven.test.skip=true
 
 ## Generate testcases
 
-To generate testcases we just need to **make some API calls.** You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
 
 ### 1. Make an employee entry
 
@@ -139,7 +139,7 @@ or by querying through the browser `http://localhost:6789/api/employees/1`
 Now both these API calls were captured as **editable** testcases and written to `test/e2e/keploy-tests` folder. The
 keploy directory would also have `mocks` folder.
 
-![testcases](/img/test-case-Java.png "Recorded Test cases and mocks")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-case-Java.webp" alt="testcases" width="856" height="603" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! 🪄💫
 
@@ -156,7 +156,7 @@ There are 2 ways to test the application with Keploy.
 
 _NOTE: You will be required to set the `javaagent` again in your test profile just like below._
 
-![run_configuration](/img/Run_Configuration.png "Run_Configuration")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/Run_Configuration.webp" alt="run_configuration" width="1844" height="1242" style={{maxWidth:'100%',height:'auto'}} />
 
 - Now that we have our testcase captured, run the unit test file (`SampleJavaApplication_Test.java`) already present in
   the sample app repo.
@@ -214,9 +214,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
           </plugin>
          ```
 
-  {'<'}/details{'>'}
-
-  2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
+  {'<'}/details{'>'} 2. If you want coverage report also add Jacoco plugin to your _pom.xml_.
 
   {'<'}details{'>'}{'<'}summary{'>'}
   Add plugin
@@ -259,9 +257,7 @@ _NOTE: You will be required to set the `javaagent` again in your test profile ju
          </plugin>
        ```
 
-  {'<'}/details{'>'}
-
-  3.  Run your tests using command : `mvn test`.
+  {'<'}/details{'>'} 3. Run your tests using command : `mvn test`.
 
 It will create .html files as test-reports which can be found in your target folder !!
 
@@ -269,7 +265,7 @@ It will create .html files as test-reports which can be found in your target fol
 
 Go to the Keploy Console TestRuns Page to get deeper insights on what testcases ran, what failed.
 
-![testruns](https://i.imgur.com/tg6OT0n.png "Summary")
+![testruns](https://keploy-devrel.s3.us-west-2.amazonaws.com/samples-java-v1-test.png "Summary")
 
 **OR**
 
@@ -314,7 +310,7 @@ Hibernate: select employee0_.id as id1_0_0_, employee0_.email as email2_0_0_, em
 
 {'<'}/details{'>'}
 
-![testruns](/img/TestrunsSuccess.png "Recent testruns")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/TestrunsSuccess.webp" alt="testruns" width="857" height="497" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Let's add a Bug in the App
 
@@ -340,6 +336,6 @@ You'll notice the failed test-case in the output.
 2022-08-26 13:10:10.312  INFO 70155 --- [       Thread-1] io.keploy.service.GrpcService            : || passed overall: FALSE ||
 ```
 
-To deep dive the problem go to [test runs](http://localhost:6789/testruns)
+To deep dive the problem go to localhost:6789/testrun
 
-![testruns](/img/IntroduceBugJava.png "Recent testruns")
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/IntroduceBugJava.webp" alt="testruns" width="1680" height="1016" style={{maxWidth:'100%',height:'auto'}} />

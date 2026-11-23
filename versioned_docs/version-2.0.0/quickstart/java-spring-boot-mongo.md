@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - mongodb
-keyword:
+keywords:
   - MongoDB
   - Maven
   - Springboot Framework
@@ -26,11 +26,11 @@ keyword:
 
 ## Introduction
 
-🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and [MongoDB](https://www.mongodb.com/). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of REST API and see how seamlessly Keploy integrates with [Spring-Boot](https://github.com/spring-projects/spring-boot) and MongoDB Buckle up, it's gonna be a fun ride! 🎢
 
 ## Pre-Requisite 🛠️
 
-- Install [JDK](https://www.oracle.com/java/technologies/downloads/) and add JAVA_HOME in environment variable.
+- Install JDK and add JAVA_HOME in environment variable.
 - Install [Maven](https://maven.apache.org/install.html)
 - Install [Docker](https://docs.docker.com/engine/install/)
 
@@ -78,7 +78,7 @@ sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 
 If everything goes right, your screen should look a bit like this:
 
-<img src="/docs/img/code-snippets/install-keploy-logs.png" alt="Test Case Generator" width="50%" />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/code-snippets/install-keploy-logs.webp" alt="Test Case Generator" width="50%" />
 
 ## Run Application
 
@@ -165,7 +165,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

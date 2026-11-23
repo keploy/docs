@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 330" width="760" height="330" role="img" aria-labelledby="t d" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif">
+  <title id="t">Universal Mocker: record, then replay</title>
+  <desc id="d">Record: your test command calls the real dependencies through Keploy, which saves each call and answer. Replay: the same test command runs, the dependencies are off, and Keploy answers each call from the recording.</desc>
+  <defs>
+    <marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0L10 5L0 10z" fill="#4b5563"/>
+    </marker>
+  </defs>
+  <rect x="0" y="0" width="760" height="330" rx="14" fill="#ffffff"/>
+  <!-- Record row -->
+  <text x="24" y="40" font-size="17" font-weight="700" fill="#111827">1. Record (once, dependencies up)</text>
+  <rect x="24" y="60" width="190" height="70" rx="10" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="119" y="91" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">Your test command</text>
+  <text x="119" y="113" text-anchor="middle" font-size="12.5" fill="#374151">go test, pytest, jest…</text>
+  <rect x="286" y="60" width="190" height="70" rx="10" fill="#fff7ed" stroke="#f97316"/>
+  <text x="381" y="91" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">keploy mock record</text>
+  <text x="381" y="113" text-anchor="middle" font-size="12.5" fill="#374151">saves each call + answer</text>
+  <rect x="548" y="60" width="188" height="70" rx="10" fill="#ecfdf5" stroke="#10b981"/>
+  <text x="642" y="91" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">Real dependencies</text>
+  <text x="642" y="113" text-anchor="middle" font-size="12.5" fill="#374151">databases, queues, APIs</text>
+  <line x1="214" y1="95" x2="282" y2="95" stroke="#4b5563" stroke-width="2" marker-end="url(#a)"/>
+  <line x1="476" y1="95" x2="544" y2="95" stroke="#4b5563" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+  <!-- storage -->
+  <line x1="381" y1="130" x2="381" y2="158" stroke="#4b5563" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <rect x="286" y="162" width="190" height="40" rx="8" fill="#f9fafb" stroke="#9ca3af"/>
+  <text x="381" y="187" text-anchor="middle" font-size="13" font-weight="600" fill="#111827">Recordings</text>
+  <line x1="381" y1="202" x2="381" y2="230" stroke="#4b5563" stroke-width="2" stroke-dasharray="5 4" marker-end="url(#a)"/>
+  <!-- Replay row -->
+  <text x="24" y="226" font-size="17" font-weight="700" fill="#111827">2. Replay (dependencies off)</text>
+  <rect x="24" y="240" width="190" height="70" rx="10" fill="#eef2ff" stroke="#6366f1"/>
+  <text x="119" y="271" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">Your test command</text>
+  <text x="119" y="293" text-anchor="middle" font-size="12.5" fill="#374151">unchanged</text>
+  <rect x="286" y="240" width="190" height="70" rx="10" fill="#fff7ed" stroke="#f97316"/>
+  <text x="381" y="271" text-anchor="middle" font-size="15" font-weight="600" fill="#111827">keploy mock replay</text>
+  <text x="381" y="293" text-anchor="middle" font-size="12.5" fill="#374151">answers from the recording</text>
+  <rect x="548" y="240" width="188" height="70" rx="10" fill="#f3f4f6" stroke="#9ca3af" stroke-dasharray="6 4"/>
+  <text x="642" y="271" text-anchor="middle" font-size="15" font-weight="600" fill="#6b7280">Dependencies</text>
+  <text x="642" y="293" text-anchor="middle" font-size="12.5" fill="#6b7280">switched off</text>
+  <line x1="214" y1="275" x2="282" y2="275" stroke="#4b5563" stroke-width="2" marker-start="url(#a)" marker-end="url(#a)"/>
+  <line x1="476" y1="275" x2="544" y2="275" stroke="#d1d5db" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="510" y="266" text-anchor="middle" font-size="16" font-weight="700" fill="#ef4444">×</text>
+</svg>

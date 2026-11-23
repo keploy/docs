@@ -35,7 +35,7 @@ Now, when the application serves an API, all the unique network interactions are
 test-case.
 
 <div style={{backgroundColor:'white', padding:'10px', display:'inline-block', borderRadius:'8px'}}>
-  <img src="/docs/gif/how-keploy-works.gif" alt="Test Case Generator" />
+  <video autoPlay loop muted playsInline width="562" height="356" style={{maxWidth:'100%',height:'auto'}} aria-label="Test Case Generator" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/how-keploy-works-poster.webp"><source src="/docs/gif/how-keploy-works.mp4" type="video/mp4" /></video>
 </div>
 
 ### Step 2 : Replay Test-Cases
@@ -60,7 +60,3 @@ You can test with Keploy locally or can integrate Keploy with popular testing-fr
 > **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

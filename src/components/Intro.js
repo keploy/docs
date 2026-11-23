@@ -7,6 +7,7 @@ function Languages() {
     <div className="rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
       <div className="flex items-center space-x-4">
         <svg
+          aria-hidden="true"
           width="16"
           className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
           height="13"
@@ -119,6 +120,7 @@ function Frameworks() {
     <div className="flex flex-col rounded-lg bg-[color:var(--ifm-card-background-color)] p-5 shadow transition hover:shadow-lg hover:shadow-[color:var(--ifm-card-shadow-color)]">
       <div className="flex items-center space-x-4">
         <svg
+          aria-hidden="true"
           className="mb-4 h-10 w-10 rounded-lg bg-[color:var(--ifm-color)] p-2 text-[color:var(--ifm-background-color)]"
           width="16"
           height="13"
@@ -178,7 +180,7 @@ function Frameworks() {
         <li className="mt-5 flex flex-col space-y-3 text-lg">
           <Link
             to={useBaseUrl("/dependencies/redis")}
-            className="flex flex-col items-center justify-center space-y-1 p-6 text-center "
+            className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline "
           >
             <img
               className="h-8 w-8"
@@ -189,7 +191,7 @@ function Frameworks() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline ">
             <img
               className="h-8 w-8"
               src="/docs/img/mysql-logo.svg"
@@ -199,7 +201,7 @@ function Frameworks() {
           </Link>
         </li>
         <li className="mt-5 flex flex-col space-y-3 text-lg">
-          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center ">
+          <Link className="flex flex-col items-center justify-center space-y-1 p-6 text-center hover:underline ">
             <img
               className="h-8 w-8"
               src="/docs/img/dynamodb-logo.svg"

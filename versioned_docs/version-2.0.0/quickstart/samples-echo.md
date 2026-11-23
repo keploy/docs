@@ -10,7 +10,7 @@ tags:
   - examples
   - tutorial
   - postgres
-keyword:
+keywords:
   - Echo Framework
   - Postgres
   - SQL
@@ -21,7 +21,7 @@ keyword:
 
 ## Introduction
 
-A sample url shortener app to test Keploy integration capabilities using [Echo](https://echo.labstack.com/) and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
+A sample url shortener app to test Keploy integration capabilities using Echo and [PostgreSQL](https://www.postgresql.org/). Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -84,7 +84,7 @@ Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture th
 
 #### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
 ```bash
 curl --request POST \
@@ -117,7 +117,7 @@ curl --request GET \
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of postgres operations. Here's what the folder structure look like:
 
-![Testcase](/img/testcase-echo.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/testcase-echo.webp" alt="Testcase" width="2146" height="558" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! ✨💫
 
@@ -137,7 +137,7 @@ keploy test -c "docker run -p 8082:8082 --name echoSqlApp --network keploy-netwo
 
 output should look like
 
-![Testrun](/img/testrun-echo.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/testrun-echo.webp" alt="Testrun" width="2214" height="1152" style={{maxWidth:'100%',height:'auto'}} />
 
 So no need to setup fake database/apis like Postgres or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to Postgres 😄**
 
@@ -146,8 +146,6 @@ So no need to setup fake database/apis like Postgres or write mocks for them. Ke
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -172,7 +170,7 @@ go build -cover
 sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener"
 ```
 
-![Testcase](/img/testcase-echo.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/testcase-echo.webp" alt="Testcase" width="2146" height="558" style={{maxWidth:'100%',height:'auto'}} />
 
 #### Generate testcases
 
@@ -213,7 +211,7 @@ Now both these API calls were captured as a testcase and should be visible on th
 Now that we have our testcase captured, run the test file.
 
 ```shell
-sudo -E PATH=$PATH keploy record -c "./echo-psql-url-shortener" --delay 10
+sudo -E PATH=$PATH keploy test -c "./echo-psql-url-shortener" --delay 10
 ```
 
 So no need to setup dependencies like mongoDB, web-go locally or write mocks for your testing.
@@ -221,14 +219,10 @@ So no need to setup dependencies like mongoDB, web-go locally or write mocks for
 The application thinks it's talking to mongoDB 😄
 
 We will get output something like this:
-![Testrun](/img/testrun-echo.png?raw=true)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/testrun-echo.webp" alt="Testrun" width="2214" height="1152" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Wrapping it up 🎉
 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

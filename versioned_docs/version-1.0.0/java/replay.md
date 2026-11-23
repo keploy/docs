@@ -1,7 +1,9 @@
 ---
 id: replay
-title: Replay Tests & Mocks for Java (v1.0.0)
-description: Replay Test Suite for Java in Keploy.
+title: Java Test Replay Automation | Keploy v1.0.0
+
+description: Automate Java regression testing with Keploy's replay feature. Simulate API requests and mocks to verify software changes confidently.
+
 tags:
   - developer-guide
   - go

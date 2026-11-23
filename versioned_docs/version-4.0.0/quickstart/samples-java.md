@@ -1,0 +1,348 @@
+---
+id: samples-java
+title: Java Sample Application
+sidebar_label: Employer App
+description: The following sample app showcases how to use java framework and the Keploy Platform.
+tags:
+  - java
+  - spring-jpa
+  - quickstart
+  - samples
+  - java-framework
+  - postgres
+  - examples
+  - tutorial
+keywords:
+  - Jacoco
+  - Maven
+  - Springboot Framework
+  - Postgres
+  - SQL
+  - Java
+  - API Test generator
+  - Auto Testcase generation
+  - Junit
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Java Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI with the install script from https://keploy.io/install.sh (on Windows x86-64, keploy.exe from PowerShell: https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). Run the app locally on Linux/WSL; on macOS, or on Windows without WSL, use the Docker steps, since natively there Keploy captures PostgreSQL calls only as raw bytes that usually don't replay.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+# Example Employee-Manager App
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+A sample Employee-Manager app to test Keploy integration capabilities using **SpringBoot**
+and **PostgreSQL**.
+
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
+
+<InstallReminder />
+
+## Setup Employee-Manager App
+
+### Application Pre-Requisites
+
+- Java 1.8+ or {'<'}17 ☕
+- Maven 🛠️
+
+Clone the repository and install the dependencies
+
+```bash
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
+mvn clean install -Dmaven.test.skip=true
+```
+
+## Instructions For Starting Using Binary
+
+This section runs the backend on Linux or WSL. On macOS, or on Windows without WSL, use the [Docker steps](#instructions-for-starting-using-docker) instead — natively there, Keploy captures PostgreSQL calls only as raw bytes, which usually don't replay.
+
+### Setup the backend
+
+You need to update the postgresql properties, go to
+`employee-manager/src/main/resources/application-postgresql.properties`
+and change
+
+```bash
+spring.datasource.url=jdbc:postgresql://postgres:5432/keploy-test/
+```
+
+to
+
+```bash
+spring.datasource.url=jdbc:postgresql://localhost:5432/keploy-test/
+```
+
+and then build the jar using:
+
+```bash
+mvn clean install -Dmaven.test.skip=true
+```
+
+### Start the Postgres DB 🐳
+
+```bash
+docker run -e POSTGRES_USER=keploy-user -e POSTGRES_PASSWORD=keploy -e POSTGRES_DB=postgres -p 5432:5432 --name postgres postgres:15.2
+```
+
+Note: You may have to use sudo if you are not part of the docker group.
+
+### Capture the testcases 🎬
+
+```bash
+keploy record -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar"
+```
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-employee-app.webp" alt="Testcases" width="2474" height="1490" style={{maxWidth:'100%',height:'auto'}} />
+
+Now let's run a few tests to capture some more scenarios:
+
+#### Generate testcases 📝
+
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
+
+1. Make an employee entry 📥
+
+```bash
+curl --location --request POST 'http://localhost:8080/api/employees' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Myke",
+    "lastName": "Tyson",
+    "email": "mt@gmail.com",
+    "timestamp":1
+}'
+```
+
+this will return the response or an entry. The timestamp would automatically be ignored during testing because it'll
+always be different.
+
+```bash
+{
+    "id": 1,
+    "firstName": "Myke",
+    "lastName": "Tyson",
+    "email": "mt@gmail.com",
+    "timestamp": 1661493301
+}
+```
+
+2. Fetch recorded info about employees
+
+```bash
+curl --location --request GET 'http://localhost:8080/api/employees/1'
+```
+
+or by querying through the browser `http://localhost:8080/api/employees/1`
+
+Now both these API calls were captured as **editable** testcases and written to `keploy/test` folder. The keploy
+directory would also have `mock.yml` file.
+
+Now, let's see the magic! 🪄💫
+
+### Run the test cases
+
+First lets shutdown the database to verify that keploy's magic is taking care of the database mocking. No need to worry
+about the database anymore! 🎉
+
+```bash
+docker-compose down
+```
+
+Now, let's run the keploy in test mode: -
+
+```bash
+keploy test -c "java -jar target/springbootapp-0.0.1-SNAPSHOT.jar" --delay 10
+```
+
+This will run the testcases and generate the report in `keploy/reports` folder. You will see the following output:-
+
+````shell
+🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    starting test for of    {"test case": "[test-1]", "test set": "[test-set-0]"}
+2025-04-17 13:30:11.410  INFO 28035 --- [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-04-17 13:30:11.410  INFO 28035 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2025-04-17 13:30:11.410  INFO 28035 --- [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 0 ms
+Testrun failed for testcase with id: "test-1"
+
+--------------------------------------------------------------------
+
++-------------------------------------------------------------------------------------------------------------+
+|                                                DIFFS TEST-1                                                 |
++-------------------------------------------------------------------------------------------------------------+
+|                     EXPECT HEADER                    |                   ACTUAL HEADER                      |
+| -----------------------------------------------------+----------------------------------------------------- |
+|                                                      |                                                      |
+|                                                                                                             |
+|                      EXPECT BODY                     |                    ACTUAL BODY                       |
+| -----------------------------------------------------+----------------------------------------------------- |
+|   {                                                  | {                                                    |
+|    "timestamp": "1744871332" ,                       |  "timestamp": "1744876811" ,                         |
+|   lastName:Tyson                                     | lastName:Tyson                                       |
+|    }                                                 |  }                                                   |
+|                                                      |                                                      |
+|                                                                                                             |
++-------------------------------------------------------------------------------------------------------------+
+🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    result  {"testcase id": "[test-1]", "testset id": "[test-set-0]", "passed": "[false]"}
+🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    starting test for of    {"test case": "[test-2]", "test set": "[test-set-0]"}
+Testrun passed for testcase with id: "test-2"
+
+--------------------------------------------------------------------
+
+🐰 Keploy: 2025-04-17T13:30:11+05:30    INFO    result  {"testcase id": "[test-2]", "testset id": "[test-set-0]", "passed": "[true]"}
+
+ <=========================================>
+  TESTRUN SUMMARY. For test-set: "test-set-0"
+        Total tests: 2
+        Total test passed: 1
+        Total test failed: 1
+        Time Taken: "10.37 s"
+ <=========================================>
+<=========================================>```
+````
+
+Did you spot that the `timestamp` is showing some differences? Yep, time has a way of doing that! 🕰️
+
+Worry not, just add the ever-changing fields (like our **ts** here) to the **noise parameter** to **dodge those assertions**.
+
+> Pro tip: Add `body.timestamp` to noise in `keploy.yml`.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/java-employee-timestamp.webp" alt="Adding Noise to Test case Java Postgres Employee Manager App" width="70%" style={{ borderRadius: '5px' }}/>
+
+Run that `keploy test` command once more and watch as everything falls into place with all tests passing! 🌟
+
+Final thoughts? Dive deeper! Try different API calls, tweak the DB response in the `mocks.yml`, or fiddle with the request or response in `test-x.yml`. Run the tests again and see the magic unfold! ✨👩‍💻👨‍💻✨
+
+Next we move on to the instructions to start the application using docker.
+
+<SectionDivider />
+
+## Instructions For Starting Using Docker
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+A sample Employee-Manager app to test Keploy integration capabilities using SpringBoot and PostgreSQL.
+
+<InstallReminder />
+
+### Application Pre-Requisites
+
+- Java 1.8+ or {'<'}17 ☕
+- Maven 🛠️
+
+Clone the repository and install the dependencies
+
+```bash
+git clone https://github.com/keploy/samples-java && cd samples-java/employee-manager
+mvn clean install -Dmaven.test.skip=true
+```
+
+### Capture the testcases 🎬
+
+```bash
+keploy record -c "docker compose up" --container-name javaApp --build-delay 100
+```
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-docker-employee.webp" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+
+Now let's run a few tests to capture some more scenarios:
+
+#### Generate testcases 📝
+
+To generate testcases we just need to **make some API calls.** You can use Postman or simply `curl`
+
+1. Make an employee entry 📥
+
+```bash
+curl --location --request POST 'http://localhost:8080/api/employees' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "firstName": "Myke",
+    "lastName": "Tyson",
+    "email": "mt@gmail.com",
+    "timestamp":1
+}'
+```
+
+this will return the response or an entry. The timestamp would automatically be ignored during testing because it'll
+always be different.
+
+```bash
+{
+    "id": 1,
+    "firstName": "Myke",
+    "lastName": "Tyson",
+    "email": "mt@gmail.com",
+    "timestamp": 1661493301
+}
+```
+
+2. Fetch recorded info about employees
+
+```bash
+curl --location --request GET 'http://localhost:8080/api/employees/1'
+```
+
+or by querying through the browser `http://localhost:8080/api/employees/1`
+
+Now both these API calls were captured as **editable** testcases and written to `keploy/test` folder. The keploy
+directory would also have `mock.yml` file.
+
+Now, let's see the magic! 🪄💫
+
+### Running the testcases using Keploy
+
+```bash
+keploy test -c "docker compose up" --container-name javaApp --build-delay 50 --delay 20
+```
+
+Your CLI should look something like this
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-test-record-employee.webp" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+
+This is a summary of the test cases recorded
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-employee.webp" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+
+Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
+`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
+
+### 🎉 Wrapping it up
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
+
+## Related
+
+- [Sample Rest API with Spring-Boot and MongoDB](/docs/quickstart/java-spring-boot-mongo/) — Spring Boot + Mongo.
+- [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot + XML.
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse all Java quickstarts.

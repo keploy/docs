@@ -1,0 +1,119 @@
+---
+id: installation
+title: Linux Installation
+sidebar_label: Linux
+description: "Install the Keploy server on Linux — one-click install script and manual installation steps for Ubuntu and other distros."
+tags:
+  - hello-world
+  - linux
+  - ebpf
+  - installation
+  - install
+keywords:
+  - hello-world
+  - ebpf
+  - installation
+  - install
+  - ubuntu
+  - linux
+  - API Test generator
+  - Auto Testcase generation
+  - installation-guide
+  - server-setup
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Install Keploy on Linux"
+description="Install the Keploy CLI on Linux with the one-click script, then run it natively or with Docker."
+totalTime="PT5M"
+tools={["Linux", "curl", "Keploy CLI"]}
+steps={[
+{name: "One-click install", text: "Run: source /dev/stdin <<<\"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')\""},
+{name: "Verify", text: "Run keploy to confirm the CLI is installed and on your PATH."},
+]}
+visible={false}
+/>
+
+Install Keploy with the [one-click install](#one-click-install-keploy), then use it in one of two ways:
+
+1. [Natively in Linux](#linux-native).
+2. Through [Using Docker](#using-docker).
+
+## One click install Keploy.
+
+```shell
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
+```
+
+The installer works on both x86-64 and ARM Linux.
+
+## Linux Native
+
+#### Run the Record Mode
+
+Run this command on your terminal to start the recording of API calls:-
+
+```shell
+sudo -E env PATH="$PATH" keploy record -c "CMD_TO_RUN_APP"
+```
+
+Make API Calls using Postman or cURL command.
+
+Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
+mocks into `YAML` format.
+
+#### Run the Test Mode
+
+Run this command on your terminal to run the testcases and generate the test coverage report:-
+
+```shell
+sudo -E env PATH="$PATH" keploy test -c "CMD_TO_RUN_APP" --delay 10
+```
+
+Voilà! 🧑🏻‍💻 We have the server running!
+
+---
+
+## Using Docker
+
+We need to create a custom network for Keploy since we are using the Docker, therefore application container would
+require `docker network` to act as the bridge between them.
+
+If you're using a **docker-compose network**, replace `keploy-network` with your app's `docker_compose_network_name`
+below.
+
+```shell
+docker network create keploy-network
+```
+
+#### Capture the Testcases
+
+Now, we will record the testcases.
+
+```shell
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
+```
+
+#### Run the Testcases
+
+Now, we will test the testcases.
+
+```shell
+keploy test -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 20
+```
+
+> **CMD_to_run_user_container** is the docker command to run the application.
+> If you are using `docker compose` command to start the application, `--containerName` is required.
+
+Voilà! 🧑🏻‍💻 We have the server running!
+
+You'll be able to see the test-cases that ran with the results report on the console as well locally in the `testReport`
+directory.
+
+**Footnote**
+
+1. `delay` is required while using Test Mode.
+2. containerName is optional if you are using `Docker run` command, as the Container name must be present within the
+   command itself.

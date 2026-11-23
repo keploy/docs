@@ -16,7 +16,7 @@ keywords:
 
 # User Profile Management Sample App
 
-A sample application that does CRUD (get, create, update, and delete) operations on a user in [mongoDB](https://www.mongodb.com/).
+A sample application that does CRUD (get, create, update, and delete) operations on a user in mongoDB .
 
 ## Installation
 
@@ -42,7 +42,7 @@ go run .
 
 ## Routes
 
-> Sample Application Port: http://localhost:8080
+> Sample Application Port: localhost:8080
 
 - `/user` : POST - Create a new user in the database
 - `/user/:userId` : GET - Get a user from the database
@@ -57,13 +57,13 @@ To generate Test Cases, you need to make some API calls. It could be using Thund
 Let's see some requests here using Thunder Client:
 
 - POST Request
-  ![POST-Request](/img/POST-request.png)
+  <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/POST-request.webp" alt="POST-Request" width="2176" height="844" style={{maxWidth:'100%',height:'auto'}} />
 - GET Request
-  ![GET-Request](/img/GET-request.png)
+  <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/GET-request.webp" alt="GET-Request" width="2178" height="964" style={{maxWidth:'100%',height:'auto'}} />
 
 Once done, you can see the Test Cases on the Keploy server, like this:
 
-![keploy-test-cases](/img/keploy-test-cases.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-test-cases.webp" alt="keploy-test-cases" width="2362" height="1208" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Generate Test Runs
 
@@ -76,11 +76,11 @@ go test -v -coverpkg=./... -covermode=atomic  ./...
 
 Once done, the Keploy terminal should look like this:
 
-![keploy-test-runs](/img/keploy-test-runs.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-test-runs.webp" alt="keploy-test-runs" width="1434" height="1174" style={{maxWidth:'100%',height:'auto'}} />
 
 ## Check the MongoDB database
 
-To check the actual data being changed in the database. Open [MongoDB Compass](https://www.mongodb.com/products/compass) and enter the URI below to check the data:
+To check the actual data being changed in the database. Open MongoDB Compass and enter the URI below to check the data:
 
 > mongodb://localhost:27017
 

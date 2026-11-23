@@ -12,7 +12,7 @@ tags:
   - examples
   - tutorial
   - restful-api
-keyword:
+keywords:
   - XML
   - Maven
   - Springboot Framework
@@ -29,7 +29,7 @@ keyword:
 
 ## Pre-Requisite 🛠️
 
-- Install [Java 17](https://www.oracle.com/java/technologies/downloads/) and set JAVA_HOME environment variable.
+- Install Java 17 and set JAVA_HOME environment variable.
 - Install [Maven](https://maven.apache.org/install.html)
 - Install [Docker](https://docs.docker.com/engine/install/) (optional)
 
@@ -98,7 +98,7 @@ Harness Keploy's test generation capabilities easily:
 ### Install Keploy
 
 ```bash
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 or
@@ -106,7 +106,7 @@ or
 ### Install the cloud version -
 
 ```bash
-  curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### Record Test Cases
@@ -163,7 +163,3 @@ After updating `keploy.yml` with the above configuration, rerun your tests, and 
 ## Wrapping Up 🎉
 
 Fantastic! You've successfully navigated creating and testing XML APIs with Spring Boot and Keploy. Keep exploring, experimenting, and innovating! If you have any queries, we're here to help!
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

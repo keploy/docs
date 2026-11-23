@@ -32,4 +32,4 @@ Keploy exposes GraphQL API for the frontend based on [gqlgen](https://github.com
 go generate ./...
 ```
 
-Note:- As we follow conventional commits so we encourage you to also follow that while making commits. You can know more about them on [here](http://commitizen.github.io/cz-cli/).
+Note:- As we follow conventional commits so we encourage you to also follow that while making commits. You can know more about them on here

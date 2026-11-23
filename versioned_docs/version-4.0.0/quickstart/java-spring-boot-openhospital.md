@@ -1,0 +1,163 @@
+---
+id: openhospital
+title: Keploy with OpenHospital
+sidebar_label: OpenHospital
+description: The following sample app showcases how to use Keploy and create test cases and mocks for popular spring-boot java application.
+tags:
+  - java
+  - spring-jpa
+  - springboot
+  - React
+  - java-framework
+  - postgres
+  - openhospital
+  - quickstart
+  - samples
+  - examples
+  - tutorial
+keywords:
+  - Jacoco
+  - Maven
+  - Springboot Framework
+  - Mysql
+  - SQL
+  - Java
+  - Test OpenHospital
+  - Junit
+  - React
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Keploy with OpenHospital — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+This is a openhospital app where you can record testcases and mocks by interacting with the UI, and then test them using Keploy.
+
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+
+This project has Three parts - the UI, Core and API, since Keploy is a backend testing platform, we need to start the Backend of the project using Keploy and run the frontend as it is.
+
+<InstallReminder />
+
+## Setup the Core
+
+```bash
+git clone https://github.com/keploy/openhospital-core
+cd openhospital-core/
+git checkout integration-with-keploy
+mvn clean install -DskipTests=true
+docker compose up
+```
+
+Note: If you face any issues while setting up the database, please try running docker compose up again. The issue should not occur the second time.
+
+## Setup the Backend
+
+Now it's time to setup the backend of our application. Let's Install the Openhospital API and get started.
+
+```bash
+git clone https://github.com/keploy/openhospital-api
+cd openhospital-api/
+git checkout integration-with-keploy
+mvn clean install -DskipTests=true
+```
+
+Now it's time to start the Backend using Keploy cli:
+
+# Instructions For Starting Using Binary
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/). On Windows, Java separates classpath entries with `;`, so use `-cp "target/openhospital-api-0.1.0.jar;rsc/;static/"` in the `keploy record` and `keploy test` commands below.
+
+Prerequisites For Binary:
+
+1. Node 20.11.0 LTS
+2. OpenJDK 17.0.9
+3. MVN version 3.6.3
+
+## Recording the testcases with Keploy
+
+```bash
+keploy record -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher"
+```
+
+On macOS, use your JDK's own `java` rather than Apple's `/usr/bin/java`, which records nothing — here and in `keploy test` below, replace `java` with `${JAVA_HOME:-$(/usr/libexec/java_home)}/bin/java` ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)).
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-record-java.webp" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+
+## Start the frontend
+
+```bash
+git clone https://github.com/keploy/openhospital-ui
+cd openhospital-ui/
+git checkout integration-with-keploy
+npm install
+npm start
+```
+
+Note: Login with username `admin` and password `admin`
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/openhospital-ui.webp" alt="Sample Keploy Record Java" width="100%" style={{ borderRadius: '5px' }} />
+
+If you followed all the steps correctly, you should see a UI similar to the one shown above.
+
+Now you can start interacting with the UI and Keploy will automatically create the testcases and mocks for it in a folder named 'keploy'
+
+## Running the testcases using Keploy
+
+```bash
+keploy test -c "java -cp "target/openhospital-api-0.1.0.jar:rsc/:static/" org.springframework.boot.loader.launch.JarLauncher" --delay 40
+
+```
+
+🎉 Hooray! You've made it to the end of the binary section! 🎉
+
+Your CLI should look something like this
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/keploy-test-openhospital-2.webp" alt="Sample Keploy Test Java" width="100%" style={{ borderRadius: '5px' }} />
+
+This is a summary of the test cases recorded
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-testcase-openhospital.webp" alt="Sample Keploy Test Summary Java" width="100%" style={{ borderRadius: '5px' }} />
+
+Here `delay` is the time it takes for your application to get started, after which Keploy will start running the testcases. If your application takes longer than 10s to get started, you can change the `delay` accordingly.
+`buildDelay` is the time that it takes for the image to get built. This is useful when you are building the docker image from your docker compose file itself.
+
+Hope this helps you out, if you still have any questions, reach out to us .
+
+## Related
+
+- [Sample Java Apps](/docs/quickstart/java-springboot-filter/) — browse more Java samples.
+- [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — another Spring Boot Postgres app.
+- [Sample Rest API with Spring-Boot and MongoDB](/docs/quickstart/java-spring-boot-mongo/) — Spring Boot with MongoDB.
+- [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot serving XML.

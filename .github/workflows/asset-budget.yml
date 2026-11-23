@@ -1,0 +1,87 @@
+name: Asset & Font Budget
+
+# Guardrails from the web-quality plan:
+#   X1 - no committed image > 500 KB
+#   X3 - no new render-blocking external font stylesheets (self-host instead)
+#
+# Both checks are scoped to the files CHANGED in the PR (diff against the base
+# branch), so pre-existing large assets (e.g. GIFs still awaiting MP4/WebM
+# conversion) never fail an unrelated PR — only newly added/modified files are
+# held to the budget.
+
+on:
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  asset-budget:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: New/changed images must be under 500 KB (X1)
+        run: |
+          # checkout ran with fetch-depth: 0, so origin/<base> is already present
+          # with full ancestry for the three-dot merge-base below.
+          base="origin/${{ github.base_ref }}"
+          max=512000 # 500 KiB
+          fail=0
+          while IFS= read -r f; do
+            [ -z "$f" ] && continue
+            [ -f "$f" ] || continue # skip deletions
+            size=$(wc -c < "$f")
+            if [ "$size" -gt "$max" ]; then
+              echo "::error file=$f::$f is $((size / 1024)) KB (> 500 KB). Optimize (WebP/AVIF) or convert to video before committing."
+              fail=1
+            fi
+          done < <(git diff --name-only --diff-filter=AMR "$base"...HEAD | grep -iE '\.(png|jpe?g|gif|webp|avif|svg)$' || true)
+          # AMR, not AM: a rename (R) that also re-encodes the file larger would
+          # otherwise slip the budget entirely, since git reports it as R.
+          if [ "$fail" -eq 0 ]; then echo "All new/changed images are within the 500 KB budget."; fi
+          exit "$fail"
+
+      - name: Block new render-blocking font stylesheets (X3)
+        run: |
+          base="origin/${{ github.base_ref }}"
+          # Match the actual render-blocking stylesheet URL (…googleapis.com/css…),
+          # not prose mentions of the domain, to avoid false positives on comments.
+          added=$(git diff --diff-filter=AMR "$base"...HEAD -- '*.js' '*.jsx' '*.ts' '*.tsx' '*.json' '*.md' '*.mdx' '*.html' '*.css' \
+            | grep -E '^\+' | grep -E 'fonts\.googleapis\.com/css' || true)
+          if [ -n "$added" ]; then
+            echo "::error::New external Google Fonts reference detected. Self-host the font (src/fonts/*.woff2 + @font-face in src/css/custom.css) instead of a render-blocking <link>:"
+            echo "$added"
+            exit 1
+          fi
+          echo "No new external font stylesheets."
+
+      - name: New local asset references in markdown must resolve (D3)
+        run: |
+          base="origin/${{ github.base_ref }}"
+          # Docusaurus serves static/ at baseUrl /docs/, so an added
+          # src|poster="/docs/<p>" must have a file at static/<p>. onBrokenLinks
+          # only validates links, not <img>/<video>/<source> src or <video>
+          # poster, so this guards that every ADDED reference resolves. Both
+          # attributes are checked: every converted <video> adds a src AND a
+          # poster, so omitting poster would leave half of D3's refs unguarded.
+          #
+          # Scope note: this is the D3 (added-reference) direction only. The
+          # mirror D2 direction — a deletion breaking a pre-existing reference —
+          # is deliberately not guarded here: such references sit on unchanged
+          # lines (invisible to the diff), and a whole-tree scan would
+          # false-positive on non-rendering commented-out mentions that predate
+          # the asset cleanups (e.g. `[//]: #` lines still naming removed GIFs).
+          fail=0
+          while IFS= read -r rel; do
+            [ -z "$rel" ] && continue
+            if [ ! -f "static/$rel" ]; then
+              echo "::error::Added asset reference /docs/$rel does not resolve to static/$rel"
+              fail=1
+            fi
+          done < <(git diff --diff-filter=AMR "$base"...HEAD -- '*.md' '*.mdx' '*.js' '*.jsx' '*.ts' '*.tsx' '*.html' \
+            | grep -E '^\+' | grep -oE '(src|poster)="/docs/[^"]+"' \
+            | sed -E 's#^(src|poster)="/docs/##; s#"$##' | sort -u || true)
+          if [ "$fail" -eq 0 ]; then echo "All new /docs/ asset references resolve under static/."; fi
+          exit "$fail"

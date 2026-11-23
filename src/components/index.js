@@ -2,7 +2,16 @@ export {default as ResponsivePlayer} from "./responsive-player/ResponsivePlayer"
 export {Button} from "./shared/Button";
 export {KeployCloud} from "./KeployCloud";
 export {Community} from "./Community";
-export {Intro} from "./Intro";
+//export {Intro} from "./Intro";
 export {Resources} from "./Resources";
 export {QuickStart} from "./QuickStart";
 export {Hacktoberfest} from "./Hacktoberfest";
+export {GetStartedPaths} from "./GetStartedPaths";
+export {TestingCapabilities} from "./TestingCapabilities";
+export {QuickStartTabs} from "./QuickStartTabs";
+export {WhatIsKeploy} from "./WhatIsKeploy";
+export {EcosystemSupport} from "./EcosystemSupport";
+export {default as DocHeaderChips} from "./DocHeaderChips";
+export {default as SidebarBadge} from "./SidebarBadge";
+export {default as SidebarCategoryIcon, getCategoryIcon, categoryIcons} from "./SidebarCategoryIcon";
+export {default as TierCallout} from "./TierCallout";

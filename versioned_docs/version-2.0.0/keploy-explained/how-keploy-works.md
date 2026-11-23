@@ -28,7 +28,7 @@ Keploy uses eBPF to instrument applications without code changes. Key components
 - **Network Proxy**
 - **API server**
 
-<img src="/docs/img/oss/keploy-arch.png?raw=true" alt="Keploy Architecture"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/oss/keploy-arch.webp" alt="Keploy Architecture" width="1920" height="1080" />
 
 ### 🪝 eBPF hooks loader
 
@@ -57,7 +57,3 @@ Consider an application server serving HTTP APIs for clients like web/mobile app
 - **Test Mode:** Keploy reads the YAML files for test cases and stubs/mocks. It starts the application, sends recorded HTTP test cases, and mocks responses for outgoing calls. This ensures no side effects due to non-idempotency.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

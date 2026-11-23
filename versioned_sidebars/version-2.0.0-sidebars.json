@@ -73,6 +73,7 @@
           "collapsible": true,
           "collapsed": true,
           "items": [
+            "quickstart/openhospital",
             "quickstart/pet-clinic",
             "quickstart/samples-java",
             "quickstart/java-spring-boot-mongo",
@@ -161,12 +162,12 @@
       "collapsible": true,
       "collapsed": true,
       "items": [
+        "keploy-explained/faq",
+        "keploy-explained/common-errors",
         "dependencies/mongo",
         "dependencies/postgres",
         "dependencies/http",
-        "dependencies/redis",
-        "keploy-explained/faq",
-        "keploy-explained/common-errors"
+        "dependencies/redis"
       ]
     }
   ],

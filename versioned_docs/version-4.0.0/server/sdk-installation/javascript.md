@@ -1,0 +1,119 @@
+---
+id: javascript
+title: Keploy JavaScript SDK — Install & Merge Test Coverage
+sidebar_label: JavaScript
+description: "Install the Keploy server SDK for JavaScript/Node and merge Keploy + Jest unit-test coverage into a single combined integration and unit-test report."
+tags:
+  - javascript
+  - js
+  - node
+  - npm
+  - coverage
+keywords:
+  - coverage
+  - Jest
+  - Javascript
+  - Mongo
+  - Ava
+  - Intern
+  - mocha
+  - IoT.js
+  - tap
+  - Typescript
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Merge Keploy test coverage in a JavaScript application"
+description="Install nyc and wire coverage scripts so Keploy and Jest coverage merge into one report."
+totalTime="PT10M"
+tools={["Node.js", "nyc", "Keploy CLI"]}
+steps={[
+{name: "Install nyc", text: "Install nyc, which Keploy uses to collect and merge JavaScript coverage."},
+{name: "Update package.json scripts", text: "Add coverage and coverage:merge scripts that run your tests with coverage and merge the output."},
+{name: "Run and merge", text: "Run keploy test, then merge the nyc and Keploy coverage into a single lcov report."},
+]}
+visible={false}
+/>
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+## 🛠️ Language Specific Requirements
+
+| Programming Language | Prerequisites                            |
+| :------------------: | :--------------------------------------- |
+|      javascript      | [nyc](https://www.npmjs.com/package/nyc) |
+
+## Usage
+
+### Update package file
+
+Update the `package.json` file that runs the application:
+
+```json
+  "scripts": {
+    //other scripts
+    "test": "jest --coverage --collectCoverageFrom='src/**/*.{js,jsx}'",
+    "coverage:merge": "mkdir -p ./coverage && nyc merge ./coverage .nyc_output/out.json",
+    "coverage:report": "nyc report --reporter=lcov --reporter=text",
+    //other scripts
+  }
+```
+
+#### Install nyc:
+
+```
+npm i nyc
+```
+
+In the test script, the --coverage flag triggers report generation for Jest. For other testing frameworks like Mocha, Intern, or Tap, you will need to use their respective coverage tools.
+
+#### Run keploy test command:
+
+Once it has been done, run keploy test command:
+
+```
+keploy test -c "your_application_command"
+```
+
+After successful execution of this command, A coverage report would be generated inside the test-run folder of keploy/reports.
+
+```
+keploy
+├── reports
+│   └── test-run-0
+│       ├── coverage.yaml
+│       └── test-set-0-report.yaml
+└── test-set-0
+    ├── mocks.yaml
+    └── tests
+        ├── test-1.yaml
+        └── test-2.yaml
+```
+
+To generate coverage report for your unit tests, Run:
+
+```bash
+npm test
+```
+
+To merge coverage data of unit tests with keploy tests, Run:
+
+```bash
+npm run coverage:merge
+```
+
+To get coverage related information for merged coverage data, Run:
+
+```bash
+npm run coverage:report
+```
+
+## Related
+
+- [Keploy Go SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/go/) — the Go SDK.
+- [Java Agent for Dynamic Deduplication](/docs/server/sdk-installation/java/) — the Java SDK.
+- [Keploy Python SDK — Install & Merge Test Coverage](/docs/server/sdk-installation/python/) — the Python SDK.

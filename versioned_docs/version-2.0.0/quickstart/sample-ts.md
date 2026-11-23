@@ -6,7 +6,7 @@ description: The following sample app to test Keploy integration capabilities us
 tags:
   - Typescript
   - Nhost
-keyword:
+keywords:
   - Typescript
   - Nhost
   - API Test generator
@@ -41,7 +41,7 @@ Create a .env file which should contain `HASURA_ADMIN_SECRET`and `GRAPHQL_ENDPOI
 
 Steps on how to generate your HASURA_ADMIN_SECRET and GRAPHQL_ENDPOINT :
 
-1. Go to https://nhost.io/
+1. Go to nhost
 2. Sign Up/Sign In and create new project
 3. Go to Hasura Console and open Hasura (Make sure to save your secret key before going to the next step)
 4. Get the `x-hasura-admin-secret` and `GraphQL Endpoint` and name them as `HASURA_ADMIN_SECRET` and `GRAPHQL_ENDPOINT `respectively in .env
@@ -208,7 +208,7 @@ We will run the keploy in record mode with docker-compose to start our applicati
 keploy record -c "sudo docker-compose up" --containerName "ts-nhost"
 ```
 
-<img src="/docs/img/wsl-record-ts.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/wsl-record-ts.webp" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
 
 ### Generate the testcases
 
@@ -265,9 +265,9 @@ keploy test -c 'sudo docker-compose up' --containerName "ts-nhost" --delay 10
 
 This is what your response should look like!
 
-<img src="/docs/img/wsl-test-ts.png" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/wsl-test-ts.webp" alt="Sample Keploy Test TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
 
-<img src="/docs/img/wsl-test-summary-ts.png" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/wsl-test-summary-ts.webp" alt="Sample Keploy TS Nhost Summary" width="100%" style={{ borderRadius: '5px' }} />
 
 ## Wrapping it up 🎉
 
@@ -278,7 +278,3 @@ You've successfully tested the tool and created your mocks and test cases—fant
 Here’s to building more, innovating, and reaching new heights with your project! 🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

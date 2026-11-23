@@ -8,6 +8,7 @@ const em = (px, base) => `${round(px / base)}em`;
 
 module.exports = {
   mode: "jit",
+  darkMode: ["class", '[data-theme="dark"]'],
   content: [
     "./src/components/**/*.{js,ts,jsx,tsx}",
     "./src/pages/**/*.{js,ts,jsx,tsx}",
@@ -27,6 +28,7 @@ module.exports = {
             color: "var(--ifm-color)",
             h1: {
               color: "var(--ifm-color)",
+              lineHeight: "1.5",
             },
             h2: {
               color: "var(--ifm-color)",
@@ -97,6 +99,13 @@ module.exports = {
             },
           },
         },
+        lg: {
+          css: {
+            h1: {
+              lineHeight: "1.2",
+            },
+          },
+        },
       },
       transitionDelay: {
         3000: "3000ms",
@@ -117,9 +126,14 @@ module.exports = {
             transform: "translateY(0)",
           },
         },
+        marquee: {
+          from: { transform: "translateX(0)" },
+          to: { transform: "translateX(calc(-100% - var(--gap)))" },
+        },
       },
       animation: {
         "fade-in-down": "fade-in-down 0.5s ease-out",
+        marquee: "marquee var(--duration) linear infinite",
       },
       colors: {
         offwhite: "#F2F2F2",

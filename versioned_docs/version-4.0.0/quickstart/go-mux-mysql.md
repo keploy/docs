@@ -1,0 +1,264 @@
+---
+id: samples-mysql
+title: Mux MySQL Sample Application
+sidebar_label: Mux + MySQL
+description: Record and replay API tests for a Go Gorilla/Mux app backed by MySQL using Keploy — capture real traffic and generate test cases with mocks.
+tags:
+  - go
+  - quickstart
+  - samples
+  - examples
+  - tutorial
+  - mysql
+  - sql
+  - mux-framework
+keywords:
+  - Mux Framework
+  - MySQL
+  - Golang
+  - API Test generator
+  - Auto Testcase generation
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Mux MySQL Sample Application — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
+import ProductTier from '@site/src/components/ProductTier';
+
+# Using Docker 🐳
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+A sample url shortener app to test Keploy integration capabilities using Mux and MySQL.
+
+<InstallReminder />
+
+### Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-mysql
+go mod download
+```
+
+We will be using Docker compose to run the application as well as MySQL on Docker container.
+
+### Start MySQL Instance
+
+```bash
+docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+```
+
+### Capture the Testcases
+
+Build the Docker image of our application:
+
+```zsh
+docker build -t url-short .
+```
+
+Once we have our Docker image ready, this command will start recording API calls:
+
+```shell
+keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
+```
+
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+
+### Generate testcases
+
+To generate test cases we just need to make some API calls. You can use Postman or simply `curl`.
+
+#### Generate shortened url
+
+```bash
+curl --request POST \
+  --url http://localhost:8080/create \
+  --header 'content-type: application/json' \
+  --data '{
+  "link": "https://github.com"
+}'
+```
+
+this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
+
+```bash
+{
+  "message":"Converted",
+  "link":"http://localhost:8080/links/1",
+  "status":true
+}
+```
+
+#### Access all shortened URLs
+
+```bash
+curl  http://localhost:8080/all
+```
+
+Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-record.webp" alt="Testcase" width="2086" height="1476" style={{maxWidth:'100%',height:'auto'}} />
+
+Now, let's see the magic! ✨💫 Want to see if everything works as expected?
+
+### Run the test cases
+
+Run the test mode (in the project directory, not the Keploy directory):
+
+```shell
+keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest" --delay 10
+```
+
+Output should look like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-tests.webp" alt="Testrun" width="2316" height="1494" style={{maxWidth:'100%',height:'auto'}} />
+
+No need to set up fake databases/APIs like MySQL or write mocks manually. Keploy automatically mocks them and the application thinks it's talking to MySQL. 😄
+
+### Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+Happy coding! ✨👩‍💻👨‍💻✨
+
+<SectionDivider />
+
+---
+
+# Running App Locally 💻 {#running-app-locally-on-linuxwsl-}
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+A Sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySql.
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
+
+<InstallReminder />
+
+### Clone a sample URL shortener app 🧪
+
+```bash
+git clone https://github.com/keploy/samples-go.git && cd samples-go/mux-mysql
+go mod download
+```
+
+We’ll run our sample application locally, with the database running inside a Docker container. Ready? Let’s get the party started! 🎉
+
+### Start the MySQL instance
+
+```zsh
+docker run -p 3306:3306 --rm --name mysql -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
+```
+
+Now, we will create the binary of our application:-
+
+```zsh
+export ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"
+
+go build -o main
+```
+
+On Windows (PowerShell), set the variable with `$env:ConnectionString="root:my-secret-pw@tcp(localhost:3306)/mysql"`, build with `go build -o main.exe`, and use `.\main.exe` in place of `./main` below.
+
+### Capture the Testcases
+
+```zsh
+sudo -E PATH=$PATH keploy record -c "./main"
+```
+
+`sudo -E PATH=$PATH` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record` here, and `keploy test` below, without it.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_record_docs.png" alt="Sample Keploy record header" width="100%" style={{ borderRadius: '5px' }} />
+
+### Generate testcases
+
+To generate test cases we just need to make some API calls. You can use Postman, Hoppscotch, or simply curl.
+
+#### Generate shortened url
+
+```bash
+curl --request POST \
+  --url http://localhost:8080/create \
+  --header 'content-type: application/json' \
+  --data '{
+  "link": "https://google.com"
+}'
+```
+
+this will return the shortened url.
+
+```json
+{
+  "message": "Converted",
+  "link": "http://localhost:8080/links/1",
+  "status": true
+}
+```
+
+#### Redirect to original url from shortened url
+
+```zsh
+
+curl http://localhost:8080/links/1
+
+```
+
+Now, let's see the magic! 🪄💫 Both these API calls were captured as a test case and should be visible on the Keploy CLI. You should see a `keploy` folder with the test cases and data mocks created.
+
+### Run the captured test cases
+
+Now that we have our test case captured, run the test file.
+
+```zsh
+sudo -E PATH=$PATH keploy test -c "./main" --delay 10
+```
+
+No need to set up dependencies like MySQL or write mocks for your testing. The application thinks it's talking to MySQL. 😄
+
+We will get output something like this:
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/keploy_mux_mysql_replay_docs.png
+" alt="Sample Keploy test header" width="100%" style={{ borderRadius: '5px' }} />
+
+### Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample Golang Apps](/docs/quickstart/golang-filter/) — browse more Go samples.
+- [Sample Product Catalog App (Golang)](/docs/quickstart/samples-mux/) — Mux with Postgres.
+- [Sample CRUD App (Golang)](/docs/quickstart/samples-fasthttp/) — another Go SQL app.
+- [Echo SQL Sample Application](/docs/quickstart/samples-echo/) — another Go SQL sample.

@@ -14,7 +14,7 @@ The Redis wire protocol is a simple, text-based protocol used to communicate wit
 
 **Message Types :** Redis commands are sent from the client to the server as an array of bulk strings. This is known as the RESP (REdis Serialization Protocol) format. Each command is represented by a list of strings, where the first string is the command name, followed by its arguments.
 
-For more information, check [here](https://redis.io/docs/latest/develop/reference/protocol-spec/).
+For more information, check out Redis serialization protocol specification from redis docs.
 
 ## How it works ?
 
@@ -33,7 +33,3 @@ In test mode, the decode function is activated. Its role is to match incoming re
 The test mode process starts with the `MockOutgoing` function, which reads the initial request from the client. The request is then decoded using the `decodeRedis` function. This function reads the request stream, attempts to match the request with existing mocks using a fuzzy matching algorithm, and retrieves the corresponding responses. If a match is found, the responses are decoded and written back to the client.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

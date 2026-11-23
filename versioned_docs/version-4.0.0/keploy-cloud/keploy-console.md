@@ -1,0 +1,93 @@
+---
+id: keploy-console
+title: Keploy Console
+sidebar_label: Keploy Console
+description: "Use the Keploy Console to visualize test results, debug failing tests, and manage your test suites from a web dashboard."
+tags:
+  - explanation
+  - feature guide
+  - keploy console
+  - installation
+keywords:
+  - keploy console
+  - installation
+  - API key
+---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Enterprise" offerings="Self-Hosted, Dedicated" />
+
+### Pre-requisite 📝
+
+Ensure you have [installed Keploy](/docs/server/installation/).
+
+### Run Tests Locally ⌛️
+
+Before starting the console, run test cases locally.
+
+```bash
+keploy test -c "<CMD_TO_RUN_APP>"
+```
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/console-test-run.webp" alt="Keploy TestRun" width="2458" height="1312" />
+
+Let's see what broke and fix it.
+
+### Start Keploy Console 📈
+
+- To visualise and edit test-cases basis on test-results, start the console.
+  <br/>
+  ```bash
+  keploy console
+  ```
+    <br/>
+    <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/keploy-console-cmd.webp" alt="Keploy Console" width="2424" height="722" />
+
+<br/>
+
+- Select your application on [keploy cloud](https://app.keploy.io) and navigate to the **latest** test-report.
+
+    <br/>
+    <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/test-reports.webp" alt="Keploy UI Console" width="2326" height="856" />
+
+- Select the **latest** test report to make edits.
+
+## Test Report Operations 🛠️
+
+Edit test-cases locally using keploy console.
+
+- 🎧 Mark Noise Fields
+- 📝 Update Expected Test-Results
+- 🚫 Ignore Tests
+- ♻️ Re-Record Test Suite
+- 🗑️ Delete Test Report
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/test-operations.webp" alt="Keploy Test Menu Dialog" width="2496" height="1048" />
+
+> ✍️ Note that the changes can be made by editing the latest test report only.
+
+### Add/Remove Noisy Fields
+
+Noisy fields are ignored for assertion when the test-cases runs. Say, `Date` and `Content-Length` are two headers that are not static and can change with each request. We can mark these fields as noisy.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/noise.webp" alt="Noise" width="1102" height="496" />
+
+You'd see the changes in the test-case file locally, new noisy fields are added under noise param in the test case.
+
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/keploy-cloud/denoise.webp" alt="De-noise" width="1098" height="432" />
+
+### Normalise Test Report or Test Case
+
+Similarly, if the test case result is the new expected response, we can normalise the test report or a particular test case. This will update the expected result of the test case locally.
+
+## Related
+
+- [Install Keploy](/docs/server/installation/) — prerequisite before starting the console.
+- [Keploy Cloud Application Settings Guide](/docs/keploy-cloud/application-settings/) — add an application to the console.
+- [Mock Registry](/docs/keploy-cloud/mock-registry/) — manage mocks used during test runs.
+- [Time Freezing](/docs/keploy-cloud/time-freezing/) — stabilize time-sensitive test results.
+
+## Need Help?
+
+If you have any questions or need assistance, our support team is here to help. You can reach out to us through our support portal, Slack or by emailing us.

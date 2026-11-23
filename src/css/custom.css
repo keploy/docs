@@ -1,3 +1,52 @@
+/* --- DM Sans self-hosted below (see @font-face). Previously loaded via a
+   render-blocking Google Fonts stylesheet in docusaurus.config.js headTags. --- */
+
+/* Also reveal copy button when the container or button has keyboard focus */
+div[class*="codeBlockContainer"]:focus-within button[class*="copyButton"],
+div[class*="codeBlockContainer"] button[class*="copyButton"]:focus-visible {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+body[data-docs-root] *,
+.docs-wrapper *,
+.main-wrapper *,
+.docItemContainer *,
+.menu *,
+.menu__list *,
+.menu__link *,
+.table-of-contents *,
+.markdown *,
+.table-of-contents__link *,
+.table-of-contents__link--active *,
+.menu__link--active *,
+.doc-meta *,
+.doc-meta__tier *,
+.doc-meta__version *,
+.doc-meta__availability * {
+  font-family: "DM Sans", sans-serif !important;
+}
+
+/* --- Revert code blocks to default monospace font --- */
+body[data-docs-root] code,
+body[data-docs-root] code *,
+body[data-docs-root] pre,
+body[data-docs-root] pre *,
+body[data-docs-root] kbd,
+body[data-docs-root] kbd *,
+body[data-docs-root] samp,
+body[data-docs-root] samp *,
+.markdown code,
+.markdown code *,
+.markdown pre,
+.markdown pre *,
+.prism-code,
+.prism-code * {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    "Liberation Mono", "Courier New", monospace !important;
+}
+
+/* --- End Force DM Sans on Docs Pages --- */
 /* stylelint-disable docusaurus/copyright-header */
 /**
  * Any CSS included here will be global. The classic template
@@ -12,48 +61,123 @@
 
 :root {
   /* Hotfix: Changed primary color to black to resolve conflict with Docusaurus' default primary orange after disabling Tailwind preflight CSS. Added font size and line height adjustments to compensate for the removal of Tailwind preflight. */
- 
+
   /* --ifm-color-primary-lighter: #ffb575; */
-  font-size:18px;
+  font-size: 18px;
   line-height: 1.6;
   --ifm-color-primary: #000;
 
-  --ifm-color-primary-lighter: #FFF;
+  /* Inline code variables - Global Override */
+  --ifm-code-background: #fff7ed !important;
+  --ifm-code-color: #c2410c !important;
+  --ifm-code-padding-horizontal: 0.4rem !important;
+  --ifm-code-padding-vertical: 0.2rem !important;
+  --ifm-code-border-radius: 6px !important;
+
+  --ifm-color-primary-lighter: #fff;
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
-  
+
   --ifm-color-primary-lightest: #ffceb1;
   --ifm-code-font-size: 95%;
-  --doc-sidebar-width: 275px !important;
+  --doc-sidebar-width: 260px !important;
   --ifm-link-hover-decoration: none;
   --ifm-link-hover-color: inherit;
   --site-primary-hue-saturation: 30 100%;
-  --site-primary-hue-saturation-light: 0 0%; /* do we really need this extra one? */
+  --site-primary-hue-saturation-light: 0 0%;
+  /* do we really need this extra one? */
+  --slack-logo: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1610 1610'%3E%3Cpath fill='%23E01E5A' d='M338 1017c0 93-76 169-169 169S0 1110 0 1017s76-169 169-169h169v169zM423 1017c0-93 76-169 169-169s169 76 169 169v424c0 93-76 169-169 169s-169-76-169-169v-424z'/%3E%3Cpath fill='%2336C5F0' d='M593 338c-93 0-169-76-169-169S500 0 593 0s169 76 169 169v169H593zM593 423c93 0 169 76 169 169s-76 169-169 169H169C76 761 0 685 0 592s76-169 169-169h424z'/%3E%3Cpath fill='%232EB67D' d='M1272 593c0-93 76-169 169-169s169 76 169 169-76 169-169 169h-169V593zM1187 593c0 93-76 169-169 169s-169-76-169-169V169C849 76 925 0 1018 0s169 76 169 169v424z'/%3E%3Cpath fill='%23ECB22E' d='M1017 1272c93 0 169 76 169 169s-76 169-169 169-169-76-169-169v-169h169zM1017 1187c-93 0-169-76-169-169s76-169 169-169h424c93 0 169 76 169 169s-76 169-169 169h-424z'/%3E%3C/svg%3E");
+}
+
+/* Global overflow control */
+html,
+body {
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+:root {
+  --keploy-header-offset: calc(
+    var(--docusaurus-announcement-bar-height, 0px) +
+      var(--ifm-navbar-height, 0px)
+  );
+}
+
+/* Navbar - always full viewport width, sticks below the announcement bar */
+.navbar {
+  width: 100vw !important;
+  max-width: 100vw !important;
+  left: 0;
+  right: 0;
+  position: sticky !important;
+  top: var(--docusaurus-announcement-bar-height, 0px) !important;
+}
+
+.navbar__inner {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+.navbar > .container,
+.navbar > .container-fluid {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding: 0 1rem;
+}
+
+/* Main wrapper - always full width */
+.main-wrapper {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+/* Docs page white background */
+.docs-wrapper,
+.main-wrapper,
+[class*="docPage"],
+[class*="docMainContainer"],
+[class*="docItemContainer"],
+main {
+  background: #fff !important;
+  width: 100% !important;
+}
+
+html[data-theme="dark"] .docs-wrapper,
+html[data-theme="dark"] .main-wrapper,
+html[data-theme="dark"] [class*="docPage"],
+html[data-theme="dark"] [class*="docMainContainer"],
+html[data-theme="dark"] [class*="docItemContainer"],
+html[data-theme="dark"] main {
+  background: #18181b !important;
 }
 
 html[data-theme="dark"] {
   /* Hotfix: Changed 'ifm-color-primary-lighter' to white to resolve conflict with Docusaurus' default color after disabling Tailwind preflight CSS. */
-  
 
   /* --ifm-color-primary-lighter: #ffb575; */
-  --ifm-color-primary-lighter: #FFF; 
-   
+  --ifm-color-primary-lighter: #fff;
+
   --ifm-color-primary: #ff914d;
   --ifm-color-primary-dark: #e67643;
   --ifm-color-primary-darker: #c95919;
   --ifm-color-primary-darkest: #be2c1b;
   --ifm-color-primary-light: #ffd0a0;
   --ifm-color-primary-lightest: #ffceb1;
+
+  /* Dark mode code variables */
+  --ifm-code-background: rgba(251, 146, 60, 0.2) !important;
+  --ifm-code-color: #fb923c !important;
+  --ifm-code-border-color: rgba(251, 146, 60, 0.4) !important;
   --ifm-link-color: var(--ifm-color-primary-lighter);
   --ifm-menu-color-active: var(--ifm-color-primary-lighter);
   --ifm-navbar-link-hover-color: var(--ifm-color-primary-lighter);
   --ifm-toc-link-color: var(--ifm-color-primary-lighter);
   --ifm-blockquote-color: #eeeeee;
   /* --ifm-code-background: var(--ifm-color-primary-dark); */
-  /*--ifm-color: #ffffff;*/
+  --ifm-color: #f5f6f7;
   --ifm-background-color: #141414;
   --ifm-footer-background-color: #000;
   --ifm-card-background-color: #1a1a1a;
@@ -75,7 +199,8 @@ html[data-theme="light"] {
   --ifm-badge-background-color: rgba(239, 246, 255);
 
   --card-color: rgba(239, 246, 255);
-  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2); /* Dark shadow for light theme */
+  --ifm-card-shadow-color: rgba(0, 0, 0, 0.2);
+  /* Dark shadow for light theme */
 }
 
 @font-face {
@@ -102,6 +227,12 @@ html[data-theme="light"] {
   font-display: swap;
 }
 
+/* DM Sans @font-face lives in docusaurus.config.js headTags as an inline
+   <style> (not webpack-processed) so the src can point at the stable static
+   URL /docs/fonts/… — which webpack's css-loader refuses to resolve from here.
+   The font files are self-hosted in static/fonts/ and the latin subset is
+   preloaded. Only the "force DM Sans" rules (top of this file) remain in CSS. */
+
 .docs-page {
   @apply my-12;
 }
@@ -111,31 +242,49 @@ html[data-theme="light"] {
 }
 
 /* Hotfix: Remove extra margin-bottom on community links subtext in the home page due to Tailwind preflight removal */
-h3{
+h3 {
   margin-bottom: 0.1rem;
 }
+
 h1,
 h2,
 h3,
 h4,
 .menu__list,
 .navbar {
-  font-family: "Aeonik", system-ui, -apple-system, BlinkMacSystemFont,
-    "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif,
-    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  /* "Aeonik" removed: it was referenced here but never defined via @font-face,
+     so it always fell through to the system stack below. */
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  scroll-margin-top: 130px !important;
 }
 
 .menu__list {
   @apply text-sm;
-  padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
 /* otherwise external references in menu bar (see Go) have the icon screwed up */
 .menu__list-item > .menu__link > span {
   display: flex;
 }
+
 .menu__link--sublist:after {
+  /* Keep sidebar chevron size consistent with leaf items */
   background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+}
+
+/* Ensure category caret variants use the same icon size in the sidebar */
+div[class^="sidebar_"] .menu__link--sublist-caret:after {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+  height: 1.5rem;
+  min-width: 1.5rem;
+}
+
+div[class^="sidebar_"] .menu__caret:before {
+  background: var(--ifm-menu-link-sublist-icon) 50% / 1.5rem 1.5rem;
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 div[class^="sidebar_"]
@@ -143,23 +292,165 @@ div[class^="sidebar_"]
   padding-right: calc(var(--ifm-menu-link-padding-horizontal) - 2px);
 }
 
+/* Do not highlight category labels (that also have pages) as active; only leaf pages should be highlighted */
+div[class^="sidebar_"] .menu__link--sublist.menu__link--active {
+  color: inherit !important;
+  font-weight: inherit;
+}
+
+/* Do NOT bold category when on its own page */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist {
+  color: inherit !important;
+  font-weight: inherit;
+}
+
+/* And keep color unchanged even on hover when on its own page */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist:hover {
+  color: inherit !important;
+}
+
+/* Explicitly neutralize color when category link is both sublist and active (own page) */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active
+  .menu__link--sublist.menu__link--active {
+  color: inherit !important;
+}
+
+/* When the category's own page is current, do not change its color/background/weight */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"] {
+  color: inherit !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+}
+
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"]:focus,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible
+  .menu__link[aria-current="page"].menu__link--active {
+  color: inherit !important;
+  /* prevent extra link-layer background; container provides unified hover */
+  background-color: transparent !important;
+  font-weight: inherit !important;
+}
+
+/* Strong override: category with its own current page should use normal menu color (not active black) */
+div[class^="sidebar_"]
+  .menu__link--sublist.menu__link--active[aria-current="page"] {
+  color: var(--ifm-menu-color) !important;
+}
+
+/* Extra-specific guard: ensure normal color for category labels on their own page */
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"],
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"].menu__link--active,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"] {
+  color: var(--ifm-menu-color) !important;
+  background: transparent !important;
+  font-weight: inherit !important;
+}
+
+/* Restore hover background for categories with their own page when hovering that link */
+div[class^="sidebar_"]
+  li.menu__list-item
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover,
+div[class^="sidebar_"]
+  li.menu__list-item
+  > div.menu__list-item-collapsible
+  > a.menu__link.menu__link--sublist[aria-current="page"]:hover {
+  /* prevent extra link-layer hover; container provides unified hover */
+  background-color: transparent !important;
+}
+
+/* Unify hover background for text + caret (arrow) when category has its own page */
+/* Use unified hover on container; clear child backgrounds to prevent double overlays */
+div[class^="sidebar_"] .menu__list-item-collapsible--active:hover {
+  background-color: var(--ifm-menu-color-background-hover) !important;
+}
+
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > .menu__caret {
+  background-color: transparent !important;
+}
+
+/* For categories with pages (collapsible) when NOT on their page: hover on arrow OR text gives one unified background */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover {
+  background-color: var(--ifm-menu-color-background-hover) !important;
+}
+
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > a.menu__link,
+div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active):hover
+  > .menu__caret {
+  background-color: transparent !important;
+}
+
+/* Ensure link text color does not change on hover in this specific case */
+div[class^="sidebar_"]
+  .menu__list-item-collapsible--active:hover
+  > a.menu__link {
+  color: inherit !important;
+}
+
+/* Remove background highlight when category's own page is active; keep hover behavior */
+div[class^="sidebar_"] .menu__list-item-collapsible--active {
+  background: transparent !important;
+}
+
+/* Parent style when a child page is active is handled below for light mode (orange) */
+
+/* Light mode: use orange color (no bold) for parent when a child page is active */
+html[data-theme="light"]
+  div[class^="sidebar_"]
+  .menu__list-item-collapsible:not(.menu__list-item-collapsible--active)
+  .menu__link--sublist.menu__link--active {
+  color: var(--ifm-color-primary) !important;
+  font-weight: inherit;
+}
+
 div[class^="sidebar_"] .button {
   @apply mx-auto mb-2 w-full border-0;
 }
+
 div[class^="sidebar_"] .button svg {
   @apply mx-auto;
 }
 
-.table-of-contents {
-  @apply border-none pt-12;
+/* Prevent descenders (g, y, p) from clipping in sidebar, including when bold/active */
+div[class^="sidebar_"] .menu__link {
+  line-height: 1.5;
+  padding-bottom: calc(var(--ifm-menu-link-padding-vertical) + 1px);
 }
 
-.table-of-contents__link {
-  @apply text-sm text-[color:var(--ifm-color)];
+div[class^="sidebar_"] .menu__link.menu__link--active {
+  line-height: 1.5;
+  /* ensure active/bold state also has enough leading */
 }
-.table-of-contents__link--active {
-  @apply font-bold text-[color:var(--ifm-color-primary)];
-}
+
+/* TOC styles moved to modern sidebar section below */
 
 .docs-wrapper aside {
   @apply border-0;
@@ -173,7 +464,8 @@ div[class^="sidebar_"] .button svg {
 }
 
 .center {
-  text-align: center; /* needed so that blog post heading is centered in the single blog post view */
+  text-align: center;
+  /* needed so that blog post heading is centered in the single blog post view */
 }
 
 /*
@@ -210,38 +502,38 @@ div[class^="sidebar_"] .button svg {
   @apply mx-auto my-16 max-w-screen-lg px-10;
 }
 
-/* Pagination */
-.pagination-nav {
-  @apply flex flex-col items-start justify-center space-x-0 space-y-5 md:flex-row md:space-x-10 md:space-y-0;
-}
-.pagination-nav__item {
-  @apply w-full max-w-md;
-}
-.pagination-nav__link {
-  @apply flex-grow transform rounded-lg border-0 bg-[color:var(--ifm-card-background-color)] p-5  text-lg shadow-lg transition-transform hover:scale-105;
+/* Navbar */
+.navbar {
+  background: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: none;
+  padding: 0.5rem 0;
 }
 
-/* Navbar */
+html[data-theme="dark"] .navbar {
+  background: #141414;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
 .navbar__inner {
-  @apply mx-auto max-w-screen-lg shadow-none lg:px-10;
+  @apply mx-auto w-full max-w-none px-4 lg:px-10;
 }
 
 .navbar__items--right {
-  @apply flex-row-reverse;
+  @apply ml-auto flex-row-reverse justify-end;
+  gap: 12px;
 }
 
 .navbar__items--right > :last-child {
-  @apply pr-5;
+  @apply pr-0;
 }
 
 .navbar__brand {
-  @apply mb-3;
+  @apply mb-0;
 }
 
-/* Search */
-
-.DocSearch-Button {
-  @apply rounded-lg p-5 !important;
+.navbar__brand img {
+  height: 32px;
 }
 
 .button.button--secondary.button--outline:not(.button--active):not(:hover) {
@@ -249,9 +541,6 @@ div[class^="sidebar_"] .button svg {
 }
 
 /* Footer */
-footer {
-  margin-top: 4%;
-}
 
 footer svg {
   display: inline;
@@ -268,10 +557,6 @@ footer svg {
 @media (max-width: 996px) {
   .footer .footer__separators {
     display: none;
-  }
-
-  .DocSearch-Button {
-    @apply mr-[-18px] !important;
   }
 
   /* .footer .footer__block {
@@ -334,7 +619,7 @@ footer svg {
 }
 
 /* Reset margin bottom on h3 (refer docs community section li item heading) after disabling tailwind preflight. */
-h3{
+h3 {
   margin-bottom: 1px;
 }
 
@@ -474,6 +759,7 @@ td img {
 .prose .tabs-container > .tabs > .tabs__item::before {
   content: none;
 }
+
 .prose .tabs-container > .tabs > .tabs__item {
   padding-left: 1em;
   padding-top: 0.5em;
@@ -481,6 +767,7 @@ td img {
   margin-bottom: 0em;
   opacity: 0.5;
 }
+
 .prose .tabs-container > .tabs > .tabs__item.tabs__item--active {
   opacity: 1;
 }
@@ -488,26 +775,33 @@ td img {
 .prose .tabs {
   padding: 0 !important;
 }
+
 .prose .tabs-container ul {
   margin: 0;
   margin-bottom: -1.25rem;
 }
+
 .prose .tabs-container > .margin-vert--md pre {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on inline images */
 .prose li img {
   margin: 0;
 }
+
 /* otherwise tailwind typography gives very ugly margins on li children */
 .prose > ol > li > :first-child,
 .prose > ul > li > :first-child,
 .prose > ol > li > :last-child,
 .prose > ul > li > :last-child {
-  margin: 0 !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin: 0 !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
+
 .prose li > ul {
-  margin-top: 1rem !important; /* sorry cant figure out how else to do this, prose @media overriding - swyx */
+  margin-top: 1rem !important;
+  /* sorry cant figure out how else to do this, prose @media overriding - swyx */
 }
 
 .prose :where(a code) {
@@ -524,9 +818,11 @@ td img {
   padding: 0;
   font-size: 0.95em;
 }
+
 [data-theme="light"] .prose :where(pre code):not(.not-prose) {
   background-color: #ffffff;
 }
+
 [data-theme="light"]
   .prose
   :where(pre):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
@@ -551,45 +847,58 @@ td img {
     no-repeat;
 }
 
-div[class^="announcementBar_"] {
-  --site-announcement-bar-stripe-color1: hsl(
-    var(--site-primary-hue-saturation) 88%
-  );
-  --site-announcement-bar-stripe-color2: hsl(
-    var(--site-primary-hue-saturation) 95%
-  );
-  background: repeating-linear-gradient(
-    35deg,
-    var(--site-announcement-bar-stripe-color1),
-    var(--site-announcement-bar-stripe-color1) 20px,
-    var(--site-announcement-bar-stripe-color2) 10px,
-    var(--site-announcement-bar-stripe-color2) 40px
-  );
-  font-weight: bold;
+/* Slack navbar icon styling */
+.header-slack-link:hover {
+  opacity: 0.6;
+}
+
+.header-slack-link::before {
+  content: "";
+  width: 24px;
+  height: 24px;
+  display: flex;
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
+[data-theme="dark"] .header-slack-link::before {
+  background: var(--slack-logo) no-repeat;
+  background-size: 24px 24px;
+}
+
+/* Announcement bar - custom marquee implementation.
+   Strip all Docusaurus default styles so our Tailwind component renders cleanly. */
+.keploy-announcement-bar {
+  padding: 0 !important;
+  color: inherit !important;
+}
+
+div[class*="announcementBar"]:not(.keploy-announcement-bar) {
+  background-color: transparent !important;
+  padding: 0 !important;
+  border: none !important;
+  color: inherit !important;
 }
 
 .list-disc > a {
   display: inherit;
 }
 
-/*Correcting alignment of home icon in navbar breadcrumbs.*/
-a[class="breadcrumbs__link"] {
-  padding-top: 2px;
-  margin-bottom: -10px;
-}
+/* Breadcrumbs home icon - handled in main breadcrumbs section */
 
 [data-theme="dark"] th {
   color: white;
 }
 
 /* Hotfix: Manually add Tailwind preflight styles to fix clipboard issues in Safari.
-   Using `preflight: true` caused style conflicts, so these styles are directly included here. */*,
+   Using `preflight: true` caused style conflicts, so these styles are directly included here. */
+*,
 ::before,
 ::after {
   box-sizing: border-box;
   border-width: 0;
   border-style: solid;
-  border-color: theme('borderColor.DEFAULT', currentColor);
+  border-color: theme("borderColor.DEFAULT", currentColor);
 }
 
 * {
@@ -602,7 +911,7 @@ html {
   -webkit-text-size-adjust: 100%;
   -moz-tab-size: 4;
   tab-size: 4;
-  font-family: theme('fontFamily.sans', ui-sans-serif, system-ui, sans-serif);
+  font-family: theme("fontFamily.sans", ui-sans-serif, system-ui, sans-serif);
 }
 
 body {
@@ -656,9 +965,9 @@ html {
 }
 
 button,
-[type='button'],
-[type='reset'],
-[type='submit'] {
+[type="button"],
+[type="reset"],
+[type="submit"] {
   -webkit-appearance: button;
   background-color: transparent;
   background-image: none;
@@ -685,12 +994,12 @@ menu {
 }
 
 :focus-visible {
-  outline: 2px solid theme('colors.blue.600', #2563eb);
+  outline: 2px solid theme("colors.blue.600", #2563eb);
   outline-offset: 2px;
 }
 
-[type='number']::-webkit-inner-spin-button,
-[type='number']::-webkit-outer-spin-button {
+[type="number"]::-webkit-inner-spin-button,
+[type="number"]::-webkit-outer-spin-button {
   height: auto;
 }
 
@@ -721,4 +1030,2195 @@ a {
 
 textarea {
   resize: vertical;
+}
+
+.theme-back-to-top-button {
+  background-color: #ff914d !important;
+}
+
+.theme-back-to-top-button:hover {
+  background-color: #e67643 !important;
+}
+
+/*
+ * Match the Chatwoot support bubble, and stack above it.
+ *
+ * The bubble is a fixed 64px square sitting 20px in from the bottom-right
+ * corner at z-index 2147483000. Left at the theme's defaults this button is a
+ * 48px square at a 1.3rem (20.8px) inset, so it lands in the same corner but
+ * smaller and off the bubble's centreline, and the bubble covers it and
+ * swallows every click meant for it.
+ *
+ * The button is less transient than it looks, so this is not a rare overlap:
+ * it appears on any upward scroll past 300px and only hides when the reader
+ * scrolls back down, drops below the threshold, or clicks an anchor. There is
+ * no timeout, so the two share the corner for most of a page visit.
+ *
+ * Gated on .chatwoot-ready, which static/scripts/chatwoot.js sets on <html>
+ * from the SDK's ready event. If Chatwoot is down, blocked or never loads,
+ * none of this applies and the button keeps the theme's own position rather
+ * than floating above an empty 84px gap.
+ *
+ * Matching the bubble's 64px width means its 20px inset also lines the two up
+ * on a shared centreline. `bottom` is 20px inset + 64px bubble + 20px gap, the
+ * same clearance the enterprise app uses to keep toasts clear of the bubble.
+ *
+ * px rather than rem because the bubble's own geometry is fixed px and does
+ * not scale with root font size.
+ */
+.chatwoot-ready .theme-back-to-top-button {
+  width: 64px;
+  height: 64px;
+  right: 20px;
+  bottom: 104px;
+}
+
+/*
+ * The theme draws the chevron as a fixed 2rem (32px) mask on ::after, so
+ * growing the button 48px -> 64px would shrink the glyph from 67% of the
+ * button to 50% and leave a small arrow in a big circle. Scale it back up to
+ * keep roughly the theme's original proportion.
+ */
+.chatwoot-ready .theme-back-to-top-button::after {
+  -webkit-mask-size: 2.5rem 2.5rem;
+  mask-size: 2.5rem 2.5rem;
+}
+
+/* ============================================
+   MODERN SIDEBAR NAVIGATION PANEL
+   ============================================ */
+
+/* Sidebar container - Navigation panel styling */
+div[class^="sidebar_"],
+.theme-doc-sidebar-container {
+  --sidebar-bg: #ffffff;
+  --sidebar-border: rgba(0, 0, 0, 0.08);
+  --sidebar-text: #374151;
+  --sidebar-text-muted: #6b7280;
+  --sidebar-hover: rgba(255, 145, 77, 0.06);
+  --sidebar-active-bg: rgba(255, 145, 77, 0.1);
+  --sidebar-active-border: #ff914d;
+  --sidebar-category-color: #ff914d;
+  --sidebar-category-bg: transparent;
+  --sidebar-nested-line: rgba(255, 145, 77, 0.15);
+}
+
+html[data-theme="dark"] div[class^="sidebar_"],
+html[data-theme="dark"] .theme-doc-sidebar-container {
+  --sidebar-bg: #18181b;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-text: #e5e7eb;
+  --sidebar-text-muted: #9ca3af;
+  --sidebar-hover: rgba(255, 145, 77, 0.1);
+  --sidebar-active-bg: rgba(255, 145, 77, 0.15);
+  --sidebar-active-border: #ff914d;
+  --sidebar-category-color: #ff914d;
+  --sidebar-category-bg: transparent;
+  --sidebar-nested-line: rgba(255, 145, 77, 0.2);
+}
+
+/* Sidebar background and border - FIXED positioning */
+.theme-doc-sidebar-container {
+  background: var(--sidebar-bg) !important;
+  border-right: 1px solid var(--sidebar-border) !important;
+  width: var(--doc-sidebar-width, 260px) !important;
+  min-width: var(--doc-sidebar-width, 260px) !important;
+  flex-shrink: 0;
+}
+
+/* Inner sidebar - sticky behavior */
+.theme-doc-sidebar-container > div {
+  position: sticky !important;
+  top: 0;
+  height: 100vh;
+  overflow-y: auto;
+  background: var(--sidebar-bg) !important;
+}
+
+aside.theme-doc-sidebar-container > div {
+  background: var(--sidebar-bg) !important;
+}
+
+/* Sidebar menu container padding */
+.theme-doc-sidebar-menu {
+  padding: 1rem 0.75rem !important;
+}
+
+div[class^="sidebar_"] .menu {
+  padding: 0.5rem;
+}
+
+/* ============================================
+   TOP-LEVEL CATEGORY ROWS - PURPLE HEADINGS
+   ============================================ */
+
+/* Top-level category styling - full-width rows */
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  margin: 0.25rem 0;
+  border-radius: 12px;
+  background: var(--sidebar-category-bg);
+  transition: all 0.15s ease;
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  color: var(--sidebar-category-color);
+}
+
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist:hover {
+  background: var(--sidebar-hover);
+}
+
+/* Top-level category label - PURPLE */
+div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible
+  > a.menu__link,
+div[class^="sidebar_"] > nav > ul > li > a.menu__link--sublist {
+  font-weight: 600;
+  font-size: 0.875rem;
+  letter-spacing: 0.01em;
+  text-transform: none;
+  color: var(--sidebar-category-color) !important;
+  background: transparent !important;
+  padding: 0;
+  flex: 1;
+}
+
+/* Divider between top-level categories */
+div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
+  border-bottom: 1px solid var(--sidebar-border);
+  padding-bottom: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* ============================================
+   CHEVRON STYLING & ANIMATION - INVERTED
+   ============================================ */
+
+/* Chevron base styling */
+div[class^="sidebar_"] .menu__caret,
+div[class^="sidebar_"] .menu__link--sublist::after {
+  transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Collapsed state - arrow points RIGHT (closed) */
+div[class^="sidebar_"] .menu__list-item--collapsed .menu__caret::before,
+div[class^="sidebar_"] .menu__list-item--collapsed .menu__link--sublist::after {
+  transform: rotate(-180deg);
+}
+
+/* Expanded state - arrow points DOWN (open) */
+div[class^="sidebar_"] .menu__caret::before,
+div[class^="sidebar_"] .menu__link--sublist::after {
+  transform: rotate(0deg);
+}
+
+/* Purple chevron for top-level categories */
+div[class^="sidebar_"] > nav > ul > li .menu__caret::before {
+  filter: hue-rotate(20deg) saturate(1.8);
+}
+
+/* ============================================
+   NESTED PAGES - QUIET & INDENTED
+   ============================================ */
+
+/* Nested items container */
+div[class^="sidebar_"] .menu__list .menu__list {
+  margin-left: 0.5rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--sidebar-nested-line);
+  margin-top: 0.25rem;
+}
+
+/* Nested page links */
+div[class^="sidebar_"] .menu__list .menu__list .menu__link {
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--sidebar-text-muted);
+  padding: 0.5rem 0.75rem;
+  margin: 0.125rem 0;
+  border-radius: 8px;
+  transition: all 0.15s ease;
+}
+
+div[class^="sidebar_"] .menu__list .menu__list .menu__link:hover {
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
+}
+
+/* Deeper nested levels */
+div[class^="sidebar_"] .menu__list .menu__list .menu__list {
+  margin-left: 0;
+  padding-left: 0.75rem;
+}
+
+div[class^="sidebar_"] .menu__list .menu__list .menu__list .menu__link {
+  font-size: 0.75rem;
+}
+
+/* ============================================
+   MODERN ACTIVE STATE
+   ============================================ */
+
+/* Active page - pill highlight with left accent */
+div[class^="sidebar_"]
+  .menu__link.menu__link--active:not(.menu__link--sublist) {
+  background: var(--sidebar-active-bg) !important;
+  color: var(--sidebar-active-border) !important;
+  font-weight: 600 !important;
+  border-radius: 8px;
+  position: relative;
+}
+
+/* Left accent indicator */
+div[class^="sidebar_"]
+  .menu__link.menu__link--active:not(.menu__link--sublist)::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 60%;
+  background: var(--sidebar-active-border);
+  border-radius: 0 2px 2px 0;
+}
+
+/* Hover states - subtle */
+div[class^="sidebar_"] .menu__link:hover {
+  background: var(--sidebar-hover);
+  color: var(--sidebar-text);
+}
+
+/* ============================================
+   CATEGORY ROW HOVER LIFT EFFECT
+   ============================================ */
+
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible {
+  transition: all 0.15s ease, box-shadow 0.15s ease;
+}
+
+div[class^="sidebar_"] > nav > ul > li > .menu__list-item-collapsible:hover {
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.08);
+}
+
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible:hover {
+  box-shadow: 0 2px 8px rgba(139, 92, 246, 0.15);
+}
+
+/* ============================================
+   BADGES FOR OSS / ENTERPRISE
+   ============================================ */
+
+.sidebar-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.625rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  margin-left: 0.5rem;
+}
+
+.sidebar-badge--oss {
+  background: rgba(34, 197, 94, 0.1);
+  color: #16a34a;
+}
+
+html[data-theme="dark"] .sidebar-badge--oss {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+}
+
+.sidebar-badge--enterprise {
+  background: rgba(139, 92, 246, 0.1);
+  color: #7c3aed;
+}
+
+html[data-theme="dark"] .sidebar-badge--enterprise {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+}
+
+.sidebar-badge--cloud {
+  background: rgba(59, 130, 246, 0.1);
+  color: #2563eb;
+}
+
+html[data-theme="dark"] .sidebar-badge--cloud {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+}
+
+/* ============================================
+   ENTERPRISE VS OSS VISUAL DISTINCTION
+   ============================================ */
+
+/* Enterprise content indicator - purple left border */
+.enterprise-content,
+.admonition-enterprise {
+  border-left: 4px solid #7c3aed !important;
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.05) 0%,
+    transparent 100%
+  ) !important;
+}
+
+html[data-theme="dark"] .enterprise-content,
+html[data-theme="dark"] .admonition-enterprise {
+  background: linear-gradient(
+    90deg,
+    rgba(139, 92, 246, 0.1) 0%,
+    transparent 100%
+  ) !important;
+}
+
+/* OSS content indicator - green left border */
+.oss-content,
+.admonition-oss {
+  border-left: 4px solid #10b981 !important;
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.05) 0%,
+    transparent 100%
+  ) !important;
+}
+
+html[data-theme="dark"] .oss-content,
+html[data-theme="dark"] .admonition-oss {
+  background: linear-gradient(
+    90deg,
+    rgba(16, 185, 129, 0.1) 0%,
+    transparent 100%
+  ) !important;
+}
+
+/* Cloud content indicator - blue left border */
+.cloud-content,
+.admonition-cloud {
+  border-left: 4px solid #3b82f6 !important;
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.05) 0%,
+    transparent 100%
+  ) !important;
+}
+
+html[data-theme="dark"] .cloud-content,
+html[data-theme="dark"] .admonition-cloud {
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.1) 0%,
+    transparent 100%
+  ) !important;
+}
+
+/* Enterprise callout box */
+.callout-enterprise {
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 1px solid rgba(139, 92, 246, 0.2);
+  background: rgba(139, 92, 246, 0.05);
+}
+
+.callout-enterprise::before {
+  content: "🔒 Enterprise";
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #7c3aed;
+  margin-bottom: 0.5rem;
+}
+
+html[data-theme="dark"] .callout-enterprise {
+  border-color: rgba(139, 92, 246, 0.3);
+  background: rgba(139, 92, 246, 0.1);
+}
+
+html[data-theme="dark"] .callout-enterprise::before {
+  color: #a78bfa;
+}
+
+/* OSS callout box */
+.callout-oss {
+  padding: 1rem 1.25rem;
+  margin: 1.5rem 0;
+  border-radius: 8px;
+  border: 1px solid rgba(16, 185, 129, 0.2);
+  background: rgba(16, 185, 129, 0.05);
+}
+
+.callout-oss::before {
+  content: "🔓 Open Source";
+  display: block;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #059669;
+  margin-bottom: 0.5rem;
+}
+
+html[data-theme="dark"] .callout-oss {
+  border-color: rgba(16, 185, 129, 0.3);
+  background: rgba(16, 185, 129, 0.1);
+}
+
+html[data-theme="dark"] .callout-oss::before {
+  color: #34d399;
+}
+
+/* Inline tier badges in text */
+.tier-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.6875rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-radius: 4px;
+  vertical-align: middle;
+}
+
+.tier-badge--enterprise {
+  background: #7c3aed;
+  color: #fff;
+}
+
+.tier-badge--oss {
+  background: #10b981;
+  color: #fff;
+}
+
+.tier-badge--cloud {
+  background: #3b82f6;
+  color: #fff;
+}
+
+/* ============================================
+   DOC PAGE LAYOUT - FULL WIDTH CONTENT
+   ============================================ */
+
+/* Override container max-width for doc pages only */
+.docs-wrapper .container,
+.docs-wrapper .container-fluid,
+[class*="docPage"] .container,
+main .container {
+  max-width: 100% !important;
+  width: 100% !important;
+  padding-left: 0;
+  padding-right: 0;
+}
+
+/* Docusaurus specific wrappers */
+.docusaurus-mt-lg,
+.docs-doc-page,
+[class*="docsWrapper"] {
+  max-width: 100% !important;
+  width: 100% !important;
+  margin-top: 0 !important;
+}
+
+/* Remove top margin on docs pages only */
+.plugin-docs .docusaurus-mt-lg {
+  margin-top: 0 !important;
+}
+
+/* Main doc wrapper - fix layout for full width */
+.docs-wrapper,
+[class*="docMainContainer"] {
+  padding-top: 0 !important;
+  display: flex;
+  width: 100% !important;
+  max-width: 100% !important;
+  flex: 1;
+}
+
+/* Main wrapper */
+.main-wrapper {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Doc root container */
+[class*="docRoot"] {
+  max-width: 100% !important;
+  width: 100% !important;
+  display: flex;
+}
+
+/* Doc page container */
+[class*="docPage"] {
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Content area - full width with minimal gap to TOC */
+.theme-doc-markdown {
+  max-width: 100%;
+  width: 100%;
+}
+
+/* Doc item container - NO overflow hidden (breaks sticky) */
+[class*="docItemContainer"] {
+  padding-top: 0 !important;
+  margin-top: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+}
+
+/* Doc item wrapper - controls the content + TOC layout */
+[class*="docItemCol"] {
+  max-width: 100% !important;
+  flex: 1 !important;
+  min-width: 0;
+}
+
+/* Pages without TOC - single column should be full width */
+.col:only-child {
+  max-width: 100% !important;
+  flex: 1 1 100% !important;
+}
+
+/* Main content column - NO overflow hidden */
+main[class*="docMainContainer"] {
+  padding-top: 0 !important;
+  flex: 1;
+  min-width: 0;
+  max-width: 100% !important;
+  width: 100% !important;
+  border-right: none !important;
+}
+
+/* Doc page row layout - allow sticky */
+.row {
+  margin: 0 !important;
+  max-width: 100% !important;
+  width: 100% !important;
+  display: flex !important;
+  align-items: flex-start !important;
+}
+
+/* Remove col padding that creates gaps */
+[class*="col--"]:not(.col--3) {
+  padding: 0 !important;
+}
+
+/* Content column - add controlled padding */
+.col[class*="docItemCol"] {
+  padding-top: 0 !important;
+  padding-left: 3rem !important;
+  padding-right: 3rem !important;
+  min-width: 0;
+}
+
+/* Markdown content - control overflow only on content */
+article.markdown {
+  line-height: 1.8;
+  font-size: 1rem;
+  color: #374151;
+  max-width: 860px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  width: 100%;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+}
+
+/* Article wrapper */
+article {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+html[data-theme="dark"] article.markdown {
+  color: #d1d5db;
+}
+
+/* Paragraph styling */
+article.markdown p {
+  margin-bottom: 1.5rem;
+  line-height: 1.8;
+}
+
+/* Heading hierarchy - clear visual distinction */
+article.markdown h1 {
+  margin-top: -0.25rem !important;
+  margin-bottom: 0.9rem;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.4;
+  color: #00163d;
+}
+
+html[data-theme="dark"] article.markdown h1 {
+  color: #f9fafb;
+}
+
+article.markdown h2 {
+  margin-top: 3.5rem;
+  margin-bottom: 1.25rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+  color: #00163d;
+}
+
+html[data-theme="dark"] article.markdown h2 {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f3f4f6;
+}
+
+article.markdown h3 {
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.375rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.4;
+  color: #0a2a5e;
+}
+
+html[data-theme="dark"] article.markdown h3 {
+  color: #e5e7eb;
+}
+
+article.markdown h4 {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: #0a2a5e;
+}
+
+html[data-theme="dark"] article.markdown h4 {
+  color: #d1d5db;
+}
+
+article.markdown h5,
+article.markdown h6 {
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #6b7280;
+}
+
+html[data-theme="dark"] article.markdown h5,
+html[data-theme="dark"] article.markdown h6 {
+  color: #9ca3af;
+}
+
+/* Lists */
+article.markdown ul,
+article.markdown ol {
+  margin-bottom: 1.5rem;
+  padding-left: 1.5rem;
+}
+
+article.markdown li {
+  margin-bottom: 0.5rem;
+  line-height: 1.7;
+}
+
+/* Code blocks */
+article.markdown pre {
+  margin: 1.5rem 0;
+  border-radius: 12px;
+}
+
+article.markdown code {
+  font-size: 0.875em;
+  padding: 0.2em 0.4em;
+  border-radius: 6px;
+}
+
+/* Blockquotes */
+article.markdown blockquote {
+  margin: 1.5rem 0;
+  padding: 1rem 1.5rem;
+  border-left: 4px solid #8b5cf6;
+  background: rgba(139, 92, 246, 0.05);
+  border-radius: 0 8px 8px 0;
+}
+
+html[data-theme="dark"] article.markdown blockquote {
+  background: rgba(139, 92, 246, 0.1);
+}
+
+article.markdown blockquote p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   CODE BLOCKS - WHITE BACKGROUND, NO PADDING
+   ============================================ */
+
+/* Code block container - White background, no padding */
+pre[class*="language-"],
+.prism-code {
+  background: #fcfcfd !important;
+  border-radius: 12px !important;
+  border: 1px solid rgba(226, 232, 240, 0.8) !important;
+  padding: 1rem 1.25rem !important;
+  margin: 0 !important;
+  font-size: 0.8125rem !important;
+  line-height: 1.6 !important;
+  overflow-x: auto;
+  max-width: 100%;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06), 0 8px 16px rgba(0, 0, 0, 0.02) !important;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+html[data-theme="dark"] pre[class*="language-"],
+html[data-theme="dark"] .prism-code {
+  background: #1e1e21 !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* Code block wrapper - no margin */
+div[class*="codeBlockContainer"] {
+  border-radius: 12px !important;
+  overflow: hidden;
+  margin: 2rem 0 !important;
+  max-width: 100%;
+  transition: transform 0.2s ease;
+}
+
+/* Code block content wrapper */
+div[class*="codeBlockContent"] {
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* Code block header/title */
+div[class*="codeBlockTitle"] {
+  background: #f8fafc !important;
+  border-bottom: 1px solid #e2e8f0;
+  padding: 0.5rem 1rem !important;
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: #475569 !important;
+  letter-spacing: 0.01em;
+}
+
+html[data-theme="dark"] div[class*="codeBlockTitle"] {
+  background: #252528 !important;
+  border-bottom-color: rgba(255, 255, 255, 0.08);
+  color: #94a3b8 !important;
+}
+
+/* Copy button - floating & hidden until hover */
+div[class*="codeBlockContainer"] button[class*="copyButton"] {
+  opacity: 0 !important;
+  background: white !important;
+  border: 1px solid #e2e8f0 !important;
+  border-radius: 8px !important;
+  padding: 0.4rem !important;
+  color: #64748b !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1) !important;
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  z-index: 10;
+}
+
+div[class*="codeBlockContainer"]:hover button[class*="copyButton"] {
+  opacity: 1 !important;
+  transform: translateY(0);
+}
+
+html[data-theme="dark"]
+  div[class*="codeBlockContainer"]
+  button[class*="copyButton"] {
+  background: #2d2d31 !important;
+  border-color: rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3) !important;
+}
+
+div[class*="codeBlockContainer"] button[class*="copyButton"]:hover {
+  background: #8b5cf6 !important;
+  border-color: #8b5cf6 !important;
+  color: white !important;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(139, 92, 246, 0.3) !important;
+}
+
+/* Syntax highlighting - Light theme colors */
+.token.comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #6a737d;
+  font-style: italic;
+}
+
+.token.punctuation {
+  color: #24292e;
+}
+
+.token.property,
+.token.tag,
+.token.boolean,
+.token.number,
+.token.constant,
+.token.symbol {
+  color: #005cc5;
+}
+
+.token.selector,
+.token.attr-name,
+.token.string,
+.token.char,
+.token.builtin {
+  color: #22863a;
+}
+
+.token.operator,
+.token.entity,
+.token.url,
+.language-css .token.string,
+.style .token.string {
+  color: #d73a49;
+}
+
+.token.atrule,
+.token.attr-value,
+.token.keyword {
+  color: #d73a49;
+}
+
+.token.function,
+.token.class-name {
+  color: #6f42c1;
+}
+
+.token.regex,
+.token.important,
+.token.variable {
+  color: #e36209;
+}
+
+/* Dark mode syntax colors */
+html[data-theme="dark"] .token.comment,
+html[data-theme="dark"] .token.prolog,
+html[data-theme="dark"] .token.doctype,
+html[data-theme="dark"] .token.cdata {
+  color: #6c7086;
+}
+
+html[data-theme="dark"] .token.punctuation {
+  color: #a6adc8;
+}
+
+html[data-theme="dark"] .token.property,
+html[data-theme="dark"] .token.tag,
+html[data-theme="dark"] .token.boolean,
+html[data-theme="dark"] .token.number,
+html[data-theme="dark"] .token.constant,
+html[data-theme="dark"] .token.symbol {
+  color: #fab387;
+}
+
+html[data-theme="dark"] .token.selector,
+html[data-theme="dark"] .token.attr-name,
+html[data-theme="dark"] .token.string,
+html[data-theme="dark"] .token.char,
+html[data-theme="dark"] .token.builtin {
+  color: #a6e3a1;
+}
+
+html[data-theme="dark"] .token.operator,
+html[data-theme="dark"] .token.entity,
+html[data-theme="dark"] .token.url {
+  color: #94e2d5;
+}
+
+html[data-theme="dark"] .token.atrule,
+html[data-theme="dark"] .token.attr-value,
+html[data-theme="dark"] .token.keyword {
+  color: #cba6f7;
+}
+
+html[data-theme="dark"] .token.function,
+html[data-theme="dark"] .token.class-name {
+  color: #89b4fa;
+}
+
+html[data-theme="dark"] .token.regex,
+html[data-theme="dark"] .token.important,
+html[data-theme="dark"] .token.variable {
+  color: #f9e2af;
+}
+
+/* Command vs config highlighting */
+.token.command,
+.language-bash .token.function,
+.language-shell .token.function {
+  color: #032f62;
+  font-weight: 500;
+}
+
+html[data-theme="dark"] .token.command,
+html[data-theme="dark"] .language-bash .token.function,
+html[data-theme="dark"] .language-shell .token.function {
+  color: #89dceb;
+}
+
+.language-yaml .token.key,
+.language-json .token.property {
+  color: #22863a;
+}
+
+html[data-theme="dark"] .language-yaml .token.key,
+html[data-theme="dark"] .language-json .token.property {
+  color: #f38ba8;
+}
+
+.language-yaml .token.punctuation,
+.language-json .token.punctuation {
+  color: #6a737d;
+}
+
+html[data-theme="dark"] .language-yaml .token.punctuation,
+html[data-theme="dark"] .language-json .token.punctuation {
+  color: #6c7086;
+}
+
+/* Line numbers */
+.line-number::before {
+  color: #babbbd;
+  padding-right: 1rem;
+  border-right: 1px solid #e1e4e8;
+  margin-right: 1rem;
+}
+
+html[data-theme="dark"] .line-number::before {
+  color: #45475a;
+  border-right-color: #313244;
+}
+
+/* Highlighted lines */
+.docusaurus-highlight-code-line {
+  background: rgba(139, 92, 246, 0.08) !important;
+  display: block;
+  margin: 0 -0.75rem;
+  padding: 0 0.75rem;
+  border-left: 2px solid #8b5cf6;
+}
+
+/* Inline code - subtle styling */
+article.markdown code:not(pre code),
+code:not(pre code) {
+  background: var(--ifm-code-background) !important;
+  color: var(--ifm-code-color) !important;
+  padding: var(--ifm-code-padding-vertical) var(--ifm-code-padding-horizontal) !important;
+  border-radius: var(--ifm-code-border-radius) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  border: 1px solid rgba(251, 146, 60, 0.3) !important;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05) !important;
+  margin: 0.125rem 0.125rem !important;
+}
+
+html[data-theme="dark"] article.markdown code:not(pre code),
+html[data-theme="dark"] code:not(pre code) {
+  border-color: rgba(251, 146, 60, 0.4) !important;
+}
+
+/* ============================================
+   RIGHT-SIDE TOC - STICKY POSITIONING
+   ============================================ */
+
+/* TOC wrapper - must be sticky for child to work */
+[class*="tableOfContents"] {
+  min-width: 180px;
+  width: 100%;
+  flex-shrink: 0;
+  padding-left: 0.5rem;
+  padding-right: 1.25rem; /* Increased padding from content */
+  margin-left: 0;
+  margin-right: 0;
+  position: sticky !important;
+  top: 76px !important;
+  align-self: flex-start !important;
+  max-height: calc(100vh - 96px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 145, 77, 0.3) transparent;
+  border-left: none !important;
+}
+
+/* TOC column - must allow sticky */
+.col.col--3 {
+  --ifm-col-width: 250px !important;
+  flex: 0 0 250px !important;
+  max-width: 250px !important;
+  padding-left: 0.5rem !important;
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+  position: sticky !important;
+  top: 76px !important;
+  align-self: flex-start !important;
+  height: fit-content !important;
+  border-left: none !important;
+}
+
+/* TOC container - sticky with offset */
+.table-of-contents {
+  padding: 0 !important;
+  margin: 0 !important;
+  width: 100% !important;
+  background: transparent !important;
+  border: none !important;
+  border-left: none !important;
+  border-radius: 0;
+  box-shadow: none !important;
+  padding-top: 0.5rem !important;
+  list-style: none !important;
+}
+
+[class*="docItemCol"] ul.table-of-contents ul {
+  padding-left: 0 !important;
+  margin: 0 !important;
+  list-style: none !important;
+}
+
+.table-of-contents li {
+  width: 100% !important;
+  display: block;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Custom scrollbar for TOC */
+[class*="tableOfContents"]::-webkit-scrollbar {
+  width: 4px;
+}
+
+[class*="tableOfContents"]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+[class*="tableOfContents"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 145, 77, 0.3);
+  border-radius: 2px;
+}
+
+[class*="tableOfContents"]::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 145, 77, 0.5);
+}
+
+html[data-theme="dark"] [class*="tableOfContents"] {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  scrollbar-color: rgba(255, 145, 77, 0.4) transparent;
+}
+
+html[data-theme="dark"] [class*="tableOfContents"]::-webkit-scrollbar-thumb {
+  background: rgba(255, 145, 77, 0.4);
+}
+
+/* TOC header */
+.table-of-contents::before {
+  content: "On this page";
+  display: flex !important;
+  align-items: center;
+  width: 100% !important;
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-transform: none;
+  letter-spacing: normal;
+  color: #000;
+  margin-bottom: 1rem;
+  padding-bottom: 0;
+  border-bottom: none;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 6H21M3 12H15M3 18H9' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E")
+    no-repeat left center;
+  background-size: 20px;
+  padding-left: 28px;
+}
+
+html[data-theme="dark"] .table-of-contents::before {
+  color: #fff;
+  border-bottom: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 6H21M3 12H15M3 18H9' stroke='white' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+}
+
+/* TOC links - new layout with left border */
+.table-of-contents__link {
+  display: block !important;
+  width: 100% !important;
+  box-sizing: border-box !important;
+  font-size: 0.8125rem !important;
+  color: #6b7280 !important;
+  padding: 0.375rem 0.5rem 0.375rem 1rem;
+  margin: 0;
+  border-radius: 0;
+  border-left: 2px solid #e5e7eb;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  line-height: 1.5;
+  background: transparent;
+}
+
+.table-of-contents__link:hover {
+  background: transparent;
+  color: #000 !important;
+  border-left-color: #d1d5db;
+}
+
+html[data-theme="dark"] .table-of-contents__link {
+  color: #9ca3af !important;
+  border-left-color: #374151;
+}
+
+html[data-theme="dark"] .table-of-contents__link:hover {
+  background: transparent;
+  color: #e5e7eb !important;
+  border-left-color: #4b5563;
+}
+
+/* Active TOC link */
+.table-of-contents__link--active {
+  background: transparent !important;
+  color: #ff914d !important;
+  font-weight: 500 !important;
+  padding-left: 1.15rem !important;
+  border-left: 2px solid #ff914d !important;
+}
+
+html[data-theme="dark"] .table-of-contents__link--active {
+  background: transparent !important;
+  color: #ff914d !important;
+  border-left-color: #ff914d !important;
+}
+
+/* Nested TOC items */
+.table-of-contents__link--nested {
+  padding-left: 1rem;
+  font-size: 0.75rem !important;
+}
+
+/* ============================================
+   BREADCRUMBS - THEMED WITH PROPER ALIGNMENT
+   ============================================ */
+
+/* Sticky breadcrumbs wrapper */
+nav[class*="theme-doc-breadcrumb"] {
+  position: sticky !important;
+  top: var(--keploy-header-offset) !important;
+  z-index: 10 !important;
+  background: #ffffff !important;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+  padding: 0 !important;
+  border-bottom: none !important;
+}
+
+html[data-theme="dark"] nav[class*="theme-doc-breadcrumb"] {
+  background: #18181b !important;
+  border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.breadcrumbs {
+  font-size: 0.8125rem;
+  margin-bottom: 0 !important;
+  margin-top: 0;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0;
+}
+
+.breadcrumbs__item {
+  display: inline-flex;
+  align-items: center;
+  color: #6b7280;
+}
+
+.breadcrumbs__link {
+  display: inline-flex;
+  align-items: center;
+  color: #6b7280 !important;
+  font-weight: 500;
+  padding: 0.375rem 0.5rem;
+  border-radius: 6px;
+  transition: all 0.15s ease;
+  text-decoration: none;
+}
+
+.breadcrumbs__link:hover {
+  background: rgba(255, 145, 77, 0.08);
+  color: #ff914d !important;
+  text-decoration: none;
+}
+
+.breadcrumbs__item--active .breadcrumbs__link {
+  color: #374151 !important;
+  font-weight: 600;
+  background: rgba(255, 145, 77, 0.05);
+}
+
+html[data-theme="dark"] .breadcrumbs__link {
+  color: #9ca3af !important;
+}
+
+html[data-theme="dark"] .breadcrumbs__link:hover {
+  background: rgba(255, 145, 77, 0.15);
+  color: #ff914d !important;
+}
+
+html[data-theme="dark"] .breadcrumbs__item--active .breadcrumbs__link {
+  color: #e5e7eb !important;
+  background: rgba(255, 145, 77, 0.1);
+}
+
+/* Breadcrumb separator - arrow aligned vertically */
+.breadcrumbs__item:not(:last-child)::after {
+  content: "›";
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0.25rem;
+  color: #9ca3af;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1;
+  height: 100%;
+}
+
+html[data-theme="dark"] .breadcrumbs__item:not(:last-child)::after {
+  color: #6b7280;
+}
+
+/* Home icon alignment */
+.breadcrumbs__link svg {
+  width: 14px;
+  height: 14px;
+  vertical-align: middle;
+}
+
+/* ============================================
+   VERSION PILL - SUBTLE CHIP
+   ============================================ */
+
+/* Version dropdown in navbar */
+.navbar__items--right .dropdown > .navbar__link {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.625rem;
+  background: rgba(139, 92, 246, 0.1);
+  border-radius: 20px;
+  color: #7c3aed;
+  font-weight: 600;
+}
+
+html[data-theme="dark"] .navbar__items--right .dropdown > .navbar__link {
+  background: rgba(139, 92, 246, 0.15);
+  color: #a78bfa;
+}
+
+/* ============================================
+   EDIT THIS PAGE / REQUEST CHANGES LINKS
+   ============================================ */
+
+/* Edit this page link */
+.theme-edit-this-page {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.375rem;
+  font-size: 0.875rem;
+  color: #6b7280;
+  padding: 0.5rem 0.875rem;
+  border-radius: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  transition: all 0.15s ease;
+}
+
+.theme-edit-this-page:hover {
+  background: rgba(255, 145, 77, 0.08);
+  border-color: rgba(255, 145, 77, 0.3);
+  color: #ff914d;
+  text-decoration: none;
+}
+
+html[data-theme="dark"] .theme-edit-this-page {
+  color: #9ca3af;
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .theme-edit-this-page:hover {
+  background: rgba(255, 145, 77, 0.12);
+  color: #ff914d;
+}
+
+/* ============================================
+   KEPLOY VIBE - WARMTH & POLISH
+   ============================================ */
+
+/* Consistent rounded corners */
+.alert,
+.admonition,
+.tabs-container,
+.card,
+[class*="codeBlock"] {
+  border-radius: 14px !important;
+}
+
+/* Keploy orange accent on active states */
+a:hover,
+.menu__link:hover,
+.navbar__link:hover {
+  color: #ff914d;
+}
+
+/* Links with Keploy orange */
+article.markdown a {
+  color: #ea580c;
+  text-decoration: none;
+  border-bottom: 1px solid rgba(234, 88, 12, 0.3);
+  transition: all 0.15s ease;
+}
+
+article.markdown a:hover {
+  color: #ff914d;
+  border-bottom-color: #ff914d;
+}
+
+html[data-theme="dark"] article.markdown a {
+  color: #fb923c;
+  border-bottom-color: rgba(251, 146, 60, 0.3);
+}
+
+html[data-theme="dark"] article.markdown a:hover {
+  color: #ff914d;
+  border-bottom-color: #ff914d;
+}
+
+/* Soft gradients in doc headers */
+.theme-doc-markdown h1 {
+  background: linear-gradient(135deg, #111827 0%, #374151 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+html[data-theme="dark"] .theme-doc-markdown h1 {
+  background: linear-gradient(135deg, #f9fafb 0%, #d1d5db 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Hover outlines with Keploy orange */
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid rgba(255, 145, 77, 0.5);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   ADMONITIONS - UPGRADED STYLING
+   ============================================ */
+
+.admonition {
+  border-radius: 14px !important;
+  border: 1px solid;
+  padding: 1.25rem 1.5rem !important;
+  margin: 1.5rem 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.admonition::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 4px;
+}
+
+.admonition-heading {
+  font-size: 0.875rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.admonition-icon svg {
+  width: 18px;
+  height: 18px;
+}
+
+.admonition-content {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+}
+
+.admonition-content p:last-child {
+  margin-bottom: 0;
+}
+
+/* Note */
+.admonition.admonition-note {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.08) 0%,
+    rgba(99, 102, 241, 0.02) 100%
+  );
+  border-color: rgba(99, 102, 241, 0.2);
+}
+
+.admonition.admonition-note::before {
+  background: linear-gradient(180deg, #6366f1 0%, #4f46e5 100%);
+}
+
+/* Tip */
+.admonition.admonition-tip {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.08) 0%,
+    rgba(16, 185, 129, 0.02) 100%
+  );
+  border-color: rgba(16, 185, 129, 0.2);
+}
+
+.admonition.admonition-tip::before {
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
+}
+
+/* Warning */
+.admonition.admonition-warning,
+.admonition.admonition-caution {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.08) 0%,
+    rgba(245, 158, 11, 0.02) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.2);
+}
+
+.admonition.admonition-warning::before,
+.admonition.admonition-caution::before {
+  background: linear-gradient(180deg, #f59e0b 0%, #d97706 100%);
+}
+
+/* Danger */
+.admonition.admonition-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.08) 0%,
+    rgba(239, 68, 68, 0.02) 100%
+  );
+  border-color: rgba(239, 68, 68, 0.2);
+}
+
+.admonition.admonition-danger::before {
+  background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+}
+
+/* Info */
+.admonition.admonition-info {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.08) 0%,
+    rgba(255, 145, 77, 0.02) 100%
+  );
+  border-color: rgba(255, 145, 77, 0.2);
+}
+
+.admonition.admonition-info::before {
+  background: linear-gradient(180deg, #ff914d 0%, #ff7a2d 100%);
+}
+
+/* Dark mode admonitions */
+html[data-theme="dark"] .admonition.admonition-note {
+  background: linear-gradient(
+    135deg,
+    rgba(99, 102, 241, 0.15) 0%,
+    rgba(99, 102, 241, 0.05) 100%
+  );
+  border-color: rgba(99, 102, 241, 0.25);
+}
+
+html[data-theme="dark"] .admonition.admonition-tip {
+  background: linear-gradient(
+    135deg,
+    rgba(16, 185, 129, 0.15) 0%,
+    rgba(16, 185, 129, 0.05) 100%
+  );
+  border-color: rgba(16, 185, 129, 0.25);
+}
+
+html[data-theme="dark"] .admonition.admonition-warning,
+html[data-theme="dark"] .admonition.admonition-caution {
+  background: linear-gradient(
+    135deg,
+    rgba(245, 158, 11, 0.15) 0%,
+    rgba(245, 158, 11, 0.05) 100%
+  );
+  border-color: rgba(245, 158, 11, 0.25);
+}
+
+html[data-theme="dark"] .admonition.admonition-danger {
+  background: linear-gradient(
+    135deg,
+    rgba(239, 68, 68, 0.15) 0%,
+    rgba(239, 68, 68, 0.05) 100%
+  );
+  border-color: rgba(239, 68, 68, 0.25);
+}
+
+html[data-theme="dark"] .admonition.admonition-info {
+  background: linear-gradient(
+    135deg,
+    rgba(255, 145, 77, 0.15) 0%,
+    rgba(255, 145, 77, 0.05) 100%
+  );
+  border-color: rgba(255, 145, 77, 0.25);
+}
+
+/* ============================================
+   DOC META - MINIMAL TIER/VERSION INDICATOR
+   ============================================ */
+
+/* Doc meta row - sits between breadcrumbs and H1 */
+.doc-meta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.25rem;
+  min-height: 0;
+}
+
+/* Hide empty meta row */
+.doc-meta-row:empty {
+  display: none;
+  margin: 0;
+}
+
+/* Doc meta is now handled inline in the component */
+/* These are fallback/override styles if needed */
+
+.doc-meta {
+  font-size: 0.75rem !important;
+  margin-bottom: 0.5rem !important;
+}
+
+/* ProductTier chips in meta row */
+.product-tier-chips {
+  margin-bottom: 0 !important;
+}
+
+/* ============================================
+   MICRO-POLISH & INTERACTIONS
+   ============================================ */
+
+/* Smooth transitions globally */
+.menu__link,
+.menu__caret,
+.table-of-contents__link,
+.menu__list-item-collapsible {
+  transition: all 0.15s ease !important;
+}
+
+/* Remove harsh decorations */
+.menu__link:hover {
+  text-decoration: none !important;
+}
+
+/* Scrollbar styling for sidebar */
+div[class^="sidebar_"]::-webkit-scrollbar,
+.table-of-contents::-webkit-scrollbar {
+  width: 6px;
+}
+
+div[class^="sidebar_"]::-webkit-scrollbar-track,
+.table-of-contents::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+div[class^="sidebar_"]::-webkit-scrollbar-thumb,
+.table-of-contents::-webkit-scrollbar-thumb {
+  background: var(--sidebar-border);
+  border-radius: 3px;
+}
+
+div[class^="sidebar_"]::-webkit-scrollbar-thumb:hover,
+.table-of-contents::-webkit-scrollbar-thumb:hover {
+  background: var(--sidebar-text-muted);
+}
+
+/* Dark mode contrast fixes */
+html[data-theme="dark"] .menu__link {
+  color: var(--sidebar-text-muted);
+}
+
+html[data-theme="dark"] .menu__link:hover {
+  color: var(--sidebar-text);
+}
+
+html[data-theme="dark"]
+  div[class^="sidebar_"]
+  > nav
+  > ul
+  > li
+  > .menu__list-item-collapsible
+  > a.menu__link {
+  color: var(--sidebar-category-color) !important;
+}
+
+/* ============================================
+   MOBILE SIDEBAR ADJUSTMENTS
+   ============================================ */
+
+@media (max-width: 996px) {
+  .theme-doc-sidebar-container {
+    background: var(--sidebar-bg) !important;
+    width: 100% !important;
+    min-width: unset !important;
+  }
+
+  .theme-doc-sidebar-container > div {
+    position: relative !important;
+    height: auto;
+  }
+
+  main[class*="docMainContainer"] {
+    padding-top: 0 !important;
+    max-width: 100%;
+  }
+
+  .col[class*="docItemCol"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  [class*="docItemContainer"] {
+    padding-right: 0;
+  }
+
+  div[class^="sidebar_"] > nav > ul > li:not(:last-child) {
+    border-bottom: none;
+    padding-bottom: 0.25rem;
+    margin-bottom: 0.25rem;
+  }
+
+  /* Hide TOC on mobile - it appears in mobile menu */
+  [class*="tableOfContents"],
+  .col.col--3 {
+    display: none !important;
+  }
+
+  .table-of-contents {
+    position: relative;
+    top: 0;
+    max-height: none;
+    margin: 1rem 0;
+  }
+
+  /* Code blocks on mobile - white background, minimal padding */
+  pre[class*="language-"],
+  .prism-code {
+    padding: 0.5rem !important;
+    border-radius: 6px !important;
+    font-size: 0.75rem !important;
+    white-space: pre-wrap;
+    word-break: break-word;
+    overflow-x: auto;
+    max-width: 100%;
+    background: #fff !important;
+  }
+
+  div[class*="codeBlockContainer"] {
+    margin: 0.5rem 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  /* Content area on mobile */
+  .col[class*="docItemCol"] {
+    padding-left: 1rem !important;
+    padding-right: 1rem !important;
+  }
+
+  article.markdown {
+    font-size: 0.9375rem;
+  }
+
+  /* Admonitions on mobile */
+  .admonition {
+    padding: 1rem !important;
+    border-radius: 10px !important;
+  }
+
+  /* Breadcrumbs on mobile */
+  .breadcrumbs {
+    font-size: 0.75rem;
+  }
+
+  /* Tables on mobile */
+  article.markdown table {
+    display: block;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+}
+
+/* Global Table Breathability */
+article.markdown table {
+  display: table;
+  width: 100%;
+  margin-bottom: 2rem !important;
+}
+
+article.markdown th,
+article.markdown td {
+  padding: 12px 18px !important;
+  line-height: 1.6;
+}
+
+/* Tablet breakpoint */
+@media (min-width: 997px) and (max-width: 1200px) {
+  [class*="tableOfContents"] {
+    min-width: 140px;
+    max-width: 180px;
+    padding-left: 0.25rem;
+    padding-right: 0.5rem;
+    margin-right: 0;
+  }
+
+  .col.col--3 {
+    --ifm-col-width: 180px !important;
+    flex: 0 0 180px !important;
+    max-width: 180px !important;
+    padding-right: 0.75rem !important;
+    padding-left: 0.25rem !important;
+  }
+
+  :root {
+    --doc-sidebar-width: 200px !important;
+  }
+
+  .theme-doc-sidebar-container {
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
+  }
+
+  .col[class*="docItemCol"] {
+    padding-left: 1rem !important;
+    padding-right: 0.5rem !important;
+  }
+
+  .table-of-contents__link {
+    font-size: 0.75rem !important;
+    padding: 0.25rem 0.375rem;
+  }
+
+  .table-of-contents::before {
+    font-size: 0.625rem;
+  }
+}
+
+/* Medium screens */
+@media (min-width: 997px) and (max-width: 1100px) {
+  [class*="tableOfContents"] {
+    min-width: 120px;
+    max-width: 160px;
+  }
+
+  .col.col--3 {
+    --ifm-col-width: 160px !important;
+    flex: 0 0 160px !important;
+    max-width: 160px !important;
+    padding-right: 0.5rem !important;
+  }
+
+  :root {
+    --doc-sidebar-width: 180px !important;
+  }
+
+  .theme-doc-sidebar-container {
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
+  }
+}
+
+/* Large screens */
+@media (min-width: 1400px) {
+  [class*="tableOfContents"] {
+    min-width: 200px;
+    max-width: 240px;
+  }
+
+  .col.col--3 {
+    --ifm-col-width: 260px !important;
+    flex: 0 0 260px !important;
+    max-width: 260px !important;
+    padding-right: 1.5rem !important;
+  }
+
+  :root {
+    --doc-sidebar-width: 280px !important;
+  }
+
+  .theme-doc-sidebar-container {
+    width: var(--doc-sidebar-width) !important;
+    min-width: var(--doc-sidebar-width) !important;
+  }
+
+  .col[class*="docItemCol"] {
+    padding-left: 2rem !important;
+    padding-right: 1rem !important;
+  }
+}
+
+/* Support strip (Need help? Slack | Demo) */
+.support-strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 10px;
+  background: var(--ifm-color-emphasis-100);
+  /* Slim strip look */
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+#support span {
+  color: #252525;
+  font-weight: 400;
+}
+
+/* Dark mode */
+[data-theme="dark"] #support span {
+  color: #ffffff;
+  /* or a softer light gray like #e0e0e0 */
+}
+
+#support a {
+  font-weight: 600;
+  color: #ff7849;
+  text-decoration: none;
+}
+
+#support a:hover {
+  color: #ffa07a;
+  text-decoration: underline;
+}
+
+/* ===== FINAL Compact Pagination ===== */
+
+.pagination-nav {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  border-top: 2.5px solid var(--ifm-color-emphasis-200);
+  padding-top: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 3rem;
+}
+
+@media (min-width: 768px) {
+  .pagination-nav {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+.pagination-nav__item {
+  width: 100%;
+}
+
+.pagination-nav__item--next {
+  grid-column: 2 / 3;
+}
+
+@media (max-width: 767px) {
+  .pagination-nav__item--next {
+    grid-column: 1 / 2;
+  }
+}
+
+.pagination-nav__link {
+  padding: 1rem !important;
+  border-radius: 6px !important;
+  box-shadow: none !important;
+  border: 1.5px solid var(--ifm-color-emphasis-200) !important;
+  background: transparent !important;
+  min-height: auto !important;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100% !important;
+}
+
+.pagination-nav__label {
+  font-weight: 700 !important;
+  color: var(--ifm-color-emphasis-900) !important;
+  font-size: 0.9rem;
+}
+
+.pagination-nav__sublabel {
+  font-weight: 500;
+  color: var(--ifm-color-emphasis-600);
+}
+
+/* Hover */
+.pagination-nav__link:hover {
+  border-color: var(--ifm-color-primary) !important;
+  background-color: var(--ifm-color-emphasis-100) !important;
+  text-decoration: none;
+}
+
+/* Title */
+.pagination-nav__title {
+  font-size: 0.85rem !important;
+  font-weight: 600;
+  color: var(--ifm-font-color-base);
+  line-height: 1.4;
+}
+
+/* Arrows subtle */
+.pagination-nav__link svg {
+  transform: scale(0.7);
+  opacity: 1.65;
+}
+
+[data-theme="dark"] .pagination-nav__link {
+  border-color: var(--ifm-color-emphasis-100) !important;
+}
+
+[data-theme="dark"] .pagination-nav__label {
+  color: var(--ifm-color-emphasis-500) !important;
+}
+
+/* ===== Footer scoped to content area on doc pages ===== */
+
+/* Default: footer border ON everywhere */
+.theme-layout-footer.footer {
+  border-top: 1px solid var(--ifm-toc-border-color);
+  margin-top: 0;
+  padding-top: 2rem;
+}
+
+/* On doc pages, offset footer so it doesn't overlap sidebar (desktop only) */
+@media (min-width: 997px) {
+  .plugin-docs .theme-layout-footer.footer,
+  .docs-wrapper ~ .theme-layout-footer.footer,
+  [class*="docsWrapper"] ~ footer,
+  .plugin-docs footer.footer {
+    margin-left: var(--doc-sidebar-width, 260px) !important;
+  }
+}
+
+/* Remove border ONLY on landing page */
+.plugin-pages.plugin-id-default .theme-layout-footer.footer {
+  border-top: none !important;
+  margin-left: 0 !important;
+}
+
+/* Hide the global Docusaurus footer on docs pages; footer is rendered inline in DocItem */
+.docs-doc-page .theme-layout-footer.footer,
+.docs-doc-page footer.footer,
+.plugin-docs footer.footer {
+  display: none !important;
+}
+
+/* Inline docs footer under prev/next pagination */
+.docs-inline-footer {
+  width: 100%;
+  max-width: 100%;
+  text-align: center;
+  padding: 1.25rem 0 1.2rem;
+}
+
+.docs-inline-footer__social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5.5rem;
+  margin-bottom: 2rem;
+}
+
+.docs-inline-footer__social a,
+.docs-inline-footer__usecase a,
+.docs-inline-footer__meta a {
+  color: #111827;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+}
+
+.docs-inline-footer__social a:hover,
+.docs-inline-footer__usecase a:hover,
+.docs-inline-footer__meta a:hover {
+  color: #374151;
+}
+
+.docs-inline-footer__social svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+  display: block;
+}
+
+.docs-inline-footer__slack {
+  width: 24px;
+  height: 24px;
+  display: inline-block;
+  background: var(--slack-logo) center / contain no-repeat;
+  vertical-align: middle;
+}
+
+.docs-inline-footer__usecase {
+  margin-bottom: 0.65rem;
+  font-size: 1rem;
+  line-height: 1.3;
+}
+
+.docs-inline-footer__usecase a {
+  color: #6b7280;
+}
+
+.docs-inline-footer__meta {
+  font-size: 1rem;
+  line-height: 1.35;
+  color: #111827;
+}
+
+.docs-inline-footer__meta > span {
+  display: block;
+  margin-bottom: 0.55rem;
+}
+
+.docs-inline-footer__links {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.docs-inline-footer__links a {
+  color: #6b7280;
+}
+
+.docs-inline-footer__sep {
+  color: #6b7280;
+}
+
+html[data-theme="dark"] .docs-inline-footer__social a,
+html[data-theme="dark"] .docs-inline-footer__meta {
+  color: #e5e7eb;
+}
+
+html[data-theme="dark"] .docs-inline-footer__social a:hover,
+html[data-theme="dark"] .docs-inline-footer__meta a:hover,
+html[data-theme="dark"] .docs-inline-footer__usecase a:hover {
+  color: #f3f4f6;
+}
+
+html[data-theme="dark"] .docs-inline-footer__usecase a,
+html[data-theme="dark"] .docs-inline-footer__links a,
+html[data-theme="dark"] .docs-inline-footer__sep {
+  color: #d1d5db;
+}
+
+html[data-theme="dark"] .docs-inline-footer__slack {
+  filter: brightness(1.8);
+}
+
+/* ===== MOBILE FIX FOR PREV / NEXT CARDS ===== */
+@media (max-width: 768px) {
+  .pagination-nav {
+    display: flex !important;
+    flex-direction: column !important; /* stack vertically */
+    gap: 12px;
+  }
+
+  .pagination-nav__link {
+    width: 100% !important;
+    padding: 14px !important;
+  }
+
+  .pagination-nav__label {
+    font-size: 0.85rem !important;
+  }
+
+  .pagination-nav__title {
+    font-size: 0.9rem !important;
+    line-height: 1.4;
+  }
+
+  .docs-inline-footer {
+    max-width: 100%;
+    padding: 0.4rem 0 0.85rem;
+  }
+
+  .docs-inline-footer__social svg,
+  .docs-inline-footer__slack {
+    width: 22px;
+    height: 22px;
+  }
+
+  .docs-inline-footer__social {
+    gap: 2rem;
+    margin-bottom: 1.15rem;
+  }
+
+  .docs-inline-footer__usecase {
+    font-size: 0.95rem;
+  }
+
+  .docs-inline-footer__meta {
+    font-size: 0.95rem;
+  }
+}
+
+/* Developer section: screenshots sit closer to the text around them. The pages
+   carry a hidden <div className="developer-doc" /> marker, so other docs keep
+   the default image spacing. */
+.theme-doc-markdown:has(.developer-doc) p > img {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }

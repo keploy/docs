@@ -19,13 +19,13 @@ keploy [command] [flags]
 
 You can use `--help, -h` flag for all the commands to see available flag options and their purpose.
 
-## Modes and Flags
+## Commands and Flags
 
 Here are some examples of how to use some common flags:
 
-| Mode        | Flags Available                                                                                                                                                                                                                                                                                                                          |
+| Command     | Flags Available                                                                                                                                                                                                                                                                                                                          |
 | ----------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                    |
+| `record`    | `-c, --command`, `--config-path`, `--containerName`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `--debug`                                                                                                                                                                                                   |
 | `test`      | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --net, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxyport`, `-t, --testsets`, `--debug`, `-g, --generateTestReport`, `--removeUnusedMocks`, `--coverage`, `--goCoverage`, `--ignoreOrdering`, `--skip-preview` |
 | `gen`       | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                             |
 | `normailze` | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                    |
@@ -64,12 +64,6 @@ keploy record [flags]
 
   ```bash
   keploy record -c "docker compose up" --container-name "my-app-container"
-  ```
-
-- `-d, --delay uint` - Delay in seconds to run user application. The default is 5 seconds.
-
-  ```bash
-  keploy record -c "node src/app.js" -d 10
   ```
 
 - `- n, --network-name string` - Name of the docker network in which the user application is running.

@@ -47,12 +47,6 @@ In addition to the benefits listed above, unit test automation can also help to:
 - Improve the documentation of code by providing test cases that demonstrate how the code is supposed to work.
 - Support continuous integration and continuous delivery (CI/CD) pipelines. This allows teams to release new code more frequently and with greater confidence.
 
-## Resources
-
-- [Unit Testing Automation: A Beginner's Guide](https://www.guru99.com/unit-testing-automation.html)
-- [The Benefits of Unit Test Automation](https://semaphoreci.com/community/tutorials/the-benefits-of-unit-test-automation)
-- [Unit Testing Tools](https://www.stackify.com/unit-testing-tools/)
-
 ## Conclusion
 
 Unit test automation is a valuable tool for software development teams that care about quality, reliability, and efficiency. When done well, it can greatly improve the development process and the time it takes to release a product.

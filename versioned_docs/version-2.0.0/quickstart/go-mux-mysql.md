@@ -12,7 +12,7 @@ tags:
   - mysql
   - sql
   - mux-framework
-keyword:
+keywords:
   - Mux Framework
   - MySQL
   - Golang
@@ -22,7 +22,7 @@ keyword:
 
 ## Introduction
 
-A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and [MySQL](https://www.mysql.com/). Buckle up, it's gonna be a fun ride! 🎢
+A sample url shortener app to test Keploy integration capabilities using [Mux](https://github.com/gorilla/mux) and MySQL. Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -74,11 +74,11 @@ Once we have our Docker image file ready,this command will start the recording o
 keploy record -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-network url-short:latest"
 ```
 
-Make API Calls using Hoppscotch, Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
+Make API Calls using Postman or cURL command. Keploy with capture those calls to generate the test-suites containing testcases and data mocks.
 
 ### Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use Postman or simply `curl`
 
 #### Generate shortened url
 
@@ -109,7 +109,7 @@ curl --request GET http://localhost:8080/all
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` file that contains all the outputs of MySQL operations. Here's what the folder structure look like:
 
-![Testcase](/img/mux-mysql-keploy-record.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-record.webp" alt="Testcase" width="2086" height="1476" style={{maxWidth:'100%',height:'auto'}} />
 
 Now, let's see the magic! ✨💫
 
@@ -125,7 +125,7 @@ keploy test -c "docker run -p 8080:8080 --name urlshort --rm --network keploy-ne
 
 output should look like
 
-![Testrun](/img/mux-mysql-keploy-tests.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/mux-mysql-keploy-tests.webp" alt="Testrun" width="2316" height="1494" style={{maxWidth:'100%',height:'auto'}} />
 
 So no need to setup fake database/apis MySQL or write mocks for them. Keploy automatically mocks them and, **The application thinks it's talking to MySQL 😄**
 
@@ -134,8 +134,6 @@ So no need to setup fake database/apis MySQL or write mocks for them. Keploy aut
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Happy coding! ✨👩‍💻👨‍💻✨
-
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
 
 ## Running App Locally on Linux/WSL 🐧
 
@@ -221,7 +219,3 @@ We will get output something like this:
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

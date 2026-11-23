@@ -28,7 +28,7 @@ Keploy can be installed in two ways:
 ## One click install Keploy.
 
 ```shell
- curl --silent -O https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Manual Install
@@ -73,7 +73,7 @@ Run this command on your terminal to start the recording of API calls:-
 sudo -E keploy record -c "path/to/the/application/binary"
 ```
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
+Make API Calls using Postman or cURL command.
 
 Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
 mocks into `YAML` format.
@@ -104,7 +104,7 @@ By default, Docker Desktop may not be configured to work with all WSL 2 distros 
 
 For detailed instructions on how to configure `Docker Desktop` for WSL 2, please refer to the [official Docker documentation](https://docs.docker.com/desktop/wsl/).
 
-### Creating Alias
+### Create a network
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.
@@ -121,7 +121,7 @@ docker network create keploy-network
 Now, we record the testcases.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 #### Run the Test Mode

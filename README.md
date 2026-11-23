@@ -10,7 +10,8 @@ Repository for the Keploy documentation website.
 </p>
 </div>
 
-**Note** :- Issue Creation is disabled on this Repository, please visit [here](https://github.com/keploy/keploy/issues/new/choose) to submit Issue.
+> ⚠️ **Note:** Issue creation is disabled in this repository.  
+> To submit a new issue, please visit the [Keploy community forum](https://github.com/keploy/dashboard/issues) or the main repo’s issue tracker.
 
 <p align="center">
 <a href="https://github.com/keploy/docs" alt="GitHub contributors">
@@ -19,7 +20,7 @@ Repository for the Keploy documentation website.
 <a href="https://github.com/keploy/docs" alt="GitHub issues by-label">
 <img src="https://img.shields.io/github/issues/keploy/docs" />
 </a>
-<a href="https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw" alt="Slack">
+<a href="https://keploy.io/slack" aria-label="Slack">
 <img src="https://img.shields.io/badge/Slack-@layer5.svg?logo=slack" />
 </a>
 <a href="https://twitter.com/Keployio" alt="Twitter Follow">
@@ -38,7 +39,7 @@ Page slugs (URLs), menu labels, and the location of information are a few of the
 
 The documentation in this repository is published to https://docs.keploy.io.
 
-If information you are looking for seems to be missing, visit the [Keploy community](https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw) forum for help.
+If information you are looking for seems to be missing, visit the [Keploy community](https://keploy.io/slack) forum for help.
 
 Please read the [CONTRIBUTING](/CONTRIBUTING.md) guide and the [STYLE](/STYLE.md) guide before you submit any pull requests.
 
@@ -51,29 +52,31 @@ We use a variety of technologies to build the web interface and support the comm
 
 - [NodeJS](https://nodejs.org/)
 - [Yarn package manager](https://yarnpkg.com/)
-- [Docusaurus](https://docusaurus.io/)
 - [React](https://reactjs.org/)
 - [GitHub Actions](https://github.com/features/actions)
+- [Docusaurus](https://docusaurus.io/)
 
 We use NodeJS and Yarn to install, test, and build the website. Docusaurus has been used as a static site generator to build the website. React is being utilized to build our custom component-based user interface to provide a modern look to the website. GitHub Actions manages our CI/CD pipelines and issue triage.
 
 ## Installation
 
-The Keploy documentation site uses [Docusaurus 2](https://v2.docusaurus.io/), which is a static website generator.
+The Keploy documentation site uses Docusaurus 2 which is a static website generator.
 
 You can make changes locally without previewing them in the browser.
-However, if you want to build the site and preview changes in the browser, you need to have [Docusaurus 2 dependencies](https://v2.docusaurus.io/docs/installation/#requirements) installed.
+However, if you want to build the site and preview changes in the browser, you need to have Docusaurus 2 dependencies installed.
 
-Initialize Docusaurus 2 in the repo by running [`npm`](https://docs.npmjs.com/cli/v7/commands/npm-install) once in the root directory of the repo.
+Initialize Docusaurus 2 in the repo by running [`yarn`](https://classic.yarnpkg.com/en/docs/cli/) once in the root directory of the repo. Use yarn, not npm: `yarn.lock` and the `resolutions` field of `package.json` pin the dependency versions, and npm keeps to neither.
 
 Now you can build and view the site locally:
 
 ```bash
-npm install
-npm start
+yarn install
+yarn start
 ```
 
 The command starts a local development server and opens a browser window.
+
+> 💡 **Tip:** After running `yarn install`, use `yarn start` to preview changes live at `http://localhost:3000/`.
 
 ## Running Vale Locally for Documentation Linting
 
@@ -117,10 +120,10 @@ MinAlertLevel = error
 
 ### Running Vale
 
-1. Linting Documentation: To check all markdown files in versioned_docs/version-2.0.0/ for errors, run:
+1. Linting Documentation: To check all markdown files in versioned_docs/version-3.0.0/ for errors, run:
 
 ```bash
-vale versioned_docs/version-2.0.0/**/*.md
+vale versioned_docs/version-3.0.0/**/*.md
 ```
 
 2. Review Errors:
@@ -150,23 +153,23 @@ cd docs
 3. Install all the dependencies
 
 ```sh
-npm install
+yarn install
 
 ## Start the development server.
 
-npm start
+yarn start
 ```
 
 4. To reformat:
 
 ```sh
-npm prettier --write '**/*.{js,md}'
+npx prettier --write '**/*.{js,md}'
 ```
 
 5. Check the build status:
 
 ```sh
-npm run build
+yarn build
 ```
 
 > Note: if the Build is failing, fix the changes before making PR.
@@ -183,7 +186,7 @@ Keploy welcomes contributions to the docs website. If you have an idea for a new
 
 Reach out to us. We're here to help!
 
-[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://join.slack.com/t/keploy/shared_invite/zt-2poflru6f-_VAuvQfCBT8fDWv1WwSbkw)
+[![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)](https://keploy.io/slack)
 [![LinkedIn](https://img.shields.io/badge/linkedin-%230077B5.svg?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/company/keploy/)
 [![YouTube](https://img.shields.io/badge/YouTube-%23FF0000.svg?style=for-the-badge&logo=YouTube&logoColor=white)](https://www.youtube.com/channel/UC6OTg7F4o0WkmNtSoob34lg)
 [![Twitter](https://img.shields.io/badge/Twitter-%231DA1F2.svg?style=for-the-badge&logo=Twitter&logoColor=white)](https://twitter.com/Keployio)

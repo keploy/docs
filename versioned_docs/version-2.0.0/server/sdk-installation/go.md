@@ -5,7 +5,7 @@ sidebar_label: Go
 tags:
   - go
   - coverage
-keyword:
+keywords:
   - coverage
   - Echo Framework
   - Gorilla/Mux Framework

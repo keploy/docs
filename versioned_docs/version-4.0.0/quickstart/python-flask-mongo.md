@@ -1,0 +1,246 @@
+---
+id: samples-flask
+title: Sample Task Creation CRUD App
+sidebar_label: Flask + Mongo
+description: The following sample app showcases how to use the Flask framework and the Keploy Platform.
+
+tags:
+  - python
+  - quickstart
+  - samples
+  - examples
+  - tutorial
+  - python-framework
+  - mongodb
+  - flask-framework
+keywords:
+  - Flask Framework
+  - MongoDB
+  - NoSQL
+  - Python
+  - API Test generator
+  - Auto case generation
+---
+
+import HowTo from '@site/src/components/HowTo';
+
+<HowTo
+name="Sample Task Creation CRUD App — record and replay tests with Keploy"
+description="Clone the sample app, run it under Keploy to capture API traffic, then replay the recorded testcases."
+totalTime="PT10M"
+estimatedCost={{currency: "USD", value: "0"}}
+tools={["Keploy CLI", "Docker", "git"]}
+visible={false}
+steps={[
+{
+name: "Install Keploy",
+text: "Install the Keploy CLI: on Linux or macOS (Apple Silicon) with the install script from https://keploy.io/install.sh, or on Windows (x86-64) as keploy.exe from PowerShell (https://keploy.io/docs/installation/windows-installation/#option-1-run-keploy-natively). The app runs natively on Linux, macOS and Windows.",
+},
+{
+name: "Clone the sample app",
+text: "Clone the sample repo referenced on this page and install its dependencies.",
+},
+{
+name: "Start dependencies (database, etc.)",
+text: "Bring up any Docker services the app needs (databases, message queues) before recording.",
+},
+{
+name: "Record API calls",
+text: "Run keploy record -c \"CMD_TO_RUN_APP\" and exercise the app's endpoints (curl, Postman) to capture testcases and mocks.",
+},
+{
+name: "Replay tests",
+text: "Run keploy test -c \"CMD_TO_RUN_APP\" --delay 10 to replay the recorded testcases and detect regressions.",
+},
+]}
+/>
+
+import Link from '@docusaurus/Link'
+import InstallReminder from '@site/src/components/InstallReminder';
+import SectionDivider from '@site/src/components/SectionDivider';
+
+## How to run the sample application Using Docker Compose 🐳
+
+🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+<InstallReminder />
+
+### Clone a simple Student Management API 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
+```
+
+We will be using Docker compose to run the application as well as Mongo on Docker container.
+
+### Lights, Camera, Record! 🎥
+
+Capture the test-cases-
+
+```shell
+keploy record -c "docker compose up" --container-name "flask-app" --buildDelay 50
+```
+
+🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
+
+Let's make URLs short and sweet:
+
+### Generate testcases
+
+To generate testcases we just need to **make some API calls.**
+
+1. **Make a POST request:**
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+```
+
+2. **Make a GET request:**
+
+```bash
+curl http://localhost:6000/students
+```
+
+3. **Make a PUT request:**
+
+```bash
+curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+```
+
+4. **Make a DELETE request:**
+
+```bash
+curl -X DELETE http://localhost:6000/students/12345
+```
+
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
+
+Want to see if everything works as expected?
+
+### Run Tests
+
+Time to put things to the test 🧪
+
+```shell
+keploy test -c "docker compose up" --container-name "flask-app" --buildDelay 50 --delay 10
+```
+
+> The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
+
+Happy coding! ✨👩‍💻👨‍💻✨
+
+<SectionDivider />
+
+## How to Run the App Locally 💻 {#how-to-run-the-app-locally-on-linuxwsl-}
+
+🪄 Dive into the world of Student CRUD Apps and see how seamlessly Keploy integrated with Flask and MongoDB Buckle up, it's gonna be a fun ride! 🎢
+
+This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see [Installing Keploy](/docs/server/installation/).
+
+## Clone a simple Student Management API 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/flask-mongo
+```
+
+We'll be running our sample application right on your machine, but just to make things a tad more thrilling, we'll have the database (MongoDB) chill on Docker. Ready? Let's get the party started!🎉
+
+## Install all dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+## Start the MongoDB container
+
+```bash
+docker run -p 27017:27017 -d --network backend --name mongo mongo
+```
+
+> **Since we are using a MongoDB container, we need to update the `client` on line 11 in `app.py`, to `localhost`.**
+
+## Lights, Camera, Record! 🎥
+
+To initiate the recording of API calls, execute this command in your terminal:
+
+```bash
+keploy record -c "python3 app.py"
+```
+
+On macOS, install the requirements into a virtualenv built on a Homebrew or uv Python and use its interpreter here and in the test step, e.g. `keploy record -c ".venv/bin/python app.py"` — Apple's `/usr/bin/python3` and pyenv shims drop Keploy's instrumentation ([details](/docs/installation/macos-installation/#option-1-run-keploy-natively)). On Windows, use `python app.py` if `python3` isn't on your `PATH`.
+
+Now, your app will start running, and you have to make some API calls to generate the test cases!!
+
+1. **Make a POST request:**
+
+```bash
+curl -X POST -H "Content-Type: application/json" -d '{"student_id": "12345", "name": "John Doe", "age": 20}' http://localhost:6000/students
+```
+
+2. **Make a GET request:**
+
+```bash
+curl http://localhost:6000/students
+```
+
+3. **Make a PUT request:**
+
+```bash
+curl -X PUT -H "Content-Type: application/json" -d '{"name": "Jane Smith", "age": 21}' http://localhost:6000/students/12345
+```
+
+4. **Make a DELETE request:**
+
+```bash
+curl -X DELETE http://localhost:6000/students/12345
+```
+
+And once you are done, you can stop the recording and give yourself a pat on the back! With that simple spell, you've conjured up a test case with a mock! Explore the **keploy** directory and you'll discover your handiwork in `tests` directory and `mocks.yml`.
+
+## Run the tests
+
+Now, it's time to put things to the test 🧪
+
+```bash
+keploy test -c "python3 app.py" --delay 10
+```
+
+Now, you can also try different API calls, tweak the DB response in the mocks.yml, or fiddle with the request or response in test-x.yml. Run the tests again and see the magic unfold!
+
+## Check Test Coverage
+
+We have a `test-app.py` where all the unit test cases has been written. Now using Keploy, we can check it's code coverage!!
+Now to run your unit tests with Keploy, you can run the command given below:
+
+```bash
+python3 -m coverage run -p --data-file=.coverage.unit -m pytest -s test_keploy.py test_app.py
+```
+
+To combine the coverage from the unit tests, and Keploy's API tests we can use the command below:
+
+```bash
+python3 -m coverage combine
+```
+
+Finally, to generate the coverage report for the test run, you can run:
+
+```bash
+python3 -m coverage report
+```
+
+and if you want the coverage in an html file, you can run:
+
+```bash
+python3 -m coverage html
+```
+
+## Wrapping it up 🎉
+
+Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible.😊🚀
+
+## Related
+
+- [Sample Python Apps](/docs/quickstart/python-filter/) — Browse more Python Keploy samples.
+- [Sample Student Data CRUD App](/docs/quickstart/samples-fastapi/) — Python FastAPI CRUD sample.
+- [Sample User Data CRUD App (Django)](/docs/quickstart/samples-django/) — Python Django CRUD sample.
+- [Sample Movie API with Sanic and MongoDB](/docs/quickstart/sanic-mongo/) — Another Python MongoDB app.

@@ -4,6 +4,12 @@ import Link from "@docusaurus/Link";
 
 const links = [
   {
+    type: "video",
+    title: "AI Powered API testing",
+    length: "1 min watch",
+    url: "https://youtu.be/W6kh-TCUQH0?feature=shared",
+  },
+  {
     type: "article",
     title: "What's Keploy?",
     length: "3-20 min reads",
@@ -47,6 +53,7 @@ export const Resources = () => {
             {link.type === "article" ? (
               // Article Link Icon
               <svg
+                aria-hidden="true"
                 className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"
@@ -61,6 +68,7 @@ export const Resources = () => {
             ) : (
               // Other Link Icon (e.g., video, documentation)
               <svg
+                aria-hidden="true"
                 className="h-7 w-7 text-[color:var(--ifm-color-primary-dark)]"
                 fill="currentColor"
                 viewBox="0 0 20 20"

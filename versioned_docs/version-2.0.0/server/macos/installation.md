@@ -32,7 +32,7 @@ There are two ways to install Keploy eBPF in MacOS, you can use either use:
 ## One click install Keploy.
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Using Docker Desktop
@@ -74,7 +74,7 @@ Start Colima with defaults
 colima start
 ```
 
-### Creating Alias
+### Create a network
 
 We need to create a custom network for Keploy since we are using the Docker, therefore application container would
 require `docker network` to act as the bridge between them.
@@ -101,11 +101,10 @@ Here are few points to consider before recording!
 Utilize keploy to capture testcases. **Execute** the following command within your application's **root directory**.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
-Perform API calls using tools like [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/), or cURL
-commands.
+Make API Calls using Postman , or cURL commands.
 
 Keploy will capture the API calls you've conducted, generating test suites comprising **testcases (KTests) and data
 mocks (KMocks)** in `YAML` format.

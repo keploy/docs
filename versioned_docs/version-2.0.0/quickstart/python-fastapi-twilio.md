@@ -12,9 +12,10 @@ tags:
   - python-framework
   - fast-api-framework
   - postgres
+  - pytest
   - sms
   - twilio
-keyword:
+keywords:
   - FastAPI Framework
   - Twilio
   - SMS
@@ -25,7 +26,7 @@ keyword:
 
 # Introduction
 
-🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with [FastAPI](https://fastapi.tiangolo.com/) and [Twilio](https://www.twilio.com/en-us). Buckle up, it's gonna be a fun ride! 🎢
+🪄 Dive into the world of SMS Sending Apps and see how seamlessly Keploy can be integrated with FastAPI and Twilio . Buckle up, it's gonna be a fun ride! 🎢
 
 import InstallationGuide from '../concepts/installation.md'
 
@@ -35,7 +36,7 @@ import InstallationGuide from '../concepts/installation.md'
 
 ## Setup the Twilio Account 💬
 
-You can get your Twilio credentials by signing in to [Twilio Console](https://console.twilio.com/).
+You can get your Twilio credentials by signing in to Twilio Console.
 Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
 
 ## Clone the Sample App 🧪
@@ -244,8 +245,6 @@ Congrats on the journey so far! You've seen Keploy's power, flexed your coding m
 
 Happy coding! ✨👩‍💻👨‍💻✨
 
-**\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\_\_\_\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\*\*\***\*\*\***
-
 ## Running App Locally on Linux/WSL 🐧
 
 We'll be running our sample application right on Linux. Ready? Let's get the party started!🎉
@@ -448,7 +447,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the Twilio response 
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

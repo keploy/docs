@@ -132,7 +132,7 @@ keployV2 test --c "docker run -p 8080:8080  --name <containerName> --network kep
 
 #### Build Docker Image:
 
-Run the below command inside the keploy respository and make sure there is no directory by the name of keploy inside the main keploy repository.
+Run the below command inside the keploy repository and make sure there is no directory by the name of keploy inside the main keploy repository.
 
 ```shell
 sudo docker image build -t ghcr.io/keploy/keploy:v2-dev .
@@ -163,7 +163,3 @@ There you have it! With this guide, you're all set to dive into Keploy developme
 > **Note** :- Run `go run github.com/99designs/gqlgen generate --config pkg/graph/gqlgen.yml` to generate the graphql server stubs which can be used when working with unit testing libraries like JUnit, PyTest, etc..
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

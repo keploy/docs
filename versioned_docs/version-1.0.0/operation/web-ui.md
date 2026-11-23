@@ -17,7 +17,7 @@ Keploy Console consists of 2 pages majorly :
 
 The Test Cases page lists all the Application names and their respective Test-Cases captured.
 
-![test case page](/img/test-case-page1.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-case-page1.webp" alt="test case page" width="1512" height="548" style={{maxWidth:'100%',height:'auto'}} />
 
 You can see the details of the Test Cases captures. Currently following details can be seen from the Web console :
 
@@ -26,7 +26,7 @@ You can see the details of the Test Cases captures. Currently following details 
 - Dependency Captured Type and Operation
 - Raw Event with details like noisy and anchor fields
 
-![test case detail](/img/test-case-detail.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-case-detail.webp" alt="test case detail" width="2872" height="826" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Edit a Test Case
 
@@ -48,7 +48,7 @@ On the Test runs pages you will see the recent Test Runs with details like :
 3. Number of Test Cases Failed
 4. Meta details like : App name, time, user.
 
-![test run page](/img/test-run-page1.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/test-run-page1.webp" alt="test run page" width="1494" height="499" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Normalise a Test Case
 
@@ -57,6 +57,6 @@ go to the test run and particular test case detail that failed and mark it as no
 
 This will modify the test-case and will be accepted as the expected response for future test runs.
 
-![normalise](../../../static/img/normalise-test-case.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/normalise-test-case.webp" alt="normalise" width="2878" height="1122" style={{maxWidth:'100%',height:'auto'}} />
 
 > Note : Since Test Runs are historical, normalising a test-case result in a test-run would not mark it success.

@@ -1,0 +1,533 @@
+---
+id: configuration-file
+title: Configuration File
+sidebar_label: Configuration file
+description: This section introduces the configuration file
+tags:
+  - configuration file
+keywords:
+  - configuration
+---
+
+import ProductTier from '@site/src/components/ProductTier';
+
+<ProductTier tiers="Free, Teams, Scale, Enterprise" />
+
+## Introduction
+
+Tired of specifying the same container name, app command, or delay, filters for each record or test command? 😴
+
+Introducing **Keploy-config** 🎉 - It is a YAML-based file that will allow you to define the testing configurations, including container setups, delays, and any other relevant parameters.
+
+## Getting Started:
+
+We will be using a sample app to demonstrate working of Keploy configuration file.
+
+To generate a keploy-config file, run:
+
+```bash
+keploy config --generate --path "./config-dir/"
+```
+
+For demonstration purposes, we are using the [root directory of the echo-sql application](https://github.com/keploy/samples-go/tree/main/echo-sql). We can place it wherever we want to inside the project.
+
+After successful execution of the command, a default initialized config file named as `keploy.yaml` has been created with the content as shown below:
+
+```yaml
+path: ""
+command: "./echo-psql-url-shortener"
+port: 0
+proxyPort: 16789
+dnsPort: 26789
+debug: false
+disableTele: false
+inDocker: false
+generateGithubActions: true
+containerName: ""
+networkName: ""
+buildDelay: 30
+test:
+  selectedTests: {}
+  ignoredTests: {}
+  globalNoise:
+    global: {}
+    test-sets: {}
+  replaceWith:
+    global: {}
+    test-sets: {}
+  delay: 5
+  host: "localhost"
+  port: 0
+  grpcPort: 0
+  apiTimeout: 5
+  skipCoverage: false
+  coverageReportPath: ""
+  ignoreOrdering: true
+  mongoPassword: "default@123"
+  language: ""
+  removeUnusedMocks: false
+  basePath: ""
+  mocking: true
+  disableMockUpload: true
+record:
+  recordTimer: 0s
+  filters: []
+configPath: ""
+bypassRules: []
+mysqlPorts: []
+disableMysqlAutoDetect: false
+cmdType: "native"
+enableTesting: false
+keployContainer: "keploy-v3"
+keployNetwork: "keploy-network"
+# Visit [https://keploy.io/docs/running-keploy/configuration-file/] to learn about using keploy through configration file.
+```
+
+## Using the Config File
+
+The Keploy-config file eliminates the need to repeatedly specify parameters for each record or test command. The parameters in the file correspond to the flags in the Keploy [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/).Using keploy-config can help to reduce the record and test command to just:
+
+### Record Command:
+
+```bash
+keploy record
+```
+
+### Test Command:
+
+```bash
+keploy test
+```
+
+Visit the [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/) to know more about the flags/parameters and their usage.
+
+## Configuration Sections
+
+### Record Section
+
+The `record` section in the Keploy-config file allows you to define parameters for recording API calls.
+
+- **`path`**: Path to the project where recording occurs. (Mandatory field)
+
+- **`command`**: Command executed during recording.
+
+- **`proxyport`**: Port number for the proxy. Default is 0.
+
+- **`containerName`**: Name of the container during recording.
+
+- **`networkName`**: Network name for the container during recording.
+
+- **`delay`**: Delay in seconds before recording each request. Default is 5 seconds.
+
+- **`filters`**: API calls to the application to avoid recording. You can also control how these conditions are matched using matchType.
+
+  - **`matchType (optional)`**: Determines how urlMethods and headers are evaluated.
+
+    - **`"AND"`**: Both must match.
+
+    - **`"OR"`**: Either can match.
+
+  Example:
+
+  ```yaml
+  record:
+    filters:
+      - path: "/user/app"
+        urlMethods: ["GET"]
+        headers: {"^x-client-id": "^abc.*"}
+        host: "dc.services.visualstudio.com"
+        matchType: "AND"
+  ```
+
+  This will avoid recording the API calls to the path `/user/app` only when the method is `GET`, headers starting with `abc`.
+
+- **`tests`**: Filters to record Tests.
+
+  Example:
+
+  ```yaml
+  tests:
+    filters:
+      - path: ""
+        urlMethods: []
+        headers: {}
+        host: ""
+  ```
+
+- **`bypassRules`**: A bypass for mocking API calls.
+
+  Example:
+
+  ```yaml
+  bypassRules:
+    filters:
+      - path: ""
+        host: ""
+        port: 0
+  ```
+
+- **`mysqlPorts`**: Ports to pin to MySQL. You rarely need this — Keploy detects MySQL automatically on any port. A list replaces the built-in `3306` and `4000`, and an HTTP service on a listed port gets no answer. See [MySQL port detection](#mysql-port-detection).
+
+- **`disableMysqlAutoDetect`**: Turns off automatic MySQL port detection. Default is `false`.
+
+### MySQL port detection
+
+Keploy identifies MySQL on any port, so you do not have to tell it where your database listens. This matters when MySQL, or a MySQL wire-compatible service, runs somewhere other than the usual `3306` — a second instance on `3307`, ProxySQL on `6033`, MaxScale on `4006`, StarRocks on `9030`, or a Cloud SQL Auth Proxy on whatever port you gave it.
+
+Detection works differently in each mode, because each mode has different information available:
+
+- **During Record**, whichever side of the connection speaks first decides. MySQL greets a new connection with a handshake packet before the client sends anything, so when the server speaks first, Keploy identifies the protocol from that greeting and routes the connection to its MySQL parser. When the client speaks first, as an HTTP, gRPC, or PostgreSQL client does, the connection isn't MySQL, and Keploy routes it by the client's bytes.
+
+- **During Test**, no database is running — Keploy serves the Mocks it recorded. It recovers the port from those Mocks, which store the address each connection was recorded against. On `3306` and `4000` the recording decides too: if Keploy recorded an HTTP or gRPC service on that port and no MySQL there, it replays the port as that protocol.
+
+Together this means a port you recorded on is replayed correctly with no configuration. Keploy treats `3306` and `4000` as a hint, not a rule, so an HTTP service on either port, such as a development server on `4000`, records and replays as HTTP.
+
+#### When to set these fields
+
+Both fields are optional and most projects leave them alone.
+
+Set `mysqlPorts` to pin a port to MySQL and skip detection for it. Keploy then waits for a MySQL greeting on every connection to a listed port, so an HTTP service on a port you list gets no answer. List only ports that serve MySQL.
+
+A list replaces the built-in `3306` and `4000`. While detection is on, Keploy still identifies MySQL on those ports the same way it does on any other port.
+
+```yaml
+mysqlPorts: [3307, 6033]
+```
+
+Set `disableMysqlAutoDetect` to `true` to turn detection off entirely and match `mysqlPorts` strictly:
+
+```yaml
+disableMysqlAutoDetect: true
+```
+
+With detection disabled, a MySQL server on a port outside `mysqlPorts` cannot complete its handshake, and your application fails to connect. Only disable detection if you also list every MySQL port your application uses. With detection disabled and `mysqlPorts` empty, Keploy pins `3306` and `4000` to MySQL, so an HTTP service on either port gets no answer.
+
+### Test Section
+
+The `test` section in the Keploy-config file allows you to define parameters for testing API calls.
+
+- **`path`**: Path to the project where testing occurs. (Mandatory field)
+
+- **`command`**: Command executed during testing.
+
+- **`proxyport`**: Port number for the proxy during testing. Default is 0.
+
+- **`containerName`**: Name of the container during testing.
+
+- **`networkName`**: Network name for the container during testing.
+
+- **`ignoreOrdering`**: When set to `true`, ignores the order of array elements in response bodies during testing.
+
+- **`selectedTests`**: : Selected tests to run.
+  Example:
+
+  ```yaml
+  selectedTests:
+    "test-set-1": ["test-1", "test-2"]
+    "test-set-2": []
+  ```
+
+- **`globalNoise`**: Noisy fields to be ignored at global/test-set level.
+  Example:
+
+  ```yml
+  globalNoise:
+  global:
+    body: {"url": ["https?://\S+"]}
+  test-sets: {}
+  ```
+
+- **`replaceWith`**: URL or gRPC `:authority` replacements applied during replay. Keploy supports global rules and test-set-specific overrides.
+  Example:
+
+  ```yaml
+  test:
+    replaceWith:
+      global:
+        url:
+          "api.keploy.dev": "localhost"
+          "payments.keploy.dev": "localhost:9001"
+      test-sets:
+        "test-set-1":
+          url:
+            "api.keploy.dev": "staging.internal:8080"
+  ```
+
+  `global.url` applies to every test set. `test-sets.<testSet>.url` overrides the global rule for the same key. Keploy matches by substring and replaces only one matching target.
+
+- **`host`**: Custom host to replace the recorded host during replay. The default is `localhost`. Keploy applies `host` only when no `replaceWith` rule matched.
+
+- **`port`**: Custom HTTP port to replace the replay target port for HTTP test cases.
+
+- **`grpcPort`**: Custom gRPC port to replace the replay target port for gRPC test cases.
+
+- **`basePath`**: Custom base URL or origin for replaying HTTP test cases against an already running application. When this is set, Keploy rewrites the recorded request URL before replay and does not start or instrument the application command.
+
+#### Replay Target Resolution Order
+
+When Keploy replays a testcase, it resolves the final target in this order:
+
+1. If `test.basePath` is set for an HTTP testcase, Keploy rewrites the recorded URL to that base URL first.
+2. Keploy merges `replaceWith.global.url` and `replaceWith.test-sets.<testSet>.url`. If both define the same key, the test-set rule overrides the global rule.
+3. Keploy checks the current URL or gRPC `:authority` against `replaceWith` and applies a single substring replacement.
+4. If the replacement value already contains an explicit port, that port becomes final and later host or port overrides are skipped.
+5. If no `replaceWith` rule matched, `test.host` replaces the host.
+6. Keploy then uses the recorded `app_port` from the testcase when present.
+7. Finally, `test.port` for HTTP or `test.grpcPort` for gRPC overrides the port.
+8. If no port is available after that, Keploy falls back to `80` for HTTP, `443` for HTTPS, and `443` for gRPC.
+
+> **Note:** Do not rely on the order of multiple matching `replaceWith` rules. Keploy stores these rules in a map and stops at the first matching key it encounters. Use non-overlapping match keys whenever possible.
+
+- **`delay`**: Delay in seconds before testing each request. Default is 5 seconds.
+
+- **`apiTimeout`**: Timeout in seconds for API calls during testing. Default is 5 seconds.
+
+- **`bypassRules`**: A bypass for mocking API calls.
+
+  ```yaml
+  bypassRules:
+  filters:
+    - path: ""
+      host: ""
+      port: 0
+  ```
+
+- **`skipCoverage`**: Whether to skip coverage report generation during testing. Default is `false`.
+
+- **`coverageReportPath`**: Path to store the coverage report.
+  Example:
+  ```yaml
+  coverageReportPath: "/path/to/coverage/report"
+  ```
+
+The tests section in the Keploy-config file allows you to define parameters for recording test scenarios during API calls.
+
+- **`filters`**: Filters to record specific tests based on path, HTTP methods, headers, and host.
+
+  Example:
+
+  ```yml
+  tests:
+    filters:
+      - path: "/user/app"
+        urlMethods: ["GET"]
+        headers:
+          "^asdf*": "^test"
+        host: "dc.services.visualstudio.com"
+  ```
+
+The tests section enables you to specify conditions for recording tests during API calls. The filters subsection allows you to define specific criteria, such as path, HTTP methods, headers, and host, to record relevant test scenarios.
+
+- **`path`**: Specifies the path for which the test should be recorded. It defines the URL path of the API endpoint.
+
+- **`urlMethods`**: Specifies the HTTP methods for which the test should be recorded. It allows you to focus on specific HTTP methods like GET, POST, etc.
+
+- **`headers`**: Specifies headers and their values for which the test should be recorded. It enables you to filter tests based on specific headers.
+
+- **`host`**: Specifies the host for which the test should be recorded. It defines the domain or IP address of the API server.
+
+#### Using Test Filters Together or Independently
+
+You can use the **`path`**, **`urlMethods`**, **`headers`**, and **`host`** filters together or independently based on your testing scenarios. This flexibility allows you to precisely define the conditions under which tests are recorded.
+
+### Managing Secrets with `secret.yaml`
+
+Keploy allows you to manage sensitive information like API keys or tokens securely, without hardcoding them into your test files. This is done using a `secret.yaml` file within each test set directory.
+
+1.  **Create `secret.yaml`**: Inside your test set directory (e.g., `keploy/test-set-0/`), create a file named `secret.yaml`.
+
+2.  **Define Your Secrets**: Add your secrets as key-value pairs.
+
+    ```yaml
+    Authorization: Bearer xyz.abc.123
+    ```
+
+3.  **Use Secrets in Tests**: Reference these values in your test cases or mocks using the `{{.secret.KEY}}` syntax.
+    ```yaml
+    header:
+      Authorization: "{{string .secret.Authorization }}"
+    ```
+    For your security, Keploy will automatically add `/*/secret.yaml` to your `.gitignore` file to prevent accidentally committing secrets.
+
+### Bypass Rules Section
+
+The `bypassRules` section in the Keploy-config file allows you to define parameters for bypassing and mocking API calls.
+
+Example:
+
+```yaml
+bypassRules:
+  - path: "/user/app"
+    port: 8080
+  - port: 8081
+  - host: "dc.services.visualstudio.com"
+  - port: 8081
+    host: "dc.services.visualstudio.com"
+    path: "/user/app"
+```
+
+The `bypassRules` section provides a way to bypass and mock API calls during testing. The filters subsection allows you to define specific conditions for applying stubs, such as path, port, and host. You can use these filters together or independently based on your testing scenarios.
+
+- **`path`**: Specifies the path for which the stub should be applied. It defines the URL path of the API endpoint.
+
+- **`port`**: Specifies the port for which the stub should be applied. It defines the network port on which the API call is made.
+
+- **`host`**: Specifies the host for which the stub should be applied. It defines the domain or IP address of the API server.
+
+In the provided example:
+
+- The first bypass rule applies to the path "/user/app" and the port 8080.
+- The second bypass rule applies to the port 8081.
+- The third bypass rule applies to the host "dc.services.visual
+
+### Session calls section
+
+When a recording marks the Test-Case that made each HTTP call, Keploy serves each Test-Case only the HTTP calls that it recorded. A Test-Case can make a call that only another Test-Case recorded, such as an auth token that the app fetches once and caches. That call has no recorded response in the Test-Case, and the replay log reports the miss and names the rule to add. With `KEPLOY_PROVEN=1`, the same holds for a call that only the app recorded, before the first Test-Case. Without it, Keploy serves such a recording to every Test-Case.
+
+The top-level `sessionCalls` section declares HTTP and HTTP/2 calls that Keploy serves to every Test-Case, without recording again:
+
+```yaml
+sessionCalls:
+  - host: "auth.example.com"
+    method: "POST"
+    pathPrefix: "/oauth/token"
+  - host: "config.example.com:8443"
+    pathPrefix: "/v1/"
+```
+
+- **`host`** (required): The host that the request names, in its `Host` header or, for HTTP/2, its `:authority`, compared case-insensitively. Without a port, it matches the host on any port. With a port, it matches only that port. A rule without a `host` matches nothing.
+- **`method`**: The HTTP method of the call, compared case-insensitively. Leave it out to match every method.
+- **`pathPrefix`**: The start of the path, without the query, matched on whole path segments: `/oauth` matches `/oauth` and `/oauth/token`, not `/oauthx`. A prefix that ends with `/` matches every path under it. Leave it out to match every path.
+
+Without `KEPLOY_PROVEN=1`, Keploy serves a call that a rule matches to every Test-Case, from any Test-Case's recording of it.
+
+With `KEPLOY_PROVEN=1`, a rule serves every Test-Case only a recording that the app made outside every Test-Case, such as in `TestMain` or at startup, and only of a call that the rule names exactly: its `method`, and its whole path as `pathPrefix`. A recording that a Test-Case made of the call stays that Test-Case's. Exact rules keep Keploy from serving a recording to a call that no rule declared. In the example above, the first rule serves the startup recording of `POST /oauth/token` on `auth.example.com` to every Test-Case. The second rule names no method and only a path prefix, so it serves no startup recording, and a Test-Case that makes one of its calls gets only its own recording of the call.
+
+When a call misses under `KEPLOY_PROVEN=1`, the replay log says why. For a call that no rule names exactly, including one that a rule covers only by a path prefix or with no method, it names the exact rule to add, for example:
+
+```yaml
+sessionCalls:
+  - host: "config.example.com:8443"
+    method: "GET"
+    pathPrefix: "/v1/settings"
+```
+
+For a call that a rule names exactly, it says that only a recording made outside every Test-Case is served, so record again to have the Test-Case record the call itself.
+
+## Advanced Noise Filtering:
+
+Earlier the only way to add the [noisy fields](https://keploy.io/docs/concepts/general-glossary/#3-noisy-field) was by modifying individual test file (testcase level). Now, With the introduction of config file, users can add the noisy fields at test-set and global level through config file itself.
+
+### Global Noise
+
+The `global subsection` of `globalNoise` is used to define parameters that are globally ignored for all API calls during testing. It enables you to filter out consistent noise, ensuring a cleaner evaluation of responses.
+
+**Note** - The examples below support both the xml as well as the json type responses.
+
+```yml
+globalNoise:
+  global: {body: {
+          # To ignore some values for a field, pass regex patterns to the corresponding array value
+          "url": ['https?://\S+', 'http://\S+'],
+        }, header: {
+          # To ignore the entire field, pass an empty array
+          "Date": [],
+        }}
+```
+
+**Note:** For marking entire response body as global noise use -
+
+```yml
+globalNoise:
+global: {body: {"*": "*"}}
+```
+
+1. **`global`**:
+
+- **`body`**: Defines patterns to ignore for the response body, such as filtering out URLs. Example: `{"url": ['https?://\S+', 'http://\S+']}`
+- **`header`**: Specifies headers or header values to be ignored globally. Example: `{"Date": []}`
+
+2. **`test-sets`**: This section is left empty in the example. It allows you to specify additional noise parameters for specific test sets, offering tailored noise filtering for different testing scenarios.
+
+### Test-Set Noise
+
+Under the `test-sets` subsection of `globalNoise`, you can define noise parameters specific to a particular test set. This ensures that certain noise is only ignored for the API calls associated with that specific test set.
+
+```yml
+test-sets: {test-set-1: {body: {
+            # ignore all the values for the "uuid" field
+            "uuid": [],
+          }, header: {
+            # we can also pass the exact value to ignore for a field
+            "User-Agent": ["PostmanRuntime/7.34.0"],
+          }}}
+```
+
+**`test-set-1`**:
+
+- **`body`**: Defines patterns to ignore for the response body within the specified test set.
+- **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
+
+## Handling Deeply Nested JSON Fields in Keploy Configuration 🧩
+
+When dealing with deeply nested JSON fields in the response body, it’s important to correctly specify the path to the fields in the Keploy configuration file. Here’s an example to illustrate how to add a nested `token` field to the global noise configuration.
+
+### Example JSON Response 📄
+
+Consider the following JSON response:
+
+```json
+{
+  "data": {
+    "signUp": {
+      "id": "100",
+      "email": "keploy@test.com",
+      "firstName": "keploy",
+      "lastName": "keploy",
+      "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImNyZWF0ZWRBdCI6IjIwMjQtMDUtMjJUMTA6NDk6MjIuNjI0WiIsImlkIjoxMDAsImZpcnN0TmFtZSI6InNhZ2FyIiwibGFzdE5hbWUiOiJ0b21hciIsImVtYWlsIjoic2FnYXJAdGVzdC5jb20iLCJwYXNzd29yZCI6IjU1ZjQ1MTg2OWI3OTZlMmFlZmU3ODA2ZjA0YTJlMzBkIiwidXBkYXRlZEF0IjoiMjAyNC0wNS0yMlQxMDo0OToyMi4wMzlaIiwiZGVsZXRlZEF0IjpudWxsfSwiaWF0IjoxNzE2Mzc0OTYyLCJleHAiOjE3MTY0NjEzNjJ9.21A-gz8QLnbx2bhpzMcezENjTGWKhBfwU4o2paFuEVM",
+      "createdAt": "2024-05-22T10:49:22.624Z",
+      "deletedAt": null,
+      "updatedAt": "2024-05-22T10:49:22.039Z"
+    }
+  }
+}
+```
+
+### Adding Nested Fields to the Configuration ⚙️
+
+To add the `token` field inside the `signUp` object in the global noise configuration, you need to specify the complete path to the field.
+
+```yaml
+globalNoise:
+  fields:
+    - path: "data.signUp.token"
+    - path: "data.signUp.createdAt"
+    - path: "data.signUp.updatedAt"
+    - path: "data.signUp.deletedAt"
+```
+
+In this example:
+
+- `data.signUp.token` refers to the `token` field inside the nested `signUp` object.
+- Similarly, other nested fields like `createdAt`, `updatedAt`, and `deletedAt` are specified.
+
+By specifying the path in this manner, Keploy will correctly identify and handle these deeply nested fields in the configuration.
+
+### **Note**:
+
+The `globalNoise` and `test-sets` are optional fields in the config file. If not specified, the default value for both fields is an empty object `{}`. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
+
+## Conclusion
+
+Congratulations! You've now explored the features and configuration options provided by `Keploy-config`.
+
+Now armed with Keploy-config, you are ready to embark on a more organized and productive journey of recording and testing APIs with Keploy. Feel free to explore additional features, customize configurations, and refer to the [CLI Command Docs](https://keploy.io/docs/running-keploy/cli-commands/) for more details on available flags and parameters.
+
+Happy testing and may your APIs always return the expected results! 🚀
+
+## Related
+
+- [Keploy CLI Commands](/docs/running-keploy/cli-commands/) — flags that map to config fields.
+- [Recording Filters](/docs/running-keploy/recording-filters/) — filter traffic during recording.
+- [Keploy Passthrough](/docs/running-keploy/keploy-passthrough/) — bypass rules and pass-through ports.
+- [Adding a custom Mock to the Keploy Mock File](/docs/running-keploy/custom-mocks/) — work with recorded mocks.

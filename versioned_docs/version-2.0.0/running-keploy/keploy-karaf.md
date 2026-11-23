@@ -28,21 +28,21 @@ keywords:
 Use Keploy's one-click installation to download and install the latest Keploy binary:
 
 ```bash
-curl --silent -O -L https://keploy.io/ent/install.sh && source install.sh
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ### Download Required JARs
 
 Use `wget` to download the necessary JAR files:
 
-- [io.keploy.agent-2.0.1.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar)
-- [org.jacoco.agent-0.8.12-runtime.jar](https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
+- [io.keploy.agent-2.0.1.jar](https://keployenterprise.blob.core.windows.net/agent-jars/io.keploy.agent-2.0.1.jar)
+- [org.jacoco.agent-0.8.12-runtime.jar](https://keployenterprise.blob.core.windows.net/agent-jars/org.jacoco.agent-0.8.12-runtime.jar)
 
 Run the following commands to download the files:
 
 ```bash
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/io.keploy.agent-2.0.1.jar
-wget https://keploy-enterprise.s3.us-west-2.amazonaws.com/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
+wget https://keployenterprise.blob.core.windows.net/agent-jars/io.keploy.agent-2.0.1.jar
+wget https://keployenterprise.blob.core.windows.net/agent-jars/org.jacoco.agent-0.8.12-runtime.jar
 ```
 
 ## Step 2: Configure Apache Karaf

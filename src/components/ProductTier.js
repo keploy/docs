@@ -1,0 +1,110 @@
+import React from "react";
+
+/**
+ * ProductTier - Compact inline chips for doc metadata
+ * Replaces the old large "Tier/Offering" card with small inline chips
+ *
+ * Usage (tiers are Keploy plans):
+ * <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
+ * <ProductTier tiers="Scale, Enterprise" />
+ * <ProductTier tiers="Enterprise" />
+ */
+
+const freeChip = {
+  label: "Free",
+  color: "#059669",
+  bg: "rgba(16, 185, 129, 0.1)",
+};
+
+const chipStyles = {
+  // Plan chips
+  free: freeChip,
+  teams: {label: "Teams", color: "#0891b2", bg: "rgba(6, 182, 212, 0.1)"},
+  scale: {label: "Scale", color: "#4f46e5", bg: "rgba(99, 102, 241, 0.1)"},
+  enterprise: {
+    label: "Enterprise",
+    color: "#7c3aed",
+    bg: "rgba(139, 92, 246, 0.1)",
+  },
+  // Legacy tier names still render as the Free plan chip
+  "open source": freeChip,
+  oss: freeChip,
+  cloud: {label: "Cloud", color: "#2563eb", bg: "rgba(59, 130, 246, 0.1)"},
+
+  // Offering chips - simplified labels
+  "self-hosted": {
+    label: "Self-Hosted",
+    color: "#6b7280",
+    bg: "rgba(107, 114, 128, 0.08)",
+  },
+  dedicated: {
+    label: "Dedicated",
+    color: "#6b7280",
+    bg: "rgba(107, 114, 128, 0.08)",
+  },
+  local: {label: "Local", color: "#6b7280", bg: "rgba(107, 114, 128, 0.08)"},
+};
+
+const ProductTier = ({tiers, offerings}) => {
+  // Parse tiers and offerings into arrays
+  const tierList = tiers
+    ? Array.isArray(tiers)
+      ? tiers
+      : tiers.split(",").map((t) => t.trim())
+    : [];
+
+  const offeringList = offerings
+    ? Array.isArray(offerings)
+      ? offerings
+      : offerings.split(",").map((o) => o.trim())
+    : [];
+
+  const allChips = [...tierList, ...offeringList];
+
+  if (allChips.length === 0) return null;
+
+  return (
+    <div className="product-tier-chips">
+      {allChips.map((chip, index) => {
+        const key = chip.toLowerCase().trim();
+        const style = chipStyles[key] || {
+          label: chip.trim(),
+          color: "#6b7280",
+          bg: "rgba(107, 114, 128, 0.08)",
+        };
+        return (
+          <span
+            key={index}
+            className="product-tier-chip"
+            style={{color: style.color, background: style.bg}}
+          >
+            {style.label}
+          </span>
+        );
+      })}
+      <style>{`
+        .product-tier-chips {
+          display: inline-flex;
+          flex-wrap: wrap;
+          gap: 0.375rem;
+          margin-bottom: 0;
+        }
+        .product-tier-chip {
+          display: inline-flex;
+          align-items: center;
+          padding: 0.1875rem 0.5rem;
+          font-size: 0.6875rem;
+          font-weight: 600;
+          border-radius: 4px;
+          white-space: nowrap;
+          letter-spacing: 0.01em;
+        }
+        html[data-theme="dark"] .product-tier-chip {
+          background: rgba(255, 255, 255, 0.15) !important;
+        }
+      `}</style>
+    </div>
+  );
+};
+
+export default ProductTier;

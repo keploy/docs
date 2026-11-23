@@ -69,7 +69,7 @@ curl --silent --location "https://github.com/keploy/keploy/releases/tag/v0.9.1/d
 sudo mkdir -p /usr/local/bin && sudo mv /tmp/keploy /usr/local/bin && keploy
 ```
 
-The UI can be accessed at http://localhost:6789
+The UI can be accessed at localhost:6789
 
 </details>
 

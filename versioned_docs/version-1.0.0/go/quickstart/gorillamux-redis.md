@@ -16,17 +16,17 @@ keywords:
 
 # Contact Keeper Sample App
 
-A sample contact keeper app to test Keploy integration capabilities using [Gorilla Mux](https://pkg.go.dev/github.com/gorilla/mux) and [Redis](https://redis.io/).
+A sample contact keeper app to test Keploy integration capabilities using Gorilla Mux and Redis.
 
 ## Installation Setup
 
 > Note that Testcases are exported as files in the local repository by default
 
-You can refer to the [installation guide](https://docs.keploy.io/docs/server/server-installation) to install Keploy on your machine.
+You can refer to the [installation guide](https://keploy.io/docs/server/installation/) to install Keploy on your machine.
 
 ### Prerequisites
 
-1. [Redis](https://redis.io/)
+1. Install Redis
 
 ### Setup Contact Keeper App
 
@@ -48,11 +48,11 @@ export KEPLOY_MODE=record && go run main.go
 
 ### Skip above steps with Gitpod
 
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/from-referrer)
+Open in Gitpod
 
 ## Generate testcases
 
-To generate testcases we just need to make some API calls. You can use [Postman](https://www.postman.com/), [Hoppscotch](https://hoppscotch.io/), or simply `curl`
+To generate testcases we just need to make some API calls. You can use postman , or simply `curl`
 
 ### Store the contact details
 
@@ -87,9 +87,9 @@ curl --request GET \
 
 ```
 
-2. Or by querying through the browser `http://localhost:8080/data/1'
+2. Or by querying through the browser `localhost:8080/data/1'
 
-![Gorilla-Mux-Test-Capture](/img/GorillaMux-Redis.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/GorillaMux-Redis.webp" alt="Gorilla-Mux-Test-Capture" width="1471" height="691" style={{maxWidth:'100%',height:'auto'}} />
 
 Now both these API calls were captured as **editable** testcases and written to `keploy/tests` folder. The keploy directory would also have `mocks` folder that contains all the outputs of redis operations. Here's what the folder structure look like:
 
@@ -323,7 +323,7 @@ DIFF:
 
 This is how the bug will look like in the Keploy Terminal:
 
-![GorillaMux-Redis-test-diff](/img/GorillaMux-Redis-test-diff.png)
-![GorillaMux-Redis-test-diff2](/img/GorillaMux-Redis-test-diff2.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/GorillaMux-Redis-test-diff.webp" alt="GorillaMux-Redis-test-diff" width="1341" height="350" style={{maxWidth:'100%',height:'auto'}} />
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/GorillaMux-Redis-test-diff2.webp" alt="GorillaMux-Redis-test-diff2" width="1191" height="177" style={{maxWidth:'100%',height:'auto'}} />
 
 </details>

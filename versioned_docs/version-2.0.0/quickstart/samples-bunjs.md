@@ -11,7 +11,7 @@ tags:
   - tutorial
   - bun-js-framework
   - mongodb
-keyword:
+keywords:
   - BunJS Framework
   - MongoDB
   - BunJS
@@ -23,11 +23,7 @@ keyword:
 
 # Introduction
 
-This is a sample app to test Keploy integration capabilities using [Bun.js](https://bun.sh) and [MongoDB](https://www.mongodb.com/).
-
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
+This is a sample app to test Keploy integration capabilities using Bun.js and MongoDB.
 
 ## Get Started! 🎬
 
@@ -36,11 +32,7 @@ import InstallationGuide from '../concepts/installation.md'
 ```bash
 git clone https://github.com/keploy/samples-typescript && cd samples-typescript/bun-mongo
 
-#Install bun using this command
-
-curl -fsSL https://bun.sh/install | bash
-
-# Install the dependencies
+# First Install bun and then its dependencies using the command below:
 
 bun install
 ```
@@ -386,7 +378,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

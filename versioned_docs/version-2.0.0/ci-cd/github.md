@@ -122,8 +122,8 @@ _And... voila! You have successfully integrated keploy in GitHub CI pipeline ðŸŒ
 
 ## GitHub Actions
 
-GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
-GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow unde `.github/workflow` with the name `keploy-test.yml`: -
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow under `.github/workflow` with the name `keploy-test.yml`: -
+GitHub Actions are a more advanced way to integrate Keploy with GitHub. We will be using [express-mongoose](https://github.com/keploy/samples-typescript/tree/main/express-mongoose) sample-application for the example. Create a new workflow under `.github/workflow` with the name `keploy-test.yml`: -
 
 ```yaml
 jobs:
@@ -216,7 +216,3 @@ sudo -E keploy test -c node src/app.js --delay 10 --path ./
 _And... voila! You have successfully integrated keploy in GitHub CI pipeline ðŸŒŸ_
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

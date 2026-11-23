@@ -6,7 +6,7 @@ sidebar_label: HTTP
 
 ## Introduction
 
-HTTP (Hypertext Transfer Protocol) [Wire Protocol](https://developer.mozilla.org/en-US/docs/Web/HTTP) refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
+HTTP (Hypertext Transfer Protocol) `Wire Protocol` refers to the underlying communication mechanism that enables the transfer of data between a client (such as a web browser) and a server over the internet. It defines how messages are formatted and transmitted, including rules for their semantics, status codes, headers, and other aspects.
 
 **Port :** HTTP typically uses port `80 for non-secure` connections (HTTP) and port `443 for secure connections` (HTTPS). These are default ports, but HTTP servers can technically be configured to listen on any port.
 
@@ -39,10 +39,6 @@ The http parser is basically divided into two sections, `encode` and `decode`, t
 
 So in the record mode, the encode function is provided with the initial request, which is written to the destination connection and checked if the request is chunked, if it is then parser keeps reading the request from the client connection and write it to the destination connection.
 
-Next, if the request contains the expect header or not. The expect header is used by a client when sending very large requests. So it is basically used to ask the server if it is ready to accept such a large req or not, if it is, then the server responds with a `"100-continue"` response. This is what we also check by writing the request to the destination connection and reading the respnse from it. We start reading the response and we handle chunking in that case as well. Then finally, keploy parse the request and response to store it in mocks.
+Next, if the request contains the expect header or not. The expect header is used by a client when sending very large requests. So it is basically used to ask the server if it is ready to accept such a large req or not, if it is, then the server responds with a `"100-continue"` response. This is what we also check by writing the request to the destination connection and reading the response from it. We start reading the response and we handle chunking in that case as well. Then finally, keploy parse the request and response to store it in mocks.
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

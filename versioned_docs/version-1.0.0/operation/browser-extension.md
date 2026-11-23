@@ -1,7 +1,9 @@
 ---
 id: browser-extension-operations
-title: Browser Extension Operations (v1.0.0)
-description: Guide into Keploy Chrome Browser Extension
+title: Keploy Browser Extension Operations Guide
+
+description: Explore how to use the Keploy browser extension for capturing API calls and test cases. Streamline testing workflows directly from your browser with this guide.
+
 sidebar_label: Browser Extension for Selenium
 tags:
   - browser-extension
@@ -12,9 +14,9 @@ tags:
 
 1. [Golang](https://go.dev/dl/)
 2. [Docker](https://docs.docker.com/get-docker/)
-3. [GCC compiler](https://sourceforge.net/projects/tdm-gcc/)
-4. [Selenium IDE extension](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
-5. [Keploy](https://github.com/keploy/keploy)
+3. [Selenium IDE extension](https://chrome.google.com/webstore/detail/selenium-ide/mooikfkahbdckldjjndioackbalphokd?hl=en)
+4. [Keploy](https://github.com/keploy/keploy)
+5. GCC compiler
 
 ## Install Keploy on PC
 

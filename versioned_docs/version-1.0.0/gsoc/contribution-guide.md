@@ -22,7 +22,7 @@ Google pays the students, not the organizations they work with. Beginning in 202
 
 You can read more about the format of the program and its goals [here](https://google.github.io/gsocguides/mentor/).
 
-<img src="/docs/img/gsoc-banner.png"/>
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/gsoc-banner.webp" width="1920" height="1080" />
 
 ## Keploy X GSoC
 
@@ -36,7 +36,7 @@ To get started with GSoC and Keploy, follow these steps:
 
 1. If you are new to Keploy, try setting up Keploy in your local machine and running one (or more) of the sample applications. You can refer the docs.
 2. You can then check out the [projects](#projects-in-gsoc-2023) that are selected for GSoC 2023 and try completing the tasks in the task list. Remember, the tasks will act as a selection criteria for shortlisting candidates.
-3. You can connect with the mentors over slack to clear any of your doubts.
+3. You can connect with the mentors over [Slack](https://keploy.io/slack) to clear any of your doubts.
 4. Submit your proposal and that's it!
 
 ## Projects in GSoC 2023

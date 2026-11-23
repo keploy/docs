@@ -1,12 +1,12 @@
 ---
 id: samples-nextjs
 title: NextJs Sample Application
-sidebar_label: NextJS + SQL
+sidebar_label: NextJS + PostgreSQL
 description: The following sample app to test Keploy integration capabilities using NextJS,Drizzle and Postgres.
 tags:
   - NextJs
   - Postgres
-keyword:
+keywords:
   - NextJS
   - Postgres
   - API Test generator
@@ -17,16 +17,12 @@ keyword:
 
 This is a sample app to test Keploy integration capabilities using NextJS and Postgres with Drizzle ORM. Buckle up, it's gonna be a fun ride! 🎢
 
-import InstallationGuide from '../concepts/installation.md'
-
-<InstallationGuide/>
-
 ## Get Started! 🎬
 
 Now that we have bun installed, we will setup our application.
 
 ```bash
-git clone https://github.com/keploy/samples-typescript && cd samples-typscript/nextjs-postgres
+git clone https://github.com/keploy/samples-typescript && cd samples-typescript/nextjs-postgres
 
 ## Download node modules
 npm install
@@ -82,7 +78,7 @@ This will return the response:
 curl -X GET http://localhost:3000/api/users
 ```
 
-![Test Record](../../../static/img/nextjs-postgres-record.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/nextjs-postgres-record.webp" alt="Test Record" width="1690" height="866" style={{maxWidth:'100%',height:'auto'}} />
 
 Give yourself a pat on the back! With that simple spell, you've conjured up test cases with a mock! Explore the **Keploy directory** and you'll discover your handiwork in `test-1.yml` and `mocks.yml`.
 
@@ -96,7 +92,7 @@ Time to put things to the test 🧪
 sudo -E env PATH=$PATH keploy test -c "npm run dev" --delay 10
 ```
 
-![Test Record](../../../static/img/nextjs-postgres-test.png)
+<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/nextjs-postgres-test.webp" alt="Test Record" width="1686" height="880" style={{maxWidth:'100%',height:'auto'}} />
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
 
@@ -107,7 +103,3 @@ Final thoughts? Dive deeper! Try different API calls, tweak the DB response in t
 Congrats on the journey so far! You've seen Keploy's power, flexed your coding muscles, and had a bit of fun too! Now, go out there and keep exploring, innovating, and creating! Remember, with the right tools and a sprinkle of fun, anything's possible. 😊🚀
 
 Hope this helps you out, if you still have any questions, reach out to us .
-
-import GetSupport from '../concepts/support.md'
-
-<GetSupport/>

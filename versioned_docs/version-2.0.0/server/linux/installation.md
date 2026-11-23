@@ -29,7 +29,7 @@ Keploy can be installed in two ways:
 ## One click install Keploy.
 
 ```shell
- curl --silent -O -L https://keploy.io/install.sh && source install.sh
+ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 ## Manual Install
@@ -68,7 +68,7 @@ Run this command on your terminal to start the recording of API calls:-
 sudo -E keploy record -c "CMD_TO_RUN_APP"
 ```
 
-Make API Calls using [Hoppscotch](https://hoppscotch.io/), [Postman](https://www.postman.com/) or cURL command.
+Make API Calls using Postman or cURL command.
 
 Keploy with capture the API calls you have made to generate the test-suites which will contain the testcases and data
 mocks into `YAML` format.
@@ -102,7 +102,7 @@ docker network create keploy-network
 Now, we will record the testcases.
 
 ```shell
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>" --delay 10
+keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network --rm <applicationImage>" --containerName "<containerName>"
 ```
 
 #### Run the Testcases
