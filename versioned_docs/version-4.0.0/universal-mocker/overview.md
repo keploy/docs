@@ -103,7 +103,7 @@ and ends:
 | Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
 | Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
 
-**Dependencies** in Keploy 3.9.4 and later (verified in 3.9.13). "Docker" means:
+**Dependencies** in Keploy 3.9.4 and later. "Docker" means:
 run the tests through a Docker command so Keploy reads the calls on Linux.
 
 | Dependency             | Linux | macOS  |
@@ -136,8 +136,9 @@ installs the Keploy CLI, signs you in, and hands the project setup to your
 coding agent (Claude Code's extension or `claude` CLI, GitHub Copilot, or
 Cursor's agent). Then you record, replay, review, and wire CI from the editor:
 **Wire CI** writes a GitHub Actions workflow for Go and Node projects, and gives
-Keploy's CI recipe (`keploy mock ci`) for every other language and CI system
-(GitLab CI, Jenkins, Bitbucket, CircleCI, Azure, and the rest). The
+Keploy's CI recipe (`keploy mock ci`, Keploy CLI 3.9.13 or later) for every
+other language and CI system (GitLab CI, Jenkins, Bitbucket, CircleCI, Azure,
+and the rest). The
 [VS Code walkthrough](./walkthroughs/vscode.md) shows each step.
 
 Not on VS Code? Install Keploy's mocking skill for your coding agent with
