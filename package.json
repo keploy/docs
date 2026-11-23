@@ -11,6 +11,7 @@
     "verify-linkedin-tag": "node scripts/verify-linkedin-tag.js build",
     "verify-lastmod": "node scripts/verify-lastmod.js build",
     "verify-ui-capture-sdk-links": "node scripts/verify-ui-capture-sdk-links.js build",
+    "verify-moved-urls": "node scripts/verify-moved-urls.js build",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

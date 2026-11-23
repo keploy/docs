@@ -27,15 +27,17 @@ You can use `--help, -h` flag for all the commands to see available flag options
 
 Here are some examples of how to use some common flags:
 
-| Command            | Flags Available                                                                                                                                                                                                                                                                                                                                        |
-| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| `record`           | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `--debug`                                                                                                                                                                                                  |
-| `test`             | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `-t, --testsets`, `--debug`, `--removeUnusedMocks`, `--skip-coverage`, `--ignoreOrdering`, `--disable-line-coverage`, `--proto-dir`, `--proto-file`, `--proto-include` |
-| `gen` (Deprecated) | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                           |
-| `normalize`        | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                  |
-| `report`           | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                         |
-| `sanitize`         | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                        |
-| `config`           | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                              |
+| Command                      | Flags Available                                                                                                                                                                                                                                                                                                                                        |
+| ---------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `record`                     | `-c, --command`, `--config-path`, `--containerName`, `--metadata`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `--debug`                                                                                                                                                                                                  |
+| `test`                       | `--apiTimeout`, `-c, --command`, `--config-path`, `--containerName`, `-d, --delay`, `--mongoPassword`, `-n, --networkName`, `--passThroughPorts`, `-p, --path`, `--proxy-port`, `-t, --testsets`, `--debug`, `--removeUnusedMocks`, `--skip-coverage`, `--ignoreOrdering`, `--disable-line-coverage`, `--proto-dir`, `--proto-file`, `--proto-include` |
+| `gen` (Deprecated)           | `--sourceFilePath`, `--testFilePath`,`--coverageReportPath`,`--testCommand`,`--coverageFormat`,`--expectedCoverage`,`--maxIterations`,`--testDir`,`--llmBaseUrl`,`--model`,`--llmApiVersion`                                                                                                                                                           |
+| `normalize`                  | `-p, --path`, `--test-run`, `--tests`                                                                                                                                                                                                                                                                                                                  |
+| `report`                     | `--test-sets, -t`, `-p, --path`, `--report-path, -r`, `--body`                                                                                                                                                                                                                                                                                         |
+| `sanitize`                   | `--test-sets, -t`, `-p, --path`                                                                                                                                                                                                                                                                                                                        |
+| `config`                     | `--generate`,`-p, --path`                                                                                                                                                                                                                                                                                                                              |
+| `login`                      | `--no-wait`, `--finish`, `--attempt`, `--new`, `--fresh`, `--json`, `--show`, `--manual-login`, `--api-key`, `--k8s-proxy-url`, `--k8s-proxy-auth`                                                                                                                                                                                                     |
+| `service-account key create` | `--app`, `--role`, `--name`, `--key-name`, `--ttl-days`, `--rotate`, `--to-gh-secret`, `--repo`, `--to-file`, `--print-key`, `--no-wait`, `--finish`, `--json`                                                                                                                                                                                         |
 
 ## [record](#record)
 
@@ -440,6 +442,197 @@ keploy example [flags]
 
 - `--customSetup` - Displays commands tailored for custom user-defined setups.
 
+## [mock](#mock)
+
+`keploy mock` records the calls your own test suite makes to its dependencies, and replays them so the suite runs with the dependencies off. See [Mock your tests](/docs/universal-mocker/mock-your-tests/) for the whole flow.
+
+<b> Usage: </b>
+
+```bash
+keploy mock record -c "<your test command>"
+keploy mock replay -c "<your test command>"
+keploy mock status
+```
+
+| Command                | What it does                                                                                                                       |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+| `keploy mock record`   | Runs your test command and records the outgoing calls it makes into a mock set.                                                    |
+| `keploy mock replay`   | Runs your test command with those calls answered from the mock set. `--on-miss` decides what an unrecorded call gets.              |
+| `keploy mock status`   | Reads the repository and prints a `NEXT` block: what the recordings prove and the command to run next. `--json` prints it as JSON. |
+| `keploy mock upload`   | Uploads a mock set to the Keploy registry.                                                                                         |
+| `keploy mock download` | Downloads a mock set from the Keploy registry.                                                                                     |
+
+With `KEPLOY_PROVEN=1` set, `keploy mock record` also judges every test it records, and `keploy mock replay` runs only the tests it kept. These commands run only with the switch:
+
+| Command                                          | What it does                                                                                       |
+| ------------------------------------------------ | -------------------------------------------------------------------------------------------------- |
+| `keploy mock explain <test>`                     | Says why a test is skipped or run, with its evidence and its recorded calls.                       |
+| `keploy mock quarantine <test> --reason "<why>"` | Skips a test in CI, with your reason, until it's recorded again. `--undo` runs it again.           |
+| `keploy mock check`                              | Reads the recordings offline and names each mistake a hand edit made, with its file, line and fix. |
+| `keploy mock judge`                              | Judges the recordings again, for example after a Keploy upgrade.                                   |
+
+See [Prove each test offline](/docs/universal-mocker/mock-your-tests/#proven).
+
+## [login](#login)
+
+`keploy login` authenticates you with your Keploy account using OAuth device authorization (RFC 8628). By default it opens a sign-in page in your browser and waits for you to approve it; if a browser cannot open, it prints the verification link and user code so you can approve from any device.
+
+<b> Usage: </b>
+
+```bash
+keploy login [flags]
+```
+
+<b> Available flags: </b>
+
+- `--no-wait` - Print the sign-in link and code and exit immediately instead of waiting; collect the session later with `keploy login --finish`. Useful on machines with no browser or from coding agents whose shell shows output only when a command exits. Re-running `--no-wait` re-displays the waiting code unless `--new` is passed.
+- `--finish` - Collect the session for a sign-in started by `keploy login --no-wait`. Waits up to 70 seconds for approval and can be run again until the code expires.
+- `--attempt string` - With `--finish`: collect only the pending sign-in matching this attempt ID (used by `--no-wait --fresh` so a replacement from another terminal cannot collect the wrong sign-in).
+- `--new` - With `--no-wait`: discard the sign-in waiting in `~/.keploy/login-pending.json` and start a new code. Does not force a new browser sign-in (use `--fresh` for that).
+- `--fresh` - Sign in again in the browser even when already signed in, for actions that require a recent sign-in (such as creating API keys or service accounts, or changing members and roles; valid for 15 minutes). Works alone or with `--no-wait`. Refused while an API key is configured (`KEPLOY_API_KEY` or `~/.keploy/cred.yaml`), because every Keploy command presents an API key before a browser session and an API key can never satisfy a recent-sign-in check; unset `KEPLOY_API_KEY` or run `keploy logout` first.
+- `--json` - With `--no-wait` or `--finish`: print one JSON `NEXT` block (`auth_pending`, `auth_signed_in`, or `auth_failed`) on stdout for AI agents and tools, with logs on stderr.
+- `--show` - Print the API key (its last 4 characters only) and the `k8s-proxy` URL commands use here, where each comes from (a flag, an environment variable, `keploy.yml`, or the saved login in `~/.keploy`), and whether `k8s-proxy-auth` mode is on and why, without signing in or making network calls.
+- `--manual-login` - Prompt interactively for a Keploy API key in the terminal instead of opening a browser.
+- `--api-key string` - Authenticate with this Keploy API key (overrides `KEPLOY_API_KEY`). With `keploy login`, the verified key is saved to `~/.keploy/cred.yaml` for subsequent commands. In CI, set `KEPLOY_API_KEY` from a secret instead of signing in interactively.
+- `--k8s-proxy-url string` - Self-hosted `k8s-proxy` ingress URL to authenticate against (falls back to `KEPLOY_K8S_PROXY_URL`); setting it enables `k8s-proxy-auth` mode by default. `keploy login --k8s-proxy-url <url>` checks the API key (from `--api-key`, `KEPLOY_API_KEY`, a saved login, or a terminal prompt) at that proxy and saves both the key and URL in `~/.keploy/cred.yaml` (mode `0600`) so later commands need neither variable. A key the proxy refuses saves nothing. See [Log in once on your own machine](/docs/keploy-cloud/cloud-replay/#log-in-once-on-your-own-machine).
+- `--k8s-proxy-auth` - Authenticate through the `k8s-proxy` instead of the `api-server` (for self-hosted CI with no direct `api-server`/internet access). Defaults on when `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_URL`, or a login saved by `keploy login --k8s-proxy-url` provides a proxy URL (`cloud.k8sProxyUrl` in `keploy.yml` alone does not); pass `--k8s-proxy-auth=false` to opt out. Requires a `k8s-proxy` URL and an API key.
+
+### Split workflow for headless terminals and AI agents
+
+```bash
+# 1. Start device sign-in and get the verification link and user code as JSON
+keploy login --no-wait --json
+
+# 2. After the user approves in the browser, collect the session
+keploy login --finish --json
+```
+
+For a fresh sign-in in a split workflow, start with `keploy login --no-wait --fresh --json` and then run the `--finish` command returned in the JSON `run` field (which includes `--attempt=<id>`).
+
+### Mutually exclusive flags and constraints
+
+- `--no-wait` cannot be combined with `--finish`, `--manual-login`, or `--show`.
+- `--finish` cannot be combined with `--no-wait`, `--manual-login`, `--new`, `--show`, or `--fresh`.
+- `--fresh` cannot be combined with `--finish`, `--manual-login`, `--api-key`, or `--show`.
+- `--show` cannot be combined with `--no-wait`, `--finish`, `--manual-login`, or `--fresh`.
+- `--json` works only with `--no-wait` or `--finish`; `--new` works only with `--no-wait`; `--attempt` works only with `--finish`.
+- `--no-wait`, `--finish`, and `--fresh` sign in against the `api-server`, not through `k8s-proxy`. If `k8s-proxy-auth` mode is active, pass `--k8s-proxy-auth=false`, unset `KEPLOY_K8S_PROXY_URL` / `KEPLOY_K8S_PROXY_AUTH`, or run `keploy logout` to remove a saved self-hosted login.
+
+`keploy logout` signs you out and removes a saved self-hosted login (the API key and `k8s-proxy` URL in `~/.keploy/cred.yaml`).
+
+## [service-account](#service-account)
+
+`keploy service-account key create` creates a scoped CI key for a service account that holds a single role on a single Keploy app, approved once in the browser and saved directly to a GitHub Actions secret or an owner-only file.
+
+The approval uses OAuth device authorization with RFC 9396 `authorization_details`: Keploy opens a browser page (and prints the verification link and code) naming the key, app, and role, and asks the user to sign in to Keploy again before approving. **Only an admin of the app's organization can approve it.** Approving lets the terminal create that single key once and nothing else; the short-lived approval token is held in memory and never stored, and your saved `keploy login` session is neither read nor modified. The generated key is **never printed** unless `--print-key` is explicitly passed.
+
+<b> Usage: </b>
+
+```bash
+keploy service-account key create --role <ROLE> (--to-gh-secret <NAME> | --to-file <PATH> | --print-key) [flags]
+```
+
+```bash
+# Save directly to a GitHub Actions repository secret (through gh, key passed on stdin)
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+
+# Save to a new owner-only (mode 0600) file for a specific app
+keploy service-account key create --app <app-id> --role MOCK_READER --to-file ~/keploy-ci.key
+```
+
+### Supported roles
+
+| Role          | Availability  | Scope on the app                                                                                                                       |
+| ------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------- |
+| `MOCK_READER` | Free and Paid | Reads the app's mock recordings and uploads replay reports in CI (cannot record).                                                      |
+| `UI_READER`   | Free and Paid | Read-only access to the app's UI capture status, flows, flow graph, journeys, and test runs (cannot read recorded UI payloads).        |
+| `UI_RUNNER`   | Free and Paid | Runs `keploy ui run` for the app in CI: reads the app's UI journeys and recorded payloads needed for replay, and submits UI test runs. |
+| `ATG_RUNNER`  | Paid plans    | Runs API test suites for the app in CI (`keploy test-suite --cloud`).                                                                  |
+| `ITG_RUNNER`  | Paid plans    | Replays recorded integration tests for the app in CI (`keploy cloud replay`).                                                          |
+
+On the **Free** plan, an organization can keep **one live service-account key** across `MOCK_READER`, `UI_READER`, and `UI_RUNNER` — pass `--rotate` to replace the account's existing key. The Keploy server refuses any role the approving admin is not allowed to grant. An existing service account matching `--name` is reused if it holds only this role on this app (or no roles yet).
+
+<b> Available flags: </b>
+
+- `--app string` - The app ID (default: `mock.appId` from `keploy.yml`; run `keploy app create` to create one). Takes the app ID, not the display name.
+- `--role string` - The single role the service account holds on the app: `MOCK_READER`, `ATG_RUNNER`, `ITG_RUNNER`, `UI_READER`, or `UI_RUNNER`.
+- `--name string` - Service account name (default: `ci-<role>-<app id>`). Reused when it holds only this role on this app.
+- `--key-name string` - Key name (default: the service account name).
+- `--ttl-days int` - Days until the key expires, `1`–`365` (default: server default, `90`).
+- `--rotate` - Revoke the service account's other keys once the new key is created (on the Free plan, replaces its single live key).
+- `--to-gh-secret string` - Save the key as this GitHub Actions secret through `gh` (passed on stdin, never in argv or environment variables), for example `KEPLOY_API_KEY`.
+- `--repo string` - GitHub repository for `--to-gh-secret` in `[HOST/]OWNER/REPO` format (default: the current folder's repository). Valid only with `--to-gh-secret`.
+- `--to-file string` - Write the key to a new file with mode `0600` (owner-only). Never overwrites an existing file, and is refused inside a git working tree unless ignored by `.gitignore`.
+- `--print-key` - Print the key on stdout (or in the JSON `service_account_key.key` field when combined with `--json`).
+- `--no-wait` - Start the browser approval, save the pending request to `~/.keploy/sa-key-pending.json` (owner-only), print the link and code, and exit. Run `--finish` once approved.
+- `--finish` - Create and save the key for a pending `--no-wait` approval once approved (waits up to 70 seconds per call; exits with code `5` while still waiting), or retry saving a key held in recovery after `store_failed`. Takes no key or destination flags (reads them from the saved request).
+- `--json` - Print one JSON `NEXT` block on stdout (`phase`: `auth_pending`, `sa_key_created`, or `sa_key_failed`); terminal messages go to stderr. The `service_account_key` object reports where the key went and its ID, never the key itself unless `--print-key` is passed.
+
+Specify **exactly one** destination (`--to-gh-secret`, `--to-file`, or `--print-key`). `--no-wait` and `--finish` are mutually exclusive, and `--finish` rejects key/destination flags.
+
+### Agent split flow
+
+Coding agents run key creation in two non-blocking steps:
+
+```bash
+# 1. Start the approval; returns JSON phase "auth_pending" with the verification link and code
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY --no-wait --json
+
+# 2. Once an organization admin approves in the browser, mint and save the key
+keploy service-account key create --finish --json
+```
+
+When the approval is still waiting, `--finish --json` exits with code `5` and `phase: "auth_pending"` so the agent can call it again until the code expires. Once approved and saved, it returns `phase: "sa_key_created"` with `service_account_key` metadata (and never prints the raw key unless `--print-key` was used).
+
+### Recovery when saving fails (`store_failed`)
+
+If the key is created on the server but cannot be written to its destination (for example, `gh secret set` fails), Keploy writes the key once to `~/.keploy/sa-key-recovery.json` (mode `0600`, owner-only, never printed) and fails with `error_code: store_failed` naming that path in `recovery_file`.
+
+While a recovery file is waiting, Keploy refuses to create a new key. Fix what blocked the destination and run:
+
+```bash
+keploy service-account key create --finish
+```
+
+`--finish` re-checks the destination, saves the recovered key where originally requested, and deletes `~/.keploy/sa-key-recovery.json`. Alternatively, delete the recovery file and revoke the reported `key_id` in **Settings > Service accounts**.
+
+See [Run the replay in CI](/docs/universal-mocker/guides/ci/) for complete GitHub Actions, GitLab CI, Jenkins, and shell CI workflows using `keploy service-account key create`.
+
+## [status](#status)
+
+`keploy status` reads the `keploy/` folder of the service you run it in and prints a `NEXT` block for the record and test loop: where things stand and the command to run next. `keploy mock status` does the same for `keploy mock`. Add `--json` to print the block as JSON.
+
+```bash
+keploy status
+```
+
+## [app](#app)
+
+`keploy app create` creates the Keploy app the repository records into, or reuses the app with the same name, and saves its id as `mock.appId` in `keploy.yml`. Commit `keploy.yml` with it.
+
+```bash
+keploy app create --name orders-api
+```
+
+Without `--name`, the app is named after the git repository's folder, or the current folder outside a repository.
+
+## [skill](#skill)
+
+`keploy skill install` installs Keploy's skills into the coding agents it finds on your machine: Claude Code, Cursor, Codex, Antigravity and GitHub Copilot.
+
+<b> Usage: </b>
+
+```bash
+keploy skill install
+```
+
+<b> Available flags: </b>
+
+- `--agent strings` - Install for these agents only, for example `--agent claude-code,cursor`.
+- `--all` - Install for every supported agent, whether or not Keploy finds it.
+- `--project` - Install into the current repository instead of your home folder.
+- `--dry-run` - List every file the install would write, and write nothing.
+
 ## [update](#update)
 
 The `update` command installs the latest Keploy release over the binary you are running.
@@ -490,7 +683,7 @@ Keploy doesn't replace its own binary in these cases:
 - **Keploy Docker image:** pull a newer image.
 - **Homebrew, Nix, or Snap:** Keploy prints a warning and runs on the version you have. Update through the package manager.
 - **VS Code extension:** the extension installs and tracks its own binary. Keploy only prints a notice that a newer release is available.
-- **Self-hosted runs:** these runs reach only your k8s-proxy, so Keploy doesn't check for a release. A run is self-hosted when `--k8s-proxy-auth`, `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_AUTH`, `KEPLOY_K8S_PROXY_URL`, or `cloud.k8sProxyAuth` or `cloud.k8sProxyUrl` in `keploy.yml` turns the mode on.
+- **Self-hosted runs:** these runs reach only your k8s-proxy, so Keploy doesn't check for a release. A run is self-hosted when `--k8s-proxy-auth`, `--k8s-proxy-url`, `KEPLOY_K8S_PROXY_AUTH`, `KEPLOY_K8S_PROXY_URL`, `cloud.k8sProxyAuth` or `cloud.k8sProxyUrl` in `keploy.yml`, or a login saved by `keploy login --k8s-proxy-url` turns the mode on.
 - **Builds from an organization's release channel:** a build published under `keploy.io/ent/dl/org/<organization>/` has a version with a suffix, such as `3.8.112-4f2a9c1d`. Keploy never replaces it with a public release, and `keploy update` leaves it alone too. Install new builds from the same channel.
 
 ## Related

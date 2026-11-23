@@ -4,6 +4,7 @@ import {themes as prismThemes} from "prism-react-renderer";
 const path = require("path");
 const remarkFaqSchema = require("./src/remark/remarkFaqSchema");
 const {siteGraph} = require("./src/schema/siteEntities");
+const redirects = require("./src/redirects");
 const fs = require("fs");
 const remarkImageSize = require("./src/remark/remarkImageSize");
 import {visit} from "unist-util-visit";
@@ -108,10 +109,14 @@ module.exports = {
     // Meta Pixel Code — fires eagerly (init + PageView) on load so conversion
     // tracking is accurate from the first paint. Intentionally NOT deferred.
     // SPA route changes re-fire PageView from src/metaPixelRouteTracker.js.
+    // Only loads on keploy.io / www.keploy.io, so localhost, staging and
+    // Vercel previews never send events into the production pixel. Without
+    // fbq, the route tracker no-ops too.
     {
       tagName: "script",
       attributes: {},
-      innerHTML: `!function(f,b,e,v,n,t,s)
+      innerHTML: `if (/^(www\\.)?keploy\\.io$/.test(window.location.hostname)) {
+!function(f,b,e,v,n,t,s)
 {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
 n.callMethod.apply(n,arguments):n.queue.push(arguments)};
 if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
@@ -120,7 +125,8 @@ t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
 fbq('init', '2006330080011702');
-fbq('track', 'PageView');`,
+fbq('track', 'PageView');
+}`,
     },
     {
       tagName: "noscript",
@@ -170,6 +176,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
   url: "https://keploy.io",
   baseUrl: "/docs/",
   onBrokenLinks: "throw",
+  // A link to a heading that does not exist fails the build too, as a
+  // broken link does: a page that moves or renames a heading must fix every
+  // link to it.
+  onBrokenAnchors: "throw",
   trailingSlash: true,
   markdown: {
     // Date each doc by the last commit that changed its content, not the last
@@ -209,25 +219,10 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
       };
     },
     "docusaurus-tailwindcss-loader",
-    // Old URLs that published packages still link to. The site is served from
-    // S3, which does not read static/_redirects, so each of these is a page the
-    // build writes that sends the browser on to the doc that replaced it. The
-    // build fails if a `to` page does not exist.
-    [
-      "@docusaurus/plugin-client-redirects",
-      {
-        redirects: [
-          // The README of @keploy/capture-sdk 3.0.1, on npm.
-          // scripts/verify-ui-capture-sdk-links.js keeps every link the SDK
-          // ships resolvable.
-          {from: "/ui-capture/overview/", to: "/running-keploy/ui-capture/"},
-          {
-            from: "/ui-capture/install-sdk/",
-            to: "/running-keploy/ui-capture/#install-the-sdk",
-          },
-        ],
-      },
-    ],
+    // Old URLs and the pages that replaced them: see src/redirects.js, where
+    // a moved page's old URL is added. scripts/verify-moved-urls.js checks
+    // each one in the built site.
+    ["@docusaurus/plugin-client-redirects", {redirects}],
     [
       "docusaurus-plugin-llms",
       {
@@ -329,6 +324,14 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
             {
               label: "API Testing (AI)",
               to: "/running-keploy/api-test-generator",
+            },
+            {
+              label: "Universal Mocker (Service Virtualization)",
+              to: "/universal-mocker/overview",
+            },
+            {
+              label: "UI Testing",
+              to: "/running-keploy/ui-capture",
             },
           ],
         },

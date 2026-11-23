@@ -277,10 +277,10 @@ If the rootful `podman.socket` is enabled (`sudo systemctl enable --now podman.s
 <br />
 
 :::info
-Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, MySQL and MongoDB** calls of Go, Node.js, Python and Java apps; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `sudo`. Natively it understands the **HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper** calls of Go, Node.js, Python and Java apps; calls to other services — Redis, Kafka, Apache Pulsar and the like — are captured only as raw bytes and usually don't replay.
 
 - Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
-- On an Intel Mac, use the **Lima** tab. The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too.
+- The `keploy` CLI for macOS is Apple Silicon (arm64) only, and the Docker tab uses it too. Keploy doesn't support Intel Macs.
 
 :::
 
@@ -319,7 +319,7 @@ See [Installing Keploy on macOS](/docs/installation/macos-installation/) for mor
 
 ## Install Keploy with Lima
 
-Lima runs Keploy inside a Linux VM on your Mac. It is the way to run Keploy on an **Intel Mac**; on Apple Silicon, the **Native** tab needs no VM.
+Lima runs Keploy inside a Linux VM on a Mac with Apple Silicon. Keploy doesn't support Intel Macs. The **Native** tab needs no VM.
 
 1. **Check if Lima is installed**: If you already have a Lima instance, make it writable (see step 3) and go to Step 5, using its name in place of `debian-12`.
 
@@ -444,7 +444,7 @@ Use "keploy [command] --help" for more information about a command.
 ## Install Keploy with Docker on macOS
 
 :::note Apple Silicon only
-Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. On an Intel Mac use the **Lima** tab instead.
+Your application and Keploy's agent run in containers here, but the `keploy` CLI installed in step 2 — which starts them both — runs on your Mac, and is Apple Silicon (arm64) only. Keploy doesn't support Intel Macs.
 :::
 
 1. **Make sure Docker is installed**: You’ll need Docker Desktop running on macOS.
@@ -566,12 +566,12 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
 
 ### 1. Install Keploy
 
-Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%USERPROFILE%\.keploy\bin` and adds that folder to your user `PATH`:
+Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the next release of the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) will use, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-$dir = "$env:USERPROFILE\.keploy\bin"
+$dir = "$env:LOCALAPPDATA\.keploy\bin"
 New-Item -ItemType Directory -Force $dir | Out-Null
 Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
   -OutFile "$dir\keploy.exe"
@@ -892,26 +892,61 @@ Choose the method that fits your setup:
 <Tabs>
 <TabItem value="browser" label="Browser Login (Default)">
 
-Keploy opens a browser window to sign you in automatically:
+Keploy uses OAuth device authorization (RFC 8628) and opens a browser window to approve the sign-in:
 
 ```bash
 keploy login
 ```
 
+If the browser cannot open automatically, Keploy prints a verification link and user code that you can open on any device:
+
+```text
+To sign in to Keploy, open:
+
+  https://app.keploy.io/activate
+
+and enter the code  <USER_CODE>
+
+Approve it only if you started this sign-in yourself. The code expires in <TIME_LEFT>.
+```
+
+### Headless, remote, or AI-agent login (split flow)
+
+On a machine without a browser, or from an AI coding agent whose shell shows command output only after a command exits, split the sign-in into two steps:
+
 ```bash
-Opening browser for authentication...
+# Print the verification link and user code and exit immediately
+keploy login --no-wait
 
-If the browser does not open automatically, please visit:
-https://app.keploy.io/signin/integration/auth?method=code&code=<YOUR_CODE>
+# After approving in the browser, collect the session (waits up to 70 seconds)
+keploy login --finish
+```
 
-Waiting for authentication...
-Logged in successfully!
+- Add `--json` to both commands (`keploy login --no-wait --json` and `keploy login --finish --json`) to emit a single JSON `NEXT` block on stdout for agents and scripts.
+- Re-running `keploy login --no-wait` shows the still-waiting code again. Pass `--new` (`keploy login --no-wait --new`) to discard the waiting sign-in and start a new code.
+
+### Fresh sign-in for sensitive actions
+
+Some actions require a recent sign-in (such as creating API keys or service accounts, or changing members and roles). Pass `--fresh` to force a new browser sign-in even when you are already signed in:
+
+```bash
+keploy login --fresh
+```
+
+`--fresh` also works with `--no-wait`. It is refused while an API key is configured (`KEPLOY_API_KEY` or `~/.keploy/cred.yaml`), because every Keploy command presents an API key before a browser session and an API key can never satisfy a recent-sign-in check. Unset `KEPLOY_API_KEY` or run `keploy logout` first.
+
+### Inspect your current login state
+
+Check which API key (last 4 characters only) and `k8s-proxy` URL Keploy will use here — and where each comes from (flag, environment variable, `keploy.yml`, or `~/.keploy`) — without signing in:
+
+```bash
+keploy login --show
 ```
 
 </TabItem>
 <TabItem value="manual" label="Manual Login">
 
-If a browser cannot open (for example in a remote terminal):
+If you prefer to enter a Keploy API key interactively in the terminal instead of opening a browser:
 
 ```bash
 keploy login --manual-login
@@ -942,21 +977,55 @@ You are on the Keploy <plan> plan.
 ```
 
 </TabItem>
-<TabItem value="apikey" label="API Key (CI/CD)">
+<TabItem value="apikey" label="CI/CD & Service Account Keys">
 
-For CI/CD environments, authenticate using an API key:
+### Recommended: Create a scoped CI service-account key
+
+For CI/CD pipelines, create a least-privilege service-account key scoped to **one app** and **one role** (`MOCK_READER`, `UI_READER`, `UI_RUNNER`, `ATG_RUNNER`, or `ITG_RUNNER`) instead of using a personal API key.
+
+Run `keploy service-account key create` in your project folder (where `keploy.yml` sets `mock.appId`, or pass `--app <app-id>`):
 
 ```bash
-keploy login --api-key <YOUR_API_KEY>
+# Save directly as a GitHub Actions repository secret via the GitHub CLI (gh)
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+
+# Or write to a new owner-only (mode 0600) file for GitLab CI, Jenkins, or other CI systems
+keploy service-account key create --role MOCK_READER --to-file ~/keploy-ci.key
 ```
 
-You can also set it as an environment variable:
+Keploy opens a browser approval page naming the key, app, and role, and asks for a fresh sign-in. **Only an admin of the app's organization can approve it.** The key is written directly to the GitHub secret or `0600` file, is never printed unless you pass `--print-key`, and never reads or overwrites your saved `keploy login` session.
+
+See [`keploy service-account` in CLI Commands](/docs/running-keploy/cli-commands/#service-account) for all roles, flags, agent split-flow (`--no-wait --json` / `--finish --json`), and failure recovery, or [Run the replay in CI](/docs/universal-mocker/guides/ci/) for complete CI workflows.
+
+### Using `KEPLOY_API_KEY` or `--api-key`
+
+In CI jobs, expose your service-account key (or API key) as `KEPLOY_API_KEY`:
 
 ```bash
 export KEPLOY_API_KEY=<YOUR_API_KEY>
 ```
 
-### How to get your API key
+Or verify and save an API key to `~/.keploy/cred.yaml` for subsequent commands:
+
+```bash
+keploy login --api-key <YOUR_API_KEY>
+```
+
+(To override `KEPLOY_API_KEY` for a single non-login command without saving it, pass `--api-key <YOUR_API_KEY>` to that command instead.)
+
+### Self-hosted `k8s-proxy` authentication
+
+For self-hosted clusters without direct internet or `api-server` access, authenticate through your `k8s-proxy` ingress URL:
+
+```bash
+keploy login --k8s-proxy-url https://<k8s-proxy ingress host> --api-key <YOUR_API_KEY>
+```
+
+Keploy verifies the key against the proxy and saves both the URL and key in `~/.keploy/cred.yaml` (mode `0600`) so subsequent commands need neither `KEPLOY_API_KEY` nor `KEPLOY_K8S_PROXY_URL`. See [Log in once on your own machine](/docs/keploy-cloud/cloud-replay/#log-in-once-on-your-own-machine).
+
+### Creating a personal API key in the dashboard
+
+If you need a personal API key instead of a service-account key:
 
 1. Log in to [app.keploy.io](https://app.keploy.io)
 2. Click on your **user profile** at the bottom left

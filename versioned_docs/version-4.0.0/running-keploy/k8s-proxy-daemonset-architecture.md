@@ -38,7 +38,7 @@ Sidecar mode injects a `keploy-agent` container into your application Pod via a 
 1. **Write RBAC on the application namespace.** The proxy needs `patch deployments` to add the sidecar.
 2. **An application restart at recording start.** The injected sidecar only takes effect on the next rollout.
 
-In production environments where Keploy must operate under read-only RBAC on the application namespace, or where rolling the Pod has unacceptable cost, neither requirement is acceptable. DaemonSet mode removes both.
+In production environments where Keploy must operate under read-only RBAC on the application namespace, the first requirement is not acceptable. DaemonSet mode removes it. The recorded Pods still restart once when a recording starts: the proxy evicts them (respecting PodDisruptionBudgets) so they come back up under capture.
 
 ### The three components
 

@@ -1,8 +1,8 @@
 ---
 id: ui-capture
 title: Capture real user flows from your web app
-sidebar_label: UI Capture
-description: Record real user sessions in your web app with the Keploy capture SDK and turn every visit into UI flows you can read in the dashboard, over the REST API, or from an AI agent through MCP.
+sidebar_label: Overview
+description: Keploy UI Testing records real user sessions in your web app and turns each visit into UI flows and journeys, in the dashboard, the REST API or MCP.
 tags:
   - UI testing
   - UI capture
@@ -11,372 +11,166 @@ tags:
   - MCP
   - AI agent
 keywords:
+  - UI testing
   - UI capture
   - capture SDK
   - user flows
+  - user journeys
   - session recording
   - ingest key
   - Keploy MCP
   - AI agent
 ---
 
-UI Capture records how real people use your web app and turns each visit into a **UI flow**: the steps a user took (pages, clicks, typing, selections) and the network calls those steps made. You add a small browser SDK to your frontend, Keploy receives the recording, and the flows appear in the Keploy dashboard and through the API.
+import ProductTier from '@site/src/components/ProductTier';
 
-You can set it up three ways, and they produce the same result:
+<ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-- [In the Keploy dashboard](#set-up-ui-capture-in-the-dashboard), with a few clicks.
-- [With the REST API](#set-up-ui-capture-with-the-rest-api), from a script or CI job.
-- [From an AI coding agent](#set-up-ui-capture-from-an-ai-agent-mcp), such as Claude Code or Cursor, through the Keploy MCP server.
+Keploy UI Testing records how real people use your web app. A small browser SDK, `@keploy/capture-sdk`, records each visit in your users' browsers and masks personal data before anything leaves the browser. Keploy turns each visit into **UI flows**, the steps a user took on each page and the network calls those steps made, and into **journeys**: the paths visits take through your pages, each with its share of sessions. You read them in the Keploy dashboard, over the REST API, or from an AI agent through MCP.
+
+**New here?** The [dashboard quickstart](../ui-capture/quickstart-dashboard.md) records your first flows from a sample shop in about 10 minutes, and the [walkthrough](../ui-capture/walkthrough-dashboard.md) goes on to journeys.
 
 :::note Beta
-UI Capture is in beta. This page describes what works today, including its current [limitations](#limitations).
+UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet: see [What works today](#what-works-today).
 :::
 
-## How UI Capture works
+## How UI capture works {#how-ui-capture-works}
 
-1. **An ingest key** connects the SDK to one Keploy app. It can only post recordings into that app, so it is safe to ship in your page's JavaScript.
-2. **The capture SDK** (`@keploy/capture-sdk`) runs in your users' browsers. It records the page and the `fetch`/`XMLHttpRequest` calls it makes, masks what users type, and sends the recording to Keploy in small batches.
-3. **Keploy ends a visit** after 30 minutes without activity, then extracts its flows, usually within a few minutes.
-4. **You read the flows** in the dashboard, or an agent reads them through the REST API or MCP.
+1. **An ingest key** connects the SDK to one Keploy app. It can only post recordings into that app, so it is safe to ship in your page's JavaScript. See [Ingest keys and environments](../ui-capture/ingest-keys.md).
+2. **The capture SDK** runs in your users' browsers. It records the page with [rrweb](https://github.com/rrweb-io/rrweb) and every `fetch` and `XMLHttpRequest` call the page makes, masks personal data in the browser, and posts the recording to Keploy's `/ui/v1/ingest` in batches.
+3. **Keploy ends a visit** after 30 minutes without activity, or at once when the visit is completed with `POST /ui/v1/sessions/<session id>/complete`. It then extracts the visit's flows, usually within a few minutes.
+4. **Each page of a visit is its own flow**, a route change in a single-page app included, and Keploy chains a visit's flows into its journey. Every journey figure counts sessions: one page load of your app, its in-app navigation included.
+5. **You read them** in the dashboard under **UI Testing → UI Flows**, or an agent reads them through the REST API or MCP.
 
-## Before you begin
+Each visit's flows are listed per app in the dashboard:
 
-- A Keploy app to record into. Create one in the [Keploy Console](https://app.keploy.io) if you have none.
-- Permission to run test generation on that app (`testgen:run`) to create or revoke an ingest key, the same in the dashboard and the API. Viewing capture status and flows needs only view access to the app (`app:view`).
-- A web frontend built with a bundler (Vite, webpack, Next.js, and similar). See [Install the SDK](#install-the-sdk) for why.
+<img src="/docs/img/ui-capture/ui-capture-flows.webp" alt="The Flows tab's table of flows, each with its name, session, last update time and status, under the note that each route is its own flow since SDK 3.1.0" width="100%" />
 
-## Set up UI Capture in the dashboard
+Each flow is the sequence of steps a user took on one page, with the network calls those steps made:
 
-1. In the Keploy Console, select your app and open **UI Testing → UI Flows** in the left navigation. An app with no flows yet opens on the setup card; an app with flows has it under the **Setup** tab.
+<img src="/docs/img/ui-capture/ui-capture-flow-detail.webp" alt="A flow's Step Timeline, with a masked search typed into the search box and the clicks that followed, beside its Network Calls" width="100%" />
 
-   <img src="/img/ui-capture/ui-capture-setup-card.webp" alt="The UI Capture setup card, with steps to create an ingest key, add the SDK and check that sessions arrive" width="100%" />
+## What works today {#what-works-today}
 
-   The screenshots on this page are from a local deployment, so they show `http://localhost:8083` where Keploy Cloud shows `https://api.keploy.io`.
+| What                                               | Status                 | Where                                                                      |
+| -------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------- |
+| Recording visits, masking in the browser           | Beta                   | `@keploy/capture-sdk` 3.2.0                                                |
+| Flows: each page's steps and network calls         | Beta                   | Dashboard **Flows** tab; REST and MCP (`listUIFlows`, `getUIFlow`)         |
+| Journeys, and the share of sessions that took each | Beta                   | Dashboard **Journeys** tab; REST and MCP (`uiJourneys`, `uiJourneyImpact`) |
+| Replaying journeys as Playwright tests, with mocks | Beta, not runnable yet | The runner is not in a release build yet.                                  |
 
-2. Under **1. Create an ingest key**, optionally name the key (for example, `production web`) and click **Create ingest key**.
+[Features and availability](../ui-capture/features.md) lists every feature, where you use it and its status. The SDK only records: generating and running tests is Keploy's side, not the SDK's. A flow's page in the dashboard has a **Generate Test** button. Today it creates a test run that waits for a runner, and in the dashboard's own words: "No runner ships in this release, so the run stays pending until one does."
 
-   If you signed in more than 15 minutes ago, Keploy asks you to confirm it's you before it creates the key.
+## Set up UI capture
 
-3. Copy the key. **It is shown only once.** The SDK snippet under **2. Add the SDK to your app** now contains it.
+You can set it up three ways, and they produce the same result: an ingest key for your app, and the SDK in your frontend.
 
-   <img src="/img/ui-capture/ui-capture-key-created.webp" alt="A newly created ingest key, shown once, with the SDK install command and an init snippet that already contains the key" width="100%" />
+### In the dashboard {#set-up-ui-capture-in-the-dashboard}
 
-4. [Install the SDK](#install-the-sdk) in your app with the snippet, deploy it, and use the app in a browser.
+Open **UI Testing → UI Flows**, select your app in the header, and follow the setup card: create an ingest key, add the SDK, and check that sessions arrive. The [dashboard quickstart](../ui-capture/quickstart-dashboard.md) walks through it with a sample shop, and the [walkthrough](../ui-capture/walkthrough-dashboard.md) continues to flows and journeys.
 
-5. Watch **3. Check that sessions arrive**. **Sessions received** counts visits as they arrive, and **Last activity** shows when the SDK last sent anything. **Flows extracted** goes up once a visit has been idle for 30 minutes and Keploy has processed it. The line under the counts says which [state](#check-that-capture-is-working) capture is in: the same state an agent reads from the API. When the first flows are ready, the page switches to its tabs on its own.
+### With the REST API {#set-up-ui-capture-with-the-rest-api}
 
-   <img src="/img/ui-capture/ui-capture-status.webp" alt="The status panel showing one session received, the time of the last activity, one flow extracted, the app's ingest key and how to set this up from an agent" width="100%" />
-
-6. Open the **Flows** tab to see each flow, and click a flow to see its steps and network calls.
-
-   <img src="/img/ui-capture/ui-capture-flows.webp" alt="The flows table listing a captured flow with its session, last update time and status" width="100%" />
-
-   <img src="/img/ui-capture/ui-capture-flow-detail.webp" alt="A flow's detail page with its step timeline and the network calls the steps made" width="100%" />
-
-The setup card also lists your app's ingest keys, with when each was created, last used and expires. To stop a key from being accepted, click the trash icon next to it, then **Revoke**. Pages using that key stop recording within about 30 seconds.
-
-## Install the SDK
-
-Install the package:
+Every step is available on the [Keploy Public API](./public-api.md) at `https://api.keploy.io/client/v1`. You need an API key: `write` scope to create or revoke an ingest key, `read` scope to read capture status, flows and journeys. One call mints an ingest key and returns the SDK's endpoint, its install command and an `init` snippet with the key in it:
 
 ```bash
-npm install @keploy/capture-sdk
-```
-
-Call `init` once, when your app starts, in code that runs in the browser:
-
-```javascript
-import {KeployCapture} from "@keploy/capture-sdk";
-
-await KeployCapture.init({
-  endpoint: "https://api.keploy.io/ui/v1/ingest",
-  apiKey: "<your ingest key>",
-});
-```
-
-Use the `endpoint` the setup card or the API gives you. It is `https://api.keploy.io/ui/v1/ingest` on Keploy Cloud and your own API server's `/ui/v1/ingest` when self-hosted. A self-hosted API server builds it from its `API_SERVER_URL`; if that isn't set to the server's public URL, the API returns an empty `endpoint` and says so in `next`, rather than guessing.
-
-In a server-rendered framework, start the SDK from a client-side effect so it runs only in the browser. For example, in a Next.js App Router layout:
-
-```tsx
-"use client";
-
-import {useEffect} from "react";
-
-export function UICapture() {
-  useEffect(() => {
-    let stop: (() => void) | undefined;
-    void import("@keploy/capture-sdk").then(async ({KeployCapture}) => {
-      await KeployCapture.init({
-        endpoint: "https://api.keploy.io/ui/v1/ingest",
-        apiKey: process.env.NEXT_PUBLIC_KEPLOY_UI_CAPTURE_API_KEY!,
-      });
-      stop = () => void KeployCapture.stop();
-    });
-    return () => stop?.();
-  }, []);
-  return null;
-}
-```
-
-:::caution Use a bundler
-The SDK loads its DOM recorder ([rrweb](https://github.com/rrweb-io/rrweb)) with a package import that your bundler resolves. Loaded on a page without a bundler or an import map, `@keploy/capture-sdk` 3.0.1 starts without an error but cannot record the page: it sends the page's network calls and no clicks, typing or navigation, so sessions arrive and never become flows. From the release that links the [UI Capture errors page](../ui-capture/errors.md), the SDK instead ends the capture before sending anything and reports [`KUI_E_DOM_RECORDER_UNAVAILABLE`](../ui-capture/errors.md#kui-e-dom-recorder-unavailable).
-:::
-
-### SDK options
-
-| Option               | Default      | What it does                                                                                                                                   |
-| -------------------- | ------------ | ---------------------------------------------------------------------------------------------------------------------------------------------- |
-| `endpoint`           | required     | The ingest URL.                                                                                                                                |
-| `apiKey`             | required     | The app's ingest key.                                                                                                                          |
-| `privacyMode`        | `"balanced"` | `"balanced"` masks every typed value and records visible text. `"strict"` also masks all visible text. `"off"` records typed values.           |
-| `networkCapture`     | `true`       | Records `fetch` and `XMLHttpRequest` calls. Set `false` to record only the page.                                                               |
-| `sampleRate`         | `1`          | Fraction of visits to record, from `0` to `1`. `0.1` records 10% of visits.                                                                    |
-| `maxSessionDuration` | `600000`     | Longest recording of one page load, in milliseconds (10 minutes). When it elapses, recording stops until the next `init` (the next page load). |
-| `maskSelectors`      | `[]`         | CSS selectors whose text is masked.                                                                                                            |
-| `privacy`            | —            | Finer controls: `blockSelectors`, `maskNetworkBodies`, `sensitiveHeaders`, `piiPatterns`.                                                      |
-
-### What the SDK records, and what it masks
-
-- **Typed values** are masked in every input, textarea and select with the default `privacyMode`. Password fields and hidden inputs are masked in every mode, including `"off"`. The values of radio buttons, checkboxes and buttons are not typed and are recorded in every mode; to leave an element out of the recording entirely, list it in `privacy.blockSelectors`.
-- **Visible text** on the page is recorded, unless you use `privacyMode: "strict"` or `maskSelectors`. To drop an element from the recording entirely, list it in `privacy.blockSelectors`.
-- **Network calls** are recorded with their method, URL (including the query string), status, headers and bodies. The values of the `Authorization`, `Cookie`, `Set-Cookie`, `X-API-Key`, `X-Auth-Token` and `Proxy-Authorization` headers are always replaced with `[REDACTED]`. To stop recording bodies, set `privacy.maskNetworkBodies: true`; to stop recording network calls, set `networkCapture: false`.
-
-The dashboard shows a flow's recorded URLs and calls to people on your team who can view the app. The [REST API and MCP](#what-an-agent-sees) return less.
-
-## Set up UI Capture with the REST API
-
-Every step is available on the [Keploy Public API](./public-api.md) at `https://api.keploy.io/client/v1`. You need an API key: `write` scope to create or revoke an ingest key, `read` scope for everything else. Replace `<appId>` with your app's ID.
-
-### Create an ingest key
-
-```bash
-curl -X POST https://api.keploy.io/client/v1/apps/<appId>/ui/ingest-keys \
+curl -X POST "https://api.keploy.io/client/v1/apps/<appId>/ui/ingest-keys" \
   -H "Authorization: Bearer kep_YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{"name": "storefront prod"}'
 ```
 
-`name` is optional, and so is `ttlDays` (1 to 365; without it the key does not expire). The response has everything needed to install the SDK, including an `init` snippet with the key in it:
+The [REST API reference](../ui-capture/rest-api.md) covers each call, from minting and revoking ingest keys to capture status, flows, journeys and test runs, with the answers it returns.
 
-```json
-{
-  "data": {
-    "key": {
-      "id": "28ff3828-d0e9-4a05-8615-c48c1fd51bba",
-      "name": "storefront prod",
-      "keyPrefix": "kep_dpeSyTYC",
-      "appId": "<appId>",
-      "status": "active",
-      "createdAt": 1791282595
-    },
-    "apiKey": "kep_dpeSyTYC…",
-    "endpoint": "https://api.keploy.io/ui/v1/ingest",
-    "sdk": {
-      "package": "@keploy/capture-sdk",
-      "install": "npm install @keploy/capture-sdk",
-      "init": "import { KeployCapture } from \"@keploy/capture-sdk\";\n\nawait KeployCapture.init({ … });\n"
-    },
-    "next": [
-      "apiKey is shown only in this response: store it now (it is safe to ship in the page; it can only post recordings into this app)",
-      "install the SDK and call KeployCapture.init once at app start-up, in the browser bundle",
-      "browse the app, then GET /client/v1/apps/<appId>/ui/capture-status (MCP: uiCaptureStatus) to see sessions arrive",
-      "a session becomes flows 30 minutes after its last activity; read them with GET /client/v1/apps/<appId>/ui/flows"
-    ]
-  }
-}
-```
+### From an AI agent (MCP) {#set-up-ui-capture-from-an-ai-agent-mcp}
 
-`apiKey` appears only in this response. Store it before you continue.
+Every UI capture endpoint is also a tool on the Keploy MCP server at `https://api.keploy.io/client/v1/mcp`, so an AI agent such as Claude Code, Cursor or Codex can set up capture in your frontend and tell you when the first flows are ready. The [AI agent quickstart](../ui-capture/quickstart-agent.md) connects your agent and walks through what it does, and [MCP tools](../ui-capture/mcp-tools.md) lists the tools.
 
-### Check that capture is working
+## Install the SDK {#install-the-sdk}
+
+Install the package as a runtime dependency. Its only dependency is `rrweb`.
 
 ```bash
-curl https://api.keploy.io/client/v1/apps/<appId>/ui/capture-status \
-  -H "Authorization: Bearer kep_YOUR_API_KEY"
+npm install @keploy/capture-sdk
 ```
 
-The response names a `state`, explains it, and lists what to do `next`:
+Call `init` once, as early in your app's startup as you can, in code that runs in the browser:
 
-```json
-{
-  "data": {
-    "state": "FLOWS_READY",
-    "explanation": "flows have been extracted from recorded sessions",
-    "next": [
-      "read them with GET /client/v1/apps/<appId>/ui/flows (MCP: listUIFlows)",
-      "each flow lists its steps and the network calls it made"
-    ],
-    "endpoint": "https://api.keploy.io/ui/v1/ingest",
-    "idleAfterSeconds": 1800,
-    "totalSessions": 1,
-    "sessionsByStatus": {"PROCESSED": 1},
-    "lastBatchAt": 1791282469,
-    "totalFlows": 1,
-    "recentSessions": [
-      {
-        "id": "eda95518-6f70-4a80-b618-9ea986db11a0",
-        "sdkSessionId": "a760c5be-2a02-4d2f-8d4d-3ff1ed94c0fe",
-        "status": "PROCESSED",
-        "startedAt": 1791282469,
-        "lastBatchAt": 1791282469,
-        "completedAt": 1791282487,
-        "eventCount": 32,
-        "batches": 1,
-        "sdkVersion": "3.0.1"
-      }
-    ]
-  }
-}
+```ts
+import {KeployCapture} from "@keploy/capture-sdk";
+
+await KeployCapture.init({
+  endpoint: "https://api.keploy.io/ui/v1/ingest",
+  apiKey: "<your app's UI ingest key>",
+});
 ```
 
-| `state`       | What it means                                                                          | What to do                                                           |
-| ------------- | -------------------------------------------------------------------------------------- | -------------------------------------------------------------------- |
-| `NO_SESSIONS` | No recording has reached this app.                                                     | Check the page calls `init` with this app's ingest key and endpoint. |
-| `RECORDING`   | Sessions are arriving. Each becomes flows `idleAfterSeconds` after its last activity.  | Wait, or keep using the app.                                         |
-| `PROCESSING`  | Finished visits are being turned into flows.                                           | Check again in a minute.                                             |
-| `FLOWS_READY` | At least one flow exists.                                                              | [List the flows](#read-the-flows).                                   |
-| `NO_FLOWS`    | Visits were processed but contained no user action (a page opened and left untouched). | Record a visit that clicks, types or navigates.                      |
-| `ALL_FAILED`  | Every finished visit failed to process.                                                | Record a fresh visit; contact Keploy support if it fails again.      |
+Use the `endpoint` the setup card or the API gives you. It is `https://api.keploy.io/ui/v1/ingest` on Keploy Cloud, and your own API server's URL followed by `/ui/v1/ingest` when you self-host. A self-hosted API server builds it from its `API_SERVER_URL`; if that isn't set to the server's public URL, the API returns an empty `endpoint` and says so in `next`, rather than guessing.
 
-A visit that can't be processed is retried with backoff for about two hours and then counted as failed, so no state lasts forever. A session's `id` is the `sessionId` its flows carry; `sdkSessionId` is the browser's own ID for the same visit.
+- **Early, and once.** `init` patches `fetch` and `XMLHttpRequest` synchronously before rrweb finishes loading and holds those events until rrweb loads, so requests your app fires right after `init` are recorded (in SDK 3.1.0 and earlier, requests made while rrweb loaded were missed). Requests made before `init` is called are still not recorded, so start `init` before your app's own code runs. Call it once per page load, not per route: a second `init` returns the same capture.
+- **Per framework.** [Install the SDK](../ui-capture/install-sdk.md) shows the call in a React and Vite app, a Next.js App Router app and plain HTML pages with no bundler, from the [UI capture sample shops](https://github.com/keploy/samples-typescript). [Bundlers and frameworks](../ui-capture/bundlers.md) says what webpack, Parcel, esbuild and a page with no bundler need, and [Content-Security-Policy and workers](../ui-capture/csp-and-workers.md) what a CSP must allow.
 
-Timestamps in seconds: `createdAt`, `startedAt`, `lastBatchAt`, `completedAt`. Step and network-call `timestamp`s in a flow are in milliseconds.
+### SDK options {#sdk-options}
 
-### Read the flows
+`endpoint` and `apiKey` are the only required options. Every other option has a default: `privacyMode: "balanced"`, `sampleRate: 1`, sessions of at most 10 minutes, and Do Not Track and Global Privacy Control honoured. [SDK options and API](../ui-capture/sdk-reference.md#captureconfig) lists each option with its type and default, the `KeployCapture` methods, and the errors `onError` receives.
 
-List an app's flows:
+## Privacy at a glance {#what-the-sdk-records-and-what-it-masks}
 
-```bash
-curl https://api.keploy.io/client/v1/apps/<appId>/ui/flows \
-  -H "Authorization: Bearer kep_YOUR_API_KEY"
-```
+Masking happens in the browser, before anything is sent, so Keploy's server never sees the original.
 
-```json
-{
-  "data": [
-    {
-      "id": "45733249-11ef-42be-a758-b0f621fb697d",
-      "name": "Fill on /",
-      "description": "6 steps, 1 API calls, 2.7s",
-      "status": "CLUSTERED",
-      "sessionId": "eda95518-6f70-4a80-b618-9ea986db11a0",
-      "clusterId": "ff14bf67-d5aa-4ca0-8feb-cd265b079f3c",
-      "steps": 6,
-      "networkCalls": 1,
-      "createdAt": 1791282487
-    }
-  ]
-}
-```
+- **Typed values** are masked in every input, textarea and select under `"balanced"` (the default) and `"strict"`. Password and hidden fields are masked in every mode, `"off"` included. The values of radio buttons, checkboxes and buttons are not typed and are recorded under `"balanced"` and `"off"`; to leave such an element out of the recording, list it in `privacy.blockSelectors`.
+- **Visible text** is recorded under `"balanced"`, except inside `maskSelectors`. `"strict"` masks all of it. Strict still records `data-testid` values as written, so never build one from user data.
+- **Network calls** are recorded with their method, URL, status, headers and bodies. The values of the `Authorization`, `Cookie`, `Set-Cookie`, `X-API-Key`, `X-Auth-Token` and `Proxy-Authorization` headers, and of any header whose name reads as a credential's, are always replaced with `[REDACTED]`. Bodies are redacted by structure: a value under a credential's name is replaced. `privacy.maskNetworkBodies: true` replaces every body with `[MASKED]`, `"strict"` sets it, and `networkCapture: false` records no call.
+- **A body the SDK could not redact** is never recorded in the clear: it is recorded as not captured. [`KUI_E_BODY_WORKER_UNAVAILABLE`](../ui-capture/errors.md#kui-e-body-worker-unavailable) describes both markers.
+- **Visitors who send Do Not Track or Global Privacy Control** are not recorded, by default.
 
-Get one flow's steps and calls:
+The dashboard shows a flow's recorded URLs and calls to people on your team who can view the app. The [REST API and MCP](../ui-capture/agents.md#what-an-agent-sees) return less.
 
-```bash
-curl https://api.keploy.io/client/v1/apps/<appId>/ui/flows/<flowId> \
-  -H "Authorization: Bearer kep_YOUR_API_KEY"
-```
+[Privacy and masking](../ui-capture/privacy.md) covers every rule, and what each mode still records.
 
-```json
-{
-  "data": {
-    "id": "45733249-11ef-42be-a758-b0f621fb697d",
-    "name": "Fill on /",
-    "steps": 6,
-    "networkCalls": 1,
-    "stepList": [
-      {
-        "index": 1,
-        "action": "input",
-        "selector": "#search",
-        "hasValue": true,
-        "pageUrl": "https://shop.example.com/",
-        "timestamp": 1791282467268
-      },
-      {
-        "index": 2,
-        "action": "click",
-        "selector": "#go",
-        "pageUrl": "https://shop.example.com/",
-        "timestamp": 1791282467813
-      }
-    ],
-    "networkCallList": [
-      {
-        "method": "GET",
-        "url": "https://shop.example.com/api/search",
-        "responseStatus": 200,
-        "timestamp": 1791282467824
-      }
-    ]
-  }
-}
-```
+## Limitations {#limitations}
 
-### Manage ingest keys
+- **A visit ends after 30 minutes without activity.** A visitor who comes back to the same tab after that is not recorded again until the page reloads, unless you set `continuous: true`, which starts a new session at the visitor's next click, tap or key press.
+- **A session lasts at most `maxSessionDuration`**, 10 minutes by default. Set `continuous: true` to keep capturing for the life of the page.
+- **Requests made before `init` is called are not recorded** (in SDK 3.1.0 and earlier, requests made while rrweb was still loading were missed too). See [Install the SDK](#install-the-sdk).
+- **A site whose links load pages records each page load as its own session**, so its journeys never span a page load. A single-page app's route changes stay in one session.
+- **Sampling is per page load, not per user.** The SDK carries no user identity, so journey figures are shares of sessions, not of people.
+- **Replaying journeys as Playwright tests is in beta and not runnable yet.** See [What works today](#what-works-today).
 
-```bash
-# List an app's ingest keys (never returns a key's secret)
-curl https://api.keploy.io/client/v1/apps/<appId>/ui/ingest-keys \
-  -H "Authorization: Bearer kep_YOUR_API_KEY"
+[Sessions and sampling](../ui-capture/sessions-and-sampling.md) explains when a session starts and ends, and [Limits and sizes](../ui-capture/limits.md) lists every limit.
 
-# Revoke one; pages using it are refused within about 30 seconds
-curl -X DELETE https://api.keploy.io/client/v1/apps/<appId>/ui/ingest-keys/<keyId> \
-  -H "Authorization: Bearer kep_YOUR_API_KEY"
-```
+## Troubleshooting {#troubleshooting}
 
-## Set up UI Capture from an AI agent (MCP)
+[Troubleshooting](../ui-capture/troubleshooting.md) lists what goes wrong most often, each with its cause and fix: nothing arriving, sessions in another app, visits that have not become flows, cut bodies, build errors, and what agents and the dashboard run into. An SDK error or warning names a `KUI_E_` code, and [UI Capture errors and warnings](../ui-capture/errors.md) explains each one: what happened, why, and how to fix it.
 
-Every UI Capture endpoint is also a tool on the Keploy MCP server at `https://api.keploy.io/client/v1/mcp`. Connect your agent as described in [MCP client configuration](./agent-test-generation.md#mcp-client-configuration), with an API key that has `read` and `write` scope.
+## Where did a section go? {#where-did-a-section-go}
 
-| Tool                | What it does                                                                                    |
-| ------------------- | ----------------------------------------------------------------------------------------------- |
-| `uiCaptureSetup`    | Creates an ingest key and returns the endpoint, the SDK install command and the `init` snippet. |
-| `uiCaptureStatus`   | Reports whether recordings arrive and have become flows, with the next step to take.            |
-| `listUIFlows`       | Lists an app's flows.                                                                           |
-| `getUIFlow`         | Returns one flow's steps and network calls.                                                     |
-| `listUIIngestKeys`  | Lists an app's ingest keys.                                                                     |
-| `revokeUIIngestKey` | Revokes an ingest key.                                                                          |
+This page used to be the whole UI capture guide. Each of the old guide's sections, and where it is now:
 
-The server runs in tool-search mode, so these tools don't appear in the initial tool list. The agent finds them with `search_tools("ui capture")` or calls them by name through `invoke_tool`.
+| Section of the old guide                 | Now in                                                                                               |
+| ---------------------------------------- | ---------------------------------------------------------------------------------------------------- |
+| How UI Capture works                     | [How UI capture works](#how-ui-capture-works), on this page                                          |
+| Before you begin                         | [Dashboard quickstart: Before you begin](../ui-capture/quickstart-dashboard.md#before-you-begin)     |
+| Set up UI Capture in the dashboard       | [Dashboard quickstart](../ui-capture/quickstart-dashboard.md)                                        |
+| Install the SDK                          | [Install the SDK](../ui-capture/install-sdk.md)                                                      |
+| SDK options                              | [SDK options and API: CaptureConfig](../ui-capture/sdk-reference.md#captureconfig)                   |
+| What the SDK records, and what it masks  | [Privacy and masking](../ui-capture/privacy.md)                                                      |
+| Set up UI Capture with the REST API      | [REST API](../ui-capture/rest-api.md)                                                                |
+| Create an ingest key                     | [REST API: Create an ingest key](../ui-capture/rest-api.md#create-an-ingest-key)                     |
+| Check that capture is working            | [REST API: Capture status](../ui-capture/rest-api.md#capture-status)                                 |
+| Read the flows                           | [REST API: List flows](../ui-capture/rest-api.md#list-flows)                                         |
+| Manage ingest keys                       | [REST API: List ingest keys](../ui-capture/rest-api.md#list-ingest-keys)                             |
+| Set up UI Capture from an AI agent (MCP) | [AI agent quickstart](../ui-capture/quickstart-agent.md) and [MCP tools](../ui-capture/mcp-tools.md) |
+| What an agent sees                       | [Operate UI capture from an AI agent](../ui-capture/agents.md#what-an-agent-sees)                    |
+| Limitations                              | [Limitations](#limitations), on this page, and [Limits and sizes](../ui-capture/limits.md)           |
+| Troubleshooting                          | [Troubleshooting](../ui-capture/troubleshooting.md)                                                  |
 
-Then ask your agent, for example:
+## Related
 
-> "Use the Keploy MCP tools to set up UI capture for my app `storefront-web`: create an ingest key, add the capture SDK to this frontend, and tell me when the first flows are ready."
-
-The agent calls `uiCaptureSetup`, edits your frontend with the returned snippet, and polls `uiCaptureStatus` until it reports `FLOWS_READY`.
-
-### What an agent sees
-
-Flows returned by the REST API and MCP are meant for an agent's context, so they return the shape of the journey and leave out what is most likely to carry your users' data:
-
-- A step says whether the user entered a value (`hasValue`), never the value itself.
-- Request and response headers and bodies are not returned.
-- URL query strings, fragments and credentials (`user:password@`) are removed.
-- A path segment that looks like a secret or a personal number is replaced with `REDACTED`: an email address, six or more digits (a one-time code, an account or card number, and also a date written as digits, such as `20240115`), twelve or more letters and digits in one run (an invite or reset token), or a long token that is not a UUID. Long IDs that are not UUIDs, such as 24-character MongoDB ObjectIds, are replaced too.
-- A flow's name and description are scrubbed the same way, and an `aria-label` value in a selector is replaced with `REDACTED`, because it is page text.
-
-What is kept as recorded: the page's paths otherwise, and the `data-testid` values, IDs and class names your developers wrote. These checks go by shape, so they can't recognise every piece of personal data: if your app puts user data into paths or into those attributes, it reaches the agent.
-
-## Limitations
-
-- **A visit is ended by 30 minutes of inactivity.** A user who comes back to the same tab after that is not recorded again until the page reloads.
-- **One recording lasts at most one page load and 10 minutes** by default (`maxSessionDuration`).
-- **Single-page-app route changes are not yet recorded as navigation.** In an app that changes routes without a full page load, a flow's steps all show the page where the visit started.
-- **The SDK needs a bundler.** See [Install the SDK](#install-the-sdk).
-
-## Troubleshooting
-
-An SDK error or warning names a `KUI_E_` code, and [UI Capture SDK errors and warnings](../ui-capture/errors.md) explains each one: what happened, why, and how to fix it.
-
-**The browser console shows `403` with "this API key is not a UI ingest key".**
-The SDK was given a personal access token or another kind of key. Create an ingest key for the app, in the dashboard or with `POST /client/v1/apps/<appId>/ui/ingest-keys`, and use it as `apiKey`.
-
-**`capture-status` stays at `NO_SESSIONS`.**
-Check the browser's network tab for requests to `/ui/v1/ingest`. If there are none, check that `init` runs in the browser. A `401` or `403` means the key is not an ingest key, or has been revoked.
-
-**Sessions arrive in a different app.**
-An ingest key records into the app it was created for. Create a key for this app and use it as `apiKey`.
-
-**Sessions arrive but no flows appear.**
-A visit becomes flows 30 minutes after its last activity. `capture-status` shows `RECORDING` until then, and `NO_FLOWS` if the visit had no clicks, typing or navigation. If your visits did have those, check that your app is built with a bundler: without one, SDK 3.0.1 records only network calls, and from the release that links the errors page the SDK reports `KUI_E_DOM_RECORDER_UNAVAILABLE` instead (see [Install the SDK](#install-the-sdk)).
+- [Dashboard quickstart](../ui-capture/quickstart-dashboard.md)
+- [From first visit to journeys](../ui-capture/walkthrough-dashboard.md)
+- [UI Capture errors and warnings](../ui-capture/errors.md)
+- [@keploy/capture-sdk 3.2.0 release notes](../ui-capture/capture-sdk-3-2-0-release-notes.md)
+- [@keploy/capture-sdk 3.1.0 release notes](../ui-capture/capture-sdk-3-1-0-release-notes.md)
+- [AI agent quickstart](../ui-capture/quickstart-agent.md)
+- [Troubleshooting](../ui-capture/troubleshooting.md)

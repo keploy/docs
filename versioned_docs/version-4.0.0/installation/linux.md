@@ -16,6 +16,12 @@ Keploy uses eBPF to intercept API calls on network layer and generates test case
 
 ## 1. Install Keploy
 
+:::tip Using VS Code?
+
+The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) downloads this same CLI into `~/.keploy/bin` by itself, so you can skip this step. Run as your own user, not as root, the command below installs into that same folder, so the extension, your terminals and your coding agent run one `keploy`. Run as root, it installs into `/usr/local/bin` instead, and the extension keeps its own copy in your home folder.
+
+:::
+
 Run the following command in your terminal:
 
 ```bash
@@ -28,7 +34,7 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 
 - **No browser available** (a remote shell, a container): run with `--manual-login` and paste an API key from your Keploy dashboard when prompted.
 - **CI, or any non-interactive run**: set `KEPLOY_API_KEY` (or pass `--api-key`) and Keploy skips the sign-in prompt entirely.
-- **Offline**: the local mock loop — `keploy mock record --local` and `keploy mock replay --local` — is the one pair that runs without signing in. While you are signed out it logs a harmless `failed to validate user role` line and then runs normally. This is the mock loop, not a replacement for `keploy record` and `keploy test` — see [Mock your tests](/docs/running-keploy/mock-your-tests).
+- **Offline**: the local mock loop — `keploy mock record --local` and `keploy mock replay --local` — is the one pair that runs without signing in. While you are signed out it logs a harmless `failed to validate user role` line and then runs normally. This is the mock loop, not a replacement for `keploy record` and `keploy test` — see [Mock your tests](/docs/universal-mocker/mock-your-tests/).
 
 A free account is enough to record and replay. Free-tier runs are subject to a usage allowance.
 

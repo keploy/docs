@@ -53,7 +53,7 @@ Unit test automation offers many advantages, including:
   **Example**: For a new developer onboarding to a project, unit tests for functions like `processPayment()` demonstrate expected behavior, helping them understand how to use and integrate the function.
 
 - **Regression Testing**:  
-  Unit tests act as a form of [regression testing](https://keploy.io/docs/concepts/reference/glossary/regression-testing), quickly alerting developers to unintended changes after updates or modifications.  
+  Unit tests act as a form of [regression testing](https://keploy.io/blog/community/regression-testing-an-introductory-guide), quickly alerting developers to unintended changes after updates or modifications.\
   **Example**: If a developer modifies the `applyCoupon()` function, running the associated unit tests will immediately indicate if the changes inadvertently affected other functionalities, maintaining consistency across updates.
 
 In addition to the benefits listed above, unit test automation can also help to:
