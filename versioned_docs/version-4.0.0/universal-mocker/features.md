@@ -21,7 +21,7 @@ keywords:
 
 # Universal Mocker features
 
-This page lists what Universal Mocker does in Keploy 3.9.4. Each row links to
+This page lists what Universal Mocker does in Keploy 3.9.13. Each row links to
 the page that shows it.
 
 ## Record and replay any test command
@@ -37,8 +37,8 @@ the page that shows it.
 | [Run with no Keploy account](./mock-quickstart.md)                                              | `--local` keeps the recordings in your repository, so you record and replay without signing in.                                                                                                                                                                                                                                                                                                                                          |
 | [Services that Docker Compose starts](./quickstarts/docker-compose.md)                          | Record the calls your tests make to the services in a compose file, then replay them with the compose stack down.                                                                                                                                                                                                                                                                                                                        |
 
-In a replay of the whole run, Keploy 3.9.4 can answer a call with a new id
-from a similar recorded call and count it as answered: see
+In a replay of the whole run, Keploy 3.9.4 and later can answer a call with a
+new id from a similar recorded call and count it as answered: see
 [Times, dates and ids that change](./guides/changing-values.md#a-replay-of-the-whole-run).
 A DNS lookup the recording doesn't have doesn't fail a replay, and other UDP
 (not DNS) isn't intercepted: see
@@ -110,22 +110,25 @@ UDP that isn't DNS, ICMP and raw sockets aren't intercepted. See
 
 ## Find out what to run next
 
-| Feature                                                                    | What it does                                                                                                                                                                           |
-| -------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`keploy mock status`](./troubleshooting.md#start-with-keploy-mock-status) | Prints where the project is and the command to run next.                                                                                                                               |
-| [Status as JSON](./reference.md#keploy-mock-status)                        | `keploy mock status --json` prints the same block and the full mock state as one JSON object, for an editor or a coding agent.                                                         |
-| [Replay results](./reference.md#replay-results)                            | Each replay writes what it proved to `keploy/<set>/last-replay.yaml`.                                                                                                                  |
-| [Replay in CI](./guides/ci.md)                                             | A GitHub Actions workflow replays every pull request and push to main with no dependency running, signed in with a read-only CI key, and comments the tests a pull request re-records. |
-| [Your test command's exit code](./reference.md#exit-codes)                 | `keploy mock record` and `keploy mock replay` exit with your test command's own exit code, so a failing test fails your CI job.                                                        |
-| [Fixes for each error](./troubleshooting.md)                               | What a failing record or replay prints, what causes it, and how to fix it.                                                                                                             |
+| Feature                                                                               | What it does                                                                                                                                                                                                                             |
+| ------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| [`keploy mock status`](./troubleshooting.md#start-with-keploy-mock-status)            | Prints where the project is and the command to run next.                                                                                                                                                                                 |
+| [Status as JSON](./reference.md#keploy-mock-status)                                   | `keploy mock status --json` prints the same block and the full mock state as one JSON object, for an editor or a coding agent.                                                                                                           |
+| [Replay results](./reference.md#replay-results)                                       | Each replay writes what it proved to `keploy/<set>/last-replay.yaml`.                                                                                                                                                                    |
+| [Replay in CI](./guides/ci.md)                                                        | Replays every pull request and push to main with no dependency running on GitHub Actions, GitLab CI, Jenkins, or any other CI, signed in with a read-only CI key, and comments the tests a pull request re-records on GitHub.            |
+| [Print the CI recipe](./reference.md#keploy-mock-ci)                                  | `keploy mock ci` prints the replay recipe for the CI your repository runs (`github`, `gitlab`, `jenkins`, or `other`), pinned to your Keploy release, with `--json` for editors and coding agents.                                       |
+| [Create a CI key from the terminal](./reference.md#keploy-service-account-key-create) | `keploy service-account key create --role MOCK_READER` creates a read-only CI key for one app once an admin approves it in the browser, and saves it straight to a GitHub secret (`--to-gh-secret`) or a mode `0600` file (`--to-file`). |
+| [Fresh browser sign-in](./reference.md#keploy-login)                                  | `keploy login --fresh` starts a new browser sign-in even when already signed in, for actions that require a recent sign-in.                                                                                                              |
+| [Your test command's exit code](./reference.md#exit-codes)                            | `keploy mock record` and `keploy mock replay` exit with your test command's own exit code, so a failing test fails your CI job.                                                                                                          |
+| [Fixes for each error](./troubleshooting.md)                                          | What a failing record or replay prints, what causes it, and how to fix it.                                                                                                                                                               |
 
 ## Run it where you work
 
-| Feature                                                            | What it does                                                                                                                                                                                     |
-| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| [Linux, macOS and Docker](./overview.md#check-what-it-supports)    | Record and replay on Linux, on macOS on Apple silicon with no sudo, and through a `docker run` or `docker compose` command. Native Windows support is coming.                                    |
-| [Databases, queues and APIs](./overview.md#check-what-it-supports) | HTTP, gRPC, PostgreSQL, MySQL, MongoDB, Redis, Kafka and more. The overview lists each one for Linux and macOS.                                                                                  |
-| [Notes for each dependency](./guides/dependencies.md)              | Keploy tells dependencies apart by their first bytes, on any port, and reads TLS with its own CA. The page also covers PostgreSQL and MySQL logins, Redis blocking pops and SQS polls at replay. |
-| [VS Code](/docs/running-keploy/utg-vscode-extension/)              | The Keploy VS Code extension installs the Keploy CLI, signs you in, and hands the project setup to your coding agent.                                                                            |
-| [Coding agents](./guides/coding-agents.md)                         | `keploy skill install mock` gives Claude Code, Cursor, Codex, GitHub Copilot or Antigravity the steps to record and replay your tests, following each NEXT block.                                |
-| [Every command and flag](./reference.md)                           | Each `keploy mock` command and flag, the `keploy.yml` keys, the environment variables and the exit codes.                                                                                        |
+| Feature                                                            | What it does                                                                                                                                                                                           |
+| ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| [Linux, macOS and Docker](./overview.md#check-what-it-supports)    | Record and replay on Linux, on macOS on Apple silicon with no sudo, and through a `docker run` or `docker compose` command. Native Windows support is coming.                                          |
+| [Databases, queues and APIs](./overview.md#check-what-it-supports) | HTTP, gRPC, PostgreSQL, MySQL, MongoDB, Redis, Kafka and more. The overview lists each one for Linux and macOS.                                                                                        |
+| [Notes for each dependency](./guides/dependencies.md)              | Keploy tells dependencies apart by their first bytes, on any port, and reads TLS with its own CA. The page also covers PostgreSQL and MySQL logins, Redis blocking pops and SQS polls at replay.       |
+| [VS Code](/docs/running-keploy/utg-vscode-extension/)              | The Keploy VS Code extension installs the Keploy CLI, signs you in, hands the project setup to Claude Code (extension or CLI), GitHub Copilot or Cursor, and wires CI for every project and CI system. |
+| [Coding agents](./guides/coding-agents.md)                         | `keploy skill install mock` gives Claude Code, Cursor, Codex, GitHub Copilot or Antigravity the steps to record and replay your tests, following each NEXT block.                                      |
+| [Every command and flag](./reference.md)                           | Each `keploy mock` command and flag, the `keploy.yml` keys, the environment variables and the exit codes.                                                                                              |

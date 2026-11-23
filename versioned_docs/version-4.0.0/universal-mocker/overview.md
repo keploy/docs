@@ -43,8 +43,8 @@ decides which tests pass.
    A call Keploy can't match to any recording gets an error instead of a real
    answer (`--on-miss fail`, the default), and the replay names it. By
    default, the run fails when a test fails on that error, and `--strict`
-   fails it on any such call. In a replay of the whole run, Keploy 3.9.4 can
-   answer a call with a new id from a similar recorded call: see
+   fails it on any such call. In a replay of the whole run, Keploy 3.9.4 and
+   later can answer a call with a new id from a similar recorded call: see
    [Times, dates and ids that change](./guides/changing-values.md#a-replay-of-the-whole-run).
    A DNS lookup the recording doesn't have doesn't fail a replay, and other UDP
    (not DNS) isn't intercepted: see
@@ -103,8 +103,8 @@ and ends:
 | Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
 | Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
 
-**Dependencies** in Keploy 3.9.4. "Docker" means: run the tests through a
-Docker command so Keploy reads the calls on Linux.
+**Dependencies** in Keploy 3.9.4 and later (verified in 3.9.13). "Docker" means:
+run the tests through a Docker command so Keploy reads the calls on Linux.
 
 | Dependency             | Linux | macOS  |
 | ---------------------- | ----- | ------ |
@@ -133,7 +133,11 @@ some of them.
 
 The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/)
 installs the Keploy CLI, signs you in, and hands the project setup to your
-coding agent. Then you record, replay and review from the editor. The
+coding agent (Claude Code's extension or `claude` CLI, GitHub Copilot, or
+Cursor's agent). Then you record, replay, review, and wire CI from the editor:
+**Wire CI** writes a GitHub Actions workflow for Go and Node projects, and gives
+Keploy's CI recipe (`keploy mock ci`) for every other language and CI system
+(GitLab CI, Jenkins, Bitbucket, CircleCI, Azure, and the rest). The
 [VS Code walkthrough](./walkthroughs/vscode.md) shows each step.
 
 Not on VS Code? Install Keploy's mocking skill for your coding agent with
@@ -158,8 +162,8 @@ Not on VS Code? Install Keploy's mocking skill for your coding agent with
 - [VS Code quickstart](./quickstarts/vscode.md): record and replay a Go test
   suite from the VS Code extension.
 - [VS Code walkthrough](./walkthroughs/vscode.md): install the extension, let
-  your coding agent set the project up, then replay, see a red test, and add
-  the CI workflow.
+  your coding agent set the project up, then replay, see a red test, and wire
+  CI.
 - [Keploy Cloud walkthrough](./walkthroughs/dashboard.md): find a branch's
   recordings, review a pull request's changes, and merge them into main.
 - [Mock your own tests](./mock-your-tests.md): every option, per-test checks,
