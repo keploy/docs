@@ -2,7 +2,7 @@
 id: reference
 title: Universal Mocker reference
 sidebar_label: Reference
-description: Every keploy mock command and flag of Keploy 3.9.4, as the CLI's own help prints it, the keploy.yml keys and environment variables that set the same values, the exit codes, and the replay results keploy mock status reports.
+description: Every keploy mock command and flag of Keploy 3.9.13, as the CLI's own help prints it, the keploy.yml keys and environment variables that set the same values, the exit codes, and the replay results keploy mock status reports.
 tags:
   - mocks
   - reference
@@ -17,7 +17,7 @@ keywords:
   - service virtualization
 ---
 
-This page lists every `keploy mock` command of Keploy 3.9.4 and each of its
+This page lists every `keploy mock` command of Keploy 3.9.13 and each of its
 flags, in the words of the CLI's own help. To see the help of the release you
 have installed, run:
 
@@ -39,6 +39,7 @@ After the commands come the [keploy.yml keys](#keployyml-keys), the
 | Command                                             | What it does                                                                                                                                                                      |
 | --------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [`keploy mock check`](#keploy-mock-check)           | Check a mock set's files offline: what a replay would refuse, or do other than they seem to say (`KEPLOY_PROVEN=1` only)                                                          |
+| [`keploy mock ci`](#keploy-mock-ci)                 | Print how to replay this project's tests on keploy.lock's recordings in CI, for the CI the repository runs                                                                        |
 | [`keploy mock diff`](#keploy-mock-diff)             | Show which e2e tests a change re-records: keploy.lock against its merge base, or a portal branch against main                                                                     |
 | [`keploy mock download`](#keploy-mock-download)     | Download mocks from the keploy registry                                                                                                                                           |
 | [`keploy mock explain`](#keploy-mock-explain)       | Say what a mock set's files say of one test: why it is skipped or run, its evidence, its recorded calls, and what its last replay and judging rounds did (`KEPLOY_PROVEN=1` only) |
@@ -57,6 +58,28 @@ After the commands come the [keploy.yml keys](#keployyml-keys), the
 To see one command's help, run `keploy mock <command> --help`.
 
 ## Commands you run without `KEPLOY_PROVEN`
+
+### `keploy mock ci`
+
+Print how to replay this project's tests on keploy.lock's recordings in CI, for the CI the repository runs. It names the CI (from its CI config, else its `origin` remote), the project's folder and its test command (`keploy.yml`'s `mock.command`), prints the pinned install line and CI example, and writes nothing.
+
+```text
+keploy mock ci [flags]
+```
+
+Flags:
+
+- `--ci string`: Show this CI's example instead of the repository's: `github`, `gitlab`, `jenkins`, `other`.
+- `--json`: Print the recipe and what it was built from as one JSON object.
+- `--path string`: Path to the directory that contains keploy.yml (defaults to the current directory). Default: `.`.
+
+Examples from the CLI's help:
+
+```bash
+keploy mock ci             # the recipe for this repository's CI
+keploy mock ci --ci gitlab # the recipe with GitLab CI's example
+keploy mock ci --json      # the same, for an editor or an agent
+```
 
 ### `keploy mock diff`
 
@@ -302,7 +325,7 @@ Flags:
 - `-b, --build-delay uint`: Time to wait for a docker container to build. Default: `30`.
 - `--cmd-type string`: Type of command (native/docker-run/docker-start/docker-compose/from-container). Default: `native`.
 - `-c, --command string`: Command that runs your test suite, e.g. "pytest" or "go test ./...".
-- `--compose-deps`: Docker compose apps: also start the app's dependency services during the replay. By default only the app and the keploy agent run, and the app's calls to its dependencies are served from recorded mocks.
+- `--compose-deps services`: Docker compose apps: also start the app's dependency services during the replay: every one of them, or, as `--compose-deps=<service>[,<service>...]` (the `=` is needed), only those named (by compose service name or `container_name`). By default only the app and the keploy agent run, and the app's calls to its dependencies are served from recorded mocks.
 - `--config-path string`: Path to the local directory where keploy configuration file is stored. Default: `.`.
 - `--container-name string`: Name of the application's docker container (docker/compose runs).
 - `--coverage-report string`: Coverage report the test command writes, when it is not a default location (coverage.out, coverage/lcov.info, coverage.xml, jacoco.xml, ...)
@@ -529,14 +552,16 @@ keploy login [flags]
 Flags:
 
 - `--api-key string`: Keploy API key for this invocation (overrides KEPLOY_API_KEY env).
+- `--attempt string`: With `--finish`: collect only the pending sign-in with this attempt ID.
 - `--debug`: debug flag for testing.
 - `--disable-ansi`: Disable ANSI colors in the output.
 - `--finish`: Collect the session for the sign-in started by 'keploy login --no-wait': waits up to 70 seconds for the approval, and can be run again until the code expires.
-- `--json`: With --no-wait or --finish: print the answer as one JSON document (a NEXT block) on stdout, for AI agents and tools; logs go to stderr.
+- `--fresh`: Sign in again in the browser, even when already signed in: the browser asks you to sign in to Keploy before you approve, for actions that need a recent sign-in, such as creating service accounts. Not the same as `--new`, which only replaces a waiting code. Works alone or with `--no-wait`; refused while an API key is configured (`KEPLOY_API_KEY` or `~/.keploy/cred.yaml`), which every command presents first.
+- `--json`: With `--no-wait` or `--finish`: print the answer as one JSON document (a NEXT block) on stdout, for AI agents and tools; logs go to stderr.
 - `--k8s-proxy-auth`: Authenticate through the k8s-proxy instead of the api-server (for CI with no direct api-server/internet access). Defaults on when --k8s-proxy-url, KEPLOY_K8S_PROXY_URL or the login 'keploy login --k8s-proxy-url' saved gives a k8s-proxy URL (keploy.yml cloud.k8sProxyUrl alone does not); pass --k8s-proxy-auth=false to opt out. Requires a k8s-proxy URL and an API key (KEPLOY_API_KEY, --api-key or the saved login).
 - `--k8s-proxy-url string`: Self-hosted k8s-proxy ingress URL to authenticate against; setting it enables k8s-proxy-auth mode by default (e.g. `https://keploy-proxy.my-cluster.internal`). Falls back to KEPLOY_K8S_PROXY_URL. 'keploy login --k8s-proxy-url &lt;url&gt;' saves the URL and the API key in ~/.keploy, so later commands need neither variable.
 - `--manual-login`: Use manual login prompt instead of opening browser.
-- `--new`: With --no-wait: discard the sign-in waiting here and start a new one (without it, --no-wait shows the waiting code or link again).
+- `--new`: With `--no-wait`: discard the sign-in waiting here and start a new one (without it, `--no-wait` shows the waiting code or link again). It does not make you sign in again; for that, use `--fresh`.
 - `--no-wait`: Print the sign-in link and code and exit instead of waiting; collect the session later with 'keploy login --finish' (for AI agents, whose shell shows output only when a command exits, and for machines without a browser).
 - `--show`: Print the API key (its last 4 characters only) and the k8s-proxy URL a login uses here, and where each comes from (a flag, the environment or the saved login in ~/.keploy), then exit without signing in.
 
@@ -545,6 +570,7 @@ Examples from the CLI's help:
 ```bash
 keploy login
 keploy login --no-wait && keploy login --finish
+keploy login --fresh
 keploy login --manual-login
 keploy login --k8s-proxy-url https://<k8s-proxy ingress host>
 keploy login --show
@@ -568,6 +594,42 @@ Examples from the CLI's help:
 ```bash
 keploy logout
 ```
+
+## Service-account CI keys
+
+### `keploy service-account key create`
+
+Create a CI key for an app, approved in the browser, saved to a GitHub secret or a file. The command shows a link and a code (and opens the browser), where an admin of the app's company signs in again and approves that one key. Your saved `keploy login` is not read or changed. Specify one destination: `--to-gh-secret`, `--to-file`, or `--print-key`.
+
+```text
+keploy service-account key create [flags]
+```
+
+Flags:
+
+- `--app string`: The app's id (default: `keploy.yml`'s `mock.appId`; `keploy app create` makes one).
+- `--finish`: Make the key a `--no-wait` approval asked for, once the user approves it; or save a key that could not be saved (`store_failed`).
+- `--json`: Print one NEXT block (`phase`: `auth_pending`, `sa_key_created`, or `sa_key_failed`).
+- `--key-name string`: The key's name (default: the service account's).
+- `--name string`: The service account (default: `ci-<role>-<app id>`); reused when it holds only this role on this app.
+- `--no-wait`: Start the browser approval and return; `--finish` makes the key once it is approved.
+- `--print-key`: Print the key on stdout (in the JSON's `key` field with `--json`).
+- `--repo string`: The GitHub repo for `--to-gh-secret`, `[HOST/]OWNER/REPO` (default: this folder's).
+- `--role string`: The one role the service account holds on the app: `MOCK_READER`, `ATG_RUNNER`, `ITG_RUNNER`, `UI_READER`, `UI_RUNNER`.
+- `--rotate`: Revoke the account's other keys once the new one is made (on Free: replace its key).
+- `--to-file string`: Save the key to this new file, mode `0600` (refused inside a git repo unless git ignores it).
+- `--to-gh-secret string`: Save the key as this GitHub Actions secret, through `gh` (e.g. `KEPLOY_API_KEY`).
+- `--ttl-days int`: Days until the key expires, `1`–`365` (default: the server's, `90`).
+
+Examples from the CLI's help:
+
+```bash
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY
+keploy service-account key create --app <app id> --role MOCK_READER --to-file ./keploy-ci.key
+keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY --no-wait --json && keploy service-account key create --finish --json
+```
+
+See [CLI commands](/docs/running-keploy/cli-commands/) for the agent split flow and `store_failed` recovery, and [Run the replay in CI](./guides/ci.md) for using the key in CI.
 
 ## keploy.yml keys
 
