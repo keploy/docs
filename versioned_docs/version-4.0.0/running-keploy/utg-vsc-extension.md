@@ -108,16 +108,16 @@ When the replay is green, select **keploy.yml, keploy.lock and the test edits st
 
 ## Run it in CI
 
-Select **CI replays keploy.lock (GitHub Actions)** in the checklist, or run **Keploy: Wire CI (GitHub Actions)**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
+Select **CI replays keploy.lock** in the checklist, or run **Keploy: Wire CI**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
 The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the project's folder, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
 
 - **Go:** `actions/setup-go` with your `go.mod`'s Go version, then `go mod download`.
 - **Node:** `actions/setup-node`, then an install from your lockfile: `npm ci`, or pnpm's or Yarn's frozen install through corepack (`npm install` when there's no lockfile).
 
-The workflow needs one repository secret, `KEPLOY_API_KEY`: a read-only CI key. Your Keploy admin makes it at [Account > Service Accounts](https://app.keploy.io/settings/service-accounts): a service account with the **MOCK_READER** role on your app, and a key for it. Store it with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a button that opens that page and one that copies the command.
+The workflow needs one repository secret, `KEPLOY_API_KEY`: a key with only **MOCK_READER** on your app. Run `keploy service-account key create --role MOCK_READER --to-gh-secret KEPLOY_API_KEY` in the project's folder: Keploy asks an admin of the app's company to approve that one key with a fresh browser sign-in, stores it through `gh`, and never prints it. With an older CLI that has no `service-account` command, an admin makes the key at [Account > Service Accounts](https://app.keploy.io/settings/service-accounts) and stores it with `gh secret set KEPLOY_API_KEY`. The notification the extension shows has a **Copy the key command** button for the CLI command and one that opens that page.
 
-For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell, Wire CI writes no workflow: CI setup for it is available on request. The same goes for GitLab CI and any other CI. Contact the Keploy team at support@keploy.io and we'll set it up with you. The extension writes the workflow once `keploy.lock` exists and Keploy has read your test command; otherwise it says what to do instead. For a project in a folder below the repository's root, such as `tests/e2e`, the workflow's steps run in that folder, and a Go project's `go.mod` can be there or in a folder above it.
+For any other project, such as a Python or Java one, a test command that runs several toolchains, or one whose toolchain the extension can't tell — and for GitLab CI, Jenkins, or any other CI besides GitHub Actions — Wire CI writes no workflow and instead offers the recipe `keploy mock ci` prints for the project, with **Hand CI setup to** your coding agent and **Show me the steps** (with a copy button). If you get stuck, write to support@keploy.io. The extension writes the native workflow once `keploy.lock` exists and Keploy has read your test command; otherwise it gives the recipe with what to do first. For a project in a folder below the repository's root, such as `tests/e2e`, the workflow's steps run in that folder, and a Go project's `go.mod` can be there or in a folder above it.
 
 ## Invite teammates
 
@@ -182,27 +182,26 @@ A `keploy` command that you or your agent run in a terminal isn't one the extens
 | A record or replay stops with _"runs the test command natively in this release"_. | `mock.command` is a `docker` or `docker compose` command.                           | Set `mock.command` to the command that runs your tests on the host.                                                                                                  |
 | **A Keploy replay is already running** …                                          | A replay you started is still running.                                              | Wait for it to end (its terminal shows it), then start the new one again.                                                                                            |
 | **Stage** or **Wire CI** _needs Git_ …                                            | VS Code's Git is turned off (`git.enabled`), or Git isn't installed.                | Turn `git.enabled` on, or install Git. On a Mac, run `xcode-select --install`.                                                                                       |
-| Wire CI says _… is available on request_.                                         | The project isn't a Go or Node project, or its CI isn't GitHub Actions.             | Contact the Keploy team at support@keploy.io and we'll set it up with you.                                                                                           |
 
 On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --version`. The released CLI needs glibc 2.34 or later; see [Requirements](#requirements).
 
 ## Commands
 
-| Command                                                      | What it does                                                                                     |
-| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------ |
-| **Keploy: Set up Keploy with my coding agent**               | Makes sure the CLI is installed, signs you in if you aren't, then hands the setup to your agent. |
-| **Keploy: Sign in**                                          | Signs the CLI in to your Keploy account in your browser.                                         |
-| **Keploy: Hand the setup to my agent**                       | Installs Keploy's skill for this project and opens your agent with the setup task.               |
-| **Keploy: Hand the setup to another agent**                  | The same, with an agent you pick.                                                                |
-| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record --lock keploy.lock` (on a work branch) or `keploy mock replay`.          |
-| **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                    |
-| **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                         |
-| **Keploy: Wire CI (GitHub Actions)**                         | For a Go or Node project, writes `.github/workflows/keploy.yml`, which replays `keploy.lock`.    |
-| **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                            |
-| **Keploy: Record my running app**                            | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal. |
-| **Keploy: Replay my app's recording as tests**               | Runs `keploy test -c "<command>"` on the project's `keploy/test-set-<n>` sets in a terminal.     |
-| **Keploy: Install or update the CLI**                        | Installs the CLI, or updates it when it needs updating.                                          |
-| **Keploy: Show log**                                         | Opens the extension's log.                                                                       |
+| Command                                                      | What it does                                                                                                                                                                   |
+| ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Keploy: Set up Keploy with my coding agent**               | Makes sure the CLI is installed, signs you in if you aren't, then hands the setup to your agent.                                                                               |
+| **Keploy: Sign in**                                          | Signs the CLI in to your Keploy account in your browser.                                                                                                                       |
+| **Keploy: Hand the setup to my agent**                       | Installs Keploy's skill for this project and opens your agent with the setup task.                                                                                             |
+| **Keploy: Hand the setup to another agent**                  | The same, with an agent you pick.                                                                                                                                              |
+| **Keploy: Record** and **Keploy: Replay**                    | Run `keploy mock record --lock keploy.lock` (on a work branch) or `keploy mock replay`.                                                                                        |
+| **Keploy: Refresh status**                                   | Reads the CLI's status again.                                                                                                                                                  |
+| **Keploy: Stage keploy.yml, keploy.lock and the test edits** | Stages the setup's files in Source Control for you to review and commit.                                                                                                       |
+| **Keploy: Wire CI**                                          | Writes `.github/workflows/keploy.yml` for Go/Node on GitHub Actions; for every other project or CI, offers the `keploy mock ci` recipe to hand to your agent or view and copy. |
+| **Keploy: Invite teammates**                                 | Opens the Keploy app's Add User page.                                                                                                                                          |
+| **Keploy: Record my running app**                            | Asks for the command that starts your app and runs `keploy record -c "<command>"` in a terminal.                                                                               |
+| **Keploy: Replay my app's recording as tests**               | Runs `keploy test -c "<command>"` on the project's `keploy/test-set-<n>` sets in a terminal.                                                                                   |
+| **Keploy: Install or update the CLI**                        | Installs the CLI, or updates it when it needs updating.                                                                                                                        |
+| **Keploy: Show log**                                         | Opens the extension's log.                                                                                                                                                     |
 
 ## Related
 
