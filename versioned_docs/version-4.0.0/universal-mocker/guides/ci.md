@@ -424,7 +424,10 @@ Jenkins, or shell lines for any other CI. `--ci gitlab` (or `github`,
 the same for an editor or a coding agent. It writes nothing. In the VS Code
 extension, **Wire CI** offers the same recipe: **Show me the steps** opens it
 with a copy button, and **Hand CI setup to** your coding agent gives it to the
-agent.
+agent. The extension's CI recipe action and **Copy the key command** button
+require Keploy CLI 3.9.13 or later; with an older or unreadable CLI, Wire CI
+offers **Clear pin and update** or **Update CLI** instead, while other commands
+keep working on older pinned CLIs.
 
 Every job takes the same steps:
 
