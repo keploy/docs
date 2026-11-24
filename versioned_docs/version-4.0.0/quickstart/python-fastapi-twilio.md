@@ -71,22 +71,26 @@ import ProductTier from '@site/src/components/ProductTier';
 
 ## Get Started! 🎬
 
-## Setup the Twilio Account 💬
-
-You can get your Twilio credentials by signing in to Twilio Console.
-Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
-
 ## Clone the Sample App 🧪
 
 ```bash
 git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio
 ```
 
-We will be using Docker compose to run the application as well as Mongo on Docker container.
+We will be using Docker to run the application.
+
+## Setup the Twilio Account 💬
+
+You can get your Twilio credentials by signing in to Twilio Console.
+Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
 
 ### Lights, Camera, Record! 🎥
 
-Create the docker image of the app:
+Create the `keploy-network` Docker network and the docker image of the app:
+
+```bash
+docker network create keploy-network
+```
 
 ```bash
 docker build -t fastapi-twilio:1.0 .
@@ -115,7 +119,7 @@ To generate testcases we just need to **make some API calls.**
      --header 'Content-Type: application/json' \
      --data '{
          "Body": "Test, testtt, testttttttssss :)",
-         "To": "YOUR_REGISTERED_PERSONAL_PHONE_NUMBER",
+         "To": "YOUR_REGISTERED_PERSONAL_PHONE_NUMBER"
      }'
      ```
 
@@ -126,7 +130,7 @@ To generate testcases we just need to **make some API calls.**
      --header 'Content-Type: application/json' \
      --data '{
          "Body": "Test, testtt, testttttttssss :)",
-         "To": "SOME_WRONG_PHONE_NUMBER",
+         "To": "SOME_WRONG_PHONE_NUMBER"
      }'
      ```
 
@@ -283,21 +287,21 @@ This runs natively on Linux, macOS (Apple Silicon) and Windows (x86-64) — see 
 
 <InstallReminder />
 
+## Clone the Sample App 🧪
+
+```bash
+git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio
+```
+
 ## Setup the Twilio Account 💬
 
 You can get your Twilio credentials by signing in to Twilio Console.
 Once you get the `Twilio Account SID, Auth Token, and Phone Number`, modify the `.env` file with your credentials.
 
-Install the dependencies using the `requirements.txt` file:
+Install the dependencies using the `requirements.txt` file (use Python 3.11, as newer versions such as 3.13 cannot build some of the pinned dependencies):
 
 ```bash
 pip3 install -r requirements.txt
-```
-
-## Clone the Sample App 🧪
-
-```bash
-git clone https://github.com/keploy/samples-python.git && cd samples-python/fastapi-twilio
 ```
 
 ### Lights, Camera, Record! 🎥
@@ -325,7 +329,7 @@ To generate testcases we just need to **make some API calls.**
      --header 'Content-Type: application/json' \
      --data '{
          "Body": "Test, testtt, testttttttssss :)",
-         "To": "YOUR_REGISTERED_PERSONAL_PHONE_NUMBER",
+         "To": "YOUR_REGISTERED_PERSONAL_PHONE_NUMBER"
      }'
      ```
 
@@ -336,7 +340,7 @@ To generate testcases we just need to **make some API calls.**
      --header 'Content-Type: application/json' \
      --data '{
          "Body": "Test, testtt, testttttttssss :)",
-         "To": "SOME_WRONG_PHONE_NUMBER",
+         "To": "SOME_WRONG_PHONE_NUMBER"
      }'
      ```
 

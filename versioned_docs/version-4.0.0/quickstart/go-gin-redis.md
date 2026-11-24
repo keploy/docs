@@ -83,6 +83,8 @@ Start the Redis instance using the `docker-compose` file-
 docker compose up redis
 ```
 
+Since the application runs in a container, `localhost` would point to the container itself. In `helpers/redis/redisConnect.go`, change `Addr: "localhost:6379"` to `Addr: "myredis:6379"`.
+
 Now, we will create the docker image of our application:-
 
 ```bash
@@ -92,7 +94,7 @@ docker build -t gin-app:1.0 .
 ### Capture the test-cases-
 
 ```shell
-keploy record -c "docker run -p 3001:3001 --network <networkName> --name ginRedisApp gin-app:1.0"
+keploy record -c "docker run -p 3001:3001 --network gin-redis_default --name ginRedisApp gin-app:1.0"
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -248,8 +250,12 @@ Want to see if everything works as expected?
 
 Time to put things to the test 🧪
 
+:::note
+If you skipped Keploy's automatic noise check by pressing `Ctrl+C` a second time when stopping the recording, the OTP will show up as a diff, since it changes on every request. Mark it as noise by adding `body.otp: []` under `assertions.noise` in the recorded `GET` test in `keploy/test-set-0/tests/`.
+:::
+
 ```bash
-keploy test -c "docker run -p 3001:3001 --rm --network <networkName> --name ginRedisApp gin-app:1.0" --delay 10
+keploy test -c "docker run -p 3001:3001 --rm --network gin-redis_default --name ginRedisApp gin-app:1.0" --delay 10
 ```
 
 > The `--delay` flag? Oh, that's just giving your app a little breather (in seconds) before the test cases come knocking.
@@ -460,6 +466,10 @@ Want to see if everything works as expected?
 ### Run Tests
 
 Time to put things to the test 🧪
+
+:::note
+If you skipped Keploy's automatic noise check by pressing `Ctrl+C` a second time when stopping the recording, the OTP will show up as a diff, since it changes on every request. Mark it as noise by adding `body.otp: []` under `assertions.noise` in the recorded `GET` test in `keploy/test-set-0/tests/`.
+:::
 
 ```shell
 sudo -E env PATH="$PATH" keploy test -c "./gin-redis" --delay 10

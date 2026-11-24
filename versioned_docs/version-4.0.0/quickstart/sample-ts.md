@@ -91,7 +91,7 @@ Ready to dive in? Let’s make this setup as smooth as a breeze! 🌟
 ### Start recording tests:
 
 ```bash
-sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
+sudo -E env "PATH=$PATH" keploy record -c 'npx ts-node src/app.ts'
 ```
 
 `sudo -E`: Runs the command with elevated privileges while preserving the user environment.
@@ -100,9 +100,9 @@ sudo -E env "PATH=$PATH" keploy record -c 'ts-node src/app.ts'
 
 `keploy record`: Invokes Keploy in recording mode.
 
-`-c 'ts-node src/app.ts`': Specifies the command to start your application (in this case, using ts-node to execute the TypeScript application entry point).
+`-c 'npx ts-node src/app.ts'`: Specifies the command to start your application (in this case, using `npx ts-node` to run the `ts-node` installed in the project's dev dependencies).
 
-`sudo -E env "PATH=$PATH"` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'ts-node src/app.ts'` here, and `keploy test` below, without it.
+`sudo -E env "PATH=$PATH"` is needed on Linux (and WSL) only — on macOS and Windows, run `keploy record -c 'npx ts-node src/app.ts'` here, and `keploy test` below, without it.
 
 ### Generating the test cases
 
@@ -218,7 +218,7 @@ curl: |-
 Now, let's put things to test and run the keploy in test mode again:-
 
 ```bash
-sudo -E env "PATH=$PATH" keploy test -c 'ts-node src/app.ts' --delay 10
+sudo -E env "PATH=$PATH" keploy test -c 'npx ts-node src/app.ts' --delay 10
 ```
 
 Voila!! Our test cases have passed 🌟
@@ -268,10 +268,16 @@ We will be using Docker compose to run the application as well as GraphQL on Doc
 
 ### Capture the testcases
 
+The `docker-compose.yml` attaches the app to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
+
 We will run the keploy in record mode with docker-compose to start our application:-
 
 ```bash
-keploy record -c "sudo docker compose up" --containerName "ts-nhost"
+keploy record -c "docker compose up" --container-name "ts-nhost"
 ```
 
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/Keploy-record-nhost.png" alt="Sample Keploy Record TS Nhost" width="100%" style={{ borderRadius: '5px' }} />
@@ -326,7 +332,7 @@ curl --request POST \
 Let's run our captured test cases
 
 ```bash
-keploy test -c 'sudo docker compose up' --containerName "ts-nhost" --delay 10
+keploy test -c 'docker compose up' --container-name "ts-nhost" --delay 10
 ```
 
 This is what your response should look like!

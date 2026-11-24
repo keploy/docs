@@ -75,14 +75,24 @@ git clone https://github.com/keploy/samples-python.git && cd samples-python/flas
 
 ## Using Docker Compose 🐳
 
-We will be using Docker compose to run the application as well as Mongo on Docker container.
+We will be using Docker compose to run the application as well as Redis on Docker container.
 
 ### Lights, Camera, Record! 🎥
+
+:::note macOS
+Port `5000` is used by the AirPlay Receiver on macOS, so the app fails to start with `address already in use`. Turn it off under **System Settings → General → AirDrop & Continuity → AirPlay Receiver** (called **AirDrop & Handoff** on macOS 15 and earlier) before recording.
+:::
+
+The `docker-compose.yml` attaches the services to an external `keploy-network`, so create it once:
+
+```bash
+docker network create keploy-network
+```
 
 Capture the test-cases-
 
 ```shell
-keploy record -c "docker compose up" --container-name "flask-web" --buildDelay 50
+keploy record -c "docker compose up" --container-name "flask-web" --build-delay 50
 ```
 
 🔥**Make some API calls**. Postman, Hoppscotch or even curl - take your pick!
@@ -148,7 +158,7 @@ spec:
 ### **Time to run the testcases**
 
 ```bash
-keploy test -c 'sudo docker compose up' --containerName "flask-web" --delay 10
+keploy test -c 'docker compose up' --container-name "flask-web" --delay 10
 ```
 
 You can also check the test summary from your cli

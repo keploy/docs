@@ -76,9 +76,17 @@ We will be using Docker compose to run the application as well as MySQL on Docke
 
 ### Start MySQL Instance
 
+Create the `keploy-network` Docker network that both containers use:
+
+```bash
+docker network create keploy-network
+```
+
 ```bash
 docker run -p 3306:3306 --rm --name mysql --network keploy-network -e MYSQL_ROOT_PASSWORD=my-secret-pw -d mysql:latest
 ```
+
+MySQL can take a while to start on its first run. Wait until `docker logs mysql` shows `ready for connections` with `port: 3306` (the earlier `port: 0` line is MySQL's temporary init server) before moving on.
 
 ### Capture the Testcases
 
@@ -111,7 +119,7 @@ curl --request POST \
 }'
 ```
 
-this will return the shortened url. The ts would automatically be ignored during testing because it'll always be different.
+this will return the shortened url.
 
 ```bash
 {
