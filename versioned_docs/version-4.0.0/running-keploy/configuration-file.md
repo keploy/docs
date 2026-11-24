@@ -227,7 +227,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
     "test-set-2": []
   ```
 
-- **`globalNoise`**: Noisy fields to be ignored at global, Test-Set or endpoint level.
+- **`globalNoise`**: Noisy fields to be ignored at global, Test-Set, or endpoint level.
   Example:
 
   ```yml
@@ -473,31 +473,33 @@ test-sets: {test-set-1: {body: {
 Global noise ignores a field name in every response, and a dotted path wherever the path appears in a response. To ignore a field for one endpoint only, at its exact place in the body, use the `endpoints` subsection of `globalNoise`:
 
 ```yml
-globalNoise:
-  global: {}
-  test-sets: {}
-  endpoints:
-    - method: GET # optional; leave it out to match any method
-      path: /version # the request path; {name} matches one path segment
-      body:
-        version: [] # only the top-level "version" of GET /version
-      header:
-        X-Build-Id: [] # the exact header name, in any case
-    - path: /apps/{id}/status
-      body:
-        data.heartbeats[].at: ["^2026-"] # ignore it only while both values match
+test:
+  globalNoise:
+    global: {}
+    test-sets: {}
+    endpoints:
+      - method: GET # optional; leave it out to match any method
+        path: /version # required: the request path; {name} matches one path segment
+        body:
+          version: [] # only the top-level "version" of GET /version
+        header:
+          X-Build-Id: [] # this header name exactly, in any case
+      - path: /apps/{id}/status
+        body:
+          data.heartbeats[].at: ['^\d{4}-\d{2}-\d{2}T'] # ignore it only while both values match
 ```
 
 How Keploy reads an endpoint rule:
 
-- **Which tests it applies to:** a test whose recorded request has the rule's method (in any case) and path. The host, the query string and a trailing `/` are ignored, and a `{name}` segment matches any one segment.
-- **Body fields:** a dotted path from the top of the response body, matched exactly. `version` is only the top-level `version`; `data.version` never matches `metadata.version` or `data.versionLabel`. A rule on a field also covers everything under it.
-- **Arrays:** `data.items.at` and `data.items[].at` mean the same thing, the `at` of every item. You can't pick one element, so `items[0].at` matches nothing. When the whole response is an array, start from its items' keys: `items.version`.
-- **Maps keyed by IDs:** `{id}` stands for an ID key, for example `results.{id}.traceId`.
+- **Which Test-Cases it applies to:** a Test-Case whose recorded request has the rule's `path` and, when the rule sets one, its `method` (in any case). `path` is required and case-sensitive. Keploy ignores the host, the query string, and a trailing `/`, and a `{name}` segment matches any one non-empty segment.
+- **Body fields:** a dotted path from the top of a JSON response body, matched exactly except for case. `version` is only the top-level `version`; `data.version` never matches `metadata.version` or `data.versionLabel`. A rule on a field also covers everything under it. A leading `$.` is optional.
+- **Arrays:** `data.items.at` and `data.items[].at` mean the same thing, the `at` of every item. You can't pick one element, so `items[0].at` matches nothing. When the whole response is an array, start from the keys of its elements: for `[{"version": "1.2"}]`, write `version` or `[].version`.
+- **Maps keyed by IDs:** in a body path, `{id}` stands for any key that is an ID: a UUID, a ULID, 16 or more hex characters with at least one digit, or 10 or more digits. For example, `results.{id}.traceId` names `traceId` under every such key of `results`. Write other keys, such as `42` or `user-7`, out in full. `{id}` covers only the IDs in the recorded response, so an ID that appears only in the replayed response is still a difference.
+- **Headers:** the exact header name, in any case. Unlike global header noise, `X-Build` doesn't match `X-Build-Id`.
 - **Values:** `[]` ignores any value. A list of regular expressions ignores the field only when both the recorded and the replayed value match one of them, as for other noise.
-- **Overlaps:** when several rules match a request and name the same field, the first rule in the list decides. A test case's own noise for the same field wins over an endpoint rule.
+- **Overlaps:** when several rules match a request and name the same field, the first rule in the list decides. Rules that name different fields all apply: a rule on `data` covers `data.version` wherever it is in the list. A Test-Case's own noise for the same field wins over an endpoint rule, and an endpoint rule can't narrow a field name in `global` or `test-sets`: `version: []` there ignores `version` in every response.
 
-Endpoint noise applies to HTTP test responses. It doesn't change how Keploy matches mocks. With `keploy cloud replay`, the rules saved for the app in the dashboard are added after the rules in `keploy.yml`, so your own rule decides when both name the same field.
+Endpoint noise applies to HTTP test responses that aren't streamed. Keploy compares streamed responses, such as server-sent events, and gRPC responses without endpoint rules, and endpoint rules don't change how Keploy matches mocks. `keploy cloud replay` adds the endpoint rules saved for the app in the Keploy dashboard after the rules in `keploy.yml`, so your rule decides when both name the same field.
 
 ## Handling Deeply Nested JSON Fields in Keploy Configuration 🧩
 
@@ -546,7 +548,7 @@ By specifying the path in this manner, Keploy will correctly identify and handle
 
 ### **Note**:
 
-The `global`, `test-sets` and `endpoints` fields of `globalNoise` are optional. If not specified, `global` and `test-sets` default to an empty object `{}` and `endpoints` to an empty list. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
+The `global`, `test-sets`, and `endpoints` fields of `globalNoise` are optional. If not specified, `global` and `test-sets` default to an empty object `{}` and `endpoints` to an empty list. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
 
 ## Conclusion
 
