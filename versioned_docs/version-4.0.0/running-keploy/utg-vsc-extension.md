@@ -51,7 +51,12 @@ Version 3.1.0 replaces the 3.0.0 panel. Setting Keploy up, recording and replayi
    code --install-extension keploy.keployio
    ```
 
-2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step: CLI installed, signed in, project set up by your agent (or, offered beside it, your running app recorded for [Integration Testing](/docs/server/install/)), tests recorded, replay green, the files staged, CI wired and teammates invited. Select a step that isn't done to run the command that moves it on.
+2. Select the **Keploy** icon in the Activity Bar. The **Set up** checklist shows each step (in extension 3.1.8 and later, split into five required steps and three optional steps):
+
+   - **Required steps** (completing these five steps finishes setup): **Keploy CLI installed**, **Signed in to Keploy**, **Project set up by your agent**, **Tests recorded**, and **Replay green**.
+   - **Optional steps**: **keploy.yml, keploy.lock and the test edits staged**, **CI replays keploy.lock**, and **Teammates invited**. Each optional step that isn't done shows an `Optional` label (or `optional, needs git` when VS Code's Git is unavailable) and an inline **Skip optional setup step** action (`Keploy: Skip optional setup step`), and never blocks setup completion. Once skipped, a step stays skipped for that workspace (`Optional · skipped`); select it or use its inline **Restore skipped setup step** action (`Keploy: Restore skipped setup step`) to restore it, or use the checklist toolbar's **Show skipped setup steps** button (`Keploy: Show skipped setup steps`) to list and restore skipped steps. After the five required steps are done, **CI replays keploy.lock** shows `Optional · recommended next step` (when Git is available and no CI reason is shown) without blocking setup completion.
+
+   The checklist can also show a separate row to record your running app for [Integration Testing](/docs/server/install/); it is not one of the five required steps. Select a step that isn't done to run the command that moves it on.
 
 For a guided tour, run **Welcome: Open Walkthrough** from the Command Palette and choose **Get started with Keploy**.
 
@@ -111,11 +116,11 @@ For a recording held in Keploy Cloud, the checklist's **Tests recorded** step ti
 - **Status bar.** A count of the tests Keploy kept.
 - **Refresh.** **Keploy: Refresh status** reads the CLI's status again.
 
-When the replay is green, select **keploy.yml, keploy.lock and the test edits staged** in the checklist, or run **Keploy: Stage keploy.yml, keploy.lock and the test edits**. `keploy.yml`, `keploy.lock` and the files that changed after your agent started go into Source Control for you to review and commit. Keploy's skill for the project is offered unpicked: pick it to share the setup with your team. Nothing is committed for you, and `.gitignore` is never changed.
+In extension 3.1.8 and later, once the replay is green, the five required setup steps are done. To stage your setup changes (optional in 3.1.8 and later), select **keploy.yml, keploy.lock and the test edits staged** in the checklist, or run **Keploy: Stage keploy.yml, keploy.lock and the test edits**. `keploy.yml`, `keploy.lock` and the files that changed after your agent started go into Source Control for you to review and commit. Keploy's skill for the project is offered unpicked: pick it to share the setup with your team. Nothing is committed for you, and `.gitignore` is never changed.
 
 ## Run it in CI
 
-Select **CI replays keploy.lock** in the checklist, or run **Keploy: Wire CI**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
+Select **CI replays keploy.lock** in the checklist (optional in 3.1.8 and later, and still offered as the recommended next step after **Replay green**), or run **Keploy: Wire CI**. For a Go or Node project in a GitHub repository, the extension writes `.github/workflows/keploy.yml`, never over a file that is already there. On every pull request and every push to main, the workflow runs `keploy mock replay --lock keploy.lock --on-miss fail` with `KEPLOY_PROVEN=1`, and comments on the pull request what its `keploy.lock` changes.
 
 The replay lets no download out, so before it the workflow sets up your project's toolchain and installs its dependencies, in the folder your test command runs in: the project's folder, or the folder its first `cd` goes to. The extension reads the toolchain from the program your test command runs (`go` for Go; `npm`, `npx`, `pnpm`, `yarn`, `node`, `jest` or `playwright` for Node) or, for a command such as `make test`, from that folder's files (a `go.mod`, or a `package.json` with its lockfile):
 
@@ -130,7 +135,7 @@ The checklist's **CI replays keploy.lock** row is done when a config of the CI y
 
 ## Invite teammates
 
-Select **Teammates invited** in the checklist, or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in with `keploy login` and runs `KEPLOY_PROVEN=1 keploy mock replay`: the replay reads the committed `keploy.yml` and `keploy.lock` and downloads the recordings the lock pins.
+Select **Teammates invited** in the checklist (optional in 3.1.8 and later), or run **Keploy: Invite teammates**. It opens the Keploy app's [Add User](https://app.keploy.io/settings/users/add-user) page, where an admin adds them. A teammate who clones the repository signs in with `keploy login` and runs `KEPLOY_PROVEN=1 keploy mock replay`: the replay reads the committed `keploy.yml` and `keploy.lock` and downloads the recordings the lock pins.
 
 ## Record your running app (Integration Testing)
 
@@ -196,6 +201,7 @@ A `keploy` command run in a shell VS Code did not open for you (or in an integra
 | **Keploy: Wire CI for this project needs Keploy CLI 3.9.13 or later** …           | The installed CLI is older than 3.9.13 (or its version cannot be read), which Wire CI's recipe action and **Copy the key command** require. | Select **Update CLI**, or **Clear pin and update** if `keploy.cli.version` pins an older version. Other extension commands keep working on older pinned CLIs.        |
 | **A Keploy replay is already running** …                                          | A replay task you started is still active in its terminal.                                                                                  | Wait for it to end in its terminal, then start the new one again (you don't need to wait for the post-run status refresh).                                           |
 | **Stage** or **Wire CI** _needs Git_ …                                            | VS Code's Git is turned off (`git.enabled`), or Git isn't installed.                                                                        | Turn `git.enabled` on, or install Git. On a Mac, run `xcode-select --install`.                                                                                       |
+| Checklist staging or CI row shows _optional, needs git_                           | VS Code's Git is off or Git isn't installed. In extension 3.1.8 and later, these optional rows don't block setup completion.                | Turn `git.enabled` on or install Git to use Stage or Wire CI, or use **Skip optional setup step** to skip the row for this workspace.                                |
 
 On Linux, if the CLI doesn't run at all, check your glibc version with `ldd --version`. The released CLI needs glibc 2.34 or later; see [Requirements](#requirements).
 

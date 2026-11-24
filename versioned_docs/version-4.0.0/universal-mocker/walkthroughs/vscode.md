@@ -25,7 +25,8 @@ workflow.
 
 Each step names what you select and what the extension shows. The screenshots
 are from version 3.1.1 of the extension, with Keploy 3.9.4; the steps cover
-extension 3.1.5. For every setting and command, see the
+extension 3.1.5 and the optional checklist steps added in 3.1.8. For every
+setting and command, see the
 [VS Code extension page](/docs/running-keploy/utg-vscode-extension/).
 
 :::note Two screenshots are on their way
@@ -61,7 +62,18 @@ You need:
 4. Select the **Keploy** icon in the Activity Bar.
 
 The **Set up** checklist opens. It lists each step of this walkthrough, and a
-step that isn't done runs the command that does it when you select it.
+step that isn't done runs the command that does it when you select it. In
+extension 3.1.8 and later, five steps — **Keploy CLI installed**, **Signed in
+to Keploy**, **Project set up by your agent**, **Tests recorded**, and **Replay
+green** — are required and complete setup when all five are done. Three steps —
+**keploy.yml, keploy.lock and the test edits staged**, **CI replays
+keploy.lock**, and **Teammates invited** — are optional: each step that isn't
+done shows an `Optional` label (or `optional, needs git` when VS Code's Git is
+unavailable) and an inline **Skip optional setup step** action, and never
+blocks setup completion; once skipped, it stays skipped for that workspace
+(`Optional · skipped`; select it, use its inline **Restore skipped setup step**
+action, or use the checklist toolbar's **Show skipped setup steps** button to
+restore it).
 
 <img src="/docs/img/universal-mocker/vscode/01-checklist-download.png" alt="The Keploy Set Up checklist just after the install: Downloading the Keploy CLI turns at the top, and the steps below it are not done yet" width="100%" />
 
@@ -325,6 +337,10 @@ Change the test back, and replay again to see it green.
 
 ## Step 8: Stage the files to commit
 
+In extension 3.1.8 and later, once **Replay green** is ticked, the five
+required setup steps are done and setup counts as complete; this step is
+optional.
+
 1. In the checklist, select **keploy.yml, keploy.lock and the test edits
    staged**.
 2. In the list that opens, check the files. `keploy.yml`, `keploy.lock` and
@@ -342,6 +358,10 @@ the changes, then commit. The extension never commits for you, and never changes
 <img src="/docs/img/universal-mocker/vscode/13-stage-scm.png" alt="Source Control with keploy.lock and keploy.yml staged and the message test: record dependency mocks with Keploy" width="100%" />
 
 ## Step 9: Replay in CI
+
+In extension 3.1.8 and later, **CI replays keploy.lock** is optional — Keploy
+still offers it as the recommended next step after **Replay green** without
+blocking setup completion.
 
 For a Go or Node project in a GitHub repository:
 
@@ -402,8 +422,9 @@ root.
 
 ## Step 10: Invite your team
 
-Select **Teammates invited** in the checklist. The Keploy app's **Add User**
-page opens, where an admin adds your teammates.
+In extension 3.1.8 and later, **Teammates invited** is optional. Select
+**Teammates invited** in the checklist. The Keploy app's **Add User** page
+opens, where an admin adds your teammates.
 
 A teammate who clones the repository signs in and replays. The replay reads the
 committed `keploy.yml` and `keploy.lock`, and downloads the recordings the lock

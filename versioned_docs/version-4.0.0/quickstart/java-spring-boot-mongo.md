@@ -67,8 +67,7 @@ import InstallReminder from '@site/src/components/InstallReminder';
 
 ## Pre-Requisite 🛠️
 
-- Install JDK and add JAVA_HOME in environment variable.
-- Install Maven
+- Install JDK 20 or later (for example JDK 21) and add `JAVA_HOME` in your environment.
 - Install Docker
 
 ## Get Started! 🎬
@@ -91,7 +90,6 @@ docker run -p 27017:27017 --name spring-boot-mongo --network backend mongo
 
 ```bash
 git clone https://github.com/keploy/samples-java.git && cd samples-java/spring-boot-mongo
-mvn wrapper:wrapper
 ./mvnw clean install
 ```
 

@@ -76,7 +76,7 @@ git clone https://github.com/keploy/samples-csharp.git && cd samples-csharp
 ### start the database instance
 
 ```bash
-docker-compose up
+docker compose up -d
 ```
 
 We'll be running our sample application right on Linux, but just to make things a tad more thrilling, we'll have the database (Postgres) chill on Docker. Ready? Let's get the party started!🎉
