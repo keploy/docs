@@ -57,9 +57,9 @@ keploy login --finish --json
 
 When an API key is set, in `KEPLOY_API_KEY` or with `--api-key`, and the server accepts it, `keploy login --no-wait` answers that you are signed in and starts no sign-in.
 
-With `--json`, every way of signing in (browser, `--no-wait` and `--finish`, an API key, `--manual-login`, `--k8s-proxy-url`, or a session saved before) prints one JSON document on stdout and nothing else; logs go to stderr. Its `summary` says how the sign-in ended, for a person, and its `login` object says the same for a tool:
+With `--json`, every way of signing in (browser, `--fresh`, `--no-wait` and `--finish`, an API key, `--manual-login`, `--k8s-proxy-url`, or a session saved before) prints one JSON document on stdout and nothing else; logs go to stderr. Its `summary` says how the sign-in ended, for a person, and its `login` object says the same for a tool:
 
-- `ok`: `true` when you are signed in.
+- `ok`: `true` when you are signed in. Exception for `--fresh`: if the server did not ask you to sign in again (for example, an older server that ignored `max_age`), the session is still saved so `ok` is `true`, but the command exits `1`, adds a warning to `caveats`, and sets `agent_todo` to tell tools not to proceed with actions that require a recent sign-in. Tools running `--fresh` should check the exit code (or `caveats`) as well as `ok`.
 - When `ok` is `true`: `method` (`session` for a browser sign-in, new or saved before; `api_key`; or `k8s_proxy` for an API key a self-hosted k8s-proxy accepted), and whom it signed you in as: `user_id`, `company_id` and `email`. A self-hosted k8s-proxy names the account by `company_id` and `email` only.
 - When `ok` is `false`: `error_code`, such as `key_refused`, `server_unreachable`, `proxy_unreachable` or `not_saved`, and `next_step`, what to do about it.
 
