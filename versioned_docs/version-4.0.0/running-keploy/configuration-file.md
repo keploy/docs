@@ -227,7 +227,7 @@ The `test` section in the Keploy-config file allows you to define parameters for
     "test-set-2": []
   ```
 
-- **`globalNoise`**: Noisy fields to be ignored at global/test-set level.
+- **`globalNoise`**: Noisy fields to be ignored at global, Test-Set or endpoint level.
   Example:
 
   ```yml
@@ -468,6 +468,37 @@ test-sets: {test-set-1: {body: {
 - **`body`**: Defines patterns to ignore for the response body within the specified test set.
 - **`header`**: Specifies headers or header values to be ignored for the specified test set. Example: `{"User-Agent": ["PostmanRuntime/7.34.0"]}`
 
+### Endpoint noise
+
+Global noise ignores a field name in every response, and a dotted path wherever the path appears in a response. To ignore a field for one endpoint only, at its exact place in the body, use the `endpoints` subsection of `globalNoise`:
+
+```yml
+globalNoise:
+  global: {}
+  test-sets: {}
+  endpoints:
+    - method: GET # optional; leave it out to match any method
+      path: /version # the request path; {name} matches one path segment
+      body:
+        version: [] # only the top-level "version" of GET /version
+      header:
+        X-Build-Id: [] # the exact header name, in any case
+    - path: /apps/{id}/status
+      body:
+        data.heartbeats[].at: ["^2026-"] # ignore it only while both values match
+```
+
+How Keploy reads an endpoint rule:
+
+- **Which tests it applies to:** a test whose recorded request has the rule's method (in any case) and path. The host, the query string and a trailing `/` are ignored, and a `{name}` segment matches any one segment.
+- **Body fields:** a dotted path from the top of the response body, matched exactly. `version` is only the top-level `version`; `data.version` never matches `metadata.version` or `data.versionLabel`. A rule on a field also covers everything under it.
+- **Arrays:** `data.items.at` and `data.items[].at` mean the same thing, the `at` of every item. You can't pick one element, so `items[0].at` matches nothing. When the whole response is an array, start from its items' keys: `items.version`.
+- **Maps keyed by IDs:** `{id}` stands for an ID key, for example `results.{id}.traceId`.
+- **Values:** `[]` ignores any value. A list of regular expressions ignores the field only when both the recorded and the replayed value match one of them, as for other noise.
+- **Overlaps:** when several rules match a request and name the same field, the first rule in the list decides. A test case's own noise for the same field wins over an endpoint rule.
+
+Endpoint noise applies to HTTP test responses. It doesn't change how Keploy matches mocks. With `keploy cloud replay`, the rules saved for the app in the dashboard are added after the rules in `keploy.yml`, so your own rule decides when both name the same field.
+
 ## Handling Deeply Nested JSON Fields in Keploy Configuration 🧩
 
 When dealing with deeply nested JSON fields in the response body, it’s important to correctly specify the path to the fields in the Keploy configuration file. Here’s an example to illustrate how to add a nested `token` field to the global noise configuration.
@@ -515,7 +546,7 @@ By specifying the path in this manner, Keploy will correctly identify and handle
 
 ### **Note**:
 
-The `globalNoise` and `test-sets` are optional fields in the config file. If not specified, the default value for both fields is an empty object `{}`. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
+The `global`, `test-sets` and `endpoints` fields of `globalNoise` are optional. If not specified, `global` and `test-sets` default to an empty object `{}` and `endpoints` to an empty list. This flexibility allows you to seamlessly integrate advanced noise filtering based on your testing requirements.
 
 ## Conclusion
 
