@@ -26,7 +26,7 @@ A CI job can check that a build of your web app still records: it serves the bui
 
 - **Record visits to a build.** The build carries an ingest key, a scripted browser visits it, and each visit is ended at once with `POST /ui/v1/sessions/<session id>/complete`, so its flows follow within a minute or two instead of after 30 idle minutes.
 - **Read what was recorded.** Capture status, flows, the flow graph and the journey plan are read with an API key: a service-account key bound to the `UI_READER` role on the app, or a personal access token with the `read` scope.
-- **Replay journeys separately with the CLI.** This workflow checks capture via REST with a read-only `UI_READER` key. Replaying journeys as Playwright tests is in beta and runs through `keploy ui status --app <id>` and `keploy ui run` in Enterprise CLI `v3.9.20` and later (Linux and macOS); no service-account role runs UI tests (`UI_READER` only reads).
+- **Replay journeys separately with the CLI.** This workflow checks capture via REST with a read-only `UI_READER` key. Replaying journeys as Playwright tests is in beta and runs through `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` in Enterprise CLI `v3.9.20` and later (Linux and macOS). For CI replay, bind a service account to the `UI_RUNNER` role (`UI_READER` only reads).
 
 ## Keys at build time {#keys-at-build-time}
 

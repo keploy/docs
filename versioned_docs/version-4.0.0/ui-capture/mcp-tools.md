@@ -39,7 +39,7 @@ The Keploy MCP server gives an AI agent every step of UI capture as a tool: crea
 - `search_tools({query})` finds tools by keyword and returns each match's name and a one-line summary, not its schema. It ranks the whole catalogue by keyword and returns 10 matches unless you pass `limit`, so a query such as `"ui capture"` can return API testing tools too and leave some UI capture tools out. Fetch tools whose names you know with `get_tool_schema`.
 - `invoke_tool({name, arguments})` runs a tool by name. A tool missing from `tools/list` can also be called directly with `tools/call` and its exact name.
 
-**Instructions.** The server's `initialize` answer carries instructions with a UI CAPTURE section: the order of the tools below, the wait before a visit becomes flows, and that MCP tools read test runs while journey replay runs via the CLI.
+**Instructions.** The server's `initialize` answer carries instructions with a UI CAPTURE section: the order of the tools below, the wait before a visit becomes flows, and that no MCP tool creates or runs a UI test run (the server's current instructions still carry the earlier pre-release note on `keploy ui run`, though Enterprise CLI `v3.9.20` and later now ships `keploy ui status` and `keploy ui run` on Linux and macOS).
 
 ## Tools {#tools}
 

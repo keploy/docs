@@ -658,9 +658,9 @@ Pages that still use the key are refused within about 30 seconds. Then it delete
 
 ## What an agent cannot do yet {#what-an-agent-cannot-do-yet}
 
-- Generate or run tests via MCP or REST: no MCP tool or REST route creates, claims or completes a UI test run. To replay journeys as Playwright tests (Beta), run `keploy ui status --app <id>` and `keploy ui run` with Enterprise CLI `v3.9.20` or later (Linux and macOS).
+- Generate or run tests via MCP or REST: no MCP tool or REST route creates, claims or completes a UI test run. To replay journeys as Playwright tests (Beta), run `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` with Enterprise CLI `v3.9.20` or later (Linux and macOS).
 - Pin a journey into the plan, or accept a change.
-- Run UI tests in CI: no service-account role runs them. A CI job can check capture status and read the plan with a key bound to the `UI_READER` role, on a paid plan.
+- Run UI tests in CI via MCP or REST: a CI job can check capture status and read the plan with a key bound to the `UI_READER` role on a paid plan, or replay journeys with `keploy ui run --app <id> --base-url <url>` using a service-account key bound to `UI_RUNNER`.
 
 ## Related
 

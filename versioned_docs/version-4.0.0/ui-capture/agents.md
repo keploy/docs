@@ -114,9 +114,9 @@ The dashboard shows more to people on your team who can view the app: a flow's r
 
 ## What agents cannot do yet {#what-agents-cannot-do-yet}
 
-- **Generate or run tests via MCP or REST.** No MCP tool or REST route creates, claims or completes a UI test run. To replay journeys as Playwright tests (Beta), run `keploy ui status --app <id>` and `keploy ui run` with Enterprise CLI `v3.9.20` or later (Linux and macOS).
+- **Generate or run tests via MCP or REST.** No MCP tool or REST route creates, claims or completes a UI test run. To replay journeys as Playwright tests (Beta), run `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` with Enterprise CLI `v3.9.20` or later (Linux and macOS).
 - **Pin a journey** into the plan, or accept a change.
-- **Run tests in CI.** No service-account role runs UI tests. A CI job can check capture status and read the plan with a `UI_READER` key, on a paid plan: see [Check capture in CI](./ci.md).
+- **Run tests in CI via MCP or REST.** A CI job can check capture status and read the plan with a `UI_READER` key on a paid plan (see [Check capture in CI](./ci.md)), or replay journeys with `keploy ui run --app <id> --base-url <url>` using a service-account key bound to the `UI_RUNNER` role.
 
 ## Related
 

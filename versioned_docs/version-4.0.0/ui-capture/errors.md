@@ -525,7 +525,7 @@ How to act on one, as a person or as an AI agent:
 3. **Read the exit code before you read a run as a test result.** Only `0` and `1` are results of a run. Every other code means nothing, or nothing trustworthy, was measured.
 4. **A code marked reserved is not raised by any current build.** It documents a check that is designed but not wired yet. Do not wait for it or branch on it.
 
-A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, and `keploy ui --help`, `keploy ui status` and `keploy ui run`, which ship in Enterprise CLI `v3.9.20` and later (Linux and macOS). Any other command a remedy names, such as `npx playwright test`, is not the binary's.
+A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, and `keploy ui --help` and `keploy ui run` (which ship in Enterprise CLI `v3.9.20` and later on Linux and macOS). Any other command a remedy names, such as `npx playwright test`, is not the binary's.
 
 ### Exit codes
 

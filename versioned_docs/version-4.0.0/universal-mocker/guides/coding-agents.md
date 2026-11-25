@@ -64,19 +64,23 @@ The Guide prompt walks your agent through the cloud workflow:
 1. **Non-blocking CLI sign-in:** runs `keploy login --no-wait && keploy login --finish`
    so you approve the sign-in in your browser without hitting the agent's shell
    timeout.
-2. **Skill install and cloud recording:** installs the mocking skill into your
-   repository and records your test suite's dependency calls to Keploy Cloud
-   with `--lock keploy.lock` (see
-   [`keploy.yml` and `keploy.lock`](./keploy-yml-and-lock.md)).
-3. **Offline replay verification:** stops your test dependencies and replays the
-   suite offline to prove the tests pass against the recorded mocks.
+2. **App registration and cloud recording:** switches to a working branch if
+   needed, runs `keploy app create --json` and `keploy mock status --json`,
+   then records your test suite's dependency calls to Keploy Cloud with
+   `keploy mock record --lock keploy.lock` (never `--local`, with clear
+   guidance if Keploy Cloud returns HTTP 402 on the free recorded-mock
+   allowance; see [`keploy.yml` and `keploy.lock`](./keploy-yml-and-lock.md)).
+3. **Offline replay verification:** replays the suite offline with
+   `keploy mock replay --lock keploy.lock` and checks `keploy mock status --json`
+   until it reports `verified_green`.
 4. **Progress in Guide:** as Keploy sees your sign-in, recording, and green
-   offline replay, Keploy Guide updates your setup steps automatically. Any
+   offline replay, Keploy Guide tracks your setup progress. Any session
    environment variables the prompt uses stay on individual commands only and
-   are not written into repository files.
+   are never written into repository files, scripts, `.env` files, or CI
+   configs.
 
-Read on to install the skill manually or to inspect what each `keploy mock`
-command and NEXT block does.
+Read on to install the mocking skill manually or to inspect what each
+`keploy mock` command and NEXT block does.
 
 Every output here is from Keploy 3.9.4 on Linux, in a Go repository at
 `/home/you/shop`. The output is trimmed: timestamps and long lines are cut

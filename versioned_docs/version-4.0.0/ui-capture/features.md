@@ -70,11 +70,13 @@ The status of each feature is one of these:
 
 ## Replay
 
-| Feature                                                     | Surface                                                                   | Status | Page                                           |
-| ----------------------------------------------------------- | ------------------------------------------------------------------------- | ------ | ---------------------------------------------- |
-| Check capture and replay readiness                          | CLI (`keploy ui status --app <id>`, Enterprise `v3.9.20`+, Linux & macOS) | Beta   | [CLI](./cli.md#keploy-ui)                      |
-| Replay journeys as Playwright tests, against recorded mocks | CLI (`keploy ui run`, Enterprise `v3.9.20`+, Linux & macOS)               | Beta   | [Replay (beta)](./journeys.md#replay-beta)     |
-| Read UI test runs and their verdicts                        | Dashboard, REST, MCP                                                      | Beta   | [List test runs](./rest-api.md#list-test-runs) |
+| Feature                                                                | Surface                                                                                 | Status | Page                                                |
+| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------ | --------------------------------------------------- |
+| Check capture and replay readiness                                     | CLI (`keploy ui status --app <id>`, Enterprise `v3.9.20`+, Linux & macOS)               | Beta   | [CLI](./cli.md#keploy-ui)                           |
+| Replay journeys as Playwright tests, against recorded mocks            | CLI (`keploy ui run --app <id> --base-url <url>`, Enterprise `v3.9.20`+, Linux & macOS) | Beta   | [Replay (beta)](./journeys.md#replay-beta)          |
+| Service-account key for running UI tests in CI (`UI_RUNNER`)           | Dashboard (create), CLI (`keploy ui run`)                                               | Beta   | [Check capture in CI](./ci.md#what-ci-can-do-today) |
+| **Generate Test** on a flow's page: queues a `PENDING` single-flow run | Dashboard                                                                               | Beta   | [Replay (beta)](./journeys.md#replay-beta)          |
+| Read UI test runs and their verdicts                                   | Dashboard, REST, MCP                                                                    | Beta   | [List test runs](./rest-api.md#list-test-runs)      |
 
 ## Not available yet
 
@@ -84,7 +86,6 @@ The status of each feature is one of these:
 | Recompute the journey plan from the dashboard                                                               | Use `refresh=true` over the REST API or MCP.                                        |
 | Accept an intended change                                                                                   | On no surface.                                                                      |
 | Run reports by email, and share links                                                                       | On no surface.                                                                      |
-| A service-account role that runs UI tests in CI                                                             | `UI_READER` only reads.                                                             |
 | The dashboard's **Flow Graph** panel, **Coverage** tab, **Impact Analysis** panel and generated test source | Each says the server does not expose it. The flow graph is on the REST API and MCP. |
 | A retention setting for recordings                                                                          | Recordings have no retention setting. A journey plan is kept 14 days.               |
 

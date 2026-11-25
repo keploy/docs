@@ -1,8 +1,8 @@
 ---
 id: cli
-title: "UI Testing CLI reference: keploy login and keploy mcp-install"
+title: "UI Testing CLI reference: keploy login, keploy mcp-install and keploy ui"
 sidebar_label: CLI
-description: What the keploy binary does for UI Testing today, signing in and connecting an AI agent to the Keploy MCP server, and what it does not do yet.
+description: What the keploy binary does for UI Testing: signing in, connecting an AI agent to the Keploy MCP server, checking capture readiness with keploy ui status, and replaying journeys with keploy ui run.
 tags:
   - UI testing
   - UI capture
@@ -82,14 +82,14 @@ The token carries the scopes your role in the company allows. Effective access i
 
 No person can approve a sign-in code in CI. To sign the `keploy` binary in there, set `KEPLOY_API_KEY` to a Keploy API key.
 
-The UI capture steps a CI job takes, such as checking capture status or reading the journey plan, are calls to the [REST API](./rest-api.md) with an API key, not `keploy` commands.
+A CI job that checks capture status or reads the journey plan can call the [REST API](./rest-api.md) with a `UI_READER` service-account key (or a personal access token). To replay journeys as Playwright tests in CI, run `keploy ui run --app <id> --base-url <url>` with a `UI_RUNNER` service-account key in `KEPLOY_API_KEY` (Enterprise CLI `v3.9.20` and later on Linux and macOS).
 
 ## keploy ui {#keploy-ui}
 
 Enterprise CLI `v3.9.20` and later ships the `keploy ui` commands on Linux and macOS (Beta):
 
 - `keploy ui status --app <id>`: checks capture and replay readiness for an app.
-- `keploy ui run`: replays recorded journeys as Playwright tests against recorded mocks.
+- `keploy ui run --app <id> --base-url <url>`: replays recorded journeys as Playwright tests against recorded mocks.
 
 Replaying journeys as Playwright tests is in beta: see [what works today](../running-keploy/ui-capture.md#what-works-today).
 

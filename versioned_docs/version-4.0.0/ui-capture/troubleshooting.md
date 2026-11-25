@@ -225,9 +225,9 @@ Each entry below is a symptom, its cause and what to do. When the SDK reports a 
 
 ### A test run from **Generate Test** stays pending {#generate-test-pending}
 
-**Cause:** **Generate Test** queues a `PENDING` UI test run in the dashboard waiting for an external runner to claim it.
+**Cause:** **Generate Test** queues a `PENDING` single-flow UI test run in the dashboard. `keploy ui run` does not claim an existing `PENDING` run queued by **Generate Test**; it creates and runs a fresh journey-plan test run directly.
 
-**Fix:** To replay recorded journeys as Playwright tests (Beta) locally or in CI, use `keploy ui status --app <id>` and `keploy ui run` in Enterprise CLI `v3.9.20` and later (Linux and macOS). See [Replay (beta)](./journeys.md#replay-beta).
+**Fix:** To replay recorded journeys as Playwright tests (Beta) locally or in CI, run `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` in Enterprise CLI `v3.9.20` and later (Linux and macOS). See [Replay (beta)](./journeys.md#replay-beta).
 
 ### The **Journeys** tab is empty {#journeys-tab-empty}
 

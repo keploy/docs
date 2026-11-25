@@ -97,8 +97,8 @@ Replaying journeys as Playwright tests is in beta. Enterprise CLI `v3.9.20` and 
 
 What you see in the dashboard and API:
 
-- **Generate Test.** A flow's page in the dashboard has a **Generate Test** button that queues a `PENDING` UI test run. To replay journeys locally or in your own CI, use `keploy ui run` in Enterprise CLI `v3.9.20` and later (Linux and macOS).
-- **Test runs.** Runs are listed on the **Test Runs** tab and over the REST API and MCP: [List test runs](./rest-api.md#list-test-runs) and `listUITestRuns`, [Get a test run](./rest-api.md#get-a-test-run) and `getUITestRun`. No REST API or MCP tool creates or runs a test directly; use `keploy ui run`.
+- **Generate Test.** A flow's page in the dashboard has a **Generate Test** button that queues a `PENDING` single-flow UI test run. `keploy ui run --app <id> --base-url <url>` does not claim that pending run; it creates and runs a fresh journey-plan test run directly (Enterprise CLI `v3.9.20` and later on Linux and macOS).
+- **Test runs.** Runs are listed on the **Test Runs** tab and over the REST API and MCP: [List test runs](./rest-api.md#list-test-runs) and `listUITestRuns`, [Get a test run](./rest-api.md#get-a-test-run) and `getUITestRun`. No REST API or MCP tool creates or runs a test directly; use `keploy ui run --app <id> --base-url <url>`.
 - **Verdicts.** A run's results use a closed set of verdicts, shown in the dashboard with these labels:
 
 | Verdict            | Dashboard label   | What it means                                                  |
