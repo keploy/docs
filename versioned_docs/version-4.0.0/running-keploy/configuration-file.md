@@ -499,7 +499,7 @@ How Keploy reads an endpoint rule:
 - **Values:** `[]` ignores any value. A list of regular expressions ignores the field only when both the recorded and the replayed value match one of them, as for other noise.
 - **Overlaps:** when several rules match a request and name the same field, the first rule in the list decides. Rules that name different fields all apply: a rule on `data` covers `data.version` wherever it is in the list. A Test-Case's own noise for the same field wins over an endpoint rule, and an endpoint rule can't narrow a field name in `global` or `test-sets`: `version: []` there ignores `version` in every response it applies to, whatever an endpoint rule's patterns say.
 
-Endpoint noise applies to HTTP test responses that aren't streamed. Keploy doesn't apply endpoint rules to streamed responses, such as server-sent events, or to gRPC responses, and endpoint rules don't change how Keploy matches mocks. `keploy cloud replay` adds the endpoint rules saved for the app in the Keploy dashboard after the rules in `keploy.yml`, so your rule decides when both name the same field.
+Endpoint noise applies to HTTP test responses that aren't streamed. Keploy doesn't apply endpoint rules to streamed responses, such as server-sent events, or to gRPC responses, and endpoint rules don't change how Keploy matches mocks. `keploy cloud replay` adds the endpoint rules saved for the app in the Keploy dashboard after the rules in `keploy.yml`, so your rule decides when both name the same field. With `--trigger`, the replay runs in the cluster with only the rules saved in the dashboard; the rules in `keploy.yml` are not applied.
 
 ## Handling Deeply Nested JSON Fields in Keploy Configuration 🧩
 
