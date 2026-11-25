@@ -112,7 +112,7 @@ In the dashboard, creating or revoking a key also needs a sign-in less than 15 m
 
 Organization admins and the app's App Admins have `testgen:run`. A plain member does not, unless an admin grants it.
 
-No service-account key can manage ingest keys. Listing them is refused to every service account, and creating or revoking one needs `testgen:run`, which none of the roles a service account can hold grants (`ATG_RUNNER`, `ITG_RUNNER`, `UI_READER`, `MOCK_READER`). Use your own API key, or the dashboard.
+No service-account key can manage ingest keys, regardless of role (`ATG_RUNNER`, `ITG_RUNNER`, `UI_READER`, `UI_RUNNER`, `MOCK_READER`): Keploy's service-account operation gate and interactive step-up check refuse every service account on ingest-key listing, creation and revocation. Use your own API key, or the dashboard.
 
 ## Related
 

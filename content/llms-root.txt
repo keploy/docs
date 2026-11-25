@@ -91,8 +91,8 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [Operate UI capture from an AI agent](https://keploy.io/docs/ui-capture/agents/): Credentials, the lifecycle as MCP tools and REST routes, waits, errors, and what an agent sees
 - [UI Testing REST API](https://keploy.io/docs/ui-capture/rest-api/): Each /client/v1 UI capture operation: ingest keys, capture status, flows, flow graph, journeys, impact, test runs
 - [UI Testing MCP tools](https://keploy.io/docs/ui-capture/mcp-tools/): The Keploy MCP server's UI capture tools, their inputs and scopes, and how to call them
-- [UI Testing CLI](https://keploy.io/docs/ui-capture/cli/): keploy login, keploy mcp-install, and keploy ui status / keploy ui run (Beta, Enterprise CLI v3.9.20+ on Linux and macOS)
-- [Journeys and replay (beta)](https://keploy.io/docs/ui-capture/journeys/): What a journey is, how Keploy selects journeys to test, the journey plan over REST and MCP, shares of sessions; replay (Beta) ships via keploy ui status and keploy ui run in Enterprise CLI v3.9.20+ (Linux and macOS)
+- [UI Testing CLI](https://keploy.io/docs/ui-capture/cli/): keploy login, keploy mcp-install, and keploy ui status / keploy ui run (Beta, Keploy 3.9.20+ on Linux and macOS)
+- [Journeys and replay (beta)](https://keploy.io/docs/ui-capture/journeys/): What a journey is, how Keploy selects journeys to test, the journey plan over REST and MCP, shares of sessions; replay (Beta) ships via keploy ui status and keploy ui run in Keploy 3.9.20+ (Linux and macOS)
 - [Check UI capture in CI](https://keploy.io/docs/ui-capture/ci/): A GitHub Actions check that a build records visits that become flows, with a read-only UI_READER service-account key
 - [UI Testing features and availability](https://keploy.io/docs/ui-capture/features/): Every UI Testing feature, its surface (SDK, dashboard, REST, MCP, CLI) and whether it works today
 - [UI capture troubleshooting](https://keploy.io/docs/ui-capture/troubleshooting/): Symptoms, causes and fixes: nothing arriving, wrong app, flows not ready, cut bodies, build errors, agents, dashboard

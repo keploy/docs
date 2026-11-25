@@ -25,6 +25,7 @@ What Keploy UI Testing does today, where you use each feature, and the page that
 The status of each feature is one of these:
 
 - **Beta**: works today. The whole of UI Testing is in beta, and the dashboard says so.
+- **Beta, not runnable yet**: creates a `PENDING` single-flow run in the dashboard that is not executed by a runner.
 - **Available**: a part of Keploy that UI Testing uses but that is not UI Testing's own, such as the apps API.
 - **Not available**: not in the product yet.
 
@@ -45,16 +46,16 @@ The status of each feature is one of these:
 
 ## Setting up
 
-| Feature                                                                   | Surface                                    | Status    | Page                                                                  |
-| ------------------------------------------------------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------- |
-| Create an app to record into                                              | REST, MCP                                  | Available | [Create an app](./rest-api.md#create-an-app)                          |
-| Create, list and revoke ingest keys                                       | Dashboard, REST, MCP                       | Beta      | [Ingest keys and environments](./ingest-keys.md)                      |
-| Check that recordings arrive and have become flows                        | Dashboard, REST, MCP                       | Beta      | [Capture status](./rest-api.md#capture-status)                        |
-| End a visit at once, so its flows follow within minutes                   | REST (ingest)                              | Beta      | [End a visit at once](./sessions-and-sampling.md#end-a-visit-at-once) |
-| Check from CI that a build still records                                  | REST                                       | Beta      | [Check capture in CI](./ci.md)                                        |
-| A read-only service-account key for one app (`UI_READER`), on a paid plan | Dashboard (create), REST, MCP              | Beta      | [Create the service account](./ci.md#create-the-service-account)      |
-| Sign in from a terminal or an agent, and connect an agent                 | CLI (`keploy login`, `keploy mcp-install`) | Available | [CLI](./cli.md)                                                       |
-| Set up and read everything from an AI agent                               | MCP, REST                                  | Beta      | [Operate UI capture from an AI agent](./agents.md)                    |
+| Feature                                                   | Surface                                    | Status    | Page                                                                  |
+| --------------------------------------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------- |
+| Create an app to record into                              | REST, MCP                                  | Available | [Create an app](./rest-api.md#create-an-app)                          |
+| Create, list and revoke ingest keys                       | Dashboard, REST, MCP                       | Beta      | [Ingest keys and environments](./ingest-keys.md)                      |
+| Check that recordings arrive and have become flows        | Dashboard, REST, MCP                       | Beta      | [Capture status](./rest-api.md#capture-status)                        |
+| End a visit at once, so its flows follow within minutes   | REST (ingest)                              | Beta      | [End a visit at once](./sessions-and-sampling.md#end-a-visit-at-once) |
+| Check from CI that a build still records                  | REST                                       | Beta      | [Check capture in CI](./ci.md)                                        |
+| A read-only service-account key for one app (`UI_READER`) | Dashboard (create), REST, MCP              | Beta      | [Create the service account](./ci.md#create-the-service-account)      |
+| Sign in from a terminal or an agent, and connect an agent | CLI (`keploy login`, `keploy mcp-install`) | Available | [CLI](./cli.md)                                                       |
+| Set up and read everything from an AI agent               | MCP, REST                                  | Beta      | [Operate UI capture from an AI agent](./agents.md)                    |
 
 ## Reading what was recorded
 
@@ -70,13 +71,13 @@ The status of each feature is one of these:
 
 ## Replay
 
-| Feature                                                                | Surface                                                                                 | Status | Page                                                |
-| ---------------------------------------------------------------------- | --------------------------------------------------------------------------------------- | ------ | --------------------------------------------------- |
-| Check capture and replay readiness                                     | CLI (`keploy ui status --app <id>`, Enterprise `v3.9.20`+, Linux & macOS)               | Beta   | [CLI](./cli.md#keploy-ui)                           |
-| Replay journeys as Playwright tests, against recorded mocks            | CLI (`keploy ui run --app <id> --base-url <url>`, Enterprise `v3.9.20`+, Linux & macOS) | Beta   | [Replay (beta)](./journeys.md#replay-beta)          |
-| Service-account key for running UI tests in CI (`UI_RUNNER`)           | Dashboard (create), CLI (`keploy ui run`)                                               | Beta   | [Check capture in CI](./ci.md#what-ci-can-do-today) |
-| **Generate Test** on a flow's page: queues a `PENDING` single-flow run | Dashboard                                                                               | Beta   | [Replay (beta)](./journeys.md#replay-beta)          |
-| Read UI test runs and their verdicts                                   | Dashboard, REST, MCP                                                                    | Beta   | [List test runs](./rest-api.md#list-test-runs)      |
+| Feature                                                                | Surface                                                                            | Status                 | Page                                                |
+| ---------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ---------------------- | --------------------------------------------------- |
+| Check capture and replay readiness                                     | CLI (`keploy ui status --app <id>`, Keploy `3.9.20`+, Linux & macOS)               | Beta                   | [CLI](./cli.md#keploy-ui)                           |
+| Replay journeys as Playwright tests, against recorded mocks            | CLI (`keploy ui run --app <id> --base-url <url>`, Keploy `3.9.20`+, Linux & macOS) | Beta                   | [Replay (beta)](./journeys.md#replay-beta)          |
+| Service-account key for running UI tests in CI (`UI_RUNNER`)           | Dashboard (create), CLI (`keploy ui run`)                                          | Beta                   | [Check capture in CI](./ci.md#what-ci-can-do-today) |
+| **Generate Test** on a flow's page: queues a `PENDING` single-flow run | Dashboard                                                                          | Beta, not runnable yet | [Replay (beta)](./journeys.md#replay-beta)          |
+| Read UI test runs and their verdicts                                   | Dashboard, REST, MCP                                                               | Beta                   | [List test runs](./rest-api.md#list-test-runs)      |
 
 ## Not available yet
 

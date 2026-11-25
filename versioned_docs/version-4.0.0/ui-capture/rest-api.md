@@ -30,7 +30,7 @@ The answers on this page are real: they were captured from an app with six recor
 - **Base URL:** `https://api.keploy.io/client/v1`. When you self-host, your API server's URL followed by `/client/v1`.
 - **API key:** a personal access token from **Settings → API Keys** in the dashboard, in `Authorization: Bearer kep_...` or `X-API-Key: kep_...`. An ingest key is refused with `403`: it can only post recordings.
 - **Scope and permission.** Each operation needs a scope on the key (`read`, `write` or `admin`) and a permission its owner holds on the app: `app:view` to read, `testgen:run` to mint or revoke an ingest key. A missing scope is `403` `INSUFFICIENT_SCOPE`; a missing permission is `403` `INSUFFICIENT_PERMISSION`, with the permission named.
-- **Service accounts.** A service-account key bound to the `UI_READER` role on an app may call that app's read operations, except listing its ingest keys. It may not create or delete apps, or mint or revoke ingest keys. On the Free plan a service account can hold only `MOCK_READER`, so this needs a paid plan.
+- **Service accounts.** A service-account key bound to the `UI_READER` role on an app may call that app's read operations, except listing its ingest keys. It may not create or delete apps, or mint or revoke ingest keys.
 - **Rate limit:** 100 requests a minute per key, with `X-RateLimit-Limit`, `X-RateLimit-Remaining` and `X-RateLimit-Reset` on each answer, and `429` `RATE_LIMITED` with `Retry-After` past it.
 - **Answers** are `{"data": ..., "meta": {"request_id", "timestamp"}}`. Errors are `{"error": {"code", "message", "details"}, "meta": ...}`. Branch on `code`: [Error codes](../running-keploy/public-api.md#error-codes) lists the Public API's, and each operation below names the ones it adds.
 - **Times** in `data` are Unix seconds, except the `timestamp` of a flow's steps and calls, which is in milliseconds. `meta.timestamp` is an RFC 3339 string.
@@ -634,7 +634,7 @@ A journey ID the plan does not run is `400` `INVALID_PARAMETER`; a `planId` that
 
 The app's UI test runs, newest first, one summary each: `status`, `verdict`, a one-line `summary`, the `planId` it replays, the number of tests, a counter per verdict, the share of sessions its failing journeys stand for (`impact`) and their IDs (`failingJourneyIds`). It takes `offset` and `limit` (at most 100, default 20), and `meta.pagination` says whether more follow.
 
-No REST API call creates or runs a UI test run; to replay journeys as Playwright tests (Beta), use `keploy ui status --app <id>` and `keploy ui run` in Enterprise CLI `v3.9.20` and later (Linux and macOS). For an app with no runs:
+No REST API call creates or runs a UI test run; to replay journeys as Playwright tests (Beta), use `keploy ui status --app <id>` and `keploy ui run` in Keploy `3.9.20` and later (Linux and macOS). For an app with no runs:
 
 ```bash
 curl "https://api.keploy.io/client/v1/apps/<appId>/ui/test-runs" \

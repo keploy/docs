@@ -62,12 +62,12 @@ url: "#read-the-flows",
 In this quickstart your AI coding agent sets up Keploy UI capture for you. You connect it to the Keploy MCP server and ask it to set up capture; the agent mints an ingest key, adds the capture SDK to your frontend, and reads the **UI flows** your first visits make. Apart from creating a token, if you connect with one, you never open the dashboard. It takes about 10 minutes.
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too: Enterprise CLI `v3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS. See [what works today](../running-keploy/ui-capture.md#what-works-today).
+UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too: Keploy `3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS. See [what works today](../running-keploy/ui-capture.md#what-works-today).
 :::
 
 ## Start from Keploy Guide {#start-from-keploy-guide}
 
-If you are new to Keploy, you can start directly from **Keploy Guide** at [app.keploy.io/guide](https://app.keploy.io/guide) (or jump straight to UI testing with [app.keploy.io/guide?product=ui_testing](https://app.keploy.io/guide?product=ui_testing)). Pick **UI testing (Beta)**, then copy the ready-to-paste prompt into your coding agent (Claude Code, Cursor, Codex, GitHub Copilot, or Antigravity) to set up your repository step by step.
+If you are new to Keploy, you can start directly from **Keploy Guide** at [app.keploy.io/guide](https://app.keploy.io/guide) (or jump straight to UI testing with [app.keploy.io/guide?product=ui_testing](https://app.keploy.io/guide?product=ui_testing)). Pick **UI testing (Beta)**, then copy the ready-to-paste prompt into your coding agent (Claude Code, Cursor, Copilot, or any coding agent) to set up your repository step by step.
 
 The Guide prompt walks your agent through:
 
@@ -75,7 +75,7 @@ The Guide prompt walks your agent through:
 2. **Ingest key setup:** creates an ingest key under **UI Testing → Setup & Keys** ([app.keploy.io/ui-testing/setup](https://app.keploy.io/ui-testing/setup)) or with the MCP tool `uiCaptureSetup`.
 3. **Local or staging SDK install first:** installs `@keploy/capture-sdk` in a local or staging environment first (before production) with browser-side masking configured — see [Privacy and masking](./privacy.md).
 4. **Immediate flow extraction:** after you browse the app, use **Finish this visit** so Keploy extracts flows right away instead of waiting for the 30-minute idle timeout.
-5. **Status and replay:** checks readiness with `keploy ui status --app <id>` (on Windows, use the MCP tool `uiCaptureStatus`) and replays the recorded journeys as Playwright tests with `keploy ui run --app <id> --base-url <url>` (Enterprise CLI `v3.9.20` and later, Linux and macOS).
+5. **Status and replay:** checks readiness with `keploy ui status --app <id>` (on Windows, use the MCP tool `uiCaptureStatus`) and replays the recorded journeys as Playwright tests with `keploy ui run --app <id> --base-url <url>` (Keploy `3.9.20` and later, Linux and macOS).
 
 Read on to connect your agent to the Keploy MCP server manually and walk through each tool call.
 

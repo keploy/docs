@@ -56,8 +56,8 @@ If you are new to Keploy, you can start directly from **Keploy Guide** at
 Universal Mocker with
 [app.keploy.io/guide?product=universal_mocker](https://app.keploy.io/guide?product=universal_mocker)).
 Pick **Universal Mocker**, then copy the ready-to-paste prompt into your coding
-agent (Claude Code, Cursor, Codex, GitHub Copilot, or Antigravity) to set up
-your repository step by step.
+agent (Claude Code, Cursor, Copilot, or any coding agent) to set up your
+repository step by step.
 
 The Guide prompt walks your agent through the cloud workflow:
 

@@ -26,7 +26,7 @@ A CI job can check that a build of your web app still records: it serves the bui
 
 - **Record visits to a build.** The build carries an ingest key, a scripted browser visits it, and each visit is ended at once with `POST /ui/v1/sessions/<session id>/complete`, so its flows follow within a minute or two instead of after 30 idle minutes.
 - **Read what was recorded.** Capture status, flows, the flow graph and the journey plan are read with an API key: a service-account key bound to the `UI_READER` role on the app, or a personal access token with the `read` scope.
-- **Replay journeys separately with the CLI.** This workflow checks capture via REST with a read-only `UI_READER` key. Replaying journeys as Playwright tests is in beta and runs through `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` in Enterprise CLI `v3.9.20` and later (Linux and macOS). For CI replay, bind a service account to the `UI_RUNNER` role (`UI_READER` only reads).
+- **Replay journeys separately with the CLI.** This workflow checks capture via REST with a read-only `UI_READER` key. Replaying journeys as Playwright tests is in beta and runs through `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` in Keploy `3.9.20` and later (Linux and macOS). For CI replay, bind a service account to the `UI_RUNNER` role (`UI_READER` only reads).
 
 ## Keys at build time {#keys-at-build-time}
 
@@ -45,7 +45,7 @@ Create the app with `POST /client/v1/apps` (see [Create an app](./rest-api.md#cr
 
 A service account is an identity for a pipeline: it belongs to the organization, not a person, starts with no access, and signs in only with its own keys. Bound to the `UI_READER` role on one app, its key reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list, mint or revoke ingest keys, or recompute the journey plan.
 
-You need to be an organization admin, and your organization needs a paid plan: on the Free plan a service account can hold only `MOCK_READER`. Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
+You need to be an organization admin. Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
 
 1. Click your avatar at the bottom of the sidebar, then **Account Settings**. Under **Account**, click **Service Accounts**.
 2. Click **New service account**, give it a **Name**, such as `ui-capture-ci`, and click **Create service account**. Its access opens next.

@@ -21,7 +21,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-For UI Testing, the `keploy` binary signs you in to Keploy from a terminal or an AI agent's shell, connects your AI agent to the Keploy MCP server, and in Enterprise CLI `v3.9.20` and later (Linux and macOS) checks capture readiness (`keploy ui status`) and replays recorded journeys as Playwright tests (`keploy ui run`).
+For UI Testing, the `keploy` binary signs you in to Keploy from a terminal or an AI agent's shell, connects your AI agent to the Keploy MCP server, and in Keploy `3.9.20` and later (Linux and macOS) checks capture readiness (`keploy ui status`) and replays recorded journeys as Playwright tests (`keploy ui run`).
 
 To install it, see [Install Keploy](../server/installation.md).
 
@@ -82,11 +82,11 @@ The token carries the scopes your role in the company allows. Effective access i
 
 No person can approve a sign-in code in CI. To sign the `keploy` binary in there, set `KEPLOY_API_KEY` to a Keploy API key.
 
-A CI job that checks capture status or reads the journey plan can call the [REST API](./rest-api.md) with a `UI_READER` service-account key (or a personal access token). To replay journeys as Playwright tests in CI, run `keploy ui run --app <id> --base-url <url>` with a `UI_RUNNER` service-account key in `KEPLOY_API_KEY` (Enterprise CLI `v3.9.20` and later on Linux and macOS).
+A CI job that checks capture status or reads the journey plan can call the [REST API](./rest-api.md) with a `UI_READER` service-account key (or a personal access token). To replay journeys as Playwright tests in CI, run `keploy ui run --app <id> --base-url <url>` with a `UI_RUNNER` service-account key in `KEPLOY_API_KEY` (Keploy `3.9.20` and later on Linux and macOS).
 
 ## keploy ui {#keploy-ui}
 
-Enterprise CLI `v3.9.20` and later ships the `keploy ui` commands on Linux and macOS (Beta):
+Keploy `3.9.20` and later ships the `keploy ui` commands on Linux and macOS (Beta):
 
 - `keploy ui status --app <id>`: checks capture and replay readiness for an app.
 - `keploy ui run --app <id> --base-url <url>`: replays recorded journeys as Playwright tests against recorded mocks.
