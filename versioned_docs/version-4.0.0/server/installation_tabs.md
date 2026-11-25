@@ -551,7 +551,7 @@ Use "keploy [command] --help" for more information about a command.
 <br />
 
 :::info
-Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administrator. Natively it understands your app's **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay.
+Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administrator. From Keploy 3.9.19, natively it understands your app's **HTTP/HTTPS, gRPC, PostgreSQL, MySQL, MongoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper** calls, on Windows 10 or 11 on an x64 PC; calls to other services — Redis, Kafka, Apache Pulsar and the like — are captured only as raw bytes and usually don't replay.
 
 - Your app runs in containers, or depends on one of those other services? Use the **Docker** tab.
 - On Windows on ARM, use the **WSL** tab.
@@ -566,7 +566,7 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
 
 ### 1. Install Keploy
 
-Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the next release of the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) will use, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
+Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) uses from version 3.1.7, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
 ```powershell
 $ProgressPreference = 'SilentlyContinue'

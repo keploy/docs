@@ -40,10 +40,10 @@ page and your agent's chat. Each box says what the screen shows.
 
 You need:
 
-- VS Code 1.125 or later, on Linux (x86-64 or arm64) or on a Mac with Apple
-  silicon. The [requirements](/docs/running-keploy/utg-vscode-extension/#requirements)
-  list the Linux versions that work. Windows support in the extension is
-  coming.
+- VS Code 1.125 or later, on Linux (x86-64 or arm64), on a Mac with Apple
+  silicon, or on Windows 10 or 11 on an x64 PC with extension 3.1.7 or later.
+  The [requirements](/docs/running-keploy/utg-vscode-extension/#requirements)
+  list the Linux versions that work.
 - Claude Code (its VS Code extension or the `claude` CLI) or GitHub Copilot in
   VS Code, or Cursor's agent in Cursor.
 - A project in a Git repository, with tests that call a database or an API.
@@ -51,6 +51,11 @@ You need:
   [Step 1 of the Go quickstart](../quickstarts/go.md#step-1-create-the-sample-package),
   commit it, and start its dependencies as its Step 2 shows.
 - A free Keploy account. You sign in from the extension in Step 3.
+
+On Windows, the first record or replay makes Windows ask whether to trust
+Keploy's certificate: select **Yes**.
+[Run it on Windows](/docs/running-keploy/utg-vscode-extension/#run-it-on-windows)
+says why, and what else differs there.
 
 ## Step 1: Install the extension
 
@@ -77,8 +82,9 @@ to do anything.
 - A notification, **Keploy: downloading the CLI (_version_)**, shows how much
   has arrived, such as _125.6 MB of 125.6 MB_ when it ends. To stop it, select **Cancel**.
 - The status bar shows **Keploy: CLI** and the percentage.
-- The CLI goes into `~/.keploy/bin`, and the extension checks it against
-  Keploy's published checksum before it installs it. No step needs `sudo`.
+- The CLI goes into `~/.keploy/bin` (on Windows, `%LOCALAPPDATA%\.keploy\bin`),
+  and the extension checks it against Keploy's published checksum before it
+  installs it. No step needs `sudo` or an administrator.
 
 When the download ends, the checklist ticks **Keploy CLI installed**.
 
