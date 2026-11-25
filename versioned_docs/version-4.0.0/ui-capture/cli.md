@@ -2,7 +2,7 @@
 id: cli
 title: "UI Testing CLI reference: keploy login, keploy mcp-install and keploy ui"
 sidebar_label: CLI
-description: What the keploy binary does for UI Testing: signing in, connecting an AI agent to the Keploy MCP server, checking capture readiness with keploy ui status, and replaying journeys with keploy ui run.
+description: "What the keploy binary does for UI Testing: signing in, connecting an AI agent to the Keploy MCP server, checking capture readiness with keploy ui status, and replaying journeys with keploy ui run."
 tags:
   - UI testing
   - UI capture
