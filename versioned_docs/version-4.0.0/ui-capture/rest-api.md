@@ -634,7 +634,7 @@ A journey ID the plan does not run is `400` `INVALID_PARAMETER`; a `planId` that
 
 The app's UI test runs, newest first, one summary each: `status`, `verdict`, a one-line `summary`, the `planId` it replays, the number of tests, a counter per verdict, the share of sessions its failing journeys stand for (`impact`) and their IDs (`failingJourneyIds`). It takes `offset` and `limit` (at most 100, default 20), and `meta.pagination` says whether more follow.
 
-A run today comes only from a flow page's **Generate Test** in the dashboard, and it stays `PENDING`: no API call creates or runs one, and the runner that replays journeys as Playwright tests is not in a release build yet. For an app with no runs:
+No REST API call creates or runs a UI test run; to replay journeys as Playwright tests (Beta), use `keploy ui status --app <id>` and `keploy ui run` in Enterprise CLI `v3.9.20` and later (Linux and macOS). For an app with no runs:
 
 ```bash
 curl "https://api.keploy.io/client/v1/apps/<appId>/ui/test-runs" \

@@ -25,7 +25,6 @@ What Keploy UI Testing does today, where you use each feature, and the page that
 The status of each feature is one of these:
 
 - **Beta**: works today. The whole of UI Testing is in beta, and the dashboard says so.
-- **Beta, not runnable yet**: part of [replay](./journeys.md#replay-beta), which is in beta, and whose runner, `keploy ui run`, is not in a release build yet. You can see it, but no test runs.
 - **Available**: a part of Keploy that UI Testing uses but that is not UI Testing's own, such as the apps API.
 - **Not available**: not in the product yet.
 
@@ -71,11 +70,11 @@ The status of each feature is one of these:
 
 ## Replay
 
-| Feature                                                                      | Surface               | Status                 | Page                                           |
-| ---------------------------------------------------------------------------- | --------------------- | ---------------------- | ---------------------------------------------- |
-| Replay journeys as Playwright tests, against recorded mocks                  | CLI (`keploy ui run`) | Beta, not runnable yet | [Replay (beta)](./journeys.md#replay-beta)     |
-| **Generate Test** on a flow's page: creates a UI test run that stays pending | Dashboard             | Beta, not runnable yet | [Replay (beta)](./journeys.md#replay-beta)     |
-| Read UI test runs and their verdicts                                         | Dashboard, REST, MCP  | Beta, not runnable yet | [List test runs](./rest-api.md#list-test-runs) |
+| Feature                                                     | Surface                                                                   | Status | Page                                           |
+| ----------------------------------------------------------- | ------------------------------------------------------------------------- | ------ | ---------------------------------------------- |
+| Check capture and replay readiness                          | CLI (`keploy ui status --app <id>`, Enterprise `v3.9.20`+, Linux & macOS) | Beta   | [CLI](./cli.md#keploy-ui)                      |
+| Replay journeys as Playwright tests, against recorded mocks | CLI (`keploy ui run`, Enterprise `v3.9.20`+, Linux & macOS)               | Beta   | [Replay (beta)](./journeys.md#replay-beta)     |
+| Read UI test runs and their verdicts                        | Dashboard, REST, MCP                                                      | Beta   | [List test runs](./rest-api.md#list-test-runs) |
 
 ## Not available yet
 

@@ -49,6 +49,35 @@ do the same from a terminal, or to see what the agent does.
 
 :::
 
+## Start from Keploy Guide {#start-from-keploy-guide}
+
+If you are new to Keploy, you can start directly from **Keploy Guide** at
+[app.keploy.io/guide](https://app.keploy.io/guide) (or jump straight to
+Universal Mocker with
+[app.keploy.io/guide?product=universal_mocker](https://app.keploy.io/guide?product=universal_mocker)).
+Pick **Universal Mocker**, then copy the ready-to-paste prompt into your coding
+agent (Claude Code, Cursor, Codex, GitHub Copilot, or Antigravity) to set up
+your repository step by step.
+
+The Guide prompt walks your agent through the cloud workflow:
+
+1. **Non-blocking CLI sign-in:** runs `keploy login --no-wait && keploy login --finish`
+   so you approve the sign-in in your browser without hitting the agent's shell
+   timeout.
+2. **Skill install and cloud recording:** installs the mocking skill into your
+   repository and records your test suite's dependency calls to Keploy Cloud
+   with `--lock keploy.lock` (see
+   [`keploy.yml` and `keploy.lock`](./keploy-yml-and-lock.md)).
+3. **Offline replay verification:** stops your test dependencies and replays the
+   suite offline to prove the tests pass against the recorded mocks.
+4. **Progress in Guide:** as Keploy sees your sign-in, recording, and green
+   offline replay, Keploy Guide updates your setup steps automatically. Any
+   environment variables the prompt uses stay on individual commands only and
+   are not written into repository files.
+
+Read on to install the skill manually or to inspect what each `keploy mock`
+command and NEXT block does.
+
 Every output here is from Keploy 3.9.4 on Linux, in a Go repository at
 `/home/you/shop`. The output is trimmed: timestamps and long lines are cut
 (`…`).

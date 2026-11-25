@@ -509,7 +509,7 @@ Then reload the page. The SDK does not retry a load that failed while the page w
 
 ## Handle errors from the Keploy UI tools
 
-The `keploy ui` commands and the replay engine that `keploy ui run` drives name every failure with a `KUI_E_` code too. The UI capture tools of the Keploy MCP server are not among them: they answer with the REST API's error codes, such as `INSUFFICIENT_SCOPE`, which [Errors an agent should handle](./agents.md#errors-an-agent-should-handle) lists. Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. A tool error carries:
+The `keploy ui` commands and the replay engine that `keploy ui run` drives name every failure with a `KUI_E_` code too. The UI capture tools of the Keploy MCP server are not among them: they answer with the REST API's error codes, such as `INSUFFICIENT_SCOPE`, which [Errors an agent should handle](./agents.md#errors-an-agent-should-handle) lists. Replaying journeys as Playwright tests is in beta; Enterprise CLI `v3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS. A tool error carries:
 
 - `code`: the code. Branch on `code` and on the exit code, never on the message.
 - `severity`: `fatal`, `error` or `warning`.
@@ -525,7 +525,7 @@ How to act on one, as a person or as an AI agent:
 3. **Read the exit code before you read a run as a test result.** Only `0` and `1` are results of a run. Every other code means nothing, or nothing trustworthy, was measured.
 4. **A code marked reserved is not raised by any current build.** It documents a check that is designed but not wired yet. Do not wait for it or branch on it.
 
-A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, which the released binary has, and `keploy ui --help` and `keploy ui run`, which are not in a release build yet. Any other command a remedy names, such as `npx playwright test`, is not the binary's.
+A remedy names only these commands of the keploy binary: `keploy login` with `--no-wait`, `--json` and `--finish`, and `keploy ui --help`, `keploy ui status` and `keploy ui run`, which ship in Enterprise CLI `v3.9.20` and later (Linux and macOS). Any other command a remedy names, such as `npx playwright test`, is not the binary's.
 
 ### Exit codes
 

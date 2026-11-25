@@ -21,7 +21,7 @@ import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-The `keploy` binary has no UI Testing commands of its own. For UI Testing it does two things: it signs you in to Keploy, from a terminal or from an AI agent's shell, and it connects your AI agent to the Keploy MCP server, whose tools then set up capture and read flows and journeys. This page covers the released `keploy` binary.
+For UI Testing, the `keploy` binary signs you in to Keploy from a terminal or an AI agent's shell, connects your AI agent to the Keploy MCP server, and in Enterprise CLI `v3.9.20` and later (Linux and macOS) checks capture readiness (`keploy ui status`) and replays recorded journeys as Playwright tests (`keploy ui run`).
 
 To install it, see [Install Keploy](../server/installation.md).
 
@@ -86,7 +86,12 @@ The UI capture steps a CI job takes, such as checking capture status or reading 
 
 ## keploy ui {#keploy-ui}
 
-The `keploy ui` commands, the runner `keploy ui run` that replays journeys as Playwright tests among them, are not in a release build yet. In the released binary, `keploy ui --help` answers `Error: unknown command "ui" for "keploy"`. Replaying journeys as Playwright tests is in beta: see [what works today](../running-keploy/ui-capture.md#what-works-today).
+Enterprise CLI `v3.9.20` and later ships the `keploy ui` commands on Linux and macOS (Beta):
+
+- `keploy ui status --app <id>`: checks capture and replay readiness for an app.
+- `keploy ui run`: replays recorded journeys as Playwright tests against recorded mocks.
+
+Replaying journeys as Playwright tests is in beta: see [what works today](../running-keploy/ui-capture.md#what-works-today).
 
 ## Related
 
