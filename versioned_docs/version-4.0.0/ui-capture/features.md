@@ -25,7 +25,7 @@ What Keploy UI Testing does today, where you use each feature, and the page that
 The status of each feature is one of these:
 
 - **Beta**: works today. The whole of UI Testing is in beta, and the dashboard says so.
-- **Beta, not runnable yet**: creates a `PENDING` single-flow run in the dashboard that is not executed by a runner.
+- **Beta, not runnable yet**: creates a server-side artifact or queued run that no runner executes yet.
 - **Available**: a part of Keploy that UI Testing uses but that is not UI Testing's own, such as the apps API.
 - **Not available**: not in the product yet.
 

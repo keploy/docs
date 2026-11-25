@@ -45,7 +45,7 @@ Create the app with `POST /client/v1/apps` (see [Create an app](./rest-api.md#cr
 
 A service account is an identity for a pipeline: it belongs to the organization, not a person, starts with no access, and signs in only with its own keys. Bound to the `UI_READER` role on one app, its key reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list, mint or revoke ingest keys, or recompute the journey plan.
 
-You need to be an organization admin. Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
+You need to be an organization admin. On the **Free** plan, an organization can hold **one live service-account key** at a time across `MOCK_READER`, `UI_READER`, and `UI_RUNNER` — reuse or revoke an existing key, pass `--rotate` with `keploy service-account key create`, or upgrade for additional concurrent keys (see [`keploy service-account`](../running-keploy/cli-commands.md#service-account)). Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
 
 1. Click your avatar at the bottom of the sidebar, then **Account Settings**. Under **Account**, click **Service Accounts**.
 2. Click **New service account**, give it a **Name**, such as `ui-capture-ci`, and click **Create service account**. Its access opens next.
