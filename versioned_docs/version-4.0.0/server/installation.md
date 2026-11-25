@@ -49,7 +49,7 @@ url: "#sign-in",
 },
 {
 name: "Record API calls for your app",
-text: "Run: keploy record -c \"CMD_TO_RUN_APP\" (for example, keploy record -c \"go run main.go\"), send your app some requests, then press Ctrl+C.",
+text: "Run: keploy record -c \"CMD_TO_RUN_APP\" (for example, keploy record -c \"go run .\"), send your app some requests, then press Ctrl+C.",
 url: "#capturing-testcases",
 },
 {
@@ -116,7 +116,7 @@ keploy record -c "CMD_TO_RUN_APP"
 For example:
 
 ```bash
-keploy record -c "go run main.go"            # Go
+keploy record -c "go run ."                   # Go
 keploy record -c "node server.js"             # Node.js
 keploy record -c ".venv/bin/python app.py"    # Python, from a virtualenv
 keploy record -c "java -jar target/app.jar"   # Java

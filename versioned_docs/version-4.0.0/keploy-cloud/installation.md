@@ -43,7 +43,7 @@ Once your account is on the Enterprise plan, you can begin exploring and using t
   The Keploy Console provides a seamless experience for visualizing bugs, analyzing test results, and sharing reports across teams. It enables better collaboration and faster feedback cycles.
 
 - **Asynchronous Processes Support** ⏱  
-  Keploy v2 effectively captures and replays asynchronous workflows. In addition, support for custom user-defined behaviors and assertions is being incorporated to provide greater flexibility in testing complex systems.
+  Keploy captures and replays asynchronous workflows. In addition, support for custom user-defined behaviors and assertions is being incorporated to provide greater flexibility in testing complex systems.
 
 - **Mock Registry** 📂  
   The Mock Registry is designed to manage large mock files by storing them in cloud storage instead of committing them to Git repositories. This helps keep repositories lightweight while ensuring efficient mock management at scale.
@@ -64,11 +64,7 @@ On Windows (x86-64), run `keploy.exe` natively from PowerShell — no Administra
 
 The first time you run `keploy record` or `keploy test`, Keploy signs you in: it opens your browser at [app.keploy.io](https://app.keploy.io). Where no browser is available, run with `--manual-login` and paste your **API key** when prompted; in CI, set the `KEPLOY_API_KEY` environment variable instead.
 
-An API key typically looks like this:
-
-```
-b1dNl....
-```
+Create the key in the Keploy dashboard under **Settings > API Keys**. Personal access tokens start with `kep_`; Keploy refuses API keys in the older format.
 
 Once you are signed in, Keploy begins recording API calls.
 

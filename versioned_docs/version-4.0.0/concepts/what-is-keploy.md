@@ -38,39 +38,32 @@ your testing process not only faster than unit tests but also incredibly efficie
 
 <img src="/docs/gif/record-tc.gif" alt="Test Case Generator" width="80%" height="150" />
 
-Keploy acts a proxy in your application that captures and replays all network interaction served to application from any
-source.
+Keploy sits between your application and the network: it captures the API calls your app serves and the calls your app makes to its dependencies, then replays them.
 
-### Step 1 : Record Unique Network Interactions as Test Case
+### Step 1: Record API calls as test cases
 
-Once you start the application in record mode to capture API calls as test cases.
+Start your application through `keploy record`. Each request your app serves is saved as a test case, and each call your app makes to answer it (a database query, an HTTP call to another service) is saved as a mock. Both are YAML files in your project's `keploy/` folder:
 
-Now, when the application serves an API, all the unique network interactions are stored within Keploy server as a
-test-case.
+- test cases in `keploy/test-set-0/tests/`
+- mocks in `keploy/test-set-0/mocks.yaml`
 
 <div style={{backgroundColor:'white', padding:'10px', display:'inline-block', borderRadius:'8px'}}>
   <video autoPlay loop muted playsInline width="562" height="356" style={{maxWidth:'100%',height:'auto'}} aria-label="Test Case Generator" poster="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/gif/how-keploy-works-poster.webp"><source src="/docs/gif/how-keploy-works.mp4" type="video/mp4" /></video>
 </div>
 
-### Step 2 : Replay Test-Cases
+### Step 2: Replay the test cases
 
-Let's say you developed new application version(v2). To test locally, start the Keploy in test mode to replay all
-recorded API calls/test-cases previously captured in record-mode.
+After you change your code, run `keploy test`. Keploy:
 
-Now, when the application starts:
+- starts your app and waits for it to be ready (`--delay`, 5 seconds by default),
+- sends each recorded request to it,
+- answers your app's calls to databases and other services from the recorded mocks, so no database or other service needs to be running,
+- compares each response with the recorded one, ignoring fields that change on every run, such as timestamps and generated IDs.
 
-- Keploy will download all the previously recorded test-cases/API calls with a 5 sec delay(configurable application
-  build time).
-- When the application will try to talk to any dependencies like DBs, Routers, vendor services, Keploy will intercept
-  and provide the previously recorded dependency response.
+It prints a summary in the terminal and writes a report to `keploy/reports/`. When you're signed in, it also uploads the report and prints a link to it on [app.keploy.io](https://app.keploy.io).
 
-> **Note:** _You didn't need to setup test-environment here. 🙅🏻‍♀️_
+You can run Keploy on your machine or in your CI pipeline.
 
-- Keploy will compare the API response to the previously captured response and a report will be generated on the Keploy
-  console.
+> **Note:** You can record from any environment that has your app's dependencies set up. Start with a low-traffic environment; for high-traffic environments, see [Deduplication](/docs/keploy-cloud/deduplication/).
 
-You can test with Keploy locally or can integrate Keploy with popular testing-frameworks and existing CI pipelines.
-
-> **Note:** You can generate test cases from any environment which has all the infrastructure dependencies setup. Please consider using this to generate tests from low-traffic environments first. The deduplication feature necessary for high-traffic environments is currently experimental.
-
-Hope this helps you out, if you still have any questions, reach out to us.
+For help, ask in the [Keploy Slack](https://keploy.io/slack) or see the [Troubleshooting guide](/docs/keploy-explained/common-errors/).

@@ -101,5 +101,3 @@ As the application serves the API, Keploy re-run that API request with the captu
 [//]: # '<img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/noise-filtration.webp" alt="Keploy noise filtration" width="2162" height="686" />'
 
 Keploy identifies differences in API responses, marking them as random/noisy fields. 🧐✅
-
-Hope this helps you out, if you still have any questions, reach out to us .

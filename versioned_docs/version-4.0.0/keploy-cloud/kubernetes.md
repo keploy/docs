@@ -32,8 +32,9 @@ import ProductTier from '@site/src/components/ProductTier';
 
 This guide walks you through creating a local **Kind** Kubernetes cluster and connecting it to **Keploy** using a **NodePort** (example: `30080`) so you can **live record and replay traffic** for Pods.
 
-> [!NOTE]
-> This documentation covers **local Kind cluster** setup. Documentation for **hosted cluster** setup is coming soon.
+:::note
+This guide covers a **local Kind cluster**. To connect a hosted cluster (through the Keploy tunnel or an ingress URL), see [Set up](/docs/developer/setup/).
+:::
 
 ## How Keploy works on Kubernetes
 
@@ -119,10 +120,11 @@ local-path-storage   local-path-provisioner-67b8995b4b-csn49           1/1     R
    - **Cluster Name**
    - **Ingress URL**: Use `http://localhost:30080`
 
-> [!NOTE]
-> This setup has been tested with **Google Chrome**. Browsers treat `localhost` as a secure context, which allows features that would otherwise require HTTPS. If you use an IP address instead, HTTPS would be required with a properly signed TLS certificate.
->
-> If your cluster is running on a VM, see [SSH Port Forwarding](#23-optional-ssh-port-forwarding-access-keploy-nodeport-from-your-laptop) to access it via `localhost` from your laptop.
+:::note
+This setup has been tested with **Google Chrome**. Browsers treat `localhost` as a secure context, which allows features that would otherwise require HTTPS. If you use an IP address instead, HTTPS would be required with a properly signed TLS certificate.
+
+If your cluster is running on a VM, see [SSH Port Forwarding](#23-optional-ssh-port-forwarding-access-keploy-nodeport-from-your-laptop) to access it via `localhost` from your laptop.
+:::
 
 4. Click **Connect**
 
@@ -133,7 +135,7 @@ Keploy UI will provide a Helm command. Ensure you **set**:
 - `proxy.insecure.enabled=true` (**important for local NodePort**)
 - `service.type=NodePort`
 - `service.nodePort=30080`
-- `ingressUrl` matches what you entered in the UI (e.g., `http://localhost:30080`)
+- `keploy.ingressUrl` matches what you entered in the UI (e.g., `http://localhost:30080`)
 
 Example command:
 
@@ -141,14 +143,20 @@ Example command:
 helm upgrade --install k8s-proxy oci://docker.io/keploy/k8s-proxy-chart --version <LATEST_VERSION> \
   --namespace keploy \
   --create-namespace \
-  --set accessKey="<YOUR_KEY>" \
-  --set clusterName="doc-test-2" \
-  --set apiServerUrl="https://api.keploy.io" \
+  --set keploy.accessKey="<YOUR_KEY>" \
+  --set keploy.clusterName="<CLUSTER_NAME>" \
+  --set keploy.apiServerUrl="https://api.keploy.io" \
   --set service.type=NodePort \
-  --set ingressUrl="http://localhost:30080" \
+  --set keploy.ingressUrl="http://localhost:30080" \
   --set service.nodePort=30080 \
-  --set environment="prod" \
+  --set environment="dev" \
   --set proxy.insecure.enabled=true
+```
+
+Replace `<LATEST_VERSION>` with the current chart version:
+
+```bash
+helm show chart oci://docker.io/keploy/k8s-proxy-chart | grep '^version:'
 ```
 
 ---
@@ -254,7 +262,7 @@ kube-system          coredns-7d764666f9-r82lr                          1/1     R
 
 ## GitOps Deployment
 
-If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's `k8s-proxy` declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**.
+If you use a GitOps tool to manage your Kubernetes cluster, you can deploy Keploy's `k8s-proxy` declaratively instead of using `helm upgrade` manually. The sections below cover **ArgoCD** and **Flux CD**. In their manifests, replace `<CHART_VERSION>` with the version that `helm show chart oci://docker.io/keploy/k8s-proxy-chart | grep '^version:'` prints.
 
 The GitOps examples use a Kubernetes Secret for the access key. Create it before proceeding:
 
@@ -396,7 +404,7 @@ spec:
   source:
     chart: k8s-proxy-chart
     repoURL: registry-1.docker.io/keploy
-    targetRevision: "3.3.10"
+    targetRevision: "<CHART_VERSION>"
     helm:
       values: |
         replicaCount: 1
@@ -550,7 +558,7 @@ spec:
   chart:
     spec:
       chart: k8s-proxy-chart
-      version: "3.3.10"
+      version: "<CHART_VERSION>"
       sourceRef:
         kind: HelmRepository
         name: keploy
@@ -608,8 +616,9 @@ spec:
 
 Replace `<YOUR_INGRESS_HOST>` with the same hostname used in `keploy.ingressUrl`.
 
-> [!NOTE]
-> TLS passthrough is required because the `k8s-proxy` serves HTTPS natively. Envoy forwards the encrypted connection directly to the `k8s-proxy` without terminating TLS. See the [TLS passthrough explanation](#ingress-with-tls-passthrough-optional) above.
+:::note
+TLS passthrough is required because the `k8s-proxy` serves HTTPS natively. Envoy forwards the encrypted connection directly to the `k8s-proxy` without terminating TLS. See the [TLS passthrough explanation](#ingress-with-tls-passthrough-optional) above.
+:::
 
 ### Push and Let Flux Reconcile
 
