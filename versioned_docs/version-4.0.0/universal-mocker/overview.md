@@ -96,33 +96,37 @@ and ends:
 
 **Platforms.**
 
-| Platform              | Record and replay | Per-test checks (`KEPLOY_PROVEN=1`) | Notes                                                    |
-| --------------------- | ----------------- | ----------------------------------- | -------------------------------------------------------- |
-| Linux                 | Yes               | Yes                                 | Keploy's agent runs as root; Keploy starts it with sudo. |
-| macOS (Apple silicon) | Yes               | Yes                                 | No sudo or admin rights needed.                          |
-| Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.         |
-| Windows               | Coming soon       | Coming soon                         | Native Windows support, VS Code included, is coming.     |
+| Platform              | Record and replay | Per-test checks (`KEPLOY_PROVEN=1`) | Notes                                                                                                  |
+| --------------------- | ----------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| Linux                 | Yes               | Yes                                 | Keploy's agent runs as root; Keploy starts it with sudo.                                               |
+| macOS (Apple silicon) | Yes               | Yes                                 | No sudo or admin rights needed.                                                                        |
+| Docker                | Yes               | Not yet                             | Pass a `docker run` or `docker compose` command.                                                       |
+| Windows (x64)         | Yes               | Yes                                 | Windows 10 or 11, Keploy 3.9.19 or later. No administrator needed. Windows on Arm isn't supported yet. |
 
-**Dependencies** in Keploy 3.9.4 and later. "Docker" means:
-run the tests through a Docker command so Keploy reads the calls on Linux.
+**Dependencies** in Keploy 3.9.4 and later (3.9.19 and later on Windows).
+"Raw bytes" means the calls are saved as raw bytes and usually don't replay.
+"As HTTPS" means the calls are recorded and replayed as plain HTTPS calls,
+without the SQS matching Keploy has on Linux. For those dependencies, run the
+tests on Linux: on a Mac, through a Docker command, so Keploy reads the calls on
+Linux; on Windows, in WSL.
 
-| Dependency             | Linux | macOS  |
-| ---------------------- | ----- | ------ |
-| HTTP and HTTPS, HTTP/2 | Yes   | Yes    |
-| gRPC                   | Yes   | Yes    |
-| PostgreSQL             | Yes   | Yes    |
-| MySQL                  | Yes   | Yes    |
-| MongoDB                | Yes   | Yes    |
-| Amazon DynamoDB        | Yes   | Yes    |
-| Aerospike              | Yes   | Yes    |
-| Couchbase              | Yes   | Yes    |
-| Memcached              | Yes   | Yes    |
-| Apache HBase           | Yes   | Yes    |
-| Apache ZooKeeper       | Yes   | Yes    |
-| Redis                  | Yes   | Docker |
-| Kafka                  | Yes   | Docker |
-| Apache Pulsar          | Yes   | Docker |
-| Amazon SQS             | Yes   | Docker |
+| Dependency             | Linux | macOS     | Windows   |
+| ---------------------- | ----- | --------- | --------- |
+| HTTP and HTTPS, HTTP/2 | Yes   | Yes       | Yes       |
+| gRPC                   | Yes   | Yes       | Yes       |
+| PostgreSQL             | Yes   | Yes       | Yes       |
+| MySQL                  | Yes   | Yes       | Yes       |
+| MongoDB                | Yes   | Yes       | Yes       |
+| Amazon DynamoDB        | Yes   | Yes       | Yes       |
+| Aerospike              | Yes   | Yes       | Yes       |
+| Couchbase              | Yes   | Yes       | Yes       |
+| Memcached              | Yes   | Yes       | Yes       |
+| Apache HBase           | Yes   | Yes       | Yes       |
+| Apache ZooKeeper       | Yes   | Yes       | Yes       |
+| Redis                  | Yes   | Raw bytes | Raw bytes |
+| Kafka                  | Yes   | Raw bytes | Raw bytes |
+| Apache Pulsar          | Yes   | Raw bytes | Raw bytes |
+| Amazon SQS             | Yes   | As HTTPS  | As HTTPS  |
 
 A call to any other TCP service is saved as raw bytes. It replays only when
 your tests send exactly the same bytes again.

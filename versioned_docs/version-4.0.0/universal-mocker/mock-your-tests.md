@@ -106,10 +106,12 @@ with no real dependency behind it.
 
 ### Requirements {#proven-requirements}
 
-- **Linux, or macOS on Apple silicon.** On Linux, Keploy's agent runs as root, so
-  Keploy starts it with `sudo` unless you run Keploy as root. Where nobody can
-  type a password, such as a CI runner, that `sudo` must work without one, as it
-  does on GitHub-hosted runners. macOS needs no `sudo`. Native Windows support is coming.
+- **Linux, macOS on Apple silicon, or Windows 10 or 11 on x64.** On Linux,
+  Keploy's agent runs as root, so Keploy starts it with `sudo` unless you run
+  Keploy as root. Where nobody can type a password, such as a CI runner, that
+  `sudo` must work without one, as it does on GitHub-hosted runners. macOS needs
+  no `sudo`, and Windows needs no administrator. On Windows, use Keploy 3.9.19
+  or later.
 - **A test command Keploy runs directly.** In this release, Keploy refuses a
   Docker command or `--from-container` under the switch, and says so.
 - **The integration for your test framework.** Each test tells Keploy where it
@@ -382,11 +384,11 @@ test.afterEach(({}, testInfo) => post("/agent/scope/end", testInfo.title));
 
 ## Platforms
 
-| Platform                  | How to run                                                                                                                          |
-| ------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                  |
-| **Windows**               | Coming soon.                                                                                                                        |
-| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works. |
+| Platform                  | How to run                                                                                                                                                                             |
+| ------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Linux**                 | Native — `keploy mock record -c "pytest"` (uses eBPF; needs root).                                                                                                                     |
+| **Windows** (x64)         | Native, Windows 10 or 11, Keploy 3.9.19 or later — the same command, in PowerShell or Command Prompt. Userspace interception, so no administrator. Windows on Arm isn't supported yet. |
+| **macOS** (Apple Silicon) | Native — same command. Userspace interception, so no `sudo`. Without `KEPLOY_PROVEN=1`, `-c "docker compose run tests"` also works.                                                    |
 
 Natively on macOS, Keploy 3.9.4 understands HTTP/HTTPS (HTTP/2 included), gRPC,
 PostgreSQL, MySQL, MongoDB, Amazon DynamoDB, Aerospike, Couchbase, Memcached,
@@ -402,6 +404,21 @@ a wrapper script, and use a Homebrew or uv Python (or a virtualenv built on one)
 not Apple's `/usr/bin/python3` — see
 [running natively on macOS](/docs/installation/macos-installation/#option-1-run-keploy-natively).
 Keploy doesn't support Intel Macs.
+
+Natively on Windows, Keploy 3.9.19 and later understands the same calls as on
+macOS. Calls to Redis, Kafka, Apache Pulsar and other services are captured
+only as raw bytes there too, and Amazon SQS calls as plain HTTPS calls; the
+[dependency table](./overview.md#check-what-it-supports) lists each one. If
+your tests depend on one of those, run them on Linux or in
+[WSL](/docs/installation/windows-installation/#option-2-install-keploy-with-wsl).
+The commands on this page set `KEPLOY_PROVEN=1` the way bash does; in
+PowerShell, set it with `$env:KEPLOY_PROVEN = "1"`, and in Command Prompt with
+`set KEPLOY_PROVEN=1`, before the `keploy` command. On the
+first record or replay, Windows asks you to trust Keploy's certificate for your
+user: select **Yes**. No administrator is needed, and later runs reuse it. A
+session with no desktop, such as a CI runner's service, can't show that prompt:
+[Troubleshoot Keploy on Windows](/docs/installation/windows-installation/#troubleshoot-keploy-on-windows)
+says what to do there.
 
 ## Refresh in CI
 

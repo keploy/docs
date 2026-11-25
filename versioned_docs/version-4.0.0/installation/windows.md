@@ -19,7 +19,7 @@ keywords:
 
 Keploy runs **natively on Windows** — you can record and replay an app that runs directly on Windows, with no WSL and no Docker. There is no eBPF on Windows, so Keploy instruments the application it starts and intercepts its network calls in user space. No driver loads and **you do not need Administrator**.
 
-Native Windows support covers apps in **Go, Node.js, Python and Java**, and understands their **HTTP/HTTPS, MySQL and MongoDB** calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). WSL is available too, and is the route on Windows on ARM.
+Native Windows support covers apps in **Go, Node.js, Python and Java** on **Windows 10 or 11 on an x64 PC**. From Keploy 3.9.19 it understands the same calls as on macOS: **HTTP and HTTPS (HTTP/2 included), gRPC, PostgreSQL, MySQL, MongoDB, Amazon DynamoDB, Aerospike, Couchbase, Memcached, Apache HBase and Apache ZooKeeper**. Calls to Redis, Kafka, Apache Pulsar and other services are captured only as raw bytes and usually don't replay, and Amazon SQS calls are recorded as plain HTTPS calls, without the SQS matching Keploy has on Linux. If your app runs in containers, or depends on one of those other services, use [Docker](#option-3-install-keploy-with-docker). WSL is available too, and is the route on Windows on Arm.
 
 :::note Keploy needs a free account
 
@@ -45,7 +45,7 @@ A free account is enough to record and replay. Free-tier runs are subject to a u
 
 :::note The VS Code extension
 
-The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) doesn't set Keploy up on Windows yet: its Windows support comes in the next release. The steps below install the CLI into `%LOCALAPPDATA%\.keploy\bin`. If you used version 3.0 of the extension, 3.1 removes the CLI copy 3.0 put in `%APPDATA%\.keploy\bin`; a `keploy.exe` you put there yourself stays.
+From version 3.1.7, the [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/#run-it-on-windows) sets Keploy up on Windows. It installs the CLI by itself into `%LOCALAPPDATA%\.keploy\bin`, the folder the steps below use, and keeps it at Keploy CLI 3.9.19 or later, so in VS Code's terminals you don't need step 1. To run `keploy` in other terminals, still add the folder to your user `Path`: run step 1's script, or only its `$dir = ...` line and the last four lines. If you installed Keploy before, the cleanup under step 1 still applies: an older `keploy.exe` earlier on your `Path` wins over the extension's in VS Code's terminals too. If you used version 3.0 of the extension, 3.1 removes the CLI copy 3.0 put in `%APPDATA%\.keploy\bin`; a `keploy.exe` you put there yourself stays.
 
 :::
 
@@ -107,7 +107,7 @@ The [Keploy VS Code extension](/docs/running-keploy/utg-vscode-extension/) doesn
 
 :::note
 
-Native Windows support is **x86‑64 only**, and the application under test must be 64-bit. On Windows on ARM, use [WSL](#option-2-install-keploy-with-wsl).
+Native Windows support is **x86‑64 only**, on Windows 10 or 11, and the application under test must be 64-bit. On Windows on Arm, use [WSL](#option-2-install-keploy-with-wsl).
 
 :::
 
@@ -115,11 +115,20 @@ Native Windows support is **x86‑64 only**, and the application under test must
 
 Keploy instruments the application **it starts**, so launch your app through `keploy record -c` or `keploy test -c` rather than starting it yourself and pointing Keploy at a running process.
 
-**HTTPS and Keploy's certificate.** To record your app's HTTPS calls, Keploy adds its certificate authority, named `My Custom CA`, to your Windows user's **Trusted Root** certificate store, and — where your JDK's truststore is writable — to that truststore too. Windows may ask you once to confirm adding it. It stays there after Keploy exits; to remove it, run `certutil -user -delstore Root "My Custom CA"`.
+**HTTPS and Keploy's certificate.** To record your app's HTTPS calls, Keploy adds its certificate authority, named `Keploy MITM CA` followed by an ID, to your Windows user's **Trusted Root** certificate store, and — where your JDK's truststore is writable — to that truststore too. The first time, Windows shows a **Security Warning** asking whether to install it: select **Yes**. This needs no Administrator. If you select **No**, the run stops: Keploy's certificate setup fails, and Keploy prints the step that trusts the certificate; start the record or replay again and select **Yes**. Only a run as Administrator whose add to your user's store fails (there is no desktop to show the prompt, or you selected **No**) puts the certificate in the machine's Trusted Root store instead, which every user of the PC trusts. Keploy keeps the certificate authority in `%LOCALAPPDATA%\Keploy\ca`, so later runs reuse it with no prompt. It stays in the store after Keploy exits; to remove it, open **Manage user certificates** (`certmgr.msc`) and delete the **Keploy MITM CA** entry under **Trusted Root Certification Authorities** (for one in the machine's store, use **Manage computer certificates**, `certlm.msc`, as Administrator). Earlier versions of Keploy added a certificate authority named `My Custom CA`; remove it with `certutil -user -delstore Root "My Custom CA"`.
 
-Keploy intercepts your app's TCP connections and resolves hostnames through the application's resolver, so a dependency that no longer exists is still answered from its Mock during a replay. Natively on Windows it understands HTTP/HTTPS, MySQL and MongoDB calls; calls to other services — PostgreSQL, Redis, Kafka, gRPC and the like — are captured only as raw bytes and usually don't replay, so for those use [Docker](#option-3-install-keploy-with-docker). Traffic an application sends over UDP is not recorded.
+Keploy intercepts your app's TCP connections and its DNS lookups, so a dependency that no longer exists is still answered from its Mock during a replay. A name in your Windows `hosts` file is answered by Windows itself; every other lookup goes through Keploy, as on Linux. Calls to services Keploy doesn't understand natively on Windows, such as Redis or Kafka, are captured only as raw bytes and usually don't replay, so for those use [Docker](#option-3-install-keploy-with-docker). Apart from DNS lookups, traffic an application sends over UDP is not recorded.
 
 :::
+
+### Troubleshoot Keploy on Windows
+
+- **Microsoft Defender stops or quarantines `keploy.exe`.** `keploy.exe` is code-signed by Keploy Inc from Keploy 3.8.128. Defender flagged the unsigned 3.8.127 build as `Trojan:Win32/Gracing.I`, a false positive. Check the copy you have with `(Get-AuthenticodeSignature "$env:LOCALAPPDATA\.keploy\bin\keploy.exe") | Format-List Status, SignerCertificate`: its status should be `Valid`, and its signer certificate's subject should start with `CN=Keploy Inc,`. If it isn't, delete that `keploy.exe` and install the latest release with [step 1](#option-1-run-keploy-natively), or run **Keploy: Install or update the CLI** in VS Code. Don't add a Defender exclusion: a copy that fails this check isn't Keploy's signed build. If Defender still flags a copy that passes it, report it to Keploy and submit the file to Microsoft as a false positive.
+- **SmartScreen blocks `keploy.exe`.** Select **More info** and check that the publisher is **Keploy Inc**. If it is, select **Run anyway**. If it says **Unknown publisher**, the file isn't Keploy's signed build: delete it and install again with [step 1](#option-1-run-keploy-natively).
+- **Windows asks whether to install a certificate from "Keploy MITM CA".** Select **Yes**: Keploy needs it to record and replay HTTPS calls. It goes into your Windows user's Trusted Root store. Only a run as Administrator whose add to that store fails puts it in the machine's store instead.
+- **No desktop to answer that prompt.** A CI runner's service, an OpenSSH session or a scheduled task can't show it. Keploy then gives its certificate to Node, Python, OpenSSL and curl, Cargo and Java apps through the variables each one reads. Go and .NET apps read only the Windows store: trust Keploy's certificate once from a session signed in to the desktop as the same Windows user the CI runner or SSH session runs as, by running Keploy there and selecting **Yes**, or by running the `certutil -user -addstore ROOT` command Keploy prints, with the certificate's path. Later runs as that user, with a desktop or not, reuse it. A certificate an administrator or a group policy put in the machine's Trusted Root store counts too, and a run with no desktop as Administrator or as LocalSystem (an account in the Administrators group) adds it to the machine's store itself. A runner that runs as a built-in service account such as NETWORK SERVICE can do neither: have an administrator add the certificate Keploy prints (from that account's `%LOCALAPPDATA%\Keploy\ca`) to the machine's Trusted Root store, or run the runner as a normal user who trusts it once from a desktop.
+- **Updating `keploy.exe` fails.** Windows doesn't let a running `keploy.exe` be replaced. End every Keploy run, then update again. In VS Code, the extension says _keploy.exe is running_ or _keploy.exe is held open by another program_ (such as an antivirus scan or a backup): select **Retry** once it has ended.
+- **An Arm PC.** Keploy's Windows capture runs only on x64, so on Windows on Arm use [WSL](#option-2-install-keploy-with-wsl).
 
 ## Option 2: Install Keploy with WSL
 
