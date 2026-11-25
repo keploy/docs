@@ -26,7 +26,7 @@ A CI job can check that a build of your web app still records: it serves the bui
 
 - **Record visits to a build.** The build carries an ingest key, a scripted browser visits it, and each visit is ended at once with `POST /ui/v1/sessions/<session id>/complete`, so its flows follow within a minute or two instead of after 30 idle minutes.
 - **Read what was recorded.** Capture status, flows, the flow graph and the journey plan are read with an API key: a service-account key bound to the `UI_READER` role on the app, or a personal access token with the `read` scope.
-- **Not replay journeys as tests.** Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. No service-account role runs UI tests: `UI_READER` only reads.
+- **Replay journeys separately with the CLI.** This workflow checks capture via REST with a read-only `UI_READER` key. Replaying journeys as Playwright tests is in beta and runs through `keploy ui status --app <id>` and `keploy ui run --app <id> --base-url <url>` in Keploy `3.9.20` and later (Linux and macOS). For CI replay, bind a service account to the `UI_RUNNER` role (`UI_READER` only reads).
 
 ## Keys at build time {#keys-at-build-time}
 
@@ -45,7 +45,7 @@ Create the app with `POST /client/v1/apps` (see [Create an app](./rest-api.md#cr
 
 A service account is an identity for a pipeline: it belongs to the organization, not a person, starts with no access, and signs in only with its own keys. Bound to the `UI_READER` role on one app, its key reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list, mint or revoke ingest keys, or recompute the journey plan.
 
-You need to be an organization admin, and your organization needs a paid plan: on the Free plan a service account can hold only `MOCK_READER`. Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
+You need to be an organization admin. On the **Free** plan, an organization can hold **one live service-account key** at a time across `MOCK_READER`, `UI_READER`, and `UI_RUNNER`. If your organization already has a live service-account key, grant this role on the CI app to that existing account (**Access** on its row, then **Grant permissions** — or **Edit** if it already has a grant on that app) and reuse its key, or revoke the existing key first — step 4 below (creating a new key) is refused on Free while another key is live, so skip step 2 unless you revoke the existing key first. When using the CLI, `--rotate` on `keploy service-account key create` replaces only that same account's key and cannot free another account's slot (see [`keploy service-account`](../running-keploy/cli-commands.md#service-account)). Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
 
 1. Click your avatar at the bottom of the sidebar, then **Account Settings**. Under **Account**, click **Service Accounts**.
 2. Click **New service account**, give it a **Name**, such as `ui-capture-ci`, and click **Create service account**. Its access opens next.

@@ -24,7 +24,7 @@ import ProductTier from '@site/src/components/ProductTier';
 Keploy chains each visit's flows, in order, into the path the visit took through your pages: its **journey**. From the journeys of an app's recent visits it builds a **journey plan**: how sessions move between pages, the journeys they take, each with its share of sessions, and the journeys Keploy selects to replay as tests. This page explains how the plan is built and where to read it: the dashboard's **Journeys** tab, the REST API and MCP.
 
 :::note Beta
-UI Testing is in beta. Journeys and their shares work today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet: see [Replay (beta)](#replay-beta).
+UI Testing is in beta. Journeys and their shares work today. Replaying journeys as Playwright tests is in beta too: Keploy `3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS. See [Replay (beta)](#replay-beta).
 :::
 
 ## What a journey is {#what-a-journey-is}
@@ -93,12 +93,12 @@ The flow graph is on the REST API and MCP only. The dashboard's **Flow Graph** p
 
 Replay is what the journey plan is for: Keploy turns the plan's journeys into Playwright tests that replay each journey's recording, its flows, against mocks of the network calls recorded with it. The capture SDK only records; generating and running the tests is Keploy's side.
 
-Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. So no test runs today, and this page gives no steps to run one.
+Replaying journeys as Playwright tests is in beta. Keploy `3.9.20` and later ships `keploy ui status --app <id>` and `keploy ui run` on Linux and macOS to check readiness and replay recorded journeys locally or in CI.
 
-What you can see of it today:
+What you see in the dashboard and API:
 
-- **Generate Test.** A flow's page in the dashboard has a **Generate Test** button. It creates a UI test run, and says: "Test run `<id>` is PENDING, waiting for a runner. UI tests run in your own CI, not on Keploy's servers: a runner there claims the run, executes it and reports the result here. No runner ships in this release, so the run stays pending until one does."
-- **Test runs.** That run is listed on the **Test Runs** tab, as **Pending**, and over the REST API and MCP: [List test runs](./rest-api.md#list-test-runs) and `listUITestRuns`, [Get a test run](./rest-api.md#get-a-test-run) and `getUITestRun`. A pending run has no results, and its `next` says that no runner has claimed it and not to poll for it. No API call creates or runs a test.
+- **Generate Test.** A flow's page in the dashboard has a **Generate Test** button that queues a `PENDING` single-flow UI test run. `keploy ui run --app <id> --base-url <url>` does not claim that pending run; it creates and runs a fresh journey-plan test run directly (Keploy `3.9.20` and later on Linux and macOS).
+- **Test runs.** Runs are listed on the **Test Runs** tab and over the REST API and MCP: [List test runs](./rest-api.md#list-test-runs) and `listUITestRuns`, [Get a test run](./rest-api.md#get-a-test-run) and `getUITestRun`. No REST API or MCP tool creates or runs a test directly; use `keploy ui run --app <id> --base-url <url>`.
 - **Verdicts.** A run's results use a closed set of verdicts, shown in the dashboard with these labels:
 
 | Verdict            | Dashboard label   | What it means                                                  |

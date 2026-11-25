@@ -70,7 +70,7 @@ url: "#see-your-flows",
 In this quickstart you add the Keploy capture SDK's ingest key to a small React shop, use the shop in your browser, and read each visit as **UI flows** in the Keploy dashboard: the steps you took on each page and the network calls those steps made. It takes about 10 minutes. The same steps work for your own web app.
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet, so this quickstart stops at the flows. See [what works today](../running-keploy/ui-capture.md#what-works-today).
+UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too (Keploy `3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS); this dashboard quickstart stops at the flows. See [what works today](../running-keploy/ui-capture.md#what-works-today).
 :::
 
 ## Before you begin

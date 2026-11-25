@@ -75,7 +75,7 @@ url: "#clean-up",
 This walkthrough picks up where the [dashboard quickstart](./quickstart-dashboard.md) ends. You record five visits to the sample shop along three paths, then follow them through the Keploy dashboard: capture status, flows, one flow's steps and calls, and the journeys the visits took, with each journey's share of sessions. Then you read the same data with `curl` and clean up. It takes about 20 minutes. Every screenshot on this page comes from these five visits.
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet, so this walkthrough reads journeys and does not replay them. See [what works today](../running-keploy/ui-capture.md#what-works-today).
+UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too (Keploy `3.9.20` and later ships `keploy ui status` and `keploy ui run` on Linux and macOS); this dashboard walkthrough reads journeys and does not replay them. See [what works today](../running-keploy/ui-capture.md#what-works-today).
 :::
 
 ## What you'll do {#what-youll-do}
@@ -195,7 +195,7 @@ Open the **Journeys** tab. A **journey** is the path of pages a session took, fr
 
 Keploy takes the most taken journeys in turn until they cover 80% of the window's moves between pages, counting each move by the sessions that made it and landing on the first page as a move, and takes at most 20. A journey that continues one already taken replaces it, because its test replays the shorter journey's pages too. Here one journey is enough: `/` → `/products` → `/cart` covers landing on `/` (5 sessions), `/` → `/products` (4) and `/products` → `/cart` (3), which is 12 of the 15 the moves weigh. It replaces `/` → `/products`, which is why that one is listed under **Other frequent journeys**.
 
-Replaying the selected journeys as Playwright tests is in beta, and its runner is not in a release build yet.
+Replaying the selected journeys as Playwright tests is in beta: Keploy `3.9.20` and later ships `keploy ui status --app <id>` and `keploy ui run` on Linux and macOS.
 
 ## 7. Read the same data from a script {#read-the-same-data-from-a-script}
 
