@@ -59,7 +59,9 @@ Pick **Universal Mocker**, then copy the ready-to-paste prompt into your coding
 agent (Claude Code, Cursor, Copilot, or any coding agent) to set up your
 repository step by step.
 
-The Guide prompt walks your agent through the cloud workflow:
+The Guide prompt requires Keploy `3.9.20` or later (proven record and replay
+run on Linux and macOS, not Windows) and walks your agent through the cloud
+workflow:
 
 1. **Non-blocking CLI sign-in:** runs `keploy login --no-wait && keploy login --finish`
    so you approve the sign-in in your browser without hitting the agent's shell

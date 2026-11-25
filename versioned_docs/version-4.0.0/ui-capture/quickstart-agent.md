@@ -74,7 +74,7 @@ The Guide prompt walks your agent through:
 1. **Non-blocking CLI sign-in:** runs `keploy login --no-wait && keploy login --finish` so you can approve sign-in in your browser without blocking the agent's shell.
 2. **Ingest key setup:** creates an ingest key under **UI Testing → Setup & Keys** ([app.keploy.io/ui-testing/setup](https://app.keploy.io/ui-testing/setup)) or with the MCP tool `uiCaptureSetup`.
 3. **Local or staging SDK install first:** installs `@keploy/capture-sdk` in a local or staging environment first (before production) with browser-side masking configured — see [Privacy and masking](./privacy.md).
-4. **Immediate flow extraction:** after you browse the app, click **I'm done browsing** in Keploy Guide so Keploy extracts flows right away instead of waiting for the 30-minute idle timeout.
+4. **Immediate flow extraction:** after you browse the app and close its tab, end the visit at once through the session-complete endpoint (`POST /ui/v1/sessions/<sdkSessionId>/complete` on your Keploy API host with the ingest key in `X-API-Key`; see [End a visit at once](./sessions-and-sampling.md#end-a-visit-at-once)) so Keploy extracts flows right away instead of waiting for the 30-minute idle timeout.
 5. **Status and replay:** checks readiness with `keploy ui status --app <id>` (on Windows, use the MCP tool `uiCaptureStatus`) and replays the recorded journeys as Playwright tests with `keploy ui run --app <id> --base-url <url>` (Keploy `3.9.20` and later, Linux and macOS).
 
 Read on to connect your agent to the Keploy MCP server manually and walk through each tool call.
