@@ -24,4 +24,17 @@ module.exports = [
     from: "/running-keploy/mock-your-tests/",
     to: "/universal-mocker/mock-your-tests/",
   },
+  // Old URLs that keploy.io blog and landing pages still link to.
+  {from: "/introduction/", to: "/keploy-explained/introduction/"},
+  {
+    from: "/advanced/test-templatisation/",
+    to: "/running-keploy/keploy-templatize/",
+  },
+  {from: "/cli/commands/", to: "/running-keploy/cli-commands/"},
+  {from: "/features/testing/", to: "/operation/test-operations/"},
+  {
+    from: "/server/sdk-installation/typescript/",
+    to: "/server/sdk-installation/javascript/",
+  },
+  {from: "/ci-cd/", to: "/ci-cd/github/"},
 ];
