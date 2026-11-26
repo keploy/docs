@@ -303,6 +303,38 @@
             "running-keploy/utg-vscode-extension"
           ]
         },
+        {
+          "type": "category",
+          "label": "Replay Transforms",
+          "collapsible": true,
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "transforms/overview"
+          },
+          "items": [
+            "transforms/how-to-resign-jwt",
+            "transforms/preview-and-audit",
+            "transforms/coding-agents",
+            "transforms/migrating-from-speedscale",
+            "transforms/reference"
+          ]
+        },
+        {
+          "type": "category",
+          "label": "Virtual Services",
+          "collapsible": true,
+          "collapsed": true,
+          "link": {
+            "type": "doc",
+            "id": "virtual-services/overview"
+          },
+          "items": [
+            "virtual-services/serve-from-recordings",
+            "virtual-services/admin-api-and-troubleshooting",
+            "virtual-services/reference"
+          ]
+        },
         "universal-mocker/features",
         "universal-mocker/troubleshooting",
         "universal-mocker/reference"

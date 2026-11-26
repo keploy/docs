@@ -269,6 +269,9 @@ regression, and the agent tells you.
 
 ## Related
 
+- [Drive transforms and virtual services with coding agents](../../transforms/coding-agents.md):
+  use `KEPLOY NEXT` blocks, `--json`, and embedded schemas to configure Replay
+  Transforms and operate standalone Virtual Services.
 - [VS Code walkthrough](../walkthroughs/vscode.md): the extension installs the
   skill and hands the setup to your agent.
 - [Mock your tests](../mock-your-tests.md): the commands the agent runs, in
