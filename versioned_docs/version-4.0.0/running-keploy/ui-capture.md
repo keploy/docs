@@ -31,7 +31,7 @@ Keploy UI Testing records how real people use your web app. A small browser SDK,
 **New here?** The [dashboard quickstart](../ui-capture/quickstart-dashboard.md) records your first flows from a sample shop in about 10 minutes, and the [walkthrough](../ui-capture/walkthrough-dashboard.md) goes on to journeys.
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet: see [What works today](#what-works-today).
+UI Testing is in beta. Recording visits, viewing flows and journeys, and replaying journeys as Playwright tests with `keploy ui run` (`keploy` CLI `v3.9.24+`, Linux and macOS) all work today: see [What works today](#what-works-today).
 :::
 
 ## How UI capture works {#how-ui-capture-works}
@@ -52,14 +52,14 @@ Each flow is the sequence of steps a user took on one page, with the network cal
 
 ## What works today {#what-works-today}
 
-| What                                               | Status                 | Where                                                                      |
-| -------------------------------------------------- | ---------------------- | -------------------------------------------------------------------------- |
-| Recording visits, masking in the browser           | Beta                   | `@keploy/capture-sdk` 3.2.0                                                |
-| Flows: each page's steps and network calls         | Beta                   | Dashboard **Flows** tab; REST and MCP (`listUIFlows`, `getUIFlow`)         |
-| Journeys, and the share of sessions that took each | Beta                   | Dashboard **Journeys** tab; REST and MCP (`uiJourneys`, `uiJourneyImpact`) |
-| Replaying journeys as Playwright tests, with mocks | Beta, not runnable yet | The runner is not in a release build yet.                                  |
+| What                                               | Status | Where                                                                                              |
+| -------------------------------------------------- | ------ | -------------------------------------------------------------------------------------------------- |
+| Recording visits, masking in the browser           | Beta   | `@keploy/capture-sdk` 3.2.0                                                                        |
+| Flows: each page's steps and network calls         | Beta   | Dashboard **Flows** tab; REST and MCP (`listUIFlows`, `getUIFlow`)                                 |
+| Journeys, and the share of sessions that took each | Beta   | Dashboard **Journeys** tab; REST and MCP (`uiJourneys`, `uiJourneyImpact`)                         |
+| Replaying journeys as Playwright tests, with mocks | Beta   | `keploy` CLI `v3.9.24+` on Linux and macOS ([`keploy ui run`](../ui-capture/cli.md#keploy-ui-run)) |
 
-[Features and availability](../ui-capture/features.md) lists every feature, where you use it and its status. The SDK only records: generating and running tests is Keploy's side, not the SDK's. A flow's page in the dashboard has a **Generate Test** button. Today it creates a test run that waits for a runner, and in the dashboard's own words: "No runner ships in this release, so the run stays pending until one does."
+[Features and availability](../ui-capture/features.md) lists every feature, where you use it and its status. The SDK only records: generating and running tests is handled by the `keploy` CLI (`keploy ui run`), locally or in CI, with recorded network calls mocked so no live backend is required. (Clicking **Generate Test** on a flow's page in the dashboard only creates a `PENDING` test run record; use `keploy ui run` to execute and upload journey runs.)
 
 ## Set up UI capture
 
@@ -135,7 +135,7 @@ The dashboard shows a flow's recorded URLs and calls to people on your team who 
 - **Requests made before `init` is called are not recorded** (in SDK 3.1.0 and earlier, requests made while rrweb was still loading were missed too). See [Install the SDK](#install-the-sdk).
 - **A site whose links load pages records each page load as its own session**, so its journeys never span a page load. A single-page app's route changes stay in one session.
 - **Sampling is per page load, not per user.** The SDK carries no user identity, so journey figures are shares of sessions, not of people.
-- **Replaying journeys as Playwright tests is in beta and not runnable yet.** See [What works today](#what-works-today).
+- **Replaying journeys as Playwright tests is in beta** via `keploy ui run` in the `keploy` CLI (`v3.9.24+`). See [What works today](#what-works-today) and [UI Testing CLI reference](../ui-capture/cli.md#keploy-ui-run).
 
 [Sessions and sampling](../ui-capture/sessions-and-sampling.md) explains when a session starts and ends, and [Limits and sizes](../ui-capture/limits.md) lists every limit.
 

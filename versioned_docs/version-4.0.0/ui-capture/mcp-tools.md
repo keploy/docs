@@ -39,7 +39,7 @@ The Keploy MCP server gives an AI agent every step of UI capture as a tool: crea
 - `search_tools({query})` finds tools by keyword and returns each match's name and a one-line summary, not its schema. It ranks the whole catalogue by keyword and returns 10 matches unless you pass `limit`, so a query such as `"ui capture"` can return API testing tools too and leave some UI capture tools out. Fetch tools whose names you know with `get_tool_schema`.
 - `invoke_tool({name, arguments})` runs a tool by name. A tool missing from `tools/list` can also be called directly with `tools/call` and its exact name.
 
-**Instructions.** The server's `initialize` answer carries instructions with a UI CAPTURE section: the order of the tools below, the wait before a visit becomes flows, and that the replay runner is not in a release build yet, so an agent should not tell you to run it.
+**Instructions.** The server's `initialize` answer carries instructions with a UI CAPTURE section covering the order of the MCP tools below and the wait before a visit becomes flows. (Note: the MCP server itself only exposes capture setup and read tools; to replay journeys as Playwright tests from the shell, run [`keploy ui run`](./cli.md#keploy-ui-run) in the `keploy` CLI `v3.9.24+` on Linux or macOS.)
 
 ## Tools {#tools}
 
@@ -63,7 +63,7 @@ Every UI capture tool takes `appId`, the app's ID. The scope is the API key's; t
 | `listUITestRuns`    | Lists the app's UI test runs, newest first, one summary line each.                                         | `appId`, `offset`, `limit`                            | `read`, `app:view`                                                       |
 | `getUITestRun`      | Returns one UI test run with each journey's verdict.                                                       | `appId`, `runId`                                      | `read`, `app:view`                                                       |
 
-The [REST API reference](./rest-api.md) describes each tool's answer in full. A UI test run today comes only from a flow page's **Generate Test** in the dashboard, and it stays pending: no tool creates or runs one, and the runner that replays journeys is not in a release build yet.
+The [REST API reference](./rest-api.md) describes each tool's answer in full. No MCP tool creates or runs a UI test run directly: run [`keploy ui run`](./cli.md#keploy-ui-run) (`keploy` CLI `v3.9.24+`, Linux and macOS) to execute and upload journey test runs, then inspect them with `listUITestRuns` and `getUITestRun`.
 
 ## Call a tool {#call-a-tool}
 
@@ -111,7 +111,7 @@ A REST operation's path and query parameters become `string`, `number` or `boole
 
 - **OAuth.** A request with no credential is answered `401` with a `WWW-Authenticate` challenge that names the server's OAuth metadata, and an MCP client that supports OAuth signs in from it: you approve the sign-in in your browser. The token it gets has the `read` and `write` scopes, never `admin`, so it cannot call `deleteApp`. It works only through the MCP server, not on the REST API.
 - **An API key.** A personal access token from **Settings → API Keys** in the dashboard, or the one [`keploy mcp-install`](./cli.md#keploy-mcp-install) mints, in `Authorization: Bearer kep_...`. Give it the `read` and `write` scopes to set up capture; deleting an app needs `admin`, which only organization admins can give a token.
-- **A service-account key** bound to the `UI_READER` role on an app reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list ingest keys, or mint or revoke them. On the Free plan a service account can hold only `MOCK_READER`, so this needs a paid plan.
+- **A service-account key** bound to the `UI_READER` role on an app reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list ingest keys, or mint or revoke them. `UI_READER` (and `UI_RUNNER` for CI replay) is available on Free and paid plans; on the Free plan, an organization can keep one live service-account key across `MOCK_READER`, `UI_READER`, and `UI_RUNNER`. See [`keploy service-account key create`](../running-keploy/cli-commands.md#service-account).
 
 An ingest key is not accepted: it can only post recordings.
 

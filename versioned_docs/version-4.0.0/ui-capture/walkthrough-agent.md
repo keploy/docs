@@ -48,7 +48,7 @@ This walkthrough follows an AI agent through UI capture from start to finish, th
 Each step shows the tool call as the agent's MCP client sends it to `invoke_tool`, its answer, and what the agent does next. Every answer is from a real run with six visits to the shop, shortened and without its `meta` (but for the test runs' pagination), with IDs replaced and the server written as `api.keploy.io`. To connect your own agent first, follow the [AI agent quickstart](./quickstart-agent.md).
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet, so the agent here reads journeys and test runs and does not run tests. See [What an agent cannot do yet](#what-an-agent-cannot-do-yet).
+UI Testing is in beta. This walkthrough covers onboarding capture and reading journeys and test runs over MCP; to replay journeys as Playwright tests from the CLI, see [`keploy ui run`](./cli.md#keploy-ui-run) and [What an agent cannot do yet](#what-an-agent-cannot-do-yet).
 :::
 
 ## What the agent does {#what-the-agent-does}
@@ -601,7 +601,7 @@ This is visit 6 on the Products page. A step says that a value was typed (`hasVa
 }
 ```
 
-The app has no runs. No tool creates a run: a run today comes only from a flow page's **Generate Test** in the dashboard, and it stays `PENDING`, because the runner that replays journeys as Playwright tests is not in a release build yet.
+The app has no runs yet. No MCP tool creates a run: execute [`keploy ui run`](./cli.md#keploy-ui-run) (`keploy` CLI `v3.9.24+`) to replay the journey plan and upload verdicts to Keploy.
 
 ## 12. Clean up {#clean-up}
 
@@ -658,9 +658,9 @@ Pages that still use the key are refused within about 30 seconds. Then it delete
 
 ## What an agent cannot do yet {#what-an-agent-cannot-do-yet}
 
-- Generate or run tests: no tool or REST route creates, claims or completes a UI test run, and the runner, `keploy ui run`, is not in a release build yet.
+- Generate or run tests over MCP or REST: no MCP tool or public REST route creates, claims or completes a UI test run; run [`keploy ui run`](./cli.md#keploy-ui-run) (`keploy` CLI `v3.9.24+`) from the shell instead.
 - Pin a journey into the plan, or accept a change.
-- Run UI tests in CI: no service-account role runs them. A CI job can check capture status and read the plan with a key bound to the `UI_READER` role, on a paid plan.
+- Run UI tests in CI with a `UI_READER` key: `UI_READER` only reads. Create a `UI_RUNNER` key with [`keploy service-account key create`](../running-keploy/cli-commands.md#service-account) to replay journeys in CI (see [Capture and replay in CI](./ci.md#create-ui-runner-key)).
 
 ## Related
 

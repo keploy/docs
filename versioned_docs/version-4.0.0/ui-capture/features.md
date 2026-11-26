@@ -25,7 +25,6 @@ What Keploy UI Testing does today, where you use each feature, and the page that
 The status of each feature is one of these:
 
 - **Beta**: works today. The whole of UI Testing is in beta, and the dashboard says so.
-- **Beta, not runnable yet**: part of [replay](./journeys.md#replay-beta), which is in beta, and whose runner, `keploy ui run`, is not in a release build yet. You can see it, but no test runs.
 - **Available**: a part of Keploy that UI Testing uses but that is not UI Testing's own, such as the apps API.
 - **Not available**: not in the product yet.
 
@@ -46,16 +45,16 @@ The status of each feature is one of these:
 
 ## Setting up
 
-| Feature                                                                   | Surface                                    | Status    | Page                                                                  |
-| ------------------------------------------------------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------- |
-| Create an app to record into                                              | REST, MCP                                  | Available | [Create an app](./rest-api.md#create-an-app)                          |
-| Create, list and revoke ingest keys                                       | Dashboard, REST, MCP                       | Beta      | [Ingest keys and environments](./ingest-keys.md)                      |
-| Check that recordings arrive and have become flows                        | Dashboard, REST, MCP                       | Beta      | [Capture status](./rest-api.md#capture-status)                        |
-| End a visit at once, so its flows follow within minutes                   | REST (ingest)                              | Beta      | [End a visit at once](./sessions-and-sampling.md#end-a-visit-at-once) |
-| Check from CI that a build still records                                  | REST                                       | Beta      | [Check capture in CI](./ci.md)                                        |
-| A read-only service-account key for one app (`UI_READER`), on a paid plan | Dashboard (create), REST, MCP              | Beta      | [Create the service account](./ci.md#create-the-service-account)      |
-| Sign in from a terminal or an agent, and connect an agent                 | CLI (`keploy login`, `keploy mcp-install`) | Available | [CLI](./cli.md)                                                       |
-| Set up and read everything from an AI agent                               | MCP, REST                                  | Beta      | [Operate UI capture from an AI agent](./agents.md)                    |
+| Feature                                                   | Surface                                    | Status    | Page                                                                  |
+| --------------------------------------------------------- | ------------------------------------------ | --------- | --------------------------------------------------------------------- |
+| Create an app to record into                              | REST, MCP                                  | Available | [Create an app](./rest-api.md#create-an-app)                          |
+| Create, list and revoke ingest keys                       | Dashboard, REST, MCP                       | Beta      | [Ingest keys and environments](./ingest-keys.md)                      |
+| Check that recordings arrive and have become flows        | Dashboard, REST, MCP                       | Beta      | [Capture status](./rest-api.md#capture-status)                        |
+| End a visit at once, so its flows follow within minutes   | REST (ingest)                              | Beta      | [End a visit at once](./sessions-and-sampling.md#end-a-visit-at-once) |
+| Check from CI that a build still records                  | REST                                       | Beta      | [Capture and replay in CI](./ci.md)                                   |
+| A read-only service-account key for one app (`UI_READER`) | CLI, Dashboard (create), REST, MCP         | Beta      | [Create the service account](./ci.md#create-the-service-account)      |
+| Sign in from a terminal or an agent, and connect an agent | CLI (`keploy login`, `keploy mcp-install`) | Available | [CLI](./cli.md)                                                       |
+| Set up and read everything from an AI agent               | MCP, REST                                  | Beta      | [Operate UI capture from an AI agent](./agents.md)                    |
 
 ## Reading what was recorded
 
@@ -71,11 +70,13 @@ The status of each feature is one of these:
 
 ## Replay
 
-| Feature                                                                      | Surface               | Status                 | Page                                           |
-| ---------------------------------------------------------------------------- | --------------------- | ---------------------- | ---------------------------------------------- |
-| Replay journeys as Playwright tests, against recorded mocks                  | CLI (`keploy ui run`) | Beta, not runnable yet | [Replay (beta)](./journeys.md#replay-beta)     |
-| **Generate Test** on a flow's page: creates a UI test run that stays pending | Dashboard             | Beta, not runnable yet | [Replay (beta)](./journeys.md#replay-beta)     |
-| Read UI test runs and their verdicts                                         | Dashboard, REST, MCP  | Beta, not runnable yet | [List test runs](./rest-api.md#list-test-runs) |
+| Feature                                                                          | Surface                                             | Status | Page                                                          |
+| -------------------------------------------------------------------------------- | --------------------------------------------------- | ------ | ------------------------------------------------------------- |
+| Replay journeys as Playwright tests against recorded mocks (cloud or `--bundle`) | CLI (`keploy ui run`, `v3.9.24+`)                   | Beta   | [UI Testing CLI reference](./cli.md#keploy-ui-run)            |
+| Explore routes, record local bundles, and export editable steps offline          | CLI (`keploy ui explore`, `record`, `export-steps`) | Beta   | [UI Testing CLI reference](./cli.md#keploy-ui)                |
+| Inspect capture status and explain failing journeys with visual diffs            | CLI (`keploy ui status`, `explain`)                 | Beta   | [UI Testing CLI reference](./cli.md#keploy-ui-status-explain) |
+| Scoped CI service-account key for journey replay (`UI_RUNNER`)                   | CLI (`keploy service-account key create`)           | Beta   | [Create a `UI_RUNNER` key](./ci.md#create-ui-runner-key)      |
+| Read UI test runs and their verdicts                                             | Dashboard, REST, MCP                                | Beta   | [List test runs](./rest-api.md#list-test-runs)                |
 
 ## Not available yet
 
@@ -85,7 +86,6 @@ The status of each feature is one of these:
 | Recompute the journey plan from the dashboard                                                               | Use `refresh=true` over the REST API or MCP.                                        |
 | Accept an intended change                                                                                   | On no surface.                                                                      |
 | Run reports by email, and share links                                                                       | On no surface.                                                                      |
-| A service-account role that runs UI tests in CI                                                             | `UI_READER` only reads.                                                             |
 | The dashboard's **Flow Graph** panel, **Coverage** tab, **Impact Analysis** panel and generated test source | Each says the server does not expose it. The flow graph is on the REST API and MCP. |
 | A retention setting for recordings                                                                          | Recordings have no retention setting. A journey plan is kept 14 days.               |
 

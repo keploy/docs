@@ -62,7 +62,7 @@ url: "#read-the-flows",
 In this quickstart your AI coding agent sets up Keploy UI capture for you. You connect it to the Keploy MCP server and ask it to set up capture; the agent mints an ingest key, adds the capture SDK to your frontend, and reads the **UI flows** your first visits make. Apart from creating a token, if you connect with one, you never open the dashboard. It takes about 10 minutes.
 
 :::note Beta
-UI Testing is in beta. Recording visits and reading them as flows and journeys works today. Replaying journeys as Playwright tests is in beta too, and its runner is not in a release build yet, so this quickstart stops at the flows. See [what works today](../running-keploy/ui-capture.md#what-works-today).
+UI Testing is in beta. This quickstart covers setting up capture and reading your first flows; to replay journeys as Playwright tests afterward, see [`keploy ui run`](./cli.md#keploy-ui-run) and [what works today](../running-keploy/ui-capture.md#what-works-today).
 :::
 
 ## Before you begin
