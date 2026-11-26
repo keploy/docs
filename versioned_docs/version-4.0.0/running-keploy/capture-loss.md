@@ -2,7 +2,7 @@
 id: capture-loss
 title: Fix "could not record an app's bytes" warnings
 sidebar_label: Capture loss warnings
-description: Fix the Keploy warning that it could not record an app's bytes — sendfile, splice, io_uring, MSG_TRUNC, missed call ends, calls over 16 MiB — and what to change.
+description: Fix Keploy's "could not record an app's bytes" warning — sendfile, splice, io_uring, MSG_TRUNC, missed call ends, >16 MiB calls, or a full ring buffer.
 tags:
   - troubleshooting
   - recording
@@ -18,6 +18,8 @@ keywords:
   - nginx sendfile
   - keploy low latency recording
   - keploy daemonset recording
+  - KEPLOY_RINGBUF_SIZE_MB
+  - capture ring buffer
 ---
 
 When Keploy records with its eBPF capture (`keploy record --low-latency`, a
@@ -25,11 +27,11 @@ Kubernetes Sidecar with `low_latency_mode`, and the DaemonSet agent), it
 records what your app's send and receive calls copy between the app's memory
 and its sockets. A few calls move bytes without copying them through the app's
 memory, so there is nothing for Keploy to read. A few others go unseen by
-Keploy's hooks, or move more than the 16 MiB Keploy records of one call.
-Keploy does not record those bytes. It marks the gap on the connection so the
-protocol parser resyncs past it (or stops on that connection) instead of
-reading garbage, and it tells you once per app and cause in a warning like
-this:
+Keploy's hooks, move more than the 16 MiB Keploy records of one call, or arrive
+while the capture ring buffer is full. Keploy does not record those bytes. It
+marks the gap on the connection so the protocol parser resyncs past it (or stops
+on that connection) instead of reading garbage, and it tells you once per app
+and cause in a warning like this:
 
 ```text
 🐰 Keploy: 2026-10-07T10:06:43.043391152Z 	WARN	proxyless capture could not record an app's bytes: the app sent them with sendfile(2), which moves a file's pages straight into the socket — those bytes are missing from the recording; the gap is marked on the connection so its parser resyncs or stops there	{"pod": "web-7c9d6b5f4-x2kqp", "process": "nginx", "pid": 4242, "connID": 2563235, "connection": "10.0.0.5:8080", "direction": "response", "lostBytes": 16384, "ktls": false, "toRecordIt": "turn sendfile off for traffic Keploy records — nginx: sendfile off; …", "docs": "https://keploy.io/docs/running-keploy/capture-loss/#sendfile"}
@@ -65,8 +67,8 @@ warning for each cause, across all apps:
 
 `newlyLost` counts the gaps marked since the last report, and `lost` and
 `lostBytes` count every gap and byte since the agent started. A gap is one
-call, except for [calls whose end Keploy did not see](#unseen), where one gap
-can span several.
+call, except for [calls whose end Keploy did not see](#unseen) and
+[capture ring buffer drops](#ringbuf-drop), where one gap can span several.
 
 ## Find the cause and fix it
 
@@ -82,6 +84,7 @@ Find the words your warning uses, and go to that section:
 | "their page was not resident to the capture hook"               | [Report a page-not-resident error](#read-fault)                             |
 | "the capture's hooks missed them"                               | [Keep Keploy's hooks from missing TCP bytes](#unseen)                       |
 | "more than 16 MiB"                                              | [Split sends and receives of more than 16 MiB](#too-large)                  |
+| "the capture ring buffer was full when the hook ran"            | [Raise the capture ring buffer size or lower capture load](#ringbuf-drop)   |
 | "Failed to attach do_splice_direct and do_splice", at startup   | [Check for unmarked losses at startup](#unmarked)                           |
 | "Failed to attach sock_splice_read", at startup                 | [Check for unmarked losses at startup](#unmarked)                           |
 
@@ -230,6 +233,62 @@ send more than 16 MiB is marked too, even when it sent less: `lostBytes` is
 then what it sent. A blocking write of a large buffer is a single call,
 however long it waits. For the traffic Keploy records, write and read such
 payloads in parts of at most 16 MiB each.
+
+### Raise the capture ring buffer size or lower capture load {#ringbuf-drop}
+
+Like [page-not-resident errors](#read-fault), this is logged as an error once
+per agent rather than once per app, because the cause is a full capture ring
+buffer on the node rather than a call the app chose. The error names no app;
+its fields are `shard`, `connID`, `direction` (`0` for request, `1` for
+response), `lostBytes`, `destPort`, `ktls`, `toRecordIt` and `docs`. Later
+losses are counted in the periodic warning.
+
+Under heavy traffic, the eBPF capture ring buffer filled faster than the agent
+could drain it, so Keploy's hook could not write an event into it. Keploy
+stops recording the rest of that call, counts all bytes dropped in that
+direction while the buffer was full (`lostBytes`, which can span several
+calls), and marks the gap on the connection once the buffer has room — at the
+next send or receive in the same direction, or when the connection is
+disconnected or closed. The connection's parser then resyncs past the gap or
+stops on that connection (for example, stopping a keep-alive HTTP/1.1
+connection for its remaining exchanges) instead of mispairing requests and
+responses or reading garbage. The app's own calls complete normally.
+
+This covers plain TCP connections. On kTLS, UDP and Unix socket connections,
+ring-buffer drops are not marked on the connection and do not trigger this
+error or warning.
+
+To keep the capture ring buffer from filling:
+
+- **Raise the capture ring buffer size.** Set a larger positive integer in MiB
+  (for example, `512` or `1024`):
+  - **Kubernetes DaemonSet (`k8s-proxy` Helm chart):** set the Helm value
+    `daemonset.ringbufSizeMB`, which renders `KEPLOY_RINGBUF_SIZE_MB` on the
+    DaemonSet agent so upgrades keep it. (The injected Kubernetes sidecar does
+    not expose a ring-buffer size setting.)
+  - **Native Linux CLI (`keploy record --low-latency`):** set
+    `record.ringbufSizeMB` in `keploy.yml`. Setting `KEPLOY_RINGBUF_SIZE_MB`
+    works only when Keploy itself runs as root with your environment preserved
+    (for example, `sudo -E keploy record --low-latency …`); otherwise the
+    agent starts via `sudo` without preserving the variable. When both reach
+    the agent, `KEPLOY_RINGBUF_SIZE_MB` takes precedence.
+  - **Docker and Docker Compose (`keploy record --low-latency`):** there is
+    currently no setting that passes a ring-buffer size into the agent
+    container; reduce per-node capture load instead.
+- **Reduce per-node capture load.** Record fewer pods or services on the same
+  node at once, or lower traffic volume while recording, so the agent drains
+  events before the ring buffer fills.
+
+The default ring buffer size is `256` MiB. When the agent can read a container
+memory limit and no size is set explicitly, the default is capped to 8% of that
+limit, rounded down to a power of two, never below `64` MiB (for example, `64`
+MiB under a 1 GiB limit). The configured value is a total that the agent may
+split evenly across per-NUMA ring-buffer shards, rounding each shard down to a
+power of two and capping it at `2048` MiB per shard (so a value that is not a
+power of two allocates less — for example, `300` allocates `256` MiB on a
+single shard). When you raise the buffer size in a container, make sure the
+agent's container memory limit has enough headroom so the agent is not
+OOM-killed (Keploy warns if an explicit size exceeds that cap).
 
 ## Check for unmarked losses at startup {#unmarked}
 
