@@ -400,7 +400,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         <span class="footer__separators"> | </span>
         <a class="footer__link-item" href="https://keploy.io/docs/security/">Security</a>
         <span class="footer__separators"> | </span>
-        <a class="footer__link-item" href="/privacy-policy">Privacy Policy</a>
+        <a class="footer__link-item" href="https://keploy.io/legal/privacy-policy">Privacy Policy</a>
       </div>
       `,
     },
