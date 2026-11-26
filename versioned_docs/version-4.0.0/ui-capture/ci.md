@@ -1,32 +1,137 @@
 ---
 id: ci
-title: "Check UI capture in CI"
-sidebar_label: Check capture in CI
-description: Check from a CI job that a build of your web app still records visits that become flows, with an app of its own for CI and a read-only service-account key.
+title: "Run UI capture checks and journey replay in CI"
+sidebar_label: Capture and replay in CI
+description: Replay production-recorded UI journeys against preview, staging, or local builds with keploy ui run in CI, and verify that builds still record sessions and flows.
 tags:
   - UI testing
   - UI capture
   - CI
 keywords:
   - UI capture CI
+  - keploy ui run
   - GitHub Actions
   - capture status
   - service account
+  - UI_RUNNER
   - UI_READER
   - ingest key
+  - origin-map
+  - strict-origins
 ---
 
 import ProductTier from '@site/src/components/ProductTier';
 
 <ProductTier tiers="Free, Teams, Scale, Enterprise" offerings="Self-Hosted, Dedicated" />
 
-A CI job can check that a build of your web app still records: it serves the build, drives a few visits in a headless browser, ends each one at once, and waits until Keploy has turned every visit into flows. This page sets that up for GitHub Actions with the [React sample shop](https://github.com/keploy/samples-typescript/tree/main/ui-capture-react-shop), and says what to change for your own app.
+You can run two kinds of UI Testing checks in CI:
+
+1. **Replay journeys as Playwright tests** (`keploy ui run`, in the `keploy` CLI `v3.9.24+`) against a local, preview, or staging build using production-recorded journeys or committed offline bundles, with no live backend required.
+2. **Verify that a build still records sessions** by serving the build with a CI ingest key, driving scripted visits, ending each one immediately, and confirming that Keploy turns every visit into flows.
 
 ## What CI can do today {#what-ci-can-do-today}
 
+- **Replay journeys as Playwright tests.** The `keploy` CLI (`v3.9.24+`) runs `keploy ui run` against a local build or a preview/staging URL, mocking every recorded network call from your production recordings (or from offline local `--bundle` files). Cloud runs authenticate with a scoped `UI_RUNNER` service-account key in `KEPLOY_API_KEY`.
 - **Record visits to a build.** The build carries an ingest key, a scripted browser visits it, and each visit is ended at once with `POST /ui/v1/sessions/<session id>/complete`, so its flows follow within a minute or two instead of after 30 idle minutes.
 - **Read what was recorded.** Capture status, flows, the flow graph and the journey plan are read with an API key: a service-account key bound to the `UI_READER` role on the app, or a personal access token with the `read` scope.
-- **Not replay journeys as tests.** Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet. No service-account role runs UI tests: `UI_READER` only reads.
+
+## Replay journeys in CI {#replay-journeys-in-ci}
+
+Use `keploy ui run` in pull request checks to replay your production app's top user journeys against a local, preview, or staging build without standing up a backend or database. (`keploy ui` runs on Linux and macOS.)
+
+### Create a `UI_RUNNER` service-account key {#create-ui-runner-key}
+
+Do not put a personal API key in CI. Create a scoped service-account key bound to the `UI_RUNNER` role on the app you want to replay (available on Free and paid plans) and store it directly in GitHub Actions secrets as `KEPLOY_API_KEY`:
+
+```bash
+keploy service-account key create \
+  --app <prod-app-id> \
+  --role UI_RUNNER \
+  --to-gh-secret KEPLOY_API_KEY
+```
+
+An organization admin approves the request once in the browser. See [`keploy service-account key create`](../running-keploy/cli-commands.md#service-account) for `--to-file`, `--ttl-days`, and `--rotate` options.
+
+### Replay against a local build in GitHub Actions {#replay-local-build-ci}
+
+This workflow builds your frontend, starts it locally, and replays your production app's journey plan against `http://localhost:3000`. It needs:
+
+- the variable `KEPLOY_PROD_APP_ID`: the Keploy app ID whose production journeys you want to replay;
+- the secret `KEPLOY_API_KEY`: the `UI_RUNNER` service-account key created above.
+
+```yaml title=".github/workflows/ui-journey-replay.yml"
+name: UI journey replay
+
+on:
+  pull_request:
+
+jobs:
+  replay:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.actor != 'dependabot[bot]'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      KEPLOY_API_KEY: ${{ secrets.KEPLOY_API_KEY }}
+      KEPLOY_APP_ID: ${{ vars.KEPLOY_PROD_APP_ID }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install dependencies and Chromium
+        run: |
+          npm ci
+          npx playwright install --with-deps chromium
+
+      - name: Install Keploy CLI
+        run: |
+          source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
+
+      - name: Build and replay production journeys against localhost
+        run: |
+          npm run build
+          npm run start &
+          APP_PID=$!
+          trap 'kill "$APP_PID" 2>/dev/null || true' EXIT
+          keploy ui run \
+            --app "$KEPLOY_APP_ID" \
+            --base-url http://localhost:3000 \
+            --app-wait 60s
+```
+
+`keploy ui run` waits up to `--app-wait` (default `30s`) for `--base-url` to respond, replays the journey plan's selected (and pinned) runnable journeys with recorded network responses mocked, and uploads the verdict to Keploy. It exits `0` when all replayed journeys pass, `1` when findings occur, or a non-zero error code (`5`, `10`–`15`) on sign-in, environment, nondeterminism, or usage failures; any non-zero code fails the CI step.
+
+### Replay against a staging or preview URL with cross-origin APIs {#replay-staging-preview-ci}
+
+When your CI job points `--base-url` at a preview deploy or staging build whose frontend calls a different API host than production (for example `https://api.staging.example.com` instead of recorded `https://api.example.com`):
+
+- **Automatic aliasing by default:** Keploy binds each live API origin independently and one-to-one to its matching recorded API origin, synthesizes CORS `OPTIONS` preflight responses, and keeps third-party analytics and widget calls out of origin matching. Even apps talking to multiple backend hosts work automatically when each method and path matches a single recorded origin.
+- **Explicit mapping or strict origin matching:** Pass repeatable `--origin-map <live-origin>=<recorded-origin>` flags (live origin on the left, recorded origin on the right) when the same method and path were recorded on more than one origin, when an automatic binding conflicts with an already-bound origin, or when you want to map origins explicitly. Add `--strict-origins` to disable automatic aliasing and require exact or explicitly mapped origins only:
+
+```bash
+keploy ui run \
+  --app "$KEPLOY_APP_ID" \
+  --base-url "$PREVIEW_URL" \
+  --origin-map https://api.staging.example.com=https://api.example.com \
+  --origin-map https://auth.staging.example.com=https://auth.example.com \
+  --strict-origins
+```
+
+Add `--ignore-https-errors` if your staging or preview environment uses a self-signed TLS certificate, or `--storage-state ./storage-state.json` if the app expects pre-seeded cookies or `localStorage`.
+
+For pull requests that do not have `KEPLOY_API_KEY` available (or for zero-SDK local journeys), commit local bundles recorded with [`keploy ui explore`](./cli.md#keploy-ui-explore) or [`keploy ui record`](./cli.md#keploy-ui-record) and replay them offline:
+
+```bash
+keploy ui run --bundle .keploy/ui-journeys --base-url http://localhost:3000
+```
+
+See [UI Testing CLI reference](./cli.md#keploy-ui-run) for all flags, visual diffing options, and exit codes.
+
+## Verify that a build still records {#verify-build-records}
+
+The rest of this page sets up a capture-health check for GitHub Actions with the [React sample shop](https://github.com/keploy/samples-typescript/tree/main/ui-capture-react-shop): it serves the build with a dedicated CI ingest key, drives a few visits in a headless browser, ends each one immediately, and waits until Keploy has turned every visit into flows.
 
 ## Keys at build time {#keys-at-build-time}
 
@@ -45,7 +150,7 @@ Create the app with `POST /client/v1/apps` (see [Create an app](./rest-api.md#cr
 
 A service account is an identity for a pipeline: it belongs to the organization, not a person, starts with no access, and signs in only with its own keys. Bound to the `UI_READER` role on one app, its key reads that app's capture status, flows, flow graph, journeys, impact and test runs. It cannot create or delete apps, list, mint or revoke ingest keys, or recompute the journey plan.
 
-You need to be an organization admin, and your organization needs a paid plan: on the Free plan a service account can hold only `MOCK_READER`. Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
+You need to be an organization admin. `UI_READER` and `UI_RUNNER` are available on Free and paid plans (on the Free plan, an organization can keep one live service-account key across `MOCK_READER`, `UI_READER`, and `UI_RUNNER`). You can also create a `UI_READER` key directly from the CLI with [`keploy service-account key create`](../running-keploy/cli-commands.md#service-account) (`--role UI_READER`). In the dashboard, Keploy asks you to sign in again first when your sign-in is not recent (**Confirm it's you**).
 
 1. Click your avatar at the bottom of the sidebar, then **Account Settings**. Under **Account**, click **Service Accounts**.
 2. Click **New service account**, give it a **Name**, such as `ui-capture-ci`, and click **Create service account**. Its access opens next.
@@ -161,12 +266,13 @@ Replace the build, serve and visit steps with your own. Your scripted visit has 
 
 To visit a preview deploy instead of a build the job serves, point the visits at it: the shop's script takes the address in `SHOP_URL`. That deploy has to be built with the CI app's ingest key too.
 
-## What the check proves {#what-the-check-proves}
+## What the capture check proves {#what-the-check-proves}
 
-A green check means the build starts the capture SDK, its ingest key and endpoint are right, and its visits reach Keploy and become flows. It does not compare the flows with earlier ones, and it does not test your app's behaviour: that is what [replay](./journeys.md#replay-beta) is for. If the check fails, [Troubleshooting](./troubleshooting.md) lists the usual causes.
+A green capture check means the build starts the capture SDK, its ingest key and endpoint are right, and its visits reach Keploy and become flows. It does not test your app's UI behaviour or catch regressions: use [`keploy ui run`](#replay-journeys-in-ci) for that. If either workflow fails, [Troubleshooting](./troubleshooting.md) lists the usual causes.
 
 ## Related
 
+- [UI Testing CLI reference](./cli.md)
 - [Ingest keys and environments](./ingest-keys.md)
 - [REST API](./rest-api.md)
 - [Sessions and sampling](./sessions-and-sampling.md#end-a-visit-at-once)

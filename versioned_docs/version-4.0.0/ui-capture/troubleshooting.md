@@ -104,7 +104,7 @@ Each entry below is a symptom, its cause and what to do. When the SDK reports a 
 
 **Cause:** The state is `FLOWS_READY` as soon as the app has any flow, whatever its other sessions are doing. Visits finished later are still being processed.
 
-**Fix:** To wait for particular visits, read their sessions: `sessionsByStatus` counts every state, and `recentSessions` gives each recent session's `status` by its `sdkSessionId`. [Check capture in CI](./ci.md#a-capture-check-for-each-pull-request) waits that way.
+**Fix:** To wait for particular visits, read their sessions: `sessionsByStatus` counts every state, and `recentSessions` gives each recent session's `status` by its `sdkSessionId`. [Capture and replay in CI](./ci.md#a-capture-check-for-each-pull-request) waits that way.
 
 ### A flow named `Navigate on /…`, with one step {#one-step-navigate-flow}
 
@@ -126,9 +126,38 @@ Each entry below is a symptom, its cause and what to do. When the SDK reports a 
 
 ### The first page's first requests are missing {#first-requests-missing}
 
-**Cause:** Either your app made those requests before `KeployCapture.init()` ran, or you are on `@keploy/capture-sdk` 3.1.0 or earlier, which waited for rrweb's chunk to finish loading before patching `fetch` and `XMLHttpRequest` and dropped requests made in that window.
+**Cause:** Either your app made those requests before `KeployCapture.init()` ran (for example, `init()` was called inside a React `useEffect` instead of at top-level startup), or you are on `@keploy/capture-sdk` 3.1.0 or earlier, which waited for rrweb's chunk to finish loading before patching `fetch` and `XMLHttpRequest` and dropped requests made in that window.
 
-**Fix:** Upgrade to `@keploy/capture-sdk` 3.2.0 or later, which patches `fetch` and `XMLHttpRequest` synchronously inside `init()` and holds early requests until rrweb loads, and call `init()` as early as you can from a module your app imports before its own code. See [Start capture before your first call](./network-and-bodies.md#start-capture-before-your-first-call).
+**Fix:** Upgrade to `@keploy/capture-sdk` 3.2.0 or later, which patches `fetch` and `XMLHttpRequest` synchronously inside `init()` once its start checks pass and holds the recorded events until rrweb loads (the app's requests go out immediately), and call `init()` before your app mounts (`instrumentation-client.ts` in Next.js App Router, or the first top-level import in `src/main.tsx` in Vite). If your app dynamically imports the SDK after consent is already granted, you can gate initial fetches behind a short fail-open boot barrier (skipping the wait whenever capture is off or consent is not yet granted). See [Avoid missing boot-time authentication calls](./install-sdk.md#boot-time-capture) and [Start capture before your first call](./network-and-bodies.md#start-capture-before-your-first-call).
+
+## Replay {#replay}
+
+### Authenticated journeys redirect to `/signin` during replay {#replay-redirects-to-signin}
+
+**Cause:** Initial boot-time authentication or session requests (such as `GET /auth/check` or `GET /api/me`) fired before `KeployCapture.init()` ran, so they were never recorded into the session. This happens when `init()` is called inside a React `useEffect` or after an auth provider mounts, or when recording with `@keploy/capture-sdk` 3.1.0 or earlier (which waited for `rrweb` to load before patching `fetch` and `XMLHttpRequest`). During replay, the app cannot match its initial auth check and redirects to `/signin` (and `keploy ui explain` reports `cause.ledger.denied > 0`, with `cause.kind` of `STEP_FAILED` or `MOCK_CONTRACT`).
+
+**Fix:**
+
+1. Upgrade to `@keploy/capture-sdk` 3.2.0 or later and move `KeployCapture.init()` out of `useEffect` into a static top-level import: `instrumentation-client.ts` (Next.js App Router) or the first import of `src/main.tsx` (Vite).
+2. If your app dynamically imports the SDK after consent is already granted, gate initial auth fetches behind a short fail-open boot barrier (skipping the wait whenever capture is off or consent is not yet granted). See [Avoid missing boot-time authentication calls](./install-sdk.md#boot-time-capture).
+3. Capture a fresh session so the recorded journey includes the boot auth call.
+4. If the app also expects pre-existing browser cookies or `localStorage` entries before loading, pass `--storage-state ./storage-state.json` to `keploy ui run` (or place the file at `<repo>/.keploy/ui-storage-state.json`). See [Pre-seed cookies and localStorage](./cli.md#storage-state).
+
+### Staging or preview replay fails when hitting a different API origin {#replay-different-api-origin}
+
+**Cause:** The preview or staging build under test calls a backend API origin (for example `https://api.staging.example.com`) that differs from the recorded session (`https://api.example.com`). By default, Keploy binds each live API origin independently and one-to-one to its matching recorded origin (and synthesizes CORS `OPTIONS` preflights). A cross-origin request is denied when the same method and path were recorded on more than one origin (ambiguous match), when a live origin conflicts with an origin already bound, or when `--strict-origins` is enabled. In `keploy ui explain`, check `cause.ledger.denied > 0` regardless of `cause.kind` (a denied call often breaks a later UI step and is reported as `STEP_FAILED` rather than `MOCK_CONTRACT`).
+
+**Fix:** Inspect `tests[].finding` in `.keploy-ui-results/verdict-document.json` and Playwright's report under `--out` for the denied live URL and `pass --origin-map <live>=<recorded-origin>` hint (and `nearbyCalls` in `keploy ui explain --app <app-id>` for the recorded flow's origins). Pass repeatable `--origin-map <live-origin>=<recorded-origin>` flags (live origin on the left, recorded origin on the right) to `keploy ui run`, and optionally add `--strict-origins` when you want to disable automatic aliasing and enforce only exact or mapped origins:
+
+```bash
+keploy ui run \
+  --app <app-id> \
+  --base-url https://preview.staging.example.com \
+  --origin-map https://api.staging.example.com=https://api.example.com \
+  --strict-origins
+```
+
+See [Map cross-origin APIs for staging and preview environments](./cli.md#cross-origin-api-replay).
 
 ## Bodies {#bodies}
 
@@ -225,9 +254,9 @@ Each entry below is a symptom, its cause and what to do. When the SDK reports a 
 
 ### A test run from **Generate Test** stays pending {#generate-test-pending}
 
-**Cause:** **Generate Test** creates a UI test run and marks the flow **Test generated**. In the dashboard's own words: "No runner ships in this release, so the run stays pending until one does." Replaying journeys as Playwright tests is in beta, and the `keploy ui` commands, its runner `keploy ui run` among them, are not in a release build yet.
+**Cause:** Clicking **Generate Test** on a flow's page in the dashboard creates a single-flow `PENDING` UI test run record on the server. That single-flow run remains pending because `keploy ui run` creates and executes a journey-plan run rather than claiming dashboard-created single-flow runs.
 
-**Fix:** None yet. See [Replay (beta)](./journeys.md#replay-beta).
+**Fix:** Run your app's journey plan directly with `keploy ui run --app <app-id> --base-url http://localhost:3000` using the `keploy` CLI (`v3.9.24+`, Linux and macOS), which creates, executes, and uploads a new journey-plan run. See [Replay journeys with `keploy ui run`](./cli.md#keploy-ui-run).
 
 ### The **Journeys** tab is empty {#journeys-tab-empty}
 
