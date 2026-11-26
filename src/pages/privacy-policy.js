@@ -42,7 +42,7 @@ function PrivacyPolicy() {
             https://keploy.io
           </a>{" "}
           and{" "}
-          <a href="https://keploy.io/docs" style={{color: "#FF914D"}}>
+          <a href="https://keploy.io/docs/" style={{color: "#FF914D"}}>
             https://docs.keploy.io
           </a>{" "}
           (the &quot;Sites&quot;). Please read this Privacy Policy carefully to
@@ -147,7 +147,7 @@ function PrivacyPolicy() {
           another business (“Business Data”), from accidental loss and from
           unauthorized access, use, alteration, and disclosure. For more
           information on our security practices please refer to:{" "}
-          <a href="https://keploy.io/docs/security" style={{color: "#FF914D"}}>
+          <a href="https://keploy.io/docs/security/" style={{color: "#FF914D"}}>
             keploy.io/docs/security.
           </a>
           {""}
