@@ -362,6 +362,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           type: "docsVersionDropdown",
           position: "right",
           dropdownActiveClassDisabled: true,
+          versions: [CURRENT_DOCS_VERSION, "1.0.0"],
         },
         {
           href: "https://keploy.io/slack",
