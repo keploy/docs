@@ -194,7 +194,7 @@ To be explicit you can still pass `--k8s-proxy-auth` (or `KEPLOY_K8S_PROXY_AUTH=
 
 - Authenticates by sending your PAT to the proxy's `/relay-auth` endpoint, which relays it to the api-server's `/auth/apikey` and returns only the verdict — the CLI never contacts the api-server directly.
 - Forces the run into **self-hosted** mode: it skips the cluster-list lookup and targets the proxy ingress directly. Because of this, a `--cluster` name is needed (see below).
-- **Skips** every direct api-server step that would otherwise hang offline: the api-key exchange, role/plan checks, IT-usage check, update check, and the end-of-run debug-bundle upload (which targets the api-server). Authorization is still enforced server-side by the proxy's RBAC on every request.
+- **Skips** every direct api-server step that would otherwise hang offline: the api-key exchange, role/plan checks, IT-usage check and update check. `--share-debug-bundle` cannot send a bundle from this mode (the upload targets the api-server): the run says so as it starts and only saves the bundle ([Debug bundles](#debug-bundles)). Authorization is still enforced server-side by the proxy's RBAC on every request.
 
 ### TLS to a self-signed proxy
 
@@ -295,13 +295,63 @@ keploy cloud replay --app prod.orders --branch-name "$(git rev-parse --abbrev-re
 
 ## Uploads and reporting
 
-| Flag                     | Default (cloud replay) | Description                                                                                                                                                                           |
-| ------------------------ | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `--disableMockUpload`    | `true`                 | Disable uploading mocks back to the cloud. Cloud replay defaults this on (replay consumes mocks, it doesn't re-record them).                                                          |
-| `--disableReportUpload`  | `false`                | Disable uploading the test report to the server. Defaults off so runs appear in the dashboard; OAuth sessions default it on unless the flag is set explicitly.                        |
-| `--disable-debug-bundle` | `false`                | Disable the automatic debug-bundle assembly and upload at the end of the run. By default every run captures a debug-level log and uploads a support bundle to the api-server on exit. |
+| Flag                    | Default (cloud replay) | Description                                                                                                                                                    |
+| ----------------------- | ---------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--disableMockUpload`   | `true`                 | Disable uploading mocks back to the cloud. Cloud replay defaults this on (replay consumes mocks, it doesn't re-record them).                                   |
+| `--disableReportUpload` | `false`                | Disable uploading the test report to the server. Defaults off so runs appear in the dashboard; OAuth sessions default it on unless the flag is set explicitly. |
 
 If the test report upload still fails after its retries, `keploy cloud replay` exits with a non-zero code, on SaaS and self-hosted alike, even when every test passed: a run whose report is lost would otherwise read as a pass that nobody can see on the dashboard. The error starts with `the test report of this run was not uploaded to Keploy` and names the cause. Check the network path to Keploy (or to the k8s-proxy on a self-hosted run), your API key, and, for a proxy with a self-signed certificate, [its TLS settings](#tls-to-a-self-signed-proxy), then rerun the command. A run with `--disableReportUpload` sends no report, so its exit code is its tests' verdict alone.
+
+---
+
+## Debug bundles
+
+A debug bundle is a zip of everything Keploy support needs to look into a run. `keploy cloud replay` builds one only when you ask for it. Every run still writes its debug-level log to `<keploy folder>/cloud-debug.log`, so you can read it without a bundle.
+
+| Flag                     | Default                   | Description                                                                                                                                       |
+| ------------------------ | ------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `--save-debug-bundle`    | `false`                   | At the end of the run, save a debug bundle in `--debug-bundle-dir`.                                                                               |
+| `--share-debug-bundle`   | `false`                   | Save the bundle as `--save-debug-bundle` does, and send it to Keploy. The run prints the bundle's id to quote to support.                         |
+| `--debug-bundle-dir`     | `~/.keploy/debug-bundles` | Where the bundle is saved. It must be outside the keploy folder, and it needs `--save-debug-bundle` or `--share-debug-bundle`.                    |
+| `--disable-debug-bundle` | `false`                   | Collect no debug evidence at all: no `cloud-debug.log` and no bundle. It cannot be combined with `--save-debug-bundle` or `--share-debug-bundle`. |
+
+`--save-debug-bundle`, `--share-debug-bundle` and `--debug-bundle-dir` are read from the command line only. A `keploy.yml` key or an environment variable of the same name does not turn them on, so a committed config cannot make every run send a bundle. A run that asks for a bundle while `disable-debug-bundle` is set in `keploy.yml` or the environment is refused at the start.
+
+```bash
+$ keploy cloud replay --app payments.api --save-debug-bundle
+...
+📦 Debug bundle saved: /home/dev/.keploy/debug-bundles/20261126-101503-payments.api-7f3c2a91.zip (84.2 MB)
+
+$ keploy cloud replay --app payments.api --share-debug-bundle
+...
+📦 Debug bundle shared with Keploy: 7f3c2a91-5b1e-4c7a-9a0e-3d2f6c1b8e44 (quote this id to support)
+   A copy is kept here: /home/dev/.keploy/debug-bundles/20261126-101503-payments.api-7f3c2a91.zip (84.2 MB)
+```
+
+A bundle holds:
+
+- the keploy folder: test cases, mocks and reports, not redacted;
+- the run's debug log;
+- the replay containers' logs and the generated compose file, with credential-shaped values masked;
+- a copy of the `keploy.yml` the run read, with its values masked;
+- `metadata.json`: the app, branch, CI metadata, CLI version and how the run ended.
+
+Because it holds your raw test cases and mocks, the bundle is saved readable only by you (the file is `0600`, a directory it creates is `0700`).
+
+When a replay fails and the run asked for no bundle, it ends with a hint:
+
+```text
+💡 Need help from Keploy with this run? Re-run it with --share-debug-bundle to send Keploy a debug bundle,
+   or with --save-debug-bundle to keep one on this machine.
+```
+
+A self-hosted run that cannot share (see below) is told only how to save one.
+
+A bundle never changes how the run ends: the exit code is the replay's. A run stopped with Ctrl-C, or by a CI job's timeout, still saves (and shares) the bundle it asked for.
+
+- If the upload fails (no network, an expired key, or a bundle over the 500 MiB Keploy accepts), the run prints why and where the bundle is kept.
+- A self-hosted run authenticated through the k8s-proxy cannot reach Keploy, so `--share-debug-bundle` warns as the run starts and only saves the bundle.
+- If the bundle cannot be saved (the directory is not writable, the disk is full), the run prints why.
 
 ---
 
