@@ -40,6 +40,6 @@ Agile unit testing is a valuable tool for improving the quality of software appl
 
 - [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — the core practice agile teams apply frequently.
 - [Test Driven Development](/docs/concepts/reference/glossary/test-driven-development/) — a key principle of agile unit testing.
-- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — another Agile, collaboration-focused method.
+- [BDD in Agile](/docs/concepts/reference/glossary/behaviour-driven-development/) — another Agile, collaboration-focused method.
 - [Unit Test Automation](/docs/concepts/reference/glossary/unit-test-automation/) — agile tests run automatically in CI.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

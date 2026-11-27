@@ -73,7 +73,7 @@ Acceptance testing is a critical step in the software development process, ensur
 
 - [End-to-End Testing](/docs/concepts/reference/glossary/end-to-end-testing/) — validates complete user flows before release.
 - [Integration Testing](/docs/concepts/reference/glossary/integration-testing/) — precedes acceptance testing in the cycle.
-- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — defines acceptance criteria in plain language.
+- [Behavior-driven development](/docs/concepts/reference/glossary/behaviour-driven-development/) — defines acceptance criteria in plain language.
 - [Software Testing Life Cycle](/docs/concepts/reference/glossary/software-testing-life-cycle/) — where acceptance testing fits overall.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.
 

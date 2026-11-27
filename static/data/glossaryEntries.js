@@ -18,9 +18,10 @@ export const glossaryEntries = {
   ],
   B: [
     {
-      name: "BDD",
+      name: "Behavior Driven Development (BDD)",
       link: "/docs/concepts/reference/glossary/behaviour-driven-development",
-      description: "Tests are written in natural language for clarity.",
+      description:
+        "Teams agree on behavior as Given-When-Then examples, then automate them as tests.",
     },
     {
       name: "Beta Testing",

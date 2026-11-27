@@ -122,7 +122,7 @@ NUnit is a unit testing framework for .NET applications. It is widely used for t
 
 ### RSpec (Ruby):
 
-RSpec is a behavior-driven development (BDD) framework for Ruby. It focuses on readability and expressiveness, allowing developers to write tests that resemble natural language. RSpec supports descriptive syntax for writing specifications and expectations.
+RSpec is a [behavior-driven development (BDD)](/docs/concepts/reference/glossary/behaviour-driven-development/) framework for Ruby. It focuses on readability and expressiveness, allowing developers to write tests that resemble natural language. RSpec supports descriptive syntax for writing specifications and expectations.
 <img src="https://keploy-devrel.s3.us-west-2.amazonaws.com/docs/webp-s3/img/glossary/rspec.webp" alt="spec" width="3024" height="1648" style={{maxWidth:'100%',height:'auto'}} />
 
 ### Mocha (JavaScript/Node.js):

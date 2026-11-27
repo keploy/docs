@@ -173,7 +173,7 @@ Test Driven Development (TDD) is a powerful methodology that fosters robust, mai
 ## Related Terms
 
 - [Unit Testing](/docs/concepts/reference/glossary/unit-testing/) — TDD is driven by writing unit tests first.
-- [Behaviour Driven Development](/docs/concepts/reference/glossary/behaviour-driven-development/) — a collaboration-focused alternative to TDD.
+- [Behavior driven development (BDD)](/docs/concepts/reference/glossary/behaviour-driven-development/) — a collaboration-focused alternative to TDD.
 - [Code Coverage](/docs/concepts/reference/glossary/code-coverage/) — measure how much code your tests exercise.
 - [Mocks](/docs/concepts/reference/glossary/mocks/) — isolate units while writing tests first.
 - [Browse all testing terms](/docs/concepts/reference/glossary/) — the full Keploy glossary.

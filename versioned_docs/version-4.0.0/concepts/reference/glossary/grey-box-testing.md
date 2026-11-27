@@ -75,7 +75,7 @@ Some commonly used tools for gray box testing include:
 
 - **Selenium**: Primarily used for web application testing, supports gray box testing by allowing testers to interact with web elements and verify internal processes through APIs.
 - **Postman**: Useful for API testing, allowing testers to send requests and validate the responses, which helps in understanding internal data handling.
-- **Cucumber**: Facilitates behavior-driven development (BDD), enabling testers to write tests that describe the behavior of the application with partial knowledge of its internal workings.
+- **Cucumber**: Facilitates behavior-driven development ([BDD](/docs/concepts/reference/glossary/behaviour-driven-development/)), enabling testers to write tests that describe the behavior of the application with partial knowledge of its internal workings.
 - **SoapUI**: Used for testing SOAP and REST web services, providing insights into internal operations through request-response validation.
 - **JMeter**: A performance testing tool that helps in understanding the internal performance characteristics of the application.
 
