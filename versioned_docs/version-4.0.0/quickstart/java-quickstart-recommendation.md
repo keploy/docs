@@ -16,3 +16,4 @@ import QuickStartFilter from '../../../src/components/QuickStartFilter'
 - [Keploy Integration with PetClinic App](/docs/quickstart/pet-clinic/) — Spring Boot with Postgres.
 - [Sample REST API with Spring-Boot and XML](/docs/quickstart/java-spring-boot-xml/) — Spring Boot serving XML.
 - [Java Sample Application](/docs/quickstart/samples-java/) — another Java sample.
+- [Spring Boot on Kubernetes with Gravitee, Solace PubSub+, and ModSecurity WAF](/docs/quickstart/java-k8s-gravitee-solace-waf/) — multi-dependency Kubernetes record and replay across Solace SMF, PostgreSQL, Redis, Gravitee, and WAF.

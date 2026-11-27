@@ -63,6 +63,15 @@ const quickstarts = [
     link: "/docs/quickstart/java-spring-boot-xml/",
   },
 
+  {
+    title: "Spring Boot + K8s (Gravitee, Solace PubSub+ & WAF)",
+    language: "Java",
+    server: "Docker",
+    description:
+      "A Kubernetes Spring Boot orders service behind Gravitee and a ModSecurity / OWASP CRS WAF with Solace PubSub+ (SMF), PostgreSQL, and Redis.",
+    link: "/docs/quickstart/java-k8s-gravitee-solace-waf/",
+  },
+
   // Golang list
   {
     title: "Echo + Postgres",
