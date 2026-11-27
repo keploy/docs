@@ -42,6 +42,8 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 - [Python Quick Start](https://keploy.io/docs/quickstart/python-filter/): Django, Flask, FastAPI
 
 ## CI/CD Integration
+- [Unified CI/CD Setup](https://keploy.io/docs/ci-cd/): Least-privilege CI/CD setup across Integration Tests, Universal Mocker, UI Testing, and API Testing with scoped keys, passwordless OIDC, and admin audit
+- [Set Up CI/CD With Your Own AI Agent](https://keploy.io/docs/ci-cd/agent-setup/): Deterministic `KEPLOY NEXT` loop for Claude Code, Cursor, Codex, and other coding agents (`keploy ci setup --json`, `keploy ci doctor --json`, zero secrets in chat)
 - [GitHub Actions](https://keploy.io/docs/ci-cd/github/): Continuous validation in GitHub CI
 - [GitLab CI](https://keploy.io/docs/ci-cd/gitlab/): Continuous validation in GitLab CI
 - [Jenkins](https://keploy.io/docs/ci-cd/jenkins/): Continuous validation in Jenkins pipelines
