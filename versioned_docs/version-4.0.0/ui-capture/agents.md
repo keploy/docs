@@ -120,6 +120,7 @@ The dashboard shows more to people on your team who can view the app: a flow's r
 
 ## Related
 
+- [Drive transforms and virtual services with coding agents](../transforms/coding-agents.md)
 - [AI agent quickstart](./quickstart-agent.md)
 - [An agent onboards a web app](./walkthrough-agent.md)
 - [MCP tools](./mcp-tools.md)
