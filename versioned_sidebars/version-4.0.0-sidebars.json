@@ -100,7 +100,8 @@
                 "quickstart/openhospital",
                 "quickstart/pet-clinic",
                 "quickstart/samples-java",
-                "quickstart/java-spring-boot-xml"
+                "quickstart/java-spring-boot-xml",
+                "quickstart/java-k8s-gravitee-solace-waf"
               ]
             },
             {
