@@ -362,6 +362,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           type: "docsVersionDropdown",
           position: "right",
           dropdownActiveClassDisabled: true,
+          versions: [CURRENT_DOCS_VERSION, "1.0.0"],
         },
         {
           href: "https://keploy.io/slack",
@@ -400,7 +401,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         <span class="footer__separators"> | </span>
         <a class="footer__link-item" href="https://keploy.io/docs/security/">Security</a>
         <span class="footer__separators"> | </span>
-        <a class="footer__link-item" href="/privacy-policy">Privacy Policy</a>
+        <a class="footer__link-item" href="https://keploy.io/legal/privacy-policy">Privacy Policy</a>
       </div>
       `,
     },
@@ -575,10 +576,20 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           // emitted `/docs/tags/...` and `/docs/1.0.0/...` routes. Bare
           // patterns are kept as defence-in-depth in case `baseUrl` is ever
           // flattened to `/`.
+          //
+          // The glossary pages below set a `rel=canonical` in their front
+          // matter that points at a blog post, so they are not the canonical
+          // URL and must not be listed: a sitemap should only hold canonical
+          // URLs ("Alternative page with proper canonical tag" in Search
+          // Console otherwise). Drop a path from here if its page ever stops
+          // pointing its canonical elsewhere.
           ignorePatterns: [
             "/docs/tags/**",
             "/docs/1.0.0/**",
             "/docs/2.0.0/**",
+            "/docs/concepts/reference/glossary/black-box-testing/",
+            "/docs/concepts/reference/glossary/regression-testing/",
+            "/docs/concepts/reference/glossary/white-box-testing/",
             "/tags/**",
             "/1.0.0/**",
             "/2.0.0/**",
