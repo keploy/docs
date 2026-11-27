@@ -229,7 +229,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         docsDir: `versioned_docs/version-${CURRENT_DOCS_VERSION}`,
         ignoreFiles: ["**/shared/**"],
         description:
-          "Technical documentation for Keploy, an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic, captured at the network layer (with eBPF on Linux, in user space on macOS and Windows). Keploy keeps testing aligned with AI-driven code velocity — achieving 90% test coverage in minutes with zero code changes.",
+          "Technical documentation for Keploy, an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic, captured at the network layer (with eBPF on Linux, in user space on macOS and Windows). It needs no code changes.",
         rootContent: llmsRootContent,
         fullRootContent: llmsFullRootContent,
         generateLLMsTxt: true,
@@ -421,7 +421,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
           sidebarPath: require.resolve("./sidebars.js"),
           routeBasePath: "/",
           exclude: ["**/shared/**"], // do not render "shared" content
-          editUrl: "https://github.com/keploy/docs/blob/master",
+          editUrl: "https://github.com/keploy/docs/blob/main",
           /**
            * Whether to display the author who last updated the doc.
            */
@@ -517,7 +517,7 @@ s.parentNode.insertBefore(b, s);})(window.lintrk);`,
         //   routeBasePath: "blog",
         //   path: "blog",
         //   postsPerPage: 10,
-        //   editUrl: "https://github.com/keploy/docs/blob/master",
+        //   editUrl: "https://github.com/keploy/docs/blob/main",
         //   blogTitle: "Keploy Blog",
         //   showReadingTime: true, // Show estimated reading time for the blog post.
         //   feedOptions: {

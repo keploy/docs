@@ -122,7 +122,7 @@ Keploy can run as a Docker container alongside your application using Docker Com
 
 ### Platform Requirements
 - Linux: Kernel 5.10 or later (eBPF)
-- macOS: Apple Silicon (arm64) runs Keploy natively; Intel Macs run Keploy in a Lima VM
+- macOS: Apple Silicon (arm64) runs Keploy natively; Intel Macs are not supported
 - Windows: x86-64 runs Keploy natively; Windows on ARM runs Keploy in WSL
 
 ---
@@ -360,7 +360,7 @@ When API responses change (new fields, changed formats, updated metadata), Keplo
 ### General
 
 **What is Keploy?**
-Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic. It intercepts traffic at the network layer (with eBPF on Linux, in user space on macOS and Windows), helping teams achieve 90% test coverage in minutes with zero code changes.
+Keploy is an AI-powered testing agent and sandboxing platform that automatically generates test cases, dependency mocks, and production-like sandboxes from real user traffic. It intercepts traffic at the network layer (with eBPF on Linux, in user space on macOS and Windows), with zero code changes.
 
 **How is Keploy different from traditional testing tools?**
 Unlike traditional testing tools that require manual test writing, Keploy automatically captures real production traffic at the network layer and generates test cases from it. It eliminates the need for maintaining mocks manually, provides dependency virtualization, AI-powered noise detection for flaky test elimination, and production-like sandboxes. No code changes are required.

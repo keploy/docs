@@ -50,85 +50,20 @@ Make sure your Linux kernel version is **5.10 or higher**.
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-### 2. Once done, you should see something like this:
+### 2. Verify the installation
 
 ```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+keploy --version
 ```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If your shell says `keploy: command not found`, open a new terminal so it picks up the updated `PATH`.
 
 </TabItem>
 
@@ -144,85 +79,26 @@ Use "keploy [command] --help" for more information about a command.
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-3. **Once done, you should see something like this:**
+3. **Create the Docker network** your app's container and Keploy share:
 
 ```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+docker network create keploy-network
 ```
+
+4. **Verify the installation**
+
+```bash
+keploy --version
+```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If your shell says `keploy: command not found`, open a new terminal so it picks up the updated `PATH`.
 
 </TabItem>
 
@@ -297,7 +173,7 @@ Keploy runs **natively** on Apple Silicon Macs: no Lima VM, no Docker and no `su
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI.
+This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI. Use the `keploy/tap` name: a plain `brew install keploy` installs an older open-source build from Homebrew's core formulae.
 
 ### 2. Verify the installation
 
@@ -355,87 +231,22 @@ limactl shell debian-12
 cd ~ && source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-Then `cd` into your project under `/Users/<you>/…` to record it.
+Then `cd` into your project under `/Users/<you>/…` to record it. Lima shares only your home folder with the VM, so keep the project there. The VM is a plain Debian install: install your app's runtime (Go, Node.js, JDK, Python) inside it, or build a Linux binary on your Mac (for Go, `GOOS=linux GOARCH=arm64 go build -o app .`).
 
-7. **Once done, you should see something like this:**
+7. **Verify the installation**
 
 ```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+keploy --version
 ```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If your shell says `keploy: command not found`, open a new terminal so it picks up the updated `PATH`.
 
 </TabItem>
 
@@ -463,85 +274,18 @@ docker network create keploy-network
 
 4. **Verify the installation**
 
-   **Once done, you should see something like this:**
-
 ```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+keploy --version
 ```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If your shell says `keploy: command not found`, open a new terminal so it picks up the updated `PATH`.
 
 </TabItem>
 </Tabs>
@@ -588,87 +332,22 @@ The file is named `enterprise_windows_amd64.exe` for historical reasons — it i
 
 Close your terminals and open a new one, so it picks up the new `PATH`. If you face issues, make sure `cmd.exe` and `powershell.exe` (their default Windows paths) are on your `PATH`: Keploy starts your app through `cmd.exe`.
 
-### 3. Verify Installation
+### 3. Verify the installation
 
-In the new terminal, run `keploy`. You should see something like this:
+In the new terminal:
 
-```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+```powershell
+keploy --version
 ```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If PowerShell says `keploy` is not recognized, open a new terminal so it picks up the updated `PATH`.
 
   </TabItem>
 
@@ -701,85 +380,20 @@ wsl --install -d <Distribution Name>
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-3. **Verify Installation**
+3. **Verify the installation**
 
 ```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
-
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+keploy --version
 ```
+
+The last line shows the version you installed (yours may be newer):
+
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
+```
+
+If your shell says `keploy: command not found`, open a new terminal so it picks up the updated `PATH`.
 
 </TabItem>
 
@@ -797,86 +411,17 @@ Use "keploy [command] --help" for more information about a command.
 docker network create keploy-network
 ```
 
-4. **Verify the installation**
+4. **Verify the installation** in a new terminal:
 
-In a new terminal, run `keploy`. You should see something like this:
+```powershell
+keploy --version
+```
 
-```bash
-🐰 Keploy: 2026-05-05T08:23:30.09586779Z        INFO    Starting Keploy {"version": "3.4.1", "buildSource": "unknown", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+The last line shows the version you installed (yours may be newer):
 
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy: 3.4.1
-
-Keploy CLI
-
-Usage:
-  keploy [command]
-
-Available Commands:
-  agent             starts keploy agent for hooking and starting proxy
-  cloud             Manage cloud operations
-  config            manage keploy configuration file
-  console           manage keploy console file
-  contract          Manage keploy contracts
-  create-branch     Create a new branch on a Keploy app
-  create-test-suite Validate a test suite spec from JSON and insert it via api-server
-  debug             Debug and reproduce Keploy failures locally
-  dedup             manage keploy dedup file
-  diff              compare two keploy test runs and print regressions/fixes
-  example           Example to record and test via keploy
-  export            export Keploy tests as postman collection
-  import            import postman collection to Keploy tests
-  list-branches     List branches on a Keploy app
-  login             Authenticate with your Keploy account
-  logout            Sign out of your Keploy account
-  mock              Managing mocks
-  normalize         Normalize Keploy
-  record            record end to end api-calls
-  report            report the keploy test results from the API calls
-  sanitize          sanitize the keploy testcases to remove the sensitive data
-  templatize        templatize the keploy testcases
-  test              run the recorded testcases and execute assertions
-  test-gen          AI agent-based API test generation — run, coverage, init
-  test-suite        Run keploy test suites
-  test-suite-format Print the canonical test-suite step schema
-  ui                Manage UI flow capture, testing, and reporting
-  update            update keploy to latest version
-  update-test-suite Validate edits to a test suite and snapshot-replace it via api-server
-
-Flags:
-      --config-path string   Path to the local directory where keploy configuration file is stored (default ".")
-      --debug                Run in debug mode
-      --disable-ansi         Disable ANSI color in logs
-  -h, --help                 help for keploy
-      --json                 Print output in JSON format
-      --manual-login         Use manual login prompt instead of opening browser
-  -v, --version              version for keploy
-
-Guided Commands:
-  help              Help about any command
-
-Examples:
-
-  Record:
-        keploy record -c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
-
-  Test:
-        keploy test --c "docker run -p 8080:8080 --name <containerName> --network keploy-network <applicationImage>" --delay 10 --buildDelay 60
-
-  Config:
-        keploy config --generate -p "/path/to/localdir"
-
-
-Use "keploy [command] --help" for more information about a command.
+```text
+🐰 Keploy: 2026-11-26T01:44:07+05:30   INFO   Starting Keploy {"version": "3.9.20", "apiServerURL": "https://api.keploy.io", "inDocker": false}
+Keploy 3.9.20
 ```
 
 </TabItem>
@@ -967,7 +512,7 @@ When prompted, enter your Keploy API key. To get your API key:
      - **Admin** — full administrative access
    - **Expiration** — default is 90 days
 7. Click **Generate token**
-8. **Copy the token immediately** — it will not be shown again
+8. **Copy the token immediately** — it will not be shown again. Personal access tokens start with `kep_`. Keploy refuses API keys in the older format: if a command warns that your key "is no longer supported", create a new token and replace the old one.
 
 Once your API key is verified, you will see:
 
@@ -1040,7 +585,7 @@ If you need a personal API key instead of a service-account key:
      - **Admin** — full administrative access
    - **Expiration** — default is 90 days
 7. Click **Generate token**
-8. **Copy the token immediately** — it will not be shown again
+8. **Copy the token immediately** — it will not be shown again. Personal access tokens start with `kep_`. Keploy refuses API keys in the older format: if a command warns that your key "is no longer supported", create a new token and replace the old one.
 
 Once your API key is verified, you will see:
 

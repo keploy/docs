@@ -11,7 +11,7 @@ import Link from "@docusaurus/Link";
 // real executable, built first. go run works but records its toolchain too.
 const COMMANDS = {
   default: {
-    go: "go run main.go",
+    go: "go run .",
     node: "npm start",
     java: "mvn spring-boot:run",
     python: "python app.py",

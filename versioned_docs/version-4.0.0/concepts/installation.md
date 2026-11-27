@@ -40,37 +40,17 @@ On **Linux** and **macOS** (Apple Silicon), install Keploy with:
 
 The script installs Keploy in `~/.keploy/bin`, where it can [update itself](/docs/running-keploy/cli-commands/#update), and adds that folder to your `PATH`. On Linux, an install run as root or in a CI pipeline goes to `/usr/local/bin` instead.
 
-You should see something like this:
+Check it in a new terminal:
 
 ```bash
-       ▓██▓▄
-    ▓▓▓▓██▓█▓▄
-     ████████▓▒
-          ▀▓▓███▄      ▄▄   ▄               ▌
-         ▄▌▌▓▓████▄    ██ ▓█▀  ▄▌▀▄  ▓▓▌▄   ▓█  ▄▌▓▓▌▄ ▌▌   ▓
-       ▓█████████▌▓▓   ██▓█▄  ▓█▄▓▓ ▐█▌  ██ ▓█  █▌  ██  █▌ █▓
-      ▓▓▓▓▀▀▀▀▓▓▓▓▓▓▌  ██  █▓  ▓▌▄▄ ▐█▓▄▓█▀ █▓█ ▀█▄▄█▀   █▓█
-       ▓▌                           ▐█▌                   █▌
-        ▓
-
-Keploy CLI
-
-Available Commands:
-  example           Example to record and test via keploy
-  config --generate generate the keploy configuration file
-  record            record the keploy testcases from the API calls
-  test              run the recorded testcases and execute assertions
-  update            Update Keploy
-
-Flags:
-      --debug     Run in debug mode
-  -h, --help      help for keploy
-  -v, --version   version for keploy
-
-Use "keploy [command] --help" for more information about a command.
+keploy --version
 ```
 
-🎉 Wohoo! You are all set to use Keploy.
+The last line shows the version you installed (yours may be newer):
+
+```text
+Keploy 3.9.20
+```
 
 On **Windows** (x86-64), Keploy is a single `keploy.exe`, installed from PowerShell without Administrator — see [Run Keploy natively on Windows](/docs/installation/windows-installation/#option-1-run-keploy-natively).
 
@@ -102,13 +82,13 @@ docker network create keploy-network
 **Record:**
 
 ```bash
-keploy record -c "docker run -p <appPort>:<hostPort> --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
+keploy record -c "docker run -p <hostPort>:<appPort> --name <containerName> --network keploy-network <applicationImage>" --container-name "<containerName>" --buildDelay 60
 ```
 
 **Test:**
 
 ```bash
-keploy test --c "docker run -p <appPort>:<hostPort>  --name <containerName> --network keploy-network <applicationImage>" --delay 10
+keploy test -c "docker run -p <hostPort>:<appPort>  --name <containerName> --network keploy-network <applicationImage>" --delay 10
 ```
 
 </details>

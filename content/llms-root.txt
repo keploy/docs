@@ -12,7 +12,7 @@ Keploy (founded 2021) is a CNCF Landscape project and API testing platform with 
 
 ## Getting Started
 - [Installation](https://keploy.io/docs/server/installation/): Install Keploy natively on Linux, macOS (Apple Silicon) and Windows (x86-64), or with Docker
-- [macOS Installation](https://keploy.io/docs/installation/macos-installation/): Native on Apple Silicon; Intel Macs use Lima
+- [macOS Installation](https://keploy.io/docs/installation/macos-installation/): Native on Apple Silicon; Intel Macs are not supported
 - [Windows Installation](https://keploy.io/docs/installation/windows-installation/): Native on x86-64 from PowerShell, no Administrator; Windows on ARM uses WSL
 - [Platform Requirements](https://keploy.io/docs/concepts/platform-requirements/): OS and kernel version requirements
 - [Quick Start](https://keploy.io/docs/quickstart/quickstart-filter/): Get up and running with your first test in minutes
