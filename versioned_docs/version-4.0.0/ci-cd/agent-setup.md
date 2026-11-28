@@ -17,12 +17,12 @@ Keploy's `keploy ci` commands emit structured `ci_setup.v1` JSON **NEXT blocks**
 
 > **Supported CI provider:** **GitHub Actions** is the supported CI provider out of the box. GitLab CI and other providers are **available on request** (pass `--experimental-provider` to preview templates).
 
-## 1. Install the Enterprise CLI (`>= v3.9.27`)
+## 1. Install the Enterprise CLI (`>= v3.9.29`)
 
 Run in **bash** or **zsh** (requires `curl`):
 
 ```bash
-source /dev/stdin <<< "$(curl --silent --show-error --fail --location https://keploy.io/ent/install.sh || { echo 'Keploy installer download failed' >&2; echo 'false'; })"
+source /dev/stdin <<<"$(curl -fsSL https://keploy.io/ent/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
 The installer also installs Keploy's `ci` agent skill for Claude Code, Cursor, Codex, GitHub Copilot, and Antigravity (you can re-run `keploy skill install` anytime).

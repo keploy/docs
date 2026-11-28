@@ -17,7 +17,7 @@ Replay recorded integration test sets against your service on every pull request
 
 1. **Connected cluster & recorded test sets:** Record at least one test set for your app on a SaaS or self-hosted Kubernetes cluster.
 2. **Docker daemon on the runner:** Local runner replay (`keploy cloud replay`) needs a reachable Docker daemon (included on standard `ubuntu-latest` GitHub-hosted runners).
-3. **Self-hosted clusters:** Upgrade `k8s-proxy` to **`>= v3.8.25`** and pass `--k8s-proxy-url` and `--cluster` if you want to override the cluster heartbeat URL.
+3. **Self-hosted clusters:** Upgrade `k8s-proxy` to **`>= v3.8.27`** and pass `--k8s-proxy-url` and `--cluster` if you want to override the cluster heartbeat URL.
 4. **Finding your App ID:** If you do not have `<your-app-id>` handy, omit `--app` when running `keploy ci setup --product t1 --json` — the CLI will point you to `keploy k8s status` to discover your cluster apps.
 
 ## Quick Start (Agent or Terminal)
@@ -49,7 +49,7 @@ keploy ci setup --product t1 --app <your-app-id> --mode trigger --features branc
 
 ## Self-Hosted Kubernetes Clusters (`k8s-proxy`)
 
-> **Important:** Self-hosted Integration Tests credentials (both scoped API keys and OIDC workload identities) require **`k8s-proxy >= v3.8.25`**. Earlier `k8s-proxy` versions rejected `app:view`-only credentials and OIDC workload identity tokens.
+> **Important:** Self-hosted Integration Tests credentials (both scoped API keys and OIDC workload identities) require **`k8s-proxy >= v3.8.27`**. Earlier `k8s-proxy` versions rejected `app:view`-only credentials and OIDC workload identity tokens.
 
 When your app belongs to a self-hosted cluster, `keploy ci setup` automatically includes `KEPLOY_K8S_PROXY_URL` and `--cluster <name>` in the generated workflow (never on SaaS clusters). You can also pass `--k8s-proxy-url https://k8s-proxy.your-company.internal --cluster <cluster-name>` explicitly.
 

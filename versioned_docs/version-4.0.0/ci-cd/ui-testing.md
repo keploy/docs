@@ -42,7 +42,7 @@ If you prefer the Keploy Console, open **[app.keploy.io/ci-cd](https://app.keplo
 
 ## What the Generated Workflow Does
 
-1. Installs the Enterprise CLI (`>= v3.9.27`).
+1. Installs the Enterprise CLI (`>= v3.9.29`).
 2. Installs Node dependencies and Playwright browsers (`npx playwright install --with-deps`).
 3. Starts your app using `--start-cmd` (or `APP_START_CMD`) and waits until `--base-url` responds before executing `keploy ui run`.
 4. Uploads journey verdicts to Keploy Cloud (in key or OIDC mode).

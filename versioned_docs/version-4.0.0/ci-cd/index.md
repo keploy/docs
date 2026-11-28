@@ -22,7 +22,7 @@ Keploy provides a single, unified CI/CD setup experience across all four Keploy 
 
 > **Supported CI providers:** **GitHub Actions** is the supported CI provider out of the box. **GitLab CI**, Woodpecker CI, Jenkins, CircleCI, Azure Pipelines, Bitbucket Pipelines, and AWS CodeBuild are **available on request** (contact Keploy for enablement, or pass `--experimental-provider` in the CLI to preview templates).
 >
-> **Minimum versions:** Unified CI/CD setup requires Keploy Enterprise CLI **`>= v3.9.27`**. Self-hosted Integration Tests clusters require `k8s-proxy >= v3.8.25`.
+> **Minimum versions:** Unified CI/CD setup requires Keploy Enterprise CLI **`>= v3.9.29`**. Self-hosted Integration Tests clusters require `k8s-proxy >= v3.8.27`.
 
 ## Two Ways to Set Up
 
@@ -49,7 +49,7 @@ Every credential created by `keploy ci` or `/ci-cd` is bound to a dedicated, app
 
 ## Self-Hosted Keploy
 
-Pass `--api-server-url https://api.your-company.internal` to `keploy ci setup`, `keploy ci credential create`, and `keploy ci doctor` (or export `KEPLOY_API_SERVER_URL`). Generated workflows pin `KEPLOY_API_SERVER_URL`, guard that the runner installs Enterprise CLI `>= v3.9.27`, and include `KEPLOY_K8S_PROXY_URL` for self-hosted Integration Tests clusters.
+Pass `--api-server-url https://api.your-company.internal` to `keploy ci setup`, `keploy ci credential create`, and `keploy ci doctor` (or export `KEPLOY_API_SERVER_URL`). Generated workflows pin `KEPLOY_API_SERVER_URL`, guard that the runner installs Enterprise CLI `>= v3.9.29`, and include `KEPLOY_K8S_PROXY_URL` for self-hosted Integration Tests clusters.
 
 For self-hosted OIDC issuers (for example GitHub Enterprise Server), configure `KEPLOY_OIDC_CUSTOM_ISSUERS` on `api-server` with comma-separated `<platform>=<issuer>` entries.
 
