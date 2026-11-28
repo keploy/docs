@@ -172,7 +172,8 @@
             "quickstart/k8s-proxy-developer-workflow",
             "quickstart/k8s-proxy-llm-workflow",
             "keploy-cloud/smart-set-agent",
-            "running-keploy/k8s-proxy-daemonset-architecture"
+            "running-keploy/k8s-proxy-daemonset-architecture",
+            "running-keploy/rolling-back-a-release"
           ]
         },
         {
