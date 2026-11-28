@@ -28,7 +28,7 @@ description="Install Keploy natively on Windows (x86-64) from PowerShell, or run
 totalTime="PT5M"
 tools={["Windows", "PowerShell", "Keploy CLI"]}
 steps={[
-{name: "Download Keploy", text: "In PowerShell (no Administrator), download https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe as keploy.exe into %USERPROFILE%\\.keploy\\bin and add that folder to your user PATH."},
+{name: "Download Keploy", text: "In PowerShell (no Administrator), download and decompress https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe.gz, verify its SHA-256 checksum, install it as keploy.exe into %LOCALAPPDATA%\\.keploy\\bin, and add that folder to your user PATH."},
 {name: "Record", text: "Open a new terminal and run: keploy record -c \"<your app command>\""},
 {name: "Or use WSL or Docker", text: "On Windows on ARM, run Keploy inside WSL. For an app that runs in containers, use Docker Desktop."},
 ]}
@@ -48,13 +48,38 @@ Keploy runs **natively on Windows (x86-64)** — no WSL, no Docker and no Admini
 Run this in **PowerShell** — a normal one, not as Administrator:
 
 ```powershell
+$ErrorActionPreference = 'Stop'
 $ProgressPreference = 'SilentlyContinue'
 [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 $dir = "$env:LOCALAPPDATA\.keploy\bin"
 New-Item -ItemType Directory -Force $dir | Out-Null
-Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
-  -OutFile "$dir\keploy.exe"
-Unblock-File "$dir\keploy.exe"
+$ver = ((Invoke-WebRequest -UseBasicParsing "https://keploy.io/ent/dl/latest/release.txt").Content.Trim() -replace '^refs/tags/v?|^v', '')
+$base = "https://keploy.io/ent/dl/$ver"
+$gz = "$dir\keploy.exe.gz"
+$new = "$dir\keploy.exe.new"
+$in = $gs = $out = $null
+try {
+  Invoke-WebRequest -UseBasicParsing "$base/enterprise_windows_amd64.exe.gz" -OutFile $gz
+  $sums = (Invoke-WebRequest -UseBasicParsing "$base/enterprise_${ver}_checksums.txt").Content
+  $want = (($sums -split "`r?`n" | Where-Object { $_ -match '\s+enterprise_windows_amd64\.exe$' } | Select-Object -First 1) -split '\s+')[0]
+  if (-not $want) { throw "Missing checksum for enterprise_windows_amd64.exe" }
+  $in = [IO.File]::OpenRead($gz)
+  $gs = New-Object IO.Compression.GZipStream($in, [IO.Compression.CompressionMode]::Decompress)
+  $out = [IO.File]::Create($new)
+  $gs.CopyTo($out)
+  $out.Dispose(); $out = $null
+  $gs.Dispose(); $gs = $null
+  $in.Dispose(); $in = $null
+  $got = (Get-FileHash -Path $new -Algorithm SHA256).Hash
+  if ($got -ine $want) { throw "Checksum mismatch for keploy.exe (expected $want, got $got)" }
+  Unblock-File $new
+  Move-Item -Path $new -Destination "$dir\keploy.exe" -Force
+} finally {
+  if ($out) { $out.Dispose() }
+  if ($gs) { $gs.Dispose() }
+  if ($in) { $in.Dispose() }
+  Remove-Item $gz, $new -Force -ErrorAction SilentlyContinue
+}
 $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
 if ($userPath -notlike "*$dir*") {
   [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")

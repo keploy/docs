@@ -137,9 +137,12 @@ case "$(uname -m)" in
   aarch64 | arm64) ARCH=arm64 ;;
   *) echo "unsupported architecture: $(uname -m)" >&2; false ;;
 esac &&
-  curl --fail --silent --show-error --location -o /tmp/keploy \
-    "https://keploy.io/ent/dl/latest/enterprise_linux_${ARCH}" &&
-  sudo install -m 0755 /tmp/keploy /usr/local/bin/keploy
+  curl --fail --silent --show-error --location -o /tmp/keploy.gz \
+    "https://keploy.io/ent/dl/latest/enterprise_linux_${ARCH}.gz" &&
+  gzip -dc /tmp/keploy.gz > /tmp/keploy &&
+  rm -f /tmp/keploy.gz &&
+  sudo install -m 0755 /tmp/keploy /usr/local/bin/keploy &&
+  rm -f /tmp/keploy
 ```
 
 The same steps work inside **WSL** on Windows and inside a **Lima** VM on macOS.
@@ -148,9 +151,12 @@ The same steps work inside **WSL** on Windows and inside a **Lima** VM on macOS.
 
 ```bash
 mkdir -p ~/.keploy/bin &&
-  curl --fail --silent --show-error --location -o ~/.keploy/bin/keploy \
-    "https://keploy.io/ent/dl/latest/enterprise_darwin_arm64" &&
-  chmod +x ~/.keploy/bin/keploy
+  curl --fail --silent --show-error --location -o ~/.keploy/bin/keploy.gz \
+    "https://keploy.io/ent/dl/latest/enterprise_darwin_arm64.gz" &&
+  gzip -dc ~/.keploy/bin/keploy.gz > ~/.keploy/bin/keploy.new &&
+  rm -f ~/.keploy/bin/keploy.gz &&
+  chmod +x ~/.keploy/bin/keploy.new &&
+  mv -f ~/.keploy/bin/keploy.new ~/.keploy/bin/keploy
 export PATH="$HOME/.keploy/bin:$PATH"   # add this line to your ~/.zshrc too
 ```
 
