@@ -129,17 +129,26 @@ These download the same `keploy` binary the install command above installs.
 
 #### On Linux
 
-Prerequisite: Linux kernel **5.10 or higher** (`uname -r` shows yours). This picks the build for your architecture:
+Prerequisite: Linux kernel **5.10 or higher** (`uname -r` shows yours), `curl`, `gzip`, and `sha256sum`. This picks the build for your architecture and verifies its SHA-256 checksum before installing:
 
 ```bash
+(
 case "$(uname -m)" in
   x86_64) ARCH=amd64 ;;
   aarch64 | arm64) ARCH=arm64 ;;
   *) echo "unsupported architecture: $(uname -m)" >&2; false ;;
 esac &&
-  curl --fail --silent --show-error --location -o /tmp/keploy \
-    "https://keploy.io/ent/dl/latest/enterprise_linux_${ARCH}" &&
-  sudo install -m 0755 /tmp/keploy /usr/local/bin/keploy
+  VER="$(curl -fsSL https://keploy.io/ent/dl/latest/release.txt | tr -d '[:space:]' | sed 's|^refs/tags/||; s|^v||')" &&
+  ASSET="enterprise_linux_${ARCH}" &&
+  TMP="$(mktemp -d)" &&
+  trap 'rm -rf "$TMP"' EXIT &&
+  curl -fsSL -o "$TMP/${ASSET}.gz" "https://keploy.io/ent/dl/${VER}/${ASSET}.gz" &&
+  curl -fsSL -o "$TMP/checksums.txt" "https://keploy.io/ent/dl/${VER}/enterprise_${VER}_checksums.txt" &&
+  (cd "$TMP" && grep "  ${ASSET}.gz\$" checksums.txt | sha256sum -c -) &&
+  gzip -dc "$TMP/${ASSET}.gz" > "$TMP/${ASSET}" &&
+  (cd "$TMP" && grep "  ${ASSET}\$" checksums.txt | sha256sum -c -) &&
+  sudo install -m 0755 "$TMP/${ASSET}" /usr/local/bin/keploy
+)
 ```
 
 The same steps work inside **WSL** on Windows and inside a **Lima** VM on macOS.
@@ -147,10 +156,20 @@ The same steps work inside **WSL** on Windows and inside a **Lima** VM on macOS.
 #### On macOS (Apple Silicon)
 
 ```bash
-mkdir -p ~/.keploy/bin &&
-  curl --fail --silent --show-error --location -o ~/.keploy/bin/keploy \
-    "https://keploy.io/ent/dl/latest/enterprise_darwin_arm64" &&
-  chmod +x ~/.keploy/bin/keploy
+(
+VER="$(curl -fsSL https://keploy.io/ent/dl/latest/release.txt | tr -d '[:space:]' | sed 's|^refs/tags/||; s|^v||')" &&
+  ASSET="enterprise_darwin_arm64" &&
+  TMP="$(mktemp -d)" &&
+  trap 'rm -rf "$TMP"' EXIT &&
+  mkdir -p ~/.keploy/bin &&
+  curl -fsSL -o "$TMP/${ASSET}.gz" "https://keploy.io/ent/dl/${VER}/${ASSET}.gz" &&
+  curl -fsSL -o "$TMP/checksums.txt" "https://keploy.io/ent/dl/${VER}/enterprise_${VER}_checksums.txt" &&
+  (cd "$TMP" && grep "  ${ASSET}.gz\$" checksums.txt | shasum -a 256 -c -) &&
+  gzip -dc "$TMP/${ASSET}.gz" > "$TMP/${ASSET}" &&
+  (cd "$TMP" && grep "  ${ASSET}\$" checksums.txt | shasum -a 256 -c -) &&
+  chmod +x "$TMP/${ASSET}" &&
+  mv -f "$TMP/${ASSET}" ~/.keploy/bin/keploy
+)
 export PATH="$HOME/.keploy/bin:$PATH"   # add this line to your ~/.zshrc too
 ```
 

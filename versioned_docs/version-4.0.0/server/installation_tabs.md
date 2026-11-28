@@ -50,6 +50,8 @@ Make sure your Linux kernel version is **5.10 or higher**.
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
+**Prerequisites:** `bash`, `curl`, and `sha256sum` (from `coreutils`, or `shasum`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent, the installer falls back to the SHA-256-verified uncompressed binary. `keploy update` requires no external tools.
+
 ### 2. Once done, you should see something like this:
 
 ```bash
@@ -298,6 +300,8 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 ```
 
 This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI.
+
+**Prerequisites:** `curl`, `/usr/bin/gzip`, and `/usr/bin/shasum` (all built into macOS on Apple Silicon; Homebrew unpacks `.gz` natively, and `keploy update` requires no external tools).
 
 ### 2. Verify the installation
 
@@ -566,19 +570,53 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
 
 ### 1. Install Keploy
 
+**Prerequisites:** Windows PowerShell 5.1 or PowerShell 7+ (`pwsh`) on Windows 10/11 or Windows Server 2019/2022 (uses only built-in .NET `GZipStream` and `Get-FileHash`; no external tools needed, and `keploy update` requires no external tools).
+
 Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) uses from version 3.1.7, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
 ```powershell
-$ProgressPreference = 'SilentlyContinue'
-[Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
-$dir = "$env:LOCALAPPDATA\.keploy\bin"
-New-Item -ItemType Directory -Force $dir | Out-Null
-Invoke-WebRequest -Uri "https://keploy.io/ent/dl/latest/enterprise_windows_amd64.exe" `
-  -OutFile "$dir\keploy.exe"
-Unblock-File "$dir\keploy.exe"
-$userPath = [Environment]::GetEnvironmentVariable("Path", "User")
-if ($userPath -notlike "*$dir*") {
-  [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+& {
+  $ErrorActionPreference = 'Stop'
+  $ProgressPreference = 'SilentlyContinue'
+  [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
+  $dir = "$env:LOCALAPPDATA\.keploy\bin"
+  New-Item -ItemType Directory -Force $dir | Out-Null
+  $ver = ((Invoke-WebRequest -UseBasicParsing "https://keploy.io/ent/dl/latest/release.txt").Content.Trim() -replace '^refs/tags/v?|^v', '')
+  $base = "https://keploy.io/ent/dl/$ver"
+  $gz = "$dir\keploy.exe.gz"
+  $new = "$dir\keploy.exe.new"
+  $in = $gs = $out = $null
+  try {
+    Invoke-WebRequest -UseBasicParsing "$base/enterprise_windows_amd64.exe.gz" -OutFile $gz
+    $sums = (Invoke-WebRequest -UseBasicParsing "$base/enterprise_${ver}_checksums.txt").Content
+    $wantGz = (($sums -split "`r?`n" | Where-Object { $_ -match '\s+enterprise_windows_amd64\.exe\.gz$' } | Select-Object -First 1) -split '\s+')[0]
+    $want = (($sums -split "`r?`n" | Where-Object { $_ -match '\s+enterprise_windows_amd64\.exe$' } | Select-Object -First 1) -split '\s+')[0]
+    if (-not $wantGz -or -not $want) { throw "Missing checksum for enterprise_windows_amd64.exe" }
+    $gotGz = (Get-FileHash -Path $gz -Algorithm SHA256).Hash
+    if ($gotGz -ine $wantGz) { throw "Checksum mismatch for keploy.exe.gz (expected $wantGz, got $gotGz)" }
+    $in = [IO.File]::OpenRead($gz)
+    $gs = New-Object IO.Compression.GZipStream($in, [IO.Compression.CompressionMode]::Decompress)
+    $out = [IO.File]::Create($new)
+    $gs.CopyTo($out)
+    $out.Dispose(); $out = $null
+    $gs.Dispose(); $gs = $null
+    $in.Dispose(); $in = $null
+    $got = (Get-FileHash -Path $new -Algorithm SHA256).Hash
+    if ($got -ine $want) { throw "Checksum mismatch for keploy.exe (expected $want, got $got)" }
+    Unblock-File $new
+    Move-Item -Path $new -Destination "$dir\keploy.exe" -Force
+  } catch {
+    throw "Keploy was not installed or updated: $($_.Exception.Message.TrimEnd('.')). If keploy is running, close it (and VS Code) and run these steps again."
+  } finally {
+    if ($out) { $out.Dispose() }
+    if ($gs) { $gs.Dispose() }
+    if ($in) { $in.Dispose() }
+    Remove-Item $gz, $new -Force -ErrorAction SilentlyContinue
+  }
+  $userPath = [Environment]::GetEnvironmentVariable("Path", "User")
+  if ($userPath -notlike "*$dir*") {
+    [Environment]::SetEnvironmentVariable("Path", "$userPath;$dir", "User")
+  }
 }
 ```
 
