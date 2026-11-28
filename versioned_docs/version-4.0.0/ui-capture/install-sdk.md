@@ -114,6 +114,53 @@ The Next.js and plain HTML shops make the same call; only where they read the en
 - **Once per page load, not per route.** A second `init()` returns the capture that is already running, and `KeployCapture.stop()` ends it, so that a later `init()` starts a new session. In a single-page app a session holds the page load's route changes too, up to `maxSessionDuration` (10 minutes by default): see [Single-page apps and navigation](./spa-navigation.md) and [Sessions and sampling](./sessions-and-sampling.md#what-a-session-is). On a site whose links load pages, every page load runs `init()` again and starts a session of its own.
 - **In the browser.** Call it from code that runs in the browser, not during server-side rendering. The Next.js shop's module does nothing on the server.
 
+### Avoid missing boot-time authentication calls {#boot-time-capture}
+
+:::caution Don't call `KeployCapture.init()` in a React `useEffect`
+`@keploy/capture-sdk` `3.2.0+` patches `fetch` and `XMLHttpRequest` synchronously inside `init()` once its start checks pass (privacy signals, route declarations, sampling, and `sessionIdGenerator`, with `networkCapture` enabled), before `rrweb` finishes loading. However, if you call `KeployCapture.init()` inside a React `useEffect` (or after sibling or child auth providers mount), boot-time requests such as `GET /auth/check` or `GET /api/me` fire **before** `init()` runs. Those calls are never recorded, which causes authenticated journeys to redirect to `/signin` when replayed.
+:::
+
+Always prefer a static top-level import so `KeployCapture.init()` starts before your application tree mounts (your app's network requests go out immediately and `rrweb` loads asynchronously without needing to be awaited):
+
+- **Next.js (App Router):** import your capture module from root `instrumentation-client.ts`, which runs in the browser before React hydrates.
+- **React + Vite / SPAs:** import your capture module (`import "./keploy";`) as the very first top-level import in `src/main.tsx`, before React or any auth provider mounts.
+
+#### Gate lazy-loaded capture with a fail-open boot barrier {#fail-open-boot-barrier}
+
+Prefer the static top-level import above whenever possible: `init()` patches `fetch` and `XMLHttpRequest` synchronously once its start checks pass, does not hold back your app's requests, and loads `rrweb` asynchronously.
+
+Use a boot barrier only if your app must dynamically import `@keploy/capture-sdk` after consent is **already known to be granted** (for example, a returning visitor whose stored consent preference is true) and you need boot fetches not to race ahead of that dynamic import. In that narrow case, you can optionally await a short **fail-open boot barrier** (around 250 ms) before firing initial auth/bootstrap fetches, and **skip the barrier immediately (0 ms delay)** whenever capture is disabled or consent has not yet been granted (never wait on a cookie banner):
+
+```ts title="src/boot-barrier.ts"
+let readyResolve: (() => void) | undefined;
+const captureInitReady = new Promise<void>((resolve) => {
+  readyResolve = resolve;
+});
+
+/** Call once KeployCapture.init() has been invoked, or immediately if capture will not run. */
+export function markCaptureReady(): void {
+  readyResolve?.();
+}
+
+/**
+ * Optional fail-open wait before initial auth/bootstrap fetches when dynamically
+ * importing the SDK for an already-consented visit. Skip when capture is off or
+ * consent is not yet granted.
+ */
+export function waitForCaptureBoot(
+  shouldWait: boolean,
+  timeoutMs = 250
+): Promise<void> {
+  if (!shouldWait) return Promise.resolve();
+  return Promise.race([
+    captureInitReady,
+    new Promise<void>((resolve) => setTimeout(resolve, timeoutMs)),
+  ]);
+}
+```
+
+In your dynamic-import path, invoke `KeployCapture.init(...)` (you do not need to await `rrweb` loading on SDK `3.2.0+`, because `fetch` and `XMLHttpRequest` are patched synchronously once start checks pass) and then call `markCaptureReady()`, which settles `captureInitReady` immediately. Note the trade-off: an uncached dynamic chunk load can take longer than `timeoutMs`, adding up to `timeoutMs` to the first auth fetch on cold loads while still missing the call if the chunk arrives late. That is another reason to prefer a static top-level import.
+
 ## Add it to your app {#add-it-to-your-app}
 
 <Tabs>

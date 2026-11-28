@@ -69,6 +69,8 @@ Run the following command in your terminal:
  source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
+**Prerequisites:** `curl`, `/usr/bin/gzip`, and `/usr/bin/shasum` (all built into macOS on Apple Silicon; Homebrew also unpacks `.gz` natively, and `keploy update` requires no external tools).
+
 ## Install with Homebrew
 
 If you prefer [Homebrew](https://brew.sh/), install Keploy from the official Keploy tap:
