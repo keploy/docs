@@ -403,16 +403,16 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
 
 ### Recording
 
-| Method | Path                                                    | Description                                                                               |
-| ------ | ------------------------------------------------------- | ----------------------------------------------------------------------------------------- |
-| `POST` | `/record/start`                                         | Start a recording session. Body: `RecordRequest`. See quickstart above.                   |
-| `POST` | `/record/stop`                                          | Stop a session. Body: `{"record_id":"..."}`.                                              |
-| `GET`  | `/record/status?record_id=<id>`                         | Stream session status (NDJSON). One line per state change.                                |
-| `GET`  | `/record/active?namespace=<ns>&deployment=<dep>`        | Check whether a session is running for a Deployment. Returns `in_progress` + `record_id`. |
-| `GET`  | `/record/app-status?namespace=<ns>&deployment=<dep>`    | Report agent-injection and Pod-readiness status for the target app.                       |
-| `GET`  | `/record/logs?namespace=<ns>&deployment=<dep>&...`      | Tail recording-session logs. Accepts `stream`, `previous`, `tail_bytes`, `stream_bytes`.  |
-| `GET`  | `/record/logs/check?namespace=<ns>&deployment=<dep>`    | Cheap check: are session logs available?                                                  |
-| `GET`  | `/record/logs/download?namespace=<ns>&deployment=<dep>` | Download recording logs as a ZIP.                                                         |
+| Method | Path                                                    | Description                                                                                                                                          |
+| ------ | ------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `POST` | `/record/start`                                         | Start a recording session. Body: `RecordRequest`. See quickstart above.                                                                              |
+| `POST` | `/record/stop`                                          | Stop a session. Body: `{"record_id":"..."}`.                                                                                                         |
+| `GET`  | `/record/status?record_id=<id>`                         | Stream session status (NDJSON). One line per state change, including live rollout progress.                                                          |
+| `GET`  | `/record/active?namespace=<ns>&deployment=<dep>`        | Check whether a session or rollout handover is active for a workload. Returns `in_progress`, `record_id`, and rollout status fields when applicable. |
+| `GET`  | `/record/app-status?namespace=<ns>&deployment=<dep>`    | Report agent-injection and Pod-readiness status for the target app.                                                                                  |
+| `GET`  | `/record/logs?namespace=<ns>&deployment=<dep>&...`      | Tail recording-session logs. Accepts `stream`, `previous`, `tail_bytes`, `stream_bytes`.                                                             |
+| `GET`  | `/record/logs/check?namespace=<ns>&deployment=<dep>`    | Cheap check: are session logs available?                                                                                                             |
+| `GET`  | `/record/logs/download?namespace=<ns>&deployment=<dep>` | Download recording logs as a ZIP.                                                                                                                    |
 
 **`RecordRequest` body:**
 
@@ -426,6 +426,8 @@ All paths are relative to the proxy base URL. Unless noted, every route requires
   "auto_replay_config": {"autoReplayInterval": 10, "delay": 5}
 }
 ```
+
+During Argo Rollouts, `GET /record/active`, `GET /record/status`, and `GET /deployments` (along with `/k8s-proxy/recording-runs`) populate the unified rollout recording-status fields (`recording_state`, `rollout`, `ended_run_id`, `ended_run_test_count`, `next_run_id`, `message`, and `next_action`). See [Rollout Recording Status](/docs/running-keploy/rollout-recording-status/) for all six rollout states, the `rollout` object schema, and Public API v1 / MCP / CLI examples.
 
 ### Replay / Test
 
@@ -591,3 +593,4 @@ Leave `watchNamespace` unset to run cluster-wide. Cluster-wide mode requires Dep
 - [Public REST API](/docs/running-keploy/public-api/)—Keploy Cloud control plane (apps, suites, jobs).
 - [Kubernetes installation](/docs/keploy-cloud/kubernetes/)—install and configure the Kubernetes Proxy.
 - [GitOps with Argo CD](/docs/keploy-cloud/gitops-argocd/)—manage the proxy via GitOps, including how `/proxy/update` interacts with reverts.
+- [Rollout Recording Status](/docs/running-keploy/rollout-recording-status/)—unified recording-status contract for Argo Rollouts across `k8s-proxy`, Public API v1, MCP, Console, and CLI.

@@ -297,6 +297,14 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 {"name": "My API", "endpoint": "https://api.example.com"}
 ```
 
+### Recording status
+
+| Method | Path                             | Scope | Description                                                                                                      |
+| ------ | -------------------------------- | ----- | ---------------------------------------------------------------------------------------------------------------- |
+| `GET`  | `/apps/{appId}/recording-status` | read  | Get the canonical recording and Argo Rollout handover status (`record:read`, `operationId: getRecordingStatus`). |
+
+Returns `recording_state` (`recording`, `ended_by_rollout`, `waiting_for_rollout`, `restarting_after_rollout`, `rollout_wait_timeout`, `handover_failed`, `idle`, or `stopped`), live `rollout` progress when an Argo Rollout is active, run linkage (`ended_run_id`, `ended_run_test_count`, `next_run_id`), and deterministic `message` / `next_action` guidance. Also exposed to AI agents via the `get_recording_status` MCP tool. See [Rollout Recording Status](/docs/running-keploy/rollout-recording-status/) for the full schema, state table, and examples.
+
 ### Schema coverage
 
 | Method | Path                            | Scope | Description                                                                     |
@@ -464,3 +472,4 @@ Maximum `limit` is 100. Default is 20.
 - [Webhook Integration](/docs/running-keploy/api-testing-webhook/)—trigger custom logic during test lifecycle
 - [Test Run Reports](/docs/running-keploy/api-testing-run-report/)—understand test results
 - [Schema Coverage](/docs/running-keploy/api-testing-schema-coverage/)—measure API coverage
+- [Rollout Recording Status](/docs/running-keploy/rollout-recording-status/)—unified recording-status contract for Argo Rollouts, Public API v1, MCP, and CLI
