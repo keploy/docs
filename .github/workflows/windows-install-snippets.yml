@@ -1,0 +1,26 @@
+name: Windows Install Snippets
+
+on:
+  pull_request:
+    paths:
+      - "versioned_docs/version-4.0.0/**"
+      - "scripts/test-windows-install-snippets.ps1"
+      - ".github/workflows/windows-install-snippets.yml"
+  push:
+    branches:
+      - main
+    paths:
+      - "versioned_docs/version-4.0.0/**"
+      - "scripts/test-windows-install-snippets.ps1"
+      - ".github/workflows/windows-install-snippets.yml"
+
+jobs:
+  test-windows-snippets:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Verify all Windows PowerShell install snippets (PS 5.1 and pwsh)
+        shell: pwsh
+        run: pwsh -NoProfile -ExecutionPolicy Bypass -File scripts/test-windows-install-snippets.ps1
