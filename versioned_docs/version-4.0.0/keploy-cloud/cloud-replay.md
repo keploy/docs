@@ -249,6 +249,10 @@ Since the mode skips the cluster-list lookup, pass `--cluster <name>` where `<na
 | `--useLocalTests`   | `false`          | Use the local test sets, tests, and mocks already on disk instead of fetching them from the cloud.                                                                                                                                                                                                                                                                                                                |
 | `--useLocalMock`    | `false`          | Use existing local mocks instead of downloading them from the cloud (test cases are still fetched).                                                                                                                                                                                                                                                                                                               |
 
+### Rolling back a release
+
+If you roll back a promoted release (for example, `v2` → `v1`), retire the rolled-back release so Keploy marks its live test sets obsolete, removes them from the cloud replay range, and recomputes the replay baseline back to `v1`. See [Rolling back a release](/docs/running-keploy/rolling-back-a-release/) for API, CLI (`keploy release retire`), Console, and CI/CD rollback steps.
+
 ---
 
 ## Branch overlay selection
@@ -375,3 +379,4 @@ For a cluster-deployed app, in-cluster replay (`--trigger --namespace <ns>`) sid
 - [Developer Workflow with Keploy Proxy](/docs/quickstart/k8s-proxy-developer-workflow/) — branches, local validation, and CI gating with cloud replay.
 - [Kubernetes setup](/docs/keploy-cloud/kubernetes/) — registering a cluster and installing the k8s-proxy.
 - [Smart Test Sets](/docs/keploy-cloud/deduplication/) — what `--replay-source smart-set` replays.
+- [Rolling back a release](/docs/running-keploy/rolling-back-a-release/) — retiring a rolled-back release so its test sets leave the cloud replay range.

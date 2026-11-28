@@ -530,6 +530,16 @@ These routes are all mounted under `/k8s-proxy` and are served directly by the p
 | `GET`  | `/k8s-proxy/config/{namespace}/{deployment}/{kind}` | Fetch saved config. `kind` can be `record`, `replay`, or `autoreplay`. |
 | `GET`  | `/k8s-proxy/config/list/{kind}`                     | List saved configs by kind.                                            |
 
+#### Releases
+
+| Method | Path                                    | Description                                                                                                                                      |
+| ------ | --------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `GET`  | `/k8s-proxy/releases`                   | List active, retired, and obsolete releases for `?namespace=<ns>&deployment=<dep>` (optional `clusterName`), with baseline and `activeClusters`. |
+| `POST` | `/k8s-proxy/releases/{release}/retire`  | Retire a release (`reason`: `rolled_back`, `deleted`, or `other`; optional `note`, `imageName`, `skipIfOtherClustersActive`).                    |
+| `POST` | `/k8s-proxy/releases/{release}/restore` | Restore a retired release's sets and recalculate the replay baseline (optional `note`, `imageName`).                                             |
+
+See [Rolling back a release](/docs/running-keploy/rolling-back-a-release/) for complete rollback workflows, multi-cluster safeguards, and the optional `rolloutHold.autoRetireRolledBackRelease` Helm chart setting.
+
 ### Assertion-test generator (ATG)
 
 | Method | Path                            | Description                                                                        |
@@ -591,3 +601,4 @@ Leave `watchNamespace` unset to run cluster-wide. Cluster-wide mode requires Dep
 - [Public REST API](/docs/running-keploy/public-api/)—Keploy Cloud control plane (apps, suites, jobs).
 - [Kubernetes installation](/docs/keploy-cloud/kubernetes/)—install and configure the Kubernetes Proxy.
 - [GitOps with Argo CD](/docs/keploy-cloud/gitops-argocd/)—manage the proxy via GitOps, including how `/proxy/update` interacts with reverts.
+- [Rolling back a release](/docs/running-keploy/rolling-back-a-release/)—retire or restore releases when rolling back a workload.

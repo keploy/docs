@@ -297,6 +297,26 @@ All paths are relative to `https://api.keploy.io/client/v1`.
 {"name": "My API", "endpoint": "https://api.example.com"}
 ```
 
+### Releases
+
+| Method | Path                                       | Scope | Description                                                                                |
+| ------ | ------------------------------------------ | ----- | ------------------------------------------------------------------------------------------ |
+| `GET`  | `/apps/{appId}/releases`                   | read  | List active, retired, and obsolete releases, current baseline, and active clusters         |
+| `POST` | `/apps/{appId}/releases/{release}/retire`  | write | Retire a release (marks live sets obsolete and recalculates the replay baseline)           |
+| `POST` | `/apps/{appId}/releases/{release}/restore` | write | Restore a retired release (un-obsoletes the retired sets and recalculates replay baseline) |
+
+**Retire release request:**
+
+```json
+{
+  "reason": "rolled_back",
+  "note": "Rolled back to v1",
+  "imageName": "ghcr.io/org/orders-api"
+}
+```
+
+`reason` is required (`rolled_back`, `deleted`, or `other`). Pass `imageName` to disambiguate when multiple image repositories share the same tag (`409 Conflict`). See [Rolling back a release](/docs/running-keploy/rolling-back-a-release/) for complete `curl`, CLI, and rollback workflow examples.
+
 ### Schema coverage
 
 | Method | Path                            | Scope | Description                                                                     |
@@ -464,3 +484,4 @@ Maximum `limit` is 100. Default is 20.
 - [Webhook Integration](/docs/running-keploy/api-testing-webhook/)—trigger custom logic during test lifecycle
 - [Test Run Reports](/docs/running-keploy/api-testing-run-report/)—understand test results
 - [Schema Coverage](/docs/running-keploy/api-testing-schema-coverage/)—measure API coverage
+- [Rolling back a release](/docs/running-keploy/rolling-back-a-release/)—retire or restore releases after a deployment rollback
