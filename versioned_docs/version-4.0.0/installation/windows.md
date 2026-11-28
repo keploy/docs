@@ -99,6 +99,8 @@ From version 3.1.7, the [Keploy VS Code extension](/docs/running-keploy/utg-vsco
 
    Open a new terminal so the updated `Path` takes effect, then check it with `keploy --version`. Restart VS Code as well if you use it: its terminals keep the `Path` VS Code started with. To update Keploy later, run the same steps again.
 
+   **Prerequisites:** Windows PowerShell 5.1 or PowerShell 7+ (`pwsh`) on Windows 10/11 or Windows Server 2019/2022. The snippet uses only built-in .NET APIs (`GZipStream` and `Get-FileHash`) with no external tools, and `keploy update` uses Go's built-in `compress/gzip` and `crypto/sha256`.
+
    The file is named `enterprise_windows_amd64.exe` for historical reasons — it is the `keploy` CLI, and a free account is all you need. Use this download, not the `keploy_windows_amd64` file on the GitHub releases page: that one cannot run your app natively and stops with _"not supported by this build of Keploy"_.
 
    **If Windows blocks the file.** `keploy.exe` is code-signed by Keploy Inc. If you download it in a browser instead and SmartScreen shows "Windows protected your PC" on first run, right-click the file, choose **Properties**, check that the **Digital Signatures** tab lists **Keploy Inc**, and tick **Unblock** on the **General** tab (or run `Unblock-File` on it, as the script above does).

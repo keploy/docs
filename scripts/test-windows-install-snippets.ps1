@@ -59,6 +59,17 @@ for ($i = 1; $i -lt $snippets.Count; $i++) {
 }
 Write-Host "OK: $($snippets.Count) Windows PowerShell snippets extracted and verified byte-identical."
 
+# Verify the snippet relies strictly on built-in .NET APIs (no external decompression/hash tools).
+if ($canonical -notmatch 'IO\.Compression\.GZipStream' -or $canonical -notmatch 'Get-FileHash') {
+  throw "Windows snippet must use built-in IO.Compression.GZipStream and Get-FileHash"
+}
+foreach ($forbidden in @('\bgzip\b', '\bgunzip\b', '\btar\.exe\b', '\b7z\b', '\bcurl(\.exe)?\b', '\bcertutil\b')) {
+  if ($canonical -match $forbidden) {
+    throw "Windows snippet must not depend on external tool matching /$forbidden/"
+  }
+}
+Write-Host "OK: Windows PowerShell snippet verified to use only built-in .NET APIs (no external tools)."
+
 # 2. Build test workspace & fixtures (using real small Windows system EXEs)
 $work = Join-Path ([IO.Path]::GetTempPath()) ("keploy-win-snippet-test-" + [guid]::NewGuid().ToString('N').Substring(0, 8))
 $serve = Join-Path $work 'serve'

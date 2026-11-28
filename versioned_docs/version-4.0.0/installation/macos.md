@@ -58,6 +58,8 @@ Keploy runs on Macs with **Apple silicon** (arm64). **Keploy doesn't support Int
    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
    ```
 
+   **Prerequisites:** `curl`, `/usr/bin/gzip`, and `/usr/bin/shasum` (all built into macOS on Apple Silicon; Homebrew also unpacks `.gz` natively, and `keploy update` requires no external tools).
+
 2. **Record your app** — pass the command that starts it, exactly as you run it yourself:
 
    ```bash
@@ -165,6 +167,8 @@ With this option your application and Keploy's agent run in containers, but the 
    ```bash
    source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
    ```
+
+   **Prerequisites:** `curl`, `/usr/bin/gzip`, and `/usr/bin/shasum` (all built into macOS on Apple Silicon; Homebrew also unpacks `.gz` natively, and `keploy update` requires no external tools).
 
 4. **Verify the installation**
 

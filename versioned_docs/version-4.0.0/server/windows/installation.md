@@ -47,6 +47,8 @@ Keploy runs **natively on Windows (x86-64)** — no WSL, no Docker and no Admini
 
 Run this in **PowerShell** — a normal one, not as Administrator:
 
+**Prerequisites:** Windows PowerShell 5.1 or PowerShell 7+ (`pwsh`) on Windows 10/11 or Windows Server 2019/2022. The snippet uses only built-in .NET APIs (`GZipStream` and `Get-FileHash`) with no external tools, and `keploy update` uses Go's built-in `compress/gzip` and `crypto/sha256`.
+
 ```powershell
 & {
   $ErrorActionPreference = 'Stop'

@@ -50,6 +50,8 @@ Make sure your Linux kernel version is **5.10 or higher**.
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
+**Prerequisites:** `curl` and `sha256sum` (from `coreutils`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent, the installer falls back to the SHA-256-verified uncompressed binary. `keploy update` requires no external tools.
+
 ### 2. Once done, you should see something like this:
 
 ```bash
@@ -298,6 +300,8 @@ source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Ke
 ```
 
 This installs `keploy` into `~/.keploy/bin` for your user — it never asks for `sudo`. Prefer Homebrew? `brew install keploy/tap/keploy` installs the same CLI.
+
+**Prerequisites:** `curl`, `/usr/bin/gzip`, and `/usr/bin/shasum` (all built into macOS on Apple Silicon; Homebrew unpacks `.gz` natively, and `keploy update` requires no external tools).
 
 ### 2. Verify the installation
 
@@ -565,6 +569,8 @@ Keploy runs **natively** on Windows (x86-64): no WSL, no Docker and no Administr
  <br />
 
 ### 1. Install Keploy
+
+**Prerequisites:** Windows PowerShell 5.1 or PowerShell 7+ (`pwsh`) on Windows 10/11 or Windows Server 2019/2022 (uses only built-in .NET `GZipStream` and `Get-FileHash`; no external tools needed, and `keploy update` requires no external tools).
 
 Run this in **PowerShell** — a normal one; Keploy does not need Administrator. It downloads `keploy.exe` into `%LOCALAPPDATA%\.keploy\bin`, the folder the [VS Code extension](/docs/running-keploy/utg-vscode-extension/) uses from version 3.1.7, and adds that folder to your user `PATH`. If an earlier install put `keploy.exe` in `%USERPROFILE%\.keploy\bin`, remove it [as the Windows guide shows](/docs/installation/windows-installation/#option-1-run-keploy-natively):
 
