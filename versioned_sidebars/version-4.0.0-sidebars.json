@@ -178,7 +178,17 @@
         {
           "type": "category",
           "label": "CI/CD Integration",
-          "items": ["ci-cd/github", "ci-cd/gitlab", "ci-cd/jenkins"]
+          "items": [
+            "ci-cd/index",
+            "ci-cd/agent-setup",
+            "ci-cd/integration-tests",
+            "ci-cd/universal-mocker",
+            "ci-cd/ui-testing",
+            "ci-cd/api-testing",
+            "ci-cd/github",
+            "ci-cd/gitlab",
+            "ci-cd/jenkins"
+          ]
         },
         {
           "type": "category",
