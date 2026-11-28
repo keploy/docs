@@ -50,7 +50,7 @@ Make sure your Linux kernel version is **5.10 or higher**.
 source /dev/stdin <<<"$(curl -fsSL https://keploy.io/install.sh || echo 'echo Keploy installer download failed >&2; return 1')"
 ```
 
-**Prerequisites:** `curl` and `sha256sum` (from `coreutils`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent, the installer falls back to the SHA-256-verified uncompressed binary. `keploy update` requires no external tools.
+**Prerequisites:** `bash`, `curl`, and `sha256sum` (from `coreutils`, or `shasum`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent, the installer falls back to the SHA-256-verified uncompressed binary. `keploy update` requires no external tools.
 
 ### 2. Once done, you should see something like this:
 
@@ -606,7 +606,7 @@ Run this in **PowerShell** — a normal one; Keploy does not need Administrator.
     Unblock-File $new
     Move-Item -Path $new -Destination "$dir\keploy.exe" -Force
   } catch {
-    throw "Keploy was not updated: $($_.Exception.Message). If keploy is running, close it (and VS Code) and run these steps again."
+    throw "Keploy was not installed or updated: $($_.Exception.Message.TrimEnd('.')). If keploy is running, close it (and VS Code) and run these steps again."
   } finally {
     if ($out) { $out.Dispose() }
     if ($gs) { $gs.Dispose() }

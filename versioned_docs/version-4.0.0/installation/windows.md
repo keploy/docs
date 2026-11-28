@@ -83,7 +83,7 @@ From version 3.1.7, the [Keploy VS Code extension](/docs/running-keploy/utg-vsco
        Unblock-File $new
        Move-Item -Path $new -Destination "$dir\keploy.exe" -Force
      } catch {
-       throw "Keploy was not updated: $($_.Exception.Message). If keploy is running, close it (and VS Code) and run these steps again."
+       throw "Keploy was not installed or updated: $($_.Exception.Message.TrimEnd('.')). If keploy is running, close it (and VS Code) and run these steps again."
      } finally {
        if ($out) { $out.Dispose() }
        if ($gs) { $gs.Dispose() }

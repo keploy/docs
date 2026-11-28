@@ -191,11 +191,17 @@ $wrappedSnippet = "`$ErrorActionPreference = 'Continue'`n" + $localSnippet + "`n
 [IO.File]::WriteAllText($snippetFile, $wrappedSnippet)
 
 $engines = [ordered]@{ 'ps51' = "$env:WINDIR\System32\WindowsPowerShell\v1.0\powershell.exe" }
-if ($PwshPath -and (Test-Path $PwshPath)) {
+if ($PwshPath) {
+  if (-not (Test-Path $PwshPath)) {
+    throw "Specified -PwshPath '$PwshPath' does not exist"
+  }
   $engines['pwsh'] = $PwshPath
 } else {
   $pwshCmd = Get-Command pwsh -ErrorAction SilentlyContinue
-  if ($pwshCmd) { $engines['pwsh'] = $pwshCmd.Source }
+  if (-not $pwshCmd) {
+    throw "PowerShell 7+ (pwsh) was not found on PATH; both ps51 and pwsh must be tested"
+  }
+  $engines['pwsh'] = $pwshCmd.Source
 }
 
 $savedUserPath = [Environment]::GetEnvironmentVariable('Path', 'User')
@@ -209,14 +215,14 @@ try {
   $cases = @(
     @{ Name = 'fresh-install'; Root = 'good'; Seed = 'none'; WantRC = 0; WantHash = $newHash; WantOut = '' },
     @{ Name = 'update-good'; Root = 'good'; Seed = 'old'; WantRC = 0; WantHash = $newHash; WantOut = '' },
-    @{ Name = '404'; Root = 'c404'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not updated:' },
+    @{ Name = '404'; Root = 'c404'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not installed or updated:' },
     @{ Name = 'truncated-gz'; Root = 'trunc'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Checksum mismatch for keploy.exe.gz' },
-    @{ Name = 'cut-mid-body'; Root = 'cut'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not updated:' },
+    @{ Name = 'cut-mid-body'; Root = 'cut'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not installed or updated:' },
     @{ Name = 'corrupt-gz'; Root = 'corrupt'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Checksum mismatch for keploy.exe.gz' },
     @{ Name = 'bad-gz-sha'; Root = 'bad-gz-sha'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Checksum mismatch for keploy.exe.gz' },
     @{ Name = 'bad-raw-sha'; Root = 'bad-raw-sha'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Checksum mismatch for keploy.exe' },
     @{ Name = 'release-txt-503'; Root = 'rel503'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = '' },
-    @{ Name = 'checksums-503'; Root = 'sums503'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not updated:' },
+    @{ Name = 'checksums-503'; Root = 'sums503'; Seed = 'old'; WantRC = 1; WantHash = $oldHash; WantOut = 'Keploy was not installed or updated:' },
     @{ Name = 'running-keploy-exe'; Root = 'good'; Seed = 'running'; WantRC = 1; WantHash = ''; WantOut = 'If keploy is running, close it' }
   )
 
@@ -253,7 +259,10 @@ try {
       if ($tc.WantRC -ne 0 -and $rc -eq 0) { $ok = $false; $reasons += "rc=0 want non-zero" }
       if ($afterHash -ne $wantHash) { $ok = $false; $reasons += "hash=$afterHash want $wantHash" }
       if ($files -ne 'keploy.exe') { $ok = $false; $reasons += "files=[$files] want [keploy.exe]" }
-      if ($tc.WantOut -and ($out -notlike "*$($tc.WantOut)*")) { $ok = $false; $reasons += "output missing '$($tc.WantOut)'" }
+      # Flatten pwsh ConciseView console-width line wrapping ("...\n     | ...")
+      # before matching so assertions are independent of terminal width.
+      $flatOut = ($out -replace '\s*\r?\n\s*\|?\s*', ' ')
+      if ($tc.WantOut -and ($flatOut -notlike "*$($tc.WantOut)*")) { $ok = $false; $reasons += "output missing '$($tc.WantOut)'" }
 
       if ($ok) {
         $passed++

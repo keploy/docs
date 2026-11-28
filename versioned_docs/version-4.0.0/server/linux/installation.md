@@ -49,7 +49,7 @@ Install Keploy with the [one-click install](#one-click-install-keploy), then use
 
 The installer works on both x86-64 and ARM Linux.
 
-**Prerequisites:** `curl` and `sha256sum` (from `coreutils`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent (for example in `ubi9-minimal`), the installer automatically falls back to the SHA-256-verified uncompressed binary. `keploy update` uses Go's built-in `compress/gzip` and `crypto/sha256` and requires no external tools.
+**Prerequisites:** `bash`, `curl`, and `sha256sum` (from `coreutils`, or `shasum`, required to verify downloads). `gzip` is recommended for ~64% smaller downloads; when `gzip` is absent (for example in `ubi9-minimal` or stock `amazonlinux:2023`), the installer automatically falls back to the SHA-256-verified uncompressed binary. `keploy update` uses Go's built-in `compress/gzip` and `crypto/sha256` and requires no external tools.
 
 ## Linux Native
 
