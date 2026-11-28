@@ -29,8 +29,8 @@ If you prefer the Keploy Console, open **[app.keploy.io/ci-cd](https://app.keplo
 
 API Testing credentials are scoped to the single app with least privilege:
 
-- `app:view` — inspect the app's endpoint and auth settings (such as Bearer token or login cURL configuration) needed to execute authenticated API test suites.
-- `testgen:read` and `testgen:run` — fetch cloud test suites and submit test-run results.
+- `app:read` — read the app's endpoint and auth settings (such as Bearer token or login cURL configuration) needed to execute authenticated API test suites.
+- `testsuite:read`, `atgtestrun:write` and `atgreport:write` — fetch cloud test suites and submit test-run results and reports.
 - `branch:read` and `branch:write` — create and update `ci/<branch>` test-suite branches automatically.
 
 ## Branch Behavior

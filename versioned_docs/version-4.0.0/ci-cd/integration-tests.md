@@ -32,19 +32,19 @@ Follow the emitted `run` commands until `keploy ci doctor --json` passes.
 
 ## Modes & Optional Features
 
-| Option                            | Flag                             | Extra permissions granted                                                              |
-| --------------------------------- | -------------------------------- | -------------------------------------------------------------------------------------- |
-| **Local runner replay** (default) | _(none)_                         | `app:view`, `testcase:read`, `mock:read`, `report:write`, `config:read`, `branch:read` |
-| **In-cluster replay**             | `--mode trigger`                 | Adds `replay:trigger`, `testrun:read`                                                  |
-| **Auto-branching & PR comments**  | `--features branch_flow`         | Adds `branch:write`, `branch:merge`, `branch:delete`                                   |
-| **Debug bundle uploads**          | `--features upload_debug_bundle` | Adds `debugbundle:write`                                                               |
-| **Test normalization**            | `--features normalize`           | Adds `testcase:write`                                                                  |
-| **Coverage reporting**            | `--features coverage`            | Adds `coverage:write`                                                                  |
+| Option                            | Flag                             | Extra permissions granted                                                                              |
+| --------------------------------- | -------------------------------- | ------------------------------------------------------------------------------------------------------ |
+| **Local runner replay** (default) | _(none)_                         | `app:view`, `testcase:read`, `mock:read`, `mapping:read`, `report:write`, `config:read`, `schema:read` |
+| **In-cluster replay**             | `--mode trigger`                 | Adds `replay:start`, `replay:read`                                                                     |
+| **Auto-branching & PR comments**  | `--features branch_flow`         | Adds `branch:read`, `branch:write`                                                                     |
+| **Debug bundle uploads**          | `--features upload_debug_bundle` | Adds `debugbundle:share`                                                                               |
+| **Test normalization**            | `--features normalize`           | Adds `testcase:update`                                                                                 |
+| **Auto-replay status**            | `--features autoreplay_status`   | Adds `autoreplay:read`                                                                                 |
 
 Example with optional features:
 
 ```bash
-keploy ci setup --product t1 --app <your-app-id> --mode trigger --features branch_flow,coverage --json
+keploy ci setup --product t1 --app <your-app-id> --mode trigger --features branch_flow,upload_debug_bundle --json
 ```
 
 ## Self-Hosted Kubernetes Clusters (`k8s-proxy`)

@@ -11,7 +11,7 @@ Replay your recorded Playwright browser journeys automatically on every pull req
 
 > **Supported CI provider:** **GitHub Actions** is supported out of the box. GitLab CI and other providers are **available on request** (pass `--experimental-provider` to preview templates).
 >
-> **Plan requirement:** Cloud UI Testing requires a paid Keploy plan. Local bundle replay (`--auth local --bundle <dir>`) runs offline without cloud credentials.
+> **Plan requirement:** UI Testing CI credentials are available on the Free plan. Local bundle replay (`--auth local --bundle-dir <dir>`) runs offline without cloud credentials.
 
 ## Before Your First Run
 
@@ -32,11 +32,11 @@ If you prefer the Keploy Console, open **[app.keploy.io/ci-cd](https://app.keplo
 
 ## Authentication Modes
 
-- **Scoped API key (default):** Grants `app:view` and `testgen:run` on the single app, stored as `KEPLOY_API_KEY`.
+- **Scoped API key (default):** Grants `app:view`, `uipayload:read` and `testgen:run` on the single app, stored as `KEPLOY_API_KEY`.
 - **OIDC Workload Identity (`--auth oidc --trigger push-only`):** Exchanges a short-lived GitHub OIDC token with zero stored secrets.
 - **Local bundle replay (`--auth local`):**
   ```bash
-  keploy ci setup --product ui --auth local --bundle .keploy/ui-journeys --base-url http://localhost:3000 --start-cmd "npm run start" --write --json
+  keploy ci setup --product ui --auth local --bundle-dir .keploy/ui-journeys --base-url http://localhost:3000 --start-cmd "npm run start" --write --json
   ```
   Runs `KEPLOY_INVOKER=ci keploy ui run --bundle '.keploy/ui-journeys' --base-url 'http://localhost:3000'` without any Keploy API key.
 
